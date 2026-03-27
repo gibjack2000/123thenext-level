@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ChevronRight, Home, Dumbbell, HeartPulse, ChefHat, Smartphone, Sparkles } from 'lucide-react';
+import { ChevronRight, Home, Dumbbell, HeartPulse, ChefHat, Smartphone, Sparkles, Pill } from 'lucide-react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { MOCK_PRODUCTS } from '../data/mockData';
 
@@ -9,6 +9,7 @@ const CATEGORIES = [
   { id: 'health_wellness', name: 'Health & Wellness', icon: HeartPulse, desc: 'Supplements, recovery tools, and monitors' },
   { id: 'home_kitchen', name: 'Home & Kitchen', icon: ChefHat, desc: 'Appliances, cookware, and smart home devices' },
   { id: 'tech_gadgets', name: 'Tech Gadgets', icon: Smartphone, desc: 'Latest electronics, accessories, and wearables' },
+  { id: 'supplements', name: 'Supplements', icon: Pill, desc: 'Vitamins, proteins, and dietary supplements' },
 ];
 
 export default function RegionHub() {
@@ -66,15 +67,16 @@ export default function RegionHub() {
     return id.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
   };
 
-  const visibleCategories = activeCategories.map(catId => {
-    const existing = CATEGORIES.find(c => c.id === catId);
-    if (existing) return existing;
-    return {
-      id: catId,
-      name: formatCategoryName(catId),
-      icon: Sparkles,
-      desc: `Explore top products in ${formatCategoryName(catId)}`
-    };
+  const visibleCategories = [...CATEGORIES];
+  activeCategories.forEach(catId => {
+    if (!visibleCategories.find(c => c.id === catId)) {
+      visibleCategories.push({
+        id: catId,
+        name: formatCategoryName(catId),
+        icon: Sparkles,
+        desc: `Explore top products in ${formatCategoryName(catId)}`
+      });
+    }
   });
 
   return (

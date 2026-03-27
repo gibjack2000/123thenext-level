@@ -5,7 +5,7 @@ import { GoogleGenAI, Type } from '@google/genai';
 import { Product, BlogPost, mapToProduct } from '../types';
 
 const REGIONS = ['US', 'UK', 'ES'];
-const PRODUCT_CATEGORIES = ['fitness_gear', 'health_wellness', 'home_kitchen', 'tech_gadgets'];
+const PRODUCT_CATEGORIES = ['fitness_gear', 'health_wellness', 'home_kitchen', 'tech_gadgets', 'supplements'];
 const BLOG_CATEGORIES = ['health', 'fitness', 'nutrition', 'wellness'];
 const CURRENCIES = ['USD', 'GBP', 'EUR'];
 
