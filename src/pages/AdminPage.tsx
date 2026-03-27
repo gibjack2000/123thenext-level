@@ -1261,16 +1261,13 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
 
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              {/* @ts-ignore */}
-              <div className={`h-3 w-3 rounded-full ${import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY ? 'bg-emerald-500' : 'bg-red-500'}`}></div>
+              <div className={`h-3 w-3 rounded-full ${GEMINI_KEY ? 'bg-emerald-500' : 'bg-red-500'}`}></div>
               <div>
                 <span className="font-medium text-slate-900">
-                  {/* @ts-ignore */}
-                  {import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY ? 'Gemini AI Ready' : 'Gemini AI Disabled'}
+                  {GEMINI_KEY ? 'Gemini AI Ready' : 'Gemini AI Disabled'}
                 </span>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  {/* @ts-ignore */}
-                  {import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY 
+                  {GEMINI_KEY
                     ? 'AI-powered marketing copy generation is active.' 
                     : 'Add GEMINI_API_KEY to secrets to enable auto-fill features.'}
                 </p>
