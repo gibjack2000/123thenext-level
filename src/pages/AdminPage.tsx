@@ -8,6 +8,8 @@ const REGIONS = ['US', 'UK', 'ES'];
 const PRODUCT_CATEGORIES = ['fitness_gear', 'health_wellness', 'home_kitchen', 'tech_gadgets', 'supplements'];
 const BLOG_CATEGORIES = ['health', 'fitness', 'nutrition', 'wellness'];
 const CURRENCIES = ['USD', 'GBP', 'EUR'];
+// Gemini API Key - fallback ensures AI features always work
+const GEMINI_KEY = import.meta.env.VITE_GEMINI_API_KEY || 'AIzaSyDu4wqfISnPtU8JNUwGaW2tUUAPtOzsAk0';
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -372,7 +374,7 @@ alter table blog_posts disable row level security;`;
 
   const handleGenerateAI = async () => {
     try {
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY || (typeof process !== 'undefined' ? process.env.GEMINI_API_KEY : '');
+      const apiKey = GEMINI_KEY;
       
       if (!apiKey) {
         setError('Gemini AI Key is missing. Please add GEMINI_API_KEY to your env/secrets.');
@@ -444,7 +446,7 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
 
   const handleGenerateBlogAI = async () => {
     try {
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY || (typeof process !== 'undefined' ? process.env.GEMINI_API_KEY : '');
+      const apiKey = GEMINI_KEY;
       
       if (!apiKey) {
         setError('Gemini API Key is missing.');
@@ -515,7 +517,7 @@ Output JSON: "slug", "excerpt", "content" (Markdown). At least 500 words. 2-3 re
 
   const handleGenerateImage = async () => {
     try {
-      const apiKey = import.meta.env.VITE_GEMINI_API_KEY || (typeof process !== 'undefined' ? process.env.GEMINI_API_KEY : '');
+      const apiKey = GEMINI_KEY;
       
       if (!apiKey) {
         setError('Gemini API Key is missing.');
@@ -561,7 +563,7 @@ Output JSON: "slug", "excerpt", "content" (Markdown). At least 500 words. 2-3 re
   };
 
   const handleGenerateBlogImage = async () => {
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+    const apiKey = GEMINI_KEY;
     
     if (!apiKey) {
       setError('Gemini API Key is missing. Please add GEMINI_API_KEY to your AI Studio Secrets (⚙️ Settings > Secrets).');
@@ -1529,3 +1531,4 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
     </div>
   );
 }
+
