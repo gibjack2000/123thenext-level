@@ -49,21 +49,26 @@ export default function App() {
           </div>
         )}
         
-        <header className="bg-white border-b border-slate-200 sticky top-0 z-10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <Link to="/" className="flex items-center text-slate-900 font-display uppercase tracking-tight text-lg hover:text-blue-600 transition-colors">
-              <HomeIcon size={20} className="mr-2" />
-              123TheNext Level
+        <header className="bg-white/80 backdrop-blur-md border-b border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.03)] sticky top-0 z-50 transition-all duration-300">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <Link to="/" className="flex items-center group">
+              <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-2 rounded-xl text-white mr-3 shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">
+                <HomeIcon size={20} strokeWidth={2.5} />
+              </div>
+              <span className="font-display font-black uppercase tracking-tighter text-xl border-transparent bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent group-hover:from-blue-600 group-hover:to-indigo-600 transition-all duration-500">
+                123TheNext Level
+              </span>
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="/#pillars" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Pillars</a>
-              <a href="/#blog" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Blog</a>
-              <a href="/#shop" className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors">Shop</a>
+            <nav className="hidden md:flex items-center space-x-2">
+              <a href="/#pillars" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">Pillars</a>
+              <a href="/#blog" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">Blog</a>
+              <a href="/#shop" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">Shop</a>
+              <div className="w-px h-6 bg-slate-200 mx-2"></div>
               <Link 
                 to="/admin" 
-                className="flex items-center text-sm font-medium text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-lg transition-colors"
+                className="flex items-center text-sm font-bold text-white bg-slate-900 hover:bg-blue-600 px-5 py-2.5 rounded-xl transition-all duration-300 shadow-md hover:shadow-xl hover:shadow-blue-500/20 hover:-translate-y-0.5"
               >
                 <Settings size={16} className="mr-2" />
                 Admin
@@ -72,46 +77,48 @@ export default function App() {
 
             {/* Mobile Menu Button */}
             <button 
-              className="md:hidden p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
+              className="md:hidden p-2.5 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300"
               onClick={toggleMobileMenu}
             >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMobileMenuOpen ? <X size={24} strokeWidth={2.5} /> : <Menu size={24} strokeWidth={2.5} />}
             </button>
           </div>
 
           {/* Mobile Navigation */}
           {isMobileMenuOpen && (
-            <div className="md:hidden bg-white border-t border-slate-200 px-4 py-4 space-y-4 shadow-lg absolute w-full">
-              <a 
-                href="/#pillars" 
-                className="block text-base font-medium text-slate-600 hover:text-blue-600 transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Pillars
-              </a>
-              <a 
-                href="/#blog" 
-                className="block text-base font-medium text-slate-600 hover:text-blue-600 transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Blog
-              </a>
-              <a 
-                href="/#shop" 
-                className="block text-base font-medium text-slate-600 hover:text-blue-600 transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Shop
-              </a>
-              <div className="pt-2 border-t border-slate-100">
-                <Link 
-                  to="/admin" 
-                  className="flex items-center text-base font-medium text-slate-600 hover:text-slate-900 transition-colors"
+            <div className="md:hidden absolute top-20 left-0 w-full bg-white/95 backdrop-blur-xl border-b border-slate-100 shadow-[0_20px_40px_rgba(0,0,0,0.08)] rounded-b-3xl">
+              <div className="px-4 py-6 space-y-2">
+                <a 
+                  href="/#pillars" 
+                  className="block px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-all"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <Settings size={18} className="mr-2" />
-                  Admin
-                </Link>
+                  Pillars
+                </a>
+                <a 
+                  href="/#blog" 
+                  className="block px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-all"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Blog
+                </a>
+                <a 
+                  href="/#shop" 
+                  className="block px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-all"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Shop
+                </a>
+                <div className="pt-4 mt-2 border-t border-slate-100">
+                  <Link 
+                    to="/admin" 
+                    className="flex items-center justify-center w-full text-base font-bold text-white bg-slate-900 hover:bg-blue-600 px-4 py-3.5 rounded-xl transition-all shadow-md"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <Settings size={18} className="mr-2" />
+                    Admin Dashboard
+                  </Link>
+                </div>
               </div>
             </div>
           )}
