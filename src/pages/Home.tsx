@@ -242,7 +242,7 @@ export default function Home() {
 
             {/* Motivational Quote Right Side */}
             <div className="w-full lg:w-5/12 flex flex-col justify-center">
-              <blockquote className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tight leading-[0.9] text-left lg:text-right">
+              <blockquote className="text-3xl md:text-4xl lg:text-5xl font-display uppercase tracking-tight leading-[1] text-left lg:text-right">
                 <span className="text-white opacity-90">"The best time to start was yesterday.</span>
                 <br /><br />
                 <span className="text-blue-500">The second best time is now."</span>
