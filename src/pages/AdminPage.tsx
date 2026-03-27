@@ -396,7 +396,7 @@ Product URL: ${formData.amazon_url || 'Unknown'}
 Provide a short benefit (1 sentence highlight), a description (2-3 sentences mini-review), and 3-5 relevant tags (comma-separated).`;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-1.5-flash',
         contents: prompt,
         config: {
           responseMimeType: 'application/json',
@@ -437,8 +437,10 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences min
         throw new Error('The AI did not return any content.');
       }
     } catch (err: any) {
-      console.error('AI Generation failed:', err);
-      setError('AI Generation failed: ' + (err.message || 'Unknown error'));
+      console.error('AI Generation failed detailed error:', err);
+      // If it's a 404, it's usually the model name or API path
+      const errorMessage = err.message || 'Unknown error';
+      setError('AI Generation failed: ' + errorMessage + '. Check console for details.');
     } finally {
       setIsGenerating(false);
     }
@@ -477,7 +479,7 @@ CRITICAL: Use your deep internal knowledge to provide REAL, WORKING, authoritati
 3. You MUST output EXACTLY and ONLY a valid JSON object with the exact keys: "slug", "excerpt", and "content".`;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-1.5-flash',
         contents: prompt,
         config: {
           responseMimeType: 'application/json',
@@ -548,7 +550,7 @@ CRITICAL: Use your deep internal knowledge to provide REAL, WORKING, authoritati
       let visualPrompt = `Generate a detailed visual description for a professional lifestyle product photograph of: ${formData.product_name || 'the product at this URL'}.`;
       
       const analysisResponse = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-1.5-flash',
         contents: formData.amazon_url ? `Analyze this product URL and describe its visual appearance for a lifestyle photo: ${formData.amazon_url}` : visualPrompt,
         config: {
           tools: formData.amazon_url ? [{ urlContext: {} }] : [{ googleSearch: {} }]
@@ -559,7 +561,7 @@ CRITICAL: Use your deep internal knowledge to provide REAL, WORKING, authoritati
 
       // Step 2: Generate the image
       const imageResponse = await ai.models.generateContent({
-        model: 'gemini-2.5-flash-image',
+        model: 'gemini-1.5-flash',
         contents: {
           parts: [
             {
@@ -625,14 +627,14 @@ CRITICAL: Use your deep internal knowledge to provide REAL, WORKING, authoritati
 Generate an incredibly interesting, highly engaging, and deeply relatable visual concept for the background hero image of this post. Describe the scene, lighting, mood, and atmosphere in vivid detail. Make it stand out and perfectly relevant to the topic.`;
       
       const analysisResponse = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
+        model: 'gemini-1.5-flash',
         contents: visualPrompt,
       });
 
       const visualDescription = analysisResponse.text || blogFormData.title;
 
       const imageResponse = await ai.models.generateContent({
-        model: 'gemini-2.5-flash-image',
+        model: 'gemini-1.5-flash',
         contents: {
           parts: [
             {
