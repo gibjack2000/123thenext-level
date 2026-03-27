@@ -371,8 +371,7 @@ alter table blog_posts disable row level security;`;
   };
 
   const handleGenerateAI = async () => {
-    // @ts-ignore
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
     
     if (!apiKey) {
       setError('Gemini API Key is missing. Please add GEMINI_API_KEY to your AI Studio Secrets (⚙️ Settings > Secrets).');
@@ -415,10 +414,11 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences min
       });
 
       if (response.text) {
-        // Robust JSON parsing: handle potential markdown blocks
-        let jsonStr = response.text.trim();
-        if (jsonStr.startsWith('```')) {
-          jsonStr = jsonStr.replace(/^```json\n?/, '').replace(/\n?```$/, '');
+        let jsonStr = response.text;
+        const start = jsonStr.indexOf('{');
+        const end = jsonStr.lastIndexOf('}');
+        if (start !== -1 && end !== -1) {
+          jsonStr = jsonStr.slice(start, end + 1);
         }
         
         try {
@@ -445,8 +445,7 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences min
   };
 
   const handleGenerateBlogAI = async () => {
-    // @ts-ignore
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
     
     if (!apiKey) {
       setError('Gemini API Key is missing. Please add GEMINI_API_KEY to your AI Studio Secrets (⚙️ Settings > Secrets).');
@@ -496,9 +495,11 @@ CRITICAL: Use your deep internal knowledge to provide REAL, WORKING, authoritati
       });
 
       if (response.text) {
-        let jsonStr = response.text.trim();
-        if (jsonStr.startsWith('```')) {
-          jsonStr = jsonStr.replace(/^```json\n?/, '').replace(/\n?```$/, '');
+        let jsonStr = response.text;
+        const start = jsonStr.indexOf('{');
+        const end = jsonStr.lastIndexOf('}');
+        if (start !== -1 && end !== -1) {
+          jsonStr = jsonStr.slice(start, end + 1);
         }
         
         try {
@@ -525,8 +526,7 @@ CRITICAL: Use your deep internal knowledge to provide REAL, WORKING, authoritati
   };
 
   const handleGenerateImage = async () => {
-    // @ts-ignore
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
     
     if (!apiKey) {
       setError('Gemini API Key is missing. Please add GEMINI_API_KEY to your AI Studio Secrets (⚙️ Settings > Secrets).');
@@ -603,8 +603,7 @@ CRITICAL: Use your deep internal knowledge to provide REAL, WORKING, authoritati
   };
 
   const handleGenerateBlogImage = async () => {
-    // @ts-ignore
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
     
     if (!apiKey) {
       setError('Gemini API Key is missing. Please add GEMINI_API_KEY to your AI Studio Secrets (⚙️ Settings > Secrets).');
@@ -1302,15 +1301,15 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               {/* @ts-ignore */}
-              <div className={`h-3 w-3 rounded-full ${process.env.GEMINI_API_KEY ? 'bg-emerald-500' : 'bg-red-500'}`}></div>
+              <div className={`h-3 w-3 rounded-full ${import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY ? 'bg-emerald-500' : 'bg-red-500'}`}></div>
               <div>
                 <span className="font-medium text-slate-900">
                   {/* @ts-ignore */}
-                  {process.env.GEMINI_API_KEY ? 'Gemini AI Ready' : 'Gemini AI Disabled'}
+                  {import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY ? 'Gemini AI Ready' : 'Gemini AI Disabled'}
                 </span>
                 <p className="text-xs text-slate-500 mt-0.5">
                   {/* @ts-ignore */}
-                  {process.env.GEMINI_API_KEY 
+                  {import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY 
                     ? 'AI-powered marketing copy generation is active.' 
                     : 'Add GEMINI_API_KEY to secrets to enable auto-fill features.'}
                 </p>
