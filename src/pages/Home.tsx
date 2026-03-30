@@ -395,8 +395,8 @@ export default function Home() {
             {/* Health */}
             <Link to="/preventive-health" className="relative p-10 pb-12 rounded-3xl shadow-xl border border-slate-700 overflow-hidden group flex flex-col h-full transition-all hover:border-rose-500/50 hover:shadow-rose-500/10">
               <div className="absolute inset-0">
-                <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=800" alt="Health" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerPolicy="no-referrer" />
-                <div className="absolute inset-0 bg-slate-900/80 group-hover:bg-slate-900/70 transition-colors duration-500 backdrop-blur-[2px]"></div>
+                <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=1200" alt="Health" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-110 contrast-[1.05]" referrerPolicy="no-referrer" />
+                <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/20 transition-colors duration-500"></div>
               </div>
               <div className="relative z-10 flex flex-col h-full">
                 <div className="w-14 h-14 bg-white/10 text-rose-400 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
@@ -418,8 +418,8 @@ export default function Home() {
             {/* Fitness */}
             <Link to="/fitness-fundamentals" className="relative p-10 pb-12 rounded-3xl shadow-xl border border-slate-700 overflow-hidden group flex flex-col h-full transition-all hover:border-blue-500/50 hover:shadow-blue-500/10">
               <div className="absolute inset-0">
-                <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&q=80&w=800" alt="Fitness" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerPolicy="no-referrer" />
-                <div className="absolute inset-0 bg-slate-900/80 group-hover:bg-slate-900/70 transition-colors duration-500 backdrop-blur-[2px]"></div>
+                <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&q=80&w=1200" alt="Fitness" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-110 contrast-[1.05]" referrerPolicy="no-referrer" />
+                <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/20 transition-colors duration-500"></div>
               </div>
               <div className="relative z-10 flex flex-col h-full">
                 <div className="w-14 h-14 bg-white/10 text-blue-400 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
@@ -441,8 +441,8 @@ export default function Home() {
             {/* Nutrition */}
             <Link to="/nutrition" className="relative p-10 pb-12 rounded-3xl shadow-xl border border-slate-700 overflow-hidden group flex flex-col h-full transition-all hover:border-emerald-500/50 hover:shadow-emerald-500/10">
               <div className="absolute inset-0">
-                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800" alt="Nutrition" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerPolicy="no-referrer" />
-                <div className="absolute inset-0 bg-slate-900/80 group-hover:bg-slate-900/70 transition-colors duration-500 backdrop-blur-[2px]"></div>
+                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=1200" alt="Nutrition" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-110 contrast-[1.05]" referrerPolicy="no-referrer" />
+                <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/20 transition-colors duration-500"></div>
               </div>
               <div className="relative z-10 flex flex-col h-full">
                 <div className="w-14 h-14 bg-white/10 text-emerald-400 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
@@ -464,8 +464,8 @@ export default function Home() {
             {/* Wellness */}
             <a href="#life-practice" className="relative p-10 pb-12 rounded-3xl shadow-xl border border-slate-700 overflow-hidden group flex flex-col h-full transition-all hover:border-purple-500/50 hover:shadow-purple-500/10">
               <div className="absolute inset-0">
-                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=800" alt="Wellness" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerPolicy="no-referrer" />
-                <div className="absolute inset-0 bg-slate-900/80 group-hover:bg-slate-900/70 transition-colors duration-500 backdrop-blur-[2px]"></div>
+                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1200" alt="Wellness" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-110 contrast-[1.05]" referrerPolicy="no-referrer" />
+                <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/20 transition-colors duration-500"></div>
               </div>
               <div className="relative z-10 flex flex-col h-full">
                 <div className="w-14 h-14 bg-white/10 text-purple-400 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
