@@ -318,16 +318,10 @@ export default function Home() {
                           <span className="text-emerald-400 text-sm leading-relaxed block">Managing stress through mindfulness and fostering deep social connections reduces anxiety and can even extend your lifespan.</span>
                         </div>
                       </div>
-                      
-                      <div className="flex items-start sm:col-span-2">
-                        <span className="flex-shrink-0 w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center mr-4 shadow-[0_0_15px_rgba(245,158,11,0.1)]"><Globe2 size={18}/></span>
-                        <div>
-                          <strong className="text-white block mb-1 text-lg">Connection to Nature</strong>
-                          <span className="text-emerald-400 text-sm leading-relaxed block max-w-2xl">Reconnecting with natural environments restores depleted attention resources and aids in rapid stress recovery.</span>
-                        </div>
-                      </div>
-                    </div>
                   </div>
+                </div>
+                </div>
+
                 </div>
                 
                 <div className="mt-12 pt-8 border-t border-slate-700/50 text-center">
@@ -442,6 +436,7 @@ export default function Home() {
                 <li className="flex items-start"><span className="text-purple-400 mr-2">•</span> Self-care rituals</li>
                 <li className="flex items-start"><span className="text-purple-400 mr-2">•</span> Mindset shifts</li>
                 <li className="flex items-start"><span className="text-purple-400 mr-2">•</span> Lifestyle balance</li>
+                <li className="flex items-start"><span className="text-purple-400 mr-2">•</span> Connection to Nature</li>
               </ul>
               <p className="text-slate-200 mb-6">Nurture your mental and emotional well-being. Learn strategies to manage stress and cultivate a positive mindset.</p>
               <div className="text-white font-semibold flex items-center group-hover:text-purple-300 transition-colors">
