@@ -384,7 +384,7 @@ export default function Home() {
       </div>
 
       {/* Main Sections (The Four Pillars) */}
-      <div id="pillars" className="relative py-32 bg-fixed bg-center bg-cover" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2000')" }}>
+      <div id="pillars" className="relative pt-32 pb-64 bg-fixed bg-center bg-cover" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2000')" }}>
         <div className="absolute inset-0 bg-slate-900/80"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
