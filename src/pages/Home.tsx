@@ -489,71 +489,76 @@ export default function Home() {
         </div>
 
         {/* Life Practice Section */}
-        <div id="life-practice" ref={lifePracticeRef} className="relative min-h-[180vh] overflow-hidden scroll-mt-20 border-y border-slate-100 bg-white">
-          {/* Interactive Background Canvas Layer */}
-          <div className="sticky top-0 h-screen w-full z-0">
-            <canvas
-              ref={canvas3Ref}
-              className="w-full h-full object-cover opacity-80"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent"></div>
-          </div>
+        <div id="life-practice" ref={lifePracticeRef} className="relative h-[250vh] scroll-mt-20 bg-slate-900">
+          <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center">
+            {/* Background Canvas Layer */}
+            <div className="absolute inset-0 z-0">
+              <canvas
+                ref={canvas3Ref}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-slate-900/40"></div>
+              {/* Bottom transition blend */}
+              <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-slate-900 to-transparent"></div>
+            </div>
 
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-48 w-full -mt-[180vh] pointer-events-none">
-            <div className="max-w-2xl pointer-events-auto">
-              <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-amber-50 text-amber-600 text-sm font-bold tracking-wider uppercase mb-8 border border-amber-100 shadow-sm">
-                <Sparkles size={16} className="mr-2" />
-                Evolution of Self
+            {/* Content Layer */}
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+              <div className="max-w-3xl">
+                <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-amber-500/10 text-amber-400 text-sm font-bold tracking-wider uppercase mb-8 border border-amber-500/20 shadow-sm backdrop-blur-md">
+                  <Sparkles size={16} className="mr-2" />
+                  Evolution of Self
+                </div>
+                <h2 className="text-4xl md:text-5xl lg:text-7xl font-display uppercase tracking-tight text-white mb-8 leading-[0.95]">
+                  Cultivate Your <br />
+                  <span className="text-amber-500">Life Practice</span>
+                </h2>
+                <p className="text-xl text-slate-200 leading-relaxed mb-12 max-w-xl font-medium drop-shadow-md">
+                  Beyond the metrics and the workouts lies the true essence of vitality: your daily practice. This is where intention meets action, transforming fleeting moments into a sustainable lifestyle.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 mb-12">
+                  <div className="flex items-start group">
+                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-500 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
+                      <Sparkles size={20} />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-white text-xl mb-1">Mindfulness & Rituals</h4>
+                      <p className="text-slate-300 text-sm leading-relaxed">Integrate mindfulness practices and self-care rituals that ground you in the present.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start group">
+                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-500 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
+                      <BookOpen size={20} />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-white text-xl mb-1">Mindset & Balance</h4>
+                      <p className="text-slate-300 text-sm leading-relaxed">Achieve sustainable lifestyle balance through profound mindset shifts and intentional choices.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start group">
+                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-500 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
+                      <Globe2 size={20} />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-white text-xl mb-1">Natural Connection</h4>
+                      <p className="text-slate-300 text-sm leading-relaxed">Realign with the world around you to restore mental energy and reclaim your focus.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start group">
+                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-500 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
+                      <Heart size={20} />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-white text-xl mb-1">Wisdom & Insights</h4>
+                      <p className="text-slate-300 text-sm leading-relaxed">Study authentic Buddha teachings from highly accredited centers in Chiang Mai.</p>
+                    </div>
+                  </div>
+                </div>
+                <Link to="/wellness" className="inline-flex items-center px-10 py-5 bg-amber-600 text-white rounded-full font-bold text-lg hover:bg-amber-500 transition-all hover:scale-105 shadow-2xl shadow-amber-900/20">
+                  Explore The Practice
+                  <ArrowRight size={20} className="ml-3" />
+                </Link>
               </div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tight text-slate-900 mb-8 leading-[0.95]">
-                Cultivate Your <br />
-                <span className="text-amber-600">Life Practice</span>
-              </h2>
-              <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl font-medium">
-                Beyond the metrics and the workouts lies the true essence of vitality: your daily practice. This is where intention meets action, transforming fleeting moments into a sustainable lifestyle of growth, balance, and presence.
-              </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 mb-12">
-                <div className="flex items-start group">
-                  <div className="w-12 h-12 rounded-2xl bg-white text-slate-400 flex items-center justify-center mr-5 group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors border border-slate-100 group-hover:border-amber-200 shadow-sm">
-                    <Sparkles size={20} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900 text-xl mb-1">Mindfulness & Rituals</h4>
-                    <p className="text-slate-500 text-sm">Integrate mindfulness practices and self-care rituals that ground you in the present.</p>
-                  </div>
-                </div>
-                <div className="flex items-start group">
-                  <div className="w-12 h-12 rounded-2xl bg-white text-slate-400 flex items-center justify-center mr-5 group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors border border-slate-100 group-hover:border-amber-200 shadow-sm">
-                    <BookOpen size={20} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900 text-xl mb-1">Mindset & Balance</h4>
-                    <p className="text-slate-500 text-sm">Achieve sustainable lifestyle balance through profound mindset shifts and intentional choices.</p>
-                  </div>
-                </div>
-                <div className="flex items-start group">
-                  <div className="w-12 h-12 rounded-2xl bg-white text-slate-400 flex items-center justify-center mr-5 group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors border border-slate-100 group-hover:border-amber-200 shadow-sm">
-                    <Globe2 size={20} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900 text-xl mb-1">Natural Connection</h4>
-                    <p className="text-slate-500 text-sm">Realign with the world around you to restore mental energy and reclaim your focus.</p>
-                  </div>
-                </div>
-                <div className="flex items-start group">
-                  <div className="w-12 h-12 rounded-2xl bg-white text-slate-400 flex items-center justify-center mr-5 group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors border border-slate-100 group-hover:border-amber-200 shadow-sm">
-                    <Heart size={20} />
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-slate-900 text-xl mb-1">Wisdom & Insights</h4>
-                    <p className="text-slate-500 text-sm">Study authentic Buddha teachings from highly accredited centers in Chiang Mai.</p>
-                  </div>
-                </div>
-              </div>
-              <Link to="/wellness" className="inline-flex items-center px-10 py-5 bg-slate-900 text-white rounded-full font-bold text-lg hover:bg-slate-800 transition-all hover:scale-105 shadow-xl shadow-slate-900/10">
-                Explore The Practice
-                <ArrowRight size={20} className="ml-3" />
-              </Link>
             </div>
           </div>
         </div>
