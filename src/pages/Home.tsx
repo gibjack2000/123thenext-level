@@ -384,7 +384,7 @@ export default function Home() {
       </div>
 
       {/* Main Sections (The Four Pillars) */}
-      <div id="pillars" className="relative py-24 bg-fixed bg-center bg-cover" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2000')" }}>
+      <div id="pillars" className="relative py-32 bg-fixed bg-center bg-cover" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2000')" }}>
         <div className="absolute inset-0 bg-slate-900/80"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -393,13 +393,13 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Health */}
-            <Link to="/preventive-health" className="relative p-8 rounded-3xl shadow-sm border border-slate-700 overflow-hidden group block transition-all hover:border-rose-500/50">
+            <Link to="/preventive-health" className="relative p-10 pb-12 rounded-3xl shadow-xl border border-slate-700 overflow-hidden group flex flex-col h-full transition-all hover:border-rose-500/50 hover:shadow-rose-500/10">
               <div className="absolute inset-0">
                 <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=800" alt="Health" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerPolicy="no-referrer" />
-                <div className="absolute inset-0 bg-slate-900/80 group-hover:bg-slate-900/70 transition-colors duration-500"></div>
+                <div className="absolute inset-0 bg-slate-900/80 group-hover:bg-slate-900/70 transition-colors duration-500 backdrop-blur-[2px]"></div>
               </div>
-              <div className="relative z-10">
-                <div className="w-14 h-14 bg-white/10 text-rose-400 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center mb-6">
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="w-14 h-14 bg-white/10 text-rose-400 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                   <Heart size={28} />
                 </div>
                 <h3 className="text-2xl font-display uppercase tracking-tight text-white mb-4">Health</h3>
@@ -409,20 +409,20 @@ export default function Home() {
                   <li className="flex items-start"><span className="text-rose-400 mr-2">•</span> Stress management</li>
                   <li className="flex items-start"><span className="text-rose-400 mr-2">•</span> Healthy daily routines</li>
                 </ul>
-                <p className="text-slate-200 mb-6">Build a strong foundation for your body. Dive into our health guides to learn how small changes can make a big impact.</p>
-                <div className="text-white font-semibold flex items-center group-hover:text-rose-300 transition-colors">
+                <p className="text-slate-200 mb-8 leading-relaxed">Build a strong foundation for your body. Dive into our health guides to learn how small changes can make a big impact.</p>
+                <div className="mt-auto text-white font-semibold flex items-center group-hover:text-rose-300 transition-colors">
                   Learn more <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
                 </div>
               </div>
             </Link>
             {/* Fitness */}
-            <Link to="/fitness-fundamentals" className="relative p-8 rounded-3xl shadow-sm border border-slate-700 overflow-hidden group block transition-all hover:border-blue-500/50">
+            <Link to="/fitness-fundamentals" className="relative p-10 pb-12 rounded-3xl shadow-xl border border-slate-700 overflow-hidden group flex flex-col h-full transition-all hover:border-blue-500/50 hover:shadow-blue-500/10">
               <div className="absolute inset-0">
                 <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&q=80&w=800" alt="Fitness" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerPolicy="no-referrer" />
-                <div className="absolute inset-0 bg-slate-900/80 group-hover:bg-slate-900/70 transition-colors duration-500"></div>
+                <div className="absolute inset-0 bg-slate-900/80 group-hover:bg-slate-900/70 transition-colors duration-500 backdrop-blur-[2px]"></div>
               </div>
-              <div className="relative z-10">
-                <div className="w-14 h-14 bg-white/10 text-blue-400 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center mb-6">
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="w-14 h-14 bg-white/10 text-blue-400 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                   <Dumbbell size={28} />
                 </div>
                 <h3 className="text-2xl font-display uppercase tracking-tight text-white mb-4">Fitness</h3>
@@ -432,20 +432,20 @@ export default function Home() {
                   <li className="flex items-start"><span className="text-blue-400 mr-2">•</span> Mobility & flexibility</li>
                   <li className="flex items-start"><span className="text-blue-400 mr-2">•</span> At-home routines</li>
                 </ul>
-                <p className="text-slate-200 mb-6">Move your body in ways that feel good and build lasting strength. Find routines that fit your lifestyle.</p>
-                <div className="text-white font-semibold flex items-center group-hover:text-blue-300 transition-colors">
+                <p className="text-slate-200 mb-8 leading-relaxed">Move your body in ways that feel good and build lasting strength. Find routines that fit your lifestyle.</p>
+                <div className="mt-auto text-white font-semibold flex items-center group-hover:text-blue-300 transition-colors">
                   Learn more <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
                 </div>
               </div>
             </Link>
             {/* Nutrition */}
-            <Link to="/nutrition" className="relative p-8 rounded-3xl shadow-sm border border-slate-700 overflow-hidden group block transition-all hover:border-emerald-500/50">
+            <Link to="/nutrition" className="relative p-10 pb-12 rounded-3xl shadow-xl border border-slate-700 overflow-hidden group flex flex-col h-full transition-all hover:border-emerald-500/50 hover:shadow-emerald-500/10">
               <div className="absolute inset-0">
                 <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800" alt="Nutrition" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerPolicy="no-referrer" />
-                <div className="absolute inset-0 bg-slate-900/80 group-hover:bg-slate-900/70 transition-colors duration-500"></div>
+                <div className="absolute inset-0 bg-slate-900/80 group-hover:bg-slate-900/70 transition-colors duration-500 backdrop-blur-[2px]"></div>
               </div>
-              <div className="relative z-10">
-                <div className="w-14 h-14 bg-white/10 text-emerald-400 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center mb-6">
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="w-14 h-14 bg-white/10 text-emerald-400 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                   <Apple size={28} />
                 </div>
                 <h3 className="text-2xl font-display uppercase tracking-tight text-white mb-4">Nutrition</h3>
@@ -455,32 +455,31 @@ export default function Home() {
                   <li className="flex items-start"><span className="text-emerald-400 mr-2">•</span> Practical meal planning</li>
                   <li className="flex items-start"><span className="text-emerald-400 mr-2">•</span> Smart grocery shopping tips</li>
                 </ul>
-                <p className="text-slate-200 mb-6">Fuel your life without restrictive diets. Discover delicious recipes and fundamentals for sustainable eating.</p>
-                <div className="text-white font-semibold flex items-center group-hover:text-emerald-300 transition-colors">
+                <p className="text-slate-200 mb-8 leading-relaxed">Fuel your life without restrictive diets. Discover delicious recipes and fundamentals for sustainable eating.</p>
+                <div className="mt-auto text-white font-semibold flex items-center group-hover:text-emerald-300 transition-colors">
                   Learn more <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
                 </div>
               </div>
             </Link>
             {/* Wellness */}
-            <a href="#life-practice" className="relative p-8 rounded-3xl shadow-sm border border-slate-700 overflow-hidden group block transition-all hover:border-purple-500/50">
+            <a href="#life-practice" className="relative p-10 pb-12 rounded-3xl shadow-xl border border-slate-700 overflow-hidden group flex flex-col h-full transition-all hover:border-purple-500/50 hover:shadow-purple-500/10">
               <div className="absolute inset-0">
                 <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=800" alt="Wellness" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerPolicy="no-referrer" />
-                <div className="absolute inset-0 bg-slate-900/80 group-hover:bg-slate-900/70 transition-colors duration-500"></div>
+                <div className="absolute inset-0 bg-slate-900/80 group-hover:bg-slate-900/70 transition-colors duration-500 backdrop-blur-[2px]"></div>
               </div>
-              <div className="relative z-10">
-                <div className="w-14 h-14 bg-white/10 text-purple-400 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center mb-6">
+              <div className="relative z-10 flex flex-col h-full">
+                <div className="w-14 h-14 bg-white/10 text-purple-400 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                   <Sparkles size={28} />
                 </div>
                 <h3 className="text-2xl font-display uppercase tracking-tight text-white mb-4">Wellness</h3>
                 <ul className="space-y-3 mb-6 text-slate-300">
-                  <li className="flex items-start"><span className="text-purple-400 mr-2">•</span> Mindfulness practices</li>
-                  <li className="flex items-start"><span className="text-purple-400 mr-2">•</span> Self-care rituals</li>
-                  <li className="flex items-start"><span className="text-purple-400 mr-2">•</span> Mindset shifts</li>
-                  <li className="flex items-start"><span className="text-purple-400 mr-2">•</span> Lifestyle balance</li>
-                  <li className="flex items-start"><span className="text-purple-400 mr-2">•</span> Connection to Nature</li>
+                  <li className="flex items-start"><span className="text-purple-400 mr-2">•</span> Mindfulness & Rituals</li>
+                  <li className="flex items-start"><span className="text-purple-400 mr-2">•</span> Mindset & Balance</li>
+                  <li className="flex items-start"><span className="text-purple-400 mr-2">•</span> Natural Connection</li>
+                  <li className="flex items-start"><span className="text-purple-400 mr-2">•</span> Wisdom & Insights</li>
                 </ul>
-                <p className="text-slate-200 mb-6">Nurture your mental and emotional well-being. Learn strategies to manage stress and cultivate a positive mindset.</p>
-                <div className="text-white font-semibold flex items-center group-hover:text-purple-300 transition-colors">
+                <p className="text-slate-200 mb-8 leading-relaxed">Nurture your mental and emotional well-being. Learn strategies to manage stress and cultivate a positive mindset.</p>
+                <div className="mt-auto text-white font-semibold flex items-center group-hover:text-purple-300 transition-colors">
                   Learn more <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
                 </div>
               </div>
