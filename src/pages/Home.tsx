@@ -23,42 +23,55 @@ export default function Home() {
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const canvas2Ref = useRef<HTMLCanvasElement>(null);
   const images2Ref = useRef<HTMLImageElement[]>([]);
+  const canvas3Ref = useRef<HTMLCanvasElement>(null);
+  const images3Ref = useRef<HTMLImageElement[]>([]);
   const extendedHeroRef = useRef<HTMLDivElement>(null);
+  const lifePracticeRef = useRef<HTMLDivElement>(null);
 
   const frameCount = 120;
 
   useEffect(() => {
-    // Preload sequence
+    // Preload sequences
     for (let i = 0; i < frameCount; i++) {
-      const img = new Image();
       const frameNum = i.toString().padStart(3, '0');
+
+      const img = new Image();
       img.src = `/assets1/frame_${frameNum}_delay-0.066s.webp`;
       imagesRef.current.push(img);
 
       const img2 = new Image();
       img2.src = `/assets1/frame_${frameNum}_delay-0.066s.webp`;
       images2Ref.current.push(img2);
+
+      const img3 = new Image();
+      img3.src = `/assets2/frame_${frameNum}_delay-0.066s.webp`;
+      images3Ref.current.push(img3);
     }
 
-    // Draw first frame when the first image loads
+    // Draw first frames
     const firstImg = imagesRef.current[0];
-    firstImg.onload = () => {
-      const canvas = canvasRef.current;
+    const firstImg3 = images3Ref.current[0];
+
+    const drawInitial = (canvas: HTMLCanvasElement | null, img: HTMLImageElement) => {
       if (canvas && canvas.getContext) {
         const ctx = canvas.getContext('2d');
-        canvas.width = firstImg.width;
-        canvas.height = firstImg.height;
-        ctx?.drawImage(firstImg, 0, 0);
-      }
-
-      const canvas2 = canvas2Ref.current;
-      if (canvas2 && canvas2.getContext) {
-        const ctx2 = canvas2.getContext('2d');
-        canvas2.width = firstImg.width;
-        canvas2.height = firstImg.height;
-        ctx2?.drawImage(firstImg, 0, 0);
+        img.onload = () => {
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx?.drawImage(img, 0, 0);
+        };
+        // If already complete
+        if (img.complete) {
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx?.drawImage(img, 0, 0);
+        }
       }
     };
+
+    drawInitial(canvasRef.current, firstImg);
+    drawInitial(canvas2Ref.current, firstImg);
+    drawInitial(canvas3Ref.current, firstImg3);
   }, []);
 
   useEffect(() => {
@@ -117,6 +130,39 @@ export default function Home() {
               canvas2.height = img2.height;
             }
             ctx2?.drawImage(img2, 0, 0);
+          }
+        }
+        // Life Practice Section Scrubbing
+        const practiceContainer = lifePracticeRef.current;
+        const canvas3 = canvas3Ref.current;
+        if (practiceContainer && canvas3) {
+          const rect = practiceContainer.getBoundingClientRect();
+          const elementTop = rect.top + scrollTop;
+          const elementHeight = rect.height;
+          const windowHeight = window.innerHeight;
+
+          const startScroll3 = elementTop - windowHeight;
+          const endScroll3 = elementTop + elementHeight;
+
+          let scrollFraction3 = 0;
+          if (scrollTop > startScroll3) {
+            scrollFraction3 = (scrollTop - startScroll3) / (endScroll3 - startScroll3);
+          }
+          scrollFraction3 = Math.max(0, Math.min(1, scrollFraction3));
+
+          const frameIndex3 = Math.min(
+            frameCount - 1,
+            Math.floor(scrollFraction3 * frameCount)
+          );
+
+          const ctx3 = canvas3.getContext('2d');
+          const img3 = images3Ref.current[frameIndex3];
+          if (img3 && img3.complete && img3.width > 0) {
+            if (canvas3.width !== img3.width || canvas3.height !== img3.height) {
+              canvas3.width = img3.width;
+              canvas3.height = img3.height;
+            }
+            ctx3?.drawImage(img3, 0, 0);
           }
         }
       });
@@ -447,7 +493,7 @@ export default function Home() {
         </div>
 
         {/* Life Practice Section */}
-        <div id="life-practice" className="relative py-32 bg-white overflow-hidden scroll-mt-20">
+        <div id="life-practice" ref={lifePracticeRef} className="relative py-32 bg-white overflow-hidden scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col lg:flex-row items-center gap-16">
               <div className="w-full lg:w-1/2">
@@ -505,11 +551,10 @@ export default function Home() {
                   <ArrowRight size={20} className="ml-3" />
                 </Link>
               </div>
-              <div className="w-full lg:w-1/2 relative">
-                <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl group border-[12px] border-white shrink-0">
-                  <img
-                    src="/life-practice-banner.png"
-                    alt="Life Practice"
+              <div className="w-full lg:w-1/2 relative min-h-[400px] lg:min-h-0">
+                <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl group border-[12px] border-white shrink-0 aspect-[4/3] bg-slate-100">
+                  <canvas
+                    ref={canvas3Ref}
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
