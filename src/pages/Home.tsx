@@ -384,14 +384,14 @@ export default function Home() {
       </div>
 
       {/* Main Sections (The Four Pillars) */}
-      <div id="pillars" className="relative pt-32 pb-64 bg-fixed bg-center bg-cover" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2000')" }}>
+      <div id="pillars" className="relative pt-32 pb-96 bg-fixed bg-center bg-cover" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2000')" }}>
         <div className="absolute inset-0 bg-slate-900/80"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-display uppercase tracking-tight text-white mb-4">The Four Pillars of a Healthy Lifestyle</h2>
             <p className="text-lg text-slate-300 max-w-2xl mx-auto">Everything you need to build a strong foundation for your body and mind.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
             {/* Health */}
             <Link to="/preventive-health" className="relative p-10 pb-12 rounded-3xl shadow-xl border border-slate-700 overflow-hidden group flex flex-col h-full transition-all hover:border-rose-500/50 hover:shadow-rose-500/10">
               <div className="absolute inset-0">
