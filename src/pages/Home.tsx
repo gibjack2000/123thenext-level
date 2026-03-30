@@ -420,7 +420,7 @@ export default function Home() {
               </div>
             </Link>
             {/* Wellness */}
-            <Link to="/wellness" className="relative p-8 rounded-3xl shadow-sm border border-slate-700 overflow-hidden group block transition-all hover:border-purple-500/50">
+            <a href="#life-practice" className="relative p-8 rounded-3xl shadow-sm border border-slate-700 overflow-hidden group block transition-all hover:border-purple-500/50">
               <div className="absolute inset-0">
                 <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=800" alt="Wellness" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" referrerPolicy="no-referrer" />
                 <div className="absolute inset-0 bg-slate-900/80 group-hover:bg-slate-900/70 transition-colors duration-500"></div>
@@ -442,12 +442,12 @@ export default function Home() {
                   Learn more <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
                 </div>
               </div>
-            </Link>
+            </a>
           </div>
         </div>
 
         {/* Life Practice Section */}
-        <div className="relative py-32 bg-white overflow-hidden">
+        <div id="life-practice" className="relative py-32 bg-white overflow-hidden scroll-mt-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col lg:flex-row items-center gap-16">
               <div className="w-full lg:w-1/2">
@@ -460,16 +460,25 @@ export default function Home() {
                   <span className="text-amber-600">Life Practice</span>
                 </h2>
                 <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">
-                  Beyond the metrics and the workouts lies the true essence of vitality: your daily practice. This is where intention meets action, transforming fleeting moments into a sustainable lifestyle of growth and presence.
+                  Beyond the metrics and the workouts lies the true essence of vitality: your daily practice. This is where intention meets action, transforming fleeting moments into a sustainable lifestyle of growth, balance, and presence.
                 </p>
                 <div className="space-y-6 mb-10">
+                  <div className="flex items-start group">
+                    <div className="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center mr-5 group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors border border-slate-100 group-hover:border-amber-200">
+                      <Sparkles size={20} />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-slate-900 text-xl mb-1">Mindfulness & Rituals</h4>
+                      <p className="text-slate-500">Integrate mindfulness practices and self-care rituals that ground you in the present moment.</p>
+                    </div>
+                  </div>
                   <div className="flex items-start group">
                     <div className="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center mr-5 group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors border border-slate-100 group-hover:border-amber-200">
                       <BookOpen size={20} />
                     </div>
                     <div>
-                      <h4 className="font-bold text-slate-900 text-xl mb-1">Intentional Living</h4>
-                      <p className="text-slate-500">Design your days with purpose through curated rituals and mindful habits.</p>
+                      <h4 className="font-bold text-slate-900 text-xl mb-1">Mindset & Balance</h4>
+                      <p className="text-slate-500">Achieve sustainable lifestyle balance through profound mindset shifts and intentional choices.</p>
                     </div>
                   </div>
                   <div className="flex items-start group">
@@ -478,7 +487,16 @@ export default function Home() {
                     </div>
                     <div>
                       <h4 className="font-bold text-slate-900 text-xl mb-1">Natural Connection</h4>
-                      <p className="text-slate-500">Realign with the world around you to restore mental energy and focus.</p>
+                      <p className="text-slate-500">Realign with the world around you to restore mental energy and reclaim your focus.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start group">
+                    <div className="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center mr-5 group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors border border-slate-100 group-hover:border-amber-200">
+                      <Heart size={20} />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-slate-900 text-xl mb-1">Wisdom & Enlightenment</h4>
+                      <p className="text-slate-500">Study authentic Buddha teachings from highly accredited centers in Chiang Mai, offering free resources for your path.</p>
                     </div>
                   </div>
                 </div>
