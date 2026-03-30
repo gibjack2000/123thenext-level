@@ -55,17 +55,15 @@ export default function Home() {
     const drawInitial = (canvas: HTMLCanvasElement | null, img: HTMLImageElement) => {
       if (canvas && canvas.getContext) {
         const ctx = canvas.getContext('2d');
-        img.onload = () => {
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx?.drawImage(img, 0, 0);
+        const dpr = window.devicePixelRatio || 1;
+        const render = () => {
+          canvas.width = img.width * dpr;
+          canvas.height = img.height * dpr;
+          ctx?.scale(dpr, dpr);
+          ctx?.drawImage(img, 0, 0, img.width, img.height);
         };
-        // If already complete
-        if (img.complete) {
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx?.drawImage(img, 0, 0);
-        }
+        img.onload = render;
+        if (img.complete) render();
       }
     };
 
@@ -137,17 +135,13 @@ export default function Home() {
         const canvas3 = canvas3Ref.current;
         if (practiceContainer && canvas3) {
           const rect = practiceContainer.getBoundingClientRect();
-          const elementTop = rect.top + scrollTop;
-          const elementHeight = rect.height;
           const windowHeight = window.innerHeight;
 
-          const startScroll3 = elementTop - windowHeight;
-          const endScroll3 = elementTop + elementHeight;
+          // Calculate progress: 0 when top enters, 1 when bottom leaves
+          const totalDistance = rect.height + windowHeight;
+          const currentPos = windowHeight - rect.top;
+          let scrollFraction3 = currentPos / totalDistance;
 
-          let scrollFraction3 = 0;
-          if (scrollTop > startScroll3) {
-            scrollFraction3 = (scrollTop - startScroll3) / (endScroll3 - startScroll3);
-          }
           scrollFraction3 = Math.max(0, Math.min(1, scrollFraction3));
 
           const frameIndex3 = Math.min(
@@ -158,11 +152,13 @@ export default function Home() {
           const ctx3 = canvas3.getContext('2d');
           const img3 = images3Ref.current[frameIndex3];
           if (img3 && img3.complete && img3.width > 0) {
-            if (canvas3.width !== img3.width || canvas3.height !== img3.height) {
-              canvas3.width = img3.width;
-              canvas3.height = img3.height;
+            const dpr = window.devicePixelRatio || 1;
+            if (canvas3.width !== img3.width * dpr || canvas3.height !== img3.height * dpr) {
+              canvas3.width = img3.width * dpr;
+              canvas3.height = img3.height * dpr;
+              ctx3?.scale(dpr, dpr);
             }
-            ctx3?.drawImage(img3, 0, 0);
+            ctx3?.drawImage(img3, 0, 0, img3.width, img3.height);
           }
         }
       });
@@ -493,76 +489,71 @@ export default function Home() {
         </div>
 
         {/* Life Practice Section */}
-        <div id="life-practice" ref={lifePracticeRef} className="relative py-32 bg-white overflow-hidden scroll-mt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col lg:flex-row items-center gap-16">
-              <div className="w-full lg:w-1/2">
-                <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-amber-50 text-amber-600 text-sm font-bold tracking-wider uppercase mb-8 border border-amber-100 shadow-sm">
-                  <Sparkles size={16} className="mr-2" />
-                  Evolution of Self
-                </div>
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tight text-slate-900 mb-8 leading-[0.95]">
-                  Cultivate Your <br />
-                  <span className="text-amber-600">Life Practice</span>
-                </h2>
-                <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl">
-                  Beyond the metrics and the workouts lies the true essence of vitality: your daily practice. This is where intention meets action, transforming fleeting moments into a sustainable lifestyle of growth, balance, and presence.
-                </p>
-                <div className="space-y-6 mb-10">
-                  <div className="flex items-start group">
-                    <div className="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center mr-5 group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors border border-slate-100 group-hover:border-amber-200">
-                      <Sparkles size={20} />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-slate-900 text-xl mb-1">Mindfulness & Rituals</h4>
-                      <p className="text-slate-500">Integrate mindfulness practices and self-care rituals that ground you in the present moment.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start group">
-                    <div className="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center mr-5 group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors border border-slate-100 group-hover:border-amber-200">
-                      <BookOpen size={20} />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-slate-900 text-xl mb-1">Mindset & Balance</h4>
-                      <p className="text-slate-500">Achieve sustainable lifestyle balance through profound mindset shifts and intentional choices.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start group">
-                    <div className="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center mr-5 group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors border border-slate-100 group-hover:border-amber-200">
-                      <Globe2 size={20} />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-slate-900 text-xl mb-1">Natural Connection</h4>
-                      <p className="text-slate-500">Realign with the world around you to restore mental energy and reclaim your focus.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start group">
-                    <div className="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center mr-5 group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors border border-slate-100 group-hover:border-amber-200">
-                      <Heart size={20} />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-slate-900 text-xl mb-1">Wisdom & Enlightenment</h4>
-                      <p className="text-slate-500">Study authentic Buddha teachings from highly accredited centers in Chiang Mai, offering free resources for your path.</p>
-                    </div>
-                  </div>
-                </div>
-                <Link to="/wellness" className="inline-flex items-center px-10 py-5 bg-slate-900 text-white rounded-full font-bold text-lg hover:bg-slate-800 transition-all hover:scale-105 shadow-xl shadow-slate-900/10">
-                  Explore The Practice
-                  <ArrowRight size={20} className="ml-3" />
-                </Link>
+        <div id="life-practice" ref={lifePracticeRef} className="relative min-h-[180vh] overflow-hidden scroll-mt-20 border-y border-slate-100 bg-white">
+          {/* Interactive Background Canvas Layer */}
+          <div className="sticky top-0 h-screen w-full z-0">
+            <canvas
+              ref={canvas3Ref}
+              className="w-full h-full object-cover opacity-80"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent"></div>
+          </div>
+
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-48 w-full -mt-[180vh] pointer-events-none">
+            <div className="max-w-2xl pointer-events-auto">
+              <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-amber-50 text-amber-600 text-sm font-bold tracking-wider uppercase mb-8 border border-amber-100 shadow-sm">
+                <Sparkles size={16} className="mr-2" />
+                Evolution of Self
               </div>
-              <div className="w-full lg:w-1/2 relative min-h-[400px] lg:min-h-0">
-                <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl group border-[12px] border-white shrink-0 aspect-[4/3] bg-slate-100">
-                  <canvas
-                    ref={canvas3Ref}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-display uppercase tracking-tight text-slate-900 mb-8 leading-[0.95]">
+                Cultivate Your <br />
+                <span className="text-amber-600">Life Practice</span>
+              </h2>
+              <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-xl font-medium">
+                Beyond the metrics and the workouts lies the true essence of vitality: your daily practice. This is where intention meets action, transforming fleeting moments into a sustainable lifestyle of growth, balance, and presence.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 mb-12">
+                <div className="flex items-start group">
+                  <div className="w-12 h-12 rounded-2xl bg-white text-slate-400 flex items-center justify-center mr-5 group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors border border-slate-100 group-hover:border-amber-200 shadow-sm">
+                    <Sparkles size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 text-xl mb-1">Mindfulness & Rituals</h4>
+                    <p className="text-slate-500 text-sm">Integrate mindfulness practices and self-care rituals that ground you in the present.</p>
+                  </div>
                 </div>
-                {/* Decorative Elements */}
-                <div className="absolute -top-6 -right-6 w-32 h-32 bg-amber-400/10 rounded-full blur-3xl -z-10 animate-pulse"></div>
-                <div className="absolute -bottom-6 -left-6 w-48 h-48 bg-blue-400/10 rounded-full blur-3xl -z-10"></div>
+                <div className="flex items-start group">
+                  <div className="w-12 h-12 rounded-2xl bg-white text-slate-400 flex items-center justify-center mr-5 group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors border border-slate-100 group-hover:border-amber-200 shadow-sm">
+                    <BookOpen size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 text-xl mb-1">Mindset & Balance</h4>
+                    <p className="text-slate-500 text-sm">Achieve sustainable lifestyle balance through profound mindset shifts and intentional choices.</p>
+                  </div>
+                </div>
+                <div className="flex items-start group">
+                  <div className="w-12 h-12 rounded-2xl bg-white text-slate-400 flex items-center justify-center mr-5 group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors border border-slate-100 group-hover:border-amber-200 shadow-sm">
+                    <Globe2 size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 text-xl mb-1">Natural Connection</h4>
+                    <p className="text-slate-500 text-sm">Realign with the world around you to restore mental energy and reclaim your focus.</p>
+                  </div>
+                </div>
+                <div className="flex items-start group">
+                  <div className="w-12 h-12 rounded-2xl bg-white text-slate-400 flex items-center justify-center mr-5 group-hover:bg-amber-50 group-hover:text-amber-600 transition-colors border border-slate-100 group-hover:border-amber-200 shadow-sm">
+                    <Heart size={20} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-slate-900 text-xl mb-1">Wisdom & Insights</h4>
+                    <p className="text-slate-500 text-sm">Study authentic Buddha teachings from highly accredited centers in Chiang Mai.</p>
+                  </div>
+                </div>
               </div>
+              <Link to="/wellness" className="inline-flex items-center px-10 py-5 bg-slate-900 text-white rounded-full font-bold text-lg hover:bg-slate-800 transition-all hover:scale-105 shadow-xl shadow-slate-900/10">
+                Explore The Practice
+                <ArrowRight size={20} className="ml-3" />
+              </Link>
             </div>
           </div>
         </div>
