@@ -489,10 +489,10 @@ export default function Home() {
         </div>
 
         {/* Life Practice Section */}
-        <div id="life-practice" ref={lifePracticeRef} className="relative h-[250vh] scroll-mt-20 bg-slate-900">
-          <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center">
+        <div id="life-practice" ref={lifePracticeRef} className="relative h-[250vh] scroll-mt-20 bg-slate-900 overflow-visible">
+          <div className="sticky top-0 h-screen w-full overflow-hidden z-0">
             {/* Background Canvas Layer */}
-            <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0">
               <canvas
                 ref={canvas3Ref}
                 className="w-full h-full object-cover"
@@ -501,9 +501,10 @@ export default function Home() {
               {/* Bottom transition blend */}
               <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-slate-900 to-transparent"></div>
             </div>
+          </div>
 
-            {/* Content Layer */}
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="relative z-10 -mt-[100vh] min-h-screen flex items-center pointer-events-none sticky top-0">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20 pointer-events-auto">
               <div className="max-w-3xl">
                 <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-amber-500/10 text-amber-400 text-sm font-bold tracking-wider uppercase mb-8 border border-amber-500/20 shadow-sm backdrop-blur-md">
                   <Sparkles size={16} className="mr-2" />
@@ -517,6 +518,7 @@ export default function Home() {
                   Beyond the metrics and the workouts lies the true essence of vitality: your daily practice. This is where intention meets action, transforming fleeting moments into a sustainable lifestyle.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 mb-12">
+                  {/* ... icons grid ... */}
                   <div className="flex items-start group">
                     <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-500 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
                       <Sparkles size={20} />
@@ -545,7 +547,7 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="flex items-start group">
-                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-500 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
+                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-50 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
                       <Heart size={20} />
                     </div>
                     <div>
