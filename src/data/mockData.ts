@@ -909,7 +909,7 @@ export const MOCK_PRODUCTS: Product[] = [
     "product_name": "Solgar 4000IU Vitamin D3 - Healthy Teeth and Bones - Better Calcium Absorption - Pack of 120 Vegetable Capsules",
     "amazon_asin": "B00X0ZCE2O",
     "amazon_url": "https://www.amazon.co.uk/dp/B00X0ZCE2O?tag=123znl0e-20",
-    "image_url": "/Products/d3.png",
+    "image_url": "https://123thenextlevel.com/Products/d3.jpg",
     "short_benefit": "Healthy Teeth and Bones - Better Calcium Absorption - Pack of 120 Vegetable Capsules",
     "description": "Solgar 4000IU Vitamin D3 - Healthy Teeth and Bones - Better Calcium Absorption - Pack of 120 Vegetable Capsules",
     "price": 18.9,
