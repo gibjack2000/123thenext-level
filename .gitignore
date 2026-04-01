@@ -7,4 +7,6 @@ coverage/
 .env*
 !.env.example
 *.zip
-public/Products/
+# Persistent server assets
+public/Products/*
+!public/Products/.gitkeep
