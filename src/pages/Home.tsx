@@ -925,7 +925,7 @@ export default function Home() {
                         ★ {product.rating}
                       </span>
                     </div>
-                    <div className="aspect-video w-full bg-slate-50 rounded-xl mb-4 overflow-hidden">
+                    <div className="aspect-square w-full bg-slate-50 rounded-xl mb-4 overflow-hidden">
                       {product.image_url && (
                         <img src={product.image_url} alt={product.product_name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
                       )}
