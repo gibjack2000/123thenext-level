@@ -939,9 +939,12 @@ export default function Home() {
                       <div className="flex justify-between items-start mb-4">
                         <div className="flex items-center gap-2">
                           <div className="flex items-center gap-1.5 py-1">
-                            <span className="text-xl leading-none" title={REGIONS.find(r => r.id === product.region.toLowerCase())?.name}>
-                              {REGIONS.find(r => r.id === product.region.toLowerCase())?.flag}
-                            </span>
+                            <img 
+                              src={REGIONS.find(r => r.id === product.region.toLowerCase())?.image} 
+                              alt={product.region} 
+                              className="w-5 h-3.5 object-cover rounded shadow-sm border border-slate-100" 
+                              referrerPolicy="no-referrer"
+                            />
                             <span className="text-slate-500 text-[10px] font-black uppercase tracking-[0.1em]">
                               {product.region}
                             </span>
