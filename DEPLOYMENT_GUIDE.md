@@ -7,12 +7,22 @@ We have configured the project's `.gitignore` file to ignore the `public/Product
 - No images from your server are ever uploaded to GitHub.
 - GitHub does not "know" about these images, so it will not try to delete them during a standard update.
 
-## 2. Safe Deployment Steps (Hostinger Panel)
+## 2. Recommended: Safe Deployment (GitHub Action)
+We have added a **Safe Deploy** GitHub Action (`.github/workflows/deploy.yml`) that is the most secure way to update your site.
 
-When updating your website in the Hostinger Git dashboard, follow these rules:
+### Why this is safer:
+- **Exclusion Rule**: The Action is specifically told to **ignore** the `Products` folder on your server.
+- **No Wiping**: It is configured in "non-clean" mode, so it only updates changed files and never deletes untracked folders like your images.
+
+### How to use it:
+1. Add your FTP credentials to GitHub Secrets (`FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`).
+2. Every time you push to the `main` branch, it will automatically update the site safely.
+
+## 3. Alternative: Hostinger Panel Update
+If you prefer using the Hostinger Git dashboard, follow these rules:
 
 ### ✅ USE: "Update" or "Sync"
-A standard **Pull** or **Sync** operation is safe. It only downloads the new code changes from GitHub and merges them into your website. It will **NOT** touch your `Products` folder because that folder is not part of the GitHub repository.
+A standard **Pull** or **Sync** operation is safe. It will **NOT** touch your `Products` folder because that folder is not part of the GitHub repository.
 
 ### ❌ AVOID: "Reset and Pull"
 > [!CAUTION]

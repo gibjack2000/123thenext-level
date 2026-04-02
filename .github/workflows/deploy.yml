@@ -1,0 +1,43 @@
+name: Safe Deploy to Hostinger
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  web-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v4
+
+    - name: 🧪 Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: 🔨 Build Project
+      run: |
+        npm install
+        npm run build
+
+    - name: 🚀 Sync Files (Safe Mode)
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        local-dir: ./dist/
+        server-dir: ./
+        # CRITICAL: Do NOT delete the Products folder on the server
+        exclude: |
+          **/node_modules/**
+          **/Products/**
+          .git*
+          .git/**
+          **/*.map
+        # This ensures it only updates/adds files and doesn't wipe unknown server folders
+        dangerous-clean-slate: false
