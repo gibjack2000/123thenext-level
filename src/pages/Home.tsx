@@ -844,18 +844,18 @@ export default function Home() {
         />
 
         {/* Affiliates Hub */}
-        <div id="shop" className="relative py-24 bg-fixed bg-center bg-cover" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&q=80&w=2000')" }}>
+        <div id="shop" className="relative pt-16 pb-24 bg-fixed bg-center bg-cover scroll-mt-20" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&q=80&w=2000')" }}>
           <div className="absolute inset-0 bg-slate-900/90"></div>
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
+            <div className="text-center mb-10">
               <div className="inline-flex items-center justify-center p-3 bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-2xl mb-6 backdrop-blur-sm">
                 <ShoppingBag size={32} />
               </div>
               <h2 className="text-3xl md:text-4xl font-display uppercase tracking-tight text-white mb-6">Shop the Tools We Trust</h2>
-              <p className="text-lg text-slate-300 max-w-3xl mx-auto mb-8">
+              <p className="text-lg text-slate-300 max-w-3xl mx-auto mb-6">
                 We curate helpful products that support the four pillars of health, fitness, nutrition, and wellness. Our recommendations are chosen for usefulness, not hype.
               </p>
-              <ul className="text-left max-w-2xl mx-auto space-y-3 text-slate-300 mb-10 bg-slate-800/50 backdrop-blur-md p-6 rounded-2xl border border-slate-700">
+              <ul className="text-left max-w-2xl mx-auto space-y-3 text-slate-300 mb-8 bg-slate-800/50 backdrop-blur-md p-6 rounded-2xl border border-slate-700">
                 <li className="flex items-start"><span className="text-amber-400 mr-2">•</span> Hand-picked gear, kitchen tools, and wellness gadgets.</li>
                 <li className="flex items-start"><span className="text-amber-400 mr-2">•</span> Organized by region (US, UK, Spain) and category for easy shopping.</li>
                 <li className="flex items-start"><span className="text-amber-400 mr-2">•</span> <em className="text-slate-400">Transparency note: Links may be affiliate links. We only recommend products we truly believe in.</em></li>
