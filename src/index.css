@@ -10,5 +10,5 @@
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
   }
-  --animate-marquee: marquee 35s linear infinite;
+  --animate-marquee: marquee 46s linear infinite;
 }
