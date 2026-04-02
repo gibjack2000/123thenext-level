@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
+import Footer from './components/Footer';
 import { hasValidSupabaseConfig } from './lib/supabase';
 import Home from './pages/Home';
 import HealthPillar from './pages/HealthPillar';
@@ -66,14 +67,6 @@ export default function App() {
               <a href="/#pillars" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">Pillars</a>
               <a href="/#blog" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">Blog</a>
               <a href="/#shop" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">Shop</a>
-              <div className="w-px h-6 bg-slate-200 mx-2"></div>
-              <Link 
-                to="/admin" 
-                className="flex items-center text-sm font-bold text-white bg-slate-900 hover:bg-blue-600 px-5 py-2.5 rounded-xl transition-all duration-300 shadow-md hover:shadow-xl hover:shadow-blue-500/20 hover:-translate-y-0.5"
-              >
-                <Settings size={16} className="mr-2" />
-                Admin
-              </Link>
             </nav>
 
             {/* Mobile Menu Button */}
@@ -110,27 +103,17 @@ export default function App() {
                 >
                   Blog
                 </a>
-                <a 
-                  href="/#shop" 
-                  className="block px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-all"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Shop
-                </a>
-                <div className="pt-4 mt-2 border-t border-slate-100">
-                  <Link 
-                    to="/admin" 
-                    className="flex items-center justify-center w-full text-base font-bold text-white bg-slate-900 hover:bg-blue-600 px-4 py-3.5 rounded-xl transition-all shadow-md"
+                  <a 
+                    href="/#shop" 
+                    className="block px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-all"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    <Settings size={18} className="mr-2" />
-                    Admin Dashboard
-                  </Link>
+                    Shop
+                  </a>
                 </div>
               </div>
-            </div>
-          )}
-        </header>
+            )}
+          </header>
 
         <main className="flex-grow">
           <Routes>
@@ -159,6 +142,7 @@ export default function App() {
             <Route path="/:region/:category" element={<CategoryPage />} />
           </Routes>
         </main>
+        <Footer />
       </div>
     </BrowserRouter>
   );
