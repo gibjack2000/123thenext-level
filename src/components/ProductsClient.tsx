@@ -85,9 +85,9 @@ export default function ProductsClient({
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {products.map((product) => (
         <div key={product.id} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:-translate-y-3 hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] transition-all duration-500 ease-out flex flex-col">
-          <div className="aspect-square w-full bg-slate-100 rounded-xl mb-4 overflow-hidden">
+          <div className="aspect-square w-full bg-slate-50 rounded-xl mb-4 overflow-hidden p-3 flex items-center justify-center">
             {product.image_url ? (
-              <img src={product.image_url} alt={product.product_name} className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+              <img src={product.image_url} alt={product.product_name} className="max-w-full max-h-full object-contain" referrerPolicy="no-referrer" />
             ) : (
               <div className="w-full h-full flex items-center justify-center text-slate-400">No image</div>
             )}
