@@ -847,19 +847,38 @@ export default function Home() {
         <div id="shop" className="relative pt-16 pb-24 bg-fixed bg-center bg-cover scroll-mt-20" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&q=80&w=2000')" }}>
           <div className="absolute inset-0 bg-slate-900/90"></div>
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-10">
-              <div className="inline-flex items-center justify-center p-3 bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-2xl mb-6 backdrop-blur-sm">
-                <ShoppingBag size={32} />
+            <div className="max-w-4xl mx-auto text-center mb-12">
+              <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
+                <div className="p-2 bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-xl backdrop-blur-sm">
+                  <ShoppingBag size={24} />
+                </div>
+                <h2 className="text-2xl md:text-3xl font-display uppercase tracking-tight text-white">Shop the Tools We Trust</h2>
               </div>
-              <h2 className="text-3xl md:text-4xl font-display uppercase tracking-tight text-white mb-6">Shop the Tools We Trust</h2>
-              <p className="text-lg text-slate-300 max-w-3xl mx-auto mb-6">
+              
+              <p className="text-slate-400 text-sm max-w-2xl mx-auto mb-8">
                 We curate helpful products that support the four pillars of health, fitness, nutrition, and wellness. Our recommendations are chosen for usefulness, not hype.
               </p>
-              <ul className="text-left max-w-2xl mx-auto space-y-3 text-slate-300 mb-8 bg-slate-800/50 backdrop-blur-md p-6 rounded-2xl border border-slate-700">
-                <li className="flex items-start"><span className="text-amber-400 mr-2">•</span> Hand-picked gear, kitchen tools, and wellness gadgets.</li>
-                <li className="flex items-start"><span className="text-amber-400 mr-2">•</span> Organized by region (US, UK, Spain) and category for easy shopping.</li>
-                <li className="flex items-start"><span className="text-amber-400 mr-2">•</span> <em className="text-slate-400">Transparency note: Links may be affiliate links. We only recommend products we truly believe in.</em></li>
-              </ul>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
+                <div className="bg-slate-800/50 backdrop-blur-md p-4 rounded-xl border border-slate-700/50">
+                  <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
+                    <span className="text-amber-400 mr-2">●</span>
+                    Hand-picked gear, kitchen tools, and wellness gadgets chosen for quality and performance.
+                  </p>
+                </div>
+                <div className="bg-slate-800/50 backdrop-blur-md p-4 rounded-xl border border-slate-700/50">
+                  <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
+                    <span className="text-amber-400 mr-2">●</span>
+                    Organized by region (US, UK, Spain) and category for an easy, customized shopping experience.
+                  </p>
+                </div>
+              </div>
+              
+              <div className="mt-6 text-center">
+                <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">
+                  Transparency: Links may be affiliate links. We only recommend products we truly believe in.
+                </p>
+              </div>
             </div>
 
             {/* Region Cards */}
