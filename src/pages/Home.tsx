@@ -15,6 +15,7 @@ import BlogSection from '../components/BlogSection';
 
 export default function Home() {
   const [topPicks, setTopPicks] = useState<Product[]>([]);
+  const [shuffledTopPicks, setShuffledTopPicks] = useState<Product[]>([]);
   const [latestProducts, setLatestProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [showingMockData, setShowingMockData] = useState(false);
@@ -182,6 +183,13 @@ export default function Home() {
     setShowingMockData(true);
     setLoading(false);
   };
+
+  useEffect(() => {
+    if (topPicks.length > 0) {
+      const shuffled = [...topPicks].sort(() => Math.random() - 0.5);
+      setShuffledTopPicks(shuffled);
+    }
+  }, [topPicks]);
 
   useEffect(() => {
     async function fetchData() {
@@ -908,8 +916,8 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Top Picks Section */}
-            <div className="flex items-center justify-between mb-10">
+            {/* Top Picks Section - Random Ticker Tape */}
+            <div className="flex items-center justify-between mb-8">
               <h3 className="text-2xl font-display uppercase tracking-tight text-white flex items-center">
                 Global Top Picks
               </h3>
@@ -917,47 +925,54 @@ export default function Home() {
 
             {loading ? (
               <div className="flex justify-center py-12">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-slate-900"></div>
+                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
               </div>
-            ) : topPicks.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
-                {topPicks.map((product) => (
-                  <div key={product.id} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:-translate-y-3 hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] transition-all duration-500 ease-out flex flex-col">
-                    <div className="flex justify-between items-start mb-4">
-                      <div className="flex items-center gap-2">
-                        <span className="px-2 py-1 bg-slate-100 text-slate-700 text-xs font-bold rounded uppercase">
-                          {product.region}
+            ) : shuffledTopPicks.length > 0 ? (
+              <div className="relative w-full overflow-hidden py-10 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 mb-20 bg-slate-900/30 backdrop-blur-sm border-y border-slate-800/50">
+                <div className="flex w-fit animate-marquee hover:[animation-play-state:paused] gap-6">
+                  {/* Duplicate the items to create the seamless loop */}
+                  {[...shuffledTopPicks, ...shuffledTopPicks, ...shuffledTopPicks].map((product, idx) => (
+                    <div 
+                      key={`${product.id}-${idx}`} 
+                      className="inline-block w-[320px] bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:-translate-y-2 hover:shadow-xl transition-all duration-300 ease-out flex-shrink-0 group"
+                    >
+                      <div className="flex justify-between items-start mb-4">
+                        <div className="flex items-center gap-2">
+                          <span className="px-2 py-1 bg-slate-100 text-slate-700 text-[10px] font-bold rounded uppercase whitespace-nowrap">
+                            {product.region}
+                          </span>
+                          {showingMockData && (
+                            <span className="px-2 py-1 bg-amber-100 text-amber-700 text-[10px] font-bold rounded uppercase whitespace-nowrap">
+                              Demo
+                            </span>
+                          )}
+                        </div>
+                        <span className="text-amber-500 text-sm font-bold flex items-center whitespace-nowrap">
+                          ★ {product.rating}
                         </span>
-                        {hasValidSupabaseConfig && !showingMockData && (
-                          <span className="flex items-center px-2 py-1 bg-emerald-100 text-emerald-700 text-[10px] font-bold rounded uppercase">
-                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mr-1 animate-pulse"></div>
-                            Live
-                          </span>
-                        )}
-                        {showingMockData && (
-                          <span className="px-2 py-1 bg-amber-100 text-amber-700 text-[10px] font-bold rounded uppercase">
-                            Demo Data
-                          </span>
+                      </div>
+                      <div className="aspect-square w-full bg-slate-50 rounded-xl mb-4 overflow-hidden p-3 flex items-center justify-center">
+                        {product.image_url && (
+                          <img src={product.image_url} alt={product.product_name} className="max-w-full max-h-full object-contain" referrerPolicy="no-referrer" />
                         )}
                       </div>
-                      <span className="text-amber-500 text-sm font-bold flex items-center">
-                        ★ {product.rating}
-                      </span>
+                      <h3 className="text-md font-bold text-slate-900 mb-2 truncate whitespace-normal line-clamp-2 h-10 leading-tight">
+                        {product.product_name}
+                      </h3>
+                      <div className="mt-auto pt-4 flex items-center justify-between">
+                        <span className="font-bold text-lg text-slate-900">{product.price} {product.currency}</span>
+                        <a 
+                          href={product.amazon_url} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 px-4 rounded-lg transition-colors"
+                        >
+                          View Deal
+                        </a>
+                      </div>
                     </div>
-                    <div className="aspect-square w-full bg-slate-50 rounded-xl mb-4 overflow-hidden p-3 flex items-center justify-center">
-                      {product.image_url && (
-                        <img src={product.image_url} alt={product.product_name} className="max-w-full max-h-full object-contain" referrerPolicy="no-referrer" />
-                      )}
-                    </div>
-                    <h3 className="text-xl font-display uppercase tracking-tight text-slate-900 mb-2 line-clamp-2">{product.product_name}</h3>
-                    <div className="mt-auto pt-4 flex items-center justify-between">
-                      <span className="font-bold text-lg">{product.price} {product.currency}</span>
-                      <a href={product.amazon_url} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 text-sm font-medium">
-                        View Deal &rarr;
-                      </a>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             ) : (
               <div className="bg-white border border-slate-200 rounded-2xl p-12 text-center mb-20">
