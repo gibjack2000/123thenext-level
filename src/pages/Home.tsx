@@ -170,9 +170,10 @@ export default function Home() {
   }, []);
 
   const loadMockData = () => {
-    const mockPicks = MOCK_PRODUCTS.filter(p => p.featured)
-      .sort((a, b) => b.rating - a.rating)
-      .slice(0, 6);
+    const mockPicks = [...MOCK_PRODUCTS]
+      .filter(p => p.featured)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 12);
     setTopPicks(mockPicks);
 
     const mockLatest = MOCK_PRODUCTS
@@ -186,7 +187,10 @@ export default function Home() {
 
   useEffect(() => {
     if (topPicks.length > 0) {
-      const shuffled = [...topPicks].sort(() => Math.random() - 0.5);
+      // Shuffle the fetched pool (up to 50 items) and take 12 for the ticker
+      const shuffled = [...topPicks]
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 12);
       setShuffledTopPicks(shuffled);
     }
   }, [topPicks]);
@@ -207,7 +211,7 @@ export default function Home() {
           .select('*')
           .eq('is_active', true)
           .order('rating', { ascending: false })
-          .limit(6);
+          .limit(50);
 
         if (topError) throw topError;
 
