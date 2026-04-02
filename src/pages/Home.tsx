@@ -938,7 +938,8 @@ export default function Home() {
                     >
                       <div className="flex justify-between items-start mb-4">
                         <div className="flex items-center gap-2">
-                          <span className="px-2 py-1 bg-slate-100 text-slate-700 text-[10px] font-bold rounded uppercase whitespace-nowrap">
+                          <span className="px-2 py-1 bg-slate-100 text-slate-700 text-[10px] font-bold rounded uppercase whitespace-nowrap flex items-center gap-1.5">
+                            <span className="text-sm leading-none">{REGIONS.find(r => r.id === product.region.toLowerCase())?.flag}</span>
                             {product.region}
                           </span>
                           {showingMockData && (
