@@ -957,39 +957,6 @@ export default function Home() {
               </div>
             )}
 
-            {/* Latest Products Section */}
-            {!loading && latestProducts.length > 0 && (
-              <div className="mt-20">
-                <div className="flex items-center justify-between mb-10">
-                  <h3 className="text-2xl font-display uppercase tracking-tight text-white flex items-center">
-                    Latest Additions
-                  </h3>
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                  {latestProducts.map((product) => (
-                    <div key={product.id} className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-4 hover:border-blue-500/50 transition-colors group">
-                      <div className="aspect-square w-full bg-slate-900 rounded-lg mb-3 overflow-hidden p-2 flex items-center justify-center">
-                        {product.image_url && (
-                          <img src={product.image_url} alt={product.product_name} className="max-w-full max-h-full object-contain opacity-80 group-hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
-                        )}
-                      </div>
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-[10px] font-bold text-slate-400 uppercase">{product.region}</span>
-                        <span className="text-[10px] font-bold text-slate-500 uppercase">•</span>
-                        <span className="text-[10px] font-bold text-slate-400 uppercase">{product.category.replace(/_/g, ' ')}</span>
-                      </div>
-                      <h4 className="text-sm font-bold text-white mb-2 line-clamp-1 group-hover:text-blue-400 transition-colors">{product.product_name}</h4>
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs font-bold text-slate-300">{product.price} {product.currency}</span>
-                        <a href={product.amazon_url} target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold text-blue-400 hover:text-blue-300 uppercase tracking-wider">
-                          Details
-                        </a>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>
