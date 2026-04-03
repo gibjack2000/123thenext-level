@@ -47,7 +47,7 @@ const BeginnersGuide = () => {
           <Compass className="text-amber-500" size={32} />
           Why Daily Wisdom is Your Perfect Starting Point
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 items-stretch">
           {/* Card 1 */}
           <div className="relative rounded-3xl overflow-hidden border border-white/10 hover:border-amber-500/40 transition-all group min-h-[220px]">
             <img src="/assets2/foundations/bg_roadmap.png" alt="" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
