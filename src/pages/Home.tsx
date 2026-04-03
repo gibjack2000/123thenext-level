@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Globe2, MapPin, ShoppingBag, ArrowRight, Heart, Dumbbell, Apple, Sparkles, BookOpen, Shield, UserCheck, Wind, HeartPulse } from 'lucide-react';
+import { Globe2, MapPin, ShoppingBag, ArrowRight, Heart, Dumbbell, Apple, Sparkles, BookOpen, Shield, UserCheck, Wind, HeartPulse, ExternalLink } from 'lucide-react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { Product, mapToProduct } from '../types';
 import { MOCK_PRODUCTS } from '../data/mockData';
@@ -624,6 +624,47 @@ export default function Home() {
                     </div>
                   </Link>
                 </div>
+
+                {/* New "Journey with David" CTA Banner */}
+                <div className="relative rounded-3xl overflow-hidden group shadow-2xl border border-white/5 bg-slate-900/40 backdrop-blur-sm mb-12">
+                  <div className="md:flex items-center">
+                    <div className="md:w-1/2 relative h-64 md:h-[400px]">
+                      <img 
+                        src="/assets2/foundations/journey_with_david.jpg" 
+                        alt="Start your journey with David" 
+                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-r from-slate-900/10 to-transparent"></div>
+                    </div>
+                    <div className="md:w-1/2 p-8 md:p-12 relative text-left">
+                      <div className="absolute top-0 right-0 p-6 opacity-10">
+                        <Sparkles size={120} className="text-amber-500 rotate-12" />
+                      </div>
+                      <div className="relative z-10">
+                        <div className="inline-flex items-center px-3 py-1 rounded-full bg-amber-500/10 text-amber-500 text-[10px] uppercase font-bold tracking-widest mb-6 border border-amber-500/20">
+                          Exclusive Opportunity
+                        </div>
+                        <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 leading-tight">
+                        Starting Your Mindful Journey <span className="text-amber-500">with David</span>
+                        </h3>
+                        <p className="text-slate-300 text-sm md:text-base leading-relaxed mb-8 max-w-md">
+                          Join the founder of DailyWisdom for a personal, guided experience into the depths of mindful journaling and clarity. Find peace in the present moment.
+                        </p>
+                        <div className="flex flex-wrap gap-4">
+                          <a 
+                            href="https://www.buddhadailywisdom.com/" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center px-6 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-2xl transition-all shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 hover:-translate-y-0.5 active:translate-y-0"
+                          >
+                            Begin Your Journey <ExternalLink size={18} className="ml-2" />
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <Link to="/wellness" className="inline-flex items-center px-10 py-5 bg-amber-600 text-white rounded-full font-bold text-lg hover:bg-amber-500 transition-all hover:scale-105 shadow-2xl shadow-amber-900/20">
                   Explore The Practice
                   <ArrowRight size={20} className="ml-3" />
