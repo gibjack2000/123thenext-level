@@ -3,8 +3,10 @@ import { Dumbbell, ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import BlogSection from '../components/BlogSection';
+import { useT } from '../translations';
 
 export default function FitnessPillar() {
+  const t = useT();
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Hero Section */}
@@ -20,7 +22,7 @@ export default function FitnessPillar() {
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
           <Link to="/#blog" className="absolute top-10 left-4 sm:left-6 lg:left-8 inline-flex items-center text-white/70 hover:text-white font-medium transition-colors backdrop-blur-md bg-white/10 px-4 py-2 rounded-xl border border-white/20">
             <ArrowLeft size={16} className="mr-2" />
-            Back to Blueprint
+            {t('fp_back')}
           </Link>
 
           <motion.div 
@@ -37,7 +39,7 @@ export default function FitnessPillar() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-5xl md:text-7xl font-display uppercase tracking-tight text-white mb-6 leading-none drop-shadow-lg"
           >
-            Fitness <span className="text-blue-500">Pillar</span>
+            {t('fp_title')} <span className="text-blue-500">{t('fp_subtitle')}</span>
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -45,7 +47,7 @@ export default function FitnessPillar() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-xl text-slate-200 font-medium max-w-2xl mx-auto drop-shadow"
           >
-            Build a body that performs. From strength training mechanics to mobility flows and recovery protocols.
+            {t('fp_desc')}
           </motion.p>
         </div>
       </div>
@@ -56,7 +58,7 @@ export default function FitnessPillar() {
         <div>
           <div className="flex items-center gap-4 mb-12">
             <h2 className="text-3xl md:text-4xl font-display uppercase tracking-tight text-slate-900">
-              Top Fitness Posts
+              {t('fp_top_posts')}
             </h2>
             <div className="h-px bg-slate-200 flex-grow"></div>
           </div>
@@ -71,7 +73,7 @@ export default function FitnessPillar() {
         <div>
           <div className="flex items-center gap-4 mb-12">
             <h2 className="text-3xl md:text-4xl font-display uppercase tracking-tight text-slate-900">
-              Latest Fitness Posts
+              {t('fp_latest_posts')}
             </h2>
             <div className="h-px bg-slate-200 flex-grow"></div>
           </div>

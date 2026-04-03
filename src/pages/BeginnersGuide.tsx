@@ -1,8 +1,10 @@
 import React from 'react';
 import { Compass, ArrowRight, Wind, HeartPulse, Sparkles, Zap, Target, Coffee, ScrollText, Play, Globe, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useT } from '../translations';
 
 const BeginnersGuide = () => {
+  const t = useT();
   return (
     <div className="min-h-screen bg-[#0f172a] text-slate-200 selection:bg-amber-500/30">
       <div className="relative h-[60vh] flex items-center justify-center overflow-hidden">
@@ -12,13 +14,13 @@ const BeginnersGuide = () => {
         </div>
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
           <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-amber-500/10 text-amber-500 text-xs font-bold uppercase tracking-widest mb-6 border border-amber-500/20 backdrop-blur-md">
-            Start Your Journey
+            {t('bg_badge')}
           </div>
           <h1 className="text-4xl md:text-6xl font-display uppercase tracking-tight text-white mb-6">
-            Beginners Start Here
+            {t('bg_title')}
           </h1>
           <p className="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto font-medium leading-relaxed">
-            Starting your journey can feel like stepping into a vast ocean, but Daily Wisdom is designed to be your lighthouse.
+            {t('bg_subtitle')}
           </p>
         </div>
       </div>
@@ -41,11 +43,11 @@ const BeginnersGuide = () => {
 
       <div className="max-w-4xl mx-auto px-6 py-16">
         <p className="text-xl leading-relaxed mb-12 border-l-4 border-amber-500 pl-6 py-2 bg-white/5 rounded-r-2xl">
-          It takes ancient, complex teachings and turns them into a clear, step-by-step map for your modern life.
+          {t('bg_intro')}
         </p>
         <h2 className="text-3xl font-bold text-white mb-10 flex items-center gap-4">
           <Compass className="text-amber-500" size={32} />
-          Why Daily Wisdom is Your Perfect Starting Point
+          {t('bg_section_title')}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16 items-stretch">
           {/* Card 1 */}
@@ -54,8 +56,8 @@ const BeginnersGuide = () => {
             <div className="absolute inset-0 bg-slate-900/75 group-hover:bg-slate-900/60 transition-colors duration-500"></div>
             <div className="relative z-10 p-8">
               <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-500 flex items-center justify-center mb-6 border border-amber-500/30"><Zap size={24} /></div>
-              <h3 className="text-xl font-bold text-white mb-3">1. A No-Experience Roadmap</h3>
-              <p className="text-slate-300 text-sm leading-relaxed">Volume 1 starts exactly where you are: Developing a Life Practice. Build a simple daily habit that fits into a busy schedule without feeling overwhelmed.</p>
+              <h3 className="text-xl font-bold text-white mb-3">{t('bg_card1_title')}</h3>
+              <p className="text-slate-300 text-sm leading-relaxed">{t('bg_card1_desc')}</p>
             </div>
           </div>
           {/* Card 2 */}
@@ -64,8 +66,8 @@ const BeginnersGuide = () => {
             <div className="absolute inset-0 bg-slate-900/75 group-hover:bg-slate-900/60 transition-colors duration-500"></div>
             <div className="relative z-10 p-8">
               <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-500 flex items-center justify-center mb-6 border border-amber-500/30"><Wind size={24} /></div>
-              <h3 className="text-xl font-bold text-white mb-3">2. Practical Tools for Stress</h3>
-              <p className="text-slate-300 text-sm leading-relaxed">The Breathing Mindfulness (Vol 7) toolkit teaches you to use your own breath as a remote control for your nervous system to find calm anywhere.</p>
+              <h3 className="text-xl font-bold text-white mb-3">{t('bg_card2_title')}</h3>
+              <p className="text-slate-300 text-sm leading-relaxed">{t('bg_card2_desc')}</p>
             </div>
           </div>
           {/* Card 3 */}
@@ -74,8 +76,8 @@ const BeginnersGuide = () => {
             <div className="absolute inset-0 bg-slate-900/75 group-hover:bg-slate-900/60 transition-colors duration-500"></div>
             <div className="relative z-10 p-8">
               <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-500 flex items-center justify-center mb-6 border border-amber-500/30"><Target size={24} /></div>
-              <h3 className="text-xl font-bold text-white mb-3">3. Understand Your Auto-Pilot</h3>
-              <p className="text-slate-300 text-sm leading-relaxed">The Six Sense Bases (Vol 9) teaches you to spot the spark of a reaction before it becomes a fire, giving you the power to choose your response.</p>
+              <h3 className="text-xl font-bold text-white mb-3">{t('bg_card3_title')}</h3>
+              <p className="text-slate-300 text-sm leading-relaxed">{t('bg_card3_desc')}</p>
             </div>
           </div>
           {/* Card 4 */}
@@ -84,8 +86,8 @@ const BeginnersGuide = () => {
             <div className="absolute inset-0 bg-slate-900/75 group-hover:bg-slate-900/60 transition-colors duration-500"></div>
             <div className="relative z-10 p-8">
               <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-500 flex items-center justify-center mb-6 border border-amber-500/30"><Coffee size={24} /></div>
-              <h3 className="text-xl font-bold text-white mb-3">4. Guidance for Real Life</h3>
-              <p className="text-slate-300 text-sm leading-relaxed">Vol 8: The Foremost Householder is about being a better partner and a more focused professional. Find Zen doing the dishes or stuck in traffic.</p>
+              <h3 className="text-xl font-bold text-white mb-3">{t('bg_card4_title')}</h3>
+              <p className="text-slate-300 text-sm leading-relaxed">{t('bg_card4_desc')}</p>
             </div>
           </div>
           {/* Card 5 */}
@@ -94,8 +96,8 @@ const BeginnersGuide = () => {
             <div className="absolute inset-0 bg-slate-900/75 group-hover:bg-slate-900/60 transition-colors duration-500"></div>
             <div className="relative z-10 p-8">
               <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-500 flex items-center justify-center mb-6 border border-amber-500/30"><ScrollText size={24} /></div>
-              <h3 className="text-xl font-bold text-white mb-3">5. Authentic Wisdom, Simplified</h3>
-              <p className="text-slate-300 text-sm leading-relaxed">Get the authentic words of the Buddha, translated into language that makes sense today. The gold standard of meditation advice without confusing jargon.</p>
+              <h3 className="text-xl font-bold text-white mb-3">{t('bg_card5_title')}</h3>
+              <p className="text-slate-300 text-sm leading-relaxed">{t('bg_card5_desc')}</p>
             </div>
           </div>
           {/* Card 6 */}
@@ -104,8 +106,8 @@ const BeginnersGuide = () => {
             <div className="absolute inset-0 bg-slate-900/75 group-hover:bg-slate-900/60 transition-colors duration-500"></div>
             <div className="relative z-10 p-8">
               <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-500 flex items-center justify-center mb-6 border border-amber-500/30"><HeartPulse size={24} /></div>
-              <h3 className="text-xl font-bold text-white mb-3">6. A Path with a Purpose</h3>
-              <p className="text-slate-300 text-sm leading-relaxed">Whether it is Generosity (Vol 13) or Kamma (Vol 6), you always know why you are practicing and where it leads: a life of less friction and more joy.</p>
+              <h3 className="text-xl font-bold text-white mb-3">{t('bg_card6_title')}</h3>
+              <p className="text-slate-300 text-sm leading-relaxed">{t('bg_card6_desc')}</p>
             </div>
           </div>
         </div>
@@ -113,13 +115,13 @@ const BeginnersGuide = () => {
         {/* The Vibe of the Journey */}
         <div className="p-10 rounded-3xl bg-gradient-to-br from-amber-500/20 via-slate-900 to-slate-900 border border-amber-500/30 shadow-2xl relative overflow-hidden mb-16">
           <div className="absolute top-0 right-0 p-8 opacity-10"><Sparkles size={120} className="text-amber-500" /></div>
-          <h3 className="text-3xl font-bold text-white mb-6 relative z-10">The Vibe of the Journey</h3>
-          <p className="text-xl text-slate-200 mb-8 leading-relaxed italic relative z-10">Think of Daily Wisdom as a kind, expert friend walking beside you. It does not demand perfection; it simply invites you to be a little more awake today than yesterday.</p>
+          <h3 className="text-3xl font-bold text-white mb-6 relative z-10">{t('bg_vibe_title')}</h3>
+          <p className="text-xl text-slate-200 mb-8 leading-relaxed italic relative z-10">{t('bg_vibe_quote')}</p>
           <div className="relative z-10">
-            <h4 className="text-amber-500 font-bold uppercase tracking-widest text-sm mb-4">Where would you like to start?</h4>
+            <h4 className="text-amber-500 font-bold uppercase tracking-widest text-sm mb-4">{t('bg_where_start')}</h4>
             <div className="flex flex-wrap gap-4">
-              <Link to="/life-practice/breathing-mindfulness" className="inline-flex items-center px-6 py-3 bg-amber-500 text-slate-950 font-bold rounded-2xl hover:bg-amber-400 transition-all">Try Breathing Techniques <Play size={18} className="ml-2" /></Link>
-              <a href="https://www.buddhadailywisdom.com/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-6 py-3 bg-white/10 text-white font-bold rounded-2xl hover:bg-white/20 transition-all border border-white/20">Join David NOW <ArrowRight size={18} className="ml-2" /></a>
+              <Link to="/life-practice/breathing-mindfulness" className="inline-flex items-center px-6 py-3 bg-amber-500 text-slate-950 font-bold rounded-2xl hover:bg-amber-400 transition-all">{t('bg_try_breathing')} <Play size={18} className="ml-2" /></Link>
+              <a href="https://www.buddhadailywisdom.com/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-6 py-3 bg-white/10 text-white font-bold rounded-2xl hover:bg-white/20 transition-all border border-white/20">{t('bg_join_david')} <ArrowRight size={18} className="ml-2" /></a>
             </div>
           </div>
         </div>
@@ -135,20 +137,20 @@ const BeginnersGuide = () => {
 
             <h2 className="text-2xl font-bold text-white mb-2 flex items-center gap-3">
               <Globe size={26} className="text-amber-500" />
-              Global Weekly Teaching Schedule
+              {t('bg_schedule_title')}
             </h2>
-            <p className="text-amber-400 font-bold italic mb-6 text-sm">"Wisdom Without Borders"</p>
-            <p className="text-slate-300 text-sm leading-relaxed mb-6">Whether you are joining David in person at the temple in Chiang Mai or tuning in from your living room, we have found a "Golden Window" to ensure no one is left behind.</p>
+            <p className="text-amber-400 font-bold italic mb-6 text-sm">{t('bg_schedule_tagline')}</p>
+            <p className="text-slate-300 text-sm leading-relaxed mb-6">{t('bg_schedule_desc')}</p>
 
             <div className="mb-8">
-              <h3 className="text-white font-bold mb-4 uppercase tracking-wide text-sm">Weekly Live Session: Sundays</h3>
+              <h3 className="text-white font-bold mb-4 uppercase tracking-wide text-sm">{t('bg_weekly_session')}</h3>
               <div className="rounded-2xl overflow-hidden border border-white/10">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="bg-amber-500/10 border-b border-white/10">
-                      <th className="text-left px-4 py-3 text-amber-400 font-bold">Region</th>
-                      <th className="text-left px-4 py-3 text-amber-400 font-bold">Local Time</th>
-                      <th className="text-left px-4 py-3 text-amber-400 font-bold hidden sm:table-cell">Perfect For...</th>
+                      <th className="text-left px-4 py-3 text-amber-400 font-bold">{t('bg_col_region')}</th>
+                      <th className="text-left px-4 py-3 text-amber-400 font-bold">{t('bg_col_time')}</th>
+                      <th className="text-left px-4 py-3 text-amber-400 font-bold hidden sm:table-cell">{t('bg_col_perfect')}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/5">
@@ -172,20 +174,20 @@ const BeginnersGuide = () => {
 
             <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3">
               <Zap size={24} className="text-amber-500" />
-              How to Join the Journey
+              {t('bg_how_join')}
             </h2>
             <div className="space-y-4">
               <div className="bg-white/5 rounded-2xl p-5 border border-white/10">
-                <h4 className="font-bold text-white mb-2">1. In-Person (Chiang Mai)</h4>
-                <p className="text-slate-300 text-sm leading-relaxed">Join David and the community at the temple in Northern Thailand. Traditional setting, direct energy, and post-teaching Q&amp;A. Authentic, quiet, and deeply immersive.</p>
+                <h4 className="font-bold text-white mb-2">{t('bg_inperson_title')}</h4>
+                <p className="text-slate-300 text-sm leading-relaxed">{t('bg_inperson_desc')}</p>
               </div>
               <div className="bg-white/5 rounded-2xl p-5 border border-white/10">
-                <h4 className="font-bold text-white mb-2">2. Live Online (Global Stream)</h4>
-                <p className="text-slate-300 text-sm leading-relaxed">Stream the teachings live via our digital hub. Submit questions via live chat for David to answer in real-time. HD quality — feel like you're sitting in the temple.</p>
+                <h4 className="font-bold text-white mb-2">{t('bg_online_title')}</h4>
+                <p className="text-slate-300 text-sm leading-relaxed">{t('bg_online_desc')}</p>
               </div>
               <div className="bg-white/5 rounded-2xl p-5 border border-white/10">
-                <h4 className="font-bold text-white mb-2">3. The "Wisdom Vault" (On-Demand)</h4>
-                <p className="text-slate-300 text-sm leading-relaxed">Can't make the live time? Every weekly teaching is uploaded to the <span className="text-amber-400 font-semibold">Daily Wisdom Portal</span> within 2 hours, with a downloadable PDF study guide based on the Words of the Buddha volumes.</p>
+                <h4 className="font-bold text-white mb-2">{t('bg_vault_title')}</h4>
+                <p className="text-slate-300 text-sm leading-relaxed">{t('bg_vault_desc')}</p>
               </div>
             </div>
           </div>
@@ -201,20 +203,20 @@ const BeginnersGuide = () => {
                   <div className="w-16 h-16 rounded-full bg-amber-500/20 border-2 border-amber-500/50 flex items-center justify-center mx-auto mb-4">
                     <Users size={28} className="text-amber-400" />
                   </div>
-                  <p className="text-white font-bold text-lg leading-snug mb-1">Start Your Mindful Journey With David</p>
-                  <p className="text-slate-400 text-xs leading-relaxed">Your journey doesn't stop because of a timezone — mindfulness is always "now."</p>
+                  <p className="text-white font-bold text-lg leading-snug mb-1">{t('bg_cta_title')}</p>
+                  <p className="text-slate-400 text-xs leading-relaxed">{t('bg_cta_subtitle')}</p>
                 </div>
                 <div className="space-y-3 mb-6 text-xs text-slate-300">
-                  <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0"></div>Live Sunday sessions at your local time</div>
-                  <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0"></div>In-person or online — your choice</div>
-                  <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0"></div>24/7 Wisdom Vault on-demand access</div>
-                  <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0"></div>Monthly "Prime Time" workshops for all zones</div>
+                  <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0"></div>{t('bg_cta_bullet1')}</div>
+                  <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0"></div>{t('bg_cta_bullet2')}</div>
+                  <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0"></div>{t('bg_cta_bullet3')}</div>
+                  <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-500 flex-shrink-0"></div>{t('bg_cta_bullet4')}</div>
                 </div>
                 <a href="https://www.buddhadailywisdom.com/" target="_blank" rel="noopener noreferrer"
                   className="block w-full text-center px-6 py-4 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-2xl transition-all shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 hover:-translate-y-0.5 text-sm uppercase tracking-wider">
-                  Begin Your Journey <ArrowRight size={16} className="inline ml-1" />
+                  {t('bg_cta_button')} <ArrowRight size={16} className="inline ml-1" />
                 </a>
-                <p className="text-center text-slate-500 text-xs mt-4 italic">"The Suit Everyone" Guarantee — we rotate Deep Dive workshops monthly so every timezone gets a prime-time session.</p>
+                <p className="text-center text-slate-500 text-xs mt-4 italic">{t('bg_cta_guarantee')}</p>
               </div>
             </div>
           </div>
@@ -222,7 +224,7 @@ const BeginnersGuide = () => {
 
         <div className="mt-8 text-center">
           <Link to="/" className="inline-flex items-center text-slate-400 hover:text-amber-500 transition-colors font-medium">
-            <ArrowRight size={20} className="mr-2 rotate-180" />Back to Home
+            <ArrowRight size={20} className="mr-2 rotate-180" />{t('bg_back_home')}
           </Link>
         </div>
       </div>

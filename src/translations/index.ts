@@ -1,4 +1,4 @@
-import type { Lang } from '../contexts/LanguageContext';
+export type Lang = 'en' | 'es';
 
 const translations = {
   en: {
@@ -1406,13 +1406,10 @@ const translations = {
 export type TranslationKey = keyof typeof translations.en;
 
 export function useT() {
-  const { lang } = useLanguage();
   return (key: TranslationKey): string => {
-    return (translations[lang] as Record<string, string>)[key] ?? (translations.en as Record<string, string>)[key] ?? key;
+    return (translations.en as Record<string, string>)[key] ?? key;
   };
 }
 
-// need to import here after definitions
-import { useLanguage } from '../contexts/LanguageContext';
 
 export default translations;

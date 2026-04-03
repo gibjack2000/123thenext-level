@@ -12,8 +12,10 @@ const REGIONS = [
 ];
 
 import BlogSection from '../components/BlogSection';
+import { useT } from '../translations';
 
 export default function Home() {
+  const t = useT();
   const [topPicks, setTopPicks] = useState<Product[]>([]);
   const [shuffledTopPicks, setShuffledTopPicks] = useState<Product[]>([]);
   const [latestProducts, setLatestProducts] = useState<Product[]>([]);
@@ -275,13 +277,13 @@ export default function Home() {
             <div className="w-full lg:w-1/2">
               <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-sm font-semibold tracking-wide uppercase mb-6 border border-blue-500/30">
                 <Sparkles size={16} className="mr-2" />
-                Unlock Your Potential
+                {t('hero_badge')}
               </div>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight mb-6 leading-[0.9]">
-                Push Your Limits. <br /><span className="text-blue-500">Reach the Next Level.</span>
+                {t('hero_title1')} <br /><span className="text-blue-500">{t('hero_title2')}</span>
               </h1>
               <p className="text-xl text-slate-300 mb-8 font-medium leading-relaxed max-w-xl">
-                Greatness isn't given—it's earned through sweat, discipline, and the right strategy. We provide the blueprint and the tools to elevate your health, fitness, and mindset.
+                {t('hero_subtitle')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a href="#pillars" className="inline-flex justify-center items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-bold text-lg transition-all hover:scale-105 shadow-lg shadow-blue-600/30">
@@ -297,9 +299,9 @@ export default function Home() {
             {/* Motivational Quote Right Side */}
             <div className="w-full lg:w-5/12 flex flex-col justify-center">
               <blockquote className="text-3xl md:text-4xl lg:text-5xl font-display uppercase tracking-tight leading-[1] text-left lg:text-right">
-                <span className="text-white opacity-90">"The best time to start was yesterday.</span>
+                <span className="text-white opacity-90">{t('hero_quote1')}</span>
                 <br /><br />
-                <span className="text-blue-500">The second best time is now."</span>
+                <span className="text-blue-500">{t('hero_quote2')}</span>
               </blockquote>
             </div>
           </div>
@@ -318,27 +320,27 @@ export default function Home() {
 
               <div className="relative z-10">
                 <h2 className="text-3xl md:text-4xl font-display uppercase tracking-tight text-white mb-8 border-l-4 border-blue-500 pl-4">
-                  Invest in Your Future Self: <br className="hidden md:block" />
-                  <span className="text-blue-400">The Journey to Lifelong Vitality Starts Here</span>
+                  {t('hero_block_title')} <br className="hidden md:block" />
+                  <span className="text-blue-400">{t('hero_block_subtitle')}</span>
                 </h2>
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
                   <div className="lg:col-span-5 space-y-6">
                     <p className="text-xl text-slate-200 leading-relaxed font-medium">
-                      True health is not a static destination; it is an active pursuit of choices and lifestyles that lead to holistic well-being.
+                      {t('hero_block_p1')}
                     </p>
                     <p className="text-emerald-400 leading-relaxed text-lg">
-                      Scientific research indicates that environmental, socioeconomic, and lifestyle factors account for 80% to 90% of your disease risks and health outcomes, meaning the power to shape your long-term vitality is largely in your hands.
+                      {t('hero_block_p2')}
                     </p>
                     <p className="text-emerald-400 leading-relaxed text-lg">
-                      To build a "personal home" that remains strong for decades, you must support it with the fundamental pillars of health. When one area is neglected, it inevitably weakens the entire structure.
+                      {t('hero_block_p3')}
                     </p>
                   </div>
 
                   <div className="lg:col-span-7">
                     <h3 className="text-2xl font-display uppercase tracking-tight text-white mb-6 flex items-center">
                       <Sparkles className="text-blue-400 mr-3" size={24} />
-                      The Keys to your success
+                      {t('hero_keys_title')}
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
                       <div className="flex items-start">
@@ -460,16 +462,16 @@ export default function Home() {
                 <div className="w-14 h-14 bg-white/10 text-emerald-400 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
                   <Apple size={28} />
                 </div>
-                <h3 className="text-2xl font-display uppercase tracking-tight text-white mb-4">Nutrition</h3>
+                <h3 className="text-2xl font-display uppercase tracking-tight text-white mb-4">{t('pillar_nutrition')}</h3>
                 <ul className="space-y-3 mb-6 text-slate-300">
-                  <li className="flex items-start"><span className="text-emerald-400 mr-2">•</span> Balanced, satisfying meals</li>
-                  <li className="flex items-start"><span className="text-emerald-400 mr-2">•</span> Blood-sugar-friendly recipes</li>
-                  <li className="flex items-start"><span className="text-emerald-400 mr-2">•</span> Practical meal planning</li>
-                  <li className="flex items-start"><span className="text-emerald-400 mr-2">•</span> Smart grocery shopping tips</li>
+                  <li className="flex items-start"><span className="text-emerald-400 mr-2">•</span> {t('nutrition_bullet1')}</li>
+                  <li className="flex items-start"><span className="text-emerald-400 mr-2">•</span> {t('nutrition_bullet2')}</li>
+                  <li className="flex items-start"><span className="text-emerald-400 mr-2">•</span> {t('nutrition_bullet3')}</li>
+                  <li className="flex items-start"><span className="text-emerald-400 mr-2">•</span> {t('nutrition_bullet4')}</li>
                 </ul>
-                <p className="text-slate-200 mb-8 leading-relaxed">Fuel your life without restrictive diets. Discover delicious recipes and fundamentals for sustainable eating.</p>
+                <p className="text-slate-200 mb-8 leading-relaxed">{t('nutrition_desc')}</p>
                 <div className="mt-auto text-white font-semibold flex items-center group-hover:text-emerald-300 transition-colors">
-                  Learn more <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
+                  {t('pillar_learn_more')} <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
                 </div>
               </div>
             </Link>
@@ -519,14 +521,14 @@ export default function Home() {
               <div className="max-w-3xl">
                 <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-amber-500/10 text-amber-400 text-sm font-bold tracking-wider uppercase mb-8 border border-amber-500/20 shadow-sm backdrop-blur-md">
                   <Sparkles size={16} className="mr-2" />
-                  Evolution of Self
+                  {t('lp_badge')}
                 </div>
                 <h2 className="text-4xl md:text-5xl lg:text-7xl font-display uppercase tracking-tight text-white mb-8 leading-[0.95]">
-                  Cultivate Your <br />
-                  <span className="text-amber-500">Life Practice</span>
+                  {t('lp_title1')} <br />
+                  <span className="text-amber-500">{t('lp_title2')}</span>
                 </h2>
                 <p className="text-xl text-slate-200 leading-relaxed mb-12 max-w-xl font-medium drop-shadow-md">
-                  Beyond the metrics and the workouts lies the true essence of vitality: your daily practice. This is where intention meets action, following the 5 core foundations of the path.
+                  {t('lp_subtitle')}
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                   <Link to="/life-practice/universal-love" className="relative p-6 rounded-3xl overflow-hidden group border border-white/10 transition-all hover:border-amber-500/50 shadow-xl overflow-hidden h-40">
@@ -539,11 +541,11 @@ export default function Home() {
                         <div className="w-10 h-10 rounded-xl bg-white/10 text-amber-400 flex items-center justify-center mr-3 backdrop-blur-md border border-white/10">
                           <Heart size={18} />
                         </div>
-                        <h4 className="font-bold text-white text-lg">Universal Love</h4>
+                        <h4 className="font-bold text-white text-lg">{t('lp_universal_love')}</h4>
                       </div>
-                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">Develop compassion for all living beings, recognizing our shared journey.</p>
+                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">{t('lp_universal_love_desc')}</p>
                       <div className="mt-auto text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center">
-                        Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
+                        {t('lp_explore')} <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
                       </div>
                     </div>
                   </Link>
@@ -558,11 +560,11 @@ export default function Home() {
                         <div className="w-10 h-10 rounded-xl bg-white/10 text-amber-400 flex items-center justify-center mr-3 backdrop-blur-md border border-white/10">
                           <Shield size={18} />
                         </div>
-                        <h4 className="font-bold text-white text-lg">Do No Harm</h4>
+                        <h4 className="font-bold text-white text-lg">{t('lp_do_no_harm')}</h4>
                       </div>
-                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">Observe the five precepts and harmlessness toward all beings.</p>
+                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">{t('lp_do_no_harm_desc')}</p>
                       <div className="mt-auto text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center">
-                        Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
+                        {t('lp_explore')} <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
                       </div>
                     </div>
                   </Link>
@@ -577,11 +579,11 @@ export default function Home() {
                         <div className="w-10 h-10 rounded-xl bg-white/10 text-amber-400 flex items-center justify-center mr-3 backdrop-blur-md border border-white/10">
                           <UserCheck size={18} />
                         </div>
-                        <h4 className="font-bold text-white text-lg">Moral Integrity</h4>
+                        <h4 className="font-bold text-white text-lg">{t('lp_moral_person')}</h4>
                       </div>
-                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">Align your choices with honesty and wisdom for wholesome outcomes.</p>
+                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">{t('lp_moral_person_desc')}</p>
                       <div className="mt-auto text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center">
-                        Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
+                        {t('lp_explore')} <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
                       </div>
                     </div>
                   </Link>
@@ -596,11 +598,11 @@ export default function Home() {
                         <div className="w-10 h-10 rounded-xl bg-white/10 text-amber-400 flex items-center justify-center mr-3 backdrop-blur-md border border-white/10">
                           <Wind size={18} />
                         </div>
-                        <h4 className="font-bold text-white text-lg">Breathing Mindfulness</h4>
+                        <h4 className="font-bold text-white text-lg">{t('lp_breathing')}</h4>
                       </div>
-                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">The foundational practice to clear the mind and return to the present.</p>
+                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">{t('lp_breathing_desc')}</p>
                       <div className="mt-auto text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center">
-                        Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
+                        {t('lp_explore')} <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
                       </div>
                     </div>
                   </Link>
@@ -615,11 +617,11 @@ export default function Home() {
                         <div className="w-10 h-10 rounded-xl bg-white/10 text-amber-400 flex items-center justify-center mr-3 backdrop-blur-md border border-white/10">
                           <HeartPulse size={18} />
                         </div>
-                        <h4 className="font-bold text-white text-lg">Loving-kindness (Metta)</h4>
+                        <h4 className="font-bold text-white text-lg">{t('lp_loving_kindness')}</h4>
                       </div>
-                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-1 max-w-xl">Cultivate a heart free of ill-will—a necessary requirement for true Enlightenment.</p>
+                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-1 max-w-xl">{t('lp_loving_kindness_desc')}</p>
                       <div className="mt-auto text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center">
-                        Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
+                        {t('lp_explore')} <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
                       </div>
                     </div>
                   </Link>
@@ -634,11 +636,11 @@ export default function Home() {
                         <div className="w-10 h-10 rounded-xl bg-white/10 text-amber-400 flex items-center justify-center mr-3 backdrop-blur-md border border-white/10">
                           <Compass size={18} />
                         </div>
-                        <h4 className="font-bold text-white text-lg">Beginners Guide</h4>
+                        <h4 className="font-bold text-white text-lg">{t('lp_beginners_guide')}</h4>
                       </div>
-                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">Start here — making the right choice for your mindful journey.</p>
+                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">{t('lp_beginners_guide_desc')}</p>
                       <div className="mt-auto text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center">
-                        Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
+                        {t('lp_explore')} <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
                       </div>
                     </div>
                   </Link>
@@ -661,13 +663,13 @@ export default function Home() {
                       </div>
                       <div className="relative z-10">
                         <div className="inline-flex items-center px-3 py-1 rounded-full bg-amber-500/10 text-amber-500 text-[10px] uppercase font-bold tracking-widest mb-6 border border-amber-500/20">
-                          Exclusive Opportunity
+                          {t('lp_cta_badge')}
                         </div>
                         <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 leading-tight">
-                        Starting Your Mindful Journey <span className="text-amber-500">with David</span>
+                        {t('lp_cta_title')} <span className="text-amber-500">{t('lp_cta_name')}</span>
                         </h3>
                         <p className="text-slate-300 text-sm md:text-base leading-relaxed mb-8 max-w-md">
-                          Join the founder of DailyWisdom for a personal, guided experience into the depths of mindful journaling and clarity. Find peace in the present moment.
+                          {t('lp_cta_desc')}
                         </p>
                         <div className="flex flex-wrap gap-4">
                           <a 
@@ -676,7 +678,7 @@ export default function Home() {
                             rel="noopener noreferrer"
                             className="inline-flex items-center px-6 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-2xl transition-all shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 hover:-translate-y-0.5 active:translate-y-0"
                           >
-                            Begin Your Journey <ExternalLink size={18} className="ml-2" />
+                            {t('lp_cta_btn')} <ExternalLink size={18} className="ml-2" />
                           </a>
                         </div>
                       </div>
