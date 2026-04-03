@@ -5,6 +5,8 @@
 
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
+import { useT } from './translations';
 import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import { hasValidSupabaseConfig } from './lib/supabase';
@@ -37,16 +39,36 @@ import RegionHub from './pages/RegionHub';
 import CategoryPage from './pages/CategoryPage';
 import AdminPage from './pages/AdminPage';
 import BlogPostPage from './pages/BlogPostPage';
-import { Settings, Home as HomeIcon, Menu, X } from 'lucide-react';
+import { Settings, Home as HomeIcon, Menu, X, Globe } from 'lucide-react';
+
+function LangToggle() {
+  const { lang, setLang } = useLanguage();
+  return (
+    <button
+      onClick={() => setLang(lang === 'en' ? 'es' : 'en')}
+      className="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-slate-200 hover:border-blue-500 text-sm font-bold text-slate-700 hover:text-blue-600 transition-all bg-white shadow-sm hover:shadow-md"
+      title="Switch language"
+    >
+      <Globe size={18} className={lang === 'es' ? 'text-blue-500' : 'text-slate-400'} />
+      <div className="flex bg-slate-100 rounded-lg p-0.5">
+        <span className={`px-2 py-0.5 rounded-md transition-colors ${lang === 'en' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'}`}>EN</span>
+        <span className={`px-2 py-0.5 rounded-md transition-colors ${lang === 'es' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'}`}>ES</span>
+      </div>
+    </button>
+  );
+}
+
 
 export default function App() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const t = useT();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   return (
+    <LanguageProvider>
     <BrowserRouter>
       <ScrollToTop />
       <div className="min-h-screen bg-slate-50 font-sans text-slate-900 flex flex-col">
@@ -69,19 +91,23 @@ export default function App() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center space-x-2">
-              <Link to="/" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">Home</Link>
-              <a href="/#pillars" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">Pillars</a>
-              <a href="/#blog" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">Blog</a>
-              <a href="/#shop" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">Shop</a>
+              <Link to="/" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">{t('nav_home')}</Link>
+              <a href="/#pillars" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">{t('nav_pillars')}</a>
+              <a href="/#blog" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">{t('nav_blog')}</a>
+              <a href="/#shop" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">{t('nav_shop')}</a>
+              <LangToggle />
             </nav>
 
             {/* Mobile Menu Button */}
-            <button 
-              className="md:hidden p-2.5 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300"
-              onClick={toggleMobileMenu}
-            >
-              {isMobileMenuOpen ? <X size={24} strokeWidth={2.5} /> : <Menu size={24} strokeWidth={2.5} />}
-            </button>
+            <div className="md:hidden flex items-center gap-2">
+              <LangToggle />
+              <button 
+                className="p-2.5 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300"
+                onClick={toggleMobileMenu}
+              >
+                {isMobileMenuOpen ? <X size={24} strokeWidth={2.5} /> : <Menu size={24} strokeWidth={2.5} />}
+              </button>
+            </div>
           </div>
 
           {/* Mobile Navigation */}
@@ -93,28 +119,28 @@ export default function App() {
                   className="block px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-all"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Home
+                  {t('nav_home')}
                 </Link>
                 <a 
                   href="/#pillars" 
                   className="block px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-all"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Pillars
+                  {t('nav_pillars')}
                 </a>
                 <a 
                   href="/#blog" 
                   className="block px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-all"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  Blog
+                  {t('nav_blog')}
                 </a>
                   <a 
                     href="/#shop" 
                     className="block px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-all"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    Shop
+                    {t('nav_shop')}
                   </a>
                 </div>
               </div>
@@ -157,5 +183,6 @@ export default function App() {
         <Footer />
       </div>
     </BrowserRouter>
+    </LanguageProvider>
   );
 }
