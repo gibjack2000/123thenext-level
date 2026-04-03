@@ -48,35 +48,65 @@ const BeginnersGuide = () => {
           Why Daily Wisdom is Your Perfect Starting Point
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          <div className="bg-white/5 p-8 rounded-3xl border border-white/10 hover:border-amber-500/30 transition-all group">
-            <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><Zap size={24} /></div>
-            <h3 className="text-xl font-bold text-white mb-3">1. A No-Experience Roadmap</h3>
-            <p className="text-slate-300 text-sm leading-relaxed">Volume 1 starts exactly where you are: Developing a Life Practice. Build a simple daily habit that fits into a busy schedule without feeling overwhelmed.</p>
+          {/* Card 1 */}
+          <div className="relative rounded-3xl overflow-hidden border border-white/10 hover:border-amber-500/40 transition-all group min-h-[220px]">
+            <img src="/assets2/foundations/bg_roadmap.png" alt="" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-slate-900/75 group-hover:bg-slate-900/60 transition-colors duration-500"></div>
+            <div className="relative z-10 p-8">
+              <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-500 flex items-center justify-center mb-6 border border-amber-500/30"><Zap size={24} /></div>
+              <h3 className="text-xl font-bold text-white mb-3">1. A No-Experience Roadmap</h3>
+              <p className="text-slate-300 text-sm leading-relaxed">Volume 1 starts exactly where you are: Developing a Life Practice. Build a simple daily habit that fits into a busy schedule without feeling overwhelmed.</p>
+            </div>
           </div>
-          <div className="bg-white/5 p-8 rounded-3xl border border-white/10 hover:border-amber-500/30 transition-all group">
-            <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><Wind size={24} /></div>
-            <h3 className="text-xl font-bold text-white mb-3">2. Practical Tools for Stress</h3>
-            <p className="text-slate-300 text-sm leading-relaxed">The Breathing Mindfulness (Vol 7) toolkit teaches you to use your own breath as a remote control for your nervous system to find calm anywhere.</p>
+          {/* Card 2 */}
+          <div className="relative rounded-3xl overflow-hidden border border-white/10 hover:border-amber-500/40 transition-all group min-h-[220px]">
+            <img src="/assets2/foundations/bg_stress.png" alt="" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-slate-900/75 group-hover:bg-slate-900/60 transition-colors duration-500"></div>
+            <div className="relative z-10 p-8">
+              <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-500 flex items-center justify-center mb-6 border border-amber-500/30"><Wind size={24} /></div>
+              <h3 className="text-xl font-bold text-white mb-3">2. Practical Tools for Stress</h3>
+              <p className="text-slate-300 text-sm leading-relaxed">The Breathing Mindfulness (Vol 7) toolkit teaches you to use your own breath as a remote control for your nervous system to find calm anywhere.</p>
+            </div>
           </div>
-          <div className="bg-white/5 p-8 rounded-3xl border border-white/10 hover:border-amber-500/30 transition-all group">
-            <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><Target size={24} /></div>
-            <h3 className="text-xl font-bold text-white mb-3">3. Understand Your Auto-Pilot</h3>
-            <p className="text-slate-300 text-sm leading-relaxed">The Six Sense Bases (Vol 9) teaches you to spot the spark of a reaction before it becomes a fire, giving you the power to choose your response.</p>
+          {/* Card 3 */}
+          <div className="relative rounded-3xl overflow-hidden border border-white/10 hover:border-amber-500/40 transition-all group min-h-[220px]">
+            <img src="/assets2/foundations/bg_autopilot.png" alt="" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-slate-900/75 group-hover:bg-slate-900/60 transition-colors duration-500"></div>
+            <div className="relative z-10 p-8">
+              <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-500 flex items-center justify-center mb-6 border border-amber-500/30"><Target size={24} /></div>
+              <h3 className="text-xl font-bold text-white mb-3">3. Understand Your Auto-Pilot</h3>
+              <p className="text-slate-300 text-sm leading-relaxed">The Six Sense Bases (Vol 9) teaches you to spot the spark of a reaction before it becomes a fire, giving you the power to choose your response.</p>
+            </div>
           </div>
-          <div className="bg-white/5 p-8 rounded-3xl border border-white/10 hover:border-amber-500/30 transition-all group">
-            <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><Coffee size={24} /></div>
-            <h3 className="text-xl font-bold text-white mb-3">4. Guidance for Real Life</h3>
-            <p className="text-slate-300 text-sm leading-relaxed">Vol 8: The Foremost Householder is about being a better partner and a more focused professional. Find Zen doing the dishes or stuck in traffic.</p>
+          {/* Card 4 */}
+          <div className="relative rounded-3xl overflow-hidden border border-white/10 hover:border-amber-500/40 transition-all group min-h-[220px]">
+            <img src="/assets2/foundations/bg_reallife.png" alt="" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-slate-900/75 group-hover:bg-slate-900/60 transition-colors duration-500"></div>
+            <div className="relative z-10 p-8">
+              <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-500 flex items-center justify-center mb-6 border border-amber-500/30"><Coffee size={24} /></div>
+              <h3 className="text-xl font-bold text-white mb-3">4. Guidance for Real Life</h3>
+              <p className="text-slate-300 text-sm leading-relaxed">Vol 8: The Foremost Householder is about being a better partner and a more focused professional. Find Zen doing the dishes or stuck in traffic.</p>
+            </div>
           </div>
-          <div className="bg-white/5 p-8 rounded-3xl border border-white/10 hover:border-amber-500/30 transition-all group">
-            <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><ScrollText size={24} /></div>
-            <h3 className="text-xl font-bold text-white mb-3">5. Authentic Wisdom, Simplified</h3>
-            <p className="text-slate-300 text-sm leading-relaxed">Get the authentic words of the Buddha, translated into language that makes sense today. The gold standard of meditation advice without confusing jargon.</p>
+          {/* Card 5 */}
+          <div className="relative rounded-3xl overflow-hidden border border-white/10 hover:border-amber-500/40 transition-all group min-h-[220px]">
+            <img src="/assets2/foundations/bg_wisdom.png" alt="" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-slate-900/75 group-hover:bg-slate-900/60 transition-colors duration-500"></div>
+            <div className="relative z-10 p-8">
+              <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-500 flex items-center justify-center mb-6 border border-amber-500/30"><ScrollText size={24} /></div>
+              <h3 className="text-xl font-bold text-white mb-3">5. Authentic Wisdom, Simplified</h3>
+              <p className="text-slate-300 text-sm leading-relaxed">Get the authentic words of the Buddha, translated into language that makes sense today. The gold standard of meditation advice without confusing jargon.</p>
+            </div>
           </div>
-          <div className="bg-white/5 p-8 rounded-3xl border border-white/10 hover:border-amber-500/30 transition-all group">
-            <div className="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform"><HeartPulse size={24} /></div>
-            <h3 className="text-xl font-bold text-white mb-3">6. A Path with a Purpose</h3>
-            <p className="text-slate-300 text-sm leading-relaxed">Whether it is Generosity (Vol 13) or Kamma (Vol 6), you always know why you are practicing and where it leads: a life of less friction and more joy.</p>
+          {/* Card 6 */}
+          <div className="relative rounded-3xl overflow-hidden border border-white/10 hover:border-amber-500/40 transition-all group min-h-[220px]">
+            <img src="/assets2/foundations/bg_purpose.png" alt="" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-slate-900/75 group-hover:bg-slate-900/60 transition-colors duration-500"></div>
+            <div className="relative z-10 p-8">
+              <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-500 flex items-center justify-center mb-6 border border-amber-500/30"><HeartPulse size={24} /></div>
+              <h3 className="text-xl font-bold text-white mb-3">6. A Path with a Purpose</h3>
+              <p className="text-slate-300 text-sm leading-relaxed">Whether it is Generosity (Vol 13) or Kamma (Vol 6), you always know why you are practicing and where it leads: a life of less friction and more joy.</p>
+            </div>
           </div>
         </div>
 
