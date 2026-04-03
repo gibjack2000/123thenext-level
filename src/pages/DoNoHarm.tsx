@@ -22,10 +22,9 @@ export default function DoNoHarm() {
           <div className="relative z-10">
             <div className="h-64 sm:h-80 w-full rounded-2xl overflow-hidden mb-8 shadow-inner">
               <img 
-                src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1200" 
+                src="/assets2/foundations/do_no_harm.png" 
                 alt="Do No Harm" 
                 className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
               />
             </div>
             

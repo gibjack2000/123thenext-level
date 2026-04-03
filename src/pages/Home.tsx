@@ -528,55 +528,99 @@ export default function Home() {
                 <p className="text-xl text-slate-200 leading-relaxed mb-12 max-w-xl font-medium drop-shadow-md">
                   Beyond the metrics and the workouts lies the true essence of vitality: your daily practice. This is where intention meets action, following the 5 core foundations of the path.
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 mb-12">
-                  <Link to="/life-practice/universal-love" className="flex items-start group">
-                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-500 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
-                      <Heart size={20} />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                  <Link to="/life-practice/universal-love" className="relative p-6 rounded-3xl overflow-hidden group border border-white/10 transition-all hover:border-amber-500/50 shadow-xl overflow-hidden h-40">
+                    <div className="absolute inset-0">
+                      <img src="/assets2/foundations/universal_love.png" alt="Universal Love" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                      <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/40 transition-colors duration-500"></div>
                     </div>
-                    <div>
-                      <h4 className="font-bold text-white text-xl mb-1">Universal Love</h4>
-                      <p className="text-slate-300 text-sm leading-relaxed">Develop compassion for all living beings, recognizing our shared journey across time.</p>
-                      <span className="text-amber-400 text-xs font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform inline-flex items-center mt-1">Explore Foundation <ArrowRight size={12} className="ml-1" /></span>
-                    </div>
-                  </Link>
-                  <Link to="/life-practice/do-no-harm" className="flex items-start group">
-                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-500 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
-                      <Shield size={20} />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-white text-xl mb-1">Do No Harm</h4>
-                      <p className="text-slate-300 text-sm leading-relaxed">Observe the five precepts and harmlessness toward all beings and our planet.</p>
-                      <span className="text-amber-400 text-xs font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform inline-flex items-center mt-1">Explore Foundation <ArrowRight size={12} className="ml-1" /></span>
+                    <div className="relative z-10 flex flex-col h-full">
+                      <div className="flex items-center mb-2">
+                        <div className="w-10 h-10 rounded-xl bg-white/10 text-amber-400 flex items-center justify-center mr-3 backdrop-blur-md border border-white/10">
+                          <Heart size={18} />
+                        </div>
+                        <h4 className="font-bold text-white text-lg">Universal Love</h4>
+                      </div>
+                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">Develop compassion for all living beings, recognizing our shared journey.</p>
+                      <div className="mt-auto text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center">
+                        Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
+                      </div>
                     </div>
                   </Link>
-                  <Link to="/life-practice/good-moral-person" className="flex items-start group">
-                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-500 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
-                      <UserCheck size={20} />
+
+                  <Link to="/life-practice/do-no-harm" className="relative p-6 rounded-3xl overflow-hidden group border border-white/10 transition-all hover:border-amber-500/50 shadow-xl overflow-hidden h-40">
+                    <div className="absolute inset-0">
+                      <img src="/assets2/foundations/do_no_harm.png" alt="Do No Harm" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                      <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/40 transition-colors duration-500"></div>
                     </div>
-                    <div>
-                      <h4 className="font-bold text-white text-xl mb-1">Moral Integrity</h4>
-                      <p className="text-slate-300 text-sm leading-relaxed">Align your choices with honesty and wisdom to create wholesome outcomes in life.</p>
-                      <span className="text-amber-400 text-xs font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform inline-flex items-center mt-1">Explore Foundation <ArrowRight size={12} className="ml-1" /></span>
+                    <div className="relative z-10 flex flex-col h-full">
+                      <div className="flex items-center mb-2">
+                        <div className="w-10 h-10 rounded-xl bg-white/10 text-amber-400 flex items-center justify-center mr-3 backdrop-blur-md border border-white/10">
+                          <Shield size={18} />
+                        </div>
+                        <h4 className="font-bold text-white text-lg">Do No Harm</h4>
+                      </div>
+                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">Observe the five precepts and harmlessness toward all beings.</p>
+                      <div className="mt-auto text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center">
+                        Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
+                      </div>
                     </div>
                   </Link>
-                  <Link to="/life-practice/breathing-mindfulness" className="flex items-start group">
-                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-500 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
-                      <Wind size={20} />
+
+                  <Link to="/life-practice/good-moral-person" className="relative p-6 rounded-3xl overflow-hidden group border border-white/10 transition-all hover:border-amber-500/50 shadow-xl overflow-hidden h-40">
+                    <div className="absolute inset-0">
+                      <img src="/assets2/foundations/moral_integrity.png" alt="Moral Integrity" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                      <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/40 transition-colors duration-500"></div>
                     </div>
-                    <div>
-                      <h4 className="font-bold text-white text-xl mb-1">Breathing Mindfulness</h4>
-                      <p className="text-slate-300 text-sm leading-relaxed">The foundational practice to clear the mind and return to the present moment.</p>
-                      <span className="text-amber-400 text-xs font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform inline-flex items-center mt-1">Explore Foundation <ArrowRight size={12} className="ml-1" /></span>
+                    <div className="relative z-10 flex flex-col h-full">
+                      <div className="flex items-center mb-2">
+                        <div className="w-10 h-10 rounded-xl bg-white/10 text-amber-400 flex items-center justify-center mr-3 backdrop-blur-md border border-white/10">
+                          <UserCheck size={18} />
+                        </div>
+                        <h4 className="font-bold text-white text-lg">Moral Integrity</h4>
+                      </div>
+                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">Align your choices with honesty and wisdom for wholesome outcomes.</p>
+                      <div className="mt-auto text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center">
+                        Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
+                      </div>
                     </div>
                   </Link>
-                  <Link to="/life-practice/loving-kindness" className="flex items-start group md:col-span-2">
-                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-500 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
-                      <HeartPulse size={20} />
+
+                  <Link to="/life-practice/breathing-mindfulness" className="relative p-6 rounded-3xl overflow-hidden group border border-white/10 transition-all hover:border-amber-500/50 shadow-xl overflow-hidden h-40">
+                    <div className="absolute inset-0">
+                      <img src="/assets2/foundations/breathing_mindfulness.png" alt="Breathing Mindfulness" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                      <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/40 transition-colors duration-500"></div>
                     </div>
-                    <div>
-                      <h4 className="font-bold text-white text-xl mb-1">Loving-kindness (Metta)</h4>
-                      <p className="text-slate-300 text-sm leading-relaxed">Cultivate a heart free of ill-will—a necessary requirement for true Enlightenment.</p>
-                      <span className="text-amber-400 text-xs font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform inline-flex items-center mt-1">Explore Foundation <ArrowRight size={12} className="ml-1" /></span>
+                    <div className="relative z-10 flex flex-col h-full">
+                      <div className="flex items-center mb-2">
+                        <div className="w-10 h-10 rounded-xl bg-white/10 text-amber-400 flex items-center justify-center mr-3 backdrop-blur-md border border-white/10">
+                          <Wind size={18} />
+                        </div>
+                        <h4 className="font-bold text-white text-lg">Breathing Mindfulness</h4>
+                      </div>
+                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">The foundational practice to clear the mind and return to the present.</p>
+                      <div className="mt-auto text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center">
+                        Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
+                      </div>
+                    </div>
+                  </Link>
+
+                  <Link to="/life-practice/loving-kindness" className="md:col-span-2 relative p-6 rounded-3xl overflow-hidden group border border-white/10 transition-all hover:border-amber-500/50 shadow-xl overflow-hidden h-40">
+                    <div className="absolute inset-0">
+                      <img src="/assets2/foundations/loving_kindness.png" alt="Loving-kindness" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                      <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/40 transition-colors duration-500"></div>
+                    </div>
+                    <div className="relative z-10 flex flex-col h-full">
+                      <div className="flex items-center mb-2">
+                        <div className="w-10 h-10 rounded-xl bg-white/10 text-amber-400 flex items-center justify-center mr-3 backdrop-blur-md border border-white/10">
+                          <HeartPulse size={18} />
+                        </div>
+                        <h4 className="font-bold text-white text-lg">Loving-kindness (Metta)</h4>
+                      </div>
+                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-1 max-w-xl">Cultivate a heart free of ill-will—a necessary requirement for true Enlightenment.</p>
+                      <div className="mt-auto text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center">
+                        Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
+                      </div>
                     </div>
                   </Link>
                 </div>

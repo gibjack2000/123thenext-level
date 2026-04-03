@@ -22,10 +22,9 @@ export default function UniversalLove() {
           <div className="relative z-10">
             <div className="h-64 sm:h-80 w-full rounded-2xl overflow-hidden mb-8 shadow-inner">
               <img 
-                src="https://images.unsplash.com/photo-1516589174184-c6858b16ecb0?auto=format&fit=crop&q=80&w=1200" 
+                src="/assets2/foundations/universal_love.png" 
                 alt="Universal Love" 
                 className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
               />
             </div>
             

@@ -22,10 +22,9 @@ export default function BreathingMindfulness() {
           <div className="relative z-10">
             <div className="h-64 sm:h-80 w-full rounded-2xl overflow-hidden mb-8 shadow-inner">
               <img 
-                src="https://images.unsplash.com/photo-1456209503408-3f3bb075fb3c?auto=format&fit=crop&q=80&w=1200" 
+                src="/assets2/foundations/breathing_mindfulness.png" 
                 alt="Breathing Mindfulness" 
                 className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
               />
             </div>
             
