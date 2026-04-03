@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Globe2, MapPin, ShoppingBag, ArrowRight, Heart, Dumbbell, Apple, Sparkles, BookOpen } from 'lucide-react';
+import { Globe2, MapPin, ShoppingBag, ArrowRight, Heart, Dumbbell, Apple, Sparkles, BookOpen, Shield, UserCheck, Wind, HeartPulse } from 'lucide-react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { Product, mapToProduct } from '../types';
 import { MOCK_PRODUCTS } from '../data/mockData';
@@ -526,46 +526,59 @@ export default function Home() {
                   <span className="text-amber-500">Life Practice</span>
                 </h2>
                 <p className="text-xl text-slate-200 leading-relaxed mb-12 max-w-xl font-medium drop-shadow-md">
-                  Beyond the metrics and the workouts lies the true essence of vitality: your daily practice. This is where intention meets action, transforming fleeting moments into a sustainable lifestyle.
+                  Beyond the metrics and the workouts lies the true essence of vitality: your daily practice. This is where intention meets action, following the 5 core foundations of the path.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 mb-12">
-                  {/* ... icons grid ... */}
-                  <div className="flex items-start group">
+                  <Link to="/life-practice/universal-love" className="flex items-start group">
                     <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-500 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
-                      <Sparkles size={20} />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-white text-xl mb-1">Mindfulness & Rituals</h4>
-                      <p className="text-slate-300 text-sm leading-relaxed">Integrate mindfulness practices and self-care rituals that ground you in the present.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start group">
-                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-500 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
-                      <BookOpen size={20} />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-white text-xl mb-1">Mindset & Balance</h4>
-                      <p className="text-slate-300 text-sm leading-relaxed">Achieve sustainable lifestyle balance through profound mindset shifts and intentional choices.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start group">
-                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-500 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
-                      <Globe2 size={20} />
-                    </div>
-                    <div>
-                      <h4 className="font-bold text-white text-xl mb-1">Natural Connection</h4>
-                      <p className="text-slate-300 text-sm leading-relaxed">Realign with the world around you to restore mental energy and reclaim your focus.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start group">
-                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-50 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
                       <Heart size={20} />
                     </div>
                     <div>
-                      <h4 className="font-bold text-white text-xl mb-1">Wisdom & Insights</h4>
-                      <p className="text-slate-300 text-sm leading-relaxed">Study authentic Buddha teachings from highly accredited centers in Chiang Mai.</p>
+                      <h4 className="font-bold text-white text-xl mb-1">Universal Love</h4>
+                      <p className="text-slate-300 text-sm leading-relaxed">Develop compassion for all living beings, recognizing our shared journey across time.</p>
+                      <span className="text-amber-400 text-xs font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform inline-flex items-center mt-1">Explore Foundation <ArrowRight size={12} className="ml-1" /></span>
                     </div>
-                  </div>
+                  </Link>
+                  <Link to="/life-practice/do-no-harm" className="flex items-start group">
+                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-500 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
+                      <Shield size={20} />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-white text-xl mb-1">Do No Harm</h4>
+                      <p className="text-slate-300 text-sm leading-relaxed">Observe the five precepts and harmlessness toward all beings and our planet.</p>
+                      <span className="text-amber-400 text-xs font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform inline-flex items-center mt-1">Explore Foundation <ArrowRight size={12} className="ml-1" /></span>
+                    </div>
+                  </Link>
+                  <Link to="/life-practice/good-moral-person" className="flex items-start group">
+                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-500 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
+                      <UserCheck size={20} />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-white text-xl mb-1">Moral Integrity</h4>
+                      <p className="text-slate-300 text-sm leading-relaxed">Align your choices with honesty and wisdom to create wholesome outcomes in life.</p>
+                      <span className="text-amber-400 text-xs font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform inline-flex items-center mt-1">Explore Foundation <ArrowRight size={12} className="ml-1" /></span>
+                    </div>
+                  </Link>
+                  <Link to="/life-practice/breathing-mindfulness" className="flex items-start group">
+                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-500 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
+                      <Wind size={20} />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-white text-xl mb-1">Breathing Mindfulness</h4>
+                      <p className="text-slate-300 text-sm leading-relaxed">The foundational practice to clear the mind and return to the present moment.</p>
+                      <span className="text-amber-400 text-xs font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform inline-flex items-center mt-1">Explore Foundation <ArrowRight size={12} className="ml-1" /></span>
+                    </div>
+                  </Link>
+                  <Link to="/life-practice/loving-kindness" className="flex items-start group md:col-span-2">
+                    <div className="w-12 h-12 rounded-2xl bg-white/10 text-amber-400 flex items-center justify-center mr-5 group-hover:bg-amber-500 group-hover:text-white transition-all border border-white/10 group-hover:border-amber-500 shadow-xl backdrop-blur-md">
+                      <HeartPulse size={20} />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-white text-xl mb-1">Loving-kindness (Metta)</h4>
+                      <p className="text-slate-300 text-sm leading-relaxed">Cultivate a heart free of ill-will—a necessary requirement for true Enlightenment.</p>
+                      <span className="text-amber-400 text-xs font-bold uppercase tracking-wider group-hover:translate-x-1 transition-transform inline-flex items-center mt-1">Explore Foundation <ArrowRight size={12} className="ml-1" /></span>
+                    </div>
+                  </Link>
                 </div>
                 <Link to="/wellness" className="inline-flex items-center px-10 py-5 bg-amber-600 text-white rounded-full font-bold text-lg hover:bg-amber-500 transition-all hover:scale-105 shadow-2xl shadow-amber-900/20">
                   Explore The Practice
