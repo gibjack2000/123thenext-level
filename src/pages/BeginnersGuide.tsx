@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { Compass, ArrowRight, Wind, HeartPulse, Sparkles, Zap, Target, Coffee, ScrollText, Play } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -22,6 +22,23 @@ const BeginnersGuide = () => {
           </p>
         </div>
       </div>
+
+      {/* Infographic Section */}
+      <div className="max-w-5xl mx-auto px-6 pt-12 pb-4">
+        <div className="rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-white/5 backdrop-blur-sm">
+          <div className="p-4 border-b border-white/10 flex items-center gap-3">
+            <div className="w-2 h-2 rounded-full bg-amber-500"></div>
+            <span className="text-xs font-bold uppercase tracking-widest text-slate-400">Visual Overview</span>
+          </div>
+          <img
+            src="/assets2/foundations/path_to_enlightenment_infographic.png"
+            alt="The Path to Enlightenment: Developing a Life Practice"
+            className="w-full h-auto"
+          />
+        </div>
+        <p className="text-center text-slate-500 text-xs mt-3 italic">The Path to Enlightenment — a high-level overview of Gotama Buddha's teachings as a practical framework for modern life.</p>
+      </div>
+
       <div className="max-w-4xl mx-auto px-6 py-16">
         <p className="text-xl leading-relaxed mb-12 border-l-4 border-amber-500 pl-6 py-2 bg-white/5 rounded-r-2xl">
           It takes ancient, complex teachings and turns them into a clear, step-by-step map for your modern life.
