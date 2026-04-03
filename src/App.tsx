@@ -39,24 +39,7 @@ import RegionHub from './pages/RegionHub';
 import CategoryPage from './pages/CategoryPage';
 import AdminPage from './pages/AdminPage';
 import BlogPostPage from './pages/BlogPostPage';
-import { Settings, Home as HomeIcon, Menu, X, Globe } from 'lucide-react';
-
-function LangToggle() {
-  const { lang, setLang } = useLanguage();
-  return (
-    <button
-      onClick={() => setLang(lang === 'en' ? 'es' : 'en')}
-      className="flex items-center gap-2 px-4 py-2 rounded-xl border-2 border-slate-200 hover:border-blue-500 text-sm font-bold text-slate-700 hover:text-blue-600 transition-all bg-white shadow-sm hover:shadow-md"
-      title="Switch language"
-    >
-      <Globe size={18} className={lang === 'es' ? 'text-blue-500' : 'text-slate-400'} />
-      <div className="flex bg-slate-100 rounded-lg p-0.5">
-        <span className={`px-2 py-0.5 rounded-md transition-colors ${lang === 'en' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'}`}>EN</span>
-        <span className={`px-2 py-0.5 rounded-md transition-colors ${lang === 'es' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500'}`}>ES</span>
-      </div>
-    </button>
-  );
-}
+import { Settings, Home as HomeIcon, Menu, X } from 'lucide-react';
 
 
 export default function App() {
@@ -95,12 +78,10 @@ export default function App() {
               <a href="/#pillars" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">{t('nav_pillars')}</a>
               <a href="/#blog" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">{t('nav_blog')}</a>
               <a href="/#shop" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">{t('nav_shop')}</a>
-              <LangToggle />
             </nav>
 
             {/* Mobile Menu Button */}
             <div className="md:hidden flex items-center gap-2">
-              <LangToggle />
               <button 
                 className="p-2.5 text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300"
                 onClick={toggleMobileMenu}
