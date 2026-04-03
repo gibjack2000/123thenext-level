@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Globe2, MapPin, ShoppingBag, ArrowRight, Heart, Dumbbell, Apple, Sparkles, BookOpen, Shield, UserCheck, Wind, HeartPulse, ExternalLink } from 'lucide-react';
+import { Globe2, MapPin, ShoppingBag, ArrowRight, Heart, Dumbbell, Apple, Sparkles, BookOpen, Shield, UserCheck, Wind, HeartPulse, ExternalLink, Compass } from 'lucide-react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { Product, mapToProduct } from '../types';
 import { MOCK_PRODUCTS } from '../data/mockData';
@@ -528,7 +528,7 @@ export default function Home() {
                 <p className="text-xl text-slate-200 leading-relaxed mb-12 max-w-xl font-medium drop-shadow-md">
                   Beyond the metrics and the workouts lies the true essence of vitality: your daily practice. This is where intention meets action, following the 5 core foundations of the path.
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
                   <Link to="/life-practice/universal-love" className="relative p-6 rounded-3xl overflow-hidden group border border-white/10 transition-all hover:border-amber-500/50 shadow-xl overflow-hidden h-40">
                     <div className="absolute inset-0">
                       <img src="/assets2/foundations/universal_love.png" alt="Universal Love" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
@@ -605,7 +605,7 @@ export default function Home() {
                     </div>
                   </Link>
 
-                  <Link to="/life-practice/loving-kindness" className="md:col-span-2 relative p-6 rounded-3xl overflow-hidden group border border-white/10 transition-all hover:border-amber-500/50 shadow-xl overflow-hidden h-40">
+                  <Link to="/life-practice/loving-kindness" className="relative p-6 rounded-3xl overflow-hidden group border border-white/10 transition-all hover:border-amber-500/50 shadow-xl h-40">
                     <div className="absolute inset-0">
                       <img src="/assets2/foundations/loving_kindness.png" alt="Loving-kindness" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                       <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/40 transition-colors duration-500"></div>
@@ -618,6 +618,25 @@ export default function Home() {
                         <h4 className="font-bold text-white text-lg">Loving-kindness (Metta)</h4>
                       </div>
                       <p className="text-slate-200 text-xs leading-relaxed line-clamp-1 max-w-xl">Cultivate a heart free of ill-will—a necessary requirement for true Enlightenment.</p>
+                      <div className="mt-auto text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center">
+                        Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
+                      </div>
+                    </div>
+                  </Link>
+
+                  <Link to="/life-practice/beginners-guide" className="relative p-6 rounded-3xl overflow-hidden group border border-white/10 transition-all hover:border-amber-500/50 shadow-xl h-40">
+                    <div className="absolute inset-0">
+                      <img src="/assets2/foundations/beginners_guide.png" alt="Beginners Guide" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                      <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/40 transition-colors duration-500"></div>
+                    </div>
+                    <div className="relative z-10 flex flex-col h-full">
+                      <div className="flex items-center mb-2">
+                        <div className="w-10 h-10 rounded-xl bg-white/10 text-amber-400 flex items-center justify-center mr-3 backdrop-blur-md border border-white/10">
+                          <Compass size={18} />
+                        </div>
+                        <h4 className="font-bold text-white text-lg">Beginners Guide</h4>
+                      </div>
+                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">Start here — making the right choice for your mindful journey.</p>
                       <div className="mt-auto text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center">
                         Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
                       </div>

@@ -32,6 +32,7 @@ import DoNoHarm from './pages/DoNoHarm';
 import GoodMoralPerson from './pages/GoodMoralPerson';
 import BreathingMindfulness from './pages/BreathingMindfulness';
 import LovingKindness from './pages/LovingKindness';
+import BeginnersGuide from './pages/BeginnersGuide';
 import RegionHub from './pages/RegionHub';
 import CategoryPage from './pages/CategoryPage';
 import AdminPage from './pages/AdminPage';
@@ -148,6 +149,7 @@ export default function App() {
             <Route path="/life-practice/good-moral-person" element={<GoodMoralPerson />} />
             <Route path="/life-practice/breathing-mindfulness" element={<BreathingMindfulness />} />
             <Route path="/life-practice/loving-kindness" element={<LovingKindness />} />
+            <Route path="/life-practice/beginners-guide" element={<BeginnersGuide />} />
             <Route path="/:region" element={<RegionHub />} />
             <Route path="/:region/:category" element={<CategoryPage />} />
           </Routes>
