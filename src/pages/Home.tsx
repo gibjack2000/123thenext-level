@@ -526,11 +526,19 @@ export default function Home() {
                   rel="noopener noreferrer" 
                   className="block transition-all duration-500 hover:scale-110 hover:-rotate-2 active:scale-95 group"
                 >
-                  <div className="relative bg-white border-[3px] border-black rounded-2xl p-4 shadow-[8px_8px_0_0_rgba(0,0,0,1)] group-hover:shadow-[12px_12px_0_0_rgba(0,0,0,1)] transition-all duration-500 w-48 lg:w-56 text-center">
-                    {/* Speech Bubble Tail */}
-                    <div className="absolute -bottom-3 right-8 w-6 h-6 bg-white border-b-[3px] border-r-[3px] border-black rotate-45"></div>
+                  <div className="relative border-[3px] border-black rounded-2xl p-4 shadow-[8px_8px_0_0_rgba(0,0,0,1)] group-hover:shadow-[12px_12px_0_0_rgba(0,0,0,1)] transition-all duration-500 w-48 lg:w-56 text-center overflow-hidden">
+                    {/* Background Image */}
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center z-0" 
+                      style={{ backgroundImage: "url('/assets/meditating-girl.png')" }}
+                    ></div>
+                    {/* Glass Overlay for Readability */}
+                    <div className="absolute inset-0 bg-white/70 backdrop-blur-[2px] z-10"></div>
                     
-                    <div className="space-y-1">
+                    {/* Speech Bubble Tail */}
+                    <div className="absolute -bottom-3 right-8 w-6 h-6 bg-white border-b-[3px] border-r-[3px] border-black rotate-45 z-20"></div>
+                    
+                    <div className="relative z-30 space-y-1">
                       <div className="text-2xl lg:text-3xl font-black text-red-600 leading-tight uppercase tracking-tighter">
                         Free<br />Guidance
                       </div>
@@ -545,7 +553,7 @@ export default function Home() {
                     </div>
                     
                     {/* Hover Glow */}
-                    <div className="absolute inset-0 bg-amber-400/10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl blur-xl"></div>
+                    <div className="absolute inset-0 bg-amber-400/10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl blur-xl z-40"></div>
                   </div>
                 </a>
               </div>
