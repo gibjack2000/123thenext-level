@@ -518,6 +518,41 @@ export default function Home() {
 
           <div className="relative z-10 -mt-[100vh] min-h-screen flex items-center pointer-events-none sticky top-0">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20 pointer-events-auto relative">
+              {/* Floating Free Guidance Badge */}
+              <div className="absolute top-24 right-4 sm:right-8 lg:right-12 z-20 hidden md:block">
+                <a 
+                  href="https://www.buddhadailywisdom.com/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="group block"
+                >
+                  <div className="relative overflow-hidden rounded-2xl border border-white/20 bg-slate-900/40 p-6 backdrop-blur-xl shadow-2xl transition-all duration-500 hover:scale-105 hover:border-amber-500/50 hover:bg-slate-900/60">
+                    {/* Animated Gradient Background */}
+                    <div className="absolute -inset-x-20 -inset-y-20 bg-gradient-to-r from-transparent via-amber-500/10 to-transparent rotate-45 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
+                    
+                    <div className="relative z-10 flex flex-col items-end text-right">
+                      <div className="flex items-center gap-3 mb-1">
+                        <span className="h-px w-8 bg-amber-500/50 transition-all duration-500 group-hover:w-12"></span>
+                        <h3 className="text-sm font-bold tracking-[0.2em] text-amber-500 uppercase">
+                          Free Guidance
+                        </h3>
+                      </div>
+                      <p className="text-xl lg:text-2xl font-serif italic text-white/90 leading-tight">
+                        The path to inner peace
+                      </p>
+                      <div className="mt-4 flex items-center gap-2 text-xs font-semibold text-amber-500/80 uppercase tracking-widest opacity-0 -translate-y-2 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
+                        Explore Wisdom
+                        <svg className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </div>
+                    </div>
+                    
+                    {/* Corner Accent */}
+                    <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-amber-500/20 to-transparent opacity-50"></div>
+                  </div>
+                </a>
+              </div>
 
               <div className="max-w-3xl">
                 <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-amber-500/10 text-amber-400 text-sm font-bold tracking-wider uppercase mb-8 border border-amber-500/20 shadow-sm backdrop-blur-md">
