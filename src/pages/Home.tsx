@@ -518,45 +518,6 @@ export default function Home() {
 
           <div className="relative z-10 -mt-[100vh] min-h-screen flex items-center pointer-events-none sticky top-0">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20 pointer-events-auto relative">
-              {/* Floating Free Guidance CTA */}
-              <div className="absolute top-20 right-4 sm:right-6 lg:right-8 z-20 hidden md:block">
-                <a 
-                  href="https://www.buddhadailywisdom.com/" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="block transition-all duration-500 hover:scale-110 hover:-rotate-2 active:scale-95 group"
-                >
-                  <div className="relative border-[3px] border-black rounded-2xl p-4 shadow-[8px_8px_0_0_rgba(0,0,0,1)] group-hover:shadow-[12px_12px_0_0_rgba(0,0,0,1)] transition-all duration-500 w-48 lg:w-56 text-center overflow-hidden">
-                    {/* Background Image */}
-                    <div 
-                      className="absolute inset-0 bg-cover bg-center z-0" 
-                      style={{ backgroundImage: "url('/assets/meditating-girl.png')" }}
-                    ></div>
-                    {/* Glass Overlay for Readability */}
-                    <div className="absolute inset-0 bg-white/70 backdrop-blur-[2px] z-10"></div>
-                    
-                    {/* Speech Bubble Tail */}
-                    <div className="absolute -bottom-3 right-8 w-6 h-6 bg-white border-b-[3px] border-r-[3px] border-black rotate-45 z-20"></div>
-                    
-                    <div className="relative z-30 space-y-1">
-                      <div className="text-2xl lg:text-3xl font-black text-red-600 leading-tight uppercase tracking-tighter">
-                        Free<br />Guidance
-                      </div>
-                      <div className="text-sm lg:text-base font-serif italic text-amber-700 leading-tight">
-                        the Path to Inner Peace
-                      </div>
-                      <div className="pt-2 flex justify-center">
-                        <svg className="w-8 h-8 text-amber-500" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 22s-8-4.5-8-11.5S7.5 2 12 2s8 4.5 8 8.5S12 22 12 22zm0-18c-3.5 0-6 3.5-6 6.5s2.5 5.5 6 9.5c3.5-4 6-6.5 6-9.5S15.5 4 12 4zM12 7a3 3 0 100 6 3 3 0 000-6z" />
-                        </svg>
-                      </div>
-                    </div>
-                    
-                    {/* Hover Glow */}
-                    <div className="absolute inset-0 bg-amber-400/10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl blur-xl z-40"></div>
-                  </div>
-                </a>
-              </div>
 
               <div className="max-w-3xl">
                 <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-amber-500/10 text-amber-400 text-sm font-bold tracking-wider uppercase mb-8 border border-amber-500/20 shadow-sm backdrop-blur-md">
