@@ -517,7 +517,26 @@ export default function Home() {
           </div>
 
           <div className="relative z-10 -mt-[100vh] min-h-screen flex items-center pointer-events-none sticky top-0">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20 pointer-events-auto">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20 pointer-events-auto relative">
+              {/* Floating Free Guidance CTA */}
+              <div className="absolute top-20 right-4 sm:right-6 lg:right-8 z-20 hidden md:block">
+                <a 
+                  href="https://www.buddhadailywisdom.com/" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="block transition-all duration-500 hover:scale-110 hover:-rotate-2 active:scale-95 group"
+                >
+                  <div className="relative">
+                    <img 
+                      src="/assets/free-guidance.png" 
+                      alt="Free Guidance - The Path to Inner Peace" 
+                      className="w-48 lg:w-64 h-auto drop-shadow-[0_20px_50px_rgba(245,158,11,0.3)] group-hover:drop-shadow-[0_30px_60px_rgba(245,158,11,0.5)] transition-all duration-500"
+                    />
+                    <div className="absolute inset-0 bg-amber-400/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full blur-2xl"></div>
+                  </div>
+                </a>
+              </div>
+
               <div className="max-w-3xl">
                 <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-amber-500/10 text-amber-400 text-sm font-bold tracking-wider uppercase mb-8 border border-amber-500/20 shadow-sm backdrop-blur-md">
                   <Sparkles size={16} className="mr-2" />
