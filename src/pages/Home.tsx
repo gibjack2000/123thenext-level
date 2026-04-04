@@ -526,13 +526,26 @@ export default function Home() {
                   rel="noopener noreferrer" 
                   className="block transition-all duration-500 hover:scale-110 hover:-rotate-2 active:scale-95 group"
                 >
-                  <div className="relative">
-                    <img 
-                      src="/assets/free-guidance.png" 
-                      alt="Free Guidance - The Path to Inner Peace" 
-                      className="w-48 lg:w-64 h-auto drop-shadow-[0_20px_50px_rgba(245,158,11,0.3)] group-hover:drop-shadow-[0_30px_60px_rgba(245,158,11,0.5)] transition-all duration-500"
-                    />
-                    <div className="absolute inset-0 bg-amber-400/20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-full blur-2xl"></div>
+                  <div className="relative bg-white border-[3px] border-black rounded-2xl p-4 shadow-[8px_8px_0_0_rgba(0,0,0,1)] group-hover:shadow-[12px_12px_0_0_rgba(0,0,0,1)] transition-all duration-500 w-48 lg:w-56 text-center">
+                    {/* Speech Bubble Tail */}
+                    <div className="absolute -bottom-3 right-8 w-6 h-6 bg-white border-b-[3px] border-r-[3px] border-black rotate-45"></div>
+                    
+                    <div className="space-y-1">
+                      <div className="text-2xl lg:text-3xl font-black text-red-600 leading-tight uppercase tracking-tighter">
+                        Free<br />Guidance
+                      </div>
+                      <div className="text-sm lg:text-base font-serif italic text-amber-700 leading-tight">
+                        the Path to Inner Peace
+                      </div>
+                      <div className="pt-2 flex justify-center">
+                        <svg className="w-8 h-8 text-amber-500" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 22s-8-4.5-8-11.5S7.5 2 12 2s8 4.5 8 8.5S12 22 12 22zm0-18c-3.5 0-6 3.5-6 6.5s2.5 5.5 6 9.5c3.5-4 6-6.5 6-9.5S15.5 4 12 4zM12 7a3 3 0 100 6 3 3 0 000-6z" />
+                        </svg>
+                      </div>
+                    </div>
+                    
+                    {/* Hover Glow */}
+                    <div className="absolute inset-0 bg-amber-400/10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl blur-xl"></div>
                   </div>
                 </a>
               </div>
