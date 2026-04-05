@@ -1,8 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
 import { GoogleGenAI } from "@google/genai";
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 // Configuration
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL;
