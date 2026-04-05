@@ -36,20 +36,11 @@ jobs:
         exclude: |
           **/node_modules/**
           **/Products/**
-          **/src/**
-          **/public/**
           .git*
           .git/**
           **/*.map
-          README.md
-          DEPLOYMENT_GUIDE.md
           *.zip
-          *.js
           *.ts
           package-lock.json
-          !dist/**
-          !server.js
-          !src/lib/automationService.js
-          !package.json
         # This ensures it only updates/adds files and doesn't wipe unknown server folders
         dangerous-clean-slate: false
