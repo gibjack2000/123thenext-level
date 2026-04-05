@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { supabase, adminSupabase, hasValidSupabaseConfig, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
+import { supabase, hasValidSupabaseConfig, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 import { Save, AlertCircle, CheckCircle2, Sparkles, Database, Copy, ExternalLink, ChevronDown, ChevronUp, Shield, Cpu, Trash2, RefreshCw, Search, Tag, MapPin, Star, BookOpen, FileText, Pencil } from 'lucide-react';
 import { GoogleGenAI, Type } from '@google/genai';
 import { Product, BlogPost, mapToProduct } from '../types';
@@ -86,12 +86,12 @@ export default function AdminPage() {
   }, []);
 
   const handleDeleteProduct = async (id: string) => {
-    if (!adminSupabase || !window.confirm('Are you sure you want to delete this product?')) return;
+    if (!supabase || !window.confirm('Are you sure you want to delete this product?')) return;
     
     try {
-      const { error } = await adminSupabase
-.from('amazon_affiliate_products')
-.delete()
+      const { error } = await supabase
+        .from('amazon_affiliate_products')
+        .delete()
         .eq('id', id);
         
       if (error) throw error;
@@ -277,12 +277,12 @@ alter table blog_posts disable row level security;`;
   };
 
   const handleDeleteBlog = async (id: string) => {
-    if (!adminSupabase || !window.confirm('Are you sure you want to delete this blog post?')) return;
+    if (!supabase || !window.confirm('Are you sure you want to delete this blog post?')) return;
     
     try {
-      const { error } = await adminSupabase
-.from('blog_posts')
-.delete()
+      const { error } = await supabase
+        .from('blog_posts')
+        .delete()
         .eq('id', id);
         
       if (error) throw error;
@@ -326,16 +326,16 @@ alter table blog_posts disable row level security;`;
       };
 
       if (editingBlogPostId) {
-        const { error: supabaseError } = await adminSupabase
-.from('blog_posts')
-.update(postData)
+        const { error: supabaseError } = await supabase
+          .from('blog_posts')
+          .update(postData)
           .eq('id', editingBlogPostId);
 
         if (supabaseError) throw supabaseError;
       } else {
-        const { error: supabaseError } = await adminSupabase
-.from('blog_posts')
-.insert([postData]);
+        const { error: supabaseError } = await supabase
+          .from('blog_posts')
+          .insert([postData]);
 
         if (supabaseError) throw supabaseError;
       }
@@ -666,16 +666,16 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
       };
 
       if (editingProductId) {
-        const { error: supabaseError } = await adminSupabase
-.from('amazon_affiliate_products')
-.update(productData)
+        const { error: supabaseError } = await supabase
+          .from('amazon_affiliate_products')
+          .update(productData)
           .eq('id', editingProductId);
 
         if (supabaseError) throw supabaseError;
       } else {
-        const { error: supabaseError } = await adminSupabase
-.from('amazon_affiliate_products')
-.insert([productData]);
+        const { error: supabaseError } = await supabase
+          .from('amazon_affiliate_products')
+          .insert([productData]);
 
         if (supabaseError) {
           if (supabaseError.code === '42P01') {
