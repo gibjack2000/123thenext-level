@@ -30,14 +30,26 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./dist/
+        local-dir: ./
         server-dir: ./
         # CRITICAL: Do NOT delete the Products folder on the server
         exclude: |
           **/node_modules/**
           **/Products/**
+          **/src/**
+          **/public/**
           .git*
           .git/**
           **/*.map
+          README.md
+          DEPLOYMENT_GUIDE.md
+          *.zip
+          *.js
+          *.ts
+          package-lock.json
+          !dist/**
+          !server.js
+          !src/lib/automationService.js
+          !package.json
         # This ensures it only updates/adds files and doesn't wipe unknown server folders
         dangerous-clean-slate: false
