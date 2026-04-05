@@ -23,23 +23,17 @@ interface Rotation {
 }
 
 /**
- * Determines the Market and Pillar by cycling through available options
- * based on the current number of posts in the database.
+ * Determines the Market and Pillar based on the current UTC hour.
  */
-async function getCurrentRotation(): Promise<Rotation> {
-  const { count } = await supabase
-    .from('blog_posts')
-    .select('*', { count: 'exact', head: true });
-
-  const pillars = ['health', 'fitness', 'nutrition', 'wellness'];
-  const markets = ['US', 'UK', 'ES'];
-
-  const safeCount = count || 0;
-
-  return {
-    pillar: pillars[safeCount % pillars.length],
-    market: markets[safeCount % markets.length]
+function getCurrentRotation(): Rotation | null {
+  const hour = new Date().getUTCHours();
+  
+  const mappings: Record<number, Rotation> = {
+    8: { pillar: 'health', market: 'US' },
+    20: { pillar: 'wellness', market: 'UK' },
   };
+
+  return mappings[hour] || null;
 }
 
 /**
@@ -48,7 +42,12 @@ async function getCurrentRotation(): Promise<Rotation> {
 export async function generateAndPostContent() {
   console.log('--- Starting Automation Job ---');
   
-  const rotation = await getCurrentRotation();
+  const rotation = getCurrentRotation();
+  if (!rotation) {
+    console.log(`No automation scheduled for UTC hour: ${new Date().getUTCHours()}. Skipping.`);
+    return { success: true, message: 'No job scheduled for this hour.' };
+  }
+
   console.log(`Targeting Pillar: ${rotation.pillar}, Market: ${rotation.market}`);
 
   // Helper to map pillar to database category
