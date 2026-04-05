@@ -10,25 +10,20 @@ const SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY; // Required for 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
 // Initialize Supabase Admin Client
-const supabase = createClient(SUPABASE_URL!, SERVICE_ROLE_KEY!);
+const supabase = createClient(SUPABASE_URL, SERVICE_ROLE_KEY);
 
 // Initialize Gemini
-const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY! });
+const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 // Note: with @google/genai, we use ai.models.generateContent directly or specify the model in the config
 
-
-interface Rotation {
-  pillar: string;
-  market: string;
-}
 
 /**
  * Determines the Market and Pillar based on the current UTC hour.
  */
-function getCurrentRotation(): Rotation | null {
+function getCurrentRotation() {
   const hour = new Date().getUTCHours();
   
-  const mappings: Record<number, Rotation> = {
+  const mappings = {
     8: { pillar: 'health', market: 'US' },
     20: { pillar: 'wellness', market: 'UK' },
   };
@@ -51,7 +46,7 @@ export async function generateAndPostContent() {
   console.log(`Targeting Pillar: ${rotation.pillar}, Market: ${rotation.market}`);
 
   // Helper to map pillar to database category
-  const pillarToCategory: Record<string, string[]> = {
+  const pillarToCategory = {
     'health': ['Health & Household', 'health_wellness', 'supplements'],
     'fitness': ['Fitness', 'Sports & Outdoors', 'fitness_gear'],
     'nutrition': ['supplements', 'home_kitchen'],
@@ -158,7 +153,7 @@ export async function generateAndPostContent() {
     console.log(`Successfully created post: ${aiData.title} (ID: ${post.id})`);
     return { success: true, postId: post.id, title: aiData.title };
 
-  } catch (err: any) {
+  } catch (err) {
     console.error('Generation/DB Error:', err.message);
     return { success: false, error: err.message };
   }

@@ -5,7 +5,7 @@ import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-import { generateAndPostContent } from './src/lib/automationService.ts';
+import { generateAndPostContent } from './src/lib/automationService.js';
 
 const app = express();
 // Hostinger often provides the port through the PORT environment variable
