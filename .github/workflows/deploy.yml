@@ -33,7 +33,7 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./dist/
-        server-dir: ./
+        server-dir: ./public_html/
         # EXCLUDE UNWANTED FILES - Final Clean State for Vite Setting
         exclude: |
           **/node_modules/**
