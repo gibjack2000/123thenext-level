@@ -23,7 +23,7 @@ jobs:
       run: |
         npm install --legacy-peer-deps
         npm run build
-        # Copy the .htaccess file into the dist folder so it gets synced to the server root
+        # COPY standard routing fix to the built folder
         cp .htaccess dist/
     
     - name: 🚀 Sync Files (Safe Mode)
@@ -34,15 +34,16 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         local-dir: ./dist/
         server-dir: ./
-        # CRITICAL: Do NOT delete the Products folder on the server
+        # EXCLUDE ALL SERVER FILES - Make it a Pure Static SPA
         exclude: |
           **/node_modules/**
           **/Products/**
-          .git*
-          .git/**
-          **/*.map
-          *.zip
-          *.ts
+          index.js
+          server.js
+          package.json
           package-lock.json
+          src/**
+          .git/**
+          .github/**
         # This ensures it only updates/adds files and doesn't wipe unknown server folders
         dangerous-clean-slate: false
