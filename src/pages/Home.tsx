@@ -13,6 +13,8 @@ const REGIONS = [
 
 import BlogSection from '../components/BlogSection';
 import { useT } from '../translations';
+import { motion } from 'framer-motion';
+import PillarCard from '../components/home/PillarCard';
 
 export default function Home() {
   const t = useT();
@@ -398,106 +400,93 @@ export default function Home() {
       </div>
 
       {/* Main Sections (The Four Pillars) */}
-      <div id="pillars" className="relative pt-32 pb-96 bg-fixed bg-center bg-cover" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2000')" }}>
-        <div className="absolute inset-0 bg-slate-900/80"></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-display uppercase tracking-tight text-white mb-4">The Four Pillars of a Healthy Lifestyle</h2>
-            <p className="text-lg text-slate-300 max-w-2xl mx-auto">Everything you need to build a strong foundation for your body and mind.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-            {/* Health */}
-            <Link to="/preventive-health" className="relative p-10 pb-12 rounded-3xl shadow-xl border border-slate-700 overflow-hidden group flex flex-col h-full transition-all hover:border-rose-500/50 hover:shadow-rose-500/10">
-              <div className="absolute inset-0">
-                <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=1200" alt="Health" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-110 contrast-[1.05]" referrerPolicy="no-referrer" />
-                <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/20 transition-colors duration-500"></div>
-              </div>
-              <div className="relative z-10 flex flex-col h-full">
-                <div className="w-14 h-14 bg-white/10 text-rose-400 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-                  <Heart size={28} />
-                </div>
-                <h3 className="text-2xl font-display uppercase tracking-tight text-white mb-4">Health</h3>
-                <ul className="space-y-3 mb-6 text-slate-300">
-                  <li className="flex items-start"><span className="text-rose-400 mr-2">•</span> Preventive health basics</li>
-                  <li className="flex items-start"><span className="text-rose-400 mr-2">•</span> Sleep optimization</li>
-                  <li className="flex items-start"><span className="text-rose-400 mr-2">•</span> Stress management</li>
-                  <li className="flex items-start"><span className="text-rose-400 mr-2">•</span> Healthy daily routines</li>
-                </ul>
-                <p className="text-slate-200 mb-8 leading-relaxed">Build a strong foundation for your body. Dive into our health guides to learn how small changes can make a big impact.</p>
-                <div className="mt-auto text-white font-semibold flex items-center group-hover:text-rose-300 transition-colors">
-                  Learn more <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
-                </div>
-              </div>
-            </Link>
-            {/* Fitness */}
-            <Link to="/fitness-fundamentals" className="relative p-10 pb-12 rounded-3xl shadow-xl border border-slate-700 overflow-hidden group flex flex-col h-full transition-all hover:border-blue-500/50 hover:shadow-blue-500/10">
-              <div className="absolute inset-0">
-                <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&q=80&w=1200" alt="Fitness" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-110 contrast-[1.05]" referrerPolicy="no-referrer" />
-                <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/20 transition-colors duration-500"></div>
-              </div>
-              <div className="relative z-10 flex flex-col h-full">
-                <div className="w-14 h-14 bg-white/10 text-blue-400 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-                  <Dumbbell size={28} />
-                </div>
-                <h3 className="text-2xl font-display uppercase tracking-tight text-white mb-4">Fitness</h3>
-                <ul className="space-y-3 mb-6 text-slate-300">
-                  <li className="flex items-start"><span className="text-blue-400 mr-2">•</span> Beginner-friendly workouts</li>
-                  <li className="flex items-start"><span className="text-blue-400 mr-2">•</span> Strength training fundamentals</li>
-                  <li className="flex items-start"><span className="text-blue-400 mr-2">•</span> Mobility & flexibility</li>
-                  <li className="flex items-start"><span className="text-blue-400 mr-2">•</span> At-home routines</li>
-                </ul>
-                <p className="text-slate-200 mb-8 leading-relaxed">Move your body in ways that feel good and build lasting strength. Find routines that fit your lifestyle.</p>
-                <div className="mt-auto text-white font-semibold flex items-center group-hover:text-blue-300 transition-colors">
-                  Learn more <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
-                </div>
-              </div>
-            </Link>
-            {/* Nutrition */}
-            <Link to="/nutrition" className="relative p-10 pb-12 rounded-3xl shadow-xl border border-slate-700 overflow-hidden group flex flex-col h-full transition-all hover:border-emerald-500/50 hover:shadow-emerald-500/10">
-              <div className="absolute inset-0">
-                <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=1200" alt="Nutrition" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-110 contrast-[1.05]" referrerPolicy="no-referrer" />
-                <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/20 transition-colors duration-500"></div>
-              </div>
-              <div className="relative z-10 flex flex-col h-full">
-                <div className="w-14 h-14 bg-white/10 text-emerald-400 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-                  <Apple size={28} />
-                </div>
-                <h3 className="text-2xl font-display uppercase tracking-tight text-white mb-4">{t('pillar_nutrition')}</h3>
-                <ul className="space-y-3 mb-6 text-slate-300">
-                  <li className="flex items-start"><span className="text-emerald-400 mr-2">•</span> {t('nutrition_bullet1')}</li>
-                  <li className="flex items-start"><span className="text-emerald-400 mr-2">•</span> {t('nutrition_bullet2')}</li>
-                  <li className="flex items-start"><span className="text-emerald-400 mr-2">•</span> {t('nutrition_bullet3')}</li>
-                  <li className="flex items-start"><span className="text-emerald-400 mr-2">•</span> {t('nutrition_bullet4')}</li>
-                </ul>
-                <p className="text-slate-200 mb-8 leading-relaxed">{t('nutrition_desc')}</p>
-                <div className="mt-auto text-white font-semibold flex items-center group-hover:text-emerald-300 transition-colors">
-                  {t('pillar_learn_more')} <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
-                </div>
-              </div>
-            </Link>
-            {/* Wellness */}
-            <a href="#life-practice" className="relative p-10 pb-12 rounded-3xl shadow-xl border border-slate-700 overflow-hidden group flex flex-col h-full transition-all hover:border-purple-500/50 hover:shadow-purple-500/10">
-              <div className="absolute inset-0">
-                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1200" alt="Wellness" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-110 contrast-[1.05]" referrerPolicy="no-referrer" />
-                <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/20 transition-colors duration-500"></div>
-              </div>
-              <div className="relative z-10 flex flex-col h-full">
-                <div className="w-14 h-14 bg-white/10 text-purple-400 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-                  <Sparkles size={28} />
-                </div>
-                <h3 className="text-2xl font-display uppercase tracking-tight text-white mb-4">Wellness</h3>
-                <ul className="space-y-3 mb-6 text-slate-300">
-                  <li className="flex items-start"><span className="text-purple-400 mr-2">•</span> Mindfulness & Rituals</li>
-                  <li className="flex items-start"><span className="text-purple-400 mr-2">•</span> Mindset & Balance</li>
-                  <li className="flex items-start"><span className="text-purple-400 mr-2">•</span> Natural Connection</li>
-                  <li className="flex items-start"><span className="text-purple-400 mr-2">•</span> Wisdom & Insights</li>
-                </ul>
-                <p className="text-slate-200 mb-8 leading-relaxed">Nurture your mental and emotional well-being. Learn strategies to manage stress and cultivate a positive mindset.</p>
-                <div className="mt-auto text-white font-semibold flex items-center group-hover:text-purple-300 transition-colors">
-                  Learn more <ArrowRight size={16} className="ml-1 transition-transform group-hover:translate-x-1" />
-                </div>
-              </div>
-            </a>
+      <div id="pillars" className="relative pt-32 pb-48 bg-slate-950 overflow-hidden">
+        {/* Modern Abstract Background */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2000')] bg-fixed bg-center bg-cover brightness-[0.3]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900 via-slate-900/40 to-slate-950" />
+          <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-blue-600/10 blur-[150px] -mr-32 -mt-32" />
+          <div className="absolute bottom-0 left-0 w-1/2 h-1/2 bg-rose-600/10 blur-[150px] -ml-32 -mb-32" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-center mb-24"
+          >
+            <h2 className="text-5xl md:text-7xl font-display uppercase tracking-tighter text-white mb-6 leading-none">
+              The Four Pillars of <br /><span className="text-blue-500">Peak Performance</span>
+            </h2>
+            <div className="h-1.5 w-24 bg-blue-600 mx-auto rounded-full mb-8"></div>
+            <p className="text-xl text-slate-300 max-w-2xl mx-auto font-medium leading-relaxed">
+              Every breakthrough starts with a single step. Build your foundation on these four fundamental principles of vitality.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+            {[
+              {
+                to: "/preventive-health",
+                image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=1200",
+                icon: Heart,
+                iconColor: "text-rose-400",
+                title: "Health",
+                bullets: ["Preventive health basics", "Sleep optimization", "Stress management", "Healthy daily routines"],
+                description: "Build a strong foundation for your body. Dive into our health guides to learn how small changes can make a big impact.",
+                hoverBorderColor: "hover:border-rose-500/50",
+                hoverShadowColor: "hover:shadow-rose-500/20"
+              },
+              {
+                to: "/fitness-fundamentals",
+                image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&q=80&w=1200",
+                icon: Dumbbell,
+                iconColor: "text-blue-400",
+                title: "Fitness",
+                bullets: ["Beginner-friendly workouts", "Strength training fundamentals", "Mobility & flexibility", "At-home routines"],
+                description: "Move your body in ways that feel good and build lasting strength. Find routines that fit your lifestyle.",
+                hoverBorderColor: "hover:border-blue-500/50",
+                hoverShadowColor: "hover:shadow-blue-500/20"
+              },
+              {
+                to: "/nutrition",
+                image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=1200",
+                icon: Apple,
+                iconColor: "text-emerald-400",
+                title: t('pillar_nutrition'),
+                bullets: [t('nutrition_bullet1'), t('nutrition_bullet2'), t('nutrition_bullet3'), t('nutrition_bullet4')],
+                description: t('nutrition_desc'),
+                hoverBorderColor: "hover:border-emerald-500/50",
+                hoverShadowColor: "hover:shadow-emerald-500/20"
+              },
+              {
+                to: "#life-practice",
+                image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1200",
+                icon: Sparkles,
+                iconColor: "text-purple-400",
+                title: "Wellness",
+                bullets: ["Mindfulness & Rituals", "Mindset & Balance", "Natural Connection", "Wisdom & Insights"],
+                description: "Nurture your mental and emotional well-being. Learn strategies to manage stress and cultivate a positive mindset.",
+                hoverBorderColor: "hover:border-purple-500/50",
+                hoverShadowColor: "hover:shadow-purple-500/20"
+              }
+            ].map((pillar, idx) => (
+              <motion.div
+                key={pillar.title}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ 
+                  delay: idx * 0.1, 
+                  duration: 0.8, 
+                  ease: [0.21, 0.45, 0.32, 0.9] 
+                }}
+              >
+                <PillarCard {...pillar} />
+              </motion.div>
+            ))}
           </div>
         </div>
 
