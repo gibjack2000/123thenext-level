@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # Forward all requests to the Node.js application
+  # Hostinger usually uses a proxy for Node apps
+  # If you are using the Node.js selector, it might be looking for a port
+  # But usually, it handles the execution.
+  
+  # For SPA routing on Hostinger, we ensure all paths that aren't files go to index.js
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ index.js [L]
+</IfModule>
