@@ -12,7 +12,7 @@ const CURRENCIES = ['USD', 'GBP', 'EUR'];
 const GEMINI_KEY = import.meta.env.VITE_GEMINI_API_KEY || 'AIzaSyDu4wqfISnPtU8JNUwGaW2tUUAPtOzsAk0';
 
 export default function AdminPage() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [passwordInput, setPasswordInput] = useState('');
   const [loginError, setLoginError] = useState('');
 
@@ -709,58 +709,7 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
     }
   };
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD || 'admin123';
-    if (passwordInput === adminPassword) {
-      setIsAuthenticated(true);
-      setLoginError('');
-      sessionStorage.setItem('isAdminAuthenticated', 'true');
-    } else {
-      setLoginError('Incorrect password');
-      setPasswordInput('');
-    }
-  };
-
-  useEffect(() => {
-    if (sessionStorage.getItem('isAdminAuthenticated') === 'true') {
-      setIsAuthenticated(true);
-    }
-  }, []);
-
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-[80vh] flex items-center justify-center px-4">
-        <div className="bg-white border border-slate-200 p-8 rounded-3xl shadow-[0_20px_40px_rgba(0,0,0,0.08)] w-full max-w-md text-center">
-          <div className="w-16 h-16 bg-gradient-to-br from-slate-100 to-slate-200 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-inner">
-            <Shield className="text-slate-700" size={32} />
-          </div>
-          <h1 className="text-2xl font-display font-black uppercase tracking-tight text-slate-900 mb-2">Admin Access</h1>
-          <p className="text-slate-500 mb-8 font-medium">Please enter the master password to access the database tools.</p>
-          
-          <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <input
-                type="password"
-                placeholder="Enter password..."
-                value={passwordInput}
-                onChange={(e) => setPasswordInput(e.target.value)}
-                className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition-all text-center font-bold tracking-widest text-lg"
-                autoFocus
-              />
-            </div>
-            {loginError && <p className="text-red-500 text-sm font-bold animate-pulse">{loginError}</p>}
-            <button
-              type="submit"
-              className="w-full bg-slate-900 text-white font-bold py-3.5 px-4 rounded-xl hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
-            >
-              Verify & Enter
-            </button>
-          </form>
-        </div>
-      </div>
-    );
-  }
+    // Authentication is disabled as per user request
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
