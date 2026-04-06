@@ -1,10 +1,9 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
-  
-  # Forward all requests that are not physical files or directories to the home page (index.js entry)
-  # This allows the React SPA to handle routing on the client side
+  RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^(.*)$ / [L]
+  RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteRule . /dist/index.html [L]
 </IfModule>
