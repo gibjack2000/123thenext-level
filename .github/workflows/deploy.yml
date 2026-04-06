@@ -23,6 +23,8 @@ jobs:
       run: |
         npm install --legacy-peer-deps
         npm run build
+        # Move build files to root for Hostinger's "React" framework compatibility
+        cp -r dist/* ./
 
     - name: 🚀 Sync Files (Safe Mode)
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
