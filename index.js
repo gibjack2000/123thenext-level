@@ -18,13 +18,23 @@ app.get('/ping', (req, res) => {
   res.send('pong');
 });
 
+// Add a logger
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+  next();
+});
+
 // Serve static files from the 'dist' directory
 app.use(express.static(distPath));
+
+// Add a specific health check route before wildcard
+app.get('/health', (req, res) => {
+  res.status(200).send('OK');
+});
 
 // Handle client-side routing by returning the index.html file for all paths
 app.get('*', (req, res) => {
   // If the request is for a file that doesn't exist, serve index.html
-  // This is the core fix for 503 on refresh
   res.sendFile(indexPath, (err) => {
     if (err) {
       console.error('CRITICAL: Failed to serve index.html:', err);
