@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import path, { dirname, join } from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -10,8 +10,13 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Resolve absolute paths for the dist folder
-const distPath = join(__dirname, 'dist');
-const indexPath = join(distPath, 'index.html');
+const distPath = path.resolve(__dirname, 'dist');
+const indexPath = path.resolve(distPath, 'index.html');
+
+// Add a health check route
+app.get('/ping', (req, res) => {
+  res.send('pong');
+});
 
 // Serve static files from the 'dist' directory
 app.use(express.static(distPath));
