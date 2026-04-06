@@ -7,36 +7,37 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
-// Hostinger often provides the port through the PORT environment variable
 const port = process.env.PORT || 3000;
 
-// Serve static files from the 'dist' directory where Vite outputs the build
-app.use(express.static(join(__dirname, 'dist')));
+// Resolve absolute paths for the dist folder
+const distPath = join(__dirname, 'dist');
+const indexPath = join(distPath, 'index.html');
 
-// Global Error Handling to prevent 503 Crashes
-app.use((err, req, res, next) => {
-  console.error('SERVER ERROR RECOVERY INTERCEPTED:', err.stack);
-  res.status(500).send('Internal Server Error - Recovery mode active.');
+// Serve static files from the 'dist' directory
+app.use(express.static(distPath));
+
+// Handle client-side routing by returning the index.html file for all paths
+app.get('*', (req, res) => {
+  // If the request is for a file that doesn't exist, serve index.html
+  // This is the core fix for 503 on refresh
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      console.error('CRITICAL: Failed to serve index.html:', err);
+      // Fallback if the file is missing
+      res.status(404).send('Site files are currently updating or missing. Please rebuild.');
+    }
+  });
 });
 
-// Handle client-side routing by returning the index.html file for all other routes
-app.get('*', (req, res) => {
-  try {
-    res.sendFile(join(__dirname, 'dist', 'index.html'));
-  } catch (error) {
-    console.error('INDEX FILE SERVE ERROR:', error);
-    res.status(404).send('Not Found');
-  }
+// Global Error Handling
+app.use((err, req, res, next) => {
+  console.error('SERVER FATAL:', err.stack);
+  res.status(500).send('Internal Server Error');
 });
 
 app.listen(port, () => {
-  console.log(`Server is running internally on port ${port}`);
+  console.log(`Server started on port ${port}`);
 });
 
-process.on('uncaughtException', (err) => {
-  console.error('UNCAUGHT EXCEPTION:', err);
-});
-
-process.on('unhandledRejection', (reason, promise) => {
-  console.error('UNHANDLED REJECTION:', reason);
-});
+process.on('uncaughtException', (err) => console.error('EXC:', err));
+process.on('unhandledRejection', (r) => console.error('REJ:', r));
