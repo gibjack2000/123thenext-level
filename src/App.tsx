@@ -37,6 +37,7 @@ import BeginnersGuide from './pages/BeginnersGuide';
 import RegionHub from './pages/RegionHub';
 import CategoryPage from './pages/CategoryPage';
 import AdminPage from './pages/AdminPage';
+import SuperAdminPage from './pages/SuperAdminPage';
 import BlogPostPage from './pages/BlogPostPage';
 import { Settings, Home as HomeIcon, Menu, X } from 'lucide-react';
 
@@ -148,6 +149,7 @@ export default function App() {
             <Route path="/wellness/post-k" element={<WellnessPostK />} />
             <Route path="/wellness/post-l" element={<WellnessPostL />} />
             <Route path="/admin" element={<AdminPage />} />
+            <Route path="/superadmin" element={<SuperAdminPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/life-practice/universal-love" element={<UniversalLove />} />
             <Route path="/life-practice/do-no-harm" element={<DoNoHarm />} />
