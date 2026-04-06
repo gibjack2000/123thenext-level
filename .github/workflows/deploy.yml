@@ -23,16 +23,16 @@ jobs:
       run: |
         npm install --legacy-peer-deps
         npm run build
-        # Move build files to root for Hostinger's "React" framework compatibility
-        cp -r dist/* ./
-
+        # Copy the .htaccess file into the dist folder so it gets synced to the server root
+        cp .htaccess dist/
+    
     - name: 🚀 Sync Files (Safe Mode)
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./
+        local-dir: ./dist/
         server-dir: ./
         # CRITICAL: Do NOT delete the Products folder on the server
         exclude: |
