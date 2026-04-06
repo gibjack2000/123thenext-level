@@ -23,6 +23,8 @@ jobs:
       run: |
         npm install --legacy-peer-deps
         npm run build
+        # COPY standard routing fix to the built folder
+        cp .htaccess dist/
     
     - name: 🚀 Sync Files (Safe Mode)
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -30,21 +32,11 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./
+        local-dir: ./dist/
         server-dir: ./
         # EXCLUDE UNWANTED FILES - Final Clean State for Vite Setting
         exclude: |
           **/node_modules/**
           **/Products/**
-          index.js
-          server.js
-          package.json
-          package-lock.json
-          src/**
-          .git/**
-          .github/**
-          vite.config.ts
-          tailwind.config.ts
-          tsconfig.json
         # This ensures it only updates/adds files and doesn't wipe unknown server folders
         dangerous-clean-slate: false
