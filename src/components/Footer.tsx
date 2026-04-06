@@ -75,13 +75,22 @@ const Footer = () => {
               <p className="text-slate-400 text-xs font-medium italic mb-4">
                 {t('footer_admin_desc')}
               </p>
-              <Link 
-                to="/admin" 
-                className="inline-flex items-center text-sm font-bold text-white bg-slate-800 hover:bg-blue-600 px-6 py-3 rounded-2xl transition-all duration-300 shadow-lg border border-slate-700 hover:border-transparent group"
-              >
-                <Settings size={16} className="mr-2 group-hover:rotate-45 transition-transform duration-500" />
-                {t('footer_admin_btn')}
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link 
+                  to="/admin" 
+                  className="inline-flex items-center text-[10px] font-black text-white bg-slate-800 hover:bg-blue-600 px-4 py-2.5 rounded-xl transition-all duration-300 shadow-lg border border-slate-700 hover:border-transparent group uppercase tracking-widest"
+                >
+                  <Settings size={14} className="mr-2 group-hover:rotate-45 transition-transform duration-500" />
+                  {t('footer_admin_btn')}
+                </Link>
+                <Link 
+                  to="/superadmin" 
+                  className="inline-flex items-center text-[10px] font-black text-white bg-indigo-900/40 hover:bg-indigo-600 px-4 py-2.5 rounded-xl transition-all duration-300 shadow-lg border border-indigo-500/30 hover:border-transparent group uppercase tracking-widest"
+                >
+                  <Shield size={14} className="mr-2 group-hover:scale-110 transition-transform duration-500" />
+                  SuperAdmin
+                </Link>
+              </div>
             </div>
           </div>
 
