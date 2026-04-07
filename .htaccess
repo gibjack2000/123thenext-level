@@ -2,14 +2,19 @@
   RewriteEngine On
   RewriteBase /
 
-  # 1. STOP if this is a real file or directory (Images, JS/CSS, etc.)
-  # This prevents LiteSpeed from trying to pass static assets to Node.js
+  # 1. DISABLE Node.js/Passenger for this folder to prevent 503 errors
+  # This forces Hostinger to serve the site statically via LiteSpeed
+  <IfModule mod_passenger.c>
+    PassengerEnabled off
+  </IfModule>
+
+  # 2. STOP if this is a real file or directory (Images, JS/CSS, etc.)
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # 2. SPA ROUTING: If the file doesn't exist, send it to index.html
-  # We check the root first (flattened prod), then /dist/ (local dev fallback)
+  # 3. SPA ROUTING: Fallback to index.html for all subpages
+  # Supports both flattened production and local /dist/ structure
   RewriteCond %{DOCUMENT_ROOT}/index.html -f
   RewriteRule . /index.html [L]
 
@@ -17,11 +22,12 @@
   RewriteRule . /dist/index.html [L]
 </IfModule>
 
-# Handle Content-Type for modern Vite assets
+# Ensure correct Content-Type for Vite assets
 <IfModule mod_mime.c>
   AddType application/javascript .js
   AddType text/css .css
 </IfModule>
+
 
 
 
