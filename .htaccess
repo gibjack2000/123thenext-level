@@ -2,24 +2,26 @@
   RewriteEngine On
   RewriteBase /
 
-  # 1. Handle Assets: If requesting something in assets/ or Products/, try the dist/ folder
-  # This works for local development and non-flattened deployments.
-  RewriteCond %{DOCUMENT_ROOT}/dist/$1 -f
-  RewriteRule ^(assets/.*|Products/.*)$ /dist/$1 [L]
-
-  # 2. Skip if it is a real file or directory in the root
+  # 1. STOP if this is a real file or directory (Images, JS/CSS, etc.)
+  # This prevents LiteSpeed from trying to pass static assets to Node.js
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]
 
-  # 3. Handle subpages (React routing): Fallback to index.html
-  # First, check if index.html is in the root (flattened production deployment)
+  # 2. SPA ROUTING: If the file doesn't exist, send it to index.html
+  # We check the root first (flattened prod), then /dist/ (local dev fallback)
   RewriteCond %{DOCUMENT_ROOT}/index.html -f
   RewriteRule . /index.html [L]
 
-  # Second, check if index.html is in the /dist/ folder (local development / subfolder setup)
   RewriteCond %{DOCUMENT_ROOT}/dist/index.html -f
   RewriteRule . /dist/index.html [L]
 </IfModule>
+
+# Handle Content-Type for modern Vite assets
+<IfModule mod_mime.c>
+  AddType application/javascript .js
+  AddType text/css .css
+</IfModule>
+
 
 
