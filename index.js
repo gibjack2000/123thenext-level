@@ -34,10 +34,16 @@ app.get('/health', (req, res) => {
 
 // Handle client-side routing by returning the index.html file for all paths
 app.get('*', (req, res) => {
-  // If the request is for a file that doesn't exist, serve index.html
+  // If the request is for a missing asset (e.g. .js or .css), don't send index.html
+  // and instead return a 404 to avoid confusing the browser.
+  if (req.url.includes('.') && !req.url.endsWith('.html')) {
+    return res.status(404).send('Asset not found');
+  }
+
+  // Ensure index.html exists before attempting to send it
   res.sendFile(indexPath, (err) => {
     if (err) {
-      console.error('CRITICAL: Failed to serve index.html:', err);
+      console.error('CRITICAL: Failed to serve index.html at:', indexPath, err);
       // Fallback if the file is missing
       res.status(404).send('Site files are currently updating or missing. Please rebuild.');
     }
