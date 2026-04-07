@@ -1,7 +1,9 @@
 import 'dotenv/config';
 import express from 'express';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import path, { dirname, join } from 'path';
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -9,9 +11,13 @@ const __dirname = dirname(__filename);
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Resolve absolute paths for the dist folder
-const distPath = path.resolve(__dirname, 'dist');
+// Resolve absolute paths for the static folder
+// In production (flattened), files are in the root. Locally, they are in 'dist/'.
+const distPath = fs.existsSync(path.resolve(__dirname, 'dist')) 
+  ? path.resolve(__dirname, 'dist') 
+  : __dirname;
 const indexPath = path.resolve(distPath, 'index.html');
+
 
 // Add a health check route
 app.get('/ping', (req, res) => {

@@ -1,13 +1,25 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
-  
-  # Forward all non-file/directory requests to index.js if using Node.js
-  # Or fallback to dist/index.html for static/SPA routing
-  RewriteRule ^index\.html$ - [L]
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteCond %{REQUEST_FILENAME} !-l
+
+  # 1. Handle Assets: If requesting something in assets/ or Products/, try the dist/ folder
+  # This works for local development and non-flattened deployments.
+  RewriteCond %{DOCUMENT_ROOT}/dist/$1 -f
+  RewriteRule ^(assets/.*|Products/.*)$ /dist/$1 [L]
+
+  # 2. Skip if it is a real file or directory in the root
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # 3. Handle subpages (React routing): Fallback to index.html
+  # First, check if index.html is in the root (flattened production deployment)
+  RewriteCond %{DOCUMENT_ROOT}/index.html -f
+  RewriteRule . /index.html [L]
+
+  # Second, check if index.html is in the /dist/ folder (local development / subfolder setup)
+  RewriteCond %{DOCUMENT_ROOT}/dist/index.html -f
   RewriteRule . /dist/index.html [L]
 </IfModule>
+
 
