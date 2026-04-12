@@ -198,6 +198,7 @@ create table blog_posts (
   image_url text,
   image_url_2 text,
   image_url_3 text,
+  affiliate_url text,
   excerpt text,
   tags text[] default '{}',
   featured boolean default false
@@ -343,6 +344,7 @@ alter table blog_posts disable row level security;`;
         image_url: blogFormData.image_url || `https://images.unsplash.com/photo-1490818387583-1baba5e638af?auto=format&fit=crop&q=80&w=800`,
         image_url_2: blogFormData.additionalImage1,
         image_url_3: blogFormData.additionalImage2,
+        affiliate_url: products.find(p => p.id === blogFormData.linkedProductId)?.amazon_url || '',
         featured: blogFormData.featured,
         tags: blogFormData.tags.split(',').map(t => t.trim()).filter(Boolean),
       };
