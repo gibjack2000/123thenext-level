@@ -58,6 +58,11 @@ export default function BlogPostPage() {
   }
 
   const renderContent = () => {
+    // If post is marked as HTML, render it directly
+    if ((post as any).is_html || post.content.trim().startsWith('<')) {
+      return <div dangerouslySetInnerHTML={{ __html: post.content }} />;
+    }
+
     // Basic markdown-like rendering for the content
     return post.content.split('\n').map((paragraph, index) => {
       const text = paragraph.trim();

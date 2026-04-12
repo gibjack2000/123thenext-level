@@ -8,8 +8,7 @@ const REGIONS = ['US', 'UK', 'ES'];
 const PRODUCT_CATEGORIES = ['fitness_gear', 'health_wellness', 'home_kitchen', 'tech_gadgets', 'supplements'];
 const BLOG_CATEGORIES = ['health', 'fitness', 'nutrition', 'wellness'];
 const CURRENCIES = ['USD', 'GBP', 'EUR'];
-// Gemini API Key - fallback ensures AI features always work
-const GEMINI_KEY = import.meta.env.VITE_GEMINI_API_KEY || 'AIzaSyDu4wqfISnPtU8JNUwGaW2tUUAPtOzsAk0';
+const GEMINI_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 export default function SuperAdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
