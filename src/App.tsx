@@ -39,6 +39,7 @@ import CategoryPage from './pages/CategoryPage';
 import AdminPage from './pages/AdminPage';
 import SuperAdminPage from './pages/SuperAdminPage';
 import BlogPostPage from './pages/BlogPostPage';
+import TickerTape from './components/TickerTape';
 import { Settings, Home as HomeIcon, Menu, X } from 'lucide-react';
 
 
@@ -59,6 +60,8 @@ export default function App() {
             Running in Demo Mode with placeholder data. Add Supabase credentials in Settings to connect your database.
           </div>
         )}
+        
+        <TickerTape />
         
         <header className="bg-white/80 backdrop-blur-md border-b border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.03)] sticky top-0 z-50 transition-all duration-300">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
