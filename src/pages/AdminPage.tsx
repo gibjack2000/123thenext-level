@@ -307,6 +307,20 @@ alter table blog_posts disable row level security;`;
     }
   };
 
+  const handleGenerateBlogForProduct = (product: Product) => {
+    setActiveTab('blog');
+    setBlogFormData(prev => ({
+      ...prev,
+      title: `How ${product.product_name} Can Transform Your Health`,
+      content: `### Introduction\n\nHealth and wellness are the foundation of a high-performance life. Today, we're looking at how the **${product.product_name}** fits into your routine.\n\n### Product Analysis\n\n[View the product here](${product.amazon_url})\n\n${product.description || 'Analysis incoming...'}\n\n### Why it Matters\n\n${product.short_benefit || 'This product provides essential support for your health journey.'}`,
+      image_url: product.image_url || '',
+      excerpt: `Discover the wellness benefits of ${product.product_name} and how it can elevate your daily routine.`,
+      tags: Array.isArray(product.tags) ? product.tags.join(', ') : 'health, wellness, ' + product.category,
+    }));
+    // Scroll to form
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const handleBlogSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -946,6 +960,34 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
       </form>
       ) : (
         <form onSubmit={handleBlogSubmit} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
+          <div className="bg-slate-50 p-6 rounded-2xl border border-dashed border-slate-300 mb-6">
+            <h3 className="text-sm font-bold text-slate-700 uppercase tracking-widest mb-4 flex items-center gap-2">
+              <Sparkles size={16} className="text-indigo-600" />
+              Start with a Product
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Select a Product to Base Article On</label>
+                <select 
+                  className="w-full rounded-xl border-slate-200 border p-3 focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-medium"
+                  onChange={(e) => {
+                    const p = products.find(prod => prod.id === e.target.value);
+                    if (p) handleGenerateBlogForProduct(p);
+                  }}
+                  value=""
+                >
+                  <option value="">-- Select from your database --</option>
+                  {products.map(p => (
+                    <option key={p.id} value={p.id}>{p.product_name}</option>
+                  ))}
+                </select>
+              </div>
+              <p className="text-xs text-slate-400 italic mb-2">
+                Selecting a product will automatically fill the title, excerpt, and drafting area with product-specific details.
+              </p>
+            </div>
+          </div>
+
           <div className="flex items-center justify-between mb-8 pb-6 border-b border-slate-100">
             <div className="flex items-center gap-3">
               <div className="bg-slate-900 p-2 rounded-lg text-white">
@@ -1324,11 +1366,18 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
                               <ExternalLink size={18} />
                             </a>
                             <button 
+                              onClick={() => handleGenerateBlogForProduct(product)}
+                              className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
+                              title="Generate Blog Post for this Product"
+                            >
+                              <BookOpen size={18} />
+                            </button>
+                            <button 
                               onClick={() => handleEditProduct(product)}
                               className={`p-2 rounded-lg transition-all ${editingProductId === product.id ? 'text-blue-600 bg-blue-50' : 'text-slate-400 hover:text-blue-600 hover:bg-blue-50'}`}
                               title="Edit Product"
                             >
-                              <RefreshCw size={18} />
+                              <Pencil size={18} />
                             </button>
                             <button 
                               onClick={() => handleDeleteProduct(product.id)}
@@ -1421,7 +1470,7 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
                               className={`p-2 rounded-lg transition-all ${editingBlogPostId === post.id ? 'text-blue-600 bg-blue-50' : 'text-slate-400 hover:text-blue-600 hover:bg-blue-50'}`}
                               title="Edit Post"
                             >
-                              <RefreshCw size={18} />
+                              <Pencil size={18} />
                             </button>
                             <button 
                               onClick={() => handleDeleteBlog(post.id)}
