@@ -100,6 +100,12 @@ export default function BlogPostPage() {
     });
   };
 
+  // Safe fallback to extract first link from content if affiliate_url column is missing/empty
+  const displayAffiliateUrl = post.affiliate_url || (() => {
+    const match = post.content.match(/https?:\/\/(?:www\.)?(?:amazon|amzn)\.[a-z.]+(?:\/[^)\s]*)?/i);
+    return match ? match[0] : '#';
+  })();
+
   return (
     <main className="min-h-screen bg-slate-50 pb-20">
       {/* Hero Section */}
@@ -116,7 +122,7 @@ export default function BlogPostPage() {
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-slate-900/10"></div>
             {/* Clickable Link covering everything */}
             <a 
-              href={post.affiliate_url} 
+              href={displayAffiliateUrl} 
               target="_blank" 
               rel="noopener noreferrer" 
               className="absolute inset-0 z-10 block cursor-pointer hover:bg-black/5 transition-colors"
@@ -181,7 +187,7 @@ export default function BlogPostPage() {
           {/* Additional Image 1 Slot */}
           {post.image_url_2 && (
             <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl group">
-              <a href={post.affiliate_url} target="_blank" rel="noopener noreferrer" className="block relative">
+              <a href={displayAffiliateUrl} target="_blank" rel="noopener noreferrer" className="block relative">
                 <img src={post.image_url_2} alt="Supplementary visual" className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500" />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
               </a>
@@ -194,7 +200,7 @@ export default function BlogPostPage() {
           {/* Additional Image 2 Slot */}
           {post.image_url_3 && (
             <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl group">
-              <a href={post.affiliate_url} target="_blank" rel="noopener noreferrer" className="block relative">
+              <a href={displayAffiliateUrl} target="_blank" rel="noopener noreferrer" className="block relative">
                 <img src={post.image_url_3} alt="Supplementary visual" className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500" />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
               </a>
