@@ -19,35 +19,50 @@ async function generateAutomatedBlog() {
   console.log("🚀 Starting automated blog generation from Supabase...");
 
   try {
-    // 2. Pick a random active product
-    console.log("Fetching active products from 'amazon_affiliate_products'...");
+    // 2. Pick a random supplement product
+    console.log("Fetching active products from 'amazon_affiliate_products' with category 'supplements'...");
     const { data: products, error: pError } = await supabase
       .from('amazon_affiliate_products')
       .select('*')
-      .eq('is_active', true);
+      .eq('is_active', true)
+      .eq('category', 'supplements'); // Specifically target supplements
 
     if (pError) throw pError;
-    if (!products || products.length === 0) throw new Error("No active products found.");
+    
+    let selectedProduct;
+    if (!products || products.length === 0) {
+      console.log("⚠️ No active supplements found. Falling back to any active product...");
+      const { data: allProducts, error: allPError } = await supabase
+        .from('amazon_affiliate_products')
+        .select('*')
+        .eq('is_active', true);
+      
+      if (allPError) throw allPError;
+      if (!allProducts || allProducts.length === 0) throw new Error("No active products found.");
+      selectedProduct = allProducts[Math.floor(Math.random() * allProducts.length)];
+    } else {
+      selectedProduct = products[Math.floor(Math.random() * products.length)];
+    }
 
-    const product = products[Math.floor(Math.random() * products.length)];
-    console.log(`✅ Selected product: ${product.title} (ASIN: ${product.asin})`);
+    console.log(`✅ Selected product: ${selectedProduct.title} (ASIN: ${selectedProduct.asin})`);
 
     // 3. Generate blog content using Gemini
-    console.log("Generating blog content with Gemini Flash...");
+    console.log("Generating blog content with Gemini Flash (target: Nutrition)...");
     const prompt = `
-      Write a professional and engaging health blog post about the following product:
-      Product Name: ${product.title}
-      Description: ${product.description}
-      Category: ${product.category}
+      Write a professional and engaging nutrition blog post about the following supplement/product:
+      Product Name: ${selectedProduct.title}
+      Description: ${selectedProduct.description}
+      Product Link: ${selectedProduct.affiliate_link}
       
       Requirements:
       1. Length: Approximately 300 words.
-      2. Topic: How this specific product improves health and wellness. This is for the "Health" category.
-      3. Tone: Informative, premium, and encouraging.
-      4. Include a mention of the product naturally with its link: ${product.affiliate_link}
-      5. Output format must be ONLY a valid JSON object (no markdown code blocks) with the following keys:
-         "title": A catchy headline.
-         "excerpt": A short 2-sentence hook.
+      2. Topic: How this specific supplement supports optimal nutrition and health. This is for the "Nutrition" category.
+      3. Tone: Informative, authoritative, and encourages interaction.
+      4. Strategy: Begin with a compelling hook about nutrition, then introduce the ${selectedProduct.title} as a key tool/supplement, and conclude with the importance of balanced nutrition.
+      5. Include a naturally integrated Markdown link to the product: [Check Price on Amazon](${selectedProduct.affiliate_link})
+      6. Output format must be ONLY a valid JSON object (no markdown code blocks) with the following keys:
+         "title": A catchy, SEO-optimized nutrition headline.
+         "excerpt": A short 2-sentence hook for the feed.
          "content": The full blog post in Markdown format (use ## and ### for structure).
          "tags": An array of 3-5 relevant keywords.
     `;
@@ -70,12 +85,12 @@ async function generateAutomatedBlog() {
       .replace(/^-+|-+$/g, '');
 
     const newBlog = {
-      category: 'health',
+      category: 'nutrition', // Fixed category as requested
       title: blogData.title,
       slug: `${slug}-${crypto.randomBytes(2).toString('hex')}`,
-      author: '123TheNext Level Team',
+      author: '123TheNext Level AI',
       content: blogData.content,
-      image_url: product.image_url,
+      image_url: selectedProduct.image_url,
       excerpt: blogData.excerpt,
       tags: blogData.tags,
       featured: false,
