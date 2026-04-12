@@ -413,7 +413,7 @@ Product URL: ${formData.amazon_url || 'Unknown'}
 Provide a short benefit (1 sentence highlight), a description (2-3 sentences), and 3-5 tags (comma-separated).`;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-2.0-flash',
+        model: 'gemini-1.5-flash',
         contents: [{ role: 'user', parts: [{ text: prompt }] }],
         config: {
           responseMimeType: 'application/json',
@@ -485,7 +485,7 @@ Category: ${blogFormData.category}
 Output JSON: "slug", "excerpt", "content" (Markdown). At least 500 words. 2-3 real authoritative links.`;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-2.0-flash',
+        model: 'gemini-1.5-flash',
         contents: [{ role: 'user', parts: [{ text: prompt }] }],
         config: {
           responseMimeType: 'application/json',
@@ -552,13 +552,13 @@ Output JSON: "slug", "excerpt", "content" (Markdown). At least 500 words. 2-3 re
       let visualPrompt = `A professional lifestyle product photograph of: ${formData.product_name || 'the product at this URL'}. High resolution, cinematic lighting.`;
       
       const analysisResponse = await ai.models.generateContent({
-        model: 'gemini-2.0-flash',
+        model: 'gemini-1.5-flash',
         contents: [{ role: 'user', parts: [{ text: formData.amazon_url ? `Describe the visual appearance of this product for a photo: ${formData.amazon_url}` : visualPrompt }] }],
       });
 
       const visualDescription = analysisResponse.candidates?.[0]?.content?.parts?.[0]?.text || formData.product_name;
 
-      // Note: Image generation via gemini-2.0-flash is not directly supported in the same way as Imagen.
+      // Note: Image generation via gemini-1.5-flash is not directly supported in the same way as Imagen.
       // We'll attempt a multimodal generation if supported by the model, or log a limitation.
       setError('Note: Real visual generation (Imagen) is restricted in browser. The AI is analyzing the product visual description.');
     } catch (err: any) {
@@ -599,14 +599,14 @@ Output JSON: "slug", "excerpt", "content" (Markdown). At least 500 words. 2-3 re
 Generate an incredibly interesting, highly engaging, and deeply relatable visual concept for the background hero image of this post. Describe the scene, lighting, mood, and atmosphere in vivid detail. Make it stand out and perfectly relevant to the topic.`;
       
       const analysisResponse = await ai.models.generateContent({
-        model: 'gemini-2.0-flash',
+        model: 'gemini-1.5-flash',
         contents: [{ role: 'user', parts: [{ text: visualPrompt }] }],
       });
 
       const visualDescription = analysisResponse.text || blogFormData.title;
 
       const imageResponse = await ai.models.generateContent({
-        model: 'gemini-2.0-flash',
+        model: 'gemini-1.5-flash',
         contents: [{
           role: 'user',
           parts: [

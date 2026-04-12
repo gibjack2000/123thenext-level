@@ -8,7 +8,7 @@ const REGIONS = ['US', 'UK', 'ES'];
 const PRODUCT_CATEGORIES = ['fitness_gear', 'health_wellness', 'home_kitchen', 'tech_gadgets', 'supplements'];
 const BLOG_CATEGORIES = ['health', 'fitness', 'nutrition', 'wellness'];
 const CURRENCIES = ['USD', 'GBP', 'EUR'];
-const GEMINI_KEY = import.meta.env.VITE_GEMINI_API_KEY || (typeof process !== 'undefined' ? process.env.GEMINI_API_KEY : '');
+const GEMINI_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 export default function SuperAdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -399,7 +399,7 @@ Product URL: ${formData.amazon_url || 'Unknown'}
 Provide a short benefit (1 sentence highlight), a description (2-3 sentences), and 3-5 tags (comma-separated).`;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-2.0-flash',
+        model: 'gemini-1.5-flash',
         contents: [{ role: 'user', parts: [{ text: prompt }] }],
         config: {
           responseMimeType: 'application/json',
@@ -427,7 +427,7 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
       }
     } catch (err: any) {
       console.error('AI ERROR:', err);
-      setError('AI Failed: ' + (err.message || 'Check console.'));
+      setError('Blog AI Failed (v1.5-flash mode): ' + (err.message || 'Check console.'));
     } finally {
       setIsGenerating(false);
     }
@@ -478,7 +478,7 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
       `;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-2.0-flash',
+        model: 'gemini-1.5-flash',
         contents: [{ role: 'user', parts: [{ text: prompt }] }],
         config: {
           responseMimeType: 'application/json',
@@ -508,7 +508,7 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
       }
     } catch (err: any) {
       console.error('BLOG AI ERROR:', err);
-      setError('Blog AI Failed: ' + (err.message || 'Check console.'));
+      setError('Blog AI Failed (v1.5-flash mode): ' + (err.message || 'Check console.'));
     } finally {
       setIsGenerating(false);
     }
