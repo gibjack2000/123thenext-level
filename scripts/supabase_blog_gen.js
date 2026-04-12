@@ -102,6 +102,8 @@ async function generateAutomatedBlog() {
       author: '123TheNext Level AI',
       content: blogData.content,
       image_url: selectedProduct.image_url,
+      image_url_2: `https://images.unsplash.com/photo-${['1512621776951-a57141f2eefd', '1511688858344-1833878fcacc', '1505576399279-565b52d4ac71', '1490818387583-1baba5e638af'][Math.floor(Math.random() * 4)]}?auto=format&fit=crop&q=80&w=800`,
+      image_url_3: `https://images.unsplash.com/photo-${['1571019614242-c5c5dee9f50b', '1581009146145-b5ef050c2e1e', '1544367567-0f2fcb009e0b', '1506126613408-eca07ce68773'][Math.floor(Math.random() * 4)]}?auto=format&fit=crop&q=80&w=800`,
       excerpt: blogData.excerpt,
       tags: blogData.tags,
       featured: false,

@@ -167,7 +167,28 @@ export default function BlogPostPage() {
       {/* Article Content Container */}
       <article className="relative z-20 max-w-4xl mx-auto px-6 sm:px-10 lg:px-12 py-16 bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200/50 -mt-24 border border-slate-100 mix-blend-normal">
         <div className="prose prose-slate prose-lg lg:prose-xl max-w-none">
-          {renderContent()}
+          {/* First part of content */}
+          {renderContent().slice(0, 4)}
+
+          {/* Additional Image 1 Slot */}
+          {post.image_url_2 && (
+            <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl">
+              <img src={post.image_url_2} alt="Supplementary visual" className="w-full h-auto object-cover" />
+            </div>
+          )}
+
+          {/* Middle part of content */}
+          {renderContent().slice(4, 8)}
+
+          {/* Additional Image 2 Slot */}
+          {post.image_url_3 && (
+            <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl">
+              <img src={post.image_url_3} alt="Supplementary visual" className="w-full h-auto object-cover" />
+            </div>
+          )}
+
+          {/* Remaining content */}
+          {renderContent().slice(8)}
         </div>
         
         {/* Post Tags */}
