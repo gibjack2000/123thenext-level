@@ -240,6 +240,8 @@ alter table blog_posts disable row level security;`;
     excerpt: '',
     tags: '',
     featured: false,
+    description: '', // For AI generation
+    linkedProductId: '',
   });
 
   const handleBlogChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -431,13 +433,34 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
   const handleGenerateBlogAI = async () => {
     try {
       const apiKey = GEMINI_KEY;
-      if (!apiKey) return;
-      if (!blogFormData.title) return;
+      if (!apiKey) {
+        setError('Gemini AI Key is missing.');
+        return;
+      }
+      if (!blogFormData.title) {
+        setError('Please enter a Blog Title first.');
+        return;
+      }
 
       setIsGenerating(true);
       setError(null);
+      
+      const linkedProduct = products.find(p => p.id === blogFormData.linkedProductId);
+      
       const ai = new GoogleGenAI({ apiKey });
-      const prompt = `Generate a blog post (JSON): Title: ${blogFormData.title}. Output JSON: "slug", "excerpt", "content" (Markdown).`;
+      const prompt = `
+        You are a premium content creator for 123TheNextLevel. Generate an engaging and informative blog post.
+        Title: ${blogFormData.title}
+        Brief Description/Goal: ${blogFormData.description || 'General health/wellness info'}
+        ${linkedProduct ? `Target Product to Feature: ${linkedProduct.product_name} (${linkedProduct.amazon_url})` : ''}
+        
+        Requirements:
+        1. Length: 500+ words.
+        2. Format: Markdown with clear headers (##, ###).
+        3. Tone: Authoritative, engaging, and premium.
+        4. If a product is provided, weave it naturally into the health narrative as a top recommendation.
+        5. Output ONLY a valid JSON object with keys: "slug", "excerpt", "content", "tags" (array).
+      `;
 
       const response = await ai.models.generateContent({
         model: 'gemini-2.0-flash',
@@ -446,8 +469,13 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
           responseMimeType: 'application/json',
           responseSchema: {
             type: 'OBJECT',
-            properties: { slug: { type: 'STRING' }, excerpt: { type: 'STRING' }, content: { type: 'STRING' } },
-            required: ["slug", "excerpt", "content"]
+            properties: {
+              slug: { type: 'STRING' },
+              excerpt: { type: 'STRING' },
+              content: { type: 'STRING' },
+              tags: { type: 'ARRAY', items: { type: 'STRING' } }
+            },
+            required: ["slug", "excerpt", "content", "tags"]
           }
         }
       });
@@ -459,11 +487,13 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
           ...prev,
           slug: data.slug || prev.slug,
           excerpt: data.excerpt || prev.excerpt,
-          content: data.content || prev.content
+          content: data.content || prev.content,
+          tags: Array.isArray(data.tags) ? data.tags.join(', ') : prev.tags
         }));
       }
     } catch (err: any) {
-      setError('Blog AI Failed: ' + err.message);
+      console.error('BLOG AI ERROR:', err);
+      setError('Blog AI Failed: ' + (err.message || 'Check console.'));
     } finally {
       setIsGenerating(false);
     }
@@ -688,10 +718,47 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
         </form>
       ) : (
         <form onSubmit={handleBlogSubmit} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
-           <h2 className="text-xl font-display uppercase tracking-tight text-slate-900 border-b pb-4">Content Deployment System</h2>
-           <input required type="text" name="title" value={blogFormData.title} onChange={handleBlogChange} placeholder="Article Title" className="w-full p-2.5 border rounded-lg" />
-           <textarea required name="content" value={blogFormData.content} onChange={handleBlogChange} rows={10} className="w-full p-2.5 border rounded-lg font-mono text-sm" placeholder="Markdown Article Source" />
-           <button type="submit" className="w-full bg-indigo-600 text-white font-bold py-3 rounded-xl">
+           <div className="flex items-center justify-between border-b pb-4">
+             <h2 className="text-xl font-display uppercase tracking-tight text-slate-900">Content Deployment System</h2>
+             <button
+               type="button"
+               onClick={handleGenerateBlogAI}
+               disabled={isGenerating}
+               className="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 font-bold rounded-xl hover:bg-indigo-100 transition-all text-xs border border-indigo-100 disabled:opacity-50"
+             >
+               {isGenerating ? <div className="animate-spin h-3 w-3 border-b-2 border-indigo-700 rounded-full" /> : <Sparkles size={14} />}
+               Generate AI Content
+             </button>
+           </div>
+           
+           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+             <div className="space-y-4">
+               <div>
+                 <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Article Title *</label>
+                 <input required type="text" name="title" value={blogFormData.title} onChange={handleBlogChange} placeholder="e.g. The Power of Vitamin D" className="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" />
+               </div>
+               <div>
+                 <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Brief Description / Goal</label>
+                 <textarea name="description" value={blogFormData.description} onChange={handleBlogChange} rows={3} placeholder="What should this blog focus on?" className="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" />
+               </div>
+               <div>
+                 <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Link to Product (Optional)</label>
+                 <select name="linkedProductId" value={blogFormData.linkedProductId} onChange={handleBlogChange} className="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
+                   <option value="">-- No Product Link --</option>
+                   {products.map(p => <option key={p.id} value={p.id}>{p.product_name}</option>)}
+                 </select>
+               </div>
+             </div>
+             <div className="space-y-4">
+               <div>
+                 <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Article Content (Markdown)</label>
+                 <textarea required name="content" value={blogFormData.content} onChange={handleBlogChange} rows={10} className="w-full p-2.5 border rounded-lg font-mono text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Draft will appear here..." />
+               </div>
+             </div>
+           </div>
+
+           <button type="submit" disabled={loading} className="w-full bg-indigo-600 text-white font-bold py-3 rounded-xl hover:bg-indigo-700 transition-all shadow-lg flex items-center justify-center gap-2">
+             {loading ? <div className="animate-spin h-5 w-5 border-b-2 border-white rounded-full" /> : <Save size={20} />}
              Deploy Blog Content
            </button>
         </form>
