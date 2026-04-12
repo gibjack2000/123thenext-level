@@ -39,13 +39,13 @@ export default function BlogSection({ category, limit = 3, title, subtitle, clas
         const { data, error } = await query;
         if (error) throw error;
         
-        if (data && data.length > 0) {
-          setPosts(data);
-        } else {
-          throw new Error('No data found, using fallback');
-        }
-      } catch (err) {
+        // Only set posts if we got data. 
+        // If data is empty but we had no error, it means the category is just empty.
+        setPosts(data || []);
+      } catch (err: any) {
         console.error('Error fetching blog posts, using mock data:', err);
+        
+        // Only use fallback if we actually have NO posts at all (indicating first run or connection issue)
         let mockPosts = MOCK_BLOG_POSTS;
         if (category) {
           mockPosts = mockPosts.filter((p: any) => p.category === category);
