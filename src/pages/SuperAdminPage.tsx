@@ -240,8 +240,12 @@ alter table blog_posts disable row level security;`;
     excerpt: '',
     tags: '',
     featured: false,
-    description: '', // For AI generation
-    linkedProductId: '',
+    description: '',
+    linkedProductId: '', // Primary
+    additionalProductIds: [] as string[],
+    additionalImages: [] as string[],
+    is_html: false,
+    draftMode: 'ai' as 'ai' | 'manual',
   });
 
   const handleBlogChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -445,21 +449,32 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
       setIsGenerating(true);
       setError(null);
       
-      const linkedProduct = products.find(p => p.id === blogFormData.linkedProductId);
+      const primaryProduct = products.find(p => p.id === blogFormData.linkedProductId);
+      const otherProducts = products.filter(p => blogFormData.additionalProductIds.includes(p.id));
+      const allProducts = [...(primaryProduct ? [primaryProduct] : []), ...otherProducts];
       
       const ai = new GoogleGenAI({ apiKey });
       const prompt = `
-        You are a premium content creator for 123TheNextLevel. Generate an engaging and informative blog post.
+        You are a premium content creator for 123TheNextLevel.
+        Task: Generate a blog post of exactly 300 words.
+        
+        Information:
         Title: ${blogFormData.title}
         Brief Description/Goal: ${blogFormData.description || 'General health/wellness info'}
-        ${linkedProduct ? `Target Product to Feature: ${linkedProduct.product_name} (${linkedProduct.amazon_url})` : ''}
+        
+        Featured Products (Mention and Link these!):
+        ${allProducts.map(p => `- ${p.product_name} (Link: ${p.amazon_url})`).join('\n')}
+        
+        Additional Images to embed (Use Markdown ![alt](url)):
+        ${blogFormData.additionalImages.map((url, i) => `- Image ${i+1}: ${url}`).join('\n')}
         
         Requirements:
-        1. Length: 500+ words.
+        1. Length: Approximately 300 words.
         2. Format: Markdown with clear headers (##, ###).
         3. Tone: Authoritative, engaging, and premium.
-        4. If a product is provided, weave it naturally into the health narrative as a top recommendation.
-        5. Output ONLY a valid JSON object with keys: "slug", "excerpt", "content", "tags" (array).
+        4. Integrate the products naturally as solutions.
+        5. If images are provided, embed them in relevant spots using markdown syntax.
+        6. Output ONLY a valid JSON object with keys: "slug", "excerpt", "content", "tags" (array).
       `;
 
       const response = await ai.models.generateContent({
@@ -720,15 +735,35 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
         <form onSubmit={handleBlogSubmit} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
            <div className="flex items-center justify-between border-b pb-4">
              <h2 className="text-xl font-display uppercase tracking-tight text-slate-900">Content Deployment System</h2>
-             <button
-               type="button"
-               onClick={handleGenerateBlogAI}
-               disabled={isGenerating}
-               className="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 font-bold rounded-xl hover:bg-indigo-100 transition-all text-xs border border-indigo-100 disabled:opacity-50"
-             >
-               {isGenerating ? <div className="animate-spin h-3 w-3 border-b-2 border-indigo-700 rounded-full" /> : <Sparkles size={14} />}
-               Generate AI Content
-             </button>
+             
+             <div className="flex items-center gap-3 bg-slate-100 p-1 rounded-xl border border-slate-200">
+               <button
+                 type="button"
+                 onClick={() => setBlogFormData(prev => ({ ...prev, draftMode: 'ai' }))}
+                 className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-tight transition-all ${blogFormData.draftMode === 'ai' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+               >
+                 AI Architect
+               </button>
+               <button
+                 type="button"
+                 onClick={() => setBlogFormData(prev => ({ ...prev, draftMode: 'manual' }))}
+                 className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-tight transition-all ${blogFormData.draftMode === 'manual' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-400 hover:text-slate-600'}`}
+               >
+                 Manual Entry
+               </button>
+             </div>
+
+             {blogFormData.draftMode === 'ai' && (
+               <button
+                 type="button"
+                 onClick={handleGenerateBlogAI}
+                 disabled={isGenerating}
+                 className="flex items-center gap-2 px-4 py-2 bg-indigo-50 text-indigo-700 font-bold rounded-xl hover:bg-indigo-100 transition-all text-xs border border-indigo-100 disabled:opacity-50"
+               >
+                 {isGenerating ? <div className="animate-spin h-3 w-3 border-b-2 border-indigo-700 rounded-full" /> : <Sparkles size={14} />}
+                 Draft with AI
+               </button>
+             )}
            </div>
            
            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -737,23 +772,101 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
                  <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Article Title *</label>
                  <input required type="text" name="title" value={blogFormData.title} onChange={handleBlogChange} placeholder="e.g. The Power of Vitamin D" className="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" />
                </div>
+
                <div>
                  <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Target Category</label>
                  <select name="category" value={blogFormData.category} onChange={handleBlogChange} className="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none capitalize">
                    {BLOG_CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
                  </select>
                </div>
-               <div>
-                 <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Brief Description / Goal</label>
-                 <textarea name="description" value={blogFormData.description} onChange={handleBlogChange} rows={3} placeholder="What should this blog focus on?" className="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" />
-               </div>
-               <div>
-                 <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Link to Product (Optional)</label>
-                 <select name="linkedProductId" value={blogFormData.linkedProductId} onChange={handleBlogChange} className="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none">
-                   <option value="">-- No Product Link --</option>
-                   {products.map(p => <option key={p.id} value={p.id}>{p.product_name}</option>)}
-                 </select>
-               </div>
+
+               {blogFormData.draftMode === 'ai' ? (
+                 <>
+                   <div>
+                     <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Brief Description / Goal</label>
+                     <textarea name="description" value={blogFormData.description} onChange={handleBlogChange} rows={2} placeholder="What should this blog focus on?" className="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" />
+                   </div>
+                   
+                   <div>
+                     <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Link Multiple Products</label>
+                     <div className="space-y-2 mt-1">
+                        <select 
+                          className="w-full p-2 border rounded-lg text-sm"
+                          onChange={(e) => {
+                            if (!e.target.value) return;
+                            setBlogFormData(prev => ({
+                              ...prev,
+                              additionalProductIds: prev.additionalProductIds.includes(e.target.value) 
+                                ? prev.additionalProductIds 
+                                : [...prev.additionalProductIds, e.target.value]
+                            }));
+                          }}
+                          value=""
+                        >
+                          <option value="">-- Click to add product --</option>
+                          {products.map(p => (
+                            <option key={p.id} value={p.id}>{p.product_name}</option>
+                          ))}
+                        </select>
+                        <div className="flex flex-wrap gap-2">
+                          {blogFormData.additionalProductIds.map(id => {
+                            const p = products.find(prod => prod.id === id);
+                            return (
+                              <span key={id} className="inline-flex items-center gap-1.5 px-2 py-1 bg-indigo-50 text-indigo-700 rounded text-[10px] font-bold border border-indigo-100">
+                                {p?.product_name || 'Product'}
+                                <button type="button" onClick={() => setBlogFormData(prev => ({ ...prev, additionalProductIds: prev.additionalProductIds.filter(pid => pid !== id) }))}>×</button>
+                              </span>
+                            );
+                          })}
+                        </div>
+                     </div>
+                   </div>
+
+                   <div>
+                     <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Additional Images</label>
+                     <div className="space-y-2 mt-1">
+                        <div className="flex gap-2">
+                          <input 
+                            type="text" 
+                            id="newImageUrl"
+                            className="flex-1 p-2 border rounded-lg text-sm" 
+                            placeholder="Paste image URL..." 
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault();
+                                const val = (e.currentTarget as HTMLInputElement).value;
+                                if (val) {
+                                  setBlogFormData(prev => ({ ...prev, additionalImages: [...prev.additionalImages, val] }));
+                                  (e.currentTarget as HTMLInputElement).value = '';
+                                }
+                              }
+                            }}
+                          />
+                        </div>
+                        <div className="grid grid-cols-3 gap-2">
+                          {blogFormData.additionalImages.map((url, i) => (
+                            <div key={i} className="relative group aspect-video rounded border overflow-hidden bg-slate-100">
+                               <img src={url} className="w-full h-full object-cover" />
+                               <button type="button" onClick={() => setBlogFormData(prev => ({ ...prev, additionalImages: prev.additionalImages.filter((_, idx) => idx !== i) }))} className="absolute inset-0 bg-red-500/80 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                 <Trash2 size={14} />
+                               </button>
+                            </div>
+                          ))}
+                        </div>
+                     </div>
+                   </div>
+                 </>
+               ) : (
+                 <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
+                   <p className="text-[10px] font-medium text-slate-500 leading-relaxed italic">
+                    Manual mode allows you to supply pre-written content or raw HTML blocks. 
+                   </p>
+                   <label className="flex items-center gap-2 cursor-pointer">
+                     <input type="checkbox" name="is_html" checked={blogFormData.is_html} onChange={handleBlogChange} className="rounded border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+                     <span className="text-[10px] font-bold text-slate-700 uppercase">Input contains Raw HTML</span>
+                   </label>
+                 </div>
+               )}
              </div>
              <div className="space-y-4">
                <div>
