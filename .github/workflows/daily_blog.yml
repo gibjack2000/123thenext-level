@@ -1,0 +1,31 @@
+name: Daily Blog Generation
+
+on:
+  schedule:
+    # Runs at 01:00 UTC every day (which is 09:00 AM in UTC+8)
+    - cron: '0 1 * * *'
+  workflow_dispatch: # Allows you to run this manually from the GitHub Actions tab
+
+jobs:
+  generate-blog:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run blog generation script
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
+        run: npx tsx scripts/supabase_blog_gen.js
