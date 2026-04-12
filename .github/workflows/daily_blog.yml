@@ -18,6 +18,8 @@ jobs:
             source: 'fitness_gear'
           - category: 'wellness'
             source: 'health_wellness'
+          - category: 'health'
+            source: 'health_wellness'
       fail-fast: false # Ensure one failure doesn't stop other categories
 
     steps:
