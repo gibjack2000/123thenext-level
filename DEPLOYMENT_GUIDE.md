@@ -16,7 +16,12 @@ We have added a **Safe Deploy** GitHub Action (`.github/workflows/deploy.yml`) t
 
 ### How to use it:
 1. Add your FTP credentials to GitHub Secrets (`FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`).
-2. Every time you push to the `main` branch, it will automatically update the site safely.
+2. **Add Environment Variables to GitHub Secrets**: For the site and automation to work, you must also add:
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `VITE_GEMINI_API_KEY`
+3. Every time you push to the `main` branch, it will automatically update the site safely.
 
 ## 3. Alternative: Hostinger Panel Update
 If you prefer using the Hostinger Git dashboard, follow these rules:

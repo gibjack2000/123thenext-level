@@ -8,7 +8,7 @@ const REGIONS = ['US', 'UK', 'ES'];
 const PRODUCT_CATEGORIES = ['fitness_gear', 'health_wellness', 'home_kitchen', 'tech_gadgets', 'supplements'];
 const BLOG_CATEGORIES = ['health', 'fitness', 'nutrition', 'wellness'];
 const CURRENCIES = ['USD', 'GBP', 'EUR'];
-const GEMINI_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+const GEMINI_KEY = import.meta.env.VITE_GEMINI_API_KEY || (typeof process !== 'undefined' ? process.env.GEMINI_API_KEY : '');
 
 export default function SuperAdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
