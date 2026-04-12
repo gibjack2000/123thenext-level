@@ -25,6 +25,8 @@ export type BlogPost = {
   author: string;
   content: string;
   image_url: string;
+  image_url_2?: string;
+  image_url_3?: string;
   excerpt: string;
   tags: string[];
   featured: boolean;
