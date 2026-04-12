@@ -106,12 +106,14 @@ export default function BlogPostPage() {
       <div className="relative w-full h-[60vh] min-h-[400px] flex items-end justify-center mb-12">
         {post.image_url ? (
           <div className="absolute inset-0 z-0">
-            <img 
-              src={post.image_url} 
-              alt={post.title} 
-              className="w-full h-full object-cover" 
-              referrerPolicy="no-referrer" 
-            />
+            <a href={post.affiliate_url} target="_blank" rel="noopener noreferrer" className="block w-full h-full cursor-pointer hover:opacity-95 transition-opacity">
+              <img 
+                src={post.image_url} 
+                alt={post.title} 
+                className="w-full h-full object-cover" 
+                referrerPolicy="no-referrer" 
+              />
+            </a>
             {/* Gradient Overlay for text readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-slate-900/10"></div>
           </div>
@@ -172,8 +174,11 @@ export default function BlogPostPage() {
 
           {/* Additional Image 1 Slot */}
           {post.image_url_2 && (
-            <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl">
-              <img src={post.image_url_2} alt="Supplementary visual" className="w-full h-auto object-cover" />
+            <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl group">
+              <a href={post.affiliate_url} target="_blank" rel="noopener noreferrer" className="block relative">
+                <img src={post.image_url_2} alt="Supplementary visual" className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
+              </a>
             </div>
           )}
 
@@ -182,8 +187,11 @@ export default function BlogPostPage() {
 
           {/* Additional Image 2 Slot */}
           {post.image_url_3 && (
-            <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl">
-              <img src={post.image_url_3} alt="Supplementary visual" className="w-full h-auto object-cover" />
+            <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl group">
+              <a href={post.affiliate_url} target="_blank" rel="noopener noreferrer" className="block relative">
+                <img src={post.image_url_3} alt="Supplementary visual" className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
+              </a>
             </div>
           )}
 
