@@ -106,16 +106,22 @@ export default function BlogPostPage() {
       <div className="relative w-full h-[60vh] min-h-[400px] flex items-end justify-center mb-12">
         {post.image_url ? (
           <div className="absolute inset-0 z-0">
-            <a href={post.affiliate_url} target="_blank" rel="noopener noreferrer" className="block w-full h-full cursor-pointer hover:opacity-95 transition-opacity">
-              <img 
-                src={post.image_url} 
-                alt={post.title} 
-                className="w-full h-full object-cover" 
-                referrerPolicy="no-referrer" 
-              />
-            </a>
-            {/* Gradient Overlay for text readability */}
+            <img 
+              src={post.image_url} 
+              alt={post.title} 
+              className="w-full h-full object-cover" 
+              referrerPolicy="no-referrer" 
+            />
+            {/* Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-slate-900/10"></div>
+            {/* Clickable Link covering everything */}
+            <a 
+              href={post.affiliate_url} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="absolute inset-0 z-10 block cursor-pointer hover:bg-black/5 transition-colors"
+              aria-label="View Product"
+            ></a>
           </div>
         ) : (
           <div className="absolute inset-0 z-0">
