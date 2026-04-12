@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { supabase, hasValidSupabaseConfig, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 import { Save, AlertCircle, CheckCircle2, Sparkles, Database, Copy, ExternalLink, ChevronDown, ChevronUp, Shield, Cpu, Trash2, RefreshCw, Search, Tag, MapPin, Star, BookOpen, FileText, Pencil } from 'lucide-react';
-import { GoogleGenAI, Type } from '@google/genai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Product, BlogPost, mapToProduct } from '../types';
 
 const REGIONS = ['US', 'UK', 'ES'];
@@ -404,7 +404,13 @@ alter table blog_posts disable row level security;`;
       setError(null);
       console.log('🤖 Starting AI Generation...');
 
-      const ai = new GoogleGenAI({ apiKey });
+      const genAI = new GoogleGenerativeAI(apiKey);
+      const model = genAI.getGenerativeModel({ 
+        model: 'gemini-flash-latest',
+        generationConfig: {
+          responseMimeType: 'application/json',
+        }
+      });
       
       const prompt = `Analyze the product and generate a JSON marketing copy:
 Product Name: ${formData.product_name || 'Unknown'}
@@ -412,24 +418,8 @@ Product URL: ${formData.amazon_url || 'Unknown'}
 
 Provide a short benefit (1 sentence highlight), a description (2-3 sentences), and 3-5 tags (comma-separated).`;
 
-      const response = await ai.models.generateContent({
-        model: 'gemini-1.5-flash',
-        contents: [{ role: 'user', parts: [{ text: prompt }] }],
-        config: {
-          responseMimeType: 'application/json',
-          responseSchema: {
-            type: 'OBJECT',
-            properties: {
-              short_benefit: { type: 'STRING' },
-              description: { type: 'STRING' },
-              tags: { type: 'STRING' }
-            },
-            required: ["short_benefit", "description", "tags"]
-          }
-        }
-      });
-
-      const aiText = response.candidates?.[0]?.content?.parts?.[0]?.text;
+      const response = await model.generateContent(prompt);
+      const aiText = response.response.text();
       console.log('🤖 AI Raw Response:', aiText);
 
       if (aiText) {
@@ -476,7 +466,13 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
       setError(null);
       console.log('📝 Generating Blog content...');
 
-      const ai = new GoogleGenAI({ apiKey });
+      const genAI = new GoogleGenerativeAI(apiKey);
+      const model = genAI.getGenerativeModel({ 
+        model: 'gemini-flash-latest',
+        generationConfig: {
+          responseMimeType: 'application/json',
+        }
+      });
       
       const prompt = `Generate a blog post (JSON):
 Title: ${blogFormData.title}
@@ -484,24 +480,8 @@ Category: ${blogFormData.category}
 
 Output JSON: "slug", "excerpt", "content" (Markdown). At least 500 words. 2-3 real authoritative links.`;
 
-      const response = await ai.models.generateContent({
-        model: 'gemini-1.5-flash',
-        contents: [{ role: 'user', parts: [{ text: prompt }] }],
-        config: {
-          responseMimeType: 'application/json',
-          responseSchema: {
-            type: 'OBJECT',
-            properties: {
-              slug: { type: 'STRING' },
-              excerpt: { type: 'STRING' },
-              content: { type: 'STRING' }
-            },
-            required: ["slug", "excerpt", "content"]
-          }
-        }
-      });
-
-      const aiText = response.candidates?.[0]?.content?.parts?.[0]?.text;
+      const response = await model.generateContent(prompt);
+      const aiText = response.response.text();
       
       if (aiText) {
         let jsonStr = aiText;
@@ -547,14 +527,12 @@ Output JSON: "slug", "excerpt", "content" (Markdown). At least 500 words. 2-3 re
       setError(null);
       console.log('🎨 Generating image...');
 
-      const ai = new GoogleGenAI({ apiKey });
+      const genAI = new GoogleGenerativeAI(apiKey);
+      const model = genAI.getGenerativeModel({ model: 'gemini-flash-latest' });
       
       let visualPrompt = `A professional lifestyle product photograph of: ${formData.product_name || 'the product at this URL'}. High resolution, cinematic lighting.`;
       
-      const analysisResponse = await ai.models.generateContent({
-        model: 'gemini-1.5-flash',
-        contents: [{ role: 'user', parts: [{ text: formData.amazon_url ? `Describe the visual appearance of this product for a photo: ${formData.amazon_url}` : visualPrompt }] }],
-      });
+      const analysisResponse = await model.generateContent(formData.amazon_url ? `Describe the visual appearance of this product for a photo: ${formData.amazon_url}` : visualPrompt);
 
       const visualDescription = analysisResponse.candidates?.[0]?.content?.parts?.[0]?.text || formData.product_name;
 
@@ -593,34 +571,17 @@ Output JSON: "slug", "excerpt", "content" (Markdown). At least 500 words. 2-3 re
     setError(null);
 
     try {
-      const ai = new GoogleGenAI({ apiKey });
+      const genAI = new GoogleGenerativeAI(apiKey);
+      const model = genAI.getGenerativeModel({ model: 'gemini-flash-latest' });
       
       let visualPrompt = `You are a world-class art director. The user is writing a blog post titled: "${blogFormData.title}". 
 Generate an incredibly interesting, highly engaging, and deeply relatable visual concept for the background hero image of this post. Describe the scene, lighting, mood, and atmosphere in vivid detail. Make it stand out and perfectly relevant to the topic.`;
       
-      const analysisResponse = await ai.models.generateContent({
-        model: 'gemini-1.5-flash',
-        contents: [{ role: 'user', parts: [{ text: visualPrompt }] }],
-      });
+      const analysisResponse = await model.generateContent(visualPrompt);
 
-      const visualDescription = analysisResponse.text || blogFormData.title;
+      const visualDescription = analysisResponse.response.text() || blogFormData.title;
 
-      const imageResponse = await ai.models.generateContent({
-        model: 'gemini-1.5-flash',
-        contents: [{
-          role: 'user',
-          parts: [
-            {
-              text: `A stunning, highly engaging, and visually interesting hero background image depicting: ${visualDescription}. Masterpiece, hyper-detailed, breathtaking lighting, modern editorial styling, vibrant and evocative. Make it perfectly relatable to the topic.`,
-            },
-          ],
-        }],
-        config: {
-          imageConfig: {
-            aspectRatio: "16:9",
-          },
-        },
-      });
+      const imageResponse = await model.generateContent(`A stunning, highly engaging, and visually interesting hero background image depicting: ${visualDescription}. Masterpiece, hyper-detailed, breathtaking lighting, modern editorial styling, vibrant and evocative. Make it perfectly relatable to the topic.`);
 
       let base64Image = '';
       for (const part of imageResponse.candidates?.[0]?.content?.parts || []) {

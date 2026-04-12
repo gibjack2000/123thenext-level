@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { supabase, hasValidSupabaseConfig, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 import { Save, AlertCircle, CheckCircle2, Sparkles, Database, Copy, ExternalLink, ChevronDown, ChevronUp, Shield, Cpu, Trash2, RefreshCw, Search, Tag, MapPin, Star, BookOpen, FileText, Pencil } from 'lucide-react';
-import { GoogleGenAI, Type } from '@google/genai';
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Product, BlogPost, mapToProduct } from '../types';
 
 const REGIONS = ['US', 'UK', 'ES'];
@@ -392,30 +392,22 @@ alter table blog_posts disable row level security;`;
 
       setIsGenerating(true);
       setError(null);
-      const ai = new GoogleGenAI({ apiKey });
+      const genAI = new GoogleGenerativeAI(apiKey);
+      const model = genAI.getGenerativeModel({ 
+        model: 'gemini-flash-latest',
+        generationConfig: {
+          responseMimeType: 'application/json',
+        }
+      });
+
       const prompt = `Analyze the product and generate a JSON marketing copy:
 Product Name: ${formData.product_name || 'Unknown'}
 Product URL: ${formData.amazon_url || 'Unknown'}
 Provide a short benefit (1 sentence highlight), a description (2-3 sentences), and 3-5 tags (comma-separated).`;
 
-      const response = await ai.models.generateContent({
-        model: 'gemini-1.5-flash',
-        contents: [{ role: 'user', parts: [{ text: prompt }] }],
-        config: {
-          responseMimeType: 'application/json',
-          responseSchema: {
-            type: 'OBJECT',
-            properties: {
-              short_benefit: { type: 'STRING' },
-              description: { type: 'STRING' },
-              tags: { type: 'STRING' }
-            },
-            required: ["short_benefit", "description", "tags"]
-          }
-        }
-      });
-
-      const aiText = response.candidates?.[0]?.content?.parts?.[0]?.text;
+      const response = await model.generateContent(prompt);
+      const aiText = response.response.text();
+      
       if (aiText) {
         const data = JSON.parse(aiText);
         setFormData(prev => ({
@@ -427,7 +419,7 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
       }
     } catch (err: any) {
       console.error('AI ERROR:', err);
-      setError('Blog AI Failed (v1.5-flash mode): ' + (err.message || 'Check console.'));
+      setError('Blog AI Failed (v2.5+ mode): ' + (err.message || 'Check console.'));
     } finally {
       setIsGenerating(false);
     }
@@ -452,7 +444,7 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
       const otherProducts = products.filter(p => blogFormData.additionalProductIds.includes(p.id));
       const allProducts = [...(primaryProduct ? [primaryProduct] : []), ...otherProducts];
       
-      const ai = new GoogleGenAI({ apiKey });
+      // No extra initialization needed here as it's done below correctly
       const prompt = `
         You are a premium content creator for 123TheNextLevel.
         Task: Generate an engaging, descriptive, and informative blog post of approximately 300 words.
@@ -477,25 +469,17 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
         5. Output ONLY a valid JSON object with keys: "slug", "excerpt", "content", "tags" (array).
       `;
 
-      const response = await ai.models.generateContent({
+      const genAI = new GoogleGenerativeAI(apiKey);
+      const model = genAI.getGenerativeModel({ 
         model: 'gemini-1.5-flash',
-        contents: [{ role: 'user', parts: [{ text: prompt }] }],
-        config: {
+        generationConfig: {
           responseMimeType: 'application/json',
-          responseSchema: {
-            type: 'OBJECT',
-            properties: {
-              slug: { type: 'STRING' },
-              excerpt: { type: 'STRING' },
-              content: { type: 'STRING' },
-              tags: { type: 'ARRAY', items: { type: 'STRING' } }
-            },
-            required: ["slug", "excerpt", "content", "tags"]
-          }
         }
       });
-
-      const aiText = response.candidates?.[0]?.content?.parts?.[0]?.text;
+      
+      const response = await model.generateContent(prompt);
+      const aiText = response.response.text();
+      
       if (aiText) {
         const data = JSON.parse(aiText);
         setBlogFormData(prev => ({
@@ -508,7 +492,7 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
       }
     } catch (err: any) {
       console.error('BLOG AI ERROR:', err);
-      setError('Blog AI Failed (v1.5-flash mode): ' + (err.message || 'Check console.'));
+      setError('Blog AI Failed (v2.5+ mode): ' + (err.message || 'Check console.'));
     } finally {
       setIsGenerating(false);
     }
