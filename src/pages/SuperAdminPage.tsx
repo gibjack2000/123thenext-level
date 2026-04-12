@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { supabase, hasValidSupabaseConfig, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 import { Save, AlertCircle, CheckCircle2, Sparkles, Database, Copy, ExternalLink, ChevronDown, ChevronUp, Shield, Cpu, Trash2, RefreshCw, Search, Tag, MapPin, Star, BookOpen, FileText, Pencil } from 'lucide-react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
@@ -39,6 +39,8 @@ export default function SuperAdminPage() {
   const [fetchingBlog, setFetchingBlog] = useState(false);
   const [editingBlogPostId, setEditingBlogPostId] = useState<string | null>(null);
   const [blogSearchQuery, setBlogSearchQuery] = useState('');
+  const blogTextareaRef = useRef<HTMLTextAreaElement>(null);
+  const [selectedProductToLink, setSelectedProductToLink] = useState('');
   const [blogCategoryFilter, setBlogCategoryFilter] = useState<string>('all');
 
   const fetchProducts = useCallback(async () => {
@@ -242,7 +244,8 @@ alter table blog_posts disable row level security;`;
     description: '',
     linkedProductId: '', // Primary
     additionalProductIds: [] as string[],
-    additionalImages: [] as string[],
+    additionalImage1: '',
+    additionalImage2: '',
     is_html: false,
     draftMode: 'ai' as 'ai' | 'manual',
   });
@@ -458,15 +461,20 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
         Featured Products (Mention and Link these!):
         ${allProducts.map(p => `- ${p.product_name} (Link: ${p.amazon_url})`).join('\n')}
         
-        Additional Images to embed (Use Markdown ![alt](url)):
-        ${blogFormData.additionalImages.map((url, i) => `- Image ${i+1}: ${url}`).join('\n')}
+        ${blogFormData.additionalImage1 || blogFormData.additionalImage2 
+          ? `Additional Images to embed (Use Markdown ![alt](url)):
+             ${blogFormData.additionalImage1 ? `- Image 1 URL: ${blogFormData.additionalImage1}` : ''}
+             ${blogFormData.additionalImage2 ? `- Image 2 URL: ${blogFormData.additionalImage2}` : ''}
+             IMPORTANT: ONLY embed these specific images if URLs are provided. Do NOT use placeholder URLs.` 
+          : 'Additional Images: None provided. Do not include any extra images in the markdown.'}
         
         Requirements:
         1. Length: Approximately 300 words.
         2. Format: Markdown with clear, punchy headers (##, ###).
         3. Tone: Authoritative, descriptive, and premium.
         4. Strategy: If only a title is provided, use your expertise to craft a comprehensive guide, narrative, or tip-list that adds real value to the reader.
-        5. Output ONLY a valid JSON object with keys: "slug", "excerpt", "content", "tags" (array).
+        5. Images: Only embed images provided in the context. Never guess image URLs.
+        6. Output ONLY a valid JSON object with keys: "slug", "excerpt", "content", "tags" (array).
       `;
 
       const genAI = new GoogleGenerativeAI(apiKey);
@@ -563,6 +571,36 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
     } finally {
       setLoading(false);
     }
+  };
+
+  const insertAffiliateLink = () => {
+    const textarea = blogTextareaRef.current;
+    if (!textarea || !selectedProductToLink) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = blogFormData.content.substring(start, end);
+    const product = products.find(p => p.id === selectedProductToLink);
+
+    if (!product) return;
+
+    // Default to product name if no text is selected
+    const linkText = selectedText || product.product_name;
+    const markdownLink = `[${linkText}](${product.amazon_url})`;
+
+    const newContent = 
+      blogFormData.content.substring(0, start) + 
+      markdownLink + 
+      blogFormData.content.substring(end);
+
+    setBlogFormData(prev => ({ ...prev, content: newContent }));
+    
+    // Reset selection after a short delay to allow UI to update
+    setTimeout(() => {
+      textarea.focus();
+      const newCursorPos = start + markdownLink.length;
+      textarea.setSelectionRange(newCursorPos, newCursorPos);
+    }, 0);
   };
 
   const handleLogin = (e: React.FormEvent) => {
@@ -805,40 +843,6 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
                         </div>
                      </div>
                    </div>
-
-                   <div>
-                     <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Additional Images</label>
-                     <div className="space-y-2 mt-1">
-                        <div className="flex gap-2">
-                          <input 
-                            type="text" 
-                            id="newImageUrl"
-                            className="flex-1 p-2 border rounded-lg text-sm" 
-                            placeholder="Paste image URL..." 
-                            onKeyDown={(e) => {
-                              if (e.key === 'Enter') {
-                                e.preventDefault();
-                                const val = (e.currentTarget as HTMLInputElement).value;
-                                if (val) {
-                                  setBlogFormData(prev => ({ ...prev, additionalImages: [...prev.additionalImages, val] }));
-                                  (e.currentTarget as HTMLInputElement).value = '';
-                                }
-                              }
-                            }}
-                          />
-                        </div>
-                        <div className="grid grid-cols-3 gap-2">
-                          {blogFormData.additionalImages.map((url, i) => (
-                            <div key={i} className="relative group aspect-video rounded border overflow-hidden bg-slate-100">
-                               <img src={url} className="w-full h-full object-cover" />
-                               <button type="button" onClick={() => setBlogFormData(prev => ({ ...prev, additionalImages: prev.additionalImages.filter((_, idx) => idx !== i) }))} className="absolute inset-0 bg-red-500/80 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                 <Trash2 size={14} />
-                               </button>
-                            </div>
-                          ))}
-                        </div>
-                     </div>
-                   </div>
                  </>
                ) : (
                  <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
@@ -851,13 +855,87 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
                    </label>
                  </div>
                )}
-             </div>
-             <div className="space-y-4">
-               <div>
-                 <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Article Content (Markdown)</label>
-                 <textarea required name="content" value={blogFormData.content} onChange={handleBlogChange} rows={10} className="w-full p-2.5 border rounded-lg font-mono text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Draft will appear here..." />
+
+               <div className="pt-4 border-t border-slate-100 space-y-4 opacity-80 hover:opacity-100 transition-opacity">
+                 <div className="flex items-center justify-between">
+                   <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Supplementary Visuals</label>
+                   <span className="text-[9px] font-black px-2 py-0.5 bg-slate-100 text-slate-400 rounded-full uppercase tracking-widest">Optional</span>
+                 </div>
+                 
+                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                   <div className="space-y-1">
+                     <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest pl-1">Image Link 1</span>
+                     <input 
+                       type="text" 
+                       name="additionalImage1"
+                       value={blogFormData.additionalImage1}
+                       onChange={handleBlogChange}
+                       className="w-full p-2.5 border rounded-xl text-xs bg-slate-50 focus:bg-white transition-all focus:ring-2 focus:ring-indigo-500 outline-none" 
+                       placeholder="https://example.com/image1.jpg" 
+                     />
+                     {blogFormData.additionalImage1 && (
+                       <div className="mt-2 aspect-video rounded-lg overflow-hidden border border-slate-100 shadow-sm">
+                         <img src={blogFormData.additionalImage1} className="w-full h-full object-cover" alt="Preview 1" />
+                       </div>
+                     )}
+                   </div>
+
+                   <div className="space-y-1">
+                     <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest pl-1">Image Link 2</span>
+                     <input 
+                       type="text" 
+                       name="additionalImage2"
+                       value={blogFormData.additionalImage2}
+                       onChange={handleBlogChange}
+                       className="w-full p-2.5 border rounded-xl text-xs bg-slate-50 focus:bg-white transition-all focus:ring-2 focus:ring-indigo-500 outline-none" 
+                       placeholder="https://example.com/image2.jpg" 
+                     />
+                     {blogFormData.additionalImage2 && (
+                       <div className="mt-2 aspect-video rounded-lg overflow-hidden border border-slate-100 shadow-sm">
+                         <img src={blogFormData.additionalImage2} className="w-full h-full object-cover" alt="Preview 2" />
+                       </div>
+                     )}
+                   </div>
+                 </div>
                </div>
              </div>
+              <div className="space-y-4">
+                <div>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-[10px] font-bold text-slate-400 uppercase">Article Content (Markdown)</label>
+                    <div className="flex items-center gap-2">
+                       <select 
+                         className="text-[10px] p-1 border rounded bg-slate-50 font-bold"
+                         value={selectedProductToLink}
+                         onChange={(e) => setSelectedProductToLink(e.target.value)}
+                       >
+                         <option value="">-- Link a Product --</option>
+                         {products.map(p => (
+                           <option key={p.id} value={p.id}>{p.product_name}</option>
+                         ))}
+                       </select>
+                       <button 
+                         type="button"
+                         onClick={insertAffiliateLink}
+                         disabled={!selectedProductToLink}
+                         className="p-1 px-2 bg-indigo-600 text-white rounded text-[10px] font-black uppercase tracking-tighter hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1"
+                       >
+                         <ExternalLink size={10} /> Link Text
+                       </button>
+                    </div>
+                  </div>
+                  <textarea 
+                    ref={blogTextareaRef}
+                    required 
+                    name="content" 
+                    value={blogFormData.content} 
+                    onChange={handleBlogChange} 
+                    rows={12} 
+                    className="w-full p-2.5 border rounded-lg font-mono text-sm focus:ring-2 focus:ring-indigo-500 outline-none min-h-[300px]" 
+                    placeholder="Draft will appear here..." 
+                  />
+                </div>
+              </div>
            </div>
 
            <button type="submit" disabled={loading} className="w-full bg-indigo-600 text-white font-bold py-3 rounded-xl hover:bg-indigo-700 transition-all shadow-lg flex items-center justify-center gap-2">
