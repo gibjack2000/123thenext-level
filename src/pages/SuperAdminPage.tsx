@@ -330,7 +330,14 @@ alter table blog_posts disable row level security;`;
 
     try {
       const postData = {
-        ...blogFormData,
+        title: blogFormData.title,
+        slug: blogFormData.slug,
+        category: blogFormData.category,
+        author: blogFormData.author,
+        excerpt: blogFormData.excerpt,
+        content: blogFormData.content,
+        image_url: blogFormData.image_url || `https://images.unsplash.com/photo-1490818387583-1baba5e638af?auto=format&fit=crop&q=80&w=800`,
+        featured: blogFormData.featured,
         tags: blogFormData.tags.split(',').map(t => t.trim()).filter(Boolean),
       };
 
@@ -944,6 +951,74 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
            </button>
         </form>
       )}
+
+      {/* Blog Management List */}
+      <div className="mt-12 bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
+        <div className="flex items-center justify-between mb-8">
+          <h3 className="text-xl font-display uppercase tracking-tight text-slate-900 flex items-center gap-2">
+            <FileText size={22} className="text-indigo-600" /> Recent Content Architecture
+          </h3>
+          <div className="flex items-center gap-2">
+            <select 
+              className="text-[10px] font-bold uppercase p-2 border rounded-xl"
+              value={blogCategoryFilter}
+              onChange={(e) => setBlogCategoryFilter(e.target.value)}
+            >
+              <option value="all">All Categories</option>
+              {BLOG_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+            </select>
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
+              <input 
+                type="text" 
+                placeholder="Search articles..."
+                className="pl-9 pr-4 py-2 border rounded-xl text-xs outline-none focus:ring-2 focus:ring-indigo-500"
+                value={blogSearchQuery}
+                onChange={(e) => setBlogSearchQuery(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          {fetchingBlog ? (
+            <div className="flex justify-center py-12">
+               <div className="animate-spin h-8 w-8 border-b-2 border-indigo-600 rounded-full" />
+            </div>
+          ) : blogPosts.length === 0 ? (
+            <div className="text-center py-12 text-slate-400 font-medium">No articles found in the ecosystem.</div>
+          ) : (
+            blogPosts
+              .filter(p => blogCategoryFilter === 'all' || p.category === blogCategoryFilter)
+              .filter(p => p.title.toLowerCase().includes(blogSearchQuery.toLowerCase()))
+              .map(post => (
+                <div key={post.id} className="flex items-center justify-between p-4 bg-slate-50 border border-slate-100 rounded-2xl hover:bg-white hover:shadow-md transition-all group">
+                   <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-xl overflow-hidden bg-slate-200 border border-slate-200">
+                         <img src={post.image_url || ''} className="w-full h-full object-cover" alt="Thumb" />
+                      </div>
+                      <div>
+                         <div className="flex items-center gap-2 mb-0.5">
+                            <span className="px-2 py-0.5 bg-indigo-100 text-indigo-700 rounded-full text-[9px] font-black uppercase tracking-widest">{post.category}</span>
+                            {post.featured && <span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-full text-[9px] font-black uppercase tracking-widest">Featured</span>}
+                         </div>
+                         <h4 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition-colors">{post.title}</h4>
+                         <p className="text-[10px] text-slate-400 font-medium font-mono">{post.slug}</p>
+                      </div>
+                   </div>
+                   <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button onClick={() => handleEditBlog(post)} className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all">
+                         <Pencil size={16} />
+                      </button>
+                      <button onClick={() => handleDeleteBlog(post.id)} className="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all">
+                         <Trash2 size={16} />
+                      </button>
+                   </div>
+                </div>
+              ))
+          )}
+        </div>
+      </div>
 
       {/* Database Management */}
       <div className="mt-12 bg-slate-900 p-8 rounded-3xl border border-slate-800">
