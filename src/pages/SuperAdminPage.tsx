@@ -471,7 +471,7 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
 
       const genAI = new GoogleGenerativeAI(apiKey);
       const model = genAI.getGenerativeModel({ 
-        model: 'gemini-1.5-flash',
+        model: 'gemini-flash-latest',
         generationConfig: {
           responseMimeType: 'application/json',
         }
