@@ -456,11 +456,13 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
       const ai = new GoogleGenAI({ apiKey });
       const prompt = `
         You are a premium content creator for 123TheNextLevel.
-        Task: Generate a blog post of exactly 300 words.
+        Task: Generate an engaging, descriptive, and informative blog post of approximately 300 words.
         
-        Information:
+        Core Input:
         Title: ${blogFormData.title}
-        Brief Description/Goal: ${blogFormData.description || 'General health/wellness info'}
+        
+        Contextual Info (Optional):
+        Brief Description/Goal: ${blogFormData.description || 'Create a highly engaging and informative health/wellness article based on the title provided. Be descriptive and use a premium tone.'}
         
         Featured Products (Mention and Link these!):
         ${allProducts.map(p => `- ${p.product_name} (Link: ${p.amazon_url})`).join('\n')}
@@ -470,11 +472,10 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
         
         Requirements:
         1. Length: Approximately 300 words.
-        2. Format: Markdown with clear headers (##, ###).
-        3. Tone: Authoritative, engaging, and premium.
-        4. Integrate the products naturally as solutions.
-        5. If images are provided, embed them in relevant spots using markdown syntax.
-        6. Output ONLY a valid JSON object with keys: "slug", "excerpt", "content", "tags" (array).
+        2. Format: Markdown with clear, punchy headers (##, ###).
+        3. Tone: Authoritative, descriptive, and premium.
+        4. Strategy: If only a title is provided, use your expertise to craft a comprehensive guide, narrative, or tip-list that adds real value to the reader.
+        5. Output ONLY a valid JSON object with keys: "slug", "excerpt", "content", "tags" (array).
       `;
 
       const response = await ai.models.generateContent({
@@ -783,8 +784,8 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
                {blogFormData.draftMode === 'ai' ? (
                  <>
                    <div>
-                     <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Brief Description / Goal</label>
-                     <textarea name="description" value={blogFormData.description} onChange={handleBlogChange} rows={2} placeholder="What should this blog focus on?" className="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" />
+                     <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Brief Description / Goal (Optional)</label>
+                     <textarea name="description" value={blogFormData.description} onChange={handleBlogChange} rows={2} placeholder="Add a specific angle or leave blank for a general informative article..." className="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" />
                    </div>
                    
                    <div>
