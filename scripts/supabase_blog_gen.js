@@ -15,23 +15,28 @@ const apiKey = process.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
 const model = genAI.getGenerativeModel({ model: "gemini-flash-latest" });
 
+// 1b. Parse Arguments
+const args = process.argv.slice(2);
+const targetBlogCategory = args[0] || 'nutrition'; // default: nutrition
+const sourceProductCategory = args[1] || 'supplements'; // default: supplements
+
 async function generateAutomatedBlog() {
-  console.log("🚀 Starting automated blog generation from Supabase...");
+  console.log(`🚀 Starting automated blog generation [Source: ${sourceProductCategory} -> Target: ${targetBlogCategory}]...`);
 
   try {
-    // 2. Pick a random supplement product
-    console.log("Fetching active products from 'amazon_affiliate_products' with category 'supplements'...");
+    // 2. Pick a random product from target source category
+    console.log(`Fetching active products with category '${sourceProductCategory}'...`);
     const { data: products, error: pError } = await supabase
       .from('amazon_affiliate_products')
       .select('*')
       .eq('is_active', true)
-      .eq('category', 'supplements'); // Specifically target supplements
+      .eq('category', sourceProductCategory);
 
     if (pError) throw pError;
     
     let selectedProduct;
     if (!products || products.length === 0) {
-      console.log("⚠️ No active supplements found. Falling back to any active product...");
+      console.log(`⚠️ No active products in '${sourceProductCategory}' found. Falling back to any active product...`);
       const { data: allProducts, error: allPError } = await supabase
         .from('amazon_affiliate_products')
         .select('*')
@@ -47,22 +52,28 @@ async function generateAutomatedBlog() {
     console.log(`✅ Selected product: ${selectedProduct.title} (ASIN: ${selectedProduct.asin})`);
 
     // 3. Generate blog content using Gemini
-    console.log("Generating blog content with Gemini Flash (target: Nutrition)...");
+    console.log(`Generating blog content with Gemini Flash (target: ${targetBlogCategory})...`);
     const prompt = `
-      Write a professional and engaging nutrition blog post about the following supplement/product:
+      Write a professional and engaging blog post for the "${targetBlogCategory}" pillar of 123TheNextLevel.
+      Focus on this product:
       Product Name: ${selectedProduct.title}
       Description: ${selectedProduct.description}
       Product Link: ${selectedProduct.affiliate_link}
       
       Requirements:
-      1. Length: Approximately 300 words.
-      2. Topic: How this specific supplement supports optimal nutrition and health. This is for the "Nutrition" category.
-      3. Tone: Informative, authoritative, and encourages interaction.
-      4. Strategy: Begin with a compelling hook about nutrition, then introduce the ${selectedProduct.title} as a key tool/supplement, and conclude with the importance of balanced nutrition.
-      5. Include a naturally integrated Markdown link to the product: [Check Price on Amazon](${selectedProduct.affiliate_link})
-      6. Output format must be ONLY a valid JSON object (no markdown code blocks) with the following keys:
-         "title": A catchy, SEO-optimized nutrition headline.
-         "excerpt": A short 2-sentence hook for the feed.
+      1. Length: Approximately 350 words.
+      2. Topic: How ${selectedProduct.title} specifically benefits the user's "${targetBlogCategory}" journey. 
+      3. Tone: Authoritative, premium, and science-backed yet accessible.
+      4. Structure: 
+         - Catchy Heading
+         - Opening "Problem & Solution" hook
+         - Deep dive into ${selectedProduct.title} benefits
+         - Conclusion with a call to action
+      5. Branding: Mention "The Next Level" mindset.
+      6. Include a naturally integrated Markdown link: [Shop ${selectedProduct.title} on Amazon](${selectedProduct.affiliate_link})
+      7. Output format must be ONLY a valid JSON object (no markdown code blocks) with the following keys:
+         "title": A catchy, SEO-optimized title for ${targetBlogCategory}.
+         "excerpt": A short 2-sentence hook for the article feed.
          "content": The full blog post in Markdown format (use ## and ### for structure).
          "tags": An array of 3-5 relevant keywords.
     `;
@@ -77,7 +88,7 @@ async function generateAutomatedBlog() {
     console.log("✅ Content generated and parsed.");
 
     // 4. Prepare Blog Post Object
-    const slug = blogData.title
+    const slugBase = blogData.title
       .toLowerCase()
       .trim()
       .replace(/[^\w\s-]/g, '')
@@ -85,9 +96,9 @@ async function generateAutomatedBlog() {
       .replace(/^-+|-+$/g, '');
 
     const newBlog = {
-      category: 'nutrition', // Fixed category as requested
+      category: targetBlogCategory,
       title: blogData.title,
-      slug: `${slug}-${crypto.randomBytes(2).toString('hex')}`,
+      slug: `${slugBase}-${crypto.randomBytes(2).toString('hex')}`,
       author: '123TheNext Level AI',
       content: blogData.content,
       image_url: selectedProduct.image_url,
@@ -98,7 +109,7 @@ async function generateAutomatedBlog() {
     };
 
     // 5. Insert into Supabase
-    console.log("Inserting blog post into Supabase 'blog_posts' table...");
+    console.log(`Inserting blog post into '${targetBlogCategory}' category...`);
     const { data: inserted, error: iError } = await supabase
       .from('blog_posts')
       .insert([newBlog])
@@ -106,12 +117,10 @@ async function generateAutomatedBlog() {
 
     if (iError) throw iError;
 
-    console.log("🎉 SUCCESS! Blog post created in Supabase.");
-    console.log(`Title: ${newBlog.title}`);
-    console.log(`Slug: ${newBlog.slug}`);
+    console.log(`🎉 SUCCESS! [${targetBlogCategory}] post created: ${newBlog.slug}`);
 
   } catch (err) {
-    console.error("❌ Error in automation script:", err);
+    console.error(`❌ Error in ${targetBlogCategory} generation:`, err);
     process.exit(1);
   }
 }
