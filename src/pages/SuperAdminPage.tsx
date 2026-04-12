@@ -738,6 +738,12 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
                  <input required type="text" name="title" value={blogFormData.title} onChange={handleBlogChange} placeholder="e.g. The Power of Vitamin D" className="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" />
                </div>
                <div>
+                 <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Target Category</label>
+                 <select name="category" value={blogFormData.category} onChange={handleBlogChange} className="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none capitalize">
+                   {BLOG_CATEGORIES.map(cat => <option key={cat} value={cat}>{cat}</option>)}
+                 </select>
+               </div>
+               <div>
                  <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">Brief Description / Goal</label>
                  <textarea name="description" value={blogFormData.description} onChange={handleBlogChange} rows={3} placeholder="What should this blog focus on?" className="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" />
                </div>
