@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../translations';
 import BlogSection from '../components/BlogSection';
+import UniversalQA from '../components/UniversalQA';
 
 export default function NutritionPillar() {
   const t = useT();
@@ -270,40 +271,8 @@ export default function NutritionPillar() {
            </div>
         </section>
 
-        {/* AnswerThePublic SEO Section */}
-        <section className="mb-40 space-y-12">
-           <div className="flex items-center gap-8 px-4">
-              <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tight text-[#2D2D2D] leading-[1.05] shrink-0">
-                Precision <span className="text-emerald-600 text-[0.8em] font-medium italic">(FAQs)</span>
-              </h2>
-              <div className="h-[2px] bg-emerald-100 flex-grow mt-4"></div>
-           </div>
+        <UniversalQA />
 
-           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[
-                { q: t('np_med_seo_why_q'), a: t('np_med_seo_why_a'), icon: Shield },
-                { q: t('np_med_seo_how_q'), a: t('np_med_seo_how_a'), icon: Activity },
-                { q: t('np_med_seo_vs_q'), a: t('np_med_seo_vs_a'), icon: Droplets }
-              ].map((faq, i) => (
-                <div key={i} className="bg-white p-12 rounded-[4rem] shadow-xl border border-slate-50 hover:border-emerald-200 transition-all flex flex-col justify-between group">
-                   <div>
-                      <div className="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-emerald-600 mb-8 border border-slate-100 group-hover:bg-emerald-600 group-hover:text-white transition-all">
-                         <faq.icon size={28} />
-                      </div>
-                      <h4 className="text-2xl font-display font-bold uppercase mb-6 text-[#2D2D2D] leading-tight group-hover:text-emerald-600 transition-colors">
-                        {faq.q}
-                      </h4>
-                      <p className="text-slate-500 leading-relaxed font-medium">
-                        {faq.a}
-                      </p>
-                   </div>
-                   <div className="mt-10 pt-10 border-t border-slate-100 flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                      <Search size={14} /> 2026 Trend Analysis
-                   </div>
-                </div>
-              ))}
-           </div>
-        </section>
 
         {/* Deep Dive Grid (Path A, B, C) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-40">

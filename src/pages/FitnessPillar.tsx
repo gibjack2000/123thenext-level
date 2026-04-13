@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../translations';
 import BlogSection from '../components/BlogSection';
+import UniversalQA from '../components/UniversalQA';
 
 export default function FitnessPillar() {
   const t = useT();
@@ -60,7 +61,7 @@ export default function FitnessPillar() {
             className="text-6xl md:text-[clamp(3.5rem,7vw,8rem)] font-display font-semibold uppercase tracking-[0.02em] text-white mb-4 leading-[1.15]"
           >
             {t('fp_title')}<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-400 to-purple-500 drop-shadow-[0_0_15px_rgba(99,102,241,0.5)]">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-blue-500 to-indigo-500 drop-shadow-[0_0_20px_rgba(52,211,153,0.3)]">
               {t('fp_subtitle')}
             </span>
           </motion.h1>
@@ -71,56 +72,79 @@ export default function FitnessPillar() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-xl md:text-2xl text-slate-400 font-medium max-w-3xl mx-auto leading-relaxed border-l-2 border-blue-500/30 pl-6"
           >
-            {t('fp_desc')}
+            {t('fp_desc')} In 2026, performance is about **quieting biological noise** and achieving autonomic homeostasis through high-resolution biometric data.
           </motion.p>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-20 pb-32">
-        {/* Performance Metrics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32">
-          <motion.div 
-            whileHover={{ y: -10, scale: 1.01 }}
-            className="bg-slate-900 p-12 rounded-[3rem] shadow-2xl border border-white/5 relative overflow-hidden group"
-          >
-            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/5 blur-[80px] -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-110"></div>
-            <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 mb-8 border border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.1)]">
-              <Cpu size={32} />
-            </div>
-            <h2 className="text-4xl font-display font-semibold uppercase tracking-[0.02em] text-white mb-6 leading-[1.15]">
-              {t('fp_wearables_title')}
-            </h2>
-            <p className="text-slate-400 text-lg leading-relaxed mb-8">
-              {t('fp_wearables_desc')}
-            </p>
-            <div className="flex items-center gap-4 text-sm font-black uppercase tracking-widest text-blue-400">
-              <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-              Metabolic Monitoring Active
-            </div>
-          </motion.div>
+        {/* Navigational Paths: Level 1 Framework */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
+          <Link to="/fitness/wearables" className="group">
+            <motion.div 
+              whileHover={{ y: -10, scale: 1.02 }}
+              className="bg-slate-900/50 backdrop-blur-xl p-10 rounded-[3rem] shadow-2xl border border-white/5 h-full flex flex-col justify-between hover:border-blue-500/50 transition-colors"
+            >
+              <div>
+                <div className="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 mb-8 border border-blue-500/20">
+                  <Cpu size={28} />
+                </div>
+                <h3 className="text-2xl font-display font-black uppercase tracking-tight text-white mb-4">
+                  {t('fp_path_a_title')}
+                </h3>
+                <p className="text-slate-400 leading-relaxed mb-6">
+                  {t('fp_path_a_desc')}
+                </p>
+              </div>
+              <div className="flex items-center gap-2 text-blue-400 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/5">
+                Explore The War <ExternalLink size={12} />
+              </div>
+            </motion.div>
+          </Link>
 
-          <motion.div 
-            whileHover={{ y: -10, scale: 1.01 }}
-            className="bg-slate-900 p-12 rounded-[3rem] shadow-2xl border border-white/5 relative overflow-hidden group"
-          >
-            <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/5 blur-[80px] -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-110"></div>
-            <div className="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center text-purple-400 mb-8 border border-purple-500/20 shadow-[0_0_15px_rgba(168,85,247,0.1)]">
-              <TrendingUp size={32} />
-            </div>
-            <h2 className="text-4xl font-display font-black uppercase tracking-tight text-white mb-6 leading-none">
-              {t('fp_strength_title')}
-            </h2>
-            <p className="text-slate-400 text-lg leading-relaxed mb-6">
-              {t('fp_strength_desc')}
-            </p>
-            <p className="text-slate-500 italic mb-8 border-l-2 border-purple-500/20 pl-4 text-sm">
-              {t('fp_strength_detail')}
-            </p>
-            <div className="flex items-center gap-4 text-sm font-black uppercase tracking-widest text-purple-400">
-              <span className="w-2 h-2 rounded-full bg-purple-500 animate-pulse"></span>
-              Bone Mineral Density Focus
-            </div>
-          </motion.div>
+          <Link to="/fitness/biosensing" className="group">
+            <motion.div 
+              whileHover={{ y: -10, scale: 1.02 }}
+              className="bg-slate-900/50 backdrop-blur-xl p-10 rounded-[3rem] shadow-2xl border border-white/5 h-full flex flex-col justify-between hover:border-emerald-500/50 transition-colors"
+            >
+              <div>
+                <div className="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 mb-8 border border-emerald-500/20">
+                  <Activity size={28} />
+                </div>
+                <h3 className="text-2xl font-display font-black uppercase tracking-tight text-white mb-4">
+                  {t('fp_path_b_title')}
+                </h3>
+                <p className="text-slate-400 leading-relaxed mb-6">
+                  {t('fp_path_b_desc')}
+                </p>
+              </div>
+              <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/5">
+                View Lab-on-Wrist <ExternalLink size={12} />
+              </div>
+            </motion.div>
+          </Link>
+
+          <Link to="/fitness/methodology" className="group">
+            <motion.div 
+              whileHover={{ y: -10, scale: 1.02 }}
+              className="bg-slate-900/50 backdrop-blur-xl p-10 rounded-[3rem] shadow-2xl border border-white/5 h-full flex flex-col justify-between hover:border-indigo-500/50 transition-colors"
+            >
+              <div>
+                <div className="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-400 mb-8 border border-indigo-500/20">
+                  <Zap size={28} />
+                </div>
+                <h3 className="text-2xl font-display font-black uppercase tracking-tight text-white mb-4">
+                  {t('fp_path_c_title')}
+                </h3>
+                <p className="text-slate-400 leading-relaxed mb-6">
+                  {t('fp_path_c_desc')}
+                </p>
+              </div>
+              <div className="flex items-center gap-2 text-indigo-400 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/5">
+                Protocol Standards <ExternalLink size={12} />
+              </div>
+            </motion.div>
+          </Link>
         </div>
 
         {/* Central Intensity Protocol */}
@@ -164,38 +188,28 @@ export default function FitnessPillar() {
               </div>
 
               <div className="space-y-4">
-                <a href={affiliateLinks.us} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-slate-800 rounded-3xl group hover:bg-white hover:text-slate-900 transition-all duration-500">
-                  <span className="flex items-center gap-4">
-                    <span className="text-xs bg-white/10 px-3 py-1 rounded-full group-hover:bg-slate-100 transition-colors">US</span>
-                    <span className="font-black uppercase tracking-tighter text-lg">{t('fp_cta_wearable_us')}</span>
-                  </span>
-                  <ExternalLink className="opacity-40 group-hover:opacity-100 transition-opacity" size={20} />
-                </a>
-                <a href={affiliateLinks.uk} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-slate-800 rounded-3xl group hover:bg-white hover:text-slate-900 transition-all duration-500">
-                  <span className="flex items-center gap-4">
-                    <span className="text-xs bg-white/10 px-3 py-1 rounded-full group-hover:bg-slate-100 transition-colors">UK</span>
-                    <span className="font-black uppercase tracking-tighter text-lg">{t('fp_cta_wearable_uk')}</span>
-                  </span>
-                  <ExternalLink className="opacity-40 group-hover:opacity-100 transition-opacity" size={20} />
-                </a>
-                <a href={affiliateLinks.es} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-slate-800 rounded-3xl group hover:bg-white hover:text-slate-900 transition-all duration-500">
-                  <span className="flex items-center gap-4">
-                    <span className="text-xs bg-white/10 px-3 py-1 rounded-full group-hover:bg-slate-100 transition-colors">ES</span>
-                    <span className="font-black uppercase tracking-tighter text-lg">{t('fp_cta_wearable_es')}</span>
-                  </span>
-                  <ExternalLink className="opacity-40 group-hover:opacity-100 transition-opacity" size={20} />
-                </a>
-                <a href={affiliateLinks.equip} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl group hover:scale-[1.03] transition-all shadow-xl shadow-blue-500/10">
-                  <span className="flex items-center gap-4">
-                    <Dumbbell className="text-white/70" size={24} />
-                    <span className="font-black uppercase tracking-tighter text-lg">{t('fp_cta_equipment')}</span>
-                  </span>
-                  <ExternalLink className="text-white/40 group-hover:text-white transition-colors" size={20} />
-                </a>
+                {[
+                  { key: 'fp_cta_oura', link: 'https://amazon.com/dp/B0CXM1X8PQ', label: 'Hardware' },
+                  { key: 'fp_cta_whoop', link: 'https://amazon.com/dp/B0CXM1X8PQ', label: 'AI Software' },
+                  { key: 'fp_cta_apple', link: 'https://amazon.com/dp/B0CXM1X8PQ', label: 'Hybrid' },
+                  { key: 'fp_cta_coldplunge', link: 'https://amazon.com/dp/B0CMB6X8Y1', label: 'Recovery' },
+                  { key: 'fp_cta_sauna', link: 'https://amazon.com/dp/B0CMB6X8Y1', label: 'Adaptation' },
+                  { key: 'fp_cta_insulin', link: 'https://amazon.com/dp/B0D5N6X8Z2', label: 'Clinical' }
+                ].map((item, idx) => (
+                  <a key={idx} href={item.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-slate-800 rounded-3xl group hover:bg-white hover:text-slate-900 transition-all duration-500">
+                    <span className="flex items-center gap-4">
+                      <span className="text-[10px] bg-white/10 px-2 py-0.5 rounded-full group-hover:bg-slate-100 transition-colors uppercase font-black">{item.label}</span>
+                      <span className="font-black uppercase tracking-tighter text-sm md:text-base">{t(item.key as any)}</span>
+                    </span>
+                    <ExternalLink className="opacity-40 group-hover:opacity-100 transition-opacity" size={18} />
+                  </a>
+                ))}
               </div>
             </div>
           </div>
         </section>
+
+        <UniversalQA />
 
         {/* Blog Integration */}
         <div className="space-y-40">

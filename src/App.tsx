@@ -18,6 +18,9 @@ import FitnessPillar from './pages/FitnessPillar';
 import FitnessPostD from './pages/FitnessPostD';
 import FitnessPostE from './pages/FitnessPostE';
 import FitnessPostF from './pages/FitnessPostF';
+import WearableWar from './pages/fitness/WearableWar';
+import RealTimeBiosensing from './pages/fitness/RealTimeBiosensing';
+import PerformanceMethodology from './pages/fitness/PerformanceMethodology';
 import NutritionPillar from './pages/NutritionPillar';
 import NutritionPostG from './pages/NutritionPostG';
 import NutritionPostH from './pages/NutritionPostH';
@@ -34,7 +37,13 @@ import WellnessPostJ from './pages/WellnessPostJ';
 import WellnessPostK from './pages/WellnessPostK';
 import WellnessPostL from './pages/WellnessPostL';
 import WomensHealthPillar from './pages/WomensHealthPillar';
+import OvarianLongevity from './pages/womens-health/OvarianLongevity';
+import StrengthMandate from './pages/womens-health/StrengthMandate';
+import CognitiveMetabolic from './pages/womens-health/CognitiveMetabolic';
 import SocialFitnessPillar from './pages/SocialFitnessPillar';
+import PickleballEcosystem from './pages/social-fitness/PickleballEcosystem';
+import FestivalizationWave from './pages/social-fitness/FestivalizationWave';
+import SocialRecovery from './pages/social-fitness/SocialRecovery';
 import PreventiveHealth from './pages/PreventiveHealth';
 import FitnessFundamentals from './pages/FitnessFundamentals';
 import UniversalLove from './pages/UniversalLove';
@@ -152,6 +161,9 @@ export default function App() {
             <Route path="/fitness/post-d" element={<FitnessPostD />} />
             <Route path="/fitness/post-e" element={<FitnessPostE />} />
             <Route path="/fitness/post-f" element={<FitnessPostF />} />
+            <Route path="/fitness/wearables" element={<WearableWar />} />
+            <Route path="/fitness/biosensing" element={<RealTimeBiosensing />} />
+            <Route path="/fitness/methodology" element={<PerformanceMethodology />} />
             <Route path="/nutrition" element={<NutritionPillar />} />
             <Route path="/nutrition/glp1" element={<NutritionGLP1 />} />
             <Route path="/nutrition/muscle-brain" element={<NutritionMuscleBrain />} />
@@ -168,7 +180,13 @@ export default function App() {
             <Route path="/wellness/post-k" element={<WellnessPostK />} />
             <Route path="/wellness/post-l" element={<WellnessPostL />} />
             <Route path="/womens-health" element={<WomensHealthPillar />} />
+            <Route path="/womens-health/longevity" element={<OvarianLongevity />} />
+            <Route path="/womens-health/performance" element={<StrengthMandate />} />
+            <Route path="/womens-health/metabolic" element={<CognitiveMetabolic />} />
             <Route path="/social-fitness" element={<SocialFitnessPillar />} />
+            <Route path="/social-fitness/pickleball" element={<PickleballEcosystem />} />
+            <Route path="/social-fitness/festivals" element={<FestivalizationWave />} />
+            <Route path="/social-fitness/recovery" element={<SocialRecovery />} />
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/superadmin" element={<SuperAdminPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
