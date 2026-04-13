@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../translations';
 import BlogSection from '../components/BlogSection';
-import UniversalQA from '../components/UniversalQA';
 
 export default function FitnessPillar() {
   const t = useT();
@@ -208,8 +207,6 @@ export default function FitnessPillar() {
             </div>
           </div>
         </section>
-
-        <UniversalQA />
 
         {/* Blog Integration */}
         <div className="space-y-40">

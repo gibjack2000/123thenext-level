@@ -15,6 +15,7 @@ import BlogSection from '../components/BlogSection';
 import { useT } from '../translations';
 import { motion } from 'framer-motion';
 import PillarCard from '../components/home/PillarCard';
+import UniversalQA from '../components/UniversalQA';
 
 export default function Home() {
   const t = useT();
@@ -754,260 +755,20 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="space-y-32">
-            {/* Health Blog */}
-            <div className="relative p-8 rounded-[2rem] shadow-xl shadow-rose-900/5 border border-rose-100/50 overflow-hidden group bg-gradient-to-br from-rose-50 via-white to-pink-50/50">
-              <div className="absolute top-0 right-0 w-80 h-80 bg-rose-200/30 blur-[100px] rounded-full -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-125" />
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-pink-100/20 blur-[80px] rounded-full -ml-24 -mb-24 transition-transform duration-1000 group-hover:scale-110" />
-
-              <div className="relative z-10">
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-2xl font-display uppercase tracking-tight text-slate-900 flex items-center">
-                    <div className="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center mr-3">
-                      <HeartPulse className="text-rose-500" size={20} />
-                    </div>
-                    <Link to="/health" className="hover:text-rose-600 transition-colors">Healthspan Intelligence</Link>
-                  </h3>
-                  <Link to="/health" className="text-xs font-bold uppercase tracking-widest text-rose-600 hover:text-rose-700 transition-colors">View Research</Link>
-                </div>
-                <p className="text-slate-600 mb-8 leading-relaxed max-w-md">Precision focus on disease prevention and biological age reversal. Understanding the mechanisms of longevity.</p>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <Link to="/health/post-a" className="sm:col-span-2 flex flex-col rounded-2xl bg-white/40 hover:bg-white/80 backdrop-blur-xl transition-all duration-500 ease-out border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(244,63,94,0.12)] hover:-translate-y-3 overflow-hidden group/card">
-                      <div className="h-40 sm:h-48 w-full overflow-hidden relative">
-                        <img src="/sleeping-kitten.png" alt="Sleep" className="w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-105" referrerPolicy="no-referrer" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
-                      </div>
-                      <div className="p-6 flex flex-col flex-grow">
-                        <div className="flex items-center gap-2 mb-3">
-                          <span className="px-2 py-0.5 rounded-full bg-rose-100 text-[10px] font-bold uppercase tracking-wider text-rose-600">Longevity</span>
-                          <span className="text-[10px] text-slate-400 font-medium">8 min read</span>
-                        </div>
-                        <h4 className="font-display uppercase tracking-tight text-slate-900 mb-3 text-xl leading-snug group-hover/card:text-rose-600 transition-colors">The Science of Sleep: How to Build a Better Bedtime Routine</h4>
-                        <p className="text-sm text-slate-500 mb-4 line-clamp-2">Discover the neurological impact of deep sleep and how to optimize your environment for recovery.</p>
-                        <div className="mt-auto flex items-center text-sm font-bold text-rose-600">
-                          Read full article <ArrowRight size={14} className="ml-2 transition-transform group-hover/card:translate-x-1" />
-                        </div>
-                      </div>
-                    </Link>
-
-                    <Link to="/health/post-b" className="flex flex-col rounded-2xl bg-white/40 hover:bg-white/80 backdrop-blur-xl transition-all duration-500 ease-out border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(244,63,94,0.12)] hover:-translate-y-3 overflow-hidden group/card">
-                      <div className="h-28 w-full overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1550345332-09e3ac987658?auto=format&fit=crop&q=80&w=800" alt="Immune System" className="w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-105" referrerPolicy="no-referrer" />
-                      </div>
-                      <div className="p-5 flex flex-col flex-grow">
-                        <h4 className="font-display uppercase tracking-tight text-slate-900 mb-2 leading-tight group-hover/card:text-rose-600 transition-colors">Understanding Your Immune System</h4>
-                        <div className="mt-auto flex items-center text-xs font-bold text-rose-600">
-                          Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover/card:translate-x-1" />
-                        </div>
-                      </div>
-                    </Link>
-
-                    <Link to="/health/post-c" className="flex flex-col rounded-2xl bg-white/40 hover:bg-white/80 backdrop-blur-xl transition-all duration-500 ease-out border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(244,63,94,0.12)] hover:-translate-y-3 overflow-hidden group/card">
-                      <div className="h-28 w-full overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=800" alt="Daily Habits" className="w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-105" referrerPolicy="no-referrer" />
-                      </div>
-                      <div className="p-5 flex flex-col flex-grow">
-                        <h4 className="font-display uppercase tracking-tight text-slate-900 mb-2 leading-tight group-hover/card:text-rose-600 transition-colors">5 Daily Habits That Support Vitality</h4>
-                        <div className="mt-auto flex items-center text-xs font-bold text-rose-600">
-                          Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover/card:translate-x-1" />
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              {/* Fitness Blog */}
-              <div className="relative p-8 rounded-[2rem] shadow-xl shadow-blue-900/5 border border-blue-100/50 overflow-hidden group bg-gradient-to-br from-blue-50 via-white to-cyan-50/50">
-                <div className="absolute top-0 right-0 w-80 h-80 bg-blue-200/30 blur-[100px] rounded-full -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-125" />
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-cyan-100/20 blur-[80px] rounded-full -ml-24 -mb-24 transition-transform duration-1000 group-hover:scale-110" />
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-2xl font-display uppercase tracking-tight text-slate-900 flex items-center">
-                      <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center mr-3">
-                        <Dumbbell className="text-blue-500" size={20} />
-                      </div>
-                      <Link to="/fitness" className="hover:text-blue-600 transition-colors">Performance Protocols</Link>
-                    </h3>
-                    <Link to="/fitness" className="text-xs font-bold uppercase tracking-widest text-blue-600 hover:text-blue-700 transition-colors">View Research</Link>
-                  </div>
-                  <p className="text-slate-600 mb-8 leading-relaxed max-w-md">Technical deep-dives into training mechanics and high-performance recovery. Optimizing the human machine.</p>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <Link to="/fitness/post-d" className="sm:col-span-2 flex flex-col rounded-2xl bg-white/40 hover:bg-white/80 backdrop-blur-xl transition-all duration-500 ease-out border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(59,130,246,0.12)] hover:-translate-y-3 overflow-hidden group/card">
-                      <div className="h-40 sm:h-48 w-full overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&q=80&w=800" alt="Strength Training" className="w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-105" referrerPolicy="no-referrer" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
-                      </div>
-                      <div className="p-6 flex flex-col flex-grow">
-                        <div className="flex items-center gap-2 mb-3">
-                          <span className="px-2 py-0.5 rounded-full bg-blue-100 text-[10px] font-bold uppercase tracking-wider text-blue-600">Strength</span>
-                          <span className="text-[10px] text-slate-400 font-medium">12 min read</span>
-                        </div>
-                        <h4 className="font-display uppercase tracking-tight text-slate-900 mb-3 text-xl leading-snug group-hover/card:text-blue-600 transition-colors">A Beginner's Guide to Strength Training at Home</h4>
-                        <p className="text-sm text-slate-500 mb-4 line-clamp-2">No gym? No problem. Learn how to build muscle and strength using minimal equipment and bodyweight.</p>
-                        <div className="mt-auto flex items-center text-sm font-bold text-blue-600">
-                          Read full article <ArrowRight size={14} className="ml-2 transition-transform group-hover/card:translate-x-1" />
-                        </div>
-                      </div>
-                    </Link>
-
-                    <Link to="/fitness/post-e" className="flex flex-col rounded-2xl bg-white/40 hover:bg-white/80 backdrop-blur-xl transition-all duration-500 ease-out border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(59,130,246,0.12)] hover:-translate-y-3 overflow-hidden group/card">
-                      <div className="h-28 w-full overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800" alt="Mobility" className="w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-105" referrerPolicy="no-referrer" />
-                      </div>
-                      <div className="p-5 flex flex-col flex-grow">
-                        <h4 className="font-display uppercase tracking-tight text-slate-900 mb-2 leading-tight group-hover/card:text-blue-600 transition-colors">Improve Your Mobility in 10 Minutes</h4>
-                        <div className="mt-auto flex items-center text-xs font-bold text-blue-600">
-                          Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover/card:translate-x-1" />
-                        </div>
-                      </div>
-                    </Link>
-
-                    <Link to="/fitness/post-f" className="flex flex-col rounded-2xl bg-white/40 hover:bg-white/80 backdrop-blur-xl transition-all duration-500 ease-out border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(59,130,246,0.12)] hover:-translate-y-3 overflow-hidden group/card">
-                      <div className="h-28 w-full overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=800" alt="Workout Plateaus" className="w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-105" referrerPolicy="no-referrer" />
-                      </div>
-                      <div className="p-5 flex flex-col flex-grow">
-                        <h4 className="font-display uppercase tracking-tight text-slate-900 mb-2 leading-tight group-hover/card:text-blue-600 transition-colors">Overcoming Workout Plateaus</h4>
-                        <div className="mt-auto flex items-center text-xs font-bold text-blue-600">
-                          Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover/card:translate-x-1" />
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              {/* Nutrition Blog */}
-              <div className="relative p-8 rounded-[2rem] shadow-xl shadow-emerald-900/5 border border-emerald-100/50 overflow-hidden group bg-gradient-to-br from-emerald-50 via-white to-teal-50/50">
-                <div className="absolute top-0 right-0 w-80 h-80 bg-emerald-200/30 blur-[100px] rounded-full -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-125" />
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-teal-100/20 blur-[80px] rounded-full -ml-24 -mb-24 transition-transform duration-1000 group-hover:scale-110" />
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-2xl font-display uppercase tracking-tight text-slate-900 flex items-center">
-                      <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center mr-3">
-                        <Apple className="text-emerald-500" size={20} />
-                      </div>
-                      <Link to="/nutrition" className="hover:text-emerald-600 transition-colors">Metabolic Intelligence</Link>
-                    </h3>
-                    <Link to="/nutrition" className="text-xs font-bold uppercase tracking-widest text-emerald-600 hover:text-emerald-700 transition-colors">View Research</Link>
-                  </div>
-                  <p className="text-slate-600 mb-8 leading-relaxed max-w-md">Advanced metabolic nutrition strategy. From glucose regulation to intracellular energy production and meal-timing protocols.</p>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <Link to="/nutrition/post-g" className="sm:col-span-2 flex flex-col rounded-2xl bg-white/40 hover:bg-white/80 backdrop-blur-xl transition-all duration-500 ease-out border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(16,185,129,0.12)] hover:-translate-y-3 overflow-hidden group/card">
-                      <div className="h-40 sm:h-48 w-full overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&q=80&w=800" alt="Meal Prep" className="w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-105" referrerPolicy="no-referrer" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
-                      </div>
-                      <div className="p-6 flex flex-col flex-grow">
-                        <div className="flex items-center gap-2 mb-3">
-                          <span className="px-2 py-0.5 rounded-full bg-emerald-100 text-[10px] font-bold uppercase tracking-wider text-emerald-600">Meal Prep</span>
-                          <span className="text-[10px] text-slate-400 font-medium">10 min read</span>
-                        </div>
-                        <h4 className="font-display uppercase tracking-tight text-slate-900 mb-3 text-xl leading-snug group-hover/card:text-emerald-600 transition-colors">Mastering Meal Prep: A Step-by-Step Guide for Busy Weeks</h4>
-                        <p className="text-sm text-slate-500 mb-4 line-clamp-2">Save time and stay on track with our efficient system for prepping nutritious meals in under 2 hours.</p>
-                        <div className="mt-auto flex items-center text-sm font-bold text-emerald-600">
-                          Read full article <ArrowRight size={14} className="ml-2 transition-transform group-hover/card:translate-x-1" />
-                        </div>
-                      </div>
-                    </Link>
-
-                    <Link to="/nutrition/post-h" className="flex flex-col rounded-2xl bg-white/40 hover:bg-white/80 backdrop-blur-xl transition-all duration-500 ease-out border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(16,185,129,0.12)] hover:-translate-y-3 overflow-hidden group/card">
-                      <div className="h-28 w-full overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=800" alt="Macronutrients" className="w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-105" referrerPolicy="no-referrer" />
-                      </div>
-                      <div className="p-5 flex flex-col flex-grow">
-                        <h4 className="font-display uppercase tracking-tight text-slate-900 mb-2 leading-tight group-hover/card:text-emerald-600 transition-colors">Understanding Macronutrients</h4>
-                        <div className="mt-auto flex items-center text-xs font-bold text-emerald-600">
-                          Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover/card:translate-x-1" />
-                        </div>
-                      </div>
-                    </Link>
-
-                    <Link to="/nutrition/post-i" className="flex flex-col rounded-2xl bg-white/40 hover:bg-white/80 backdrop-blur-xl transition-all duration-500 ease-out border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(16,185,129,0.12)] hover:-translate-y-3 overflow-hidden group/card">
-                      <div className="h-28 w-full overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=800" alt="Healthy Snacks" className="w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-105" referrerPolicy="no-referrer" />
-                      </div>
-                      <div className="p-5 flex flex-col flex-grow">
-                        <h4 className="font-display uppercase tracking-tight text-slate-900 mb-2 leading-tight group-hover/card:text-emerald-600 transition-colors">10 Blood-Sugar-Friendly Snacks</h4>
-                        <div className="mt-auto flex items-center text-xs font-bold text-emerald-600">
-                          Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover/card:translate-x-1" />
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-
-              {/* Wellness Blog */}
-              <div className="relative p-8 rounded-[2rem] shadow-xl shadow-purple-900/5 border border-purple-100/50 overflow-hidden group bg-gradient-to-br from-purple-50 via-white to-fuchsia-50/50">
-                <div className="absolute top-0 right-0 w-80 h-80 bg-purple-200/30 blur-[100px] rounded-full -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-125" />
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-fuchsia-100/20 blur-[80px] rounded-full -ml-24 -mb-24 transition-transform duration-1000 group-hover:scale-110" />
-
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-2xl font-display uppercase tracking-tight text-slate-900 flex items-center">
-                      <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center mr-3">
-                        <Sparkles className="text-purple-500" size={20} />
-                      </div>
-                      <Link to="/wellness" className="hover:text-purple-600 transition-colors">Neurowellness Research</Link>
-                    </h3>
-                    <Link to="/wellness" className="text-xs font-bold uppercase tracking-widest text-purple-600 hover:text-purple-700 transition-colors">View Research</Link>
-                  </div>
-                  <p className="text-slate-600 mb-8 leading-relaxed max-w-md">The science of the internal state. Exploring nervous system regulation, cognitive restoration, and psychological safety.</p>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <Link to="/wellness/post-j" className="sm:col-span-2 flex flex-col rounded-2xl bg-white/40 hover:bg-white/80 backdrop-blur-xl transition-all duration-500 ease-out border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(168,85,247,0.12)] hover:-translate-y-3 overflow-hidden group/card">
-                      <div className="h-40 sm:h-48 w-full overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?auto=format&fit=crop&q=80&w=800" alt="Mindfulness" className="w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-105" referrerPolicy="no-referrer" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
-                      </div>
-                      <div className="p-6 flex flex-col flex-grow">
-                        <div className="flex items-center gap-2 mb-3">
-                          <span className="px-2 py-0.5 rounded-full bg-purple-100 text-[10px] font-bold uppercase tracking-wider text-purple-600">Mindset</span>
-                          <span className="text-[10px] text-slate-400 font-medium">6 min read</span>
-                        </div>
-                        <h4 className="font-display uppercase tracking-tight text-slate-900 mb-3 text-xl leading-snug group-hover/card:text-purple-600 transition-colors">Practical Mindfulness: Techniques for Busy Schedules</h4>
-                        <p className="text-sm text-slate-500 mb-4 line-clamp-2">Learn how to integrate micro-meditations and mindful presence into your daily workflow.</p>
-                        <div className="mt-auto flex items-center text-sm font-bold text-purple-600">
-                          Read full article <ArrowRight size={14} className="ml-2 transition-transform group-hover/card:translate-x-1" />
-                        </div>
-                      </div>
-                    </Link>
-
-                    <Link to="/wellness/post-k" className="flex flex-col rounded-2xl bg-white/40 hover:bg-white/80 backdrop-blur-xl transition-all duration-500 ease-out border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(168,85,247,0.12)] hover:-translate-y-3 overflow-hidden group/card">
-                      <div className="h-28 w-full overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88?auto=format&fit=crop&q=80&w=800" alt="Boundaries" className="w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-105" referrerPolicy="no-referrer" />
-                      </div>
-                      <div className="p-5 flex flex-col flex-grow">
-                        <h4 className="font-display uppercase tracking-tight text-slate-900 mb-2 leading-tight group-hover/card:text-purple-600 transition-colors">How to Set Boundaries and Protect Energy</h4>
-                        <div className="mt-auto flex items-center text-xs font-bold text-purple-600">
-                          Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover/card:translate-x-1" />
-                        </div>
-                      </div>
-                    </Link>
-
-                    <Link to="/wellness/post-l" className="flex flex-col rounded-2xl bg-white/40 hover:bg-white/80 backdrop-blur-xl transition-all duration-500 ease-out border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(168,85,247,0.12)] hover:-translate-y-3 overflow-hidden group/card">
-                      <div className="h-28 w-full overflow-hidden">
-                        <img src="/sleeping-kitten.png" alt="Rest" className="w-full h-full object-cover transition-transform duration-1000 group-hover/card:scale-105" referrerPolicy="no-referrer" />
-                      </div>
-                      <div className="p-5 flex flex-col flex-grow">
-                        <h4 className="font-display uppercase tracking-tight text-slate-900 mb-2 leading-tight group-hover/card:text-purple-600 transition-colors">The Importance of Rest: Doing Nothing</h4>
-                        <div className="mt-auto flex items-center text-xs font-bold text-purple-600">
-                          Explore <ArrowRight size={12} className="ml-1 transition-transform group-hover/card:translate-x-1" />
-                        </div>
-                      </div>
-                    </Link>
-              </div>
-            </div>
+          <BlogSection limit={6} />
+          
+          <div className="mt-16 text-center">
+            <Link to="/health" className="inline-flex items-center text-blue-600 font-bold uppercase tracking-widest hover:text-blue-700 transition-colors">
+              Explore Research Database
+              <ArrowRight className="ml-2" size={16} />
+            </Link>
           </div>
         </div>
-      </div>
+
+        {/* Universal Intelligence Hub Section */}
+        <section className="bg-white">
+          <UniversalQA />
+        </section>
 
       {/* Affiliates Hub */}
         <div id="shop" className="relative pt-16 pb-24 bg-fixed bg-center bg-cover scroll-mt-20" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&q=80&w=2000')" }}>
