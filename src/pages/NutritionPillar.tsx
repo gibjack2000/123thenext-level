@@ -159,69 +159,68 @@ export default function NutritionPillar() {
             </div>
           </motion.div>
         </div>
-        {/* Mediterranean Metabolic Blueprint Section */}
         <section className="mb-40">
           <div className="bg-[#fcfaf7] p-8 md:p-24 rounded-[4rem] md:rounded-[5rem] border border-orange-100 shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_100%_0%,rgba(249,115,22,0.03)_0%,transparent_50%)]"></div>
             
             <div className="relative z-10">
-              <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
-                <div className="lg:w-3/5 space-y-10">
-                  <div className="inline-flex items-center gap-4 text-orange-700 font-black uppercase tracking-widest text-[9px] bg-orange-50 px-5 py-2 rounded-full border border-orange-100">
+              <div className="grid grid-cols-1 xl:grid-cols-12 gap-16 xl:gap-24 items-start">
+                <div className="xl:col-span-7 space-y-12">
+                  <div className="inline-flex items-center gap-4 text-orange-700 font-black uppercase tracking-widest text-[10px] bg-orange-50 px-6 py-2 rounded-full border border-orange-100">
                     <Shield size={14} />
                     Clinically Validated Operating System
                   </div>
-                  <h2 className="text-3xl md:text-[clamp(2rem,5vw,4.5rem)] font-display font-black uppercase tracking-[0.01em] text-[#2D2D2D] leading-[1.1] md:leading-[1.15] break-words">
+                  <h2 className="text-4xl md:text-[clamp(2.5rem,5vw,5rem)] font-display font-black uppercase tracking-[0.01em] text-[#2D2D2D] leading-[1.05] md:leading-[1.1] break-words">
                     {t('np_med_title')}
                   </h2>
                   <p className="text-xl md:text-2xl text-slate-500 leading-relaxed font-medium">
                     {t('np_med_desc')}
                   </p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
-                    <div className="p-6 md:p-8 bg-white rounded-[2.5rem] border border-orange-50 shadow-sm transition-transform hover:scale-[1.02]">
-                       <h4 className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-orange-700 mb-3 flex items-center gap-2">
-                         <Dna size={14} className="text-orange-500" /> {t('np_med_epigenetic_title')}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="p-8 bg-white rounded-[3rem] border border-orange-50 shadow-sm transition-transform hover:scale-[1.02]">
+                       <h4 className="text-[10px] font-black uppercase tracking-widest text-orange-700 mb-4 flex items-center gap-2">
+                         <Dna size={16} className="text-orange-500" /> {t('np_med_epigenetic_title')}
                        </h4>
-                       <p className="text-xs text-slate-600 leading-relaxed font-medium">{t('np_med_epigenetic_desc')}</p>
+                       <p className="text-sm text-slate-600 leading-relaxed font-medium">{t('np_med_epigenetic_desc')}</p>
                     </div>
-                    <div className="p-6 md:p-8 bg-white rounded-[2.5rem] border border-orange-50 shadow-sm transition-transform hover:scale-[1.02]">
-                       <h4 className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-orange-700 mb-3 flex items-center gap-2">
-                         <Activity size={14} className="text-orange-500" /> {t('np_med_big3_title')}
+                    <div className="p-8 bg-white rounded-[3rem] border border-orange-50 shadow-sm transition-transform hover:scale-[1.02]">
+                       <h4 className="text-[10px] font-black uppercase tracking-widest text-orange-700 mb-4 flex items-center gap-2">
+                         <Activity size={16} className="text-orange-500" /> {t('np_med_big3_title')}
                        </h4>
-                       <p className="text-xs text-slate-600 leading-relaxed font-medium">{t('np_med_big3_desc')}</p>
+                       <p className="text-sm text-slate-600 leading-relaxed font-medium">{t('np_med_big3_desc')}</p>
                     </div>
                   </div>
                 </div>
                 
-                <div className="lg:w-2/5 w-full">
-                   <div className="bg-[#2D2D2D] p-10 md:p-14 rounded-[3rem] md:rounded-[4rem] text-white shadow-2xl relative overflow-hidden group border border-white/5">
+                <div className="xl:col-span-5 w-full">
+                   <div className="bg-[#2D2D2D] p-10 md:p-14 rounded-[3rem] md:rounded-[4rem] text-white shadow-2xl relative overflow-hidden group border border-white/5 h-full flex flex-col justify-between">
                       <div className="absolute top-0 right-0 p-8 opacity-10">
-                         <Zap size={60} className="text-orange-400" />
+                         <Zap size={80} className="text-orange-400" />
                       </div>
-                      <div className="relative z-10 space-y-10">
+                      <div className="relative z-10 space-y-12">
                         <div>
-                          <h3 className="text-2xl md:text-3xl font-display font-bold uppercase mb-8 tracking-[0.02em] leading-tight text-orange-400">2026 Clinical Synergies</h3>
-                          <div className="space-y-8">
-                             <div className="flex gap-6 items-start">
-                                <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-orange-400 border border-white/10 shrink-0 shadow-inner"><Shield size={20} /></div>
-                                <div className="space-y-1">
+                          <h3 className="text-2xl md:text-4xl font-display font-bold uppercase mb-10 tracking-[0.02em] leading-tight text-orange-400">2026 Clinical Synergies</h3>
+                          <div className="space-y-10">
+                             <div className="flex gap-8 items-start">
+                                <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-orange-400 border border-white/10 shrink-0 shadow-inner"><Shield size={24} /></div>
+                                <div className="space-y-2">
                                    <strong className="text-white text-xs uppercase tracking-widest block font-black mb-1">GLP-1 Companion</strong>
-                                   <p className="text-xs text-slate-400 leading-relaxed font-medium">{t('np_med_synergy_glp1')}</p>
+                                   <p className="text-sm text-slate-400 leading-relaxed font-medium">{t('np_med_synergy_glp1')}</p>
                                 </div>
                              </div>
-                             <div className="flex gap-6 items-start">
-                                <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-orange-400 border border-white/10 shrink-0 shadow-inner"><Brain size={20} /></div>
-                                <div className="space-y-1">
+                             <div className="flex gap-8 items-start">
+                                <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-orange-400 border border-white/10 shrink-0 shadow-inner"><Brain size={24} /></div>
+                                <div className="space-y-2">
                                    <strong className="text-white text-xs uppercase tracking-widest block font-black mb-1">Cognitive Fueling</strong>
-                                   <p className="text-xs text-slate-400 leading-relaxed font-medium">{t('np_med_synergy_neuro')}</p>
+                                   <p className="text-sm text-slate-400 leading-relaxed font-medium">{t('np_med_synergy_neuro')}</p>
                                 </div>
                              </div>
                           </div>
                         </div>
                         
-                        <a href={affiliateLinks.agekit} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-5 md:p-6 bg-orange-600 text-white rounded-[2rem] hover:bg-orange-700 transition-all font-bold uppercase tracking-widest text-[8px] md:text-[9px] group/btn shadow-[0_20px_40px_-10px_rgba(234,88,12,0.3)] w-full overflow-hidden">
-                           <span className="flex-1 leading-relaxed text-left pr-4">{t('np_med_diagnostic_cta')}</span>
-                           <ExternalLink size={14} className="group-hover/btn:translate-x-1 transition-transform shrink-0" />
+                        <a href={affiliateLinks.agekit} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 md:p-8 bg-orange-600 text-white rounded-[2.5rem] hover:bg-orange-700 transition-all font-bold uppercase tracking-widest text-[9px] md:text-xs group/btn shadow-[0_20px_40px_-10px_rgba(234,88,12,0.3)] w-full mt-auto">
+                           <span className="flex-1 leading-tight text-left pr-4">{t('np_med_diagnostic_cta')}</span>
+                           <ExternalLink size={18} className="group-hover/btn:translate-x-1 transition-transform shrink-0" />
                         </a>
                       </div>
                    </div>
