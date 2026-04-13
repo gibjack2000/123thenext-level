@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Globe2, MapPin, ShoppingBag, ArrowRight, Heart, Dumbbell, Apple, Sparkles, BookOpen, Shield, UserCheck, Wind, HeartPulse, ExternalLink, Compass } from 'lucide-react';
+import { Globe2, MapPin, ShoppingBag, ArrowRight, Heart, Dumbbell, Apple, Sparkles, BookOpen, Shield, UserCheck, Wind, HeartPulse, ExternalLink, Compass, Microscope, Users } from 'lucide-react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { Product, mapToProduct } from '../types';
 import { MOCK_PRODUCTS } from '../data/mockData';
@@ -281,7 +281,7 @@ export default function Home() {
                 <Sparkles size={16} className="mr-2" />
                 {t('hero_badge')}
               </div>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-display uppercase tracking-tight mb-6 leading-[0.9]">
+              <h1 className="text-5xl md:text-6xl lg:text-[clamp(4rem,7vw,7rem)] font-display font-semibold uppercase tracking-[0.02em] text-white mb-6 leading-[1.15]">
                 {t('hero_title1')} <br /><span className="text-blue-500">{t('hero_title2')}</span>
               </h1>
               <p className="text-xl text-slate-300 mb-8 font-medium leading-relaxed max-w-xl">
@@ -348,8 +348,8 @@ export default function Home() {
                       <div className="flex items-start">
                         <span className="flex-shrink-0 w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center mr-4 shadow-[0_0_15px_rgba(16,185,129,0.1)]"><Apple size={18} /></span>
                         <div>
-                          <strong className="text-white block mb-1 text-lg">Nutrition</strong>
-                          <span className="text-emerald-400 text-sm leading-relaxed block">View food as your body's primary fuel. A diet rich in whole foods, quality proteins, and healthy fats supports optimal functioning and prevents chronic disease.</span>
+                          <strong className="text-white block mb-1 text-lg">Metabolic Nutrition</strong>
+                          <span className="text-emerald-400 text-sm leading-relaxed block">View food as your body's primary metabolic fuel. A diet rich in whole foods, quality proteins, and healthy fats supports optimal metabolic functioning and prevents chronic disease.</span>
                         </div>
                       </div>
 
@@ -417,36 +417,36 @@ export default function Home() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-center mb-24"
           >
-            <h2 className="text-5xl md:text-7xl font-display uppercase tracking-tighter text-white mb-6 leading-none">
-              The Four Pillars of <br /><span className="text-blue-500">Peak Performance</span>
+            <h2 className="text-5xl md:text-7xl font-display uppercase tracking-[0.02em] text-white mb-6 leading-[1.15]">
+              The Six Core <br /><span className="text-blue-500">Optimization Protocols</span>
             </h2>
             <div className="h-1.5 w-24 bg-blue-600 mx-auto rounded-full mb-8"></div>
             <p className="text-xl text-slate-300 max-w-2xl mx-auto font-medium leading-relaxed">
-              Every breakthrough starts with a single step. Build your foundation on these four fundamental principles of vitality.
+              Every breakthrough starts with a single step. Access the high-resolution blueprints for your biological future.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
             {[
               {
-                to: "/preventive-health",
+                to: "/health",
                 image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=1200",
-                icon: Heart,
+                icon: HeartPulse,
                 iconColor: "text-rose-400",
-                title: "Health",
-                bullets: ["Preventive health basics", "Sleep optimization", "Stress management", "Healthy daily routines"],
-                description: "Build a strong foundation for your body. Dive into our health guides to learn how small changes can make a big impact.",
+                title: "Healthspan & Longevity",
+                bullets: ["Biological Age Optimization", "Skin Longevity Protocols", "Epigenetic Research", "Functional Maintenance"],
+                description: "Master the science of cellular health and aging. Transition from reactive repair to proactive optimization.",
                 hoverBorderColor: "hover:border-rose-500/50",
                 hoverShadowColor: "hover:shadow-rose-500/20"
               },
               {
-                to: "/fitness-fundamentals",
+                to: "/fitness",
                 image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&q=80&w=1200",
                 icon: Dumbbell,
                 iconColor: "text-blue-400",
-                title: "Fitness",
-                bullets: ["Beginner-friendly workouts", "Strength training fundamentals", "Mobility & flexibility", "At-home routines"],
-                description: "Move your body in ways that feel good and build lasting strength. Find routines that fit your lifestyle.",
+                title: "Performance & Bio-Data",
+                bullets: ["VO2 Max Optimization", "Real-time HRV Tracking", "Biomechanical Precision", "Longevity Strength"],
+                description: "Optimize human potential through data-driven training. Transition from general fitness to precision performance and recovery.",
                 hoverBorderColor: "hover:border-blue-500/50",
                 hoverShadowColor: "hover:shadow-blue-500/20"
               },
@@ -455,22 +455,44 @@ export default function Home() {
                 image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=1200",
                 icon: Apple,
                 iconColor: "text-emerald-400",
-                title: t('pillar_nutrition'),
-                bullets: [t('nutrition_bullet1'), t('nutrition_bullet2'), t('nutrition_bullet3'), t('nutrition_bullet4')],
-                description: t('nutrition_desc'),
+                title: "Metabolic Nutrition",
+                bullets: ["Glycemic Index Mastering", "Microbiome Diversification", "Mitochondrial Fueling", "Personalized Protocols"],
+                description: "Fuel your biological machinery with metabolic precision. Transition from generic dieting to optimized glycemic control and chronic disease prevention.",
                 hoverBorderColor: "hover:border-emerald-500/50",
                 hoverShadowColor: "hover:shadow-emerald-500/20"
               },
               {
-                to: "#life-practice",
+                to: "/wellness",
                 image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1200",
                 icon: Sparkles,
                 iconColor: "text-purple-400",
-                title: "Wellness",
-                bullets: ["Mindfulness & Rituals", "Mindset & Balance", "Natural Connection", "Wisdom & Insights"],
-                description: "Nurture your mental and emotional well-being. Learn strategies to manage stress and cultivate a positive mindset.",
+                title: t('pillar_wellness'),
+                bullets: ["Circadian Rhythm Sync", "NSDR Neuro-Reset", "Hormetic Stress Exposure", "Neural State Regulation"],
+                description: "Master the biological rhythms that dictate performance. Transition from simple wellness to advanced neuro-recovery and systemic resilience.",
                 hoverBorderColor: "hover:border-purple-500/50",
                 hoverShadowColor: "hover:shadow-purple-500/20"
+              },
+              {
+                to: "/womens-health",
+                image: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&q=80&w=1200",
+                icon: Microscope,
+                iconColor: "text-rose-400",
+                title: "Women's Health",
+                bullets: ["Ovary-Span Optimization", "Strength over Thinness", "Hormonal Bio-Data", "Cognitive Longevity"],
+                description: "Clinical precision for the female athlete. Transition from generic wellness to biology-specific high performance.",
+                hoverBorderColor: "hover:border-rose-500/50",
+                hoverShadowColor: "hover:shadow-rose-500/20"
+              },
+              {
+                to: "/social-fitness",
+                image: "/social-fitness-bg.png",
+                icon: Users,
+                iconColor: "text-orange-400",
+                title: "Social Fitness",
+                bullets: ["Wellness Festivalization", "Collective Catharsis", "Pickleball Ecosystem", "Biological Belonging"],
+                description: "Experience the renaissance of connection. Transition from isolated training to high-energy community-driven vitality.",
+                hoverBorderColor: "hover:border-orange-500/50",
+                hoverShadowColor: "hover:shadow-orange-500/20"
               }
             ].map((pillar, idx) => (
               <motion.div
@@ -720,37 +742,35 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Blog Section */}
-        <div id="blog" className="relative py-24 bg-fixed bg-center bg-cover border-y border-slate-800" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&q=80&w=2000')" }}>
-          <div className="absolute inset-0 bg-slate-900/85"></div>
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <div className="inline-flex items-center justify-center p-3 bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded-2xl mb-6 backdrop-blur-sm">
-                <BookOpen size={32} />
-              </div>
-              <h2 className="text-3xl md:text-4xl font-display uppercase tracking-tight text-white mb-6">Exploring the Growth blueprint blog</h2>
-              <p className="text-lg text-slate-300 max-w-3xl mx-auto">
-                Our articles are organized into four core pillars to help you easily find the guidance you need. Whether you're looking to improve your sleep, start lifting weights, cook healthier meals, or manage stress, we have you covered.
-              </p>
-            </div>
+        {/* Daily Intelligence & Research Feed */}
+        <div id="blog" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 border-t border-slate-100/10 bg-slate-50/50">
+          <div className="text-center mb-24">
+            <h2 className="text-5xl md:text-7xl font-display uppercase tracking-tighter text-slate-900 mb-6 leading-none">
+              Daily Intelligence <br /><span className="text-blue-600">& Research Feed</span>
+            </h2>
+            <div className="h-1.5 w-24 bg-blue-600 mx-auto rounded-full mb-8"></div>
+            <p className="text-xl text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed">
+              Stay at the absolute frontier. Technical deep-dives and evidence-based optimization updates from the global health ecosystem.
+            </p>
+          </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Health Blog */}
-              <div className="relative p-8 rounded-[2rem] shadow-xl shadow-rose-900/5 border border-rose-100/50 overflow-hidden group bg-gradient-to-br from-rose-50 via-white to-orange-50/50">
-                <div className="absolute top-0 right-0 w-80 h-80 bg-rose-200/30 blur-[100px] rounded-full -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-125" />
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-orange-100/20 blur-[80px] rounded-full -ml-24 -mb-24 transition-transform duration-1000 group-hover:scale-110" />
+          <div className="space-y-32">
+            {/* Health Blog */}
+            <div className="relative p-8 rounded-[2rem] shadow-xl shadow-rose-900/5 border border-rose-100/50 overflow-hidden group bg-gradient-to-br from-rose-50 via-white to-pink-50/50">
+              <div className="absolute top-0 right-0 w-80 h-80 bg-rose-200/30 blur-[100px] rounded-full -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-125" />
+              <div className="absolute bottom-0 left-0 w-64 h-64 bg-pink-100/20 blur-[80px] rounded-full -ml-24 -mb-24 transition-transform duration-1000 group-hover:scale-110" />
 
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-2xl font-display uppercase tracking-tight text-slate-900 flex items-center">
-                      <div className="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center mr-3">
-                        <Heart className="text-rose-500" size={20} />
-                      </div>
-                      <Link to="/health" className="hover:text-rose-600 transition-colors">Health Pillar</Link>
-                    </h3>
-                    <Link to="/health" className="text-xs font-bold uppercase tracking-widest text-rose-600 hover:text-rose-700 transition-colors">View All</Link>
-                  </div>
-                  <p className="text-slate-600 mb-8 leading-relaxed max-w-md">Master the fundamentals of longevity: restorative sleep, stress resilience, and sustainable daily rhythms.</p>
+              <div className="relative z-10">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-2xl font-display uppercase tracking-tight text-slate-900 flex items-center">
+                    <div className="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center mr-3">
+                      <HeartPulse className="text-rose-500" size={20} />
+                    </div>
+                    <Link to="/health" className="hover:text-rose-600 transition-colors">Healthspan Intelligence</Link>
+                  </h3>
+                  <Link to="/health" className="text-xs font-bold uppercase tracking-widest text-rose-600 hover:text-rose-700 transition-colors">View Research</Link>
+                </div>
+                <p className="text-slate-600 mb-8 leading-relaxed max-w-md">Precision focus on disease prevention and biological age reversal. Understanding the mechanisms of longevity.</p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <Link to="/health/post-a" className="sm:col-span-2 flex flex-col rounded-2xl bg-white/40 hover:bg-white/80 backdrop-blur-xl transition-all duration-500 ease-out border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(244,63,94,0.12)] hover:-translate-y-3 overflow-hidden group/card">
@@ -809,11 +829,11 @@ export default function Home() {
                       <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center mr-3">
                         <Dumbbell className="text-blue-500" size={20} />
                       </div>
-                      <Link to="/fitness" className="hover:text-blue-600 transition-colors">Fitness Pillar</Link>
+                      <Link to="/fitness" className="hover:text-blue-600 transition-colors">Performance Protocols</Link>
                     </h3>
-                    <Link to="/fitness" className="text-xs font-bold uppercase tracking-widest text-blue-600 hover:text-blue-700 transition-colors">View All</Link>
+                    <Link to="/fitness" className="text-xs font-bold uppercase tracking-widest text-blue-600 hover:text-blue-700 transition-colors">View Research</Link>
                   </div>
-                  <p className="text-slate-600 mb-8 leading-relaxed max-w-md">Build a body that performs. From strength training mechanics to mobility flows and recovery protocols.</p>
+                  <p className="text-slate-600 mb-8 leading-relaxed max-w-md">Technical deep-dives into training mechanics and high-performance recovery. Optimizing the human machine.</p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <Link to="/fitness/post-d" className="sm:col-span-2 flex flex-col rounded-2xl bg-white/40 hover:bg-white/80 backdrop-blur-xl transition-all duration-500 ease-out border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(59,130,246,0.12)] hover:-translate-y-3 overflow-hidden group/card">
@@ -872,11 +892,11 @@ export default function Home() {
                       <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center mr-3">
                         <Apple className="text-emerald-500" size={20} />
                       </div>
-                      <Link to="/nutrition" className="hover:text-emerald-600 transition-colors">Nutrition Pillar</Link>
+                      <Link to="/nutrition" className="hover:text-emerald-600 transition-colors">Metabolic Intelligence</Link>
                     </h3>
-                    <Link to="/nutrition" className="text-xs font-bold uppercase tracking-widest text-emerald-600 hover:text-emerald-700 transition-colors">View All</Link>
+                    <Link to="/nutrition" className="text-xs font-bold uppercase tracking-widest text-emerald-600 hover:text-emerald-700 transition-colors">View Research</Link>
                   </div>
-                  <p className="text-slate-600 mb-8 leading-relaxed max-w-md">Fuel your potential. Science-backed nutrition, simple meal prep, and sustainable eating habits.</p>
+                  <p className="text-slate-600 mb-8 leading-relaxed max-w-md">Advanced metabolic nutrition strategy. From glucose regulation to intracellular energy production and meal-timing protocols.</p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <Link to="/nutrition/post-g" className="sm:col-span-2 flex flex-col rounded-2xl bg-white/40 hover:bg-white/80 backdrop-blur-xl transition-all duration-500 ease-out border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(16,185,129,0.12)] hover:-translate-y-3 overflow-hidden group/card">
@@ -935,11 +955,11 @@ export default function Home() {
                       <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center mr-3">
                         <Sparkles className="text-purple-500" size={20} />
                       </div>
-                      <Link to="/wellness" className="hover:text-purple-600 transition-colors">Wellness Pillar</Link>
+                      <Link to="/wellness" className="hover:text-purple-600 transition-colors">Neurowellness Research</Link>
                     </h3>
-                    <Link to="/wellness" className="text-xs font-bold uppercase tracking-widest text-purple-600 hover:text-purple-700 transition-colors">View All</Link>
+                    <Link to="/wellness" className="text-xs font-bold uppercase tracking-widest text-purple-600 hover:text-purple-700 transition-colors">View Research</Link>
                   </div>
-                  <p className="text-slate-600 mb-8 leading-relaxed max-w-md">Nurture the mind. Practical mindfulness, emotional resilience, and lifestyle design for a balanced life.</p>
+                  <p className="text-slate-600 mb-8 leading-relaxed max-w-md">The science of the internal state. Exploring nervous system regulation, cognitive restoration, and psychological safety.</p>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <Link to="/wellness/post-j" className="sm:col-span-2 flex flex-col rounded-2xl bg-white/40 hover:bg-white/80 backdrop-blur-xl transition-all duration-500 ease-out border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_30px_60px_rgba(168,85,247,0.12)] hover:-translate-y-3 overflow-hidden group/card">
@@ -983,23 +1003,13 @@ export default function Home() {
                         </div>
                       </div>
                     </Link>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Latest Blog Posts */}
-        <BlogSection
-          category="health"
-          limit={3}
-          title="Latest Health Insights"
-          subtitle="Expert advice on longevity, nutrition, and wellness."
-          className="py-24 bg-slate-50"
-        />
-
-        {/* Affiliates Hub */}
+      {/* Affiliates Hub */}
         <div id="shop" className="relative pt-16 pb-24 bg-fixed bg-center bg-cover scroll-mt-20" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&q=80&w=2000')" }}>
           <div className="absolute inset-0 bg-slate-900/90"></div>
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1012,7 +1022,7 @@ export default function Home() {
               </div>
               
               <p className="text-slate-400 text-sm max-w-2xl mx-auto mb-8">
-                We curate helpful products that support the four pillars of health, fitness, nutrition, and wellness. Our recommendations are chosen for usefulness, not hype.
+                We curate helpful products that support the six pillars of health, fitness, metabolic nutrition, neurowellness, women's health, and social fitness. Our recommendations are chosen for usefulness, not hype.
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">

@@ -34,20 +34,22 @@ const translations = {
     hero_quote1: '"The best time to start was yesterday.',
     hero_quote2: 'The second best time is now."',
 
-    // Extended Hero Block
-    hero_block_title: 'Invest in Your Future Self:',
-    hero_block_subtitle: 'The Journey to Lifelong Vitality Starts Here',
-    hero_block_p1: "True health is not a static destination; it is an active pursuit of choices and lifestyles that lead to holistic well-being.",
-    hero_block_p2: "Scientific research indicates that environmental, socioeconomic, and lifestyle factors account for 80% to 90% of your disease risks and health outcomes, meaning the power to shape your long-term vitality is largely in your hands.",
-    hero_block_p3: 'To build a "personal home" that remains strong for decades, you must support it with the fundamental pillars of health. When one area is neglected, it inevitably weakens the entire structure.',
-    hero_keys_title: 'The Keys to your success',
+    // Extended Hero Block (2026 Strategy)
+    hero_block_title: 'Precision Bio-Optimization:',
+    hero_block_subtitle: 'The CEO of Your Own Biology',
+    hero_block_p1: "Health is no longer a static destination; it is a high-resolution pursuit of Healthspan and Functional Longevity. We move beyond 'wellness' into the realm of technical precision.",
+    hero_block_p2: "Modern clinical data confirms that 80% to 90% of your aging pace is under Epigenetic Control. By leveraging real-time bio-data and life-stage specific protocols, you can quiet biological noise and maximize systemic resilience.",
+    hero_block_p3: "Our Six-Pillar Framework provides the objective roadmap to autonomic homeostasis. From the Ovary-Span architecture to Metabolic Precision, we provide the granularity required for the 2026 standard of care.",
+    hero_keys_title: 'The Scientific Architecture of You',
 
     // Pillars
     pillars_title: 'The Pillars',
     pillar_health: 'Health',
     pillar_fitness: 'Fitness',
-    pillar_nutrition: 'Nutrition',
-    pillar_wellness: 'Wellness',
+    pillar_nutrition: 'Metabolic Nutrition',
+    pillar_wellness: 'Neurowellness',
+    pillar_womens_health: "Women's Health",
+    pillar_social_fitness: 'Social Fitness',
     pillar_learn_more: 'Learn more',
 
     health_bullet1: 'Preventive care strategies',
@@ -277,13 +279,36 @@ const translations = {
     lk_note_title: 'Enlightenment Requirement',
     lk_note_p: 'Breathing Mindfulness and Loving-kindness are the two meditations required to attain Enlightenment. They are the essential tools to destroy discontentedness and find lasting peace.',
 
-    // Health Pillar Page
+    // Healthspan & Longevity Pillar (2026 Standard)
     hp_back: 'Back to Blueprint',
-    hp_title: 'Health',
-    hp_subtitle: 'Pillar',
-    hp_desc: 'Master the fundamentals of longevity: restorative sleep, stress resilience, and sustainable daily rhythms.',
-    hp_top_posts: 'Top Health Posts',
-    hp_latest_posts: 'Latest Health Posts',
+    hp_title: 'Healthspan',
+    hp_subtitle: '& Longevity',
+    hp_desc: 'Transitioning from reactive care to proactive biological optimization. Preserving functional lifespan through data-driven protocols.',
+    hp_top_posts: 'Top Longevity Insights',
+    hp_latest_posts: 'Latest Research',
+
+    // New 2026 Content Sections
+    hp_shift_title: 'The Proactive Shift: Optimization Over Repair',
+    hp_shift_desc: 'Moving beyond "fixing" health issues to optimizing your biology decades in advance. We leverage high-resolution bio-data and specialized testing to preserve function before decline begins.',
+    
+    hp_skin_title: 'Skin Longevity vs. Anti-Aging',
+    hp_skin_desc: 'While "Anti-Aging" focuses on masking the passage of time, Skin Longevity addresses the underlying biology. We focus on preserving the skin\'s functional lifespan by targeting cellular senescence and mitochondrial health.',
+    hp_skin_detail: 'The 2026 standard moves away from surface-level aesthetics toward functional aging. By supporting your skin\'s biological integrity, you capture the benefits of youthful appearance as a side effect of systemic health.',
+
+    hp_how_title: 'Measure Your Pace: Epigenetic Clocks',
+    hp_how_desc: 'How to test biological age at home using 3rd-generation epigenetic clocks. DNA methylation patterns offer a high-resolution view of how fast you are aging compared to your chronological years.',
+    
+    hp_why_title: 'Functional Maintenance: The New Standard',
+    hp_why_desc: 'Why proactive maintenance of biological function is the mandatory standard for 2026. Data-driven optimization allows for precision interventions that keep your "SystemAge" significantly lower than your birth year.',
+
+    hp_bio_age_title: 'Biological Age Testing (DNAm)',
+    hp_bio_age_desc: 'Advanced testing now includes organ-specific metrics. Understand your cardiovascular age, immune age, and systemic biological pace through DNA methylation analysis.',
+
+    hp_cta_section_title: 'Biomega & Regeneration Protocols',
+    hp_cta_kit_us: 'Bio-Age Test Kit (USA)',
+    hp_cta_kit_uk: 'Bio-Age Test Kit (UK)',
+    hp_cta_kit_es: 'Kit de Bio-Edad (España)',
+    hp_cta_skincare: 'Regenerative Skincare (NAD+)',
 
     // Health Post A - Science of Sleep
     hpa_back: 'Back to Home',
@@ -347,7 +372,7 @@ const translations = {
     hpb_sec3_li1_desc: 'During deep sleep, your immune system releases proteins called cytokines, which help promote sleep and fight infection. Chronic sleep deprivation significantly reduces the production of these protective cells.',
     hpb_sec3_li2_title: 'Moderate Exercise:',
     hpb_sec3_li2_desc: 'Regular physical activity improves the circulation of immune cells, making it easier for your "bodyguards" to patrol for invaders.',
-    hpb_sec3_li3_title: 'Targeted Nutrition:',
+    hpb_sec3_li3_title: 'Targeted Metabolic Nutrition:',
     hpb_sec3_li3_desc: 'Beyond just Vitamin C, your body needs a variety of micronutrients like Zinc, Vitamin D, and Selenium to fuel the production of new white blood cells.',
     hpb_sec4_title: 'Strategic Tools for Your Health Arsenal',
     hpb_sec4_p: 'To help support your internal defenses, consider these science-backed additions to your daily routine:',
@@ -369,13 +394,36 @@ const translations = {
     hpc_read_time: '4 min read',
     hpc_title: '5 Daily Habits That Support Vitality',
 
-    // Fitness Pillar Page
+    // Fitness (Performance & Bio-Data) Pillar (2026 Standard)
     fp_back: 'Back to Blueprint',
-    fp_title: 'Fitness',
-    fp_subtitle: 'Pillar',
-    fp_desc: 'Build a body that performs. From strength training mechanics to mobility flows and recovery protocols.',
-    fp_top_posts: 'Top Fitness Posts',
-    fp_latest_posts: 'Latest Fitness Posts',
+    fp_title: 'Performance',
+    fp_subtitle: '& Bio-Data',
+    fp_desc: 'Optimizing human potential through biomechanical precision and real-time biometric feedback. Training for the long-game.',
+    fp_top_posts: 'Top Performance Insights',
+    fp_latest_posts: 'Latest Data',
+
+    // New 2026 Content Sections
+    fp_wearables_title: 'The Bio-Data Loop: Wearable Optimization',
+    fp_wearables_desc: 'Moving beyond step counting to real-time physiologic monitoring. Leveraging HRV, glucose levels, and recovery scores to dictate training intensity.',
+    
+    fp_strength_title: 'Longevity-First Strength Training',
+    fp_strength_desc: 'Focusing on bone density, fast-twitch fiber preservation, and structural integrity. Building a body that performs at 40, 60, and 80.',
+    fp_strength_detail: 'The 2026 framework prioritizes functional reserve. We don\'t just train for aesthetics; we train for the mechanical capacity required for lifelong mobility.',
+
+    fp_vo2_title: 'VO2 Max: The Ultimate Marker',
+    fp_vo2_desc: 'Why cardiorespiratory fitness is the strongest predictor of lifespan. Protocols for Zone 2 endurance and Zone 5 peak intensity optimization.',
+    
+    fp_recovery_title: 'Active Regeneration: The New Edge',
+    fp_recovery_desc: 'Recovery is no longer passive. We use cryotherapy, heat stress, and targeted compression to accelerate biological reset.',
+
+    fp_metric_title: 'Biometric Feedback Systems',
+    fp_metric_desc: 'Understand your internal response to external load. Master the balance between systemic stress and adaptation.',
+
+    fp_cta_section_title: 'Performance & Tracking Assets',
+    fp_cta_wearable_us: 'Advanced Biometric Tracker (USA)',
+    fp_cta_wearable_uk: 'Advanced Biometric Tracker (UK)',
+    fp_cta_wearable_es: 'Monitor Biométrico (España)',
+    fp_cta_equipment: 'Longevity Strength Tools',
 
     // Fitness Post D - Home Strength Training
     fpd_back: 'Back to Home',
@@ -471,13 +519,109 @@ const translations = {
     fpf_conclusion_title: 'Conclusion',
     fpf_conclusion_p: 'Plateaus are proof that you have leveled up. Your body has successfully adapted to the old you, and now it requires a new approach. Whether you choose to deload, micro-load, eat a bit more, or change your rep schemes, the key is to remain patient. Apply a new stimulus, stick to it for several weeks, and trust the process.',
 
-    // Nutrition Pillar
+    // Nutrition (Metabolic Precision) Pillar (2026 Standard)
     np_back: 'Back to Blueprint',
-    np_title_start: 'Nutrition',
-    np_title_end: 'Pillar',
-    np_description: 'Fuel your potential. Science-backed nutrition, simple meal prep, and sustainable eating habits.',
-    np_top_posts: 'Top Nutrition Posts',
-    np_latest_posts: 'Latest Nutrition Posts',
+    np_title_start: 'Metabolic',
+    np_title_end: 'Nutrition',
+    np_description: 'Precision biological fueling for the 2026 standard of care. Transitioning from "Calorie Counting" to "Metabolic Intelligence."',
+    
+    // Hub Narrative
+    np_hub_narrative_title: 'Nutrigenomics: Nutrition as Information',
+    np_hub_narrative_p: 'In 2026, we view every calorie as a data point. Functional fueling is the art of using specific macronutrient ratios and phytonutrients to modulate epigenetic expression, silencing pro-aging genes while activating longevity pathways like SIRT1 and AMPK. Our objective is transition from "Willpower" to "Metabolic Intelligence."',
+    
+    np_metabolic_health_title: 'The 6.8% Absolute Reality',
+    np_metabolic_health_p: 'Clinical screenings in the 2024-2026 window confirm that only 6.8% of adults are metabolically flexible. We define clinical health by your ability to clear glucose without excessive insulin spikes. Our protocols restore Autonomic Homeostasis through proactive monitoring.',
+    
+    np_muscle_link_title: 'Skeletal Muscle: The Premier Metabolic Sink',
+    np_muscle_link_p: 'Skeletal muscle is the body\'s largest insulin-sensitive tissue, clearing up to 80% of dietary glucose. Preserving muscle mass is the non-negotiable requirement for metabolic health, functional longevity, and sustained cognitive performance.',
+
+    // Path CTAs
+    np_path_a_title: 'GLP-1 Optimization Suite',
+    np_path_a_desc: 'Managing Muscle Loss, GI Integrity, and Hormonal Resilience during GLP-1 therapy.',
+    np_path_b_title: 'The Muscle-Brain Axis',
+    np_path_b_desc: 'Harnessing the signaling power of Myokines (Irisin, BDNF) for Cognitive Longevity.',
+    np_path_c_title: 'Biomarker Precision Lab',
+    np_path_c_desc: 'Real-Time Bio-Data: CGM, HRV, and HOMA-IR sensitivity mapping.',
+
+    np_conv_insulin: 'InsideTracker Comprehensive Longevity Panel',
+    np_conv_sensors: 'Keto-Mojo Dual Glucose & Ketone Meter',
+    np_conv_creatine: 'Clinical-Grade Creatine (Thorne)',
+    np_conv_maintenance: 'Electrolyte Restoration Protocol (LMNT)',
+    np_conv_nad: 'NAD+ Mitochondrial Recharging (NMN/NR)',
+    np_conv_test: 'Biological Age & Insulin Sensitivity Kit',
+    np_conv_omega: 'High-Potency Omega-3 (Clinical)',
+
+    // Cellular Recharging Section
+    np_cellular_title: 'Cellular Recharging: The NAD+ Blueprint',
+    np_cellular_p: 'NAD+ is the master lifeblood molecule for mitochondrial vitality and DNA repair. In 2026, we utilize specific precursors (NMN/NR) to override the age-related decline in cellular energy, effectively "recharging" the biological machine from the inside out.',
+    
+    // SEO / QA Section (Answering the Public)
+    np_seo_how_q: 'How to use targeted supplements for hormone balance and menopause longevity?',
+    np_seo_how_a: 'Hormonal resilience requires a foundation of micronutrient precision. We leverage clinical-grade Magnesium, Vitamin D3/K2, and specific Omega-3 titration to modulate the endocrine signals that define the menopause transition.',
+    np_seo_why_q: 'Why is muscle mass the primary marker of metabolic health in 2026?',
+    np_seo_why_a: 'Muscle is your metabolic insurance. It is the only tissue capable of clearing glucose and secreting myokines that regulate systemic inflammation and brain health.',
+    np_seo_vs_q: 'Creatine: Brain Health vs. Physical Performance?',
+    np_seo_vs_a: 'While physical performance requires a 5g saturation, neuro-protection and brain-fog mitigation demand a sustained, ultra-pure Monohydrate protocol to bridge the energy gap in the prefontal cortex.',
+
+    // Sub-Page A: GLP-1
+    np_glp1_title: 'GLP-1 Optimization Protocol',
+    np_glp1_intro: 'A comprehensive medical blueprint for navigating GLP-1 therapy (Wegovy, Zepbound) while protecting body composition through the "Muscle Mandate."',
+    np_glp1_muscle_loss_title: 'The Muscle Loss Paradox',
+    np_glp1_muscle_loss_p: 'Metabolic Reality: On-treatment weight loss often comprises 25% skeletal muscle. Our protocol mandates aggressive Creatine HCl and Bio-Available Wheys to override the catabolic signals of calorie restriction.',
+    np_glp1_titration_title: 'Titration & Safety Roadmap',
+    np_glp1_titration_p: 'A 20-week titration framework designed to move from "Weight Loss" to "Metabolic Optimization," ensuring GI integrity and hormonal resilience.',
+
+    // CTAs
+    np_cta_nad: 'Order Clinical NAD+ Precursor',
+    np_cta_test: 'Get Your Biological Age Kit',
+    np_cta_creatine_brain: 'Get Neuro-Grade Creatine',
+
+    // Spanish Translations (Metabolic Nutrition 2026)
+    // ... around line 1578
+
+    // Sub-Page B: Muscle-Brain
+    np_mb_title: 'The Muscle-Brain Secretome',
+    np_mb_intro: 'Harnessing the endocrine power of muscle tissue to clear "Brain Fog" and enhance hippocampal plasticity.',
+    np_mb_myokine_title: 'Myokine Intelligence',
+    np_mb_myokine_p: 'Contracting muscle releases Irisin, a myokine that crosses the blood-brain barrier to trigger BDNF expression. This is our primary target for age-related cognitive shielding.',
+    np_mb_creatine_title: 'Neuro-Metabolic Creatine Monohydrate',
+    np_mb_creatine_p: 'Moving beyond the physical—creatine is the primary energy reservoir for the brain. Our 2026 protocol uses 5g of ultra-pure Monohydrate to bridge the energy gap in the prefontal cortex, mitigating "brain fog" and supporting cognitive stability during metabolic stress or the menopause transition.',
+
+    // Sub-Page C: Biomarkers
+    np_bio_title: 'Biomarker Precision Lab',
+    np_bio_intro: 'Shifting from general advice to high-resolution biological monitoring.',
+    np_bio_wearable_title: 'The Continuous Lab',
+    np_bio_wearable_p: 'Utilizing CGM (Continuous Glucose Monitors) and Sweat Sensors to map 24/7 metabolic flexibility and identifying individual inflammatory food triggers.',
+    np_bio_standard_title: 'The HOMA-IR Standard',
+    np_bio_standard_p: 'Evaluating fasting insulin alongside glucose to calculate your true insulin sensitivity score. This is the "leading indicator" for longevity.',
+
+    // QA/Blog Queries
+    np_blog_q1: 'GLP-1 Guide: How to prevent "Ozempic Face" and Muscle Loss.',
+    np_blog_q2: 'Skeletal Muscle as a Longevity Organ: The 2026 Research Summary.',
+    np_blog_q3: 'CGM Mastery: Why "Normal" Blood Sugar is not enough for Longevity.',
+    np_blog_q4: 'Metabolic Nutrition for Women: Ovarian Health & Glucose Stability.',
+
+    np_top_posts: 'Metabolic Intelligence Feed',
+    np_latest_posts: 'Latest Clinical Data',
+
+    np_cta_section_title: 'Metabolic Optimization Suite',
+    np_cta_cgm_us: 'InsideTracker High-Precision Panel (USA)',
+    np_cta_cgm_uk: 'InsideTracker High-Precision Panel (UK)',
+    np_cta_cgm_es: 'Monitor Metabólico de Bio-Edad (España)',
+    
+    np_cta_age_us: 'InsideTracker Biological Age Kit (USA)',
+    np_cta_age_uk: 'InsideTracker Biological Age Kit (UK)',
+    np_cta_age_es: 'Kit de Edad Biológica InsideTracker (España)',
+    
+    np_cta_creatine_us: 'Thorne Creatine HCl Mandate (USA)',
+    np_cta_creatine_uk: 'Thorne Creatine HCl Mandate (UK)',
+    np_cta_creatine_es: 'Mandato de Creatina HCl Thorne (España)',
+    
+    np_cta_nad_us: 'NAD+ Precursor Mitochondrial Stack (USA)',
+    np_cta_nad_uk: 'NAD+ Precursor Mitochondrial Stack (UK)',
+    np_cta_nad_es: 'Stack Mitocondrial de Precursor NAD+ (España)',
+
+    np_cta_supps: 'Thorne Clinical Performance Stack',
 
     // Nutrition Post G - Meal Prep
     npg_back: 'Back to Home',
@@ -506,7 +650,7 @@ const translations = {
     npg_sec3_li4: 'Stovetop Proteins. While the oven and rice cooker are working, cook your ground turkey, chicken breast, or tofu on the stove.',
     npg_sec3_li5: 'Cool and Store. Let everything cool completely before sealing the containers, otherwise, condensation will make your food soggy.',
     npg_conclusion_title: 'Conclusion',
-    npg_conclusion_p: 'Meal prepping is a skill. Your first attempt might take three hours, and you might make a mess of your kitchen. But with practice, having healthy, delicious food ready to eat in your fridge becomes the ultimate life hack for maintaining your nutrition and saving money.',
+    npg_conclusion_p: 'Meal prepping is a skill. Your first attempt might take three hours, and you might make a mess of your kitchen. But with practice, having healthy, delicious food ready to eat in your fridge becomes the ultimate life hack for maintaining your metabolic nutrition and saving money.',
 
     // Nutrition Post H - Macronutrients
     nph_back: 'Back to Home',
@@ -571,13 +715,88 @@ const translations = {
     npi_conclusion_title: 'Conclusion',
     npi_conclusion_p: 'Controlling your blood sugar is the secret to sustained energy, better moods, and easier fat loss. By strategically pairing your foods and reaching for items rich in protein, healthy fats, and fiber, you can conquer the mid-afternoon slump forever.',
 
-    // Wellness Pillar
+    // Neurowellness (2026 Standard)
     wp_back: 'Back to Blueprint',
-    wp_title_start: 'Wellness',
-    wp_title_end: 'Pillar',
-    wp_description: 'Nurture the mind. Practical mindfulness, emotional resilience, and lifestyle design for a balanced life.',
-    wp_top_posts: 'Top Wellness Posts',
-    wp_latest_posts: 'Latest Wellness Posts',
+    wp_title_start: 'Neuro-',
+    wp_title_end: 'Wellness',
+    wp_description: 'Mastering the neuro-recovery protocols that define 2026 cognitive longevity. Precision autonomic homeostasis.',
+    wp_top_posts: 'Neural Optimization Intelligence',
+    wp_latest_posts: 'Latest Intelligence Feed',
+
+    // Mastery Hub Sections
+    wp_hub_narrative_title: 'Autonomic Homeostasis: Beyond Willpower',
+    wp_hub_narrative_p: 'Mental health in 2026 is no longer a question of "willpower" but of biological regulation. The primary bottleneck to vitality is nervous system overload—a state where biological noise drowns out the signals of recovery. Our objective is to move from subjective feelings to objective regulation.',
+    
+    wp_polyvagal_title: 'The Polyvagal Paradigm',
+    wp_polyvagal_ventral: 'Ventral Vagal Pathway: The state of social engagement, safety, and cellular repair.',
+    wp_polyvagal_sympathetic: 'Sympathetic Activation: Mobilization for fight or flight. Necessary for performance, toxic in chronic states.',
+    wp_polyvagal_dorsal: 'Dorsal Vagal Shutdown: The freeze response. Disconnection, fog, and metabolic stagnation.',
+    
+    wp_movement_med_title: 'Movement as Nervous System Medicine',
+    wp_movement_med_p: 'We connect physicality directly to emotional resilience. Your muscles are endocrine organs that communicate safety to your brain. High-intensity intervals or slow somatic release—every movement is a neural signal.',
+
+    // UX Deep Dive Paths
+    wp_path_a_title: 'Hard-Care Tech',
+    wp_path_a_desc: 'Vagus Nerve Stimulation & Wearable Data.',
+    wp_path_b_title: 'Soft-Care Somatics',
+    wp_path_b_desc: 'Breathwork & Embodied Healing Protocols.',
+    wp_path_c_title: 'The Metabolic Link',
+    wp_path_c_desc: 'The Muscle-Brain Axis & Energy Metabolism.',
+
+    // Sub-Page A: Hard-Care Tech
+    wp_hard_title: 'Neurotech & VNS: Programming Homeostasis',
+    wp_hard_intro: 'How TENS devices and wearables deliver afferent signals to the hippocampus and amygdala to restore balance.',
+    wp_hard_comparison_title: 'The 2026 Wearable War',
+    wp_hard_oura: 'Oura Ring 4: Precision sleep architecture and biological age tracking.',
+    wp_hard_whoop: 'WHOOP 5.0: The ultimate autonomic stress-strain validator.',
+    wp_hard_apple: 'Apple Watch Ultra 2: Clinical-grade Vagus Nerve monitoring.',
+    
+    // Sub-Page B: Soft-Care Somatics
+    wp_soft_title: 'Somatic Healing: Regulating from the Body Up',
+    wp_soft_intro: 'Techniques with clinical objectives for rapid autonomic recalibration.',
+    wp_soft_sigh: 'Physiological Sigh: Rapid CO2 clearing for immediate calm.',
+    wp_soft_box: 'Box Breathing: High-stress focus for cognitive clarity.',
+    wp_soft_grounding: 'Somatic Grounding (5-4-3-2-1): Anchoring during acute anxiety.',
+    wp_soft_backlash_title: 'The Over-Optimization Backlash',
+    wp_soft_backlash_p: 'The shift from self-surveillance to collective energy. Embracing "somatic release" over constant metric-chasing.',
+
+    // Sub-Page C: Muscle-Brain Axis
+    wp_meta_title: 'The Muscle-Brain Axis: Neurometabolism',
+    wp_meta_intro: 'How skeletal muscle acts as an endocrine organ to preserve cognitive integrity.',
+    wp_meta_myokine_title: 'The Myokine Revolution',
+    wp_meta_myokine_p: 'Irisin and BDNF: The molecular signals that mitigate brain fog and neurodegeneration.',
+    wp_meta_creatine_title: 'Creatine for Cognitive Energy',
+    wp_meta_creatine_p: '2026 Evidence: High-dose protocols for energy metabolism and menopausal fog mitigation.',
+
+    // Conversion Layer
+    wp_conv_diagnostic: 'SystemAge™ Brain Health Kit',
+    wp_conv_vns: 'Pulsetto VNS Device',
+    wp_conv_skincare: 'Neurocosmetics: GABA-Mimetic Stress Defense',
+
+    // Blog Queries
+    wp_blog_q1: 'How to regulate my nervous system through somatic release.',
+    wp_blog_q2: 'Why gut health is the primary driver of brain fog in 2026.',
+    wp_blog_q3: 'Cold Plunge vs Infrared Sauna: Autonomic Reset Analysis.',
+    wp_blog_q4: 'Neurowellness protocols for over-optimization burnout profesionales.',
+
+    // New 2026 Content Sections
+    wp_circadian_title: 'Circadian Syncing: Light & Life',
+    wp_circadian_desc: 'Managing the "Master Clock" through precision light exposure and temperature cycling. Aligning your internal architecture with the planet.',
+    
+    wp_hormetic_title: 'Hormetic Stress Protocols',
+    wp_hormetic_desc: 'Deliberate cold exposure and heat stress to trigger cellular resilience. Using extreme environments to strengthen the biological core.',
+    
+    wp_recovery_title: 'Non-Sleep Deep Rest (NSDR)',
+    wp_recovery_desc: 'Cognitive reset through neural down-regulation. Mastering the art of deliberate stillness to accelerate brain-state transitions.',
+
+    wp_nature_title: 'Biophilic Reset',
+    wp_nature_desc: 'Why nature is a mandated biological requirement. Grounding, phytoncide exposure, and sensory recalibration.',
+
+    wp_cta_section_title: 'Regeneration & Sync Tools',
+    wp_cta_sauna_us: 'Infrared Recovery Pod (USA)',
+    wp_cta_sauna_uk: 'Infrared Recovery Pod (UK)',
+    wp_cta_sauna_es: 'Pod de Sauna Infrarroja (España)',
+    wp_cta_nootropics: 'Targeted Neuro-Stack',
 
     // Wellness Post J - Practical Mindfulness
     wpj_back: 'Back to Home',
@@ -700,6 +919,76 @@ const translations = {
     hpc_conclusion_title: 'Conclusion: The Cumulative Power of Vitality',
     hpc_conclusion_p1: 'The most powerful takeaway is this: Vitality is an investment, not a gift. When you prioritize these small, daily physiological wins, you aren\'t just "getting through the week." You are building a biological buffer. A body that is well-hydrated, neurologically rested, and aligned with the sun is a body that can handle the stressors of modern life without breaking.',
     hpc_conclusion_p2: 'Consistency is your greatest leverage. Start with just one of these habits tomorrow morning. As your baseline energy rises, the other four will become effortless. Your future self—the one with the focus to excel and the energy to enjoy it—is waiting on the other side of these choices.',
+
+    // Women's Health & Performance Pillar (2026 Standard)
+    whp_back: 'Back to Blueprint',
+    whp_title_start: "Women's Health",
+    whp_title_end: "& Performance",
+    whp_description: 'Pioneering biological precision for the female athlete and the longevity-conscious woman. Optimizing the Ovary-Span architecture.',
+    whp_top_posts: 'Performance Science',
+    whp_latest_posts: 'Latest Protocols',
+
+    // Ovary-Span Section
+    whp_ovary_title: 'The Ovary-Span: Command Central',
+    whp_ovary_desc: 'The ovary isn\'t just for reproduction; it is a vital multi-organ signaling hub. Ovarian aging is the primary driver of systemic decline in women. We treat ovarian health as a "New Vital Sign" to protect cardiovascular, bone, and brain health decades in advance.',
+    
+    // Strength over Thinness
+    whp_strength_title: 'Strength over Thinness: The Shift',
+    whp_strength_desc: 'The 2026 Sports Revolution is here. We are moving from aesthetic-only goals to professional-grade strength profiles. Heavy loading is a non-negotiable for skeletal longevity and metabolic resilience.',
+    
+    // Clinical Longevity
+    whp_clinical_title: 'Molecular Interventions',
+    whp_clinical_desc: 'Leveraging Creatine for cognitive preservation, NAD+ for metabolic youth, and Exosome technology for regenerative skin longevity. High-performance medicine tailored to female biology.',
+
+    // QA Trends (AnswerThePublic)
+    whp_qa_nutrition_q: 'How to use targeted metabolic nutrition for hormone balance?',
+    whp_qa_nutrition_a: 'By syncing macro-density with hormonal phases and leveraging high-bioavailability micronutrients like methylated B-vitamins and magnesium glycinate.',
+    whp_qa_strength_q: 'Why is heavy strength training non-negotiable for longevity?',
+    whp_qa_strength_a: 'It prevents sarcopenia and osteopenia, while providing the "Metabolic Sink" required for glucose stability as estrogen levels fluctuate.',
+    whp_qa_test_q: 'What are the best ovarian aging tests to use?',
+    whp_qa_test_a: 'AMH (Anti-Müllerian Hormone) and FSH/LH ratios, interpreted through the lens of individual biological pace rather than just chronological age.',
+
+    // Affiliate CTAs
+    whp_cta_section_title: 'Performance & Testing Suite',
+    whp_cta_test_us: 'Ovarian Reserve Test Kit (USA)',
+    whp_cta_test_uk: 'Ovarian Reserve Test Kit (UK)',
+    whp_cta_test_es: 'Kit de Reserva Ovárica (España)',
+    whp_cta_strength: 'High-Load Strength Equipment',
+    whp_cta_menopause: 'Menopause Bio-Optimization Stack',
+
+    // Social Fitness & Community Pillar (2026 Standard)
+    sfp_back: 'Back to Blueprint',
+    sfp_title_start: 'Social Fitness',
+    sfp_title_end: '& Community',
+    sfp_description: 'Welcome to the wellness renaissance. We are moving from isolation to collective vitality. Participation over performance.',
+    sfp_top_posts: 'Community Movement',
+    sfp_latest_posts: 'Festival Feed',
+
+    // Festivalization Section
+    sfp_festival_title: 'The Festivalization: Joy as Medicine',
+    sfp_festival_desc: 'The old paradigm of "lonely fitness" is dead. 2026 is about wellness raves, multi-day immersions, and mass-participation festivals. Health is no longer a chore—it is a celebration of human connection and collective catharsis.',
+    
+    // Pickleball Ecosystem
+    sfp_pickleball_title: 'The Pickleball Era: New Social Clubs',
+    sfp_pickleball_desc: 'How adult recreation leagues became the primary social infrastructure of 2026. Pickleball isn\'t just a game; it\'s the new town square for cross-generational connection and active aging.',
+    
+    // Collective Catharsis
+    sfp_catharsis_title: 'Collective Catharsis: Social Heat',
+    sfp_catharsis_desc: 'Social Saunas and Somatic Groups represent the next frontier. We leverage the power of shared discomfort and group emotional release to reset the nervous system and build deep biological safety.',
+
+    // QA Trends (AnswerThePublic)
+    sfp_qa_find_q: 'How to find community-based fitness clubs near me?',
+    sfp_qa_find_a: 'By leveraging local "Social Fitness" aggregates and joining specialized hyper-local recreation leagues that prioritize participation.',
+    sfp_qa_why_q: 'Why is social connection a biological necessity for longevity?',
+    sfp_qa_why_a: 'Social isolation triggers high-intensity inflammation. Meaningful belonging is as critical to your cellular health as sleep or nutrition.',
+    sfp_qa_what_q: 'What is the "festivalization" of wellness?',
+    sfp_qa_what_a: 'It is the merge of fitness training with festival culture—think music-led workout events and group recovery raves.',
+
+    // Affiliate CTAs
+    sfp_cta_section_title: 'Join the Movement',
+    sfp_cta_pickleball: 'Professional Pickleball Gear',
+    sfp_cta_festivals: 'Fitness Festival Tickets (HYROX)',
+    sfp_cta_recovery: 'Social Recovery Experiences',
   },
 
   es: {
@@ -735,20 +1024,22 @@ const translations = {
     hero_quote1: '"El mejor momento para empezar fue ayer.',
     hero_quote2: 'El segundo mejor momento es ahora."',
 
-    // Extended Hero Block
-    hero_block_title: 'Invierte en Tu Futuro Yo:',
-    hero_block_subtitle: 'El Camino hacia la Vitalidad de por Vida Comienza Aquí',
-    hero_block_p1: 'La verdadera salud no es un destino estático; es una búsqueda activa de elecciones y estilos de vida que conducen al bienestar integral.',
-    hero_block_p2: 'La investigación científica indica que los factores ambientales, socioeconómicos y de estilo de vida representan entre el 80% y el 90% de tus riesgos de enfermedad y resultados de salud, lo que significa que el poder de moldear tu vitalidad a largo plazo está en gran medida en tus manos.',
-    hero_block_p3: 'Para construir un "hogar personal" que permanezca sólido durante décadas, debes apoyarlo con los pilares fundamentales de la salud. Cuando se descuida un área, inevitablemente debilita toda la estructura.',
-    hero_keys_title: 'Las Claves de Tu Éxito',
+    // Extended Hero Block (Estrategia 2026)
+    hero_block_title: 'Bio-Optimización de Precisión:',
+    hero_block_subtitle: 'El CEO de Tu Propia Biología',
+    hero_block_p1: 'La salud ya no es un destino estático; es una búsqueda de alta resolución del Healthspan y la Longevidad Funcional. Superamos el "bienestar" para entrar en el terreno de la precisión técnica.',
+    hero_block_p2: 'Los datos clínicos modernos confirman que del 80% al 90% de tu ritmo de envejecimiento está bajo Control Epigenético. Al aprovechar los bio-datos en tiempo real, puedes silenciar el ruido biológico y maximizar la resiliencia sistémica.',
+    hero_block_p3: 'Nuestro Marco de Seis Pilares proporciona la hoja de ruta objetiva hacia la homeostasis autonómica. Desde la arquitectura Ovary-Span hasta la Precisión Metabólica, ofrecemos la granularidad requerida para el estándar de cuidado de 2026.',
+    hero_keys_title: 'La Arquitectura Científica de Ser Tú',
 
     // Pillars
     pillars_title: 'Los Pilares',
     pillar_health: 'Salud',
     pillar_fitness: 'Forma Física',
     pillar_nutrition: 'Nutrición',
-    pillar_wellness: 'Bienestar',
+    pillar_wellness: 'Neurowellness',
+    pillar_womens_health: 'Salud de la Mujer',
+    pillar_social_fitness: 'Fitness Social',
     pillar_learn_more: 'Saber más',
 
     health_bullet1: 'Estrategias de cuidado preventivo',
@@ -978,13 +1269,36 @@ const translations = {
     lk_note_title: 'Requisito para la Iluminación',
     lk_note_p: 'La atención plena a la respiración y la bondad amorosa son las dos meditaciones necesarias para alcanzar la Iluminación. Son las herramientas esenciales para destruir el descontento y encontrar la paz duradera.',
 
-    // Health Pillar Page
+    // Healthspan & Longevity Pillar (Estándar 2026)
     hp_back: 'Volver al Plan',
-    hp_title: 'Pilar',
-    hp_subtitle: 'Salud',
-    hp_desc: 'Domina los fundamentos de la longevidad: sueño reparador, resiliencia al estrés y ritmos diarios sostenibles.',
-    hp_top_posts: 'Publicaciones Destacadas de Salud',
-    hp_latest_posts: 'Últimas Publicaciones de Salud',
+    hp_title: 'Salud y',
+    hp_subtitle: 'Longevidad',
+    hp_desc: 'Transición del cuidado reactivo a la optimización biológica proactiva. Preservando la vida funcional a través de protocolos basados en datos.',
+    hp_top_posts: 'Perspectivas de Longevidad',
+    hp_latest_posts: 'Últimas Investigaciones',
+
+    // Nuevas Secciones de Contenido 2026
+    hp_shift_title: 'El Cambio Proactivo: Optimización sobre Reparación',
+    hp_shift_desc: 'Más allá de "arreglar" problemas de salud, optimizamos su biología con décadas de antelación. Aprovechamos datos biológicos de alta resolución y pruebas especializadas para preservar la función antes de que comience el declive.',
+    
+    hp_skin_title: 'Longevidad de la Piel vs. Anti-Aging',
+    hp_skin_desc: 'Mientras que el "Anti-Aging" se centra en ocultar el paso del tiempo, la Longevidad de la Piel aborda la biología subyacente. Nos enfocamos en preservar la vida útil funcional de la piel atacando la senescencia celular y la salud mitocondrial.',
+    hp_skin_detail: 'El estándar de 2026 se aleja de la estética superficial hacia el envejecimiento funcional. Al apoyar la integridad biológica de su piel, obtiene los beneficios de una apariencia juvenil como un efecto secundario de la salud sistémica.',
+
+    hp_how_title: 'Mida su Ritmo: Relojes Epigenéticos',
+    hp_how_desc: 'Cómo probar su edad biológica en casa utilizando relojes epigenéticos de tercera generación. Los patrones de metilación del ADN ofrecen una visión detallada de qué tan rápido está envejeciendo.',
+    
+    hp_why_title: 'Mantenimiento Funcional: El Nuevo Estándar',
+    hp_why_desc: 'Por qué el mantenimiento proactivo de la función biológica es el estándar obligatorio para 2026. La optimización guiada por datos permite intervenciones de precisión que mantienen su "SystemAge" significativamente más baja.',
+
+    hp_bio_age_title: 'Pruebas de Edad Biológica (DNAm)',
+    hp_bio_age_desc: 'Entienda su ritmo biológico sistémico a través del análisis de metilación del ADN, incluyendo métricas específicas por órganos.',
+
+    hp_cta_section_title: 'Protocolos de Biomega y Regeneración',
+    hp_cta_kit_us: 'Kit de Prueba Bio-Edad (USA)',
+    hp_cta_kit_uk: 'Kit de Prueba Bio-Edad (UK)',
+    hp_cta_kit_es: 'Kit de Bio-Edad (España)',
+    hp_cta_skincare: 'Cuidado Regenerativo (NAD+)',
 
     // Health Post A - Ciencia del Sueño
     hpa_back: 'Volver al Inicio',
@@ -1048,7 +1362,7 @@ const translations = {
     hpb_sec3_li1_desc: 'Durante el sueño profundo, tu sistema inmunológico libera proteínas llamadas citoquinas, que ayudan a promover el sueño y combatir infecciones. La privación crónica del sueño reduce significativamente la producción de estas células protectoras.',
     hpb_sec3_li2_title: 'Ejercicio Moderado:',
     hpb_sec3_li2_desc: 'La actividad física regular mejora la circulación de las células inmunitarias, facilitando que tus "guardaespaldas" patrullen en busca de invasores.',
-    hpb_sec3_li3_title: 'Nutrición Focalizada:',
+    hpb_sec3_li3_title: 'Nutrición Metabólica Focalizada:',
     hpb_sec3_li3_desc: 'Más allá de la Vitamina C, tu cuerpo necesita una variedad de micronutrientes como Zinc, Vitamina D y Selenio para alimentar la producción de nuevos glóbulos blancos.',
     hpb_sec4_title: 'Herramientas Estratégicas para tu Arsenal de Salud',
     hpb_sec4_p: 'Para ayudar a tus defensas internas, considera estas adiciones científicamente respaldadas a tu rutina diaria:',
@@ -1096,13 +1410,36 @@ const translations = {
     hpc_conclusion_p1: 'La conclusión más valiosa es esta: La vitalidad es una inversión, no un regalo. Cuando priorizas estos pequeños logros fisiológicos diarios, no solo estás "pasando la semana". Estás construyendo un amortiguador biológico. Un cuerpo bien hidratado, neurológicamente descansado y alineado con el sol es un cuerpo que puede soportar los factores estresantes de la vida moderna sin romperse.',
     hpc_conclusion_p2: 'La consistencia es tu mayor palanca. Empieza con solo uno de estos hábitos mañana por la mañana. A medida que tu energía base aumente, los otros cuatro se volverán naturales. Tu yo del futuro—el que tiene el enfoque para sobresalir y la energía para disfrutarlo—te está esperando al otro lado de estas decisiones.',
 
-    // Fitness Pillar Page
+    // Fitness (Performance & Bio-Data) Pillar (Estándar 2026)
     fp_back: 'Volver al Plan',
-    fp_title: 'Pilar',
-    fp_subtitle: 'Fitness',
-    fp_desc: 'Construye un cuerpo que rinda. Desde mecánicas de entrenamiento de fuerza hasta flujos de movilidad y protocolos de recuperación.',
-    fp_top_posts: 'Publicaciones Destacadas de Fitness',
-    fp_latest_posts: 'Últimas Publicaciones de Fitness',
+    fp_title: 'Rendimiento y',
+    fp_subtitle: 'Bio-Datos',
+    fp_desc: 'Optimizando el potencial humano mediante precisión biomecánica y retroalimentación biométrica en tiempo real. Entrenando para el largo plazo.',
+    fp_top_posts: 'Perspectivas de Rendimiento',
+    fp_latest_posts: 'Últimos Datos',
+
+    // Nuevas Secciones de Contenido 2026
+    fp_wearables_title: 'El Bucle de Bio-Datos: Optimización Wearable',
+    fp_wearables_desc: 'Más allá de contar pasos, hacia el monitoreo fisiológico en tiempo real. Aprovechando el HRV y las puntuaciones de recuperación para dictar la intensidad.',
+    
+    fp_strength_title: 'Entrenamiento de Fuerza para la Longevidad',
+    fp_strength_desc: 'Enfocado en la densidad ósea y la preservación de fibras rápidas. Construyendo un cuerpo que rinda a los 40, 60 y 80 años.',
+    fp_strength_detail: 'El marco de 2026 prioriza la reserva funcional. No solo entrenamos por estética, sino por la capacidad mecánica necesaria para la movilidad de por vida.',
+
+    fp_vo2_title: 'VO2 Max: El Marcador Definitivo',
+    fp_vo2_desc: 'Por qué el estado cardiorrespiratorio es el predictor más fuerte de la vida útil. Protocolos para la optimización de la Zona 2 y Zona 5.',
+    
+    fp_recovery_title: 'Regeneración Activa: La Nueva Ventaja',
+    fp_recovery_desc: 'La recuperación ya no es pasiva. Utilizamos crioterapia y estrés térmico para acelerar el reinicio biológico.',
+
+    fp_metric_title: 'Sistemas de Retroalimentación Biométrica',
+    fp_metric_desc: 'Entienda su respuesta interna a la carga externa. Domine el equilibrio entre el estrés sistémico y la adaptación.',
+
+    fp_cta_section_title: 'Activos de Rendimiento y Seguimiento',
+    fp_cta_wearable_us: 'Monitor Biométrico Avanzado (USA)',
+    fp_cta_wearable_uk: 'Monitor Biométrico Avanzado (UK)',
+    fp_cta_wearable_es: 'Monitor Biométrico (España)',
+    fp_cta_equipment: 'Herramientas de Fuerza',
 
     // Fitness Post D - Entrenamiento de Fuerza en Casa
     fpd_back: 'Volver al Inicio',
@@ -1168,6 +1505,76 @@ const translations = {
     fpe_conclusion_title: 'Conclusión',
     fpe_conclusion_p: 'Diez minutos al día pueden no parecer mucho, pero los beneficios acumulados del trabajo diario de movilidad son masivos. Al dedicar una pequeña fracción de tu día a cuidar tus articulaciones, te sentirás más ágil, entrenarás más duro y te moverás por la vida con mucha menos fricción.',
 
+    // Women's Health & Performance Pillar (Estándar 2026)
+    whp_back: 'Volver al Plan',
+    whp_title_start: 'Salud y Rendimiento',
+    whp_title_end: 'Femenino',
+    whp_description: 'Pioneros en precisión biológica para la atleta femenina y la mujer consciente de la longevidad. Optimizando la arquitectura Ovary-Span.',
+    whp_top_posts: 'Ciencia del Rendimiento',
+    whp_latest_posts: 'Últimos Protocolos',
+
+    // Ovary-Span Section
+    whp_ovary_title: 'El Ovary-Span: Centro de Comando',
+    whp_ovary_desc: 'El ovario no es solo para la reproducción; es un centro vital de señalización multiorgánica. El envejecimiento ovárico es el principal motor del declive sistémico en las mujeres. Tratamos la salud ovárica como un "Nuevo Signo Vital" para proteger la salud cardiovascular, ósea y cerebral con décadas de antelación.',
+    
+    // Strength over Thinness
+    whp_strength_title: 'Fuerza sobre Delgadez: El Cambio',
+    whp_strength_desc: 'La Revolución Deportiva de 2026 ya está aquí. Estamos pasando de metas meramente estéticas a perfiles de fuerza de grado profesional. La carga pesada es innegociable para la longevidad esquelética y la resiliencia metabólica.',
+    
+    // Clinical Longevity
+    whp_clinical_title: 'Intervenciones Moleculares',
+    whp_clinical_desc: 'Aprovechando la Creatina para la preservación cognitiva, NAD+ para la juventud metabólica y tecnología de Exosomas para la longevidad regenerativa de la piel. Medicina de alto rendimiento adaptada a la biología femenina.',
+
+    // QA Trends
+    whp_qa_nutrition_q: '¿Cómo usar nutrición dirigida para el equilibrio hormonal?',
+    whp_qa_nutrition_a: 'Sincronizando la densidad de macros con las fases hormonales y aprovechando micronutrientes de alta biodisponibilidad como vitaminas B metiladas y glicinato de magnesio.',
+    whp_qa_strength_q: '¿Por qué el entrenamiento de fuerza pesada es innegociable?',
+    whp_qa_strength_a: 'Previene la sarcopenia y la osteopenia, proporcionando el "Sumidero Metabólico" necesario para la estabilidad de la glucosa.',
+    whp_qa_test_q: '¿Cuáles son las mejores pruebas de envejecimiento ovárico?',
+    whp_qa_test_a: 'AMH (Hormona Antimülleriana) y ratios FSH/LH, interpretados a través del ritmo biológico individual.',
+
+    // Affiliate CTAs
+    whp_cta_section_title: 'Suite de Rendimiento y Pruebas',
+    whp_cta_test_us: 'Kit de Prueba de Reserva Ovárica (USA)',
+    whp_cta_test_uk: 'Kit de Prueba de Reserva Ovárica (UK)',
+    whp_cta_test_es: 'Kit de Reserva Ovárica (España)',
+    whp_cta_strength: 'Equipo de Fuerza de Alta Carga',
+    whp_cta_menopause: 'Stack de Bio-Optimización de Menopausia',
+
+    // Social Fitness & Community Pillar (Estándar 2026)
+    sfp_back: 'Volver al Plan',
+    sfp_title_start: 'Fitness Social',
+    sfp_title_end: 'y Comunidad',
+    sfp_description: 'Bienvenidos al renacimiento del bienestar. Pasamos del aislamiento a la vitalidad colectiva. Participación sobre rendimiento.',
+    sfp_top_posts: 'Movimiento Comunitario',
+    sfp_latest_posts: 'Feed del Festival',
+
+    // Festivalization Section
+    sfp_festival_title: 'Festivalización: El Gozo como Medicina',
+    sfp_festival_desc: 'El viejo paradigma del "fitness solitario" ha muerto. 2026 es el año de las raves de bienestar y festivales de participación masiva. La salud ya no es una tarea; es una celebración de la conexión humana.',
+    
+    // Pickleball Ecosystem
+    sfp_pickleball_title: 'La Era del Pickleball: Nuevos Clubes',
+    sfp_pickleball_desc: 'Como las ligas recreativas se convirtieron en la infraestructura social primaria de 2026. El Pickleball es la nueva plaza del pueblo para la conexión intergeneracional.',
+    
+    // Collective Catharsis
+    sfp_catharsis_title: 'Catarsis Colectiva: Calor Social',
+    sfp_catharsis_desc: 'Las Saunas Sociales y los Grupos Somáticos son la próxima frontera. Aprovechamos el poder del malestar compartido para restaurar el sistema nervioso.',
+
+    // QA Trends
+    sfp_qa_find_q: '¿Cómo encontrar clubes de fitness comunitarios cerca de mí?',
+    sfp_qa_find_a: 'Aprovechando agregadores de "Fitness Social" y uniéndote a ligas recreativas locales especializadas que priorizan la participación.',
+    sfp_qa_why_q: '¿Por qué la conexión social es una necesidad biológica?',
+    sfp_qa_why_a: 'El aislamiento social dispara la inflamación sistémica. La pertenencia significativa es tan crítica como el sueño o la nutrición metabólica.',
+    sfp_qa_what_q: '¿Qué es la "festivalización" del bienestar?',
+    sfp_qa_what_a: 'Es la fusión del entrenamiento físico con la cultura de festivales—eventos de entrenamiento guiados por música y raves de recuperación grupal.',
+
+    // Affiliate CTAs
+    sfp_cta_section_title: 'Únete al Movimiento',
+    sfp_cta_pickleball: 'Equipo Profesional de Pickleball',
+    sfp_cta_festivals: 'Entradas para Festivales (HYROX)',
+    sfp_cta_recovery: 'Experiencias de Recuperación Social',
+
     // Fitness Post F - Estancamientos en el Entrenamiento
     fpf_back: 'Volver al Inicio',
     fpf_title: 'Superar los Estancamientos en el Entrenamiento',
@@ -1198,13 +1605,105 @@ const translations = {
     fpf_conclusion_title: 'Conclusión',
     fpf_conclusion_p: 'Los estancamientos son la prueba de que has subido de nivel. Tu cuerpo se ha adaptado con éxito a tu "antiguo yo" y ahora requiere un nuevo enfoque. Ya sea que elijas descargar, micro-cargar, comer un poco más o cambiar tus esquemas de repeticiones, la clave es tener paciencia. Aplica un nuevo estímulo, mantente firme durante varias semanas y confía en el proceso.',
 
-    // Pilar de Nutrición
-    np_back: 'Volver al Blueprint',
+    np_back: 'Volver al Plan',
     np_title_start: 'Nutrición',
-    np_title_end: 'Pilar',
-    np_description: 'Alimenta tu potencial. Nutrición basada en la ciencia, preparación sencilla de comidas y hábitos de alimentación sostenibles.',
-    np_top_posts: 'Publicaciones Destacadas de Nutrición',
-    np_latest_posts: 'Últimas Publicaciones de Nutrición',
+    np_title_end: 'Metabólica',
+    np_description: 'Alimentación biológica de precisión para el estándar de 2026. Transición del "Conto de Calorías" a la "Inteligencia Metabólica".',
+    
+    // Hub Narrative
+    np_hub_narrative_title: 'Nutrigenómica: Nutrición como Información',
+    np_hub_narrative_p: 'En 2026, vemos cada caloría como un punto de datos. La nutrición funcional es el arte de usar proporciones de macronutrientes y fitonutrientes específicos para modular la expresión epigenética, silenciando genes pro-envejecimiento mientras se activan vías de longevidad como SIRT1 y AMPK. Nuestro objetivo es pasar de la "Fuerza de Voluntad" a la "Inteligencia Metabólica".',
+    
+    np_metabolic_health_title: 'La Realidad Absoluta del 6.8%',
+    np_metabolic_health_p: 'Las pruebas clínicas en el período 2024-2026 confirman que solo el 6.8% de los adultos son metabólicamente flexibles. Definimos la salud clínica como la capacidad de procesar nutrientes sin picos excesivos de insulina. Nuestros protocolos restauran la Homeostasis Autonómica.',
+    
+    np_muscle_link_title: 'Músculo Esquelético: El Sumidero Metabólico de Élite',
+    np_muscle_link_p: 'El músculo esquelético es el tejido más sensible a la insulina del cuerpo, encargándose de hasta el 80% de la glucosa dietética. Preservar la masa muscular es el requisito innegociable para la salud metabólica y el rendimiento cognitivo sostenido.',
+
+    // Path CTAs
+    np_path_a_title: 'Suite de Optimización GLP-1',
+    np_path_a_desc: 'Gestión de la pérdida muscular, integridad gastrointestinal y resiliencia hormonal durante la terapia GLP-1.',
+    np_path_b_title: 'El Eje Músculo-Cerebro',
+    np_path_b_desc: 'Aprovechando el poder de señalización de las Miocinas (Irisina, BDNF) para la longevidad cognitiva.',
+    np_path_c_title: 'Laboratorio de Precisión de Biomarcadores',
+    np_path_c_desc: 'Datos Biológicos en Tiempo Real: mapeo de sensibilidad CGM, HRV y HOMA-IR.',
+
+    np_conv_insulin: 'Panel Integral de Longevidad InsideTracker',
+    np_conv_sensors: 'Medidor Dual de Glucosa y Cetonas Keto-Mojo',
+    np_conv_creatine: 'Creatina de Grado Clínico (Thorne)',
+    np_conv_maintenance: 'Protocolo de Restauración de Electrolitos (LMNT)',
+    np_conv_nad: 'Recarga Mitocondrial NAD+ (NMN/NR)',
+    np_conv_test: 'Kit de Edad Biológica y Sensibilidad a la Insulina',
+    np_conv_omega: 'Omega-3 de Alta Potencia (Clínico)',
+
+    // Cellular Recharging Section
+    np_cellular_title: 'Recarga Celular: El Plano de NAD+',
+    np_cellular_p: 'NAD+ es la molécula maestra para la vitalidad mitocondrial y la reparación del ADN. En 2026, utilizamos precursores específicos (NMN/NR) para anular el declive de energía celular relacionado con la edad, "recargando" la máquina biológica desde dentro.',
+    
+    // SEO / QA Section (Answering the Public)
+    np_seo_how_q: '¿Cómo usar suplementos para el equilibrio hormonal y la longevidad en la menopausia?',
+    np_seo_how_a: 'La resiliencia hormonal requiere precisión en micronutrientes. Utilizamos Magnesio, Vitamina D3/K2 y Omega-3 para modular las señales endocrinas de la menopausia.',
+    np_seo_why_q: '¿Por qué la masa muscular es el principal marcador de salud metabólica en 2026?',
+    np_seo_why_a: 'El músculo es su seguro metabólico. Es el único tejido capaz de eliminar glucosa y secretar mioquinas que regulan la inflamación sistémica y la salud cerebral.',
+    np_seo_vs_q: '¿Creatina: Salud Cerebral vs. Rendimiento Físico?',
+    np_seo_vs_a: 'El rendimiento físico requiere 5g, pero la neuroprotección demanda un protocolo de Monohidrato ultra puro para cerrar la brecha energética en la corteza prefrontal.',
+
+    // Sub-Page A: GLP-1
+    np_glp1_title: 'Protocolo de Optimización GLP-1',
+    np_glp1_intro: 'Un plano médico integral para navegar la terapia GLP-1 (Wegovy, Zepbound) protegiendo la composición corporal mediante el "Mandato Muscular".',
+    np_glp1_muscle_loss_title: 'La Paradoja de la Pérdida Muscular',
+    np_glp1_muscle_loss_p: 'Realidad Metabólica: La pérdida de peso en tratamiento suele incluir un 25% de músculo esquelético. Nuestro protocolo exige Creatina HCl y Proteína de suero bio-disponible para anular las señales catabólicas.',
+    np_glp1_titration_title: 'Hoja de Ruta de Titulación y Seguridad',
+    np_glp1_titration_p: 'Un marco de 20 semanas diseñado para pasar de la "Pérdida de Peso" a la "Optimización Metabólica", garantizando la integridad gastrointestinal.',
+
+    // CTAs
+    np_cta_nad: 'Pedir Precursor NAD+ Clínico',
+    np_cta_test: 'Obtenga su Kit de Edad Biológica',
+    np_cta_creatine_brain: 'Obtenga Creatina de Grado Neuro',
+
+    // Sub-Page B: Muscle-Brain
+    np_mb_title: 'El Secretoma Músculo-Cerebro',
+    np_mb_intro: 'Aprovechando el poder endocrino del tejido muscular para eliminar la "Niebla Mental" y mejorar la plasticidad del hipocampo.',
+    np_mb_myokine_title: 'Inteligencia de Miocinas',
+    np_mb_myokine_p: 'El músculo contraído libera Irisina, una miocina que cruza la barrera hematoencefálica para activar la expresión de BDNF. Este es nuestro objetivo principal para el blindaje cognitivo relacionado con la edad.',
+    np_mb_creatine_title: 'Monohidrato de Creatina Neuro-Metabólica',
+    np_mb_creatine_p: 'Más allá de lo físico: la creatina es el principal reservorio de energía para el cerebro. Nuestro protocolo 2026 utiliza 5g de monohidrato ultra puro para mitigar la "niebla mental" y apoyar la estabilidad cognitiva durante el estrés metabólico o la transición a la menopausia.',
+
+    // Sub-Page C: Biomarkers
+    np_bio_title: 'Laboratorio de Precisión de Biomarcadores',
+    np_bio_intro: 'Pasando de consejos generales a monitoreo biológico de alta resolución.',
+    np_bio_wearable_title: 'El Laboratorio Continuo',
+    np_bio_wearable_p: 'Uso de CGM y sensores de sudor para mapear la flexibilidad metabólica 24/7 e identificar disparadores inflamatorios individuales.',
+    np_bio_standard_title: 'El Estándar HOMA-IR',
+    np_bio_standard_p: 'Evaluación de la insulina en ayunas junto con la glucosa para calcular su verdadera puntuación de sensibilidad a la insulina. Este es el "indicador principal" para la longevidad.',
+
+    // QA/Blog Queries
+    np_blog_q1: 'Guía GLP-1: Cómo prevenir la "Cara de Ozempic" y la pérdida muscular.',
+    np_blog_q2: 'El Músculo como Órgano de Longevidad: Resumen de Investigación 2026.',
+    np_blog_q3: 'Maestría CGM: Por qué la glucosa "normal" no es suficiente para la longevidad.',
+    np_blog_q4: 'Nutrición Metabólica para Mujeres: Salud Ovárica y Estabilidad.',
+
+    np_top_posts: 'Feed de Inteligencia Metabólica',
+    np_latest_posts: 'Últimos Datos Clínicos',
+
+    np_cta_section_title: 'Suite de Optimización Metabólica',
+    np_cta_cgm_us: 'Panel de Alta Precisión InsideTracker (USA)',
+    np_cta_cgm_uk: 'Panel de Alta Precisión InsideTracker (UK)',
+    np_cta_cgm_es: 'Monitor Metabólico de Bio-Edad (España)',
+    
+    np_cta_age_us: 'Kit de Edad Biológica InsideTracker (USA)',
+    np_cta_age_uk: 'Kit de Edad Biológica InsideTracker (UK)',
+    np_cta_age_es: 'Kit de Edad Biológica InsideTracker (España)',
+    
+    np_cta_creatine_us: 'Mandato de Creatina HCl Thorne (USA)',
+    np_cta_creatine_uk: 'Mandato de Creatina HCl Thorne (UK)',
+    np_cta_creatine_es: 'Mandato de Creatina HCl Thorne (España)',
+    
+    np_cta_nad_us: 'Stack Mitocondrial NAD+ (USA)',
+    np_cta_nad_uk: 'Stack Mitocondrial NAD+ (UK)',
+    np_cta_nad_es: 'Stack Mitocondrial NAD+ (España)',
+
+    np_cta_supps: 'Stack de Rendimiento Clínico Thorne',
 
     // Nutrition Post G - Preparación de Comidas
     npg_back: 'Volver al Inicio',
@@ -1233,7 +1732,7 @@ const translations = {
     npg_sec3_li4: 'Proteínas al Fuego. Mientras el horno y la arrocera trabajan, cocina tu pavo picado, pechuga de pollo o tofu en el fuego.',
     npg_sec3_li5: 'Enfriar y Guardar. Deja que todo se enfríe completamente antes de cerrar los recipientes; de lo cual, la condensación humedecerá tu comida.',
     npg_conclusion_title: 'Conclusión',
-    npg_conclusion_p: 'La preparación de comidas es una habilidad. Tu primer intento puede llevarte tres horas y puedes armar un lío en la cocina. Pero con la práctica, tener comida sana y deliciosa lista para comer en tu nevera se convierte en el truco definitivo para mantener tu nutrición y ahorrar dinero.',
+    npg_conclusion_p: 'La preparación de comidas es una habilidad. Tu primer intento puede llevarte tres horas y puedes armar un lío en la cocina. Pero con la práctica, tener comida sana y deliciosa lista para comer en tu nevera se convierte en el truco definitivo para mantener tu nutrición metabólica y ahorrar dinero.',
 
     // Nutrition Post H - Macronutrientes
     nph_back: 'Volver al Inicio',
@@ -1298,13 +1797,69 @@ const translations = {
     npi_conclusion_title: 'Conclusión',
     npi_conclusion_p: 'Controlar tu azúcar en sangre es el secreto para tener energía constante, mejor humor y facilitar la pérdida de grasa. Al emparejar estratégicamente tus alimentos y elegir opciones ricas en proteínas, grasas saludables y fibra, puedes conquistar el bajón de media tarde para siempre.',
 
-    // Pilar de Bienestar
-    wp_back: 'Volver al Blueprint',
-    wp_title_start: 'Bienestar',
-    wp_title_end: 'Pilar',
-    wp_description: 'Nutre la mente. Atención plena práctica, resiliencia emocional y diseño de estilo de vida para una vida equilibrada.',
-    wp_top_posts: 'Publicaciones Destacadas de Bienestar',
-    wp_latest_posts: 'Últimas Publicaciones de Bienestar',
+    // Pilar de Neurowellness
+    wp_back: 'Volver al Plan',
+    wp_title_start: 'Neuro-',
+    wp_title_end: 'Wellness',
+    wp_description: 'Dominando los protocolos de neurorrecuperación que definen la longevidad cognitiva de 2026. Homeostasis autonómica de precisión.',
+    wp_top_posts: 'Inteligencia de Optimización Neural',
+    wp_latest_posts: 'Últimas Noticias de Inteligencia',
+
+    // Mastery Hub Sections
+    wp_hub_narrative_title: 'Homeostasis Autonómica: Más allá de la Voluntad',
+    wp_hub_narrative_p: 'La salud mental en 2026 ya no es una cuestión de "fuerza de voluntad" sino de regulación biológica. El principal cuello de botella de la vitalidad es la sobrecarga del sistema nervioso, un estado donde el ruido biológico ahoga las señales de recuperación. Nuestro objetivo es pasar de los sentimientos subjetivos a la regulación objetiva.',
+    
+    wp_polyvagal_title: 'El Paradigma Polivagal',
+    wp_polyvagal_ventral: 'Vía Vagal Ventral: El estado de compromiso social, seguridad y reparación celular.',
+    wp_polyvagal_sympathetic: 'Activación Simpática: Movilización para lucha o huida. Necesaria para el rendimiento, tóxica en estados crónicos.',
+    wp_polyvagal_dorsal: 'Bloqueo Vagal Dorsal: La respuesta de congelación (freeze). Desconexión, niebla mental y estancamiento metabólico.',
+    
+    wp_movement_med_title: 'El Movimiento como Medicina del Sistema Nervioso',
+    wp_movement_med_p: 'Conectamos la fisicalidad directamente con la resiliencia emocional. Tus músculos son órganos endocrinos que comunican seguridad a tu cerebro. Intervalos de alta intensidad o liberación somática lenta: cada movimiento es una señal neural.',
+
+    // UX Deep Dive Paths
+    wp_path_a_title: 'Tecnología Hard-Care',
+    wp_path_a_desc: 'Estimulación del Nervio Vago y Datos de Wearables.',
+    wp_path_b_title: 'Somática Soft-Care',
+    wp_path_b_desc: 'Protocolos de Respiración y Sanación Corporal.',
+    wp_path_c_title: 'El Vínculo Metabólico',
+    wp_path_c_desc: 'El Eje Músculo-Cerebro y Metabolismo Energético.',
+
+    // Sub-Page A: Hard-Care Tech
+    wp_hard_title: 'Neurotecnología y VNS: Programando la Homeostasis',
+    wp_hard_intro: 'Cómo los dispositivos TENS y los wearables envían señales aferentes al hipocampo y la amígdala para restaurar el equilibrio.',
+    wp_hard_comparison_title: 'La Guerra de Wearables 2026',
+    wp_hard_oura: 'Oura Ring 4: Seguimiento preciso de la arquitectura del sueño y edad biológica.',
+    wp_hard_whoop: 'WHOOP 5.0: El validador definitivo del estrés y la tensión autonómica.',
+    wp_hard_apple: 'Apple Watch Ultra 2: Monitoreo del Nervio Vago de grado clínico.',
+    
+    // Sub-Page B: Soft-Care Somatics
+    wp_soft_title: 'Sanación Somática: Regulando desde el Cuerpo',
+    wp_soft_intro: 'Técnicas con objetivos clínicos para una recalibración autonómica rápida.',
+    wp_soft_sigh: 'Suspiro Fisiológico: Eliminación rápida de CO2 para calma inmediata.',
+    wp_soft_box: 'Respiración de Caja (Box Breathing): Enfoque en situaciones de alto estrés.',
+    wp_soft_grounding: 'Enraizamiento Somático (5-4-3-2-1): Anclaje durante la ansiedad aguda.',
+    wp_soft_backlash_title: 'La Reacción contra la Sobre-Optimización',
+    wp_soft_backlash_p: 'El cambio de la vigilancia propia hacia la energía colectiva. Abrazando la "liberación somática" sobre el seguimiento constante.',
+
+    // Sub-Page C: Muscle-Brain Axis
+    wp_meta_title: 'El Eje Músculo-Cerebro: Neurometabolismo',
+    wp_meta_intro: 'Cómo el músculo esquelético actúa como un órgano endocrino para preservar la integridad cognitiva.',
+    wp_meta_myokine_title: 'La Revolución de las Mioquinas',
+    wp_meta_myokine_p: 'Irisina y BDNF: Las señales moleculares que mitigan la niebla mental y la neurodegeneración.',
+    wp_meta_creatine_title: 'Creatina para la Energía Cognitiva',
+    wp_meta_creatine_p: 'Evidencia 2026: Protocolos de dosis altas para el metabolismo energético y la niebla menopáusica.',
+
+    // Conversion Layer
+    wp_conv_diagnostic: 'Kit de Salud Cerebral SystemAge™',
+    wp_conv_vns: 'Dispositivo VNS Pulsetto',
+    wp_conv_skincare: 'Neurocosmética: Defensa del Estrés GABA-Mimética',
+
+    // Blog Queries
+    wp_blog_q1: 'Cómo regular mi sistema nervioso mediante liberación somática.',
+    wp_blog_q2: 'Por qué la salud intestinal es el motor de la niebla mental en 2026.',
+    wp_blog_q3: 'Baño Frío vs Sauna Infrarroja: Análisis de Reseteo Autonómico.',
+    wp_blog_q4: 'Protocolos de Neurowellness para profesionales con burnout.',
 
     // Wellness Post J - Practical Mindfulness
     wpj_back: 'Volver al Inicio',
