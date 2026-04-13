@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../translations';
 import BlogSection from '../components/BlogSection';
+import UniversalQA from '../components/UniversalQA';
 
 export default function HealthPillar() {
   const t = useT();
@@ -218,6 +219,8 @@ export default function HealthPillar() {
             </div>
           </div>
         </section>
+
+        <UniversalQA />
 
         {/* Blog Content Sections */}
         <div className="space-y-32 mt-32">

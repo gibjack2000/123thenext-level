@@ -973,6 +973,44 @@ const translations = {
     whp_cta_strength: 'High-Load Strength Equipment',
     whp_cta_menopause: 'Menopause Bio-Optimization Stack',
 
+    // Path Links for Women's Health Pillar
+    whp_path_a_title: 'Clinical Longevity',
+    whp_path_a_desc: 'Ovarian reserve preservation, stem cell therapies, and HRT as longevity medicine.',
+    whp_path_b_title: 'Functional Performance',
+    whp_path_b_desc: 'The Strength Mandate: Training for the Ovary-Span and the Women’s Sports Revolution.',
+    whp_path_c_title: 'Neuro-Metabolic Support',
+    whp_path_c_desc: 'Clinical fueling: Creatine for brain health and "menopause fog" mitigation.',
+
+    // Sub-Page A: Ovarian Longevity
+    ol_title: 'Ovarian Longevity & Diagnostics',
+    ol_intro: 'Treating the ovary as "Command Central" for systemic female healthspan.',
+    ol_fibrosis_title: 'The Fibrosis Link',
+    ol_fibrosis_p: 'Ovarian fibrosis isn\'t just a reproductive issue; it is a systemic pro-inflammatory event linked to accelerated dementia and immune system aging.',
+    ol_diagnostics_title: 'The New Vital Sign',
+    ol_diagnostics_p: 'Ovarian Aging Tests (AMH/FSH ratios) are now the standard diagnostic tool for women in their 20s through 90s, allowing for precision intervention before symptoms appear.',
+
+    // Sub-Page B: Strength Mandate
+    sm_title: 'The Strength Mandate & Sports Revolution',
+    sm_intro: 'Transitioning from aesthetic-only goals to competitive high-performance athletics.',
+    sm_heavy_title: 'Heavy Strength: Non-Negotiable',
+    sm_heavy_p: 'Lifting heavy targets the specific hormonal signaling required to preserve bone density and metabolic baseline as estrogen levels fluctuate.',
+    sm_revolution_title: 'The Grassroots Revolution',
+    sm_revolution_p: 'The rise of women-only high-performance spaces and community leagues marks a shift toward power, resilience, and collective energy.',
+
+    // Sub-Page C: Cognitive/Metabolic
+    cm_title: 'Cognitive & Metabolic Fueling',
+    cm_intro: 'Clinical interventions for the unique nuances of female physiology.',
+    cm_creatine_title: 'Creatine: The Brain Shield',
+    cm_creatine_p: 'New 2026 data confirms high-dose creatine monohydrate (5-10g) mitigates "menopause fog" and mood disturbances by bridging the prefrontal cortex energy gap.',
+    cm_nad_title: 'NAD+ & Skin Longevity',
+    cm_nad_p: 'Mitochondrial recharging using NAD+ precursors targeted specifically at female skin structural pathways to maintain resilience from the inside out.',
+
+    // Affiliate CTAs Women's
+    whp_cta_creatine: 'Neuro-Grade Creatine Monohydrate',
+    whp_cta_nad: 'Mitochondrial NAD+ Precursor',
+    whp_cta_epigenetic: 'Biological Age (Epigenetic) Test',
+    whp_cta_memberships: 'Women-only High-Performance Clubs',
+
     // Social Fitness & Community Pillar (2026 Standard)
     sfp_back: 'Back to Blueprint',
     sfp_title_start: 'Social Fitness',
@@ -996,8 +1034,45 @@ const translations = {
     // QA Trends (AnswerThePublic)
     sfp_qa_find_q: 'How to find community-based fitness clubs near me?',
     sfp_qa_find_a: 'By leveraging local "Social Fitness" aggregates and joining specialized hyper-local recreation leagues that prioritize participation.',
-    sfp_qa_why_q: 'Why is social connection a biological necessity for longevity?',
     sfp_qa_why_a: 'Social isolation triggers high-intensity inflammation. Meaningful belonging is as critical to your cellular health as sleep or nutrition.',
+
+    // Path Links for Social Fitness Pillar
+    sfp_path_a_title: 'The Pickleball Ecosystem',
+    sfp_path_a_desc: 'Sport as social ritual and active aging. Exploring the new wellness social clubs.',
+    sfp_path_b_title: 'The Festivalization Wave',
+    sfp_path_b_desc: 'Wellness raves, retreats, and collective movement. Participation over performance.',
+    sfp_path_c_title: 'Social Recovery Protocols',
+    sfp_path_c_desc: 'Shared rituals: Social saunas, somatic release circles, and group nervous system reset.',
+
+    // Sub-Page A: Pickleball
+    pb_title: 'The Pickleball Ecosystem & Social Clubs',
+    pb_intro: 'How recreational sport evolved into a biological necessity for active aging.',
+    pb_advantage_title: 'The Social Advantage',
+    pb_advantage_p: 'Pickleball isn\'t just a game; it is a clinical-grade tool for physical-emotional resilience, combating loneliness through high-frequency social touchpoints.',
+    pb_integration_title: 'Off-Court Conditioning',
+    pb_integration_p: 'Modern clubs integrate strength-for-pickleball workshops and mobility programs to ensure long-term athletic durability within the community.',
+
+    // Sub-Page B: Festivalization
+    fv_title: 'The Festivalization of Wellness',
+    fv_intro: 'Transitioning from solitary discipline to collective energy and mass-participation events.',
+    fv_rave_title: 'Sober Morning Raves',
+    fv_rave_p: 'Music-driven, headphone-led somatic dance as a 2026 standard for stress processing and dopamine regulation without the stimulant crash.',
+    fv_revolution_title: 'Empowering Sport Leagues',
+    fv_revolution_p: 'The shift from aesthetic-focused gyms to community-led leagues that prioritize power, team energy, and shared goals.',
+
+    // Sub-Page C: Social Recovery
+    sr_title: 'Social Recovery & Shared Rituals',
+    sr_intro: 'Reframing recovery as a shared human experience for nervous system safety.',
+    sr_sauna_title: 'The Social Sauna',
+    sr_sauna_p: 'Contrasting solitary endurance with the "Social Sauna"—a space designed specifically for ritual, multi-generational connection, and ventral-vagal safety.',
+    sr_catharsis_title: 'Collective Somatic Release',
+    sr_catharsis_p: 'Group "scream circles" and breathwork immersions as the high-growth frontier for collective emotional repair and stress-cycle completion.',
+
+    // Affiliate CTAs Social
+    sfp_cta_paddle: 'Performance Pickleball Paddle',
+    sfp_cta_hyrox: 'Hyrox Event Participation Pass',
+    sfp_cta_wardrobe: 'Social-Fitness Capsule Wardrobe',
+    sfp_cta_group_tech: 'Multi-User Biometric Dashboard',
     sfp_qa_what_q: 'What is the "festivalization" of wellness?',
     sfp_qa_what_a: 'It is the merge of fitness training with festival culture—think music-led workout events and group recovery raves.',
 
@@ -1006,7 +1081,109 @@ const translations = {
     sfp_cta_pickleball: 'Professional Pickleball Gear',
     sfp_cta_festivals: 'Fitness Festival Tickets (HYROX)',
     sfp_cta_recovery: 'Social Recovery Experiences',
+
+    // Universal Q&A 2026
+    uqa_title: 'The 2026 Intelligence Hub',
+    uqa_subtitle: 'Navigating the "Medicalized Wellness" Landscape',
+    uqa_search_placeholder: 'Search the 2026 search landscape...',
+    uqa_how: 'The "How"',
+    uqa_why: 'The "Why"',
+    uqa_what: 'The "What"',
+    uqa_vs: 'The "Vs"',
+    uqa_human: 'Human Safety',
+    uqa_deep_dive: 'Technical Deep Dive',
+
+    uqa_q_bio_age: 'How to test biological age at home using epigenetic clocks?',
+    uqa_a_bio_age: 'Biological age is measured using 3rd-generation epigenetic clocks that analyze DNA methylation patterns. Unlike chronological age, biological age reflects the actual pace of cellular aging. Systems like SystemAge use a simple saliva or blood spot to measure 19+ organ systems, providing a "translation layer" for your clinical data.',
+    
+    uqa_q_nervous_system: 'How to regulate my nervous system for anxiety through somatic release?',
+    uqa_a_nervous_system: 'Autonomic regulation involves moving from sympathetic (fight/flight) to ventral vagal (safety/rest) states. Techniques like the "Physiological Sigh"—a double inhale followed by a long exhale—rapidly clear CO2 and signal safety to the brain, restoring Autonomic Homeostasis.',
+
+    uqa_q_glp1: 'How to use GLP-1 for weight management safely without muscle loss?',
+    uqa_a_glp1: 'The "Muscle Loss Paradox" is a primary concern in GLP-1 therapy. To mitigate this, a mandatory protocol of resistance training (at least 3x weekly) and high-protein titration (1.2g-1.5g per kg) is required to ensure weight loss comes from adipose tissue, not vital skeletal muscle.',
+
+    uqa_q_vo2max: 'How to improve VO2 max for long-term longevity?',
+    uqa_a_vo2max: 'Improving VO2 max is best achieved through the 80/20 polarized training rule: 80% of your training in Zone 2 (low-intensity aerobic) to build mitochondrial base, and 20% in Zone 5 (high-intensity) to increase peak oxygen capacity. This dual approach is the gold standard for improving your "Functional Age."',
+
+    uqa_q_pickleball: 'How can I find a Pickleball ecosystem or community fitness club near me?',
+    uqa_a_pickleball: 'Social Fitness is the 2026 antidote to digital isolation. Most regions now feature "Active Aging Ecosystems" centered around Pickleball or Padel. Use our Regional Hub to find community-vetted clubs in the US, UK, and Spain.',
+
+    uqa_q_muscle_metabolic: 'Why is muscle mass considered the primary marker of metabolic health in 2026?',
+    uqa_a_muscle_metabolic: 'Skeletal muscle is the body\'s largest insulin-sensitive tissue, responsible for clearing 80% of dietary glucose. In the 2026 standard of care, muscle is viewed as an endocrine organ that secretes myokines, which regulate systemic inflammation and brain health.',
+
+    uqa_q_terminology: 'Why is "anti-aging" being replaced by "Healthspan & Functional Longevity"?',
+    uqa_a_terminology: 'The shift reflects a move from surface-level aesthetics to biological integrity. "Skin Longevity" and "Functional Aging" prioritize the maintenance of biological function and systemic resilience over the mere masking of chronological years.',
+
+    uqa_q_gut_brain: 'Why is gut health directly linked to brain fog and cognitive decline?',
+    uqa_a_gut_brain: 'The gut-brain axis is a bidirectional communication network. Dysbiosis (imbalance) in the gut microbiome triggers systemic inflammation that crosses the blood-brain barrier, leading to "Neuro-Metabolic" fatigue or brain fog.',
+
+    uqa_q_peptides: 'What are the best peptides for muscle recovery vs. injury prevention?',
+    uqa_a_peptides: 'Peptide therapy in 2026 is highly individualized. BPC-157 is frequently utilized for connective tissue repair and injury prevention, while CJC-1295/Ipamorelin stacks are focused on growth hormone optimization for systemic muscle recovery.',
+
+    uqa_q_systemage: 'What is the SystemAge test and why does it measure 19+ organ systems?',
+    uqa_a_systemage: 'SystemAge is a 3rd-generation diagnostic that moves beyond a single "age" number. By measuring methylation across 19+ organ systems, it identifies "biological noise" in specific areas, allowing for precision bio-optimization of the heart, liver, or immune system.',
+
+    uqa_q_rings: 'What are the top-rated smart rings for sleep tracking and heart rhythm in 2026?',
+    uqa_a_rings: 'The Oura Ring 4 remains the gold standard for sleep architecture, while the latest Apple Watch Ultra provides the most accurate heart rhythm monitoring. For those focused on recovery-strain balance, WHOOP 5.0 offers the most granular biometric feedback.',
+
+    uqa_q_wearables_vs: 'Oura Ring 4 vs. WHOOP 5.0 vs. Apple Watch Ultra 2: Which is best?',
+    uqa_a_wearables_vs: 'Choose Oura if your priority is sleep and recovery data in a discreet form. WHOOP is superior for high-performance athletes tracking daily strain. Apple Watch Ultra 2 is the best "all-in-one" device for general health monitoring and emergency safety features.',
+
+    uqa_q_cold_sauna: 'Cold plunge (Readiness) vs. Infrared Sauna (Adaptation): Which is better?',
+    uqa_a_cold_sauna: 'Cold plunges are superior for immediate inflammation reduction and "Readiness" signaling. Infrared Saunas promote long-term "Adaptation" through heat-shock proteins and cardiovascular conditioning. Use Cold in the morning for alertness; Sauna in the evening for recovery.',
+
+    uqa_q_diet_vs: 'Mediterranean Diet Blueprint vs. Ultra-Processed Foods?',
+    uqa_a_diet_vs: 'The Mediterranean Blueprint acts as a "Biological Operating System," providing the nutrient density required for DNA repair. Ultra-processed foods trigger inflammatory spikes and biological stress, as visualized by real-time CGM (Continuous Glucose Monitor) sensors.',
+
+    uqa_q_over_optimization: 'Isn’t all this data-tracking causing more stress than health?',
+    uqa_a_over_optimization: 'We acknowledge the "Over-Optimization Backlash." Our data-driven approach is designed not to create stress, but to provide "Human Safety." By understanding your baseline, you can stop "guessing" and start living, moving from a place of metric-obsession to one of somatic safety and connection.',
+
+    uqa_q_human_connection: 'How do you balance technical precision with human connection?',
+    uqa_a_human_connection: 'Technical precision handles the biological maintenance, so you have more energy for what makes us human: connection, joy, and community. We use data to make you feel safer and more connected, not more like a machine.',
+
+    // Path Links for Bio-Data Pillar
+    fp_path_a_title: 'The Wearable War 2026',
+    fp_path_a_desc: 'Hardware vs. AI Software: Choosing your central health operating system.',
+    fp_path_b_title: 'Real-Time Biosensing',
+    fp_path_b_desc: 'The Lab-on-a-Wrist: Non-invasive monitoring of glucose, sweat, and pH.',
+    fp_path_c_title: 'Performance Methodology',
+    fp_path_c_desc: 'The 80/20 Rule: Optimizing VO2 max and strategic recovery protocols.',
+
+    // Sub-Page A: Wearable War
+    fww_title: 'The Wearable War 2026',
+    fww_intro: 'A technical comparison of hardware precision and AI-driven coaching intelligence.',
+    fww_form_factor_title: 'The Form Factor Advantage',
+    fww_form_factor_p: 'Rings like the Oura 4 sit closer to digital arteries on the finger, providing superior passive accuracy for HRV and heart rhythm compared to wrist-based optical sensors.',
+    fww_software_title: 'The Rise of Software Brains',
+    fww_software_p: "In 2026, the device is just the antenna. The real value lies in the 'Software Brains'—AI Advisors that interpret your data into actionable context, telling you not just that you're tired, but why and how to fix it.",
+    fww_healthspan_title: 'The Healthspan Metric',
+    fww_healthspan_p: 'A new 2026 standard that uses recovery patterns to estimate your biological aging pace in real-time.',
+
+    // Sub-Page B: Biosensing
+    rtb_title: 'Real-Time Biosensing: Lab-on-a-Wrist',
+    rtb_intro: 'The breakthrough transition from pulse-tracking to molecular monitoring.',
+    rtb_nanopillars_title: 'Plasmonic Nanopillar Technology',
+    rtb_nanopillars_p: 'Breakthrough sensors utilizing plasmonic nanopillars now allow for non-invasive glucose and pH monitoring via sweat, reconstructing blood chemistry without the need for needles.',
+    rtb_metabolic_title: 'Early Metabolic Detection',
+    rtb_metabolic_p: 'By identifying glycemic patterns before they become symptomatic, our biosensing ecosystem provides the "Check Engine" light for prediabetes and insulin resistance.',
+
+    // Sub-Page C: Methodology
+    hpm_title: 'High-Performance Methodology',
+    hpm_intro: 'Technical precision for cardiovascular longevity and systemic resilience.',
+    hpm_polarized_title: 'Polarized Training: The 80/20 Rule',
+    hpm_polarized_p: 'Achieve elite VO2 max by spending 80% of your time in Zone 2 (easy aerobic) and 20% in Zone 5 (maximum intensity). This avoids the "junk volume" that causes overtraining.',
+    hpm_recovery_title: 'Strategic Temperature Stress',
+    hpm_recovery_p: 'Cold plunges trigger "Readiness" signaling but can blunt muscle growth if used too soon after lifting. Infrared saunas activate Heat Shock Proteins (HSPs) to repair cellular damage and boost cardiovascular health.',
+
+    // Affiliate CTAs Performance
+    fp_cta_oura: 'Oura Ring 4: Circadian Precision',
+    fp_cta_whoop: 'WHOOP 5.0: Performance Coach',
+    fp_cta_apple: 'Apple Watch Ultra 2: All-in-One',
+    fp_cta_coldplunge: 'Portable Cold Plunge (Readiness)',
+    fp_cta_sauna: 'Infrared Sauna (HSP Activation)',
+    fp_cta_insulin: 'At-Home Insulin Sensitivity Kit',
   },
+
 
   es: {
     // Nav
@@ -1556,7 +1733,45 @@ const translations = {
     whp_cta_test_uk: 'Kit de Prueba de Reserva Ovárica (UK)',
     whp_cta_test_es: 'Kit de Reserva Ovárica (España)',
     whp_cta_strength: 'Equipo de Fuerza de Alta Carga',
-    whp_cta_menopause: 'Stack de Bio-Optimización de Menopausia',
+    whp_cta_menopause: 'Stack de Bio-Optimización de la Menopausia',
+
+    // Path Links for Women's Health Pillar
+    whp_path_a_title: 'Longevidad Clínica',
+    whp_path_a_desc: 'Preservación de la reserva ovárica, terapias de células madre y TRH como medicina de longevidad.',
+    whp_path_b_title: 'Rendimiento Funcional',
+    whp_path_b_desc: 'El Mandato de la Fuerza: Entrenamiento para el Ovary-Span y la Revolución Deportiva Femenina.',
+    whp_path_c_title: 'Apoyo Neuro-Metabólico',
+    whp_path_c_desc: 'Alimentación clínica: Creatina para la salud cerebral y mitigación de la "niebla de la menopausia".',
+
+    // Sub-Page A: Ovarian Longevity
+    ol_title: 'Longevidad Ovárica y Diagnóstico',
+    ol_intro: 'Tratando el ovario como el "Centro de Mando" para la salud sistémica femenina.',
+    ol_fibrosis_title: 'El Vínculo de la Fibrosis',
+    ol_fibrosis_p: 'La fibrosis ovárica no es solo un problema reproductivo; es un evento pro-inflamatorio sistémico vinculado a la demencia acelerada.',
+    ol_diagnostics_title: 'El Nuevo Signo Vital',
+    ol_diagnostics_p: 'Las pruebas de envejecimiento ovárico son ahora la herramienta de diagnóstico estándar para mujeres de los 20 a los 90 años.',
+
+    // Sub-Page B: Strength Mandate
+    sm_title: 'El Mandato de la Fuerza y Revolución Deportiva',
+    sm_intro: 'Transición de metas puramente estéticas a atletismo de alto rendimiento competitivo.',
+    sm_heavy_title: 'Fuerza Pesada: No Negociable',
+    sm_heavy_p: 'Levantar pesas pesadas activa las señales hormonales necesarias para preservar la densidad ósea y la base metabólica.',
+    sm_revolution_title: 'La Revolución de las Bases',
+    sm_revolution_p: 'El auge de espacios de alto rendimiento solo para mujeres marca un cambio hacia el poder, la resiliencia y la energía colectiva.',
+
+    // Sub-Page C: Cognitive/Metabolic
+    cm_title: 'Alimentación Cognitiva y Metabólica',
+    cm_intro: 'Intervenciones clínicas para los matices únicos de la fisiología femenina.',
+    cm_creatine_title: 'Creatina: El Escudo Cerebral',
+    cm_creatine_p: 'Nuevos datos de 2026 confirman que la creatina en dosis altas mitiga la "niebla mental" de la menopausia.',
+    cm_nad_title: 'NAD+ y Longevidad de la Piel',
+    cm_nad_p: 'Recarga mitocondrial utilizando precursores de NAD+ dirigidos específicamente a las vías estructurales de la piel femenina.',
+
+    // Affiliate CTAs Women's
+    whp_cta_creatine: 'Creatina Monohidratada Grado Neuro',
+    whp_cta_nad: 'Precursor de NAD+ Mitocondrial',
+    whp_cta_epigenetic: 'Prueba de Edad Biológica (Epigenética)',
+    whp_cta_memberships: 'Clubs de Alto Rendimiento para Mujeres',
 
     // Social Fitness & Community Pillar (Estándar 2026)
     sfp_back: 'Volver al Plan',
@@ -1953,7 +2168,66 @@ const translations = {
     wpk_item2_li3_start: '"Me desconecto por hoy, ',
     wpk_item2_li3_strong: 'pero',
     wpk_item2_li3_end: ' me ocuparé de esto a primera hora de mañana".',
-    wpk_item3_title: '3. Establece Límites Digitales',
+
+    // Universal Q&A 2026 (Spanish)
+    uqa_title: 'Centro de Inteligencia 2026',
+    uqa_subtitle: 'Navegando por el panorama del "Bienestar Medicalizado"',
+    uqa_search_placeholder: 'Buscar en el panorama de 2026...',
+    uqa_how: 'El "Cómo"',
+    uqa_why: 'El "Por qué"',
+    uqa_what: 'El "Qué"',
+    uqa_vs: 'El "Vs"',
+    uqa_human: 'Seguridad Humana',
+    uqa_deep_dive: 'Inmersión Técnica',
+
+    uqa_q_bio_age: '¿Cómo probar la edad biológica en casa usando relojes epigenéticos?',
+    uqa_a_bio_age: 'La edad biológica se mide mediante relojes epigenéticos de tercera generación que analizan los patrones de metilación del ADN. A diferencia de la edad cronológica, la edad biológica refleja el ritmo real del envejecimiento celular. Sistemas como SystemAge utilizan una simple muestra de saliva o sangre para medir más de 19 sistemas orgánicos.',
+    
+    uqa_q_nervous_system: '¿Cómo regular mi sistema nervioso para la ansiedad mediante la liberación somática?',
+    uqa_a_nervous_system: 'La regulación autonómica implica pasar de estados simpáticos (lucha/huida) a vagales ventrales (seguridad/descanso). Técnicas como el "Suspiro Fisiológico"—una inhalación doble seguida de una exhalación larga—limpian rápidamente el CO2 y señalan seguridad al cerebro, restaurando la Homeostasis Autonómica.',
+
+    uqa_q_glp1: '¿Cómo usar GLP-1 para el manejo del peso de forma segura sin pérdida de masa muscular?',
+    uqa_a_glp1: 'La "Paradoja de la Pérdida Muscular" es una preocupación primordial en la terapia con GLP-1. Para mitigar esto, se requiere un protocolo obligatorio de entrenamiento de resistencia (al menos 3 veces por semana) y titulación de proteínas de alta biodisponibilidad para asegurar que la pérdida de peso provenga del tejido adiposo, no del músculo vital.',
+
+    uqa_q_vo2max: '¿Cómo mejorar el VO2 máx para la longevidad a largo plazo?',
+    uqa_a_vo2max: 'Mejorar el VO2 máx se logra mejor mediante la regla de entrenamiento polarizado 80/20: 80% de tu entrenamiento en Zona 2 (aeróbico de baja intensidad) y 20% en Zona 5 (alta intensidad). Este enfoque es el estándar de oro para mejorar tu "Edad Funcional".',
+
+    uqa_q_pickleball: '¿Cómo puedo encontrar un ecosistema de Pickleball o un club de fitness comunitario cerca de mí?',
+    uqa_a_pickleball: 'El Fitness Social es el antídoto de 2026 para el aislamiento digital. La mayoría de las regiones cuentan ahora con "Ecosistemas de Envejecimiento Activo" centrados en el Pickleball o el Pádel. Utiliza nuestro Hub Regional para encontrar clubes en EE. UU., Reino Unido y España.',
+
+    uqa_q_muscle_metabolic: '¿Por qué la masa muscular se considera el principal marcador de salud metabólica en 2026?',
+    uqa_a_muscle_metabolic: 'El músculo esquelético es el tejido sensible a la insulina más grande del cuerpo, responsable de limpiar el 80% de la glucosa dietética. En el estándar de 2026, el músculo es visto como un órgano endocrino que segrega mioquinas reguladoras de la inflamación sistémica.',
+
+    uqa_q_terminology: '¿Por qué se está reemplazando "anti-aging" por "Healthspan y Longevidad Funcional"?',
+    uqa_a_terminology: 'El cambio refleja el paso de la estética superficial a la integridad biológica. La "Longevidad de la Piel" y el "Envejecimiento Funcional" priorizan el mantenimiento de la función biológica sobre el simple ocultamiento de los años cronológicos.',
+
+    uqa_q_gut_brain: '¿Por qué la salud intestinal está directamente relacionada con la niebla mental?',
+    uqa_a_gut_brain: 'El eje intestino-cerebro es una red de comunicación bidireccional. La disbiosis en el microbioma intestinal desencadena una inflamación sistémica que cruza la barrera hematoencefálica, provocando fatiga "Neuro-Metabólica" o niebla mental.',
+
+    uqa_q_peptides: '¿Cuáles son los mejores péptidos para la recuperación muscular vs. prevención de lesiones?',
+    uqa_a_peptides: 'La terapia con péptidos en 2026 es altamente individualizada. El BPC-157 se utiliza frecuentemente para la reparación del tejido conectivo, mientras que los stacks de CJC-1295 están enfocados en la optimización de la hormona del crecimiento para la recuperación muscular.',
+
+    uqa_q_systemage: '¿Qué es la prueba SystemAge y por qué mide más de 19 sistemas orgánicos?',
+    uqa_a_systemage: 'SystemAge es un diagnóstico de tercera generación que va más allá de un simple número de "edad". Al medir la metilación en más de 19 sistemas, identifica el "ruido biológico" en áreas específicas, permitiendo una bio-optimización de precisión.',
+
+    uqa_q_rings: '¿Cuáles son los anillos inteligentes mejor valorados para el sueño y el ritmo cardíaco en 2026?',
+    uqa_a_rings: 'El Oura Ring 4 sigue siendo el estándar de oro para el sueño, mientras que el último Apple Watch Ultra ofrece el monitoreo de ritmo cardíaco más preciso. Para el equilibrio recuperación-esfuerzo, WHOOP 5.0 ofrece los datos biométricos más granulares.',
+
+    uqa_q_wearables_vs: 'Oura Ring 4 vs. WHOOP 5.0 vs. Apple Watch Ultra 2: ¿Cuál es mejor?',
+    uqa_a_wearables_vs: 'Elige Oura si tu prioridad son los datos de sueño en un formato discreto. WHOOP es superior para atletas de alto rendimiento. Apple Watch Ultra 2 es el mejor dispositivo "todo en uno" para salud general y seguridad.',
+
+    uqa_q_cold_sauna: 'Inmersión en frío (Preparación) vs. Sauna infrarroja (Adaptación): ¿Cuál es mejor?',
+    uqa_a_cold_sauna: 'El frío es superior para la reducción inmediata de la inflamación. Las saunas infrarrojas promueven la "Adaptación" a largo plazo mediante proteínas de choque térmico. Usa el frío por la mañana para la alerta; la sauna por la noche para la recuperación.',
+
+    uqa_q_diet_vs: '¿Plan Mediterráneo vs. Alimentos Ultraprocesados?',
+    uqa_a_diet_vs: 'El Plan Mediterráneo actúa como un "Sistema Operativo Biológico" necesario para la reparación del ADN. Los ultraprocesados desencadenan picos inflamatorios y estrés biológico visible en sensores CGM en tiempo real.',
+
+    uqa_q_over_optimization: '¿No está todo este seguimiento de datos causando más estrés que salud?',
+    uqa_a_over_optimization: 'Reconocemos la reacción contra la sobre-optimización. Nuestro enfoque basado en datos está diseñado para proporcionar "Seguridad Humana". Al entender tu base, puedes dejar de adivinar y empezar a vivir desde un lugar de conexión somática.',
+
+    uqa_q_human_connection: '¿Cómo equilibras la precisión técnica con la conexión humana?',
+    uqa_a_human_connection: 'La precisión técnica maneja el mantenimiento biológico, para que tengas más energía para lo que nos hace humanos: conexión, gozo y comunidad. Usamos los datos para que te sientas más seguro y conectado.',
+
     wpk_item3_p: 'Tu teléfono es un portal a través del cual las demandas del mundo pueden acceder a tu atención al instante. Si no construyes una valla aquí, nunca descansarás de verdad.',
     wpk_item3_li1_strong: 'Desactiva notificaciones no esenciales:',
     wpk_item3_li1_end: ' Las únicas personas que deberían poder interrumpirte inmediatamente son familiares cercanos o emergencias críticas de trabajo. Todo lo demás puede esperar para un período de revisión designado.',
@@ -1987,8 +2261,49 @@ const translations = {
     wpl_item3_p: 'La mayor barrera para descansar no es encontrar el tiempo; es la culpa que lo acompaña. Hemos interiorizado la creencia de que nuestro valor está ligado directamente a nuestra producción.',
     wpl_item3_box_title: 'Un Cambio de Mentalidad:',
     wpl_item3_box_p: 'Piensa en un atleta de élite. No entrenan las 24 horas del día. Entrenan intensamente y luego se tumban en el sofá para dejar que sus cuerpos se reconstruyan. El descanso es el vehículo para el crecimiento. Aplica la misma lógica a tu producción cognitiva. Si quieres rendir al máximo, debes descansar al máximo.',
-    wpl_conclusion_title: 'Conclusión',
     wpl_conclusion_p: 'Debemos defender agresivamente nuestro derecho a no hacer nada. En un mundo que exige atención constante y producción continua, sacar tiempo para sentarte en silencio, soñar despierto y simplemente existir sin producir es un acto de profundo autocuidado y rebelión. Deja el teléfono, cierra los ojos y deja que tu cerebro respire.',
+
+    // Path Links for Bio-Data Pillar
+    fp_path_a_title: 'La Guerra de los Wearables 2026',
+    fp_path_a_desc: 'Hardware vs. Software de IA: Eligiendo tu sistema operativo de salud.',
+    fp_path_b_title: 'Biosensado en Tiempo Real',
+    fp_path_b_desc: 'El Laboratorio en la Muñeca: Monitorización no invasiva de glucosa, sudor y pH.',
+    fp_path_c_title: 'Metodología de Rendimiento',
+    fp_path_c_desc: 'La Regla 80/20: Optimizando el VO2 máx y protocolos estratégicos de recuperación.',
+
+    // Sub-Page A: Wearable War
+    fww_title: 'La Guerra de los Wearables 2026',
+    fww_intro: 'Una comparación técnica de la precisión del hardware y la inteligencia de entrenamiento impulsada por IA.',
+    fww_form_factor_title: 'La Ventaja del Formato',
+    fww_form_factor_p: 'Anillos como el Oura 4 se sitúan más cerca de las arterias digitales en el dedo, proporcionando una precisión pasiva superior para el VFC (HRV) y el ritmo cardíaco en comparación con los sensores ópticos de muñeca.',
+    fww_software_title: 'El Auge de los Cerebros de Software',
+    fww_software_p: "En 2026, el dispositivo es solo la antena. El valor real reside en los 'Cerebros de Software'—Asesores de IA que interpretan tus datos en un contexto accionable.",
+    fww_healthspan_title: 'La Métrica Healthspan',
+    fww_healthspan_p: 'Un nuevo estándar de 2026 que utiliza patrones de recuperación para estimar tu ritmo de envejecimiento biológico en tiempo real.',
+
+    // Sub-Page B: Biosensing
+    rtb_title: 'Biosensado en Tiempo Real',
+    rtb_intro: 'La transición disruptiva del seguimiento del pulso a la monitorización molecular.',
+    rtb_nanopillars_title: 'Tecnología de Nanopilares Plasmónicos',
+    rtb_nanopillars_p: 'Sensores revolucionarios que utilizan nanopilares plasmónicos ahora permiten la monitorización no invasiva de glucosa y pH a través del sudor.',
+    rtb_metabolic_title: 'Detección Metabólica Temprana',
+    rtb_metabolic_p: 'Al identificar patrones glucémicos antes de que sean sintomáticos, nuestro ecosistema de biosensado proporciona la luz de "Aviso de Motor" para la prediabetes.',
+
+    // Sub-Page C: Methodology
+    hpm_title: 'Metodología de Alto Rendimiento',
+    hpm_intro: 'Precisión técnica para la longevidad cardiovascular y la resiliencia sistémica.',
+    hpm_polarized_title: 'Entrenamiento Polarizado: La Regla 80/20',
+    hpm_polarized_p: 'Alcanza un VO2 máx de élite pasando el 80% de tu tiempo en Zona 2 (aeróbico suave) y el 20% en Zona 5 (intensidad máxima).',
+    hpm_recovery_title: 'Estrés Térmico Estratégico',
+    hpm_recovery_p: 'Las inmersiones en frío activan señales de "Preparación" pero pueden frenar el crecimiento muscular si se usan demasiado pronto tras las pesas. Las saunas infrarrojas activan las Proteínas de Choque Térmico (HSPs).',
+
+    // Affiliate CTAs Performance
+    fp_cta_oura: 'Oura Ring 4: Precisión Circadiana',
+    fp_cta_whoop: 'WHOOP 5.0: Entrenador de Rendimiento',
+    fp_cta_apple: 'Apple Watch Ultra 2: Todo en Uno',
+    fp_cta_coldplunge: 'Bañera de Hielo Portátil (Preparación)',
+    fp_cta_sauna: 'Sauna Infrarroja (Activación HSP)',
+    fp_cta_insulin: 'Kit de Sensibilidad a la Insulina en Casa',
   },
 } as const;
 

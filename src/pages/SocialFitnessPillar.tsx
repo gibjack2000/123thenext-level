@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../translations';
 import BlogSection from '../components/BlogSection';
+import UniversalQA from '../components/UniversalQA';
 
 export default function SocialFitnessPillar() {
   const t = useT();
@@ -71,80 +72,83 @@ export default function SocialFitnessPillar() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-xl md:text-2xl text-white/90 font-medium max-w-3xl mx-auto leading-relaxed"
           >
-            {t('sfp_description')}
+            {t('sfp_description')} In 2026, we embrace the **"Renaissance of Connection,"** moving beyond "lonely fitness" into collective energy and nervous system safety.
           </motion.p>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-24 pb-32">
-        {/* Core Narrative Sections */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-32">
-          <motion.div 
-            whileHover={{ y: -10 }}
-            className="bg-white p-12 rounded-[3.5rem] shadow-xl border border-orange-100 flex flex-col justify-between"
-          >
-            <div>
-              <div className="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center text-orange-600 mb-8 border border-orange-100">
-                <Music size={32} />
+        {/* Navigational Paths: Social Fitness Ecosystem */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
+          <Link to="/social-fitness/pickleball" className="group">
+            <motion.div 
+              whileHover={{ y: -10, scale: 1.02 }}
+              className="bg-white p-10 rounded-[3rem] shadow-xl border border-orange-100 h-full flex flex-col justify-between hover:border-orange-300 transition-colors"
+            >
+              <div>
+                <div className="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center text-orange-600 mb-8 border border-orange-100">
+                  <Sun size={28} />
+                </div>
+                <h3 className="text-2xl font-display font-black uppercase tracking-tight text-slate-900 mb-4">
+                  {t('sfp_path_a_title')}
+                </h3>
+                <p className="text-slate-500 leading-relaxed mb-6">
+                  {t('sfp_path_a_desc')}
+                </p>
               </div>
-              <h2 className="text-4xl md:text-5xl font-display font-semibold uppercase tracking-[0.02em] text-[#2D2D2D] mb-6 leading-[1.15]">
-                {t('sfp_festival_title')}
-              </h2>
-              <p className="text-slate-600 text-lg leading-relaxed mb-8">
-                {t('sfp_festival_desc')}
-              </p>
-            </div>
-            <div className="flex items-center gap-4 text-orange-600 font-bold text-sm uppercase tracking-widest border-t border-orange-50 pt-8">
-              <Smile size={16} />
-              Joy Density: Maximum
-            </div>
-          </motion.div>
+              <div className="flex items-center gap-2 text-orange-600 font-bold text-xs uppercase tracking-widest pt-6 border-t border-orange-50">
+                Active Aging <ExternalLink size={12} />
+              </div>
+            </motion.div>
+          </Link>
 
-          <motion.div 
-            whileHover={{ y: -10 }}
-            className="bg-slate-900 p-12 rounded-[3.5rem] shadow-xl text-white flex flex-col justify-between"
-          >
-            <div>
-              <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center text-yellow-400 mb-8 border border-white/10">
-                <Sun size={32} />
+          <Link to="/social-fitness/festivals" className="group">
+            <motion.div 
+              whileHover={{ y: -10, scale: 1.02 }}
+              className="bg-orange-600 p-10 rounded-[3rem] shadow-xl text-white h-full flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-orange-200 mb-8 border border-white/10">
+                  <Music size={28} />
+                </div>
+                <h3 className="text-2xl font-display font-black uppercase tracking-tight mb-4">
+                  {t('sfp_path_b_title')}
+                </h3>
+                <p className="text-orange-50 leading-relaxed mb-6">
+                  {t('sfp_path_b_desc')}
+                </p>
               </div>
-              <h2 className="text-4xl md:text-5xl font-display font-semibold uppercase tracking-[0.02em] mb-6 leading-none">
-                {t('sfp_pickleball_title')}
-              </h2>
-              <p className="text-slate-300 text-lg leading-relaxed mb-8">
-                {t('sfp_pickleball_desc')}
-              </p>
-            </div>
-            <div className="flex items-center gap-2 text-yellow-400 font-bold text-sm uppercase tracking-widest border-t border-white/5 pt-8 w-full">
-              <MapPin size={16} />
-              Active Aging Ecosystem
-            </div>
-          </motion.div>
+              <div className="flex items-center gap-2 text-orange-200 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/10">
+                Festivalization <ExternalLink size={12} />
+              </div>
+            </motion.div>
+          </Link>
+
+          <Link to="/social-fitness/recovery" className="group">
+            <motion.div 
+              whileHover={{ y: -10, scale: 1.02 }}
+              className="bg-slate-900 p-10 rounded-[3rem] shadow-xl text-white h-full flex flex-col justify-between"
+            >
+              <div>
+                <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-yellow-400 mb-8 border border-white/10">
+                  <Thermometer size={28} />
+                </div>
+                <h3 className="text-2xl font-display font-black uppercase tracking-tight mb-4">
+                  {t('sfp_path_c_title')}
+                </h3>
+                <p className="text-slate-400 leading-relaxed mb-6">
+                  {t('sfp_path_c_desc')}
+                </p>
+              </div>
+              <div className="flex items-center gap-2 text-yellow-400 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/5">
+                Shared Ritual <ExternalLink size={12} />
+              </div>
+            </motion.div>
+          </Link>
         </div>
 
-        {/* AnswerThePublic QA Integration */}
-        <section className="mb-32">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-[0.02em] text-slate-900 mb-4 px-4 py-2 border-b-4 border-yellow-500 inline-block leading-[1.15]">
-              Community Intelligence
-            </h2>
-            <p className="text-slate-500 font-medium">Navigating the return of biological necessity: Connection.</p>
-          </div>
+        <UniversalQA />
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { q: t('sfp_qa_find_q'), a: t('sfp_qa_find_a'), icon: MapPin },
-              { q: t('sfp_qa_why_q'), a: t('sfp_qa_why_a'), icon: Heart },
-              { q: t('sfp_qa_what_q'), a: t('sfp_qa_what_a'), icon: Ticket }
-            ].map((qa, i) => (
-              <div key={i} className="bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-                <qa.icon className="text-orange-500 mb-6" size={32} />
-                <h3 className="text-xl font-bold text-slate-900 mb-4 leading-tight">{qa.q}</h3>
-                <p className="text-slate-600 leading-relaxed text-sm">{qa.a}</p>
-              </div>
-            ))}
-          </div>
-        </section>
 
         {/* Collective Catharsis & Shop */}
         <section className="bg-orange-600 rounded-[4rem] p-10 md:p-20 text-white mb-32 relative overflow-hidden shadow-2xl shadow-orange-500/20">
@@ -183,27 +187,21 @@ export default function SocialFitnessPillar() {
               </div>
 
               <div className="space-y-4">
-                <a href={affiliateLinks.us} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-slate-50 rounded-3xl group hover:bg-orange-600 hover:text-white transition-all duration-300 shadow-sm">
-                  <span className="font-bold flex items-center gap-4">
-                    <span className="text-xs bg-slate-200 group-hover:bg-orange-500 px-3 py-1 rounded-full text-slate-600 group-hover:text-white">Gear</span>
-                    {t('sfp_cta_pickleball')}
-                  </span>
-                  <ExternalLink className="opacity-40 group-hover:opacity-100" size={18} />
-                </a>
-                <a href={affiliateLinks.festivals} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-slate-50 rounded-3xl group hover:bg-orange-600 hover:text-white transition-all duration-300 shadow-sm">
-                  <span className="font-bold flex items-center gap-4">
-                    <Ticket className="text-orange-500 group-hover:text-orange-200" size={20} />
-                    {t('sfp_cta_festivals')}
-                  </span>
-                  <ExternalLink className="opacity-40 group-hover:opacity-100" size={18} />
-                </a>
-                <a href={affiliateLinks.recovery} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-orange-600 text-white rounded-3xl group hover:bg-orange-700 transition-all shadow-lg shadow-orange-500/20">
-                  <span className="font-bold flex items-center gap-4 text-lg">
-                    <Users size={24} />
-                    {t('sfp_cta_recovery')}
-                  </span>
-                  <ExternalLink className="opacity-60 group-hover:opacity-100" size={18} />
-                </a>
+                {[
+                  { key: 'sfp_cta_paddle', link: affiliateLinks.us, label: 'Equipment' },
+                  { key: 'sfp_cta_hyrox', link: affiliateLinks.festivals, label: 'Mass Event' },
+                  { key: 'sfp_cta_recovery', link: affiliateLinks.recovery, label: 'Collective' },
+                  { key: 'sfp_cta_wardrobe', link: '#', label: 'Apparel' },
+                  { key: 'sfp_cta_group_tech', link: '#', label: 'Tech' }
+                ].map((item, idx) => (
+                  <a key={idx} href={item.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-slate-50 rounded-3xl group hover:bg-orange-600 hover:text-white transition-all duration-300 shadow-sm">
+                    <span className="font-bold flex items-center gap-4">
+                      <span className="text-[10px] bg-slate-200 group-hover:bg-orange-500 px-2 py-0.5 rounded-full text-slate-600 group-hover:text-white uppercase font-black">{item.label}</span>
+                      <span className="text-sm md:text-base">{t(item.key as any)}</span>
+                    </span>
+                    <ExternalLink className="opacity-40 group-hover:opacity-100" size={18} />
+                  </a>
+                ))}
               </div>
             </div>
           </div>
