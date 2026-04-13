@@ -24,7 +24,7 @@ export default function SocialFitnessPillar() {
   return (
     <div className="min-h-screen bg-orange-50/30 text-slate-900">
       {/* Hero Section */}
-      <div className="relative h-[75vh] min-h-[650px] flex items-center justify-center overflow-hidden bg-orange-500">
+      <div className="relative pt-32 pb-64 md:pt-48 md:pb-80 flex items-center justify-center overflow-hidden bg-orange-500">
         <video
           autoPlay
           muted
@@ -38,7 +38,7 @@ export default function SocialFitnessPillar() {
         </video>
         <div className="absolute inset-0 bg-gradient-to-b from-orange-600/90 via-orange-500/40 to-orange-50/30"></div>
         
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-20">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Link to="/#pillars" className="absolute -top-32 left-4 sm:left-6 lg:left-8 inline-flex items-center text-white/70 hover:text-white font-bold uppercase tracking-tight transition-all backdrop-blur-md bg-white/5 px-4 py-2 rounded-xl border border-white/10 hover:bg-white/10">
             <ArrowLeft size={16} className="mr-2" />
             {t('sfp_back')}
@@ -77,7 +77,7 @@ export default function SocialFitnessPillar() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-24 pb-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-32 pb-32">
         {/* Navigational Paths: Social Fitness Ecosystem */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
           <Link to="/social-fitness/pickleball" className="group">

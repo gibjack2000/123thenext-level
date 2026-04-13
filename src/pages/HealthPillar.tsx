@@ -28,7 +28,7 @@ export default function HealthPillar() {
   return (
     <div className="min-h-screen bg-slate-50">
       {/* Hero Section */}
-      <div className="relative h-[70vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-slate-900 text-white">
+      <div className="relative pt-32 pb-64 md:pt-48 md:pb-80 flex items-center justify-center overflow-hidden bg-slate-900 text-white">
         <img
           src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=2000"
           alt="Biological Age Testing and Longevity"
@@ -75,7 +75,7 @@ export default function HealthPillar() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 relative z-20 pb-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-32 relative z-20 pb-24">
         {/* Core Strategy Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32">
           <motion.div 
