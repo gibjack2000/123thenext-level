@@ -57,6 +57,7 @@ import CategoryPage from './pages/CategoryPage';
 import AdminPage from './pages/AdminPage';
 import SuperAdminPage from './pages/SuperAdminPage';
 import BlogPostPage from './pages/BlogPostPage';
+import IntelligenceHub from './pages/IntelligenceHub';
 import TickerTape from './components/TickerTape';
 import { Settings, Home as HomeIcon, Menu, X } from 'lucide-react';
 
@@ -97,6 +98,7 @@ export default function App() {
               <Link to="/" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">{t('nav_home')}</Link>
               <a href="/#pillars" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">{t('nav_pillars')}</a>
               <a href="/#blog" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">{t('nav_blog')}</a>
+              <Link to="/intelligence" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">Intelligence</Link>
               <a href="/#shop" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">{t('nav_shop')}</a>
             </nav>
 
@@ -129,13 +131,20 @@ export default function App() {
                 >
                   {t('nav_pillars')}
                 </a>
-                <a 
-                  href="/#blog" 
-                  className="block px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-all"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {t('nav_blog')}
-                </a>
+                  <a 
+                    href="/#blog" 
+                    className="block px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-all"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {t('nav_blog')}
+                  </a>
+                  <Link 
+                    to="/intelligence" 
+                    className="block px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-all"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Intelligence
+                  </Link>
                   <a 
                     href="/#shop" 
                     className="block px-4 py-3 rounded-xl text-base font-bold text-slate-700 hover:text-blue-600 hover:bg-blue-50 transition-all"
@@ -151,6 +160,7 @@ export default function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/intelligence" element={<IntelligenceHub />} />
             <Route path="/preventive-health" element={<PreventiveHealth />} />
             <Route path="/health" element={<HealthPillar />} />
             <Route path="/health/post-a" element={<HealthPostA />} />

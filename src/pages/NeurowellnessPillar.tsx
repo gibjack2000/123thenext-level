@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../translations';
 import BlogSection from '../components/BlogSection';
-import UniversalQA from '../components/UniversalQA';
 
 export default function NeurowellnessPillar() {
   const t = useT();
@@ -249,8 +248,6 @@ export default function NeurowellnessPillar() {
              ))}
           </div>
         </div>
-
-        <UniversalQA />
 
         {/* Conversion Layer: The 2026 Arsenal */}
         <div className="bg-white rounded-[5rem] p-12 md:p-24 shadow-3xl border border-slate-100 text-center relative overflow-hidden">
