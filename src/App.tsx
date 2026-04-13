@@ -22,10 +22,19 @@ import NutritionPillar from './pages/NutritionPillar';
 import NutritionPostG from './pages/NutritionPostG';
 import NutritionPostH from './pages/NutritionPostH';
 import NutritionPostI from './pages/NutritionPostI';
+import NutritionGLP1 from './pages/NutritionGLP1';
+import NutritionMuscleBrain from './pages/NutritionMuscleBrain';
+import NutritionBiomarkers from './pages/NutritionBiomarkers';
 import WellnessPillar from './pages/WellnessPillar';
+import NeurowellnessPillar from './pages/NeurowellnessPillar';
+import NeurowellnessHardCare from './pages/NeurowellnessHardCare';
+import NeurowellnessSoftCare from './pages/NeurowellnessSoftCare';
+import NeurowellnessMetabolism from './pages/NeurowellnessMetabolism';
 import WellnessPostJ from './pages/WellnessPostJ';
 import WellnessPostK from './pages/WellnessPostK';
 import WellnessPostL from './pages/WellnessPostL';
+import WomensHealthPillar from './pages/WomensHealthPillar';
+import SocialFitnessPillar from './pages/SocialFitnessPillar';
 import PreventiveHealth from './pages/PreventiveHealth';
 import FitnessFundamentals from './pages/FitnessFundamentals';
 import UniversalLove from './pages/UniversalLove';
@@ -69,7 +78,7 @@ export default function App() {
               <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-2 rounded-xl text-white mr-3 shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">
                 <HomeIcon size={20} strokeWidth={2.5} />
               </div>
-              <span className="font-display font-black uppercase tracking-tighter text-xl border-transparent bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent group-hover:from-blue-600 group-hover:to-indigo-600 transition-all duration-500">
+              <span className="font-display font-semibold uppercase tracking-[0.02em] text-xl border-transparent bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent group-hover:from-blue-600 group-hover:to-indigo-600 transition-all duration-500">
                 123TheNext Level
               </span>
             </Link>
@@ -144,13 +153,22 @@ export default function App() {
             <Route path="/fitness/post-e" element={<FitnessPostE />} />
             <Route path="/fitness/post-f" element={<FitnessPostF />} />
             <Route path="/nutrition" element={<NutritionPillar />} />
+            <Route path="/nutrition/glp1" element={<NutritionGLP1 />} />
+            <Route path="/nutrition/muscle-brain" element={<NutritionMuscleBrain />} />
+            <Route path="/nutrition/biomarkers" element={<NutritionBiomarkers />} />
             <Route path="/nutrition/post-g" element={<NutritionPostG />} />
             <Route path="/nutrition/post-h" element={<NutritionPostH />} />
             <Route path="/nutrition/post-i" element={<NutritionPostI />} />
-            <Route path="/wellness" element={<WellnessPillar />} />
+            <Route path="/wellness" element={<NeurowellnessPillar />} />
+            <Route path="/neurowellness" element={<NeurowellnessPillar />} />
+            <Route path="/neurowellness/hard-care" element={<NeurowellnessHardCare />} />
+            <Route path="/neurowellness/soft-care" element={<NeurowellnessSoftCare />} />
+            <Route path="/neurowellness/metabolism" element={<NeurowellnessMetabolism />} />
             <Route path="/wellness/post-j" element={<WellnessPostJ />} />
             <Route path="/wellness/post-k" element={<WellnessPostK />} />
             <Route path="/wellness/post-l" element={<WellnessPostL />} />
+            <Route path="/womens-health" element={<WomensHealthPillar />} />
+            <Route path="/social-fitness" element={<SocialFitnessPillar />} />
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/superadmin" element={<SuperAdminPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />

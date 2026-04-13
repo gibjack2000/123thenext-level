@@ -22,7 +22,7 @@ const Footer = () => {
               <div className="bg-gradient-to-br from-blue-500 to-indigo-600 p-2 rounded-xl text-white mr-3 shadow-lg shadow-blue-900/20 group-hover:scale-105 transition-transform duration-300">
                 <HomeIcon size={20} strokeWidth={2.5} />
               </div>
-              <span className="font-display font-black uppercase tracking-tighter text-xl text-white group-hover:text-blue-400 transition-colors duration-300">
+              <span className="font-display font-semibold uppercase tracking-[0.02em] text-xl text-white group-hover:text-blue-400 transition-colors duration-300">
                 123TheNext Level
               </span>
             </Link>
