@@ -57,6 +57,7 @@ import CategoryPage from './pages/CategoryPage';
 import AdminPage from './pages/AdminPage';
 import SuperAdminPage from './pages/SuperAdminPage';
 import BlogPostPage from './pages/BlogPostPage';
+import IntelligenceHub from './pages/IntelligenceHub';
 import TickerTape from './components/TickerTape';
 import { Settings, Home as HomeIcon, Menu, X } from 'lucide-react';
 
@@ -93,11 +94,12 @@ export default function App() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-2">
+            <nav className="hidden md:flex items-center space-x-1 lg:space-x-4">
               <Link to="/" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">{t('nav_home')}</Link>
               <a href="/#pillars" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">{t('nav_pillars')}</a>
               <a href="/#blog" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">{t('nav_blog')}</a>
               <a href="/#shop" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">{t('nav_shop')}</a>
+              <Link to="/intelligence-hub" className="px-4 py-2 text-sm font-bold text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all duration-300">Intelligence</Link>
             </nav>
 
             {/* Mobile Menu Button */}
@@ -143,6 +145,13 @@ export default function App() {
                   >
                     {t('nav_shop')}
                   </a>
+                  <Link 
+                    to="/intelligence-hub" 
+                    className="block px-4 py-3 rounded-xl text-base font-bold text-indigo-600 hover:bg-indigo-50 transition-all font-display uppercase italic"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Intelligence Hub
+                  </Link>
                 </div>
               </div>
             )}
@@ -189,6 +198,7 @@ export default function App() {
             <Route path="/social-fitness/recovery" element={<SocialRecovery />} />
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/superadmin" element={<SuperAdminPage />} />
+            <Route path="/intelligence-hub" element={<IntelligenceHub />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/life-practice/universal-love" element={<UniversalLove />} />
             <Route path="/life-practice/do-no-harm" element={<DoNoHarm />} />

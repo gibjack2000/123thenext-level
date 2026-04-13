@@ -3,7 +3,7 @@ import { ArrowLeft, Microscope, Shield, Dna, Info, ExternalLink, Activity, Germa
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../../translations';
-import UniversalQA from '../../components/UniversalQA';
+
 
 export default function OvarianLongevity() {
   const t = useT();
@@ -105,7 +105,7 @@ export default function OvarianLongevity() {
           </div>
         </section>
 
-        <UniversalQA />
+
       </div>
     </div>
   );

@@ -3,7 +3,7 @@ import { ArrowLeft, Brain, Zap, Shield, Info, ExternalLink, Activity, Beaker } f
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../../translations';
-import UniversalQA from '../../components/UniversalQA';
+
 
 export default function CognitiveMetabolic() {
   const t = useT();
@@ -109,7 +109,7 @@ export default function CognitiveMetabolic() {
           </div>
         </section>
 
-        <UniversalQA />
+
       </div>
     </div>
   );
