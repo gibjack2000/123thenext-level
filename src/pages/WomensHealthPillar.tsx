@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../translations';
 import BlogSection from '../components/BlogSection';
+import UniversalQA from '../components/UniversalQA';
 
 export default function WomensHealthPillar() {
   const t = useT();
@@ -144,6 +145,8 @@ export default function WomensHealthPillar() {
             </motion.div>
           </Link>
         </div>
+
+        <UniversalQA />
 
 
         {/* Clinical Interventions & Shop */}

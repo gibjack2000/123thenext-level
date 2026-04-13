@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../translations';
 import BlogSection from '../components/BlogSection';
+import UniversalQA from '../components/UniversalQA';
 
 export default function SocialFitnessPillar() {
   const t = useT();
@@ -145,6 +146,8 @@ export default function SocialFitnessPillar() {
             </motion.div>
           </Link>
         </div>
+
+        <UniversalQA />
 
 
         {/* Collective Catharsis & Shop */}
