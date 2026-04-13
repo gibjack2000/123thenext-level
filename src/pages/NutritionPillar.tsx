@@ -46,7 +46,7 @@ export default function NutritionPillar() {
   ];
 
   return (
-    <div className="min-h-screen bg-stone-50 text-slate-900 font-sans">
+    <div className="min-h-screen bg-stone-50 text-slate-900 font-sans antialiased">
       {/* Hero Section */}
       <div className="relative h-[85vh] min-h-[750px] flex items-center justify-center overflow-hidden bg-[#0A1F1C]">
         <img
@@ -77,7 +77,7 @@ export default function NutritionPillar() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-4xl md:text-[clamp(3rem,7vw,6.5rem)] font-display font-black uppercase tracking-[0.01em] text-white mb-6 leading-[1.05] md:leading-[1.1] drop-shadow-2xl"
+            className="text-4xl md:text-[clamp(3rem,6vw,6rem)] font-display font-black uppercase tracking-tight text-white mb-6 leading-[1.05] drop-shadow-2xl"
           >
             {t('np_title_start')}<br />
             <span className="text-emerald-400">
@@ -89,7 +89,7 @@ export default function NutritionPillar() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-2xl md:text-3xl text-emerald-100/60 font-medium max-w-4xl mx-auto leading-tight"
+            className="text-xl md:text-2xl text-emerald-100/60 font-medium max-w-4xl mx-auto leading-relaxed"
           >
             {t('np_description')}
           </motion.p>
@@ -101,21 +101,21 @@ export default function NutritionPillar() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-40">
           <motion.div 
             whileHover={{ y: -10 }}
-            className="bg-white p-16 rounded-[4rem] shadow-2xl border border-emerald-100 flex flex-col justify-between lg:col-span-2 relative overflow-hidden group"
+            className="bg-white p-12 md:p-16 rounded-[4rem] shadow-2xl border border-emerald-100 flex flex-col justify-between lg:col-span-2 relative overflow-hidden group"
           >
             <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-50 blur-[60px] -mr-32 -mt-32 transition-transform group-hover:scale-110"></div>
             <div className="relative z-10">
-              <div className="w-20 h-20 bg-emerald-50 rounded-[2rem] flex items-center justify-center text-emerald-600 mb-10 border border-emerald-100 shadow-sm">
-                <Microscope size={40} />
+              <div className="w-16 h-16 bg-emerald-50 rounded-3xl flex items-center justify-center text-emerald-600 mb-10 border border-emerald-100">
+                <Microscope size={32} />
               </div>
-              <h2 className="text-5xl md:text-7xl font-display font-semibold uppercase tracking-[0.02em] text-[#2D2D2D] mb-8 leading-[1.15]">
+              <h2 className="text-4xl md:text-6xl font-display font-bold uppercase tracking-tight text-[#2D2D2D] mb-8 leading-[1.1]">
                 {t('np_hub_narrative_title')}
               </h2>
-              <p className="text-slate-500 text-xl leading-relaxed mb-10 font-medium italic">
+              <p className="text-slate-500 text-lg leading-relaxed mb-10 font-medium italic">
                 {t('np_hub_narrative_p')}
               </p>
               <div className="p-8 bg-slate-50 rounded-[2.5rem] border border-slate-100 mb-10">
-                 <h4 className="text-xs font-black uppercase tracking-widest text-emerald-700 mb-4">Functional Mechanism: SIRT1 Activation</h4>
+                 <h4 className="text-[10px] font-black uppercase tracking-widest text-emerald-700 mb-4">Functional Mechanism: SIRT1 Activation</h4>
                  <p className="text-sm text-slate-600 leading-relaxed">Specific nutrient timing and phytonutrient Density (Resveratrol, Quercetin) are leveraged to trigger SIRT1, the "Master Longevity Gene," promoting DNA repair and mitochondrial biogenesis.</p>
               </div>
             </div>
@@ -127,17 +127,17 @@ export default function NutritionPillar() {
 
           <motion.div 
             whileHover={{ y: -10 }}
-            className="bg-[#2D2D2D] p-16 rounded-[4rem] shadow-2xl text-white flex flex-col justify-between relative overflow-hidden group"
+            className="bg-[#2D2D2D] p-12 md:p-16 rounded-[4rem] shadow-2xl text-white flex flex-col justify-between relative overflow-hidden group"
           >
              <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-emerald-600/10 to-transparent"></div>
             <div className="relative z-10">
-              <div className="w-20 h-20 bg-white/5 rounded-[2rem] flex items-center justify-center text-emerald-400 mb-10 border border-white/10">
-                <BarChart3 size={40} />
+              <div className="w-16 h-16 bg-white/5 rounded-3xl flex items-center justify-center text-emerald-400 mb-10 border border-white/10">
+                <BarChart3 size={32} />
               </div>
-              <h2 className="text-5xl font-display font-semibold uppercase tracking-[0.02em] mb-8 leading-[1.15]">
+              <h2 className="text-4xl font-display font-bold uppercase tracking-tight mb-8 leading-[1.1]">
                 {t('np_metabolic_health_title')}
               </h2>
-              <p className="text-slate-400 text-xl leading-relaxed mb-10 font-medium">
+              <p className="text-slate-400 text-lg leading-relaxed mb-10 font-medium">
                 {t('np_metabolic_health_p')}
               </p>
               <div className="space-y-4">
@@ -159,18 +159,20 @@ export default function NutritionPillar() {
             </div>
           </motion.div>
         </div>
+
+        {/* Mediterranean Metabolic Blueprint Section */}
         <section className="mb-40">
-          <div className="bg-[#fcfaf7] p-8 md:p-24 rounded-[4rem] md:rounded-[5rem] border border-orange-100 shadow-2xl relative overflow-hidden">
+          <div className="bg-[#fcfaf7] p-8 md:p-20 rounded-[4rem] md:rounded-[5rem] border border-orange-100 shadow-2xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_100%_0%,rgba(249,115,22,0.03)_0%,transparent_50%)]"></div>
             
             <div className="relative z-10">
-              <div className="grid grid-cols-1 xl:grid-cols-12 gap-16 xl:gap-24 items-start">
-                <div className="xl:col-span-7 space-y-12">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-stretch">
+                <div className="lg:col-span-7 space-y-10">
                   <div className="inline-flex items-center gap-4 text-orange-700 font-black uppercase tracking-widest text-[10px] bg-orange-50 px-6 py-2 rounded-full border border-orange-100">
                     <Shield size={14} />
                     Clinically Validated Operating System
                   </div>
-                  <h2 className="text-4xl md:text-[clamp(2.5rem,5vw,5rem)] font-display font-black uppercase tracking-[0.01em] text-[#2D2D2D] leading-[1.05] md:leading-[1.1] break-words">
+                  <h2 className="text-3xl md:text-[clamp(2.2rem,4.5vw,4.2rem)] font-display font-black uppercase tracking-tight text-[#2D2D2D] leading-[1.05] whitespace-pre-line">
                     {t('np_med_title')}
                   </h2>
                   <p className="text-xl md:text-2xl text-slate-500 leading-relaxed font-medium">
@@ -192,34 +194,34 @@ export default function NutritionPillar() {
                   </div>
                 </div>
                 
-                <div className="xl:col-span-5 w-full">
-                   <div className="bg-[#2D2D2D] p-10 md:p-14 rounded-[3rem] md:rounded-[4rem] text-white shadow-2xl relative overflow-hidden group border border-white/5 h-full flex flex-col justify-between">
-                      <div className="absolute top-0 right-0 p-8 opacity-10">
+                <div className="lg:col-span-5 w-full">
+                   <div className="bg-[#2D2D2D] p-10 md:p-14 rounded-[3rem] md:rounded-[4rem] text-white shadow-2xl relative overflow-hidden group border border-white/5 h-full flex flex-col justify-between min-h-[500px]">
+                      <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
                          <Zap size={80} className="text-orange-400" />
                       </div>
-                      <div className="relative z-10 space-y-12">
-                        <div>
-                          <h3 className="text-2xl md:text-4xl font-display font-bold uppercase mb-10 tracking-[0.02em] leading-tight text-orange-400">2026 Clinical Synergies</h3>
+                      <div className="relative z-10 space-y-12 h-full flex flex-col justify-between">
+                        <div className="space-y-10">
+                          <h3 className="text-2xl md:text-3xl font-display font-bold uppercase tracking-tight leading-tight text-orange-400">2026 Clinical Synergies</h3>
                           <div className="space-y-10">
                              <div className="flex gap-8 items-start">
                                 <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-orange-400 border border-white/10 shrink-0 shadow-inner"><Shield size={24} /></div>
                                 <div className="space-y-2">
-                                   <strong className="text-white text-xs uppercase tracking-widest block font-black mb-1">GLP-1 Companion</strong>
+                                   <strong className="text-white text-xs uppercase tracking-widest block font-black">GLP-1 Companion</strong>
                                    <p className="text-sm text-slate-400 leading-relaxed font-medium">{t('np_med_synergy_glp1')}</p>
                                 </div>
                              </div>
                              <div className="flex gap-8 items-start">
                                 <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-orange-400 border border-white/10 shrink-0 shadow-inner"><Brain size={24} /></div>
                                 <div className="space-y-2">
-                                   <strong className="text-white text-xs uppercase tracking-widest block font-black mb-1">Cognitive Fueling</strong>
+                                   <strong className="text-white text-xs uppercase tracking-widest block font-black">Cognitive Fueling</strong>
                                    <p className="text-sm text-slate-400 leading-relaxed font-medium">{t('np_med_synergy_neuro')}</p>
                                 </div>
                              </div>
                           </div>
                         </div>
                         
-                        <a href={affiliateLinks.agekit} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 md:p-8 bg-orange-600 text-white rounded-[2.5rem] hover:bg-orange-700 transition-all font-bold uppercase tracking-widest text-[9px] md:text-xs group/btn shadow-[0_20px_40px_-10px_rgba(234,88,12,0.3)] w-full mt-auto">
-                           <span className="flex-1 leading-tight text-left pr-4">{t('np_med_diagnostic_cta')}</span>
+                        <a href={affiliateLinks.agekit} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 md:p-8 bg-orange-600 text-white rounded-[2.5rem] hover:bg-orange-700 transition-all font-bold uppercase tracking-widest text-[9px] md:text-xs group/btn shadow-[0_20px_40px_-10px_rgba(234,88,12,0.3)] w-full mt-auto overflow-hidden">
+                           <span className="flex-1 leading-tight text-left pr-4 whitespace-nowrap overflow-hidden text-ellipsis">{t('np_med_diagnostic_cta')}</span>
                            <ExternalLink size={18} className="group-hover/btn:translate-x-1 transition-transform shrink-0" />
                         </a>
                       </div>
@@ -230,9 +232,8 @@ export default function NutritionPillar() {
           </div>
         </section>
 
-
         {/* Cellular Recharging (NAD+) Section */}
-        <section className="mb-40 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+        <section className="mb-40 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
            <div className="order-2 lg:order-1 relative group">
               <div className="absolute inset-0 bg-blue-600/20 blur-[100px] rounded-full group-hover:scale-110 transition-transform"></div>
               <img src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=1200" alt="Mitochondrial Vitality" className="rounded-[4rem] relative z-10 shadow-2xl opacity-90" />
@@ -248,7 +249,7 @@ export default function NutritionPillar() {
                  <Shield size={16} />
                  Energy Flux Optimization
               </div>
-              <h2 className="text-4xl md:text-[clamp(2.5rem,4.5vw,5.5rem)] font-display font-semibold uppercase tracking-[0.02em] text-[#2D2D2D] leading-[1.15] mb-8">
+              <h2 className="text-4xl md:text-[clamp(2.5rem,4.5vw,5rem)] font-display font-bold uppercase tracking-tight text-[#2D2D2D] leading-[1.05] mb-8">
                 {t('np_cellular_title')}
               </h2>
               <p className="text-2xl text-slate-500 leading-relaxed font-medium italic">
@@ -259,7 +260,7 @@ export default function NutritionPillar() {
                     <div className="flex items-center gap-6">
                        <Zap size={32} className="text-blue-400 group-hover:text-white" />
                        <div>
-                          <span className="block text-xl font-display font-bold uppercase">{t('np_cta_nad')}</span>
+                          <span className="block text-xl font-display font-bold uppercase tracking-tight">{t('np_cta_nad')}</span>
                           <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-blue-100">Thorne ResveraCel Stack</span>
                        </div>
                     </div>
@@ -272,7 +273,7 @@ export default function NutritionPillar() {
         {/* AnswerThePublic SEO Section */}
         <section className="mb-40 space-y-12">
            <div className="flex items-center gap-8 px-4">
-              <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-[0.02em] text-[#2D2D2D] leading-[1.15] shrink-0">
+              <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tight text-[#2D2D2D] leading-[1.05] shrink-0">
                 Precision <span className="text-emerald-600 text-[0.8em] font-medium italic">(FAQs)</span>
               </h2>
               <div className="h-[2px] bg-emerald-100 flex-grow mt-4"></div>
@@ -289,7 +290,7 @@ export default function NutritionPillar() {
                       <div className="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-emerald-600 mb-8 border border-slate-100 group-hover:bg-emerald-600 group-hover:text-white transition-all">
                          <faq.icon size={28} />
                       </div>
-                      <h4 className="text-2xl font-display font-semibold uppercase mb-6 text-[#2D2D2D] leading-tight group-hover:text-emerald-600 transition-colors">
+                      <h4 className="text-2xl font-display font-bold uppercase mb-6 text-[#2D2D2D] leading-tight group-hover:text-emerald-600 transition-colors">
                         {faq.q}
                       </h4>
                       <p className="text-slate-500 leading-relaxed font-medium">
@@ -319,7 +320,7 @@ export default function NutritionPillar() {
                   <div className={`w-16 h-16 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-10 group-hover:bg-emerald-600 group-hover:text-white transition-all shadow-sm`}>
                     <path.icon size={32} />
                   </div>
-                  <h3 className="text-3xl font-display font-semibold uppercase mb-6 text-[#2D2D2D] leading-[1.15] tracking-[0.02em] group-hover:text-emerald-600 transition-colors">
+                  <h3 className="text-3xl font-display font-bold uppercase mb-6 text-[#2D2D2D] leading-[1.1] tracking-tight group-hover:text-emerald-600 transition-colors">
                     {path.title}
                   </h3>
                   <p className="text-slate-500 text-lg leading-relaxed mb-10 font-medium">
@@ -335,15 +336,15 @@ export default function NutritionPillar() {
         </div>
 
         {/* Affiliate & Precision Diagnostics */}
-        <section className="bg-[#1A1A1A] rounded-[5rem] p-12 md:p-32 text-white mb-40 relative overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border border-white/5">
+        <section className="bg-[#1A1A1A] rounded-[5rem] p-12 md:p-24 lg:p-32 text-white mb-40 relative overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.5)] border border-white/5">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_100%_0%,rgba(16,185,129,0.15)_0%,transparent_50%)]"></div>
           
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-32 items-center">
             <div className="space-y-12">
-              <h2 className="text-4xl md:text-[clamp(2.5rem,5vw,5rem)] font-display font-black uppercase tracking-[0.02em] leading-[1.15]">
+              <h2 className="text-4xl md:text-[clamp(2.5rem,5vw,4.5rem)] font-display font-black uppercase tracking-tight leading-[1.05]">
                 {t('np_cta_section_title')}
               </h2>
-              <p className="text-2xl text-slate-400 leading-relaxed font-medium">
+              <p className="text-xl md:text-2xl text-slate-400 leading-relaxed font-medium">
                 High-resolution diagnostic protocols for identifying your unique biological set-point.
               </p>
               
@@ -365,20 +366,20 @@ export default function NutritionPillar() {
               </div>
             </div>
 
-            <div className="bg-white rounded-[4rem] p-12 md:p-16 text-slate-900 shadow-2xl space-y-10 relative overflow-hidden group">
+            <div className="bg-white rounded-[4rem] p-10 md:p-16 text-slate-900 shadow-2xl space-y-10 relative overflow-hidden group">
                <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-50 blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity"></div>
               <div className="text-center relative z-10">
-                 <div className="w-20 h-20 bg-emerald-50 rounded-3xl flex items-center justify-center text-emerald-600 mx-auto mb-8 border border-emerald-100">
-                   <Activity size={40} />
+                 <div className="w-16 h-16 bg-emerald-50 rounded-3xl flex items-center justify-center text-emerald-600 mx-auto mb-8 border border-emerald-100">
+                   <Activity size={32} />
                  </div>
-                  <h3 className="text-3xl md:text-4xl font-display font-black uppercase tracking-[0.02em] mb-4">
+                  <h3 className="text-3xl md:text-4xl font-display font-black uppercase tracking-tight mb-4">
                   Clinical Bio-Access
                 </h3>
                 <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px]">Standard 2026 Partner Integration</p>
               </div>
 
               <div className="space-y-6 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-3 gap-4 mb-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                    <a href={affiliateLinks.agekit} target="_blank" rel="noopener noreferrer" className="p-6 bg-slate-50 border border-slate-100 rounded-[2.5rem] hover:bg-emerald-600 hover:text-white transition-all text-center flex flex-col justify-center min-h-[140px]">
                       <span className="text-[10px] font-black uppercase tracking-widest block mb-2 opacity-60">US Market</span>
                       <span className="text-[10px] md:text-xs font-bold uppercase tracking-tight leading-tight">{t('np_cta_age_us')}</span>
@@ -429,7 +430,7 @@ export default function NutritionPillar() {
         <div className="space-y-48">
           <div className="relative">
             <div className="flex items-center gap-10 mb-24">
-              <h2 className="text-6xl md:text-[clamp(3.5rem,6vw,7rem)] font-display font-black uppercase tracking-[0.02em] text-[#2D2D2D] leading-[1.15]">
+              <h2 className="text-5xl md:text-[clamp(3.5rem,6vw,6rem)] font-display font-black uppercase tracking-tight text-[#2D2D2D] leading-[1.05]">
                 {t('np_top_posts')}
               </h2>
               <div className="h-[2px] bg-emerald-100 flex-grow mt-10"></div>
@@ -439,7 +440,7 @@ export default function NutritionPillar() {
 
           <div className="relative">
             <div className="flex items-center gap-10 mb-24">
-              <h2 className="text-6xl md:text-[clamp(3.5rem,6vw,7rem)] font-display font-black uppercase tracking-[0.02em] text-[#2D2D2D] leading-[1.15]">
+              <h2 className="text-5xl md:text-[clamp(3.5rem,6vw,6rem)] font-display font-black uppercase tracking-tight text-[#2D2D2D] leading-[1.05]">
                 {t('np_latest_posts')}
               </h2>
               <div className="h-[2px] bg-emerald-100 flex-grow mt-10"></div>
@@ -451,4 +452,3 @@ export default function NutritionPillar() {
     </div>
   );
 }
-
