@@ -622,6 +622,23 @@ const translations = {
     np_cta_nad_es: 'Stack Mitocondrial de Precursor NAD+ (España)',
 
     np_cta_supps: 'Thorne Clinical Performance Stack',
+    
+    // Mediterranean Metabolic Blueprint
+    np_med_title: 'Metabolic Blueprint: The Mediterranean Pattern',
+    np_med_desc: 'The Mediterranean pattern is the Clinically Validated Operating System for biological optimization and autonomic homeostasis.',
+    np_med_epigenetic_title: 'Epigenetic Information & Nutrient Diversity',
+    np_med_epigenetic_desc: 'Phytonutrients (Lycopene, Beta-carotene) act as biological instructions to silence aging genes and manage systemic "inflammaging".',
+    np_med_big3_title: 'Defensive Biomarkers: The Big Three',
+    np_med_big3_desc: 'Directly improving the foundational markers of 2026 healthspan: Fasting Glucose, Triglycerides, and Insulin Sensitivity.',
+    np_med_synergy_glp1: 'The GLP-1 Mandate: High fiber and nutrient density help manage titration and microbiome health.',
+    np_med_synergy_neuro: 'Cognitive Fueling: Mediterranean Omega-3s and antioxidants support the neuro-metabolic Brain-Derived Neurotrophic Factor (BDNF) axis.',
+    np_med_seo_why_q: 'Why is the Mediterranean diet a biological necessity for longevity in 2026?',
+    np_med_seo_why_a: 'It remains the gold standard for reducing biological noise and maintaining autonomic homeostasis through precision nutrient diversity.',
+    np_med_seo_how_q: 'How to use Mediterranean principles to improve insulin sensitivity?',
+    np_med_seo_how_a: 'By leveraging specific phytonutrients to modulate the insulin-signaling pathway and reduce postprandial glucose volatility.',
+    np_med_seo_vs_q: 'Mediterranean Pattern vs. Ultra-Processed Diets: Sensor Analysis',
+    np_med_seo_vs_a: 'Real-time metabolic sensors reveal that the Mediterranean pattern prevents the "biological stress response" triggered by refined sugars and industrial oils.',
+    np_med_diagnostic_cta: 'Mediterranean-ize with precision: use at-home metabolic aging tests to determine your specific antioxidant and Omega-3 requirements.',
 
     // Nutrition Post G - Meal Prep
     npg_back: 'Back to Home',
@@ -1647,6 +1664,23 @@ const translations = {
     np_seo_why_a: 'El músculo es su seguro metabólico. Es el único tejido capaz de eliminar glucosa y secretar mioquinas que regulan la inflamación sistémica y la salud cerebral.',
     np_seo_vs_q: '¿Creatina: Salud Cerebral vs. Rendimiento Físico?',
     np_seo_vs_a: 'El rendimiento físico requiere 5g, pero la neuroprotección demanda un protocolo de Monohidrato ultra puro para cerrar la brecha energética en la corteza prefrontal.',
+    
+    // Mediterranean Metabolic Blueprint (ES)
+    np_med_title: 'Patrón Mediterráneo: El Plano Metabólico',
+    np_med_desc: 'El patrón mediterráneo es el Sistema Operativo Clínicamente Validado para la optimización biológica y la homeostasis autonómica.',
+    np_med_epigenetic_title: 'Información Epigenética y Diversidad de Nutrientes',
+    np_med_epigenetic_desc: 'Los fitonutrientes actúan como instrucciones biológicas para silenciar los genes del envejecimiento y gestionar el "inflammaging" sistémico.',
+    np_med_big3_title: 'Biomarcadores Defensivos: Los Tres Grandes',
+    np_med_big3_desc: 'Mejora directa de los marcadores fundamentales de 2026: Glucosa en ayunas, Triglicéridos y Sensibilidad a la Insulina.',
+    np_med_synergy_glp1: 'El Mandato GLP-1: La alta densidad de fibra y nutrientes ayuda a gestionar la titración y la salud del microbioma.',
+    np_med_synergy_neuro: 'Alimentación Cognitiva: Los Omega-3 y antioxidantes mediterráneos apoyan el eje neuro-metabólico BDNF.',
+    np_med_seo_why_q: '¿Por qué la dieta mediterránea es una necesidad biológica para la longevidad en 2026?',
+    np_med_seo_why_a: 'Sigue siendo el estándar de oro para reducir el "ruido biológico" y mantener la homeostasis autonómica mediante la diversidad de nutrientes de precisión.',
+    np_med_seo_how_q: '¿Cómo usar los principios mediterráneos para mejorar la sensibilidad a la insulina?',
+    np_med_seo_how_a: 'Aprovechando fitonutrientes específicos para modular la vía de señalización de la insulina y reducir la volatilidad de la glucosa postprandial.',
+    np_med_seo_vs_q: 'Patrón Mediterráneo vs. Dietas Ultraprocesadas: Análisis de Sensores',
+    np_med_seo_vs_a: 'Los sensores metabólicos en tiempo real revelan que el patrón mediterráneo previene la "respuesta de estrés biológico" provocada por azúcares refinados y aceites industriales.',
+    np_med_diagnostic_cta: 'Mediterraniza con precisión: utiliza pruebas de envejecimiento metabólico en casa para determinar tus requisitos específicos de antioxidantes y Omega-3.',
 
     // Sub-Page A: GLP-1
     np_glp1_title: 'Protocolo de Optimización GLP-1',

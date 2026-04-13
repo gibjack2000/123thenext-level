@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Apple, ArrowLeft, Droplets, Zap, Shield, ExternalLink, Activity, Brain, BarChart3, FlaskConical, Database, Microscope, Search } from 'lucide-react';
+import { Apple, ArrowLeft, Droplets, Zap, Shield, ExternalLink, Activity, Brain, BarChart3, FlaskConical, Database, Microscope, Search, Dna } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../translations';
@@ -159,6 +159,68 @@ export default function NutritionPillar() {
             </div>
           </motion.div>
         </div>
+|
+|        {/* Mediterranean Metabolic Blueprint Section */}
+|        <section className="mb-40">
+|          <div className="bg-[#fcfaf7] p-12 md:p-24 rounded-[5rem] border border-orange-100 shadow-2xl relative overflow-hidden">
+|            <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_100%_0%,rgba(249,115,22,0.03)_0%,transparent_50%)]"></div>
+|            
+|            <div className="relative z-10">
+|              <div className="flex flex-col lg:flex-row gap-20 items-center">
+|                <div className="lg:w-1/2 space-y-10">
+|                  <div className="inline-flex items-center gap-4 text-orange-700 font-black uppercase tracking-widest text-[10px] bg-orange-50 px-6 py-2 rounded-full border border-orange-100">
+|                    <Shield size={16} />
+|                    Clinically Validated Operating System
+|                  </div>
+|                  <h2 className="text-5xl md:text-[clamp(3.5rem,6vw,7rem)] font-display font-semibold uppercase tracking-[0.02em] text-[#2D2D2D] leading-[1.15]">
+|                    {t('np_med_title')}
+|                  </h2>
+|                  <p className="text-2xl text-slate-500 leading-relaxed font-medium">
+|                    {t('np_med_desc')}
+|                  </p>
+|                  <div className="space-y-6">
+|                    <div className="p-8 bg-white rounded-[2.5rem] border border-orange-50 shadow-sm">
+|                       <h4 className="text-[10px] font-black uppercase tracking-widest text-orange-700 mb-3 flex items-center gap-2">
+|                         <Dna size={14} /> {t('np_med_epigenetic_title')}
+|                       </h4>
+|                       <p className="text-sm text-slate-600 leading-relaxed">{t('np_med_epigenetic_desc')}</p>
+|                    </div>
+|                    <div className="p-8 bg-white rounded-[2.5rem] border border-orange-50 shadow-sm">
+|                       <h4 className="text-[10px] font-black uppercase tracking-widest text-orange-700 mb-3 flex items-center gap-2">
+|                         <Activity size={14} /> {t('np_med_big3_title')}
+|                       </h4>
+|                       <p className="text-sm text-slate-600 leading-relaxed">{t('np_med_big3_desc')}</p>
+|                    </div>
+|                  </div>
+|                </div>
+|                
+|                <div className="lg:w-1/2 grid grid-cols-1 gap-8">
+|                   <div className="bg-[#2D2D2D] p-12 rounded-[4rem] text-white shadow-2xl relative overflow-hidden group">
+|                      <div className="absolute top-0 right-0 p-8 opacity-10">
+|                         <Zap size={80} className="text-orange-400" />
+|                      </div>
+|                      <h3 className="text-2xl font-display font-bold uppercase mb-8 tracking-[0.02em]">2026 Clinical Synergies</h3>
+|                      <div className="space-y-8">
+|                         <div className="flex gap-6 items-start">
+|                            <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-orange-400 border border-white/10 shrink-0"><Shield size={20} /></div>
+|                            <p className="text-sm text-slate-400 leading-relaxed"><strong className="text-white block mb-1">GLP-1 Companion:</strong> {t('np_med_synergy_glp1')}</p>
+|                         </div>
+|                         <div className="flex gap-6 items-start">
+|                            <div className="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center text-orange-400 border border-white/10 shrink-0"><Brain size={20} /></div>
+|                            <p className="text-sm text-slate-400 leading-relaxed"><strong className="text-white block mb-1">Cognitive Fueling:</strong> {t('np_med_synergy_neuro')}</p>
+|                         </div>
+|                      </div>
+|                      <a href={affiliateLinks.agekit} target="_blank" rel="noopener noreferrer" className="mt-12 flex items-center justify-between p-6 bg-orange-600 text-white rounded-[2rem] hover:bg-orange-700 transition-all font-bold uppercase tracking-widest text-[10px] group/btn">
+|                         {t('np_med_diagnostic_cta')}
+|                         <ExternalLink size={16} className="group-hover/btn:translate-x-1 transition-transform" />
+|                      </a>
+|                   </div>
+|                </div>
+|              </div>
+|            </div>
+|          </div>
+|        </section>
+|
 
         {/* Cellular Recharging (NAD+) Section */}
         <section className="mb-40 grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
@@ -209,9 +271,9 @@ export default function NutritionPillar() {
 
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
-                { q: t('np_seo_how_q'), a: t('np_seo_how_a'), icon: Droplets },
-                { q: t('np_seo_why_q'), a: t('np_seo_why_a'), icon: Activity },
-                { q: t('np_seo_vs_q'), a: t('np_seo_vs_a'), icon: Brain }
+                { q: t('np_med_seo_why_q'), a: t('np_med_seo_why_a'), icon: Shield },
+                { q: t('np_med_seo_how_q'), a: t('np_med_seo_how_a'), icon: Activity },
+                { q: t('np_med_seo_vs_q'), a: t('np_med_seo_vs_a'), icon: Droplets }
               ].map((faq, i) => (
                 <div key={i} className="bg-white p-12 rounded-[4rem] shadow-xl border border-slate-50 hover:border-emerald-200 transition-all flex flex-col justify-between group">
                    <div>
