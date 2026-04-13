@@ -3,7 +3,7 @@ import { ArrowLeft, Zap, Thermometer, Shield, Info, ExternalLink, Timer, Trendin
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../../translations';
-import UniversalQA from '../../components/UniversalQA';
+
 
 export default function PerformanceMethodology() {
   const t = useT();
@@ -126,7 +126,7 @@ export default function PerformanceMethodology() {
           </div>
         </div>
 
-        <UniversalQA />
+
       </div>
     </div>
   );

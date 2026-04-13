@@ -13,8 +13,10 @@ const REGIONS = [
 
 import BlogSection from '../components/BlogSection';
 import { useT } from '../translations';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import PillarCard from '../components/home/PillarCard';
+import IntelligenceTeaser from '../components/IntelligenceTeaser';
+
 
 export default function Home() {
   const t = useT();
@@ -1007,6 +1009,10 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="relative z-10">
+        <IntelligenceTeaser />
       </div>
 
       {/* Affiliates Hub */}

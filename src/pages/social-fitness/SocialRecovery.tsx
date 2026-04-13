@@ -3,7 +3,7 @@ import { ArrowLeft, Thermometer, Smile, Users, ExternalLink, Heart, Shield, Acti
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../../translations';
-import UniversalQA from '../../components/UniversalQA';
+
 
 export default function SocialRecovery() {
   const t = useT();
@@ -101,7 +101,7 @@ export default function SocialRecovery() {
           </div>
         </section>
 
-        <UniversalQA />
+
       </div>
     </div>
   );

@@ -62,6 +62,12 @@ const Footer = () => {
                   {t('nav_shop')}
                 </a>
               </li>
+              <li>
+                <Link to="/intelligence-hub" className="text-slate-400 hover:text-indigo-400 font-semibold transition-colors duration-200 flex items-center group">
+                  <span className="w-0 group-hover:w-2 h-0.5 bg-indigo-500 mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                  Intelligence Hub
+                </Link>
+              </li>
             </ul>
           </div>
 

@@ -3,7 +3,7 @@ import { ArrowLeft, Sun, Users, Activity, ExternalLink, MapPin, Trophy, Shield }
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../../translations';
-import UniversalQA from '../../components/UniversalQA';
+
 
 export default function PickleballEcosystem() {
   const t = useT();
@@ -106,7 +106,7 @@ export default function PickleballEcosystem() {
           </div>
         </section>
 
-        <UniversalQA />
+
       </div>
     </div>
   );

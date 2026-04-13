@@ -3,7 +3,7 @@ import { ArrowLeft, Cpu, Shield, Zap, Info, ExternalLink, BarChart3, Binary } fr
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../../translations';
-import UniversalQA from '../../components/UniversalQA';
+
 
 export default function WearableWar() {
   const t = useT();
@@ -127,7 +127,7 @@ export default function WearableWar() {
           </div>
         </div>
 
-        <UniversalQA />
+
       </div>
     </div>
   );

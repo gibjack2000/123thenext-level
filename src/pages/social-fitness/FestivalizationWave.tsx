@@ -3,7 +3,7 @@ import { ArrowLeft, Music, Zap, Users, ExternalLink, Ticket, Trophy, Heart } fro
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../../translations';
-import UniversalQA from '../../components/UniversalQA';
+
 
 export default function FestivalizationWave() {
   const t = useT();
@@ -100,7 +100,7 @@ export default function FestivalizationWave() {
           </div>
         </section>
 
-        <UniversalQA />
+
       </div>
     </div>
   );
