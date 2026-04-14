@@ -1066,7 +1066,12 @@ export default function Home() {
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-slate-900/20 group-hover:via-slate-900/60 transition-colors duration-500"></div>
                   </div>
                   <div className="relative z-10">
-                    <div className="text-4xl mb-2">{region.flag}</div>
+                    <motion.div
+                      className="text-4xl mb-2 origin-bottom-left w-fit animate-flag-wave"
+                      style={{ display: 'inline-block' }}
+                    >
+                      {region.flag}
+                    </motion.div>
                     <h3 className="text-2xl font-display uppercase tracking-tight text-white mb-1">{region.name}</h3>
                     <div className="flex items-center text-slate-300 mb-4">
                       <MapPin size={16} className="mr-1" />
