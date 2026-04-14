@@ -108,51 +108,80 @@ export default function HealthPillar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-32 relative z-20 pb-24">
         {/* Core Strategy Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-32">
-          <motion.div 
+          <motion.div
             whileHover={{ y: -10 }}
-            className="bg-white p-10 rounded-[2.5rem] shadow-xl border border-slate-100 flex flex-col items-start h-full"
+            className="relative p-10 rounded-[2.5rem] shadow-xl border border-slate-700/30 flex flex-col items-start h-full overflow-hidden group"
           >
-            <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-blue-600 mb-6">
-              <Zap size={32} />
+            <div className="absolute inset-0 z-0">
+              <img
+                src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=1200"
+                alt="Diagnostics"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[0.3]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-900/40 to-slate-950/80"></div>
             </div>
-            <h2 className="text-3xl font-display font-black uppercase tracking-[0.02em] text-slate-900 mb-4 leading-[1.15]">
-              {t('hp_shift_title')}
-            </h2>
-            <p className="text-slate-600 text-lg leading-relaxed mb-6">
-              {t('hp_shift_desc')}
-            </p>
-            <div className="mt-auto pt-6 border-t border-slate-50 w-full font-bold text-blue-600 flex items-center gap-2">
-              <Microscope size={20} />
-              <span>Diagnostic-First Approach</span>
+
+            <div className="relative z-10 w-full h-full flex flex-col items-start">
+              <div className="w-16 h-16 bg-blue-500/20 backdrop-blur-md rounded-2xl flex items-center justify-center text-blue-400 mb-6 border border-blue-500/30 shadow-xl group-hover:scale-110 transition-transform duration-500">
+                <Zap size={32} />
+              </div>
+              <h2 className="text-3xl font-display font-black uppercase tracking-[0.02em] text-white mb-4 leading-[1.15]">
+                {t('hp_shift_title')}
+              </h2>
+              <p className="text-slate-300 text-lg leading-relaxed mb-6 font-medium">
+                {t('hp_shift_desc')}
+              </p>
+              <div className="mt-auto pt-6 border-t border-white/10 w-full font-bold text-blue-400 flex items-center gap-2">
+                <Microscope size={20} />
+                <span className="uppercase tracking-widest text-xs">Diagnostic-First Approach</span>
+              </div>
             </div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             whileHover={{ y: -10 }}
-            className="bg-white p-10 rounded-[2.5rem] shadow-xl border border-slate-100 flex flex-col items-start h-full"
+            className="relative p-10 rounded-[2.5rem] shadow-xl border border-slate-700/30 flex flex-col items-start h-full overflow-hidden group"
           >
-            <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 mb-6">
-              <Sparkles size={32} />
+            <div className="absolute inset-0 z-0">
+              <img
+                src="https://images.unsplash.com/photo-1559839734-2b71f1e3c77e?auto=format&fit=crop&q=80&w=1200"
+                alt="Bio-Science"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[0.3]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-br from-slate-950/90 via-slate-900/40 to-slate-950/80"></div>
             </div>
-            <h2 className="text-3xl font-display font-semibold uppercase tracking-[0.02em] text-[#2D2D2D] mb-4 leading-tight">
-              {t('hp_skin_title')}
-            </h2>
-            <p className="text-slate-600 text-lg leading-relaxed mb-6">
-              {t('hp_skin_desc')}
-            </p>
-            <p className="text-slate-500 italic mb-6">
-              {t('hp_skin_detail')}
-            </p>
-            <div className="mt-auto pt-6 border-t border-slate-50 w-full font-bold text-emerald-600 flex items-center gap-2">
-              <Shield size={20} />
-              <span>Longevity Biology 2026</span>
+
+            <div className="relative z-10 w-full h-full flex flex-col items-start">
+              <div className="w-16 h-16 bg-emerald-500/20 backdrop-blur-md rounded-2xl flex items-center justify-center text-emerald-400 mb-6 border border-emerald-500/30 shadow-xl group-hover:scale-110 transition-transform duration-500">
+                <Sparkles size={32} />
+              </div>
+              <h2 className="text-3xl font-display font-black uppercase tracking-[0.02em] text-white mb-4 leading-[1.15]">
+                {t('hp_skin_title')}
+              </h2>
+              <p className="text-slate-300 text-lg leading-relaxed mb-6 font-medium">
+                {t('hp_skin_desc')}
+              </p>
+              <p className="text-slate-400 italic mb-6 text-sm">
+                {t('hp_skin_detail')}
+              </p>
+              <div className="mt-auto pt-6 border-t border-white/10 w-full font-bold text-emerald-400 flex items-center gap-2">
+                <Shield size={20} />
+                <span className="uppercase tracking-widest text-xs">Longevity Biology 2026</span>
+              </div>
             </div>
           </motion.div>
         </div>
 
         {/* Biological Age Section */}
-        <section className="bg-slate-900 rounded-[3rem] p-8 md:p-16 text-white mb-32 overflow-hidden relative shadow-2xl shadow-indigo-900/40">
-          <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-indigo-500/10 to-transparent pointer-events-none"></div>
+        <section className="bg-slate-900 rounded-[3rem] p-8 md:p-16 text-white mb-32 overflow-hidden relative shadow-2xl shadow-indigo-900/40 group">
+          <div className="absolute inset-0 z-0">
+            <img
+              src="https://images.unsplash.com/photo-1530633173504-89f76977bb42?auto=format&fit=crop&q=80&w=2000"
+              alt="DNA and Research"
+              className="w-full h-full object-cover opacity-20 transition-transform duration-[20s] group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/60 to-transparent"></div>
+          </div>
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 font-bold text-sm uppercase tracking-widest mb-8">
