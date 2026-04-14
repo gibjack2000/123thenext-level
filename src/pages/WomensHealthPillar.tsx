@@ -107,7 +107,7 @@ export default function WomensHealthPillar() {
           <Link to="/womens-health/longevity" className="group">
             <motion.div 
               whileHover={{ y: -10, scale: 1.02 }}
-              className="bg-white p-10 rounded-[3rem] shadow-xl border border-rose-100 h-full flex flex-col justify-between hover:border-rose-300 transition-colors"
+              className="relative bg-cover bg-center p-10 rounded-[3rem] shadow-xl border border-rose-100 h-full flex flex-col justify-between hover:border-rose-300 transition-colors" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80')" }}
             >
               <div>
                 <div className="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-600 mb-8 border border-rose-100">
@@ -129,7 +129,7 @@ export default function WomensHealthPillar() {
           <Link to="/womens-health/performance" className="group">
             <motion.div 
               whileHover={{ y: -10, scale: 1.02 }}
-              className="bg-rose-900 p-10 rounded-[3rem] shadow-xl text-white h-full flex flex-col justify-between"
+              className="relative bg-cover bg-center p-10 rounded-[3rem] shadow-xl text-white h-full flex flex-col justify-between" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=800&q=80')" }}
             >
               <div>
                 <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-rose-300 mb-8 border border-white/10">
@@ -151,7 +151,7 @@ export default function WomensHealthPillar() {
           <Link to="/womens-health/metabolic" className="group">
             <motion.div 
               whileHover={{ y: -10, scale: 1.02 }}
-              className="bg-white p-10 rounded-[3rem] shadow-xl border border-rose-100 h-full flex flex-col justify-between hover:border-rose-300 transition-colors"
+              className="relative bg-cover bg-center p-10 rounded-[3rem] shadow-xl border border-rose-100 h-full flex flex-col justify-between hover:border-rose-300 transition-colors" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80')" }}
             >
               <div>
                 <div className="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-600 mb-8 border border-rose-100">
