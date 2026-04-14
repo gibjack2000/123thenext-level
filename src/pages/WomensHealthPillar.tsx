@@ -24,55 +24,80 @@ export default function WomensHealthPillar() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       {/* Hero Section */}
-      <div className="relative pt-32 pb-64 md:pt-48 md:pb-80 flex items-center justify-center overflow-hidden bg-rose-950">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay"
-          referrerPolicy="no-referrer"
-        >
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-woman-doing-box-jumps-in-a-gym-4853-large.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-rose-950/90 via-rose-950/40 to-slate-50"></div>
+      <div className="relative pt-32 pb-64 md:pt-48 md:pb-80 flex items-center justify-center overflow-hidden bg-rose-950 text-white">
+        {/* Cinematic Backdrop Layer */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover opacity-20 scale-105"
+            referrerPolicy="no-referrer"
+          >
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-woman-doing-box-jumps-in-a-gym-4853-large.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-br from-rose-950 via-rose-900/40 to-rose-950"></div>
+        </div>
+
+        {/* Floating Cellular/Hormonal Light Blobs */}
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.4, 1],
+            x: [0, 80, 0],
+            opacity: [0.1, 0.25, 0.1]
+          }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-0 -left-20 w-[45rem] h-[45rem] bg-rose-500/10 rounded-full blur-[160px] pointer-events-none"
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1.3, 1, 1.3],
+            x: [0, -80, 0],
+            opacity: [0.05, 0.15, 0.05]
+          }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-1/4 -right-32 w-[35rem] h-[35rem] bg-orange-400/10 rounded-full blur-[140px] pointer-events-none"
+        />
+
+        {/* Technical Grain Overlay */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')" }}></div>
         
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Link to="/#pillars" className="absolute -top-32 left-4 sm:left-6 lg:left-8 inline-flex items-center text-white/70 hover:text-white font-bold uppercase tracking-tight transition-all backdrop-blur-md bg-white/5 px-4 py-2 rounded-xl border border-white/10 hover:bg-white/10">
-            <ArrowLeft size={16} className="mr-2" />
-            {t('whp_back')}
+          <Link to="/#pillars" className="absolute -top-32 left-4 sm:left-6 lg:left-8 inline-flex items-center text-white/40 hover:text-white font-black uppercase tracking-tighter transition-all group">
+            <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
+            <span className="border-b border-white/10 group-hover:border-white transition-colors">{t('whp_back')}</span>
           </Link>
 
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="inline-flex items-center px-4 py-1.5 rounded-full bg-rose-500/20 border border-rose-400/30 text-rose-300 font-bold text-xs uppercase tracking-widest mb-8 mx-auto"
-          >
-            <Microscope size={14} className="mr-2" />
-            Clinical Standard: 2026 Ovary-Span
-          </motion.div>
-          
-          <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-6xl md:text-[clamp(3.5rem,7vw,8rem)] font-display font-semibold uppercase tracking-[0.02em] text-white mb-4 leading-[1.15]"
+            transition={{ duration: 1 }}
+            className="flex flex-col items-center"
           >
-            {t('whp_title_start')}<br />
-            <span className="text-rose-400 drop-shadow-[0_0_15px_rgba(251,113,133,0.3)]">
-              {t('whp_title_end')}
-            </span>
-          </motion.h1>
-          
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-2xl text-rose-100/80 font-medium max-w-3xl mx-auto leading-relaxed"
-          >
-            {t('whp_description')} In 2026, we transition beyond menopause "management" into the **"Ovary-Span" paradigm**, treating ovarian health as the primary driver of systemic longevity for the female physiology.
-          </motion.p>
+            <div className="px-6 py-2 rounded-2xl bg-white/5 border border-white/10 text-rose-300 font-display font-black text-[10px] uppercase tracking-[0.3em] mb-12 backdrop-blur-md shadow-2xl">
+              <span className="flex items-center gap-3">
+                <Microscope size={14} className="animate-pulse" />
+                Clinical Standard: 2026 Ovary-Span
+              </span>
+            </div>
+            
+            <h1 className="text-6xl md:text-[clamp(4.5rem,8vw,11rem)] font-display font-black uppercase tracking-tighter text-white mb-6 leading-[0.8] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+              {t('whp_title_start')}<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-orange-300 to-rose-500">
+                {t('whp_title_end')}
+              </span>
+            </h1>
+
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="text-xl md:text-2xl text-rose-100/50 font-medium max-w-4xl mx-auto leading-relaxed border-l-4 border-rose-500/30 pl-8 text-left italic"
+            >
+              {t('whp_description')} In 2026, we transition beyond menopause "management" into the **"Ovary-Span" paradigm**, treating ovarian health as the primary driver of systemic longevity for the female physiology.
+            </motion.p>
+          </motion.div>
         </div>
       </div>
 

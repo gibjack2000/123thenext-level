@@ -26,43 +26,73 @@ export default function HealthPillar() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <div className="relative pt-32 pb-64 md:pt-48 md:pb-80 flex items-center justify-center overflow-hidden bg-slate-900 text-white">
-        <img
+        {/* Background Image with slow animation */}
+        <motion.img
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 20, repeat: Infinity, repeatType: "reverse", ease: "linear" }}
           src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=2000"
           alt="Biological Age Testing and Longevity"
-          className="absolute inset-0 w-full h-full object-cover opacity-40 scale-105"
+          className="absolute inset-0 w-full h-full object-cover opacity-30"
           referrerPolicy="no-referrer"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/80 to-slate-50"></div>
+        
+        {/* High-fidelity Glass/Mesh Overlays */}
+        <div className="absolute inset-0 bg-slate-900/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/40 via-transparent to-emerald-900/40"></div>
+        
+        {/* Animated Light Blobs */}
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.2, 1],
+            x: [0, 50, 0],
+            y: [0, -30, 0]
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 -left-20 w-96 h-96 bg-indigo-500/20 rounded-full blur-[120px] pointer-events-none"
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1.2, 1, 1.2],
+            x: [0, -50, 0],
+            y: [0, 30, 0]
+          }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-1/4 -right-20 w-[30rem] h-[30rem] bg-emerald-500/10 rounded-full blur-[150px] pointer-events-none"
+        />
+
+        {/* Technical Noise Texture */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] brightness-100 contrast-150"></div>
+
+        {/* Bottom Transition Gradient */}
+        <div className="absolute inset-x-0 bottom-0 h-96 bg-gradient-to-t from-white via-white/50 to-transparent"></div>
         
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Link to="/#pillars" className="absolute -top-20 left-4 sm:left-6 lg:left-8 inline-flex items-center text-white/70 hover:text-white font-medium transition-all backdrop-blur-md bg-white/10 px-4 py-2 rounded-xl border border-white/20 hover:bg-white/20 group">
+          <Link to="/#pillars" className="absolute -top-20 left-4 sm:left-6 lg:left-8 inline-flex items-center text-white/50 hover:text-white font-black uppercase tracking-tighter transition-all group">
             <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
-            {t('hp_back')}
+            <span className="border-b border-white/20 group-hover:border-white transition-colors">{t('hp_back')}</span>
           </Link>
 
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="inline-flex items-center justify-center w-24 h-24 rounded-[2rem] bg-indigo-500/20 backdrop-blur-2xl border border-indigo-400/30 text-indigo-400 mb-8 mx-auto shadow-2xl shadow-indigo-500/20"
-          >
-            <Activity size={48} />
-          </motion.div>
-          
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-6xl md:text-[clamp(3.5rem,7vw,8rem)] font-display font-semibold uppercase tracking-[0.02em] text-white mb-6 leading-[1.15] drop-shadow-2xl"
+            transition={{ duration: 1 }}
+            className="flex flex-col items-center"
           >
-            {t('hp_title')}<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-indigo-300 to-emerald-400">
-              {t('hp_subtitle')}
-            </span>
-          </motion.h1>
+            <div className="w-20 h-20 rounded-3xl bg-white/10 backdrop-blur-3xl border border-white/20 text-indigo-400 flex items-center justify-center mb-8 shadow-2xl">
+              <Activity size={40} className="animate-pulse" />
+            </div>
+            
+            <h1 className="text-6xl md:text-[clamp(4rem,8vw,10rem)] font-display font-black uppercase tracking-tighter text-white mb-6 leading-[0.85] drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)]">
+              {t('hp_title')}<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-emerald-400 drop-shadow-none">
+                {t('hp_subtitle')}
+              </span>
+            </h1>
+          </motion.div>
           
           <motion.p 
             initial={{ opacity: 0, y: 20 }}

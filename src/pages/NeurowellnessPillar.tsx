@@ -40,62 +40,91 @@ export default function NeurowellnessPillar() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       {/* Level 1: Master Hub Hero */}
-      <div className="relative pt-32 pb-64 md:pt-48 md:pb-80 flex items-center justify-center overflow-hidden bg-slate-950">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay"
-        >
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-glowing-blue-neural-network-33678-large.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/90 via-slate-950/60 to-slate-50"></div>
+      <div className="relative pt-32 pb-64 md:pt-48 md:pb-80 flex items-center justify-center overflow-hidden bg-slate-950 text-white">
+        {/* Cinematic Video Layer */}
+        <div className="absolute inset-0 z-0 scale-110">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover opacity-20"
+          >
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-glowing-blue-neural-network-33678-large.mp4" type="video/mp4" />
+          </video>
+        </div>
+        
+        {/* Deep Atmospheric Gradients */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900/40 to-slate-950"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(67,56,202,0.1),transparent_70%)]"></div>
+
+        {/* Synaptic Motion Blobs */}
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.3, 1],
+            x: [0, 100, 0],
+            opacity: [0.1, 0.2, 0.1]
+          }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-0 -left-20 w-[45rem] h-[45rem] bg-indigo-600/20 rounded-full blur-[160px] pointer-events-none"
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1.3, 1, 1.3],
+            x: [0, -100, 0],
+            opacity: [0.05, 0.15, 0.05]
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-1/4 -right-32 w-[35rem] h-[35rem] bg-violet-500/10 rounded-full blur-[140px] pointer-events-none"
+        />
+
+        {/* Technical Grain Overlay */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')" }}></div>
         
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Link to="/#pillars" className="absolute -top-32 left-4 sm:left-6 lg:left-8 inline-flex items-center text-white/70 hover:text-white font-bold uppercase tracking-tight transition-all backdrop-blur-md bg-white/5 px-4 py-2 rounded-xl border border-white/10 hover:bg-white/10">
-            <ArrowLeft size={16} className="mr-2" />
-            {t('wp_back')}
+          <Link to="/#pillars" className="absolute -top-32 left-4 sm:left-6 lg:left-8 inline-flex items-center text-white/40 hover:text-white font-black uppercase tracking-tighter transition-all group">
+            <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
+            <span className="border-b border-white/10 group-hover:border-white transition-colors">{t('wp_back')}</span>
           </Link>
 
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 font-bold text-xs uppercase tracking-widest mb-8 mx-auto"
-          >
-            <Shield size={14} className="mr-2" />
-            2026 Medicalized Wellness Standard
-          </motion.div>
-          
-          <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-6xl md:text-[clamp(3.5rem,7vw,8rem)] font-display font-semibold uppercase tracking-[0.02em] text-white mb-6 leading-[1.15]"
+            transition={{ duration: 1 }}
+            className="flex flex-col items-center"
           >
-            {t('wp_title_start')}<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 drop-shadow-[0_0_15px_rgba(129,140,248,0.3)]">
-              {t('wp_title_end')}
-            </span>
-          </motion.h1>
-          
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-3xl text-slate-300 font-medium max-w-4xl mx-auto leading-tight"
-          >
-            {t('wp_hub_narrative_title')}
-          </motion.p>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.4 }}
-            className="mt-6 text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed"
-          >
-            {t('wp_hub_narrative_p')}
-          </motion.p>
+            <div className="px-6 py-2 rounded-2xl bg-white/5 border border-white/10 text-indigo-400 font-display font-black text-[10px] uppercase tracking-[0.3em] mb-12 backdrop-blur-md shadow-2xl">
+              <span className="flex items-center gap-3">
+                <Brain size={14} className="animate-pulse" />
+                2026 Medicalized Wellness Standard
+              </span>
+            </div>
+            
+            <h1 className="text-6xl md:text-[clamp(4.5rem,8vw,11rem)] font-display font-black uppercase tracking-tighter text-white mb-6 leading-[0.8] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+              {t('wp_title_start')}<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-violet-400">
+                {t('wp_title_end')}
+              </span>
+            </h1>
+
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="text-xl md:text-2xl text-slate-400 font-medium max-w-4xl mx-auto leading-relaxed border-l-4 border-indigo-500/30 pl-8 text-left italic"
+            >
+              {t('wp_hub_narrative_title')}
+            </motion.p>
+            
+            <motion.p 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.6 }}
+              transition={{ duration: 1.5, delay: 0.6 }}
+              className="mt-8 text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed text-center"
+            >
+              {t('wp_hub_narrative_p')}
+            </motion.p>
+          </motion.div>
         </div>
       </div>
 
