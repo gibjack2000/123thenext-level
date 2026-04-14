@@ -53,7 +53,7 @@ import BreathingMindfulness from './pages/BreathingMindfulness';
 import LovingKindness from './pages/LovingKindness';
 import BeginnersGuide from './pages/BeginnersGuide';
 import RegionHub from './pages/RegionHub';
-import CategoryPage from './pages/CategoryPage';
+import CategoryPage from './pages/categoryPage';
 import AdminPage from './pages/AdminPage';
 import SuperAdminPage from './pages/SuperAdminPage';
 import BlogPostPage from './pages/BlogPostPage';
