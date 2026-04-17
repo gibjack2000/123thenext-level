@@ -935,11 +935,13 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
           </div>
         </div>
 
-        <div className="flex items-center">
-          <input type="checkbox" id="featured" name="featured" checked={formData.featured} onChange={handleChange} className="h-5 w-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
-          <label htmlFor="featured" className="ml-2 block text-sm font-medium text-slate-900">
-            Feature on Homepage (Top Pick)
-          </label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-6">
+          <div className="flex items-center">
+            <input type="checkbox" id="featured" name="featured" checked={formData.featured} onChange={handleChange} className="h-5 w-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+            <label htmlFor="featured" className="ml-2 block text-sm font-medium text-slate-900">
+              Feature on Homepage (Top Pick)
+            </label>
+          </div>
         </div>
 
         <div className="pt-4 border-t border-slate-100 flex gap-4">
@@ -1598,4 +1600,3 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
     </div>
   );
 }
-

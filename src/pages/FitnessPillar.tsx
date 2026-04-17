@@ -110,66 +110,93 @@ export default function FitnessPillar() {
         {/* Navigational Paths: Level 1 Framework */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
           <Link to="/fitness/wearables" className="group">
-            <motion.div 
+            <motion.div
               whileHover={{ y: -10, scale: 1.02 }}
-              className="bg-slate-900/50 backdrop-blur-xl p-10 rounded-[3rem] shadow-2xl border border-white/5 h-full flex flex-col justify-between hover:border-blue-500/50 transition-colors"
+              className="relative p-10 rounded-[3rem] shadow-2xl border border-white/10 h-full flex flex-col justify-between overflow-hidden transition-all duration-500"
             >
-              <div>
-                <div className="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 mb-8 border border-blue-500/20">
+              <div className="absolute inset-0 z-0">
+                <img
+                  src="https://images.unsplash.com/photo-1510017803434-a899398421b3?auto=format&fit=crop&q=80&w=800"
+                  alt="Wearables"
+                  className="w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-110 brightness-[0.4]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/40 to-slate-950/90"></div>
+              </div>
+
+              <div className="relative z-10">
+                <div className="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 mb-8 border border-blue-500/20 backdrop-blur-md">
                   <Cpu size={28} />
                 </div>
                 <h3 className="text-2xl font-display font-black uppercase tracking-tight text-white mb-4">
                   {t('fp_path_a_title')}
                 </h3>
-                <p className="text-slate-400 leading-relaxed mb-6">
+                <p className="text-slate-300 leading-relaxed mb-6 font-medium">
                   {t('fp_path_a_desc')}
                 </p>
               </div>
-              <div className="flex items-center gap-2 text-blue-400 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/5">
+              <div className="relative z-10 flex items-center gap-2 text-blue-400 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/10">
                 Explore The War <ExternalLink size={12} />
               </div>
             </motion.div>
           </Link>
 
           <Link to="/fitness/biosensing" className="group">
-            <motion.div 
+            <motion.div
               whileHover={{ y: -10, scale: 1.02 }}
-              className="bg-slate-900/50 backdrop-blur-xl p-10 rounded-[3rem] shadow-2xl border border-white/5 h-full flex flex-col justify-between hover:border-emerald-500/50 transition-colors"
+              className="relative p-10 rounded-[3rem] shadow-2xl border border-white/10 h-full flex flex-col justify-between overflow-hidden transition-all duration-500"
             >
-              <div>
-                <div className="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 mb-8 border border-emerald-500/20">
+              <div className="absolute inset-0 z-0">
+                <img
+                  src="https://images.unsplash.com/photo-1543164904-8fa947690623?auto=format&fit=crop&q=80&w=800"
+                  alt="Biosensing"
+                  className="w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-110 brightness-[0.4]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/40 to-slate-950/90"></div>
+              </div>
+
+              <div className="relative z-10">
+                <div className="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 mb-8 border border-emerald-500/20 backdrop-blur-md">
                   <Activity size={28} />
                 </div>
                 <h3 className="text-2xl font-display font-black uppercase tracking-tight text-white mb-4">
                   {t('fp_path_b_title')}
                 </h3>
-                <p className="text-slate-400 leading-relaxed mb-6">
+                <p className="text-slate-300 leading-relaxed mb-6 font-medium">
                   {t('fp_path_b_desc')}
                 </p>
               </div>
-              <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/5">
+              <div className="relative z-10 flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/10">
                 View Lab-on-Wrist <ExternalLink size={12} />
               </div>
             </motion.div>
           </Link>
 
           <Link to="/fitness/methodology" className="group">
-            <motion.div 
+            <motion.div
               whileHover={{ y: -10, scale: 1.02 }}
-              className="bg-slate-900/50 backdrop-blur-xl p-10 rounded-[3rem] shadow-2xl border border-white/5 h-full flex flex-col justify-between hover:border-indigo-500/50 transition-colors"
+              className="relative p-10 rounded-[3rem] shadow-2xl border border-white/10 h-full flex flex-col justify-between overflow-hidden transition-all duration-500"
             >
-              <div>
-                <div className="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-400 mb-8 border border-indigo-500/20">
+              <div className="absolute inset-0 z-0">
+                <img
+                  src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=800"
+                  alt="Methodology"
+                  className="w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-110 brightness-[0.4]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/40 to-slate-950/90"></div>
+              </div>
+
+              <div className="relative z-10">
+                <div className="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-400 mb-8 border border-indigo-500/20 backdrop-blur-md">
                   <Zap size={28} />
                 </div>
                 <h3 className="text-2xl font-display font-black uppercase tracking-tight text-white mb-4">
                   {t('fp_path_c_title')}
                 </h3>
-                <p className="text-slate-400 leading-relaxed mb-6">
+                <p className="text-slate-300 leading-relaxed mb-6 font-medium">
                   {t('fp_path_c_desc')}
                 </p>
               </div>
-              <div className="flex items-center gap-2 text-indigo-400 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/5">
+              <div className="relative z-10 flex items-center gap-2 text-indigo-400 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/10">
                 Protocol Standards <ExternalLink size={12} />
               </div>
             </motion.div>
@@ -177,9 +204,17 @@ export default function FitnessPillar() {
         </div>
 
         {/* Central Intensity Protocol */}
-        <section className="bg-gradient-to-br from-indigo-950 via-slate-950 to-slate-950 rounded-[4rem] p-10 md:p-20 border border-white/5 mb-32 relative overflow-hidden shadow-[0_0_100px_rgba(99,102,241,0.1)]">
+        <section className="bg-slate-950 rounded-[4rem] p-10 md:p-20 border border-white/5 mb-32 relative overflow-hidden shadow-[0_0_100px_rgba(99,102,241,0.1)] group">
+          <div className="absolute inset-0 z-0">
+            <img
+              src="https://images.unsplash.com/photo-1518611012118-29fa113f8ec4?auto=format&fit=crop&q=80&w=2000"
+              alt="High Intensity"
+              className="w-full h-full object-cover opacity-20 transition-transform duration-[20s] group-hover:scale-110 brightness-[0.3]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-indigo-950/90 via-slate-950/70 to-slate-950"></div>
+          </div>
           <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #4f46e5 1px, transparent 0)', backgroundSize: '32px 32px' }}></div>
-          
+
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-10">
               <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-indigo-500/10 border border-indigo-400/20 text-indigo-400 font-black text-sm uppercase tracking-[0.2em]">

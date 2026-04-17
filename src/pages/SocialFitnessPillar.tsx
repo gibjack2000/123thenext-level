@@ -111,7 +111,7 @@ export default function SocialFitnessPillar() {
           <Link to="/social-fitness/pickleball" className="group">
             <motion.div 
               whileHover={{ y: -10, scale: 1.02 }}
-              className="bg-white p-10 rounded-[3rem] shadow-xl border border-orange-100 h-full flex flex-col justify-between hover:border-orange-300 transition-colors"
+              className="relative bg-cover bg-center p-10 rounded-[3rem] shadow-xl border border-orange-100 h-full flex flex-col justify-between hover:border-orange-300 transition-colors" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1526406915891-629a69bb5f7f?auto=format&fit=crop&w=800&q=80')" }}
             >
               <div>
                 <div className="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center text-orange-600 mb-8 border border-orange-100">
@@ -133,7 +133,7 @@ export default function SocialFitnessPillar() {
           <Link to="/social-fitness/festivals" className="group">
             <motion.div 
               whileHover={{ y: -10, scale: 1.02 }}
-              className="bg-orange-600 p-10 rounded-[3rem] shadow-xl text-white h-full flex flex-col justify-between"
+              className="relative bg-cover bg-center p-10 rounded-[3rem] shadow-xl text-white h-full flex flex-col justify-between" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80')" }}
             >
               <div>
                 <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-orange-200 mb-8 border border-white/10">
@@ -155,7 +155,7 @@ export default function SocialFitnessPillar() {
           <Link to="/social-fitness/recovery" className="group">
             <motion.div 
               whileHover={{ y: -10, scale: 1.02 }}
-              className="bg-slate-900 p-10 rounded-[3rem] shadow-xl text-white h-full flex flex-col justify-between"
+              className="relative bg-cover bg-center p-10 rounded-[3rem] shadow-xl text-white h-full flex flex-col justify-between" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80')" }}
             >
               <div>
                 <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-yellow-400 mb-8 border border-white/10">
