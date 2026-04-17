@@ -25,16 +25,18 @@ jobs:
         VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
       run: |
+        # Copy root Products into public/Products so Vite includes them in the build
+        mkdir -p public/Products
+        if [ -d "Products" ]; then cp -rv Products/* public/Products/; elif [ -d "products" ]; then cp -rv products/* public/Products/; fi
+        
         npm install --legacy-peer-deps
         npm run build
-        # Copy routing and server files to the built folder for deployment
+        
+        # Copy routing and server files to the built folder
         cp .htaccess dist/
         cp index.js dist/
         cp package.json dist/
         cp package-lock.json dist/
-        # Ensure dist/Products exists and copy all root images into it
-        mkdir -p dist/Products
-        if [ -d "Products" ]; then cp -rv Products/* dist/Products/; elif [ -d "products" ]; then cp -rv products/* dist/Products/; fi
 
 
 
