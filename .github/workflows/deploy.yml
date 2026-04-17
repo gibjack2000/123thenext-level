@@ -32,8 +32,10 @@ jobs:
         cp index.js dist/
         cp package.json dist/
         cp package-lock.json dist/
-        # Copy Products folder from root to dist for distribution
-        if [ -d "Products" ]; then cp -r Products dist/; elif [ -d "products" ]; then cp -r products dist/Products; fi
+        # Ensure dist/Products exists and copy all root images into it
+        mkdir -p dist/Products
+        if [ -d "Products" ]; then cp -rv Products/* dist/Products/; elif [ -d "products" ]; then cp -rv products/* dist/Products/; fi
+
 
 
     
