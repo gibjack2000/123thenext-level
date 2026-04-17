@@ -131,17 +131,37 @@ export default function NeurowellnessPillar() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-32 pb-32">
         {/* Navigation Pathways */}
-        <div className="bg-white p-12 md:p-20 rounded-[4rem] shadow-xl border border-slate-100 mb-32">
-              <h2 className="text-4xl md:text-5xl font-display font-bold uppercase text-[#2D2D2D] mb-6">Deep‑Dive Protocols</h2>
-              <p className="text-lg text-slate-600 mb-8">
-                Our neurowellness ecosystem offers three complementary pathways—Hard‑Care, Soft‑Care, and Metabolism—each grounded in cutting‑edge neuro‑science. Choose the protocol that matches your current goals, whether you’re seeking targeted nerve‑stim stimulation, gentle somatic practices, or metabolic‑brain integration.
-              </p>
-              <ul className="list-disc list-inside text-slate-700 space-y-4">
-                <li><strong>Hard‑Care:</strong> Tech‑driven vagus nerve stimulation and biometric feedback to rapidly reset autonomic tone.</li>
-                <li><strong>Soft‑Care:</strong> Somatic breathing, grounding, and movement practices that cultivate resilience and long‑term tolerance.</li>
-                <li><strong>Metabolism:</strong> Harness the muscle‑brain axis—irisin, BDNF, and creatine—to boost cognitive energy and recovery.</li>
-              </ul>
+        <div className="bg-white p-12 md:p-20 rounded-[4rem] shadow-xl border border-slate-100 mb-32 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-50/50 blur-3xl -mr-32 -mt-32 rounded-full"></div>
+          
+          <div className="relative z-10">
+            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 font-bold text-[10px] uppercase tracking-widest mb-8">
+              System Overview
             </div>
+            <h2 className="text-4xl md:text-6xl font-display font-bold uppercase text-[#2D2D2D] mb-8 leading-tight">
+              Clinical Architecture
+            </h2>
+            <p className="text-xl text-slate-600 mb-12 max-w-4xl leading-relaxed">
+              Neurowellness is not merely "stress management"—it is the precision calibration of the human nervous system. Our framework integrates three distinct biological layers to transition the body from chronic alert states into high-performance homeostasis.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+              <div className="space-y-4 border-l-2 border-slate-100 pl-6 hover:border-blue-500 transition-colors">
+                <h4 className="font-display font-bold text-xl uppercase tracking-tight">01. Hard-Care</h4>
+                <p className="text-slate-500 text-sm leading-relaxed">Tech-driven exogenous stimulation. Utilizing VNS (Vagus Nerve Stimulation) and PEMF to bypass conscious resistance and reset autonomic tone instantly.</p>
+              </div>
+              <div className="space-y-4 border-l-2 border-slate-100 pl-6 hover:border-purple-500 transition-colors">
+                <h4 className="font-display font-bold text-xl uppercase tracking-tight">02. Soft-Care</h4>
+                <p className="text-slate-500 text-sm leading-relaxed">Somatic endogenous regulation. Cultivating internal safety through specialized breathwork, temperature exposure, and proprioceptive grounding.</p>
+              </div>
+              <div className="space-y-4 border-l-2 border-slate-100 pl-6 hover:border-emerald-500 transition-colors">
+                <h4 className="font-display font-bold text-xl uppercase tracking-tight">03. Metabolism</h4>
+                <p className="text-slate-500 text-sm leading-relaxed">The Muscle-Brain Axis. Leveraging Irisin and BDNF signaling via resistance training and metabolic metabolites to future-proof cognitive health.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
           {deepDivePaths.map((path, idx) => (
             <motion.div 
@@ -293,41 +313,71 @@ export default function NeurowellnessPillar() {
 
         <IntelligenceTeaser />
 
-        {/* Conversion Layer: The 2026 Arsenal */}
-        <div className="bg-white rounded-[5rem] p-12 md:p-24 shadow-3xl border border-slate-100 text-center relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-500 via-indigo-500 to-emerald-500" />
-          <h2 className="text-4xl md:text-6xl font-display font-semibold uppercase tracking-[0.02em] text-[#2D2D2D] mb-16">
-            The Neuro-Optimization Arsenal
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto">
-            <div className="flex flex-col items-center">
-               <div className="w-20 h-20 rounded-3xl bg-blue-50 flex items-center justify-center text-blue-600 mb-6">
-                 <Activity size={40} />
-               </div>
-               <h4 className="text-xl font-bold mb-4 uppercase tracking-wider">{t('wp_conv_diagnostic')}</h4>
-               <a href="#" className="text-blue-600 font-black text-xs uppercase tracking-widest flex items-center hover:scale-110 transition-transform">
-                 Shop Diagnostics <ExternalLink size={14} className="ml-2" />
-               </a>
+        {/* Pillar Essentials: Curated Product Integration */}
+        <section className="mt-32 mb-48">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
+            <div>
+              <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 font-bold text-[10px] uppercase tracking-[0.2em] mb-6">
+                Clinical Shortlist
+              </div>
+              <h2 className="text-4xl md:text-8xl font-display font-black uppercase tracking-tighter text-slate-900 leading-none">
+                Pillar<br />Essentials
+              </h2>
             </div>
-            <div className="flex flex-col items-center">
-               <div className="w-20 h-20 rounded-3xl bg-purple-50 flex items-center justify-center text-purple-600 mb-6">
-                 <Zap size={40} />
-               </div>
-               <h4 className="text-xl font-bold mb-4 uppercase tracking-wider">{t('wp_conv_vns')}</h4>
-               <a href="#" className="text-purple-600 font-black text-xs uppercase tracking-widest flex items-center hover:scale-110 transition-transform">
-                 Order Neurotech <ExternalLink size={14} className="ml-2" />
-               </a>
-            </div>
-            <div className="flex flex-col items-center">
-               <div className="w-20 h-20 rounded-3xl bg-emerald-50 flex items-center justify-center text-emerald-600 mb-6">
-                 <Heart size={40} />
-               </div>
-               <h4 className="text-xl font-bold mb-4 uppercase tracking-wider">{t('wp_conv_skincare')}</h4>
-               <a href="#" className="text-emerald-600 font-black text-xs uppercase tracking-widest flex items-center hover:scale-110 transition-transform">
-                 View Aesthetics <ExternalLink size={14} className="ml-2" />
-               </a>
-            </div>
+            <p className="text-slate-500 max-w-sm text-lg leading-relaxed md:text-right border-r-2 border-blue-100 pr-8 italic">
+              "The non-negotiable hardware for 2026. Every device in this list is integrated into our master clinical dashboards."
+            </p>
           </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+             {[
+               { name: 'Oura Ring 4', category: 'Biometrics', img: '/Products/Oura1.jpg', link: '/neurowellness/hard-care', price: '$399' },
+               { name: 'Nurosym VNS', category: 'Neurotech', img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=300', link: '/neurowellness/hard-care', price: '$699' },
+               { name: 'Thorne Creatine', category: 'Metabolism', img: '/Products/thorne.jpg', link: '/neurowellness/metabolism', price: '$42' },
+               { name: 'Sony XM5', category: 'Sensory', img: '/Products/sonyhead.jpg', link: '/neurowellness/soft-care', price: '$398' }
+             ].map((item) => (
+               <Link key={item.name} to={item.link} className="group bg-white border border-slate-100 rounded-[3rem] p-8 hover:shadow-3xl transition-all duration-500 hover:-translate-y-4">
+                  <div className="aspect-square rounded-[2rem] overflow-hidden mb-8 bg-slate-50 relative">
+                     <img src={item.img} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+                     <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-slate-900 font-black text-[10px] uppercase shadow-sm">
+                       {item.price}
+                     </div>
+                  </div>
+                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-500 mb-4">{item.category}</p>
+                  <h4 className="text-2xl font-display font-bold uppercase text-slate-900 mb-6 group-hover:text-blue-600 transition-colors tracking-tight">{item.name}</h4>
+                  <div className="pt-6 border-t border-slate-50 flex items-center justify-between text-slate-400 group-hover:text-blue-600 transition-colors text-[10px] font-black uppercase tracking-widest">
+                    <span>View Protocol</span>
+                    <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
+                  </div>
+               </Link>
+             ))}
+          </div>
+        </section>
+
+        {/* Closing Narrative */}
+        <div className="text-center pb-48 relative overflow-hidden">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="w-px h-24 bg-gradient-to-b from-blue-500 to-transparent mx-auto mb-16"></div>
+            <h3 className="text-4xl md:text-[7rem] font-display font-black uppercase tracking-tighter text-slate-900 mb-8 leading-[0.85]">
+              Redefining<br />Human Potential
+            </h3>
+            <p className="text-xl md:text-2xl text-slate-500 font-medium leading-relaxed mb-16 italic max-w-2xl mx-auto">
+              "We are no longer victims of our genetic blueprints. Through clinical precision and somatic intelligence, we define our own neurological future."
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-6">
+              <button className="px-12 py-6 bg-slate-900 text-white rounded-3xl font-black uppercase tracking-widest text-[10px] hover:bg-blue-600 transition-all shadow-2xl hover:scale-105">
+                Clinical Intake Form
+              </button>
+              <button className="px-12 py-6 border-2 border-slate-200 text-slate-900 rounded-3xl font-black uppercase tracking-widest text-[10px] hover:border-slate-900 transition-all">
+                The 2026 Manifesto
+              </button>
+            </div>
+          </motion.div>
         </div>
       </div>
     </div>
