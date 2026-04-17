@@ -5,6 +5,7 @@ import { motion } from 'motion/react';
 import { useT } from '../translations';
 import BlogSection from '../components/BlogSection';
 import IntelligenceTeaser from '../components/IntelligenceTeaser';
+import { useAffiliateLinks } from '../contexts/AffiliateLinksContext';
 
 export default function WomensHealthPillar() {
   const t = useT();
@@ -13,13 +14,7 @@ export default function WomensHealthPillar() {
     document.title = `${t('whp_title_start')} ${t('whp_title_end')} | 123TheNext Level`;
   }, [t]);
 
-  const affiliateLinks = {
-    us: 'https://amazon.com/dp/B0CXM1X8PQ', // Example Ovarian Test US
-    uk: 'https://amazon.co.uk/dp/B0CXM1X8PQ', // Example Ovarian Test UK
-    es: 'https://amazon.es/dp/B0CXM1X8PQ', // Example Ovarian Test ES
-    strength: 'https://amazon.com/dp/B0CLB5X8X9', // Example Strength Rack
-    menopause: 'https://amazon.com/dp/B0CMB6X8Y1' // Example Menopause Stack
-  };
+  const { links } = useAffiliateLinks();
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
@@ -82,20 +77,27 @@ export default function WomensHealthPillar() {
           <Link to="/womens-health/longevity" className="group">
             <motion.div 
               whileHover={{ y: -10, scale: 1.02 }}
-              className="bg-white p-10 rounded-[3rem] shadow-xl border border-rose-100 h-full flex flex-col justify-between hover:border-rose-300 transition-colors"
+              className="relative p-10 rounded-[3rem] shadow-xl h-full flex flex-col justify-between overflow-hidden border border-rose-100/20 hover:border-rose-300/50 transition-colors"
             >
-              <div>
-                <div className="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-600 mb-8 border border-rose-100">
+              {/* Background Image and Overlays */}
+              <div 
+                className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop)' }}
+              />
+              <div className="absolute inset-0 z-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/40" />
+              
+              <div className="relative z-10">
+                <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-rose-300 mb-8 border border-white/20">
                   <Target size={28} />
                 </div>
-                <h3 className="text-2xl font-display font-black uppercase tracking-tight text-slate-900 mb-4">
+                <h3 className="text-2xl font-display font-black uppercase tracking-tight text-white mb-4 drop-shadow-md">
                   {t('whp_path_a_title')}
                 </h3>
-                <p className="text-slate-500 leading-relaxed mb-6">
+                <p className="text-white/80 leading-relaxed mb-6 font-medium">
                   {t('whp_path_a_desc')}
                 </p>
               </div>
-              <div className="flex items-center gap-2 text-rose-600 font-bold text-xs uppercase tracking-widest pt-6 border-t border-rose-50">
+              <div className="relative z-10 flex items-center gap-2 text-rose-300 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/20">
                 Command Centre <ExternalLink size={12} />
               </div>
             </motion.div>
@@ -104,20 +106,27 @@ export default function WomensHealthPillar() {
           <Link to="/womens-health/performance" className="group">
             <motion.div 
               whileHover={{ y: -10, scale: 1.02 }}
-              className="bg-rose-900 p-10 rounded-[3rem] shadow-xl text-white h-full flex flex-col justify-between"
+              className="relative p-10 rounded-[3rem] shadow-xl h-full flex flex-col justify-between overflow-hidden border border-white/10 transition-colors"
             >
-              <div>
-                <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-rose-300 mb-8 border border-white/10">
+              {/* Background Image and Overlays */}
+              <div 
+                className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1534367507873-d2d7e249a3f2?q=80&w=1470&auto=format&fit=crop)' }}
+              />
+              <div className="absolute inset-0 z-0 bg-gradient-to-t from-rose-950/95 via-rose-950/50 to-rose-950/40" />
+
+              <div className="relative z-10">
+                <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-rose-300 mb-8 border border-white/20">
                   <Dumbbell size={28} />
                 </div>
-                <h3 className="text-2xl font-display font-black uppercase tracking-tight mb-4">
+                <h3 className="text-2xl font-display font-black uppercase tracking-tight text-white mb-4 drop-shadow-md">
                   {t('whp_path_b_title')}
                 </h3>
-                <p className="text-rose-100/70 leading-relaxed mb-6">
+                <p className="text-rose-100/80 leading-relaxed mb-6 font-medium">
                   {t('whp_path_b_desc')}
                 </p>
               </div>
-              <div className="flex items-center gap-2 text-rose-300 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/10">
+              <div className="relative z-10 flex items-center gap-2 text-rose-300 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/10">
                 Functional Edge <ExternalLink size={12} />
               </div>
             </motion.div>
@@ -126,20 +135,27 @@ export default function WomensHealthPillar() {
           <Link to="/womens-health/metabolic" className="group">
             <motion.div 
               whileHover={{ y: -10, scale: 1.02 }}
-              className="bg-white p-10 rounded-[3rem] shadow-xl border border-rose-100 h-full flex flex-col justify-between hover:border-rose-300 transition-colors"
+              className="relative p-10 rounded-[3rem] shadow-xl h-full flex flex-col justify-between overflow-hidden border border-rose-100/20 hover:border-rose-300/50 transition-colors"
             >
-              <div>
-                <div className="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center text-rose-600 mb-8 border border-rose-100">
+              {/* Background Image and Overlays */}
+              <div 
+                className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=1470&auto=format&fit=crop)' }}
+              />
+              <div className="absolute inset-0 z-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-slate-900/40" />
+
+              <div className="relative z-10">
+                <div className="w-14 h-14 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center text-rose-300 mb-8 border border-white/20">
                   <Brain size={28} />
                 </div>
-                <h3 className="text-2xl font-display font-black uppercase tracking-tight text-slate-900 mb-4">
+                <h3 className="text-2xl font-display font-black uppercase tracking-tight text-white mb-4 drop-shadow-md">
                   {t('whp_path_c_title')}
                 </h3>
-                <p className="text-slate-500 leading-relaxed mb-6">
+                <p className="text-white/80 leading-relaxed mb-6 font-medium">
                   {t('whp_path_c_desc')}
                 </p>
               </div>
-              <div className="flex items-center gap-2 text-rose-600 font-bold text-xs uppercase tracking-widest pt-6 border-t border-rose-50">
+              <div className="relative z-10 flex items-center gap-2 text-rose-300 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/20">
                 Cognitive Fuel <ExternalLink size={12} />
               </div>
             </motion.div>
@@ -150,8 +166,14 @@ export default function WomensHealthPillar() {
 
 
         {/* Clinical Interventions & Shop */}
-        <section className="bg-slate-900 rounded-[4rem] p-10 md:p-20 text-white mb-32 relative overflow-hidden">
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-rose-600/10 blur-[120px] -ml-48 -mb-48"></div>
+        <section className="relative bg-slate-900 rounded-[4rem] p-10 md:p-20 text-white mb-32 overflow-hidden border border-white/5">
+          {/* Background Image and Overlays */}
+          <div 
+            className="absolute inset-0 z-0 bg-cover bg-center opacity-40 mix-blend-luminosity"
+            style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1579154273151-54415510665d?q=80&w=1470&auto=format&fit=crop)' }}
+          />
+          <div className="absolute inset-0 z-0 bg-gradient-to-br from-slate-950/95 via-slate-900/80 to-rose-950/40" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-rose-600/20 blur-[120px] -ml-48 -mb-48"></div>
           
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-10">
@@ -187,13 +209,13 @@ export default function WomensHealthPillar() {
 
               <div className="space-y-4">
                 {[
-                  { key: 'whp_cta_test_us', link: affiliateLinks.us, label: 'Diagnostic' },
-                  { key: 'whp_cta_test_uk', link: affiliateLinks.uk, label: 'Diagnostic' },
-                  { key: 'whp_cta_test_es', link: affiliateLinks.es, label: 'Diagnostic' },
+                  { key: 'whp_cta_test_us', link: links.us, label: 'Diagnostic' },
+                  { key: 'whp_cta_test_uk', link: links.uk, label: 'Diagnostic' },
+                  { key: 'whp_cta_test_es', link: links.es, label: 'Diagnostic' },
                   { key: 'whp_cta_creatine', link: 'https://amazon.com/dp/B0CXM1X8PQ', label: 'Cognitive' },
                   { key: 'whp_cta_nad', link: 'https://amazon.com/dp/B0D5N6X8Z2', label: 'Cellular' },
                   { key: 'whp_cta_epigenetic', link: 'https://amazon.com/dp/B0D5N6X8Z2', label: 'Longevity' },
-                  { key: 'whp_cta_strength', link: affiliateLinks.strength, label: 'Performance' },
+                  { key: 'whp_cta_strength', link: links.strength, label: 'Performance' },
                   { key: 'whp_cta_memberships', link: '#', label: 'Community' }
                 ].map((item, idx) => (
                   <a key={idx} href={item.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-slate-50 rounded-3xl group hover:bg-rose-600 hover:text-white transition-all duration-300">
