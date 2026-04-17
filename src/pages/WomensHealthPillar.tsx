@@ -5,6 +5,7 @@ import { motion } from 'motion/react';
 import { useT } from '../translations';
 import BlogSection from '../components/BlogSection';
 import IntelligenceTeaser from '../components/IntelligenceTeaser';
+import { useAffiliateLinks } from '../contexts/AffiliateLinksContext';
 
 export default function WomensHealthPillar() {
   const t = useT();
@@ -13,13 +14,7 @@ export default function WomensHealthPillar() {
     document.title = `${t('whp_title_start')} ${t('whp_title_end')} | 123TheNext Level`;
   }, [t]);
 
-  const affiliateLinks = {
-    us: 'https://amazon.com/dp/B0CXM1X8PQ', // Example Ovarian Test US
-    uk: 'https://amazon.co.uk/dp/B0CXM1X8PQ', // Example Ovarian Test UK
-    es: 'https://amazon.es/dp/B0CXM1X8PQ', // Example Ovarian Test ES
-    strength: 'https://amazon.com/dp/B0CLB5X8X9', // Example Strength Rack
-    menopause: 'https://amazon.com/dp/B0CMB6X8Y1' // Example Menopause Stack
-  };
+  const { links } = useAffiliateLinks();
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
@@ -214,14 +209,14 @@ export default function WomensHealthPillar() {
 
               <div className="space-y-4">
                 {[
-                  { key: 'whp_cta_test_us', link: affiliateLinks.us, label: 'Diagnostic' },
-                  { key: 'whp_cta_test_uk', link: affiliateLinks.uk, label: 'Diagnostic' },
-                  { key: 'whp_cta_test_es', link: affiliateLinks.es, label: 'Diagnostic' },
-                  { key: 'whp_cta_creatine', link: 'https://amazon.com/dp/B0CXM1X8PQ', label: 'Cognitive' },
-                  { key: 'whp_cta_nad', link: 'https://amazon.com/dp/B0D5N6X8Z2', label: 'Cellular' },
-                  { key: 'whp_cta_epigenetic', link: 'https://amazon.com/dp/B0D5N6X8Z2', label: 'Longevity' },
-                  { key: 'whp_cta_strength', link: affiliateLinks.strength, label: 'Performance' },
-                  { key: 'whp_cta_memberships', link: '#', label: 'Community' }
+                  { key: 'whp_cta_test_us', link: links.us, label: 'Diagnostic' },
+                  { key: 'whp_cta_test_uk', link: links.uk, label: 'Diagnostic' },
+                  { key: 'whp_cta_test_es', link: links.es, label: 'Diagnostic' },
+                  { key: 'whp_cta_creatine', link: links.creatine, label: 'Cognitive' },
+                  { key: 'whp_cta_nad', link: links.nad, label: 'Cellular' },
+                  { key: 'whp_cta_epigenetic', link: links.epigenetic, label: 'Longevity' },
+                  { key: 'whp_cta_strength', link: links.strength, label: 'Performance' },
+                  { key: 'whp_cta_memberships', link: links.memberships, label: 'Community' }
                 ].map((item, idx) => (
                   <a key={idx} href={item.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-slate-50 rounded-3xl group hover:bg-rose-600 hover:text-white transition-all duration-300">
                     <span className="font-bold flex items-center gap-4">
