@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Brain, ArrowLeft, ArrowRight, Activity, Shield, Zap, Microscope, Cpu, Heart, Layers, ExternalLink } from 'lucide-react';
+import { Brain, ArrowLeft, ArrowRight, Activity, Shield, Zap, Microscope, Cpu, Heart, Layers, ExternalLink, Waves, Wind, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../translations';
@@ -10,81 +10,118 @@ export default function NeurowellnessPillar() {
   const t = useT();
 
   useEffect(() => {
-    document.title = `${t('wp_title_start')}${t('wp_title_end')} | 123TheNext Level`;
-  }, [t]);
+    document.title = `Neurowellness & Cognitive Architecture | 123TheNext Level`;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute('content', 'Advanced autonomic engineering, high-fidelity neuro-recovery, and cognitive metabolic optimization.');
+    }
+  }, []);
 
   const deepDivePaths = [
     {
-      title: t('wp_path_a_title'),
-      desc: t('wp_path_a_desc'),
+      title: "01. Hard-Care",
+      desc: "Tech-driven exogenous stimulation. Utilizing VNS and PEMF to bypass conscious resistance.",
       to: "/neurowellness/hard-care",
       icon: Cpu,
-      color: "from-blue-500 to-cyan-500"
+      color: "from-blue-500 to-cyan-500",
+      tag: "Exogenous Signals"
     },
     {
-      title: t('wp_path_b_title'),
-      desc: t('wp_path_b_desc'),
+      title: "02. Soft-Care",
+      desc: "Somatic endogenous regulation. Cultivating internal safety through breathwork and grounding.",
       to: "/neurowellness/soft-care",
       icon: Activity,
-      color: "from-purple-500 to-indigo-500"
+      color: "from-violet-500 to-indigo-500",
+      tag: "Endogenous Calibration"
     },
     {
-      title: t('wp_path_c_title'),
-      desc: t('wp_path_c_desc'),
+      title: "03. Metabolism",
+      desc: "The Muscle-Brain Axis. Leveraging Irisin and BDNF signaling via metabolic metabolites.",
       to: "/neurowellness/metabolism",
       icon: Microscope,
-      color: "from-emerald-500 to-teal-500"
+      color: "from-emerald-500 to-teal-500",
+      tag: "Cognitive Integrity"
+    }
+  ];
+
+  const pillarEssentials = [
+    {
+      name: "HRV & Sleep Guardian",
+      brand: "Oura Ring 4",
+      desc: "Clinical-grade tracking of autonomic nervous system balance and recovery readiness.",
+      image: "/Products/Oura1.jpg",
+      link: "https://amazon.com/dp/B0D4N3L9XW",
+      price: "$399"
+    },
+    {
+      name: "Vagal Tone Regulator",
+      brand: "Nurosym VNS",
+      desc: "Wearable tech that uses targeted micro-impulses to stabilize vagal tone and reduce stress.",
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=600",
+      link: "/neurowellness/hard-care",
+      price: "$699"
+    },
+    {
+      name: "Thermal Recovery Pod",
+      brand: "Eight Sleep / Pod 4",
+      desc: "Dynamic thermoregulation to optimize sleep architecture and deep-wave recovery.",
+      image: "/Products/eightsleep.jpg",
+      link: "https://www.eightsleep.com/",
+      price: "$2000+"
     }
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      {/* Level 1: Master Hub Hero */}
-      <div className="relative pt-32 pb-64 md:pt-48 md:pb-80 flex items-center justify-center overflow-hidden bg-slate-950 text-white">
-        {/* Cinematic Video Layer */}
-        <div className="absolute inset-0 z-0 scale-110">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover opacity-20"
-          >
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-glowing-blue-neural-network-33678-large.mp4" type="video/mp4" />
-          </video>
-        </div>
+    <div className="min-h-screen bg-[#020617] text-white font-sans antialiased selection:bg-indigo-500/30">
+      {/* Hero Section */}
+      <div className="relative pt-32 pb-48 md:pt-48 md:pb-72 flex items-center justify-center overflow-hidden">
+        {/* Cinematic Backdrop */}
+        <motion.div 
+          initial={{ scale: 1.1, opacity: 0 }}
+          animate={{ scale: 1, opacity: 0.25 }}
+          transition={{ duration: 2, ease: "easeOut" }}
+          className="absolute inset-0 z-0"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=2000"
+            alt="Autonomic Engineering and Neuro-Response"
+            className="w-full h-full object-cover grayscale brightness-50"
+          />
+        </motion.div>
         
-        {/* Deep Atmospheric Gradients */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900/40 to-slate-950"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(67,56,202,0.1),transparent_70%)]"></div>
-
-        {/* Synaptic Motion Blobs */}
+        {/* High-Fidelity Technical Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617]"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-indigo-950/40 via-transparent to-violet-950/20"></div>
+        
+        {/* Animated Synaptic Blobs */}
         <motion.div 
           animate={{ 
-            scale: [1, 1.3, 1],
-            x: [0, 100, 0],
-            opacity: [0.1, 0.2, 0.1]
-          }}
-          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-0 -left-20 w-[45rem] h-[45rem] bg-indigo-600/20 rounded-full blur-[160px] pointer-events-none"
-        />
-        <motion.div 
-          animate={{ 
-            scale: [1.3, 1, 1.3],
-            x: [0, -100, 0],
-            opacity: [0.05, 0.15, 0.05]
+            scale: [1, 1.2, 1],
+            rotate: [0, 90, 0],
+            opacity: [0.1, 0.15, 0.1]
           }}
           transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-1/4 -right-32 w-[35rem] h-[35rem] bg-violet-500/10 rounded-full blur-[140px] pointer-events-none"
+          className="absolute top-1/4 -right-20 w-[45rem] h-[45rem] bg-indigo-600 rounded-full blur-[150px] pointer-events-none"
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1.2, 1, 1.2],
+            rotate: [0, -90, 0],
+            opacity: [0.05, 0.1, 0.05]
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-20 -left-20 w-[35rem] h-[35rem] bg-violet-500 rounded-full blur-[120px] pointer-events-none"
         />
 
-        {/* Technical Grain Overlay */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')" }}></div>
+        {/* Technical Data Grid Overlay */}
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(circle at 2px 2px, #6366f1 1px, transparent 0)", backgroundSize: "48px 48px" }}>
+        </div>
         
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Link to="/#pillars" className="absolute -top-32 left-4 sm:left-6 lg:left-8 inline-flex items-center text-white/40 hover:text-white font-black uppercase tracking-tighter transition-all group">
             <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
-            <span className="border-b border-white/10 group-hover:border-white transition-colors">{t('wp_back')}</span>
+            <span className="border-b border-white/10 group-hover:border-white">{t('wp_back')}</span>
           </Link>
 
           <motion.div 
@@ -93,18 +130,20 @@ export default function NeurowellnessPillar() {
             transition={{ duration: 1 }}
             className="flex flex-col items-center"
           >
-            <div className="px-6 py-2 rounded-2xl bg-white/5 border border-white/10 text-indigo-400 font-display font-black text-[10px] uppercase tracking-[0.3em] mb-12 backdrop-blur-md shadow-2xl">
-              <span className="flex items-center gap-3">
-                <Brain size={14} className="animate-pulse" />
-                2026 Medicalized Wellness Standard
-              </span>
-            </div>
+            <motion.div 
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 1 }}
+              className="inline-flex items-center px-6 py-2 rounded-full bg-white/5 border border-white/10 text-indigo-400 font-display font-black text-[10px] uppercase tracking-[0.3em] mb-12 shadow-2xl backdrop-blur-md"
+            >
+              <Brain size={14} className="mr-3 animate-pulse" />
+              Autonomic Calibration: Vagal Dominance
+            </motion.div>
             
-            <h1 className="text-5xl md:text-[clamp(4rem,7vw,9rem)] font-display font-black uppercase tracking-tighter text-white mb-6 leading-[0.8] break-words drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
-
-              {t('wp_title_start')}<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-violet-400">
-                {t('wp_title_end')}
+            <h1 className="text-6xl md:text-[clamp(4.5rem,8vw,11rem)] font-display font-black uppercase tracking-tighter text-white mb-6 leading-[0.8] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+              Neuro<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-blue-400 to-indigo-600">
+                Wellness
               </span>
             </h1>
 
@@ -112,268 +151,176 @@ export default function NeurowellnessPillar() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.3 }}
-              className="text-xl md:text-2xl text-slate-400 font-medium max-w-4xl mx-auto leading-relaxed border-l-4 border-indigo-500/30 pl-8 text-left italic"
+              className="text-xl md:text-2xl text-slate-400 font-medium max-w-4xl mx-auto leading-relaxed border-l-4 border-indigo-500/50 pl-8 text-left italic"
             >
-              {t('wp_hub_narrative_title')}
-            </motion.p>
-            
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.6 }}
-              transition={{ duration: 1.5, delay: 0.6 }}
-              className="mt-8 text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed text-center"
-            >
-              {t('wp_hub_narrative_p')}
+              {t('wp_hub_narrative_title')} In 2026, we transition from "mindfulness" to **Autonomic Engineering**, calibrating the nervous system for peak output and rapid recovery.
             </motion.p>
           </motion.div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-32 pb-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-24 pb-32">
         {/* Navigation Pathways */}
-        <div className="bg-white p-12 md:p-20 rounded-[4rem] shadow-xl border border-slate-100 mb-32 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-50/50 blur-3xl -mr-32 -mt-32 rounded-full"></div>
-          
-          <div className="relative z-10">
-            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 font-bold text-[10px] uppercase tracking-widest mb-8">
-              System Overview
-            </div>
-            <h2 className="text-4xl md:text-6xl font-display font-bold uppercase text-[#2D2D2D] mb-8 leading-tight">
-              Clinical Architecture
-            </h2>
-            <p className="text-xl text-slate-600 mb-12 max-w-4xl leading-relaxed">
-              Neurowellness is not merely "stress management"—it is the precision calibration of the human nervous system. Our framework integrates three distinct biological layers to transition the body from chronic alert states into high-performance homeostasis.
-            </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-              <div className="space-y-4 border-l-2 border-slate-100 pl-6 hover:border-blue-500 transition-colors">
-                <h4 className="font-display font-bold text-xl uppercase tracking-tight">01. Hard-Care</h4>
-                <p className="text-slate-500 text-sm leading-relaxed">Tech-driven exogenous stimulation. Utilizing VNS (Vagus Nerve Stimulation) and PEMF to bypass conscious resistance and reset autonomic tone instantly.</p>
-              </div>
-              <div className="space-y-4 border-l-2 border-slate-100 pl-6 hover:border-purple-500 transition-colors">
-                <h4 className="font-display font-bold text-xl uppercase tracking-tight">02. Soft-Care</h4>
-                <p className="text-slate-500 text-sm leading-relaxed">Somatic endogenous regulation. Cultivating internal safety through specialized breathwork, temperature exposure, and proprioceptive grounding.</p>
-              </div>
-              <div className="space-y-4 border-l-2 border-slate-100 pl-6 hover:border-emerald-500 transition-colors">
-                <h4 className="font-display font-bold text-xl uppercase tracking-tight">03. Metabolism</h4>
-                <p className="text-slate-500 text-sm leading-relaxed">The Muscle-Brain Axis. Leveraging Irisin and BDNF signaling via resistance training and metabolic metabolites to future-proof cognitive health.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-40">
           {deepDivePaths.map((path, idx) => (
             <motion.div 
-              key={path.to}
-              whileHover={{ y: -10 }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
-              viewport={{ once: true }}
+              key={idx}
+              whileHover={{ y: -15 }}
+              className="bg-slate-900/50 backdrop-blur-3xl rounded-[3.5rem] border border-white/5 overflow-hidden group shadow-2xl flex flex-col h-full"
             >
-              <Link to={path.to} className="block group h-full">
-                <div className="h-full bg-white p-10 rounded-[3rem] shadow-2xl border border-slate-100 relative overflow-hidden group-hover:border-blue-500/20 transition-all">
-                  <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${path.color} opacity-0 group-hover:opacity-10 blur-2xl transition-opacity animate-pulse`} />
-                  
-                  <div className="w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-900 mb-8 border border-slate-100 group-hover:scale-110 group-hover:bg-white group-hover:shadow-lg transition-all duration-500">
-                    <path.icon size={32} />
-                  </div>
-                  
-                  <h3 className="text-3xl font-display uppercase tracking-tight text-slate-900 mb-4 leading-none decoration-blue-500 decoration-2 group-hover:underline underline-offset-8">
-                    {path.title}
-                  </h3>
-                  <p className="text-slate-600 text-lg leading-relaxed mb-8">
-                    {path.desc}
-                  </p>
-                  
-                  <div className="flex items-center text-blue-600 font-bold text-sm uppercase tracking-widest gap-2">
-                    Enter Protocol <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
-                  </div>
+              <Link to={path.to} className="p-12 flex flex-col h-full">
+                <div className={`w-16 h-16 rounded-3xl bg-gradient-to-br ${path.color} flex items-center justify-center text-white mb-10 group-hover:scale-110 transition-transform duration-500 shadow-lg`}>
+                  <path.icon size={32} />
+                </div>
+                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400 mb-4">{path.tag}</span>
+                <h3 className="text-3xl font-display font-black uppercase text-white mb-6 leading-tight group-hover:text-indigo-400 transition-colors">
+                  {path.title}
+                </h3>
+                <p className="text-slate-400 text-base leading-relaxed mb-10 font-medium flex-grow">
+                  {path.desc}
+                </p>
+                <div className="pt-8 border-t border-white/5 flex items-center justify-between text-indigo-400 font-black text-[10px] uppercase tracking-widest group-hover:text-white transition-colors">
+                  <span>Enter Protocol</span>
+                  <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
                 </div>
               </Link>
             </motion.div>
           ))}
         </div>
 
-        {/* Level 1 Content: Polyvagal Paradigm */}
-        <div className="bg-slate-900 rounded-[4rem] overflow-hidden mb-32 shadow-2xl relative">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-transparent"></div>
-          <div className="relative p-12 md:p-24 flex flex-col lg:flex-row items-center gap-20">
-            <div className="w-full lg:w-1/2">
-              <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 font-bold text-xs uppercase tracking-widest mb-8">
-                <Layers size={14} className="mr-2" />
-                The Clinical Foundation
-              </div>
-              <h2 className="text-[clamp(3.5rem,7vw,8rem)] font-display font-semibold uppercase tracking-[0.02em] text-white mb-8 leading-[1.15]">
-                {t('wp_polyvagal_title')}
-              </h2>
-              <div className="space-y-8">
-                {[
-                  { title: "Ventral Vagal", text: t('wp_polyvagal_ventral'), color: "bg-emerald-500" },
-                  { title: "Sympathetic", text: t('wp_polyvagal_sympathetic'), color: "bg-orange-500" },
-                  { title: "Dorsal Vagal", text: t('wp_polyvagal_dorsal'), color: "bg-blue-500" }
-                ].map((circuit) => (
-                  <div key={circuit.title} className="flex gap-6 items-start group">
-                    <div className={`mt-2 w-3 h-3 rounded-full ${circuit.color} shadow-[0_0_15px_rgba(0,0,0,0.5)] group-hover:scale-150 transition-transform`} />
-                    <div>
-                      <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-wide">{circuit.title}</h4>
-                      <p className="text-slate-400 text-lg leading-relaxed">{circuit.text}</p>
+        {/* Polyvagal Paradigm Section */}
+        <section className="mb-40">
+          <div className="bg-[#0f172a] p-10 md:p-24 rounded-[4rem] md:rounded-[5rem] border border-white/5 shadow-3xl relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_100%_0%,rgba(99,102,241,0.08)_0%,transparent_50%)]"></div>
+            
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+              <div className="lg:col-span-12 mb-16 text-center">
+                <div className="inline-flex items-center gap-4 text-indigo-400 font-black uppercase tracking-widest text-[10px] bg-indigo-500/10 px-6 py-2 rounded-full border border-indigo-500/20 mb-8">
+                  <Shield size={14} />
+                  The Clinical Foundation
+                </div>
+                <h2 className="text-4xl md:text-7xl font-display font-black uppercase tracking-tight text-white leading-[0.9] mb-8 text-center">
+                   The Polyvagal<br />Paradigm
+                </h2>
+                <div className="space-y-8 max-w-2xl mx-auto text-left">
+                  {[
+                    { title: "Ventral Vagal", text: t('wp_polyvagal_ventral'), color: "bg-emerald-500" },
+                    { title: "Sympathetic", text: t('wp_polyvagal_sympathetic'), color: "bg-orange-500" },
+                    { title: "Dorsal Vagal", text: t('wp_polyvagal_dorsal'), color: "bg-blue-500" }
+                  ].map((circuit) => (
+                    <div key={circuit.title} className="flex gap-6 items-start group">
+                      <div className={`mt-2 w-3 h-3 rounded-full ${circuit.color} shadow-[0_0_15px_rgba(0,0,0,0.5)] group-hover:scale-150 transition-transform`} />
+                      <div>
+                        <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-wide">{circuit.title}</h4>
+                        <p className="text-slate-400 text-lg leading-relaxed">{circuit.text}</p>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="w-full lg:w-1/2 relative">
-               <div className="aspect-square bg-gradient-to-br from-blue-500/20 to-indigo-500/20 rounded-full blur-[100px] absolute inset-0 animate-pulse"></div>
-               <img 
-                 src="https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&q=80&w=1200" 
-                 alt="Neural pathways" 
-                 className="relative z-10 w-full h-auto rounded-[3rem] shadow-3xl grayscale brightness-110 opacity-80"
-                 referrerPolicy="no-referrer"
-               />
-            </div>
-          </div>
-        </div>
-
-        {/* Movement as Medicine */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-32">
-          <div className="bg-white p-12 md:p-20 rounded-[4rem] shadow-xl border border-slate-100 flex flex-col justify-center">
-             <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold uppercase tracking-tight text-[#2D2D2D] mb-8 leading-[1.15]">
-               {t('wp_movement_med_title')}
-             </h2>
-             <p className="text-xl text-slate-600 leading-relaxed mb-10 italic">
-               "{t('wp_movement_med_p')}"
-             </p>
-             <Link to="/fitness" className="inline-flex items-center px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold uppercase tracking-widest text-sm hover:bg-blue-600 transition-all hover:shadow-xl hover:shadow-blue-500/20">
-               Explore Performance Data <ArrowRight size={18} className="ml-3" />
-             </Link>
-          </div>
-          <div className="grid grid-cols-2 gap-6">
-             <div className="bg-gradient-to-br from-blue-600 to-indigo-700 rounded-[3rem] p-10 text-white flex flex-col justify-end group">
-                <div className="mb-auto w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center mb-10 group-hover:scale-110 transition-transform">
-                  <Zap size={24} />
+                  ))}
                 </div>
-                <h4 className="text-4xl font-display font-semibold uppercase mb-2">Irisin</h4>
-                <p className="text-white/70 text-sm font-bold tracking-widest uppercase">The Exercise Hormone</p>
-             </div>
-             <div className="bg-white border border-slate-200 rounded-[3rem] p-10 flex flex-col justify-end group">
-                <div className="mb-auto w-12 h-12 rounded-xl bg-slate-100 flex items-center justify-center mb-10 group-hover:scale-110 transition-transform text-blue-600">
-                  <Brain size={24} />
-                </div>
-                <h4 className="text-4xl font-display font-semibold uppercase mb-2 text-[#2D2D2D]">BDNF</h4>
-                <p className="text-slate-500 text-sm font-bold tracking-widest uppercase">Brain Growth Factor</p>
-             </div>
-          </div>
-        </div>
-
-        {/* Intelligence Feed Section */}
-        <div className="mb-32">
-          <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
-            <div>
-              <div className="inline-flex items-center text-blue-600 font-bold text-xs uppercase tracking-[0.3em] mb-4">
-                <Activity size={14} className="mr-2" />
-                Latest Research
               </div>
-              <h2 className="text-5xl md:text-7xl font-display font-semibold uppercase tracking-[0.02em] text-[#2D2D2D] leading-[0.85]">
-                {t('wp_latest_posts')}
-              </h2>
             </div>
-            <div className="flex gap-4">
-               {['How', 'Why', 'Vs', 'For'].map((q) => (
-                 <div key={q} className="px-4 py-2 rounded-full border border-slate-200 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                   {q}
-                 </div>
-               ))}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-             {[
-               { q: t('wp_blog_q1'), icon: Activity },
-               { q: t('wp_blog_q2'), icon: Microscope },
-               { q: t('wp_blog_q3'), icon: Zap },
-               { q: t('wp_blog_q4'), icon: Shield }
-             ].map((post, idx) => (
-               <motion.div 
-                 key={idx}
-                 whileHover={{ scale: 1.02, y: -5 }}
-                 className="bg-white p-8 rounded-3xl shadow-lg border border-slate-100 flex flex-col group cursor-pointer"
-               >
-                 <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-900 mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                   <post.icon size={20} />
-                 </div>
-                 <p className="text-lg font-bold text-slate-800 leading-snug underline decoration-blue-500/0 group-hover:decoration-blue-500/100 underline-offset-4 transition-all">
-                   "{post.q}"
-                 </p>
-               </motion.div>
-             ))}
-          </div>
-        </div>
-
-        <IntelligenceTeaser />
-
-        {/* Pillar Essentials: Curated Product Integration */}
-        <section className="mt-32 mb-48">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
-            <div>
-              <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 font-bold text-[10px] uppercase tracking-[0.2em] mb-6">
-                Clinical Shortlist
-              </div>
-              <h2 className="text-4xl md:text-8xl font-display font-black uppercase tracking-tighter text-slate-900 leading-none">
-                Pillar<br />Essentials
-              </h2>
-            </div>
-            <p className="text-slate-500 max-w-sm text-lg leading-relaxed md:text-right border-r-2 border-blue-100 pr-8 italic">
-              "The non-negotiable hardware for 2026. Every device in this list is integrated into our master clinical dashboards."
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-             {[
-               { name: 'Oura Ring 4', category: 'Biometrics', img: '/Products/Oura1.jpg', link: '/neurowellness/hard-care', price: '$399' },
-               { name: 'Nurosym VNS', category: 'Neurotech', img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=300', link: '/neurowellness/hard-care', price: '$699' },
-               { name: 'Thorne Creatine', category: 'Metabolism', img: '/Products/thorne.jpg', link: '/neurowellness/metabolism', price: '$42' },
-               { name: 'Sony XM5', category: 'Sensory', img: '/Products/sonyhead.jpg', link: '/neurowellness/soft-care', price: '$398' }
-             ].map((item) => (
-               <Link key={item.name} to={item.link} className="group bg-white border border-slate-100 rounded-[3rem] p-8 hover:shadow-3xl transition-all duration-500 hover:-translate-y-4">
-                  <div className="aspect-square rounded-[2rem] overflow-hidden mb-8 bg-slate-50 relative">
-                     <img src={item.img} alt={item.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
-                     <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-slate-900 font-black text-[10px] uppercase shadow-sm">
-                       {item.price}
-                     </div>
-                  </div>
-                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-500 mb-4">{item.category}</p>
-                  <h4 className="text-2xl font-display font-bold uppercase text-slate-900 mb-6 group-hover:text-blue-600 transition-colors tracking-tight">{item.name}</h4>
-                  <div className="pt-6 border-t border-slate-50 flex items-center justify-between text-slate-400 group-hover:text-blue-600 transition-colors text-[10px] font-black uppercase tracking-widest">
-                    <span>View Protocol</span>
-                    <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
-                  </div>
-               </Link>
-             ))}
           </div>
         </section>
 
-        {/* Closing Narrative */}
-        <div className="text-center pb-48 relative overflow-hidden">
+        <IntelligenceTeaser />
+
+        {/* Pillar Essentials Grid */}
+        <section className="mb-40 pt-20">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 px-4">
+            <div className="space-y-4">
+              <span className="text-indigo-500 font-black uppercase tracking-[0.3em] text-xs">Clinical Arsenal</span>
+              <h2 className="text-5xl md:text-7xl font-display font-black uppercase tracking-tight text-white leading-none">
+                Pillar Essentials
+              </h2>
+            </div>
+            <p className="text-slate-500 font-bold uppercase tracking-widest text-xs border-b border-indigo-500/20 pb-4">
+              Vetted 2026 Neuro-Recovery Tech
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {pillarEssentials.map((product, i) => (
+              <motion.div 
+                key={i}
+                whileHover={{ y: -15 }}
+                className="bg-slate-900/50 backdrop-blur-3xl rounded-[3.5rem] border border-white/5 overflow-hidden group shadow-2xl flex flex-col h-full"
+              >
+                <div className="h-80 relative overflow-hidden bg-white/5">
+                  <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[0.7]" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent"></div>
+                  <div className="absolute bottom-8 left-8">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-indigo-400 bg-indigo-500/10 px-4 py-1.5 rounded-full border border-indigo-500/20 backdrop-blur-md">
+                      {product.brand}
+                    </span>
+                  </div>
+                  <div className="absolute top-8 right-8 px-4 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md text-white font-black text-[10px] uppercase border border-white/10 shadow-2xl">
+                    {product.price}
+                  </div>
+                </div>
+                
+                <div className="p-10 flex flex-col flex-1">
+                  <h3 className="text-2xl font-display font-black uppercase text-white mb-4 group-colors">
+                    {product.name}
+                  </h3>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
+                    {product.desc}
+                  </p>
+                  
+                  <div className="mt-auto flex items-center justify-between pt-8 border-t border-white/5">
+                    <span className="text-xs font-black uppercase tracking-widest text-slate-500">2026 Essential</span>
+                    <a href={product.link} target={product.link.startsWith('http') ? "_blank" : "_self"} rel="noopener noreferrer" className="flex items-center gap-2 text-indigo-400 font-black text-[10px] uppercase tracking-widest hover:text-white transition-colors">
+                      Acquire <ExternalLink size={14} />
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Intelligence Feed */}
+        <div className="space-y-48">
+          <div className="relative">
+            <div className="flex items-center gap-10 mb-20 px-4">
+              <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tight text-white leading-none">
+                {t('wp_top_posts')}
+              </h2>
+              <div className="h-px bg-white/10 flex-grow mt-2"></div>
+            </div>
+            <BlogSection category="wellness" limit={3} featured={true} />
+          </div>
+
+          <div className="relative">
+            <div className="flex items-center gap-10 mb-20 px-4">
+              <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tight text-white leading-none">
+                {t('wp_latest_posts')}
+              </h2>
+              <div className="h-px bg-white/10 flex-grow mt-2"></div>
+            </div>
+            <BlogSection category="wellness" limit={12} />
+          </div>
+        </div>
+
+        {/* Final CTA */}
+        <div className="text-center pb-48 relative overflow-hidden mt-48">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             className="max-w-4xl mx-auto"
           >
-            <div className="w-px h-24 bg-gradient-to-b from-blue-500 to-transparent mx-auto mb-16"></div>
-            <h3 className="text-4xl md:text-[7rem] font-display font-black uppercase tracking-tighter text-slate-900 mb-8 leading-[0.85]">
-              Redefining<br />Human Potential
+            <div className="w-px h-24 bg-gradient-to-b from-indigo-500 to-transparent mx-auto mb-16"></div>
+            <h3 className="text-4xl md:text-[7rem] font-display font-black uppercase tracking-tighter text-white mb-8 leading-[0.85]">
+              Redefining<br />Potential
             </h3>
             <p className="text-xl md:text-2xl text-slate-500 font-medium leading-relaxed mb-16 italic max-w-2xl mx-auto">
               "We are no longer victims of our genetic blueprints. Through clinical precision and somatic intelligence, we define our own neurological future."
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-6">
-              <button className="px-12 py-6 bg-slate-900 text-white rounded-3xl font-black uppercase tracking-widest text-[10px] hover:bg-blue-600 transition-all shadow-2xl hover:scale-105">
+              <button className="px-12 py-6 bg-white text-[#020617] rounded-3xl font-black uppercase tracking-widest text-[10px] hover:bg-indigo-600 hover:text-white transition-all shadow-2xl hover:scale-105">
                 Clinical Intake Form
               </button>
-              <button className="px-12 py-6 border-2 border-slate-200 text-slate-900 rounded-3xl font-black uppercase tracking-widest text-[10px] hover:border-slate-900 transition-all">
+              <button className="px-12 py-6 border-2 border-white/10 text-white rounded-3xl font-black uppercase tracking-widest text-[10px] hover:border-white transition-all">
                 The 2026 Manifesto
               </button>
             </div>

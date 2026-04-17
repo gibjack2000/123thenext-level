@@ -1,5 +1,5 @@
-import React from 'react';
-import { Microscope, ArrowLeft, ArrowRight, Activity, Zap, Shield, Beaker, Brain, ExternalLink, Dumbbell } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { Microscope, ArrowLeft, ArrowRight, Activity, Zap, Shield, Beaker, Brain, ExternalLink, Dumbbell, Sparkles, Binary, Heart } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../translations';
@@ -7,183 +7,227 @@ import { useT } from '../translations';
 export default function NeurowellnessMetabolism() {
   const t = useT();
 
-  const products = [
+  useEffect(() => {
+    document.title = `Metabolism: The Muscle-Brain Axis | 123TheNext Level`;
+  }, []);
+
+  const metabolismArsenal = [
     {
-      id: 'thorne-creatine',
-      name: 'Thorne Creatine',
-      desc: 'The essential metabolite for brain ATP recycling. Peer-reviewed to improve cognitive performance during sleep deprivation.',
-      price: '$42',
-      image: '/Products/thorne.jpg',
-      url: '#'
+      name: "Thorne Creatine",
+      brand: "Thorne",
+      desc: "The essential metabolite for brain ATP recycling. Peer-reviewed to improve cognitive performance and mitigate neuro-fatigue during high-strain periods.",
+      image: "/Products/thorne.jpg",
+      link: "https://amazon.com/dp/B000806T2W",
+      price: "$42",
+      tag: "ATP Recycling"
     },
     {
-      id: 'vibration-plate',
-      name: 'Whole Body Vibration',
-      desc: 'Mechanical stimulation to bypass traditional effort and trigger rapid myokine release (Irisin) for neuroprotection.',
-      price: '$249',
-      image: '/Products/vibration.jpg',
-       url: '#'
+      name: "Whole Body Vibration",
+      brand: "Power Plate",
+      desc: "Mechanical stimulation to bypass traditional effort and trigger rapid myokine release (Irisin) for systemic neuroprotection.",
+      image: "/Products/vibration.jpg",
+      link: "https://powerplate.com/",
+      price: "$249",
+      tag: "Myokine Spark"
     },
     {
-      id: 'omega-3',
-      name: 'Triple Strength Omega-3',
-      desc: 'High-dose DHA/EPA essential for maintaining the integrity of the blood-brain barrier and neural fluidity.',
-      price: '$58',
-      image: '/Products/omega3.jpg',
-      url: '#'
+      name: "Triple Strength Omega-3",
+      brand: "Viva Naturals",
+      desc: "High-dose DHA/EPA essential for maintaining the integrity of the blood-brain barrier and supporting chronic neural fluidity.",
+      image: "/Products/omega3.jpg",
+      link: "https://amazon.com/dp/B0107YSTX4",
+      price: "$58",
+      tag: "Neural Fluidity"
     }
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
-      {/* Hero Section */}
-      <div className="relative pt-32 pb-48 bg-emerald-950 overflow-hidden">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-screen"
+    <div className="min-h-screen bg-[#020617] text-white font-sans antialiased selection:bg-emerald-500/30">
+      {/* Cinematic Hero */}
+      <div className="relative pt-32 pb-48 md:pt-48 md:pb-72 flex items-center justify-center overflow-hidden">
+        <motion.div 
+          initial={{ scale: 1.1, opacity: 0 }}
+          animate={{ scale: 1, opacity: 0.3 }}
+          transition={{ duration: 2 }}
+          className="absolute inset-0 z-0"
         >
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-circular-blue-and-green-ink-swirl-30462-large.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-950 via-emerald-950/80 to-transparent"></div>
+          <img
+            src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&q=80&w=2000"
+            alt="The Muscle-Brain Axis"
+            className="w-full h-full object-cover grayscale brightness-50"
+          />
+        </motion.div>
         
-        {/* Metabolic Motion Blobs */}
-        <div className="absolute top-1/2 right-0 w-[40rem] h-[40rem] bg-emerald-500/10 rounded-full blur-[150px]"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617]"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-emerald-950/40 via-transparent to-teal-950/20"></div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <Link to="/neurowellness" className="absolute top-0 left-4 sm:left-6 lg:left-8 inline-flex items-center text-emerald-400 hover:text-white font-bold uppercase tracking-[0.2em] text-[10px] mb-16 transition-all group">
-            <ArrowLeft size={14} className="mr-2 group-hover:-translate-x-1 transition-transform" />
-            Neurowellness Hub
+        {/* Technical Overlays */}
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.15, 1],
+            rotate: [0, 45, 0],
+            opacity: [0.1, 0.15, 0.1]
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/2 -right-20 w-[45rem] h-[45rem] bg-emerald-600 rounded-full blur-[150px] pointer-events-none"
+        />
+        
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(circle at 2px 2px, #10b981 1px, transparent 0)", backgroundSize: "48px 48px" }}>
+        </div>
+
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Link to="/neurowellness" className="absolute -top-32 left-4 sm:left-6 lg:left-8 inline-flex items-center text-white/40 hover:text-white font-black uppercase tracking-tighter transition-all group">
+            <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
+            <span className="border-b border-white/10 group-hover:border-white text-xs">Back to Hub</span>
           </Link>
-          
-          <div className="max-w-5xl">
-            <motion.div 
-               initial={{ opacity: 0, x: -20 }}
-               animate={{ opacity: 1, x: 0 }}
-               className="inline-flex items-center px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold text-[10px] uppercase tracking-[0.2em] mb-12 shadow-sm"
-            >
-              Protocol C: The Metabolic Link
-            </motion.div>
-            <h1 className="text-5xl md:text-[8rem] font-display font-black uppercase tracking-tighter text-white mb-8 leading-[0.85]">
-              Muscle-Brain<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">Integration</span>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="max-w-5xl"
+          >
+            <div className="inline-flex items-center px-6 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-display font-black text-[10px] uppercase tracking-[0.3em] mb-12 shadow-2xl backdrop-blur-md">
+              <Activity size={14} className="mr-3 animate-pulse" />
+              Metabolic Intelligence Cycle
+            </div>
+            
+            <h1 className="text-6xl md:text-[8rem] font-display font-black uppercase tracking-tighter text-white mb-8 leading-[0.8] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+               The Muscle<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-600">
+                Brain Axis
+              </span>
             </h1>
-            <p className="text-xl md:text-3xl text-emerald-100/60 font-medium leading-relaxed mb-12 max-w-4xl border-l border-emerald-500/30 pl-8 italic">
+
+            <p className="text-xl md:text-3xl text-emerald-100/60 font-medium leading-relaxed max-w-4xl border-l-4 border-emerald-500/50 pl-8 italic">
               "We used to think the brain controlled the muscles. Now we know the muscles provide the essential chemical signals to keep the brain alive."
             </p>
-          </div>
+          </motion.div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-24">
-        {/* The Myokine Revolution */}
-        <div className="bg-white rounded-[4rem] shadow-2xl border border-emerald-100 overflow-hidden mb-32">
-           <div className="flex flex-col lg:flex-row divide-y lg:divide-y-0 lg:divide-x divide-emerald-50">
-              <div className="p-12 lg:p-24 lg:w-3/5">
-                <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-emerald-50 text-emerald-600 font-black text-[10px] uppercase tracking-widest mb-10">
-                   Molecular Intelligence
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-24 pb-32">
+        {/* Deep Dive Section */}
+        <div className="bg-slate-900/50 backdrop-blur-3xl p-12 md:p-24 rounded-[4rem] border border-white/5 shadow-3xl mb-40 relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_100%_0%,rgba(16,185,129,0.08)_0%,transparent_50%)]"></div>
+          
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div>
+              <div className="inline-flex items-center gap-4 text-emerald-400 font-black uppercase tracking-widest text-[10px] bg-emerald-500/10 px-6 py-2 rounded-full border border-emerald-500/20 mb-8">
+                <Microscope size={14} />
+                Molecular Intelligence
+              </div>
+              <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tight text-white mb-8 leading-[0.9]">
+                The Myokine<br />Revolution
+              </h2>
+              <p className="text-xl text-slate-400 leading-relaxed mb-12">
+                 Skeletal muscle is an endocrine organ. When it contracts, it releases specialized proteins called **myokines**. The primary myokine, **Irisin**, crosses the blood-brain barrier to trigger the expression of **BDNF**, the primary catalyst for neural plasticity.
+              </p>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div className="space-y-4">
+                  <h4 className="text-emerald-400 font-black uppercase tracking-widest text-xs italic">Irisin Activation</h4>
+                  <p className="text-slate-500 text-sm leading-relaxed font-medium">A molecular bridge signaling the brain that the physical body is demanding higher cognitive resource allocation.</p>
                 </div>
-                <h2 className="text-4xl md:text-6xl font-display font-bold uppercase tracking-tight text-[#2D2D2D] mb-8 leading-none">
-                  The Myokine Spark
-                </h2>
-                <p className="text-xl text-slate-600 leading-relaxed mb-12">
-                  Skeletal muscle is an endocrine organ. When it contracts, it releases specialized proteins called myokines. The primary myokine, **Irisin**, has the unique ability to cross the blood-brain barrier and trigger the expression of **BDNF** (Brain-Derived Neurotrophic Factor).
-                </p>
-                
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
-                   <div className="space-y-6">
-                      <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-black text-xs">IRISIN</div>
-                      <h4 className="font-display font-bold uppercase text-2xl text-[#2D2D2D] tracking-tight">The Messenger</h4>
-                      <p className="text-sm text-slate-500 leading-relaxed">Irisin acts as a molecular bridge, signaling the brain that the physical body is being utilized and demanding higher cognitive resource allocation.</p>
-                   </div>
-                   <div className="space-y-6">
-                      <div className="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-black text-xs">BDNF</div>
-                      <h4 className="font-display font-bold uppercase text-2xl text-[#2D2D2D] tracking-tight">The Fertilizer</h4>
-                      <p className="text-sm text-slate-500 leading-relaxed">Commonly called "Fertilizer for the Brain," BDNF supports neural plasticity, memory consolidation, and long-term hippocampal volume.</p>
-                   </div>
+                <div className="space-y-4">
+                  <h4 className="text-emerald-400 font-black uppercase tracking-widest text-xs italic">BDNF Expansion</h4>
+                  <p className="text-slate-500 text-sm leading-relaxed font-medium">Commonly called "Fertilizer for the Brain," supporting memory consolidation and hippocampal volume.</p>
                 </div>
               </div>
-              <div className="p-12 lg:p-24 lg:w-2/5 bg-emerald-50/20 flex flex-col justify-center text-center">
-                 <div className="relative aspect-square mb-12 max-w-xs mx-auto">
-                    <div className="absolute inset-0 bg-emerald-500/10 rounded-full blur-[80px]"></div>
-                    <img 
-                      src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&q=80&w=800" 
-                      alt="Cerebral metabolic imaging" 
-                      className="relative z-10 w-full h-full object-cover rounded-full border-[12px] border-white shadow-3xl grayscale"
-                      referrerPolicy="no-referrer"
-                    />
-                 </div>
-                 <p className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-600 mb-4 italic">Verification Layer 01</p>
-                 <h5 className="text-xl font-display font-black uppercase text-slate-900 leading-tight">Muscle is Cognitive<br />Insurance.</h5>
-              </div>
-           </div>
+            </div>
+            
+            <div className="relative">
+              <div className="absolute inset-0 bg-emerald-500/10 blur-[100px] rounded-full animate-pulse"></div>
+              <img 
+                src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=1200" 
+                alt="Neurological Imaging" 
+                className="relative z-10 w-full h-auto rounded-[3rem] shadow-3xl grayscale brightness-110 opacity-60"
+              />
+            </div>
+          </div>
         </div>
 
-        {/* The Metabolic Arsenal: Product Showcase */}
-        <div className="mb-32">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-6xl font-display font-bold uppercase text-[#2D2D2D] mb-6 tracking-tight">Metabolic Arsenal</h2>
-            <p className="text-xl text-slate-500 max-w-2xl mx-auto">Precision metabolites and tools designed to fuel the ATP demands of a high-performance brain.</p>
+        {/* The Arsenal Grid */}
+        <section className="mb-40 pt-20">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 px-4">
+            <div className="space-y-4">
+              <span className="text-emerald-500 font-black uppercase tracking-[0.3em] text-xs">The Metabolic Arsenal</span>
+              <h2 className="text-5xl md:text-7xl font-display font-black uppercase tracking-tight text-white leading-none">
+                Integration Components
+              </h2>
+            </div>
+            <p className="text-slate-500 font-bold uppercase tracking-widest text-xs border-b border-emerald-500/20 pb-4 italic">
+              Authorized Myokine Precursors
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {products.map((p) => (
-              <div key={p.id} className="bg-white rounded-[3rem] p-8 border border-emerald-50 shadow-xl hover:-translate-y-4 hover:shadow-3xl transition-all duration-500 flex flex-col group">
-                <div className="aspect-[4/3] rounded-[2rem] bg-emerald-50/50 mb-8 overflow-hidden relative">
-                   <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
-                   <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-emerald-600 font-bold text-xs uppercase shadow-sm">
-                     {p.price}
-                   </div>
+            {metabolismArsenal.map((product, i) => (
+              <motion.div 
+                key={i}
+                whileHover={{ y: -15 }}
+                className="bg-slate-900/50 backdrop-blur-3xl rounded-[3.5rem] border border-white/5 overflow-hidden group shadow-2xl flex flex-col h-full"
+              >
+                <div className="h-80 relative overflow-hidden bg-white/5">
+                  <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[0.7] grayscale group-hover:grayscale-0" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent"></div>
+                  <div className="absolute bottom-8 left-8">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-4 py-1.5 rounded-full border border-emerald-500/20 backdrop-blur-md">
+                      {product.brand}
+                    </span>
+                  </div>
+                  <div className="absolute top-8 right-8 px-4 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md text-white font-black text-[10px] uppercase border border-white/10 shadow-2xl">
+                    {product.price}
+                  </div>
                 </div>
-                <h3 className="text-2xl font-display font-bold uppercase text-slate-900 mb-4 tracking-tight group-hover:text-emerald-600 transition-colors">{p.name}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed mb-8 flex-grow">{p.desc}</p>
-                <div className="pt-6 border-t border-slate-50">
-                   <a href={p.url} className="flex items-center justify-center w-full py-4 bg-emerald-600 text-white rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-slate-900 transition-all group/btn shadow-lg">
-                     Verify Source <ExternalLink size={12} className="ml-2 group-hover/btn:scale-125 transition-transform" />
-                   </a>
+                
+                <div className="p-10 flex flex-col flex-1">
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-500/60 mb-4">{product.tag}</span>
+                  <h3 className="text-2xl font-display font-black uppercase text-white mb-4 group-colors">
+                    {product.name}
+                  </h3>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
+                    {product.desc}
+                  </p>
+                  
+                  <div className="mt-auto flex items-center justify-between pt-8 border-t border-white/5">
+                    <span className="text-xs font-black uppercase tracking-widest text-slate-500 italic flex items-center gap-2">
+                       Validated <Shield size={12} className="text-emerald-500" />
+                    </span>
+                    <a href={product.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-emerald-400 font-black text-[10px] uppercase tracking-widest hover:text-white transition-colors">
+                      Acquire <ExternalLink size={14} />
+                    </a>
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* Brain ATP Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-32">
-           <div className="bg-slate-950 p-12 md:p-24 rounded-[4rem] text-white flex flex-col justify-center shadow-3xl relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-transparent"></div>
-              <h2 className="text-4xl md:text-[5rem] font-display font-black uppercase tracking-tighter mb-8 leading-[0.85]">
-                ATP<br />Recycling
-              </h2>
-              <p className="text-xl text-slate-400 leading-relaxed mb-12 max-w-md">
-                Just as muscle uses phosphocreatine to recycle energy, the brain leverages the same mechanism to power through intensive cognitive loads and mitigate sleep deprivation.
-              </p>
-              <Link to="/nutrition" className="inline-flex items-center text-emerald-400 font-black text-[10px] uppercase tracking-[0.3em] hover:text-white transition-colors group">
-                Browse Full Nutrition Pillar <ArrowRight size={14} className="ml-2 group-hover:translate-x-2 transition-transform" />
+        {/* Integration Call to Action */}
+        <div className="text-center pb-48 relative overflow-hidden mt-48">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="w-px h-24 bg-gradient-to-b from-emerald-500 to-transparent mx-auto mb-16"></div>
+            <h3 className="text-4xl md:text-[7rem] font-display font-black uppercase tracking-tighter text-white mb-8 leading-[0.85]">
+              Muscle is<br />Cognitive Insurance
+            </h3>
+            <p className="text-xl md:text-2xl text-slate-500 font-medium leading-relaxed mb-16 italic max-w-2xl mx-auto">
+              "Understanding the Muscle-Brain Axis is the prerequisite for performance. Measuring your baseline biomarkers for metabolic health is the next tactical step."
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-6">
+              <Link to="/neurowellness/soft-care" className="px-12 py-6 bg-white text-[#020617] rounded-3xl font-black uppercase tracking-widest text-[10px] hover:bg-emerald-600 hover:text-white transition-all shadow-2xl text-center">
+                Explore Somatic Release
               </Link>
-           </div>
-           <div className="bg-white p-12 md:p-24 rounded-[4rem] border border-emerald-100 flex flex-col justify-center relative group">
-              <Beaker size={64} className="text-emerald-600 mb-10 group-hover:rotate-12 transition-transform duration-700" />
-              <h3 className="text-4xl font-display font-bold uppercase tracking-tight text-slate-900 mb-6">
-                Clinical Benchmarking
-              </h3>
-              <p className="text-lg text-slate-600 leading-relaxed mb-10">
-                Understanding the Muscle-Brain Axis is the prerequisite for performance. Measuring your baseline biomarkers for metabolic health is the next tactical step.
-              </p>
-              <div className="flex gap-4">
-                 <div className="px-5 py-2.5 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-600 font-black text-[8px] uppercase tracking-widest">HbA1c</div>
-                 <div className="px-5 py-2.5 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-600 font-black text-[8px] uppercase tracking-widest">DEXA Scan</div>
-                 <div className="px-5 py-2.5 rounded-xl bg-emerald-50 border border-emerald-100 text-emerald-600 font-black text-[8px] uppercase tracking-widest">HRV-B</div>
-              </div>
-           </div>
-        </div>
-
-        {/* Final Conversion Block */}
-        <div className="text-center pb-32">
-           <Link to="/neurowellness/soft-care" className="inline-flex items-center px-12 py-6 border-2 border-slate-200 text-slate-900 rounded-3xl font-black text-[10px] uppercase tracking-[0.3em] hover:border-emerald-600 hover:text-emerald-600 transition-all hover:scale-105">
-             Explore Somatic Release <ArrowRight size={18} className="ml-3" />
-           </Link>
+              <button className="px-12 py-6 border-2 border-white/10 text-white rounded-3xl font-black uppercase tracking-widest text-[10px] hover:border-white transition-all">
+                 Clinical Benchmarks
+              </button>
+            </div>
+          </motion.div>
         </div>
       </div>
     </div>

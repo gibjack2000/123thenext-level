@@ -1,214 +1,233 @@
-import React from 'react';
-import { Cpu, ArrowLeft, ArrowRight, Activity, Zap, Shield, Search, ExternalLink, BarChart3 } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { Cpu, ArrowLeft, Activity, Zap, Shield, ExternalLink, Microscope, Target, Binary, BarChart3 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../translations';
 
-  const products = [
-    {
-      id: 'oura-4',
-      name: 'Oura Ring 4',
-      desc: 'The gold standard for tracking sleep architecture and high-fidelity HRV recovery metrics.',
-      price: '$399',
-      image: '/Products/Oura1.jpg',
-      url: 'https://amazon.com/dp/B0CKZPR5WJ' // Dummy Amazon link
-    },
-    {
-      id: 'nurosym',
-      name: 'Nurosym VNS',
-      desc: 'Clinically-validated transcutaneous vagus nerve stimulator for rapid autonomic nervous system resets.',
-      price: '$699',
-      image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=300',
-      url: '#'
-    },
-    {
-      id: 'apple-ultra',
-      name: 'Apple Watch Ultra 2',
-      desc: 'Robust clinical baseline monitoring with specialized integration for endurance and HRV tracking.',
-      price: '$799',
-      image: '/Products/apple10.jpg',
-      url: '#'
-    }
-  ];
-
 export default function NeurowellnessHardCare() {
   const t = useT();
 
-  return (
-    <div className="min-h-screen bg-white text-slate-900">
-      {/* Hero Section */}
-      <div className="relative pt-32 pb-48 bg-slate-950 overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-600/30 via-transparent to-indigo-600/30"></div>
-        </div>
-        
-        {/* Animated Cyber Blobs */}
-        <div className="absolute top-1/2 -left-20 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] animate-pulse"></div>
-        <div className="absolute bottom-0 right-0 w-[40rem] h-[40rem] bg-indigo-500/5 rounded-full blur-[150px]"></div>
+  useEffect(() => {
+    document.title = `Hard-Care: Autonomic Engineering | 123TheNext Level`;
+  }, []);
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <Link to="/neurowellness" className="inline-flex items-center text-white/40 hover:text-white font-bold uppercase tracking-[0.2em] text-[10px] mb-16 transition-all group">
-            <ArrowLeft size={14} className="mr-2 group-hover:-translate-x-1 transition-transform" />
-            Master Hub access
+  const hardCareArsenal = [
+    {
+      name: "Oura Ring 4",
+      brand: "Oura",
+      desc: "The gold standard for tracking sleep architecture and high-fidelity HRV recovery metrics with clinical precision.",
+      image: "/Products/Oura1.jpg",
+      link: "https://amazon.com/dp/B0D4N3L9XW",
+      price: "$399",
+      tag: "Biometric Baseline"
+    },
+    {
+      name: "Nurosym VNS",
+      brand: "Nurosym",
+      desc: "Clinically-validated transcutaneous vagus nerve stimulator for rapid autonomic nervous system resets and stress attenuation.",
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=600",
+      link: "https://nurosym.com/",
+      price: "$699",
+      tag: "Vagal Tonality"
+    },
+    {
+      name: "Apollo Neuro",
+      brand: "Apollo",
+      desc: "Wearable touch therapy that uses gentle vibrations to help your body recover from stress and improve focus through haptic signaling.",
+      image: "https://images.unsplash.com/photo-1614850523296-d8c1af93d400?auto=format&fit=crop&q=80&w=600",
+      link: "https://apolloneuro.com/",
+      price: "$349",
+      tag: "Haptic Regulation"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-[#020617] text-white font-sans antialiased selection:bg-blue-500/30">
+      {/* Cinematic Hero */}
+      <div className="relative pt-32 pb-48 md:pt-48 md:pb-72 flex items-center justify-center overflow-hidden">
+        <motion.div 
+          initial={{ scale: 1.1, opacity: 0 }}
+          animate={{ scale: 1, opacity: 0.3 }}
+          transition={{ duration: 2 }}
+          className="absolute inset-0 z-0"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2000"
+            alt="Cybernetic Neuro-Architecture"
+            className="w-full h-full object-cover grayscale brightness-50"
+          />
+        </motion.div>
+        
+        <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617]"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-950/40 via-transparent to-indigo-950/20"></div>
+
+        {/* High-Fidelity Technical Overlays */}
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.2, 1],
+            rotate: [0, 90, 0],
+            opacity: [0.1, 0.15, 0.1]
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 -right-20 w-[45rem] h-[45rem] bg-blue-600 rounded-full blur-[150px] pointer-events-none"
+        />
+        
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(circle at 2px 2px, #3b82f6 1px, transparent 0)", backgroundSize: "48px 48px" }}>
+        </div>
+
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Link to="/neurowellness" className="absolute -top-32 left-4 sm:left-6 lg:left-8 inline-flex items-center text-white/40 hover:text-white font-black uppercase tracking-tighter transition-all group">
+            <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
+            <span className="border-b border-white/10 group-hover:border-white">Back to Hub</span>
           </Link>
-          
-          <div className="max-w-5xl">
-            <motion.div 
-               initial={{ opacity: 0, x: -20 }}
-               animate={{ opacity: 1, x: 0 }}
-               className="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-400/10 border border-blue-400/30 text-blue-300 font-bold text-[10px] uppercase tracking-[0.2em] mb-8 shadow-[0_0_20px_rgba(96,165,250,0.1)]"
-            >
-              Protocol A: Hard-Care Tech
-            </motion.div>
-            <h1 className="text-5xl md:text-[8rem] font-display font-black uppercase tracking-tighter text-white mb-8 leading-[0.85]">
-              Programming<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-blue-400 to-indigo-300 drop-shadow-[0_0_30px_rgba(96,165,250,0.3)]">
-                Homeostasis
+
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="max-w-5xl"
+          >
+            <div className="inline-flex items-center px-6 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 font-display font-black text-[10px] uppercase tracking-[0.3em] mb-12 shadow-2xl backdrop-blur-md">
+              <Cpu size={14} className="mr-3 animate-pulse" />
+              Exogenous Signal Architecture
+            </div>
+            
+            <h1 className="text-6xl md:text-[8rem] font-display font-black uppercase tracking-tighter text-white mb-8 leading-[0.8] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+              Hard-Care<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-blue-600">
+                Protocols
               </span>
             </h1>
-            <p className="text-xl md:text-3xl text-slate-400 font-medium leading-relaxed mb-12 max-w-3xl border-l-2 border-blue-500/30 pl-8 italic">
-              "When the nervous system is stuck in protection mode, conscious effort is not enough. We must use exogenous signals to force a reset."
+
+            <p className="text-xl md:text-2xl text-slate-400 font-medium max-w-3xl leading-relaxed border-l-4 border-blue-500/50 pl-8 italic">
+              "Bypassing the conscious mind to calibrate the autonomic nervous system. Hard-Care utilizes clinical-grade hardware to force physiological transitions."
             </p>
-          </div>
+          </motion.div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-24">
-        {/* VNS Definition Block */}
-        <div className="bg-white p-12 md:p-20 rounded-[4rem] shadow-2xl border border-slate-100 mb-32">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-24 pb-32">
+        {/* Clinical Deep Dive */}
+        <div className="bg-slate-900/50 backdrop-blur-3xl p-12 md:p-24 rounded-[4rem] border border-white/5 shadow-3xl mb-40 relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_100%_0%,rgba(59,130,246,0.08)_0%,transparent_50%)]"></div>
+          
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div>
-              <div className="inline-flex items-center text-blue-600 font-black text-[10px] uppercase tracking-widest mb-6">
-                Clinical Definition
+              <div className="inline-flex items-center gap-4 text-blue-400 font-black uppercase tracking-widest text-[10px] bg-blue-500/10 px-6 py-2 rounded-full border border-blue-500/20 mb-8">
+                <Binary size={14} />
+                Mechanism of Action
               </div>
-              <h2 className="text-4xl md:text-6xl font-display font-bold uppercase tracking-tight text-[#2D2D2D] mb-8 leading-tight">
-                Vagal Tone Reset
+              <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tight text-white mb-8 leading-[0.9]">
+                Autonomic<br />Hacking
               </h2>
-              <p className="text-lg text-slate-600 leading-relaxed mb-8">
-                Transcutaneous Vagus Nerve Stimulation (tVNS) represents the frontier of neuro-regulation. By applying targeted electrical micro-impulses to the concha of the ear, we activate the auricular branch of the vagus nerve, sending immediate inhibitory signals to the fight-or-flight centers of the brain.
+              <p className="text-xl text-slate-400 leading-relaxed mb-12">
+                When the nervous system reaches a state of chronic hyper-arousal, traditional "top-down" interventions like meditation often fail. Hard-Care implements "bottom-up" exogenous signals (electrical, haptic, and magnetic) to provide the brain with new safety evidence, effectively rewriting the autonomic operating system.
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="p-6 bg-slate-50 rounded-2xl">
-                  <h4 className="font-bold text-slate-900 mb-2 uppercase text-sm tracking-wide">Biological Outcome</h4>
-                  <p className="text-xs text-slate-500 leading-relaxed">Systemic reduction in cortisol, increased parasympathetic dominance, and synchronization of brain-wave patterns.</p>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div className="space-y-4">
+                  <h4 className="text-blue-400 font-black uppercase tracking-widest text-xs">Vagal Stimulation</h4>
+                  <p className="text-slate-500 text-sm leading-relaxed font-medium">Directing signals to the concha of the ear to synchronize brain-wave patterns and lower systemic cortisol.</p>
                 </div>
-                <div className="p-6 bg-slate-50 rounded-2xl">
-                  <h4 className="font-bold text-slate-900 mb-2 uppercase text-sm tracking-wide">HRV Impact</h4>
-                  <p className="text-xs text-slate-500 leading-relaxed">Consistent usage results in a 15-25% baseline increase in Heart Rate Variability within 6 weeks.</p>
+                <div className="space-y-4">
+                  <h4 className="text-blue-400 font-black uppercase tracking-widest text-xs">HRV Expansion</h4>
+                  <p className="text-slate-500 text-sm leading-relaxed font-medium">Using tech to identify the precise 'resonant frequency' for each individual profile to maximize recovery.</p>
                 </div>
               </div>
             </div>
-            <div className="relative group">
-               <div className="absolute inset-0 bg-blue-500/10 blur-[80px] rounded-full group-hover:bg-blue-500/20 transition-colors"></div>
-               <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1200" alt="VNS Device Application" className="relative z-10 rounded-[3rem] shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]" />
-               <div className="absolute -bottom-6 -right-6 bg-slate-900 text-white p-8 rounded-3xl shadow-xl z-20 hidden md:block border border-white/10">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-blue-500 flex items-center justify-center">
-                      <Zap size={24} />
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-blue-400">Current Phase</p>
-                      <p className="text-xl font-display font-bold uppercase">Reset Protocol</p>
-                    </div>
-                  </div>
-               </div>
+            
+            <div className="relative">
+              <div className="absolute inset-0 bg-blue-500/20 blur-[100px] rounded-full animate-pulse"></div>
+              <img 
+                src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&q=80&w=1200" 
+                alt="Neuro-Monitoring Interface" 
+                className="relative z-10 w-full h-auto rounded-[3rem] shadow-3xl grayscale brightness-125 opacity-70"
+              />
             </div>
           </div>
         </div>
 
-        {/* The Arsenal: Indispensable Product Links */}
-        <div className="mb-32">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-6xl font-display font-bold uppercase text-[#2D2D2D] mb-6 tracking-tight">The 2026 Arsenal</h2>
-            <p className="text-xl text-slate-500 max-w-2xl mx-auto">The tools required to measure, manage, and master your autonomic nervous system.</p>
+        {/* The Arsenal Grid */}
+        <section className="mb-40 pt-20">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 px-4">
+            <div className="space-y-4">
+              <span className="text-blue-500 font-black uppercase tracking-[0.3em] text-xs">Tech Arsenal</span>
+              <h2 className="text-5xl md:text-7xl font-display font-black uppercase tracking-tight text-white leading-none">
+                Hard-Care Elements
+              </h2>
+            </div>
+            <p className="text-slate-500 font-bold uppercase tracking-widest text-xs border-b border-blue-500/20 pb-4">
+              Authorized Peripheral Devices
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {products.map((p) => (
-              <div key={p.id} className="bg-white rounded-[3rem] p-8 border border-slate-100 shadow-xl hover:-translate-y-4 hover:shadow-3xl transition-all duration-500 flex flex-col group">
-                <div className="aspect-[4/3] rounded-[2rem] bg-slate-50 mb-8 overflow-hidden relative">
-                   <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
-                   <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-slate-900 font-bold text-xs uppercase shadow-sm">
-                     {p.price}
-                   </div>
+            {hardCareArsenal.map((product, i) => (
+              <motion.div 
+                key={i}
+                whileHover={{ y: -15 }}
+                className="bg-slate-900/50 backdrop-blur-3xl rounded-[3.5rem] border border-white/5 overflow-hidden group shadow-2xl flex flex-col h-full"
+              >
+                <div className="h-80 relative overflow-hidden bg-white/5">
+                  <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[0.7] grayscale group-hover:grayscale-0" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent"></div>
+                  <div className="absolute bottom-8 left-8">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-blue-400 bg-blue-500/10 px-4 py-1.5 rounded-full border border-blue-500/20 backdrop-blur-md">
+                      {product.brand}
+                    </span>
+                  </div>
+                  <div className="absolute top-8 right-8 px-4 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md text-white font-black text-[10px] uppercase border border-white/10 shadow-2xl">
+                    {product.price}
+                  </div>
                 </div>
-                <h3 className="text-2xl font-display font-bold uppercase text-slate-900 mb-4 tracking-tight group-hover:text-blue-600 transition-colors">{p.name}</h3>
-                <p className="text-slate-500 text-sm leading-relaxed mb-8 flex-grow">{p.desc}</p>
-                <div className="pt-6 border-t border-slate-50">
-                   <a 
-                    href={p.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="flex items-center justify-center w-full py-4 bg-slate-900 text-white rounded-2xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-blue-600 transition-all group/btn shadow-lg"
-                   >
-                     Order Equipment <ExternalLink size={12} className="ml-2 group-hover/btn:scale-125 transition-transform" />
-                   </a>
+                
+                <div className="p-10 flex flex-col flex-1">
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500/60 mb-4">{product.tag}</span>
+                  <h3 className="text-2xl font-display font-black uppercase text-white mb-4 group-colors">
+                    {product.name}
+                  </h3>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
+                    {product.desc}
+                  </p>
+                  
+                  <div className="mt-auto flex items-center justify-between pt-8 border-t border-white/5">
+                    <span className="text-xs font-black uppercase tracking-widest text-slate-500 italic flex items-center gap-2">
+                       Validated <Shield size={12} className="text-blue-500" />
+                    </span>
+                    <a href={product.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-blue-400 font-black text-[10px] uppercase tracking-widest hover:text-white transition-colors">
+                      Acquire <ExternalLink size={14} />
+                    </a>
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* Wearable War / Detailed Comparison */}
-        <div className="bg-slate-900 rounded-[4rem] p-12 md:p-24 text-white shadow-3xl overflow-hidden relative mb-32">
-          <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-blue-600/10 blur-[120px] rounded-full -mr-48 -mt-48 animate-pulse"></div>
-          <div className="relative z-10">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 mb-20">
-              <div>
-                <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 font-bold text-[10px] uppercase tracking-widest mb-6">
-                  Intelligence Feed
-                </div>
-                <h2 className="text-4xl md:text-8xl font-display font-semibold uppercase tracking-tighter leading-none">
-                  Wearable<br />Wars
-                </h2>
-              </div>
-              <p className="text-slate-400 max-w-sm text-lg leading-relaxed text-right md:text-left">
-                Tracking is not enough. We analyze how 2026 hardware translates raw biometric noise into actionable performance signals.
-              </p>
+        {/* Final Technical Narrative */}
+        <div className="text-center pb-48 relative overflow-hidden mt-48">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto"
+          >
+            <div className="w-px h-24 bg-gradient-to-b from-blue-500 to-transparent mx-auto mb-16"></div>
+            <h3 className="text-4xl md:text-[7rem] font-display font-black uppercase tracking-tighter text-white mb-8 leading-[0.85]">
+              Forge Your<br />Frequency
+            </h3>
+            <p className="text-xl md:text-2xl text-slate-500 font-medium leading-relaxed mb-16 italic max-w-2xl mx-auto">
+              "We no longer wait for the environment to change. We change our environment by dictating the neurological signals our bodies receive."
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-6">
+              <button className="px-12 py-6 bg-white text-[#020617] rounded-3xl font-black uppercase tracking-widest text-[10px] hover:bg-blue-600 hover:text-white transition-all shadow-2xl">
+                Clinical Diagnostics
+              </button>
+              <button className="px-12 py-6 border-2 border-white/10 text-white rounded-3xl font-black uppercase tracking-widest text-[10px] hover:border-white transition-all">
+                The 2026 Tech Stack
+              </button>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-               {[
-                 { title: "Oura Ring 4", desc: "The master of sleep architecture. Its infrared PPG sensors now offer 99% clinical correlation for REM and Deep Sleep cycles.", icon: Activity, metric: "Sleep / HRV Stability" },
-                 { title: "WHOOP 5.0", desc: "Built for recovery. Its strain-to-recovery algorithm is the industry leader for athletes managing intense CNS fatigue.", icon: Zap, metric: "Autonomic Strain" },
-                 { title: "Apple Ultra 2", desc: "The ultimate clinical proxy. Offers the most robust ecosystem for third-party neuro-app integration and cellular fallback.", icon: BarChart3, metric: "General Baseline" }
-               ].map((item) => (
-                 <div key={item.title} className="bg-white/5 p-12 rounded-[3.5rem] border border-white/10 hover:bg-white/10 transition-all group relative overflow-hidden">
-                   <div className="w-16 h-16 rounded-2xl bg-blue-500/20 flex items-center justify-center text-blue-400 mb-10 border border-blue-500/20 group-hover:scale-110 transition-transform">
-                     <item.icon size={32} />
-                   </div>
-                   <h4 className="text-3xl font-display font-semibold uppercase mb-6 tracking-tight">{item.title}</h4>
-                   <p className="text-slate-400 leading-relaxed mb-10 text-sm">{item.desc}</p>
-                   <div className="pt-8 border-t border-white/10 flex flex-col gap-2">
-                       <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500">Clinical Focus:</span>
-                       <span className="text-lg font-display font-bold uppercase">{item.metric}</span>
-                   </div>
-                 </div>
-               ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Final CTA */}
-        <div className="text-center max-w-4xl mx-auto pb-32">
-           <div className="w-24 h-24 rounded-[2.5rem] bg-blue-500/10 flex items-center justify-center text-blue-600 mx-auto mb-12 shadow-2xl shadow-blue-500/20 border border-blue-500/20">
-             <Cpu size={40} />
-           </div>
-           <h3 className="text-4xl md:text-7xl font-display font-bold uppercase tracking-tighter text-slate-900 mb-8">
-             Systemic Stability<br />is a Choice.
-           </h3>
-           <p className="text-xl text-slate-600 mb-16 max-w-2xl mx-auto leading-relaxed italic">
-             Ready to deploy your internal defense systems? Our curated selection represents the only tech we trust to be part of the 123TheNext Level ecosystem.
-           </p>
-           <div className="flex flex-col sm:flex-row justify-center gap-6">
-             <button className="px-12 py-6 bg-blue-600 text-white rounded-3xl font-black uppercase tracking-widest text-xs hover:bg-blue-500 transition-all hover:scale-105 shadow-[0_20px_40px_rgba(37,99,235,0.25)]">
-               Explore Full Catalog <ExternalLink size={18} className="ml-3 inline" />
-             </button>
-             <button className="px-12 py-6 bg-slate-100 text-slate-900 rounded-3xl font-black uppercase tracking-widest text-xs hover:bg-slate-200 transition-all">
-               Clinical White Paper
-             </button>
-           </div>
+          </motion.div>
         </div>
       </div>
     </div>
