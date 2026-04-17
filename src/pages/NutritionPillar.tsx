@@ -49,51 +49,83 @@ export default function NutritionPillar() {
   return (
     <div className="min-h-screen bg-stone-50 text-slate-900 font-sans antialiased">
       {/* Hero Section */}
-      <div className="relative pt-32 pb-64 md:pt-48 md:pb-80 flex items-center justify-center overflow-hidden bg-[#0A1F1C]">
-        <img
+      <div className="relative pt-32 pb-64 md:pt-48 md:pb-80 flex items-center justify-center overflow-hidden bg-[#0A1F1C] text-white">
+        {/* Cinematic Backdrop with movement */}
+        <motion.img
+          initial={{ scale: 1.1, opacity: 0 }}
+          animate={{ scale: 1, opacity: 0.3 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
           src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=2000"
           alt="Metabolic Precision"
-          className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay"
+          className="absolute inset-0 w-full h-full object-cover mix-blend-overlay"
           referrerPolicy="no-referrer"
         />
+        
+        {/* High-Fidelity Gradients */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A1F1C]/95 via-[#0A1F1C]/40 to-stone-50"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-emerald-900/40 via-transparent to-teal-800/20"></div>
+
+        {/* Floating Nutri-Data Light Blobs */}
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.2, 1],
+            rotate: [0, 90, 0],
+            opacity: [0.1, 0.2, 0.1]
+          }}
+          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 -right-32 w-[40rem] h-[40rem] bg-emerald-500 rounded-full blur-[150px] pointer-events-none"
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1.2, 1, 1.2],
+            rotate: [0, -90, 0],
+            opacity: [0.05, 0.1, 0.05]
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-20 -left-20 w-[30rem] h-[30rem] bg-teal-400 rounded-full blur-[120px] pointer-events-none"
+        />
+
+        {/* Technical Grain Overlay */}
+        <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')" }}></div>
         
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Link to="/#pillars" className="absolute -top-32 left-4 sm:left-6 lg:left-8 inline-flex items-center text-white/70 hover:text-white font-bold uppercase tracking-widest text-[10px] transition-all backdrop-blur-md bg-white/5 px-6 py-2.5 rounded-full border border-white/10 hover:bg-white/10">
-            <ArrowLeft size={16} className="mr-2" />
-            {t('np_back')}
+          <Link to="/#pillars" className="absolute -top-32 left-4 sm:left-6 lg:left-8 inline-flex items-center text-white/40 hover:text-white font-black uppercase tracking-tighter transition-all group">
+            <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
+            <span className="border-b border-white/10 group-hover:border-white transition-colors">{t('np_back')}</span>
           </Link>
 
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="inline-flex items-center px-6 py-2 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 font-bold text-[10px] uppercase tracking-[0.2em] mb-12 mx-auto shadow-2xl shadow-emerald-500/10"
-          >
-            <Droplets size={14} className="mr-3" />
-            Standard of Care: Precision Bio-Fueling
-          </motion.div>
-          
-          <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-4xl md:text-[clamp(3rem,6vw,6rem)] font-display font-black uppercase tracking-tight text-white mb-6 leading-[1.05] drop-shadow-2xl"
+            transition={{ duration: 1 }}
+            className="flex flex-col items-center"
           >
-            {t('np_title_start')}<br />
-            <span className="text-emerald-400">
-              {t('np_title_end')}
-            </span>
-          </motion.h1>
-          
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-2xl text-emerald-100/60 font-medium max-w-4xl mx-auto leading-relaxed"
-          >
-            {t('np_description')}
-          </motion.p>
+            <motion.div 
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 1 }}
+              className="inline-flex items-center px-6 py-2 rounded-full bg-emerald-500/10 border border-emerald-400/20 text-emerald-400 font-display font-black text-[10px] uppercase tracking-[0.3em] mb-12 shadow-2xl backdrop-blur-md"
+            >
+              <Droplets size={14} className="mr-3 animate-bounce" />
+              Standard of Care: Precision Bio-Fueling
+            </motion.div>
+            
+            <h1 className="text-6xl md:text-[clamp(4.5rem,8vw,11rem)] font-display font-black uppercase tracking-tighter text-white mb-6 leading-[0.8] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+              {t('np_title_start')}<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-500">
+                {t('np_title_end')}
+              </span>
+            </h1>
+
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="text-xl md:text-2xl text-emerald-100/50 font-medium max-w-4xl mx-auto leading-relaxed border-l-4 border-emerald-500/30 pl-8 text-left"
+            >
+              {t('np_description')}
+            </motion.p>
+          </motion.div>
         </div>
       </div>
 

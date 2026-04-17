@@ -19,7 +19,7 @@ export type Product = {
 export type BlogPost = {
   id: string;
   created_at: string;
-  category: 'health' | 'fitness' | 'nutrition' | 'wellness';
+  category: 'health' | 'fitness' | 'nutrition' | 'wellness' | 'social-fitness' | 'womens-health';
   title: string;
   slug: string;
   author: string;

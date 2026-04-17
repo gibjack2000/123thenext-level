@@ -32,6 +32,9 @@ jobs:
         cp index.js dist/
         cp package.json dist/
         cp package-lock.json dist/
+        # Copy Products folder from root to dist for distribution
+        if [ -d "Products" ]; then cp -r Products dist/; elif [ -d "products" ]; then cp -r products dist/Products; fi
+
 
     
     - name: 🚀 Sync Files (Safe Mode)
@@ -45,6 +48,6 @@ jobs:
         # EXCLUDE UNWANTED FILES - Final Clean State for Vite Setting
         exclude: |
           **/node_modules/**
-          **/Products/**
+
         # This ensures it only updates/adds files and doesn't wipe unknown server folders
         dangerous-clean-slate: false

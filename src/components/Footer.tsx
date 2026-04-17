@@ -117,7 +117,7 @@ const Footer = () => {
 
         {/* Disclaimers Section */}
         <div className="border-t border-slate-800/50 pt-12 pb-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-8">
             <div className="flex items-start space-x-3 bg-slate-800/30 p-6 rounded-3xl border border-slate-800/50 hover:bg-slate-800/40 transition-colors duration-300">
               <ExternalLink className="text-blue-500 shrink-0 mt-1" size={18} />
               <div>

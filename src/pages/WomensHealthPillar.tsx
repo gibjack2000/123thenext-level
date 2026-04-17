@@ -212,13 +212,13 @@ export default function WomensHealthPillar() {
                   { key: 'whp_cta_test_us', link: links.us, label: 'Diagnostic' },
                   { key: 'whp_cta_test_uk', link: links.uk, label: 'Diagnostic' },
                   { key: 'whp_cta_test_es', link: links.es, label: 'Diagnostic' },
-                  { key: 'whp_cta_creatine', link: 'https://amazon.com/dp/B0CXM1X8PQ', label: 'Cognitive' },
-                  { key: 'whp_cta_nad', link: 'https://amazon.com/dp/B0D5N6X8Z2', label: 'Cellular' },
-                  { key: 'whp_cta_epigenetic', link: 'https://amazon.com/dp/B0D5N6X8Z2', label: 'Longevity' },
+                  { key: 'whp_cta_creatine', link: links.creatine, label: 'Cognitive' },
+                  { key: 'whp_cta_nad', link: links.nad, label: 'Cellular' },
+                  { key: 'whp_cta_epigenetic', link: links.epigenetic, label: 'Longevity' },
                   { key: 'whp_cta_strength', link: links.strength, label: 'Performance' },
-                  { key: 'whp_cta_memberships', link: '#', label: 'Community' }
+                  { key: 'whp_cta_memberships', link: links.memberships, label: 'Community' }
                 ].map((item, idx) => (
-                  <a key={idx} href={item.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-slate-50 rounded-3xl group hover:bg-rose-600 hover:text-white transition-all duration-300">
+                  <a key={idx} href={item.link.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-slate-50 rounded-3xl group hover:bg-rose-600 hover:text-white transition-all duration-300">
                     <span className="font-bold flex items-center gap-4">
                       <span className="text-[10px] bg-slate-200 group-hover:bg-rose-500 px-2 py-0.5 rounded-full text-slate-600 group-hover:text-white uppercase font-black">{item.label}</span>
                       <span className="text-sm md:text-base">{t(item.key as any)}</span>

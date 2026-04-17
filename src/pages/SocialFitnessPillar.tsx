@@ -22,58 +22,86 @@ export default function SocialFitnessPillar() {
   };
 
   return (
-    <div className="min-h-screen bg-orange-50/30 text-slate-900">
+    <div className="min-h-screen bg-orange-50/30 text-slate-900 font-sans antialiased">
       {/* Hero Section */}
-      <div className="relative pt-32 pb-64 md:pt-48 md:pb-80 flex items-center justify-center overflow-hidden bg-orange-500">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="/social-fitness-bg.png"
-          className="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay"
-          referrerPolicy="no-referrer"
-        >
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-group-of-friends-walking-on-a-sunny-day-4852-large.mp4" type="video/mp4" />
-        </video>
+      <div className="relative pt-32 pb-64 md:pt-48 md:pb-80 flex items-center justify-center overflow-hidden bg-orange-600 text-white">
+        {/* Cinematic Backdrop Layer */}
+        <div className="absolute inset-0 z-0 scale-110">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/social-fitness-bg.png"
+            className="w-full h-full object-cover opacity-30 mix-blend-screen"
+            referrerPolicy="no-referrer"
+          >
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-group-of-friends-walking-on-a-sunny-day-4852-large.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        {/* Dynamic Sun-Drenched Gradients */}
         <div className="absolute inset-0 bg-gradient-to-b from-orange-600/90 via-orange-500/40 to-orange-50/30"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(253,224,71,0.2),transparent_60%)]"></div>
+
+        {/* Floating Community Energy Blobs */}
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.25, 1],
+            x: [0, 60, 0],
+            opacity: [0.15, 0.3, 0.15]
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-20 -right-20 w-[40rem] h-[40rem] bg-yellow-400/20 rounded-full blur-[140px] pointer-events-none"
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1.2, 1, 1.2],
+            x: [0, -60, 0],
+            opacity: [0.1, 0.2, 0.1]
+          }}
+          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-10 left-10 w-[30rem] h-[30rem] bg-orange-300/20 rounded-full blur-[120px] pointer-events-none"
+        />
+
+        {/* Technical Grain Overlay */}
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')" }}></div>
         
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Link to="/#pillars" className="absolute -top-32 left-4 sm:left-6 lg:left-8 inline-flex items-center text-white/70 hover:text-white font-bold uppercase tracking-tight transition-all backdrop-blur-md bg-white/5 px-4 py-2 rounded-xl border border-white/10 hover:bg-white/10">
-            <ArrowLeft size={16} className="mr-2" />
-            {t('sfp_back')}
+          <Link to="/#pillars" className="absolute -top-32 left-4 sm:left-6 lg:left-8 inline-flex items-center text-white/40 hover:text-white font-black uppercase tracking-tighter transition-all group">
+            <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
+            <span className="border-b border-white/10 group-hover:border-white transition-colors">{t('sfp_back')}</span>
           </Link>
 
           <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/20 border border-white/30 text-white font-bold text-xs uppercase tracking-widest mb-8 mx-auto backdrop-blur-sm"
-          >
-            <Users size={14} className="mr-2" />
-            The Wellness Renaissance 2026
-          </motion.div>
-          
-          <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-6xl md:text-[clamp(3.5rem,7vw,8rem)] font-display font-semibold uppercase tracking-[0.02em] text-white mb-4 leading-[1.15]"
+            transition={{ duration: 1 }}
+            className="flex flex-col items-center"
           >
-            {t('sfp_title_start')}<br />
-            <span className="text-yellow-300 drop-shadow-[0_0_15px_rgba(253,224,71,0.3)]">
-              {t('sfp_title_end')}
-            </span>
-          </motion.h1>
-          
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-2xl text-white/90 font-medium max-w-3xl mx-auto leading-relaxed"
-          >
-            {t('sfp_description')} In 2026, we embrace the **"Renaissance of Connection,"** moving beyond "lonely fitness" into collective energy and nervous system safety.
-          </motion.p>
+            <div className="px-6 py-2 rounded-2xl bg-white/10 border border-white/20 text-white font-display font-black text-[10px] uppercase tracking-[0.3em] mb-12 backdrop-blur-md shadow-2xl">
+              <span className="flex items-center gap-3">
+                <Users size={14} className="animate-pulse" />
+                The Wellness Renaissance 2026
+              </span>
+            </div>
+            
+            <h1 className="text-6xl md:text-[clamp(4.5rem,8vw,11rem)] font-display font-black uppercase tracking-tighter text-white mb-6 leading-[0.8] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+              {t('sfp_title_start')}<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-orange-200 to-yellow-400">
+                {t('sfp_title_end')}
+              </span>
+            </h1>
+
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="text-xl md:text-2xl text-white/70 font-medium max-w-4xl mx-auto leading-relaxed border-l-4 border-white/30 pl-8 text-left italic"
+            >
+              {t('sfp_description')} In 2026, we embrace the **"Renaissance of Connection,"** moving beyond "lonely fitness" into collective energy and nervous system safety.
+            </motion.p>
+          </motion.div>
         </div>
       </div>
 

@@ -214,7 +214,7 @@ export default function UniversalQA() {
             <input 
               type="text"
               placeholder={t('uqa_search_placeholder')}
-              className="w-full bg-slate-50 border-none rounded-2xl py-4 pl-12 pr-4 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-500 transition-all font-medium"
+              className="w-full bg-slate-50 border-none rounded-2xl md:py-4 py-3 pl-12 pr-4 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-500 transition-all font-medium"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -227,7 +227,7 @@ export default function UniversalQA() {
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`px-5 py-2.5 rounded-full text-sm font-bold uppercase tracking-wider transition-all ${
+              className={`px-4 md:px-5 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-bold uppercase tracking-wider transition-all ${
                 activeCategory === cat.id 
                   ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200 scale-105' 
                   : 'bg-slate-50 text-slate-500 hover:bg-slate-100'

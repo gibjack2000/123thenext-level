@@ -1,18 +1,16 @@
-# Hostinger Deployment Guide: Protecting Persistent Assets
+This guide explains how your website is updated from GitHub to Hostinger. The **Product Images** are now included in the GitHub repository at the root `/Products` folder and are automatically deployed to the server.
 
-This guide explains how to safely update your website from GitHub to Hostinger while ensuring that your **Product Images** (located in the `public_html/Products` folder) are never deleted or overwritten.
+## 1. How Your Files Are Managed
+The project is configured to include the `Products` folder in distribution. This means:
+- Product images are stored in the GitHub repository.
+- Changes to images are automatically synced to the server during deployment.
 
-## 1. How Your Files Are Protected
-We have configured the project's `.gitignore` file to ignore the `public/Products` folder. This means:
-- No images from your server are ever uploaded to GitHub.
-- GitHub does not "know" about these images, so it will not try to delete them during a standard update.
+## 2. Standard Deployment (GitHub Action)
+We use a **Safe Deploy** GitHub Action (`.github/workflows/deploy.yml`) to update your site.
 
-## 2. Recommended: Safe Deployment (GitHub Action)
-We have added a **Safe Deploy** GitHub Action (`.github/workflows/deploy.yml`) that is the most secure way to update your site.
-
-### Why this is safer:
-- **Exclusion Rule**: The Action is specifically told to **ignore** the `Products` folder on your server.
-- **No Wiping**: It is configured in "non-clean" mode, so it only updates changed files and never deletes untracked folders like your images.
+### Features:
+- **Automatic Inclusion**: The root `/Products` folder is copied to the build directory and uploaded to Hostinger.
+- **Syncing**: It updates changed files to keep the server in sync with GitHub.
 
 ### How to use it:
 1. Add your FTP credentials to GitHub Secrets (`FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`).
