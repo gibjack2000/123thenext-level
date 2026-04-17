@@ -743,16 +743,22 @@ const translations = {
     // Mastery Hub Sections
     wp_hub_narrative_title: 'Autonomic Homeostasis: Beyond Willpower',
     wp_hub_narrative_p: 'Mental health in 2026 is no longer a question of "willpower" but of biological regulation. The primary bottleneck to vitality is nervous system overload—a state where biological noise drowns out the signals of recovery. Our objective is to move from subjective feelings to objective regulation.',
-    
+    wp_hub_deepening: 'For over a decade, the fitness industry sold stress management as a luxury add-on. The medical community now recognizes chronic autonomic overload as a root cause of metabolic dysfunction, cognitive decline, and systemic inflammation. When your body perceives threat, it downshunts repair, growth, and immune prioritization—and you cannot supplement your way out of a nervous system crisis.',
+
     wp_polyvagal_title: 'The Polyvagal Paradigm',
+    wp_polyvagal_detail: 'Stephen Porges\' Polyvagal Theory revolutionized our understanding of how the Vagus Nerve governs states of safety, mobilization, and shutdown. The Vagus is not a single highway—it is a branching network with distinct circuits, each triggering a different biological program. Understanding which circuit your body is running is the foundation of every neuro-recovery protocol.',
     wp_polyvagal_ventral: 'Ventral Vagal Pathway: The state of social engagement, safety, and cellular repair.',
+    wp_polyvagal_ventral_detail: 'When the ventral vagal circuit is dominant, your heart rate slows, your digestive system activates, and oxytocin flows freely. This is the physiological "rest-and-digest" state where tissue repair, cognitive creativity, and immune optimization occur. The goal of every protocol in this pillar is to increase the amount of time your nervous system spends here.',
     wp_polyvagal_sympathetic: 'Sympathetic Activation: Mobilization for fight or flight. Necessary for performance, toxic in chronic states.',
+    wp_polyvagal_sympathetic_detail: 'The sympathetic circuit floods your system with cortisol and adrenaline. In short bursts—during a workout, a deadline, or a real threat—this is life-saving. In chronic states (the default for modern professionals), it creates systemic inflammation, insulin resistance, hippocampal volume loss, and cognitive fog. You need acute sympathetic spikes, not elevated baselines.',
     wp_polyvagal_dorsal: 'Dorsal Vagal Shutdown: The freeze response. Disconnection, fog, and metabolic stagnation.',
-    
+    wp_polyvagal_dorsal_detail: 'When threat overwhelms the sympathetic system, the oldest Vagal circuit—the dorsal vagal—engages as a last-resort survival mechanism. You freeze. Energy conservation becomes the priority. This manifests as depression, chronic fatigue, dissociation, and a profound inability to mobilize motivation. It is often misdiagnosed as laziness, when it is actually a biological emergency response.',
+
     wp_movement_med_title: 'Movement as Nervous System Medicine',
     wp_movement_med_p: 'We connect physicality directly to emotional resilience. Your muscles are endocrine organs that communicate safety to your brain. High-intensity intervals or slow somatic release—every movement is a neural signal.',
+    wp_movement_detail: 'Exercise has never been about calories burned or muscles built—it is about the neurochemical signal sent to the brain. Every contraction releases myokines (Irisin, IL-6, BDNF) that cross the blood-brain barrier and literally restructure neural networks. The type, intensity, and timing of movement determine whether your nervous system receives a "threat" signal or a "safety" signal. This is why the choice between a max-effort sprint session and a slow Yin Yoga practice is not a fitness decision—it is a neurobiological one.',
 
-    // UX Deep Dive Paths
+    // Protocol Pathways
     wp_path_a_title: 'Hard-Care Tech',
     wp_path_a_desc: 'Vagus Nerve Stimulation & Wearable Data.',
     wp_path_b_title: 'Soft-Care Somatics',
@@ -760,30 +766,80 @@ const translations = {
     wp_path_c_title: 'The Metabolic Link',
     wp_path_c_desc: 'The Muscle-Brain Axis & Energy Metabolism.',
 
+    // Additional Protocol Cards
+    wp_circadian_title: 'Circadian Syncing: Light & Life',
+    wp_circadian_desc: 'Managing the "Master Clock" through precision light exposure and temperature cycling. Aligning your internal architecture with the planet.',
+    wp_circadian_detail: 'Your suprachiasmatic nucleus acts as the "master clock" for every organ system. Morning sunlight exposure before 10 AM, strategic afternoon movement, and evening temperature decline are the three most potent free tools for autonomic regulation. In 2026, we are moving past "sleep hygiene" toward circadian architecture—engineering your daily light, food, and movement patterns to reinforce your evolutionary timing.',
+    wp_hormetic_title: 'Hormetic Stress Protocols',
+    wp_hormetic_desc: 'Deliberate cold exposure and heat stress to trigger cellular resilience. Using extreme environments to strengthen the biological core.',
+    wp_hormetic_detail: 'Hormesis is the process by which brief, controlled stress exposure makes your body stronger. Cold plunges trigger norepinephrine release up to 5x baseline, activating brown adipose tissue and systemic anti-inflammatory signaling. Sauna heat shock proteins repair misfolded proteins and improve endothelial function. These are not wellness trends—they are precision biological stressors calibrated to trigger adaptation.',
+    wp_recovery_title: 'Non-Sleep Deep Rest (NSDR)',
+    wp_recovery_desc: 'Cognitive reset through neural down-regulation and deliberate stillness.',
+    wp_recovery_detail: 'NSDR protocols—popularized by neuroscientists like Dr. Andrew Huberman—use guided body scans, Yoga Nidra, and progressive relaxation to accelerate nervous system state transitions. A 20-minute NSDR session can replenish dopamine reserves, reduce cortisol by 30-50%, and improve learning consolidation. It is the fastest free recovery tool available.',
+    wp_nature_title: 'Biophilic Reset',
+    wp_nature_desc: 'Grounding, phytoncide exposure, and sensory recalibration through nature.',
+    wp_nature_detail: 'The forest is not a metaphor—it is a biological intervention. Phytoncide exposure from trees increases natural killer cell activity by 40-50%. Barefoot grounding reduces inflammation markers. The fractal patterns in nature (unlike the linear geometry of screens and cities) reduce cortisol and shift the brain into alpha-wave states associated with creative insight. Two hours per week in green space is now considered a minimum neurobiological requirement.',
+
+    // Expansion Sections
+    wp_expansion_title: 'The 2026 Neuro-Recovery Architecture',
+    wp_expansion_intro: 'We have moved past the era of "self-care" as bath bombs and positive affirmations. The new architecture is built on three pillars of intervention:',
+    wp_expansion_bottom_up: 'Bottom-Up Regulation: Breathwork, somatic release, and VNS act directly on the brainstem, bypassing the resistance of thinking and language.',
+    wp_expansion_top_down: 'Top-Down Reframing: Cognitive behavioral protocols, neuro-feedback, and mindfulness engage the prefrontal cortex to downregulate the amygdala through conscious attention.',
+    wp_expansion_horizontal: 'Horizontal Integration: Movement, nutrition, circadian rhythm, and community connect every system so that improvements compound rather than compete.',
+
     // Sub-Page A: Hard-Care Tech
     wp_hard_title: 'Neurotech & VNS: Programming Homeostasis',
     wp_hard_intro: 'How TENS devices and wearables deliver afferent signals to the hippocampus and amygdala to restore balance.',
+    wp_hard_vns_title: 'The VNS Revolution',
+    wp_hard_vns_detail: 'Transcutaneous Electrical Nerve Stimulation (TENS) of the auricular branch of the Vagus Nerve is the frontline tool of 2026 for bypassing the conscious mind\'s resistance to calm. Directly stimulating the nerve sends signals back to the brainstem, which project to the hippocampus and amygdala, effectively "turning off" the biological alarm system. Regular use increases Heart Rate Variability (HRV) and expands the "window of tolerance," making you more resilient to acute future stressors.',
+    wp_hard_vns_mechanism_title: 'How It Works: The Neural Pathway',
+    wp_hard_vns_mechanism_step1: 'Micro-currents are applied to the auricular branch of the Vagus Nerve at the outer ear or neck.',
+    wp_hard_vns_mechanism_step2: 'Afferent (incoming) signals travel via the Vagus to the nucleus tractus solitarius in the brainstem.',
+    wp_hard_vns_mechanism_step3: 'From there, projections reach the locus coeruleus, reducing norepinephrine output by up to 40%.',
+    wp_hard_vns_mechanism_step4: 'The amygdala\'s firing rate decreases simultaneously, releasing the body from its chronic "threat" posture within minutes.',
+    wp_hard_hrv_title: 'Heart Rate Variability: The Master Metric',
+    wp_hard_hrv_detail: 'HRV measures the time gap between successive heartbeats—a proxy for autonomic flexibility. Higher HRV means your Vagus can shift smoothly between activation and calm. Low HRV is a leading predictor of cardiovascular disease, PTSD severity, and all-cause mortality. Wearables now make this measurement continuous, and VNS devices make it trainable.',
     wp_hard_comparison_title: 'The 2026 Wearable War',
     wp_hard_oura: 'Oura Ring 4: Precision sleep architecture and biological age tracking.',
     wp_hard_whoop: 'WHOOP 5.0: The ultimate autonomic stress-strain validator.',
     wp_hard_apple: 'Apple Watch Ultra 2: Clinical-grade Vagus Nerve monitoring.',
-    
+    wp_hard_data_title: 'Data Is the New Placebo',
+    wp_hard_data_detail: 'The act of measuring changes the behavior itself. When you can see your HRV score recover after a breathwork session, or watch your sleep architecture deepen after reducing evening light exposure, you gain a feedback loop that accelerates every other protocol. Bio-data turns subjective feelings into objective trajectories.',
+
     // Sub-Page B: Soft-Care Somatics
     wp_soft_title: 'Somatic Healing: Regulating from the Body Up',
     wp_soft_intro: 'Techniques with clinical objectives for rapid autonomic recalibration.',
+    wp_soft_philosophy_title: 'The Body Speaks First',
+    wp_soft_philosophy_detail: 'Most mental health approaches start "top-down"—using thought to change feeling. Somatic practices work "bottom-up"—using the body to change the brain. The Vagus Nerve sends 80% of its signals upward from body to brain, and only 20% downward. When your physiology is in a threat state, no amount of cognitive reframing will override it. Somatic practices hack the 80% upstream channel.',
     wp_soft_sigh: 'Physiological Sigh: Rapid CO2 clearing for immediate calm.',
+    wp_soft_sigh_detail: 'Developed from the research of Dr. Jack Feldman at UCLA, the physiological sigh is the fastest mechanical tool to reduce arousal. The double-inhale fully inflates collapsed alveoli (sacs) in the lungs, and the long exhale slows the heart through mechanical compression. Just 1-3 repetitions can measurably shift your autonomic state from sympathetic to ventral vagal within 30 seconds.',
     wp_soft_box: 'Box Breathing: High-stress focus for cognitive clarity.',
+    wp_soft_box_detail: 'Box breathing (4-4-4-4) was popularized by Navy SEALs for a reason: it simultaneously oxygenates the brain and creates a rhythmic, predictable pattern that signals safety to the brainstem. The hold phases create mild hypoxia that triggers adaptive stress responses. Used before presentations, negotiations, or any high-stakes cognitive performance.',
     wp_soft_grounding: 'Somatic Grounding (5-4-3-2-1): Anchoring during acute anxiety.',
+    wp_soft_grounding_detail: 'When anxiety pulls your attention into catastrophic future-thinking, the 5-4-3-2-1 protocol forcibly re-engages all five sensory cortices. This breaks the amygdala\'s feedback loop by flooding the prefrontal cortex with real-time sensory input. The brain cannot simultaneously maintain acute sensory awareness and panic.',
+    wp_soft_nsdrt_title: 'Non-Sleep Deep Rest (NSDR) Protocols',
+    wp_soft_nsdr_desc: 'Guided Yoga Nidra and body-scan sequences that accelerate nervous system recovery. 10-20 minutes of NSDR can replenish dopamine reserves and reduce cortisol by 30-50%. These protocols are now used by elite athletes between training sessions and by therapists as adjunct trauma treatment.',
     wp_soft_backlash_title: 'The Over-Optimization Backlash',
     wp_soft_backlash_p: 'The shift from self-surveillance to collective energy. Embracing "somatic release" over constant metric-chasing.',
+    wp_soft_backlash_detail: 'There is a growing crisis in the wellness space: the obsession with optimization has itself become a stressor. Tracking every minute of sleep, every calorie, every heart-rate zone activates the very sympathetic nervous system you are trying to calm. The 2026 antidote is "sensor-free windows"—dedicated periods where you abandon measurement entirely and trust your body\'s felt sense. Somatic release classes, group breathwork sessions, and nature immersion without a single device—these are the new frontiers of genuine recovery.',
 
     // Sub-Page C: Muscle-Brain Axis
     wp_meta_title: 'The Muscle-Brain Axis: Neurometabolism',
     wp_meta_intro: 'How skeletal muscle acts as an endocrine organ to preserve cognitive integrity.',
+    wp_meta_detail: 'The discovery that skeletal muscle secretes signaling proteins called myokines during contraction is one of the most important findings in modern neurobiology. Your muscles are not just moving parts—they are endocrine organs that directly talk to your brain. Every rep, every sprint, every sustained isometric hold is a biochemical conversation between your body and your mind.',
     wp_meta_myokine_title: 'The Myokine Revolution',
     wp_meta_myokine_p: 'Irisin and BDNF: The molecular signals that mitigate brain fog and neurodegeneration.',
+    wp_meta_myokine_detail: 'When muscle contracts, it releases Irisin, IL-6, IGF-1, and Cathepsin B—all of which cross or signal across the blood-brain barrier. Irisin specifically upregulates BDNF (Brain-Derived Neurotrophic Factor) in the hippocampus, effectively telling your brain to grow new neurons and strengthen synaptic connections. This is not metaphor: exercise literally fertilizes your brain.',
     wp_meta_creatine_title: 'Creatine for Cognitive Energy',
     wp_meta_creatine_p: '2026 Evidence: High-dose protocols for energy metabolism and menopausal fog mitigation.',
+    wp_meta_creatine_detail: 'Creatine monohydrate is the most researched supplement in sports science, but its cognitive effects have only recently been isolated. The brain consumes 20% of your body\'s ATP, and creatine phosphate is the primary recycling mechanism for neuronal energy. High-dose protocols (5g/day) have shown significant improvements in working memory, processing speed, and fatigue resistance—especially during sleep deprivation. For women in perimenopause, creatine is emerging as a critical protocol for cognitive energy when estrogen-driven neuroprotection declines.',
+    wp_meta_nutrition_title: 'The Mitochondrial Connection',
+    wp_meta_nutrition_detail: 'Mitochondria are the power plants of every cell in your body, and they are particularly dense in neurons and slow-twitch muscle fibers. Mitochondrial dysfunction is now implicated in Alzheimer\'s, Parkinson\'s, chronic fatigue syndrome, and major depressive disorder. Protocol priorities: CoQ10, PQQ, NAD+ precursors, and consistent Zone 2 aerobic training that increases mitochondrial biogenesis.',
+    wp_meta_protocols_title: '2026 Evidence-Based Protocols',
+    wp_meta_protocols_zone2: 'Zone 2 Cardio (150+ min/week): The mitochondrial engine. Maintains fat oxidation, lactate clearance, and BDNF production.',
+    wp_meta_protocols_resistance: 'Resistance Training (2-4x/week): The myokine trigger. Heavy compound movements maximize Irisin and IGF-1 release.',
+    wp_meta_protocols_creatine: 'Creatine Monohydrate (5g/day): The cognitive battery. Most researched supplement for brain and muscle ATP recycling.',
+    wp_meta_protocols_omega3: 'Omega-3 EPA/DHA (2-4g/day): The membrane architect. Maintains neuronal membrane fluidity for optimal signal transmission.',
 
     // Conversion Layer
     wp_conv_diagnostic: 'SystemAge™ Brain Health Kit',
@@ -794,15 +850,8 @@ const translations = {
     wp_blog_q1: 'How to regulate my nervous system through somatic release.',
     wp_blog_q2: 'Why gut health is the primary driver of brain fog in 2026.',
     wp_blog_q3: 'Cold Plunge vs Infrared Sauna: Autonomic Reset Analysis.',
-    wp_blog_q4: 'Neurowellness protocols for over-optimization burnout profesionales.',
+    wp_blog_q4: 'Neurowellness protocols for over-optimization burnout professionals.',
 
-    // New 2026 Content Sections
-    wp_circadian_title: 'Circadian Syncing: Light & Life',
-    wp_circadian_desc: 'Managing the "Master Clock" through precision light exposure and temperature cycling. Aligning your internal architecture with the planet.',
-    
-    wp_hormetic_title: 'Hormetic Stress Protocols',
-    wp_hormetic_desc: 'Deliberate cold exposure and heat stress to trigger cellular resilience. Using extreme environments to strengthen the biological core.',
-    
     wp_recovery_title: 'Non-Sleep Deep Rest (NSDR)',
     wp_recovery_desc: 'Cognitive reset through neural down-regulation. Mastering the art of deliberate stillness to accelerate brain-state transitions.',
 
@@ -814,6 +863,7 @@ const translations = {
     wp_cta_sauna_uk: 'Infrared Recovery Pod (UK)',
     wp_cta_sauna_es: 'Pod de Sauna Infrarroja (España)',
     wp_cta_nootropics: 'Targeted Neuro-Stack',
+
 
     // Wellness Post J - Practical Mindfulness
     wpj_back: 'Back to Home',

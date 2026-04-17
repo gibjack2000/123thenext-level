@@ -143,7 +143,7 @@ export default function NutritionBiomarkers() {
                  <div className="absolute inset-0 bg-emerald-500/20 blur-[120px] rounded-full animate-pulse"></div>
                  <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1200" alt="Data Analytics" className="rounded-[4rem] relative z-10 shadow-2xl border border-white/5 opacity-80" />
                  <div className="absolute -top-10 -left-10 bg-emerald-600 p-8 rounded-[2.5rem] shadow-2xl z-20 hidden xl:block">
-                    <Workflow className="text-white mb-4" size={32} />
+                    <Activity className="text-white mb-4" size={32} />
                     <p className="text-[10px] font-black uppercase tracking-[0.2em] text-white">Bio-Sync Active</p>
                  </div>
               </div>

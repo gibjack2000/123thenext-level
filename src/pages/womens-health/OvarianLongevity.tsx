@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, Microscope, Shield, Dna, Info, ExternalLink, Activity, Germany } from 'lucide-react';
+import { ArrowLeft, Microscope, Shield, Dna, Info, ExternalLink, Activity } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../../translations';
+import { useAffiliateLinks } from '../../contexts/AffiliateLinksContext';
 
 
 export default function OvarianLongevity() {
   const t = useT();
+  const { links } = useAffiliateLinks();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -14,7 +16,16 @@ export default function OvarianLongevity() {
   }, [t]);
 
   return (
-    <div className="min-h-screen bg-rose-50 text-slate-900 pb-32">
+    <div className="min-h-screen text-white pb-32 relative"
+         style={{
+           backgroundImage: "url('https://images.unsplash.com/photo-1559526324-c1f2567e1a97?auto=format&fit=crop&q=80&w=2000')",
+           backgroundPosition: "center", backgroundSize: "cover", backgroundAttachment: "fixed", backgroundRepeat: "no-repeat"
+         }}>
+      <div className="absolute inset-0 bg-gradient-to-b from-rose-950/55 via-rose-900/45 to-rose-950/60"></div>
+      <div className="absolute inset-0 opacity-[0.04]" style={{
+        backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')"
+      }}></div>
+
       {/* Header */}
       <div className="relative py-32 overflow-hidden bg-rose-950 text-white">
         <div className="absolute inset-0 bg-rose-500/10 blur-[120px] -mt-64"></div>
@@ -68,8 +79,16 @@ export default function OvarianLongevity() {
         </div>
 
         {/* Diagnostics Section */}
-        <section className="bg-rose-900 rounded-[4rem] p-10 md:p-20 text-white relative overflow-hidden shadow-2xl shadow-rose-900/40">
+        <section className="rounded-[4rem] p-10 md:p-20 text-white relative overflow-hidden shadow-2xl shadow-rose-900/40"
+                 style={{
+                   backgroundImage: "url('https://images.unsplash.com/photo-1559526324-c1f2567e1a97?auto=format&fit=crop&q=80&w=2000')",
+                   backgroundSize: "cover", backgroundPosition: "center"
+                 }}>
+          <div className="absolute inset-0 bg-gradient-to-br from-rose-900/70 to-purple-900/65"></div>
           <div className="absolute top-0 right-0 w-96 h-96 bg-rose-400/10 blur-[100px] -mr-48 -mt-48"></div>
+          <div className="absolute inset-0 opacity-[0.04]" style={{
+            backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')"
+          }}></div>
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-12">
               <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/10 border border-white/20 text-rose-200 font-black text-xs uppercase tracking-widest">
@@ -83,23 +102,30 @@ export default function OvarianLongevity() {
               </p>
             </div>
 
-            <div className="bg-white rounded-[3rem] p-12 text-slate-900 space-y-8">
+            <div className="relative overflow-hidden rounded-[3rem] p-12 space-y-8"
+                 style={{
+                   backgroundImage: "url('https://images.unsplash.com/photo-1544367567-0f9fcb004fb4?auto=format&fit=crop&q=80&w=1200')",
+                   backgroundSize: "cover", backgroundPosition: "center"
+                 }}>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/65 to-rose-50/55 rounded-[3rem]"></div>
+              <div className="relative z-10 text-slate-900 space-y-8">
               <div className="text-center">
                 <h3 className="text-3xl font-display font-black uppercase tracking-tighter mb-2">The Longevity Panel</h3>
                 <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px]">Clinical Grade Testing</p>
               </div>
               <div className="space-y-4">
-                <a href="https://amazon.com/dp/B0CXM1X8PQ" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-rose-50 rounded-3xl group hover:bg-rose-600 hover:text-white transition-all">
+                <a href={links.us} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-rose-50 rounded-3xl group hover:bg-rose-600 hover:text-white transition-all">
                   <span className="font-bold uppercase tracking-tight">Ovarian Reserve Home Kit</span>
                   <ExternalLink className="opacity-40 group-hover:opacity-100" size={18} />
                 </a>
-                <a href="https://amazon.com/dp/B0D5N6X8Z2" target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-rose-50 rounded-3xl group hover:bg-rose-600 hover:text-white transition-all">
+                <a href={links.epigenetic} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-rose-50 rounded-3xl group hover:bg-rose-600 hover:text-white transition-all">
                   <span className="font-bold uppercase tracking-tight">Biological Age (Epigenetic)</span>
                   <ExternalLink className="opacity-40 group-hover:opacity-100" size={18} />
                 </a>
                 <div className="p-6 bg-rose-600 text-white rounded-3xl text-center font-black uppercase tracking-tighter shadow-lg shadow-rose-900/20">
                   Precision Roadmap Activated
                 </div>
+              </div>
               </div>
             </div>
           </div>

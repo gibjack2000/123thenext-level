@@ -3,10 +3,12 @@ import { ArrowLeft, Brain, Zap, Shield, Info, ExternalLink, Activity, Beaker } f
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../../translations';
+import { useAffiliateLinks } from '../../contexts/AffiliateLinksContext';
 
 
 export default function CognitiveMetabolic() {
   const t = useT();
+  const { links } = useAffiliateLinks();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -14,7 +16,16 @@ export default function CognitiveMetabolic() {
   }, [t]);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white pb-32">
+    <div className="min-h-screen text-white pb-32 relative"
+         style={{
+           backgroundImage: "url('https://images.unsplash.com/photo-1508325492471-bf4f3794d1cf?auto=format&fit=crop&q=80&w=2000')",
+           backgroundPosition: "center", backgroundSize: "cover", backgroundAttachment: "fixed", backgroundRepeat: "no-repeat"
+         }}>
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-900/50 to-rose-950/70"></div>
+      <div className="absolute inset-0 opacity-[0.04]" style={{
+        backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')"
+      }}></div>
+
       {/* Header */}
       <div className="relative py-32 overflow-hidden">
         <div className="absolute inset-0 bg-rose-600/10 blur-[120px] -mt-64"></div>
@@ -36,7 +47,7 @@ export default function CognitiveMetabolic() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-32 relative z-10">
         {/* Creatine Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-8">
@@ -68,7 +79,12 @@ export default function CognitiveMetabolic() {
         </div>
 
         {/* NAD+ Section */}
-        <section className="bg-rose-900 rounded-[4rem] p-10 md:p-20 text-white relative overflow-hidden shadow-2xl shadow-rose-900/10">
+        <section className="rounded-[4rem] p-10 md:p-20 text-white relative overflow-hidden shadow-2xl shadow-rose-900/20"
+                 style={{
+                   backgroundImage: "url('https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&q=80&w=2000')",
+                   backgroundSize: "cover", backgroundPosition: "center"
+                 }}>
+          <div className="absolute inset-0 bg-gradient-to-br from-rose-900/70 to-slate-900/65"></div>
           <div className="absolute top-0 right-0 w-96 h-96 bg-rose-400/10 blur-[100px] -mr-48 -mt-48"></div>
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-12">
@@ -80,7 +96,7 @@ export default function CognitiveMetabolic() {
               </p>
               
               <div className="space-y-4">
-                <a href="https://amazon.com/dp/B0D5N6X8Z2" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-4 p-6 bg-white text-rose-950 rounded-3xl group font-black uppercase tracking-tighter hover:bg-rose-100 transition-all">
+                <a href={links.nad} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-4 p-6 bg-white text-rose-950 rounded-3xl group font-black uppercase tracking-tighter hover:bg-rose-100 transition-all">
                   Order Mitochondrial Suite <ExternalLink size={20} />
                 </a>
               </div>

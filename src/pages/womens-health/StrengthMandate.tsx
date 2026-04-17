@@ -3,10 +3,12 @@ import { ArrowLeft, Dumbbell, Zap, Shield, Info, ExternalLink, Activity, Trophy 
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../../translations';
+import { useAffiliateLinks } from '../../contexts/AffiliateLinksContext';
 
 
 export default function StrengthMandate() {
   const t = useT();
+  const { links } = useAffiliateLinks();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -14,7 +16,16 @@ export default function StrengthMandate() {
   }, [t]);
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white pb-32">
+    <div className="min-h-screen text-white pb-32 relative"
+         style={{
+           backgroundImage: "url('https://images.unsplash.com/photo-1549476012-0a42608c89d6?auto=format&fit=crop&q=80&w=2000')",
+           backgroundPosition: "center", backgroundSize: "cover", backgroundAttachment: "fixed", backgroundRepeat: "no-repeat"
+         }}>
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-800/50 to-rose-900/70"></div>
+      <div className="absolute inset-0 opacity-[0.04]" style={{
+        backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')"
+      }}></div>
+
       {/* Header */}
       <div className="relative py-32 overflow-hidden bg-rose-900">
         <div className="absolute inset-0 bg-white/5 opacity-20" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #fff 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
@@ -36,7 +47,7 @@ export default function StrengthMandate() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-32 mt-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-32 mt-20 relative z-10">
         {/* Heavy Strength Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div className="space-y-8">
@@ -71,8 +82,16 @@ export default function StrengthMandate() {
         </div>
 
         {/* Grassroots Revolution Section */}
-        <section className="bg-white rounded-[4rem] p-10 md:p-20 text-slate-900 relative overflow-hidden">
+        <section className="rounded-[4rem] p-10 md:p-20 text-slate-900 relative overflow-hidden"
+                 style={{
+                   backgroundImage: "url('https://images.unsplash.com/photo-1526392060635-9d6019884350?auto=format&fit=crop&q=80&w=2000')",
+                   backgroundSize: "cover", backgroundPosition: "center"
+                 }}>
+          <div className="absolute inset-0 bg-white/40"></div>
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-rose-100 blur-[100px] -mr-48 -mb-48"></div>
+          <div className="absolute inset-0 opacity-[0.04]" style={{
+            backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')"
+          }}></div>
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="order-2 lg:order-1">
               <img 
@@ -93,7 +112,7 @@ export default function StrengthMandate() {
               </p>
               
               <div className="flex gap-4">
-                <a href="https://amazon.com/dp/B0CLB5X8X9" target="_blank" rel="noopener noreferrer" className="flex-grow flex items-center justify-between p-6 bg-slate-900 text-white rounded-3xl font-black uppercase tracking-tighter hover:bg-rose-600 transition-all text-sm md:text-base">
+                <a href={links.strength} target="_blank" rel="noopener noreferrer" className="flex-grow flex items-center justify-between p-6 bg-slate-900 text-white rounded-3xl font-black uppercase tracking-tighter hover:bg-rose-600 transition-all text-sm md:text-base">
                   Shop Strength Rack <ExternalLink size={18} />
                 </a>
               </div>

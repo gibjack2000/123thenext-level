@@ -278,7 +278,7 @@ export default function Home() {
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 lg:py-40">
           <div className="flex flex-col lg:flex-row items-start justify-between gap-12 lg:gap-8">
-            <div className="w-full lg:w-1/2">
+            <div className="w-full lg:w-2/3">
               <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-sm font-semibold tracking-wide uppercase mb-6 border border-blue-500/30">
                 <Sparkles size={16} className="mr-2" />
                 {t('hero_badge')}

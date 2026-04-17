@@ -24,53 +24,82 @@ export default function FitnessPillar() {
     <div className="min-h-screen bg-slate-950 text-white">
       {/* Hero Section */}
       <div className="relative pt-32 pb-64 md:pt-48 md:pb-80 flex items-center justify-center overflow-hidden">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover opacity-30 scale-105"
-        >
-          <source src="https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-in-a-gym-4854-large.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/40 to-slate-950"></div>
+        {/* Cinematic Video with better blending */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover opacity-20 scale-110"
+          >
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-in-a-gym-4854-large.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900/60 to-slate-950"></div>
+        </div>
         
-        {/* Animated Grid Background */}
-        <div className="absolute inset-0 z-0 opacity-20" style={{ backgroundImage: 'linear-gradient(#1e293b 1px, transparent 1px), linear-gradient(90deg, #1e293b 1px, transparent 1px)', backgroundSize: '40px 40px' }}></div>
+        {/* Animated Digital Grid Backdrop */}
+        <motion.div 
+          animate={{ backgroundPosition: ['0px 0px', '40px 40px'] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+          className="absolute inset-0 z-1 opacity-[0.05]" 
+          style={{ backgroundImage: 'linear-gradient(#4f46e5 1px, transparent 1px), linear-gradient(90deg, #4f46e5 1px, transparent 1px)', backgroundSize: '40px 40px' }}
+        ></motion.div>
+        
+        {/* Floating Biosensing UI Elements (SVG) */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <motion.div 
+            animate={{ rotate: 360 }}
+            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            className="absolute -top-20 -right-20 w-96 h-96 opacity-10"
+          >
+            <svg viewBox="0 0 100 100" className="w-full h-full text-blue-500 fill-none stroke-current" strokeWidth="0.5">
+              <circle cx="50" cy="50" r="45" strokeDasharray="5,5" />
+              <circle cx="50" cy="50" r="35" strokeDasharray="10,10" />
+            </svg>
+          </motion.div>
+          <motion.div 
+            animate={{ scale: [1, 1.2, 1], opacity: [0.05, 0.1, 0.05] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-1/2 left-10 w-64 h-64 bg-blue-500/20 rounded-full blur-[100px]"
+          />
+        </div>
+
+        {/* Technical Noise Layer */}
+        <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')" }}></div>
         
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Link to="/#pillars" className="absolute -top-32 left-4 sm:left-6 lg:left-8 inline-flex items-center text-white/50 hover:text-white font-black uppercase tracking-tighter transition-all backdrop-blur-md bg-white/5 px-4 py-2 rounded-xl border border-white/10 hover:bg-white/10 group">
+          <Link to="/#pillars" className="absolute -top-32 left-4 sm:left-6 lg:left-8 inline-flex items-center text-white/40 hover:text-white font-black uppercase tracking-tighter transition-all group">
             <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
-            {t('fp_back')}
+            <span className="border-b border-white/10 group-hover:border-white transition-colors">{t('fp_back')}</span>
           </Link>
 
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 font-black text-xs uppercase tracking-widest mb-8 mx-auto shadow-[0_0_20px_rgba(59,130,246,0.2)]"
+            className="inline-flex flex-col items-center mb-8"
           >
-            <Activity size={14} className="mr-2 animate-pulse" />
-            Live Biometric Feed Status: Active
+            <div className="px-6 py-2 rounded-2xl bg-white/5 border border-white/10 text-blue-400 font-display font-black text-[10px] uppercase tracking-[0.3em] mb-4 backdrop-blur-md shadow-2xl">
+              <span className="flex items-center gap-2">
+                <Activity size={14} className="animate-pulse" />
+                Live Biometric Feed Status: Active
+              </span>
+            </div>
+            
+            <h1 className="text-6xl md:text-[clamp(4.5rem,8vw,11rem)] font-display font-black uppercase tracking-tighter text-white mb-4 leading-[0.8] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+              {t('fp_title')}<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-blue-500 to-indigo-500">
+                {t('fp_subtitle')}
+              </span>
+            </h1>
           </motion.div>
-          
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-6xl md:text-[clamp(3.5rem,7vw,8rem)] font-display font-semibold uppercase tracking-[0.02em] text-white mb-4 leading-[1.15]"
-          >
-            {t('fp_title')}<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-blue-500 to-indigo-500 drop-shadow-[0_0_20px_rgba(52,211,153,0.3)]">
-              {t('fp_subtitle')}
-            </span>
-          </motion.h1>
           
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-2xl text-slate-400 font-medium max-w-3xl mx-auto leading-relaxed border-l-2 border-blue-500/30 pl-6"
+            className="text-xl md:text-2xl text-slate-400 font-medium max-w-4xl mx-auto leading-relaxed border-l-4 border-blue-500/50 pl-8 text-left"
           >
             {t('fp_desc')} In 2026, performance is about **quieting biological noise** and achieving autonomic homeostasis through high-resolution biometric data.
           </motion.p>
