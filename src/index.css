@@ -9,7 +9,14 @@
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
   }
+
+  @keyframes flag-wave {
+    0%, 100% { transform: rotate(-3deg) skew(-2deg); }
+    50% { transform: rotate(3deg) skew(2deg); }
+  }
+
   --animate-marquee: marquee 46s linear infinite;
+  --animate-flag-wave: flag-wave 3s ease-in-out infinite;
 }
 
 @layer base {

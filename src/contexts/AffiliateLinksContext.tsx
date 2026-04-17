@@ -43,7 +43,7 @@ export const AffiliateLinksProvider: React.FC<{ children: React.ReactNode }> = (
 
       if (mappingError && mappingError.code !== '42P01') throw mappingError;
       if (!mappingsData || mappingsData.length === 0) {
-        setLinks(staticLinks);
+        setLinks(staticLinkInfo as any);
         return;
       }
 
@@ -56,7 +56,7 @@ export const AffiliateLinksProvider: React.FC<{ children: React.ReactNode }> = (
 
       if (productsError) throw productsError;
       if (!productsData || productsData.length === 0) {
-        setLinks(staticLinks);
+        setLinks(staticLinkInfo as any);
         return;
       }
 
