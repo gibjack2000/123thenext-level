@@ -1177,7 +1177,7 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
           <p className="text-sm text-slate-600 mb-6">Assign your real Amazon affiliate products to the dynamic placement spots across the site (e.g. Women's Health diagnostic kits).</p>
 
           <div className="space-y-4">
-            {['us', 'uk', 'es', 'strength', 'menopause', 'creatine', 'nad', 'epigenetic'].map((key) => (
+            {['us', 'uk', 'es', 'strength', 'menopause', 'creatine', 'nad', 'epigenetic', 'memberships'].map((key) => (
               <div key={key} className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center p-4 bg-slate-50 rounded-xl border border-slate-100">
                 <div>
                   <div className="font-bold text-slate-700 uppercase tracking-widest text-xs">
