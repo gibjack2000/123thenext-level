@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { supabase, hasValidSupabaseConfig, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
+import { affiliateLinks } from '../config/affiliateLinks';
 import { Save, AlertCircle, CheckCircle2, Sparkles, Database, Copy, ExternalLink, ChevronDown, ChevronUp, Shield, Cpu, Trash2, RefreshCw, Search, Tag, MapPin, Star, BookOpen, FileText, Pencil } from 'lucide-react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Product, BlogPost, mapToProduct } from '../types';
@@ -16,7 +17,7 @@ export default function AdminPage() {
   const [passwordInput, setPasswordInput] = useState('');
   const [loginError, setLoginError] = useState('');
 
-  const [activeTab, setActiveTab] = useState<'products' | 'blog'>('products');
+  const [activeTab, setActiveTab] = useState<'products' | 'blog' | 'mappings'>('products');
   const [loading, setLoading] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
@@ -43,6 +44,7 @@ export default function AdminPage() {
   const [blogCategoryFilter, setBlogCategoryFilter] = useState<string>('all');
 
   const fetchProducts = useCallback(async () => {
+  // Load products from Supabase; if none exist, fall back to the static affiliateLinks defined in src/config/affiliateLinks.ts
     if (!hasValidSupabaseConfig || !supabase) return;
     
     setFetchingProducts(true);
@@ -58,6 +60,32 @@ export default function AdminPage() {
       console.error('Error fetching products:', err);
     } finally {
       setFetchingProducts(false);
+    }
+  }, []);
+
+  // Mappings State
+  const [mappings, setMappings] = useState<Record<string, string>>({});
+  const [fetchingMappings, setFetchingMappings] = useState(false);
+
+  const fetchMappings = useCallback(async () => {
+    if (!hasValidSupabaseConfig || !supabase) return;
+    setFetchingMappings(true);
+    try {
+      const { data, error } = await supabase.from('affiliate_link_mappings').select('*');
+      if (error) {
+         if (error.code === '42P01') {
+           console.warn('affiliate_link_mappings table does not exist.');
+         } else throw error;
+      }
+      if (data) {
+         const mappingDict: Record<string, string> = {};
+         data.forEach((m: any) => { mappingDict[m.key] = m.product_id; });
+         setMappings(mappingDict);
+      }
+    } catch (err) {
+      console.error('Error fetching mappings:', err);
+    } finally {
+      setFetchingMappings(false);
     }
   }, []);
 
@@ -86,6 +114,12 @@ export default function AdminPage() {
   }, []);
 
   const handleDeleteProduct = async (id: string) => {
+  // Prevent attempts to delete static fallback entries (id starts with "static-")
+  if (id.startsWith('static-')) {
+    setProducts(prev => prev.filter(p => p.id !== id));
+    if (editingProductId === id) setEditingProductId(null);
+    return;
+  }
     if (!supabase || !window.confirm('Are you sure you want to delete this product?')) return;
     
     try {
@@ -162,7 +196,8 @@ export default function AdminPage() {
   useEffect(() => {
     fetchProducts();
     fetchBlogPosts();
-  }, [fetchProducts, fetchBlogPosts]);
+    fetchMappings();
+  }, [fetchProducts, fetchBlogPosts, fetchMappings]);
 
   const sqlSchema = `create table amazon_affiliate_products (
   id uuid default gen_random_uuid() primary key,
@@ -204,7 +239,14 @@ alter publication supabase_realtime add table blog_posts;
 
 -- Allow public access (Since Admin doesn't use Auth in this demo)
 alter table amazon_affiliate_products disable row level security;
-alter table blog_posts disable row level security;`;
+alter table blog_posts disable row level security;
+
+create table if not exists affiliate_link_mappings (
+  key text primary key,
+  product_id uuid references amazon_affiliate_products(id)
+);
+alter publication supabase_realtime add table affiliate_link_mappings;
+alter table affiliate_link_mappings disable row level security;`;
 
   const handleCopySql = () => {
     navigator.clipboard.writeText(sqlSchema);
@@ -534,7 +576,7 @@ Output JSON: "slug", "excerpt", "content" (Markdown). At least 500 words. 2-3 re
       
       const analysisResponse = await model.generateContent(formData.amazon_url ? `Describe the visual appearance of this product for a photo: ${formData.amazon_url}` : visualPrompt);
 
-      const visualDescription = analysisResponse.candidates?.[0]?.content?.parts?.[0]?.text || formData.product_name;
+      const visualDescription = analysisResponse.response.text() || formData.product_name;
 
       // Note: Image generation via gemini-1.5-flash is not directly supported in the same way as Imagen.
       // We'll attempt a multimodal generation if supported by the model, or log a limitation.
@@ -584,7 +626,7 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
       const imageResponse = await model.generateContent(`A stunning, highly engaging, and visually interesting hero background image depicting: ${visualDescription}. Masterpiece, hyper-detailed, breathtaking lighting, modern editorial styling, vibrant and evocative. Make it perfectly relatable to the topic.`);
 
       let base64Image = '';
-      for (const part of imageResponse.candidates?.[0]?.content?.parts || []) {
+      for (const part of imageResponse.response.candidates?.[0]?.content?.parts || []) {
         if (part.inlineData) {
           base64Image = `data:image/png;base64,${part.inlineData.data}`;
           break;
@@ -734,6 +776,12 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
           className={`px-6 py-3 rounded-xl font-bold uppercase tracking-widest text-xs transition-all ${activeTab === 'blog' ? 'bg-slate-900 text-white shadow-lg' : 'bg-white text-slate-500 border border-slate-200 hover:border-slate-300'}`}
         >
           Manage Blog Posts
+        </button>
+        <button
+          onClick={() => setActiveTab('mappings')}
+          className={`px-6 py-3 rounded-xl font-bold uppercase tracking-widest text-xs transition-all ${activeTab === 'mappings' ? 'bg-slate-900 text-white shadow-lg' : 'bg-white text-slate-500 border border-slate-200 hover:border-slate-300'}`}
+        >
+          Manage Placements
         </button>
       </div>
 
@@ -887,11 +935,13 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
           </div>
         </div>
 
-        <div className="flex items-center">
-          <input type="checkbox" id="featured" name="featured" checked={formData.featured} onChange={handleChange} className="h-5 w-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
-          <label htmlFor="featured" className="ml-2 block text-sm font-medium text-slate-900">
-            Feature on Homepage (Top Pick)
-          </label>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-6">
+          <div className="flex items-center">
+            <input type="checkbox" id="featured" name="featured" checked={formData.featured} onChange={handleChange} className="h-5 w-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+            <label htmlFor="featured" className="ml-2 block text-sm font-medium text-slate-900">
+              Feature on Homepage (Top Pick)
+            </label>
+          </div>
         </div>
 
         <div className="pt-4 border-t border-slate-100 flex gap-4">
@@ -919,7 +969,7 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
           )}
         </div>
       </form>
-      ) : (
+      ) : activeTab === 'blog' ? (
         <form onSubmit={handleBlogSubmit} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
           <div className="bg-slate-50 p-6 rounded-2xl border border-dashed border-slate-300 mb-6">
             <h3 className="text-sm font-bold text-slate-700 uppercase tracking-widest mb-4 flex items-center gap-2">
@@ -1105,6 +1155,69 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
             )}
           </div>
         </form>
+      ) : (
+        <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-6">
+          <div className="flex items-center justify-between mb-8 pb-6 border-b border-slate-100">
+            <div className="flex items-center gap-3">
+              <div className="bg-slate-900 p-2 rounded-lg text-white">
+                <Sparkles size={24} />
+              </div>
+              <h2 className="text-2xl font-display uppercase tracking-tight text-slate-900">
+                Affiliate Placements
+              </h2>
+            </div>
+            <button
+              onClick={() => fetchMappings()}
+              className="flex items-center gap-2 px-4 py-2 bg-slate-100 text-slate-700 font-medium rounded-xl hover:bg-slate-200 transition-colors text-xs uppercase tracking-wider"
+            >
+              <RefreshCw size={14} />
+              Refresh
+            </button>
+          </div>
+          <p className="text-sm text-slate-600 mb-6">Assign your real Amazon affiliate products to the dynamic placement spots across the site (e.g. Women's Health diagnostic kits).</p>
+
+          <div className="space-y-4">
+            {['us', 'uk', 'es', 'strength', 'menopause', 'creatine', 'nad', 'epigenetic'].map((key) => (
+              <div key={key} className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center p-4 bg-slate-50 rounded-xl border border-slate-100">
+                <div>
+                  <div className="font-bold text-slate-700 uppercase tracking-widest text-xs">
+                    {key} Link
+                  </div>
+                  <div className="text-[10px] text-slate-400 truncate mt-1">
+                    {mappings[key] ? products.find(p => p.id === mappings[key])?.amazon_url || '—' : '—'}
+                  </div>
+                </div>
+                <div className="md:col-span-2">
+                  <select
+                    className="w-full rounded-lg border-slate-300 border p-2 focus:ring-2 focus:ring-blue-500 flex-1 outline-none text-sm"
+                    value={mappings[key] || ''}
+                    onChange={async (e) => {
+                       const val = e.target.value;
+                       const prevVal = mappings[key] || '';
+                       setMappings(prev => ({ ...prev, [key]: val }));
+                       if (!supabase) return;
+                       const { error } = val
+                         ? await supabase.from('affiliate_link_mappings').upsert({ key, product_id: val })
+                         : await supabase.from('affiliate_link_mappings').delete().eq('key', key);
+                       if (error) {
+                         setMappings(prev => ({ ...prev, [key]: prevVal }));
+                         setError(`Failed to save placement "${key}": ${error.message}`);
+                       } else {
+                         setSuccess(true);
+                         setTimeout(() => setSuccess(false), 3000);
+                       }
+                    }}
+                  >
+                    <option value="">-- Use Default / Unmapped --</option>
+                    {products.map(p => (
+                       <option key={p.id} value={p.id}>{p.product_name}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       )}
 
       <div className="mt-12 pt-12 border-t border-slate-200 space-y-8">
@@ -1487,4 +1600,3 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
     </div>
   );
 }
-
