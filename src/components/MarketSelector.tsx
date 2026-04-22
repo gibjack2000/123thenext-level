@@ -2,9 +2,9 @@ import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 const REGIONS = [
-  { id: 'us', name: 'United States', flag: '🇺🇸' },
-  { id: 'uk', name: 'United Kingdom', flag: '🇬🇧' },
-  { id: 'es', name: 'España', flag: '🇪🇸' }
+  { id: 'us', name: 'United States', flag: 'https://flagcdn.com/w80/us.png' },
+  { id: 'uk', name: 'United Kingdom', flag: 'https://flagcdn.com/w80/gb.png' },
+  { id: 'es', name: 'España', flag: 'https://flagcdn.com/w80/es.png' }
 ];
 
 interface MarketSelectorProps {
@@ -27,18 +27,20 @@ export default function MarketSelector({ currentCategory, className = "" }: Mark
             <Link
               key={r.id}
               to={targetPath}
-              className={`group relative flex items-center justify-center w-10 h-10 rounded-xl transition-all duration-300 ${
+              className={`group relative flex items-center justify-center w-12 h-10 rounded-xl transition-all duration-500 overflow-hidden ${
                 isActive 
-                  ? 'bg-blue-600 shadow-lg shadow-blue-900/40 ring-2 ring-blue-400/50' 
-                  : 'bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 hover:border-slate-500'
+                  ? 'bg-blue-600/20 shadow-lg shadow-blue-900/40 ring-2 ring-blue-500' 
+                  : 'bg-slate-800/30 hover:bg-slate-800 border border-white/5 hover:border-blue-500/50'
               }`}
               title={r.name}
             >
-              <span className={`text-xl transition-transform duration-300 ${isActive ? 'scale-110' : 'group-hover:scale-110 grayscale-[0.5] group-hover:grayscale-0'}`}>
-                {r.flag}
-              </span>
+              <img 
+                src={r.flag} 
+                alt={r.name} 
+                className={`w-7 h-auto rounded-sm transition-all duration-500 ${isActive ? 'scale-110 brightness-110' : 'grayscale group-hover:grayscale-0 group-hover:scale-110'}`}
+              />
               {isActive && (
-                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-white rounded-full shadow-[0_0_8px_white]"></div>
+                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-blue-500 rounded-full shadow-[0_0_10px_#3b82f6]"></div>
               )}
             </Link>
           );
