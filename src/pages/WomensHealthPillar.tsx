@@ -222,20 +222,21 @@ export default function WomensHealthPillar() {
             <div className="lg:col-span-7 space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
-                  { icon: <Dna />, title: "Epigenetic Age", desc: "Biological vs. Chronological mapping focused on ovarian markers." },
-                  { icon: <Zap />, title: "Mitochondrial Cap", desc: "NAD+ optimization for structural and cellular integrity." },
-                  { icon: <Activity />, title: "HRV Resilience", desc: "Real-time autonomic mapping for cycle-synced cycles." },
-                  { icon: <LifeBuoy />, title: "Bone Density", desc: "Mechanical loading protocols to prevent osteopenia." }
+                  { path: "/womens-health/epigenetic-age", icon: <Dna />, title: "Epigenetic Age", desc: "Biological vs. Chronological mapping focused on ovarian markers." },
+                  { path: "/womens-health/mitochondrial-cap", icon: <Zap />, title: "Mitochondrial Cap", desc: "NAD+ optimization for structural and cellular integrity." },
+                  { path: "/womens-health/hrv-resilience", icon: <Activity />, title: "HRV Resilience", desc: "Real-time autonomic mapping for cycle-synced cycles." },
+                  { path: "/womens-health/bone-density", icon: <LifeBuoy />, title: "Bone Density", desc: "Mechanical loading protocols to prevent osteopenia." }
                 ].map((item, i) => (
-                  <motion.div 
-                    key={i}
-                    whileHover={{ scale: 1.02 }}
-                    className="p-8 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-white/10"
-                  >
-                    <div className="text-rose-400 mb-6">{item.icon}</div>
-                    <h4 className="text-xl font-display font-bold uppercase text-white mb-4">{item.title}</h4>
-                    <p className="text-sm text-slate-500 leading-relaxed font-medium">{item.desc}</p>
-                  </motion.div>
+                  <Link key={i} to={item.path}>
+                    <motion.div 
+                      whileHover={{ scale: 1.02 }}
+                      className="p-8 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-white/10 h-full cursor-pointer"
+                    >
+                      <div className="text-rose-400 mb-6">{item.icon}</div>
+                      <h4 className="text-xl font-display font-bold uppercase text-white mb-4">{item.title}</h4>
+                      <p className="text-sm text-slate-500 leading-relaxed font-medium">{item.desc}</p>
+                    </motion.div>
+                  </Link>
                 ))}
               </div>
             </div>
