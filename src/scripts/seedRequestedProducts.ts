@@ -77,6 +77,7 @@ const dummyProducts = [
       cta: product.cta,
       description: product.description,
       price: product.price,
+      currency: product.currency || 'USD',
       rating: product.rating,
       is_active: product.is_active,
       tags: product.tags,

@@ -46,10 +46,10 @@ export const mapToProduct = (dbProduct: any): Product => {
     short_benefit: dbProduct.cta,
     description: dbProduct.description,
     price: parseFloat(dbProduct.price || 0),
-    currency: dbProduct.market === 'US' ? 'USD' : dbProduct.market === 'UK' ? 'GBP' : 'EUR',
+    currency: dbProduct.currency || (dbProduct.market === 'US' ? 'USD' : dbProduct.market === 'UK' ? 'GBP' : 'EUR'),
     rating: dbProduct.rating,
     featured: dbProduct.is_active,
-    tags: [],
+    tags: Array.isArray(dbProduct.tags) ? dbProduct.tags : [],
     last_checked_at: dbProduct.last_updated
   };
 };

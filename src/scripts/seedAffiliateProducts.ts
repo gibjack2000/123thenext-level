@@ -170,8 +170,11 @@ const dummyProducts = [
       cta: product.cta,
       description: product.description,
       price: product.price,
+      currency: product.currency || 'USD',
       rating: product.rating,
       is_active: product.is_active,
+      tags: product.tags,
+      last_updated: new Date().toISOString()
     });
     if (error) {
       console.error('Error seeding product', product.title, error);

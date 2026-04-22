@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, Thermometer, Smile, Users, ExternalLink, Heart, Shield, Activity } from 'lucide-react';
+import { ArrowLeft, Thermometer, Smile, Users, ExternalLink, Heart, Shield, Activity, ArrowRight, Zap, Target } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../../translations';
-
 
 export default function SocialRecovery() {
   const t = useT();
@@ -13,95 +12,179 @@ export default function SocialRecovery() {
     document.title = `${t('sr_title')} | 123TheNext Level`;
   }, [t]);
 
+  const recoveryArsenal = [
+    {
+      name: "HigherDOSE Infrared Sauna Blanket",
+      brand: "Cellular Recovery",
+      desc: "Portable thermal architecture for shared HSP induction and metabolic detoxification.",
+      image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80&w=400",
+      asin: "B0CMP1X8PQ"
+    },
+    {
+      name: "The Plunge: All-In",
+      brand: "Vagus Tuning",
+      desc: "High-fidelity cold immersion designed for community contrast therapy and neural resetting.",
+      image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80&w=401",
+      asin: "B0D5N6X8Z2"
+    },
+    {
+      name: "Therabody SmartGoggles",
+      brand: "Neural Safety",
+      desc: "Proprioceptive facial activation for rapid transition into the ventral vagal state.",
+      image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80&w=402",
+      asin: "B0CMB6X8Y1"
+    }
+  ];
+
   return (
-    <div className="min-h-screen bg-slate-900 text-white pb-32">
-      {/* Header */}
-      <div className="relative py-32 overflow-hidden bg-slate-950">
+    <div className="min-h-screen bg-[#020617] text-white selection:bg-orange-500/30">
+      {/* Header: Cinematic Tech Overlay */}
+      <div className="relative py-32 md:py-48 overflow-hidden">
         <div className="absolute inset-0 bg-orange-600/10 blur-[120px] -mt-64"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(244,140,94,0.05)_0%,transparent_50%)]"></div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <Link to="/social-fitness" className="inline-flex items-center text-white/50 hover:text-white font-black uppercase tracking-tighter transition-all mb-12 group">
+          <Link to="/social-fitness" className="inline-flex items-center text-white/40 hover:text-white font-black uppercase tracking-tighter transition-all mb-12 group">
             <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
-            Back to Hub
+            <span className="border-b border-white/10 group-hover:border-white">Back to Hub</span>
           </Link>
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-8xl font-display font-black uppercase tracking-tight leading-none mb-8"
-          >
-            {t('sr_title')}
-          </motion.h1>
-          <p className="text-xl md:text-2xl text-slate-400 max-w-3xl font-medium leading-relaxed border-l-4 border-orange-500 pl-8">
-            {t('sr_intro')}
-          </p>
+          
+          <div className="flex flex-col items-start gap-8">
+            <motion.div 
+               initial={{ opacity: 0, x: -20 }}
+               animate={{ opacity: 1, x: 0 }}
+               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 font-black text-[10px] uppercase tracking-widest"
+            >
+              <Shield size={14} /> Somatic Safety: Active Protocol
+            </motion.div>
+            
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-6xl md:text-9xl font-display font-black uppercase tracking-tight leading-[0.85] text-white"
+            >
+              Social<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-600">Recovery</span>
+            </motion.h1>
+            
+            <p className="text-xl md:text-2xl text-slate-400 max-w-3xl font-medium leading-relaxed border-l-4 border-orange-500 pl-8">
+              {t('sr_intro')} We engineer environments that facilitate high-resolution social safety and somatic co-regulation.
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-32 -mt-16 relative z-20">
-        {/* Sauna Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="space-y-8 bg-slate-900 p-12 rounded-[3rem] shadow-xl border border-white/5 backdrop-blur-md">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-orange-500/10 border border-orange-500/30 text-orange-400 font-black text-xs uppercase tracking-widest">
-              <Thermometer size={14} /> Shared Physiology
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-40 pb-40">
+        {/* Physiological Contrast Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+          <div className="space-y-12">
+            <div className="space-y-6">
+              <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tighter leading-none text-white">
+                Co-Regulation<br />Architecture
+              </h2>
+              <p className="text-xl text-slate-400 leading-relaxed font-medium">
+                {t('sr_sauna_p')} In 2026, shared thermal and cryo rituals are not just recovery—they are social software updates that synchronize the autonomic nervous systems of the group.
+              </p>
             </div>
-            <h2 className="text-4xl md:text-5xl font-display font-black uppercase tracking-tighter leading-none">
-              {t('sr_sauna_title')}
-            </h2>
-            <p className="text-lg text-slate-400 leading-relaxed">
-              {t('sr_sauna_p')}
-            </p>
-            <div className="flex gap-4">
-              <a href="https://amazon.com/dp/B0CMB6X8Y1" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-4 p-6 bg-orange-600 text-white rounded-3xl font-black uppercase tracking-tighter hover:bg-orange-700 transition-all text-sm group">
-                Shop Social Recovery Pods <ExternalLink className="group-hover:translate-x-1 transition-transform" size={18} />
-              </a>
+            
+            <div className="grid grid-cols-1 gap-6">
+              {[
+                { title: 'Vagus Synchronization', desc: 'Shared physiological stress (heat/cold) induces deep trust through ventral vagal signaling.', icon: Heart },
+                { title: 'Metabolic De-escalation', desc: 'Lowering the collective basal heart rate through intentional shared silence and ritual.', icon: Activity }
+              ].map((item, i) => (
+                <div key={i} className="bg-white/5 p-8 rounded-[3rem] border border-white/10 flex items-start gap-6 group hover:bg-white/10 transition-colors">
+                  <div className="w-14 h-14 bg-orange-500/10 rounded-2xl flex items-center justify-center text-orange-400 border border-orange-500/20 group-hover:scale-110 transition-transform">
+                    <item.icon size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-display font-black uppercase tracking-tight text-white mb-2">{item.title}</h4>
+                    <p className="text-slate-500 text-sm font-medium leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
+          
           <div className="relative group">
-            <div className="absolute -inset-4 bg-orange-500/20 rounded-[4rem] blur-2xl opacity-50"></div>
+            <div className="absolute -inset-4 bg-orange-500/10 rounded-[4rem] blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity"></div>
             <img 
-              src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80&w=800"
-              alt="Social Sauna Ritual"
-              className="relative rounded-[3rem] border border-white/10 shadow-2xl"
+              src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80&w=1200"
+              alt="Social Recovery Architecture"
+              className="relative rounded-[3rem] border border-white/5 shadow-3xl grayscale brightness-75 hover:grayscale-0 transition-all duration-700"
             />
           </div>
         </div>
 
-        {/* Catharsis Section */}
-        <section className="bg-white rounded-[4rem] p-10 md:p-20 text-slate-900 relative overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-orange-100 blur-[100px] -mr-48 -mt-48"></div>
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div className="order-2 lg:order-1">
-              <img 
-                src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=800"
-                alt="Group Somatic Release"
-                className="rounded-[3rem] shadow-2xl skew-y-1 hover:skew-y-0 transition-transform duration-700"
-              />
-            </div>
-            <div className="order-1 lg:order-2 space-y-10">
-              <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-orange-600/10 border border-orange-600/30 text-orange-600 font-black text-xs uppercase tracking-widest">
-                <Smile size={14} /> Somatic Safety 2026
-              </div>
-              <h2 className="text-4xl md:text-7xl font-display font-black uppercase tracking-tighter leading-none">
-                {t('sr_catharsis_title')}
+        {/* The Recovery Arsenal: Product Grid */}
+        <section className="pt-20">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
+            <div className="space-y-4">
+              <span className="text-orange-500 font-black uppercase tracking-[0.3em] text-xs">Somatic Tools</span>
+              <h2 className="text-5xl md:text-7xl font-display font-black uppercase tracking-tight text-white leading-none">
+                The Suite
               </h2>
-              <p className="text-xl text-slate-600 leading-relaxed">
-                {t('sr_catharsis_p')}
-              </p>
-              
-              <div className="grid grid-cols-2 gap-4 pt-4">
-                <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 flex flex-col justify-center text-center">
-                  <Heart className="mx-auto text-orange-500 mb-2" size={24} />
-                  <span className="font-black uppercase tracking-tighter text-[10px]">Co-Regulation</span>
-                </div>
-                <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100 flex flex-col justify-center text-center">
-                  <Shield className="mx-auto text-blue-500 mb-2" size={24} />
-                  <span className="font-black uppercase tracking-tighter text-[10px]">Vagus Safety</span>
-                </div>
-              </div>
             </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {recoveryArsenal.map((product, i) => (
+              <motion.div 
+                key={i}
+                whileHover={{ y: -15 }}
+                className="bg-slate-900/50 backdrop-blur-3xl rounded-[3.5rem] border border-white/5 overflow-hidden group shadow-2xl flex flex-col h-full"
+              >
+                <div className="h-80 relative overflow-hidden bg-white/5">
+                  <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[0.8] grayscale group-hover:grayscale-0" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent"></div>
+                  <div className="absolute bottom-8 left-8">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-orange-400 bg-orange-500/10 px-4 py-1.5 rounded-full border border-orange-500/20 backdrop-blur-md">
+                      {product.brand}
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="p-10 flex flex-col flex-1">
+                  <h3 className="text-2xl font-display font-black uppercase text-white mb-4 group-hover:text-orange-400 transition-colors">
+                    {product.name}
+                  </h3>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
+                    {product.desc}
+                  </p>
+                  
+                  <div className="mt-auto pt-8 border-t border-white/5">
+                    <a href={`https://amazon.com/dp/${product.asin}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between group/btn">
+                      <span className="text-[10px] font-black uppercase tracking-widest text-white group-hover/btn:text-orange-400 transition-colors">Acquire Tech</span>
+                      <div className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center group-hover/btn:bg-orange-500 group-hover/btn:text-white transition-all">
+                        <ArrowRight size={18} />
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </section>
 
-
+        {/* Final CTA: Navigation */}
+        <section className="bg-gradient-to-tr from-orange-600/20 to-amber-600/5 rounded-[4rem] p-12 md:p-24 border border-white/5 text-center space-y-12">
+          <div className="max-w-3xl mx-auto space-y-6">
+            <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tight text-white leading-none">
+              Biological Integrity Realized
+            </h2>
+            <p className="text-xl text-slate-400 font-medium">
+              Return to the social hub or explore the underlying biometric foundations of the Health Pillar.
+            </p>
+          </div>
+          
+          <div className="flex flex-wrap justify-center gap-6">
+            <Link to="/health/preventive" className="px-10 py-6 bg-white text-slate-950 rounded-3xl font-black uppercase tracking-tight hover:bg-orange-500 hover:text-white transition-all shadow-xl">
+              Biometric Foundation <ArrowRight className="inline ml-2" size={20} />
+            </Link>
+            <Link to="/social-fitness" className="px-10 py-6 bg-slate-900 text-white rounded-3xl font-black uppercase tracking-tight hover:bg-slate-800 transition-all border border-white/10">
+              Return to Hub
+            </Link>
+          </div>
+        </section>
       </div>
     </div>
   );

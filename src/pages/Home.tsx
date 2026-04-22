@@ -436,8 +436,8 @@ export default function Home() {
                 icon: HeartPulse,
                 iconColor: "text-rose-400",
                 title: "Healthspan & Longevity",
-                bullets: ["Biological Age Optimization", "Skin Longevity Protocols", "Epigenetic Research", "Functional Maintenance"],
-                description: "Master the science of cellular health and aging. Transition from reactive repair to proactive optimization.",
+                bullets: ["Cellular Age Optimization", "Autophagy Induction", "NAD+ Modulation", "Systems Maintenance"],
+                description: "Master the science of cellular health and aging. Transition from reactive repair to proactive optimization using the 2026 Longevity Standards.",
                 hoverBorderColor: "hover:border-rose-500/50",
                 hoverShadowColor: "hover:shadow-rose-500/20"
               },
@@ -468,9 +468,9 @@ export default function Home() {
                 image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1200",
                 icon: Sparkles,
                 iconColor: "text-purple-400",
-                title: t('pillar_wellness'),
-                bullets: ["Circadian Rhythm Sync", "NSDR Neuro-Reset", "Hormetic Stress Exposure", "Neural State Regulation"],
-                description: "Master the biological rhythms that dictate performance. Transition from simple wellness to advanced neuro-recovery and systemic resilience.",
+                title: "Autonomic Engineering",
+                bullets: ["Vagal Tone Optimization", "Circadian Precision", "NSDR Neuro-Reset", "Neural State Regulation"],
+                description: "Master the biological rhythms that dictate cognitive and physical performance. High-precision neuro-recovery for systemic resilience.",
                 hoverBorderColor: "hover:border-purple-500/50",
                 hoverShadowColor: "hover:shadow-purple-500/20"
               },
@@ -490,9 +490,9 @@ export default function Home() {
                 image: "/social-fitness-bg.png",
                 icon: Users,
                 iconColor: "text-orange-400",
-                title: "Social Fitness",
-                bullets: ["Wellness Festivalization", "Collective Catharsis", "Pickleball Ecosystem", "Biological Belonging"],
-                description: "Experience the renaissance of connection. Transition from isolated training to high-energy community-driven vitality.",
+                title: "Socio-Biological Architecture",
+                bullets: ["Neural Coupling Dynamics", "Oxytocin Engineering", "Pickleball Ecosystems", "Micro-Community Vitals"],
+                description: "The clinical impact of collective connection. Re-architecting social interaction as a primary driver of human longevity.",
                 hoverBorderColor: "hover:border-orange-500/50",
                 hoverShadowColor: "hover:shadow-orange-500/20"
               }

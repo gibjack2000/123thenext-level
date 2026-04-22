@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Dumbbell, ArrowLeft, Cpu, Activity, Zap, ExternalLink, Timer, TrendingUp, BarChart3 } from 'lucide-react';
+import { Dumbbell, ArrowLeft, Cpu, Activity, Zap, ExternalLink, Timer, TrendingUp, BarChart3, Target, Gauge, Shield, FlaskConical } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../translations';
@@ -11,263 +11,265 @@ export default function FitnessPillar() {
 
   useEffect(() => {
     document.title = `${t('fp_title')} ${t('fp_subtitle')} | 123TheNext Level`;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute('content', t('fp_desc'));
+    }
   }, [t]);
 
   const affiliateLinks = {
-    us: 'https://amazon.com/dp/B0CXM1X8PQ', // Example Tracker US
-    uk: 'https://amazon.co.uk/dp/B0CXM1X8PQ', // Example Tracker UK
-    es: 'https://amazon.es/dp/B0CXM1X8PQ', // Example Tracker ES
-    equip: 'https://amazon.com/dp/B0CLB5X8X9' // Example Strength Tools
+    us: 'https://amazon.com/dp/B0CXM1X8PQ',
+    uk: 'https://amazon.co.uk/dp/B0CXM1X8PQ',
+    es: 'https://amazon.es/dp/B0CXM1X8PQ',
+    whoop: 'https://amazon.com/dp/B0CXM1X8PQ',
+    rogue: 'https://amazon.com/dp/B0CLB5X8X9',
+    creatine: 'https://amazon.com/dp/B0CXM1X8PQ'
   };
 
-  return (
-    <div className="min-h-screen bg-slate-950 text-white">
-      {/* Hero Section */}
-      <div className="relative pt-32 pb-64 md:pt-48 md:pb-80 flex items-center justify-center overflow-hidden">
-        {/* Cinematic Video with better blending */}
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full h-full object-cover opacity-20 scale-110"
-          >
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-athlete-working-out-with-dumbbells-in-a-gym-4854-large.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900/60 to-slate-950"></div>
-        </div>
-        
-        {/* Animated Digital Grid Backdrop */}
-        <motion.div 
-          animate={{ backgroundPosition: ['0px 0px', '40px 40px'] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 z-1 opacity-[0.05]" 
-          style={{ backgroundImage: 'linear-gradient(#4f46e5 1px, transparent 1px), linear-gradient(90deg, #4f46e5 1px, transparent 1px)', backgroundSize: '40px 40px' }}
-        ></motion.div>
-        
-        {/* Floating Biosensing UI Elements (SVG) */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div 
-            animate={{ rotate: 360 }}
-            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-            className="absolute -top-20 -right-20 w-96 h-96 opacity-10"
-          >
-            <svg viewBox="0 0 100 100" className="w-full h-full text-blue-500 fill-none stroke-current" strokeWidth="0.5">
-              <circle cx="50" cy="50" r="45" strokeDasharray="5,5" />
-              <circle cx="50" cy="50" r="35" strokeDasharray="10,10" />
-            </svg>
-          </motion.div>
-          <motion.div 
-            animate={{ scale: [1, 1.2, 1], opacity: [0.05, 0.1, 0.05] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-1/2 left-10 w-64 h-64 bg-blue-500/20 rounded-full blur-[100px]"
-          />
-        </div>
+  const pillarEssentials = [
+    {
+      name: "Force Production Arsenal",
+      brand: "Rogue / Iron Neck",
+      desc: "Tactical equipment for maximizing isometric tension and force-velocity output.",
+      image: "/Products/rogue.jpg",
+      link: affiliateLinks.rogue,
+      price: "$145+"
+    },
+    {
+      name: "Autonomic Recovery Tracker",
+      brand: "Whoop 4.0 / Oura Gen3",
+      desc: "Real-time strain vs. recovery monitoring via high-resolution HRV analysis.",
+      image: "/Products/whoop.jpg",
+      link: affiliateLinks.whoop,
+      price: "$299"
+    },
+    {
+      name: "Performance Substrate",
+      brand: "Thorne / Momentous",
+      desc: "Clinical-grade Creatine Monohydrate for ATP regeneration and neuro-shielding.",
+      image: "/Products/creatine.jpg",
+      link: affiliateLinks.creatine,
+      price: "$45+"
+    }
+  ];
 
-        {/* Technical Noise Layer */}
-        <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')" }}></div>
+  return (
+    <div className="min-h-screen bg-[#020617] text-white font-sans antialiased selection:bg-blue-500/30">
+      {/* Hero Section */}
+      <div className="relative pt-32 pb-48 md:pt-48 md:pb-72 flex items-center justify-center overflow-hidden">
+        {/* Cinematic Backdrop */}
+        <motion.div 
+          initial={{ scale: 1.1, opacity: 0 }}
+          animate={{ scale: 1, opacity: 0.25 }}
+          transition={{ duration: 2, ease: "easeOut" }}
+          className="absolute inset-0 z-0"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=2000"
+            alt="Clinical Performance and Biomechanics"
+            className="w-full h-full object-cover grayscale brightness-50"
+          />
+        </motion.div>
+        
+        {/* High-Fidelity Technical Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617]"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-950/40 via-transparent to-cyan-950/20"></div>
+        
+        {/* Animated Biometric Blobs */}
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.2, 1],
+            rotate: [0, 90, 0],
+            opacity: [0.1, 0.15, 0.1]
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 -right-20 w-[45rem] h-[45rem] bg-blue-600 rounded-full blur-[150px] pointer-events-none"
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1.2, 1, 1.2],
+            rotate: [0, -90, 0],
+            opacity: [0.05, 0.1, 0.05]
+          }}
+          transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-20 -left-20 w-[35rem] h-[35rem] bg-cyan-500 rounded-full blur-[120px] pointer-events-none"
+        />
+
+        {/* Technical Grid Overlay */}
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none" 
+             style={{ backgroundImage: "linear-gradient(#6366f1 1px, transparent 1px), linear-gradient(90deg, #6366f1 1px, transparent 1px)", backgroundSize: "60px 60px" }}>
+        </div>
         
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Link to="/#pillars" className="absolute -top-32 left-4 sm:left-6 lg:left-8 inline-flex items-center text-white/40 hover:text-white font-black uppercase tracking-tighter transition-all group">
             <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
-            <span className="border-b border-white/10 group-hover:border-white transition-colors">{t('fp_back')}</span>
+            <span className="border-b border-white/10 group-hover:border-white">{t('fp_back')}</span>
           </Link>
 
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="inline-flex flex-col items-center mb-8"
+            transition={{ duration: 1 }}
+            className="flex flex-col items-center"
           >
-            <div className="px-6 py-2 rounded-2xl bg-white/5 border border-white/10 text-blue-400 font-display font-black text-[10px] uppercase tracking-[0.3em] mb-4 backdrop-blur-md shadow-2xl">
-              <span className="flex items-center gap-2">
-                <Activity size={14} className="animate-pulse" />
-                Live Biometric Feed Status: Active
-              </span>
-            </div>
+            <motion.div 
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 1 }}
+              className="inline-flex items-center px-6 py-2 rounded-full bg-white/5 border border-white/10 text-cyan-400 font-display font-black text-[10px] uppercase tracking-[0.3em] mb-12 shadow-2xl backdrop-blur-md"
+            >
+              <Gauge size={14} className="mr-3 animate-pulse" />
+              Mitochondrial Efficiency: Optimized
+            </motion.div>
             
-            <h1 className="text-6xl md:text-[clamp(4.5rem,8vw,11rem)] font-display font-black uppercase tracking-tighter text-white mb-4 leading-[0.8] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+            <h1 className="text-6xl md:text-[clamp(4.5rem,8vw,11rem)] font-display font-black uppercase tracking-tighter text-white mb-6 leading-[0.8] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
               {t('fp_title')}<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-blue-500 to-indigo-500">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-400">
                 {t('fp_subtitle')}
               </span>
             </h1>
+
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.3 }}
+              className="text-xl md:text-2xl text-slate-400 font-medium max-w-4xl mx-auto leading-relaxed border-l-4 border-cyan-500/50 pl-8 text-left"
+            >
+              {t('fp_desc')} In 2026, we view muscle not just as tissue, but as an **endocrine organ**. We optimize for mitochondrial density and force-velocity precision.
+            </motion.p>
           </motion.div>
-          
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl md:text-2xl text-slate-400 font-medium max-w-4xl mx-auto leading-relaxed border-l-4 border-blue-500/50 pl-8 text-left"
-          >
-            {t('fp_desc')} In 2026, performance is about **quieting biological noise** and achieving autonomic homeostasis through high-resolution biometric data.
-          </motion.p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-32 pb-32">
-        {/* Navigational Paths: Level 1 Framework */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
-          <Link to="/fitness/wearables" className="group">
-            <motion.div
-              whileHover={{ y: -10, scale: 1.02 }}
-              className="relative p-10 rounded-[3rem] shadow-2xl border border-white/10 h-full flex flex-col justify-between overflow-hidden transition-all duration-500"
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-24 pb-32">
+        {/* Core Methodology Cards */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-40">
+          {[
+            { 
+              icon: <Cpu size={32} />, 
+              title: t('fp_path_a_title'), 
+              desc: t('fp_path_a_desc'), 
+              link: "/fitness/wearables", 
+              color: "text-blue-400" 
+            },
+            { 
+              icon: <Activity size={32} />, 
+              title: t('fp_path_b_title'), 
+              desc: t('fp_path_b_desc'), 
+              link: "/fitness/biosensing", 
+              color: "text-emerald-400" 
+            },
+            { 
+              icon: <Zap size={32} />, 
+              title: t('fp_path_c_title'), 
+              desc: t('fp_path_c_desc'), 
+              link: "/fitness/methodology", 
+              color: "text-indigo-400" 
+            }
+          ].map((card, i) => (
+            <motion.div 
+              key={i}
+              whileHover={{ y: -10 }}
+              className="bg-slate-900/50 backdrop-blur-3xl p-12 rounded-[3.5rem] border border-white/5 flex flex-col justify-between group overflow-hidden relative shadow-2xl h-full"
             >
-              <div className="absolute inset-0 z-0">
-                <img
-                  src="https://images.unsplash.com/photo-1510017803434-a899398421b3?auto=format&fit=crop&q=80&w=800"
-                  alt="Wearables"
-                  className="w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-110 brightness-[0.4]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/40 to-slate-950/90"></div>
-              </div>
-
               <div className="relative z-10">
-                <div className="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 mb-8 border border-blue-500/20 backdrop-blur-md">
-                  <Cpu size={28} />
+                <div className={`w-16 h-16 bg-white/5 rounded-3xl flex items-center justify-center ${card.color} mb-10 border border-white/10 group-hover:scale-110 transition-transform duration-500`}>
+                  {card.icon}
                 </div>
-                <h3 className="text-2xl font-display font-black uppercase tracking-tight text-white mb-4">
-                  {t('fp_path_a_title')}
+                <h3 className="text-3xl font-display font-black uppercase tracking-tight text-white mb-6 leading-none">
+                  {card.title}
                 </h3>
-                <p className="text-slate-300 leading-relaxed mb-6 font-medium">
-                  {t('fp_path_a_desc')}
+                <p className="text-slate-400 text-base leading-relaxed mb-10 font-medium">
+                  {card.desc}
                 </p>
               </div>
-              <div className="relative z-10 flex items-center gap-2 text-blue-400 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/10">
-                Explore The War <ExternalLink size={12} />
-              </div>
+              <Link to={card.link} className={`flex items-center gap-3 ${card.color} font-bold text-[10px] uppercase tracking-[0.2em] border-t border-white/5 pt-10 group/link`}>
+                Protocol Archive <ExternalLink size={14} className="group-hover/link:translate-x-1 transition-transform" />
+              </Link>
             </motion.div>
-          </Link>
-
-          <Link to="/fitness/biosensing" className="group">
-            <motion.div
-              whileHover={{ y: -10, scale: 1.02 }}
-              className="relative p-10 rounded-[3rem] shadow-2xl border border-white/10 h-full flex flex-col justify-between overflow-hidden transition-all duration-500"
-            >
-              <div className="absolute inset-0 z-0">
-                <img
-                  src="https://images.unsplash.com/photo-1543164904-8fa947690623?auto=format&fit=crop&q=80&w=800"
-                  alt="Biosensing"
-                  className="w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-110 brightness-[0.4]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/40 to-slate-950/90"></div>
-              </div>
-
-              <div className="relative z-10">
-                <div className="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 mb-8 border border-emerald-500/20 backdrop-blur-md">
-                  <Activity size={28} />
-                </div>
-                <h3 className="text-2xl font-display font-black uppercase tracking-tight text-white mb-4">
-                  {t('fp_path_b_title')}
-                </h3>
-                <p className="text-slate-300 leading-relaxed mb-6 font-medium">
-                  {t('fp_path_b_desc')}
-                </p>
-              </div>
-              <div className="relative z-10 flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/10">
-                View Lab-on-Wrist <ExternalLink size={12} />
-              </div>
-            </motion.div>
-          </Link>
-
-          <Link to="/fitness/methodology" className="group">
-            <motion.div
-              whileHover={{ y: -10, scale: 1.02 }}
-              className="relative p-10 rounded-[3rem] shadow-2xl border border-white/10 h-full flex flex-col justify-between overflow-hidden transition-all duration-500"
-            >
-              <div className="absolute inset-0 z-0">
-                <img
-                  src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=800"
-                  alt="Methodology"
-                  className="w-full h-full object-cover opacity-40 transition-transform duration-700 group-hover:scale-110 brightness-[0.4]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-900/40 to-slate-950/90"></div>
-              </div>
-
-              <div className="relative z-10">
-                <div className="w-14 h-14 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-400 mb-8 border border-indigo-500/20 backdrop-blur-md">
-                  <Zap size={28} />
-                </div>
-                <h3 className="text-2xl font-display font-black uppercase tracking-tight text-white mb-4">
-                  {t('fp_path_c_title')}
-                </h3>
-                <p className="text-slate-300 leading-relaxed mb-6 font-medium">
-                  {t('fp_path_c_desc')}
-                </p>
-              </div>
-              <div className="relative z-10 flex items-center gap-2 text-indigo-400 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/10">
-                Protocol Standards <ExternalLink size={12} />
-              </div>
-            </motion.div>
-          </Link>
+          ))}
         </div>
 
-        {/* Central Intensity Protocol */}
-        <section className="bg-slate-950 rounded-[4rem] p-10 md:p-20 border border-white/5 mb-32 relative overflow-hidden shadow-[0_0_100px_rgba(99,102,241,0.1)] group">
-          <div className="absolute inset-0 z-0">
-            <img
-              src="https://images.unsplash.com/photo-1518611012118-29fa113f8ec4?auto=format&fit=crop&q=80&w=2000"
-              alt="High Intensity"
-              className="w-full h-full object-cover opacity-20 transition-transform duration-[20s] group-hover:scale-110 brightness-[0.3]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-br from-indigo-950/90 via-slate-950/70 to-slate-950"></div>
-          </div>
-          <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, #4f46e5 1px, transparent 0)', backgroundSize: '32px 32px' }}></div>
-
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div className="space-y-10">
-              <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-indigo-500/10 border border-indigo-400/20 text-indigo-400 font-black text-sm uppercase tracking-[0.2em]">
-                <Zap size={16} />
-                Intensity Calibration
-              </div>
-              <h2 className="text-5xl md:text-6xl font-display font-black uppercase tracking-tighter leading-[0.9] text-white">
-                {t('fp_vo2_title')}
-              </h2>
-              <p className="text-xl text-slate-400 leading-relaxed font-medium">
-                {t('fp_vo2_desc')}
-              </p>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <div className="p-8 rounded-[2rem] bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                  <Timer className="text-blue-400 mb-4" size={28} />
-                  <h3 className="text-xl font-black uppercase tracking-tight mb-2">{t('fp_recovery_title')}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">{t('fp_recovery_desc')}</p>
+        {/* Intensity Command Center */}
+        <section className="mb-40">
+          <div className="bg-[#0f172a] p-10 md:p-24 rounded-[4rem] md:rounded-[5rem] border border-white/5 shadow-3xl relative overflow-hidden group">
+            <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_0%_0%,rgba(6,182,212,0.08)_0%,transparent_50%)]"></div>
+            
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+              <div className="lg:col-span-12 mb-16 text-center">
+                <div className="inline-flex items-center gap-4 text-cyan-400 font-black uppercase tracking-widest text-[10px] bg-cyan-500/10 px-6 py-2 rounded-full border border-cyan-500/20 mb-8">
+                  <Target size={14} />
+                  Adaptive Resistance & Force Production
                 </div>
-                <div className="p-8 rounded-[2rem] bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                  <BarChart3 className="text-emerald-400 mb-4" size={28} />
-                  <h3 className="text-xl font-black uppercase tracking-tight mb-2">{t('fp_metric_title')}</h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">{t('fp_metric_desc')}</p>
+                <h2 className="text-4xl md:text-7xl font-display font-black uppercase tracking-tight text-white leading-[0.9] mb-8">
+                  {t('fp_vo2_title')}
+                </h2>
+                <p className="text-xl md:text-2xl text-slate-400 leading-relaxed font-medium max-w-4xl mx-auto">
+                  {t('fp_vo2_desc')} Maximizing **Mitochondrial Respiration** is the ultimate offensive strategy against senescence.
+                </p>
+              </div>
+
+              <div className="lg:col-span-7 space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <motion.div 
+                    whileHover={{ scale: 1.02 }}
+                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-white/10"
+                  >
+                    <div className="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 mb-6 border border-blue-500/20">
+                      <Timer size={24} />
+                    </div>
+                    <h4 className="text-xl font-display font-bold uppercase text-white mb-4">{t('fp_recovery_title')}</h4>
+                    <p className="text-sm text-slate-500 leading-relaxed font-medium">{t('fp_recovery_desc')}</p>
+                  </motion.div>
+                  <motion.div 
+                    whileHover={{ scale: 1.02 }}
+                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-white/10"
+                  >
+                    <div className="w-12 h-12 bg-cyan-500/10 rounded-2xl flex items-center justify-center text-cyan-400 mb-6 border border-cyan-500/20">
+                      <BarChart3 size={24} />
+                    </div>
+                    <h4 className="text-xl font-display font-bold uppercase text-white mb-4">{t('fp_metric_title')}</h4>
+                    <p className="text-sm text-slate-500 leading-relaxed font-medium">{t('fp_metric_desc')}</p>
+                  </motion.div>
+                </div>
+
+                <div className="p-10 bg-white/5 rounded-[3rem] border border-white/10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <Shield size={24} className="text-indigo-400" />
+                    <h4 className="text-xl font-display font-bold uppercase text-white">The Myokine Signal</h4>
+                  </div>
+                  <p className="text-slate-500 text-sm leading-relaxed font-medium italic">
+                    "Intensive resistance training triggers the release of muscle-derived peptides (myokines) that regulate metabolic health and prevent neurodegeneration."
+                  </p>
                 </div>
               </div>
-            </div>
 
-            {/* Shop Integration */}
-            <div className="bg-slate-900 border border-white/10 rounded-[3rem] p-10 space-y-8 shadow-[0_30px_60px_rgba(0,0,0,0.4)]">
-              <div className="text-center space-y-4">
-                <h3 className="text-3xl font-display font-black uppercase tracking-tighter text-white">
-                  {t('fp_cta_section_title')}
-                </h3>
-                <div className="h-1 w-20 bg-blue-500 mx-auto rounded-full"></div>
-              </div>
-
-              <div className="space-y-4">
-                {[
-                  { key: 'fp_cta_oura', link: 'https://amazon.com/dp/B0CXM1X8PQ', label: 'Hardware' },
-                  { key: 'fp_cta_whoop', link: 'https://amazon.com/dp/B0CXM1X8PQ', label: 'AI Software' },
-                  { key: 'fp_cta_apple', link: 'https://amazon.com/dp/B0CXM1X8PQ', label: 'Hybrid' },
-                  { key: 'fp_cta_coldplunge', link: 'https://amazon.com/dp/B0CMB6X8Y1', label: 'Recovery' },
-                  { key: 'fp_cta_sauna', link: 'https://amazon.com/dp/B0CMB6X8Y1', label: 'Adaptation' },
-                  { key: 'fp_cta_insulin', link: 'https://amazon.com/dp/B0D5N6X8Z2', label: 'Clinical' }
-                ].map((item, idx) => (
-                  <a key={idx} href={item.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-slate-800 rounded-3xl group hover:bg-white hover:text-slate-900 transition-all duration-500">
-                    <span className="flex items-center gap-4">
-                      <span className="text-[10px] bg-white/10 px-2 py-0.5 rounded-full group-hover:bg-slate-100 transition-colors uppercase font-black">{item.label}</span>
-                      <span className="font-black uppercase tracking-tighter text-sm md:text-base">{t(item.key as any)}</span>
-                    </span>
-                    <ExternalLink className="opacity-40 group-hover:opacity-100 transition-opacity" size={18} />
-                  </a>
-                ))}
+              <div className="lg:col-span-5">
+                <div className="bg-slate-950 p-12 rounded-[4rem] border border-white/10 shadow-2xl relative overflow-hidden h-full">
+                  <div className="absolute top-0 right-0 p-8 opacity-10">
+                    <Dumbbell size={120} className="text-cyan-400" />
+                  </div>
+                  <div className="relative z-10 space-y-10">
+                    <h3 className="text-2xl font-display font-black uppercase text-cyan-400">Tactical Control</h3>
+                    
+                    <div className="space-y-6">
+                      {[
+                        { key: 'fp_cta_oura', link: affiliateLinks.whoop, label: 'Tracking' },
+                        { key: 'fp_cta_whoop', link: affiliateLinks.whoop, label: 'AI Coach' },
+                        { key: 'fp_cta_coldplunge', link: affiliateLinks.us, label: 'Recovery' },
+                        { key: 'fp_cta_sauna', link: affiliateLinks.us, label: 'Thermic' }
+                      ].map((cta, i) => (
+                        <a key={i} href={cta.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-white/5 border border-white/5 rounded-[2rem] hover:bg-white hover:text-slate-950 transition-all group/cta">
+                          <span className="flex items-center gap-4">
+                            <span className="text-[9px] font-black bg-white/10 px-2 py-0.5 rounded group-hover/cta:bg-slate-200 uppercase">{cta.label}</span>
+                            <span className="text-xs font-black uppercase tracking-tight leading-none">{t(cta.key as any)}</span>
+                          </span>
+                          <ExternalLink size={16} className="opacity-40 group-hover/cta:opacity-100" />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -275,37 +277,77 @@ export default function FitnessPillar() {
 
         <IntelligenceTeaser />
 
-        {/* Blog Integration */}
-        <div className="space-y-40">
-          <div>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 px-4">
-              <div className="space-y-4">
-                <span className="text-blue-500 font-black uppercase tracking-widest text-sm">System Archive</span>
-                <h2 className="text-5xl md:text-7xl font-display font-black uppercase tracking-tighter text-white leading-none">
-                  {t('fp_top_posts')}
-                </h2>
-              </div>
-              <div className="h-px bg-white/10 flex-grow hidden lg:block mx-10 mb-6"></div>
-              <div className="text-right">
-                <p className="text-slate-500 font-black uppercase tracking-widest text-xs mb-2">Performance Models</p>
-                <div className="flex gap-2">
-                  <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                  <div className="w-2 h-2 rounded-full bg-indigo-500"></div>
-                  <div className="w-2 h-2 rounded-full bg-purple-500"></div>
+        {/* Pillar Essentials Grid */}
+        <section className="mb-40 pt-20">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 px-4">
+            <div className="space-y-4">
+              <span className="text-cyan-500 font-black uppercase tracking-[0.3em] text-xs">Performance Arsenal</span>
+              <h2 className="text-5xl md:text-7xl font-display font-black uppercase tracking-tight text-white leading-none">
+                Pillar Essentials
+              </h2>
+            </div>
+            <p className="text-slate-500 font-bold uppercase tracking-widest text-xs border-b border-cyan-500/20 pb-4">
+              Vetted 2026 Strength Tier-1 Tools
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {pillarEssentials.map((product, i) => (
+              <motion.div 
+                key={i}
+                whileHover={{ y: -15 }}
+                className="bg-slate-900/50 backdrop-blur-3xl rounded-[3.5rem] border border-white/5 overflow-hidden group shadow-2xl flex flex-col h-full"
+              >
+                <div className="h-80 relative overflow-hidden bg-white/5">
+                  <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[0.8]" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent"></div>
+                  <div className="absolute bottom-8 left-8">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-cyan-400 bg-cyan-500/10 px-4 py-1.5 rounded-full border border-cyan-500/20 backdrop-blur-md">
+                      {product.brand}
+                    </span>
+                  </div>
                 </div>
-              </div>
+                
+                <div className="p-10 flex flex-col flex-1">
+                  <h3 className="text-2xl font-display font-black uppercase text-white mb-4 group-hover:text-cyan-400 transition-colors">
+                    {product.name}
+                  </h3>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
+                    {product.desc}
+                  </p>
+                  
+                  <div className="mt-auto flex items-center justify-between pt-8 border-t border-white/5">
+                    <span className="text-lg font-display font-black text-white">{product.price}</span>
+                    <a href={product.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-cyan-400 font-black text-[10px] uppercase tracking-widest hover:text-white transition-colors">
+                      Acquire <ExternalLink size={14} />
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Intelligence Feed */}
+        <div className="space-y-48">
+          <div className="relative">
+            <div className="flex items-center gap-10 mb-20 px-4">
+              <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tight text-white leading-none">
+                {t('fp_top_posts')}
+              </h2>
+              <div className="h-px bg-white/10 flex-grow mt-2"></div>
             </div>
             <BlogSection category="fitness" limit={3} featured={true} />
           </div>
 
-          <div>
-            <div className="flex items-center gap-8 mb-16 px-4">
-              <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tighter text-white leading-none whitespace-nowrap">
+          <div className="relative">
+            <div className="flex items-center gap-10 mb-20 px-4">
+              <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tight text-white leading-none">
                 {t('fp_latest_posts')}
               </h2>
-              <div className="h-px bg-white/10 flex-grow"></div>
+              <div className="h-px bg-white/10 flex-grow mt-2"></div>
             </div>
-            <BlogSection category="fitness" limit={9} />
+            <BlogSection category="fitness" limit={12} />
           </div>
         </div>
       </div>

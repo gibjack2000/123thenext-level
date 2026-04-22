@@ -85,6 +85,22 @@ export const AffiliateLinksProvider: React.FC<{ children: React.ReactNode }> = (
 
   useEffect(() => {
     fetchDynamicLinks();
+
+    if (!supabase || !hasValidSupabaseConfig) return;
+
+    // Listen for mapping changes
+    const mappingChannel = supabase
+      .channel('schema-db-changes')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'affiliate_link_mappings' },
+        () => fetchDynamicLinks()
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(mappingChannel);
+    };
   }, []);
 
   return (
