@@ -122,7 +122,7 @@ export default function ProductsClient({
               rel="noopener noreferrer"
               className="flex items-center justify-center w-full bg-white hover:bg-blue-600 text-slate-950 hover:text-white py-4 rounded-2xl transition-all duration-300 font-black text-xs uppercase tracking-widest shadow-xl"
             >
-              Acquire Hardware
+              Buy from Amazon
               <ExternalLink size={14} className="ml-3" />
             </a>
           </div>

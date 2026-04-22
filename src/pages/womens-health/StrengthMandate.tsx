@@ -146,7 +146,7 @@ export default function StrengthMandate() {
                   rel="noopener noreferrer"
                   className="w-full py-5 bg-white hover:bg-blue-600 text-slate-950 hover:text-white rounded-2xl text-center font-black text-xs uppercase tracking-widest transition-all shadow-xl flex items-center justify-center gap-3"
                 >
-                  Acquire Hardware <ExternalLink size={16} />
+                  Buy from Amazon <ExternalLink size={16} />
                 </a>
               </motion.div>
             ))}

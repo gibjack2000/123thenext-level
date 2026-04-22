@@ -146,7 +146,7 @@ export default function OvarianLongevity() {
                   rel="noopener noreferrer" 
                   className="w-full py-5 bg-slate-950 hover:bg-rose-600 text-white rounded-3xl font-black uppercase tracking-widest transition-all group flex items-center justify-center gap-3"
                 >
-                  Acquire Diagnostic <ExternalLink size={18} />
+                  Buy from Amazon <ExternalLink size={18} />
                 </a>
                 
                 <div className="mt-8 pt-8 border-t border-slate-100 w-full flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400">

@@ -163,7 +163,7 @@ export default function SystemicMaintenance() {
                 <div className="w-full pt-8 border-t border-white/5 flex items-center justify-between">
                    <span className="text-lg font-display font-black">{p.price}</span>
                    <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-rose-400 hover:text-white transition-colors">
-                      Acquire <ExternalLink size={14} />
+                      Buy from Amazon <ExternalLink size={14} />
                    </button>
                 </div>
               </motion.div>
