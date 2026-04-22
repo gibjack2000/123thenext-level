@@ -26,8 +26,13 @@ export default function WomensHealthPillar() {
       name: 'Oura Ring Gen3 Horizon',
       brand: 'Biometric Feedback',
       desc: 'The gold standard for female cycle tracking, HRV monitoring, and autonomic nervous system data.',
+<<<<<<< HEAD
       image: links.whp_oura?.image || '/Products/Oura1.jpg',
       link: links.whp_oura?.url || 'https://www.amazon.com/Oura-Ring-Gen3-Horizon-Stealth/dp/B0D4N3L9XW',
+=======
+      image: '/Products/Oura1.jpg',
+      link: 'https://amazon.com/dp/B09KMPN7X5',
+>>>>>>> 302c594419450ba822116882294dab2d48bc4010
       price: '$299+'
     },
     {
@@ -35,8 +40,13 @@ export default function WomensHealthPillar() {
       name: 'Thorne Creatine Monohydrate',
       brand: 'Neurometabolic Fuel',
       desc: 'Clinical-grade creatine for cognitive shielding during the menopausal transition and muscle mass preservation.',
+<<<<<<< HEAD
       image: links.whp_creatine?.image || '/Products/thorne.jpg',
       link: links.whp_creatine?.url || 'https://www.amazon.com/Thorne-Research-Creatine-Monohydrate-Amino/dp/B00028M0ZK',
+=======
+      image: '/Products/thorne.jpg',
+      link: 'https://amazon.com/dp/B00028M0ZK',
+>>>>>>> 302c594419450ba822116882294dab2d48bc4010
       price: '$45+'
     },
     {
@@ -44,8 +54,13 @@ export default function WomensHealthPillar() {
       name: 'Wellwoman Max Protocol',
       brand: 'Micronutrient Base',
       desc: 'Triple-pack containing vitamins, minerals, Omega-3, and 4,000IU Vitamin D3 for systemic support.',
+<<<<<<< HEAD
       image: links.whp_multivitamin?.image || '/Products/wellwoman3.jpg',
       link: links.whp_multivitamin?.url || 'https://www.amazon.com/Vitabiotics-Wellwoman-Max-3x30-Pack/dp/B00M4S0W0Y',
+=======
+      image: '/Products/wellwoman3.jpg',
+      link: 'https://amazon.com/dp/B00M4S0W0Y',
+>>>>>>> 302c594419450ba822116882294dab2d48bc4010
       price: '$35+'
     },
     {
@@ -53,8 +68,13 @@ export default function WomensHealthPillar() {
       name: 'Withings Body Smart Scale',
       brand: 'Metabolic Diagnostics',
       desc: 'Advanced body composition tracking to monitor visceral fat and muscle mass deltas.',
+<<<<<<< HEAD
       image: links.whp_scale?.image || '/Products/withings.jpg',
       link: links.whp_scale?.url || 'https://www.amazon.com/Withings-Body-Smart-Composition-Monitor/dp/B0BYZ9TBM5',
+=======
+      image: '/Products/withings.jpg',
+      link: 'https://amazon.com/dp/B0BYZ9TBM5',
+>>>>>>> 302c594419450ba822116882294dab2d48bc4010
       price: '$99+'
     }
   ];
