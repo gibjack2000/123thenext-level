@@ -342,7 +342,7 @@ export default function NutritionPillar() {
                   <div className="mt-auto flex items-center justify-between pt-8 border-t border-white/5">
                     <span className="text-lg font-display font-black text-white">{product.price}</span>
                     <a href={product.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-emerald-400 font-black text-[10px] uppercase tracking-widest hover:text-white transition-colors">
-                      Acquire <ExternalLink size={14} />
+                      Buy from Amazon <ExternalLink size={14} />
                     </a>
                   </div>
                 </div>

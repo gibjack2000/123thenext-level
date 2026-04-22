@@ -199,7 +199,7 @@ export default function NeurowellnessSoftCare() {
                        Pure Vagus <Sparkles size={12} className="text-violet-500" />
                     </span>
                     <a href={product.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-violet-400 font-black text-[10px] uppercase tracking-widest hover:text-white transition-colors">
-                      Acquire <ExternalLink size={14} />
+                      Buy from Amazon <ExternalLink size={14} />
                     </a>
                   </div>
                 </div>

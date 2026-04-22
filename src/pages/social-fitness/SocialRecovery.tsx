@@ -153,7 +153,7 @@ export default function SocialRecovery() {
                   
                   <div className="mt-auto pt-8 border-t border-white/5">
                     <a href={`https://amazon.com/dp/${product.asin}`} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between group/btn">
-                      <span className="text-[10px] font-black uppercase tracking-widest text-white group-hover/btn:text-orange-400 transition-colors">Acquire Tech</span>
+                      <span className="text-[10px] font-black uppercase tracking-widest text-white group-hover/btn:text-orange-400 transition-colors">Buy from Amazon</span>
                       <div className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center group-hover/btn:bg-orange-500 group-hover/btn:text-white transition-all">
                         <ArrowRight size={18} />
                       </div>

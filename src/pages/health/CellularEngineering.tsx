@@ -200,7 +200,7 @@ export default function CellularEngineering() {
                       rel="noopener noreferrer" 
                       className="flex items-center justify-center w-full py-5 bg-white text-[#020617] rounded-[2rem] font-black text-[10px] uppercase tracking-widest hover:bg-indigo-600 hover:text-white transition-all shadow-2xl font-display"
                     >
-                      Acquire Compound <ExternalLink size={14} className="ml-3" />
+                      Buy from Amazon <ExternalLink size={14} className="ml-3" />
                     </a>
                   </div>
                 </div>
