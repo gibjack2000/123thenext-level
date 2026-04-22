@@ -140,6 +140,7 @@ export default function SocialFitnessPillar() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-24 pb-32">
+<<<<<<< HEAD
         {/* Sub-Hub Entry Points: Socio-Biological Architecture */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-40">
           <motion.div 
@@ -181,11 +182,41 @@ export default function SocialFitnessPillar() {
               <Link to="/social-fitness/festivals" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-amber-400 group-hover:text-white transition-colors font-display">
                  Enter Collective Flow <ArrowRight size={14} />
               </Link>
+=======
+        {/* Hub Methodology */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-40">
+          <motion.div 
+            whileHover={{ y: -10 }}
+            className="bg-slate-900/50 backdrop-blur-3xl p-12 md:p-16 rounded-[4rem] border border-white/5 flex flex-col justify-between lg:col-span-2 group overflow-hidden relative shadow-2xl"
+          >
+            <div className="absolute top-0 right-0 w-64 h-64 bg-amber-600/10 blur-[100px] -mr-32 -mt-32"></div>
+            <div className="relative z-10">
+              <div className="w-16 h-16 bg-white/5 rounded-3xl flex items-center justify-center text-amber-400 mb-10 border border-white/10 group-hover:scale-110 transition-transform duration-500">
+                <Users size={32} />
+              </div>
+              <h2 className="text-4xl md:text-5xl font-display font-black uppercase tracking-tight text-white mb-8 leading-[1]">
+                {t('sfp_path_a_title')}
+              </h2>
+              <p className="text-slate-400 text-lg leading-relaxed mb-10 font-medium">
+                {t('sfp_path_a_desc')}
+              </p>
+              <div className="p-8 bg-white/5 rounded-[2.5rem] border border-white/5 mb-10">
+                 <h4 className="text-[10px] font-black uppercase tracking-widest text-amber-400 mb-4 flex items-center gap-2">
+                   <Target size={14} /> Shared Striving
+                 </h4>
+                 <p className="text-sm text-slate-500 leading-relaxed font-medium">Collective physical challenges (Pickleball, Hyrox) trigger "The Winner Effect" and neural synchrony across the group.</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 text-amber-400 font-bold text-[10px] uppercase tracking-[0.2em] border-t border-white/5 pt-10">
+              <Zap size={16} />
+              The Community Operating System
+>>>>>>> 302c594419450ba822116882294dab2d48bc4010
             </div>
           </motion.div>
 
           <motion.div 
             whileHover={{ y: -10 }}
+<<<<<<< HEAD
             className="bg-slate-900/50 backdrop-blur-3xl p-12 rounded-[4rem] border border-white/5 flex flex-col justify-between group overflow-hidden relative shadow-2xl h-full"
           >
             <div className="absolute top-0 right-0 w-64 h-64 bg-orange-600/10 blur-[100px] -mr-32 -mt-32"></div>
@@ -202,6 +233,36 @@ export default function SocialFitnessPillar() {
               <Link to="/social-fitness/recovery" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-orange-400 group-hover:text-white transition-colors font-display">
                  Enter Recovery Zone <ArrowRight size={14} />
               </Link>
+=======
+            className="bg-slate-900/50 backdrop-blur-3xl p-12 md:p-16 rounded-[4rem] border border-white/5 flex flex-col justify-between group overflow-hidden relative shadow-2xl"
+          >
+            <div className="relative z-10">
+              <div className="w-16 h-16 bg-white/5 rounded-3xl flex items-center justify-center text-orange-400 mb-10 border border-white/10 group-hover:scale-110 transition-transform duration-500">
+                <Music size={32} />
+              </div>
+              <h2 className="text-3xl font-display font-black uppercase tracking-tight text-white mb-8 leading-none">
+                {t('sfp_path_b_title')}
+              </h2>
+              <p className="text-slate-400 text-base leading-relaxed mb-10 font-medium">
+                {t('sfp_path_b_desc')}
+              </p>
+              <div className="space-y-4 pt-10 border-t border-white/5">
+                {[
+                  { label: "Oxytocin Signaling", value: "High" },
+                  { label: "Neural Symmetry", value: "Synced" },
+                  { label: "Social Drive", value: "Peak" }
+                ].map((stat, i) => (
+                  <div key={i} className="flex justify-between items-center py-2">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-amber-500">{stat.label}</span>
+                    <span className="text-sm font-bold text-white">{stat.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="flex items-center gap-3 text-orange-400 font-bold text-[10px] uppercase tracking-[0.2em] pt-10 relative z-10">
+              <Activity size={16} />
+              Socio-Biological Data
+>>>>>>> 302c594419450ba822116882294dab2d48bc4010
             </div>
           </motion.div>
         </div>

@@ -58,45 +58,81 @@ import RegionHub from './pages/RegionHub';
 import CategoryPage from './pages/CategoryPage';
 import AdminPage from './pages/AdminPage';
 import SuperAdminPage from './pages/SuperAdminPage';
-import BlogPostPage from './pages/BlogPostPage';
 import IntelligenceHub from './pages/IntelligenceHub';
-import TickerTape from './components/TickerTape';
-import { Settings, Home as HomeIcon, Menu, X } from 'lucide-react';
-import { AffiliateLinksProvider } from './contexts/AffiliateLinksContext';
+import BlogPostPage from './pages/BlogPostPage';
+import Navbar from './components/Navbar';
+import AuthModal from './components/AuthModal';
+import { AuthProvider } from './contexts/AuthContext';
+import { AnalyticsProvider } from './contexts/AnalyticsContext';
 
-
-export default function App() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+function App() {
   const t = useT();
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   return (
-    <BrowserRouter>
-      <AffiliateLinksProvider>
-        <ScrollToTop />
-        <div className="min-h-screen bg-slate-50 font-sans text-slate-900 flex flex-col">
-          {!hasValidSupabaseConfig && (
-            <div className="bg-amber-100 text-amber-800 px-4 py-2 text-center text-sm font-medium">
-              Running in Demo Mode with placeholder data. Add Supabase credentials in Settings to connect your database.
-            </div>
-          )}
-          
-          <TickerTape />
-          
-          <header className="bg-white/80 backdrop-blur-md border-b border-white/20 shadow-[0_4px_30px_rgba(0,0,0,0.03)] sticky top-0 z-50 transition-all duration-300">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-              <Link to="/" className="flex items-center group">
-                <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-2 rounded-xl text-white mr-3 shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform duration-300">
-                  <HomeIcon size={20} strokeWidth={2.5} />
-                </div>
-                <span className="font-display font-semibold uppercase tracking-[0.02em] text-xl border-transparent bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent group-hover:from-blue-600 group-hover:to-indigo-600 transition-all duration-500">
-                  123TheNext Level
-                </span>
-              </Link>
+    <AuthProvider>
+      <AnalyticsProvider>
+        <BrowserRouter>
+          <ScrollToTop />
+          <div className="min-h-screen bg-slate-50 flex flex-col">
+            <Navbar onAuthClick={() => setIsAuthModalOpen(true)} />
+            
+            <main className="flex-grow">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/health" element={<HealthPillar />} />
+                <Route path="/health/post-a" element={<HealthPostA />} />
+                <Route path="/health/post-b" element={<HealthPostB />} />
+                <Route path="/health/post-c" element={<HealthPostC />} />
+                <Route path="/health/cellular" element={<CellularEngineering />} />
+                <Route path="/health/systemic" element={<SystemicMaintenance />} />
+                <Route path="/fitness" element={<FitnessPillar />} />
+                <Route path="/fitness/fundamentals" element={<FitnessFundamentals />} />
+                <Route path="/fitness/post-d" element={<FitnessPostD />} />
+                <Route path="/fitness/post-e" element={<FitnessPostE />} />
+                <Route path="/fitness/post-f" element={<FitnessPostF />} />
+                <Route path="/fitness/wearables" element={<WearableWar />} />
+                <Route path="/fitness/biosensing" element={<RealTimeBiosensing />} />
+                <Route path="/fitness/methodology" element={<PerformanceMethodology />} />
+                <Route path="/nutrition" element={<NutritionPillar />} />
+                <Route path="/nutrition/glp1" element={<NutritionGLP1 />} />
+                <Route path="/nutrition/muscle-brain" element={<NutritionMuscleBrain />} />
+                <Route path="/nutrition/biomarkers" element={<NutritionBiomarkers />} />
+                <Route path="/nutrition/post-g" element={<NutritionPostG />} />
+                <Route path="/nutrition/post-h" element={<NutritionPostH />} />
+                <Route path="/nutrition/post-i" element={<NutritionPostI />} />
+                <Route path="/wellness" element={<WellnessPillar />} />
+                <Route path="/neurowellness" element={<NeurowellnessPillar />} />
+                <Route path="/neurowellness/hard-care" element={<NeurowellnessHardCare />} />
+                <Route path="/neurowellness/soft-care" element={<NeurowellnessSoftCare />} />
+                <Route path="/neurowellness/metabolism" element={<NeurowellnessMetabolism />} />
+                <Route path="/wellness/post-j" element={<WellnessPostJ />} />
+                <Route path="/wellness/post-k" element={<WellnessPostK />} />
+                <Route path="/wellness/post-l" element={<WellnessPostL />} />
+                <Route path="/womens-health" element={<WomensHealthPillar />} />
+                <Route path="/womens-health/longevity" element={<OvarianLongevity />} />
+                <Route path="/womens-health/performance" element={<StrengthMandate />} />
+                <Route path="/womens-health/metabolic" element={<CognitiveMetabolic />} />
+                <Route path="/social-fitness" element={<SocialFitnessPillar />} />
+                <Route path="/social-fitness/pickleball" element={<PickleballEcosystem />} />
+                <Route path="/social-fitness/festivals" element={<FestivalizationWave />} />
+                <Route path="/social-fitness/recovery" element={<SocialRecovery />} />
+                <Route path="/admin" element={<AdminPage />} />
+                <Route path="/superadmin" element={<SuperAdminPage />} />
+                <Route path="/intelligence-hub" element={<IntelligenceHub />} />
+                <Route path="/blog/:slug" element={<BlogPostPage />} />
+                <Route path="/life-practice/universal-love" element={<UniversalLove />} />
+                <Route path="/life-practice/do-no-harm" element={<DoNoHarm />} />
+                <Route path="/life-practice/good-moral-person" element={<GoodMoralPerson />} />
+                <Route path="/life-practice/breathing-mindfulness" element={<BreathingMindfulness />} />
+                <Route path="/life-practice/loving-kindness" element={<LovingKindness />} />
+                <Route path="/life-practice/beginners-guide" element={<BeginnersGuide />} />
+                <Route path="/region/:regionId" element={<RegionHub />} />
+                <Route path="/category/:categoryId" element={<CategoryPage />} />
+              </Routes>
+            </main>
 
+<<<<<<< HEAD
               {/* Desktop Navigation */}
               <nav className="hidden md:flex items-center space-x-1 lg:space-x-4">
                 <Link to="/" className="px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all duration-300">{t('nav_home')}</Link>
@@ -221,5 +257,19 @@ export default function App() {
         </div>
       </AffiliateLinksProvider>
     </BrowserRouter>
+=======
+            <Footer />
+            
+            <AuthModal 
+              isOpen={isAuthModalOpen} 
+              onClose={() => setIsAuthModalOpen(false)} 
+            />
+          </div>
+        </BrowserRouter>
+      </AnalyticsProvider>
+    </AuthProvider>
+>>>>>>> 302c594419450ba822116882294dab2d48bc4010
   );
 }
+
+export default App;
