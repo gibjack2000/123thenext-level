@@ -63,53 +63,56 @@ export default function ProductsClient({
 
   if (products.length === 0) {
     return (
-      <div className="text-center py-20 bg-white rounded-3xl border border-slate-200 shadow-sm">
-        <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-          <Star className="text-slate-300" size={32} />
+      <div className="text-center py-24 bg-slate-900/50 rounded-[3rem] border border-white/5 backdrop-blur-sm shadow-2xl">
+        <div className="w-20 h-20 bg-white/5 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl">
+          <Star className="text-slate-600" size={40} />
         </div>
-        <h3 className="text-xl font-display uppercase tracking-tight text-slate-900 mb-2">No products found</h3>
-        <p className="text-slate-500 mb-8 max-w-md mx-auto">
+        <h3 className="text-3xl font-display font-black uppercase tracking-tight text-white mb-4">No products found</h3>
+        <p className="text-slate-400 mb-12 max-w-md mx-auto text-lg font-medium leading-relaxed">
           We haven't added any products to this category yet. Check back soon or add some via the admin dashboard.
         </p>
         <a
           href="/admin"
-          className="inline-flex items-center justify-center px-8 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-colors"
+          className="inline-flex items-center justify-center px-10 py-5 bg-blue-600 text-white rounded-2xl font-black uppercase tracking-widest hover:bg-blue-500 transition-all shadow-xl shadow-blue-900/40"
         >
-          Add Products
+          Go to Dashboard
         </a>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {products.map((product) => (
-        <div key={product.id} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:-translate-y-3 hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] transition-all duration-500 ease-out flex flex-col">
-          <div className="aspect-square w-full bg-slate-50 rounded-xl mb-4 overflow-hidden p-3 flex items-center justify-center">
+        <div key={product.id} className="group relative overflow-hidden bg-slate-900/50 border border-white/5 rounded-[2.5rem] p-6 shadow-2xl hover:border-blue-500/50 transition-all duration-500 backdrop-blur-sm flex flex-col hover:scale-[1.02]">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          
+          <div className="relative z-10 aspect-square w-full bg-white/5 rounded-[2rem] mb-6 overflow-hidden p-6 flex items-center justify-center border border-white/5">
             {product.image_url ? (
-              <img src={product.image_url} alt={product.product_name} className="max-w-full max-h-full object-contain" referrerPolicy="no-referrer" />
+              <img src={product.image_url} alt={product.product_name} className="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:scale-110" referrerPolicy="no-referrer" />
             ) : (
-              <div className="w-full h-full flex items-center justify-center text-slate-400">No image</div>
+              <div className="w-full h-full flex items-center justify-center text-slate-700 uppercase font-black text-xs tracking-widest">No Visual Data</div>
             )}
-          </div>
-
-          <div className="flex-grow">
+            
             {product.featured && (
-              <span className="inline-block px-2 py-1 bg-blue-100 text-blue-700 text-xs font-semibold rounded-md mb-2">
+              <div className="absolute top-4 right-4 px-4 py-1.5 bg-blue-600 text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full shadow-lg shadow-blue-900/40">
                 Top Pick
-              </span>
+              </div>
             )}
-            <h2 className="text-2xl font-display uppercase tracking-tight text-slate-900 mb-2 line-clamp-2">{product.product_name}</h2>
-            <p className="text-sm text-slate-600 mb-4 line-clamp-3">{product.short_benefit}</p>
           </div>
 
-          <div className="mt-auto pt-4 border-t border-slate-100">
-            <div className="flex justify-between items-center mb-4">
-              <span className="font-bold text-xl text-slate-900">
-                {product.price ? `${product.price} ${product.currency}` : 'Check Price'}
+          <div className="relative z-10 flex-grow px-2">
+            <h2 className="text-2xl font-display font-black uppercase tracking-tight text-white mb-3 line-clamp-2 leading-none group-hover:text-blue-400 transition-colors">{product.product_name}</h2>
+            <p className="text-sm text-slate-400 mb-6 line-clamp-3 font-medium leading-relaxed">{product.short_benefit}</p>
+          </div>
+
+          <div className="relative z-10 mt-auto pt-6 border-t border-white/5">
+            <div className="flex justify-between items-center mb-6 px-2">
+              <span className="font-black text-2xl text-white tracking-tighter">
+                {product.price ? `${product.price} ${product.currency}` : 'VIEW PRICE'}
               </span>
-              <div className="flex items-center text-amber-500 font-medium">
-                <Star size={16} className="fill-current mr-1" />
+              <div className="flex items-center text-blue-400 font-black text-sm">
+                <Star size={16} className="fill-blue-500 text-blue-500 mr-2" />
                 {product.rating}
               </div>
             </div>
@@ -117,10 +120,10 @@ export default function ProductsClient({
               href={product.amazon_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center w-full bg-slate-900 text-white py-2.5 rounded-xl hover:bg-slate-800 transition-colors font-medium"
+              className="flex items-center justify-center w-full bg-white hover:bg-blue-600 text-slate-950 hover:text-white py-4 rounded-2xl transition-all duration-300 font-black text-xs uppercase tracking-widest shadow-xl"
             >
-              View on Amazon
-              <ExternalLink size={16} className="ml-2" />
+              Acquire Hardware
+              <ExternalLink size={14} className="ml-3" />
             </a>
           </div>
         </div>
