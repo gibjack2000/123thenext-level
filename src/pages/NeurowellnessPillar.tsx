@@ -194,7 +194,6 @@ export default function NeurowellnessPillar() {
             <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_100%_0%,rgba(99,102,241,0.08)_0%,transparent_50%)]"></div>
             
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
-<<<<<<< HEAD
               <div className="lg:col-span-7">
                 <div className="inline-flex items-center gap-4 text-indigo-400 font-black uppercase tracking-widest text-[10px] bg-indigo-500/10 px-6 py-2 rounded-full border border-indigo-500/20 mb-8">
                   <Layers size={14} />
@@ -204,17 +203,6 @@ export default function NeurowellnessPillar() {
                   The Polyvagal<br />Paradigm
                 </h2>
                 <div className="space-y-8 max-w-2xl">
-=======
-              <div className="lg:col-span-12 mb-16 text-center">
-                <div className="inline-flex items-center gap-4 text-indigo-400 font-black uppercase tracking-widest text-[10px] bg-indigo-500/10 px-6 py-2 rounded-full border border-indigo-500/20 mb-8">
-                  <Shield size={14} />
-                  The Clinical Foundation
-                </div>
-                <h2 className="text-4xl md:text-7xl font-display font-black uppercase tracking-tight text-white leading-[0.9] mb-8 text-center">
-                   The Polyvagal<br />Paradigm
-                </h2>
-                <div className="space-y-8 max-w-2xl mx-auto text-left">
->>>>>>> 302c594419450ba822116882294dab2d48bc4010
                   {[
                     { title: "Ventral Vagal", text: t('wp_polyvagal_ventral'), color: "bg-emerald-500" },
                     { title: "Sympathetic", text: t('wp_polyvagal_sympathetic'), color: "bg-orange-500" },
@@ -229,7 +217,6 @@ export default function NeurowellnessPillar() {
                     </div>
                   ))}
                 </div>
-<<<<<<< HEAD
               </div>
               <div className="lg:col-span-5 relative">
                 <div className="aspect-square bg-gradient-to-br from-indigo-500/20 to-blue-500/20 rounded-full blur-[100px] absolute inset-0 animate-pulse"></div>
@@ -239,8 +226,6 @@ export default function NeurowellnessPillar() {
                   className="relative z-10 w-full h-auto rounded-[3rem] shadow-3xl grayscale brightness-110 opacity-60"
                   referrerPolicy="no-referrer"
                 />
-=======
->>>>>>> 302c594419450ba822116882294dab2d48bc4010
               </div>
             </div>
           </div>
