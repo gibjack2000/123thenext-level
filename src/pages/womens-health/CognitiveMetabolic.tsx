@@ -79,56 +79,105 @@ export default function CognitiveMetabolic() {
           </p>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mb-32">
-          <div className="space-y-8">
-            <p className="text-lg text-slate-400 leading-relaxed">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-40 pb-40 relative z-20">
+        
+        {/* Neuro-Metabolic Bridge */}
+        <section className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+          <div className="lg:col-span-7 space-y-8">
+            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-black text-xs uppercase tracking-widest">
+              <Target size={14} /> Cognitive Fuel Partitioning
+            </div>
+            <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tighter leading-none">
+              The Neuro-Metabolic <span className="text-emerald-500">Bridge</span>
+            </h2>
+            <p className="text-lg text-slate-400 leading-relaxed font-medium">
               {t('cm_creatine_p')}
             </p>
-            <div className="bg-slate-900/50 p-8 rounded-3xl border border-white/5 space-y-3">
-              <div className="flex items-center gap-4 text-emerald-400">
-                <FlaskConical size={24} />
-                <span className="font-black uppercase tracking-tighter">Neuro-Metabolic Bridge</span>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="p-8 bg-white/5 rounded-[2.5rem] border border-white/10 text-center">
+                <span className="block text-4xl font-black text-emerald-400 mb-1">Peak</span>
+                <span className="text-[10px] uppercase tracking-[0.3em] text-slate-500 font-black">Glucose Clearance</span>
               </div>
-              <p className="text-sm text-slate-500 italic">"Creatine monohydrate is our primary target for age-related cognitive shielding in the menopausal transition."</p>
+              <div className="p-8 bg-white/5 rounded-[2.5rem] border border-white/10 text-center">
+                <span className="block text-4xl font-black text-purple-400 mb-1">-40%</span>
+                <span className="text-[10px] uppercase tracking-[0.3em] text-slate-500 font-black">Brain Fog Incidence</span>
+              </div>
             </div>
           </div>
-          <div className="relative group">
-            <div className="absolute -inset-4 bg-rose-500/20 rounded-[4rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          
+          <div className="lg:col-span-5 relative group">
+            <div className="absolute -inset-4 bg-emerald-500/20 rounded-[4rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
             <img 
               src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=800"
               alt="Woman Meditating"
-              className="relative rounded-[3rem] border border-white/10 shadow-2xl"
+              className="relative rounded-[3rem] border border-white/10 shadow-2xl grayscale hover:grayscale-0 transition-all duration-700"
             />
           </div>
-        </div>
+        </section>
+
+        {/* Clinical Arsenal Section */}
+        <section className="mb-40">
+          <div className="text-center mb-20 text-white">
+            <div className="inline-flex items-center gap-2 text-emerald-400 font-black text-xs uppercase tracking-[0.4em] mb-4">
+              <Sparkles size={16} /> Technical Arsenal
+            </div>
+            <h2 className="text-5xl md:text-7xl font-display font-black uppercase tracking-tighter">The Clinical <span className="text-emerald-500">Arsenal</span></h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {CLINICAL_ARSENAL.map((item) => (
+              <motion.div
+                key={item.id}
+                whileHover={{ y: -10 }}
+                className="bg-slate-900 border border-white/5 rounded-[3rem] p-8 flex flex-col group shadow-2xl"
+              >
+                <div className="aspect-square rounded-[2rem] overflow-hidden mb-8 bg-slate-800 border border-white/5">
+                  <img src={item.image} alt={item.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                </div>
+                <div className="flex-grow space-y-2">
+                  <div className="text-[10px] font-black uppercase tracking-widest text-emerald-400">{item.provider}</div>
+                  <h4 className="text-2xl font-display font-black uppercase tracking-tight text-white mb-2 leading-tight">{item.name}</h4>
+                  <p className="text-slate-500 text-sm font-medium leading-relaxed mb-8">{item.desc}</p>
+                </div>
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-5 bg-white hover:bg-emerald-600 text-slate-950 hover:text-white rounded-2xl text-center font-black text-xs uppercase tracking-widest transition-all shadow-xl flex items-center justify-center gap-3"
+                >
+                  Acquire Protocol <ExternalLink size={16} />
+                </a>
+              </motion.div>
+            ))}
+          </div>
+        </section>
 
         {/* NAD+ Section */}
-        <section className="rounded-[4rem] p-10 md:p-20 text-white relative overflow-hidden shadow-2xl shadow-rose-900/20"
+        <section className="rounded-[4rem] p-10 md:p-20 text-white relative overflow-hidden shadow-2xl shadow-emerald-900/20"
                  style={{
                    backgroundImage: "url('https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&q=80&w=2000')",
                    backgroundSize: "cover", backgroundPosition: "center"
                  }}>
-          <div className="absolute inset-0 bg-gradient-to-br from-rose-900/70 to-slate-900/65"></div>
-          <div className="absolute top-0 right-0 w-96 h-96 bg-rose-400/10 blur-[100px] -mr-48 -mt-48"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/70 to-slate-900/65"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-400/10 blur-[100px] -mr-48 -mt-48"></div>
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-12">
               <h2 className="text-4xl md:text-7xl font-display font-black uppercase tracking-tighter leading-none">
                 {t('cm_nad_title')}
               </h2>
-              <p className="text-xl text-rose-100/70 leading-relaxed">
+              <p className="text-xl text-emerald-100/70 leading-relaxed">
                 {t('cm_nad_p')}
               </p>
               
               <div className="space-y-4">
-                <a href={links.nad} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-4 p-6 bg-white text-rose-950 rounded-3xl group font-black uppercase tracking-tighter hover:bg-rose-100 transition-all">
+                <a href={links.nad?.url || "https://amazon.com"} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-4 p-6 bg-white text-emerald-950 rounded-3xl group font-black uppercase tracking-tighter hover:bg-emerald-100 transition-all">
                   Order Mitochondrial Suite <ExternalLink size={20} />
                 </a>
               </div>
             </div>
 
             <div className="bg-white/5 rounded-[3rem] p-8 border border-white/10 backdrop-blur-xl">
-              <h4 className="text-sm font-black uppercase tracking-widest text-rose-300 mb-8">Targeted Indicators</h4>
+              <h4 className="text-sm font-black uppercase tracking-widest text-emerald-300 mb-8">Targeted Indicators</h4>
               <div className="space-y-6">
                 {[
                   { name: 'Mitochondrial Reserve', percentage: 94 },
@@ -141,7 +190,7 @@ export default function CognitiveMetabolic() {
                       <span>{stat.percentage}%</span>
                     </div>
                     <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-                      <div className="h-full bg-rose-500 rounded-full" style={{ width: `${stat.percentage}%` }}></div>
+                      <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${stat.percentage}%` }}></div>
                     </div>
                   </div>
                 ))}
@@ -149,8 +198,6 @@ export default function CognitiveMetabolic() {
             </div>
           </div>
         </section>
-
-
       </div>
     </div>
   );
