@@ -65,6 +65,8 @@ import SuperAdminPage from './pages/SuperAdminPage';
 import IntelligenceHub from './pages/IntelligenceHub';
 import BlogPostPage from './pages/BlogPostPage';
 
+import Navbar from './components/Navbar';
+
 function App() {
   const t = useT();
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -72,8 +74,8 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <div className="min-h-screen bg-slate-50 flex flex-col">
-        {/* Navbar component is missing */}
+      <div className="min-h-screen bg-slate-950 flex flex-col">
+        <Navbar />
         
         <main className="flex-grow">
           <Routes>
@@ -129,8 +131,10 @@ function App() {
             <Route path="/life-practice/breathing-mindfulness" element={<BreathingMindfulness />} />
             <Route path="/life-practice/loving-kindness" element={<LovingKindness />} />
             <Route path="/life-practice/beginners-guide" element={<BeginnersGuide />} />
-            <Route path="/region/:regionId" element={<RegionHub />} />
-            <Route path="/category/:categoryId" element={<CategoryPage />} />
+            <Route path="/:region" element={<RegionHub />} />
+            <Route path="/:region/:category" element={<CategoryPage />} />
+            <Route path="/region/:region" element={<RegionHub />} />
+            <Route path="/category/:category" element={<CategoryPage />} />
           </Routes>
         </main>
 

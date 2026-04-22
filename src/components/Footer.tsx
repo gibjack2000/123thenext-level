@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Settings, Home as HomeIcon, Shield, Info, Heart, ExternalLink } from 'lucide-react';
 import { useT } from '../translations';
+import MarketSelector from './MarketSelector';
 
 const Footer = () => {
   const t = useT();
@@ -106,11 +107,8 @@ const Footer = () => {
               <span className="w-1.5 h-1.5 rounded-full bg-slate-500 mr-2"></span>
               {t('footer_global')}
             </h3>
-            <div className="grid grid-cols-2 gap-3">
-              <Link to="/us" className="bg-slate-800/50 hover:bg-slate-800 p-2 rounded-lg text-xs font-bold transition-all text-center border border-slate-700/50">US STORE</Link>
-              <Link to="/uk" className="bg-slate-800/50 hover:bg-slate-800 p-2 rounded-lg text-xs font-bold transition-all text-center border border-slate-700/50">UK STORE</Link>
-              <Link to="/es" className="bg-slate-800/50 hover:bg-slate-800 p-2 rounded-lg text-xs font-bold transition-all text-center border border-slate-700/50">ES STORE</Link>
-              <div className="bg-slate-800/20 p-2 rounded-lg text-xs font-bold text-slate-500 text-center border border-slate-800 border-dashed">GLOBAL</div>
+            <div className="bg-slate-800/30 p-4 rounded-2xl border border-white/5 backdrop-blur-sm">
+               <MarketSelector className="justify-between" />
             </div>
           </div>
         </div>

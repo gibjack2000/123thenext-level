@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { Product, mapToProduct } from '../types';
+import MarketSelector from '../components/MarketSelector';
 import ProductsClient from '../components/ProductsClient';
 import { ChevronRight, Home } from 'lucide-react';
 import { MOCK_PRODUCTS } from '../data/mockData';
@@ -64,58 +65,63 @@ export default function CategoryPage() {
   }, [regionUpper, category]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      {/* Breadcrumbs */}
-      <nav className="flex items-center text-sm text-slate-500 mb-8">
-        <Link to="/" className="hover:text-slate-900 flex items-center">
-          <Home size={16} className="mr-1" /> Home
-        </Link>
-        <ChevronRight size={16} className="mx-2" />
-        <Link to={`/${region}`} className="hover:text-slate-900 uppercase">
-          {regionUpper}
-        </Link>
-        <ChevronRight size={16} className="mx-2" />
-        <span className="text-slate-900 font-medium capitalize">{categoryFormatted}</span>
-      </nav>
-
-      <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <div>
-          <h1 className="text-4xl font-display uppercase tracking-tight text-slate-900 capitalize mb-4">
-            {regionUpper} {categoryFormatted}
-          </h1>
-          <p className="text-lg text-slate-600 max-w-2xl">
-            Discover the best {categoryFormatted} products available on Amazon {regionUpper}. 
-            Our curated list updates in real-time with the latest ratings and top picks.
-          </p>
+    <div className="min-h-screen bg-slate-950 text-white selection:bg-blue-500/30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Breadcrumbs & Market Selector */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+          <nav className="flex items-center text-sm text-slate-400">
+            <Link to="/" className="hover:text-blue-400 flex items-center transition-colors">
+              <Home size={16} className="mr-1" /> Home
+            </Link>
+            <ChevronRight size={16} className="mx-2 text-slate-600" />
+            <Link to={`/${region}`} className="hover:text-blue-400 uppercase transition-colors">
+              {regionUpper}
+            </Link>
+            <ChevronRight size={16} className="mx-2 text-slate-600" />
+            <span className="text-white font-medium capitalize">{categoryFormatted}</span>
+          </nav>
+          
+          <MarketSelector currentCategory={category} className="bg-slate-900/50 p-2 rounded-2xl border border-white/5 backdrop-blur-xl" />
         </div>
-        {showingMockData && (
-          <div className="px-4 py-2 bg-amber-50 border border-amber-200 rounded-xl text-amber-800 text-sm font-medium flex items-center">
-            <div className="w-2 h-2 rounded-full bg-amber-500 mr-2"></div>
-            Viewing Demo Products
+
+        <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div>
+            <h1 className="text-5xl md:text-7xl font-display font-black uppercase tracking-tighter text-white mb-6 leading-none">
+              {regionUpper} <span className="text-blue-500">{categoryFormatted}</span>
+            </h1>
+            <p className="text-xl text-slate-400 max-w-2xl font-medium leading-relaxed border-l-2 border-blue-500 pl-6">
+              Discover the best {categoryFormatted} products available on Amazon {regionUpper}. 
+              Our curated list updates in real-time with the latest ratings and top picks.
+            </p>
           </div>
-        )}
-      </div>
+          {showingMockData && (
+            <div className="px-6 py-3 bg-blue-500/10 border border-blue-500/30 rounded-2xl text-blue-400 text-xs font-black uppercase tracking-widest flex items-center shadow-lg shadow-blue-900/20">
+              <div className="w-2 h-2 rounded-full bg-blue-500 mr-3 animate-pulse"></div>
+              Viewing 2026 Demo Data
+            </div>
+          )}
+        </div>
 
       {loading ? (
         <div className="flex justify-center items-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-slate-900"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
         </div>
       ) : initialProducts.length === 0 ? (
-        <div className="bg-white border border-slate-200 rounded-3xl p-16 text-center">
-          <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mx-auto mb-6">
-            <Home className="text-slate-300" size={32} />
+        <div className="bg-slate-900/50 border border-white/5 rounded-[3rem] p-24 text-center backdrop-blur-sm">
+          <div className="w-20 h-20 bg-white/5 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl">
+            <Home className="text-slate-600" size={40} />
           </div>
-          <h3 className="text-xl font-display uppercase tracking-tight text-slate-900 mb-2">No products here yet</h3>
-          <p className="text-slate-500 mb-8 max-w-md mx-auto">
+          <h3 className="text-3xl font-display font-black uppercase tracking-tight text-white mb-4">No products here yet</h3>
+          <p className="text-slate-400 mb-12 max-w-md mx-auto text-lg font-medium leading-relaxed">
             We haven't added any products to this category in the {regionUpper} region yet.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/admin" className="inline-flex items-center justify-center px-8 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-colors">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <Link to="/admin" className="inline-flex items-center justify-center px-10 py-5 bg-blue-600 text-white rounded-2xl font-black uppercase tracking-widest hover:bg-blue-500 transition-all shadow-xl shadow-blue-900/40">
               Add Products
             </Link>
             <button 
               onClick={loadMockData}
-              className="inline-flex items-center justify-center px-8 py-3 bg-white border border-slate-200 text-slate-700 rounded-xl font-bold hover:bg-slate-50 transition-colors"
+              className="inline-flex items-center justify-center px-10 py-5 bg-white/5 border border-white/10 text-white rounded-2xl font-black uppercase tracking-widest hover:bg-white/10 transition-all"
             >
               View Demo Data
             </button>
@@ -128,6 +134,7 @@ export default function CategoryPage() {
           category={category || ''} 
         />
       )}
+      </div>
     </div>
   );
 }
