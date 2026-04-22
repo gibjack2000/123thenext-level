@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, Activity, Microscope, Zap, Info, ExternalLink, Droplets, FlaskConical } from 'lucide-react';
+import { ArrowLeft, Activity, Microscope, Zap, Info, ExternalLink, Droplets, FlaskConical, Binary, Sparkles, Target, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../../translations';
-
 
 export default function RealTimeBiosensing() {
   const t = useT();

@@ -45,6 +45,8 @@ import PickleballEcosystem from './pages/social-fitness/PickleballEcosystem';
 import FestivalizationWave from './pages/social-fitness/FestivalizationWave';
 import SocialRecovery from './pages/social-fitness/SocialRecovery';
 import PreventiveHealth from './pages/PreventiveHealth';
+import CellularEngineering from './pages/health/CellularEngineering';
+import SystemicMaintenance from './pages/health/SystemicMaintenance';
 import FitnessFundamentals from './pages/FitnessFundamentals';
 import UniversalLove from './pages/UniversalLove';
 import DoNoHarm from './pages/DoNoHarm';
@@ -164,6 +166,9 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/preventive-health" element={<PreventiveHealth />} />
               <Route path="/health" element={<HealthPillar />} />
+              <Route path="/health/preventive" element={<PreventiveHealth />} />
+              <Route path="/health/cellular" element={<CellularEngineering />} />
+              <Route path="/health/maintenance" element={<SystemicMaintenance />} />
               <Route path="/health/post-a" element={<HealthPostA />} />
               <Route path="/health/post-b" element={<HealthPostB />} />
               <Route path="/health/post-c" element={<HealthPostC />} />
@@ -182,7 +187,7 @@ export default function App() {
               <Route path="/nutrition/post-g" element={<NutritionPostG />} />
               <Route path="/nutrition/post-h" element={<NutritionPostH />} />
               <Route path="/nutrition/post-i" element={<NutritionPostI />} />
-              <Route path="/wellness" element={<NeurowellnessPillar />} />
+              <Route path="/wellness" element={<WellnessPillar />} />
               <Route path="/neurowellness" element={<NeurowellnessPillar />} />
               <Route path="/neurowellness/hard-care" element={<NeurowellnessHardCare />} />
               <Route path="/neurowellness/soft-care" element={<NeurowellnessSoftCare />} />

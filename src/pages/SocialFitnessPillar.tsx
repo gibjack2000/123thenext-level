@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Users, ArrowLeft, Heart, Zap, ExternalLink, Sun, Music, MessageSquare, MapPin, Smile, Thermometer, Ticket } from 'lucide-react';
+import { Users, ArrowLeft, Heart, Zap, ExternalLink, Sun, Music, MessageSquare, MapPin, Smile, Thermometer, Ticket, Shield, Target, Activity, Share2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../translations';
@@ -11,66 +11,97 @@ export default function SocialFitnessPillar() {
 
   useEffect(() => {
     document.title = `${t('sfp_title_start')} ${t('sfp_title_end')} | 123TheNext Level`;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute('content', t('sfp_description'));
+    }
   }, [t]);
 
   const affiliateLinks = {
-    us: 'https://amazon.com/dp/B0CXM1X8PQ', // Example Pickleball US
-    uk: 'https://amazon.co.uk/dp/B0CXM1X8PQ', // Example Pickleball UK
-    es: 'https://amazon.es/dp/B0CXM1X8PQ', // Example Pickleball ES
-    festivals: 'https://hyrox.com', // Example Festival
-    recovery: 'https://amazon.com/dp/B0CMB6X8Y1' // Example Group Recovery Tool
+    mastermind: 'https://amazon.com/dp/B0CXM1X8PQ',
+    hyrox: 'https://hyrox.com',
+    bluezones: 'https://www.bluezones.com/',
+    communication: 'https://amazon.com/dp/B0CMB6X8Y1'
   };
 
+  const pillarEssentials = [
+    {
+      name: "High-Performance Mastermind",
+      brand: "Elite Network Access",
+      desc: "Strategic proximity to high-value individuals to optimize neural coupling and social drive.",
+      image: "/Products/mastermind.jpg",
+      link: affiliateLinks.mastermind,
+      price: "Inquire"
+    },
+    {
+      name: "Collective Performance Event",
+      brand: "HYROX / Mass Participation",
+      desc: "Shared physiological striving to trigger oxytocin and collective resilience.",
+      image: "/Products/hyrox.jpg",
+      link: affiliateLinks.hyrox,
+      price: "$100+"
+    },
+    {
+      name: "Socio-Biological Architecture",
+      brand: "Blue Zones Mastery",
+      desc: "Designing your environment and relationships for 100+ year longevity outcomes.",
+      image: "/Products/bluezones.jpg",
+      link: affiliateLinks.bluezones,
+      price: "Access"
+    }
+  ];
+
   return (
-    <div className="min-h-screen bg-orange-50/30 text-slate-900 font-sans antialiased">
+    <div className="min-h-screen bg-[#020617] text-white font-sans antialiased selection:bg-amber-500/30">
       {/* Hero Section */}
-      <div className="relative pt-32 pb-64 md:pt-48 md:pb-80 flex items-center justify-center overflow-hidden bg-orange-600 text-white">
-        {/* Cinematic Backdrop Layer */}
-        <div className="absolute inset-0 z-0 scale-110">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster="/social-fitness-bg.png"
-            className="w-full h-full object-cover opacity-30 mix-blend-screen"
-            referrerPolicy="no-referrer"
-          >
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-group-of-friends-walking-on-a-sunny-day-4852-large.mp4" type="video/mp4" />
-          </video>
-        </div>
-
-        {/* Dynamic Sun-Drenched Gradients */}
-        <div className="absolute inset-0 bg-gradient-to-b from-orange-600/90 via-orange-500/40 to-orange-50/30"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(253,224,71,0.2),transparent_60%)]"></div>
-
-        {/* Floating Community Energy Blobs */}
+      <div className="relative pt-32 pb-48 md:pt-48 md:pb-72 flex items-center justify-center overflow-hidden">
+        {/* Cinematic Backdrop */}
+        <motion.div 
+          initial={{ scale: 1.1, opacity: 0 }}
+          animate={{ scale: 1, opacity: 0.25 }}
+          transition={{ duration: 2, ease: "easeOut" }}
+          className="absolute inset-0 z-0"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=2000"
+            alt="Socio-Biological Architecture"
+            className="w-full h-full object-cover grayscale brightness-50"
+          />
+        </motion.div>
+        
+        {/* High-Fidelity Technical Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#020617] via-transparent to-[#020617]"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-amber-950/40 via-transparent to-orange-950/20"></div>
+        
+        {/* Animated Social Energy Blobs */}
         <motion.div 
           animate={{ 
-            scale: [1, 1.25, 1],
-            x: [0, 60, 0],
-            opacity: [0.15, 0.3, 0.15]
+            scale: [1, 1.2, 1],
+            rotate: [0, 90, 0],
+            opacity: [0.1, 0.15, 0.1]
           }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -top-20 -right-20 w-[40rem] h-[40rem] bg-yellow-400/20 rounded-full blur-[140px] pointer-events-none"
+          transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 -right-20 w-[48rem] h-[48rem] bg-amber-600 rounded-full blur-[150px] pointer-events-none"
         />
         <motion.div 
           animate={{ 
             scale: [1.2, 1, 1.2],
-            x: [0, -60, 0],
-            opacity: [0.1, 0.2, 0.1]
+            rotate: [0, -90, 0],
+            opacity: [0.05, 0.1, 0.05]
           }}
-          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-10 left-10 w-[30rem] h-[30rem] bg-orange-300/20 rounded-full blur-[120px] pointer-events-none"
+          transition={{ duration: 35, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -bottom-20 -left-20 w-[38rem] h-[38rem] bg-orange-500 rounded-full blur-[120px] pointer-events-none"
         />
 
-        {/* Technical Grain Overlay */}
-        <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')" }}></div>
+        {/* Technical Data Grid Overlay */}
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none" 
+             style={{ backgroundImage: "radial-gradient(circle at 2px 2px, #f59e0b 1px, transparent 0)", backgroundSize: "52px 52px" }}>
+        </div>
         
         <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Link to="/#pillars" className="absolute -top-32 left-4 sm:left-6 lg:left-8 inline-flex items-center text-white/40 hover:text-white font-black uppercase tracking-tighter transition-all group">
             <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
-            <span className="border-b border-white/10 group-hover:border-white transition-colors">{t('sfp_back')}</span>
+            <span className="border-b border-white/10 group-hover:border-white">{t('sfp_back')}</span>
           </Link>
 
           <motion.div 
@@ -79,16 +110,19 @@ export default function SocialFitnessPillar() {
             transition={{ duration: 1 }}
             className="flex flex-col items-center"
           >
-            <div className="px-6 py-2 rounded-2xl bg-white/10 border border-white/20 text-white font-display font-black text-[10px] uppercase tracking-[0.3em] mb-12 backdrop-blur-md shadow-2xl">
-              <span className="flex items-center gap-3">
-                <Users size={14} className="animate-pulse" />
-                The Wellness Renaissance 2026
-              </span>
-            </div>
+            <motion.div 
+              initial={{ scale: 0.9 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 1 }}
+              className="inline-flex items-center px-6 py-2 rounded-full bg-white/5 border border-white/10 text-amber-400 font-display font-black text-[10px] uppercase tracking-[0.3em] mb-12 shadow-2xl backdrop-blur-md"
+            >
+              <Share2 size={14} className="mr-3 animate-pulse" />
+              Oxytocin Flux: Optimized
+            </motion.div>
             
             <h1 className="text-6xl md:text-[clamp(4.5rem,8vw,11rem)] font-display font-black uppercase tracking-tighter text-white mb-6 leading-[0.8] drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
               {t('sfp_title_start')}<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-orange-200 to-yellow-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-orange-400 to-amber-600">
                 {t('sfp_title_end')}
               </span>
             </h1>
@@ -97,164 +131,239 @@ export default function SocialFitnessPillar() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.3 }}
-              className="text-xl md:text-2xl text-white/70 font-medium max-w-4xl mx-auto leading-relaxed border-l-4 border-white/30 pl-8 text-left italic"
+              className="text-xl md:text-2xl text-slate-400 font-medium max-w-4xl mx-auto leading-relaxed border-l-4 border-amber-500/50 pl-8 text-left"
             >
-              {t('sfp_description')} In 2026, we embrace the **"Renaissance of Connection,"** moving beyond "lonely fitness" into collective energy and nervous system safety.
+              {t('sfp_description')} In 2026, social fitness is **survival architecture**. Loneliness is a clinical variable. We engineer high-resolution relationships for longevity.
             </motion.p>
           </motion.div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-32 pb-32">
-        {/* Navigational Paths: Social Fitness Ecosystem */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-32">
-          <Link to="/social-fitness/pickleball" className="group">
-            <motion.div 
-              whileHover={{ y: -10, scale: 1.02 }}
-              className="relative bg-cover bg-center p-10 rounded-[3rem] shadow-xl border border-orange-100 h-full flex flex-col justify-between hover:border-orange-300 transition-colors" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1526406915891-629a69bb5f7f?auto=format&fit=crop&w=800&q=80')" }}
-            >
-              <div>
-                <div className="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center text-orange-600 mb-8 border border-orange-100">
-                  <Sun size={28} />
-                </div>
-                <h3 className="text-2xl font-display font-black uppercase tracking-tight text-slate-900 mb-4">
-                  {t('sfp_path_a_title')}
-                </h3>
-                <p className="text-slate-500 leading-relaxed mb-6">
-                  {t('sfp_path_a_desc')}
-                </p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-24 pb-32">
+        {/* Sub-Hub Entry Points: Socio-Biological Architecture */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-40">
+          <motion.div 
+            whileHover={{ y: -10 }}
+            className="bg-slate-900/50 backdrop-blur-3xl p-12 rounded-[4rem] border border-white/5 flex flex-col justify-between group overflow-hidden relative shadow-2xl h-full"
+          >
+            <div className="absolute top-0 right-0 w-64 h-64 bg-orange-600/10 blur-[100px] -mr-32 -mt-32"></div>
+            <div className="relative z-10">
+              <div className="w-16 h-16 bg-white/5 rounded-3xl flex items-center justify-center text-orange-400 mb-10 border border-white/10 group-hover:scale-110 transition-transform duration-500">
+                <Users size={32} />
               </div>
-              <div className="flex items-center gap-2 text-orange-600 font-bold text-xs uppercase tracking-widest pt-6 border-t border-orange-50">
-                Active Aging <ExternalLink size={12} />
-              </div>
-            </motion.div>
-          </Link>
+              <h2 className="text-3xl font-display font-black uppercase tracking-tight text-white mb-6 leading-[1]">
+                Pickleball<br />Ecosystem
+              </h2>
+              <p className="text-slate-500 text-sm leading-relaxed mb-10 font-medium italic">
+                 High-resolution social play engineered for co-regulation and cardiovascular longevity.
+              </p>
+              <Link to="/social-fitness/pickleball" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-orange-400 group-hover:text-white transition-colors font-display">
+                 Enter Court Architecture <ArrowRight size={14} />
+              </Link>
+            </div>
+          </motion.div>
 
-          <Link to="/social-fitness/festivals" className="group">
-            <motion.div 
-              whileHover={{ y: -10, scale: 1.02 }}
-              className="relative bg-cover bg-center p-10 rounded-[3rem] shadow-xl text-white h-full flex flex-col justify-between" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80')" }}
-            >
-              <div>
-                <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-orange-200 mb-8 border border-white/10">
-                  <Music size={28} />
-                </div>
-                <h3 className="text-2xl font-display font-black uppercase tracking-tight mb-4">
-                  {t('sfp_path_b_title')}
-                </h3>
-                <p className="text-orange-50 leading-relaxed mb-6">
-                  {t('sfp_path_b_desc')}
-                </p>
+          <motion.div 
+            whileHover={{ y: -10 }}
+            className="bg-slate-900/50 backdrop-blur-3xl p-12 rounded-[4rem] border border-white/5 flex flex-col justify-between group overflow-hidden relative shadow-2xl h-full"
+          >
+            <div className="absolute top-0 right-0 w-64 h-64 bg-amber-600/10 blur-[100px] -mr-32 -mt-32"></div>
+            <div className="relative z-10">
+              <div className="w-16 h-16 bg-white/5 rounded-3xl flex items-center justify-center text-amber-400 mb-10 border border-white/10 group-hover:scale-110 transition-transform duration-500">
+                <Music size={32} />
               </div>
-              <div className="flex items-center gap-2 text-orange-200 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/10">
-                Festivalization <ExternalLink size={12} />
-              </div>
-            </motion.div>
-          </Link>
+              <h2 className="text-3xl font-display font-black uppercase tracking-tight text-white mb-6 leading-[1]">
+                Festivalization<br />Wave
+              </h2>
+              <p className="text-slate-500 text-sm leading-relaxed mb-10 font-medium italic">
+                 Collective neural resonance through music, movement, and peak socio-biological experiences.
+              </p>
+              <Link to="/social-fitness/festivals" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-amber-400 group-hover:text-white transition-colors font-display">
+                 Enter Collective Flow <ArrowRight size={14} />
+              </Link>
+            </div>
+          </motion.div>
 
-          <Link to="/social-fitness/recovery" className="group">
-            <motion.div 
-              whileHover={{ y: -10, scale: 1.02 }}
-              className="relative bg-cover bg-center p-10 rounded-[3rem] shadow-xl text-white h-full flex flex-col justify-between" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80')" }}
-            >
-              <div>
-                <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-yellow-400 mb-8 border border-white/10">
-                  <Thermometer size={28} />
-                </div>
-                <h3 className="text-2xl font-display font-black uppercase tracking-tight mb-4">
-                  {t('sfp_path_c_title')}
-                </h3>
-                <p className="text-slate-400 leading-relaxed mb-6">
-                  {t('sfp_path_c_desc')}
-                </p>
+          <motion.div 
+            whileHover={{ y: -10 }}
+            className="bg-slate-900/50 backdrop-blur-3xl p-12 rounded-[4rem] border border-white/5 flex flex-col justify-between group overflow-hidden relative shadow-2xl h-full"
+          >
+            <div className="absolute top-0 right-0 w-64 h-64 bg-orange-600/10 blur-[100px] -mr-32 -mt-32"></div>
+            <div className="relative z-10">
+              <div className="w-16 h-16 bg-white/5 rounded-3xl flex items-center justify-center text-orange-400 mb-10 border border-white/10 group-hover:scale-110 transition-transform duration-500">
+                <Heart size={32} />
               </div>
-              <div className="flex items-center gap-2 text-yellow-400 font-bold text-xs uppercase tracking-widest pt-6 border-t border-white/5">
-                Shared Ritual <ExternalLink size={12} />
-              </div>
-            </motion.div>
-          </Link>
+              <h2 className="text-3xl font-display font-black uppercase tracking-tight text-white mb-6 leading-[1]">
+                Somatic<br />Social recovery
+              </h2>
+              <p className="text-slate-500 text-sm leading-relaxed mb-10 font-medium italic">
+                 Recovering our capacity for deep connection through shared rituals and intentional social safety zones.
+              </p>
+              <Link to="/social-fitness/recovery" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-orange-400 group-hover:text-white transition-colors font-display">
+                 Enter Recovery Zone <ArrowRight size={14} />
+              </Link>
+            </div>
+          </motion.div>
         </div>
 
-        <IntelligenceTeaser />
-
-
-        {/* Collective Catharsis & Shop */}
-        <section className="bg-orange-600 rounded-[4rem] p-10 md:p-20 text-white mb-32 relative overflow-hidden shadow-2xl shadow-orange-500/20">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 blur-[100px] -mr-48 -mt-48"></div>
-          
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div className="space-y-10">
-              <h2 className="text-5xl md:text-7xl font-display font-black uppercase tracking-[0.02em] leading-[1.15]">
-                {t('sfp_catharsis_title')}
-              </h2>
-              <p className="text-xl text-white/80 leading-relaxed">
-                {t('sfp_catharsis_desc')}
-              </p>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="p-6 bg-white/10 rounded-2xl border border-white/20 backdrop-blur-md">
-                  <Thermometer className="text-yellow-300 mb-4" size={24} />
-                  <h4 className="font-bold mb-2 uppercase text-xs tracking-widest">Social Heat</h4>
-                  <p className="text-white/70 text-sm">Group sauna sessions for shared physiological reset and emotional safety.</p>
+        {/* Collective Catharsis Section */}
+        <section className="mb-40">
+          <div className="bg-[#0f1710] p-10 md:p-24 rounded-[4rem] md:rounded-[5rem] border border-white/5 shadow-3xl relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_100%_0%,rgba(245,158,11,0.08)_0%,transparent_50%)]"></div>
+            
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
+              <div className="lg:col-span-12 mb-16 text-center">
+                <div className="inline-flex items-center gap-4 text-amber-400 font-black uppercase tracking-widest text-[10px] bg-amber-500/10 px-6 py-2 rounded-full border border-amber-500/20 mb-8">
+                  <Shield size={14} />
+                  Safe Social Architecture
                 </div>
-                <div className="p-6 bg-white/10 rounded-2xl border border-white/20 backdrop-blur-md">
-                  <Smile className="text-yellow-300 mb-4" size={24} />
-                  <h4 className="font-bold mb-2 uppercase text-xs tracking-widest">Somatic Sync</h4>
-                  <p className="text-white/70 text-sm">Group breathwork and emotional release events for collective catharsis.</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Shop/CTA Module */}
-            <div className="bg-white rounded-[3rem] p-10 md:p-12 text-slate-900 shadow-2xl space-y-8">
-              <div className="text-center">
-                <h3 className="text-3xl font-display font-black uppercase tracking-tighter mb-2">
-                  {t('sfp_cta_section_title')}
-                </h3>
-                <p className="text-slate-500 font-medium">Equipping the Collective</p>
+                <h2 className="text-4xl md:text-7xl font-display font-black uppercase tracking-tight text-white leading-[0.9] mb-8">
+                  {t('sfp_catharsis_title')}
+                </h2>
+                <p className="text-xl md:text-2xl text-slate-400 leading-relaxed font-medium max-w-4xl mx-auto">
+                  {t('sfp_catharsis_desc')} Moving beyond digital isolation into physical neural resonance.
+                </p>
               </div>
 
-              <div className="space-y-4">
-                {[
-                  { key: 'sfp_cta_paddle', link: affiliateLinks.us, label: 'Equipment' },
-                  { key: 'sfp_cta_hyrox', link: affiliateLinks.festivals, label: 'Mass Event' },
-                  { key: 'sfp_cta_recovery', link: affiliateLinks.recovery, label: 'Collective' },
-                  { key: 'sfp_cta_wardrobe', link: '#', label: 'Apparel' },
-                  { key: 'sfp_cta_group_tech', link: '#', label: 'Tech' }
-                ].map((item, idx) => (
-                  <a key={idx} href={item.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-slate-50 rounded-3xl group hover:bg-orange-600 hover:text-white transition-all duration-300 shadow-sm">
-                    <span className="font-bold flex items-center gap-4">
-                      <span className="text-[10px] bg-slate-200 group-hover:bg-orange-500 px-2 py-0.5 rounded-full text-slate-600 group-hover:text-white uppercase font-black">{item.label}</span>
-                      <span className="text-sm md:text-base">{t(item.key as any)}</span>
-                    </span>
-                    <ExternalLink className="opacity-40 group-hover:opacity-100" size={18} />
-                  </a>
-                ))}
+              <div className="lg:col-span-7 space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <motion.div 
+                    whileHover={{ scale: 1.02 }}
+                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-white/10"
+                  >
+                    <div className="w-12 h-12 bg-amber-500/10 rounded-2xl flex items-center justify-center text-amber-400 mb-6 border border-amber-500/20">
+                      <MessageSquare size={24} />
+                    </div>
+                    <h4 className="text-xl font-display font-bold uppercase text-white mb-4">Neural Coupling</h4>
+                    <p className="text-sm text-slate-500 leading-relaxed font-medium">Synchronizing brainwaves through deep, focused communication and shared goals.</p>
+                  </motion.div>
+                  <motion.div 
+                    whileHover={{ scale: 1.02 }}
+                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-white/10"
+                  >
+                    <div className="w-12 h-12 bg-orange-500/10 rounded-2xl flex items-center justify-center text-orange-400 mb-6 border border-orange-500/20">
+                      <MapPin size={24} />
+                    </div>
+                    <h4 className="text-xl font-display font-bold uppercase text-white">Blue Zone Habitats</h4>
+                    <p className="text-sm text-slate-500 leading-relaxed font-medium">Creating micro-blue zones in modern cities through intentional community design.</p>
+                  </motion.div>
+                </div>
+
+                <div className="p-10 bg-white/5 rounded-[3rem] border border-white/10">
+                  <div className="flex items-center gap-4 mb-6">
+                    <Heart size={24} className="text-amber-400" />
+                    <h4 className="text-xl font-display font-bold uppercase text-white">Mortality Impact</h4>
+                  </div>
+                  <p className="text-sm text-slate-500 leading-relaxed font-medium italic border-l-2 border-amber-500/30 pl-6">
+                    "High-quality social connection is linked to a 50% increased chance of longevity. It is more significant than smoking cessation or BMI."
+                  </p>
+                </div>
+              </div>
+
+              <div className="lg:col-span-5">
+                <div className="bg-slate-950 p-12 rounded-[4rem] border border-white/10 shadow-2xl relative overflow-hidden h-full">
+                  <div className="absolute top-0 right-0 p-8 opacity-10">
+                    <Zap size={120} className="text-amber-400" />
+                  </div>
+                  <div className="relative z-10 space-y-10">
+                    <h3 className="text-2xl font-display font-black uppercase text-amber-400">Networking Hub</h3>
+                    
+                    <div className="space-y-6">
+                      {[
+                        { key: 'sfp_cta_paddle', link: affiliateLinks.mastermind, label: 'Equipment' },
+                        { key: 'sfp_cta_hyrox', link: affiliateLinks.hyrox, label: 'Collective challenge' },
+                        { key: 'sfp_cta_recovery', link: affiliateLinks.bluezones, label: 'Shared rituals' },
+                        { key: 'sfp_cta_wardrobe', link: affiliateLinks.communication, label: 'Apparel' }
+                      ].map((cta, i) => (
+                        <a key={i} href={cta.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-white/5 border border-white/5 rounded-[2rem] hover:bg-white hover:text-slate-950 transition-all group/cta">
+                          <span className="flex items-center gap-4">
+                            <span className="text-[9px] font-black bg-white/10 px-2 py-0.5 rounded group-hover/cta:bg-slate-200 uppercase">{cta.label}</span>
+                            <span className="text-xs font-black uppercase tracking-tight leading-none">{t(cta.key as any)}</span>
+                          </span>
+                          <ExternalLink size={16} className="opacity-40 group-hover/cta:opacity-100" />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Community Articles */}
-        <div className="space-y-32">
-          <div>
-            <div className="flex items-center gap-6 mb-16 px-4">
-              <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tighter text-slate-900 leading-none">
+        <IntelligenceTeaser />
+
+        {/* Pillar Essentials Grid */}
+        <section className="mb-40 pt-20">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 px-4">
+            <div className="space-y-4">
+              <span className="text-amber-500 font-black uppercase tracking-[0.3em] text-xs">Social Arsenal</span>
+              <h2 className="text-5xl md:text-7xl font-display font-black uppercase tracking-tight text-white leading-none">
+                Pillar Essentials
+              </h2>
+            </div>
+            <p className="text-slate-500 font-bold uppercase tracking-widest text-xs border-b border-amber-500/20 pb-4">
+              Vetted 2026 Social Fitness Tier-1 Tools
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {pillarEssentials.map((product, i) => (
+              <motion.div 
+                key={i}
+                whileHover={{ y: -15 }}
+                className="bg-slate-900/50 backdrop-blur-3xl rounded-[3.5rem] border border-white/5 overflow-hidden group shadow-2xl flex flex-col h-full"
+              >
+                <div className="h-80 relative overflow-hidden bg-white/5">
+                  <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[0.8]" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent"></div>
+                  <div className="absolute bottom-8 left-8">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-amber-400 bg-amber-500/10 px-4 py-1.5 rounded-full border border-amber-500/20 backdrop-blur-md">
+                      {product.brand}
+                    </span>
+                  </div>
+                </div>
+                
+                <div className="p-10 flex flex-col flex-1">
+                  <h3 className="text-2xl font-display font-black uppercase text-white mb-4 group-hover:text-amber-400 transition-colors">
+                    {product.name}
+                  </h3>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
+                    {product.desc}
+                  </p>
+                  
+                  <div className="mt-auto flex items-center justify-between pt-8 border-t border-white/5">
+                    <span className="text-lg font-display font-black text-white">{product.price}</span>
+                    <a href={product.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-amber-400 font-black text-[10px] uppercase tracking-widest hover:text-white transition-colors">
+                      Acquire <ExternalLink size={14} />
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Intelligence Feed */}
+        <div className="space-y-48">
+          <div className="relative">
+            <div className="flex items-center gap-10 mb-20 px-4">
+              <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tight text-white leading-none">
                 {t('sfp_top_posts')}
               </h2>
-              <div className="h-0.5 bg-orange-200 flex-grow"></div>
+              <div className="h-px bg-white/10 flex-grow mt-2"></div>
             </div>
             <BlogSection category="social-fitness" limit={3} featured={true} />
           </div>
 
-          <div>
-            <div className="flex items-center gap-6 mb-16 px-4">
-              <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tighter text-slate-900 leading-none">
+          <div className="relative">
+            <div className="flex items-center gap-10 mb-20 px-4">
+              <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tight text-white leading-none">
                 {t('sfp_latest_posts')}
               </h2>
-              <div className="h-0.5 bg-orange-200 flex-grow"></div>
+              <div className="h-px bg-white/10 flex-grow mt-2"></div>
             </div>
-            <BlogSection category="social-fitness" limit={9} />
+            <BlogSection category="social-fitness" limit={12} />
           </div>
         </div>
       </div>

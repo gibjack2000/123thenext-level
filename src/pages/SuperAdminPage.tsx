@@ -554,11 +554,13 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
         title: formData.product_name,
         image_url: formData.image_url || `https://picsum.photos/seed/${encodeURIComponent(formData.product_name || 'product')}/600/400`,
         price: parseFloat(formData.price) || 0,
+        currency: formData.currency,
         category: formData.category,
         rating: parseFloat(formData.rating) || 0,
         description: formData.description,
         affiliate_link: formData.amazon_url,
         is_active: formData.featured,
+        tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean),
         last_updated: new Date().toISOString(),
         cta: formData.short_benefit || 'Buy Now',
         "Amazon tag": "123thenextlevel-20"
@@ -579,7 +581,18 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
 
       setSuccess(true);
       setEditingProductId(null);
-      setFormData(prev => ({ ...prev, product_name: '', amazon_asin: '', amazon_url: '', image_url: '', short_benefit: '', description: '', price: '', tags: '', featured: false }));
+      setFormData(prev => ({ 
+        ...prev, 
+        product_name: '', 
+        amazon_asin: '', 
+        amazon_url: '', 
+        image_url: '', 
+        short_benefit: '', 
+        description: '', 
+        price: '', 
+        tags: '', 
+        featured: false 
+      }));
       fetchProducts();
     } catch (err: any) {
       setError(err.message || 'Failed to save product');

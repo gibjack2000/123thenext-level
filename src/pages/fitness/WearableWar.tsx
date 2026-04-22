@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, Cpu, Shield, Zap, Info, ExternalLink, BarChart3, Binary } from 'lucide-react';
+import { ArrowLeft, Cpu, Shield, Zap, Info, ExternalLink, BarChart3, Binary, Activity, Gauge, Disc, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../../translations';
-
 
 export default function WearableWar() {
   const t = useT();

@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, Zap, Thermometer, Shield, Info, ExternalLink, Timer, TrendingUp, Sun, Snowflake } from 'lucide-react';
+import { ArrowLeft, Zap, Thermometer, Shield, Info, ExternalLink, Timer, TrendingUp, Sun, Snowflake, Target, ArrowRight, Gauge, Activity } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../../translations';
-
 
 export default function PerformanceMethodology() {
   const t = useT();

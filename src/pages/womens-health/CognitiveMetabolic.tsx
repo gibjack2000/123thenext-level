@@ -1,10 +1,36 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, Brain, Zap, Shield, Info, ExternalLink, Activity, Beaker } from 'lucide-react';
+import { ArrowLeft, Brain, Zap, Shield, Info, ExternalLink, Activity, Target, CheckCircle2, FlaskConical, Sparkles, TrendingUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../../translations';
 import { useAffiliateLinks } from '../../contexts/AffiliateLinksContext';
 
+const CLINICAL_ARSENAL = [
+  {
+    id: 'cgm',
+    name: 'Metabolic Glucose Monitor',
+    provider: 'Stelo / Nutrisense',
+    desc: 'Indispensable for mapping real-time glycemic response to stress and nutritional inputs.',
+    image: '/Products/stelo.jpg',
+    link: 'https://amazon.com/dp/B0D47R9S6D'
+  },
+  {
+    id: 'ltheanine',
+    name: 'L-Theanine Complex',
+    provider: 'Thorne / 200mg',
+    desc: 'Critical for stabilizing the glutamatergic system and enhancing cognitive recovery cycles.',
+    image: '/Products/theanine.jpg',
+    link: 'https://amazon.com/dp/B0068VAKV6'
+  },
+  {
+    id: 'magnesium',
+    name: 'Theanine & Magnesium Suite',
+    provider: 'Pure Encapsulations',
+    desc: 'Synergistic support for deep sleep architecture and neuro-muscular repair.',
+    image: '/Products/magnesium.jpg',
+    link: 'https://amazon.com/dp/B0058HWV9S'
+  }
+];
 
 export default function CognitiveMetabolic() {
   const t = useT();
@@ -16,53 +42,52 @@ export default function CognitiveMetabolic() {
   }, [t]);
 
   return (
-    <div className="min-h-screen text-white pb-32 relative"
-         style={{
-           backgroundImage: "url('https://images.unsplash.com/photo-1508325492471-bf4f3794d1cf?auto=format&fit=crop&q=80&w=2000')",
-           backgroundPosition: "center", backgroundSize: "cover", backgroundAttachment: "fixed", backgroundRepeat: "no-repeat"
-         }}>
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-900/50 to-rose-950/70"></div>
-      <div className="absolute inset-0 opacity-[0.04]" style={{
-        backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')"
-      }}></div>
+    <div className="min-h-screen bg-slate-950 text-white selection:bg-emerald-500/30">
+      {/* Dynamic Header */}
+      <div className="relative py-32 md:py-48 overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&q=80&w=2000" 
+            className="w-full h-full object-cover opacity-20"
+            alt="Neuroscience"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/80 via-slate-950 to-slate-950"></div>
+        </div>
 
-      {/* Header */}
-      <div className="relative py-32 overflow-hidden">
-        <div className="absolute inset-0 bg-rose-600/10 blur-[120px] -mt-64"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <Link to="/womens-health" className="inline-flex items-center text-white/50 hover:text-white font-black uppercase tracking-tighter transition-all mb-12 group">
+          <Link to="/womens-health" className="inline-flex items-center text-emerald-300/50 hover:text-emerald-300 font-black uppercase tracking-widest transition-all mb-12 group">
             <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
-            Back to Hub
+            Women's Health Hub
           </Link>
+          
+          <div className="flex items-center gap-3 mb-8">
+             <div className="h-px w-12 bg-emerald-500"></div>
+             <span className="text-emerald-400 font-black text-xs uppercase tracking-[0.4em]">Protocol Path C</span>
+          </div>
+
           <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-8xl font-display font-black uppercase tracking-tight leading-none mb-8"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="text-5xl md:text-8xl font-display font-black uppercase tracking-tighter leading-[0.85] mb-12"
           >
-            {t('cm_title')}
+            Cognitive<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-emerald-200">Metabolic</span>
           </motion.h1>
-          <p className="text-xl md:text-2xl text-slate-400 max-w-3xl font-medium leading-relaxed border-l-4 border-rose-500 pl-8">
-            {t('cm_intro')}
+
+          <p className="text-xl md:text-2xl text-slate-400 max-w-3xl font-medium leading-relaxed border-l-2 border-emerald-500 pl-8">
+            The female brain is a <strong>metabolic powerhouse</strong>—yet highly sensitive to hormonal shifts. Our protocols prioritize <strong>Neuro-Metabolic Shielding</strong>, using precision fueling and diagnostics to protect against cognitive decline and brain fog.
           </p>
         </div>
       </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-32 relative z-10">
-        {/* Creatine Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center mb-32">
           <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-400 font-black text-xs uppercase tracking-widest">
-              <Brain size={14} /> Cognitive Longevity
-            </div>
-            <h2 className="text-4xl md:text-5xl font-display font-black uppercase tracking-tighter leading-none">
-              {t('cm_creatine_title')}
-            </h2>
             <p className="text-lg text-slate-400 leading-relaxed">
               {t('cm_creatine_p')}
             </p>
             <div className="bg-slate-900/50 p-8 rounded-3xl border border-white/5 space-y-3">
               <div className="flex items-center gap-4 text-emerald-400">
-                <Beaker size={24} />
+                <FlaskConical size={24} />
                 <span className="font-black uppercase tracking-tighter">Neuro-Metabolic Bridge</span>
               </div>
               <p className="text-sm text-slate-500 italic">"Creatine monohydrate is our primary target for age-related cognitive shielding in the menopausal transition."</p>

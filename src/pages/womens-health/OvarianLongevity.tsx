@@ -1,10 +1,28 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, Microscope, Shield, Dna, Info, ExternalLink, Activity } from 'lucide-react';
+import { ArrowLeft, Microscope, Shield, Dna, Info, ExternalLink, Activity, Target, FlaskConical, AlertCircle, CheckCircle2, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../../translations';
 import { useAffiliateLinks } from '../../contexts/AffiliateLinksContext';
 
+const DIAGNOSTIC_ARSENAL = [
+  {
+    id: 'ovarian-reserve',
+    name: 'Clinical Ovarian Reserve Test',
+    provider: 'Modern Fertility',
+    desc: 'At-home AMH and FSH diagnostic mapping to determine current biological reserve status.',
+    image: 'https://images.unsplash.com/photo-1579165466541-74e2149581ae?q=80&w=400',
+    link: 'https://amazon.com/dp/B07RMXG6D8'
+  },
+  {
+    id: 'biological-age',
+    name: 'Epigenetic Clock Analysis',
+    provider: 'Elysium / Index',
+    desc: 'Identify the rate of biological aging vs. chronological time using cellular methylation markers.',
+    image: 'https://images.unsplash.com/photo-1581093583449-80d50ad9df23?q=80&w=400',
+    link: 'https://amazon.com/dp/B08G8Y5Y5L'
+  }
+];
 
 export default function OvarianLongevity() {
   const t = useT();
@@ -16,121 +34,168 @@ export default function OvarianLongevity() {
   }, [t]);
 
   return (
-    <div className="min-h-screen text-white pb-32 relative"
-         style={{
-           backgroundImage: "url('https://images.unsplash.com/photo-1559526324-c1f2567e1a97?auto=format&fit=crop&q=80&w=2000')",
-           backgroundPosition: "center", backgroundSize: "cover", backgroundAttachment: "fixed", backgroundRepeat: "no-repeat"
-         }}>
-      <div className="absolute inset-0 bg-gradient-to-b from-rose-950/55 via-rose-900/45 to-rose-950/60"></div>
-      <div className="absolute inset-0 opacity-[0.04]" style={{
-        backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')"
-      }}></div>
+    <div className="min-h-screen bg-slate-950 text-white selection:bg-rose-500/30">
+      {/* Dynamic Header */}
+      <div className="relative py-32 md:py-48 overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1559526324-c1f2567e1a97?auto=format&fit=crop&q=80&w=2000" 
+            className="w-full h-full object-cover opacity-30 mix-blend-luminosity"
+            alt="Biological Background"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-rose-950/80 via-slate-950 to-slate-950"></div>
+        </div>
 
-      {/* Header */}
-      <div className="relative py-32 overflow-hidden bg-rose-950 text-white">
-        <div className="absolute inset-0 bg-rose-500/10 blur-[120px] -mt-64"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <Link to="/womens-health" className="inline-flex items-center text-white/50 hover:text-white font-black uppercase tracking-tighter transition-all mb-12 group">
+          <Link to="/womens-health" className="inline-flex items-center text-rose-300/50 hover:text-rose-300 font-black uppercase tracking-widest transition-all mb-12 group">
             <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
-            Back to Hub
+            Women's Health Hub
           </Link>
+          
+          <div className="flex items-center gap-3 mb-8">
+             <div className="h-px w-12 bg-rose-500"></div>
+             <span className="text-rose-400 font-black text-xs uppercase tracking-[0.4em]">Protocol Path A</span>
+          </div>
+
           <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-8xl font-display font-black uppercase tracking-tight leading-none mb-8"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="text-5xl md:text-8xl font-display font-black uppercase tracking-tighter leading-[0.85] mb-12"
           >
-            {t('ol_title')}
+            Ovarian<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-rose-200">Longevity</span>
           </motion.h1>
-          <p className="text-xl md:text-2xl text-rose-100/70 max-w-3xl font-medium leading-relaxed border-l-4 border-rose-500 pl-8">
-            {t('ol_intro')}
+
+          <p className="text-xl md:text-2xl text-slate-400 max-w-3xl font-medium leading-relaxed border-l-2 border-rose-500 pl-8">
+            Treating the ovary as the <strong>primary driver</strong> of female systemic longevity. Our intervention focus centers on the <strong>Anti-Fibrotic Horizon</strong>—stalling the rapid biological aging of ovarian tissue to protect the brain, bones, and cardiovascular system.
           </p>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-32 -mt-16 relative z-20">
-        {/* Fibrosis Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          <div className="space-y-8 bg-white p-12 rounded-[3rem] shadow-xl border border-rose-100">
-            <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-600 font-black text-xs uppercase tracking-widest">
-              <Shield size={14} /> Systemic Inflamm-Aging
-            </div>
-            <h2 className="text-4xl md:text-5xl font-display font-black uppercase tracking-tighter leading-none">
-              {t('ol_fibrosis_title')}
-            </h2>
-            <p className="text-lg text-slate-600 leading-relaxed">
-              {t('ol_fibrosis_p')}
-            </p>
-            <div className="bg-rose-50 p-8 rounded-3xl border border-rose-100 space-y-4">
-              <div className="flex items-center gap-4 text-rose-600">
-                <Dna size={24} />
-                <span className="font-black uppercase tracking-tighter">Molecular Signaling Protocol</span>
-              </div>
-              <p className="text-sm text-slate-500 italic">"The ovary is a biological clock for the entire body. Slowing its fibrosis slows the clock for the heart, bones, and brain."</p>
-            </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-40 pb-40 relative z-20">
+        
+        {/* Anti-Fibrotic Horizon: Technical Brief */}
+        <section className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+          <div className="lg:col-span-12 mb-8">
+             <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tighter">The Anti-Fibrotic <span className="text-rose-500">Mechanism</span></h2>
           </div>
-          <div className="relative group">
-            <div className="absolute -inset-4 bg-rose-500/10 rounded-[4rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <img 
-              src="https://images.unsplash.com/photo-1579165466541-74e2149581ae?auto=format&fit=crop&q=80&w=800"
-              alt="Medical Diagnostics"
-              className="relative rounded-[3rem] border border-white shadow-2xl"
-            />
-          </div>
-        </div>
-
-        {/* Diagnostics Section */}
-        <section className="rounded-[4rem] p-10 md:p-20 text-white relative overflow-hidden shadow-2xl shadow-rose-900/40"
-                 style={{
-                   backgroundImage: "url('https://images.unsplash.com/photo-1559526324-c1f2567e1a97?auto=format&fit=crop&q=80&w=2000')",
-                   backgroundSize: "cover", backgroundPosition: "center"
-                 }}>
-          <div className="absolute inset-0 bg-gradient-to-br from-rose-900/70 to-purple-900/65"></div>
-          <div className="absolute top-0 right-0 w-96 h-96 bg-rose-400/10 blur-[100px] -mr-48 -mt-48"></div>
-          <div className="absolute inset-0 opacity-[0.04]" style={{
-            backgroundImage: "url('https://grainy-gradients.vercel.app/noise.svg')"
-          }}></div>
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div className="space-y-12">
-              <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/10 border border-white/20 text-rose-200 font-black text-xs uppercase tracking-widest">
-                <Activity size={14} /> Diagnostic Horizon
+          
+          <div className="lg:col-span-7 space-y-8">
+            <div className="p-8 md:p-12 bg-slate-900 border border-white/5 rounded-[3rem] space-y-8">
+              <div className="flex items-center gap-4 text-rose-400">
+                <Target size={32} />
+                <h3 className="text-2xl font-display font-bold uppercase tracking-tight">The 10-Year Accelerant</h3>
               </div>
-              <h2 className="text-4xl md:text-7xl font-display font-black uppercase tracking-tighter leading-none">
-                {t('ol_diagnostics_title')}
-              </h2>
-              <p className="text-xl text-rose-100/70 leading-relaxed max-w-xl">
-                {t('ol_diagnostics_p')}
+              <p className="text-lg text-slate-400 leading-relaxed font-medium">
+                The ovaries age at 2x the rate of other visceral organs. This is driven by <strong>stromal fibrosis</strong>—a hardening of the tissue that triggers systemic inflammation-aging ("Inflamm-aging"). 
               </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                 <div className="p-6 bg-white/5 rounded-2xl border border-white/10">
+                    <div className="text-rose-300 font-black text-[10px] uppercase tracking-widest mb-2">Intervention I</div>
+                    <h4 className="font-bold text-white mb-2 uppercase">Endocrine Preservation</h4>
+                    <p className="text-xs text-slate-500">Stalling the decline of oocyte quality through mitochondrial NAD+ support.</p>
+                 </div>
+                 <div className="p-6 bg-white/5 rounded-2xl border border-white/10">
+                    <div className="text-rose-300 font-black text-[10px] uppercase tracking-widest mb-2">Intervention II</div>
+                    <h4 className="font-bold text-white mb-2 uppercase">Systemic Shielding</h4>
+                    <p className="text-xs text-slate-500">Protecting heart and brain health as the ovarian hormonal signal shifts.</p>
+                 </div>
+              </div>
             </div>
+          </div>
 
-            <div className="relative overflow-hidden rounded-[3rem] p-12 space-y-8"
-                 style={{
-                   backgroundImage: "url('https://images.unsplash.com/photo-1544367567-0f9fcb004fb4?auto=format&fit=crop&q=80&w=1200')",
-                   backgroundSize: "cover", backgroundPosition: "center"
-                 }}>
-              <div className="absolute inset-0 bg-gradient-to-br from-white/65 to-rose-50/55 rounded-[3rem]"></div>
-              <div className="relative z-10 text-slate-900 space-y-8">
-              <div className="text-center">
-                <h3 className="text-3xl font-display font-black uppercase tracking-tighter mb-2">The Longevity Panel</h3>
-                <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px]">Clinical Grade Testing</p>
-              </div>
-              <div className="space-y-4">
-                <a href={links.us} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-rose-50 rounded-3xl group hover:bg-rose-600 hover:text-white transition-all">
-                  <span className="font-bold uppercase tracking-tight">Ovarian Reserve Home Kit</span>
-                  <ExternalLink className="opacity-40 group-hover:opacity-100" size={18} />
-                </a>
-                <a href={links.epigenetic} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-rose-50 rounded-3xl group hover:bg-rose-600 hover:text-white transition-all">
-                  <span className="font-bold uppercase tracking-tight">Biological Age (Epigenetic)</span>
-                  <ExternalLink className="opacity-40 group-hover:opacity-100" size={18} />
-                </a>
-                <div className="p-6 bg-rose-600 text-white rounded-3xl text-center font-black uppercase tracking-tighter shadow-lg shadow-rose-900/20">
-                  Precision Roadmap Activated
-                </div>
-              </div>
-              </div>
+          <div className="lg:col-span-5 space-y-6">
+            <div className="relative aspect-square rounded-[3rem] overflow-hidden group shadow-2xl">
+              <img src="https://images.unsplash.com/photo-1579165466541-74e2149581ae?auto=format&fit=crop&q=80&w=800" className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0" alt="Laboratory" />
+              <div className="absolute inset-0 bg-rose-500/20 mix-blend-overlay group-hover:opacity-0 transition-opacity" />
+            </div>
+            <div className="flex items-start gap-4 p-8 bg-rose-500/10 border border-rose-500/20 rounded-[2.5rem]">
+               <AlertCircle className="text-rose-500 flex-shrink-0" size={24} />
+               <p className="text-sm font-bold text-rose-200 uppercase tracking-tight italic">
+                  "Menopause is a clinical event of systemic transition. Ovarian longevity is the protocol to ensure this transition is managed with precision, not luck."
+               </p>
             </div>
           </div>
         </section>
 
+        {/* Diagnostic Arsenal Section */}
+        <section>
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center gap-2 text-rose-400 font-black text-xs uppercase tracking-[0.4em] mb-4">
+              <Sparkles size={16} /> Technical Diagnostics
+            </div>
+            <h2 className="text-5xl md:text-7xl font-display font-black uppercase tracking-tighter">The Diagnostic <span className="text-rose-500">Arsenal</span></h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {DIAGNOSTIC_ARSENAL.map((kit) => (
+              <div key={kit.id} className="relative group bg-white rounded-[3rem] p-10 flex flex-col items-center text-center text-slate-900 shadow-2xl overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-rose-500/5 rounded-full blur-3xl -mr-16 -mt-16" />
+                
+                <div className="w-32 h-32 rounded-full overflow-hidden mb-8 border-4 border-slate-50 shadow-xl bg-slate-100">
+                   <img src={kit.image} className="w-full h-full object-cover" alt={kit.name} />
+                </div>
+                
+                <div className="text-[10px] font-black uppercase tracking-widest text-rose-600 mb-2">{kit.provider}</div>
+                <h3 className="text-3xl font-display font-black uppercase tracking-tight mb-4 leading-tight">{kit.name}</h3>
+                <p className="text-slate-500 text-sm font-medium leading-relaxed mb-10 max-w-xs">{kit.desc}</p>
+                
+                <a 
+                  href={kit.link} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="w-full py-5 bg-slate-950 hover:bg-rose-600 text-white rounded-3xl font-black uppercase tracking-widest transition-all group flex items-center justify-center gap-3"
+                >
+                  Acquire Diagnostic <ExternalLink size={18} />
+                </a>
+                
+                <div className="mt-8 pt-8 border-t border-slate-100 w-full flex items-center justify-center gap-2 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                  <CheckCircle2 size={14} className="text-rose-500" /> Clinical Data Integrity Verified
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Endocrine Blueprint Card */}
+        <div className="rounded-[4rem] p-12 md:p-24 bg-gradient-to-br from-rose-900/40 to-slate-900 border border-white/5 relative overflow-hidden">
+           <div className="absolute bottom-0 right-0 w-full h-1/2 opacity-10 pointer-events-none">
+              <img src="https://images.unsplash.com/photo-1544367567-0f9fcb004fb4?q=80&w=1200" className="w-full h-full object-cover" alt="Health Blueprint" />
+           </div>
+           
+           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              <div>
+                 <h2 className="text-5xl font-display font-black uppercase tracking-tighter mb-8 leading-none">The Endocrine <br /><span className="text-rose-400">Blueprint</span></h2>
+                 <p className="text-xl text-slate-400 font-medium mb-12 max-w-xl">
+                   Deploying the <strong>WH-2026.4 Standard</strong> involves moving from generic hormone management to precision endocrine engineering.
+                 </p>
+                 <div className="space-y-4">
+                    {[
+                      "Real-time AMH Mapping",
+                      "Cycle-Aligned Resistance Loading",
+                      "Anti-Fibrotic Micronutrient Stacks",
+                      "Autonomic Nervous System Recalibration"
+                    ].map(step => (
+                      <div key={step} className="flex items-center gap-4 text-white font-bold uppercase tracking-tight text-sm">
+                         <div className="w-6 h-6 rounded-full bg-rose-500 flex items-center justify-center text-[10px] font-black">✓</div>
+                         {step}
+                      </div>
+                    ))}
+                 </div>
+              </div>
+              
+              <div className="bg-slate-950/60 backdrop-blur-xl rounded-[3rem] p-12 border border-white/10 text-center">
+                 <div className="mb-8 p-6 bg-rose-500/10 rounded-full w-fit mx-auto border border-rose-500/20">
+                    <FlaskConical className="text-rose-500" size={48} />
+                 </div>
+                 <h3 className="text-2xl font-display font-black uppercase tracking-tight text-white mb-4">Protocol Active</h3>
+                 <p className="text-slate-500 text-sm font-medium mb-10">All Ovarian Longevity protocols are strictly data-driven. Consult your bio-data dashboard for localized recommendations.</p>
+                 <Link to="/womens-health" className="block w-full py-5 border border-white/20 hover:border-rose-500/50 hover:bg-rose-500/10 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all">
+                    Return to Hub
+                 </Link>
+              </div>
+           </div>
+        </div>
 
       </div>
     </div>
