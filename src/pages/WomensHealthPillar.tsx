@@ -40,15 +40,6 @@ export default function WomensHealthPillar() {
       price: '$45+'
     },
     {
-      id: 'wellwoman-max',
-      name: 'Wellwoman Max Protocol',
-      brand: 'Micronutrient Base',
-      desc: 'Triple-pack containing vitamins, minerals, Omega-3, and 4,000IU Vitamin D3 for systemic support.',
-      image: links.whp_multivitamin?.image || '/Products/wellwoman3.jpg',
-      link: links.whp_multivitamin?.url || 'https://www.amazon.com/Vitabiotics-Wellwoman-Max-3x30-Pack/dp/B00M4S0W0Y',
-      price: '$35+'
-    },
-    {
       id: 'withings-body-smart',
       name: 'Withings Body Smart Scale',
       brand: 'Metabolic Diagnostics',

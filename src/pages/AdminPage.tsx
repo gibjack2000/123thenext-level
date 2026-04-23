@@ -6,7 +6,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Product, BlogPost, mapToProduct } from '../types';
 
 const REGIONS = ['US', 'UK', 'ES'];
-const PRODUCT_CATEGORIES = ['fitness_gear', 'health_wellness', 'home_kitchen', 'tech_gadgets', 'supplements'];
+const PRODUCT_CATEGORIES = ['fitness_gear', 'home_kitchen', 'tech_gadgets', 'supplements', 'performance_testing', 'health_wellness'];
 const BLOG_CATEGORIES = ['health', 'fitness', 'nutrition', 'wellness'];
 const CURRENCIES = ['USD', 'GBP', 'EUR'];
 // Gemini API Key - fallback ensures AI features always work
@@ -222,6 +222,12 @@ export default function AdminPage() {
     if (!supabase || !window.confirm('Are you sure you want to delete this product?')) return;
     
     try {
+      // First delete any mappings to avoid foreign key constraints
+      await supabase
+        .from('affiliate_link_mappings')
+        .delete()
+        .eq('product_id', id);
+
       const { error } = await supabase
         .from('amazon_affiliate_products')
         .delete()
@@ -1441,21 +1447,19 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
                   if (!supabase) return;
                   setLoading(true);
                   try {
-                    const starterProducts = [
-                      { market: 'US', category: 'health_wellness', title: 'Oura Ring Gen3 Horizon', asin: 'B0D4N3L9XW', affiliate_link: 'https://www.amazon.com/Oura-Ring-Gen3-Horizon-Stealth/dp/B0D4N3L9XW?tag=123thenextlevel-20', image_url: 'https://images.thdstatic.com/productImages/338274d4-6e6b-4e8c-8f2c-633045678901/svn/stealth-oura-rings-horiz-stealth-10-64_600.jpg', cta: 'Buy from Amazon Bio-Tracker', price: 299, is_active: true, last_updated: new Date().toISOString() },
-                      { market: 'US', category: 'supplements', title: 'Thorne Creatine Monohydrate', asin: 'B00028M0ZK', affiliate_link: 'https://www.amazon.com/Thorne-Research-Creatine-Monohydrate-Amino/dp/B00028M0ZK?tag=123thenextlevel-20', image_url: 'https://images.thorne.com/image/upload/v1/products/creatine/creatine-monohydrate-90-servings.jpg', cta: 'Buy from Amazon Shielding', price: 45, is_active: true, last_updated: new Date().toISOString() },
-                      { market: 'US', category: 'supplements', title: 'Wellwoman Max Protocol', asin: 'B00M4S0W0Y', affiliate_link: 'https://www.amazon.com/Vitabiotics-Wellwoman-Max-3x30-Pack/dp/B00M4S0W0Y?tag=123thenextlevel-20', image_url: 'https://www.vitabiotics.com/cdn/shop/products/Wellwoman_Max_30_30_30_Front_1000x1000.jpg', cta: 'Buy from Amazon Nutrients', price: 35, is_active: true, last_updated: new Date().toISOString() },
-                      { market: 'US', category: 'health_wellness', title: 'Withings Body Smart Scale', asin: 'B0BYZ9TBM5', affiliate_link: 'https://www.amazon.com/Withings-Body-Smart-Composition-Monitor/dp/B0BYZ9TBM5?tag=123thenextlevel-20', image_url: 'https://www.withings.com/on/demandware.static/-/Sites-withings-master-catalog/default/dw8e8e8e8e/images/body-smart/body-smart-black-1.jpg', cta: 'Buy from Amazon Diagnostics', price: 99, is_active: true, last_updated: new Date().toISOString() }
-                    ];
-                    const { data: inserted, error: pError } = await supabase.from('amazon_affiliate_products').insert(starterProducts).select();
-                    if (pError) throw pError;
-                    if (inserted) {
-                      const maps = [
-                        { key: 'whp_oura', product_id: inserted[0].id },
-                        { key: 'whp_creatine', product_id: inserted[1].id },
-                        { key: 'whp_multivitamin', product_id: inserted[2].id },
-                        { key: 'whp_scale', product_id: inserted[3].id }
+                      const starterProducts = [
+                        { market: 'US', category: 'tech_gadgets', title: 'Oura Ring Gen3 Horizon', asin: 'B0D4N3L9XW', affiliate_link: 'https://www.amazon.com/Oura-Ring-Gen3-Horizon-Stealth/dp/B0D4N3L9XW?tag=123thenextlevel-20', image_url: 'https://images.thdstatic.com/productImages/338274d4-6e6b-4e8c-8f2c-633045678901/svn/stealth-oura-rings-horiz-stealth-10-64_600.jpg', cta: 'Buy from Amazon Bio-Tracker', price: 299, is_active: true, last_updated: new Date().toISOString() },
+                        { market: 'US', category: 'supplements', title: 'Thorne Creatine Monohydrate', asin: 'B00028M0ZK', affiliate_link: 'https://www.amazon.com/Thorne-Research-Creatine-Monohydrate-Amino/dp/B00028M0ZK?tag=123thenextlevel-20', image_url: 'https://images.thorne.com/image/upload/v1/products/creatine/creatine-monohydrate-90-servings.jpg', cta: 'Buy from Amazon Shielding', price: 45, is_active: true, last_updated: new Date().toISOString() },
+                        { market: 'US', category: 'tech_gadgets', title: 'Withings Body Smart Scale', asin: 'B0BYZ9TBM5', affiliate_link: 'https://www.amazon.com/Withings-Body-Smart-Composition-Monitor/dp/B0BYZ9TBM5?tag=123thenextlevel-20', image_url: 'https://www.withings.com/on/demandware.static/-/Sites-withings-master-catalog/default/dw8e8e8e8e/images/body-smart/body-smart-black-1.jpg', cta: 'Buy from Amazon Diagnostics', price: 99, is_active: true, last_updated: new Date().toISOString() }
                       ];
+                      const { data: inserted, error: pError } = await supabase.from('amazon_affiliate_products').insert(starterProducts).select();
+                      if (pError) throw pError;
+                      if (inserted) {
+                        const maps = [
+                          { key: 'whp_oura', product_id: inserted[0].id },
+                          { key: 'whp_creatine', product_id: inserted[1].id },
+                          { key: 'whp_scale', product_id: inserted[2].id }
+                        ];
                       const { error: mError } = await supabase.from('affiliate_link_mappings').upsert(maps);
                       if (mError) throw mError;
                       setSuccess(true);
@@ -1496,7 +1500,7 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
                   { key: 'nad', label: 'WHP Metabolic (NAD+)' },
                   { key: 'whp_oura', label: 'WHP Oura Ring' },
                   { key: 'whp_creatine', label: 'WHP Thorne Creatine' },
-                  { key: 'whp_multivitamin', label: 'WHP Multivitamin' },
+                  { key: 'whp_multivitamin', label: 'WHP Thorne Multivitamin' },
                   { key: 'whp_scale', label: 'WHP Smart Scale' },
                   { key: 'nw_oura', label: 'NW Oura Ring' },
                   { key: 'nw_apollo', label: 'NW Apollo Neuro' },
@@ -1517,7 +1521,7 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
               { key: 'nad', label: 'WHP Metabolic (NAD+)' },
               { key: 'whp_oura', label: 'WHP Oura Ring' },
               { key: 'whp_creatine', label: 'WHP Thorne Creatine' },
-              { key: 'whp_multivitamin', label: 'WHP Multivitamin' },
+              { key: 'whp_multivitamin', label: 'WHP Thorne Multivitamin' },
               { key: 'whp_scale', label: 'WHP Smart Scale' },
               { key: 'nw_oura', label: 'NW Oura Ring' },
               { key: 'nw_apollo', label: 'NW Apollo Neuro' },
@@ -1847,62 +1851,78 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
 
         {/* Management Section */}
         <section className="bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-            <div className="flex items-center gap-3">
-              <div className="bg-slate-900 p-2 rounded-lg text-white">
-                {activeTab === 'products' ? <Database size={24} /> : <BookOpen size={24} />}
+          <div className="space-y-6 mb-8">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="bg-slate-900 p-2 rounded-lg text-white">
+                  {activeTab === 'products' ? <Database size={24} /> : <BookOpen size={24} />}
+                </div>
+                <h2 className="text-2xl font-display uppercase tracking-tight text-slate-900">
+                  {activeTab === 'products' ? 'Manage Products' : 
+                   activeTab === 'blog' ? 'Manage Blog Posts' : 
+                   activeTab === 'mappings' ? 'Placement Audit' : 'Discovery Results'}
+                </h2>
               </div>
-            <h2 className="text-2xl font-display uppercase tracking-tight text-slate-900">
-              {activeTab === 'products' ? 'Manage Products' : 
-               activeTab === 'blog' ? 'Manage Blog Posts' : 
-               activeTab === 'mappings' ? 'Placement Audit' : 'Discovery Results'}
-            </h2>
-            </div>
-            
-            <div className="flex flex-wrap items-center gap-3">
-              <div className="flex bg-slate-100 p-1 rounded-xl overflow-x-auto no-scrollbar max-w-[50vw]">
-                <button
-                  onClick={() => activeTab === 'products' ? setProductCategoryFilter('all') : setBlogCategoryFilter('all')}
-                  className={`px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest transition-all whitespace-nowrap ${
-                    (activeTab === 'products' ? productCategoryFilter : blogCategoryFilter) === 'all' 
-                      ? 'bg-white text-slate-900 shadow-sm' 
-                      : 'text-slate-500 hover:text-slate-700'
-                  }`}
-                >
-                  All
-                </button>
-                {(activeTab === 'products' ? PRODUCT_CATEGORIES : BLOG_CATEGORIES).map(cat => (
-                  <button
-                    key={cat}
-                    onClick={() => activeTab === 'products' ? setProductCategoryFilter(cat) : setBlogCategoryFilter(cat)}
-                    className={`px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest transition-all whitespace-nowrap ${
-                      (activeTab === 'products' ? productCategoryFilter : blogCategoryFilter) === cat 
-                        ? 'bg-white text-slate-900 shadow-sm' 
-                        : 'text-slate-500 hover:text-slate-700'
-                    }`}
-                  >
-                    {cat.replace('_', ' ')}
-                  </button>
-                ))}
-              </div>
-              <div className="relative">
-                <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                <input 
-                  type="text" 
-                  placeholder={activeTab === 'products' ? "Search products..." : "Search blog posts..."}
-                  value={activeTab === 'products' ? searchQuery : blogSearchQuery}
-                  onChange={(e) => activeTab === 'products' ? setSearchQuery(e.target.value) : setBlogSearchQuery(e.target.value)}
-                  className="pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none w-full md:w-64"
-                />
-              </div>
+              
               <button 
                 onClick={activeTab === 'products' ? fetchProducts : fetchBlogPosts}
                 disabled={activeTab === 'products' ? fetchingProducts : fetchingBlog}
-                className="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all disabled:opacity-50"
+                className="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all disabled:opacity-50 md:hidden"
                 title="Refresh List"
               >
                 <RefreshCw size={20} className={(activeTab === 'products' ? fetchingProducts : fetchingBlog) ? 'animate-spin' : ''} />
               </button>
+            </div>
+            
+            <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4">
+              <div className="min-w-0">
+                <div className="flex flex-wrap bg-slate-100 p-1 rounded-xl gap-1">
+                  <button
+                    onClick={() => activeTab === 'products' ? setProductCategoryFilter('all') : setBlogCategoryFilter('all')}
+                    className={`px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest transition-all whitespace-nowrap ${
+                      (activeTab === 'products' ? productCategoryFilter : blogCategoryFilter) === 'all' 
+                        ? 'bg-white text-slate-900 shadow-sm' 
+                        : 'text-slate-500 hover:text-slate-700'
+                    }`}
+                  >
+                    All
+                  </button>
+                  {(activeTab === 'products' ? PRODUCT_CATEGORIES : BLOG_CATEGORIES).map(cat => (
+                    <button
+                      key={cat}
+                      onClick={() => activeTab === 'products' ? setProductCategoryFilter(cat) : setBlogCategoryFilter(cat)}
+                      className={`px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest transition-all whitespace-nowrap ${
+                        (activeTab === 'products' ? productCategoryFilter : blogCategoryFilter) === cat 
+                          ? 'bg-white text-slate-900 shadow-sm' 
+                          : 'text-slate-500 hover:text-slate-700'
+                      }`}
+                    >
+                      {cat.replace('_', ' ')}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-3">
+                <div className="relative flex-1 md:flex-none">
+                  <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                  <input 
+                    type="text" 
+                    placeholder={activeTab === 'products' ? "Search products..." : "Search blog posts..."}
+                    value={activeTab === 'products' ? searchQuery : blogSearchQuery}
+                    onChange={(e) => activeTab === 'products' ? setSearchQuery(e.target.value) : setBlogSearchQuery(e.target.value)}
+                    className="pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500 outline-none w-full md:w-64"
+                  />
+                </div>
+                <button 
+                  onClick={activeTab === 'products' ? fetchProducts : fetchBlogPosts}
+                  disabled={activeTab === 'products' ? fetchingProducts : fetchingBlog}
+                  className="hidden md:flex p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-all disabled:opacity-50"
+                  title="Refresh List"
+                >
+                  <RefreshCw size={20} className={(activeTab === 'products' ? fetchingProducts : fetchingBlog) ? 'animate-spin' : ''} />
+                </button>
+              </div>
             </div>
           </div>
 
