@@ -68,7 +68,6 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <div className="lg:hidden flex items-center gap-4">
-             <MarketSelector className="scale-75 origin-right" />
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-white p-2 hover:bg-white/10 rounded-xl transition-colors"

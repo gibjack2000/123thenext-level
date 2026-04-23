@@ -698,23 +698,7 @@ export const MOCK_PRODUCTS: Product[] = [
     "tags": [],
     "last_checked_at": "2026-03-28"
   },
-  {
-    "id": 76,
-    "region": "UK",
-    "category": "supplements",
-    "product_name": "Wellman Max - Multivitamin Tablets for Men ",
-    "amazon_asin": "B00UI3O5BE",
-    "amazon_url": "https://www.amazon.co.uk/dp/B00UI3O5BE?tag=123znl0e-20",
-    "image_url": "https://123thenextlevel.com/Products/wellman.jpg",
-    "short_benefit": "Formula Mix with Maximum Support for Energy, Immune System, Testosterone Level, Bone, Brain,Heart and Vision Health,",
-    "description": "Formula Mix with Maximum Support for Energy, Immune System, Testosterone Level, Bone, Brain,Heart and Vision Health,",
-    "price": 11.39,
-    "currency": "GBP",
-    "rating": 4.6,
-    "featured": true,
-    "tags": [],
-    "last_checked_at": "2026-03-31"
-  },
+
   {
     "id": 50,
     "region": "US",
@@ -732,23 +716,7 @@ export const MOCK_PRODUCTS: Product[] = [
     "tags": [],
     "last_checked_at": "2026-03-29"
   },
-  {
-    "id": 75,
-    "region": "UK",
-    "category": "supplements",
-    "product_name": "Wellwoman Max Multivitamin Tablets for Women,84 Count (Pack of 1)",
-    "amazon_asin": "B00UI1O5YS",
-    "amazon_url": "https://www.amazon.co.uk/dp/B00UI1O5YS?tag=123znl0e-20",
-    "image_url": "https://123thenextlevel.com/Products/wellwoman.jpg",
-    "short_benefit": "Wellwoman Max Multivitamin Tablets for Women,84 Count (Pack of 1)",
-    "description": "Wellwoman Max Multivitamin Tablets for Women,84 Count (Pack of 1)",
-    "price": 14.06,
-    "currency": "GBP",
-    "rating": 4.6,
-    "featured": true,
-    "tags": [],
-    "last_checked_at": "2026-03-31"
-  },
+
   {
     "id": 54,
     "region": "US",

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { Product, mapToProduct } from '../types';
-import MarketSelector from '../components/MarketSelector';
 import ProductsClient from '../components/ProductsClient';
 import { ChevronRight, Home } from 'lucide-react';
 import { MOCK_PRODUCTS } from '../data/mockData';
@@ -66,7 +65,7 @@ export default function CategoryPage() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white selection:bg-blue-500/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-52 pb-12">
         {/* Breadcrumbs & Market Selector */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
           <nav className="flex items-center text-sm text-slate-400">
@@ -80,8 +79,6 @@ export default function CategoryPage() {
             <ChevronRight size={16} className="mx-2 text-slate-600" />
             <span className="text-white font-medium capitalize">{categoryFormatted}</span>
           </nav>
-          
-          <MarketSelector currentCategory={category} className="bg-slate-900/50 p-2 rounded-2xl border border-white/5 backdrop-blur-xl" />
         </div>
 
         <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">

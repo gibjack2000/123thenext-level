@@ -6,13 +6,12 @@ import { MOCK_PRODUCTS } from '../data/mockData';
 
 const CATEGORIES = [
   { id: 'fitness_gear', name: 'Fitness Gear', icon: Dumbbell, desc: 'Home gym essentials and workout equipment' },
-  { id: 'health_wellness', name: 'Health & Wellness', icon: HeartPulse, desc: 'Supplements, recovery tools, and monitors' },
   { id: 'home_kitchen', name: 'Home & Kitchen', icon: ChefHat, desc: 'Appliances, cookware, and smart home devices' },
   { id: 'tech_gadgets', name: 'Tech Gadgets & Wearables', icon: Smartphone, desc: 'Latest electronics, accessories, and wearables' },
   { id: 'supplements', name: 'Supplements', icon: Pill, desc: 'Vitamins, proteins, and dietary supplements' },
+  { id: 'performance_testing', name: 'Performance & Testing', icon: Sparkles, desc: 'Diagnostic tools and high-performance gear' },
 ];
 
-import MarketSelector from '../components/MarketSelector';
 
 export default function RegionHub() {
   const { region } = useParams<{ region: string }>();
@@ -83,7 +82,7 @@ export default function RegionHub() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white selection:bg-blue-500/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-52 pb-12">
         {/* Header & Market Selector */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
           <nav className="flex items-center text-sm text-slate-400">
@@ -93,8 +92,6 @@ export default function RegionHub() {
             <ChevronRight size={16} className="mx-2 text-slate-600" />
             <span className="text-white font-medium uppercase tracking-widest">{regionUpper} Hub</span>
           </nav>
-          
-          <MarketSelector className="bg-slate-900/50 p-2 rounded-2xl border border-white/5 backdrop-blur-xl" />
         </div>
 
         <div className="mb-12">
