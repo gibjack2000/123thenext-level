@@ -8,7 +8,7 @@ const CATEGORIES = [
   { id: 'fitness_gear', name: 'Fitness Gear', icon: Dumbbell, desc: 'Home gym essentials and workout equipment' },
   { id: 'health_wellness', name: 'Health & Wellness', icon: HeartPulse, desc: 'Supplements, recovery tools, and monitors' },
   { id: 'home_kitchen', name: 'Home & Kitchen', icon: ChefHat, desc: 'Appliances, cookware, and smart home devices' },
-  { id: 'tech_gadgets', name: 'Tech Gadgets', icon: Smartphone, desc: 'Latest electronics, accessories, and wearables' },
+  { id: 'tech_gadgets', name: 'Tech Gadgets & Wearables', icon: Smartphone, desc: 'Latest electronics, accessories, and wearables' },
   { id: 'supplements', name: 'Supplements', icon: Pill, desc: 'Vitamins, proteins, and dietary supplements' },
 ];
 
