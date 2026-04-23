@@ -42,6 +42,7 @@ export default function AdminPage() {
   const [editingBlogPostId, setEditingBlogPostId] = useState<string | null>(null);
   const [blogSearchQuery, setBlogSearchQuery] = useState('');
   const [blogCategoryFilter, setBlogCategoryFilter] = useState<string>('all');
+  const [productCategoryFilter, setProductCategoryFilter] = useState<string>('all');
   const [mappingProductId, setMappingProductId] = useState<string | null>(null);
 
   const fetchProducts = useCallback(async () => {
@@ -1859,20 +1860,28 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
             </div>
             
             <div className="flex flex-wrap items-center gap-3">
-              <div className="flex bg-slate-100 p-1 rounded-xl">
+              <div className="flex bg-slate-100 p-1 rounded-xl overflow-x-auto no-scrollbar max-w-[50vw]">
                 <button
-                  onClick={() => setBlogCategoryFilter('all')}
-                  className={`px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest transition-all ${blogCategoryFilter === 'all' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                  onClick={() => activeTab === 'products' ? setProductCategoryFilter('all') : setBlogCategoryFilter('all')}
+                  className={`px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest transition-all whitespace-nowrap ${
+                    (activeTab === 'products' ? productCategoryFilter : blogCategoryFilter) === 'all' 
+                      ? 'bg-white text-slate-900 shadow-sm' 
+                      : 'text-slate-500 hover:text-slate-700'
+                  }`}
                 >
                   All
                 </button>
-                {BLOG_CATEGORIES.map(cat => (
+                {(activeTab === 'products' ? PRODUCT_CATEGORIES : BLOG_CATEGORIES).map(cat => (
                   <button
                     key={cat}
-                    onClick={() => setBlogCategoryFilter(cat)}
-                    className={`px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest transition-all ${blogCategoryFilter === cat ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                    onClick={() => activeTab === 'products' ? setProductCategoryFilter(cat) : setBlogCategoryFilter(cat)}
+                    className={`px-4 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest transition-all whitespace-nowrap ${
+                      (activeTab === 'products' ? productCategoryFilter : blogCategoryFilter) === cat 
+                        ? 'bg-white text-slate-900 shadow-sm' 
+                        : 'text-slate-500 hover:text-slate-700'
+                    }`}
                   >
-                    {cat}
+                    {cat.replace('_', ' ')}
                   </button>
                 ))}
               </div>
@@ -1926,7 +1935,11 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
                   </thead>
                   <tbody className="divide-y divide-slate-50">
                     {products
-                      .filter(p => p.product_name.toLowerCase().includes(searchQuery.toLowerCase()))
+                      .filter(p => {
+                        const matchesSearch = p.product_name.toLowerCase().includes(searchQuery.toLowerCase());
+                        const matchesCategory = productCategoryFilter === 'all' || p.category === productCategoryFilter;
+                        return matchesSearch && matchesCategory;
+                      })
                       .map((product) => (
                       <tr key={product.id} className="hover:bg-slate-50/50 transition-colors group">
                         <td className="px-8 py-4">
