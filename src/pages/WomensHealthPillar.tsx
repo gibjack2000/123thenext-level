@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Shield, ArrowLeft, Target, Zap, ExternalLink, Dna, Microscope, Dumbbell, Brain, Activity, FlaskConical, LifeBuoy, Heart, Sparkles, CheckCircle2, Droplets, Baby } from 'lucide-react';
+import { Shield, ArrowLeft, Target, Zap, ExternalLink, Dna, Microscope, Dumbbell, Brain, Activity, FlaskConical, LifeBuoy, Heart, Sparkles, CheckCircle2, Droplets, Baby, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../translations';
@@ -47,6 +47,15 @@ export default function WomensHealthPillar() {
       image: links.whp_scale?.image || '/Products/withings.jpg',
       link: links.whp_scale?.url || 'https://www.amazon.com/Withings-Body-Smart-Composition-Monitor/dp/B0BYZ9TBM5',
       price: '$99+'
+    },
+    {
+      id: 'thorne-multi',
+      name: 'Thorne Women\'s Multi 50+',
+      brand: 'Endocrine Support',
+      desc: 'High-fidelity micronutrient foundation engineered for hormone synthesis and systemic metabolic stability.',
+      image: links.whp_multivitamin?.image || 'https://images.unsplash.com/photo-1584017945516-7013148f9361?q=80&w=600',
+      link: links.whp_multivitamin?.url || 'https://www.amazon.com/Thorne-Basic-Nutrients-Day-Multivitamin/dp/B00FOTMGTU',
+      price: '$45+'
     }
   ];
 
@@ -84,7 +93,7 @@ export default function WomensHealthPillar() {
             opacity: [0.1, 0.15, 0.1]
           }}
           transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 -right-20 w-[45rem] h-[45rem] bg-rose-600 rounded-full blur-[150px] pointer-events-none"
+          className="absolute top-1/4 -right-20 w-[45rem] h-[45rem] bg-rose-600 rounded-full blur-[150px] pointer-events-none z-0"
         />
         <motion.div 
           animate={{ 
@@ -93,7 +102,7 @@ export default function WomensHealthPillar() {
             opacity: [0.05, 0.1, 0.05]
           }}
           transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute -bottom-20 -left-20 w-[35rem] h-[35rem] bg-purple-500 rounded-full blur-[120px] pointer-events-none"
+          className="absolute bottom-48 -left-20 w-[35rem] h-[35rem] bg-purple-500 rounded-full blur-[120px] pointer-events-none opacity-[0.1] z-0"
         />
 
         {/* Technical Data Grid Overlay */}
@@ -150,28 +159,28 @@ export default function WomensHealthPillar() {
               path: "/womens-health/longevity",
               title: "Ovarian Longevity",
               desc: "Anti-fibrotic protocols and endocrine maintenance for systemic health protection.",
-              bg: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200",
+              bg: "https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=1200",
               accent: "rose"
             },
             {
               path: "/womens-health/performance",
               title: "Strength Mandate",
               desc: "The clinical necessity of mechanical loading and muscle as an endocrine organ.",
-              bg: "https://images.unsplash.com/photo-1541534741688-6078c64b5cc5?q=80&w=1200",
+              bg: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200",
               accent: "blue"
             },
             {
               path: "/womens-health/metabolic",
               title: "Cognitive Metabolic",
               desc: "The brain-fuel axis: CGM-driven precision and neuro-metabolic shielding.",
-              bg: "https://images.unsplash.com/photo-1508325492471-bf4f3794d1cf?q=80&w=1200",
+              bg: "https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=1200",
               accent: "purple"
             }
           ].map((card, i) => (
             <Link key={i} to={card.path} className="group relative overflow-hidden rounded-[4rem] aspect-[4/5] border border-white/5 shadow-2xl transition-all duration-700 hover:scale-[1.02]">
               <div className="absolute inset-0 scale-105 group-hover:scale-110 transition-transform duration-1000">
-                <img src={card.bg} className="w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity grayscale hover:grayscale-0 duration-700" alt={card.title} />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-slate-900/40 to-transparent" />
+                <img src={card.bg} className="w-full h-full object-cover opacity-50 group-hover:opacity-80 transition-opacity duration-700 grayscale-[0.5] group-hover:grayscale-0" alt={card.title} />
+                <div className={`absolute inset-0 bg-gradient-to-t from-[#020617] via-slate-900/20 to-transparent group-hover:from-${card.accent}-950/40 transition-colors duration-700`} />
               </div>
               
               <div className="absolute inset-x-10 bottom-10 text-left">
@@ -245,11 +254,11 @@ export default function WomensHealthPillar() {
                       { key: 'whp_cta_test_us', link: links.us, label: 'Endocrine' },
                       { key: 'whp_cta_epigenetic', link: links.epigenetic, label: 'Cellular' },
                       { key: 'whp_cta_nad', link: links.nad, label: 'Metabolic' },
-                      { key: 'whp_cta_test_es', link: links.es, label: 'Bio-Age' }
+                      { key: 'whp_cta_test_uk', link: links.uk, label: 'Endocrine' }
                     ].map((item, i) => (
                       <a key={i} href={item.link.url} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-white/5 border border-white/5 rounded-[2rem] hover:bg-white hover:text-slate-950 transition-all group/cta">
                         <span className="flex items-center gap-4">
-                          <span className="text-[9px] font-black bg-white/10 px-2 py-0.5 rounded group-hover/cta:bg-slate-200 uppercase">{item.label}</span>
+                          <span className="w-32 text-center text-[9px] font-black bg-white/10 px-2 py-0.5 rounded group-hover/cta:bg-slate-200 uppercase">{item.label}</span>
                           <span className="text-xs font-black uppercase tracking-tight leading-none">{t(item.key as any)}</span>
                         </span>
                         <ExternalLink size={16} className="opacity-40 group-hover/cta:opacity-100" />
@@ -276,9 +285,36 @@ export default function WomensHealthPillar() {
                 Pillar Essentials
               </h2>
             </div>
-            <p className="text-slate-500 font-bold uppercase tracking-widest text-xs border-b border-rose-500/20 pb-4">
-              Vetted 2026 Women's Health Tier-1 Tools
-            </p>
+            <div className="text-right flex flex-col items-end gap-2">
+              <p className="text-slate-500 font-bold uppercase tracking-widest text-xs border-b border-rose-500/20 pb-4">
+                Vetted 2026 Women's Health Tier-1 Tools
+              </p>
+              <div className="flex items-center gap-3 mt-4 text-[10px] font-black uppercase tracking-tighter text-slate-400">
+                <Globe size={12} className="text-rose-500/50" />
+                <span>Regional Arsenals:</span>
+                <div className="flex gap-2 ml-2">
+                  {[
+                    { id: 'us', name: 'US', flag: 'https://flagcdn.com/w80/us.png' },
+                    { id: 'uk', name: 'UK', flag: 'https://flagcdn.com/w80/gb.png' },
+                    { id: 'es', name: 'ES', flag: 'https://flagcdn.com/w80/es.png' }
+                  ].map((market) => (
+                    <Link
+                      key={market.id}
+                      to={`/${market.id}`}
+                      className="group relative flex items-center justify-center w-10 h-8 rounded-lg bg-white/5 border border-white/5 hover:border-rose-500/50 hover:bg-rose-500/5 transition-all duration-300"
+                      title={`${market.name} Market`}
+                    >
+                      <img 
+                        src={market.flag} 
+                        alt={market.name} 
+                        className="w-5 h-auto rounded-sm grayscale group-hover:grayscale-0 transition-all" 
+                      />
+                    </Link>
+                  ))}
+                </div>
+                <span className="text-slate-500 italic ml-2">Local inventory sync active</span>
+              </div>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

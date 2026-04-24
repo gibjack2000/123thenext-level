@@ -268,13 +268,13 @@ export default function HealthPillar() {
                     
                     <div className="space-y-6">
                       {[
-                        { label: t('hp_cta_kit_us'), link: affiliateLinks.us, country: "US" },
-                        { label: t('hp_cta_kit_uk'), link: affiliateLinks.uk, country: "UK" },
-                        { label: t('hp_cta_kit_es'), link: affiliateLinks.es, country: "ES" }
+                        { label: t('hp_cta_kit_us'), link: affiliateLinks.us, country: "US", flag: "https://flagcdn.com/w80/us.png" },
+                        { label: t('hp_cta_kit_uk'), link: affiliateLinks.uk, country: "UK", flag: "https://flagcdn.com/w80/gb.png" },
+                        { label: t('hp_cta_kit_es'), link: affiliateLinks.es, country: "ES", flag: "https://flagcdn.com/w80/es.png" }
                       ].map((cta, i) => (
                         <a key={i} href={cta.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-white/5 border border-white/5 rounded-[2rem] hover:bg-white hover:text-slate-950 transition-all group/cta">
                           <span className="flex items-center gap-4">
-                            <span className="text-[9px] font-black bg-white/10 px-2 py-0.5 rounded group-hover/cta:bg-slate-200">{cta.country}</span>
+                            <img src={cta.flag} alt={cta.country} className="w-6 h-auto rounded-sm grayscale group-hover/cta:grayscale-0 transition-all" />
                             <span className="text-xs font-black uppercase tracking-tight leading-none">{cta.label}</span>
                           </span>
                           <ExternalLink size={16} className="opacity-40 group-hover/cta:opacity-100" />
