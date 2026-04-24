@@ -261,7 +261,7 @@ export default function FitnessPillar() {
                       ].map((cta, i) => (
                         <a key={i} href={cta.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-white/5 border border-white/5 rounded-[2rem] hover:bg-white hover:text-slate-950 transition-all group/cta">
                           <span className="flex items-center gap-4">
-                            <span className="text-[9px] font-black bg-white/10 px-2 py-0.5 rounded group-hover/cta:bg-slate-200 uppercase">{cta.label}</span>
+                            <span className="w-20 text-center text-[9px] font-black bg-white/10 px-2 py-0.5 rounded group-hover/cta:bg-slate-200 uppercase">{cta.label}</span>
                             <span className="text-xs font-black uppercase tracking-tight leading-none">{t(cta.key as any)}</span>
                           </span>
                           <ExternalLink size={16} className="opacity-40 group-hover/cta:opacity-100" />
