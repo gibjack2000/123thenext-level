@@ -82,7 +82,7 @@ const Footer = () => {
               <p className="text-slate-400 text-xs font-medium italic mb-4">
                 {t('footer_admin_desc')}
               </p>
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-3">
                 <Link 
                   to="/admin" 
                   className="inline-flex items-center text-[10px] font-black text-white bg-slate-800 hover:bg-blue-600 px-4 py-2.5 rounded-xl transition-all duration-300 shadow-lg border border-slate-700 hover:border-transparent group uppercase tracking-widest"
@@ -96,6 +96,13 @@ const Footer = () => {
                 >
                   <Shield size={14} className="mr-2 group-hover:scale-110 transition-transform duration-500" />
                   SuperAdmin
+                </Link>
+                <Link 
+                  to="/automation-admin" 
+                  className="inline-flex items-center text-[10px] font-black text-white bg-emerald-900/40 hover:bg-emerald-600 px-4 py-2.5 rounded-xl transition-all duration-300 shadow-lg border border-emerald-500/30 hover:border-transparent group uppercase tracking-widest"
+                >
+                  <Settings size={14} className="mr-2 group-hover:rotate-180 transition-transform duration-500" />
+                  Blog Bot
                 </Link>
               </div>
             </div>

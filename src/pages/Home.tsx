@@ -464,7 +464,7 @@ export default function Home() {
                 hoverShadowColor: "hover:shadow-emerald-500/20"
               },
               {
-                to: "/wellness",
+                to: "/neurowellness",
                 image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1200",
                 icon: Sparkles,
                 iconColor: "text-purple-400",

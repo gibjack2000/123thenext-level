@@ -144,61 +144,66 @@ export default function WellnessPillar() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-40">
           <motion.div 
             whileHover={{ y: -10 }}
-            className="bg-slate-900/50 backdrop-blur-3xl p-12 md:p-16 rounded-[4rem] border border-white/5 flex flex-col justify-between lg:col-span-2 group overflow-hidden relative shadow-2xl"
+            className="relative bg-slate-900/40 backdrop-blur-3xl p-12 md:p-16 rounded-[4rem] border border-white/5 flex flex-col justify-between lg:col-span-2 group overflow-hidden shadow-2xl transition-all duration-700 hover:border-indigo-500/30"
           >
-            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600/10 blur-[100px] -mr-32 -mt-32"></div>
+            {/* Mesh Gradient Background */}
+            <div className="absolute inset-0 z-0 opacity-20 group-hover:opacity-40 transition-opacity duration-700 bg-[radial-gradient(circle_at_0%_0%,rgba(99,102,241,0.15)_0%,transparent_50%),radial-gradient(circle_at_100%_100%,rgba(59,130,246,0.1)_0%,transparent_50%)]"></div>
+            
             <div className="relative z-10">
-              <div className="w-16 h-16 bg-white/5 rounded-3xl flex items-center justify-center text-indigo-400 mb-10 border border-white/10 group-hover:scale-110 transition-transform duration-500">
+              <div className="w-16 h-16 bg-white/5 rounded-3xl flex items-center justify-center text-indigo-400 mb-10 border border-white/10 group-hover:scale-110 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-500 shadow-xl">
                 <Brain size={32} />
               </div>
-              <h2 className="text-4xl md:text-5xl font-display font-black uppercase tracking-tight text-white mb-8 leading-[1]">
+              <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tight text-white mb-8 leading-[0.85]">
                 {t('wp_circadian_title')}
               </h2>
-              <p className="text-slate-400 text-lg leading-relaxed mb-10 font-medium">
+              <p className="text-slate-400 text-xl leading-relaxed mb-10 font-medium max-w-2xl group-hover:text-slate-200 transition-colors">
                 {t('wp_circadian_desc')}
               </p>
-              <div className="p-8 bg-white/5 rounded-[2.5rem] border border-white/5 mb-10">
-                 <h4 className="text-[10px] font-black uppercase tracking-widest text-indigo-400 mb-4 flex items-center gap-2">
-                   <Moon size={14} /> Circadian Entrainment
+              <div className="p-10 bg-white/5 rounded-[3rem] border border-white/5 mb-10 backdrop-blur-xl group-hover:border-indigo-500/20 transition-colors">
+                 <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-indigo-400 mb-4 flex items-center gap-3">
+                   <Moon size={16} className="animate-pulse" /> Circadian Entrainment
                  </h4>
-                 <p className="text-sm text-slate-500 leading-relaxed font-medium">Precision light hygiene and temperature cycles are leveraged to synchronize the master clock, ensuring optimal melatonin/cortisol flux.</p>
+                 <p className="text-base text-slate-500 leading-relaxed font-medium group-hover:text-slate-400 transition-colors">Precision light hygiene and temperature cycles are leveraged to synchronize the master clock, ensuring optimal melatonin/cortisol flux.</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 text-indigo-400 font-bold text-[10px] uppercase tracking-[0.2em] border-t border-white/5 pt-10">
-              <Zap size={16} />
+            <div className="flex items-center gap-4 text-indigo-400 font-black text-[11px] uppercase tracking-[0.3em] border-t border-white/5 pt-10 group-hover:text-white transition-colors">
+              <Zap size={18} className="animate-pulse" />
               The Recovery Operating System
             </div>
           </motion.div>
 
           <motion.div 
             whileHover={{ y: -10 }}
-            className="bg-slate-900/50 backdrop-blur-3xl p-12 md:p-16 rounded-[4rem] border border-white/5 flex flex-col justify-between group overflow-hidden relative shadow-2xl"
+            className="relative bg-slate-900/40 backdrop-blur-3xl p-12 md:p-16 rounded-[4rem] border border-white/5 flex flex-col justify-between group overflow-hidden shadow-2xl transition-all duration-700 hover:border-blue-500/30"
           >
-            <div className="relative z-10">
-              <div className="w-16 h-16 bg-white/5 rounded-3xl flex items-center justify-center text-blue-400 mb-10 border border-white/10 group-hover:scale-110 transition-transform duration-500">
+            {/* Abstract Tech Grid */}
+            <div className="absolute inset-0 z-0 opacity-10 group-hover:opacity-20 transition-opacity duration-700" style={{ backgroundImage: "linear-gradient(rgba(59,130,246,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.1) 1px, transparent 1px)", backgroundSize: "20px 20px" }}></div>
+            
+            <div className="relative z-10 h-full flex flex-col">
+              <div className="w-16 h-16 bg-white/5 rounded-3xl flex items-center justify-center text-blue-400 mb-10 border border-white/10 group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-white transition-all duration-500 shadow-xl">
                 <ThermometerSnowflake size={32} />
               </div>
-              <h2 className="text-3xl font-display font-black uppercase tracking-tight text-white mb-8 leading-none">
+              <h2 className="text-3xl md:text-4xl font-display font-black uppercase tracking-tight text-white mb-8 leading-none">
                 {t('wp_hormetic_title')}
               </h2>
-              <p className="text-slate-400 text-base leading-relaxed mb-10 font-medium">
+              <p className="text-slate-400 text-lg leading-relaxed mb-10 font-medium group-hover:text-slate-200 transition-colors">
                 {t('wp_hormetic_desc')}
               </p>
-              <div className="space-y-4 pt-10 border-t border-white/5">
+              <div className="space-y-6 pt-10 border-t border-white/5 mt-auto">
                 {[
                   { label: "Deep Sleep Efficiency", value: "92%" },
                   { label: "HRV Variability", value: "High" },
                   { label: "Cortisol Suppression", value: "Optimal" }
                 ].map((stat, i) => (
-                  <div key={i} className="flex justify-between items-center py-2">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-indigo-500">{stat.label}</span>
-                    <span className="text-sm font-bold text-white">{stat.value}</span>
+                  <div key={i} className="flex justify-between items-center py-2 border-b border-white/[0.03]">
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-500/60">{stat.label}</span>
+                    <span className="text-sm font-black text-white">{stat.value}</span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="flex items-center gap-3 text-blue-400 font-bold text-[10px] uppercase tracking-[0.2em] pt-10 relative z-10">
-              <Activity size={16} />
+            <div className="flex items-center gap-4 text-blue-400 font-black text-[11px] uppercase tracking-[0.3em] pt-10 relative z-10 group-hover:text-white transition-colors">
+              <Activity size={18} className="animate-pulse" />
               Clinical Bio-Resilience
             </div>
           </motion.div>

@@ -406,6 +406,7 @@ alter table affiliate_link_mappings disable row level security;`;
     status: 'draft',
   });
 
+
   const handleBlogChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
@@ -423,6 +424,7 @@ alter table affiliate_link_mappings disable row level security;`;
       
       return newData;
     });
+  };
 
 
   const handleEditBlog = useCallback((post: BlogPost) => {

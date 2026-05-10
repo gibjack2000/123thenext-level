@@ -28,9 +28,12 @@ export type BlogPost = {
   image_url_2?: string;
   image_url_3?: string;
   affiliate_url?: string;
+  affiliate_product_1?: string;
+  affiliate_product_2?: string;
   excerpt: string;
   tags: string[];
   featured: boolean;
+  status: 'draft' | 'published';
 };
 
 // Mapper from DB amazon_affiliate_products to internal Product type

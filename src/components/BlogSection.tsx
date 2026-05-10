@@ -36,6 +36,9 @@ export default function BlogSection({ category, limit = 3, title, subtitle, clas
           query = query.eq('featured', featured);
         }
 
+        // Only show published posts to the public
+        query = query.eq('status', 'published');
+
         const { data, error } = await query;
         if (error) throw error;
         

@@ -23,7 +23,9 @@ export default function NeurowellnessPillar() {
       desc: "Tech-driven exogenous stimulation. Utilizing VNS and PEMF to bypass conscious resistance.",
       to: "/neurowellness/hard-care",
       icon: Cpu,
-      color: "from-blue-500 to-cyan-500",
+      color: "from-blue-600/20 to-cyan-600/20",
+      accent: "blue",
+      image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=1200",
       tag: "Exogenous Signals"
     },
     {
@@ -31,7 +33,9 @@ export default function NeurowellnessPillar() {
       desc: "Somatic endogenous regulation. Cultivating internal safety through breathwork and grounding.",
       to: "/neurowellness/soft-care",
       icon: Activity,
-      color: "from-violet-500 to-indigo-500",
+      color: "from-violet-600/20 to-indigo-600/20",
+      accent: "violet",
+      image: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80&w=1200",
       tag: "Endogenous Calibration"
     },
     {
@@ -39,7 +43,9 @@ export default function NeurowellnessPillar() {
       desc: "The Muscle-Brain Axis. Leveraging Irisin and BDNF signaling via metabolic metabolites.",
       to: "/neurowellness/metabolism",
       icon: Microscope,
-      color: "from-emerald-500 to-teal-500",
+      color: "from-emerald-600/20 to-teal-600/20",
+      accent: "emerald",
+      image: "https://images.unsplash.com/photo-1532187863486-abf9d39d998e?auto=format&fit=crop&q=80&w=1200",
       tag: "Cognitive Integrity"
     }
   ];
@@ -72,7 +78,13 @@ export default function NeurowellnessPillar() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#020617] text-white font-sans antialiased selection:bg-indigo-500/30">
+    <div className="min-h-screen bg-[#020617] text-white font-sans antialiased selection:bg-indigo-500/30 overflow-x-hidden">
+      {/* Ambient Background Elements */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-[1000px] h-[1000px] bg-indigo-600/5 rounded-full blur-[120px] animate-pulse"></div>
+        <div className="absolute bottom-0 right-1/4 w-[800px] h-[800px] bg-blue-600/5 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '2s' }}></div>
+      </div>
+
       {/* Hero Section */}
       <div className="relative pt-32 pb-48 md:pt-48 md:pb-72 flex items-center justify-center overflow-hidden">
         {/* Cinematic Backdrop */}
@@ -166,66 +178,117 @@ export default function NeurowellnessPillar() {
             <motion.div 
               key={idx}
               whileHover={{ y: -15 }}
-              className="bg-slate-900/50 backdrop-blur-3xl rounded-[3.5rem] border border-white/5 overflow-hidden group shadow-2xl flex flex-col h-full"
+              className="relative aspect-[4/5] md:aspect-auto md:h-[600px] rounded-[3.5rem] overflow-hidden group shadow-2xl flex flex-col"
             >
-              <Link to={path.to} className="p-12 flex flex-col h-full">
-                <div className={`w-16 h-16 rounded-3xl bg-gradient-to-br ${path.color} flex items-center justify-center text-white mb-10 group-hover:scale-110 transition-transform duration-500 shadow-lg`}>
-                  <path.icon size={32} />
+              {/* Background Image with Parallax-like effect */}
+              <motion.div 
+                className="absolute inset-0 z-0 transition-transform duration-1000 group-hover:scale-110"
+              >
+                <img 
+                  src={path.image} 
+                  alt={path.title}
+                  className="w-full h-full object-cover grayscale brightness-[0.4] group-hover:grayscale-0 group-hover:brightness-[0.6] transition-all duration-700"
+                />
+                {/* Technical Scanlines Overlay */}
+                <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.05] group-hover:opacity-[0.08] transition-opacity duration-700"
+                     style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "100% 4px" }}>
                 </div>
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400 mb-4">{path.tag}</span>
-                <h3 className="text-3xl font-display font-black uppercase text-white mb-6 leading-tight group-hover:text-indigo-400 transition-colors">
-                  {path.title}
-                </h3>
-                <p className="text-slate-400 text-base leading-relaxed mb-10 font-medium flex-grow">
-                  {path.desc}
-                </p>
-                <div className="pt-8 border-t border-white/5 flex items-center justify-between text-indigo-400 font-black text-[10px] uppercase tracking-widest group-hover:text-white transition-colors">
-                  <span>Enter Protocol</span>
-                  <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform" />
-                </div>
+                <div className={`absolute inset-0 bg-gradient-to-b from-transparent via-[#020617]/50 to-[#020617] group-hover:via-[#020617]/30 transition-all duration-700`}></div>
+                <div className={`absolute inset-0 bg-gradient-to-br ${path.color} opacity-50 group-hover:opacity-30 transition-all duration-700`}></div>
+              </motion.div>
+
+              {/* Glass Overlay */}
+              <div className="absolute inset-0 z-10 backdrop-blur-[2px] group-hover:backdrop-blur-none transition-all duration-700"></div>
+
+              {/* Scanline/Noise Overlay */}
+              <div className="absolute inset-0 z-10 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] brightness-200"></div>
+
+              <Link to={path.to} className="relative z-20 p-12 flex flex-col h-full justify-end">
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="flex flex-col h-full"
+                >
+                  <div className={`w-16 h-16 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 flex items-center justify-center text-white mb-10 group-hover:scale-110 group-hover:bg-indigo-500 transition-all duration-500 shadow-2xl`}>
+                    <path.icon size={32} />
+                  </div>
+                  
+                  <div className="mt-auto">
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400 mb-4 block group-hover:text-white transition-colors">{path.tag}</span>
+                    <h3 className="text-4xl font-display font-black uppercase text-white mb-6 leading-tight drop-shadow-2xl">
+                      {path.title}
+                    </h3>
+                    <p className="text-slate-300 text-lg leading-relaxed mb-10 font-medium line-clamp-3 group-hover:text-white transition-colors">
+                      {path.desc}
+                    </p>
+                    <div className="pt-8 border-t border-white/10 flex items-center justify-between text-indigo-400 font-black text-[10px] uppercase tracking-widest group-hover:text-white transition-all">
+                      <span className="flex items-center gap-2">
+                        Enter Protocol
+                        <motion.span
+                          animate={{ x: [0, 5, 0] }}
+                          transition={{ duration: 1.5, repeat: Infinity }}
+                        >
+                          <ArrowRight size={16} />
+                        </motion.span>
+                      </span>
+                      <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-white transition-colors">
+                        <ExternalLink size={14} />
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
               </Link>
+
+              {/* Hover Border Glow */}
+              <div className="absolute inset-0 border border-white/5 group-hover:border-white/20 rounded-[3.5rem] transition-colors pointer-events-none"></div>
             </motion.div>
           ))}
         </div>
 
         {/* Polyvagal Paradigm Section */}
         <section className="mb-40">
-          <div className="bg-[#0f172a] p-10 md:p-24 rounded-[4rem] md:rounded-[5rem] border border-white/5 shadow-3xl relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_100%_0%,rgba(99,102,241,0.08)_0%,transparent_50%)]"></div>
+          <div className="bg-[#0f172a]/50 backdrop-blur-3xl p-10 md:p-24 rounded-[4rem] md:rounded-[5rem] border border-white/5 shadow-3xl relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(circle_at_100%_0%,rgba(99,102,241,0.1)_0%,transparent_50%)]"></div>
+            <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-indigo-500/10 rounded-full blur-[100px]"></div>
             
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
               <div className="lg:col-span-7">
-                <div className="inline-flex items-center gap-4 text-indigo-400 font-black uppercase tracking-widest text-[10px] bg-indigo-500/10 px-6 py-2 rounded-full border border-indigo-500/20 mb-8">
+                <div className="inline-flex items-center gap-4 text-indigo-400 font-black uppercase tracking-widest text-[10px] bg-indigo-500/10 px-6 py-2 rounded-full border border-indigo-500/20 mb-8 backdrop-blur-md">
                   <Layers size={14} />
                   The Clinical Foundation
                 </div>
-                <h2 className="text-4xl md:text-7xl font-display font-black uppercase tracking-tight text-white leading-[0.9] mb-8">
-                  The Polyvagal<br />Paradigm
+                <h2 className="text-4xl md:text-8xl font-display font-black uppercase tracking-tight text-white leading-[0.85] mb-12">
+                  The Polyvagal<br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-blue-400">Paradigm</span>
                 </h2>
-                <div className="space-y-8 max-w-2xl">
+                <div className="space-y-10 max-w-2xl">
                   {[
-                    { title: "Ventral Vagal", text: t('wp_polyvagal_ventral'), color: "bg-emerald-500" },
-                    { title: "Sympathetic", text: t('wp_polyvagal_sympathetic'), color: "bg-orange-500" },
-                    { title: "Dorsal Vagal", text: t('wp_polyvagal_dorsal'), color: "bg-blue-500" }
+                    { title: "Ventral Vagal", text: t('wp_polyvagal_ventral'), color: "bg-emerald-500", glow: "shadow-[0_0_30px_rgba(16,185,129,0.3)]" },
+                    { title: "Sympathetic", text: t('wp_polyvagal_sympathetic'), color: "bg-orange-500", glow: "shadow-[0_0_30px_rgba(249,115,22,0.3)]" },
+                    { title: "Dorsal Vagal", text: t('wp_polyvagal_dorsal'), color: "bg-blue-500", glow: "shadow-[0_0_30px_rgba(59,130,246,0.3)]" }
                   ].map((circuit) => (
-                    <div key={circuit.title} className="flex gap-6 items-start group">
-                      <div className={`mt-2 w-3 h-3 rounded-full ${circuit.color} shadow-[0_0_15px_rgba(0,0,0,0.5)] group-hover:scale-150 transition-transform`} />
-                      <div>
-                        <h4 className="text-xl font-bold text-white mb-2 uppercase tracking-wide">{circuit.title}</h4>
-                        <p className="text-slate-400 text-lg leading-relaxed">{circuit.text}</p>
+                    <div key={circuit.title} className="flex gap-8 items-start group">
+                      <div className={`mt-2 w-4 h-4 rounded-full ${circuit.color} ${circuit.glow} group-hover:scale-150 transition-all duration-500 flex-shrink-0`} />
+                      <div className="border-l border-white/5 pl-8 group-hover:border-indigo-500/30 transition-colors">
+                        <h4 className="text-2xl font-display font-black text-white mb-3 uppercase tracking-wider">{circuit.title}</h4>
+                        <p className="text-slate-400 text-lg leading-relaxed group-hover:text-slate-200 transition-colors">{circuit.text}</p>
                       </div>
                     </div>
                   ))}
                 </div>
               </div>
               <div className="lg:col-span-5 relative">
-                <div className="aspect-square bg-gradient-to-br from-indigo-500/20 to-blue-500/20 rounded-full blur-[100px] absolute inset-0 animate-pulse"></div>
-                <img 
-                  src="https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&q=80&w=1200" 
-                  alt="Neural pathways" 
-                  className="relative z-10 w-full h-auto rounded-[3rem] shadow-3xl grayscale brightness-110 opacity-60"
-                  referrerPolicy="no-referrer"
-                />
+                <div className="aspect-square bg-gradient-to-br from-indigo-500/30 to-blue-500/30 rounded-full blur-[120px] absolute inset-0 animate-pulse"></div>
+                <div className="relative group">
+                  <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-blue-500 rounded-[3.2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                  <img 
+                    src="https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&q=80&w=1200" 
+                    alt="Neural pathways" 
+                    className="relative z-10 w-full h-auto rounded-[3rem] shadow-3xl grayscale brightness-125 opacity-40 group-hover:opacity-80 group-hover:grayscale-0 transition-all duration-1000"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -247,41 +310,78 @@ export default function NeurowellnessPillar() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {pillarEssentials.map((product, i) => (
               <motion.div 
                 key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
                 whileHover={{ y: -15 }}
-                className="bg-slate-900/50 backdrop-blur-3xl rounded-[3.5rem] border border-white/5 overflow-hidden group shadow-2xl flex flex-col h-full"
+                className="group relative flex flex-col h-full"
               >
-                <div className="h-80 relative overflow-hidden bg-white/5">
-                  <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[0.7]" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent"></div>
-                  <div className="absolute bottom-8 left-8">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-indigo-400 bg-indigo-500/10 px-4 py-1.5 rounded-full border border-indigo-500/20 backdrop-blur-md">
-                      {product.brand}
-                    </span>
-                  </div>
-                  <div className="absolute top-8 right-8 px-4 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md text-white font-black text-[10px] uppercase border border-white/10 shadow-2xl">
-                    {product.price}
-                  </div>
-                </div>
-                
-                <div className="p-10 flex flex-col flex-1">
-                  <h3 className="text-2xl font-display font-black uppercase text-white mb-4 group-colors">
-                    {product.name}
-                  </h3>
-                  <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
-                    {product.desc}
-                  </p>
+                {/* Product Card Container */}
+                <div className="relative flex-1 bg-slate-900/40 backdrop-blur-3xl rounded-[3.5rem] border border-white/5 overflow-hidden flex flex-col shadow-2xl transition-all duration-500 group-hover:border-indigo-500/30 group-hover:shadow-indigo-500/10">
                   
-                  <div className="mt-auto flex items-center justify-between pt-8 border-t border-white/5">
-                    <span className="text-xs font-black uppercase tracking-widest text-slate-500">2026 Essential</span>
-                    <a href={product.link} target={product.link.startsWith('http') ? "_blank" : "_self"} rel="noopener noreferrer" className="flex items-center gap-2 text-indigo-400 font-black text-[10px] uppercase tracking-widest hover:text-white transition-colors">
-                      Buy from Amazon <ExternalLink size={14} />
-                    </a>
+                  {/* Image Container */}
+                  <div className="h-80 relative overflow-hidden bg-[#020617]">
+                    <img 
+                      src={product.image} 
+                      alt={product.name} 
+                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale brightness-[0.6] group-hover:grayscale-0 group-hover:brightness-[0.9]" 
+                    />
+                    {/* Technical Scanlines Overlay */}
+                    <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-700"
+                         style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px)", backgroundSize: "100% 4px" }}>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"></div>
+                    
+                    {/* Brand Badge */}
+                    <div className="absolute bottom-6 left-8">
+                      <span className="text-[10px] font-black uppercase tracking-widest text-white/50 bg-white/5 px-4 py-2 rounded-full border border-white/10 backdrop-blur-xl group-hover:text-indigo-400 group-hover:border-indigo-500/30 transition-all">
+                        {product.brand}
+                      </span>
+                    </div>
+
+                    {/* Price Badge */}
+                    <div className="absolute top-8 right-8">
+                      <div className="px-5 py-2 rounded-full bg-[#020617]/80 backdrop-blur-md text-white font-black text-[11px] uppercase border border-white/10 shadow-2xl group-hover:border-indigo-500/50 transition-colors">
+                        {product.price}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="p-10 flex flex-col flex-1 relative">
+                    <div className="mb-6">
+                      <h3 className="text-3xl font-display font-black uppercase text-white mb-4 leading-tight group-hover:text-indigo-400 transition-colors">
+                        {product.name}
+                      </h3>
+                      <p className="text-slate-400 text-sm leading-relaxed font-medium">
+                        {product.desc}
+                      </p>
+                    </div>
+                    
+                    <div className="mt-auto pt-8 border-t border-white/5 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></div>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 group-hover:text-slate-300 transition-colors">2026 Ready</span>
+                      </div>
+                      <a 
+                        href={product.link} 
+                        target={product.link.startsWith('http') ? "_blank" : "_self"} 
+                        rel="noopener noreferrer" 
+                        className="group/btn flex items-center gap-3 text-white font-black text-[10px] uppercase tracking-[0.2em] bg-indigo-600 px-6 py-3 rounded-2xl hover:bg-white hover:text-black transition-all shadow-xl"
+                      >
+                        Acquire <ExternalLink size={14} className="group-hover/btn:translate-x-0.5 transition-transform" />
+                      </a>
+                    </div>
                   </div>
                 </div>
+
+                {/* Decorative Background Glow */}
+                <div className="absolute -inset-4 bg-indigo-500/0 group-hover:bg-indigo-500/5 rounded-[4rem] blur-2xl transition-all duration-700 -z-10"></div>
               </motion.div>
             ))}
           </div>

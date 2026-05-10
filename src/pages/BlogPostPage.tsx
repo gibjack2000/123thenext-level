@@ -11,20 +11,51 @@ export default function BlogPostPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const isPreview = new URLSearchParams(window.location.search).get('preview') === 'true';
+
   useEffect(() => {
     async function fetchPost() {
       if (!slug || !supabase) return;
       
       setLoading(true);
       try {
-        const { data, error } = await supabase
+        // 1. Fetch the post first (basic columns)
+        const { data: postData, error: postError } = await supabase
           .from('blog_posts')
           .select('*')
           .eq('slug', slug)
           .single();
           
-        if (error) throw error;
-        setPost(data);
+        if (postError) throw postError;
+        
+        // If it's a draft and not in preview mode, hide it
+        if (postData.status === 'draft' && !isPreview) {
+          setError('This article is currently a draft.');
+          return;
+        }
+
+        // 2. Fetch affiliate products if they exist (manual join for reliability)
+        let fullPost = { ...postData };
+        
+        if (postData.affiliate_product_1) {
+          const { data: prod1 } = await supabase
+            .from('amazon_affiliate_products')
+            .select('*')
+            .eq('id', postData.affiliate_product_1)
+            .single();
+          if (prod1) fullPost.affiliate_product_1 = prod1;
+        }
+
+        if (postData.affiliate_product_2) {
+          const { data: prod2 } = await supabase
+            .from('amazon_affiliate_products')
+            .select('*')
+            .eq('id', postData.affiliate_product_2)
+            .single();
+          if (prod2) fullPost.affiliate_product_2 = prod2;
+        }
+
+        setPost(fullPost);
       } catch (err: any) {
         console.error('Error fetching blog post:', err);
         setError('Article not found.');
@@ -34,7 +65,7 @@ export default function BlogPostPage() {
     }
 
     fetchPost();
-  }, [slug]);
+  }, [slug, isPreview]);
 
   if (loading) {
     return (
@@ -181,35 +212,89 @@ export default function BlogPostPage() {
       {/* Article Content Container */}
       <article className="relative z-20 max-w-4xl mx-auto px-6 sm:px-10 lg:px-12 py-16 bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200/50 -mt-24 border border-slate-100 mix-blend-normal">
         <div className="prose prose-slate prose-lg lg:prose-xl max-w-none">
-          {/* First part of content */}
-          {renderContent().slice(0, 4)}
+          {(() => {
+            const content = renderContent();
+            if (Array.isArray(content)) {
+              return (
+                <>
+                  {content.slice(0, 4)}
 
-          {/* Additional Image 1 Slot */}
-          {post.image_url_2 && (
-            <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl group">
-              <a href={displayAffiliateUrl} target="_blank" rel="noopener noreferrer" className="block relative">
-                <img src={post.image_url_2} alt="Supplementary visual" className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500" />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
-              </a>
-            </div>
-          )}
+                  {post.image_url_2 && (
+                    <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl group">
+                      <a href={displayAffiliateUrl} target="_blank" rel="noopener noreferrer" className="block relative">
+                        <img src={post.image_url_2} alt="Supplementary visual" className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500" />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
+                      </a>
+                    </div>
+                  )}
 
-          {/* Middle part of content */}
-          {renderContent().slice(4, 8)}
+                  {content.slice(4, 8)}
 
-          {/* Additional Image 2 Slot */}
-          {post.image_url_3 && (
-            <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl group">
-              <a href={displayAffiliateUrl} target="_blank" rel="noopener noreferrer" className="block relative">
-                <img src={post.image_url_3} alt="Supplementary visual" className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500" />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
-              </a>
-            </div>
-          )}
+                  {post.image_url_3 && (
+                    <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl group">
+                      <a href={displayAffiliateUrl} target="_blank" rel="noopener noreferrer" className="block relative">
+                        <img src={post.image_url_3} alt="Supplementary visual" className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500" />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
+                      </a>
+                    </div>
+                  )}
 
-          {/* Remaining content */}
-          {renderContent().slice(8)}
+                  {content.slice(8)}
+                </>
+              );
+            } else {
+              return (
+                <>
+                  {content}
+                  {post.image_url_2 && (
+                    <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl group">
+                      <a href={displayAffiliateUrl} target="_blank" rel="noopener noreferrer" className="block relative">
+                        <img src={post.image_url_2} alt="Supplementary visual" className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500" />
+                      </a>
+                    </div>
+                  )}
+                  {post.image_url_3 && (
+                    <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl group">
+                      <a href={displayAffiliateUrl} target="_blank" rel="noopener noreferrer" className="block relative">
+                        <img src={post.image_url_3} alt="Supplementary visual" className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500" />
+                      </a>
+                    </div>
+                  )}
+                </>
+              );
+            }
+          })()}
         </div>
+        
+        {/* Affiliate Products Section */}
+        {((post as any).affiliate_product_1 || (post as any).affiliate_product_2) && (
+          <div className="mt-16 pt-12 border-t border-slate-100">
+            <h3 className="text-2xl font-display uppercase tracking-tight text-slate-900 mb-8">Featured Clinical Arsenal</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {[(post as any).affiliate_product_1, (post as any).affiliate_product_2].filter(Boolean).map((prod: any) => (
+                <div key={prod.id} className="bg-slate-50 rounded-3xl p-6 border border-slate-200 flex flex-col md:flex-row gap-6 hover:shadow-xl hover:shadow-slate-200/50 transition-all group">
+                  <div className="w-full md:w-32 h-32 shrink-0 rounded-2xl overflow-hidden bg-white border border-slate-100 shadow-sm">
+                    <img src={prod.image_url} alt={prod.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  </div>
+                  <div className="flex-1 flex flex-col justify-between">
+                    <div>
+                      <h4 className="text-lg font-bold text-slate-900 mb-1 leading-tight">{prod.title}</h4>
+                      <p className="text-sm text-slate-500 line-clamp-2 mb-4">{prod.description}</p>
+                    </div>
+                    <a 
+                      href={prod.affiliate_link} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="inline-flex items-center justify-center px-4 py-2 bg-slate-900 text-white rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-blue-600 transition-colors"
+                    >
+                      Buy from Amazon
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         
         {/* Post Tags */}
         {post.tags && post.tags.length > 0 && (

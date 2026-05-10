@@ -3,13 +3,17 @@ import express from 'express';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import path, { dirname, join } from 'path';
+import apiRouter from './server/api.js';
+import { initScheduler } from './server/scheduler.js';
 
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
+
+app.use(express.json());
 
 // Resolve absolute paths for the static folder
 // In production (flattened), files are in the root. Locally, they are in 'dist/'.
@@ -23,6 +27,8 @@ const indexPath = path.resolve(distPath, 'index.html');
 app.get('/ping', (req, res) => {
   res.send('pong');
 });
+
+app.use('/api', apiRouter);
 
 // Add a logger
 app.use((req, res, next) => {
@@ -64,6 +70,7 @@ app.use((err, req, res, next) => {
 
 app.listen(port, () => {
   console.log(`Server started on port ${port}`);
+  initScheduler();
 });
 
 process.on('uncaughtException', (err) => console.error('EXC:', err));

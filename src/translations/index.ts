@@ -852,11 +852,7 @@ const translations = {
     wp_blog_q3: 'Cold Plunge vs Infrared Sauna: Autonomic Reset Analysis.',
     wp_blog_q4: 'Neurowellness protocols for over-optimization burnout professionals.',
 
-    wp_recovery_title: 'Non-Sleep Deep Rest (NSDR)',
-    wp_recovery_desc: 'Cognitive reset through neural down-regulation. Mastering the art of deliberate stillness to accelerate brain-state transitions.',
 
-    wp_nature_title: 'Biophilic Reset',
-    wp_nature_desc: 'Why nature is a mandated biological requirement. Grounding, phytoncide exposure, and sensory recalibration.',
 
     wp_cta_section_title: 'Regeneration & Sync Tools',
     wp_cta_sauna_us: 'Infrared Recovery Pod (USA)',

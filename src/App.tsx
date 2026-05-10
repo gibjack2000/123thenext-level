@@ -64,6 +64,7 @@ import AdminPage from './pages/AdminPage';
 import SuperAdminPage from './pages/SuperAdminPage';
 import IntelligenceHub from './pages/IntelligenceHub';
 import BlogPostPage from './pages/BlogPostPage';
+import BlogAutomationAdmin from './pages/BlogAutomationAdmin';
 
 import Navbar from './components/Navbar';
 
@@ -123,6 +124,7 @@ function App() {
             <Route path="/social-fitness/recovery" element={<SocialRecovery />} />
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/superadmin" element={<SuperAdminPage />} />
+            <Route path="/automation-admin" element={<BlogAutomationAdmin />} />
             <Route path="/intelligence-hub" element={<IntelligenceHub />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/life-practice/universal-love" element={<UniversalLove />} />

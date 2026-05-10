@@ -161,44 +161,82 @@ export default function NeurowellnessMetabolism() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {metabolismArsenal.map((product, i) => (
               <motion.div 
                 key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
                 whileHover={{ y: -15 }}
-                className="bg-slate-900/50 backdrop-blur-3xl rounded-[3.5rem] border border-white/5 overflow-hidden group shadow-2xl flex flex-col h-full"
+                className="group relative flex flex-col h-full"
               >
-                <div className="h-80 relative overflow-hidden bg-white/5">
-                  <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[0.7] grayscale group-hover:grayscale-0" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent"></div>
-                  <div className="absolute bottom-8 left-8">
-                    <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-4 py-1.5 rounded-full border border-emerald-500/20 backdrop-blur-md">
-                      {product.brand}
-                    </span>
-                  </div>
-                  <div className="absolute top-8 right-8 px-4 py-1.5 rounded-full bg-slate-950/80 backdrop-blur-md text-white font-black text-[10px] uppercase border border-white/10 shadow-2xl">
-                    {product.price}
-                  </div>
-                </div>
-                
-                <div className="p-10 flex flex-col flex-1">
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-500/60 mb-4">{product.tag}</span>
-                  <h3 className="text-2xl font-display font-black uppercase text-white mb-4 group-colors">
-                    {product.name}
-                  </h3>
-                  <p className="text-slate-500 text-sm leading-relaxed mb-8 font-medium">
-                    {product.desc}
-                  </p>
+                {/* Protocol Box Container */}
+                <div className="relative flex-1 bg-slate-900/40 backdrop-blur-3xl rounded-[3.5rem] border border-white/5 overflow-hidden flex flex-col shadow-2xl transition-all duration-500 group-hover:border-emerald-500/30 group-hover:shadow-emerald-500/10">
                   
-                  <div className="mt-auto flex items-center justify-between pt-8 border-t border-white/5">
-                    <span className="text-xs font-black uppercase tracking-widest text-slate-500 italic flex items-center gap-2">
-                       Validated <Shield size={12} className="text-emerald-500" />
-                    </span>
-                    <a href={product.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-emerald-400 font-black text-[10px] uppercase tracking-widest hover:text-white transition-colors">
-                      Buy from Amazon <ExternalLink size={14} />
-                    </a>
+                  {/* Visual Background Element */}
+                  <div className="absolute inset-0 z-0 opacity-20 group-hover:opacity-40 transition-opacity duration-700">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(16,185,129,0.2),transparent_70%)]"></div>
+                  </div>
+
+                  {/* Image Container */}
+                  <div className="h-80 relative overflow-hidden bg-[#020617]">
+                    <img 
+                      src={product.image} 
+                      alt={product.name} 
+                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 grayscale brightness-[0.5] group-hover:grayscale-0 group-hover:brightness-[0.8]" 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"></div>
+                    
+                    {/* Brand Badge */}
+                    <div className="absolute bottom-6 left-8">
+                      <span className="text-[10px] font-black uppercase tracking-widest text-white/50 bg-white/5 px-4 py-2 rounded-full border border-white/10 backdrop-blur-xl group-hover:text-emerald-400 group-hover:border-emerald-500/30 transition-all">
+                        {product.brand}
+                      </span>
+                    </div>
+
+                    {/* Price Badge */}
+                    <div className="absolute top-8 right-8">
+                      <div className="px-5 py-2 rounded-full bg-[#020617]/80 backdrop-blur-md text-white font-black text-[11px] uppercase border border-white/10 shadow-2xl group-hover:border-emerald-500/50 transition-colors">
+                        {product.price}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="p-10 flex flex-col flex-1 relative z-10">
+                    <div className="mb-6">
+                      <span className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500/60 mb-4 block">{product.tag}</span>
+                      <h3 className="text-3xl font-display font-black uppercase text-white mb-4 leading-tight group-hover:text-emerald-400 transition-colors">
+                        {product.name}
+                      </h3>
+                      <p className="text-slate-400 text-sm leading-relaxed font-medium line-clamp-3 group-hover:text-slate-200 transition-colors">
+                        {product.desc}
+                      </p>
+                    </div>
+                    
+                    <div className="mt-auto pt-8 border-t border-white/5 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 group-hover:text-slate-300 transition-colors flex items-center gap-2">
+                          Validated <Shield size={12} />
+                        </span>
+                      </div>
+                      <a 
+                        href={product.link} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="group/btn flex items-center gap-3 text-white font-black text-[10px] uppercase tracking-[0.2em] bg-emerald-600 px-6 py-3 rounded-2xl hover:bg-white hover:text-black transition-all shadow-xl"
+                      >
+                        Acquire <ExternalLink size={14} className="group-hover/btn:translate-x-0.5 transition-transform" />
+                      </a>
+                    </div>
                   </div>
                 </div>
+
+                {/* Decorative Background Glow */}
+                <div className="absolute -inset-4 bg-emerald-500/0 group-hover:bg-emerald-500/5 rounded-[4rem] blur-2xl transition-all duration-700 -z-10"></div>
               </motion.div>
             ))}
           </div>

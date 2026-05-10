@@ -4,3 +4,7 @@ create table if not exists affiliate_link_mappings (
 );
 alter publication supabase_realtime add table affiliate_link_mappings;
 alter table affiliate_link_mappings disable row level security;
+
+
+
+npx kill-port 3000
