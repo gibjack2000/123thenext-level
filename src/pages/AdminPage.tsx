@@ -18,6 +18,14 @@ export default function AdminPage() {
   const [loginError, setLoginError] = useState('');
 
   const [activeTab, setActiveTab] = useState<'products' | 'blog' | 'mappings' | 'discovery'>('products');
+
+  useEffect(() => {
+    const target = localStorage.getItem('admin_target_tab');
+    if (target === 'blog' || target === 'products' || target === 'mappings' || target === 'discovery') {
+      setActiveTab(target as any);
+      localStorage.removeItem('admin_target_tab');
+    }
+  }, []);
   const [loading, setLoading] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
@@ -259,7 +267,7 @@ export default function AdminPage() {
     }
   };
 
-  const handleEditProduct = (product: Product) => {
+  const handleEditProduct = useCallback((product: Product) => {
     setActiveTab('products');
     setEditingProductId(product.id);
     setFormData({
@@ -278,7 +286,7 @@ export default function AdminPage() {
       tags: Array.isArray(product.tags) ? product.tags.join(', ') : '',
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  }, []);
 
   const cancelEdit = () => {
     setEditingProductId(null);
@@ -334,9 +342,14 @@ create table blog_posts (
   author text not null,
   content text not null,
   image_url text,
+  image_url_2 text,
+  image_url_3 text,
+  affiliate_product_1 uuid references amazon_affiliate_products(id),
+  affiliate_product_2 uuid references amazon_affiliate_products(id),
   excerpt text,
   tags text[] default '{}',
-  featured boolean default false
+  featured boolean default false,
+  status text default 'published'
 );
 
 -- Enable Realtime
@@ -383,9 +396,14 @@ alter table affiliate_link_mappings disable row level security;`;
     author: 'The Next Level Team',
     content: '',
     image_url: '',
+    image_url_2: '',
+    image_url_3: '',
+    affiliate_product_1: '',
+    affiliate_product_2: '',
     excerpt: '',
     tags: '',
     featured: false,
+    status: 'draft',
   });
 
   const handleBlogChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -405,24 +423,76 @@ alter table affiliate_link_mappings disable row level security;`;
       
       return newData;
     });
-  };
 
-  const handleEditBlog = (post: BlogPost) => {
+
+  const handleEditBlog = useCallback((post: BlogPost) => {
+    if (!post) return;
     setEditingBlogPostId(post.id);
     setBlogFormData({
-      category: post.category,
-      title: post.title,
-      slug: post.slug,
-      author: post.author,
-      content: post.content,
+      category: post.category || 'health',
+      title: post.title || '',
+      slug: post.slug || '',
+      author: post.author || 'The Next Level Team',
+      content: post.content || '',
       image_url: post.image_url || '',
+      image_url_2: (post as any).image_url_2 || '',
+      image_url_3: (post as any).image_url_3 || '',
+      affiliate_product_1: (post as any).affiliate_product_1 || '',
+      affiliate_product_2: (post as any).affiliate_product_2 || '',
       excerpt: post.excerpt || '',
       tags: Array.isArray(post.tags) ? post.tags.join(', ') : '',
       featured: post.featured || false,
+      status: (post as any).status || 'published',
     });
     setActiveTab('blog');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  }, []);
+
+  const diagnosticRef = React.useRef<string | null>(null);
+
+  // Handle cross-page redirection and auto-edit
+  // Simplified Auto-Edit:
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const editIdFromUrl = urlParams.get('edit_id');
+    const editIdFromStorage = localStorage.getItem('edit_blog_post_id');
+    const editId = editIdFromUrl || editIdFromStorage;
+    
+    // Only handle each ID once to prevent infinite loops or crashes
+    if (editId && editId !== diagnosticRef.current) {
+      setTimeout(() => {
+        const postToEdit = blogPosts.find(p => p.id === editId);
+        
+        if (postToEdit) {
+          diagnosticRef.current = editId;
+          handleEditBlog(postToEdit);
+          localStorage.removeItem('edit_blog_post_id');
+          if (editIdFromUrl) window.history.replaceState({}, '', window.location.pathname);
+        } else {
+          // Post not in current list, try fetching it directly
+          const fetchAndEdit = async () => {
+            try {
+              const { data, error } = await supabase
+                .from('blog_posts')
+                .select('*')
+                .eq('id', editId)
+                .single();
+              
+              if (data && !error) {
+                diagnosticRef.current = editId;
+                handleEditBlog(data as BlogPost);
+                localStorage.removeItem('edit_blog_post_id');
+                if (editIdFromUrl) window.history.replaceState({}, '', window.location.pathname);
+              }
+            } catch (err) {
+              console.error('Failed to auto-load post:', err);
+            }
+          };
+          fetchAndEdit();
+        }
+      }, 100); // 100ms delay to let the page stabilize
+    }
+  }, [blogPosts, handleEditBlog]);
 
   const handleDeleteBlog = async (id: string) => {
     if (!supabase || !window.confirm('Are you sure you want to delete this blog post?')) return;
@@ -444,6 +514,10 @@ alter table affiliate_link_mappings disable row level security;`;
           author: 'The Next Level Team',
           content: '',
           image_url: '',
+          image_url_2: '',
+          image_url_3: '',
+          affiliate_product_1: '',
+          affiliate_product_2: '',
           excerpt: '',
           tags: '',
           featured: false,
@@ -482,10 +556,13 @@ alter table affiliate_link_mappings disable row level security;`;
     }
 
     try {
-      const postData = {
+      const postData: any = {
         ...blogFormData,
-        tags: blogFormData.tags.split(',').map(t => t.trim()).filter(Boolean),
+        tags: blogFormData.tags.split(',').map((t: string) => t.trim()).filter(Boolean),
       };
+
+      if (!postData.affiliate_product_1) postData.affiliate_product_1 = null;
+      if (!postData.affiliate_product_2) postData.affiliate_product_2 = null;
 
       if (editingBlogPostId) {
         const { error: supabaseError } = await supabase
@@ -511,9 +588,14 @@ alter table affiliate_link_mappings disable row level security;`;
         author: 'The Next Level Team',
         content: '',
         image_url: '',
+        image_url_2: '',
+        image_url_3: '',
+        affiliate_product_1: '',
+        affiliate_product_2: '',
         excerpt: '',
         tags: '',
         featured: false,
+        status: 'draft',
       });
       fetchBlogPosts();
     } catch (err: any) {
@@ -1212,6 +1294,79 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Supplementary Visual 2 (Middle)</label>
+              <input type="url" name="image_url_2" value={blogFormData.image_url_2} onChange={handleBlogChange} className="w-full rounded-lg border-slate-300 border p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" placeholder="https://..." />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Supplementary Visual 3 (End)</label>
+              <input type="url" name="image_url_3" value={blogFormData.image_url_3} onChange={handleBlogChange} className="w-full rounded-lg border-slate-300 border p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" placeholder="https://..." />
+            </div>
+          </div>
+
+          <div className="pt-6 border-t border-slate-100">
+            <h3 className="text-sm font-bold text-slate-900 uppercase tracking-widest mb-4">Selected Clinical Arsenal (Affiliates)</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Featured Product 1</label>
+                <select 
+                  name="affiliate_product_1" 
+                  value={blogFormData.affiliate_product_1} 
+                  onChange={handleBlogChange}
+                  className="w-full rounded-xl border-slate-200 border p-3 focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-medium"
+                >
+                  <option value="">-- No Product Selected --</option>
+                  {products.map(p => (
+                    <option key={p.id} value={p.id}>{p.product_name} ({p.region})</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Featured Product 2</label>
+                <select 
+                  name="affiliate_product_2" 
+                  value={blogFormData.affiliate_product_2} 
+                  onChange={handleBlogChange}
+                  className="w-full rounded-xl border-slate-200 border p-3 focus:ring-2 focus:ring-indigo-500 outline-none text-sm font-medium"
+                >
+                  <option value="">-- No Product Selected --</option>
+                  {products.map(p => (
+                    <option key={p.id} value={p.id}>{p.product_name} ({p.region})</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Post Status</label>
+              <select 
+                name="status" 
+                value={blogFormData.status} 
+                onChange={handleBlogChange}
+                className={`w-full rounded-lg border p-2.5 outline-none font-bold ${blogFormData.status === 'published' ? 'border-emerald-200 bg-emerald-50 text-emerald-700' : 'border-amber-200 bg-amber-50 text-amber-700'}`}
+              >
+                <option value="draft">Draft (Private)</option>
+                <option value="published">Published (Public)</option>
+              </select>
+            </div>
+            <div className="flex items-center h-full pt-6">
+              {blogFormData.slug && (
+                <a 
+                  href={`/blog/${blogFormData.slug}?preview=true`} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-4 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-black uppercase tracking-widest hover:bg-indigo-600 transition-all shadow-lg"
+                >
+                  <Eye size={16} />
+                  Live Preview
+                </a>
+              )}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Tags (comma separated)</label>
               <input type="text" name="tags" value={blogFormData.tags} onChange={handleBlogChange} className="w-full rounded-lg border-slate-300 border p-2.5 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" placeholder="sleep, health, routine" />
             </div>
@@ -1229,7 +1384,7 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
                   <div className={`absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${blogFormData.featured ? 'translate-x-4' : ''}`}></div>
                 </div>
                 <div className="ml-3 text-slate-700 font-medium group-hover:text-slate-900 transition-colors">
-                  Featured Post
+                  Featured Post (Show on Home Page)
                 </div>
               </label>
             </div>
@@ -2031,8 +2186,15 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
                               )}
                             </div>
                             <button 
+                              onClick={() => handleGenerateBlogForProduct(product)}
+                              className="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
+                              title="AI Write Blog Post"
+                            >
+                              <Sparkles size={18} />
+                            </button>
+                            <button 
                               onClick={() => handleEditProduct(product)}
-                              className={`p-2 rounded-lg transition-all ${editingProductId === product.id ? 'text-blue-600 bg-blue-50' : 'text-slate-400 hover:text-blue-600 hover:bg-blue-50'}`}
+                              className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
                               title="Edit Product"
                             >
                               <Pencil size={18} />
@@ -2050,13 +2212,10 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
                           <div className="flex items-center gap-4">
                             <div className="w-12 h-12 rounded-lg bg-slate-100 overflow-hidden flex-shrink-0 border border-slate-200">
                               {product.image_url && (
-                                <img src={product.image_url} alt="" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+                                <img src={product.image_url} alt="" className="w-full h-full object-cover" />
                               )}
                             </div>
-                            <div>
-                              <div className="font-bold text-slate-900 line-clamp-1">{product.product_name}</div>
-                              <div className="text-[10px] text-slate-400 font-mono">{product.id.substring(0, 8)}...</div>
-                            </div>
+                            <div className="font-bold text-slate-900 line-clamp-1">{product.product_name}</div>
                           </div>
                         </td>
                         <td className="px-8 py-4">
@@ -2090,8 +2249,9 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
                   </tbody>
                 </table>
               </div>
-            )) : activeTab === 'blog' ? (
-              fetchingBlog && blogPosts.length === 0 ? (
+            )
+          ) : activeTab === 'blog' ? (
+            fetchingBlog && blogPosts.length === 0 ? (
               <div className="flex justify-center py-20">
                 <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-slate-900"></div>
               </div>
@@ -2165,22 +2325,42 @@ Generate an incredibly interesting, highly engaging, and deeply relatable visual
                           <span className="text-slate-500 text-sm">{new Date(post.created_at).toLocaleDateString()}</span>
                         </td>
                         <td className="px-8 py-4">
-                          {post.featured ? (
-                            <span className="px-2 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-bold rounded uppercase">Featured</span>
-                          ) : (
-                            <span className="px-2 py-0.5 bg-slate-100 text-slate-400 text-[10px] font-bold rounded uppercase">Standard</span>
-                          )}
+                          <div className="flex flex-col gap-1.5">
+                            {(post as any).status === 'draft' ? (
+                              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-amber-50 text-amber-600 text-[10px] font-bold rounded uppercase w-fit">
+                                <span className="h-1 w-1 rounded-full bg-amber-500 animate-pulse"></span>
+                                Draft
+                              </span>
+                            ) : (
+                              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 bg-emerald-50 text-emerald-600 text-[10px] font-bold rounded uppercase w-fit">
+                                <span className="h-1 w-1 rounded-full bg-emerald-500"></span>
+                                Published
+                              </span>
+                            )}
+                            {post.featured && (
+                              <span className="px-2 py-0.5 bg-blue-50 text-blue-600 text-[10px] font-bold rounded uppercase w-fit">Featured</span>
+                            ) }
+                            <a 
+                              href={`/blog/${post.slug}?preview=true`} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="text-[9px] font-black uppercase tracking-widest text-slate-400 hover:text-indigo-600 flex items-center gap-1 transition-colors mt-1"
+                            >
+                              <ExternalLink size={10} /> Quick Preview
+                            </a>
+                          </div>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
-            ) ) : (
-              <div className="bg-slate-50 border border-slate-100 rounded-2xl p-12 text-center">
-                <p className="text-slate-500 italic">Advanced management tools active above.</p>
-              </div>
-            )}
+            )
+          ) : (
+            <div className="bg-slate-50 border border-slate-100 rounded-2xl p-12 text-center">
+              <p className="text-slate-500 italic">Advanced management tools active above.</p>
+            </div>
+          )}
           </section>
       </div>
     </div>
