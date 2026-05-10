@@ -9,6 +9,7 @@
     "server": "node index.js",
     "dev": "concurrently \"vite --port=3000 --host=0.0.0.0\" \"node index.js\"",
     "dev:all": "npx concurrently \"npm run dev\" \"npm run server\"",
+    "build": "vite build",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit"
   },
