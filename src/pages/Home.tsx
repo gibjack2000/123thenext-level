@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Globe2, MapPin, ShoppingBag, ArrowRight, Heart, Dumbbell, Apple, Sparkles, BookOpen, Shield, UserCheck, Wind, HeartPulse, ExternalLink, Compass, Microscope, Users } from 'lucide-react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
-import { Product, mapToProduct } from '../types';
+import { Product, mapToProduct, PremiumGuide } from '../types';
 import { MOCK_PRODUCTS } from '../data/mockData';
 
 const REGIONS = [
@@ -16,6 +16,7 @@ import { useT } from '../translations';
 import { motion } from 'motion/react';
 import PillarCard from '../components/home/PillarCard';
 import IntelligenceTeaser from '../components/IntelligenceTeaser';
+import { guides as fallbackGuides } from '../data/guides';
 
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
   const [topPicks, setTopPicks] = useState<Product[]>([]);
   const [shuffledTopPicks, setShuffledTopPicks] = useState<Product[]>([]);
   const [latestProducts, setLatestProducts] = useState<Product[]>([]);
+  const [guides, setGuides] = useState<PremiumGuide[]>([]);
   const [loading, setLoading] = useState(true);
   const [showingMockData, setShowingMockData] = useState(false);
 
@@ -187,6 +189,8 @@ export default function Home() {
       .slice(0, 8);
     setLatestProducts(mockLatest);
 
+    setGuides(fallbackGuides);
+
     setShowingMockData(true);
     setLoading(false);
   };
@@ -230,9 +234,18 @@ export default function Home() {
 
         if (latestError) throw latestError;
 
+        // Fetch Guides
+        const { data: guidesData, error: guidesError } = await supabase
+          .from('premium_guides')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (guidesError && guidesError.code !== '42P01') throw guidesError;
+
         if (topData || latestData) {
           setTopPicks(topData ? topData.map(mapToProduct) : []);
           setLatestProducts(latestData ? latestData.map(mapToProduct) : []);
+          setGuides(guidesData && guidesData.length > 0 ? guidesData : fallbackGuides);
           setShowingMockData(false);
         }
       } catch (err) {
@@ -511,6 +524,69 @@ export default function Home() {
                 <PillarCard {...pillar} />
               </motion.div>
             ))}
+          </div>
+        </div>
+
+        {/* Premium Guides Teaser Section */}
+        <div className="relative pt-24 pb-20 bg-slate-950 border-t border-slate-800/50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold uppercase tracking-widest mb-4 border border-blue-500/20">
+                <Shield size={14} className="mr-2" />
+                Premium Resources
+              </div>
+              <h2 className="text-4xl md:text-5xl font-display uppercase tracking-tight text-white mb-4">
+                Digital <span className="text-blue-500">Master Guides</span>
+              </h2>
+              <p className="text-slate-400 max-w-2xl mx-auto font-medium">
+                Downloadable, science-backed protocols for fitness, nutrition, and wellness. Instant PDF delivery.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {guides.filter(g => g.featured).slice(0, 3).map(guide => (
+                <Link 
+                  key={guide.id}
+                  to="/premium-guides"
+                  className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden group hover:border-blue-500/50 transition-colors flex flex-col cursor-pointer shadow-xl hover:shadow-blue-900/20"
+                >
+                  <div className="aspect-[4/3] relative overflow-hidden bg-slate-800">
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent z-10" />
+                    <img 
+                      src={guide.image} 
+                      alt={guide.title} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute top-4 left-4 z-20 flex flex-col gap-2">
+                      <span className="px-3 py-1 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-black uppercase tracking-widest rounded-lg border border-slate-700">
+                        {guide.category}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-8 flex flex-col flex-1">
+                    <h3 className="text-xl font-bold text-white mb-3 line-clamp-2 group-hover:text-blue-400 transition-colors">{guide.title}</h3>
+                    <p className="text-sm text-slate-400 mb-6 line-clamp-2 leading-relaxed flex-1">
+                      {(guide as any).shortDescription || guide.short_description}
+                    </p>
+                    <div className="flex items-center justify-between pt-4 border-t border-slate-800 mt-auto">
+                      <span className="text-xl font-black text-white">{(guide as any).priceDisplay || guide.price_display}</span>
+                      <span className="text-xs font-black uppercase tracking-widest text-blue-500 flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                        Details <ArrowRight size={14} />
+                      </span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+            
+            <div className="mt-16 text-center">
+              <Link 
+                to="/premium-guides" 
+                className="inline-flex items-center justify-center px-8 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-black uppercase tracking-widest text-xs transition-colors border border-slate-700 hover:border-slate-600"
+              >
+                View All Premium Guides <ArrowRight size={16} className="ml-2" />
+              </Link>
+            </div>
           </div>
         </div>
 

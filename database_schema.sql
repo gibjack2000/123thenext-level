@@ -37,3 +37,27 @@ ON CONFLICT (category) DO NOTHING;
 -- 4. Enable Realtime for the new automation tables
 ALTER PUBLICATION supabase_realtime ADD TABLE publish_jobs;
 ALTER PUBLICATION supabase_realtime ADD TABLE publish_logs;
+
+-- 5. Premium Digital Guides Table
+CREATE TABLE IF NOT EXISTS premium_guides (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  slug TEXT UNIQUE NOT NULL,
+  title TEXT NOT NULL,
+  category TEXT NOT NULL CHECK (category IN ('Fitness', 'Nutrition', 'Wellness')),
+  short_description TEXT NOT NULL,
+  long_description TEXT NOT NULL,
+  price_display TEXT NOT NULL,
+  stripe_price_id TEXT NOT NULL,
+  image TEXT NOT NULL,
+  file_name TEXT NOT NULL,
+  featured BOOLEAN DEFAULT false,
+  tags TEXT[] DEFAULT '{}',
+  included TEXT[] DEFAULT '{}',
+  audience TEXT NOT NULL,
+  disclaimer TEXT NOT NULL,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Enable Realtime for premium_guides
+ALTER PUBLICATION supabase_realtime ADD TABLE premium_guides;

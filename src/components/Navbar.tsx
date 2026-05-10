@@ -22,6 +22,7 @@ const Navbar = () => {
     { name: t('nav_home'), path: '/', icon: HomeIcon },
     { name: t('nav_pillars'), path: '/#pillars', icon: Zap },
     { name: t('nav_blog'), path: '/#blog', icon: Info },
+    { name: 'Premium PDFs', path: '/premium-guides', icon: Shield },
     { name: 'Intelligence', path: '/intelligence-hub', icon: Shield },
   ];
 

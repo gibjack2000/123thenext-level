@@ -56,3 +56,23 @@ export const mapToProduct = (dbProduct: any): Product => {
     last_checked_at: dbProduct.last_updated
   };
 };
+
+export type PremiumGuide = {
+  id: string;
+  slug: string;
+  title: string;
+  category: 'Fitness' | 'Nutrition' | 'Wellness';
+  short_description: string;
+  long_description: string;
+  price_display: string;
+  stripe_price_id: string;
+  image: string;
+  file_name: string;
+  featured: boolean;
+  tags: string[];
+  included: string[];
+  audience: string;
+  disclaimer: string;
+  created_at?: string;
+  updated_at?: string;
+};

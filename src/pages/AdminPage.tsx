@@ -3,7 +3,7 @@ import { supabase, hasValidSupabaseConfig, supabaseUrl, supabaseAnonKey } from '
 import { affiliateLinks } from '../config/affiliateLinks';
 import { Save, AlertCircle, CheckCircle2, Sparkles, Database, Copy, ExternalLink, ChevronDown, ChevronUp, Shield, Cpu, Trash2, RefreshCw, Search, Tag, MapPin, Star, BookOpen, FileText, Pencil, Eye } from 'lucide-react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { Product, BlogPost, mapToProduct } from '../types';
+import { Product, BlogPost, PremiumGuide, mapToProduct } from '../types';
 
 const REGIONS = ['US', 'UK', 'ES'];
 const PRODUCT_CATEGORIES = ['fitness_gear', 'home_kitchen', 'tech_gadgets', 'supplements', 'performance_testing', 'health_wellness'];
@@ -40,11 +40,11 @@ export default function AdminPage() {
     localStorage.removeItem('admin_authenticated');
   };
 
-  const [activeTab, setActiveTab] = useState<'products' | 'blog' | 'mappings' | 'discovery'>('products');
+  const [activeTab, setActiveTab] = useState<'products' | 'blog' | 'mappings' | 'discovery' | 'guides'>('products');
 
   useEffect(() => {
     const target = localStorage.getItem('admin_target_tab');
-    if (target === 'blog' || target === 'products' || target === 'mappings' || target === 'discovery') {
+    if (target === 'blog' || target === 'products' || target === 'mappings' || target === 'discovery' || target === 'guides') {
       setActiveTab(target as any);
       localStorage.removeItem('admin_target_tab');
     }
@@ -101,6 +101,42 @@ export default function AdminPage() {
   const [stagedMappings, setStagedMappings] = useState<Record<string, string>>({});
   const [fetchingMappings, setFetchingMappings] = useState(false);
   const [isSavingMapping, setIsSavingMapping] = useState<Record<string, boolean>>({});
+
+  // Guides Management State
+  const [guides, setGuides] = useState<PremiumGuide[]>([]);
+  const [fetchingGuides, setFetchingGuides] = useState(false);
+  const [editingGuideId, setEditingGuideId] = useState<string | null>(null);
+  const [guideFormData, setGuideFormData] = useState({
+    slug: '',
+    title: '',
+    category: 'Fitness',
+    short_description: '',
+    long_description: '',
+    price_display: '',
+    stripe_price_id: '',
+    image: '',
+    file_name: '',
+    featured: false,
+    tags: '',
+    included: '',
+    audience: '',
+    disclaimer: '',
+  });
+
+  const fetchGuides = useCallback(async () => {
+    if (!hasValidSupabaseConfig || !supabase) return;
+    setFetchingGuides(true);
+    try {
+      const { data, error } = await supabase.from('premium_guides').select('*').order('created_at', { ascending: false });
+      if (error) {
+        if (error.code !== '42P01') throw error;
+      } else if (data) setGuides(data);
+    } catch (err) {
+      console.error('Error fetching guides:', err);
+    } finally {
+      setFetchingGuides(false);
+    }
+  }, []);
 
   // Discovery State
   const [discoveredLinks, setDiscoveredLinks] = useState<{
@@ -237,8 +273,9 @@ export default function AdminPage() {
       fetchProducts();
       fetchBlogPosts();
       fetchMappings();
+      fetchGuides();
     }
-  }, [isAuthenticated, fetchProducts, fetchBlogPosts, fetchMappings]);
+  }, [isAuthenticated, fetchProducts, fetchBlogPosts, fetchMappings, fetchGuides]);
 
   const [formData, setFormData] = useState({
     region: 'US',
@@ -391,6 +428,88 @@ export default function AdminPage() {
     } catch (err) {
       console.error('Error deleting blog post:', err);
       alert('Failed to delete blog post.');
+    }
+  };
+
+  const handleGuideChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value, type } = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
+    setGuideFormData(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+  };
+
+  const handleEditGuide = useCallback((guide: PremiumGuide) => {
+    setEditingGuideId(guide.id);
+    setGuideFormData({
+      slug: guide.slug || '',
+      title: guide.title || '',
+      category: guide.category || 'Fitness',
+      short_description: guide.short_description || '',
+      long_description: guide.long_description || '',
+      price_display: guide.price_display || '',
+      stripe_price_id: guide.stripe_price_id || '',
+      image: guide.image || '',
+      file_name: guide.file_name || '',
+      featured: guide.featured || false,
+      tags: Array.isArray(guide.tags) ? guide.tags.join(', ') : '',
+      included: Array.isArray(guide.included) ? guide.included.join(', ') : '',
+      audience: guide.audience || '',
+      disclaimer: guide.disclaimer || '',
+    });
+    setActiveTab('guides');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  const handleDeleteGuide = async (id: string) => {
+    if (!supabase || !window.confirm('Are you sure you want to delete this guide?')) return;
+    try {
+      const { error } = await supabase.from('premium_guides').delete().eq('id', id);
+      if (error) throw error;
+      setGuides(prev => prev.filter(g => g.id !== id));
+    } catch (err) {
+      console.error('Error deleting guide:', err);
+      alert('Failed to delete guide.');
+    }
+  };
+
+  const handleGuideSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
+
+    if (!hasValidSupabaseConfig || !supabase) {
+      setError('Cannot save guide in Demo Mode.');
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const data = {
+        ...guideFormData,
+        tags: guideFormData.tags.split(',').map(t => t.trim()).filter(Boolean),
+        included: guideFormData.included.split(',').map(t => t.trim()).filter(Boolean),
+      };
+
+      if (editingGuideId) {
+        const { error } = await supabase.from('premium_guides').update(data).eq('id', editingGuideId);
+        if (error) throw error;
+      } else {
+        const { error } = await supabase.from('premium_guides').insert([data]);
+        if (error) throw error;
+      }
+
+      setSuccess(true);
+      setEditingGuideId(null);
+      setGuideFormData({ slug: '', title: '', category: 'Fitness', short_description: '', long_description: '', price_display: '', stripe_price_id: '', image: '', file_name: '', featured: false, tags: '', included: '', audience: '', disclaimer: '' });
+      fetchGuides();
+    } catch (err: any) {
+      console.error('Error saving guide:', err);
+      setError(err.message || 'Failed to save guide');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -675,6 +794,26 @@ create table blog_posts (
 create table if not exists affiliate_link_mappings (
   key text primary key,
   product_id uuid references amazon_affiliate_products(id)
+);
+
+create table if not exists premium_guides (
+  id uuid primary key default gen_random_uuid(),
+  slug text unique not null,
+  title text not null,
+  category text not null check (category in ('Fitness', 'Nutrition', 'Wellness')),
+  short_description text not null,
+  long_description text not null,
+  price_display text not null,
+  stripe_price_id text not null,
+  image text not null,
+  file_name text not null,
+  featured boolean default false,
+  tags text[] default '{}',
+  included text[] default '{}',
+  audience text not null,
+  disclaimer text not null,
+  created_at timestamp with time zone default now(),
+  updated_at timestamp with time zone default now()
 );`;
     navigator.clipboard.writeText(sqlSchema);
     setCopied(true);
@@ -772,6 +911,7 @@ create table if not exists affiliate_link_mappings (
           {[
             { id: 'products', label: 'Clinical Arsenal', icon: Database },
             { id: 'blog', label: 'Editorial Center', icon: BookOpen },
+            { id: 'guides', label: 'Digital Guides', icon: FileText },
             { id: 'mappings', label: 'Placement Hub', icon: Tag },
             { id: 'discovery', label: 'Deep Scanner', icon: Search }
           ].map(tab => (
@@ -1211,6 +1351,147 @@ create table if not exists affiliate_link_mappings (
               </div>
             </div>
           </div>
+        ) : activeTab === 'guides' ? (
+          <div className="space-y-8">
+            <form onSubmit={handleGuideSubmit} className="bg-white border border-slate-200 rounded-[3rem] p-10 shadow-sm space-y-8">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="bg-indigo-600 p-3 rounded-2xl text-white shadow-lg shadow-indigo-500/20">
+                  <FileText size={24} />
+                </div>
+                <h2 className="text-3xl font-display font-black uppercase tracking-tighter text-slate-900">
+                  {editingGuideId ? 'Edit Digital Guide' : 'New Digital Guide'}
+                </h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Title *</label>
+                  <input required type="text" name="title" value={guideFormData.title} onChange={handleGuideChange} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 font-bold text-slate-900 outline-none" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Slug *</label>
+                  <input required type="text" name="slug" value={guideFormData.slug} onChange={handleGuideChange} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 font-bold text-slate-900 outline-none" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Category *</label>
+                  <select name="category" value={guideFormData.category} onChange={handleGuideChange} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 font-bold text-slate-900 outline-none">
+                    <option value="Fitness">Fitness</option>
+                    <option value="Nutrition">Nutrition</option>
+                    <option value="Wellness">Wellness</option>
+                  </select>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Price Display *</label>
+                  <input required type="text" name="price_display" value={guideFormData.price_display} onChange={handleGuideChange} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 font-bold text-slate-900 outline-none" placeholder="$19.99" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Stripe Price ID *</label>
+                  <input required type="text" name="stripe_price_id" value={guideFormData.stripe_price_id} onChange={handleGuideChange} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 font-bold text-slate-900 outline-none" placeholder="price_1..." />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Cover Image URL *</label>
+                  <input required type="text" name="image" value={guideFormData.image} onChange={handleGuideChange} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 font-bold text-slate-900 outline-none" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">File Name (PDF) *</label>
+                  <input required type="text" name="file_name" value={guideFormData.file_name} onChange={handleGuideChange} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 font-bold text-slate-900 outline-none" />
+                </div>
+                <div className="flex items-center pt-6">
+                  <label className="flex items-center gap-3 cursor-pointer select-none">
+                    <input type="checkbox" name="featured" checked={guideFormData.featured} onChange={handleGuideChange} className="w-5 h-5 rounded-lg border-slate-300 text-indigo-600 focus:ring-indigo-500" />
+                    <span className="text-sm font-bold text-slate-700">Feature on Homepage</span>
+                  </label>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Short Description *</label>
+                <textarea required name="short_description" value={guideFormData.short_description} onChange={handleGuideChange} rows={2} className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 font-bold text-slate-900 outline-none"></textarea>
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Long Description *</label>
+                <textarea required name="long_description" value={guideFormData.long_description} onChange={handleGuideChange} rows={4} className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 font-bold text-slate-900 outline-none"></textarea>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Included Items (CSV)</label>
+                  <input type="text" name="included" value={guideFormData.included} onChange={handleGuideChange} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 font-bold text-slate-900 outline-none" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Tags (CSV)</label>
+                  <input type="text" name="tags" value={guideFormData.tags} onChange={handleGuideChange} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 font-bold text-slate-900 outline-none" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Target Audience</label>
+                  <input type="text" name="audience" value={guideFormData.audience} onChange={handleGuideChange} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 font-bold text-slate-900 outline-none" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Disclaimer</label>
+                  <input type="text" name="disclaimer" value={guideFormData.disclaimer} onChange={handleGuideChange} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 font-bold text-slate-900 outline-none" />
+                </div>
+              </div>
+
+              <div className="flex gap-4 pt-4">
+                <button type="submit" disabled={loading} className="flex-1 bg-slate-900 text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-indigo-600 transition-all shadow-xl shadow-slate-900/10 flex items-center justify-center gap-3">
+                  {loading ? <RefreshCw size={18} className="animate-spin" /> : <Save size={18} />}
+                  {editingGuideId ? 'Update Guide' : 'Publish Guide'}
+                </button>
+                {editingGuideId && (
+                  <button type="button" onClick={() => { setEditingGuideId(null); setGuideFormData({ slug: '', title: '', category: 'Fitness', short_description: '', long_description: '', price_display: '', stripe_price_id: '', image: '', file_name: '', featured: false, tags: '', included: '', audience: '', disclaimer: '' }); }} className="px-10 py-5 bg-slate-100 text-slate-600 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-slate-200 transition-all">Cancel</button>
+                )}
+              </div>
+            </form>
+
+            <div className="bg-white border border-slate-200 rounded-[3rem] overflow-hidden shadow-sm">
+              <div className="p-10 border-b border-slate-100 flex items-center justify-between">
+                <div>
+                  <h3 className="text-2xl font-display font-black uppercase tracking-tight text-slate-900">Guides Archive</h3>
+                </div>
+                <button onClick={fetchGuides} className="bg-slate-100 p-3.5 rounded-2xl text-slate-600 hover:bg-slate-200 transition-all">
+                  <RefreshCw size={20} className={fetchingGuides ? 'animate-spin' : ''} />
+                </button>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-left border-collapse">
+                  <thead>
+                    <tr className="bg-slate-50/50">
+                      <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Guide</th>
+                      <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Price</th>
+                      <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Commands</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-50">
+                    {guides.map(guide => (
+                      <tr key={guide.id} className="group hover:bg-slate-50/80 transition-all">
+                        <td className="px-10 py-6">
+                          <div className="flex items-center gap-5">
+                            <div className="w-16 h-12 rounded-lg bg-slate-100 border border-slate-200 overflow-hidden">
+                              <img src={guide.image} alt="" className="w-full h-full object-cover" />
+                            </div>
+                            <div>
+                              <div className="font-black text-slate-900">{guide.title}</div>
+                              <div className="text-[10px] font-bold text-slate-400 uppercase mt-1">{guide.category}</div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-10 py-6 font-black">{guide.price_display}</td>
+                        <td className="px-10 py-6">
+                          <div className="flex items-center justify-end gap-2">
+                            <button onClick={() => handleEditGuide(guide)} className="p-3 bg-white border border-slate-100 text-slate-400 hover:text-indigo-600 rounded-xl shadow-sm transition-all">
+                              <Pencil size={18} />
+                            </button>
+                            <button onClick={() => handleDeleteGuide(guide.id)} className="p-3 bg-white border border-slate-100 text-slate-400 hover:text-red-600 rounded-xl shadow-sm transition-all">
+                              <Trash2 size={18} />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         ) : (
           <div className="bg-white border border-slate-200 rounded-[3rem] p-10 shadow-sm text-center">
             <div className="bg-blue-50 w-20 h-20 rounded-3xl flex items-center justify-center text-blue-600 mx-auto mb-6">
@@ -1320,6 +1601,26 @@ create table blog_posts (
 create table if not exists affiliate_link_mappings (
   key text primary key,
   product_id uuid references amazon_affiliate_products(id)
+);
+
+create table if not exists premium_guides (
+  id uuid primary key default gen_random_uuid(),
+  slug text unique not null,
+  title text not null,
+  category text not null check (category in ('Fitness', 'Nutrition', 'Wellness')),
+  short_description text not null,
+  long_description text not null,
+  price_display text not null,
+  stripe_price_id text not null,
+  image text not null,
+  file_name text not null,
+  featured boolean default false,
+  tags text[] default '{}',
+  included text[] default '{}',
+  audience text not null,
+  disclaimer text not null,
+  created_at timestamp with time zone default now(),
+  updated_at timestamp with time zone default now()
 );`}
               </pre>
             </div>

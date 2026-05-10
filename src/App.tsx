@@ -65,6 +65,9 @@ import SuperAdminPage from './pages/SuperAdminPage';
 import IntelligenceHub from './pages/IntelligenceHub';
 import BlogPostPage from './pages/BlogPostPage';
 import BlogAutomationAdmin from './pages/BlogAutomationAdmin';
+import PremiumGuides from './pages/premium/PremiumGuides';
+import CheckoutSuccess from './pages/premium/CheckoutSuccess';
+import CheckoutCancel from './pages/premium/CheckoutCancel';
 
 import Navbar from './components/Navbar';
 
@@ -137,6 +140,9 @@ function App() {
             <Route path="/:region/:category" element={<CategoryPage />} />
             <Route path="/region/:region" element={<RegionHub />} />
             <Route path="/category/:category" element={<CategoryPage />} />
+            <Route path="/premium-guides" element={<PremiumGuides />} />
+            <Route path="/premium-guides/success" element={<CheckoutSuccess />} />
+            <Route path="/premium-guides/cancel" element={<CheckoutCancel />} />
           </Routes>
         </main>
 

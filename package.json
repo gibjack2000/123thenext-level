@@ -8,7 +8,6 @@
     "start": "node index.js",
     "server": "node index.js",
     "dev": "concurrently \"vite --port=3000 --host=0.0.0.0\" \"node index.js\"",
-    "dev:all": "npx concurrently \"npm run dev\" \"npm run server\"",
     "build": "vite build",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit"
@@ -29,7 +28,8 @@
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.13.1",
     "tsx": "^4.21.0",
-    "concurrently": "^9.1.0"
+    "concurrently": "^9.1.0",
+    "stripe": "^14.24.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
