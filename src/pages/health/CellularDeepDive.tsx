@@ -102,12 +102,12 @@ export default function CellularDeepDive() {
   };
 
   const glossaryItems = [
-    { tech: 'Autophagy', simple: 'Your cells\' automatic garbage cleanup and recycling system.' },
-    { tech: 'NAD+', simple: 'A natural molecule that acts like fuel to recharge cellular batteries.' },
-    { tech: 'Sirtuins', simple: 'Helper proteins that act like an antivirus to repair DNA and protect cells.' },
-    { tech: 'Senescent Cells', simple: '"Zombie cells" that stop working but don\'t die, causing inflammation.' },
-    { tech: 'Mitochondria', simple: 'The powerhouses inside cells that turn food and air into energy.' },
-    { tech: 'Biogenesis', simple: 'The process of growing new, healthy cellular components (like new powerplants).' }
+    { tech: 'Autophagy', route: 'autophagy', simple: 'Your cells\' automatic garbage cleanup and recycling system.' },
+    { tech: 'NAD+', route: 'nad', simple: 'A natural molecule that acts like fuel to recharge cellular batteries.' },
+    { tech: 'Sirtuins', route: 'sirtuins', simple: 'Helper proteins that act like an antivirus to repair DNA and protect cells.' },
+    { tech: 'Senescent Cells', route: 'senescent', simple: '"Zombie cells" that stop working but don\'t die, causing inflammation.' },
+    { tech: 'Mitochondria', route: 'mitochondria', simple: 'The powerhouses inside cells that turn food and air into energy.' },
+    { tech: 'Biogenesis', route: 'biogenesis', simple: 'The process of growing new, healthy cellular components (like new powerplants).' }
   ];
 
   const handleToggleHabit = (habit: string) => {
@@ -325,20 +325,21 @@ export default function CellularDeepDive() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {glossaryItems.map((item, idx) => (
-              <div
+              <Link
                 key={idx}
-                className="p-8 bg-slate-900/40 border border-white/5 rounded-3xl hover:border-white/10 transition-all flex flex-col justify-between gap-4"
+                to={`/health/cellular/glossary/${item.route}`}
+                className="p-8 bg-slate-900/40 border border-white/5 rounded-3xl hover:border-indigo-500/30 hover:bg-slate-900/60 transition-all flex flex-col justify-between gap-4 group cursor-pointer shadow-md"
               >
                 <div className="flex items-center gap-3">
-                  <Dna size={18} className="text-indigo-400" />
-                  <span className="text-base font-display font-black uppercase text-white tracking-wider">
+                  <Dna size={18} className="text-indigo-400 group-hover:rotate-12 transition-transform duration-300" />
+                  <span className="text-base font-display font-black uppercase text-white tracking-wider group-hover:text-indigo-400 transition-colors">
                     {item.tech}
                   </span>
                 </div>
                 <p className="text-sm text-slate-400 leading-relaxed font-medium">
                   {item.simple}
                 </p>
-              </div>
+              </Link>
             ))}
           </div>
         </section>

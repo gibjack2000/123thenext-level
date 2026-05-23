@@ -51,6 +51,7 @@ import SocialRecovery from './pages/social-fitness/SocialRecovery';
 import PreventiveHealth from './pages/PreventiveHealth';
 import CellularEngineering from './pages/health/CellularEngineering';
 import CellularDeepDive from './pages/health/CellularDeepDive';
+import CellularGlossary from './pages/health/CellularGlossary';
 import SystemicMaintenance from './pages/health/SystemicMaintenance';
 import FitnessFundamentals from './pages/FitnessFundamentals';
 import UniversalLove from './pages/UniversalLove';
@@ -93,6 +94,7 @@ function App() {
               <Route path="/health/post-c" element={<HealthPostC />} />
               <Route path="/health/cellular" element={<CellularEngineering />} />
               <Route path="/health/cellular/deep-dive" element={<CellularDeepDive />} />
+              <Route path="/health/cellular/glossary/:topicId" element={<CellularGlossary />} />
               <Route path="/health/systemic" element={<SystemicMaintenance />} />
               <Route path="/fitness" element={<FitnessPillar />} />
               <Route path="/fitness/fundamentals" element={<FitnessFundamentals />} />
