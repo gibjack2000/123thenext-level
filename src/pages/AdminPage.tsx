@@ -536,12 +536,12 @@ export default function AdminPage() {
         price: parseFloat(formData.price),
         currency: formData.currency,
         rating: parseFloat(formData.rating),
-        is_active: true,
+        is_active: formData.featured,
         tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean),
         last_updated: new Date().toISOString(),
-        featured: formData.featured,
         description: formData.description,
-        short_benefit: formData.short_benefit
+        cta: formData.short_benefit || 'Buy Now',
+        "Amazon tag": "123thenextlevel-20"
       };
 
       if (editingProductId) {
