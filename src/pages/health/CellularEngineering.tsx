@@ -93,6 +93,29 @@ export default function CellularEngineering() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-24 pb-48">
+        {/* Interactive Lab Link Banner */}
+        <div className="mb-20 bg-gradient-to-r from-indigo-950/40 via-blue-950/20 to-slate-900/40 border border-indigo-500/10 rounded-[3rem] p-8 md:p-12 relative overflow-hidden group shadow-2xl">
+          <div className="absolute top-0 right-0 p-8 opacity-[0.05] group-hover:opacity-10 transition-opacity">
+            <Microscope size={120} className="text-indigo-400" />
+          </div>
+          <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+            <div className="space-y-3">
+              <span className="text-indigo-400 font-black uppercase tracking-[0.2em] text-[10px] bg-indigo-500/10 px-4 py-1.5 rounded-full border border-indigo-500/20 font-display inline-block">
+                Interactive Learning Hub
+              </span>
+              <h3 className="text-2xl md:text-3xl font-display font-black uppercase text-white leading-tight">
+                Confused by the scientific jargon?
+              </h3>
+              <p className="text-slate-400 text-sm leading-relaxed max-w-2xl">
+                We have translated Cellular Engineering into simple everyday concepts. Access our interactive Lab Guide to learn how Autophagy, NAD+, and Mitochondria actually work in plain English.
+              </p>
+            </div>
+            <Link to="/health/cellular/deep-dive" className="flex items-center gap-3 px-8 py-5 bg-white text-[#020617] rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-600 hover:text-white transition-all font-display shadow-2xl flex-shrink-0 group-hover:scale-105">
+              Access Plain-English Guide <ArrowRight size={14} />
+            </Link>
+          </div>
+        </div>
+
         {/* The Autophagy Frontier */}
         <section className="mb-40">
           <div className="bg-[#0f172a] p-10 md:p-24 rounded-[4rem] md:rounded-[5rem] border border-white/5 shadow-3xl relative overflow-hidden group">
