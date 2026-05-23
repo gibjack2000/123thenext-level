@@ -13,7 +13,13 @@ const __dirname = dirname(__filename);
 const app = express();
 const port = process.env.PORT || 3001;
 
-app.use(express.json());
+app.use(express.json({
+  verify: (req, res, buf) => {
+    if (req.originalUrl && req.originalUrl.includes('stripe-webhook')) {
+      req.rawBody = buf;
+    }
+  }
+}));
 
 // Resolve absolute paths for the static folder
 // In production (flattened), files are in the root. Locally, they are in 'dist/'.

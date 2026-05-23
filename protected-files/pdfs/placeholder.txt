@@ -1,0 +1,11 @@
+This directory is designated for protected PDF guides. 
+Place your 9 PDF files here. Their filenames must match:
+1. beginner_home_workout_v1.pdf
+2. hypertrophy_protocol_v1.pdf
+3. daily_mobility_v1.pdf
+4. meal_planning_mastery.pdf
+5. fat_loss_blueprint.pdf
+6. high_protein_recipes.pdf
+7. stress_management_toolkit.pdf
+8. sleep_optimization.pdf
+9. habit_reset_workbook.pdf
