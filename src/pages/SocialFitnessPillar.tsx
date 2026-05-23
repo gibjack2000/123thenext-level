@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Users, ArrowLeft, Heart, Zap, ExternalLink, Sun, Music, MessageSquare, MapPin, Smile, Thermometer, Ticket, Shield, Target, Activity, Share2 } from 'lucide-react';
+import { Users, ArrowLeft, ArrowRight, Heart, Zap, ExternalLink, Sun, Music, MessageSquare, MapPin, Smile, Thermometer, Ticket, Shield, Target, Activity, Share2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../translations';

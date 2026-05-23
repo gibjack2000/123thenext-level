@@ -203,7 +203,8 @@ export default function NeurowellnessPillar() {
               {/* Scanline/Noise Overlay */}
               <div className="absolute inset-0 z-10 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] brightness-200"></div>
 
-              <Link to={path.to} className="relative z-20 p-12 flex flex-col h-full justify-end">
+              <Link to={path.to} className="absolute inset-0 z-20 cursor-pointer" />
+              <div className="relative z-10 p-12 flex flex-col h-full justify-end">
                 <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -222,7 +223,7 @@ export default function NeurowellnessPillar() {
                     <p className="text-slate-300 text-lg leading-relaxed mb-10 font-medium line-clamp-3 group-hover:text-white transition-colors">
                       {path.desc}
                     </p>
-                    <div className="pt-8 border-t border-white/10 flex items-center justify-between text-indigo-400 font-black text-[10px] uppercase tracking-widest group-hover:text-white transition-all">
+                    <div className="pt-8 border-t border-white/10 flex items-center justify-between text-indigo-400 font-black text-[10px] uppercase tracking-widest group-hover:text-white transition-all z-30">
                       <span className="flex items-center gap-2">
                         Enter Protocol
                         <motion.span
@@ -238,7 +239,7 @@ export default function NeurowellnessPillar() {
                     </div>
                   </div>
                 </motion.div>
-              </Link>
+              </div>
 
               {/* Hover Border Glow */}
               <div className="absolute inset-0 border border-white/5 group-hover:border-white/20 rounded-[3.5rem] transition-colors pointer-events-none"></div>

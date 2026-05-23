@@ -125,13 +125,16 @@ export default function NeurowellnessMetabolism() {
               </p>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <div className="space-y-4">
-                  <h4 className="text-emerald-400 font-black uppercase tracking-widest text-xs italic">Irisin Activation</h4>
-                  <p className="text-slate-500 text-sm leading-relaxed font-medium">A molecular bridge signaling the brain that the physical body is demanding higher cognitive resource allocation.</p>
-                </div>
-                <div className="space-y-4">
-                  <h4 className="text-emerald-400 font-black uppercase tracking-widest text-xs italic">BDNF Expansion</h4>
-                  <p className="text-slate-500 text-sm leading-relaxed font-medium">Commonly called "Fertilizer for the Brain," supporting memory consolidation and hippocampal volume.</p>
+                <Link to="/neurowellness/muscle-brain-axis" className="p-6 bg-white/5 rounded-3xl border border-white/10 hover:border-emerald-500/50 hover:bg-emerald-950/20 transition-all group/sub block relative">
+                  <h4 className="text-emerald-400 font-black uppercase tracking-widest text-xs italic mb-2 flex items-center gap-2">
+                    Irisin Activation
+                    <ArrowRight size={14} className="group-hover/sub:translate-x-1 transition-transform" />
+                  </h4>
+                  <p className="text-slate-400 text-xs leading-relaxed font-medium">A molecular bridge signaling the brain that the body demands higher cognitive resource. <span className="text-emerald-400 underline block mt-2 font-bold">Read Deep Dive &rarr;</span></p>
+                </Link>
+                <div className="p-6 bg-white/5 rounded-3xl border border-white/10">
+                  <h4 className="text-emerald-400 font-black uppercase tracking-widest text-xs italic mb-2">BDNF Expansion</h4>
+                  <p className="text-slate-500 text-xs leading-relaxed font-medium">Commonly called "Fertilizer for the Brain," supporting memory consolidation and hippocampal volume.</p>
                 </div>
               </div>
             </div>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Globe2, MapPin, ShoppingBag, ArrowRight, Heart, Dumbbell, Apple, Sparkles, BookOpen, Shield, UserCheck, Wind, HeartPulse, ExternalLink, Compass, Microscope, Users } from 'lucide-react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { Product, mapToProduct, PremiumGuide } from '../types';
@@ -81,6 +81,18 @@ export default function Home() {
     drawInitial(canvas3Ref.current, firstImg3);
   }, []);
 
+  const location = useLocation();
+  useEffect(() => {
+    // Scroll to hash on route change
+    if (window.location.hash) {
+      const id = window.location.hash.replace('#', '');
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location]);
+  // Existing effect for canvas animation
   useEffect(() => {
     const handleScroll = () => {
       requestAnimationFrame(() => {
@@ -432,7 +444,7 @@ export default function Home() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-center mb-24"
           >
-            <h2 className="text-5xl md:text-7xl font-display uppercase tracking-[0.02em] text-white mb-6 leading-[1.15]">
+            <h2 id="six-core-optimization" className="text-5xl md:text-7xl font-display uppercase tracking-[0.02em] text-white mb-6 leading-[1.15]">
               The Six Core <br /><span className="text-blue-500">Optimization Protocols</span>
             </h2>
             <div className="h-1.5 w-24 bg-blue-600 mx-auto rounded-full mb-8"></div>

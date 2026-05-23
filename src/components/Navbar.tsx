@@ -20,9 +20,9 @@ const Navbar = () => {
 
   const navLinks = [
     { name: t('nav_home'), path: '/', icon: HomeIcon },
-    { name: t('nav_pillars'), path: '/#pillars', icon: Zap },
+    { name: t('nav_pillars'), path: '/#six-core-optimization', icon: Zap },
     { name: t('nav_blog'), path: '/#blog', icon: Info },
-    { name: 'Premium PDFs', path: '/premium-guides', icon: Shield },
+    { name: 'Premium Guides', path: '/premium-guides', icon: Shield },
     { name: 'Intelligence', path: '/intelligence-hub', icon: Shield },
   ];
 
@@ -52,13 +52,23 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
             {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.path}
-                className="px-5 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors"
-              >
-                {link.name}
-              </a>
+              link.path.startsWith('#') ? (
+                <a
+                  key={link.name}
+                  href={link.path}
+                  className="px-5 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors"
+                >
+                  {link.name}
+                </a>
+              ) : (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className="px-5 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors"
+                >
+                  {link.name}
+                </Link>
+              )
             ))}
             
             <div className="h-4 w-px bg-white/10 mx-4"></div>
@@ -86,9 +96,9 @@ const Navbar = () => {
         <div className="flex flex-col h-full pt-24 px-6">
           <div className="space-y-4">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.path}
+                to={link.path}
                 onClick={() => setIsOpen(false)}
                 className="flex items-center justify-between p-6 bg-white/5 rounded-3xl border border-white/5 hover:bg-blue-600 transition-all"
               >
@@ -99,12 +109,12 @@ const Navbar = () => {
                   <span className="text-xl font-display font-black uppercase tracking-tight text-white">{link.name}</span>
                 </div>
                 <ChevronRight size={20} className="text-slate-600" />
-              </a>
+              </Link>
             ))}
           </div>
           
           <div className="mt-auto pb-12">
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-600 mb-6 text-center">Global Market Access</p>
+            <h2 className="text-5xl md:text-7xl font-display uppercase tracking-[0.02em] text-white mb-6 leading-[1.15]">Global Market Access</h2>
             <div className="flex justify-center">
                <MarketSelector className="bg-white/5 p-4 rounded-3xl border border-white/5" />
             </div>

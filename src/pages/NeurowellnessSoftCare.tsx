@@ -46,13 +46,15 @@ export default function NeurowellnessSoftCare() {
       title: "Physiological Sigh", 
       desc: "The fastest endogenous method to offload CO2 and reset the neural alarm system. Double inhale followed by a long, extended exhale.", 
       icon: Wind,
-      tag: "Rapid Offload"
+      tag: "Rapid Offload",
+      link: "/neurowellness/breathwork"
     },
     { 
       title: "Box Breathing", 
       desc: "Tactical breathwork used by elite operators to decouple the stress response from cognitive execution. 4-4-4-4 ratio.", 
       icon: Shield,
-      tag: "Tactical Calm"
+      tag: "Tactical Calm",
+      link: "/neurowellness/breathwork"
     },
     { 
       title: "Proprioceptive Sync", 
@@ -134,19 +136,27 @@ export default function NeurowellnessSoftCare() {
              <motion.div 
                key={tech.title}
                whileHover={{ y: -15 }}
-               className="bg-slate-900/50 backdrop-blur-3xl p-12 rounded-[4rem] border border-white/5 relative group shadow-2xl overflow-hidden"
+               className="bg-slate-900/50 backdrop-blur-3xl p-12 rounded-[4rem] border border-white/5 relative group shadow-2xl overflow-hidden flex flex-col justify-between"
              >
-                <div className="absolute top-0 right-0 w-32 h-32 bg-violet-500/5 blur-3xl rounded-full translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-700"></div>
-                <div className="w-20 h-20 rounded-3xl bg-violet-500/10 flex items-center justify-center text-violet-400 mb-10 group-hover:scale-110 group-hover:bg-violet-600 group-hover:text-white transition-all duration-500 border border-violet-500/20">
-                  <tech.icon size={36} />
-                </div>
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-violet-500 mb-4 block">{tech.tag}</span>
-                <h3 className="text-3xl font-display font-black uppercase tracking-tight text-white mb-6 leading-none">
-                  {tech.title}
-                </h3>
-                <p className="text-slate-400 text-lg leading-relaxed font-medium">
-                  {tech.desc}
-                </p>
+               {tech.link && <Link to={tech.link} className="absolute inset-0 z-20 cursor-pointer" />}
+               <div className="absolute top-0 right-0 w-32 h-32 bg-violet-500/5 blur-3xl rounded-full translate-x-16 -translate-y-16 group-hover:scale-150 transition-transform duration-700"></div>
+               <div className="relative z-10 flex flex-col h-full justify-between">
+                 <div>
+                   <div className="w-20 h-20 rounded-3xl bg-violet-500/10 flex items-center justify-center text-violet-400 mb-10 group-hover:scale-110 group-hover:bg-violet-600 group-hover:text-white transition-all duration-500 border border-violet-500/20">
+                     <tech.icon size={36} />
+                   </div>
+                   <span className="text-[10px] font-black uppercase tracking-[0.3em] text-violet-500 mb-4 block">{tech.tag}</span>
+                   <h3 className="text-3xl font-display font-black uppercase tracking-tight text-white mb-6 leading-none">
+                     {tech.title}
+                   </h3>
+                   <p className="text-slate-400 text-lg leading-relaxed font-medium mb-6">
+                     {tech.desc}
+                   </p>
+                 </div>
+                 {tech.link && (
+                   <span className="text-violet-400 font-bold text-xs underline mt-auto block">Read Deep Dive &rarr;</span>
+                 )}
+               </div>
              </motion.div>
            ))}
         </div>

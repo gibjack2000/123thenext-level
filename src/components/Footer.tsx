@@ -69,6 +69,12 @@ const Footer = () => {
                   Intelligence Hub
                 </Link>
               </li>
+              <li>
+                <Link to="/glossary" className="text-slate-400 hover:text-indigo-400 font-semibold transition-colors duration-200 flex items-center group">
+                  <span className="w-0 group-hover:w-2 h-0.5 bg-indigo-500 mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                  Jargon Buster (Glossary)
+                </Link>
+              </li>
             </ul>
           </div>
 

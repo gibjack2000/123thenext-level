@@ -172,6 +172,7 @@ export default function FitnessPillar() {
               whileHover={{ y: -10 }}
               className="bg-slate-900/50 backdrop-blur-3xl p-12 rounded-[3.5rem] border border-white/5 flex flex-col justify-between group overflow-hidden relative shadow-2xl h-full"
             >
+              <Link to={card.link} className="absolute inset-0 z-20 cursor-pointer" />
               <div className="relative z-10">
                 <div className={`w-16 h-16 bg-white/5 rounded-3xl flex items-center justify-center ${card.color} mb-10 border border-white/10 group-hover:scale-110 transition-transform duration-500`}>
                   {card.icon}
@@ -183,9 +184,9 @@ export default function FitnessPillar() {
                   {card.desc}
                 </p>
               </div>
-              <Link to={card.link} className={`flex items-center gap-3 ${card.color} font-bold text-[10px] uppercase tracking-[0.2em] border-t border-white/5 pt-10 group/link`}>
+              <div className={`flex items-center gap-3 ${card.color} font-bold text-[10px] uppercase tracking-[0.2em] border-t border-white/5 pt-10 group/link z-10`}>
                 Protocol Archive <ExternalLink size={14} className="group-hover/link:translate-x-1 transition-transform" />
-              </Link>
+              </div>
             </motion.div>
           ))}
         </div>

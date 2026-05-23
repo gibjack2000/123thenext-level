@@ -28,11 +28,28 @@ export default defineConfig(({mode}) => {
       }
     },
     build: {
-      chunkSizeWarningLimit: 1000,
+      chunkSizeWarningLimit: 1500,
       rollupOptions: {
         output: {
           manualChunks(id) {
             if (id.includes('node_modules')) {
+              // Split React core into its own chunk
+              if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+                return 'react-vendor';
+              }
+              // Split Framer Motion (heavy animation library)
+              if (id.includes('framer-motion')) {
+                return 'framer-motion';
+              }
+              // Split Lucide icons
+              if (id.includes('lucide-react')) {
+                return 'lucide';
+              }
+              // Split Supabase
+              if (id.includes('@supabase')) {
+                return 'supabase';
+              }
+              // Everything else in node_modules goes to vendor
               return 'vendor';
             }
           },

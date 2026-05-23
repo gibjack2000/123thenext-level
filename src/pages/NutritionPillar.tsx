@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Apple, ArrowLeft, Droplets, Zap, Shield, ExternalLink, Activity, Brain, BarChart3, FlaskConical, Database, Microscope, Search, Dna, Target, Gauge } from 'lucide-react';
+import { Apple, ArrowLeft, ArrowRight, Droplets, Zap, Shield, ExternalLink, Activity, Brain, BarChart3, FlaskConical, Database, Microscope, Search, Dna, Target, Gauge } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../translations';
@@ -205,6 +205,74 @@ export default function NutritionPillar() {
             </div>
           </motion.div>
         </div>
+
+        {/* Pathway Links Section */}
+        <section className="mb-40">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 px-4">
+            <div className="space-y-4">
+              <span className="text-emerald-500 font-black uppercase tracking-[0.3em] text-xs font-display">Specialized Protocols</span>
+              <h2 className="text-5xl md:text-7xl font-display font-black uppercase tracking-tight text-white leading-none">
+                Metabolic Pathways
+              </h2>
+            </div>
+            <p className="text-slate-500 font-bold uppercase tracking-widest text-xs border-b border-emerald-500/20 pb-4">
+              Detailed Clinical Guides & Intervention Frameworks
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                title: t('np_path_a_title'), // GLP-1 Optimization Suite
+                desc: t('np_path_a_desc'), // Managing Muscle Loss, GI Integrity, and Hormonal Resilience...
+                path: "/nutrition/glp1",
+                label: "Enter GLP-1 Suite",
+                icon: <Activity size={32} className="text-emerald-400" />
+              },
+              {
+                title: t('np_path_b_title'), // The Muscle-Brain Axis
+                desc: t('np_path_b_desc'), // Harnessing the signaling power of Myokines...
+                path: "/nutrition/muscle-brain",
+                label: "Enter Signaling Hub",
+                icon: <Brain size={32} className="text-teal-400" />
+              },
+              {
+                title: t('np_path_c_title'), // Biomarker Precision Lab
+                desc: t('np_path_c_desc'), // Real-Time Bio-Data: CGM, HRV, and HOMA-IR...
+                path: "/nutrition/biomarkers",
+                label: "Enter Biomarker Lab",
+                icon: <Microscope size={32} className="text-emerald-400" />
+              }
+            ].map((pathway, idx) => (
+              <motion.div
+                key={idx}
+                whileHover={{ y: -10 }}
+                className="bg-slate-900/50 backdrop-blur-3xl p-10 rounded-[3.5rem] border border-white/5 flex flex-col justify-between group overflow-hidden relative shadow-2xl h-full"
+              >
+                <Link to={pathway.path} className="absolute inset-0 z-20 cursor-pointer" />
+                <div className="absolute top-0 right-0 w-48 h-48 bg-emerald-600/5 blur-[80px] -mr-24 -mt-24"></div>
+                <div className="relative z-10 space-y-8">
+                  <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 group-hover:scale-115 transition-transform duration-500">
+                    {pathway.icon}
+                  </div>
+                  <div className="space-y-4">
+                    <h3 className="text-2xl font-display font-black uppercase tracking-tight text-white leading-tight">
+                      {pathway.title}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed font-medium">
+                      {pathway.desc}
+                    </p>
+                  </div>
+                </div>
+                <div className="pt-10 mt-auto border-t border-white/5 z-10">
+                  <div className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-400 group-hover:text-white transition-colors font-display">
+                    {pathway.label} <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
 
         {/* Blueprint Section */}
         <section className="mb-40">

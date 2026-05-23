@@ -7,7 +7,7 @@ import { BlogPost } from '../types';
 import { MOCK_BLOG_POSTS } from '../data/mockBlogPosts';
 
 interface BlogSectionProps {
-  category?: 'health' | 'fitness' | 'nutrition' | 'wellness';
+  category?: 'health' | 'fitness' | 'nutrition' | 'wellness' | 'social-fitness' | 'womens-health';
   limit?: number;
   title?: string;
   subtitle?: string;
