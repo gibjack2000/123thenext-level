@@ -28,18 +28,18 @@ const translations = {
     hero_badge: 'Unlock Your Potential',
     hero_title1: 'Push Your Limits.',
     hero_title2: 'Reach the Next Level.',
-    hero_subtitle: "Greatness isn't given—it's earned through sweat, discipline, and the right strategy. We provide the blueprint and the tools to elevate your health, fitness, and mindset.",
+    hero_subtitle: "Greatness is built through daily habits and the right strategy. We provide a simple, step-by-step plan to improve your health, fitness, and mindset.",
     hero_cta1: 'Level Up Today',
     hero_cta2: 'Explore the Blueprint',
     hero_quote1: '"The best time to start was yesterday.',
     hero_quote2: 'The second best time is now."',
 
     // Extended Hero Block (2026 Strategy)
-    hero_block_title: 'Precision Bio-Optimization:',
-    hero_block_subtitle: 'The CEO of Your Own Biology',
-    hero_block_p1: "Health is no longer a static destination; it is a high-resolution pursuit of Healthspan and Functional Longevity. We move beyond 'wellness' into the realm of technical precision.",
-    hero_block_p2: "Modern clinical data confirms that 80% to 90% of your aging pace is under Epigenetic Control. By leveraging real-time bio-data and life-stage specific protocols, you can quiet biological noise and maximize systemic resilience.",
-    hero_block_p3: "Our Six-Pillar Framework provides the objective roadmap to autonomic homeostasis. From the Ovary-Span architecture to Metabolic Precision, we provide the granularity required for the 2026 standard of care.",
+    hero_block_title: 'Taking Control of Your Body:',
+    hero_block_subtitle: 'Manage Your Health Like a Pro',
+    hero_block_p1: "Good health is about keeping your body strong, active, and independent as you age. We focus on real, practical steps to help you live a longer, healthier life (Healthspan).",
+    hero_block_p2: "Science shows that 80% to 90% of how quickly you age depends on your lifestyle (Epigenetics). By using personal health data and simple daily habits, you can protect your body and stay strong.",
+    hero_block_p3: "Our Six-Pillar plan gives you a clear map to balance your body and mind. From hormonal health to blood sugar balance, we show you exactly what to do to reach your goals.",
     hero_keys_title: 'The Scientific Architecture of You',
 
     // Pillars
@@ -277,22 +277,22 @@ const translations = {
     lk_humanity_title: 'A Shared Humanity',
     lk_humanity_p: 'As with all these Teachings, you can gradually train the mind to move in this direction. The practice of Metta reminds us that every being wants to be happy and free from suffering. By recognizing this shared desire, we develop the "Universal Love" that leads to Enlightenment.',
     lk_note_title: 'Enlightenment Requirement',
-    lk_note_p: 'Breathing Mindfulness and Loving-kindness are the two meditations required to attain Enlightenment. They are the essential tools to destroy discontentedness and find lasting peace.',
+lp_note_p: 'Breathing Mindfulness and Loving-kindness are the two meditations required to attain Enlightenment. They are the essential tools to destroy discontentedness and find lasting peace.',
 
     // Healthspan & Longevity Pillar (2026 Standard)
     hp_back: 'Back to Blueprint',
     hp_title: 'Healthspan',
     hp_subtitle: '& Longevity',
-    hp_desc: 'Transitioning from reactive care to proactive biological optimization. Preserving functional lifespan through data-driven protocols.',
+    hp_desc: 'Don\'t wait until you get sick to take care of yourself. Learn how to track your health data and start building a longer, healthier life today.',
     hp_top_posts: 'Top Longevity Insights',
     hp_latest_posts: 'Latest Research',
 
     // New 2026 Content Sections
-    hp_shift_title: 'The Proactive Shift: Optimization Over Repair',
-    hp_shift_desc: 'Moving beyond "fixing" health issues to optimizing your biology decades in advance. We leverage high-resolution bio-data and specialized testing to preserve function before decline begins.',
+    hp_shift_title: 'The Proactive Shift: Prevention Over Repair',
+    hp_shift_desc: 'Don\'t just fix health problems—prevent them. We use simple at-home tests and your own health data to help you stay strong and active before any decline starts.',
     
     hp_skin_title: 'Skin Longevity vs. Anti-Aging',
-    hp_skin_desc: 'While "Anti-Aging" focuses on masking the passage of time, Skin Longevity addresses the underlying biology. We focus on preserving the skin\'s functional lifespan by targeting cellular senescence and mitochondrial health.',
+    hp_skin_desc: 'Instead of just hiding wrinkles, we focus on keeping your skin cells healthy and full of energy from the inside out (Skin Longevity).',
     hp_skin_detail: 'The 2026 standard moves away from surface-level aesthetics toward functional aging. By supporting your skin\'s biological integrity, you capture the benefits of youthful appearance as a side effect of systemic health.',
 
     hp_how_title: 'Measure Your Pace: Epigenetic Clocks',
@@ -345,7 +345,7 @@ const translations = {
     hpa_tool2_title: 'Mouth Tape for Nasal Breathing:',
     hpa_tool2_link: 'Gentle Sleep Tape on Amazon',
     hpa_tool2_desc: 'For those who struggle with mouth breathing, which can cause dryness and disrupted rest, mouth taping can encourage beneficial nasal breathing.',
-    hpa_conclusion_title: 'Conclusion: The Consistency Rule',
+    hpa_conclusion_title: 'Conclusion',
     hpa_conclusion_p: 'The most powerful tool in your arsenal is regularity. Going to bed and waking up at the same time every day—even on weekends—strengthens your circadian rhythm and ensures your body knows exactly when to trigger the sleep process. By treating sleep as a biological non-negotiable rather than a luxury, you provide your brain and body with the foundation they need for peak performance and long-term health.',
 
     // Health Post B - Understanding Immune System
@@ -398,13 +398,13 @@ const translations = {
     fp_back: 'Back to Blueprint',
     fp_title: 'Performance',
     fp_subtitle: '& Bio-Data',
-    fp_desc: 'Optimizing human potential through biomechanical precision and real-time biometric feedback. Training for the long-game.',
+    fp_desc: 'Improve your workouts using simple heart rate and recovery data. Build strength and flexibility that keeps you moving easily for a lifetime.',
     fp_top_posts: 'Top Performance Insights',
     fp_latest_posts: 'Latest Data',
 
     // New 2026 Content Sections
     fp_wearables_title: 'The Bio-Data Loop: Wearable Optimization',
-    fp_wearables_desc: 'Moving beyond step counting to real-time physiologic monitoring. Leveraging HRV, glucose levels, and recovery scores to dictate training intensity.',
+    fp_wearables_desc: 'Go beyond counting steps. Use your sleep quality, heart rate (HRV), and energy levels to decide how hard to workout each day.',
     
     fp_strength_title: 'Longevity-First Strength Training',
     fp_strength_desc: 'Focusing on bone density, fast-twitch fiber preservation, and structural integrity. Building a body that performs at 40, 60, and 80.',
@@ -523,11 +523,11 @@ const translations = {
     np_back: 'Back to Blueprint',
     np_title_start: 'Metabolic',
     np_title_end: 'Nutrition',
-    np_description: 'Precision biological fueling for the 2026 standard of care. Transitioning from "Calorie Counting" to "Metabolic Intelligence."',
+    np_description: 'Learn to fuel your body with intelligence. Move beyond simple calorie counting to understand how food controls your energy and metabolism.',
     
     // Hub Narrative
     np_hub_narrative_title: 'Nutrigenomics: Nutrition as Information',
-    np_hub_narrative_p: 'In 2026, we view every calorie as a data point. Functional fueling is the art of using specific macronutrient ratios and phytonutrients to modulate epigenetic expression, silencing pro-aging genes while activating longevity pathways like SIRT1 and AMPK. Our objective is transition from "Willpower" to "Metabolic Intelligence."',
+    np_hub_narrative_p: 'Think of food as instructions for your body. The right meals turn on healthy genes and block aging pathways. Our goal is to make healthy eating easy by giving your body exactly what it needs.',
     
     np_metabolic_health_title: 'The 6.8% Absolute Reality',
     np_metabolic_health_p: 'Clinical screenings in the 2024-2026 window confirm that only 6.8% of adults are metabolically flexible. We define clinical health by your ability to clear glucose without excessive insulin spikes. Our protocols restore Autonomic Homeostasis through proactive monitoring.',
@@ -736,13 +736,13 @@ const translations = {
     wp_back: 'Back to Blueprint',
     wp_title_start: 'Neuro-',
     wp_title_end: 'Wellness',
-    wp_description: 'Mastering the neuro-recovery protocols that define 2026 cognitive longevity. Precision autonomic homeostasis.',
+    wp_description: 'Learn to manage stress and protect your brain health. Discover simple recovery habits that bring balance back to your mind and body.',
     wp_top_posts: 'Neural Optimization Intelligence',
     wp_latest_posts: 'Latest Intelligence Feed',
 
     // Mastery Hub Sections
     wp_hub_narrative_title: 'Autonomic Homeostasis: Beyond Willpower',
-    wp_hub_narrative_p: 'Mental health in 2026 is no longer a question of "willpower" but of biological regulation. The primary bottleneck to vitality is nervous system overload—a state where biological noise drowns out the signals of recovery. Our objective is to move from subjective feelings to objective regulation.',
+    wp_hub_narrative_p: 'Mental health isn\'t just about willpower; it is about balancing your nervous system. When you are constantly stressed, your body cannot recover. We help you calm the alarm system so your body can heal.',
     wp_hub_deepening: 'For over a decade, the fitness industry sold stress management as a luxury add-on. The medical community now recognizes chronic autonomic overload as a root cause of metabolic dysfunction, cognitive decline, and systemic inflammation. When your body perceives threat, it downshunts repair, growth, and immune prioritization—and you cannot supplement your way out of a nervous system crisis.',
 
     wp_polyvagal_title: 'The Polyvagal Paradigm',
