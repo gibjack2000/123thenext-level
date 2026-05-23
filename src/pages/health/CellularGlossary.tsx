@@ -14,6 +14,9 @@ interface TopicData {
   stepMechanics: string[];
   lifestyleTriggers: string[];
   clinicalSignificance: string;
+  everydaySymptoms: string;
+  simpleRule: string;
+  mythVsFact: { myth: string; fact: string };
   renderInfographic: () => React.ReactNode;
 }
 
@@ -58,37 +61,37 @@ export default function CellularGlossary() {
         'Spermidine-Rich Foods: Green peas, aged cheese, and mushrooms contain spermidine, a natural autophagy helper.'
       ],
       clinicalSignificance: 'Maintaining high levels of autophagy helps clear out the biological waste associated with cognitive decline, cardiovascular disease, and cellular aging.',
+      everydaySymptoms: 'You experience sluggish muscle recovery after workouts, persistent fatigue, afternoon brain fog, and your skin looks dull or takes longer to heal from small blemishes.',
+      simpleRule: 'Give your cells a break from digesting. Aim for a 16-hour fasting window 2–3 times a week to force your body to clean out its cellular clutter.',
+      mythVsFact: {
+        myth: 'You must starve yourself for several days to start autophagy.',
+        fact: 'While deep, multi-day fasts increase it, short fasts combined with morning cardio or high-intensity exercise are highly effective at triggering cellular cleanup.'
+      },
       renderInfographic: () => (
         <svg viewBox="0 0 400 400" className="w-full h-full max-w-[320px] mx-auto">
-          {/* Outer cell container */}
           <rect x="10" y="10" width="380" height="380" rx="40" fill="rgba(99, 102, 241, 0.03)" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="2" />
           
-          {/* Autophagosome Bubble (Recycling Bag) */}
           <motion.g
             animate={{ scale: [1, 1.05, 1] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
           >
             <circle cx="150" cy="180" r="50" fill="none" stroke="#6366f1" strokeWidth="3" strokeDasharray="6 4" />
             <circle cx="150" cy="180" r="44" fill="rgba(99, 102, 241, 0.1)" />
-            {/* Damaged cell trash inside */}
             <path d="M140,170 L160,190 M160,170 L140,190" stroke="#f43f5e" strokeWidth="3" strokeLinecap="round" />
             <circle cx="145" cy="185" r="4" fill="#f43f5e" />
           </motion.g>
 
-          {/* Lysosome (Enzyme Bag) */}
           <motion.g
             animate={{ x: [0, 40, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           >
             <circle cx="270" cy="180" r="35" fill="none" stroke="#10b981" strokeWidth="3" />
             <circle cx="270" cy="180" r="30" fill="rgba(16, 185, 129, 0.1)" />
-            {/* Digestive dots */}
             <circle cx="260" cy="175" r="2" fill="#10b981" />
             <circle cx="275" cy="170" r="2" fill="#10b981" />
             <circle cx="270" cy="190" r="2" fill="#10b981" />
           </motion.g>
 
-          {/* Fusion path indicator */}
           <path d="M195,180 L230,180" stroke="rgba(255, 255, 255, 0.2)" strokeWidth="2" strokeDasharray="3 3" />
           <polygon points="225,175 235,180 225,185" fill="rgba(255, 255, 255, 0.2)" />
           
@@ -114,15 +117,19 @@ export default function CellularGlossary() {
         'Precursor Supplementation: High-quality NMN or NR intake directly boosts dwindling NAD+ levels.'
       ],
       clinicalSignificance: 'Declining NAD+ levels are directly associated with physical fatigue, decreased cardiovascular capacity, and cellular damage accumulation.',
+      everydaySymptoms: 'You wake up tired even after a full night\'s sleep, experience a sudden drop in daily stamina, and notice your metabolism slowing down (putting on weight more easily).',
+      simpleRule: 'Focus on recharging the cellular battery. Support your natural energy levels with hot/cold therapy, strict sleep schedules, and targeted precursors.',
+      mythVsFact: {
+        myth: 'Taking pure NAD+ pills is the fastest way to increase cellular energy.',
+        fact: 'Pure NAD+ molecules are too large to get past cell walls easily. Taking smaller precursor building blocks like NMN or NR allows cells to easily absorb and convert them into active power.'
+      },
       renderInfographic: () => (
         <svg viewBox="0 0 400 400" className="w-full h-full max-w-[320px] mx-auto">
           <rect x="10" y="10" width="380" height="380" rx="40" fill="rgba(245, 158, 11, 0.03)" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="2" />
           
-          {/* Battery Outer Outline */}
           <rect x="130" y="100" width="140" height="200" rx="20" fill="none" stroke="#f59e0b" strokeWidth="4" />
           <rect x="175" y="80" width="50" height="20" rx="5" fill="#f59e0b" />
           
-          {/* Charging blocks */}
           <motion.rect
             x="145" y="250" width="110" height="35" rx="5" fill="#ef4444"
             animate={{ opacity: [0.3, 1, 0.3] }}
@@ -139,7 +146,6 @@ export default function CellularGlossary() {
             transition={{ duration: 2, delay: 1, repeat: Infinity }}
           />
           
-          {/* Lightning Bolt */}
           <motion.path
             d="M200,140 L185,190 L205,190 L195,240 L215,180 L195,180 Z"
             fill="#f59e0b"
@@ -169,20 +175,21 @@ export default function CellularGlossary() {
         'Thermal Exposure: Sauna use triggers cellular heat-shock proteins that assist sirtuin functionality.'
       ],
       clinicalSignificance: 'Active sirtuins suppress inflammation, regulate healthy metabolism, and safeguard DNA integrity from age-related degradation.',
+      everydaySymptoms: 'You experience poor sleep patterns, high sensitivity to environmental stressors (like temperature or noise), and find it harder to maintain a stable mood and energy level throughout the day.',
+      simpleRule: 'Keep your DNA repair crew well-funded. Sirtuins require NAD+ to activate, so raising your energy cofactors is step one to genome protection.',
+      mythVsFact: {
+        myth: 'Drinking a glass of red wine provides enough resveratrol to activate sirtuins.',
+        fact: 'The dose of resveratrol in red wine is tiny. You would need to drink over 100 bottles a day to get a clinical dose. Use clean dietary extracts or supplements instead.'
+      },
       renderInfographic: () => (
         <svg viewBox="0 0 400 400" className="w-full h-full max-w-[320px] mx-auto">
           <rect x="10" y="10" width="380" height="380" rx="40" fill="rgba(99, 102, 241, 0.03)" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="2" />
           
-          {/* DNA Strands */}
           <g>
-            {/* Wave 1 */}
             <path d="M80,200 Q140,120 200,200 T320,200" fill="none" stroke="rgba(99, 102, 241, 0.3)" strokeWidth="4" />
-            {/* Wave 2 */}
             <path d="M80,200 Q140,280 200,200 T320,200" fill="none" stroke="rgba(99, 102, 241, 0.3)" strokeWidth="4" />
             
-            {/* Connecting bars */}
             {[105, 130, 155, 180, 220, 245, 270, 295].map((x) => {
-              // Calculate y positions for waves
               const wave1Y = 200 + Math.sin((x - 80) * (Math.PI / 120)) * 80;
               const wave2Y = 200 - Math.sin((x - 80) * (Math.PI / 120)) * 80;
               return (
@@ -190,12 +197,10 @@ export default function CellularGlossary() {
               );
             })}
 
-            {/* Damaged Area */}
             <circle cx="200" cy="200" r="12" fill="#ef4444" opacity="0.3" />
             <line x1="200" y1="160" x2="200" y2="240" stroke="#ef4444" strokeWidth="3" strokeDasharray="3 3" />
           </g>
 
-          {/* Sirtuin Shield (Antivirus Guard) */}
           <motion.g
             animate={{ y: [-15, 10, -15], scale: [0.95, 1.05, 0.95] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -226,21 +231,24 @@ export default function CellularGlossary() {
         'Caloric Fasting: Deprives zombie cells of energy resources, triggering programmed cell death.'
       ],
       clinicalSignificance: 'Accumulated zombie cells drive chronic systemic inflammation (inflammaging), which stiffens arteries and degrades joints.',
+      everydaySymptoms: 'Unexplained joint stiffness, dull chronic aches, slow recovery from minor injuries, and a constant, low-level feeling of inflammation or heat in your body.',
+      simpleRule: 'Flush out the biological weeds before they choke the garden. Use targeted plant antioxidants (senolytics) and sweating to sweep zombie cells away.',
+      mythVsFact: {
+        myth: 'All cellular damage must be stopped immediately to stay young.',
+        fact: 'Temporary stress is actually beneficial—it builds cell resilience. Senescent cells only become a problem when they fail to trigger their own death, lingering and causing chronic inflammation.'
+      },
       renderInfographic: () => (
         <svg viewBox="0 0 400 400" className="w-full h-full max-w-[320px] mx-auto">
           <rect x="10" y="10" width="380" height="380" rx="40" fill="rgba(239, 68, 68, 0.03)" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="2" />
           
-          {/* Healthy Cell */}
           <circle cx="120" cy="180" r="45" fill="rgba(59, 130, 246, 0.15)" stroke="#3b82f6" strokeWidth="2" />
           <circle cx="120" cy="180" r="15" fill="rgba(59, 130, 246, 0.3)" />
           <text x="120" y="250" textAnchor="middle" fill="#60a5fa" className="text-[10px] font-black uppercase tracking-widest font-display">Healthy</text>
 
-          {/* Senescent Zombie Cell */}
           <motion.g
             animate={{ rotate: 360 }}
             transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
           >
-            {/* Irregular blob shape */}
             <path
               d="M240,150 C265,135 285,150 300,165 C315,180 305,210 290,225 C275,240 245,235 235,215 C225,195 215,165 240,150 Z"
               fill="rgba(239, 68, 68, 0.1)"
@@ -248,11 +256,9 @@ export default function CellularGlossary() {
               strokeWidth="3"
               strokeDasharray="4 2"
             />
-            {/* Damaged Nucleus */}
             <path d="M260,185 Q275,170 280,195 T265,200 Z" fill="rgba(239, 68, 68, 0.3)" />
           </motion.g>
 
-          {/* Inflammatory Toxic Secretions */}
           <motion.g
             animate={{ x: [-10, 10, -10], y: [-5, 5, -5], opacity: [0.3, 0.8, 0.3] }}
             transition={{ duration: 3, repeat: Infinity }}
@@ -285,15 +291,19 @@ export default function CellularGlossary() {
         'Cold Showers: Triggers brown fat activation, burning glucose to generate thermal heat.'
       ],
       clinicalSignificance: 'Degraded mitochondria cause cellular fatigue, leading to muscle weakness, cognitive decline, and metabolic sluggishness.',
+      everydaySymptoms: 'Running out of breath going up a single flight of stairs, feeling physically drained by 2:00 PM, and finding it difficult to stay focused on complex tasks.',
+      simpleRule: 'Train your engines to burn clean. Build stronger, cleaner cell powerplants by doing low-intensity cardio and getting plenty of iron and key cofactors.',
+      mythVsFact: {
+        myth: 'The only way to build cellular stamina is to work out at maximum capacity.',
+        fact: 'Slow and steady aerobic training (Zone 2) is actually the primary driver for building large networks of clean, efficient mitochondrial powerplants.'
+      },
       renderInfographic: () => (
         <svg viewBox="0 0 400 400" className="w-full h-full max-w-[320px] mx-auto">
           <rect x="10" y="10" width="380" height="380" rx="40" fill="rgba(244, 63, 94, 0.03)" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="2" />
           
-          {/* Mitochondria Outline */}
           <g transform="translate(100, 100)">
             <rect x="0" y="0" width="200" height="200" rx="100" fill="rgba(244, 63, 94, 0.08)" stroke="#f43f5e" strokeWidth="4" />
             
-            {/* Cristae (inner folds) */}
             <motion.path
               d="M30,100 C50,60 80,140 100,100 C120,60 150,140 170,100"
               fill="none"
@@ -306,7 +316,6 @@ export default function CellularGlossary() {
             />
           </g>
 
-          {/* ATP Sparks */}
           <motion.g
             animate={{ scale: [0.8, 1.2, 0.8], opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2, repeat: Infinity }}
@@ -340,28 +349,29 @@ export default function CellularGlossary() {
         'PQQ supplementation: Clinically shown to trigger mitochondrial biogenesis at the cellular level.'
       ],
       clinicalSignificance: 'Increasing mitochondrial count directly enhances cellular stamina, accelerates workout recovery, and protects organ health from age-related degradation.',
+      everydaySymptoms: 'Feeling like you have no physical "reserve tank" when pushing yourself, taking a long time to bounce back after a hard day, and catching colds easily when tired.',
+      simpleRule: 'Multiply your energy factories to meet demand. Force your cells to create brand-new power generators through consistent aerobic work and cold stress.',
+      mythVsFact: {
+        myth: 'The number of power generators in your cells is genetically locked.',
+        fact: 'Your body is highly adaptable. When you consistently create a demand for energy through exercise and cold plunges, your genes turn on biogenesis to grow new powerplants.'
+      },
       renderInfographic: () => (
         <svg viewBox="0 0 400 400" className="w-full h-full max-w-[320px] mx-auto">
           <rect x="10" y="10" width="380" height="380" rx="40" fill="rgba(16, 185, 129, 0.03)" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="2" />
           
-          {/* Main cell body */}
           <circle cx="200" cy="200" r="160" fill="none" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="2" strokeDasharray="5 5" />
           
-          {/* Mitochondrion splitting */}
           <motion.g
             animate={{ scale: [0.95, 1, 0.95] }}
             transition={{ duration: 4, repeat: Infinity }}
           >
-            {/* Mother */}
             <circle cx="150" cy="180" r="30" fill="rgba(16, 185, 129, 0.1)" stroke="#10b981" strokeWidth="2" />
             <path d="M135,180 Q150,165 165,180" fill="none" stroke="#10b981" strokeWidth="2" />
             
-            {/* Daughter */}
             <circle cx="250" cy="220" r="30" fill="rgba(16, 185, 129, 0.1)" stroke="#10b981" strokeWidth="2" />
             <path d="M235,220 Q250,205 265,220" fill="none" stroke="#10b981" strokeWidth="2" />
           </motion.g>
 
-          {/* Division sparks */}
           <motion.g
             animate={{ opacity: [0.2, 1, 0.2] }}
             transition={{ duration: 2, repeat: Infinity }}
@@ -464,6 +474,46 @@ export default function CellularGlossary() {
                       <p className="text-slate-300 text-base leading-relaxed font-medium">
                         {topics[activeTopic].summary}
                       </p>
+                    </div>
+
+                    {/* Everyday Sluggishness and Golden Rule */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-white/5">
+                      <div className="p-6 bg-slate-950/20 rounded-3xl border border-white/5 space-y-2">
+                        <h4 className="text-[10px] font-black uppercase tracking-widest text-indigo-400 font-display flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse"></span>
+                          Everyday Sluggishness Signs
+                        </h4>
+                        <p className="text-xs text-slate-400 leading-relaxed font-medium">
+                          {topics[activeTopic].everydaySymptoms}
+                        </p>
+                      </div>
+
+                      <div className="p-6 bg-slate-950/20 rounded-3xl border border-white/5 space-y-2">
+                        <h4 className="text-[10px] font-black uppercase tracking-widest text-emerald-400 font-display flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                          The Golden Rule
+                        </h4>
+                        <p className="text-xs text-slate-400 leading-relaxed font-medium">
+                          {topics[activeTopic].simpleRule}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Myth vs Fact */}
+                    <div className="p-8 bg-slate-950/30 rounded-3xl border border-white/5 space-y-4">
+                      <h4 className="text-xs font-black uppercase tracking-widest text-slate-500 font-display">
+                        Myth vs. Reality
+                      </h4>
+                      <div className="space-y-3">
+                        <div className="text-xs leading-relaxed font-medium text-rose-400">
+                          <strong className="text-[10px] uppercase font-black tracking-wider block mb-1 text-rose-500">Common Misconception:</strong>
+                          "{topics[activeTopic].mythVsFact.myth}"
+                        </div>
+                        <div className="text-xs leading-relaxed font-medium text-emerald-400">
+                          <strong className="text-[10px] uppercase font-black tracking-wider block mb-1 text-emerald-500">The Scientific Fact:</strong>
+                          {topics[activeTopic].mythVsFact.fact}
+                        </div>
+                      </div>
                     </div>
 
                     {/* Step Mechanics */}
