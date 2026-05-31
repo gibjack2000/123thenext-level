@@ -360,6 +360,14 @@ router.get('/download/:token', async (req, res) => {
 router.post('/test-bypass-checkout', async (req, res) => {
   try {
     const { productId } = req.body;
+    
+    // Security check: restrict test bypass in production unless explicitly allowed
+    const isProd = process.env.NODE_ENV === 'production';
+    const allowBypass = process.env.ALLOW_TEST_BYPASS === 'true';
+    if (isProd && !allowBypass) {
+      return res.status(403).json({ error: 'Bypass checkout is disabled in production.' });
+    }
+
     const product = getProductById(productId);
     if (!product) {
       return res.status(404).json({ error: `Product ID '${productId}' not found in catalog.` });
