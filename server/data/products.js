@@ -10,7 +10,7 @@ export const products = [
     price: 19.00,
     currency: 'gbp',
     stripePriceId: process.env.STRIPE_PRICE_FIT1 || 'price_placeholder_fit1',
-    filePath: 'beginner_home_workout_v1.pdf',
+    filePath: 'beginner-home-workout-plan.pdf',
     active: true
   },
   {
@@ -20,7 +20,7 @@ export const products = [
     price: 29.00,
     currency: 'gbp',
     stripePriceId: process.env.STRIPE_PRICE_FIT2 || 'price_placeholder_fit2',
-    filePath: 'hypertrophy_protocol_v1.pdf',
+    filePath: 'strength-training-hypertrophy.pdf',
     active: true
   },
   {
@@ -30,7 +30,7 @@ export const products = [
     price: 15.00,
     currency: 'gbp',
     stripePriceId: process.env.STRIPE_PRICE_FIT3 || 'price_placeholder_fit3',
-    filePath: 'daily_mobility_v1.pdf',
+    filePath: 'mobility-recovery-routine.pdf',
     active: true
   },
   {
@@ -40,7 +40,7 @@ export const products = [
     price: 24.00,
     currency: 'gbp',
     stripePriceId: process.env.STRIPE_PRICE_NUT1 || 'price_placeholder_nut1',
-    filePath: 'meal_planning_mastery.pdf',
+    filePath: 'healthy-meal-planning-guide.pdf',
     active: true
   },
   {
@@ -50,7 +50,7 @@ export const products = [
     price: 29.00,
     currency: 'gbp',
     stripePriceId: process.env.STRIPE_PRICE_NUT2 || 'price_placeholder_nut2',
-    filePath: 'fat_loss_blueprint.pdf',
+    filePath: 'fat-loss-nutrition-blueprint.pdf',
     active: true
   },
   {
@@ -60,7 +60,7 @@ export const products = [
     price: 19.00,
     currency: 'gbp',
     stripePriceId: process.env.STRIPE_PRICE_NUT3 || 'price_placeholder_nut3',
-    filePath: 'high_protein_recipes.pdf',
+    filePath: 'high-protein-recipe-collection.pdf',
     active: true
   },
   {
@@ -70,7 +70,7 @@ export const products = [
     price: 22.00,
     currency: 'gbp',
     stripePriceId: process.env.STRIPE_PRICE_WEL1 || 'price_placeholder_wel1',
-    filePath: 'stress_management_toolkit.pdf',
+    filePath: 'stress-management-toolkit.pdf',
     active: true
   },
   {
@@ -80,7 +80,7 @@ export const products = [
     price: 25.00,
     currency: 'gbp',
     stripePriceId: process.env.STRIPE_PRICE_WEL2 || 'price_placeholder_wel2',
-    filePath: 'sleep_optimization.pdf',
+    filePath: 'sleep-optimization-protocol.pdf',
     active: true
   },
   {
@@ -90,7 +90,7 @@ export const products = [
     price: 18.00,
     currency: 'gbp',
     stripePriceId: process.env.STRIPE_PRICE_WEL3 || 'price_placeholder_wel3',
-    filePath: 'habit_reset_workbook.pdf',
+    filePath: 'mindfulness-habit-reset.pdf',
     active: true
   }
 ];

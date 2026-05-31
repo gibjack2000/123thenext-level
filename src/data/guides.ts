@@ -27,7 +27,7 @@ export const guides: Guide[] = [
     priceDisplay: '£19.00',
     stripePriceId: 'price_placeholder_fit1', // REPLACE WITH REAL STRIPE PRICE ID
     image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop',
-    fileName: 'beginner_home_workout_v1.pdf',
+    fileName: 'beginner-home-workout-plan.pdf',
     featured: true,
     tags: ['Bodyweight', 'Beginner', 'Home Workout', 'Strength'],
     included: [
@@ -49,7 +49,7 @@ export const guides: Guide[] = [
     priceDisplay: '£29.00',
     stripePriceId: 'price_placeholder_fit2',
     image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop',
-    fileName: 'hypertrophy_protocol_v1.pdf',
+    fileName: 'strength-training-hypertrophy.pdf',
     featured: false,
     tags: ['Gym', 'Hypertrophy', 'Advanced', 'Muscle Building'],
     included: [
@@ -71,7 +71,7 @@ export const guides: Guide[] = [
     priceDisplay: '£15.00',
     stripePriceId: 'price_placeholder_fit3',
     image: 'https://images.unsplash.com/photo-1552825980-86a073a65239?q=80&w=800&auto=format&fit=crop',
-    fileName: 'daily_mobility_v1.pdf',
+    fileName: 'mobility-recovery-routine.pdf',
     featured: false,
     tags: ['Mobility', 'Recovery', 'Longevity', 'Joint Health'],
     included: [
@@ -93,7 +93,7 @@ export const guides: Guide[] = [
     priceDisplay: '£24.00',
     stripePriceId: 'price_placeholder_nut1',
     image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800&auto=format&fit=crop',
-    fileName: 'meal_planning_mastery.pdf',
+    fileName: 'healthy-meal-planning-guide.pdf',
     featured: true,
     tags: ['Meal Prep', 'Efficiency', 'Macros', 'Whole Foods'],
     included: [
@@ -115,7 +115,7 @@ export const guides: Guide[] = [
     priceDisplay: '£29.00',
     stripePriceId: 'price_placeholder_nut2',
     image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop',
-    fileName: 'fat_loss_blueprint.pdf',
+    fileName: 'fat-loss-nutrition-blueprint.pdf',
     featured: false,
     tags: ['Weight Loss', 'Metabolism', 'Energy Balance', 'Science-Based'],
     included: [
@@ -137,7 +137,7 @@ export const guides: Guide[] = [
     priceDisplay: '£19.00',
     stripePriceId: 'price_placeholder_nut3',
     image: 'https://images.unsplash.com/photo-1432139555190-58524dae6a55?q=80&w=800&auto=format&fit=crop',
-    fileName: 'high_protein_recipes.pdf',
+    fileName: 'high-protein-recipe-collection.pdf',
     featured: false,
     tags: ['Recipes', 'High Protein', 'Muscle Building', 'Quick Meals'],
     included: [
@@ -159,7 +159,7 @@ export const guides: Guide[] = [
     priceDisplay: '£22.00',
     stripePriceId: 'price_placeholder_wel1',
     image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=800&auto=format&fit=crop',
-    fileName: 'stress_management_toolkit.pdf',
+    fileName: 'stress-management-toolkit.pdf',
     featured: true,
     tags: ['Stress', 'Cortisol', 'Mental Health', 'Nervous System'],
     included: [
@@ -181,7 +181,7 @@ export const guides: Guide[] = [
     priceDisplay: '£25.00',
     stripePriceId: 'price_placeholder_wel2',
     image: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?q=80&w=800&auto=format&fit=crop',
-    fileName: 'sleep_optimization.pdf',
+    fileName: 'sleep-optimization-protocol.pdf',
     featured: false,
     tags: ['Sleep', 'Circadian Rhythm', 'Recovery', 'Biohacking'],
     included: [
@@ -203,7 +203,7 @@ export const guides: Guide[] = [
     priceDisplay: '£18.00',
     stripePriceId: 'price_placeholder_wel3',
     image: 'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?q=80&w=800&auto=format&fit=crop',
-    fileName: 'habit_reset_workbook.pdf',
+    fileName: 'mindfulness-habit-reset.pdf',
     featured: false,
     tags: ['Habits', 'Mindfulness', 'Psychology', 'Workbook'],
     included: [

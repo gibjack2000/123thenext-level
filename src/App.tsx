@@ -78,6 +78,7 @@ const BlogAutomationAdmin = lazy(() => import('./pages/BlogAutomationAdmin'));
 const PremiumGuides = lazy(() => import('./pages/premium/PremiumGuides'));
 const CheckoutSuccess = lazy(() => import('./pages/premium/CheckoutSuccess'));
 const CheckoutCancel = lazy(() => import('./pages/premium/CheckoutCancel'));
+const PremiumGuideDetailPage = lazy(() => import('./pages/premium/PremiumGuideDetailPage'));
 
 // Loading spinner shown during page transitions
 const PageLoader = () => (
@@ -163,6 +164,7 @@ function App() {
                 <Route path="/premium-guides" element={<PremiumGuides />} />
                 <Route path="/premium-guides/success" element={<CheckoutSuccess />} />
                 <Route path="/premium-guides/cancel" element={<CheckoutCancel />} />
+                <Route path="/premium-guides/:slug" element={<PremiumGuideDetailPage />} />
                 <Route path="/region/:region" element={<RegionHub />} />
                 <Route path="/category/:category" element={<CategoryPage />} />
                 <Route path="/:region" element={<RegionHub />} />

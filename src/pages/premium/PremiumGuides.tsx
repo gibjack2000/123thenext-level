@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { guides as fallbackGuides } from '../../data/guides';
 import { supabase, hasValidSupabaseConfig } from '../../lib/supabase';
 import { PremiumGuide } from '../../types';
@@ -13,7 +14,8 @@ import {
   Trash2, 
   ArrowRight,
   Sparkles,
-  ShoppingBag
+  ShoppingBag,
+  Download
 } from 'lucide-react';
 
 export default function PremiumGuides() {
@@ -23,6 +25,32 @@ export default function PremiumGuides() {
   const [guides, setGuides] = useState<PremiumGuide[]>([]);
   const [loading, setLoading] = useState(true);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [purchasedGuides, setPurchasedGuides] = useState<Record<string, { purchased: boolean; downloadUrl: string; expiresAt: string }>>({});
+
+  useEffect(() => {
+    try {
+      const savedPurchases = localStorage.getItem('purchased_guides');
+      if (savedPurchases) {
+        const purchases = JSON.parse(savedPurchases);
+        const activePurchases: typeof purchases = {};
+        let updated = false;
+        Object.keys(purchases).forEach(id => {
+          const info = purchases[id];
+          if (info && new Date() < new Date(info.expiresAt)) {
+            activePurchases[id] = info;
+          } else {
+            updated = true;
+          }
+        });
+        if (updated) {
+          localStorage.setItem('purchased_guides', JSON.stringify(activePurchases));
+        }
+        setPurchasedGuides(activePurchases);
+      }
+    } catch (e) {
+      console.error('Error loading purchases from localStorage:', e);
+    }
+  }, [selectedGuide]);
 
   const { 
     cartItems, 
@@ -177,9 +205,9 @@ export default function PremiumGuides() {
                 key={guide.id} 
                 className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden group hover:border-slate-750 hover:shadow-2xl hover:shadow-blue-900/5 transition-all flex flex-col h-full relative"
               >
-                <div 
-                  className="aspect-[4/3] relative overflow-hidden bg-slate-800 cursor-pointer"
-                  onClick={() => setSelectedGuide(guide)}
+                <Link 
+                  to={`/premium-guides/${guide.slug}`}
+                  className="aspect-[4/3] relative overflow-hidden bg-slate-800 cursor-pointer block"
                 >
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent z-10" />
                   <img 
@@ -197,15 +225,15 @@ export default function PremiumGuides() {
                       </span>
                     )}
                   </div>
-                </div>
+                </Link>
                 
                 <div className="p-8 flex flex-col flex-grow">
-                  <h3 
-                    className="text-xl font-bold text-white mb-3 hover:text-blue-400 transition-colors cursor-pointer line-clamp-1"
-                    onClick={() => setSelectedGuide(guide)}
+                  <Link 
+                    to={`/premium-guides/${guide.slug}`}
+                    className="text-xl font-bold text-white mb-3 hover:text-blue-400 transition-colors cursor-pointer line-clamp-1 block"
                   >
                     {guide.title}
-                  </h3>
+                  </Link>
                   <p className="text-sm text-slate-450 mb-6 line-clamp-2 leading-relaxed flex-grow">
                     {(guide as any).shortDescription || guide.short_description}
                   </p>
@@ -215,31 +243,47 @@ export default function PremiumGuides() {
                       {(guide as any).priceDisplay || guide.price_display}
                     </span>
                     <div className="flex gap-2">
-                      <button 
-                        onClick={() => setSelectedGuide(guide)}
-                        className="px-4 py-2.5 bg-slate-800 hover:bg-slate-750 text-slate-300 rounded-xl text-[10px] font-black uppercase tracking-widest transition-colors"
+                      <Link 
+                        to={`/premium-guides/${guide.slug}`}
+                        className="px-4 py-2.5 bg-slate-800 hover:bg-slate-755 text-slate-300 rounded-xl text-[10px] font-black uppercase tracking-widest transition-colors flex items-center justify-center"
                       >
                         Details
-                      </button>
-                      <button 
-                        onClick={() => handleAddToCart(guide)}
-                        disabled={isInCart(guide.id)}
-                        className={`px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 ${
-                          isInCart(guide.id)
-                            ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 cursor-default'
-                            : 'bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-600/10'
-                        }`}
-                      >
-                        {isInCart(guide.id) ? (
-                          <>
-                            <CheckCircle2 size={12} /> In Cart
-                          </>
-                        ) : (
-                          <>
-                            <ShoppingCart size={12} /> Add to Cart
-                          </>
-                        )}
-                      </button>
+                      </Link>
+                      {purchasedGuides[guide.id] ? (
+                        <button 
+                          onClick={() => {
+                            const link = document.createElement('a');
+                            link.href = purchasedGuides[guide.id].downloadUrl;
+                            link.setAttribute('download', `${guide.slug}.pdf`);
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                          }}
+                          className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-550 text-white rounded-xl text-[10px] font-black uppercase tracking-widest transition-colors flex items-center gap-1.5"
+                        >
+                          <Download size={12} /> Download
+                        </button>
+                      ) : (
+                        <button 
+                          onClick={() => handleAddToCart(guide)}
+                          disabled={isInCart(guide.id)}
+                          className={`px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 ${
+                            isInCart(guide.id)
+                              ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 cursor-default'
+                              : 'bg-blue-600 hover:bg-blue-500 text-white shadow-md shadow-blue-600/10'
+                          }`}
+                        >
+                          {isInCart(guide.id) ? (
+                            <>
+                              <CheckCircle2 size={12} /> In Cart
+                            </>
+                          ) : (
+                            <>
+                              <ShoppingCart size={12} /> Add to Cart
+                            </>
+                          )}
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -438,28 +482,45 @@ export default function PremiumGuides() {
                     <span className="block text-[10px] font-black text-slate-550 uppercase tracking-widest mb-1">One-time payment</span>
                     <span className="text-3xl font-black text-white">{(selectedGuide as any).priceDisplay || selectedGuide.price_display}</span>
                   </div>
-                  <button 
-                    onClick={() => {
-                      handleAddToCart(selectedGuide);
-                      setSelectedGuide(null);
-                    }}
-                    disabled={isInCart(selectedGuide.id)}
-                    className={`w-full sm:w-auto px-8 py-4 rounded-xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-3 shadow-lg ${
-                      isInCart(selectedGuide.id)
-                        ? 'bg-emerald-550/10 text-emerald-400 border border-emerald-500/20 cursor-default'
-                        : 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-500/20'
-                    }`}
-                  >
-                    {isInCart(selectedGuide.id) ? (
-                      <>
-                        <CheckCircle2 size={16} /> Already in Cart
-                      </>
-                    ) : (
-                      <>
-                        <ShoppingCart size={16} /> Add to Cart
-                      </>
-                    )}
-                  </button>
+                  {purchasedGuides[selectedGuide.id] ? (
+                    <button 
+                      onClick={() => {
+                        const link = document.createElement('a');
+                        link.href = purchasedGuides[selectedGuide.id].downloadUrl;
+                        link.setAttribute('download', `${selectedGuide.slug}.pdf`);
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        setSelectedGuide(null);
+                      }}
+                      className="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-550 text-white rounded-xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-3 shadow-lg"
+                    >
+                      <Download size={16} /> Download PDF
+                    </button>
+                  ) : (
+                    <button 
+                      onClick={() => {
+                        handleAddToCart(selectedGuide);
+                        setSelectedGuide(null);
+                      }}
+                      disabled={isInCart(selectedGuide.id)}
+                      className={`w-full sm:w-auto px-8 py-4 rounded-xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-3 shadow-lg ${
+                        isInCart(selectedGuide.id)
+                          ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 cursor-default'
+                          : 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-500/20'
+                      }`}
+                    >
+                      {isInCart(selectedGuide.id) ? (
+                        <>
+                          <CheckCircle2 size={16} /> Already in Cart
+                        </>
+                      ) : (
+                        <>
+                          <ShoppingCart size={16} /> Add to Cart
+                        </>
+                      )}
+                    </button>
+                  )}
                 </div>
                 <div className="mt-6 text-center sm:text-left">
                    <p className="text-[9px] text-slate-550 font-medium uppercase tracking-wider leading-relaxed">

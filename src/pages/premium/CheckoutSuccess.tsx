@@ -59,6 +59,28 @@ export default function CheckoutSuccess() {
         if (data.payment_status === 'paid') {
           setOrderSummary(data);
           clearCart(); // Clear the cart since purchase is completed
+          
+          // Cache purchases in localStorage
+          try {
+            const savedPurchases = localStorage.getItem('purchased_guides');
+            let purchases: Record<string, { purchased: boolean; downloadUrl: string; expiresAt: string }> = {};
+            if (savedPurchases) {
+              purchases = JSON.parse(savedPurchases);
+            }
+            data.products.forEach((p: PurchasedProduct) => {
+              const downloadUrl = data.download_links[p.id];
+              if (downloadUrl) {
+                purchases[p.id] = {
+                  purchased: true,
+                  downloadUrl: downloadUrl,
+                  expiresAt: new Date(Date.now() + 72 * 60 * 60 * 1000).toISOString()
+                };
+              }
+            });
+            localStorage.setItem('purchased_guides', JSON.stringify(purchases));
+          } catch (e) {
+            console.error('Error saving purchases to localStorage:', e);
+          }
         } else {
           setError(`Payment status is '${data.payment_status}'. If this is an error, please reload or contact support.`);
         }
