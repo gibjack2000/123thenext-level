@@ -26,13 +26,11 @@ export default function PremiumGuides() {
   const [loading, setLoading] = useState(true);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [purchasedGuides, setPurchasedGuides] = useState<Record<string, { purchased: boolean; downloadUrl: string; expiresAt: string }>>({});
-  const [showTestBypass, setShowTestBypass] = useState(false);
+  const [showTestBypass, setShowTestBypass] = useState(true);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('test_bypass') === 'true' || import.meta.env.DEV) {
-      setShowTestBypass(true);
-    }
+    // Temporarily enabled unconditionally for testing live
+    setShowTestBypass(true);
   }, []);
 
   useEffect(() => {

@@ -23,19 +23,16 @@ interface PurchaseInfo {
 export default function PremiumGuideDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const { addToCart, isInCart } = useCart();
-  
   const [purchaseInfo, setPurchaseInfo] = useState<PurchaseInfo | null>(null);
   const [downloading, setDownloading] = useState(false);
-  const [showTestBypass, setShowTestBypass] = useState(false);
+  const [showTestBypass, setShowTestBypass] = useState(true);
 
   // Find the guide in our catalog
   const guide = guides.find(g => g.slug === slug);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('test_bypass') === 'true' || import.meta.env.DEV) {
-      setShowTestBypass(true);
-    }
+    // Temporarily enabled unconditionally for testing live
+    setShowTestBypass(true);
   }, []);
 
   useEffect(() => {
