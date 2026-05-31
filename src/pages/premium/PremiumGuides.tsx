@@ -51,7 +51,48 @@ export default function PremiumGuides() {
       console.error('Error loading purchases from localStorage:', e);
     }
   }, [selectedGuide]);
+  const handleBypassTest = async (guideId: string, slug: string) => {
+    try {
+      const response = await fetch('/api/test-bypass-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ productId: guideId })
+      });
+      const data = await response.json();
+      if (data.success && data.download_link) {
+        const savedPurchases = localStorage.getItem('purchased_guides');
+        let purchases: any = {};
+        if (savedPurchases) {
+          try { purchases = JSON.parse(savedPurchases); } catch (e) {}
+        }
+        const info = {
+          purchased: true,
+          downloadUrl: data.download_link,
+          expiresAt: data.expires_at
+        };
+        purchases[guideId] = info;
+        localStorage.setItem('purchased_guides', JSON.stringify(purchases));
+        
+        // Trigger download
+        const link = document.createElement('a');
+        link.href = data.download_link;
+        link.setAttribute('download', `${slug}.pdf`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
 
+        setPurchasedGuides(purchases);
+        setSelectedGuide(null);
+      } else {
+        alert('Bypass test failed.');
+      }
+    } catch (e) {
+      console.error(e);
+      alert('Error testing bypass.');
+    }
+  };
   const { 
     cartItems, 
     addToCart, 
@@ -498,28 +539,36 @@ export default function PremiumGuides() {
                       <Download size={16} /> Download PDF
                     </button>
                   ) : (
-                    <button 
-                      onClick={() => {
-                        handleAddToCart(selectedGuide);
-                        setSelectedGuide(null);
-                      }}
-                      disabled={isInCart(selectedGuide.id)}
-                      className={`w-full sm:w-auto px-8 py-4 rounded-xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-3 shadow-lg ${
-                        isInCart(selectedGuide.id)
-                          ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 cursor-default'
-                          : 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-500/20'
-                      }`}
-                    >
-                      {isInCart(selectedGuide.id) ? (
-                        <>
-                          <CheckCircle2 size={16} /> Already in Cart
-                        </>
-                      ) : (
-                        <>
-                          <ShoppingCart size={16} /> Add to Cart
-                        </>
-                      )}
-                    </button>
+                    <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+                      <button 
+                        onClick={() => {
+                          handleAddToCart(selectedGuide);
+                          setSelectedGuide(null);
+                        }}
+                        disabled={isInCart(selectedGuide.id)}
+                        className={`w-full sm:w-auto px-8 py-4 rounded-xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-3 shadow-lg ${
+                          isInCart(selectedGuide.id)
+                            ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 cursor-default'
+                            : 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-500/20'
+                        }`}
+                      >
+                        {isInCart(selectedGuide.id) ? (
+                          <>
+                            <CheckCircle2 size={16} /> Already in Cart
+                          </>
+                        ) : (
+                          <>
+                            <ShoppingCart size={16} /> Add to Cart
+                          </>
+                        )}
+                      </button>
+                      <button 
+                        onClick={() => handleBypassTest(selectedGuide.id, selectedGuide.slug)}
+                        className="w-full sm:w-auto px-6 py-4 bg-slate-800 hover:bg-slate-750 text-slate-300 rounded-xl font-black uppercase tracking-widest text-[10px] transition-all flex items-center justify-center gap-2 border border-slate-700/60 shadow-md"
+                      >
+                        <Download size={14} /> Test Download
+                      </button>
+                    </div>
                   )}
                 </div>
                 <div className="mt-6 text-center sm:text-left">

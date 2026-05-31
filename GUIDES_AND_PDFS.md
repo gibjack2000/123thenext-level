@@ -12,15 +12,15 @@ All digital PDF products are stored in a protected folder outside the public roo
 
 | Product ID (SKU) | Guide Title | Page URL/Slug | PDF Filename in Protected Folder |
 | :--- | :--- | :--- | :--- |
-| `g-fit-1` | Beginner Home Workout Plan | `/premium-guides/beginner-home-workout-plan` | `beginner-home-workout-plan.pdf` |
-| `g-fit-2` | Hypertrophy & Strength Protocol | `/premium-guides/strength-training-hypertrophy` | `strength-training-hypertrophy.pdf` |
-| `g-fit-3` | Daily Mobility & Recovery | `/premium-guides/mobility-recovery-routine` | `mobility-recovery-routine.pdf` |
-| `g-nut-1` | The Master Meal Planning Guide | `/premium-guides/healthy-meal-planning-guide` | `healthy-meal-planning-guide.pdf` |
+| `g-fit-1` | Beginner Home Workout Plan | `/premium-guides/beginner-home-workout-plan` | `beginner_home_workout_v1.pdf` |
+| `g-fit-2` | Hypertrophy & Strength Protocol | `/premium-guides/strength-training-hypertrophy` | `hypertrophy_protocol_v1.pdf` |
+| `g-fit-3` | Daily Mobility & Recovery | `/premium-guides/mobility-recovery-routine` | `daily_mobility_v1.pdf` |
+| `g-nut-1` | The Master Meal Planning Guide | `/premium-guides/healthy-meal-planning-guide` | `fat_loss_blueprint.pdf` |
 | `g-nut-2` | Fat Loss Nutrition Blueprint | `/premium-guides/fat-loss-nutrition-blueprint` | `fat-loss-nutrition-blueprint.pdf` |
-| `g-nut-3` | High-Protein Recipe Collection | `/premium-guides/high-protein-recipe-collection` | `high-protein-recipe-collection.pdf` |
+| `g-nut-3` | High-Protein Recipe Collection | `/premium-guides/high-protein-recipe-collection` | `high_protein_recipes.pdf` |
 | `g-wel-1` | Cortisol & Stress Management | `/premium-guides/stress-management-toolkit` | `stress-management-toolkit.pdf` |
-| `g-wel-2` | Deep Sleep Optimization | `/premium-guides/sleep-optimization-protocol` | `sleep-optimization-protocol.pdf` |
-| `g-wel-3` | Mindfulness & Habit Reset | `/premium-guides/mindfulness-habit-reset` | `mindfulness-habit-reset.pdf` |
+| `g-wel-2` | Deep Sleep Optimization | `/premium-guides/sleep-optimization-protocol` | `sleep_optimization.pdf` |
+| `g-wel-3` | Mindfulness & Habit Reset | `/premium-guides/mindfulness-habit-reset` | `habit_reset_workbook.pdf` |
 
 ---
 
@@ -28,7 +28,7 @@ All digital PDF products are stored in a protected folder outside the public roo
 
 ### 1. Replacing Placeholder PDFs with Real PDFs
 1. Export or save your real guide files as PDF files.
-2. Ensure each file is named **exactly** as shown in the table above (e.g. `beginner-home-workout-plan.pdf` for the Beginner Home Workout Plan).
+2. Ensure each file is named **exactly** as shown in the table above (e.g. `beginner_home_workout_v1.pdf` for the Beginner Home Workout Plan).
 3. Copy these PDF files.
 4. Open the protected folder: `d:/0Antigravity/123zenextlevel/123thenextlevel/123thenext-level/protected-files/pdfs/`
 5. Paste your real PDFs there, overwriting the empty placeholder files.

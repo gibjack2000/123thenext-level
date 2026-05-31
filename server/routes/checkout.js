@@ -353,4 +353,51 @@ router.get('/download/:token', async (req, res) => {
   }
 });
 
+/**
+ * 5. POST /api/test-bypass-checkout
+ * Test bypass endpoint to instantly generate download tokens without Stripe checkout
+ */
+router.post('/test-bypass-checkout', async (req, res) => {
+  try {
+    const { productId } = req.body;
+    const product = getProductById(productId);
+    if (!product) {
+      return res.status(404).json({ error: `Product ID '${productId}' not found in catalog.` });
+    }
+
+    // 1. Create a paid order
+    const order = await db.createOrder({
+      stripe_session_id: `test_session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      customer_email: 'test-user@example.com',
+      amount_total: 0,
+      currency: 'gbp',
+      payment_status: 'paid'
+    });
+
+    // 2. Create order item
+    await db.createOrderItems([{
+      order_id: order.id,
+      product_id: product.id,
+      quantity: 1
+    }]);
+
+    // 3. Create download token
+    const tokenRecord = await db.createDownloadToken({
+      order_id: order.id,
+      product_id: product.id,
+      expires_at: getExpiryDate(),
+      max_downloads: MAX_USES
+    });
+
+    res.json({
+      success: true,
+      download_link: `/api/download/${tokenRecord.token}`,
+      expires_at: tokenRecord.expires_at
+    });
+  } catch (error) {
+    console.error('Bypass test error:', error);
+    res.status(500).json({ error: 'Failed to bypass checkout.' });
+  }
+});
+
 export default router;

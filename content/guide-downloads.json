@@ -2,22 +2,22 @@
   {
     "guide_id": "beginner-home-workout-plan",
     "title": "Beginner Home Workout Plan",
-    "pdf_filename": "beginner-home-workout-plan.pdf"
+    "pdf_filename": "beginner_home_workout_v1.pdf"
   },
   {
     "guide_id": "strength-training-hypertrophy",
     "title": "Hypertrophy & Strength Protocol",
-    "pdf_filename": "strength-training-hypertrophy.pdf"
+    "pdf_filename": "hypertrophy_protocol_v1.pdf"
   },
   {
     "guide_id": "mobility-recovery-routine",
     "title": "Daily Mobility & Recovery",
-    "pdf_filename": "mobility-recovery-routine.pdf"
+    "pdf_filename": "daily_mobility_v1.pdf"
   },
   {
     "guide_id": "healthy-meal-planning-guide",
     "title": "The Master Meal Planning Guide",
-    "pdf_filename": "healthy-meal-planning-guide.pdf"
+    "pdf_filename": "fat_loss_blueprint.pdf"
   },
   {
     "guide_id": "fat-loss-nutrition-blueprint",
@@ -27,7 +27,7 @@
   {
     "guide_id": "high-protein-recipe-collection",
     "title": "High-Protein Recipe Collection",
-    "pdf_filename": "high-protein-recipe-collection.pdf"
+    "pdf_filename": "high_protein_recipes.pdf"
   },
   {
     "guide_id": "stress-management-toolkit",
@@ -37,11 +37,11 @@
   {
     "guide_id": "sleep-optimization-protocol",
     "title": "Deep Sleep Optimization",
-    "pdf_filename": "sleep-optimization-protocol.pdf"
+    "pdf_filename": "sleep_optimization.pdf"
   },
   {
     "guide_id": "mindfulness-habit-reset",
     "title": "Mindfulness & Habit Reset",
-    "pdf_filename": "mindfulness-habit-reset.pdf"
+    "pdf_filename": "habit_reset_workbook.pdf"
   }
 ]

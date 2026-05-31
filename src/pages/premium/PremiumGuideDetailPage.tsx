@@ -95,6 +95,51 @@ export default function PremiumGuideDetailPage() {
     return `${diffHours} hours remaining`;
   };
 
+  const handleBypassTest = async () => {
+    setDownloading(true);
+    try {
+      const response = await fetch('/api/test-bypass-checkout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ productId: guide.id })
+      });
+      const data = await response.json();
+      if (data.success && data.download_link) {
+        const savedPurchases = localStorage.getItem('purchased_guides');
+        let purchases: any = {};
+        if (savedPurchases) {
+          try { purchases = JSON.parse(savedPurchases); } catch (e) {}
+        }
+        const info = {
+          purchased: true,
+          downloadUrl: data.download_link,
+          expiresAt: data.expires_at
+        };
+        purchases[guide.id] = info;
+        localStorage.setItem('purchased_guides', JSON.stringify(purchases));
+        
+        // Trigger download
+        const link = document.createElement('a');
+        link.href = data.download_link;
+        link.setAttribute('download', `${guide.slug}.pdf`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        setPurchaseInfo(info);
+      } else {
+        alert('Bypass checkout test failed: ' + (data.error || 'Unknown error'));
+      }
+    } catch (e) {
+      console.error(e);
+      alert('Network error testing download bypass.');
+    } finally {
+      setDownloading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-300 pb-24 pt-32 relative overflow-x-hidden">
       
@@ -208,8 +253,16 @@ export default function PremiumGuideDetailPage() {
                         </>
                       )}
                     </button>
+                    <button
+                      onClick={handleBypassTest}
+                      disabled={downloading}
+                      className="w-full py-4 bg-slate-800 hover:bg-slate-750 text-slate-300 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-colors flex items-center justify-center gap-2 border border-slate-700/60 shadow-md"
+                    >
+                      <Download size={12} />
+                      <span>Test Download (Bypass Stripe)</span>
+                    </button>
                     
-                    <div className="flex items-center justify-center gap-2 text-[9px] text-slate-550 font-black uppercase tracking-wider">
+                    <div className="flex items-center justify-center gap-2 text-[9px] text-slate-555 font-black uppercase tracking-wider">
                       <ShieldCheck size={12} className="text-blue-500" /> Secure Payment via Stripe
                     </div>
                   </div>
