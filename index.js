@@ -34,6 +34,27 @@ app.get('/ping', (req, res) => {
   res.send('pong');
 });
 
+// Temporary debug route to inspect server directories
+app.get('/api/debug-files', (req, res) => {
+  try {
+    const info = {
+      __dirname,
+      distPath,
+      existsDist: fs.existsSync(path.resolve(__dirname, 'dist')),
+      existsDistProducts: fs.existsSync(path.resolve(__dirname, 'dist', 'Products')),
+      existsRootProducts: fs.existsSync(path.resolve(__dirname, 'Products')),
+      distFiles: fs.existsSync(distPath) ? fs.readdirSync(distPath) : null,
+      dirFiles: fs.readdirSync(__dirname),
+    };
+    if (fs.existsSync(path.resolve(__dirname, 'dist'))) {
+      info.insideDistFiles = fs.readdirSync(path.resolve(__dirname, 'dist'));
+    }
+    res.json(info);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 app.use('/api', apiRouter);
 
 // Add a logger
