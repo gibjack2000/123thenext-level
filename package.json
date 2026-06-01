@@ -8,7 +8,7 @@
     "start": "node index.js",
     "server": "node index.js",
     "dev": "concurrently \"vite --port=3000 --host=0.0.0.0\" \"node index.js\"",
-    "build": "vite build",
+    "build": "vite build && node scripts/copy-products.js",
     "postinstall": "npm run build",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit"
