@@ -71,6 +71,14 @@ app.use((req, res, next) => {
   next();
 });
 
+// Serve products images from dist/Products, and fallback to public_html/Products if it exists
+const parentDir = path.resolve(__dirname, '..');
+const publicHtmlProductsPath = path.resolve(parentDir, 'public_html', 'Products');
+app.use('/Products', express.static(path.resolve(distPath, 'Products')));
+if (fs.existsSync(publicHtmlProductsPath)) {
+  app.use('/Products', express.static(publicHtmlProductsPath));
+}
+
 // Serve static files from the 'dist' directory
 app.use(express.static(distPath));
 
