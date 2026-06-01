@@ -28,6 +28,35 @@ const distPath = fs.existsSync(path.resolve(__dirname, 'dist'))
   : __dirname;
 const indexPath = path.resolve(distPath, 'index.html');
 
+// Automatically copy Products folder from dist/Products to public_html/Products if it's missing there
+try {
+  const parentDir = path.resolve(__dirname, '..');
+  const publicHtmlProductsPath = path.resolve(parentDir, 'public_html', 'Products');
+  const sourceProductsPath = path.resolve(distPath, 'Products');
+
+  if (fs.existsSync(sourceProductsPath) && fs.existsSync(path.resolve(parentDir, 'public_html'))) {
+    if (!fs.existsSync(publicHtmlProductsPath)) {
+      console.log('Auto-copying Products to public_html/Products on startup...');
+      fs.mkdirSync(publicHtmlProductsPath, { recursive: true });
+    }
+    const files = fs.readdirSync(sourceProductsPath);
+    let copiedCount = 0;
+    for (const file of files) {
+      const srcFile = path.join(sourceProductsPath, file);
+      const destFile = path.join(publicHtmlProductsPath, file);
+      if (fs.statSync(srcFile).isFile() && !fs.existsSync(destFile)) {
+        fs.copyFileSync(srcFile, destFile);
+        copiedCount++;
+      }
+    }
+    if (copiedCount > 0) {
+      console.log(`Successfully copied ${copiedCount} product images to public_html/Products`);
+    }
+  }
+} catch (err) {
+  console.error('Failed to auto-copy Products to public_html:', err);
+}
+
 
 // Add a health check route
 app.get('/ping', (req, res) => {
