@@ -37,6 +37,8 @@ app.get('/ping', (req, res) => {
 // Temporary debug route to inspect server directories
 app.get('/api/debug-files', (req, res) => {
   try {
+    const parentDir = path.resolve(__dirname, '..');
+    const publicHtmlPath = path.resolve(parentDir, 'public_html');
     const info = {
       __dirname,
       distPath,
@@ -45,9 +47,16 @@ app.get('/api/debug-files', (req, res) => {
       existsRootProducts: fs.existsSync(path.resolve(__dirname, 'Products')),
       distFiles: fs.existsSync(distPath) ? fs.readdirSync(distPath) : null,
       dirFiles: fs.readdirSync(__dirname),
+      publicHtmlExists: fs.existsSync(publicHtmlPath),
+      publicHtmlPath,
     };
     if (fs.existsSync(path.resolve(__dirname, 'dist'))) {
       info.insideDistFiles = fs.readdirSync(path.resolve(__dirname, 'dist'));
+    }
+    if (info.publicHtmlExists) {
+      info.publicHtmlFiles = fs.readdirSync(publicHtmlPath);
+      info.existsPublicHtmlProducts = fs.existsSync(path.resolve(publicHtmlPath, 'Products'));
+      info.existsPublicHtmlProductsLower = fs.existsSync(path.resolve(publicHtmlPath, 'products'));
     }
     res.json(info);
   } catch (err) {
