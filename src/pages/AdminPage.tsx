@@ -202,7 +202,9 @@ export default function AdminPage() {
       'oura', 'apollo', 'eightsleep', 'nootropics', 'mastermind', 'hyrox', 'bluezones', 'communication',
       'levels', 'insidetracker', 'thorne', 'ketomojo', 'creatine', 'omega3', 'protein', 'electrolytes', 'magnesium',
       'nad', 'rogue', 'whoop', 'epigenetic', 'whp_oura', 'whp_creatine', 'whp_multivitamin', 'whp_scale',
-      'nw_oura', 'nw_apollo', 'nw_shilajit', 'strength', 'menopause', 'memberships'
+      'nw_oura', 'nw_apollo', 'nw_shilajit', 'strength', 'menopause', 'memberships',
+      'hp_biological_age', 'hp_nad_stack', 'hp_bio_response', 'hp_kit_us', 'hp_kit_uk', 'hp_kit_es',
+      'hp_spermidine', 'hp_quercetin', 'hp_nad_complete', 'hp_coq10'
     ];
 
     staticKeys.forEach(key => {
@@ -1316,7 +1318,17 @@ create table if not exists premium_guides (
                   { key: 'nw_oura', label: 'NW Oura Ring' },
                   { key: 'nw_apollo', label: 'NW Apollo Neuro' },
                   { key: 'epigenetic', label: 'Cellular Kit' },
-                  { key: 'nad', label: 'Metabolic Kit' }
+                  { key: 'nad', label: 'Metabolic Kit' },
+                  { key: 'hp_biological_age', label: 'HP Biological Age Arsenal' },
+                  { key: 'hp_nad_stack', label: 'HP Cellular Recharging Stack' },
+                  { key: 'hp_bio_response', label: 'HP Bio-Response Biomarkers' },
+                  { key: 'hp_kit_us', label: 'HP Partner Kit (US)' },
+                  { key: 'hp_kit_uk', label: 'HP Partner Kit (UK)' },
+                  { key: 'hp_kit_es', label: 'HP Partner Kit (ES)' },
+                  { key: 'hp_spermidine', label: 'HP Primeadine Spermidine' },
+                  { key: 'hp_quercetin', label: 'HP Liposomal Quercetin' },
+                  { key: 'hp_nad_complete', label: 'HP NAD+ Complete' },
+                  { key: 'hp_coq10', label: 'HP CoQ10 / PQQ Ubiquinol' }
                 ].map(spot => (
                   <div key={spot.key} className="p-6 bg-slate-50 border border-slate-200 rounded-3xl space-y-4">
                     <div className="flex items-center gap-2">

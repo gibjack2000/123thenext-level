@@ -2,8 +2,11 @@ import React, { useEffect } from 'react';
 import { ArrowLeft, Dna, Microscope, Zap, Shield, ExternalLink, Binary, Sparkles, Target, ArrowRight, FlaskConical, Activity } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
+import { useAffiliateLinks } from '../../contexts/AffiliateLinksContext';
 
 export default function CellularEngineering() {
+  const { links } = useAffiliateLinks();
+
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = `Cellular Engineering: NAD+ & Autophagy | 123TheNext Level`;
@@ -16,8 +19,8 @@ export default function CellularEngineering() {
       brand: 'Renue By Science',
       desc: 'Triple-action NAD+ precursor (NMN, NR, NAD+) for maximum systematic bioavailability and cellular energy production.',
       price: '$84',
-      image: '/Products/thorne.jpg',
-      url: 'https://renuebyscience.com/'
+      image: links.hp_nad_complete?.image || '/Products/thorne.jpg',
+      url: links.hp_nad_complete?.url || 'https://renuebyscience.com/'
     },
     {
       id: 'spermidine',
@@ -25,8 +28,8 @@ export default function CellularEngineering() {
       brand: 'Oxford Healthspan',
       desc: 'Plant-derived autophagy inducer clinically proven to trigger cellular renewal and maintain youthful phenotype.',
       price: '$95',
-      image: '/Products/vitd3.jpg',
-      url: '#'
+      image: links.hp_spermidine?.image || '/Products/vitd3.jpg',
+      url: links.hp_spermidine?.url || 'https://www.amazon.com/dp/B08J5P8D9D'
     },
     {
       id: 'quercetin',
@@ -34,8 +37,8 @@ export default function CellularEngineering() {
       brand: 'Quicksilver Scientific',
       desc: 'High-bioavailability senolytic and antioxidant to clear senescent cells and reduce systemic inflammation.',
       price: '$52',
-      image: '/Products/thorne.jpg',
-      url: '#'
+      image: links.hp_quercetin?.image || '/Products/thorne.jpg',
+      url: links.hp_quercetin?.url || 'https://www.amazon.com/dp/B07BFR4QC2'
     }
   ];
 

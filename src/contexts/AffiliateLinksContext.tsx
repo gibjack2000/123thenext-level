@@ -1,8 +1,16 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { affiliateLinks as staticLinks } from '../config/affiliateLinks';
+import { mapToProduct } from '../types';
 
-type AffiliateLinkInfo = { url: string; image?: string };
+type AffiliateLinkInfo = {
+  url: string;
+  image?: string;
+  name?: string;
+  brand?: string;
+  desc?: string;
+  price?: string;
+};
 
 type AffiliateLinks = Record<string, AffiliateLinkInfo>;
 
@@ -47,11 +55,11 @@ export const AffiliateLinksProvider: React.FC<{ children: React.ReactNode }> = (
         return;
       }
 
-      // Fetch products to get the URLs
+      // Fetch products to get all fields
       const productIds = mappingsData.map(m => m.product_id);
       const { data: productsData, error: productsError } = await supabase
         .from('amazon_affiliate_products')
-        .select('id, affiliate_link, image_url')
+        .select('*')
         .in('id', productIds);
 
       if (productsError) throw productsError;
@@ -68,9 +76,21 @@ export const AffiliateLinksProvider: React.FC<{ children: React.ReactNode }> = (
       });
 
       mappingsData.forEach(mapping => {
-        const product = productsData.find(p => p.id === mapping.product_id);
-        if (product && product.affiliate_link) {
-          newLinks[mapping.key] = { url: product.affiliate_link, image: product.image_url };
+        const dbProduct = productsData.find(p => p.id === mapping.product_id);
+        if (dbProduct && dbProduct.affiliate_link) {
+          const product = mapToProduct(dbProduct);
+          const brand = product.tags?.[0] || 'Premium Vetted';
+          const currencySymbol = product.currency === 'USD' ? '$' : product.currency === 'GBP' ? '£' : product.currency === 'EUR' ? '€' : '';
+          const priceDisplay = product.price ? `${currencySymbol}${product.price}` : '';
+
+          newLinks[mapping.key] = {
+            url: product.amazon_url,
+            image: product.image_url,
+            name: product.product_name,
+            brand: brand,
+            desc: product.description || product.short_benefit,
+            price: priceDisplay
+          };
         }
       });
 

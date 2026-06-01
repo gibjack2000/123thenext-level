@@ -5,9 +5,11 @@ import { motion } from 'motion/react';
 import { useT } from '../translations';
 import BlogSection from '../components/BlogSection';
 import IntelligenceTeaser from '../components/IntelligenceTeaser';
+import { useAffiliateLinks } from '../contexts/AffiliateLinksContext';
 
 export default function HealthPillar() {
   const t = useT();
+  const { links } = useAffiliateLinks();
 
   useEffect(() => {
     document.title = `${t('hp_title')} ${t('hp_subtitle')} | 123TheNext Level`;
@@ -31,24 +33,24 @@ export default function HealthPillar() {
       name: "Biological Age Arsenal",
       brand: "TruDiagnostic / InsideTracker",
       desc: "Measure the biological pace of aging through DNA methylation (clocks).",
-      image: "/Products/withings.jpg", // Representing tracking/data
-      link: affiliateLinks.us,
+      image: links.hp_biological_age?.image || "/Products/withings.jpg", // Representing tracking/data
+      link: links.hp_biological_age?.url || affiliateLinks.us,
       price: "$299+"
     },
     {
       name: "Cellular Recharging Stack",
       brand: "Thorne / Elysium",
       desc: "NAD+ precursors to trigger SIRT1 activation and DNA repair.",
-      image: "/Products/thorne.jpg",
-      link: affiliateLinks.nad,
+      image: links.hp_nad_stack?.image || "/Products/thorne.jpg",
+      link: links.hp_nad_stack?.url || affiliateLinks.nad,
       price: "$85+"
     },
     {
       name: "Bio-Response Biomarkers",
       brand: "Precision Minerals",
       desc: "Magnesium & Vitamin D3/K2 for systemic homeostasis.",
-      image: "/Products/vitd3.jpg",
-      link: affiliateLinks.us,
+      image: links.hp_bio_response?.image || "/Products/vitd3.jpg",
+      link: links.hp_bio_response?.url || affiliateLinks.us,
       price: "$35+"
     }
   ];
@@ -268,9 +270,9 @@ export default function HealthPillar() {
                     
                     <div className="space-y-6">
                       {[
-                        { label: t('hp_cta_kit_us'), link: affiliateLinks.us, country: "US", flag: "https://flagcdn.com/w80/us.png" },
-                        { label: t('hp_cta_kit_uk'), link: affiliateLinks.uk, country: "UK", flag: "https://flagcdn.com/w80/gb.png" },
-                        { label: t('hp_cta_kit_es'), link: affiliateLinks.es, country: "ES", flag: "https://flagcdn.com/w80/es.png" }
+                        { label: t('hp_cta_kit_us'), link: links.hp_kit_us?.url || affiliateLinks.us, country: "US", flag: "https://flagcdn.com/w80/us.png" },
+                        { label: t('hp_cta_kit_uk'), link: links.hp_kit_uk?.url || affiliateLinks.uk, country: "UK", flag: "https://flagcdn.com/w80/gb.png" },
+                        { label: t('hp_cta_kit_es'), link: links.hp_kit_es?.url || affiliateLinks.es, country: "ES", flag: "https://flagcdn.com/w80/es.png" }
                       ].map((cta, i) => (
                         <a key={i} href={cta.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-white/5 border border-white/5 rounded-[2rem] hover:bg-white hover:text-slate-950 transition-all group/cta">
                           <span className="flex items-center gap-4">

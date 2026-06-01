@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Dna, Microscope, Zap, Shield, Sparkles, CheckSquare, Square, Info, ExternalLink, RefreshCw, Flame, Moon, Compass } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { useAffiliateLinks } from '../../contexts/AffiliateLinksContext';
 
 type TabId = 'autophagy' | 'nad' | 'senolytics' | 'mitochondria';
 
@@ -20,6 +21,7 @@ interface ConceptDetail {
 export default function CellularDeepDive() {
   const [activeTab, setActiveTab] = useState<TabId>('autophagy');
   const [checkedHabits, setCheckedHabits] = useState<Record<string, boolean>>({});
+  const { links } = useAffiliateLinks();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -45,7 +47,7 @@ export default function CellularDeepDive() {
         'Spermidine Rich Foods: Add foods like green peas, mushrooms, aged cheese, or high-quality supplements to trigger cell renewal.'
       ],
       compounds: [
-        { name: 'Primeadine Spermidine', desc: 'Concentrated plant extract to trigger cellular recycling.', link: 'https://amazon.com' }
+        { name: links.hp_spermidine?.name || 'Primeadine Spermidine', desc: links.hp_spermidine?.desc || 'Concentrated plant extract to trigger cellular recycling.', link: links.hp_spermidine?.url || 'https://www.amazon.com/dp/B08J5P8D9D' }
       ]
     },
     nad: {
@@ -53,7 +55,7 @@ export default function CellularDeepDive() {
       title: 'NAD+ & Sirtuins',
       simpleName: 'The Cell Recharge Battery',
       icon: <Zap size={28} className="text-amber-400" />,
-      scientificSummary: 'Nicotinamide Adenine Dinucleotide (NAD+) is a coenzyme essential for cellular respiration, ATP production, and activating Sirtuins—enzymes that regulate DNA repair and cellular defense.',
+      scientificSummary: 'Nicotinamide Adenine Dinidualeotide (NAD+) is a coenzyme essential for cellular respiration, ATP production, and activating Sirtuins—enzymes that regulate DNA repair and cellular defense.',
       simpleAnalogy: 'If your cells are smartphones, NAD+ is the electricity in the battery. Without enough charge, your phone cannot run its apps. Sirtuins are the built-in antivirus software that repairs code, but they can only run when the battery has power.',
       whyItMatters: 'By the time we reach age 40, our natural NAD+ levels drop by half. This drain in cellular power causes sluggishness, slower recovery times, and less protection against DNA damage.',
       howToActivate: [
@@ -62,7 +64,7 @@ export default function CellularDeepDive() {
         'NMN or NR Precursors: Vetted supplements that your body converts directly into active cellular electricity.'
       ],
       compounds: [
-        { name: 'NAD+ Complete', desc: 'Triple-action NMN & NR precursor stack for energy levels.', link: 'https://amazon.com' }
+        { name: links.hp_nad_complete?.name || 'NAD+ Complete', desc: links.hp_nad_complete?.desc || 'Triple-action NMN & NR precursor stack for energy levels.', link: links.hp_nad_complete?.url || 'https://renuebyscience.com/' }
       ]
     },
     senolytics: {
@@ -79,7 +81,7 @@ export default function CellularDeepDive() {
         'Targeted Senolytic Cycles: Using natural supplements on a periodic basis to "flush out" accumulated senescent cells.'
       ],
       compounds: [
-        { name: 'Liposomal Quercetin', desc: 'High-absorption senolytic to help sweep away zombie cells.', link: 'https://amazon.com' }
+        { name: links.hp_quercetin?.name || 'Liposomal Quercetin', desc: links.hp_quercetin?.desc || 'High-absorption senolytic to help sweep away zombie cells.', link: links.hp_quercetin?.url || 'https://www.amazon.com/dp/B07BFR4QC2' }
       ]
     },
     mitochondria: {
@@ -96,7 +98,7 @@ export default function CellularDeepDive() {
         'Cold Exposure: Short cold showers activate brown fat, which is packed with mitochondria, burning calories to generate heat.'
       ],
       compounds: [
-        { name: 'CoQ10 / PQQ Ubiquinol', desc: 'Promotes mitochondrial energy generation and cell health.', link: 'https://amazon.com' }
+        { name: links.hp_coq10?.name || 'CoQ10 / PQQ Ubiquinol', desc: links.hp_coq10?.desc || 'Promotes mitochondrial energy generation and cell health.', link: links.hp_coq10?.url || 'https://www.amazon.com/dp/B0019GW3Y8' }
       ]
     }
   };

@@ -30,4 +30,17 @@ export const affiliateLinks = {
 
   // Community / membership link (placeholder)
   memberships: '#',
+
+  // Healthspan & Longevity (HP) Essentials
+  hp_biological_age: 'https://amazon.com/dp/B0CXM1X8PQ',
+  hp_nad_stack: 'https://amazon.com/dp/B0CLB5X8X9',
+  hp_bio_response: 'https://amazon.com/dp/B0CXM1X8PQ',
+  hp_kit_us: 'https://amazon.com/dp/B0CXM1X8PQ',
+  hp_kit_uk: 'https://amazon.co.uk/dp/B0CXM1X8PQ',
+  hp_kit_es: 'https://amazon.es/dp/B0CXM1X8PQ',
+  hp_spermidine: 'https://www.amazon.com/dp/B08J5P8D9D',
+  hp_quercetin: 'https://www.amazon.com/dp/B07BFR4QC2',
+  hp_nad_complete: 'https://renuebyscience.com/',
+  hp_coq10: 'https://www.amazon.com/dp/B0019GW3Y8',
 };
+
