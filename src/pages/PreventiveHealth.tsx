@@ -343,8 +343,7 @@ export default function PreventiveHealth() {
                     {p.desc}
                   </p>
                   
-                  <div className="mt-auto pt-8 border-t border-white/5 flex items-center justify-between">
-                    <span className="text-lg font-display font-black">{p.price}</span>
+                  <div className="mt-auto pt-8 border-t border-white/5 flex items-center justify-end">
                     <a 
                       href={p.url} 
                       target="_blank" 

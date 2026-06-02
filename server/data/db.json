@@ -19,6 +19,16 @@
       "payment_status": "paid",
       "created_at": "2026-05-31T09:33:09.499Z",
       "updated_at": "2026-05-31T09:33:09.499Z"
+    },
+    {
+      "id": "070aa868-a292-4056-b21a-b3b9de62fbe5",
+      "stripe_session_id": "test_session_1780413236755_mbxwdry2s",
+      "customer_email": "test-user@example.com",
+      "amount_total": 0,
+      "currency": "gbp",
+      "payment_status": "paid",
+      "created_at": "2026-06-02T15:13:56.762Z",
+      "updated_at": "2026-06-02T15:13:56.762Z"
     }
   ],
   "order_items": [
@@ -32,6 +42,12 @@
       "id": "e2d6d3dc-4882-4a35-a1ca-0afd99dca610",
       "order_id": "e59764f4-7f08-4071-898d-4e82897981c5",
       "product_id": "g-fit-2",
+      "quantity": 1
+    },
+    {
+      "id": "cb056803-7a78-45f8-8038-1ce1440a1a56",
+      "order_id": "070aa868-a292-4056-b21a-b3b9de62fbe5",
+      "product_id": "g-fit-1",
       "quantity": 1
     }
   ],
@@ -55,6 +71,16 @@
       "max_downloads": 3,
       "download_count": 1,
       "created_at": "2026-05-31T09:33:09.506Z"
+    },
+    {
+      "id": "1def6ea6-c7a5-4369-8cd6-41b1db1579d3",
+      "token": "e10768169218fb9815e2f1a7930c2b35e5d9acc679cbd4e90e668c724da5816b",
+      "order_id": "070aa868-a292-4056-b21a-b3b9de62fbe5",
+      "product_id": "g-fit-1",
+      "expires_at": "2026-06-05T15:13:56.787Z",
+      "max_downloads": 3,
+      "download_count": 1,
+      "created_at": "2026-06-02T15:13:56.789Z"
     }
   ]
 }
