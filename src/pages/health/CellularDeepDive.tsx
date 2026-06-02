@@ -357,7 +357,7 @@ export default function CellularDeepDive() {
             </p>
             <div className="pt-4 flex flex-wrap justify-center gap-4">
               <Link to="/health/preventive" className="px-8 py-4 bg-indigo-600 hover:bg-white hover:text-slate-950 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all font-display">
-                Enter Diagnostic Archive
+                View Diagnostics
               </Link>
               <Link to="/health/systemic" className="px-8 py-4 border border-white/10 hover:border-white text-white rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all font-display">
                 Systemic Maintenance

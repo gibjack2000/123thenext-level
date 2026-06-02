@@ -162,7 +162,7 @@ export default function HealthPillar() {
                  Proactive diagnostic monitoring to identify sub-clinical risks before they manifest as chronic disease.
               </p>
               <Link to="/health/preventive" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-indigo-400 group-hover:text-white transition-colors font-display">
-                 Enter Diagnostic Archive <ArrowRight size={14} />
+                 View Diagnostics <ArrowRight size={14} />
               </Link>
             </div>
           </motion.div>
@@ -255,7 +255,7 @@ export default function HealthPillar() {
                 </div>
 
                 <Link to="/health/preventive" className="flex items-center justify-between p-8 bg-[#1e293b] text-white rounded-[2.5rem] hover:bg-indigo-600 transition-all font-bold uppercase tracking-widest text-xs group shadow-xl">
-                  <span>Enter Diagnostic Archive</span>
+                  <span>View Diagnostics</span>
                   <ExternalLink size={20} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
