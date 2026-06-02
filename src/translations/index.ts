@@ -308,6 +308,9 @@ lp_note_p: 'Breathing Mindfulness and Loving-kindness are the two meditations re
     hp_cta_kit_us: 'Bio-Age Test Kit (USA)',
     hp_cta_kit_uk: 'Bio-Age Test Kit (UK)',
     hp_cta_kit_es: 'Kit de Bio-Edad (España)',
+    hp_cta_lola_core: 'Lola Core Health 45 (UK)',
+    hp_cta_lola_vital: 'Lola Vital Check 56 (UK)',
+    hp_cta_lola_peak: 'Lola Peak Insights 70 (UK)',
     hp_cta_skincare: 'Regenerative Skincare (NAD+)',
 
     // Health Post A - Science of Sleep
@@ -1538,6 +1541,9 @@ lp_note_p: 'Breathing Mindfulness and Loving-kindness are the two meditations re
     hp_cta_kit_us: 'Kit de Prueba Bio-Edad (USA)',
     hp_cta_kit_uk: 'Kit de Prueba Bio-Edad (UK)',
     hp_cta_kit_es: 'Kit de Bio-Edad (España)',
+    hp_cta_lola_core: 'Lola Core Health 45 (UK)',
+    hp_cta_lola_vital: 'Lola Vital Check 56 (UK)',
+    hp_cta_lola_peak: 'Lola Peak Insights 70 (UK)',
     hp_cta_skincare: 'Cuidado Regenerativo (NAD+)',
 
     // Health Post A - Ciencia del Sueño

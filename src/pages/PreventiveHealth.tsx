@@ -1,9 +1,13 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, Activity, Microscope, Zap, Shield, ExternalLink, Binary, Sparkles, Target, ArrowRight, Search, FlaskConical, Gauge } from 'lucide-react';
+import { ArrowLeft, Activity, Microscope, Zap, Shield, ExternalLink, Binary, Sparkles, Target, ArrowRight, Search, FlaskConical, Gauge, Clipboard } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
+import { useAffiliateLinks } from '../contexts/AffiliateLinksContext';
+import { affiliateLinks } from '../config/affiliateLinks';
 
 export default function PreventiveHealth() {
+  const { links } = useAffiliateLinks();
+
   useEffect(() => {
     window.scrollTo(0, 0);
     document.title = `Biometric Foundation: Diagnostic Archive | 123TheNext Level`;
@@ -13,10 +17,10 @@ export default function PreventiveHealth() {
     {
       id: 'blood-panel',
       name: 'Advanced Blood Chemistry',
-      spec: '94+ Biomarkers',
-      desc: 'Comprehensive analysis of metabolic, hormonal, and inflammatory markers to establish a clinical baseline.',
-      metrics: ['ApoB/Lp(a)', 'HbA1c', 'hs-CRP', 'Vitamin D3'],
-      url: '#'
+      spec: '70+ Biomarkers',
+      desc: 'Comprehensive analysis of metabolic, hormonal, and inflammatory markers to establish a clinical baseline. We recommend venous draw over finger-pricks.',
+      metrics: ['ApoB (Heart Health)', 'HbA1c (Diabetes Risk)', 'hs-CRP (Inflammation)', 'Full Hormone Profile'],
+      url: '#lola-panels'
     },
     {
       id: 'epigenetic-clock',
@@ -24,7 +28,7 @@ export default function PreventiveHealth() {
       spec: 'Biological Pace of Aging',
       desc: 'The most accurate longitudinal clock measuring exactly how many biological years you age per calendar year.',
       metrics: ['PACE Rate', 'Telomere Length', 'Immune Age'],
-      url: '#'
+      url: '/health/cellular/epigenetic-tracking?tab=methylation'
     },
     {
       id: 'cancer-screening',
@@ -110,37 +114,160 @@ export default function PreventiveHealth() {
               </div>
 
               <div className="lg:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-8">
-                {diagnostics.map((d) => (
-                  <motion.div 
-                    key={d.id}
-                    whileHover={{ y: -10 }}
-                    className="bg-slate-900/50 p-10 rounded-[3.5rem] border border-white/5 shadow-2xl flex flex-col h-full"
-                  >
-                    <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 mb-8 border border-emerald-500/20">
-                      <Gauge size={24} />
-                    </div>
-                    <h3 className="text-2xl font-display font-black uppercase text-white mb-2 tracking-tight group-hover:text-emerald-400 transition-colors">
-                      {d.name}
-                    </h3>
-                    <p className="text-[10px] font-black uppercase text-slate-500 tracking-widest mb-6 font-display">{d.spec}</p>
-                    <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-grow font-medium">
-                      {d.desc}
-                    </p>
-                    <div className="space-y-3 mb-10">
-                      {d.metrics.map(m => (
-                        <div key={m} className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-slate-300">
-                          <div className="w-1 h-1 rounded-full bg-emerald-500" />
-                          {m}
-                        </div>
-                      ))}
-                    </div>
-                    <a href={d.url} className="w-full py-4 bg-white/5 rounded-2xl text-center text-[10px] font-black uppercase tracking-[0.2em] text-white hover:bg-emerald-600 transition-all border border-white/10 group-hover:border-emerald-500/50">
-                      View Clinical Specs
-                    </a>
-                  </motion.div>
-                ))}
+                {diagnostics.map((d) => {
+                  const isAnchor = d.url.startsWith('#');
+                  const isExternal = d.url.startsWith('http');
+                  
+                  const buttonProps = isAnchor 
+                    ? { href: d.url }
+                    : isExternal
+                    ? { href: d.url, target: '_blank', rel: 'noopener noreferrer' }
+                    : null;
+
+                  const LinkComponent = isAnchor || isExternal ? 'a' : Link;
+                  const linkToProp = isAnchor || isExternal ? {} : { to: d.url };
+
+                  return (
+                    <motion.div 
+                      key={d.id}
+                      whileHover={{ y: -10 }}
+                      className="bg-slate-900/50 p-10 rounded-[3.5rem] border border-white/5 shadow-2xl flex flex-col h-full"
+                    >
+                      <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 mb-8 border border-emerald-500/20">
+                        <Gauge size={24} />
+                      </div>
+                      <h3 className="text-2xl font-display font-black uppercase text-white mb-2 tracking-tight group-hover:text-emerald-400 transition-colors">
+                        {d.name}
+                      </h3>
+                      <p className="text-[10px] font-black uppercase text-slate-500 tracking-widest mb-6 font-display">{d.spec}</p>
+                      <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-grow font-medium">
+                        {d.desc}
+                      </p>
+                      <div className="space-y-3 mb-10">
+                        {d.metrics.map(m => (
+                          <div key={m} className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-slate-300">
+                            <div className="w-1 h-1 rounded-full bg-emerald-500" />
+                            {m}
+                          </div>
+                        ))}
+                      </div>
+                      <LinkComponent 
+                        {...buttonProps}
+                        {...linkToProp}
+                        className="w-full py-4 bg-white/5 rounded-2xl text-center text-[10px] font-black uppercase tracking-[0.2em] text-white hover:bg-emerald-600 transition-all border border-white/10 group-hover:border-emerald-500/50 block"
+                      >
+                        {d.id === 'blood-panel' ? 'View Recommended Panels' : 'View Clinical Specs'}
+                      </LinkComponent>
+                    </motion.div>
+                  );
+                })}
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Lola Health Blood Panels Section */}
+        <section id="lola-panels" className="mb-40 scroll-mt-24">
+           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 px-4">
+            <div className="space-y-4">
+              <span className="text-emerald-400 font-black uppercase tracking-[0.3em] text-xs font-display">Lola Health (UK)</span>
+              <h2 className="text-5xl md:text-[6rem] font-display font-black uppercase tracking-tighter text-white leading-none">
+                 Recommended Tests
+              </h2>
+            </div>
+            <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px] border-b border-emerald-500/20 pb-4 font-display">
+               Venous Blood Draw Panels
+            </p>
+          </div>
+
+          <div className="bg-[#0f172a] p-8 md:p-16 rounded-[4rem] border border-white/5 shadow-3xl mb-16 relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-8 opacity-[0.03]">
+              <FlaskConical size={140} className="text-emerald-400" />
+            </div>
+            <div className="max-w-4xl space-y-6 relative z-10">
+              <h3 className="text-2xl md:text-3xl font-display font-black uppercase text-white">Why Venous Draws Matter for Longevity</h3>
+              <p className="text-slate-400 text-sm md:text-base leading-relaxed">
+                Standard finger-prick tests often result in hemolyzed (damaged) blood cells, leading to inaccurate readings or laboratory rejection due to low sample volume. 
+                For high-fidelity biomarker tracking, clinical-grade venous blood draws are the gold standard.
+                <br /><br />
+                We have analyzed <strong>Lola Health</strong> (UK) and recommend their phlebotomy-led testing. Their service includes a professional at-home venous blood collection in the price. Samples are processed in NHS-standard accredited labs and results are reviewed by GMC-registered doctors.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                id: 'lola-core',
+                name: 'Core Health 45',
+                brand: 'Lola Health',
+                desc: 'A foundational health panel examining 45 key biomarkers. Measures liver & kidney efficiency, cholesterol levels, baseline thyroid function, iron reserves, key vitamins, and inflammation.',
+                metrics: ['Liver & Kidney Profile', 'Cholesterol / Lipids', 'Thyroid (TSH)', 'Inflammation (CRP)', 'Full Blood Count (FBC)'],
+                url: links.lola_core_health?.url || affiliateLinks.lola_core_health,
+                image: '/lola_clinic_core.png'
+              },
+              {
+                id: 'lola-vital',
+                name: 'Vital Check 56',
+                brand: 'Lola Health',
+                desc: 'An advanced mid-tier check scanning 56 critical biomarkers. Adds comprehensive sex hormones and thyroid panels to track endocrine wellness alongside core metabolic organs.',
+                metrics: ['Core 45 Biomarkers', 'Reproductive Hormones (Oestrogen/Testosterone)', 'SHBG & Free Androgens', 'Advanced Metabolic Health', 'Bone Health Markers'],
+                url: links.lola_vital_check?.url || affiliateLinks.lola_vital_check,
+                image: '/lola_clinic_vital.png'
+              },
+              {
+                id: 'lola-peak',
+                name: 'Peak Insights 70',
+                brand: 'Lola Health',
+                desc: 'The gold standard longevity assessment tracking 70 biomarkers. Includes Apolipoprotein B (ApoB) for cardiovascular risk, a full metabolic screen, and extensive hormonal mapping.',
+                metrics: ['Vital 56 Biomarkers', 'Apolipoprotein B (ApoB)', 'Active Vitamin B12 / Folate', 'Cardiovascular Risk Profiling', 'Full Endocrinology & Cortisol'],
+                url: links.lola_peak_insights?.url || affiliateLinks.lola_peak_insights,
+                image: '/lola_clinic_peak.png'
+              }
+            ].map((p) => (
+              <motion.div 
+                key={p.id}
+                whileHover={{ y: -15 }}
+                className="bg-slate-900/50 backdrop-blur-3xl rounded-[3.5rem] border border-white/5 overflow-hidden group shadow-2xl flex flex-col h-full"
+              >
+                <div className="h-64 relative overflow-hidden bg-white/5">
+                   <img src={p.image} alt={p.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[0.75]" />
+                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                   <div className="absolute bottom-6 left-8">
+                     <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 bg-emerald-500/10 px-4 py-1.5 rounded-full border border-emerald-500/20 backdrop-blur-md font-display">
+                        {p.brand}
+                     </span>
+                     <h3 className="text-2xl font-display font-black uppercase text-white tracking-tight mt-2">{p.name}</h3>
+                   </div>
+                </div>
+                
+                <div className="p-10 flex flex-col flex-1">
+                  <p className="text-slate-400 text-sm leading-relaxed mb-8 font-medium">
+                    {p.desc}
+                  </p>
+                  
+                  <div className="space-y-3 mb-10">
+                    {p.metrics.map(m => (
+                      <div key={m} className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-slate-300">
+                        <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        {m}
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-auto pt-8 border-t border-white/5">
+                    <a 
+                      href={p.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="flex items-center justify-center w-full py-5 bg-white text-[#020617] rounded-[2rem] font-black text-[10px] uppercase tracking-widest hover:bg-emerald-600 hover:text-white transition-all shadow-2xl font-display"
+                    >
+                      Order Test Kit <ExternalLink size={14} className="ml-3" />
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </section>
 
@@ -154,7 +281,7 @@ export default function PreventiveHealth() {
               </h2>
             </div>
             <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px] border-b border-emerald-500/20 pb-4 font-display">
-              Tier-1 Diagnostic Tools
+               Tier-1 Diagnostic Tools
             </p>
           </div>
 

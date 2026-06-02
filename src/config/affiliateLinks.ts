@@ -42,5 +42,10 @@ export const affiliateLinks = {
   hp_quercetin: 'https://www.amazon.com/dp/B07BFR4QC2',
   hp_nad_complete: 'https://renuebyscience.com/',
   hp_coq10: 'https://www.amazon.com/dp/B0019GW3Y8',
+
+  // Lola Health (UK) Blood Panels
+  lola_core_health: 'https://referrals.lolahealth.com/NextLevel15',
+  lola_vital_check: 'https://referrals.lolahealth.com/NextLevel15',
+  lola_peak_insights: 'https://referrals.lolahealth.com/NextLevel15',
 };
 

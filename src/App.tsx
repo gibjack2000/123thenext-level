@@ -59,6 +59,7 @@ const PreventiveHealth = lazy(() => import('./pages/PreventiveHealth'));
 const CellularEngineering = lazy(() => import('./pages/health/CellularEngineering'));
 const CellularDeepDive = lazy(() => import('./pages/health/CellularDeepDive'));
 const CellularGlossary = lazy(() => import('./pages/health/CellularGlossary'));
+const EpigeneticTracking = lazy(() => import('./pages/health/EpigeneticTracking'));
 const GlossaryPage = lazy(() => import('./pages/GlossaryPage'));
 const SystemicMaintenance = lazy(() => import('./pages/health/SystemicMaintenance'));
 const FitnessFundamentals = lazy(() => import('./pages/FitnessFundamentals'));
@@ -102,12 +103,14 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/health" element={<HealthPillar />} />
+                <Route path="/health/preventive" element={<PreventiveHealth />} />
                 <Route path="/health/post-a" element={<HealthPostA />} />
                 <Route path="/health/post-b" element={<HealthPostB />} />
                 <Route path="/health/post-c" element={<HealthPostC />} />
                 <Route path="/health/cellular" element={<CellularEngineering />} />
                 <Route path="/health/cellular/deep-dive" element={<CellularDeepDive />} />
                 <Route path="/health/cellular/glossary/:topicId" element={<CellularGlossary />} />
+                <Route path="/health/cellular/epigenetic-tracking" element={<EpigeneticTracking />} />
                 <Route path="/glossary" element={<GlossaryPage />} />
                 <Route path="/health/systemic" element={<SystemicMaintenance />} />
                 <Route path="/fitness" element={<FitnessPillar />} />

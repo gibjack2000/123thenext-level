@@ -204,7 +204,8 @@ export default function AdminPage() {
       'nad', 'rogue', 'whoop', 'epigenetic', 'whp_oura', 'whp_creatine', 'whp_multivitamin', 'whp_scale',
       'nw_oura', 'nw_apollo', 'nw_shilajit', 'strength', 'menopause', 'memberships',
       'hp_biological_age', 'hp_nad_stack', 'hp_bio_response', 'hp_kit_us', 'hp_kit_uk', 'hp_kit_es',
-      'hp_spermidine', 'hp_quercetin', 'hp_nad_complete', 'hp_coq10'
+      'hp_spermidine', 'hp_quercetin', 'hp_nad_complete', 'hp_coq10',
+      'lola_core_health', 'lola_vital_check', 'lola_peak_insights'
     ];
 
     staticKeys.forEach(key => {
@@ -1328,7 +1329,10 @@ create table if not exists premium_guides (
                   { key: 'hp_spermidine', label: 'HP Primeadine Spermidine' },
                   { key: 'hp_quercetin', label: 'HP Liposomal Quercetin' },
                   { key: 'hp_nad_complete', label: 'HP NAD+ Complete' },
-                  { key: 'hp_coq10', label: 'HP CoQ10 / PQQ Ubiquinol' }
+                  { key: 'hp_coq10', label: 'HP CoQ10 / PQQ Ubiquinol' },
+                  { key: 'lola_core_health', label: 'Lola Core Health 45' },
+                  { key: 'lola_vital_check', label: 'Lola Vital Check 56' },
+                  { key: 'lola_peak_insights', label: 'Lola Peak Insights 70' }
                 ].map(spot => (
                   <div key={spot.key} className="p-6 bg-slate-50 border border-slate-200 rounded-3xl space-y-4">
                     <div className="flex items-center gap-2">

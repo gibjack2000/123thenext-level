@@ -240,15 +240,19 @@ export default function CellularEngineering() {
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
              <motion.div 
                whileHover={{ y: -5 }}
-               className="bg-[#0f172a] p-12 md:p-20 rounded-[4rem] border border-white/5 shadow-3xl relative overflow-hidden group"
+               className="bg-[#0f172a] p-12 md:p-20 rounded-[4rem] border border-white/5 shadow-3xl relative overflow-hidden group flex flex-col justify-between"
              >
-                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-indigo-500 to-transparent"></div>
-                <h3 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tighter text-white mb-8 leading-none">
-                   ATP<br />Generation
-                </h3>
-                <p className="text-xl text-slate-400 leading-relaxed mb-12 font-medium italic">
-                   Mitochondria are the powerplants of our biology. Enhancing their density through PGC-1α induction is the primary goal of cellular exercise.
-                </p>
+                <div>
+                  <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-indigo-500 to-transparent"></div>
+                  <h3 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tighter text-white mb-8 leading-none">
+                     ATP<br />Generation
+                  </h3>
+                  <p className="text-base md:text-lg text-slate-400 leading-relaxed mb-12 font-medium">
+                    <strong>Mitochondria</strong> are the tiny power generators inside our cells that produce <strong>ATP</strong>—the fundamental energy currency that fuels everything from our muscles to our brain. Over time, these cellular engines slow down and decrease in number, causing fatigue and slower physical recovery. 
+                    <br /><br />
+                    By engaging in targeted "cellular exercise" (such as Zone 2 cardio and interval training), we trigger a master switch protein called <strong>PGC-1α</strong>. This signals your cells to build fresh, highly efficient mitochondria, restoring youthful energy, boosting metabolic health, and protecting your body from biological decay.
+                  </p>
+                </div>
                 <Link to="/fitness" className="inline-flex items-center text-indigo-400 font-black text-[10px] uppercase tracking-[0.3em] hover:text-white transition-colors group">
                   Browse Fitness Methodology <ArrowRight size={14} className="ml-3 group-hover:translate-x-2 transition-transform" />
                 </Link>
@@ -256,20 +260,32 @@ export default function CellularEngineering() {
              
              <motion.div 
                whileHover={{ y: -5 }}
-               className="bg-white/[0.02] p-12 md:p-20 rounded-[4rem] border border-white/5 shadow-2xl flex flex-col justify-center items-start group"
+               className="bg-white/[0.02] p-12 md:p-20 rounded-[4rem] border border-white/5 shadow-2xl flex flex-col justify-between items-start group"
              >
-                <FlaskConical size={64} className="text-indigo-400 mb-10 group-hover:rotate-12 transition-transform duration-700" />
-                <h3 className="text-3xl font-display font-black uppercase text-white tracking-tight mb-6">
-                   Epigenetic Tracking
-                </h3>
-                <p className="text-lg text-slate-500 leading-relaxed mb-10 font-medium">
-                   We use DunedinPACE and other 3rd-generation clocks to verify that our interventions are effectively slowing the pace of aging.
-                </p>
+                <div>
+                  <FlaskConical size={64} className="text-indigo-400 mb-10 group-hover:rotate-12 transition-transform duration-700" />
+                  <h3 className="text-3xl font-display font-black uppercase text-white tracking-tight mb-6">
+                     Epigenetic Tracking
+                  </h3>
+                  <p className="text-base md:text-lg text-slate-400 leading-relaxed mb-10 font-medium">
+                    Your calendar age is just a number, but your <strong>biological age</strong> reveals the actual state of your cells and organs. Epigenetic tracking analyzes chemical tags on your DNA (known as methylation) that turn genes on or off based on your daily sleep, diet, and lifestyle choices.
+                    <br /><br />
+                    Using state-of-the-art biological speedometers like the <strong>DunedinPACE clock</strong>, we measure your exact rate of aging in real-time. This provides absolute scientific proof of whether our longevity protocols are successfully slowing your internal clock—turning health from guesswork into a data-driven science.
+                  </p>
+                </div>
                 <div className="flex flex-wrap gap-4">
-                   {['Methylation', 'GlycanAge', 'Bio-Age Hub'].map(tag => (
-                     <div key={tag} className="px-6 py-3 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 font-black text-[10px] uppercase tracking-widest font-display">
-                        {tag}
-                     </div>
+                   {[
+                     { label: 'Methylation', id: 'methylation' },
+                     { label: 'GlycanAge', id: 'glycanage' },
+                     { label: 'Bio-Age Hub', id: 'bioage-hub' }
+                   ].map(tag => (
+                     <Link 
+                       key={tag.id} 
+                       to={`/health/cellular/epigenetic-tracking?tab=${tag.id}`}
+                       className="px-6 py-3 rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 font-black text-[10px] uppercase tracking-widest font-display hover:bg-indigo-600 hover:text-white transition-all hover:scale-105 shadow-md"
+                     >
+                        {tag.label}
+                     </Link>
                    ))}
                 </div>
              </motion.div>
