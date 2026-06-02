@@ -23,7 +23,7 @@ export default function WomensHealthPillar() {
   const pillarEssentials = [
     {
       id: 'oura-ring',
-      name: 'Oura Ring Gen3 Horizon',
+      name: 'Oura Ring Gen5 Horizon',
       brand: 'Biometric Feedback',
       desc: 'The gold standard for female cycle tracking, HRV monitoring, and autonomic nervous system data.',
       image: links.whp_oura?.image || '/Products/Oura1.jpg',

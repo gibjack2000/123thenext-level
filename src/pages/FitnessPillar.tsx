@@ -37,7 +37,7 @@ export default function FitnessPillar() {
     },
     {
       name: "Autonomic Recovery Tracker",
-      brand: "Whoop 4.0 / Oura Gen3",
+      brand: "Whoop 4.0 / Oura Gen5",
       desc: "Real-time strain vs. recovery monitoring via high-resolution HRV analysis.",
       image: "/Products/whoop.jpg",
       link: affiliateLinks.whoop,

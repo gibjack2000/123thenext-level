@@ -289,27 +289,30 @@ export default function PreventiveHealth() {
             {[
               { 
                 id: 'oura', 
-                name: 'Oura Ring Gen 3', 
-                brand: 'Oura', 
-                desc: 'The gold standard in sleep and autonomic tracking. Multi-sensor biometric capture for deep physiological insight.', 
-                price: '$299', 
-                url: '#' 
+                name: links.oura?.name || 'Oura Ring Gen 5', 
+                brand: links.oura?.brand || 'Oura', 
+                desc: links.oura?.desc || 'The gold standard in sleep and autonomic tracking. Multi-sensor biometric capture for deep physiological insight.', 
+                price: links.oura?.price || '$299', 
+                url: links.oura?.url || affiliateLinks.oura,
+                image: links.oura?.image
               },
               { 
                 id: 'insidetracker', 
-                name: 'InsideTracker Ultimate', 
-                brand: 'InsideTracker', 
-                desc: 'Comprehensive blood analysis combined with DNA and wearable data to provide a holistic biological roadmap.', 
-                price: '$589', 
-                url: '#' 
+                name: links.insidetracker?.name || 'InsideTracker Ultimate', 
+                brand: links.insidetracker?.brand || 'InsideTracker', 
+                desc: links.insidetracker?.desc || 'Comprehensive blood analysis combined with DNA and wearable data to provide a holistic biological roadmap.', 
+                price: links.insidetracker?.price || '$589', 
+                url: links.insidetracker?.url || affiliateLinks.insidetracker,
+                image: links.insidetracker?.image
               },
               { 
                 id: 'levels', 
-                name: 'Levels CGM', 
-                brand: 'Levels Health', 
-                desc: 'Real-time metabolic feedback via continuous glucose monitoring to identify and eliminate glycemic variability.', 
-                price: '$199/mo', 
-                url: '#' 
+                name: links.levels?.name || 'Levels CGM', 
+                brand: links.levels?.brand || 'Levels Health', 
+                desc: links.levels?.desc || 'Real-time metabolic feedback via continuous glucose monitoring to identify and eliminate glycemic variability.', 
+                price: links.levels?.price || '$199/mo', 
+                url: links.levels?.url || affiliateLinks.levels,
+                image: links.levels?.image
               }
             ].map((p) => (
               <motion.div 
@@ -318,8 +321,17 @@ export default function PreventiveHealth() {
                 className="bg-slate-900/50 backdrop-blur-3xl rounded-[3.5rem] border border-white/5 overflow-hidden group shadow-2xl flex flex-col h-full"
               >
                 <div className="h-64 relative overflow-hidden bg-white/5 flex items-center justify-center">
-                   <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-indigo-500/10 transition-opacity group-hover:opacity-100 opacity-50"></div>
-                   <div className="absolute inset-0 flex items-center justify-center text-slate-700 font-display font-black uppercase tracking-widest text-xs">Diagnostic Core</div>
+                   {p.image ? (
+                     <>
+                       <img src={p.image} alt={p.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 brightness-[0.75]" />
+                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+                     </>
+                   ) : (
+                     <>
+                       <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-indigo-500/10 transition-opacity group-hover:opacity-100 opacity-50"></div>
+                       <div className="absolute inset-0 flex items-center justify-center text-slate-700 font-display font-black uppercase tracking-widest text-xs">Diagnostic Core</div>
+                     </>
+                   )}
                 </div>
                 
                 <div className="p-10 flex flex-col flex-1">

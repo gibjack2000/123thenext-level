@@ -1312,6 +1312,9 @@ create table if not exists premium_guides (
               
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[
+                  { key: 'oura', label: 'Base Oura Ring Gen 5' },
+                  { key: 'insidetracker', label: 'Base InsideTracker Ultimate' },
+                  { key: 'levels', label: 'Base Levels CGM' },
                   { key: 'whp_oura', label: 'WHP Oura Ring' },
                   { key: 'whp_creatine', label: 'WHP Creatine' },
                   { key: 'whp_multivitamin', label: 'WHP Multivitamin' },

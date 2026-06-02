@@ -6,6 +6,11 @@ export const affiliateLinks = {
   uk: 'https://amazon.co.uk/dp/B0CXM1X8PQ', // Ovarian Test UK
   es: 'https://amazon.es/dp/B0CXM1X8PQ', // Ovarian Test ES
 
+  // Base diagnostics
+  oura: 'https://www.amazon.com/Oura-Ring-Gen3-Horizon-Stealth/dp/B0D4N3L9XW',
+  insidetracker: 'https://www.insidetracker.com/',
+  levels: 'https://amazon.com/dp/B0CXM1X8PQ',
+
   // Performance & equipment
   strength: 'https://amazon.com/dp/B0CLB5X8X9', // Strength Rack
 

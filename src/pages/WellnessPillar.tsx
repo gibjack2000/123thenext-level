@@ -27,7 +27,7 @@ export default function WellnessPillar() {
   const pillarEssentials = [
     {
       name: "HRV & Sleep Guardian",
-      brand: "Oura Ring Gen3",
+      brand: "Oura Ring Gen5",
       desc: "Clinical-grade tracking of autonomic nervous system balance and recovery readiness.",
       image: "/Products/oura.jpg",
       link: affiliateLinks.oura,
