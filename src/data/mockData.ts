@@ -721,7 +721,7 @@ export const MOCK_PRODUCTS: Product[] = [
     "id": 54,
     "region": "US",
     "category": "tech_gadgets",
-    "product_name": "Oura Ring 4 - Silver",
+    "product_name": "Oura Ring 5 - Silver",
     "amazon_asin": "B0D9WVSZ56",
     "amazon_url": "https://www.amazon.com/dp/B0D9WVSZ56?tag=123znl0e-20",
     "image_url": "https://123thenextlevel.com/Products/yoga.jpg",

@@ -1197,7 +1197,7 @@ export default function Home() {
                         <div className="flex items-center gap-2">
                           <div className="flex items-center gap-1.5 py-1">
                             <img 
-                              src={REGIONS.find(r => r.id === product.region.toLowerCase())?.image} 
+                              src={REGIONS.find(r => r.id === (product.region || '').toLowerCase())?.image} 
                               alt={product.region} 
                               className="w-5 h-3.5 object-cover rounded shadow-sm border border-slate-100" 
                               referrerPolicy="no-referrer"

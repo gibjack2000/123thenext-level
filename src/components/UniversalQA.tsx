@@ -128,7 +128,7 @@ export default function UniversalQA() {
       questionKey: 'uqa_q_rings',
       answerKey: 'uqa_a_rings',
       icon: <Activity className="text-pink-500" />,
-      tags: ['Oura 4', 'WHOOP 5.0', 'Biometrics'],
+      tags: ['Oura 5', 'WHOOP 5.0', 'Biometrics'],
       links: [{ label: 'Compare 2026 Wearables', url: 'https://amazon.com/dp/B0CXM1X8PQ' }]
     },
 

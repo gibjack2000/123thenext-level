@@ -53,7 +53,7 @@ export default function NeurowellnessPillar() {
   const pillarEssentials = [
     {
       name: "HRV & Sleep Guardian",
-      brand: "Oura Ring 4",
+      brand: "Oura Ring 5",
       desc: "Clinical-grade tracking of autonomic nervous system balance and recovery readiness.",
       image: "/Products/Oura1.jpg",
       link: "https://amazon.com/dp/B0D4N3L9XW",

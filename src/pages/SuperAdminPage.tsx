@@ -1011,7 +1011,7 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
           ) : (
             blogPosts
               .filter(p => blogCategoryFilter === 'all' || p.category === blogCategoryFilter)
-              .filter(p => p.title.toLowerCase().includes(blogSearchQuery.toLowerCase()))
+              .filter(p => (p.title || '').toLowerCase().includes(blogSearchQuery.toLowerCase()))
               .map(post => (
                 <div key={post.id} className="flex items-center justify-between p-4 bg-slate-50 border border-slate-100 rounded-2xl hover:bg-white hover:shadow-md transition-all group">
                    <div className="flex items-center gap-4">

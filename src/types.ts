@@ -39,21 +39,21 @@ export type BlogPost = {
 // Mapper from DB amazon_affiliate_products to internal Product type
 export const mapToProduct = (dbProduct: any): Product => {
   return {
-    id: dbProduct.id?.toString(),
-    region: dbProduct.market as 'US' | 'UK' | 'ES',
-    category: dbProduct.category,
-    product_name: dbProduct.title,
-    amazon_asin: dbProduct.asin,
-    amazon_url: dbProduct.affiliate_link,
-    image_url: dbProduct.image_url,
-    short_benefit: dbProduct.cta,
-    description: dbProduct.description,
+    id: dbProduct.id?.toString() || '',
+    region: (dbProduct.market as 'US' | 'UK' | 'ES') || 'US',
+    category: dbProduct.category || '',
+    product_name: dbProduct.title || '',
+    amazon_asin: dbProduct.asin || '',
+    amazon_url: dbProduct.affiliate_link || '',
+    image_url: dbProduct.image_url || '',
+    short_benefit: dbProduct.cta || '',
+    description: dbProduct.description || '',
     price: parseFloat(dbProduct.price || 0),
-    currency: dbProduct.currency || (dbProduct.market === 'US' ? 'USD' : dbProduct.market === 'UK' ? 'GBP' : 'EUR'),
-    rating: dbProduct.rating,
-    featured: dbProduct.is_active,
+    currency: dbProduct.currency || (dbProduct.market === 'US' ? 'USD' : dbProduct.market === 'UK' ? 'GBP' : 'EUR') || 'USD',
+    rating: parseFloat(dbProduct.rating || 0),
+    featured: Boolean(dbProduct.is_active),
     tags: Array.isArray(dbProduct.tags) ? dbProduct.tags : [],
-    last_checked_at: dbProduct.last_updated
+    last_checked_at: dbProduct.last_updated || ''
   };
 };
 

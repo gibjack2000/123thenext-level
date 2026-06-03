@@ -1085,7 +1085,7 @@ create table if not exists premium_guides (
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-50">
-                    {products.filter(p => p.product_name.toLowerCase().includes(searchQuery.toLowerCase())).map(product => (
+                    {products.filter(p => (p.product_name || '').toLowerCase().includes(searchQuery.toLowerCase())).map(product => (
                       <tr key={product.id} className="group hover:bg-slate-50/80 transition-all">
                         <td className="px-10 py-6">
                           <div className="flex items-center gap-5">

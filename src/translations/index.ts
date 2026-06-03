@@ -803,7 +803,7 @@ lp_note_p: 'Breathing Mindfulness and Loving-kindness are the two meditations re
     wp_hard_hrv_title: 'Heart Rate Variability: The Master Metric',
     wp_hard_hrv_detail: 'HRV measures the time gap between successive heartbeats—a proxy for autonomic flexibility. Higher HRV means your Vagus can shift smoothly between activation and calm. Low HRV is a leading predictor of cardiovascular disease, PTSD severity, and all-cause mortality. Wearables now make this measurement continuous, and VNS devices make it trainable.',
     wp_hard_comparison_title: 'The 2026 Wearable War',
-    wp_hard_oura: 'Oura Ring 4: Precision sleep architecture and biological age tracking.',
+    wp_hard_oura: 'Oura Ring 5: Precision sleep architecture and biological age tracking.',
     wp_hard_whoop: 'WHOOP 5.0: The ultimate autonomic stress-strain validator.',
     wp_hard_apple: 'Apple Watch Ultra 2: Clinical-grade Vagus Nerve monitoring.',
     wp_hard_data_title: 'Data Is the New Placebo',
@@ -1173,9 +1173,9 @@ lp_note_p: 'Breathing Mindfulness and Loving-kindness are the two meditations re
     uqa_a_systemage: 'SystemAge is a 3rd-generation diagnostic that moves beyond a single "age" number. By measuring methylation across 19+ organ systems, it identifies "biological noise" in specific areas, allowing for precision bio-optimization of the heart, liver, or immune system.',
 
     uqa_q_rings: 'What are the top-rated smart rings for sleep tracking and heart rhythm in 2026?',
-    uqa_a_rings: 'The Oura Ring 4 remains the gold standard for sleep architecture, while the latest Apple Watch Ultra provides the most accurate heart rhythm monitoring. For those focused on recovery-strain balance, WHOOP 5.0 offers the most granular biometric feedback.',
+    uqa_a_rings: 'The Oura Ring 5 remains the gold standard for sleep architecture, while the latest Apple Watch Ultra provides the most accurate heart rhythm monitoring. For those focused on recovery-strain balance, WHOOP 5.0 offers the most granular biometric feedback.',
 
-    uqa_q_wearables_vs: 'Oura Ring 4 vs. WHOOP 5.0 vs. Apple Watch Ultra 2: Which is best?',
+    uqa_q_wearables_vs: 'Oura Ring 5 vs. WHOOP 5.0 vs. Apple Watch Ultra 2: Which is best?',
     uqa_a_wearables_vs: 'Choose Oura if your priority is sleep and recovery data in a discreet form. WHOOP is superior for high-performance athletes tracking daily strain. Apple Watch Ultra 2 is the best "all-in-one" device for general health monitoring and emergency safety features.',
 
     uqa_q_cold_sauna: 'Cold plunge (Readiness) vs. Infrared Sauna (Adaptation): Which is better?',
@@ -1202,7 +1202,7 @@ lp_note_p: 'Breathing Mindfulness and Loving-kindness are the two meditations re
     fww_title: 'The Wearable War 2026',
     fww_intro: 'A technical comparison of hardware precision and AI-driven coaching intelligence.',
     fww_form_factor_title: 'The Form Factor Advantage',
-    fww_form_factor_p: 'Rings like the Oura 4 sit closer to digital arteries on the finger, providing superior passive accuracy for HRV and heart rhythm compared to wrist-based optical sensors.',
+    fww_form_factor_p: 'Rings like the Oura 5 sit closer to digital arteries on the finger, providing superior passive accuracy for HRV and heart rhythm compared to wrist-based optical sensors.',
     fww_software_title: 'The Rise of Software Brains',
     fww_software_p: "In 2026, the device is just the antenna. The real value lies in the 'Software Brains'—AI Advisors that interpret your data into actionable context, telling you not just that you're tired, but why and how to fix it.",
     fww_healthspan_title: 'The Healthspan Metric',
@@ -1225,7 +1225,7 @@ lp_note_p: 'Breathing Mindfulness and Loving-kindness are the two meditations re
     hpm_recovery_p: 'Cold plunges trigger "Readiness" signaling but can blunt muscle growth if used too soon after lifting. Infrared saunas activate Heat Shock Proteins (HSPs) to repair cellular damage and boost cardiovascular health.',
 
     // Affiliate CTAs Performance
-    fp_cta_oura: 'Oura Ring 4: Circadian Precision',
+    fp_cta_oura: 'Oura Ring 5: Circadian Precision',
     fp_cta_whoop: 'WHOOP 5.0: Performance Coach',
     fp_cta_apple: 'Apple Watch Ultra 2: All-in-One',
     fp_cta_coldplunge: 'Portable Cold Plunge (Readiness)',
@@ -2130,7 +2130,7 @@ lp_note_p: 'Breathing Mindfulness and Loving-kindness are the two meditations re
     wp_hard_title: 'Neurotecnología y VNS: Programando la Homeostasis',
     wp_hard_intro: 'Cómo los dispositivos TENS y los wearables envían señales aferentes al hipocampo y la amígdala para restaurar el equilibrio.',
     wp_hard_comparison_title: 'La Guerra de Wearables 2026',
-    wp_hard_oura: 'Oura Ring 4: Seguimiento preciso de la arquitectura del sueño y edad biológica.',
+    wp_hard_oura: 'Oura Ring 5: Seguimiento preciso de la arquitectura del sueño y edad biológica.',
     wp_hard_whoop: 'WHOOP 5.0: El validador definitivo del estrés y la tensión autonómica.',
     wp_hard_apple: 'Apple Watch Ultra 2: Monitoreo del Nervio Vago de grado clínico.',
     
@@ -2263,9 +2263,9 @@ lp_note_p: 'Breathing Mindfulness and Loving-kindness are the two meditations re
     uqa_a_systemage: 'SystemAge es un diagnóstico de tercera generación que va más allá de un simple número de "edad". Al medir la metilación en más de 19 sistemas, identifica el "ruido biológico" en áreas específicas, permitiendo una bio-optimización de precisión.',
 
     uqa_q_rings: '¿Cuáles son los anillos inteligentes mejor valorados para el sueño y el ritmo cardíaco en 2026?',
-    uqa_a_rings: 'El Oura Ring 4 sigue siendo el estándar de oro para el sueño, mientras que el último Apple Watch Ultra ofrece el monitoreo de ritmo cardíaco más preciso. Para el equilibrio recuperación-esfuerzo, WHOOP 5.0 ofrece los datos biométricos más granulares.',
+    uqa_a_rings: 'El Oura Ring 5 sigue siendo el estándar de oro para el sueño, mientras que el último Apple Watch Ultra ofrece el monitoreo de ritmo cardíaco más preciso. Para el equilibrio recuperación-esfuerzo, WHOOP 5.0 ofrece los datos biométricos más granulares.',
 
-    uqa_q_wearables_vs: 'Oura Ring 4 vs. WHOOP 5.0 vs. Apple Watch Ultra 2: ¿Cuál es mejor?',
+    uqa_q_wearables_vs: 'Oura Ring 5 vs. WHOOP 5.0 vs. Apple Watch Ultra 2: ¿Cuál es mejor?',
     uqa_a_wearables_vs: 'Elige Oura si tu prioridad son los datos de sueño en un formato discreto. WHOOP es superior para atletas de alto rendimiento. Apple Watch Ultra 2 es el mejor dispositivo "todo en uno" para salud general y seguridad.',
 
     uqa_q_cold_sauna: 'Inmersión en frío (Preparación) vs. Sauna infrarroja (Adaptación): ¿Cuál es mejor?',
@@ -2327,7 +2327,7 @@ lp_note_p: 'Breathing Mindfulness and Loving-kindness are the two meditations re
     fww_title: 'La Guerra de los Wearables 2026',
     fww_intro: 'Una comparación técnica de la precisión del hardware y la inteligencia de entrenamiento impulsada por IA.',
     fww_form_factor_title: 'La Ventaja del Formato',
-    fww_form_factor_p: 'Anillos como el Oura 4 se sitúan más cerca de las arterias digitales en el dedo, proporcionando una precisión pasiva superior para el VFC (HRV) y el ritmo cardíaco en comparación con los sensores ópticos de muñeca.',
+    fww_form_factor_p: 'Anillos como el Oura 5 se sitúan más cerca de las arterias digitales en el dedo, proporcionando una precisión pasiva superior para el VFC (HRV) y el ritmo cardíaco en comparación con los sensores ópticos de muñeca.',
     fww_software_title: 'El Auge de los Cerebros de Software',
     fww_software_p: "En 2026, el dispositivo es solo la antena. El valor real reside en los 'Cerebros de Software'—Asesores de IA que interpretan tus datos en un contexto accionable.",
     fww_healthspan_title: 'La Métrica Healthspan',
@@ -2350,7 +2350,7 @@ lp_note_p: 'Breathing Mindfulness and Loving-kindness are the two meditations re
     hpm_recovery_p: 'Las inmersiones en frío activan señales de "Preparación" pero pueden frenar el crecimiento muscular si se usan demasiado pronto tras las pesas. Las saunas infrarrojas activan las Proteínas de Choque Térmico (HSPs).',
 
     // Affiliate CTAs Performance
-    fp_cta_oura: 'Oura Ring 4: Precisión Circadiana',
+    fp_cta_oura: 'Oura Ring 5: Precisión Circadiana',
     fp_cta_whoop: 'WHOOP 5.0: Entrenador de Rendimiento',
     fp_cta_apple: 'Apple Watch Ultra 2: Todo en Uno',
     fp_cta_coldplunge: 'Bañera de Hielo Portátil (Preparación)',

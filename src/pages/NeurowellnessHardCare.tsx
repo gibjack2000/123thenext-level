@@ -13,7 +13,7 @@ export default function NeurowellnessHardCare() {
 
   const hardCareArsenal = [
     {
-      name: "Oura Ring 4",
+      name: "Oura Ring 5",
       brand: "Oura",
       desc: "The gold standard for tracking sleep architecture and high-fidelity HRV recovery metrics with clinical precision.",
       image: "/Products/Oura1.jpg",
