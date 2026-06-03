@@ -172,7 +172,7 @@ export default function RegionHub() {
       
       const loadMockCategories = () => {
         const regionProducts = MOCK_PRODUCTS.filter(p => p.region === regionUpper);
-        const categoriesWithProducts = Array.from(new Set(regionProducts.map(p => p.category)));
+        const categoriesWithProducts = Array.from(new Set(regionProducts.map(p => p.category))).filter(Boolean) as string[];
         setActiveCategories(categoriesWithProducts);
         setLoading(false);
       };
@@ -190,7 +190,7 @@ export default function RegionHub() {
           
         if (error) throw error;
         if (data) {
-          const categoriesWithProducts = Array.from(new Set(data.map(p => p.category)));
+          const categoriesWithProducts = Array.from(new Set(data.map(p => p.category))).filter(Boolean) as string[];
           setActiveCategories(categoriesWithProducts);
         }
       } catch (err) {
@@ -205,12 +205,13 @@ export default function RegionHub() {
   }, [regionUpper]);
 
   const formatCategoryName = (id: string) => {
+    if (!id) return '';
     return id.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
   };
 
   const visibleCategories = [...CATEGORIES];
   activeCategories.forEach(catId => {
-    if (!visibleCategories.find(c => c.id === catId)) {
+    if (catId && !visibleCategories.find(c => c.id === catId)) {
       visibleCategories.push({
         id: catId,
         name: formatCategoryName(catId),
