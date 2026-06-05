@@ -26,7 +26,7 @@ export default function AdminPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (passwordInput === 'zenextlevel2026') {
+    if (passwordInput === 'Admin123') {
       setIsAuthenticated(true);
       localStorage.setItem('admin_authenticated', 'true');
       setLoginError('');

@@ -3,6 +3,10 @@ import { supabase } from '../lib/supabase';
 import { Play, RotateCcw, AlertTriangle, CheckCircle, Clock, RefreshCw, Sparkles, Eye, Pencil, Database } from 'lucide-react';
 
 export default function BlogAutomationAdmin() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [passwordInput, setPasswordInput] = useState('');
+  const [loginError, setLoginError] = useState('');
+
   const [jobs, setJobs] = useState<any[]>([]);
   const [logs, setLogs] = useState<any[]>([]);
   const [queue, setQueue] = useState<Record<string, string | null>>({});
@@ -13,6 +17,24 @@ export default function BlogAutomationAdmin() {
   const [allPosts, setAllPosts] = useState<any[]>([]);
   const [statusColumnMissing, setStatusColumnMissing] = useState(false);
   const isOfflineRef = React.useRef(false);
+
+  useEffect(() => {
+    const auth = localStorage.getItem('admin_authenticated');
+    if (auth === 'true') {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passwordInput === 'Admin123') {
+      setIsAuthenticated(true);
+      localStorage.setItem('admin_authenticated', 'true');
+      setLoginError('');
+    } else {
+      setLoginError('Invalid administrator credentials.');
+    }
+  };
 
   useEffect(() => {
     fetchData();
@@ -124,6 +146,46 @@ export default function BlogAutomationAdmin() {
       console.error('Error triggering job:', error);
     }
   };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-slate-950 flex items-center justify-center p-6">
+        <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-[2rem] p-10 shadow-2xl">
+          <div className="flex flex-col items-center mb-8">
+            <div className="bg-slate-950/80 border border-slate-800 p-4 rounded-2xl text-blue-400 mb-4">
+              <Database size={32} />
+            </div>
+            <h1 className="text-2xl font-display font-black uppercase tracking-tight text-white">Automation Portal</h1>
+            <p className="text-slate-400 text-sm mt-2">Access restricted to authorized personnel.</p>
+          </div>
+          <form onSubmit={handleLogin} className="space-y-6">
+            <div>
+              <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Security Key</label>
+              <input 
+                type="password" 
+                value={passwordInput} 
+                onChange={(e) => setPasswordInput(e.target.value)}
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all font-mono text-white"
+                placeholder="••••••••••••"
+              />
+            </div>
+            {loginError && (
+              <div className="p-3 bg-red-950/40 border border-red-900/50 text-red-400 rounded-xl text-xs font-bold flex items-center gap-2">
+                <AlertTriangle size={14} />
+                {loginError}
+              </div>
+            )}
+            <button 
+              type="submit"
+              className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-black uppercase tracking-widest text-xs transition-all shadow-xl shadow-blue-900/10"
+            >
+              Verify Credentials
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
 
   if (loading) return <div className="p-8 text-white">Loading...</div>;
 
