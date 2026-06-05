@@ -486,7 +486,7 @@ export default function StartHere() {
               Equip Your <span className="text-cyan-400">Health Journey</span>
             </h2>
             <p className="text-lg text-slate-300 max-w-2xl mx-auto mb-8">
-              Foundational equipment, biometric trackers, and quality supplements are key to monitoring and supporting your physical progress. We've handpicked these top-rated essentials from our shop.
+              Foundational equipment, biometric trackers, and quality supplements are key to monitoring and supporting your physical progress. We've handpicked these top-rated essentials from our trusted partners.
             </p>
 
             {/* Region Tab Selector */}
