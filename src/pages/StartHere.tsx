@@ -114,9 +114,25 @@ export default function StartHere() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="mt-12 p-6 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-center text-slate-300 font-medium"
+            className="mt-12 p-8 rounded-3xl bg-slate-900 border border-slate-800 text-center text-slate-300 relative overflow-hidden shadow-2xl"
           >
-            By building a foundation on <strong className="text-white">personal health data rather than waiting for "warning signals,"</strong> individuals can actively protect their bodies and maintain physical and mental resilience as they age.
+            <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-rose-500 via-indigo-500 to-rose-500" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-rose-500/5 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div className="relative z-10">
+              <span className="inline-flex items-center px-3 py-1 rounded-full bg-rose-500/10 text-rose-400 text-xs font-black uppercase tracking-widest mb-4 border border-rose-500/20">
+                Establish Baseline Urgency
+              </span>
+              <p className="text-xl md:text-2xl text-white font-bold mb-4 leading-snug max-w-3xl mx-auto">
+                There is an urgent need to get your basic necessary tests done today.
+              </p>
+              <p className="text-lg text-slate-300 max-w-3xl mx-auto mb-6 leading-relaxed">
+                Establishing your biological baseline is the critical starting point to determine where your health stands and map out an exact, personalized course of action.
+              </p>
+              <p className="text-sm text-slate-400 max-w-2xl mx-auto leading-relaxed border-t border-slate-800 pt-4">
+                By building a foundation on <strong className="text-white">personal health data rather than waiting for "warning signals,"</strong> you can actively protect your body and maintain physical and mental resilience as you age.
+              </p>
+            </div>
           </motion.div>
         </div>
       </section>
