@@ -814,16 +814,23 @@ export default function StartHere() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="p-10 rounded-[2rem] bg-gradient-to-br from-slate-900 to-slate-800 border border-slate-700 text-center max-w-3xl mx-auto shadow-2xl relative overflow-hidden"
+            className="p-10 md:p-16 rounded-[2rem] bg-slate-900 border border-slate-800 hover:border-blue-500/30 transition-all duration-500 text-center max-w-3xl mx-auto shadow-2xl relative overflow-hidden group"
           >
-            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/20 blur-[100px] -mr-32 -mt-32"></div>
+            {/* Background image & gradient overlay */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center opacity-[0.25] group-hover:opacity-[0.4] transition-all duration-1000 scale-100 group-hover:scale-105 pointer-events-none"
+              style={{ backgroundImage: `url('/assets/next_level_bg.png')` }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-950/20 pointer-events-none" />
+            <div className="absolute -top-12 -right-12 w-64 h-64 bg-blue-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+
             <div className="relative z-10">
-              <h3 className="text-2xl font-bold text-white mb-4 uppercase tracking-wide">Ready for the Next Level?</h3>
-              <p className="text-slate-300 mb-8 max-w-xl mx-auto">
+              <h3 className="text-2xl md:text-3xl font-display font-black text-white mb-4 uppercase tracking-wider drop-shadow-md">Ready for the Next Level?</h3>
+              <p className="text-slate-200 mb-8 max-w-xl mx-auto text-base md:text-lg leading-relaxed font-medium">
                 Once you master these basics, enter the Intelligence Hub to access the latest technical deep-dives and evidence-based optimization updates.
               </p>
-              <Link to="/intelligence-hub" className="inline-flex items-center px-8 py-4 bg-white text-slate-950 hover:bg-slate-200 rounded-full font-bold uppercase tracking-widest text-sm transition-transform hover:scale-105 shadow-lg">
-                <Sparkles size={18} className="mr-2" />
+              <Link to="/intelligence-hub" className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-full font-bold uppercase tracking-widest text-xs transition-all duration-300 hover:scale-105 shadow-lg shadow-indigo-950/50">
+                <Sparkles size={16} className="mr-2" />
                 Enter the Intelligence Hub
               </Link>
             </div>
