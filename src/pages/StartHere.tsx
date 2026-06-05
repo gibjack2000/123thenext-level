@@ -19,6 +19,7 @@ interface CuratedItem {
   glowColor: string;
   badgeColor: string;
   image: string;
+  objectFit: 'cover' | 'contain';
 }
 
 export default function StartHere() {
@@ -40,7 +41,8 @@ export default function StartHere() {
         icon: Smartphone,
         glowColor: "from-indigo-500/20 to-blue-500/5",
         badgeColor: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
-        image: "https://images-na.ssl-images-amazon.com/images/P/B0D4N3L9XW.01._SL500_.jpg"
+        image: "/Products/Oura1.jpg",
+        objectFit: "cover"
       },
       {
         name: "Withings Body Smart Scale",
@@ -52,7 +54,8 @@ export default function StartHere() {
         icon: Activity,
         glowColor: "from-blue-500/20 to-cyan-500/5",
         badgeColor: "text-blue-400 bg-blue-500/10 border-blue-500/20",
-        image: "https://123thenextlevel.com/Products/withings.jpg"
+        image: "/Products/withings.jpg",
+        objectFit: "cover"
       },
       {
         name: "Thorne Basic Nutrients",
@@ -64,7 +67,8 @@ export default function StartHere() {
         icon: Pill,
         glowColor: "from-emerald-500/20 to-teal-500/5",
         badgeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
-        image: "https://123thenextlevel.com/Products/thorne.jpg"
+        image: "/Products/thorne.jpg",
+        objectFit: "contain"
       },
       {
         name: "High Density Foam Roller",
@@ -76,7 +80,8 @@ export default function StartHere() {
         icon: Dumbbell,
         glowColor: "from-cyan-500/20 to-indigo-500/5",
         badgeColor: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20",
-        image: "https://images-na.ssl-images-amazon.com/images/P/B00XM2MXK8.01._SL500_.jpg"
+        image: "https://images-na.ssl-images-amazon.com/images/P/B00XM2MXK8.01._SL500_.jpg",
+        objectFit: "contain"
       }
     ],
     uk: [
@@ -90,7 +95,8 @@ export default function StartHere() {
         icon: ChefHat,
         glowColor: "from-amber-500/20 to-orange-500/5",
         badgeColor: "text-amber-400 bg-amber-500/10 border-amber-500/20",
-        image: "https://123thenextlevel.com/Products/airfryer.jpg"
+        image: "/Products/airfryer.jpg",
+        objectFit: "contain"
       },
       {
         name: "Bulk Vitamin C Tablets 1000mg",
@@ -102,7 +108,8 @@ export default function StartHere() {
         icon: Pill,
         glowColor: "from-emerald-500/20 to-teal-500/5",
         badgeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
-        image: "https://123thenextlevel.com/Products/vitc.jpg"
+        image: "/Products/vitc.jpg",
+        objectFit: "contain"
       },
       {
         name: "WeightWorld Vibration Plate",
@@ -114,7 +121,8 @@ export default function StartHere() {
         icon: Dumbbell,
         glowColor: "from-cyan-500/20 to-blue-500/5",
         badgeColor: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20",
-        image: "https://123thenextlevel.com/Products/vibrationplate"
+        image: "/Products/vibrationplate",
+        objectFit: "contain"
       },
       {
         name: "Ninja Blast Portable Blender",
@@ -126,7 +134,8 @@ export default function StartHere() {
         icon: ChefHat,
         glowColor: "from-indigo-500/20 to-violet-500/5",
         badgeColor: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
-        image: "https://images-na.ssl-images-amazon.com/images/P/B0CJ39H6GG.01._SL500_.jpg"
+        image: "https://images-na.ssl-images-amazon.com/images/P/B0CJ39H6GG.01._SL500_.jpg",
+        objectFit: "contain"
       }
     ],
     es: [
@@ -140,7 +149,8 @@ export default function StartHere() {
         icon: Smartphone,
         glowColor: "from-indigo-500/20 to-blue-500/5",
         badgeColor: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
-        image: "https://123thenextlevel.com/Products/redmiwatch5.jpg"
+        image: "/Products/redmiwatch5.jpg",
+        objectFit: "cover"
       },
       {
         name: "Natulim Detergent Strips Eco",
@@ -152,7 +162,8 @@ export default function StartHere() {
         icon: Shield,
         glowColor: "from-blue-500/20 to-cyan-500/5",
         badgeColor: "text-blue-400 bg-blue-500/10 border-blue-500/20",
-        image: "https://123thenextlevel.com/Products/Natulim.jpg"
+        image: "/Products/Natulim.jpg",
+        objectFit: "contain"
       },
       {
         name: "Magnesium Complex Nutralie",
@@ -164,7 +175,8 @@ export default function StartHere() {
         icon: Pill,
         glowColor: "from-emerald-500/20 to-teal-500/5",
         badgeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
-        image: "https://123thenextlevel.com/Products/Magnesium1.jpg"
+        image: "/Products/Magnesium1.jpg",
+        objectFit: "contain"
       },
       {
         name: "EnterSports Rodillo Abdominal",
@@ -176,7 +188,8 @@ export default function StartHere() {
         icon: Dumbbell,
         glowColor: "from-cyan-500/20 to-indigo-500/5",
         badgeColor: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20",
-        image: "https://123thenextlevel.com/Products/roller.jpg"
+        image: "/Products/roller.jpg",
+        objectFit: "contain"
       }
     ]
   };
@@ -552,11 +565,13 @@ export default function StartHere() {
                     </div>
 
                     {/* Product Image Container */}
-                    <div className="relative aspect-[4/3] w-full bg-white rounded-2xl p-4 flex items-center justify-center mb-4 overflow-hidden shadow-inner border border-slate-800/20 group-hover:shadow-lg transition-shadow duration-305">
+                    <div className="relative aspect-[4/3] w-full bg-white rounded-2xl p-0.5 flex items-center justify-center mb-4 overflow-hidden shadow-inner border border-slate-800/20 group-hover:shadow-lg transition-shadow duration-305">
                       <img 
                         src={item.image} 
                         alt={item.name} 
-                        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-500"
+                        className={`w-full h-full transition-transform duration-500 group-hover:scale-105 ${
+                          item.objectFit === 'cover' ? 'object-cover' : 'object-contain p-2'
+                        }`}
                       />
                       <div className="absolute inset-0 bg-slate-950/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                     </div>
