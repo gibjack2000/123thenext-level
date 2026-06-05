@@ -18,6 +18,7 @@ interface CuratedItem {
   icon: React.ComponentType<any>;
   glowColor: string;
   badgeColor: string;
+  image: string;
 }
 
 export default function StartHere() {
@@ -38,7 +39,8 @@ export default function StartHere() {
         affLink: affiliateLinks.oura,
         icon: Smartphone,
         glowColor: "from-indigo-500/20 to-blue-500/5",
-        badgeColor: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20"
+        badgeColor: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
+        image: "https://images-na.ssl-images-amazon.com/images/P/B0D4N3L9XW.01._SL500_.jpg"
       },
       {
         name: "Withings Body Smart Scale",
@@ -49,7 +51,8 @@ export default function StartHere() {
         affLink: affiliateLinks.whp_scale,
         icon: Activity,
         glowColor: "from-blue-500/20 to-cyan-500/5",
-        badgeColor: "text-blue-400 bg-blue-500/10 border-blue-500/20"
+        badgeColor: "text-blue-400 bg-blue-500/10 border-blue-500/20",
+        image: "https://123thenextlevel.com/Products/withings.jpg"
       },
       {
         name: "Thorne Basic Nutrients",
@@ -60,7 +63,8 @@ export default function StartHere() {
         affLink: affiliateLinks.whp_multivitamin,
         icon: Pill,
         glowColor: "from-emerald-500/20 to-teal-500/5",
-        badgeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20"
+        badgeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+        image: "https://123thenextlevel.com/Products/thorne.jpg"
       },
       {
         name: "High Density Foam Roller",
@@ -71,7 +75,8 @@ export default function StartHere() {
         affLink: "https://www.amazon.com/dp/B0XM2MXK8?tag=123znl0e-20",
         icon: Dumbbell,
         glowColor: "from-cyan-500/20 to-indigo-500/5",
-        badgeColor: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20"
+        badgeColor: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20",
+        image: "https://images-na.ssl-images-amazon.com/images/P/B00XM2MXK8.01._SL500_.jpg"
       }
     ],
     uk: [
@@ -84,7 +89,8 @@ export default function StartHere() {
         affLink: "https://www.amazon.co.uk/dp/B08CN3G4N9?tag=123znl0a-21",
         icon: ChefHat,
         glowColor: "from-amber-500/20 to-orange-500/5",
-        badgeColor: "text-amber-400 bg-amber-500/10 border-amber-500/20"
+        badgeColor: "text-amber-400 bg-amber-500/10 border-amber-500/20",
+        image: "https://123thenextlevel.com/Products/airfryer.jpg"
       },
       {
         name: "Bulk Vitamin C Tablets 1000mg",
@@ -95,7 +101,8 @@ export default function StartHere() {
         affLink: "https://www.amazon.co.uk/dp/B00IZD3YC0?tag=123znl0e-20",
         icon: Pill,
         glowColor: "from-emerald-500/20 to-teal-500/5",
-        badgeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20"
+        badgeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+        image: "https://123thenextlevel.com/Products/vitc.jpg"
       },
       {
         name: "WeightWorld Vibration Plate",
@@ -106,7 +113,8 @@ export default function StartHere() {
         affLink: "https://www.amazon.co.uk/dp/B07LH6X6VC?tag=123znl0e-20",
         icon: Dumbbell,
         glowColor: "from-cyan-500/20 to-blue-500/5",
-        badgeColor: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20"
+        badgeColor: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20",
+        image: "https://123thenextlevel.com/Products/vibrationplate"
       },
       {
         name: "Ninja Blast Portable Blender",
@@ -117,7 +125,8 @@ export default function StartHere() {
         affLink: "https://www.amazon.co.uk/dp/B0CJ39H6GG?tag=123znl0a-21",
         icon: ChefHat,
         glowColor: "from-indigo-500/20 to-violet-500/5",
-        badgeColor: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20"
+        badgeColor: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
+        image: "https://images-na.ssl-images-amazon.com/images/P/B0CJ39H6GG.01._SL500_.jpg"
       }
     ],
     es: [
@@ -130,7 +139,8 @@ export default function StartHere() {
         affLink: "https://www.amazon.es/dp/B0DFZPR9Z4?tag=123znl0e-20",
         icon: Smartphone,
         glowColor: "from-indigo-500/20 to-blue-500/5",
-        badgeColor: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20"
+        badgeColor: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
+        image: "https://123thenextlevel.com/Products/redmiwatch5.jpg"
       },
       {
         name: "Natulim Detergent Strips Eco",
@@ -141,7 +151,8 @@ export default function StartHere() {
         affLink: "https://www.amazon.es/dp/B09WH2BXSH?tag=123znl0e-20",
         icon: Shield,
         glowColor: "from-blue-500/20 to-cyan-500/5",
-        badgeColor: "text-blue-400 bg-blue-500/10 border-blue-500/20"
+        badgeColor: "text-blue-400 bg-blue-500/10 border-blue-500/20",
+        image: "https://123thenextlevel.com/Products/Natulim.jpg"
       },
       {
         name: "Magnesium Complex Nutralie",
@@ -152,7 +163,8 @@ export default function StartHere() {
         affLink: "https://www.amazon.es/dp/B07M7L3J7Y?tag=123znl0e-20",
         icon: Pill,
         glowColor: "from-emerald-500/20 to-teal-500/5",
-        badgeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20"
+        badgeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+        image: "https://123thenextlevel.com/Products/Magnesium1.jpg"
       },
       {
         name: "EnterSports Rodillo Abdominal",
@@ -163,7 +175,8 @@ export default function StartHere() {
         affLink: "https://www.amazon.es/dp/B0B59M5L3Y?tag=123znl0e-20",
         icon: Dumbbell,
         glowColor: "from-cyan-500/20 to-indigo-500/5",
-        badgeColor: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20"
+        badgeColor: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20",
+        image: "https://123thenextlevel.com/Products/roller.jpg"
       }
     ]
   };
@@ -536,6 +549,16 @@ export default function StartHere() {
                       <span className={`text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full border ${item.badgeColor}`}>
                         {item.category}
                       </span>
+                    </div>
+
+                    {/* Product Image Container */}
+                    <div className="relative aspect-[4/3] w-full bg-white rounded-2xl p-4 flex items-center justify-center mb-4 overflow-hidden shadow-inner border border-slate-800/20 group-hover:shadow-lg transition-shadow duration-305">
+                      <img 
+                        src={item.image} 
+                        alt={item.name} 
+                        className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-slate-950/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                     </div>
 
                     {/* Product Info */}
