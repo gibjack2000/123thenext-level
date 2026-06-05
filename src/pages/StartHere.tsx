@@ -44,6 +44,83 @@ export default function StartHere() {
         </div>
       </section>
 
+      {/* Drivers of Good Health & Diagnostics Section */}
+      <section className="relative py-24 bg-slate-950 border-b border-slate-800/50">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="lg:col-span-6 space-y-6"
+            >
+              <h2 className="text-2xl md:text-3xl font-display uppercase tracking-tight text-white border-l-4 border-blue-500 pl-4">
+                The biggest changes driving <br />
+                <span className="text-blue-400">today's approach to health</span>
+              </h2>
+              <p className="text-slate-300 leading-relaxed text-base font-medium">
+                The fundamental shift in how we deal with health today is the <strong className="text-white">transition from "reactive repair to proactive optimization"</strong>. Instead of waiting to treat illnesses, the focus has moved toward disease prevention and biological age reversal using the "2026 Longevity Standards".
+              </p>
+              <p className="text-slate-300 leading-relaxed text-base">
+                This shift is largely driven by the scientific realization that <strong className="text-white">80% to 90% of how quickly you age depends on your lifestyle and "Epigenetics,"</strong> rather than just your genetics. As a result, the health landscape has evolved into what your site calls "Medicalized Wellness," which replaces generic dieting and wellness routines with highly specific, clinical-level precision, such as optimizing glycemic control or tailoring protocols specifically to female biology.
+              </p>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="lg:col-span-6 space-y-6 bg-slate-900/50 border border-slate-800 p-8 rounded-3xl relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none"></div>
+              <h2 className="text-2xl md:text-3xl font-display uppercase tracking-tight text-white border-l-4 border-indigo-500 pl-4">
+                The importance of <br />
+                <span className="text-indigo-400">lab diagnostics and health data</span>
+              </h2>
+              <p className="text-slate-300 leading-relaxed text-base font-medium">
+                Because health has shifted toward precise, proactive optimization, gathering personal health data through lab diagnostics is critical. The goal is to <strong className="text-indigo-400 font-bold">"Stop guessing. Start knowing."</strong>
+              </p>
+              
+              <div className="space-y-4 pt-4">
+                <div className="flex items-start">
+                  <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center mr-4 text-xs font-bold font-display">1</span>
+                  <div>
+                    <strong className="text-white block mb-1 text-sm">Precision Over Generalization</strong>
+                    <span className="text-slate-400 text-sm leading-relaxed block">Transition from "general fitness to precision performance and recovery". By tracking metrics like "Real-time HRV" or "Hormonal Bio-Data," you can fuel your body's biological machinery with exact measurements.</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start">
+                  <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center mr-4 text-xs font-bold font-display">2</span>
+                  <div>
+                    <strong className="text-white block mb-1 text-sm">Tracking Biological Age</strong>
+                    <span className="text-slate-400 text-sm leading-relaxed block">Diagnostics allow you to measure whether your lifestyle changes are actually working. Test your biological age at home using a "Biological Age (Epigenetic) Test".</span>
+                  </div>
+                </div>
+
+                <div className="flex items-start">
+                  <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center mr-4 text-xs font-bold font-display">3</span>
+                  <div>
+                    <strong className="text-white block mb-1 text-sm">Targeted Optimization</strong>
+                    <span className="text-slate-400 text-sm leading-relaxed block">Accessing specific biomarkers helps map out targeted protocols. For example, utilizing an "Ovarian Reserve Test Kit" provides clinical precision for women's health, while testing can help identify "42 more intelligence markers" to guide your journey.</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="mt-12 p-6 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-center text-slate-300 font-medium"
+          >
+            By building a foundation on <strong className="text-white">personal health data rather than waiting for "warning signals,"</strong> individuals can actively protect their bodies and maintain physical and mental resilience as they age.
+          </motion.div>
+        </div>
+      </section>
+
       {/* 2. Step 1: Learn the Language (Handholding) */}
       <section className="relative py-24 bg-slate-900 border-b border-slate-800/50">
         <div className="max-w-6xl mx-auto px-4">
