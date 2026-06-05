@@ -5,6 +5,7 @@ import {
   BookOpen, Compass, Dumbbell, Apple, Heart, Sparkles, 
   ArrowRight, Shield, Activity, Brain, Moon
 } from 'lucide-react';
+import { affiliateLinks } from '../config/affiliateLinks';
 
 export default function StartHere() {
   useEffect(() => {
@@ -180,6 +181,20 @@ export default function StartHere() {
               <p className="text-lg text-slate-300 max-w-3xl mx-auto mb-6 leading-relaxed">
                 Establishing your biological baseline is the critical starting point to determine where your health stands and map out an exact, personalized course of action.
               </p>
+              
+              {/* Lola Health UK Test CTA */}
+              <div className="mt-8 mb-8 flex flex-col sm:flex-row justify-center gap-4">
+                <a 
+                  href={affiliateLinks.lola_core_health} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-rose-600 to-indigo-600 hover:from-rose-700 hover:to-indigo-700 text-white rounded-xl font-bold uppercase tracking-widest text-xs shadow-lg shadow-indigo-950/50 transition-transform hover:scale-105"
+                >
+                  <Activity size={18} className="mr-2 animate-pulse" />
+                  Order Lola Health UK Blood Test (Venous Draw)
+                </a>
+              </div>
+              
               <p className="text-sm text-slate-400 max-w-2xl mx-auto leading-relaxed border-t border-slate-800 pt-4">
                 By building a foundation on <strong className="text-white">personal health data rather than waiting for "warning signals,"</strong> you can actively protect your body and maintain physical and mental resilience as you age.
               </p>
