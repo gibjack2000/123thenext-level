@@ -16,6 +16,7 @@ const dummyProducts = [
     cta: 'COGNITIVE',
     description: 'Premium neuro-grade creatine monohydrate for enhanced cognitive performance.',
     price: 34.99,
+    currency: 'USD',
     rating: 5.0,
     is_active: true,
     tags: ['COGNITIVE']
@@ -30,6 +31,7 @@ const dummyProducts = [
     cta: 'CELLULAR',
     description: 'Advanced mitochondrial support with NAD+ precursors for cellular energy.',
     price: 59.99,
+    currency: 'USD',
     rating: 5.0,
     is_active: true,
     tags: ['CELLULAR']
@@ -44,6 +46,7 @@ const dummyProducts = [
     cta: 'LONGEVITY',
     description: 'Measure your biological age with this advanced epigenetic testing kit.',
     price: 299.00,
+    currency: 'USD',
     rating: 5.0,
     is_active: true,
     tags: ['LONGEVITY']
@@ -58,6 +61,7 @@ const dummyProducts = [
     cta: 'PERFORMANCE',
     description: 'Professional grade high-load strength training equipment.',
     price: 1299.00,
+    currency: 'USD',
     rating: 5.0,
     is_active: true,
     tags: ['PERFORMANCE']

@@ -287,5 +287,5 @@ Vitamin D receptors are located throughout the body, including in muscle tissue.
 ### Conclusion
 Investing in your health starts with the fundamentals. The [Nature Made Vitamin D3 1000 IU](https://www.amazon.com/dp/B004U3Y8OM?tag=123znl0e-20) offers a convenient, 300-day supply designed to support your immune system, bone density, and muscle health. Nature Made is a pharmacist-recommended brand, ensuring that you are consuming a product that adheres to rigorous quality standards. With 300 softgels per bottle, you have nearly a year’s worth of immune support in one purchase, making it both a healthy and a cost-effective choice for your wellness journey.`
   }
-].map((p, i) => ({...p, id: 'mock-'+i, created_at: new Date().toISOString()}));
+].map((p, i) => ({...p, id: 'mock-'+i, created_at: new Date().toISOString()})) as Partial<BlogPost>[];
 

@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import React, { useEffect, useState } from 'react';
 import { ArrowLeft, Activity, BarChart3, Droplets, Zap, Shield, Microscope, ExternalLink, Database, Search, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';

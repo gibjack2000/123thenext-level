@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Home as HomeIcon, Zap, Shield, Heart, Info, ChevronRight } from 'lucide-react';
+import { Menu, X, Home as HomeIcon, Zap, Shield, Heart, Info, ChevronRight, Compass } from 'lucide-react';
 import MarketSelector from './MarketSelector';
 import { useT } from '../translations';
 
@@ -20,6 +20,7 @@ const Navbar = () => {
 
   const navLinks = [
     { name: t('nav_home'), path: '/', icon: HomeIcon },
+    { name: 'Start Here', path: '/start-here', icon: Compass },
     { name: t('nav_pillars'), path: '/#six-core-optimization', icon: Zap },
     { name: t('nav_blog'), path: '/#blog', icon: Info },
     { name: 'Premium Guides', path: '/premium-guides', icon: Shield },

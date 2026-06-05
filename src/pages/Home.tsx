@@ -315,11 +315,11 @@ export default function Home() {
                 {t('hero_subtitle')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <a href="#pillars" className="inline-flex justify-center items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-bold text-lg transition-all hover:scale-105 shadow-lg shadow-blue-600/30">
-                  Level Up Today
+                <Link to="/start-here" className="inline-flex justify-center items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full font-bold text-lg transition-all hover:scale-105 shadow-lg shadow-blue-600/30">
+                  Start Here (Beginner's Pathway)
                   <ArrowRight size={20} className="ml-2" />
-                </a>
-                <a href="#blog" className="inline-flex justify-center items-center px-8 py-4 bg-white/10 hover:bg-white/20 text-white rounded-full font-bold text-lg transition-all backdrop-blur-sm">
+                </Link>
+                <a href="#pillars" className="inline-flex justify-center items-center px-8 py-4 bg-white/10 hover:bg-white/20 text-white rounded-full font-bold text-lg transition-all backdrop-blur-sm">
                   Explore the Blueprint
                 </a>
               </div>

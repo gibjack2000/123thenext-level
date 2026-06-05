@@ -277,7 +277,7 @@ const translations = {
     lk_humanity_title: 'A Shared Humanity',
     lk_humanity_p: 'As with all these Teachings, you can gradually train the mind to move in this direction. The practice of Metta reminds us that every being wants to be happy and free from suffering. By recognizing this shared desire, we develop the "Universal Love" that leads to Enlightenment.',
     lk_note_title: 'Enlightenment Requirement',
-lp_note_p: 'Breathing Mindfulness and Loving-kindness are the two meditations required to attain Enlightenment. They are the essential tools to destroy discontentedness and find lasting peace.',
+    lk_note_p: 'Breathing Mindfulness and Loving-kindness are the two meditations required to attain Enlightenment. They are the essential tools to destroy discontentedness and find lasting peace.',
 
     // Healthspan & Longevity Pillar (2026 Standard)
     hp_back: 'Back to Blueprint',

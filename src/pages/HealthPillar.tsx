@@ -271,9 +271,9 @@ export default function HealthPillar() {
                     <div className="space-y-6">
                       {[
                         { label: t('hp_cta_kit_us'), link: links.hp_kit_us?.url || affiliateLinks.us, country: "US", flag: "https://flagcdn.com/w80/us.png" },
-                        { label: t('hp_cta_lola_core'), link: links.lola_core_health?.url || affiliateLinks.lola_core_health, country: "UK", flag: "https://flagcdn.com/w80/gb.png" },
-                        { label: t('hp_cta_lola_vital'), link: links.lola_vital_check?.url || affiliateLinks.lola_vital_check, country: "UK", flag: "https://flagcdn.com/w80/gb.png" },
-                        { label: t('hp_cta_lola_peak'), link: links.lola_peak_insights?.url || affiliateLinks.lola_peak_insights, country: "UK", flag: "https://flagcdn.com/w80/gb.png" }
+                        { label: t('hp_cta_lola_core'), link: links.lola_core_health?.url || affiliateLinks.uk, country: "UK", flag: "https://flagcdn.com/w80/gb.png" },
+                        { label: t('hp_cta_lola_vital'), link: links.lola_vital_check?.url || affiliateLinks.uk, country: "UK", flag: "https://flagcdn.com/w80/gb.png" },
+                        { label: t('hp_cta_lola_peak'), link: links.lola_peak_insights?.url || affiliateLinks.uk, country: "UK", flag: "https://flagcdn.com/w80/gb.png" }
                       ].map((cta, i) => (
                         <a key={i} href={cta.link} target="_blank" rel="noopener noreferrer" className="flex items-center justify-between p-6 bg-white/5 border border-white/5 rounded-[2rem] hover:bg-white hover:text-slate-950 transition-all group/cta">
                           <span className="flex items-center gap-4">

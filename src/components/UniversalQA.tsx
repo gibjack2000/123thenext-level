@@ -179,8 +179,8 @@ export default function UniversalQA() {
 
   const filteredQuestions = useMemo(() => {
     return questions.filter(q => {
-      const matchesSearch = t(q.questionKey).toLowerCase().includes(searchQuery.toLowerCase()) || 
-                           t(q.answerKey).toLowerCase().includes(searchQuery.toLowerCase()) ||
+      const matchesSearch = t(q.questionKey as any).toLowerCase().includes(searchQuery.toLowerCase()) || 
+                           t(q.answerKey as any).toLowerCase().includes(searchQuery.toLowerCase()) ||
                            q.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
       const matchesCategory = activeCategory === 'all' || q.category === activeCategory;
       return matchesSearch && matchesCategory;
@@ -233,7 +233,7 @@ export default function UniversalQA() {
                   : 'bg-slate-50 text-slate-500 hover:bg-slate-100'
               }`}
             >
-              {cat.id === 'all' ? cat.label : t(`uqa_${cat.id}`)}
+              {cat.id === 'all' ? cat.label : t(`uqa_${cat.id}` as any)}
             </button>
           ))}
         </div>
@@ -265,7 +265,7 @@ export default function UniversalQA() {
                     <h3 className={`text-xl font-bold leading-tight mb-2 transition-colors ${
                       expandedId === q.id ? 'text-white' : 'text-slate-900 group-hover:text-indigo-600'
                     }`}>
-                      {t(q.questionKey)}
+                      {t(q.questionKey as any)}
                     </h3>
                     
                     <div className="flex flex-wrap gap-2 mb-4">
@@ -288,7 +288,7 @@ export default function UniversalQA() {
                         >
                           <div className="h-px bg-white/10 my-6" />
                           <p className="text-slate-300 leading-relaxed mb-8">
-                            {t(q.answerKey)}
+                            {t(q.answerKey as any)}
                           </p>
                           
                           {q.links && (
