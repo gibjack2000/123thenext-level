@@ -1,16 +1,172 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { 
   BookOpen, Compass, Dumbbell, Apple, Heart, Sparkles, 
-  ArrowRight, Shield, Activity, Brain, Moon
+  ArrowRight, Shield, Activity, Brain, Moon,
+  ShoppingBag, Smartphone, Pill, ChefHat
 } from 'lucide-react';
 import { affiliateLinks } from '../config/affiliateLinks';
 
+interface CuratedItem {
+  name: string;
+  price: string;
+  category: string;
+  categorySlug: string;
+  desc: string;
+  affLink: string;
+  icon: React.ComponentType<any>;
+  glowColor: string;
+  badgeColor: string;
+}
+
 export default function StartHere() {
+  const [selectedRegion, setSelectedRegion] = useState<'us' | 'uk' | 'es'>('us');
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const curatedItemsByRegion: Record<'us' | 'uk' | 'es', CuratedItem[]> = {
+    us: [
+      {
+        name: "Oura Ring Gen 5 - Silver",
+        price: "$349.00",
+        category: "Tech Gadgets",
+        categorySlug: "tech_gadgets",
+        desc: "Track sleep quality, HRV, and readiness to optimize your recovery.",
+        affLink: affiliateLinks.oura,
+        icon: Smartphone,
+        glowColor: "from-indigo-500/20 to-blue-500/5",
+        badgeColor: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20"
+      },
+      {
+        name: "Withings Body Smart Scale",
+        price: "$89.95",
+        category: "Tech Gadgets",
+        categorySlug: "tech_gadgets",
+        desc: "Measure precise body composition metrics beyond simple weight.",
+        affLink: affiliateLinks.whp_scale,
+        icon: Activity,
+        glowColor: "from-blue-500/20 to-cyan-500/5",
+        badgeColor: "text-blue-400 bg-blue-500/10 border-blue-500/20"
+      },
+      {
+        name: "Thorne Basic Nutrients",
+        price: "$36.00",
+        category: "Supplements",
+        categorySlug: "supplements",
+        desc: "High bioavailability daily multi-vitamin with clinical-grade purity.",
+        affLink: affiliateLinks.whp_multivitamin,
+        icon: Pill,
+        glowColor: "from-emerald-500/20 to-teal-500/5",
+        badgeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20"
+      },
+      {
+        name: "High Density Foam Roller",
+        price: "$15.29",
+        category: "Sports & Outdoors",
+        categorySlug: "Sports & Outdoors",
+        desc: "Essential tool for muscle recovery, physical therapy, and flexibility.",
+        affLink: "https://www.amazon.com/dp/B0XM2MXK8?tag=123znl0e-20",
+        icon: Dumbbell,
+        glowColor: "from-cyan-500/20 to-indigo-500/5",
+        badgeColor: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20"
+      }
+    ],
+    uk: [
+      {
+        name: "Ninja Foodi Dual Zone Air Fryer",
+        price: "£149.00",
+        category: "Home & Kitchen",
+        categorySlug: "home_kitchen",
+        desc: "Cook healthier meals with dual zone capability and zero oil.",
+        affLink: "https://www.amazon.co.uk/dp/B08CN3G4N9?tag=123znl0a-21",
+        icon: ChefHat,
+        glowColor: "from-amber-500/20 to-orange-500/5",
+        badgeColor: "text-amber-400 bg-amber-500/10 border-amber-500/20"
+      },
+      {
+        name: "Bulk Vitamin C Tablets 1000mg",
+        price: "£14.49",
+        category: "Supplements",
+        categorySlug: "supplements",
+        desc: "270 pack of daily immune and cellular health supporting tablets.",
+        affLink: "https://www.amazon.co.uk/dp/B00IZD3YC0?tag=123znl0e-20",
+        icon: Pill,
+        glowColor: "from-emerald-500/20 to-teal-500/5",
+        badgeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20"
+      },
+      {
+        name: "WeightWorld Vibration Plate",
+        price: "£89.99",
+        category: "Fitness Gear",
+        categorySlug: "fitness_gear",
+        desc: "Activate muscle fibers and improve circulation at home.",
+        affLink: "https://www.amazon.co.uk/dp/B07LH6X6VC?tag=123znl0e-20",
+        icon: Dumbbell,
+        glowColor: "from-cyan-500/20 to-blue-500/5",
+        badgeColor: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20"
+      },
+      {
+        name: "Ninja Blast Portable Blender",
+        price: "£35.99",
+        category: "Home & Kitchen",
+        categorySlug: "home_kitchen",
+        desc: "Cordless and leak-proof personal blender for nutrition on the go.",
+        affLink: "https://www.amazon.co.uk/dp/B0CJ39H6GG?tag=123znl0a-21",
+        icon: ChefHat,
+        glowColor: "from-indigo-500/20 to-violet-500/5",
+        badgeColor: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20"
+      }
+    ],
+    es: [
+      {
+        name: "Xiaomi Redmi Watch 5 Active",
+        price: "29,90 €",
+        category: "Sports Electronics & Gadgets",
+        categorySlug: "Sports Electronics & Gadgets",
+        desc: "Reloj inteligente con monitor de ritmo cardíaco y 140 deportes.",
+        affLink: "https://www.amazon.es/dp/B0DFZPR9Z4?tag=123znl0e-20",
+        icon: Smartphone,
+        glowColor: "from-indigo-500/20 to-blue-500/5",
+        badgeColor: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20"
+      },
+      {
+        name: "Natulim Detergent Strips Eco",
+        price: "9,96 €",
+        category: "Health & Household",
+        categorySlug: "Health & Household",
+        desc: "Tiras de detergente ecológico y antialérgico, libre de tóxicos.",
+        affLink: "https://www.amazon.es/dp/B09WH2BXSH?tag=123znl0e-20",
+        icon: Shield,
+        glowColor: "from-blue-500/20 to-cyan-500/5",
+        badgeColor: "text-blue-400 bg-blue-500/10 border-blue-500/20"
+      },
+      {
+        name: "Magnesium Complex Nutralie",
+        price: "16,91 €",
+        category: "Supplements",
+        categorySlug: "supplements",
+        desc: "Complejo de alta biodisponibilidad para reducir el cansancio.",
+        affLink: "https://www.amazon.es/dp/B07M7L3J7Y?tag=123znl0e-20",
+        icon: Pill,
+        glowColor: "from-emerald-500/20 to-teal-500/5",
+        badgeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20"
+      },
+      {
+        name: "EnterSports Rodillo Abdominal",
+        price: "34,97 €",
+        category: "Fitness Gear",
+        categorySlug: "Fitness",
+        desc: "Rodillo 2-en-1 y equipo de flexiones para fortalecer el core.",
+        affLink: "https://www.amazon.es/dp/B0B59M5L3Y?tag=123znl0e-20",
+        icon: Dumbbell,
+        glowColor: "from-cyan-500/20 to-indigo-500/5",
+        badgeColor: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20"
+      }
+    ]
+  };
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 selection:bg-blue-500/30 font-sans">
@@ -317,14 +473,132 @@ export default function StartHere() {
         </div>
       </section>
 
-      {/* 4. Step 3: Take Action (Monetization Funnel) */}
+      {/* Step 3: Equip Your Journey (Curated Shopping Section) */}
+      <section className="relative py-24 bg-slate-900 border-b border-slate-800/50 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-blue-600/5 blur-[150px] rounded-full pointer-events-none" />
+        </div>
+        <div className="max-w-6xl mx-auto px-4 relative z-10">
+          
+          <div className="text-center mb-12">
+            <div className="text-cyan-500 font-black tracking-widest uppercase mb-2 text-sm">Step 3</div>
+            <h2 className="text-3xl md:text-4xl font-display uppercase tracking-tight text-white mb-6">
+              Equip Your <span className="text-cyan-400">Health Journey</span>
+            </h2>
+            <p className="text-lg text-slate-300 max-w-2xl mx-auto mb-8">
+              Foundational equipment, biometric trackers, and quality supplements are key to monitoring and supporting your physical progress. We've handpicked these top-rated essentials from our shop.
+            </p>
+
+            {/* Region Tab Selector */}
+            <div className="inline-flex p-1.5 bg-slate-950 border border-slate-800 rounded-2xl gap-2 shadow-inner">
+              {[
+                { id: 'us', label: 'United States', code: 'US' },
+                { id: 'uk', label: 'United Kingdom', code: 'UK' },
+                { id: 'es', label: 'España', code: 'ES' }
+              ].map((regionTab) => (
+                <button
+                  key={regionTab.id}
+                  onClick={() => setSelectedRegion(regionTab.id as any)}
+                  className={`px-6 py-2.5 rounded-xl font-bold uppercase tracking-wider text-xs transition-all duration-300 ${
+                    selectedRegion === regionTab.id
+                      ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/40'
+                      : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                  }`}
+                >
+                  {regionTab.label} ({regionTab.code})
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Curated Items Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {curatedItemsByRegion[selectedRegion].map((item, i) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={item.name + selectedRegion}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: i * 0.1 }}
+                  className="group relative bg-slate-950/40 border border-slate-800 hover:border-blue-500/40 rounded-3xl p-6 flex flex-col justify-between transition-all duration-500 hover:scale-[1.02] shadow-xl hover:shadow-2xl overflow-hidden animate-none"
+                >
+                  {/* Ambient card glow */}
+                  <div className={`absolute -top-12 -left-12 w-32 h-32 bg-gradient-to-br ${item.glowColor} rounded-full blur-2xl opacity-40 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none`} />
+                  
+                  <div>
+                    {/* Icon & Category Badge */}
+                    <div className="flex items-center justify-between mb-4 relative z-10">
+                      <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform duration-300">
+                        <Icon size={22} />
+                      </div>
+                      <span className={`text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full border ${item.badgeColor}`}>
+                        {item.category}
+                      </span>
+                    </div>
+
+                    {/* Product Info */}
+                    <h3 className="text-lg font-bold text-white mb-2 leading-tight group-hover:text-blue-400 transition-colors line-clamp-2">
+                      {item.name}
+                    </h3>
+                    <p className="text-sm text-slate-400 leading-relaxed mb-6 font-medium line-clamp-3">
+                      {item.desc}
+                    </p>
+                  </div>
+
+                  {/* Actions & Price */}
+                  <div className="pt-4 border-t border-slate-900 relative z-10">
+                    <div className="flex items-center justify-between mb-4">
+                      <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">Estimated Price</span>
+                      <span className="text-base font-black text-white">{item.price}</span>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 gap-2">
+                      <Link
+                        to={`/${selectedRegion}/${item.categorySlug}`}
+                        className="inline-flex items-center justify-center py-2.5 bg-slate-900 hover:bg-slate-850 border border-slate-800 text-slate-300 hover:text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-colors"
+                      >
+                        <ShoppingBag size={13} className="mr-1.5" />
+                        View Shop
+                      </Link>
+                      <a
+                        href={item.affLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center py-2.5 bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white border border-blue-500/20 hover:border-transparent rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300"
+                      >
+                        Buy Now
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {/* Call to action pointing to regional hub */}
+          <div className="text-center">
+            <Link
+              to={`/${selectedRegion}`}
+              className="inline-flex items-center text-sm font-bold uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors group"
+            >
+              Explore Full {selectedRegion.toUpperCase()} Shopping Hub
+              <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 5. Step 4: Take Action (Monetization Funnel) */}
       <section className="relative py-24 bg-slate-900 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-blue-600/5 blur-[150px] rounded-full pointer-events-none" />
         </div>
         <div className="max-w-6xl mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
-            <div className="text-emerald-400 font-black tracking-widest uppercase mb-2 text-sm">Step 3</div>
+            <div className="text-emerald-400 font-black tracking-widest uppercase mb-2 text-sm">Step 4</div>
             <h2 className="text-4xl md:text-5xl font-display uppercase tracking-tight text-white mb-6">
               Take Action with <br className="md:hidden" /><span className="text-emerald-400">Digital Master Guides</span>
             </h2>
@@ -383,11 +657,11 @@ export default function StartHere() {
         </div>
       </section>
 
-      {/* 5. Step 4: Explore the Six Pillars (The Holistic Benefit) */}
+      {/* 6. Step 5: Explore the Six Pillars (The Holistic Benefit) */}
       <section className="relative py-24 bg-slate-950 border-t border-slate-800/50">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="text-purple-400 font-black tracking-widest uppercase mb-2 text-sm">Step 4</div>
+            <div className="text-purple-400 font-black tracking-widest uppercase mb-2 text-sm">Step 5</div>
             <h2 className="text-3xl md:text-4xl font-display uppercase tracking-tight text-white mb-6">
               Explore the <span className="text-purple-400">Six Pillars</span>
             </h2>
