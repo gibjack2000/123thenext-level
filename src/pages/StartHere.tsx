@@ -461,17 +461,28 @@ export default function StartHere() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <Link to="/life-practice/beginners-guide" className="block p-8 rounded-3xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition-all group h-full shadow-xl">
-                <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-6">
-                  <Sparkles size={28} />
+              <Link to="/life-practice/beginners-guide" className="relative overflow-hidden block p-8 rounded-3xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition-all group h-full shadow-xl">
+                {/* Background image & gradient overlay */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-[0.12] group-hover:opacity-[0.25] transition-all duration-700 scale-100 group-hover:scale-105 pointer-events-none"
+                  style={{ backgroundImage: `url('https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&q=80&w=600')` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent pointer-events-none" />
+
+                <div className="relative z-10 flex flex-col h-full justify-between">
+                  <div>
+                    <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-6">
+                      <Sparkles size={28} />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-amber-400 transition-colors">Mindset: The Beginner's Guide</h3>
+                    <p className="text-slate-400 leading-relaxed mb-8">
+                      Prepare your mind for a life-changing journey. Understanding the 'why' is critical before exploring the 'how'.
+                    </p>
+                  </div>
+                  <span className="text-sm font-bold uppercase tracking-wider text-amber-500 flex items-center">
+                    Read the Guide <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                  </span>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-amber-400 transition-colors">Mindset: The Beginner's Guide</h3>
-                <p className="text-slate-400 leading-relaxed mb-8">
-                  Prepare your mind for a life-changing journey. Understanding the 'why' is critical before exploring the 'how'.
-                </p>
-                <span className="text-sm font-bold uppercase tracking-wider text-amber-500 flex items-center">
-                  Read the Guide <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                </span>
               </Link>
             </motion.div>
             
@@ -481,18 +492,29 @@ export default function StartHere() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <Link to="/fitness/fundamentals" className="block p-8 rounded-3xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition-all group h-full shadow-xl">
-                <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-6">
-                  <Dumbbell size={28} />
+              <Link to="/fitness/fundamentals" className="relative overflow-hidden block p-8 rounded-3xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition-all group h-full shadow-xl">
+                {/* Background image & gradient overlay */}
+                <div 
+                  className="absolute inset-0 bg-cover bg-center opacity-[0.12] group-hover:opacity-[0.25] transition-all duration-700 scale-100 group-hover:scale-105 pointer-events-none"
+                  style={{ backgroundImage: `url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&q=80&w=600')` }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent pointer-events-none" />
+
+                <div className="relative z-10 flex flex-col h-full justify-between">
+                  <div>
+                    <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-6">
+                      <Dumbbell size={28} />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-amber-400 transition-colors">Strength Training at Home</h3>
+                    <div className="inline-flex items-center px-2 py-1 bg-amber-500/20 text-amber-400 text-xs font-bold rounded mb-4">12-Minute Read</div>
+                    <p className="text-slate-400 leading-relaxed mb-8">
+                      Our foundational free guide to optimizing your physical activity without needing a gym membership or expensive equipment.
+                    </p>
+                  </div>
+                  <span className="text-sm font-bold uppercase tracking-wider text-amber-500 flex items-center">
+                    Start Training <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                  </span>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-amber-400 transition-colors">Strength Training at Home</h3>
-                <div className="inline-flex items-center px-2 py-1 bg-amber-500/20 text-amber-400 text-xs font-bold rounded mb-4">12-Minute Read</div>
-                <p className="text-slate-400 leading-relaxed mb-8">
-                  Our foundational free guide to optimizing your physical activity without needing a gym membership or expensive equipment.
-                </p>
-                <span className="text-sm font-bold uppercase tracking-wider text-amber-500 flex items-center">
-                  Start Training <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                </span>
               </Link>
             </motion.div>
           </div>
@@ -709,12 +731,54 @@ export default function StartHere() {
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-16">
             {[
-              { icon: Apple, label: "Metabolic Nutrition", color: "text-emerald-400", bg: "bg-emerald-500/10", path: "/nutrition" },
-              { icon: Activity, label: "Physical Activity", color: "text-blue-400", bg: "bg-blue-500/10", path: "/fitness" },
-              { icon: Moon, label: "Restorative Sleep", color: "text-indigo-400", bg: "bg-indigo-500/10", path: "/neurowellness" },
-              { icon: Brain, label: "Mental Well-Being", color: "text-purple-400", bg: "bg-purple-500/10", path: "/wellness" },
-              { icon: Heart, label: "Social Fitness", color: "text-rose-400", bg: "bg-rose-500/10", path: "/social-fitness" },
-              { icon: Shield, label: "Preventive Health", color: "text-amber-400", bg: "bg-amber-500/10", path: "/health/preventive" }
+              { 
+                icon: Apple, 
+                label: "Metabolic Nutrition", 
+                color: "text-emerald-400", 
+                bg: "bg-emerald-500/10", 
+                path: "/nutrition",
+                image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=600"
+              },
+              { 
+                icon: Activity, 
+                label: "Physical Activity", 
+                color: "text-blue-400", 
+                bg: "bg-blue-500/10", 
+                path: "/fitness",
+                image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&q=80&w=600"
+              },
+              { 
+                icon: Moon, 
+                label: "Restorative Sleep", 
+                color: "text-indigo-400", 
+                bg: "bg-indigo-500/10", 
+                path: "/neurowellness",
+                image: "https://images.unsplash.com/photo-1511295742364-92767fa62d9f?auto=format&fit=crop&q=80&w=600"
+              },
+              { 
+                icon: Brain, 
+                label: "Mental Well-Being", 
+                color: "text-purple-400", 
+                bg: "bg-purple-500/10", 
+                path: "/wellness",
+                image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=600"
+              },
+              { 
+                icon: Heart, 
+                label: "Social Fitness", 
+                color: "text-rose-400", 
+                bg: "bg-rose-500/10", 
+                path: "/social-fitness",
+                image: "https://images.unsplash.com/photo-1543807535-eceef0bc6599?auto=format&fit=crop&q=80&w=600"
+              },
+              { 
+                icon: Shield, 
+                label: "Preventive Health", 
+                color: "text-amber-400", 
+                bg: "bg-amber-500/10", 
+                path: "/health/preventive",
+                image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=600"
+              }
             ].map((pillar, i) => (
               <Link 
                 key={i}
@@ -726,12 +790,21 @@ export default function StartHere() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1 }}
-                  className="flex flex-col items-center text-center p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 hover:bg-slate-900/80 transition-all cursor-pointer h-full shadow-lg hover:shadow-2xl"
+                  className="relative overflow-hidden flex flex-col items-center text-center p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 hover:bg-slate-900/80 transition-all cursor-pointer h-full shadow-lg hover:shadow-2xl"
                 >
-                  <div className={`w-12 h-12 rounded-xl ${pillar.bg} ${pillar.color} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300`}>
-                    <pillar.icon size={24} />
+                  {/* Background image & gradient overlay */}
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center opacity-[0.08] group-hover:opacity-[0.2] transition-all duration-700 scale-100 group-hover:scale-105 pointer-events-none"
+                    style={{ backgroundImage: `url('${pillar.image}')` }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent pointer-events-none" />
+
+                  <div className="relative z-10 flex flex-col items-center">
+                    <div className={`w-12 h-12 rounded-xl ${pillar.bg} ${pillar.color} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300`}>
+                      <pillar.icon size={24} />
+                    </div>
+                    <span className="text-sm font-bold text-slate-300 uppercase tracking-wide group-hover:text-white transition-colors">{pillar.label}</span>
                   </div>
-                  <span className="text-sm font-bold text-slate-300 uppercase tracking-wide group-hover:text-white transition-colors">{pillar.label}</span>
                 </motion.div>
               </Link>
             ))}
