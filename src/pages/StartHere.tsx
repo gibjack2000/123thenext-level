@@ -348,9 +348,15 @@ export default function StartHere() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="mt-12 p-8 rounded-3xl bg-slate-900 border border-slate-800 text-center text-slate-300 relative overflow-hidden shadow-2xl"
+            className="mt-12 p-8 md:p-12 rounded-3xl bg-slate-900 border border-slate-800 hover:border-rose-500/30 transition-all duration-500 text-center text-slate-300 relative overflow-hidden shadow-2xl group"
           >
-            <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-rose-500 via-indigo-500 to-rose-500" />
+            {/* Background image & gradient overlay */}
+            <div 
+              className="absolute inset-0 bg-cover bg-center opacity-[0.22] group-hover:opacity-[0.35] transition-all duration-1000 scale-100 group-hover:scale-105 pointer-events-none"
+              style={{ backgroundImage: `url('/assets/diagnostics_bg.png')` }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/30 pointer-events-none" />
+            <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-rose-500 via-indigo-500 to-rose-500 z-10" />
             <div className="absolute top-0 right-0 w-64 h-64 bg-rose-500/5 rounded-full blur-3xl pointer-events-none"></div>
             
             <div className="relative z-10">
@@ -370,7 +376,7 @@ export default function StartHere() {
                   href={affiliateLinks.lola_core_health} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-rose-600 to-indigo-600 hover:from-rose-700 hover:to-indigo-700 text-white rounded-xl font-bold uppercase tracking-widest text-xs shadow-lg shadow-indigo-950/50 transition-transform hover:scale-105"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-rose-600 to-indigo-600 hover:from-rose-700 hover:to-indigo-700 text-white rounded-xl font-bold uppercase tracking-widest text-xs shadow-lg shadow-indigo-950/50 transition-all duration-300 hover:scale-105"
                 >
                   <Activity size={18} className="mr-2 animate-pulse" />
                   Order Lola Health UK Blood Test (Venous Draw)
@@ -672,20 +678,31 @@ export default function StartHere() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="bg-slate-950 border border-slate-800 p-8 rounded-3xl flex flex-col hover:border-emerald-500/50 transition-all shadow-2xl group"
+              className="relative overflow-hidden bg-slate-950 border border-slate-800 p-8 rounded-3xl flex flex-col hover:border-emerald-500/50 transition-all shadow-2xl group"
             >
-              <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-6">
-                <Activity size={32} />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-2">Beginner Home Workout Plan</h3>
-              <p className="text-slate-400 leading-relaxed mb-8 flex-grow">
-                A definitive 4-week zero-equipment protocol. Build foundational strength, increase mobility, and establish a bulletproof routine from the comfort of your living room.
-              </p>
-              <div className="flex items-center justify-between mt-auto pt-6 border-t border-slate-800">
-                <span className="text-2xl font-black text-white">£19.00</span>
-                <Link to="/premium-guides" className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-sm transition-colors uppercase tracking-wider">
-                  Get Plan
-                </Link>
+              {/* Background image & gradient overlay */}
+              <div 
+                className="absolute inset-0 bg-cover bg-center opacity-[0.22] group-hover:opacity-[0.35] transition-all duration-1000 scale-100 group-hover:scale-105 pointer-events-none"
+                style={{ backgroundImage: `url('/assets/workout_plan_bg.png')` }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/30 pointer-events-none" />
+
+              <div className="relative z-10 flex flex-col h-full justify-between flex-grow">
+                <div>
+                  <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-6">
+                    <Activity size={32} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Beginner Home Workout Plan</h3>
+                  <p className="text-slate-400 leading-relaxed mb-8 flex-grow">
+                    A definitive 4-week zero-equipment protocol. Build foundational strength, increase mobility, and establish a bulletproof routine from the comfort of your living room.
+                  </p>
+                </div>
+                <div className="flex items-center justify-between mt-auto pt-6 border-t border-slate-800">
+                  <span className="text-2xl font-black text-white">£19.00</span>
+                  <Link to="/premium-guides" className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-sm transition-colors uppercase tracking-wider relative z-20">
+                    Get Plan
+                  </Link>
+                </div>
               </div>
             </motion.div>
 
@@ -695,20 +712,31 @@ export default function StartHere() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-slate-950 border border-slate-800 p-8 rounded-3xl flex flex-col hover:border-emerald-500/50 transition-all shadow-2xl group"
+              className="relative overflow-hidden bg-slate-950 border border-slate-800 p-8 rounded-3xl flex flex-col hover:border-emerald-500/50 transition-all shadow-2xl group"
             >
-              <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-6">
-                <Apple size={32} />
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-2">The Master Meal Planning Guide</h3>
-              <p className="text-slate-400 leading-relaxed mb-8 flex-grow">
-                The practical next step. A systematic approach to weekly meal prep and macro-balancing to ensure your body is fueled with optimal metabolic nutrition.
-              </p>
-              <div className="flex items-center justify-between mt-auto pt-6 border-t border-slate-800">
-                <span className="text-2xl font-black text-white">£24.00</span>
-                <Link to="/premium-guides" className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-sm transition-colors uppercase tracking-wider">
-                  Get Guide
-                </Link>
+              {/* Background image & gradient overlay */}
+              <div 
+                className="absolute inset-0 bg-cover bg-center opacity-[0.22] group-hover:opacity-[0.35] transition-all duration-1000 scale-100 group-hover:scale-105 pointer-events-none"
+                style={{ backgroundImage: `url('/assets/meal_plan_bg.png')` }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/30 pointer-events-none" />
+
+              <div className="relative z-10 flex flex-col h-full justify-between flex-grow">
+                <div>
+                  <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-6">
+                    <Apple size={32} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">The Master Meal Planning Guide</h3>
+                  <p className="text-slate-400 leading-relaxed mb-8 flex-grow">
+                    The practical next step. A systematic approach to weekly meal prep and macro-balancing to ensure your body is fueled with optimal metabolic nutrition.
+                  </p>
+                </div>
+                <div className="flex items-center justify-between mt-auto pt-6 border-t border-slate-800">
+                  <span className="text-2xl font-black text-white">£24.00</span>
+                  <Link to="/premium-guides" className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-sm transition-colors uppercase tracking-wider relative z-20">
+                    Get Guide
+                  </Link>
+                </div>
               </div>
             </motion.div>
           </div>
