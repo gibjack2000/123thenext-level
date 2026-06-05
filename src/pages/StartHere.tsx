@@ -64,6 +64,32 @@ export default function StartHere() {
               <p className="text-slate-300 leading-relaxed text-base">
                 This shift is largely driven by the scientific realization that <strong className="text-white">80% to 90% of how quickly you age depends on your lifestyle and "Epigenetics,"</strong> rather than just your genetics. As a result, the health landscape has evolved into what your site calls "Medicalized Wellness," which replaces generic dieting and wellness routines with highly specific, clinical-level precision, such as optimizing glycemic control or tailoring protocols specifically to female biology.
               </p>
+              
+              {/* Visual 1: Epigenetics Circular Gauge */}
+              <div className="relative mt-8 p-6 bg-slate-900/40 rounded-2xl border border-slate-800/80 overflow-hidden flex items-center gap-6 shadow-md hover:shadow-lg transition-all">
+                <div className="w-1/3 flex-shrink-0 relative">
+                  <svg viewBox="0 0 100 100" className="w-full h-auto">
+                    <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.05)" strokeWidth="8" fill="transparent" />
+                    {/* 20% Genetics (Rose) */}
+                    <circle cx="50" cy="50" r="40" stroke="#f43f5e" strokeWidth="8" fill="transparent"
+                      strokeDasharray="251.2" strokeDashoffset="200.96" strokeLinecap="round" transform="rotate(-90 50 50)" />
+                    {/* 80% Epigenetics (Blue) */}
+                    <circle cx="50" cy="50" r="40" stroke="#3b82f6" strokeWidth="8" fill="transparent"
+                      strokeDasharray="251.2" strokeDashoffset="50.24" strokeLinecap="round" transform="rotate(27 50 50)" />
+                    <text x="50" y="56" textAnchor="middle" fill="#ffffff" className="text-[14px] font-black font-display">80%</text>
+                  </svg>
+                </div>
+                <div className="space-y-2">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-blue-400 block">Biological Epigenetic Balance</span>
+                  <p className="text-xs text-slate-400 leading-relaxed font-medium">
+                    Your DNA is not your destiny. <strong className="text-white">80% of aging pace</strong> is determined by lifestyle choices (nutrition, activity, sleep), while genetics only dictate <strong className="text-rose-500">20%</strong>.
+                  </p>
+                  <div className="flex gap-4 text-[9px] font-bold uppercase tracking-wider pt-1">
+                    <span className="flex items-center gap-1.5 text-blue-400"><span className="w-2 h-2 rounded-full bg-blue-500" /> Epigenetics (80%)</span>
+                    <span className="flex items-center gap-1.5 text-rose-400"><span className="w-2 h-2 rounded-full bg-rose-500" /> Genetics (20%)</span>
+                  </div>
+                </div>
+              </div>
             </motion.div>
             
             <motion.div 
@@ -105,6 +131,31 @@ export default function StartHere() {
                     <strong className="text-white block mb-1 text-sm">Targeted Optimization</strong>
                     <span className="text-slate-400 text-sm leading-relaxed block">Accessing specific biomarkers helps map out targeted protocols. For example, utilizing an "Ovarian Reserve Test Kit" provides clinical precision for women's health, while testing can help identify "42 more intelligence markers" to guide your journey.</span>
                   </div>
+                </div>
+              </div>
+
+              {/* Visual 2: Healthspan Curve Graph */}
+              <div className="relative mt-6 p-6 bg-slate-950/50 rounded-2xl border border-slate-800/80 overflow-hidden shadow-inner">
+                <span className="text-[10px] font-black uppercase tracking-widest text-indigo-400 block mb-4">Healthspan Trajectory mapping</span>
+                <svg viewBox="0 0 200 100" className="w-full h-auto">
+                  <line x1="10" y1="10" x2="190" y2="10" stroke="rgba(255,255,255,0.02)" />
+                  <line x1="10" y1="50" x2="190" y2="50" stroke="rgba(255,255,255,0.02)" />
+                  <line x1="10" y1="90" x2="190" y2="90" stroke="rgba(255,255,255,0.08)" />
+                  
+                  <text x="12" y="24" fill="rgba(255,255,255,0.3)" className="text-[6px] font-black uppercase tracking-wider">Vitality</text>
+                  <text x="180" y="85" fill="rgba(255,255,255,0.3)" className="text-[6px] font-black uppercase tracking-wider text-right">Age</text>
+                  
+                  {/* Reactive Repair Curve (declining early, steep drop) */}
+                  <path d="M 10,20 Q 80,30 120,60 T 170,90" fill="none" stroke="#f43f5e" strokeWidth="2" strokeDasharray="3" />
+                  <text x="100" y="70" fill="#f43f5e" className="text-[5px] font-black uppercase tracking-widest">Reactive Decline</text>
+
+                  {/* Proactive Optimization Curve (sustained high, rectangular drop late) */}
+                  <path d="M 10,20 Q 120,20 150,32 T 185,90" fill="none" stroke="#10b981" strokeWidth="2.5" />
+                  <text x="60" y="16" fill="#10b981" className="text-[5px] font-black uppercase tracking-widest">Proactive Optimization</text>
+                </svg>
+                <div className="flex justify-between items-center mt-3 text-[8px] font-bold uppercase tracking-wider text-slate-500">
+                  <span>Start (Baseline)</span>
+                  <span>Target Healthspan Peak</span>
                 </div>
               </div>
             </motion.div>
