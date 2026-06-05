@@ -464,10 +464,10 @@ export default function StartHere() {
               <Link to="/life-practice/beginners-guide" className="relative overflow-hidden block p-8 rounded-3xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition-all group h-full shadow-xl">
                 {/* Background image & gradient overlay */}
                 <div 
-                  className="absolute inset-0 bg-cover bg-center opacity-[0.12] group-hover:opacity-[0.25] transition-all duration-700 scale-100 group-hover:scale-105 pointer-events-none"
-                  style={{ backgroundImage: `url('https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&q=80&w=600')` }}
+                  className="absolute inset-0 bg-cover bg-center opacity-[0.22] group-hover:opacity-[0.35] transition-all duration-700 scale-100 group-hover:scale-105 pointer-events-none"
+                  style={{ backgroundImage: `url('/assets/mindset_bg.png')` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/30 pointer-events-none" />
 
                 <div className="relative z-10 flex flex-col h-full justify-between">
                   <div>
@@ -495,10 +495,10 @@ export default function StartHere() {
               <Link to="/fitness/fundamentals" className="relative overflow-hidden block p-8 rounded-3xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition-all group h-full shadow-xl">
                 {/* Background image & gradient overlay */}
                 <div 
-                  className="absolute inset-0 bg-cover bg-center opacity-[0.12] group-hover:opacity-[0.25] transition-all duration-700 scale-100 group-hover:scale-105 pointer-events-none"
-                  style={{ backgroundImage: `url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&q=80&w=600')` }}
+                  className="absolute inset-0 bg-cover bg-center opacity-[0.22] group-hover:opacity-[0.35] transition-all duration-700 scale-100 group-hover:scale-105 pointer-events-none"
+                  style={{ backgroundImage: `url('/assets/strength_bg.png')` }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/30 pointer-events-none" />
 
                 <div className="relative z-10 flex flex-col h-full justify-between">
                   <div>
@@ -737,7 +737,7 @@ export default function StartHere() {
                 color: "text-emerald-400", 
                 bg: "bg-emerald-500/10", 
                 path: "/nutrition",
-                image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=600"
+                image: "/assets/nutrition_bg.png"
               },
               { 
                 icon: Activity, 
@@ -745,7 +745,7 @@ export default function StartHere() {
                 color: "text-blue-400", 
                 bg: "bg-blue-500/10", 
                 path: "/fitness",
-                image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&q=80&w=600"
+                image: "/assets/fitness_bg.png"
               },
               { 
                 icon: Moon, 
@@ -753,7 +753,7 @@ export default function StartHere() {
                 color: "text-indigo-400", 
                 bg: "bg-indigo-500/10", 
                 path: "/neurowellness",
-                image: "https://images.unsplash.com/photo-1511295742364-92767fa62d9f?auto=format&fit=crop&q=80&w=600"
+                image: "/assets/sleep_bg.png"
               },
               { 
                 icon: Brain, 
@@ -761,7 +761,7 @@ export default function StartHere() {
                 color: "text-purple-400", 
                 bg: "bg-purple-500/10", 
                 path: "/wellness",
-                image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=600"
+                image: "/assets/mental_bg.png"
               },
               { 
                 icon: Heart, 
@@ -769,7 +769,7 @@ export default function StartHere() {
                 color: "text-rose-400", 
                 bg: "bg-rose-500/10", 
                 path: "/social-fitness",
-                image: "https://images.unsplash.com/photo-1543807535-eceef0bc6599?auto=format&fit=crop&q=80&w=600"
+                image: "/assets/social_bg.png"
               },
               { 
                 icon: Shield, 
@@ -777,7 +777,7 @@ export default function StartHere() {
                 color: "text-amber-400", 
                 bg: "bg-amber-500/10", 
                 path: "/health/preventive",
-                image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=600"
+                image: "/assets/preventive_bg.png"
               }
             ].map((pillar, i) => (
               <Link 
@@ -794,10 +794,10 @@ export default function StartHere() {
                 >
                   {/* Background image & gradient overlay */}
                   <div 
-                    className="absolute inset-0 bg-cover bg-center opacity-[0.08] group-hover:opacity-[0.2] transition-all duration-700 scale-100 group-hover:scale-105 pointer-events-none"
+                    className="absolute inset-0 bg-cover bg-center opacity-[0.2] group-hover:opacity-[0.38] transition-all duration-700 scale-100 group-hover:scale-105 pointer-events-none"
                     style={{ backgroundImage: `url('${pillar.image}')` }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/30 pointer-events-none" />
 
                   <div className="relative z-10 flex flex-col items-center">
                     <div className={`w-12 h-12 rounded-xl ${pillar.bg} ${pillar.color} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300`}>
