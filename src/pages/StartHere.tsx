@@ -80,7 +80,7 @@ export default function StartHere() {
         icon: Dumbbell,
         glowColor: "from-cyan-500/20 to-indigo-500/5",
         badgeColor: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20",
-        image: "https://images-na.ssl-images-amazon.com/images/P/B00XM2MXK8.01._SL500_.jpg",
+        image: "/Products/roller.jpg",
         objectFit: "contain"
       }
     ],
@@ -121,7 +121,7 @@ export default function StartHere() {
         icon: Dumbbell,
         glowColor: "from-cyan-500/20 to-blue-500/5",
         badgeColor: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20",
-        image: "/Products/vibrationplate",
+        image: "/Products/vibration.jpg",
         objectFit: "contain"
       },
       {
@@ -134,7 +134,7 @@ export default function StartHere() {
         icon: ChefHat,
         glowColor: "from-indigo-500/20 to-violet-500/5",
         badgeColor: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
-        image: "https://images-na.ssl-images-amazon.com/images/P/B0CJ39H6GG.01._SL500_.jpg",
+        image: "/Products/ninjablast.jpg",
         objectFit: "contain"
       }
     ],
@@ -175,7 +175,7 @@ export default function StartHere() {
         icon: Pill,
         glowColor: "from-emerald-500/20 to-teal-500/5",
         badgeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
-        image: "/Products/Magnesium1.jpg",
+        image: "/Products/magnesium.jpg",
         objectFit: "contain"
       },
       {
@@ -565,13 +565,11 @@ export default function StartHere() {
                     </div>
 
                     {/* Product Image Container */}
-                    <div className="relative aspect-[4/3] w-full bg-white rounded-2xl p-0.5 flex items-center justify-center mb-4 overflow-hidden shadow-inner border border-slate-800/20 group-hover:shadow-lg transition-shadow duration-305">
+                    <div className="relative aspect-[4/3] w-full bg-slate-950 rounded-2xl flex items-center justify-center mb-4 overflow-hidden shadow-inner border border-slate-800/10 group-hover:shadow-lg transition-shadow duration-305">
                       <img 
                         src={item.image} 
                         alt={item.name} 
-                        className={`w-full h-full transition-transform duration-500 group-hover:scale-105 ${
-                          item.objectFit === 'cover' ? 'object-cover' : 'object-contain p-2'
-                        }`}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-slate-950/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                     </div>
