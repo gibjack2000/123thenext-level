@@ -109,7 +109,7 @@ export default function ProductsClient({
           <div className="relative z-10 mt-auto pt-6 border-t border-white/5">
             <div className="flex justify-between items-center mb-6 px-2">
               <span className="font-black text-2xl text-white tracking-tighter">
-                {product.price ? `${product.price} ${product.currency}` : 'VIEW PRICE'}
+                {product.price ? `${product.price.toFixed(2)} ${product.currency}` : 'VIEW PRICE'}
               </span>
               <div className="flex items-center text-blue-400 font-black text-sm">
                 <Star size={16} className="fill-blue-500 text-blue-500 mr-2" />

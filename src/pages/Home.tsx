@@ -1225,7 +1225,7 @@ export default function Home() {
                         {product.product_name}
                       </h3>
                       <div className="mt-auto pt-4 flex items-center justify-between">
-                        <span className="font-bold text-lg text-slate-900">{product.price} {product.currency}</span>
+                        <span className="font-bold text-lg text-slate-900">{product.price.toFixed(2)} {product.currency}</span>
                         <a 
                           href={product.amazon_url} 
                           target="_blank" 

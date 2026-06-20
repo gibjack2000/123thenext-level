@@ -18,7 +18,7 @@ export default function AdminPage() {
   const [loginError, setLoginError] = useState('');
 
   useEffect(() => {
-    const auth = localStorage.getItem('admin_authenticated');
+    const auth = sessionStorage.getItem('admin_session_authenticated');
     if (auth === 'true') {
       setIsAuthenticated(true);
     }
@@ -26,9 +26,10 @@ export default function AdminPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (passwordInput === 'Admin123') {
+    const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD || 'Admin123';
+    if (passwordInput === adminPassword) {
       setIsAuthenticated(true);
-      localStorage.setItem('admin_authenticated', 'true');
+      sessionStorage.setItem('admin_session_authenticated', 'true');
       setLoginError('');
     } else {
       setLoginError('Invalid administrator credentials.');
@@ -37,7 +38,7 @@ export default function AdminPage() {
 
   const handleLogout = () => {
     setIsAuthenticated(false);
-    localStorage.removeItem('admin_authenticated');
+    sessionStorage.removeItem('admin_session_authenticated');
   };
 
   const [activeTab, setActiveTab] = useState<'products' | 'blog' | 'mappings' | 'discovery' | 'guides'>('products');
@@ -1108,7 +1109,7 @@ create table if not exists premium_guides (
                             </span>
                           </div>
                         </td>
-                        <td className="px-10 py-6 font-black text-slate-900">{product.price} {product.currency}</td>
+                        <td className="px-10 py-6 font-black text-slate-900">{product.price.toFixed(2)} {product.currency}</td>
                         <td className="px-10 py-6">
                           <div className="flex items-center justify-end gap-2">
                             <button onClick={() => handleEditProduct(product)} className="p-3 bg-white border border-slate-100 text-slate-400 hover:text-indigo-600 hover:border-indigo-100 rounded-xl transition-all shadow-sm">

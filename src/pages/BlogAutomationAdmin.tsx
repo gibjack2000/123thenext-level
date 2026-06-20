@@ -19,7 +19,7 @@ export default function BlogAutomationAdmin() {
   const isOfflineRef = React.useRef(false);
 
   useEffect(() => {
-    const auth = localStorage.getItem('admin_authenticated');
+    const auth = sessionStorage.getItem('admin_session_authenticated');
     if (auth === 'true') {
       setIsAuthenticated(true);
     }
@@ -27,9 +27,10 @@ export default function BlogAutomationAdmin() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (passwordInput === 'Admin123') {
+    const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD || 'Admin123';
+    if (passwordInput === adminPassword) {
       setIsAuthenticated(true);
-      localStorage.setItem('admin_authenticated', 'true');
+      sessionStorage.setItem('admin_session_authenticated', 'true');
       setLoginError('');
     } else {
       setLoginError('Invalid administrator credentials.');

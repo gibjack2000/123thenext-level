@@ -81,7 +81,7 @@ export const AffiliateLinksProvider: React.FC<{ children: React.ReactNode }> = (
           const product = mapToProduct(dbProduct);
           const brand = product.tags?.[0] || 'Premium Vetted';
           const currencySymbol = product.currency === 'USD' ? '$' : product.currency === 'GBP' ? '£' : product.currency === 'EUR' ? '€' : '';
-          const priceDisplay = product.price ? `${currencySymbol}${product.price}` : '';
+          const priceDisplay = product.price ? `${currencySymbol}${product.price.toFixed(2)}` : '';
 
           newLinks[mapping.key] = {
             url: product.amazon_url,
