@@ -13,6 +13,7 @@ import Navbar from './components/Navbar';
 // Lazy-load all pages for code-splitting (each page becomes its own JS chunk)
 const Home = lazy(() => import('./pages/Home'));
 const StartHere = lazy(() => import('./pages/StartHere'));
+const HealthQuiz = lazy(() => import('./pages/HealthQuiz'));
 const HealthPillar = lazy(() => import('./pages/HealthPillar'));
 const HealthPostA = lazy(() => import('./pages/HealthPostA'));
 const HealthPostB = lazy(() => import('./pages/HealthPostB'));
@@ -104,6 +105,7 @@ function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/start-here" element={<StartHere />} />
+                <Route path="/health-quiz" element={<HealthQuiz />} />
                 <Route path="/health" element={<HealthPillar />} />
                 <Route path="/health/preventive" element={<PreventiveHealth />} />
                 <Route path="/health/post-a" element={<HealthPostA />} />

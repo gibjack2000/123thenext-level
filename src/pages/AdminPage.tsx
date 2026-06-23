@@ -12,6 +12,49 @@ const CURRENCIES = ['USD', 'GBP', 'EUR'];
 // Gemini API Key - fallback ensures AI features always work
 const GEMINI_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
+const QUIZ_ITEMS = [
+  // Supplements
+  { slug: 'vitamin-d3-k2', label: 'Vitamin D3 + K2', category: 'Supplements' },
+  { slug: 'omega-3-fish-oil', label: 'Omega-3 Fish Oil', category: 'Supplements' },
+  { slug: 'magnesium-glycinate', label: 'Magnesium Glycinate', category: 'Supplements' },
+  { slug: 'electrolytes', label: 'Electrolytes Mix', category: 'Supplements' },
+  { slug: 'glycine', label: 'Glycine Sleep Support', category: 'Supplements' },
+  { slug: 'ashwagandha', label: 'Ashwagandha Extract', category: 'Supplements' },
+  { slug: 'lions-mane', label: 'Lion\'s Mane Mushroom', category: 'Supplements' },
+  { slug: 'coq10-ubiquinol', label: 'CoQ10 Ubiquinol', category: 'Supplements' },
+  { slug: 'creatine', label: 'Creatine Monohydrate', category: 'Supplements' },
+  { slug: 'b-complex-methylated', label: 'Methylated B-Complex', category: 'Supplements' },
+  { slug: 'probiotic', label: 'Multi-Strain Probiotic', category: 'Supplements' },
+  { slug: 'prebiotic-fibre', label: 'Prebiotic Fibre', category: 'Supplements' },
+
+  // Gym
+  { slug: 'adjustable-dumbbells', label: 'Adjustable Dumbbells', category: 'Home Gym' },
+  { slug: 'exercise-mat', label: 'Tri-fold Exercise Mat', category: 'Home Gym' },
+  { slug: 'resistance-bands', label: 'Resistance Bands Set', category: 'Home Gym' },
+  { slug: 'weight-bench', label: 'Adjustable Weight Bench', category: 'Home Gym' },
+  { slug: 'jump-rope', label: 'Speed Jump Rope', category: 'Home Gym' },
+  { slug: 'rowing-machine', label: 'Concept2 Rowing Machine', category: 'Home Gym' },
+  { slug: 'air-bike', label: 'Assault Air Bike', category: 'Home Gym' },
+  { slug: 'barbell-set', label: 'Barbell & Bumper Plates', category: 'Home Gym' },
+  { slug: 'squat-rack', label: 'Squat Rack', category: 'Home Gym' },
+  { slug: 'kettlebell', label: 'Cast-Iron Kettlebell', category: 'Home Gym' },
+  { slug: 'foam-roller', label: 'Foam Roller & Lacrosse Ball', category: 'Home Gym' },
+
+  // Recovery
+  { slug: 'breathing-necklace', label: 'Breathing Necklace', category: 'Relaxation & Recovery' },
+  { slug: 'breathwork-app', label: 'Breathwork App', category: 'Relaxation & Recovery' },
+  { slug: 'meditation-cushion', label: 'Meditation Cushion', category: 'Relaxation & Recovery' },
+  { slug: 'noise-cancelling-headphones', label: 'Noise-Cancelling Headphones', category: 'Relaxation & Recovery' },
+  { slug: 'singing-bowl', label: 'Tibetan Singing Bowl', category: 'Relaxation & Recovery' },
+  { slug: 'infrared-sauna-blanket', label: 'Infrared Sauna Blanket', category: 'Relaxation & Recovery' },
+  { slug: 'cold-plunge', label: 'Cold Plunge Tub', category: 'Relaxation & Recovery' },
+  { slug: 'massage-gun', label: 'Percussive Massage Gun', category: 'Relaxation & Recovery' },
+  { slug: 'weighted-eye-mask', label: 'Weighted Eye Mask', category: 'Relaxation & Recovery' },
+  { slug: 'essential-oil-diffuser', label: 'Essential Oil Diffuser', category: 'Relaxation & Recovery' },
+  { slug: 'sunrise-alarm', label: 'Sunrise Alarm Clock', category: 'Relaxation & Recovery' },
+  { slug: 'weighted-blanket', label: 'Weighted Blanket', category: 'Relaxation & Recovery' }
+];
+
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passwordInput, setPasswordInput] = useState('');
@@ -1368,6 +1411,105 @@ create table if not exists premium_guides (
                     )}
                   </div>
                 ))}
+              </div>
+
+              {/* Quiz Placements Table */}
+              <div className="mt-12 pt-8 border-t border-slate-200">
+                <h4 className="text-xl font-display font-black uppercase tracking-tight text-slate-900 mb-2">Health Quiz Placements</h4>
+                <p className="text-sm text-slate-500 mb-6">Map specific products for each market (US, UK, Spain) to the quiz recommendations.</p>
+                
+                <div className="bg-slate-50 border border-slate-200 rounded-[2rem] overflow-hidden">
+                  <div className="overflow-x-auto font-sans">
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="bg-slate-100/50">
+                          <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Recommendation</th>
+                          <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">Category</th>
+                          <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">🇺🇸 United States</th>
+                          <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">🇬🇧 United Kingdom</th>
+                          <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest">🇪🇸 Spain</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-slate-200">
+                        {QUIZ_ITEMS.map(item => {
+                          const usKey = `quiz_${item.slug}_us`;
+                          const ukKey = `quiz_${item.slug}_uk`;
+                          const esKey = `quiz_${item.slug}_es`;
+                          
+                          return (
+                            <tr key={item.slug} className="hover:bg-slate-100/40">
+                              <td className="px-6 py-4 font-bold text-slate-900 text-sm">{item.label}</td>
+                              <td className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase">{item.category}</td>
+                              <td className="px-6 py-4">
+                                <select
+                                  value={mappings[usKey] || ''}
+                                  onChange={async (e) => {
+                                    const pid = e.target.value;
+                                    if (!supabase) return;
+                                    const { error } = await supabase.from('affiliate_link_mappings').upsert({ key: usKey, product_id: pid || null });
+                                    if (!error) {
+                                      setMappings(prev => ({ ...prev, [usKey]: pid }));
+                                      setSuccess(true);
+                                      setTimeout(() => setSuccess(false), 2000);
+                                    }
+                                  }}
+                                  className="bg-white border border-slate-200 rounded-lg p-2 text-xs font-bold text-slate-700 outline-none w-44"
+                                >
+                                  <option value="">-- Default link --</option>
+                                  {products.filter(p => p.region === 'US').map(p => (
+                                    <option key={p.id} value={p.id}>{p.product_name}</option>
+                                  ))}
+                                </select>
+                              </td>
+                              <td className="px-6 py-4">
+                                <select
+                                  value={mappings[ukKey] || ''}
+                                  onChange={async (e) => {
+                                    const pid = e.target.value;
+                                    if (!supabase) return;
+                                    const { error } = await supabase.from('affiliate_link_mappings').upsert({ key: ukKey, product_id: pid || null });
+                                    if (!error) {
+                                      setMappings(prev => ({ ...prev, [ukKey]: pid }));
+                                      setSuccess(true);
+                                      setTimeout(() => setSuccess(false), 2000);
+                                    }
+                                  }}
+                                  className="bg-white border border-slate-200 rounded-lg p-2 text-xs font-bold text-slate-700 outline-none w-44"
+                                >
+                                  <option value="">-- Default link --</option>
+                                  {products.filter(p => p.region === 'UK').map(p => (
+                                    <option key={p.id} value={p.id}>{p.product_name}</option>
+                                  ))}
+                                </select>
+                              </td>
+                              <td className="px-6 py-4">
+                                <select
+                                  value={mappings[esKey] || ''}
+                                  onChange={async (e) => {
+                                    const pid = e.target.value;
+                                    if (!supabase) return;
+                                    const { error } = await supabase.from('affiliate_link_mappings').upsert({ key: esKey, product_id: pid || null });
+                                    if (!error) {
+                                      setMappings(prev => ({ ...prev, [esKey]: pid }));
+                                      setSuccess(true);
+                                      setTimeout(() => setSuccess(false), 2000);
+                                    }
+                                  }}
+                                  className="bg-white border border-slate-200 rounded-lg p-2 text-xs font-bold text-slate-700 outline-none w-44"
+                                >
+                                  <option value="">-- Default link --</option>
+                                  {products.filter(p => p.region === 'ES').map(p => (
+                                    <option key={p.id} value={p.id}>{p.product_name}</option>
+                                  ))}
+                                </select>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

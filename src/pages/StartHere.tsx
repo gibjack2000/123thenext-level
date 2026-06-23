@@ -4,9 +4,18 @@ import { Link } from 'react-router-dom';
 import { 
   BookOpen, Compass, Dumbbell, Apple, Heart, Sparkles, 
   ArrowRight, Shield, Activity, Brain, Moon,
-  ShoppingBag, Smartphone, Pill, ChefHat
+  ShoppingBag, Smartphone, Pill, ChefHat, ClipboardCheck
 } from 'lucide-react';
 import { affiliateLinks } from '../config/affiliateLinks';
+
+/* ── Quiz-highlight ticker tape (inline, quiz-specific messages) ── */
+const QUIZ_TICKER = [
+  "TAKE THE FREE 2-MINUTE HEALTH BASELINE QUIZ",
+  "DISCOVER YOUR SCORE ACROSS 6 PILLARS OF WELLBEING",
+  "GET A PERSONALIZED ACTION PLAN — START THIS WEEK",
+  "12 SIMPLE QUESTIONS · 100% PRIVATE · NO SIGNUP",
+  "STOP GUESSING. START KNOWING YOUR HEALTH BASELINE",
+];
 
 interface CuratedItem {
   name: string;
@@ -223,6 +232,113 @@ export default function StartHere() {
             <p className="text-lg text-slate-400 max-w-3xl mx-auto">
               Sustainable health is simply about small, consistent daily steps. Do not wait for "warning signals" before giving your body the care it deserves. Start your journey today.
             </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Health Quiz Ticker Tape */}
+      <div className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white overflow-hidden py-2.5 relative z-30 border-b border-blue-500/30">
+        <div className="flex animate-marquee whitespace-nowrap">
+          {[...QUIZ_TICKER, ...QUIZ_TICKER, ...QUIZ_TICKER, ...QUIZ_TICKER].map((msg, i) => (
+            <React.Fragment key={i}>
+              <Link to="/health-quiz" className="flex items-center gap-4 text-sm font-display uppercase tracking-[0.2em] font-bold px-6 group/t hover:text-amber-300 transition-colors">
+                <ClipboardCheck size={14} className="text-amber-400 animate-pulse" />
+                <span className="drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]">{msg}</span>
+                <ArrowRight size={14} className="text-blue-300 group-hover/t:text-amber-300 transition-colors" />
+              </Link>
+              <span className="text-blue-400/40 font-black opacity-50 select-none">/</span>
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+
+      {/* Health Baseline Quiz — Featured Banner */}
+      <section className="relative py-12 bg-slate-950 border-b border-slate-800/50">
+        <div className="max-w-5xl mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="relative overflow-hidden rounded-3xl border border-blue-500/30 shadow-2xl group"
+          >
+            {/* Gradient background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-slate-900 to-slate-950" />
+            <div className="absolute -top-24 -right-24 w-72 h-72 bg-blue-500/15 rounded-full blur-3xl" />
+            <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl" />
+            <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-500" />
+
+            <div className="relative z-10 p-8 md:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              {/* Animated score-ring visual */}
+              <div className="lg:col-span-4 flex justify-center">
+                <div className="relative w-44 h-44 group/viz">
+                  {/* Floating pillar emojis orbiting the ring */}
+                  <span className="absolute -top-1 left-1/2 -translate-x-1/2 text-2xl drop-shadow-lg group-hover/viz:animate-bounce" style={{ animationDelay: '0s' }}>😴</span>
+                  <span className="absolute top-1/2 -right-2 -translate-y-1/2 text-2xl drop-shadow-lg" style={{ animationDelay: '0.2s' }}>🥗</span>
+                  <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 text-2xl drop-shadow-lg" style={{ animationDelay: '0.4s' }}>🏃</span>
+                  <span className="absolute top-1/2 -left-2 -translate-y-1/2 text-2xl drop-shadow-lg" style={{ animationDelay: '0.6s' }}>🧘</span>
+
+                  {/* Pulse ring */}
+                  <div className="absolute inset-0 rounded-full border-2 border-blue-400/30 animate-ping" style={{ animationDuration: '2.5s' }} />
+
+                  {/* Score ring SVG */}
+                  <svg viewBox="0 0 120 120" className="w-full h-full -rotate-90 relative z-10">
+                    <defs>
+                      <linearGradient id="quizRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#3b82f6" />
+                        <stop offset="100%" stopColor="#818cf8" />
+                      </linearGradient>
+                    </defs>
+                    <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="9" />
+                    <circle
+                      cx="60" cy="60" r="52" fill="none"
+                      stroke="url(#quizRingGrad)" strokeWidth="9" strokeLinecap="round"
+                      strokeDasharray="326.7" strokeDashoffset="98"
+                      className="drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
+                    />
+                  </svg>
+
+                  {/* Center label */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
+                    <span className="text-3xl font-black text-white leading-none tracking-tight">78</span>
+                    <span className="text-[9px] font-black uppercase tracking-widest text-blue-400 mt-0.5">/ 100</span>
+                    <span className="text-[8px] font-bold uppercase tracking-wider text-slate-400 mt-1">Your Score</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Copy */}
+              <div className="lg:col-span-5 text-center lg:text-left">
+                <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-black uppercase tracking-widest mb-3 border border-blue-500/20">
+                  <Sparkles size={12} className="mr-1.5" />
+                  Free · 2 Minutes · 100% Private
+                </span>
+                <h2 className="text-2xl md:text-3xl font-display uppercase tracking-tight text-white mb-2 leading-tight">
+                  Discover Your <span className="text-blue-400">Health Baseline</span>
+                </h2>
+                <p className="text-slate-300 text-sm md:text-base leading-relaxed mb-4">
+                  Take this 12-question quiz to get a clear snapshot of where you stand across the six pillars of wellbeing — plus a personalized, prioritized action plan you can start this week.
+                </p>
+                {/* Mini stat strip */}
+                <div className="flex flex-wrap justify-center lg:justify-start gap-x-5 gap-y-1 text-xs">
+                  <span className="flex items-center gap-1.5 text-slate-300"><span className="w-1.5 h-1.5 rounded-full bg-blue-400" /> 12 Questions</span>
+                  <span className="flex items-center gap-1.5 text-slate-300"><span className="w-1.5 h-1.5 rounded-full bg-indigo-400" /> 6 Pillars</span>
+                  <span className="flex items-center gap-1.5 text-slate-300"><span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> Action Plan</span>
+                </div>
+              </div>
+
+              {/* Action button */}
+              <div className="lg:col-span-3 flex justify-center lg:justify-end">
+                <Link
+                  to="/health-quiz"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black uppercase tracking-wider text-sm rounded-2xl shadow-lg shadow-blue-900/40 transition-all duration-300 hover:scale-105 group/btn"
+                >
+                  <ClipboardCheck size={18} className="mr-2" />
+                  Take the Quiz
+                  <ArrowRight size={18} className="ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>

@@ -52,5 +52,189 @@ export const affiliateLinks = {
   lola_core_health: 'https://referrals.lolahealth.com/NextLevel15',
   lola_vital_check: 'https://referrals.lolahealth.com/NextLevel15',
   lola_peak_insights: 'https://referrals.lolahealth.com/NextLevel15',
+
+  // Quiz Curated Product Affiliate Links (per market: US, UK, Spain)
+  quiz: {
+    // Supplements
+    'vitamin-d3-k2': {
+      us: 'https://123thenextlevel.com/shop/vitamin-d3-k2',
+      uk: 'https://123thenextlevel.com/shop/vitamin-d3-k2-uk',
+      es: 'https://123thenextlevel.com/shop/vitamin-d3-k2-es',
+    },
+    'omega-3-fish-oil': {
+      us: 'https://123thenextlevel.com/shop/omega-3-fish-oil',
+      uk: 'https://123thenextlevel.com/shop/omega-3-fish-oil-uk',
+      es: 'https://123thenextlevel.com/shop/omega-3-fish-oil-es',
+    },
+    'magnesium-glycinate': {
+      us: 'https://123thenextlevel.com/shop/magnesium-glycinate',
+      uk: 'https://123thenextlevel.com/shop/magnesium-glycinate-uk',
+      es: 'https://123thenextlevel.com/shop/magnesium-glycinate-es',
+    },
+    'electrolytes': {
+      us: 'https://123thenextlevel.com/shop/electrolytes',
+      uk: 'https://123thenextlevel.com/shop/electrolytes-uk',
+      es: 'https://123thenextlevel.com/shop/electrolytes-es',
+    },
+    'glycine': {
+      us: 'https://123thenextlevel.com/shop/glycine',
+      uk: 'https://123thenextlevel.com/shop/glycine-uk',
+      es: 'https://123thenextlevel.com/shop/glycine-es',
+    },
+    'ashwagandha': {
+      us: 'https://123thenextlevel.com/shop/ashwagandha',
+      uk: 'https://123thenextlevel.com/shop/ashwagandha-uk',
+      es: 'https://123thenextlevel.com/shop/ashwagandha-es',
+    },
+    'lions-mane': {
+      us: 'https://123thenextlevel.com/shop/lions-mane',
+      uk: 'https://123thenextlevel.com/shop/lions-mane-uk',
+      es: 'https://123thenextlevel.com/shop/lions-mane-es',
+    },
+    'coq10-ubiquinol': {
+      us: 'https://123thenextlevel.com/shop/coq10-ubiquinol',
+      uk: 'https://123thenextlevel.com/shop/coq10-ubiquinol-uk',
+      es: 'https://123thenextlevel.com/shop/coq10-ubiquinol-es',
+    },
+    'creatine': {
+      us: 'https://www.amazon.com/Thorne-Research-Creatine-Monohydrate-Amino/dp/B00028M0ZK',
+      uk: 'https://www.amazon.co.uk/Thorne-Research-Creatine-Monohydrate-Amino/dp/B00028M0ZK',
+      es: 'https://www.amazon.es/Thorne-Research-Creatine-Monohydrate-Amino/dp/B00028M0ZK',
+    },
+    'b-complex-methylated': {
+      us: 'https://123thenextlevel.com/shop/b-complex-methylated',
+      uk: 'https://123thenextlevel.com/shop/b-complex-methylated-uk',
+      es: 'https://123thenextlevel.com/shop/b-complex-methylated-es',
+    },
+    'probiotic': {
+      us: 'https://123thenextlevel.com/shop/probiotic',
+      uk: 'https://123thenextlevel.com/shop/probiotic-uk',
+      es: 'https://123thenextlevel.com/shop/probiotic-es',
+    },
+    'prebiotic-fibre': {
+      us: 'https://123thenextlevel.com/shop/prebiotic-fibre',
+      uk: 'https://123thenextlevel.com/shop/prebiotic-fibre-uk',
+      es: 'https://123thenextlevel.com/shop/prebiotic-fibre-es',
+    },
+
+    // Gym Essentials
+    'adjustable-dumbbells': {
+      us: 'https://123thenextlevel.com/shop/adjustable-dumbbells',
+      uk: 'https://123thenextlevel.com/shop/adjustable-dumbbells-uk',
+      es: 'https://123thenextlevel.com/shop/adjustable-dumbbells-es',
+    },
+    'exercise-mat': {
+      us: 'https://123thenextlevel.com/shop/exercise-mat',
+      uk: 'https://123thenextlevel.com/shop/exercise-mat-uk',
+      es: 'https://123thenextlevel.com/shop/exercise-mat-es',
+    },
+    'resistance-bands': {
+      us: 'https://123thenextlevel.com/shop/resistance-bands',
+      uk: 'https://123thenextlevel.com/shop/resistance-bands-uk',
+      es: 'https://123thenextlevel.com/shop/resistance-bands-es',
+    },
+    'weight-bench': {
+      us: 'https://123thenextlevel.com/shop/weight-bench',
+      uk: 'https://123thenextlevel.com/shop/weight-bench-uk',
+      es: 'https://123thenextlevel.com/shop/weight-bench-es',
+    },
+    'jump-rope': {
+      us: 'https://123thenextlevel.com/shop/jump-rope',
+      uk: 'https://123thenextlevel.com/shop/jump-rope-uk',
+      es: 'https://123thenextlevel.com/shop/jump-rope-es',
+    },
+    'rowing-machine': {
+      us: 'https://123thenextlevel.com/shop/rowing-machine',
+      uk: 'https://123thenextlevel.com/shop/rowing-machine-uk',
+      es: 'https://123thenextlevel.com/shop/rowing-machine-es',
+    },
+    'air-bike': {
+      us: 'https://123thenextlevel.com/shop/air-bike',
+      uk: 'https://123thenextlevel.com/shop/air-bike-uk',
+      es: 'https://123thenextlevel.com/shop/air-bike-es',
+    },
+    'barbell-set': {
+      us: 'https://123thenextlevel.com/shop/barbell-set',
+      uk: 'https://123thenextlevel.com/shop/barbell-set-uk',
+      es: 'https://123thenextlevel.com/shop/barbell-set-es',
+    },
+    'squat-rack': {
+      us: 'https://123thenextlevel.com/shop/squat-rack',
+      uk: 'https://123thenextlevel.com/shop/squat-rack-uk',
+      es: 'https://123thenextlevel.com/shop/squat-rack-es',
+    },
+    'kettlebell': {
+      us: 'https://123thenextlevel.com/shop/kettlebell',
+      uk: 'https://123thenextlevel.com/shop/kettlebell-uk',
+      es: 'https://123thenextlevel.com/shop/kettlebell-es',
+    },
+    'foam-roller': {
+      us: 'https://123thenextlevel.com/shop/foam-roller',
+      uk: 'https://123thenextlevel.com/shop/foam-roller-uk',
+      es: 'https://123thenextlevel.com/shop/foam-roller-es',
+    },
+
+    // Relaxation & Recovery
+    'breathing-necklace': {
+      us: 'https://123thenextlevel.com/shop/breathing-necklace',
+      uk: 'https://123thenextlevel.com/shop/breathing-necklace-uk',
+      es: 'https://123thenextlevel.com/shop/breathing-necklace-es',
+    },
+    'breathwork-app': {
+      us: 'https://123thenextlevel.com/shop/breathwork-app',
+      uk: 'https://123thenextlevel.com/shop/breathwork-app-uk',
+      es: 'https://123thenextlevel.com/shop/breathwork-app-es',
+    },
+    'meditation-cushion': {
+      us: 'https://123thenextlevel.com/shop/meditation-cushion',
+      uk: 'https://123thenextlevel.com/shop/meditation-cushion-uk',
+      es: 'https://123thenextlevel.com/shop/meditation-cushion-es',
+    },
+    'noise-cancelling-headphones': {
+      us: 'https://123thenextlevel.com/shop/noise-cancelling-headphones',
+      uk: 'https://123thenextlevel.com/shop/noise-cancelling-headphones-uk',
+      es: 'https://123thenextlevel.com/shop/noise-cancelling-headphones-es',
+    },
+    'singing-bowl': {
+      us: 'https://123thenextlevel.com/shop/singing-bowl',
+      uk: 'https://123thenextlevel.com/shop/singing-bowl-uk',
+      es: 'https://123thenextlevel.com/shop/singing-bowl-es',
+    },
+    'infrared-sauna-blanket': {
+      us: 'https://123thenextlevel.com/shop/infrared-sauna-blanket',
+      uk: 'https://123thenextlevel.com/shop/infrared-sauna-blanket-uk',
+      es: 'https://123thenextlevel.com/shop/infrared-sauna-blanket-es',
+    },
+    'cold-plunge': {
+      us: 'https://123thenextlevel.com/shop/cold-plunge',
+      uk: 'https://123thenextlevel.com/shop/cold-plunge-uk',
+      es: 'https://123thenextlevel.com/shop/cold-plunge-es',
+    },
+    'massage-gun': {
+      us: 'https://123thenextlevel.com/shop/massage-gun',
+      uk: 'https://123thenextlevel.com/shop/massage-gun-uk',
+      es: 'https://123thenextlevel.com/shop/massage-gun-es',
+    },
+    'weighted-eye-mask': {
+      us: 'https://123thenextlevel.com/shop/weighted-eye-mask',
+      uk: 'https://123thenextlevel.com/shop/weighted-eye-mask-uk',
+      es: 'https://123thenextlevel.com/shop/weighted-eye-mask-es',
+    },
+    'essential-oil-diffuser': {
+      us: 'https://123thenextlevel.com/shop/essential-oil-diffuser',
+      uk: 'https://123thenextlevel.com/shop/essential-oil-diffuser-uk',
+      es: 'https://123thenextlevel.com/shop/essential-oil-diffuser-es',
+    },
+    'sunrise-alarm': {
+      us: 'https://123thenextlevel.com/shop/sunrise-alarm',
+      uk: 'https://123thenextlevel.com/shop/sunrise-alarm-uk',
+      es: 'https://123thenextlevel.com/shop/sunrise-alarm-es',
+    },
+    'weighted-blanket': {
+      us: 'https://123thenextlevel.com/shop/weighted-blanket',
+      uk: 'https://123thenextlevel.com/shop/weighted-blanket-uk',
+      es: 'https://123thenextlevel.com/shop/weighted-blanket-es',
+    }
+  }
 };
 

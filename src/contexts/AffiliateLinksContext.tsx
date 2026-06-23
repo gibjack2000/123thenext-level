@@ -12,7 +12,7 @@ type AffiliateLinkInfo = {
   price?: string;
 };
 
-type AffiliateLinks = Record<string, AffiliateLinkInfo>;
+type AffiliateLinks = Record<string, any>;
 
 interface AffiliateLinksContextType {
   links: AffiliateLinks;
@@ -21,12 +21,17 @@ interface AffiliateLinksContextType {
 }
 
 
-const staticLinkInfo: Record<string, AffiliateLinkInfo> = Object.fromEntries(
-  Object.entries(staticLinks).map(([key, url]) => [key, { url }])
-);
+const staticLinkInfo: AffiliateLinks = {
+  ...Object.fromEntries(
+    Object.entries(staticLinks)
+      .filter(([_, url]) => typeof url === 'string')
+      .map(([key, url]) => [key, { url: url as string }])
+  ),
+  quiz: staticLinks.quiz
+};
 
 const AffiliateLinksContext = createContext<AffiliateLinksContextType>({
-  links: staticLinkInfo as any,
+  links: staticLinkInfo,
   loading: false,
   refreshLinks: async () => {},
 });
@@ -69,10 +74,15 @@ export const AffiliateLinksProvider: React.FC<{ children: React.ReactNode }> = (
       }
 
       // Build new link dictionary merging static with dynamic overrides
-      const newLinks: Record<string, AffiliateLinkInfo> = {} as any;
-      // Initialize with static links (no images)
+      const newLinks: Record<string, any> = {};
+      // Initialize with static links
       Object.entries(staticLinks).forEach(([key, url]) => {
-        newLinks[key] = { url };
+        if (typeof url === 'string') {
+          newLinks[key] = { url };
+        } else {
+          // deep copy nested config objects (like quiz)
+          newLinks[key] = JSON.parse(JSON.stringify(url));
+        }
       });
 
       mappingsData.forEach(mapping => {
@@ -83,18 +93,31 @@ export const AffiliateLinksProvider: React.FC<{ children: React.ReactNode }> = (
           const currencySymbol = product.currency === 'USD' ? '$' : product.currency === 'GBP' ? '£' : product.currency === 'EUR' ? '€' : '';
           const priceDisplay = product.price ? `${currencySymbol}${product.price.toFixed(2)}` : '';
 
-          newLinks[mapping.key] = {
-            url: product.amazon_url,
-            image: product.image_url,
-            name: product.product_name,
-            brand: brand,
-            desc: product.description || product.short_benefit,
-            price: priceDisplay
-          };
+          if (mapping.key.startsWith('quiz_')) {
+            const parts = mapping.key.split('_');
+            if (parts.length >= 3) {
+              const region = parts[parts.length - 1]; // 'us', 'uk', 'es'
+              const slug = parts.slice(1, parts.length - 1).join('_'); // e.g. 'vitamin-d3-k2'
+              
+              if (!newLinks.quiz) newLinks.quiz = {};
+              if (!newLinks.quiz[slug]) newLinks.quiz[slug] = {};
+              
+              newLinks.quiz[slug][region] = product.amazon_url;
+            }
+          } else {
+            newLinks[mapping.key] = {
+              url: product.amazon_url,
+              image: product.image_url,
+              name: product.product_name,
+              brand: brand,
+              desc: product.description || product.short_benefit,
+              price: priceDisplay
+            };
+          }
         }
       });
 
-      setLinks(newLinks as any);
+      setLinks(newLinks);
     } catch (err) {
       console.error('Failed to fetch dynamic affiliate links:', err);
       // Fails gracefully back to static links
