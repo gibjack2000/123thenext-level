@@ -3,7 +3,17 @@ import { processCategoryJob, getQueue } from './blog-generator.js';
 import checkoutRouter from './routes/checkout.js';
 import { sendQuizResultsEmail } from './services/mailer.js';
 
+import { createClient } from '@supabase/supabase-js';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const router = express.Router();
+
+// Initialize Supabase
+const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY;
+const supabase = (supabaseUrl && supabaseKey) ? createClient(supabaseUrl, supabaseKey) : null;
 
 // --- Quiz Results Route ---
 router.post('/quiz-results', async (req, res) => {
@@ -12,9 +22,34 @@ router.post('/quiz-results', async (req, res) => {
     return res.status(400).json({ error: 'Email address is required.' });
   }
 
+  // Attempt to save to Supabase
+  if (supabase) {
+    try {
+      const { error: dbError } = await supabase
+        .from('quiz_submissions')
+        .insert([{
+          email,
+          name: name || '',
+          score: score ? parseInt(score, 10) : null,
+          dimensions,
+          plan_text: text
+        }]);
+      
+      if (dbError) {
+        console.error('Failed to save quiz submission to Supabase:', dbError);
+      } else {
+        console.log(`Quiz submission for ${email} saved to Supabase successfully.`);
+      }
+    } catch (dbError) {
+      console.error('Unexpected error saving quiz submission to Supabase:', dbError);
+    }
+  } else {
+    console.warn('Supabase is not configured; skipping quiz submission persistence.');
+  }
+
   try {
     await sendQuizResultsEmail({ email, name, score, dimensions, text });
-    res.json({ success: true, message: 'Quiz results email sent successfully.' });
+    res.json({ success: true, message: 'Quiz results processed and email sent successfully.' });
   } catch (error) {
     console.error('Failed to send quiz results email:', error);
     res.status(500).json({ error: 'Failed to send quiz results email. ' + error.message });
