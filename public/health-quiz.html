@@ -2442,36 +2442,32 @@ function submitToProvider(email, name) {
 }
 
 function sendResultsEmail(email, name, plan) {
-  // Always fire a mailto to the user with their full plan in the body
-  // This guarantees they receive their results immediately, even before
-  // any newsletter welcome sequence fires from the provider.
-  const subject = encodeURIComponent(`${OPTIN_CONFIG.siteName} — Your Health Baseline Plan (Score: ${plan.score}/100)`);
-  const body = encodeURIComponent(
-    `Hi ${name || 'there'},\n\n` +
-    `Here's your complete personalized Health Baseline Plan from ${OPTIN_CONFIG.siteName}.\n\n` +
-    `================================\n` +
-    `YOUR HEALTH BASELINE: ${plan.score}/100\n` +
-    `================================\n\n` +
-    plan.text +
-    `\n\n================================\n` +
-    `NEXT STEPS\n` +
-    `================================\n\n` +
-    `1. Pick ONE action from "Action Now" and do it within 7 days.\n` +
-    `2. Book your blood panel and start wearing a wearable.\n` +
-    `3. Choose ONE meditation practice and commit to 5 minutes daily for 7 days.\n\n` +
-    `You're now on the ${OPTIN_CONFIG.siteName} newsletter. Watch your inbox for weekly tips and your free "First 7 Days" roadmap.\n\n` +
-    `Unsubscribe anytime.\n\n` +
-    `— ${OPTIN_CONFIG.siteName}\n` +
-    `https://123thenextlevel.com`
-  );
-  // Send to user, CC the site owner so they get notified of new leads
-  const mailtoLink = `mailto:${email}?cc=${OPTIN_CONFIG.siteOwnerEmail}&subject=${subject}&body=${body}`;
-  // Use a hidden iframe to trigger mailto without navigating away
-  const iframe = document.createElement('iframe');
-  iframe.style.display = 'none';
-  iframe.src = mailtoLink;
-  document.body.appendChild(iframe);
-  setTimeout(() => document.body.removeChild(iframe), 3000);
+  const dims = computeScores();
+  fetch('/api/quiz-results', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      email: email,
+      name: name || '',
+      score: plan.score,
+      dimensions: dims,
+      text: plan.text
+    })
+  })
+  .then(response => {
+    if (!response.ok) {
+      return response.json().then(err => { throw new Error(err.error || 'Server error'); });
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Email sent successfully via SMTP:', data);
+  })
+  .catch(error => {
+    console.error('Failed to send SMTP email:', error);
+  });
 }
 
 function fallbackMailto(email, name, plan) {
