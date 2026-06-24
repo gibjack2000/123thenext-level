@@ -827,7 +827,7 @@
     display: block; font-size: 12.5px; font-weight: 600;
     color: var(--ink-soft); margin-bottom: 6px;
   }
-  .optin-form input {
+  .optin-form input, .optin-form select {
     width: 100%; padding: 13px 14px;
     border: 1.5px solid var(--line);
     border-radius: 10px;
@@ -836,7 +836,7 @@
     background: var(--surface);
     transition: border-color 0.16s ease, box-shadow 0.16s ease;
   }
-  .optin-form input:focus {
+  .optin-form input:focus, .optin-form select:focus {
     outline: none;
     border-color: var(--brand);
     box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.12);
@@ -1329,6 +1329,14 @@
           <div class="field">
             <label for="optinEmail">Email <span style="color:var(--danger);">*</span></label>
             <input type="email" id="optinEmail" name="email" placeholder="you@example.com" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="optinRegion">Select Your Market <span style="color:var(--danger);">*</span></label>
+            <select id="optinRegion" name="region">
+              <option value="us">🇺🇸 United States (US)</option>
+              <option value="uk">🇬🇧 United Kingdom (UK)</option>
+              <option value="es">🇪🇸 España (ES)</option>
+            </select>
           </div>
           <div class="optin-consent">
             <input type="checkbox" id="optinConsent" required />
@@ -2233,14 +2241,83 @@ const state = {
   selectedRegion: 'us'  // default selected market
 };
 
+const FALLBACK_ASINS = {
+  'vitamin-d3-k2': { us: 'B004U3Y8OM', uk: 'B086V74KKR', es: 'B0888QXZ14' },
+  'omega-3-fish-oil': { us: 'B07DX89ZHN', uk: 'B084G5XC29', es: 'B084G5XC29' },
+  'magnesium-glycinate': { us: 'B086RQVNDV', uk: 'B0C9VVCL12', es: 'B01BCCP44G' },
+  'electrolytes': { us: 'B01IIGQ5KG', uk: 'B0DHVH8MCG', es: 'B0DZD7TH17' },
+  'glycine': { us: 'B002J0RHTQ', uk: 'B0BK8X47M5', es: 'B0BK8X47M5' },
+  'ashwagandha': { us: 'B003PGE98K', uk: 'B0C111HFF4', es: 'B0GFWQCJK9' },
+  'lions-mane': { us: 'B0833F4K25', uk: 'B0C9TWKQQV', es: 'B0CG64T7LG' },
+  'coq10-ubiquinol': { us: 'B0055OUOQQ', uk: 'B0FH7FXXB5', es: 'B07MZY4P1R' },
+  'creatine': { us: 'B01EVVQX9U', uk: 'B0DQQDZGCW', es: 'B01EVVQX9U' },
+  'b-complex-methylated': { us: 'B0DLLHRVLY', uk: 'B07ZKMCN2Z', es: 'B0DLLHRVLY' },
+  'probiotic': { us: 'B079H53D2B', uk: 'B07ZKMCN2Z', es: 'B079H53D2B' },
+  'prebiotic-fibre': { us: 'B098KH1P14', uk: 'B077J3BFLN', es: 'B098KH1P14' },
+  'adjustable-dumbbells': { us: 'B0FRNG2N5H', uk: 'B0F5B4TNP2', es: 'B0FRNG2N5H' },
+  'exercise-mat': { us: 'B0D9MWTQ9K', uk: 'B0F5B4TNP2', es: 'B0D9MWTQ9K' },
+  'resistance-bands': { us: 'B01AVDVHTI', uk: 'B07L9WLKZQ', es: 'B01AVDVHTI' },
+  'weight-bench': { us: 'B099JZT1WR', uk: 'B08HGJDTC8', es: 'B099JZT1WR' },
+  'jump-rope': { us: 'B0CR6QHR2K', uk: 'B08PVWPB4D', es: 'B0CR6QHR2K' },
+  'rowing-machine': { us: 'B00NH9WEUA', uk: 'B00NH9WEUA', es: 'B00NH9WEUA' },
+  'air-bike': { us: 'B072Q63BDD', uk: 'B086MHC6CX', es: 'B0GLXPYVQC' },
+  'barbell-set': { us: 'B0GBZJC874', uk: 'B0BY9NK73N', es: 'B0GBZJC874' },
+  'squat-rack': { us: 'B0BFQVVFB7', uk: 'B078HVJL6V', es: 'B0BFQVVFB7' },
+  'kettlebell': { us: 'B0731DWW5K', uk: 'B076QJY2FN', es: 'B0731DWW5K' },
+  'foam-roller': { us: 'B00XM2MXK8', uk: 'B00XM2MXK8', es: 'B00XM2MXK8' },
+  'breathing-necklace': { us: 'B09Y8P257F', uk: 'B09Y8P257F', es: 'B09Y8P257F' },
+  'meditation-cushion': { us: 'B01698E3A6', uk: 'B01698E3A6', es: 'B01698E3A6' },
+  'noise-cancelling-headphones': { us: 'B0BS1QCFHX', uk: 'B0BS1QCFHX', es: 'B0BS1QCFHX' },
+  'singing-bowl': { us: 'B019864P10', uk: 'B019864P10', es: 'B019864P10' },
+  'infrared-sauna-blanket': { us: 'B0DPHN9D2P', uk: 'B0C5J5FN17', es: 'B0DPHN9D2P' },
+  'cold-plunge': { us: 'B0CMZN8B3Y', uk: 'B0CMZN8B3Y', es: 'B0CMZN8B3Y' },
+  'massage-gun': { us: 'B083L9BY2C', uk: 'B083L9BY2C', es: 'B083L9BY2C' },
+  'weighted-eye-mask': { us: 'B07WCS2NG7', uk: 'B07WCS2NG7', es: 'B07WCS2NG7' },
+  'essential-oil-diffuser': { us: 'B071L299Q6', uk: 'B071L299Q6', es: 'B071L299Q6' },
+  'sunrise-alarm': { us: 'B081CHLF46', uk: 'B081CHLF46', es: 'B081CHLF46' },
+  'weighted-blanket': { us: 'B073429DV2', uk: 'B073429DV2', es: 'B073429DV2' }
+};
+
 function resolveAffiliateLink(itemLink) {
   let finalLink = itemLink;
   try {
     const parentLinks = window.parent && window.parent.nextLevelAffiliateLinks;
     const slug = itemLink.replace(SHOP_CONFIG.baseUrl, '');
+    
     if (parentLinks && parentLinks.quiz && parentLinks.quiz[slug]) {
       const regionLinks = parentLinks.quiz[slug];
       finalLink = regionLinks[state.selectedRegion] || regionLinks['us'] || itemLink;
+    } else {
+      // Standalone or missing parent links fallback:
+      const fallback = FALLBACK_ASINS[slug];
+      if (fallback) {
+        const region = state.selectedRegion || 'us';
+        const asin = fallback[region] || fallback['us'];
+        if (asin) {
+          const domain = region === 'uk' ? 'amazon.co.uk' : region === 'es' ? 'amazon.es' : 'amazon.com';
+          const tag = region === 'uk' ? '123znl0f3-21' : region === 'es' ? '123znl08a-21' : '123znl08-20';
+          finalLink = `https://www.${domain}/dp/${asin}?tag=${tag}`;
+        }
+      } else if (slug === 'breathwork-app') {
+        finalLink = 'https://www.othership.us/app';
+      }
+    }
+    
+    // Double safety check: if it still has "/shop/", rewrite it to Amazon US/UK/ES fallback
+    if (finalLink && finalLink.includes('123thenextlevel.com/shop/')) {
+      const cleanSlug = finalLink.replace('https://123thenextlevel.com/shop/', '').replace('-uk', '').replace('-es', '');
+      const fallback = FALLBACK_ASINS[cleanSlug];
+      if (fallback) {
+        const region = state.selectedRegion || 'us';
+        const asin = fallback[region] || fallback['us'];
+        if (asin) {
+          const domain = region === 'uk' ? 'amazon.co.uk' : region === 'es' ? 'amazon.es' : 'amazon.com';
+          const tag = region === 'uk' ? '123znl0f3-21' : region === 'es' ? '123znl08a-21' : '123znl08-20';
+          finalLink = `https://www.${domain}/dp/${asin}?tag=${tag}`;
+        }
+      } else if (cleanSlug === 'breathwork-app') {
+        finalLink = 'https://www.othership.us/app';
+      }
     }
   } catch (err) {
     console.error('Error resolving affiliate link for', itemLink, err);
@@ -2362,6 +2439,9 @@ function showOptinScreen() {
   $('optinSuccessWrap').classList.add('hidden');
   $('optinError').classList.remove('show');
   $('optinForm').reset();
+  if ($('optinRegion')) {
+    $('optinRegion').value = state.selectedRegion;
+  }
 
   showScreen('optin');
 }
@@ -2375,6 +2455,7 @@ $('optinForm').addEventListener('submit', (e) => {
   const email = $('optinEmail').value.trim();
   const name = $('optinName').value.trim();
   const consent = $('optinConsent').checked;
+  const region = $('optinRegion') ? $('optinRegion').value : 'us';
 
   if (!isValidEmail(email) || !consent) {
     $('optinError').classList.add('show');
@@ -2384,6 +2465,7 @@ $('optinForm').addEventListener('submit', (e) => {
 
   state.userEmail = email;
   state.userName = name;
+  state.selectedRegion = region;
   state.optedIn = true;
 
   // Show success state immediately
@@ -2634,24 +2716,6 @@ function computeScores() {
 }
 
 function renderResults() {
-  // Auto-detect region from parent window or URL parameters on initial render
-  try {
-    const params = new URLSearchParams(window.location.search);
-    const regionParam = params.get('region');
-    if (regionParam && ['us', 'uk', 'es'].includes(regionParam.toLowerCase())) {
-      state.selectedRegion = regionParam.toLowerCase();
-    } else if (window.parent && window.parent !== window) {
-      // Try to parse region from parent URL path like /uk/health-quiz or /es
-      const pathParts = window.parent.location.pathname.split('/');
-      const parentRegion = pathParts.find(part => ['us', 'uk', 'es'].includes(part.toLowerCase()));
-      if (parentRegion) {
-        state.selectedRegion = parentRegion.toLowerCase();
-      }
-    }
-  } catch (e) {
-    console.log('Skipping parent location check:', e);
-  }
-
   // Set the active tab in region selector based on state.selectedRegion
   const tabsContainer = $('quizRegionTabs');
   if (tabsContainer) {
@@ -2905,6 +2969,25 @@ $('shareBtn').addEventListener('click', () => {
   );
   window.location.href = `mailto:?subject=${subject}&body=${body}`;
 });
+
+// Auto-detect region on startup
+(function detectRegion() {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const regionParam = params.get('region');
+    if (regionParam && ['us', 'uk', 'es'].includes(regionParam.toLowerCase())) {
+      state.selectedRegion = regionParam.toLowerCase();
+    } else if (window.parent && window.parent !== window) {
+      const pathParts = window.parent.location.pathname.split('/');
+      const parentRegion = pathParts.find(part => ['us', 'uk', 'es'].includes(part.toLowerCase()));
+      if (parentRegion) {
+        state.selectedRegion = parentRegion.toLowerCase();
+      }
+    }
+  } catch (e) {
+    console.log('Skipping parent location check:', e);
+  }
+})();
 
 /* =========================================================
    EMBEDDED MODE — auto-resize the parent iframe

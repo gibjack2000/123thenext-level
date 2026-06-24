@@ -117,11 +117,12 @@ function formatPlanTextToHtml(text) {
  * Creates transporter dynamically using current environment variables
  */
 function createTransporter() {
-  const host = process.env.SMTP_HOST || 'smtp.hostinger.com';
-  const port = parseInt(process.env.SMTP_PORT || '465', 10);
-  const secure = process.env.SMTP_SECURE === 'true' || port === 465;
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
+  const host = (process.env.SMTP_HOST || 'smtp.hostinger.com').replace(/"/g, '').trim();
+  const portVal = (process.env.SMTP_PORT || '465').replace(/"/g, '').trim();
+  const port = parseInt(portVal, 10);
+  const secure = (process.env.SMTP_SECURE || '').replace(/"/g, '').trim() === 'true' || port === 465;
+  const user = (process.env.SMTP_USER || '').replace(/"/g, '').trim();
+  const pass = (process.env.SMTP_PASS || '').replace(/"/g, '').trim();
 
   if (!user || !pass) {
     console.warn('WARNING: SMTP credentials are not defined in process.env. SMTP_USER and SMTP_PASS are required.');
@@ -166,8 +167,9 @@ function formatFromAddress(fromStr) {
  * Sends the Health Baseline Plan email to a user
  */
 export async function sendQuizResultsEmail({ email, name, score, dimensions, text }) {
-  const smtpFrom = formatFromAddress(process.env.SMTP_FROM || `"The Next Level" <${process.env.SMTP_USER}>`);
-  const smtpUser = process.env.SMTP_USER;
+  const rawFrom = (process.env.SMTP_FROM || `"The Next Level" <${process.env.SMTP_USER}>`).replace(/"/g, '').trim();
+  const smtpFrom = formatFromAddress(rawFrom);
+  const smtpUser = (process.env.SMTP_USER || '').replace(/"/g, '').trim();
   const tier = getScoreTier(score);
 
   if (!smtpUser) {
