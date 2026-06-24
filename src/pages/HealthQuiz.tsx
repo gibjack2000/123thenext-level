@@ -30,9 +30,14 @@ export default function HealthQuiz() {
   useEffect(() => {
     function onMessage(e: MessageEvent) {
       const data = e.data;
-      if (data && data.source === 'health-quiz' && typeof data.height === 'number') {
-        // Clamp to a sensible floor/ceiling
-        setHeight(Math.max(600, Math.min(data.height, 6000)));
+      if (data && data.source === 'health-quiz') {
+        if (typeof data.height === 'number') {
+          // Clamp to a sensible floor/ceiling
+          setHeight(Math.max(600, Math.min(data.height, 6000)));
+        }
+        if (data.action === 'scrollToTop') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
       }
     }
     window.addEventListener('message', onMessage);

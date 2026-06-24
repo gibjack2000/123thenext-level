@@ -2263,6 +2263,9 @@ function showScreen(name) {
   Object.values(screens).forEach(s => s.classList.add('hidden'));
   screens[name].classList.remove('hidden');
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (window.parent && window.parent !== window) {
+    window.parent.postMessage({ source: 'health-quiz', action: 'scrollToTop' }, '*');
+  }
 }
 
 /* =========================================================
