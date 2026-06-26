@@ -293,6 +293,15 @@ export default function Home() {
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <div className="relative bg-slate-950 text-white overflow-hidden min-h-[90dvh] flex items-center">
+        {/* Animated Background Canvas */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <canvas
+            ref={canvasRef}
+            className="w-full h-full object-cover opacity-60"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent md:bg-gradient-to-r md:from-slate-950 md:via-slate-950/80 md:to-transparent"></div>
+        </div>
+
         {/* Background glow and grids */}
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.08),transparent_60%)] pointer-events-none"></div>
 
