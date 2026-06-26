@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const REGIONS = [
   { id: 'us', name: 'United States', flag: 'https://flagcdn.com/w80/us.png' },
@@ -13,7 +13,20 @@ interface MarketSelectorProps {
 }
 
 export default function MarketSelector({ currentCategory, className = "" }: MarketSelectorProps) {
-  const { region } = useParams<{ region: string }>();
+  const location = useLocation();
+  
+  // Extract region from pathname since useParams is empty outside of <Routes>
+  const parts = location.pathname.split('/').filter(Boolean);
+  const knownRegions = ['us', 'uk', 'es'];
+  let region: string | undefined = undefined;
+  
+  if (parts.length > 0) {
+    if (knownRegions.includes(parts[0])) {
+      region = parts[0];
+    } else if (parts[0] === 'region' && parts[1] && knownRegions.includes(parts[1])) {
+      region = parts[1];
+    }
+  }
 
   return (
     <div className={`flex items-center gap-2 sm:gap-4 ${className}`}>

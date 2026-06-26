@@ -18,6 +18,11 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location]);
+
   const navLinks = [
     { name: t('nav_home'), path: '/', icon: HomeIcon },
     { name: 'Start Here', path: '/start-here', icon: Compass },
