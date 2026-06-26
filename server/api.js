@@ -40,6 +40,17 @@ router.post('/quiz-results', async (req, res) => {
       } else {
         console.log(`Quiz submission for ${email} saved to Supabase successfully.`);
       }
+
+      // Automatically subscribe the quiz submitter to the newsletter list
+      const { error: subError } = await supabase
+        .from('newsletter_subscribers')
+        .upsert([{ email, preferences: ['Health', 'Fitness', 'Nutrition', 'Wellness'] }], { onConflict: 'email' });
+      
+      if (subError) {
+        console.error('Failed to auto-subscribe quiz submitter to newsletter:', subError);
+      } else {
+        console.log(`Quiz taker ${email} automatically subscribed to newsletter.`);
+      }
     } catch (dbError) {
       console.error('Unexpected error saving quiz submission to Supabase:', dbError);
     }

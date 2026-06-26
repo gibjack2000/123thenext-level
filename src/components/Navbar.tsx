@@ -36,17 +36,11 @@ const Navbar = () => {
     { name: 'Nutrition', path: '/nutrition', icon: Apple, desc: 'Metabolic fuel & supplement guides' },
     { name: 'Wellness', path: '/wellness', icon: Heart, desc: 'VNS deep-dive & breathwork', hasSubmenu: true },
     { name: "Women's Health", path: '/womens-health', icon: Heart, desc: 'Ovarian longevity & cognitive preservation' },
-    { name: 'Social Fitness & Community', path: '/social-fitness', icon: Users, desc: 'Pickleball & community protocols', hasSubmenu: true },
+    { name: 'Social Fitness & Community', path: '/social-fitness', icon: Users, desc: 'Pickleball & community protocols' },
   ];
 
   const wellnessSubmenu = [
     { name: 'Cultivate Your Life Practice', path: '/#life-practice' },
-  ];
-
-  const socialSubmenu = [
-    { name: 'Pickleball Ecosystem', path: '/social-fitness/pickleball' },
-    { name: 'Festivalization Wave', path: '/social-fitness/festivals' },
-    { name: 'Social Recovery', path: '/social-fitness/recovery' },
   ];
 
   return (
@@ -95,8 +89,8 @@ const Navbar = () => {
                     {pillars.map(pillar => {
                       const Icon = pillar.icon;
                       if (pillar.hasSubmenu) {
-                        const submenuItems = pillar.name.startsWith('Wellness') ? wellnessSubmenu : socialSubmenu;
-                        const submenuTitle = pillar.name.startsWith('Wellness') ? 'Wellness Practices' : 'Social & Community';
+                        const submenuItems = wellnessSubmenu;
+                        const submenuTitle = 'Wellness Practices';
                         
                         return (
                           <div key={pillar.name} className="relative group/sub">
@@ -240,10 +234,9 @@ const Navbar = () => {
                   {pillars.map(pillar => {
                     const PillarIcon = pillar.icon;
                     if (pillar.hasSubmenu) {
-                      const isWellness = pillar.name.startsWith('Wellness');
-                      const isOpenState = isWellness ? mobileWellnessOpen : mobileSocialOpen;
-                      const setOpenState = isWellness ? setMobileWellnessOpen : setMobileSocialOpen;
-                      const submenuItems = isWellness ? wellnessSubmenu : socialSubmenu;
+                      const isOpenState = mobileWellnessOpen;
+                      const setOpenState = setMobileWellnessOpen;
+                      const submenuItems = wellnessSubmenu;
                       
                       return (
                         <div key={pillar.name} className="space-y-1">

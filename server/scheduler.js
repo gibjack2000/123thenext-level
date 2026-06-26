@@ -23,6 +23,21 @@ export function initScheduler() {
     cron.schedule('45 0,12 * * *', () => {
         processCategoryJob('Wellness');
     });
+
+    // Weekly Newsletter: Sunday at 9:00 AM (0 9 * * 0)
+    cron.schedule('0 9 * * 0', () => {
+        console.log('Starting automated Weekly Newsletter job...');
+        import('child_process').then(({ exec }) => {
+            exec('node scripts/send-weekly-newsletter.js', (error, stdout, stderr) => {
+                if (error) {
+                    console.error('Weekly Newsletter Job Error:', error);
+                    return;
+                }
+                if (stderr) console.error('Weekly Newsletter Job Stderr:', stderr);
+                console.log('Weekly Newsletter Job Output:', stdout);
+            });
+        });
+    });
     
-    console.log('Schedules set for Health, Fitness, Nutrition, and Wellness.');
+    console.log('Schedules set for Health, Fitness, Nutrition, Wellness, and Weekly Newsletter.');
 }
