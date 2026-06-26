@@ -292,48 +292,67 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative bg-slate-900 text-white overflow-hidden">
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-32">
+      <div className="relative bg-slate-950 text-white overflow-hidden min-h-[90dvh] flex items-center">
+        {/* Background glow and grids */}
+        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.08),transparent_60%)] pointer-events-none"></div>
 
-          {/* Top text — Badge & Headline */}
-          <div className="text-center mb-8 md:mb-10">
-            <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-sm font-semibold tracking-wide uppercase mb-6 border border-blue-500/30">
-              <Sparkles size={16} className="mr-2" />
-              {t('hero_badge')}
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-28 z-10 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
+            {/* Left side: Content */}
+            <div className="lg:col-span-6 space-y-6 md:space-y-8 text-left">
+              {/* Badge */}
+              <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold tracking-widest uppercase border border-blue-500/20">
+                <Sparkles size={14} className="mr-2" />
+                {t('hero_badge')}
+              </div>
+              
+              {/* Headline */}
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-black uppercase tracking-tight text-white leading-[1.05]">
+                {t('hero_title1')} <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">{t('hero_title2')}</span>
+              </h1>
+              
+              {/* Subtext */}
+              <p className="text-lg text-slate-400 leading-relaxed max-w-[45ch]">
+                {t('hero_subtitle')}
+              </p>
+              
+              {/* Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 pt-2">
+                <Link to="/start-here" className="inline-flex justify-center items-center px-7 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-2xl font-bold uppercase tracking-wider text-xs transition-all active:scale-[0.98] shadow-lg shadow-blue-900/30 border border-blue-500/20">
+                  Start Here (Beginner's Pathway)
+                  <ArrowRight size={16} className="ml-2" />
+                </Link>
+                <a href="#pillars" className="inline-flex justify-center items-center px-7 py-3.5 bg-white/5 hover:bg-white/10 text-white rounded-2xl font-bold uppercase tracking-wider text-xs transition-colors border border-white/15">
+                  Explore the Blueprint
+                </a>
+              </div>
             </div>
-            <h1 className="text-5xl md:text-6xl lg:text-[clamp(3rem,5vw,5rem)] font-display font-semibold uppercase tracking-[0.02em] text-white mb-6 leading-[1.15]">
-              {t('hero_title1')} <br /><span className="text-blue-500">{t('hero_title2')}</span>
-            </h1>
-            <p className="text-xl text-slate-300 font-medium leading-relaxed max-w-2xl mx-auto">
-              {t('hero_subtitle')}
-            </p>
-          </div>
 
-          {/* Center — Video player */}
-          <div className="w-full max-w-4xl mx-auto mb-10 md:mb-12">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-blue-500/20 ring-1 ring-white/10">
-              <video
-                className="w-full object-cover aspect-video"
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
-              >
-                <source src="https://res.cloudinary.com/dbhpaqnq8/video/upload/v1782468396/Add_meditation_image_1080p_202606261104_yofrsn.mp4" type="video/mp4" />
-              </video>
+            {/* Right side: Video Player */}
+            <div className="lg:col-span-6 flex justify-center">
+              <div className="w-full max-w-xl lg:max-w-none relative">
+                {/* Glowing backdrop */}
+                <div className="absolute -inset-4 bg-gradient-to-tr from-blue-500 to-emerald-400 rounded-3xl blur-[32px] opacity-10 pointer-events-none"></div>
+                
+                {/* Video Frame */}
+                <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-slate-900 shadow-2xl">
+                  <video
+                    className="w-full object-cover aspect-video"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="auto"
+                  >
+                    <source src="https://res.cloudinary.com/dbhpaqnq8/video/upload/v1782468396/Add_meditation_image_1080p_202606261104_yofrsn.mp4" type="video/mp4" />
+                  </video>
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 to-transparent pointer-events-none"></div>
+                </div>
+              </div>
             </div>
-          </div>
 
-          {/* Bottom — Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/start-here" className="inline-flex justify-center items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full font-bold text-lg transition-all hover:scale-105 shadow-lg shadow-blue-600/30">
-              Start Here (Beginner's Pathway)
-              <ArrowRight size={20} className="ml-2" />
-            </Link>
-            <a href="#pillars" className="inline-flex justify-center items-center px-8 py-4 bg-white/10 hover:bg-white/20 text-white rounded-full font-bold text-lg transition-all backdrop-blur-sm">
-              Explore the Blueprint
-            </a>
           </div>
 
           {/* New Extended Hero Text Block */}

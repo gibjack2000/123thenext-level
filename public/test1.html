@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Next Level — Human Optimization Protocol</title>
+  <meta name="description" content="Access high-resolution blueprints for biological longevity, physical capacity, metabolic nutrition, and autonomic regulation." />
+  
+  <!-- Premium Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Outfit', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            slate: {
+              900: '#0b0f19',
+              950: '#030712',
+            },
+            emerald: {
+              400: '#34d399',
+              500: '#10b981',
+            },
+            cobalt: {
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom styles for premium effects -->
+  <style>
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #030712;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1f2937;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #374151;
+    }
+
+    /* Gradients and animations */
+    .glow-bg {
+      background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15), transparent 60%);
+    }
+    .glow-green {
+      background: radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.1), transparent 60%);
+    }
+
+    /* Floating card animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-0.5deg); }
+      50% { transform: translateY(-8px) rotate(0.5deg); }
+    }
+    .floating-card {
+      animation: float 6s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-200 antialiased font-sans overflow-x-hidden">
+
+  <!-- Header / Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-[100] bg-slate-950/80 backdrop-blur-2xl border-b border-white/5 h-16 flex items-center" id="main-nav">
+    <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-3 group">
+        <div class="bg-gradient-to-br from-cobalt-500 to-indigo-600 p-2 rounded-xl text-white shadow-lg shadow-cobalt-900/30 group-hover:scale-105 transition-transform duration-300">
+          <i data-lucide="zap" class="w-5 h-5"></i>
+        </div>
+        <span class="font-display font-black uppercase tracking-tighter text-lg text-white">
+          123TheNext<span class="text-cobalt-500">Level</span>
+        </span>
+      </a>
+
+      <!-- Menu Items -->
+      <div class="hidden md:flex items-center gap-1">
+        <a href="/" class="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors">Home</a>
+        <a href="/start-here" class="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors">Start Here</a>
+        <a href="#pillars" class="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-white transition-colors bg-white/5 rounded-lg border border-white/5">Pillars</a>
+        <a href="/updates" class="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors">Updates</a>
+        <a href="/premium-guides" class="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors">Guides</a>
+      </div>
+
+      <!-- Action Button -->
+      <a href="/start-here" class="hidden sm:inline-flex items-center justify-center px-4 py-2 text-[10px] font-black uppercase tracking-widest bg-cobalt-500 hover:bg-cobalt-600 text-white rounded-xl transition-colors border border-cobalt-600 shadow-lg shadow-cobalt-900/20 active:scale-95">
+        Get Score
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="relative pt-24 min-h-[90dvh] flex items-center overflow-hidden glow-bg" id="hero-section">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 w-full relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- Left Column: Copy & Actions -->
+        <div class="lg:col-span-6 space-y-8 text-left">
+          <!-- Eyebrow -->
+          <div class="inline-flex items-center px-3 py-1 rounded-full bg-cobalt-500/10 text-cobalt-400 text-xs font-bold tracking-widest uppercase border border-cobalt-500/20">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 mr-2"></i>
+            The Human Blueprint
+          </div>
+
+          <!-- Headline -->
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-display font-black uppercase tracking-tight text-white leading-[1.05]" id="hero-headline">
+            Optimize Your <br />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-cobalt-400 to-emerald-400">Biological Capital</span>
+          </h1>
+
+          <!-- Subtext (Max 20 words per dial constraints) -->
+          <p class="text-lg text-slate-400 leading-relaxed max-w-[45ch]">
+            blueprints to maximize healthspan, cognitive resilience, autonomic tone, and metabolic performance.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4 pt-2">
+            <a href="/start-here" class="inline-flex justify-center items-center px-7 py-3.5 bg-gradient-to-r from-cobalt-600 to-indigo-600 hover:from-cobalt-500 hover:to-indigo-500 text-white rounded-2xl font-bold uppercase tracking-wider text-xs transition-all active:scale-[0.98] shadow-lg shadow-cobalt-950/50 border border-cobalt-500/30">
+              Start Pathway
+              <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+            </a>
+            <a href="#pillars" class="inline-flex justify-center items-center px-7 py-3.5 bg-white/5 hover:bg-white/10 text-white rounded-2xl font-bold uppercase tracking-wider text-xs transition-colors border border-white/15">
+              Explore Blueprint
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column: Video & Glowing Frame -->
+        <div class="lg:col-span-6 flex justify-center">
+          <div class="w-full max-w-lg lg:max-w-none relative">
+            <!-- Glowing background shapes -->
+            <div class="absolute -inset-4 bg-gradient-to-tr from-cobalt-500 to-emerald-400 rounded-3xl blur-[32px] opacity-20 pointer-events-none"></div>
+            
+            <!-- Video Frame Container -->
+            <div class="relative rounded-2xl overflow-hidden border border-white/10 bg-slate-900 shadow-2xl floating-card">
+              <video
+                class="w-full object-cover aspect-video rounded-2xl"
+                autoplay
+                loop
+                muted
+                playsinline
+                preload="auto"
+                id="hero-video"
+              >
+                <source src="https://res.cloudinary.com/dbhpaqnq8/video/upload/v1782468396/Add_meditation_image_1080p_202606261104_yofrsn.mp4" type="video/mp4" />
+              </video>
+              <!-- Ambient overlay -->
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/20 to-transparent pointer-events-none"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- Bento Grid Section: Protocols -->
+  <main class="relative py-24 bg-slate-900/30 border-t border-white/5" id="pillars">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <!-- Section Header -->
+      <div class="text-left mb-16 md:mb-20 max-w-2xl">
+        <div class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold tracking-widest uppercase border border-emerald-500/20 mb-4">
+          Core Blueprint
+        </div>
+        <h2 class="text-3xl md:text-5xl font-display font-black uppercase tracking-tight text-white mb-4">
+          Core Optimization <span class="text-transparent bg-clip-text bg-gradient-to-r from-cobalt-400 to-emerald-400">Protocols</span>
+        </h2>
+        <p class="text-slate-400 leading-relaxed text-sm">
+          Science-backed methodologies targeting systemic improvement across the six critical dimensions of life optimization.
+        </p>
+      </div>
+
+      <!-- Bento Grid (3 columns, varied heights & styled content) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Pillar 1: Healthspan & Longevity -->
+        <article class="group relative rounded-3xl bg-slate-900/50 border border-white/5 p-8 flex flex-col justify-between hover:border-rose-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-rose-950/10">
+          <div class="space-y-6">
+            <div class="flex justify-between items-start">
+              <span class="w-12 h-12 rounded-2xl bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center justify-center shadow-lg"><i data-lucide="heart" class="w-6 h-6"></i></span>
+              <span class="text-[10px] font-black uppercase tracking-widest text-slate-500 group-hover:text-rose-400 transition-colors">01 / Longevity</span>
+            </div>
+            <div class="space-y-3">
+              <h3 class="text-xl font-display font-bold uppercase tracking-tight text-white">Healthspan & Longevity</h3>
+              <p class="text-slate-400 text-xs leading-relaxed">
+                Master the science of cellular health and aging. Transition from reactive repair to proactive optimization.
+              </p>
+            </div>
+            <ul class="space-y-2 border-t border-white/5 pt-4">
+              <li class="flex items-center text-[11px] text-slate-300 gap-2"><span class="w-1 h-1 rounded-full bg-rose-400"></span> Cellular Age Optimization</li>
+              <li class="flex items-center text-[11px] text-slate-300 gap-2"><span class="w-1 h-1 rounded-full bg-rose-400"></span> Autophagy Induction</li>
+              <li class="flex items-center text-[11px] text-slate-300 gap-2"><span class="w-1 h-1 rounded-full bg-rose-400"></span> NAD+ Modulation</li>
+            </ul>
+          </div>
+          <a href="/health" class="mt-8 inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-white transition-colors pt-2">
+            Enter Blueprint <i data-lucide="chevron-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+        </article>
+
+        <!-- Pillar 2: Performance & Bio-Data -->
+        <article class="group relative rounded-3xl bg-slate-900/50 border border-white/5 p-8 flex flex-col justify-between hover:border-cobalt-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-cobalt-950/10">
+          <div class="space-y-6">
+            <div class="flex justify-between items-start">
+              <span class="w-12 h-12 rounded-2xl bg-cobalt-500/10 text-cobalt-400 border border-cobalt-500/20 flex items-center justify-center shadow-lg"><i data-lucide="dumbbell" class="w-6 h-6"></i></span>
+              <span class="text-[10px] font-black uppercase tracking-widest text-slate-500 group-hover:text-cobalt-400 transition-colors">02 / Performance</span>
+            </div>
+            <div class="space-y-3">
+              <h3 class="text-xl font-display font-bold uppercase tracking-tight text-white">Performance & Bio-Data</h3>
+              <p class="text-slate-400 text-xs leading-relaxed">
+                Optimize human capacity through data-driven training. Transition from general fitness to precision output.
+              </p>
+            </div>
+            <ul class="space-y-2 border-t border-white/5 pt-4">
+              <li class="flex items-center text-[11px] text-slate-300 gap-2"><span class="w-1 h-1 rounded-full bg-cobalt-400"></span> VO2 Max Optimization</li>
+              <li class="flex items-center text-[11px] text-slate-300 gap-2"><span class="w-1 h-1 rounded-full bg-cobalt-400"></span> Real-time HRV Tracking</li>
+              <li class="flex items-center text-[11px] text-slate-300 gap-2"><span class="w-1 h-1 rounded-full bg-cobalt-400"></span> Longevity Strength</li>
+            </ul>
+          </div>
+          <a href="/fitness" class="mt-8 inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-white transition-colors pt-2">
+            Enter Blueprint <i data-lucide="chevron-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+        </article>
+
+        <!-- Pillar 3: Metabolic Nutrition -->
+        <article class="group relative rounded-3xl bg-slate-900/50 border border-white/5 p-8 flex flex-col justify-between hover:border-emerald-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-emerald-950/10">
+          <div class="space-y-6">
+            <div class="flex justify-between items-start">
+              <span class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center shadow-lg"><i data-lucide="apple" class="w-6 h-6"></i></span>
+              <span class="text-[10px] font-black uppercase tracking-widest text-slate-500 group-hover:text-emerald-400 transition-colors">03 / Metabolism</span>
+            </div>
+            <div class="space-y-3">
+              <h3 class="text-xl font-display font-bold uppercase tracking-tight text-white">Metabolic Nutrition</h3>
+              <p class="text-slate-400 text-xs leading-relaxed">
+                Fuel your biology with molecular accuracy. Transition from dieting to optimized glycemic control.
+              </p>
+            </div>
+            <ul class="space-y-2 border-t border-white/5 pt-4">
+              <li class="flex items-center text-[11px] text-slate-300 gap-2"><span class="w-1 h-1 rounded-full bg-emerald-400"></span> Glycemic Index Mastering</li>
+              <li class="flex items-center text-[11px] text-slate-300 gap-2"><span class="w-1 h-1 rounded-full bg-emerald-400"></span> Microbiome Diversification</li>
+              <li class="flex items-center text-[11px] text-slate-300 gap-2"><span class="w-1 h-1 rounded-full bg-emerald-400"></span> Mitochondrial Fueling</li>
+            </ul>
+          </div>
+          <a href="/nutrition" class="mt-8 inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-white transition-colors pt-2">
+            Enter Blueprint <i data-lucide="chevron-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+        </article>
+
+        <!-- Pillar 4: Autonomic Engineering -->
+        <article class="group relative rounded-3xl bg-slate-900/50 border border-white/5 p-8 flex flex-col justify-between hover:border-purple-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-purple-950/10">
+          <div class="space-y-6">
+            <div class="flex justify-between items-start">
+              <span class="w-12 h-12 rounded-2xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center shadow-lg"><i data-lucide="sparkles" class="w-6 h-6"></i></span>
+              <span class="text-[10px] font-black uppercase tracking-widest text-slate-500 group-hover:text-purple-400 transition-colors">04 / Rhythms</span>
+            </div>
+            <div class="space-y-3">
+              <h3 class="text-xl font-display font-bold uppercase tracking-tight text-white">Autonomic Engineering</h3>
+              <p class="text-slate-400 text-xs leading-relaxed">
+                Master the autonomic states that govern restoration. Deep recovery blueprints for central resilience.
+              </p>
+            </div>
+            <ul class="space-y-2 border-t border-white/5 pt-4">
+              <li class="flex items-center text-[11px] text-slate-300 gap-2"><span class="w-1 h-1 rounded-full bg-purple-400"></span> Vagal Tone Optimization</li>
+              <li class="flex items-center text-[11px] text-slate-300 gap-2"><span class="w-1 h-1 rounded-full bg-purple-400"></span> Circadian Precision</li>
+              <li class="flex items-center text-[11px] text-slate-300 gap-2"><span class="w-1 h-1 rounded-full bg-purple-400"></span> NSDR Neuro-Reset</li>
+            </ul>
+          </div>
+          <a href="/wellness" class="mt-8 inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-white transition-colors pt-2">
+            Enter Blueprint <i data-lucide="chevron-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+        </article>
+
+        <!-- Pillar 5: Women's Health -->
+        <article class="group relative rounded-3xl bg-slate-900/50 border border-white/5 p-8 flex flex-col justify-between hover:border-amber-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-amber-950/10">
+          <div class="space-y-6">
+            <div class="flex justify-between items-start">
+              <span class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-400 border border-amber-500/20 flex items-center justify-center shadow-lg"><i data-lucide="activity" class="w-6 h-6"></i></span>
+              <span class="text-[10px] font-black uppercase tracking-widest text-slate-500 group-hover:text-amber-400 transition-colors">05 / Biology</span>
+            </div>
+            <div class="space-y-3">
+              <h3 class="text-xl font-display font-bold uppercase tracking-tight text-white">Women's Health</h3>
+              <p class="text-slate-400 text-xs leading-relaxed">
+                Clinical specificity for female athletic architecture. Transition from generic templates to biological precision.
+              </p>
+            </div>
+            <ul class="space-y-2 border-t border-white/5 pt-4">
+              <li class="flex items-center text-[11px] text-slate-300 gap-2"><span class="w-1 h-1 rounded-full bg-amber-400"></span> Ovary-Span Optimization</li>
+              <li class="flex items-center text-[11px] text-slate-300 gap-2"><span class="w-1 h-1 rounded-full bg-amber-400"></span> Strength over Thinness</li>
+              <li class="flex items-center text-[11px] text-slate-300 gap-2"><span class="w-1 h-1 rounded-full bg-amber-400"></span> Hormonal Bio-Data</li>
+            </ul>
+          </div>
+          <a href="/womens-health" class="mt-8 inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-white transition-colors pt-2">
+            Enter Blueprint <i data-lucide="chevron-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+        </article>
+
+        <!-- Pillar 6: Socio-Biological Architecture -->
+        <article class="group relative rounded-3xl bg-slate-900/50 border border-white/5 p-8 flex flex-col justify-between hover:border-cyan-500/30 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-950/10">
+          <div class="space-y-6">
+            <div class="flex justify-between items-start">
+              <span class="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 flex items-center justify-center shadow-lg"><i data-lucide="users" class="w-6 h-6"></i></span>
+              <span class="text-[10px] font-black uppercase tracking-widest text-slate-500 group-hover:text-cyan-400 transition-colors">06 / Community</span>
+            </div>
+            <div class="space-y-3">
+              <h3 class="text-xl font-display font-bold uppercase tracking-tight text-white">Socio-Biological</h3>
+              <p class="text-slate-400 text-xs leading-relaxed">
+                The biological outcome of group dynamics. Structuring social circles as primary drivers of long-term healthspan.
+              </p>
+            </div>
+            <ul class="space-y-2 border-t border-white/5 pt-4">
+              <li class="flex items-center text-[11px] text-slate-300 gap-2"><span class="w-1 h-1 rounded-full bg-cyan-400"></span> Neural Coupling Dynamics</li>
+              <li class="flex items-center text-[11px] text-slate-300 gap-2"><span class="w-1 h-1 rounded-full bg-cyan-400"></span> Oxytocin Engineering</li>
+              <li class="flex items-center text-[11px] text-slate-300 gap-2"><span class="w-1 h-1 rounded-full bg-cyan-400"></span> Pickleball Ecosystems</li>
+            </ul>
+          </div>
+          <a href="/social-fitness" class="mt-8 inline-flex items-center gap-1.5 text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-white transition-colors pt-2">
+            Enter Blueprint <i data-lucide="chevron-right" class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"></i>
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 border-t border-white/5 py-12 text-slate-500 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+      <p>&copy; 2026 123TheNextLevel. All rights reserved.</p>
+      <div class="flex gap-6">
+        <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+        <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+        <a href="#" class="hover:text-white transition-colors">Disclaimer</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Initialize Lucide Icons -->
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
