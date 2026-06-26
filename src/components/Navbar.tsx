@@ -8,7 +8,8 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [mobilePillarsOpen, setMobilePillarsOpen] = useState(false);
-  const [mobileLifePracticeOpen, setMobileLifePracticeOpen] = useState(false);
+  const [mobileSocialOpen, setMobileSocialOpen] = useState(false);
+  const [mobileWellnessOpen, setMobileWellnessOpen] = useState(false);
   
   const location = useLocation();
   const t = useT();
@@ -25,25 +26,27 @@ const Navbar = () => {
   useEffect(() => {
     setIsOpen(false);
     setMobilePillarsOpen(false);
-    setMobileLifePracticeOpen(false);
+    setMobileSocialOpen(false);
+    setMobileWellnessOpen(false);
   }, [location]);
 
   const pillars = [
     { name: 'Health', path: '/health', icon: Shield, desc: 'Preventive engineering & longevity' },
     { name: 'Fitness', path: '/fitness', icon: Dumbbell, desc: 'Strength mandate & Vo2 max' },
     { name: 'Nutrition', path: '/nutrition', icon: Apple, desc: 'Metabolic fuel & supplement guides' },
-    { name: 'Wellness', path: '/wellness', icon: Heart, desc: 'VNS deep-dive & breathwork' },
+    { name: 'Wellness', path: '/wellness', icon: Heart, desc: 'VNS deep-dive & breathwork', hasSubmenu: true },
     { name: "Women's Health", path: '/womens-health', icon: Heart, desc: 'Ovarian longevity & cognitive preservation' },
     { name: 'Social Fitness & Community', path: '/social-fitness', icon: Users, desc: 'Pickleball & community protocols', hasSubmenu: true },
   ];
 
-  const lifePractices = [
-    { name: 'Universal Love', path: '/life-practice/universal-love' },
-    { name: 'Do No Harm', path: '/life-practice/do-no-harm' },
-    { name: 'Good Moral Person', path: '/life-practice/good-moral-person' },
-    { name: 'Breathing Mindfulness', path: '/life-practice/breathing-mindfulness' },
-    { name: 'Loving Kindness', path: '/life-practice/loving-kindness' },
-    { name: "Beginner's Guide", path: '/life-practice/beginners-guide' },
+  const wellnessSubmenu = [
+    { name: 'Cultivate Your Life Practice', path: '/#life-practice' },
+  ];
+
+  const socialSubmenu = [
+    { name: 'Pickleball Ecosystem', path: '/social-fitness/pickleball' },
+    { name: 'Festivalization Wave', path: '/social-fitness/festivals' },
+    { name: 'Social Recovery', path: '/social-fitness/recovery' },
   ];
 
   return (
@@ -51,8 +54,8 @@ const Navbar = () => {
       {/* Header Bar Background & Content */}
       <div className={`transition-all duration-500 relative z-50 ${
         scrolled 
-          ? 'bg-slate-950/90 backdrop-blur-2xl border-b border-white/5 py-3' 
-          : 'bg-slate-950/50 backdrop-blur-xl border-b border-white/5 py-4 lg:bg-transparent lg:border-none lg:py-6'
+          ? 'bg-slate-950/95 backdrop-blur-2xl border-b border-white/5 py-3' 
+          : 'bg-slate-950/80 backdrop-blur-xl border-b border-white/5 py-4 lg:bg-transparent lg:border-none lg:py-6'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
@@ -87,11 +90,14 @@ const Navbar = () => {
                 
                 {/* Pillars Dropdown Panel */}
                 <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 hidden group-hover:block w-80 pt-3 z-50">
-                  <div className="bg-slate-900/95 border border-white/10 rounded-2xl p-4 shadow-2xl backdrop-blur-2xl space-y-1">
-                    <div className="text-[9px] font-black uppercase tracking-wider text-slate-500 mb-2 px-3 border-b border-white/5 pb-2">Explore Optimization Pillars</div>
+                  <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 shadow-2xl space-y-1">
+                    <div className="text-[9px] font-black uppercase tracking-wider text-slate-500 mb-2 px-3 border-b border-slate-900 pb-2">Explore Optimization Pillars</div>
                     {pillars.map(pillar => {
                       const Icon = pillar.icon;
                       if (pillar.hasSubmenu) {
+                        const submenuItems = pillar.name.startsWith('Wellness') ? wellnessSubmenu : socialSubmenu;
+                        const submenuTitle = pillar.name.startsWith('Wellness') ? 'Wellness Practices' : 'Social & Community';
+                        
                         return (
                           <div key={pillar.name} className="relative group/sub">
                             <Link
@@ -108,18 +114,28 @@ const Navbar = () => {
                               <ChevronRight size={12} className="text-slate-500" />
                             </Link>
 
-                            {/* Submenu for Social Fitness -> Cultivate Your Life Practice */}
+                            {/* Submenu flyout */}
                             <div className="absolute left-full top-0 hidden group-hover/sub:block pl-3 w-72 z-50">
-                              <div className="bg-slate-900/95 border border-white/10 rounded-2xl p-4 shadow-2xl backdrop-blur-2xl space-y-1">
-                                <div className="text-[9px] font-black uppercase tracking-wider text-slate-500 mb-2 px-3 border-b border-white/5 pb-2">Cultivate Your Life Practice</div>
-                                {lifePractices.map(practice => (
-                                  <Link
-                                    key={practice.name}
-                                    to={practice.path}
-                                    className="block px-3 py-2.5 text-[10px] text-left font-bold uppercase tracking-wider text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-all"
-                                  >
-                                    {practice.name}
-                                  </Link>
+                              <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 shadow-2xl space-y-1">
+                                <div className="text-[9px] font-black uppercase tracking-wider text-slate-500 mb-2 px-3 border-b border-slate-900 pb-2">{submenuTitle}</div>
+                                {submenuItems.map(item => (
+                                  item.path.startsWith('/#') ? (
+                                    <a
+                                      key={item.name}
+                                      href={item.path}
+                                      className="block px-3 py-2.5 text-[10px] text-left font-bold uppercase tracking-wider text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-all"
+                                    >
+                                      {item.name}
+                                    </a>
+                                  ) : (
+                                    <Link
+                                      key={item.name}
+                                      to={item.path}
+                                      className="block px-3 py-2.5 text-[10px] text-left font-bold uppercase tracking-wider text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-all"
+                                    >
+                                      {item.name}
+                                    </Link>
+                                  )
                                 ))}
                               </div>
                             </div>
@@ -224,30 +240,46 @@ const Navbar = () => {
                   {pillars.map(pillar => {
                     const PillarIcon = pillar.icon;
                     if (pillar.hasSubmenu) {
+                      const isWellness = pillar.name.startsWith('Wellness');
+                      const isOpenState = isWellness ? mobileWellnessOpen : mobileSocialOpen;
+                      const setOpenState = isWellness ? setMobileWellnessOpen : setMobileSocialOpen;
+                      const submenuItems = isWellness ? wellnessSubmenu : socialSubmenu;
+                      
                       return (
                         <div key={pillar.name} className="space-y-1">
                           <button
-                            onClick={() => setMobileLifePracticeOpen(!mobileLifePracticeOpen)}
+                            onClick={() => setOpenState(!isOpenState)}
                             className="w-full flex items-center justify-between p-3 rounded-xl hover:bg-white/5 text-slate-300 text-xs font-bold uppercase tracking-wider transition-all"
                           >
                             <div className="flex items-center gap-2">
                               <PillarIcon size={14} className="text-blue-400" />
                               <span>{pillar.name}</span>
                             </div>
-                            <ChevronDown size={14} className={`text-slate-500 transition-transform duration-300 ${mobileLifePracticeOpen ? 'rotate-180' : ''}`} />
+                            <ChevronDown size={14} className={`text-slate-500 transition-transform duration-300 ${isOpenState ? 'rotate-180' : ''}`} />
                           </button>
 
-                          {mobileLifePracticeOpen && (
+                          {isOpenState && (
                             <div className="pl-6 py-1 space-y-1 border-l border-white/5 ml-4">
-                              {lifePractices.map(practice => (
-                                <Link
-                                  key={practice.name}
-                                  to={practice.path}
-                                  onClick={() => setIsOpen(false)}
-                                  className="block py-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400 hover:text-white text-left"
-                                >
-                                  {practice.name}
-                                </Link>
+                              {submenuItems.map(item => (
+                                item.path.startsWith('/#') ? (
+                                  <a
+                                    key={item.name}
+                                    href={item.path}
+                                    onClick={() => setIsOpen(false)}
+                                    className="block py-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400 hover:text-white text-left"
+                                  >
+                                    {item.name}
+                                  </a>
+                                ) : (
+                                  <Link
+                                    key={item.name}
+                                    to={item.path}
+                                    onClick={() => setIsOpen(false)}
+                                    className="block py-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400 hover:text-white text-left"
+                                  >
+                                    {item.name}
+                                  </Link>
+                                )
                               ))}
                             </div>
                           )}
