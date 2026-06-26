@@ -9,6 +9,7 @@ import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import { CartProvider } from './contexts/CartContext';
 import Navbar from './components/Navbar';
+import SlideInNewsletter from './components/newsletter/SlideInNewsletter';
 
 // Lazy-load all pages for code-splitting (each page becomes its own JS chunk)
 const Home = lazy(() => import('./pages/Home'));
@@ -82,6 +83,7 @@ const PremiumGuides = lazy(() => import('./pages/premium/PremiumGuides'));
 const CheckoutSuccess = lazy(() => import('./pages/premium/CheckoutSuccess'));
 const CheckoutCancel = lazy(() => import('./pages/premium/CheckoutCancel'));
 const PremiumGuideDetailPage = lazy(() => import('./pages/premium/PremiumGuideDetailPage'));
+const MagazineRack = lazy(() => import('./pages/MagazineRack'));
 
 // Loading spinner shown during page transitions
 const PageLoader = () => (
@@ -174,6 +176,7 @@ function App() {
                 <Route path="/premium-guides/:slug" element={<PremiumGuideDetailPage />} />
                 <Route path="/region/:region" element={<RegionHub />} />
                 <Route path="/category/:category" element={<CategoryPage />} />
+                <Route path="/updates" element={<MagazineRack />} />
                 <Route path="/:region" element={<RegionHub />} />
                 <Route path="/:region/:category" element={<CategoryPage />} />
               </Routes>
@@ -181,6 +184,7 @@ function App() {
           </main>
 
           <Footer />
+          <SlideInNewsletter />
         </div>
       </BrowserRouter>
     </CartProvider>

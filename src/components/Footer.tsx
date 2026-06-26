@@ -1,12 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Settings, Home as HomeIcon, Shield, Info, Heart, ExternalLink } from 'lucide-react';
+import { Settings, Home as HomeIcon, Shield, Info, Heart, ExternalLink, Mail, Check, Loader2 } from 'lucide-react';
 import { useT } from '../translations';
 import MarketSelector from './MarketSelector';
 
 const Footer = () => {
   const t = useT();
   const currentYear = new Date().getFullYear();
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setStatus('loading');
+    setErrorMessage('');
+
+    try {
+      const response = await fetch('/api/newsletter/subscribe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          preferences: ['Health', 'Fitness', 'Nutrition', 'Wellness'],
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setStatus('success');
+        setEmail('');
+      } else {
+        setStatus('error');
+        setErrorMessage(data.error || 'Failed to subscribe.');
+      }
+    } catch (err) {
+      setStatus('error');
+      setErrorMessage('Server connection error.');
+    }
+  };
 
   return (
     <footer className="relative bg-slate-900 text-slate-300 pt-16 pb-8 overflow-hidden">
@@ -16,6 +53,59 @@ const Footer = () => {
       <div className="absolute top-1/2 -right-32 w-80 h-80 bg-indigo-600/10 rounded-full blur-3xl"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Footer Real Estate Makeover: Split-screen Newsletter Signup */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-b border-slate-800/80 pb-12 mb-12">
+          <div className="lg:col-span-7">
+            <h3 className="text-2xl md:text-3xl font-display font-semibold uppercase tracking-wide text-white mb-2">
+              Don't chase the updates. Let them come to you.
+            </h3>
+            <p className="text-slate-400 text-sm font-medium max-w-xl">
+              Get our weekly Bento Box summary of clinical insights, curated training strategies, and supplement protocols direct to your inbox.
+            </p>
+          </div>
+          <div className="lg:col-span-5 w-full">
+            {status === 'success' ? (
+              <div className="flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-4 text-emerald-400">
+                <Check size={18} />
+                <span className="text-xs font-bold uppercase tracking-wider">Welcome aboard! Check your inbox.</span>
+              </div>
+            ) : (
+              <form onSubmit={handleSubscribe} className="space-y-3">
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <div className="relative flex-1">
+                    <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500">
+                      <Mail size={14} />
+                    </span>
+                    <input
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Enter your email"
+                      className="w-full bg-slate-950/60 border border-slate-800 focus:border-blue-500 text-white rounded-xl py-3 pl-10 pr-4 text-xs font-medium placeholder-slate-500 outline-none transition-colors"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={status === 'loading'}
+                    className="inline-flex justify-center items-center px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-black uppercase tracking-widest transition-all border border-slate-700 hover:border-slate-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shrink-0"
+                  >
+                    {status === 'loading' ? (
+                      <Loader2 size={14} className="animate-spin" />
+                    ) : (
+                      'Subscribe'
+                    )}
+                  </button>
+                </div>
+                {status === 'error' && (
+                  <p className="text-red-400 text-xs font-semibold">{errorMessage}</p>
+                )}
+              </form>
+            )}
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           {/* Brand Column */}
           <div className="space-y-6">
@@ -67,6 +157,12 @@ const Footer = () => {
                 <Link to="/intelligence-hub" className="text-slate-400 hover:text-indigo-400 font-semibold transition-colors duration-200 flex items-center group">
                   <span className="w-0 group-hover:w-2 h-0.5 bg-indigo-500 mr-0 group-hover:mr-2 transition-all duration-300"></span>
                   Intelligence Hub
+                </Link>
+              </li>
+              <li>
+                <Link to="/updates" className="text-slate-400 hover:text-indigo-400 font-semibold transition-colors duration-200 flex items-center group">
+                  <span className="w-0 group-hover:w-2 h-0.5 bg-indigo-500 mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                  Magazine Updates
                 </Link>
               </li>
               <li>

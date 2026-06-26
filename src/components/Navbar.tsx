@@ -28,6 +28,7 @@ const Navbar = () => {
     { name: 'Start Here', path: '/start-here', icon: Compass },
     { name: t('nav_pillars'), path: '/#six-core-optimization', icon: Zap },
     { name: t('nav_blog'), path: '/#blog', icon: Info },
+    { name: 'Updates', path: '/updates', icon: Info },
     { name: 'Premium Guides', path: '/premium-guides', icon: Shield },
     { name: 'Intelligence', path: '/intelligence-hub', icon: Shield },
   ];

@@ -4,6 +4,7 @@ import { ArrowLeft, Calendar, Tag as TagIcon, Share2 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { supabase } from '../lib/supabase';
 import { BlogPost } from '../types';
+import BlogNewsletterBanner from '../components/newsletter/BlogNewsletterBanner';
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -307,6 +308,8 @@ export default function BlogPostPage() {
             ))}
           </div>
         )}
+
+        <BlogNewsletterBanner currentCategory={post.category} />
       </article>
     </main>
   );

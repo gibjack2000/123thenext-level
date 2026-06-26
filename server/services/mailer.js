@@ -326,3 +326,119 @@ export async function sendQuizResultsEmail({ email, name, score, dimensions, tex
   console.log(`Email sent successfully! MessageID: ${info.messageId}`);
   return info;
 }
+
+/**
+ * Sends a welcome email to a new newsletter subscriber
+ */
+export async function sendNewsletterWelcomeEmail({ email, preferences }) {
+  const rawFrom = (process.env.SMTP_FROM || `"The Next Level" <${process.env.SMTP_USER}>`).replace(/"/g, '').trim();
+  const smtpFrom = formatFromAddress(rawFrom);
+  const smtpUser = (process.env.SMTP_USER || '').replace(/"/g, '').trim();
+
+  if (!smtpUser) {
+    throw new Error('SMTP_USER environment variable is not defined. Cannot send email.');
+  }
+
+  const prefsText = (preferences && preferences.length > 0)
+    ? preferences.join(', ')
+    : 'All topics';
+
+  const htmlBody = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <title>Welcome to The Next Level Newsletter</title>
+    </head>
+    <body style="margin: 0; padding: 0; background-color: #f8fafc;">
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#f8fafc" style="padding: 20px 0;">
+        <tr>
+          <td align="center">
+            <table cellpadding="0" cellspacing="0" border="0" width="600" bgcolor="#ffffff" style="border-radius: 16px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03); border: 1px solid #e2e8f0;">
+              
+              <!-- Header -->
+              <tr>
+                <td align="center" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); padding: 40px 24px; color: #ffffff;">
+                  <h1 style="margin: 0; font-size: 26px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; font-family: sans-serif;">
+                    123TheNext Level
+                  </h1>
+                  <p style="margin: 8px 0 0 0; font-size: 14px; color: #94a3b8; font-family: sans-serif; font-weight: bold; letter-spacing: 0.1em; text-transform: uppercase;">
+                    Welcome to the Blueprint
+                  </p>
+                </td>
+              </tr>
+              
+              <!-- Body -->
+              <tr>
+                <td style="padding: 40px 32px;">
+                  <p style="margin-top: 0; margin-bottom: 20px; font-size: 16px; color: #334155; line-height: 1.5; font-family: sans-serif;">
+                    Hi there,
+                  </p>
+                  <p style="margin-top: 0; margin-bottom: 24px; font-size: 15px; color: #475569; line-height: 1.6; font-family: sans-serif;">
+                    Thank you for subscribing to our weekly newsletter! You are officially on the pathway to optimization and high-performance health.
+                  </p>
+
+                  <div style="background-color: #f1f5f9; border-radius: 12px; padding: 20px; border: 1px solid #e2e8f0; margin-bottom: 24px;">
+                    <h3 style="margin-top: 0; margin-bottom: 8px; font-size: 14px; font-weight: bold; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; font-family: sans-serif;">
+                      Your Preferences
+                    </h3>
+                    <p style="margin: 0; font-size: 15px; color: #1e293b; font-weight: bold; font-family: sans-serif;">
+                      ${prefsText}
+                    </p>
+                    <p style="margin: 8px 0 0 0; font-size: 13px; color: #64748b; font-family: sans-serif; line-height: 1.4;">
+                      We'll make sure you only receive Bento Box-style weekly summaries and updates focused precisely on these areas.
+                    </p>
+                  </div>
+                  
+                  <p style="margin-top: 0; margin-bottom: 24px; font-size: 15px; color: #475569; line-height: 1.6; font-family: sans-serif;">
+                    Every week, we compile a curated summary containing exactly <strong>one deep-dive post</strong>, <strong>one action item</strong>, and <strong>one piece of curated gear</strong> from each of your selected areas to help you compound your longevity, fitness, and wellness gains.
+                  </p>
+                  
+                  <!-- Closing -->
+                  <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 32px 0 20px 0;" />
+                  <p style="margin: 0; font-size: 14px; color: #64748b; line-height: 1.5; font-family: sans-serif;">
+                    To your health,<br/>
+                    <strong>The Next Level Team</strong><br/>
+                    <a href="https://123thenextlevel.com" style="color: #3b82f6; text-decoration: none;">123thenextlevel.com</a>
+                  </p>
+                </td>
+              </tr>
+              
+              <!-- Footer -->
+              <tr>
+                <td bgcolor="#f1f5f9" style="padding: 24px 24px; text-align: center; border-top: 1px solid #e2e8f0;">
+                  <p style="margin: 0 0 8px 0; font-size: 11px; color: #64748b; line-height: 1.5; font-family: sans-serif;">
+                    This email was sent to ${email} because you subscribed to 123TheNextLevel updates.
+                  </p>
+                  <p style="margin: 0; font-size: 11px; color: #94a3b8; font-family: sans-serif;">
+                    Unsubscribe at any time by replying "Unsubscribe" or updating your preferences in the sidebar.
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </body>
+    </html>
+  `;
+
+  const mailOptions = {
+    from: smtpFrom,
+    to: email,
+    subject: `Welcome to The Next Level Newsletter!`,
+    text: `Hi there! Thank you for subscribing to 123TheNextLevel updates. Your topic preferences: ${prefsText}.`,
+    html: htmlBody
+  };
+
+  if (smtpUser && smtpUser.includes('@')) {
+    mailOptions.cc = smtpUser;
+  }
+
+  const transporter = createTransporter();
+  console.log(`Sending welcome email to ${email}...`);
+  const info = await transporter.sendMail(mailOptions);
+  console.log(`Welcome email sent! MessageID: ${info.messageId}`);
+  return info;
+}
+

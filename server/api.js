@@ -1,7 +1,7 @@
 import express from 'express';
 import { processCategoryJob, getQueue } from './blog-generator.js';
 import checkoutRouter from './routes/checkout.js';
-import { sendQuizResultsEmail } from './services/mailer.js';
+import { sendQuizResultsEmail, sendNewsletterWelcomeEmail } from './services/mailer.js';
 
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
@@ -53,6 +53,41 @@ router.post('/quiz-results', async (req, res) => {
   } catch (error) {
     console.error('Failed to send quiz results email:', error);
     res.status(500).json({ error: 'Failed to send quiz results email. ' + error.message });
+  }
+});
+
+// --- Newsletter Subscription Route ---
+router.post('/newsletter/subscribe', async (req, res) => {
+  const { email, preferences } = req.body;
+  if (!email) {
+    return res.status(400).json({ error: 'Email address is required.' });
+  }
+
+  // Save to Supabase newsletter_subscribers
+  if (supabase) {
+    try {
+      const { error: dbError } = await supabase
+        .from('newsletter_subscribers')
+        .upsert([{ email, preferences: preferences || [] }], { onConflict: 'email' });
+      
+      if (dbError) {
+        console.error('Failed to save newsletter subscription to Supabase:', dbError);
+      } else {
+        console.log(`Newsletter subscription for ${email} saved to Supabase.`);
+      }
+    } catch (dbError) {
+      console.error('Unexpected error saving newsletter subscription:', dbError);
+    }
+  } else {
+    console.warn('Supabase is not configured; skipping newsletter subscription persistence.');
+  }
+
+  try {
+    await sendNewsletterWelcomeEmail({ email, preferences });
+    res.json({ success: true, message: 'Subscribed to newsletter successfully.' });
+  } catch (error) {
+    console.error('Failed to send welcome email:', error);
+    res.json({ success: true, warning: 'Subscribed, but confirmation email failed to send: ' + error.message });
   }
 });
 
