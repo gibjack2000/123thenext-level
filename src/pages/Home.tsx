@@ -1253,13 +1253,15 @@ export default function Home() {
                       <h3 className="text-md font-bold text-slate-900 mb-2 truncate whitespace-normal line-clamp-2 h-10 leading-tight">
                         {product.product_name}
                       </h3>
-                      <div className="mt-auto pt-4 flex items-center justify-between">
-                        <span className="font-bold text-lg text-slate-900">{product.price.toFixed(2)} {product.currency}</span>
+                      <div className="mt-auto pt-4 flex items-center justify-between gap-2">
+                        <span className="font-black text-[8px] text-blue-600 tracking-wider uppercase border border-blue-500/20 px-2 py-1 rounded-md bg-blue-500/5 whitespace-nowrap">
+                          CHECK THE LATEST DEAL
+                        </span>
                         <a 
                           href={product.amazon_url} 
                           target="_blank" 
                           rel="noopener noreferrer" 
-                          className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 px-4 rounded-lg transition-colors"
+                          className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 px-3 rounded-lg transition-colors whitespace-nowrap"
                         >
                           View Deal
                         </a>
