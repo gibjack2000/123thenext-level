@@ -33,6 +33,28 @@ export const affiliateLinks = {
   nw_apollo: 'https://amazon.com/dp/B0CXM1X8PQ',
   nw_shilajit: 'https://amazon.com/dp/B09XS7JWHH',
 
+  // Fitness Pillar Essentials
+  fit_rogue: 'https://amazon.com/dp/B0CLB5X8X9',
+  fit_whoop: 'https://amazon.com/dp/B0CXM1X8PQ',
+  fit_creatine: 'https://amazon.com/dp/B0CXM1X8PQ',
+
+  // Wellness Pillar Essentials
+  well_oura: 'https://amazon.com/dp/B0D4N3L9XW',
+  well_apollo: 'https://amazon.com/dp/B0CXM1X8PQ',
+  well_eightsleep: 'https://www.eightsleep.com/',
+  well_nootropics: 'https://amazon.com/dp/B00V4L7J5E',
+
+  // Social Fitness Pillar Essentials
+  soc_mastermind: 'https://amazon.com/dp/B0CXM1X8PQ',
+  soc_hyrox: 'https://hyrox.com',
+  soc_bluezones: 'https://www.bluezones.com/',
+  soc_communication: 'https://amazon.com/dp/B0CMB6X8Y1',
+
+  // Nutrition Pillar Essentials
+  nut_levels: 'https://amazon.com/dp/B0CXM1X8PQ',
+  nut_insidetracker: 'https://www.insidetracker.com/',
+  nut_thorne: 'https://amazon.com/dp/B0CMB6X8Y1',
+
   // Community / membership link (placeholder)
   memberships: '#',
 

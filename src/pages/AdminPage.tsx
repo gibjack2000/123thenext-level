@@ -1474,7 +1474,25 @@ create table if not exists premium_guides (
                   { key: 'hp_coq10', label: 'HP CoQ10 / PQQ Ubiquinol' },
                   { key: 'lola_core_health', label: 'Lola Core Health 45' },
                   { key: 'lola_vital_check', label: 'Lola Vital Check 56' },
-                  { key: 'lola_peak_insights', label: 'Lola Peak Insights 70' }
+                  { key: 'lola_peak_insights', label: 'Lola Peak Insights 70' },
+                  // Fitness Pillar Placements
+                  { key: 'fit_rogue', label: 'FIT Force Production Arsenal' },
+                  { key: 'fit_whoop', label: 'FIT Autonomic Recovery Tracker' },
+                  { key: 'fit_creatine', label: 'FIT Performance Substrate' },
+                  // Wellness Pillar Placements
+                  { key: 'well_oura', label: 'WELL HRV & Sleep Guardian' },
+                  { key: 'well_apollo', label: 'WELL ANS Regulator' },
+                  { key: 'well_eightsleep', label: 'WELL Clinical Thermoregulation' },
+                  { key: 'well_nootropics', label: 'WELL Neuro-Chemical Catalyst' },
+                  // Social Fitness Placements
+                  { key: 'soc_mastermind', label: 'SOC High-Performance Mastermind' },
+                  { key: 'soc_hyrox', label: 'SOC Collective Performance Event' },
+                  { key: 'soc_bluezones', label: 'SOC Longevity Hotspots' },
+                  { key: 'soc_communication', label: 'SOC High-Fidelity Communication' },
+                  // Nutrition Pillar Placements
+                  { key: 'nut_levels', label: 'NUT Precision Glycemic Tracker' },
+                  { key: 'nut_insidetracker', label: 'NUT/IT Nutrigenomic Analysis' },
+                  { key: 'nut_thorne', label: 'NUT Micronutrient Core' }
                 ].map(spot => (
                   <div key={spot.key} className="p-6 bg-slate-50 border border-slate-200 rounded-3xl space-y-4">
                     <div className="flex items-center gap-2">

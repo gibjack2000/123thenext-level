@@ -5,9 +5,11 @@ import { motion } from 'motion/react';
 import { useT } from '../translations';
 import BlogSection from '../components/BlogSection';
 import IntelligenceTeaser from '../components/IntelligenceTeaser';
+import { useAffiliateLinks } from '../contexts/AffiliateLinksContext';
 
 export default function WellnessPillar() {
   const t = useT();
+  const { links } = useAffiliateLinks();
 
   useEffect(() => {
     document.title = `${t('wp_title_start')} ${t('wp_title_end')} | 123TheNext Level`;
@@ -18,36 +20,40 @@ export default function WellnessPillar() {
   }, [t]);
 
   const affiliateLinks = {
-    oura: 'https://amazon.com/dp/B0D4N3L9XW',
-    apollo: 'https://amazon.com/dp/B0CXM1X8PQ',
-    eightsleep: 'https://www.eightsleep.com/',
-    nootropics: 'https://amazon.com/dp/B00V4L7J5E'
+    oura: links.well_oura?.url || 'https://amazon.com/dp/B0D4N3L9XW',
+    apollo: links.well_apollo?.url || 'https://amazon.com/dp/B0CXM1X8PQ',
+    eightsleep: links.well_eightsleep?.url || 'https://www.eightsleep.com/',
+    nootropics: links.well_nootropics?.url || 'https://amazon.com/dp/B00V4L7J5E'
   };
 
   const pillarEssentials = [
     {
       name: "HRV & Sleep Guardian",
-      brand: "Oura Ring Gen5",
-      desc: "Clinical-grade tracking of autonomic nervous system balance and recovery readiness.",
-      image: "/Products/oura.jpg",
-      link: affiliateLinks.oura,
-      price: "$299+"
+      brand: links.well_oura?.brand || "Oura Ring Gen5",
+      desc: links.well_oura?.desc || "Clinical-grade tracking of autonomic nervous system balance and recovery readiness.",
+      image: links.well_oura?.image || "/Products/oura.jpg",
+      link: affiliateLinks.oura
     },
     {
       name: "ANS Regulator",
-      brand: "Apollo Neuro",
-      desc: "Wearable tech that uses touch therapy to stabilize vagal tone and reduce stress-induced cortisol.",
-      image: "/Products/apollo.jpg",
-      link: affiliateLinks.apollo,
-      price: "$299"
+      brand: links.well_apollo?.brand || "Apollo Neuro",
+      desc: links.well_apollo?.desc || "Wearable tech that uses touch therapy to stabilize vagal tone and reduce stress-induced cortisol.",
+      image: links.well_apollo?.image || "/Products/apollo.jpg",
+      link: affiliateLinks.apollo
     },
     {
-      name: "Thermal Recovery Pod",
-      brand: "Eight Sleep / Pod 4",
-      desc: "Dynamic thermoregulation to optimize sleep architecture and deep-wave recovery.",
-      image: "/Products/eightsleep.jpg",
-      link: affiliateLinks.eightsleep,
-      price: "$2000+"
+      name: "Clinical Thermoregulation",
+      brand: links.well_eightsleep?.brand || "Eight Sleep Pod 4",
+      desc: "Active cooling/heating mattress cover dynamically altering temperature based on biometrics.",
+      image: links.well_eightsleep?.image || "/Products/eightsleep.jpg",
+      link: affiliateLinks.eightsleep
+    },
+    {
+      name: "Neuro-Chemical Catalyst",
+      brand: links.well_nootropics?.brand || "Qualia Mind / Nootropics",
+      desc: "High-fidelity cognitive enhancer targeting acetylcholine pathways and BDNF synthesis.",
+      image: links.well_nootropics?.image || "/Products/nootropics.jpg",
+      link: affiliateLinks.nootropics
     }
   ];
 
@@ -342,10 +348,12 @@ export default function WellnessPillar() {
                     {product.desc}
                   </p>
                   
-                  <div className="mt-auto flex items-center justify-between pt-8 border-t border-white/5">
-                    <span className="text-lg font-display font-black text-white">{product.price}</span>
-                    <a href={product.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-indigo-400 font-black text-[10px] uppercase tracking-widest hover:text-white transition-colors">
-                      Buy from Amazon <ExternalLink size={14} />
+                  <div className="mt-auto flex items-center justify-between pt-8 border-t border-white/5 gap-2">
+                    <span className="font-black text-[8px] text-blue-400 tracking-wider uppercase border border-blue-500/30 px-2 py-1.5 rounded-lg bg-blue-500/10 shadow-[0_0_15px_rgba(59,130,246,0.15)] whitespace-nowrap">
+                      CHECK THE LATEST DEAL
+                    </span>
+                    <a href={product.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-indigo-400 font-black text-[9px] uppercase tracking-widest hover:text-white transition-colors whitespace-nowrap">
+                      Buy from Amazon <ExternalLink size={12} />
                     </a>
                   </div>
                 </div>

@@ -5,9 +5,11 @@ import { motion } from 'motion/react';
 import { useT } from '../translations';
 import BlogSection from '../components/BlogSection';
 import IntelligenceTeaser from '../components/IntelligenceTeaser';
+import { useAffiliateLinks } from '../contexts/AffiliateLinksContext';
 
 export default function NutritionPillar() {
   const t = useT();
+  const { links } = useAffiliateLinks();
 
   useEffect(() => {
     document.title = `${t('np_title_start')} ${t('np_title_end')} | 123TheNext Level`;
@@ -18,38 +20,35 @@ export default function NutritionPillar() {
   }, [t]);
 
   const affiliateLinks = {
-    us: 'https://amazon.com/dp/B0CXM1X8PQ',
-    uk: 'https://amazon.co.uk/dp/B0CXM1X8PQ',
-    es: 'https://amazon.es/dp/B0CXM1X8PQ',
-    levels: 'https://amazon.com/dp/B0CXM1X8PQ',
-    thorne: 'https://amazon.com/dp/B0CMB6X8Y1',
-    insidetracker: 'https://www.insidetracker.com/'
+    us: links.us?.url || 'https://amazon.com/dp/B0CXM1X8PQ',
+    uk: links.uk?.url || 'https://amazon.co.uk/dp/B0CXM1X8PQ',
+    es: links.es?.url || 'https://amazon.es/dp/B0CXM1X8PQ',
+    levels: links.nut_levels?.url || 'https://amazon.com/dp/B0CXM1X8PQ',
+    thorne: links.nut_thorne?.url || 'https://amazon.com/dp/B0CMB6X8Y1',
+    insidetracker: links.nut_insidetracker?.url || 'https://www.insidetracker.com/'
   };
 
   const pillarEssentials = [
     {
       name: "Precision Glycemic Tracker",
-      brand: "Levels / Nutrisense (CGM)",
-      desc: "Real-time glucose visibility to eliminate post-prandial inflammatory spikes.",
-      image: "/Products/levels.jpg",
-      link: affiliateLinks.levels,
-      price: "$199/mo"
+      brand: links.nut_levels?.brand || "Levels / Nutrisense (CGM)",
+      desc: links.nut_levels?.desc || "Real-time glucose visibility to eliminate post-prandial inflammatory spikes.",
+      image: links.nut_levels?.image || "/Products/levels.jpg",
+      link: affiliateLinks.levels
     },
     {
       name: "Nutrigenomic Analysis",
-      brand: "InsideTracker",
-      desc: "Blood-based nutrient calibration identifying specific deficiencies and optimal fuel types.",
-      image: "/Products/insidetracker.jpg",
-      link: affiliateLinks.insidetracker,
-      price: "$299+"
+      brand: links.nut_insidetracker?.brand || "InsideTracker",
+      desc: links.nut_insidetracker?.desc || "Comprehensive blood biomarkers and DNA tracking to construct personalized nutritional guidelines.",
+      image: links.nut_insidetracker?.image || "/Products/insidetracker.jpg",
+      link: affiliateLinks.insidetracker
     },
     {
-      name: "Metabolic Pathway Stack",
-      brand: "Thorne / Momentous",
-      desc: "Clinical-grade precursors for SIRT1 activation and metabolic resilience.",
-      image: "/Products/metabolic.jpg",
-      link: affiliateLinks.thorne,
-      price: "$65+"
+      name: "Micronutrient Core",
+      brand: links.nut_thorne?.brand || "Thorne / Multivitamin",
+      desc: links.nut_thorne?.desc || "Bioavailable micro-nutrients supporting daily cellular energy and systemic resilience.",
+      image: links.nut_thorne?.image || "/Products/multivitamin.jpg",
+      link: affiliateLinks.thorne
     }
   ];
 
@@ -407,10 +406,12 @@ export default function NutritionPillar() {
                     {product.desc}
                   </p>
                   
-                  <div className="mt-auto flex items-center justify-between pt-8 border-t border-white/5">
-                    <span className="text-lg font-display font-black text-white">{product.price}</span>
-                    <a href={product.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-emerald-400 font-black text-[10px] uppercase tracking-widest hover:text-white transition-colors">
-                      Buy from Amazon <ExternalLink size={14} />
+                  <div className="mt-auto flex items-center justify-between pt-8 border-t border-white/5 gap-2">
+                    <span className="font-black text-[8px] text-blue-400 tracking-wider uppercase border border-blue-500/30 px-2 py-1.5 rounded-lg bg-blue-500/10 shadow-[0_0_15px_rgba(59,130,246,0.15)] whitespace-nowrap">
+                      CHECK THE LATEST DEAL
+                    </span>
+                    <a href={product.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-emerald-400 font-black text-[9px] uppercase tracking-widest hover:text-white transition-colors whitespace-nowrap">
+                      Buy from Amazon <ExternalLink size={12} />
                     </a>
                   </div>
                 </div>

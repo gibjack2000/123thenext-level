@@ -5,9 +5,11 @@ import { motion } from 'motion/react';
 import { useT } from '../translations';
 import BlogSection from '../components/BlogSection';
 import IntelligenceTeaser from '../components/IntelligenceTeaser';
+import { useAffiliateLinks } from '../contexts/AffiliateLinksContext';
 
 export default function SocialFitnessPillar() {
   const t = useT();
+  const { links } = useAffiliateLinks();
 
   useEffect(() => {
     document.title = `${t('sfp_title_start')} ${t('sfp_title_end')} | 123TheNext Level`;
@@ -18,36 +20,40 @@ export default function SocialFitnessPillar() {
   }, [t]);
 
   const affiliateLinks = {
-    mastermind: 'https://amazon.com/dp/B0CXM1X8PQ',
-    hyrox: 'https://hyrox.com',
-    bluezones: 'https://www.bluezones.com/',
-    communication: 'https://amazon.com/dp/B0CMB6X8Y1'
+    mastermind: links.soc_mastermind?.url || 'https://amazon.com/dp/B0CXM1X8PQ',
+    hyrox: links.soc_hyrox?.url || 'https://hyrox.com',
+    bluezones: links.soc_bluezones?.url || 'https://www.bluezones.com/',
+    communication: links.soc_communication?.url || 'https://amazon.com/dp/B0CMB6X8Y1'
   };
 
   const pillarEssentials = [
     {
       name: "High-Performance Mastermind",
-      brand: "Elite Network Access",
-      desc: "Strategic proximity to high-value individuals to optimize neural coupling and social drive.",
-      image: "/Products/mastermind.jpg",
-      link: affiliateLinks.mastermind,
-      price: "Inquire"
+      brand: links.soc_mastermind?.brand || "Elite Network Access",
+      desc: links.soc_mastermind?.desc || "Strategic proximity to high-value individuals to optimize neural coupling and social drive.",
+      image: links.soc_mastermind?.image || "/Products/mastermind.jpg",
+      link: affiliateLinks.mastermind
     },
     {
       name: "Collective Performance Event",
-      brand: "HYROX / Mass Participation",
-      desc: "Shared physiological striving to trigger oxytocin and collective resilience.",
-      image: "/Products/hyrox.jpg",
-      link: affiliateLinks.hyrox,
-      price: "$100+"
+      brand: links.soc_hyrox?.brand || "HYROX / Mass Participation",
+      desc: links.soc_hyrox?.desc || "Shared physiological striving to trigger oxytocin and collective resilience.",
+      image: links.soc_hyrox?.image || "/Products/hyrox.jpg",
+      link: affiliateLinks.hyrox
     },
     {
-      name: "Socio-Biological Architecture",
-      brand: "Blue Zones Mastery",
-      desc: "Designing your environment and relationships for 100+ year longevity outcomes.",
-      image: "/Products/bluezones.jpg",
-      link: affiliateLinks.bluezones,
-      price: "Access"
+      name: "Longevity Hotspots",
+      brand: links.soc_bluezones?.brand || "Blue Zones Cohort",
+      desc: links.soc_bluezones?.desc || "Community-driven lifestyle frameworks modeled on long-lived populations.",
+      image: links.soc_bluezones?.image || "/Products/bluezones.jpg",
+      link: affiliateLinks.bluezones
+    },
+    {
+      name: "High-Fidelity Communication",
+      brand: links.soc_communication?.brand || "Relational Vigor",
+      desc: links.soc_communication?.desc || "Methodologies for active listening and conflict resolution to lower cortisol.",
+      image: links.soc_communication?.image || "/Products/communication.jpg",
+      link: affiliateLinks.communication
     }
   ];
 
@@ -332,10 +338,12 @@ export default function SocialFitnessPillar() {
                     {product.desc}
                   </p>
                   
-                  <div className="mt-auto flex items-center justify-between pt-8 border-t border-white/5">
-                    <span className="text-lg font-display font-black text-white">{product.price}</span>
-                    <a href={product.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-amber-400 font-black text-[10px] uppercase tracking-widest hover:text-white transition-colors">
-                      Buy from Amazon <ExternalLink size={14} />
+                  <div className="mt-auto flex items-center justify-between pt-8 border-t border-white/5 gap-2">
+                    <span className="font-black text-[8px] text-blue-400 tracking-wider uppercase border border-blue-500/30 px-2 py-1.5 rounded-lg bg-blue-500/10 shadow-[0_0_15px_rgba(59,130,246,0.15)] whitespace-nowrap">
+                      CHECK THE LATEST DEAL
+                    </span>
+                    <a href={product.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-amber-400 font-black text-[9px] uppercase tracking-widest hover:text-white transition-colors whitespace-nowrap">
+                      Buy from Amazon <ExternalLink size={12} />
                     </a>
                   </div>
                 </div>

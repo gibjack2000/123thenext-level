@@ -5,9 +5,11 @@ import { motion } from 'motion/react';
 import { useT } from '../translations';
 import BlogSection from '../components/BlogSection';
 import IntelligenceTeaser from '../components/IntelligenceTeaser';
+import { useAffiliateLinks } from '../contexts/AffiliateLinksContext';
 
 export default function FitnessPillar() {
   const t = useT();
+  const { links } = useAffiliateLinks();
 
   useEffect(() => {
     document.title = `${t('fp_title')} ${t('fp_subtitle')} | 123TheNext Level`;
@@ -18,38 +20,35 @@ export default function FitnessPillar() {
   }, [t]);
 
   const affiliateLinks = {
-    us: 'https://amazon.com/dp/B0CXM1X8PQ',
-    uk: 'https://amazon.co.uk/dp/B0CXM1X8PQ',
-    es: 'https://amazon.es/dp/B0CXM1X8PQ',
-    whoop: 'https://amazon.com/dp/B0CXM1X8PQ',
-    rogue: 'https://amazon.com/dp/B0CLB5X8X9',
-    creatine: 'https://amazon.com/dp/B0CXM1X8PQ'
+    us: links.us?.url || 'https://amazon.com/dp/B0CXM1X8PQ',
+    uk: links.uk?.url || 'https://amazon.co.uk/dp/B0CXM1X8PQ',
+    es: links.es?.url || 'https://amazon.es/dp/B0CXM1X8PQ',
+    whoop: links.fit_whoop?.url || 'https://amazon.com/dp/B0CXM1X8PQ',
+    rogue: links.fit_rogue?.url || 'https://amazon.com/dp/B0CLB5X8X9',
+    creatine: links.fit_creatine?.url || 'https://amazon.com/dp/B0CXM1X8PQ'
   };
 
   const pillarEssentials = [
     {
       name: "Force Production Arsenal",
-      brand: "Rogue / Iron Neck",
-      desc: "Tactical equipment for maximizing isometric tension and force-velocity output.",
-      image: "/Products/rogue.jpg",
-      link: affiliateLinks.rogue,
-      price: "$145+"
+      brand: links.fit_rogue?.brand || "Rogue / Iron Neck",
+      desc: links.fit_rogue?.desc || "Tactical equipment for maximizing isometric tension and force-velocity output.",
+      image: links.fit_rogue?.image || "/Products/rogue.jpg",
+      link: affiliateLinks.rogue
     },
     {
       name: "Autonomic Recovery Tracker",
-      brand: "Whoop 4.0 / Oura Gen5",
-      desc: "Real-time strain vs. recovery monitoring via high-resolution HRV analysis.",
-      image: "/Products/whoop.jpg",
-      link: affiliateLinks.whoop,
-      price: "$299"
+      brand: links.fit_whoop?.brand || "Whoop 4.0 / Oura Gen5",
+      desc: links.fit_whoop?.desc || "Real-time strain vs. recovery monitoring via high-resolution HRV analysis.",
+      image: links.fit_whoop?.image || "/Products/whoop.jpg",
+      link: affiliateLinks.whoop
     },
     {
       name: "Performance Substrate",
-      brand: "Thorne / Momentous",
-      desc: "Clinical-grade Creatine Monohydrate for ATP regeneration and neuro-shielding.",
-      image: "/Products/creatine.jpg",
-      link: affiliateLinks.creatine,
-      price: "$45+"
+      brand: links.fit_creatine?.brand || "Thorne / Momentous",
+      desc: links.fit_creatine?.desc || "Clinical-grade Creatine Monohydrate for ATP regeneration and neuro-shielding.",
+      image: links.fit_creatine?.image || "/Products/creatine.jpg",
+      link: affiliateLinks.creatine
     }
   ];
 
@@ -317,10 +316,12 @@ export default function FitnessPillar() {
                     {product.desc}
                   </p>
                   
-                  <div className="mt-auto flex items-center justify-between pt-8 border-t border-white/5">
-                    <span className="text-lg font-display font-black text-white">{product.price}</span>
-                    <a href={product.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-cyan-400 font-black text-[10px] uppercase tracking-widest hover:text-white transition-colors">
-                      Buy from Amazon <ExternalLink size={14} />
+                  <div className="mt-auto flex items-center justify-between pt-8 border-t border-white/5 gap-2">
+                    <span className="font-black text-[8px] text-blue-400 tracking-wider uppercase border border-blue-500/30 px-2 py-1.5 rounded-lg bg-blue-500/10 shadow-[0_0_15px_rgba(59,130,246,0.15)] whitespace-nowrap">
+                      CHECK THE LATEST DEAL
+                    </span>
+                    <a href={product.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 text-cyan-400 font-black text-[9px] uppercase tracking-widest hover:text-white transition-colors whitespace-nowrap">
+                      Buy from Amazon <ExternalLink size={12} />
                     </a>
                   </div>
                 </div>
