@@ -4,6 +4,7 @@ import { ArrowLeft, Calendar, Tag as TagIcon, Share2 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { supabase } from '../lib/supabase';
 import { BlogPost } from '../types';
+import { MOCK_BLOG_POSTS } from '../data/mockBlogPosts';
 import BlogNewsletterBanner from '../components/newsletter/BlogNewsletterBanner';
 
 export default function BlogPostPage() {
@@ -16,18 +17,35 @@ export default function BlogPostPage() {
 
   useEffect(() => {
     async function fetchPost() {
-      if (!slug || !supabase) return;
+      if (!slug) return;
       
       setLoading(true);
+      setError(null);
       try {
-        // 1. Fetch the post first (basic columns)
-        const { data: postData, error: postError } = await supabase
-          .from('blog_posts')
-          .select('*')
-          .eq('slug', slug)
-          .single();
-          
-        if (postError) throw postError;
+        let postData: any = null;
+        
+        if (supabase) {
+          try {
+            const { data, error: postError } = await supabase
+              .from('blog_posts')
+              .select('*')
+              .eq('slug', slug)
+              .single();
+              
+            if (postError) throw postError;
+            postData = data;
+          } catch (dbErr) {
+            console.warn('Post not found in database, checking mock data:', dbErr);
+            const mockPost = MOCK_BLOG_POSTS.find(p => p.slug === slug);
+            if (!mockPost) throw new Error('Post not found anywhere');
+            postData = mockPost;
+          }
+        } else {
+          console.warn('Supabase not initialized, using mock data');
+          const mockPost = MOCK_BLOG_POSTS.find(p => p.slug === slug);
+          if (!mockPost) throw new Error('Post not found in mock data');
+          postData = mockPost;
+        }
         
         // If it's a draft and not in preview mode, hide it
         if (postData.status === 'draft' && !isPreview) {
@@ -38,22 +56,58 @@ export default function BlogPostPage() {
         // 2. Fetch affiliate products if they exist (manual join for reliability)
         let fullPost = { ...postData };
         
-        if (postData.affiliate_product_1) {
-          const { data: prod1 } = await supabase
-            .from('amazon_affiliate_products')
-            .select('*')
-            .eq('id', postData.affiliate_product_1)
-            .single();
-          if (prod1) fullPost.affiliate_product_1 = prod1;
-        }
+        if (supabase) {
+          if (postData.affiliate_product_1) {
+            try {
+              const { data: prod1 } = await supabase
+                .from('amazon_affiliate_products')
+                .select('*')
+                .eq('id', postData.affiliate_product_1)
+                .single();
+              if (prod1) fullPost.affiliate_product_1 = prod1;
+            } catch (err) {
+              console.error('Error fetching affiliate product 1:', err);
+            }
+          }
 
-        if (postData.affiliate_product_2) {
-          const { data: prod2 } = await supabase
-            .from('amazon_affiliate_products')
-            .select('*')
-            .eq('id', postData.affiliate_product_2)
-            .single();
-          if (prod2) fullPost.affiliate_product_2 = prod2;
+          if (postData.affiliate_product_2) {
+            try {
+              const { data: prod2 } = await supabase
+                .from('amazon_affiliate_products')
+                .select('*')
+                .eq('id', postData.affiliate_product_2)
+                .single();
+              if (prod2) fullPost.affiliate_product_2 = prod2;
+            } catch (err) {
+              console.error('Error fetching affiliate product 2:', err);
+            }
+          }
+
+          if (postData.affiliate_product_3) {
+            try {
+              const { data: prod3 } = await supabase
+                .from('amazon_affiliate_products')
+                .select('*')
+                .eq('id', postData.affiliate_product_3)
+                .single();
+              if (prod3) fullPost.affiliate_product_3 = prod3;
+            } catch (err) {
+              console.error('Error fetching affiliate product 3:', err);
+            }
+          }
+
+          if (postData.affiliate_product_4) {
+            try {
+              const { data: prod4 } = await supabase
+                .from('amazon_affiliate_products')
+                .select('*')
+                .eq('id', postData.affiliate_product_4)
+                .single();
+              if (prod4) fullPost.affiliate_product_4 = prod4;
+            } catch (err) {
+              console.error('Error fetching affiliate product 4:', err);
+            }
+          }
         }
 
         setPost(fullPost);
@@ -108,6 +162,21 @@ export default function BlogPostPage() {
       if (text.startsWith('# ')) {
         return <h1 key={index} className="font-display uppercase tracking-tight text-3xl mt-12 mb-8 text-slate-900">{text.replace('# ', '')}</h1>;
       }
+      
+      const imgMatch = text.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
+      if (imgMatch) {
+        const alt = imgMatch[1];
+        const url = imgMatch[2];
+        return (
+          <div key={index} className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl group">
+            <a href={displayAffiliateUrl} target="_blank" rel="noopener noreferrer" className="block relative">
+              <img src={url} alt={alt} className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500" />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
+            </a>
+          </div>
+        );
+      }
+
       const formatText = (content: string) => {
         // Parse bold and markdown links into HTML safely
         return content
@@ -182,9 +251,12 @@ export default function BlogPostPage() {
           </Link>
           
           <div className="flex items-center justify-between mb-6">
-            <span className="px-3 py-1 rounded-full bg-blue-500/20 text-blue-100 border border-blue-500/30 text-xs font-bold uppercase tracking-widest backdrop-blur-md">
+            <Link 
+              to={`/blog/category/${post.category}`}
+              className="px-3 py-1 rounded-full bg-blue-500/20 text-blue-100 border border-blue-500/30 text-xs font-bold uppercase tracking-widest backdrop-blur-md hover:bg-blue-500/40 hover:text-white transition-colors"
+            >
               {post.category}
-            </span>
+            </Link>
             <button className="text-white/60 hover:text-white transition-colors p-2 bg-white/10 rounded-full backdrop-blur-md border border-white/20" title="Copy Article Link" onClick={() => navigator.clipboard.writeText(window.location.href)}>
               <Share2 size={18} />
             </button>
@@ -268,11 +340,11 @@ export default function BlogPostPage() {
         </div>
         
         {/* Affiliate Products Section */}
-        {((post as any).affiliate_product_1 || (post as any).affiliate_product_2) && (
+        {((post as any).affiliate_product_1 || (post as any).affiliate_product_2 || (post as any).affiliate_product_3 || (post as any).affiliate_product_4) && (
           <div className="mt-16 pt-12 border-t border-slate-100">
             <h3 className="text-2xl font-display uppercase tracking-tight text-slate-900 mb-8">Featured Clinical Arsenal</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {[(post as any).affiliate_product_1, (post as any).affiliate_product_2].filter(Boolean).map((prod: any) => (
+              {[(post as any).affiliate_product_1, (post as any).affiliate_product_2, (post as any).affiliate_product_3, (post as any).affiliate_product_4].filter(Boolean).map((prod: any) => (
                 <div key={prod.id} className="bg-slate-50 rounded-3xl p-6 border border-slate-200 flex flex-col md:flex-row gap-6 hover:shadow-xl hover:shadow-slate-200/50 transition-all group">
                   <div className="w-full md:w-32 h-32 shrink-0 rounded-2xl overflow-hidden bg-white border border-slate-100 shadow-sm">
                     <img src={prod.image_url} alt={prod.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />

@@ -78,6 +78,7 @@ const AdminPage = lazy(() => import('./pages/AdminPage'));
 const SuperAdminPage = lazy(() => import('./pages/SuperAdminPage'));
 const IntelligenceHub = lazy(() => import('./pages/IntelligenceHub'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
+const BlogCategoryPage = lazy(() => import('./pages/BlogCategoryPage'));
 const BlogAutomationAdmin = lazy(() => import('./pages/BlogAutomationAdmin'));
 const PremiumGuides = lazy(() => import('./pages/premium/PremiumGuides'));
 const CheckoutSuccess = lazy(() => import('./pages/premium/CheckoutSuccess'));
@@ -176,6 +177,7 @@ function App() {
                 <Route path="/premium-guides/:slug" element={<PremiumGuideDetailPage />} />
                 <Route path="/region/:region" element={<RegionHub />} />
                 <Route path="/category/:category" element={<CategoryPage />} />
+                <Route path="/blog/category/:category" element={<BlogCategoryPage />} />
                 <Route path="/updates" element={<MagazineRack />} />
                 <Route path="/:region" element={<RegionHub />} />
                 <Route path="/:region/:category" element={<CategoryPage />} />

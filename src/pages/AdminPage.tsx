@@ -351,6 +351,8 @@ export default function AdminPage() {
     image_url_3: '',
     affiliate_product_1: '',
     affiliate_product_2: '',
+    affiliate_product_3: '',
+    affiliate_product_4: '',
     excerpt: '',
     tags: '',
     featured: false,
@@ -456,6 +458,8 @@ export default function AdminPage() {
       image_url_3: (post as any).image_url_3 || '',
       affiliate_product_1: (post as any).affiliate_product_1 || '',
       affiliate_product_2: (post as any).affiliate_product_2 || '',
+      affiliate_product_3: (post as any).affiliate_product_3 || '',
+      affiliate_product_4: (post as any).affiliate_product_4 || '',
       excerpt: post.excerpt || '',
       tags: Array.isArray(post.tags) ? post.tags.join(', ') : '',
       featured: post.featured || false,
@@ -464,6 +468,26 @@ export default function AdminPage() {
     setActiveTab('blog');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
+
+  useEffect(() => {
+    if (isAuthenticated && blogPosts.length > 0) {
+      const params = new URLSearchParams(window.location.search);
+      const urlEditId = params.get('edit_id');
+      const localEditId = localStorage.getItem('edit_blog_post_id');
+      const targetId = urlEditId || localEditId;
+      
+      if (targetId) {
+        const postToEdit = blogPosts.find(p => p.id === targetId);
+        if (postToEdit) {
+          handleEditBlog(postToEdit);
+          // Clean up to prevent duplicate triggers
+          localStorage.removeItem('edit_blog_post_id');
+          const newUrl = window.location.pathname + window.location.hash;
+          window.history.replaceState({}, '', newUrl);
+        }
+      }
+    }
+  }, [isAuthenticated, blogPosts, handleEditBlog]);
 
   const handleDeleteBlog = async (id: string) => {
     if (!supabase || !window.confirm('Are you sure you want to delete this blog post?')) return;
@@ -652,20 +676,62 @@ export default function AdminPage() {
 
       if (!postData.affiliate_product_1) postData.affiliate_product_1 = null;
       if (!postData.affiliate_product_2) postData.affiliate_product_2 = null;
+      if (!postData.affiliate_product_3) postData.affiliate_product_3 = null;
+      if (!postData.affiliate_product_4) postData.affiliate_product_4 = null;
 
       if (editingBlogPostId) {
-        const { error: supabaseError } = await supabase
-          .from('blog_posts')
-          .update(postData)
-          .eq('id', editingBlogPostId);
+        let success = false;
+        let currentData = { ...postData };
+        let attempts = 0;
+        
+        while (!success && attempts < 5) {
+          attempts++;
+          const { error: supabaseError } = await supabase
+            .from('blog_posts')
+            .update(currentData)
+            .eq('id', editingBlogPostId);
 
-        if (supabaseError) throw supabaseError;
+          if (supabaseError) {
+            // Check if error is due to a missing column (e.g. schema cache stale or migration not run)
+            const match = (supabaseError.message || '').match(/column ['"]([^'"]+)['"]/);
+            if (match && match[1] && match[1] in currentData) {
+              const columnName = match[1];
+              console.warn(`Column '${columnName}' not found in database. Retrying without it.`);
+              currentData = { ...currentData };
+              delete (currentData as any)[columnName];
+            } else {
+              throw supabaseError;
+            }
+          } else {
+            success = true;
+          }
+        }
       } else {
-        const { error: supabaseError } = await supabase
-          .from('blog_posts')
-          .insert([postData]);
+        let success = false;
+        let currentData = { ...postData };
+        let attempts = 0;
+        
+        while (!success && attempts < 5) {
+          attempts++;
+          const { error: supabaseError } = await supabase
+            .from('blog_posts')
+            .insert([currentData]);
 
-        if (supabaseError) throw supabaseError;
+          if (supabaseError) {
+            // Check if error is due to a missing column
+            const match = (supabaseError.message || '').match(/column ['"]([^'"]+)['"]/);
+            if (match && match[1] && match[1] in currentData) {
+              const columnName = match[1];
+              console.warn(`Column '${columnName}' not found in database. Retrying without it.`);
+              currentData = { ...currentData };
+              delete (currentData as any)[columnName];
+            } else {
+              throw supabaseError;
+            }
+          } else {
+            success = true;
+          }
+        }
       }
 
       setSuccess(true);
@@ -681,6 +747,8 @@ export default function AdminPage() {
         image_url_3: '',
         affiliate_product_1: '',
         affiliate_product_2: '',
+        affiliate_product_3: '',
+        affiliate_product_4: '',
         excerpt: '',
         tags: '',
         featured: false,
@@ -830,8 +898,10 @@ create table blog_posts (
   image_url text,
   image_url_2 text,
   image_url_3 text,
-  affiliate_product_1 uuid references amazon_affiliate_products(id),
-  affiliate_product_2 uuid references amazon_affiliate_products(id),
+  affiliate_product_1 bigint references amazon_affiliate_products(id),
+  affiliate_product_2 bigint references amazon_affiliate_products(id),
+  affiliate_product_3 bigint references amazon_affiliate_products(id),
+  affiliate_product_4 bigint references amazon_affiliate_products(id),
   excerpt text,
   tags text[] default '{}',
   featured boolean default false,
@@ -840,7 +910,7 @@ create table blog_posts (
 
 create table if not exists affiliate_link_mappings (
   key text primary key,
-  product_id uuid references amazon_affiliate_products(id)
+  product_id bigint references amazon_affiliate_products(id)
 );
 
 create table if not exists premium_guides (
@@ -1242,6 +1312,17 @@ create table if not exists premium_guides (
                 )}
               </div>
 
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Supplementary Image URL 2</label>
+                  <input type="url" name="image_url_2" value={blogFormData.image_url_2} onChange={handleBlogChange} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 font-bold text-slate-900 outline-none focus:ring-4 focus:ring-blue-500/10" placeholder="https://... (renders after paragraph 4)" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Supplementary Image URL 3</label>
+                  <input type="url" name="image_url_3" value={blogFormData.image_url_3} onChange={handleBlogChange} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 font-bold text-slate-900 outline-none focus:ring-4 focus:ring-blue-500/10" placeholder="https://... (renders after paragraph 8)" />
+                </div>
+              </div>
+
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Editorial Excerpt *</label>
                 <textarea required name="excerpt" value={blogFormData.excerpt} onChange={handleBlogChange} rows={2} className="w-full bg-slate-50 border border-slate-200 rounded-2xl p-4 font-bold text-slate-900 outline-none focus:ring-4 focus:ring-blue-500/10" placeholder="A brief clinical summary..."></textarea>
@@ -1269,6 +1350,20 @@ create table if not exists premium_guides (
                       {products.map(p => <option key={p.id} value={p.id}>{p.product_name} ({p.region})</option>)}
                     </select>
                   </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-bold text-slate-500 uppercase ml-1">Third Affiliate Hardware</label>
+                    <select name="affiliate_product_3" value={blogFormData.affiliate_product_3} onChange={handleBlogChange} className="w-full bg-white border border-slate-200 rounded-xl p-4 text-sm font-bold text-slate-900 outline-none">
+                      <option value="">No Product Linked</option>
+                      {products.map(p => <option key={p.id} value={p.id}>{p.product_name} ({p.region})</option>)}
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-bold text-slate-500 uppercase ml-1">Fourth Affiliate Hardware</label>
+                    <select name="affiliate_product_4" value={blogFormData.affiliate_product_4} onChange={handleBlogChange} className="w-full bg-white border border-slate-200 rounded-xl p-4 text-sm font-bold text-slate-900 outline-none">
+                      <option value="">No Product Linked</option>
+                      {products.map(p => <option key={p.id} value={p.id}>{p.product_name} ({p.region})</option>)}
+                    </select>
+                  </div>
                 </div>
               </div>
 
@@ -1278,7 +1373,7 @@ create table if not exists premium_guides (
                   {editingBlogPostId ? 'Update Publication' : 'Release Publication'}
                 </button>
                 {editingBlogPostId && (
-                  <button type="button" onClick={() => { setEditingBlogPostId(null); setBlogFormData({ category: 'health', title: '', slug: '', author: 'The Next Level Team', content: '', image_url: '', excerpt: '', tags: '', status: 'draft', featured: false, affiliate_product_1: '', affiliate_product_2: '', image_url_2: '', image_url_3: '' } as any); }} className="px-10 py-5 bg-slate-100 text-slate-600 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-slate-200 transition-all">Cancel</button>
+                  <button type="button" onClick={() => { setEditingBlogPostId(null); setBlogFormData({ category: 'health', title: '', slug: '', author: 'The Next Level Team', content: '', image_url: '', excerpt: '', tags: '', status: 'draft', featured: false, affiliate_product_1: '', affiliate_product_2: '', affiliate_product_3: '', affiliate_product_4: '', image_url_2: '', image_url_3: '' } as any); }} className="px-10 py-5 bg-slate-100 text-slate-600 rounded-2xl font-black uppercase tracking-widest text-xs hover:bg-slate-200 transition-all">Cancel</button>
                 )}
               </div>
             </form>
@@ -1752,8 +1847,10 @@ create table blog_posts (
   image_url text,
   image_url_2 text,
   image_url_3 text,
-  affiliate_product_1 uuid references amazon_affiliate_products(id),
-  affiliate_product_2 uuid references amazon_affiliate_products(id),
+  affiliate_product_1 bigint references amazon_affiliate_products(id),
+  affiliate_product_2 bigint references amazon_affiliate_products(id),
+  affiliate_product_3 bigint references amazon_affiliate_products(id),
+  affiliate_product_4 bigint references amazon_affiliate_products(id),
   excerpt text,
   tags text[] default '{}',
   featured boolean default false,
@@ -1762,7 +1859,7 @@ create table blog_posts (
 
 create table if not exists affiliate_link_mappings (
   key text primary key,
-  product_id uuid references amazon_affiliate_products(id)
+  product_id bigint references amazon_affiliate_products(id)
 );
 
 create table if not exists premium_guides (

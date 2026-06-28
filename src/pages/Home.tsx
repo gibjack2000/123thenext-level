@@ -885,9 +885,9 @@ export default function Home() {
                     <div className="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center mr-3">
                       <HeartPulse className="text-rose-500" size={20} />
                     </div>
-                    <Link to="/health" className="hover:text-rose-600 transition-colors">Healthspan Intelligence</Link>
+                    <Link to="/blog/category/health" className="hover:text-rose-600 transition-colors">Healthspan Intelligence</Link>
                   </h3>
-                  <Link to="/health" className="text-xs font-bold uppercase tracking-widest text-rose-600 hover:text-rose-700 transition-colors">View Research</Link>
+                  <Link to="/blog/category/health" className="text-xs font-bold uppercase tracking-widest text-rose-600 hover:text-rose-700 transition-colors">View Research</Link>
                 </div>
                 <p className="text-slate-600 mb-8 leading-relaxed max-w-md">Precision focus on disease prevention and biological age reversal. Understanding the mechanisms of longevity.</p>
 
@@ -948,9 +948,9 @@ export default function Home() {
                       <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center mr-3">
                         <Dumbbell className="text-blue-500" size={20} />
                       </div>
-                      <Link to="/fitness" className="hover:text-blue-600 transition-colors">Performance Protocols</Link>
+                      <Link to="/blog/category/fitness" className="hover:text-blue-600 transition-colors">Performance Protocols</Link>
                     </h3>
-                    <Link to="/fitness" className="text-xs font-bold uppercase tracking-widest text-blue-600 hover:text-blue-700 transition-colors">View Research</Link>
+                    <Link to="/blog/category/fitness" className="text-xs font-bold uppercase tracking-widest text-blue-600 hover:text-blue-700 transition-colors">View Research</Link>
                   </div>
                   <p className="text-slate-600 mb-8 leading-relaxed max-w-md">Technical deep-dives into training mechanics and high-performance recovery. Optimizing the human machine.</p>
 
@@ -1011,9 +1011,9 @@ export default function Home() {
                       <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center mr-3">
                         <Apple className="text-emerald-500" size={20} />
                       </div>
-                      <Link to="/nutrition" className="hover:text-emerald-600 transition-colors">Metabolic Intelligence</Link>
+                      <Link to="/blog/category/nutrition" className="hover:text-emerald-600 transition-colors">Metabolic Intelligence</Link>
                     </h3>
-                    <Link to="/nutrition" className="text-xs font-bold uppercase tracking-widest text-emerald-600 hover:text-emerald-700 transition-colors">View Research</Link>
+                    <Link to="/blog/category/nutrition" className="text-xs font-bold uppercase tracking-widest text-emerald-600 hover:text-emerald-700 transition-colors">View Research</Link>
                   </div>
                   <p className="text-slate-600 mb-8 leading-relaxed max-w-md">Advanced metabolic nutrition strategy. From glucose regulation to intracellular energy production and meal-timing protocols.</p>
 
@@ -1074,9 +1074,9 @@ export default function Home() {
                       <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center mr-3">
                         <Sparkles className="text-purple-500" size={20} />
                       </div>
-                      <Link to="/wellness" className="hover:text-purple-600 transition-colors">Neurowellness Research</Link>
+                      <Link to="/blog/category/wellness" className="hover:text-purple-600 transition-colors">Neurowellness Research</Link>
                     </h3>
-                    <Link to="/wellness" className="text-xs font-bold uppercase tracking-widest text-purple-600 hover:text-purple-700 transition-colors">View Research</Link>
+                    <Link to="/blog/category/wellness" className="text-xs font-bold uppercase tracking-widest text-purple-600 hover:text-purple-700 transition-colors">View Research</Link>
                   </div>
                   <p className="text-slate-600 mb-8 leading-relaxed max-w-md">The science of the internal state. Exploring nervous system regulation, cognitive restoration, and psychological safety.</p>
 

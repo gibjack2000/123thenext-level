@@ -1,77 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Sparkles, BookOpen, Clock, Tag } from 'lucide-react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { BlogPost } from '../types';
 import { guides as fallbackGuides } from '../data/guides';
+import { MOCK_BLOG_POSTS } from '../data/mockBlogPosts';
 
 export default function MagazineRack() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const navigate = useNavigate();
+
+  const CATEGORIES = [
+    { id: 'all', name: 'All Issues' },
+    { id: 'health', name: 'Health' },
+    { id: 'fitness', name: 'Fitness' },
+    { id: 'nutrition', name: 'Nutrition' },
+    { id: 'wellness', name: 'Wellness' }
+  ];
+
+  const filteredPosts = selectedCategory === 'all'
+    ? posts
+    : posts.filter(post => post.category?.toLowerCase() === selectedCategory);
 
   useEffect(() => {
     async function fetchPosts() {
       if (!hasValidSupabaseConfig || !supabase) {
-        // Fallback mock posts
-        const mockPosts: BlogPost[] = [
-          {
-            id: '1',
-            title: 'The Epigenetic Clock: Tracking Cellular Age in Real-Time',
-            slug: 'epigenetic-clock-cellular-age',
-            author: 'Dr. Evelyn Carter',
-            content: 'Deep dive into methylation profiles and tracking biological rate of aging.',
-            excerpt: 'How new consumer diagnostics allow you to measure biological vs chronological age and evaluate longevity protocols.',
-            category: 'health',
-            created_at: new Date().toISOString(),
-            image_url: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=800&q=80',
-            tags: ['Longevity', 'Epigenetics', 'Biomarkers'],
-            featured: false,
-            status: 'published'
-          },
-          {
-            id: '2',
-            title: 'Mitochondrial Reserve: The Ultimate Metric of Athletic Longevity',
-            slug: 'mitochondrial-reserve-athletic-longevity',
-            author: 'Coach Marcus Vance',
-            content: 'Maximizing cellular respiration and ATP efficiency through structured zone 2 training.',
-            excerpt: 'Why raw VO2 max is only half the story. Learn how to train your mitochondria for decade-spanning power.',
-            category: 'fitness',
-            created_at: new Date(Date.now() - 86400000).toISOString(),
-            image_url: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80',
-            tags: ['Mitochondria', 'Vo2Max', 'Zone 2'],
-            featured: false,
-            status: 'published'
-          },
-          {
-            id: '3',
-            title: 'GLP-1 Sensitizers: Natural Pathways to Metabolic Efficiency',
-            slug: 'glp1-sensitizers-natural-metabolism',
-            author: 'Nutritional Scientist Sarah Jenkins',
-            content: 'Exploring dietary fibers, polyphenols, and timing strategies that mimic peptide agonists.',
-            excerpt: 'Beyond the injections: How to leverage specific dietary compounds to trigger endogenous GLP-1 and balance blood sugar.',
-            category: 'nutrition',
-            created_at: new Date(Date.now() - 172800000).toISOString(),
-            image_url: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80',
-            tags: ['GLP-1', 'Metabolism', 'Peptides'],
-            featured: false,
-            status: 'published'
-          },
-          {
-            id: '4',
-            title: 'The Social Vagus: Building Co-Regulation in Community Cohorts',
-            slug: 'social-vagus-vns-community',
-            author: 'Dr. Liam Thorne',
-            content: 'How shared activities and physiological alignment stimulate vagal tone and speed up CNS recovery.',
-            excerpt: 'Why training alone misses a critical recovery trigger. How team coordination and social fitness buffer stress.',
-            category: 'wellness',
-            created_at: new Date(Date.now() - 259200000).toISOString(),
-            image_url: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80',
-            tags: ['Vagus Nerve', 'Social Fitness', 'Co-Regulation'],
-            featured: false,
-            status: 'published'
-          }
-        ];
-        setPosts(mockPosts);
+        setPosts(MOCK_BLOG_POSTS as BlogPost[]);
         setLoading(false);
         return;
       }
@@ -84,9 +40,14 @@ export default function MagazineRack() {
           .order('created_at', { ascending: false });
 
         if (error) throw error;
-        setPosts(data || []);
+        if (data && data.length > 0) {
+          setPosts(data);
+        } else {
+          setPosts(MOCK_BLOG_POSTS as BlogPost[]);
+        }
       } catch (err) {
         console.error('Error fetching blog posts for Magazine Rack:', err);
+        setPosts(MOCK_BLOG_POSTS as BlogPost[]);
       } finally {
         setLoading(false);
       }
@@ -99,28 +60,45 @@ export default function MagazineRack() {
     switch (category.toLowerCase()) {
       case 'health':
         return {
-          bg: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
-          accent: 'border-emerald-500',
-          badge: 'Health Pillar'
+          bg: 'bg-rose-500/20 text-rose-300 border-rose-500/30',
+          accent: 'border-rose-500',
+          badge: 'Health'
         };
       case 'fitness':
         return {
           bg: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
           accent: 'border-blue-500',
-          badge: 'Fitness Pillar'
+          badge: 'Fitness'
         };
       case 'nutrition':
         return {
-          bg: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
-          accent: 'border-amber-500',
-          badge: 'Nutrition Pillar'
+          bg: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
+          accent: 'border-emerald-500',
+          badge: 'Nutrition'
         };
       case 'wellness':
-      default:
         return {
           bg: 'bg-purple-500/20 text-purple-300 border-purple-500/30',
           accent: 'border-purple-500',
-          badge: 'Wellness Pillar'
+          badge: 'Wellness'
+        };
+      case 'social-fitness':
+        return {
+          bg: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
+          accent: 'border-cyan-500',
+          badge: 'Social Fitness'
+        };
+      case 'womens-health':
+        return {
+          bg: 'bg-pink-500/20 text-pink-300 border-pink-500/30',
+          accent: 'border-pink-500',
+          badge: "Women's Health"
+        };
+      default:
+        return {
+          bg: 'bg-slate-500/20 text-slate-300 border-slate-500/30',
+          accent: 'border-slate-500',
+          badge: 'Insights'
         };
     }
   };
@@ -153,13 +131,46 @@ export default function MagazineRack() {
           </div>
         </div>
 
+        {/* Category Tabs */}
+        <div className="mb-12 flex flex-wrap gap-2.5 pb-6 border-b border-slate-900/60">
+          {CATEGORIES.map(cat => {
+            const isActive = selectedCategory === cat.id;
+            return (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`px-5 py-2.5 rounded-full border text-xs font-black uppercase tracking-widest transition-all duration-300 outline-none cursor-pointer ${
+                  isActive 
+                    ? 'border-blue-500 bg-blue-500/10 text-white shadow-lg shadow-blue-500/5' 
+                    : 'border-slate-800 bg-slate-900/40 hover:bg-slate-900 text-slate-400 hover:text-white'
+                }`}
+              >
+                {cat.name}
+              </button>
+            );
+          })}
+        </div>
+
         {loading ? (
           <div className="flex justify-center items-center py-32">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
           </div>
+        ) : filteredPosts.length === 0 ? (
+          <div className="bg-slate-900/40 border border-slate-800 rounded-[2rem] p-20 text-center backdrop-blur-sm max-w-2xl mx-auto">
+            <h3 className="text-2xl font-display font-black uppercase tracking-tight text-white mb-4">No issues here yet</h3>
+            <p className="text-slate-400 mb-8 font-medium">
+              We haven't published any articles in this category yet. Check back soon for fresh weekly updates.
+            </p>
+            <button 
+              onClick={() => setSelectedCategory('all')} 
+              className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-black uppercase tracking-widest transition-all"
+            >
+              Browse All Issues
+            </button>
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {posts.map((post, idx) => {
+            {filteredPosts.map((post, idx) => {
               const styles = getPillarStyles(post.category);
               return (
                 <Link
@@ -183,7 +194,14 @@ export default function MagazineRack() {
                   <div className="relative z-10 p-6 h-full flex flex-col justify-between">
                     {/* Top Header Row of the Cover */}
                     <div className="flex justify-between items-start">
-                      <span className={`px-2.5 py-1 rounded border text-[9px] font-black uppercase tracking-widest ${styles.bg}`}>
+                      <span 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          navigate(`/blog/category/${post.category}`);
+                        }}
+                        className={`px-2.5 py-1 rounded border text-[9px] font-black uppercase tracking-widest transition-colors cursor-pointer hover:bg-white hover:text-slate-950 ${styles.bg}`}
+                      >
                         {styles.badge}
                       </span>
                       <div className="text-right text-[9px] font-bold text-slate-400 tracking-wider uppercase space-y-0.5">

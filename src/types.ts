@@ -30,6 +30,8 @@ export type BlogPost = {
   affiliate_url?: string;
   affiliate_product_1?: string;
   affiliate_product_2?: string;
+  affiliate_product_3?: string;
+  affiliate_product_4?: string;
   excerpt: string;
   tags: string[];
   featured: boolean;

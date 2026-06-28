@@ -10,6 +10,7 @@ const Navbar = () => {
   const [mobilePillarsOpen, setMobilePillarsOpen] = useState(false);
   const [mobileSocialOpen, setMobileSocialOpen] = useState(false);
   const [mobileWellnessOpen, setMobileWellnessOpen] = useState(false);
+  const [mobileUpdatesOpen, setMobileUpdatesOpen] = useState(false);
   
   const location = useLocation();
   const t = useT();
@@ -28,6 +29,7 @@ const Navbar = () => {
     setMobilePillarsOpen(false);
     setMobileSocialOpen(false);
     setMobileWellnessOpen(false);
+    setMobileUpdatesOpen(false);
   }, [location]);
 
   const pillars = [
@@ -155,9 +157,50 @@ const Navbar = () => {
               </div>
 
               {/* Remaining flat links */}
-              <Link to="/updates" className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors">
-                Updates
-              </Link>
+              {/* Updates Dropdown */}
+              <div className="relative group py-2">
+                <button className="flex items-center px-4 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors cursor-pointer outline-none">
+                  Blog Updates
+                  <ChevronDown size={10} className="ml-1.5 transition-transform group-hover:rotate-180 duration-300" />
+                </button>
+                
+                {/* Updates Dropdown Panel */}
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 hidden group-hover:block w-72 pt-3 z-50">
+                  <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 shadow-2xl space-y-1">
+                    <div className="text-[9px] font-black uppercase tracking-wider text-slate-500 mb-2 px-3 border-b border-slate-900 pb-2">Research Categories</div>
+                    
+                    <Link
+                      to="/updates"
+                      className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition-all text-[11px] font-black uppercase tracking-wider text-left"
+                    >
+                      <Info size={14} className="text-blue-400" />
+                      <span>All Updates</span>
+                    </Link>
+
+                    {[
+                      { name: 'Health', path: '/blog/category/health', desc: 'Cellular & longevity research', icon: Shield },
+                      { name: 'Fitness', path: '/blog/category/fitness', desc: 'Training protocols & recovery', icon: Dumbbell },
+                      { name: 'Nutrition', path: '/blog/category/nutrition', desc: 'Nutrition & supplement strategy', icon: Apple },
+                      { name: 'Wellness', path: '/blog/category/wellness', desc: 'Nervous system & breathwork', icon: Heart }
+                    ].map(cat => {
+                      const Icon = cat.icon;
+                      return (
+                        <Link
+                          key={cat.name}
+                          to={cat.path}
+                          className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition-all"
+                        >
+                          <Icon size={14} className="text-blue-400" />
+                          <div>
+                            <div className="text-[11px] font-black uppercase tracking-wider text-left">{cat.name}</div>
+                            <div className="text-[9px] text-slate-500 mt-0.5 text-left">{cat.desc}</div>
+                          </div>
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
               <Link to="/premium-guides" className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors">
                 Premium Guides
               </Link>
@@ -295,15 +338,51 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* Flat Link Updates */}
-            <Link
-              to="/updates"
-              onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 p-4 bg-white/5 rounded-2xl border border-white/5 text-white"
-            >
-              <Info size={16} className="text-blue-400" />
-              <span className="text-base font-display font-black uppercase tracking-tight">Updates</span>
-            </Link>
+            {/* Accordion: Updates */}
+            <div className="bg-white/5 rounded-2xl border border-white/5 overflow-hidden">
+              <button
+                onClick={() => setMobileUpdatesOpen(!mobileUpdatesOpen)}
+                className="w-full flex items-center justify-between p-4 text-white hover:bg-white/5 transition-all outline-none"
+              >
+                <div className="flex items-center gap-3">
+                  <Info size={16} className="text-blue-400" />
+                  <span className="text-base font-display font-black uppercase tracking-tight">Blog Updates</span>
+                </div>
+                <ChevronDown size={16} className={`text-slate-500 transition-transform duration-300 ${mobileUpdatesOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {mobileUpdatesOpen && (
+                <div className="bg-slate-950/60 border-t border-white/5 p-3 space-y-1">
+                  <Link
+                    to="/updates"
+                    onClick={() => setIsOpen(false)}
+                    className="flex items-center gap-2 p-3 rounded-xl hover:bg-white/5 text-slate-300 text-xs font-bold uppercase tracking-wider"
+                  >
+                    <Info size={14} className="text-blue-400" />
+                    <span>All Updates</span>
+                  </Link>
+                  {[
+                    { name: 'Health', path: '/blog/category/health', icon: Shield },
+                    { name: 'Fitness', path: '/blog/category/fitness', icon: Dumbbell },
+                    { name: 'Nutrition', path: '/blog/category/nutrition', icon: Apple },
+                    { name: 'Wellness', path: '/blog/category/wellness', icon: Heart }
+                  ].map(cat => {
+                    const PillarIcon = cat.icon;
+                    return (
+                      <Link
+                        key={cat.name}
+                        to={cat.path}
+                        onClick={() => setIsOpen(false)}
+                        className="flex items-center gap-2 p-3 rounded-xl hover:bg-white/5 text-slate-300 text-xs font-bold uppercase tracking-wider"
+                      >
+                        <PillarIcon size={14} className="text-blue-400" />
+                        <span>{cat.name}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
 
             {/* Flat Link Premium Guides */}
             <Link

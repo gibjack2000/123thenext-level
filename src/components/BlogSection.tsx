@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, Clock, Tag } from 'lucide-react';
 import { motion } from 'motion/react';
 import { supabase } from '../lib/supabase';
@@ -18,6 +18,7 @@ interface BlogSectionProps {
 export default function BlogSection({ category, limit = 3, title, subtitle, className = "", featured }: BlogSectionProps) {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchPosts() {
@@ -42,9 +43,18 @@ export default function BlogSection({ category, limit = 3, title, subtitle, clas
         const { data, error } = await query;
         if (error) throw error;
         
-        // Only set posts if we got data. 
-        // If data is empty but we had no error, it means the category is just empty.
-        setPosts(data || []);
+        if (data && data.length > 0) {
+          setPosts(data);
+        } else {
+          let mockPosts = MOCK_BLOG_POSTS;
+          if (category) {
+            mockPosts = mockPosts.filter((p: any) => p.category === category);
+          }
+          if (featured !== undefined) {
+            mockPosts = mockPosts.filter((p: any) => p.featured === featured);
+          }
+          setPosts(mockPosts.slice(0, limit) as BlogPost[]);
+        }
       } catch (err: any) {
         console.error('Error fetching blog posts, using mock data:', err);
         
@@ -110,7 +120,14 @@ export default function BlogSection({ category, limit = 3, title, subtitle, clas
                   <span className="px-3 py-1 rounded-full bg-blue-600 text-[10px] font-bold uppercase tracking-widest text-white shadow-lg">
                     Daily Intelligence
                   </span>
-                  <span className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-bold uppercase tracking-widest text-slate-900 shadow-sm">
+                  <span 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      navigate(`/blog/category/${post.category}`);
+                    }}
+                    className="px-3 py-1 rounded-full bg-white/90 backdrop-blur-sm text-[10px] font-bold uppercase tracking-widest text-slate-900 shadow-sm hover:bg-slate-200 hover:text-blue-600 transition-colors cursor-pointer"
+                  >
                     {post.category}
                   </span>
                 </div>

@@ -62,7 +62,7 @@ async function main() {
   console.log(`Found ${subscribers.length} subscribers. Fetching latest posts...`);
 
   // Fetch latest published post for each category
-  const categories = ['health', 'fitness', 'nutrition', 'wellness'];
+  const categories = ['health', 'fitness', 'nutrition', 'wellness', 'social-fitness', 'womens-health'];
   const latestPosts = {};
 
   for (const cat of categories) {
@@ -91,9 +91,16 @@ async function main() {
 
   console.log('Starting newsletter distribution...');
 
+  const mapPreferenceToCategorySlug = (pref) => {
+    const clean = pref.toLowerCase().trim();
+    if (clean === 'social fitness') return 'social-fitness';
+    if (clean === "women's health" || clean === "womens health" || clean === "women’s health") return 'womens-health';
+    return clean;
+  };
+
   for (const subscriber of subscribers) {
     const userPrefs = (subscriber.preferences && subscriber.preferences.length > 0)
-      ? subscriber.preferences.map(p => p.toLowerCase())
+      ? subscriber.preferences.map(mapPreferenceToCategorySlug)
       : categories;
 
     // Filter posts matching preferences
@@ -109,15 +116,29 @@ async function main() {
     // Build Bento Box HTML content
     let bentoBoxesHtml = '';
     
+    const categoryColors = {
+      health: '#f43f5e',          // rose-500
+      fitness: '#3b82f6',         // blue-500
+      nutrition: '#10b981',       // emerald-500
+      wellness: '#a855f7',        // purple-500
+      'social-fitness': '#06b6d4', // cyan-500
+      'womens-health': '#ec4899'   // pink-500
+    };
+    
     selectedPosts.forEach((post) => {
       const readUrl = `${appUrl}/blog/${post.slug}`;
+      const formattedCategory = post.category
+        ? post.category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')
+        : '';
+      const categoryColor = categoryColors[post.category?.toLowerCase()] || '#3b82f6';
+
       bentoBoxesHtml += `
         <!-- Bento Box Item -->
         <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom: 20px; background-color: #ffffff; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; font-family: sans-serif;">
           <tr>
             <td style="padding: 20px;">
-              <span style="font-size: 10px; font-weight: 800; text-transform: uppercase; color: #3b82f6; letter-spacing: 0.1em; display: inline-block; margin-bottom: 8px;">
-                ${post.category} Pillar
+              <span style="font-size: 10px; font-weight: 800; text-transform: uppercase; color: ${categoryColor}; letter-spacing: 0.1em; display: inline-block; margin-bottom: 8px;">
+                ${formattedCategory}
               </span>
               <h3 style="margin: 0 0 10px 0; font-size: 18px; font-weight: bold; color: #1e293b; line-height: 1.3;">
                 ${post.title}

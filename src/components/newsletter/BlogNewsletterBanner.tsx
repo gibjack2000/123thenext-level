@@ -12,8 +12,10 @@ export default function BlogNewsletterBanner({ currentCategory }: BlogNewsletter
   const t = useT();
   const [email, setEmail] = useState('');
   const [selectedPrefs, setSelectedPrefs] = useState<string[]>(() => {
-    if (currentCategory && CATEGORIES.includes(currentCategory)) {
-      return [currentCategory];
+    if (currentCategory) {
+      const cleanCat = currentCategory.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const match = CATEGORIES.find(cat => cat.toLowerCase().replace(/[^a-z0-9]/g, '') === cleanCat);
+      if (match) return [match];
     }
     return CATEGORIES;
   });
