@@ -43,16 +43,21 @@ export default function BlogSection({ category, limit = 3, title, subtitle, clas
         const { data, error } = await query;
         if (error) throw error;
         
+        let mockPosts = MOCK_BLOG_POSTS;
+        if (category) {
+          mockPosts = mockPosts.filter((p: any) => p.category === category);
+        }
+        if (featured !== undefined) {
+          mockPosts = mockPosts.filter((p: any) => p.featured === featured);
+        }
+
         if (data && data.length > 0) {
-          setPosts(data);
+          const dbSlugs = new Set(data.map(p => p.slug));
+          const uniqueMock = mockPosts.filter(p => !dbSlugs.has(p.slug)) as BlogPost[];
+          const merged = [...data, ...uniqueMock];
+          merged.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+          setPosts(merged.slice(0, limit));
         } else {
-          let mockPosts = MOCK_BLOG_POSTS;
-          if (category) {
-            mockPosts = mockPosts.filter((p: any) => p.category === category);
-          }
-          if (featured !== undefined) {
-            mockPosts = mockPosts.filter((p: any) => p.featured === featured);
-          }
           setPosts(mockPosts.slice(0, limit) as BlogPost[]);
         }
       } catch (err: any) {

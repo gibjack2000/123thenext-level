@@ -79,13 +79,19 @@ export default function BlogCategoryPage() {
           .order('created_at', { ascending: false });
 
         if (error) throw error;
+        
+        const categoryMockPosts = MOCK_BLOG_POSTS.filter(
+          p => p.category?.toLowerCase() === catKey
+        ) as BlogPost[];
+
         if (data && data.length > 0) {
-          setPosts(data);
+          const dbSlugs = new Set(data.map(p => p.slug));
+          const uniqueMock = categoryMockPosts.filter(p => !dbSlugs.has(p.slug));
+          const merged = [...data, ...uniqueMock];
+          merged.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+          setPosts(merged);
         } else {
-          const filtered = MOCK_BLOG_POSTS.filter(
-            p => p.category?.toLowerCase() === catKey
-          ) as BlogPost[];
-          setPosts(filtered);
+          setPosts(categoryMockPosts);
         }
       } catch (err) {
         console.error('Error fetching blogs from Supabase, falling back to mock data:', err);
