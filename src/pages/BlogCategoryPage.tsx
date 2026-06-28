@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { ArrowLeft, Clock, Tag, Home, ChevronRight, BookOpen } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { BlogPost } from '../types';
 import { MOCK_BLOG_POSTS } from '../data/mockBlogPosts';
 
@@ -69,7 +69,13 @@ export default function BlogCategoryPage() {
     async function fetchPosts() {
       try {
         setLoading(true);
-        if (!supabase) throw new Error('Supabase client not initialized');
+        if (!supabase || !hasValidSupabaseConfig) {
+          const filtered = MOCK_BLOG_POSTS.filter(
+            p => p.category?.toLowerCase() === catKey
+          ) as BlogPost[];
+          setPosts(filtered);
+          return;
+        }
 
         const { data, error } = await supabase
           .from('blog_posts')
@@ -79,26 +85,14 @@ export default function BlogCategoryPage() {
           .order('created_at', { ascending: false });
 
         if (error) throw error;
-        
-        const categoryMockPosts = MOCK_BLOG_POSTS.filter(
-          p => p.category?.toLowerCase() === catKey
-        ) as BlogPost[];
-
         if (data && data.length > 0) {
-          const dbSlugs = new Set(data.map(p => p.slug));
-          const uniqueMock = categoryMockPosts.filter(p => !dbSlugs.has(p.slug));
-          const merged = [...data, ...uniqueMock];
-          merged.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-          setPosts(merged);
+          setPosts(data);
         } else {
-          setPosts(categoryMockPosts);
+          setPosts([]);
         }
       } catch (err) {
-        console.error('Error fetching blogs from Supabase, falling back to mock data:', err);
-        const filtered = MOCK_BLOG_POSTS.filter(
-          p => p.category?.toLowerCase() === catKey
-        ) as BlogPost[];
-        setPosts(filtered);
+        console.error('Error fetching blogs from Supabase:', err);
+        setPosts([]);
       } finally {
         setLoading(false);
       }

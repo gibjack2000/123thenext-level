@@ -41,17 +41,13 @@ export default function MagazineRack() {
 
         if (error) throw error;
         if (data && data.length > 0) {
-          const dbSlugs = new Set(data.map(p => p.slug));
-          const uniqueMock = MOCK_BLOG_POSTS.filter(p => !dbSlugs.has(p.slug)) as BlogPost[];
-          const merged = [...data, ...uniqueMock];
-          merged.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-          setPosts(merged);
+          setPosts(data);
         } else {
-          setPosts(MOCK_BLOG_POSTS as BlogPost[]);
+          setPosts([]);
         }
       } catch (err) {
         console.error('Error fetching blog posts for Magazine Rack:', err);
-        setPosts(MOCK_BLOG_POSTS as BlogPost[]);
+        setPosts([]);
       } finally {
         setLoading(false);
       }

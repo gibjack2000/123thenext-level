@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, Calendar, Tag as TagIcon, Share2 } from 'lucide-react';
 import { motion } from 'motion/react';
-import { supabase } from '../lib/supabase';
+import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { BlogPost } from '../types';
 import { MOCK_BLOG_POSTS } from '../data/mockBlogPosts';
 import BlogNewsletterBanner from '../components/newsletter/BlogNewsletterBanner';
@@ -24,7 +24,7 @@ export default function BlogPostPage() {
       try {
         let postData: any = null;
         
-        if (supabase) {
+        if (supabase && hasValidSupabaseConfig) {
           try {
             const { data, error: postError } = await supabase
               .from('blog_posts')
@@ -35,10 +35,8 @@ export default function BlogPostPage() {
             if (postError) throw postError;
             postData = data;
           } catch (dbErr) {
-            console.warn('Post not found in database, checking mock data:', dbErr);
-            const mockPost = MOCK_BLOG_POSTS.find(p => p.slug === slug);
-            if (!mockPost) throw new Error('Post not found anywhere');
-            postData = mockPost;
+            console.warn('Post not found in database:', dbErr);
+            throw new Error('Post not found');
           }
         } else {
           console.warn('Supabase not initialized, using mock data');
