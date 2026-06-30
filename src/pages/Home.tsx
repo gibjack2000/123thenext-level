@@ -547,18 +547,18 @@ export default function Home() {
 
               {/* 🎯 Enhanced Holistic CTA Section */}
               <div className="mt-12 holistic-cta-section-enhanced">
-                <button className="holistic-cta-main">
+                <Link to="/health-quiz" className="holistic-cta-main">
                   Begin Your Complete Holistic Journey
-                </button>
+                </Link>
                 <p className="cta-description">
                   Start with our wellness quiz → Get personalized assessment → Access expert guides & products → Transform body and mind together
                 </p>
                 <div className="journey-preview">
-                  <span className="journey-step">🎯 Quiz → Results</span>
+                  <Link to="/health-quiz" className="journey-step">🎯 Quiz → Results</Link>
                   <span className="journey-arrow">→</span>
-                  <span className="journey-step">📚 Guides → Products</span>
+                  <Link to="/premium-guides" className="journey-step">📚 Guides → Products</Link>
                   <span className="journey-arrow">→</span>
-                  <span className="journey-step">⚖️ Balance → Wellness</span>
+                  <Link to="/wellness" className="journey-step">⚖️ Balance → Wellness</Link>
                 </div>
               </div>
             </div>
@@ -1518,6 +1518,8 @@ export default function Home() {
         }
 
         .holistic-cta-main {
+          display: inline-block;
+          text-decoration: none;
           background: linear-gradient(135deg, #ffd93d, #ff6b6b, #4dabf7, #ae3ec9);
           color: #0d1b2a;
           border: none;
@@ -1573,6 +1575,8 @@ export default function Home() {
         }
 
         .journey-step {
+          display: inline-block;
+          text-decoration: none;
           background: rgba(255,215,0,0.1);
           padding: 8px 16px;
           border-radius: 20px;
