@@ -329,13 +329,27 @@ export default function Home() {
               
               {/* Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                <Link to="/start-here" className="inline-flex justify-center items-center px-7 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-2xl font-bold uppercase tracking-wider text-xs transition-all active:scale-[0.98] shadow-lg shadow-blue-900/30 border border-blue-500/20">
-                  Start Here (Beginner's Pathway)
-                  <ArrowRight size={16} className="ml-2" />
+                <Link to="/health-quiz" className="inline-flex justify-center items-center px-6 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-bold uppercase tracking-wider text-xs transition-all active:scale-[0.98] shadow-lg shadow-blue-900/30 border border-blue-500/20 whitespace-nowrap">
+                  Take Wellness Quiz
+                  <ArrowRight size={14} className="ml-2" />
                 </Link>
-                <a href="#pillars" className="inline-flex justify-center items-center px-7 py-3.5 bg-white/5 hover:bg-white/10 text-white rounded-2xl font-bold uppercase tracking-wider text-xs transition-colors border border-white/15">
-                  Explore the Blueprint
+                <a href="#pillars" className="inline-flex justify-center items-center px-6 py-3.5 bg-white/5 hover:bg-white/10 text-white rounded-xl font-bold uppercase tracking-wider text-xs transition-colors border border-white/15 whitespace-nowrap">
+                  Explore Pillars
+                  <ArrowRight size={14} className="ml-2" />
                 </a>
+              </div>
+
+              {/* Quiz Urgency Metrics */}
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-slate-400 pt-2 border-t border-white/5">
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+                  <span><strong>142</strong> assessments completed this week</span>
+                </div>
+                <div className="w-1 h-1 rounded-full bg-slate-700 hidden sm:block"></div>
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                  <span><strong>5-minute</strong> diagnostic blueprint</span>
+                </div>
               </div>
             </div>
 
@@ -364,6 +378,84 @@ export default function Home() {
 
           </div>
 
+          {/* 🌱 Holistic Benefits Section */}
+          <div className="mt-24 pt-16 border-t border-white/5">
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500 block mb-3">Holistic Paradigm</span>
+              <h2 className="text-3xl md:text-5xl font-display uppercase tracking-tight text-white mb-6">
+                Why Choose a Holistic Approach?
+              </h2>
+              <p className="text-slate-400 text-lg leading-relaxed font-medium">
+                Build resilience before problems arise. We integrate science-backed protocols with proven wellness practices to transform reactive care into sustainable vitality.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="benefit-card">
+                <div className="benefit-icon">🧠</div>
+                <h4 className="text-lg font-bold text-white mb-2">Mind-Body Connection</h4>
+                <p className="text-slate-400 text-sm leading-relaxed">Your wellness journey connects mental clarity with physical vitality, creating true balance.</p>
+              </div>
+              <div className="benefit-card">
+                <div className="benefit-icon">🎯</div>
+                <h4 className="text-lg font-bold text-white mb-2">Proactive Prevention</h4>
+                <p className="text-slate-400 text-sm leading-relaxed">Build resilience before problems arise. Transform reactive care into sustainable wellness.</p>
+              </div>
+              <div className="benefit-card">
+                <div className="benefit-icon">⚖️</div>
+                <h4 className="text-lg font-bold text-white mb-2">Comprehensive Support</h4>
+                <p className="text-slate-400 text-sm leading-relaxed">Science-backed protocols integrated with proven wellness practices for optimal results.</p>
+              </div>
+              <div className="benefit-card">
+                <div className="benefit-icon">📈</div>
+                <h4 className="text-lg font-bold text-white mb-2">Measurable Progress</h4>
+                <p className="text-slate-400 text-sm leading-relaxed">Track your transformation from reactive patterns to proactive wellness habits.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* 📚 Resources Showcase Section */}
+          <div className="mt-24 pt-16 border-t border-white/5">
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500 block mb-3">Resource Ecosystem</span>
+              <h2 className="text-3xl md:text-5xl font-display uppercase tracking-tight text-white mb-6">
+                Your Complete Wellness Toolkit
+              </h2>
+              <p className="text-slate-400 text-lg leading-relaxed font-medium">
+                Access curated blueprints, protocols, and guides to support every pillar of your wellness journey.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <Link to="/premium-guides" className="resource-preview">
+                <div className="resource-icon">📖</div>
+                <div className="resource-content text-left">
+                  <h4>Premium Wellness Guides</h4>
+                  <p>Science-backed protocols for physical, mental, and spiritual wellness</p>
+                  <span className="resource-count">50+ comprehensive guides available</span>
+                </div>
+              </Link>
+
+              <a href="#shop" className="resource-preview">
+                <div className="resource-icon">🛍️</div>
+                <div className="resource-content text-left">
+                  <h4>Curated Wellness Products</h4>
+                  <p>Expert-recommended tools, supplements, and resources for your journey</p>
+                  <span className="resource-count">100+ vetted products</span>
+                </div>
+              </a>
+
+              <Link to="/intelligence-hub" className="resource-preview">
+                <div className="resource-icon">🎯</div>
+                <div className="resource-content text-left">
+                  <h4>Expert Protocols</h4>
+                  <p>Guided pathways with step-by-step instructions for optimal results</p>
+                  <span className="resource-count">24 structured programs</span>
+                </div>
+              </Link>
+            </div>
+          </div>
+
           {/* New Extended Hero Text Block */}
           <div ref={extendedHeroRef} className="mt-20 md:mt-28 lg:w-11/12 xl:w-full mx-auto">
             <div className="p-8 md:p-12 rounded-[2rem] bg-slate-900/40 backdrop-blur-xl border border-slate-700/50 shadow-2xl relative overflow-hidden group">
@@ -378,58 +470,66 @@ export default function Home() {
 
               <div className="relative z-10">
                 <h2 className="text-3xl md:text-4xl font-display uppercase tracking-tight text-white mb-8 border-l-4 border-blue-500 pl-4">
-                  {t('hero_block_title')} <br className="hidden md:block" />
-                  <span className="text-blue-400">{t('hero_block_subtitle')}</span>
+                  {t('hero_block_title')}
+                  <span className="text-blue-400">Take Your Quiz First</span>
                 </h2>
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
                   <div className="lg:col-span-5 space-y-6">
                     <p className="text-xl text-slate-200 leading-relaxed font-medium">
                       {t('hero_block_p1')}
+                      <span className="text-blue-400 font-bold block mt-2">
+                        Start with our 5-minute wellness quiz - your personalized roadmap begins here.
+                      </span>
                     </p>
                     <p className="text-emerald-400 leading-relaxed text-lg">
-                      {t('hero_block_p2')}
-                    </p>
-                    <p className="text-emerald-400 leading-relaxed text-lg">
-                      {t('hero_block_p3')}
+                      Discover exactly which wellness pillars need attention and get started with your focused action plan - no more guessing!
                     </p>
                   </div>
 
                   <div className="lg:col-span-7">
                     <h3 className="text-2xl font-display uppercase tracking-tight text-white mb-6 flex items-center">
                       <Sparkles className="text-blue-400 mr-3" size={24} />
-                      {t('hero_keys_title')}
+                      What Your Quiz Reveals
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
                       <div className="flex items-start">
-                        <span className="flex-shrink-0 w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center mr-4 shadow-[0_0_15px_rgba(16,185,129,0.1)]"><Apple size={18} /></span>
+                        <span className="flex-shrink-0 w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 flex items-center justify-center mr-4">
+                          <Heart size={18} />
+                        </span>
                         <div>
-                          <strong className="text-white block mb-1 text-lg">Metabolic Nutrition</strong>
-                          <span className="text-emerald-400 text-sm leading-relaxed block">View food as your body's primary metabolic fuel. A diet rich in whole foods, quality proteins, and healthy fats supports optimal metabolic functioning and prevents chronic disease.</span>
+                          <strong className="text-white block mb-1 text-lg">Your Current State</strong>
+                          <span className="text-emerald-400 text-sm leading-relaxed block">Your quiz reveals your strongest wellness pillars - start building on what you already do well.</span>
                         </div>
                       </div>
 
                       <div className="flex items-start">
-                        <span className="flex-shrink-0 w-10 h-10 rounded-2xl bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center justify-center mr-4 shadow-[0_0_15px_rgba(59,130,246,0.1)]"><Dumbbell size={18} /></span>
+                        <span className="flex-shrink-0 w-10 h-10 rounded-2xl bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center justify-center mr-4">
+                          <Dumbbell size={18} />
+                        </span>
                         <div>
-                          <strong className="text-white block mb-1 text-lg">Physical Activity</strong>
-                          <span className="text-emerald-400 text-sm leading-relaxed block">Consistency is what counts most. Whether it is a full-body workout or a 10-minute walk, regular movement is essential for maintaining cardiorespiratory fitness and cognitive performance.</span>
+                          <strong className="text-white block mb-1 text-lg">Your Personalized Action Plan</strong>
+                          <span className="text-emerald-400 text-sm leading-relaxed block">Get 3 focused steps based on your quiz results - not generic advice.</span>
                         </div>
                       </div>
 
                       <div className="flex items-start">
-                        <span className="flex-shrink-0 w-10 h-10 rounded-2xl bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center justify-center mr-4 shadow-[0_0_15px_rgba(244,63,94,0.1)]"><Heart size={18} /></span>
+                        <span className="flex-shrink-0 w-10 h-10 rounded-2xl bg-rose-500/10 text-rose-400 border border-rose-500/20 flex items-center justify-center mr-4">
+                          <Sparkles size={18} />
+                        </span>
                         <div>
-                          <strong className="text-white block mb-1 text-lg">Restorative Sleep</strong>
-                          <span className="text-emerald-400 text-sm leading-relaxed block">This is the critical time your body uses to rebuild, regrow, and recover. Depriving yourself of sleep triggers negative reactions that hinder physical and mental resilience.</span>
+                          <strong className="text-white block mb-1 text-lg">Progress Tracking</strong>
+                          <span className="text-emerald-400 text-sm leading-relaxed block">Watch your transformation from reactive to proactive wellness based on quiz insights.</span>
                         </div>
                       </div>
 
                       <div className="flex items-start">
-                        <span className="flex-shrink-0 w-10 h-10 rounded-2xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center mr-4 shadow-[0_0_15px_rgba(168,85,247,0.1)]"><Sparkles size={18} /></span>
+                        <span className="flex-shrink-0 w-10 h-10 rounded-2xl bg-purple-500/10 text-purple-400 border border-purple-500/20 flex items-center justify-center mr-4">
+                          <BookOpen size={18} />
+                        </span>
                         <div>
-                          <strong className="text-white block mb-1 text-lg">Mental & Social Well-Being</strong>
-                          <span className="text-emerald-400 text-sm leading-relaxed block">Managing stress through mindfulness and fostering deep social connections reduces anxiety and can even extend your lifespan.</span>
+                          <strong className="text-white block mb-1 text-lg">Holistic Learning</strong>
+                          <span className="text-emerald-400 text-sm leading-relaxed block">Your quiz paths you to specific resources and learning in your strongest areas.</span>
                         </div>
                       </div>
                     </div>
@@ -440,9 +540,26 @@ export default function Home() {
 
               <div className="mt-12 pt-8 border-t border-slate-700/50 text-center">
                 <p className="text-xl text-slate-300 font-medium max-w-4xl mx-auto mb-2">
-                  Sustainable health is about small, consistent daily steps that add up to life-changing improvements. Do not wait for "warning signals" before giving your body the care it deserves.
+                  The fastest way to wellness starts here: Take our quiz → Get your personalized assessment → Begin your transformation right now.
                 </p>
-                <span className="text-blue-400 font-bold block mt-4 text-2xl uppercase tracking-wider">Claim your vitality today.</span>
+                <span className="text-blue-400 font-bold block mt-4 text-2xl uppercase tracking-wider">Your wellness journey begins with one quiz.</span>
+              </div>
+
+              {/* 🎯 Enhanced Holistic CTA Section */}
+              <div className="mt-12 holistic-cta-section-enhanced">
+                <button className="holistic-cta-main">
+                  Begin Your Complete Holistic Journey
+                </button>
+                <p className="cta-description">
+                  Start with our wellness quiz → Get personalized assessment → Access expert guides & products → Transform body and mind together
+                </p>
+                <div className="journey-preview">
+                  <span className="journey-step">🎯 Quiz → Results</span>
+                  <span className="journey-arrow">→</span>
+                  <span className="journey-step">📚 Guides → Products</span>
+                  <span className="journey-arrow">→</span>
+                  <span className="journey-step">⚖️ Balance → Wellness</span>
+                </div>
               </div>
             </div>
           </div>
@@ -1290,6 +1407,235 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* =========================================================================== */}
+      {/* ENHANCED HERO SECTION STYLES - Added for holistic benefits and resources */}
+      {/* =========================================================================== */}
+      <style dangerouslySetInnerHTML={{__html: `
+        .holistic-benefits-section {
+          margin: 40px 0;
+          padding: 30px;
+          background: rgba(255,255,255,0.05);
+          border-radius: 20px;
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255,255,255,0.1);
+          animation: fadeInUp 0.8s ease-out;
+        }
+
+        .benefit-card {
+          background: rgba(255,255,255,0.08);
+          padding: 25px;
+          border-radius: 16px;
+          border: 1px solid rgba(255,255,255,0.15);
+          transition: all 0.3s ease;
+          cursor: pointer;
+          height: 100%;
+        }
+
+        .benefit-card:hover {
+          transform: translateY(-5px) scale(1.02);
+          background: rgba(255,255,255,0.12);
+          box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+          border-color: rgba(255,215,0,0.5);
+        }
+
+        .benefit-icon {
+          font-size: 2.5rem;
+          margin-bottom: 15px;
+          display: block;
+          animation: pulse 2s infinite;
+        }
+
+        .resources-showcase {
+          margin: 40px 0;
+        }
+
+        .resources-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          gap: 20px;
+          margin-top: 20px;
+        }
+
+        .resource-preview {
+          background: rgba(255,255,255,0.05);
+          border-radius: 16px;
+          padding: 25px;
+          border: 1px solid rgba(255,255,255,0.1);
+          display: flex;
+          gap: 20px;
+          align-items: center;
+          transition: all 0.3s ease;
+          cursor: pointer;
+        }
+
+        .resource-preview:hover {
+          background: rgba(255,255,255,0.08);
+          transform: translateY(-3px);
+          box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+          border-color: rgba(255,215,0,0.3);
+        }
+
+        .resource-icon {
+          font-size: 3rem;
+          width: 60px;
+          height: 60px;
+          background: rgba(255,255,255,0.1);
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          animation: glow 3s infinite;
+        }
+
+        .resource-content h4 {
+          color: white;
+          margin-bottom: 8px;
+          font-size: 1.2rem;
+          font-weight: 700;
+        }
+
+        .resource-content p {
+          color: rgba(255,255,255,0.7);
+          margin-bottom: 8px;
+          font-size: 0.9rem;
+          line-height: 1.4;
+        }
+
+        .resource-count {
+          color: #ffd93d;
+          font-size: 0.8rem;
+          font-weight: 600;
+          background: rgba(255,215,0,0.1);
+          padding: 2px 8px;
+          border-radius: 8px;
+        }
+
+        .holistic-cta-section-enhanced {
+          margin: 40px 0;
+          text-align: center;
+          animation: fadeIn 1s ease-out;
+        }
+
+        .holistic-cta-main {
+          background: linear-gradient(135deg, #ffd93d, #ff6b6b, #4dabf7, #ae3ec9);
+          color: #0d1b2a;
+          border: none;
+          padding: 25px 80px;
+          font-size: 1.4rem;
+          font-weight: 800;
+          border-radius: 50px;
+          cursor: pointer;
+          transition: all 0.4s ease;
+          box-shadow: 0 8px 30px rgba(255,215,0,0.5);
+          margin-bottom: 20px;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .holistic-cta-main::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+          transition: left 0.8s;
+        }
+
+        .holistic-cta-main:hover::before {
+          left: 100%;
+        }
+
+        .holistic-cta-main:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 15px 40px rgba(255,215,0,0.7);
+          letter-spacing: 2px;
+          background: linear-gradient(135deg, #fff176, #ff5252, #45a5f7, #c855f0);
+        }
+
+        .cta-description {
+          color: rgba(255,255,255,0.8);
+          font-size: 1.1rem;
+          max-width: 600px;
+          margin: 0 auto 20px;
+          line-height: 1.6;
+        }
+
+        .journey-preview {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 15px;
+          flex-wrap: wrap;
+          margin-top: 20px;
+        }
+
+        .journey-step {
+          background: rgba(255,215,0,0.1);
+          padding: 8px 16px;
+          border-radius: 20px;
+          border: 1px solid rgba(255,215,0,0.3);
+          color: #ffd93d;
+          font-weight: 600;
+          font-size: 0.9rem;
+          transition: all 0.3s ease;
+        }
+
+        .journey-step:hover {
+          background: rgba(255,215,0,0.2);
+          transform: scale(1.05);
+          box-shadow: 0 5px 15px rgba(255,215,0,0.3);
+        }
+
+        .journey-arrow {
+          color: rgba(255,255,255,0.5);
+          font-weight: bold;
+          font-size: 1.2rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        @keyframes pulse {
+          0%, 100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+          50% {
+            transform: scale(1.1);
+            opacity: 0.8;
+          }
+        }
+
+        @keyframes glow {
+          0%, 100% {
+            box-shadow: 0 0 20px rgba(255,215,0,0.3);
+          }
+          50% {
+            box-shadow: 0 0 30px rgba(255,215,0,0.6);
+          }
+        }
+      `}} />
     </div>
   );
 }
