@@ -380,14 +380,54 @@ export default function Home() {
 
           {/* 🌱 Holistic Benefits Section */}
           <div className="mt-24 pt-16 border-t border-white/5">
-            <div className="text-center max-w-3xl mx-auto mb-16">
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500 block mb-3">Holistic Paradigm</span>
-              <h2 className="text-3xl md:text-5xl font-display uppercase tracking-tight text-white mb-6">
-                Why Choose a Holistic Approach?
+            <div className="max-w-4xl mx-auto mb-16">
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500 block mb-3">Our Mission</span>
+              <h2 className="text-3xl md:text-5xl font-display uppercase tracking-tight text-white mb-8 text-left">
+                The Proactive Health Paradigm
               </h2>
-              <p className="text-slate-400 text-lg leading-relaxed font-medium">
-                Build resilience before problems arise. We integrate science-backed protocols with proven wellness practices to transform reactive care into sustainable vitality.
-              </p>
+              
+              <div className="space-y-6 text-slate-300 text-lg leading-relaxed font-medium text-left">
+                <p>
+                  At <span className="text-white font-bold">123TheNext Level</span>, our mission is to give you the resources, tools, and knowledge to move beyond reactive "sick-care" and into proactive health optimization — building resilience before problems arise, not scrambling to fix them after.
+                </p>
+                <p>
+                  Research shows that 80–90% of how well you age comes down to lifestyle, not genetics. That means your daily choices, not your DNA, are the biggest lever you have. We help you pull it — turning reactive repair into sustainable, lasting vitality through science-backed protocols paired with practical daily habits.
+                </p>
+              </div>
+
+              <div className="mt-16 pt-12 border-t border-white/5 text-left">
+                <h3 className="text-2xl md:text-3xl font-display uppercase tracking-tight text-white mb-8">
+                  Your Toolkit for a Longer, Healthier Life
+                </h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-300">
+                  <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
+                    <strong className="text-white block text-lg mb-2">Six Core Optimization Protocols</strong>
+                    <span className="text-slate-400 text-sm leading-relaxed block">Detailed, actionable guides covering healthspan and longevity, metabolic nutrition, autonomic engineering, and socio-biological architecture.</span>
+                  </div>
+
+                  <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
+                    <strong className="text-white block text-lg mb-2">A Personalized Roadmap</strong>
+                    <span className="text-slate-400 text-sm leading-relaxed block">Start with a 5-minute wellness diagnostic and get a clear, focused plan based on where you actually stand today, not generic advice.</span>
+                  </div>
+
+                  <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
+                    <strong className="text-white block text-lg mb-2">Expert Guides & Daily Intelligence</strong>
+                    <span className="text-slate-400 text-sm leading-relaxed block">A daily feed of clinical research and insights, plus downloadable in-depth guides on fitness, nutrition, and stress management.</span>
+                  </div>
+
+                  <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
+                    <strong className="text-white block text-lg mb-2">A Curated Marketplace</strong>
+                    <span className="text-slate-400 text-sm leading-relaxed block">Over 100 expert-vetted tools, supplements, and bio-tracking devices, selected purely for quality and performance.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-12 text-slate-300 text-lg leading-relaxed font-medium text-left">
+                <p>
+                  Our goal is simple: keep your body strong, active, and independent as you age. With the right insights to track your progress and the right strategies to optimize your physical and mental health, <span className="text-white font-bold">123TheNext Level</span> helps you stop waiting for problems and start building a longer, healthier life today.
+                </p>
+              </div>
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
