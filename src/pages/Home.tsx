@@ -410,51 +410,59 @@ export default function Home() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-300">
                   {/* Toolkit item 1: Roadmap (Primary Quiz starting point) */}
-                  <div className="p-6 rounded-2xl bg-blue-500/5 border border-blue-500/25 hover:border-blue-500/40 transition-colors flex flex-col justify-between shadow-[inset_0_1px_1px_rgba(59,130,246,0.15)] relative overflow-hidden group/card">
-                    <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl pointer-events-none transition-opacity group-hover/card:opacity-100 opacity-60"></div>
-                    <div>
-                      <strong className="text-white block text-lg mb-2 flex items-center gap-2">
-                        A Personalized Roadmap 
-                        <span className="text-[10px] font-black uppercase bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full border border-blue-500/30">Start Here</span>
-                      </strong>
-                      <span className="text-slate-400 text-sm leading-relaxed block mb-6">Start with a 5-minute wellness diagnostic and get a clear, focused plan based on where you actually stand today, not generic advice.</span>
+                  <div className="toolkit-card-shell group">
+                    <div className="toolkit-card-inner justify-between">
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl pointer-events-none transition-opacity group-hover:opacity-100 opacity-60"></div>
+                      <div>
+                        <strong className="text-white block text-lg mb-2 flex items-center gap-2 font-display uppercase tracking-tight">
+                          A Personalized Roadmap 
+                          <span className="text-[9px] font-black uppercase bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full border border-blue-500/30">Start Here</span>
+                        </strong>
+                        <span className="text-slate-400 text-sm leading-relaxed block mb-6 transition-colors duration-500 group-hover:text-slate-300">Start with a 5-minute wellness diagnostic and get a clear, focused plan based on where you actually stand today, not generic advice.</span>
+                      </div>
+                      <Link to="/health-quiz" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors self-start mt-auto">
+                        Start Diagnostic Quiz <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                      </Link>
                     </div>
-                    <Link to="/health-quiz" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
-                      Start Diagnostic Quiz <ArrowRight size={12} className="group-hover/card:translate-x-1 transition-transform" />
-                    </Link>
                   </div>
 
                   {/* Toolkit item 2: Protocols */}
-                  <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors flex flex-col justify-between group/card">
-                    <div>
-                      <strong className="text-white block text-lg mb-2">Six Core Optimization Protocols</strong>
-                      <span className="text-slate-400 text-sm leading-relaxed block mb-6">Detailed, actionable guides covering healthspan and longevity, metabolic nutrition, autonomic engineering, and socio-biological architecture.</span>
+                  <div className="toolkit-card-shell group">
+                    <div className="toolkit-card-inner justify-between">
+                      <div>
+                        <strong className="text-white block text-lg mb-2 font-display uppercase tracking-tight group-hover:text-indigo-400 transition-colors duration-500">Six Core Optimization Protocols</strong>
+                        <span className="text-slate-400 text-sm leading-relaxed block mb-6 transition-colors duration-500 group-hover:text-slate-300">Detailed, actionable guides covering healthspan and longevity, metabolic nutrition, autonomic engineering, and socio-biological architecture.</span>
+                      </div>
+                      <Link to="/#six-core-optimization" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors self-start mt-auto">
+                        Explore Protocols <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                      </Link>
                     </div>
-                    <Link to="/#six-core-optimization" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
-                      Explore Protocols <ArrowRight size={12} className="group-hover/card:translate-x-1 transition-transform" />
-                    </Link>
                   </div>
 
                   {/* Toolkit item 3: Intelligence */}
-                  <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors flex flex-col justify-between group/card">
-                    <div>
-                      <strong className="text-white block text-lg mb-2">Expert Guides & Daily Intelligence</strong>
-                      <span className="text-slate-400 text-sm leading-relaxed block mb-6">A daily feed of clinical research and insights, plus downloadable in-depth guides on fitness, nutrition, and stress management.</span>
+                  <div className="toolkit-card-shell group">
+                    <div className="toolkit-card-inner justify-between">
+                      <div>
+                        <strong className="text-white block text-lg mb-2 font-display uppercase tracking-tight group-hover:text-violet-400 transition-colors duration-500">Expert Guides & Daily Intelligence</strong>
+                        <span className="text-slate-400 text-sm leading-relaxed block mb-6 transition-colors duration-500 group-hover:text-slate-300">A daily feed of clinical research and insights, plus downloadable in-depth guides on fitness, nutrition, and stress management.</span>
+                      </div>
+                      <Link to="/intelligence-hub" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors self-start mt-auto">
+                        Enter Intelligence Hub <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                      </Link>
                     </div>
-                    <Link to="/intelligence-hub" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
-                      Enter Intelligence Hub <ArrowRight size={12} className="group-hover/card:translate-x-1 transition-transform" />
-                    </Link>
                   </div>
 
                   {/* Toolkit item 4: Marketplace */}
-                  <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors flex flex-col justify-between group/card">
-                    <div>
-                      <strong className="text-white block text-lg mb-2">A Curated Marketplace</strong>
-                      <span className="text-slate-400 text-sm leading-relaxed block mb-6">Over 100 expert-vetted tools, supplements, and bio-tracking devices, selected purely for quality and performance.</span>
+                  <div className="toolkit-card-shell group">
+                    <div className="toolkit-card-inner justify-between">
+                      <div>
+                        <strong className="text-white block text-lg mb-2 font-display uppercase tracking-tight group-hover:text-emerald-400 transition-colors duration-500">A Curated Marketplace</strong>
+                        <span className="text-slate-400 text-sm leading-relaxed block mb-6 transition-colors duration-500 group-hover:text-slate-300">Over 100 expert-vetted tools, supplements, and bio-tracking devices, selected purely for quality and performance.</span>
+                      </div>
+                      <Link to="/#shop" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors self-start mt-auto">
+                        Browse Marketplace <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                      </Link>
                     </div>
-                    <Link to="/#shop" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
-                      Browse Marketplace <ArrowRight size={12} className="group-hover/card:translate-x-1 transition-transform" />
-                    </Link>
                   </div>
                 </div>
               </div>
@@ -1819,6 +1827,85 @@ export default function Home() {
             transform: scale(1.1);
             opacity: 0.8;
           }
+        }
+
+        /* Toolkit Ethereal Glass Cards */
+        .toolkit-card-shell {
+          background: rgba(15, 23, 42, 0.15);
+          padding: 8px;
+          border-radius: 24px;
+          border: 1px solid rgba(255, 255, 255, 0.04);
+          transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+          cursor: pointer;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .toolkit-card-shell:hover {
+          transform: translateY(-6px) scale(1.01);
+          background: rgba(15, 23, 42, 0.25);
+        }
+
+        /* Toolkit Card specific hover highlights */
+        .toolkit-card-shell:nth-child(1) {
+          background: rgba(59, 130, 246, 0.02);
+          border-color: rgba(59, 130, 246, 0.15);
+        }
+        .toolkit-card-shell:nth-child(1):hover {
+          border-color: rgba(59, 130, 246, 0.4);
+          box-shadow: 0 20px 45px -15px rgba(59, 130, 246, 0.22), inset 0 1px 0px rgba(255, 255, 255, 0.05);
+        }
+
+        .toolkit-card-shell:nth-child(2):hover {
+          border-color: rgba(99, 102, 241, 0.4);
+          box-shadow: 0 20px 45px -15px rgba(99, 102, 241, 0.22), inset 0 1px 0px rgba(255, 255, 255, 0.05);
+        }
+
+        .toolkit-card-shell:nth-child(3):hover {
+          border-color: rgba(139, 92, 246, 0.4);
+          box-shadow: 0 20px 45px -15px rgba(139, 92, 246, 0.22), inset 0 1px 0px rgba(255, 255, 255, 0.05);
+        }
+
+        .toolkit-card-shell:nth-child(4):hover {
+          border-color: rgba(16, 185, 129, 0.4);
+          box-shadow: 0 20px 45px -15px rgba(16, 185, 129, 0.22), inset 0 1px 0px rgba(255, 255, 255, 0.05);
+        }
+
+        .toolkit-card-inner {
+          background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(9, 15, 29, 0.85) 100%);
+          padding: 24px;
+          border-radius: 18px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.06);
+          transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+        }
+
+        .toolkit-card-shell:nth-child(1) .toolkit-card-inner {
+          background: linear-gradient(135deg, rgba(59, 130, 246, 0.04) 0%, rgba(9, 15, 29, 0.85) 100%);
+        }
+
+        .toolkit-card-shell:nth-child(1):hover .toolkit-card-inner {
+          background: radial-gradient(circle at top right, rgba(59, 130, 246, 0.15) 0%, rgba(15, 23, 42, 0.7) 65%);
+          border-color: rgba(59, 130, 246, 0.2);
+        }
+        .toolkit-card-shell:nth-child(2):hover .toolkit-card-inner {
+          background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.15) 0%, rgba(15, 23, 42, 0.7) 65%);
+          border-color: rgba(99, 102, 241, 0.2);
+        }
+        .toolkit-card-shell:nth-child(3):hover .toolkit-card-inner {
+          background: radial-gradient(circle at top right, rgba(139, 92, 246, 0.15) 0%, rgba(15, 23, 42, 0.7) 65%);
+          border-color: rgba(139, 92, 246, 0.2);
+        }
+        .toolkit-card-shell:nth-child(4):hover .toolkit-card-inner {
+          background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.15) 0%, rgba(15, 23, 42, 0.7) 65%);
+          border-color: rgba(16, 185, 129, 0.2);
         }
 
         @keyframes glow {
