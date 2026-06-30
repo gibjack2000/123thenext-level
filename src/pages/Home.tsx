@@ -430,8 +430,8 @@ export default function Home() {
                       <strong className="text-white block text-lg mb-2">Six Core Optimization Protocols</strong>
                       <span className="text-slate-400 text-sm leading-relaxed block mb-6">Detailed, actionable guides covering healthspan and longevity, metabolic nutrition, autonomic engineering, and socio-biological architecture.</span>
                     </div>
-                    <Link to="/premium-guides" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
-                      Explore Guides <ArrowRight size={12} className="group-hover/card:translate-x-1 transition-transform" />
+                    <Link to="/#six-core-optimization" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
+                      Explore Protocols <ArrowRight size={12} className="group-hover/card:translate-x-1 transition-transform" />
                     </Link>
                   </div>
 
@@ -452,9 +452,9 @@ export default function Home() {
                       <strong className="text-white block text-lg mb-2">A Curated Marketplace</strong>
                       <span className="text-slate-400 text-sm leading-relaxed block mb-6">Over 100 expert-vetted tools, supplements, and bio-tracking devices, selected purely for quality and performance.</span>
                     </div>
-                    <a href="#pillars" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
+                    <Link to="/#shop" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
                       Browse Marketplace <ArrowRight size={12} className="group-hover/card:translate-x-1 transition-transform" />
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
