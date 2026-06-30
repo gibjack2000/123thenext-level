@@ -393,6 +393,9 @@ export default function Home() {
                 <p>
                   Research shows that 80–90% of how well you age comes down to lifestyle, not genetics. That means your daily choices, not your DNA, are the biggest lever you have. We help you pull it — turning reactive repair into sustainable, lasting vitality through science-backed protocols paired with practical daily habits.
                 </p>
+                <p>
+                  Equally vital is the <Link to="/#life-practice" className="text-amber-400 hover:text-amber-300 font-bold transition-colors underline decoration-dotted">Evolution of Self: Cultivate Your Life Practice</Link> protocol. True longevity is not merely physiological; it requires cultivating inner resilience, mindfulness, and cognitive-emotional balance. We address autonomic and psychological engineering as one of our top priorities because a balanced, stress-resilient mind is the foundation upon which all physical health and cellular optimization stands.
+                </p>
               </div>
 
               {/* 🎯 Primary Quiz CTA Button */}
