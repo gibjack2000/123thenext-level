@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Home as HomeIcon, Zap, Shield, Heart, Info, ChevronRight, Compass, ChevronDown, Dumbbell, Apple, Users } from 'lucide-react';
 import MarketSelector from './MarketSelector';
 import { useT } from '../translations';
@@ -13,7 +13,19 @@ const Navbar = () => {
   const [mobileUpdatesOpen, setMobileUpdatesOpen] = useState(false);
   
   const location = useLocation();
+  const navigate = useNavigate();
   const t = useT();
+
+  const handleHomeClick = (e: React.MouseEvent) => {
+    if (location.pathname === '/') {
+      e.preventDefault();
+      if (location.hash) {
+        navigate('/', { replace: true });
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    setIsOpen(false);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -56,7 +68,7 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             {/* Logo */}
-            <Link to="/" className="flex items-center group">
+            <Link to="/" onClick={handleHomeClick} className="flex items-center group">
               <div className="bg-gradient-to-br from-blue-500 to-indigo-600 p-2 rounded-xl text-white mr-3 shadow-lg shadow-blue-900/20 group-hover:scale-110 transition-transform duration-500">
                 <Zap size={20} strokeWidth={2.5} />
               </div>
@@ -68,7 +80,7 @@ const Navbar = () => {
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-1">
               {/* Home */}
-              <Link to="/" className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors">
+              <Link to="/" onClick={handleHomeClick} className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors">
                 {t('nav_home')}
               </Link>
               
@@ -242,7 +254,7 @@ const Navbar = () => {
             {/* Flat Link Home */}
             <Link
               to="/"
-              onClick={() => setIsOpen(false)}
+              onClick={handleHomeClick}
               className="flex items-center gap-3 p-4 bg-white/5 rounded-2xl border border-white/5 text-white"
             >
               <HomeIcon size={16} className="text-blue-400" />
