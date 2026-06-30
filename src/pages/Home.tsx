@@ -391,25 +391,40 @@ export default function Home() {
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="benefit-card">
-                <div className="benefit-icon">🧠</div>
-                <h4 className="text-lg font-bold text-white mb-2">Mind-Body Connection</h4>
-                <p className="text-slate-400 text-sm leading-relaxed">Your wellness journey connects mental clarity with physical vitality, creating true balance.</p>
+              {/* Card 1: Mind-Body Connection */}
+              <div className="benefit-card-shell group">
+                <div className="benefit-card-inner">
+                  <div className="benefit-icon benefit-icon-pink">🧠</div>
+                  <h4 className="text-lg font-bold text-white mb-2 group-hover:text-pink-400 transition-colors duration-500 font-display uppercase tracking-tight">Mind-Body Connection</h4>
+                  <p className="text-slate-400 text-sm leading-relaxed transition-colors duration-500 group-hover:text-slate-300">Your wellness journey connects mental clarity with physical vitality, creating true balance.</p>
+                </div>
               </div>
-              <div className="benefit-card">
-                <div className="benefit-icon">🎯</div>
-                <h4 className="text-lg font-bold text-white mb-2">Proactive Prevention</h4>
-                <p className="text-slate-400 text-sm leading-relaxed">Build resilience before problems arise. Transform reactive care into sustainable wellness.</p>
+
+              {/* Card 2: Proactive Prevention */}
+              <div className="benefit-card-shell group">
+                <div className="benefit-card-inner">
+                  <div className="benefit-icon benefit-icon-red">🎯</div>
+                  <h4 className="text-lg font-bold text-white mb-2 group-hover:text-rose-400 transition-colors duration-500 font-display uppercase tracking-tight">Proactive Prevention</h4>
+                  <p className="text-slate-400 text-sm leading-relaxed transition-colors duration-500 group-hover:text-slate-300">Build resilience before problems arise. Transform reactive care into sustainable wellness.</p>
+                </div>
               </div>
-              <div className="benefit-card">
-                <div className="benefit-icon">⚖️</div>
-                <h4 className="text-lg font-bold text-white mb-2">Comprehensive Support</h4>
-                <p className="text-slate-400 text-sm leading-relaxed">Science-backed protocols integrated with proven wellness practices for optimal results.</p>
+
+              {/* Card 3: Comprehensive Support */}
+              <div className="benefit-card-shell group">
+                <div className="benefit-card-inner">
+                  <div className="benefit-icon benefit-icon-gold">⚖️</div>
+                  <h4 className="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition-colors duration-500 font-display uppercase tracking-tight">Comprehensive Support</h4>
+                  <p className="text-slate-400 text-sm leading-relaxed transition-colors duration-500 group-hover:text-slate-300">Science-backed protocols integrated with proven wellness practices for optimal results.</p>
+                </div>
               </div>
-              <div className="benefit-card">
-                <div className="benefit-icon">📈</div>
-                <h4 className="text-lg font-bold text-white mb-2">Measurable Progress</h4>
-                <p className="text-slate-400 text-sm leading-relaxed">Track your transformation from reactive patterns to proactive wellness habits.</p>
+
+              {/* Card 4: Measurable Progress */}
+              <div className="benefit-card-shell group">
+                <div className="benefit-card-inner">
+                  <div className="benefit-icon benefit-icon-emerald">📈</div>
+                  <h4 className="text-lg font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors duration-500 font-display uppercase tracking-tight">Measurable Progress</h4>
+                  <p className="text-slate-400 text-sm leading-relaxed transition-colors duration-500 group-hover:text-slate-300">Track your transformation from reactive patterns to proactive wellness habits.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -1422,28 +1437,127 @@ export default function Home() {
           animation: fadeInUp 0.8s ease-out;
         }
 
-        .benefit-card {
-          background: rgba(255,255,255,0.08);
-          padding: 25px;
-          border-radius: 16px;
-          border: 1px solid rgba(255,255,255,0.15);
-          transition: all 0.3s ease;
+        .benefit-card-shell {
+          background: rgba(15, 23, 42, 0.15);
+          padding: 8px;
+          border-radius: 24px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
           cursor: pointer;
           height: 100%;
+          display: flex;
+          flex-direction: column;
         }
 
-        .benefit-card:hover {
-          transform: translateY(-5px) scale(1.02);
-          background: rgba(255,255,255,0.12);
-          box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-          border-color: rgba(255,215,0,0.5);
+        .benefit-card-shell:hover {
+          transform: translateY(-6px) scale(1.01);
+          background: rgba(15, 23, 42, 0.25);
+        }
+
+        /* Card specific hover states */
+        .benefit-card-shell:nth-child(1):hover {
+          border-color: rgba(236, 72, 153, 0.35);
+          box-shadow: 0 20px 40px -15px rgba(236, 72, 153, 0.18), inset 0 1px 0px rgba(255, 255, 255, 0.05);
+        }
+        .benefit-card-shell:nth-child(2):hover {
+          border-color: rgba(244, 63, 94, 0.35);
+          box-shadow: 0 20px 40px -15px rgba(244, 63, 94, 0.18), inset 0 1px 0px rgba(255, 255, 255, 0.05);
+        }
+        .benefit-card-shell:nth-child(3):hover {
+          border-color: rgba(245, 158, 11, 0.35);
+          box-shadow: 0 20px 40px -15px rgba(245, 158, 11, 0.18), inset 0 1px 0px rgba(255, 255, 255, 0.05);
+        }
+        .benefit-card-shell:nth-child(4):hover {
+          border-color: rgba(16, 185, 129, 0.35);
+          box-shadow: 0 20px 40px -15px rgba(16, 185, 129, 0.18), inset 0 1px 0px rgba(255, 255, 255, 0.05);
+        }
+
+        .benefit-card-inner {
+          background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(9, 15, 29, 0.85) 100%);
+          padding: 24px;
+          border-radius: 18px;
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.07);
+          transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .benefit-card-shell:nth-child(1):hover .benefit-card-inner {
+          background: radial-gradient(circle at top right, rgba(236, 72, 153, 0.12) 0%, rgba(15, 23, 42, 0.7) 65%);
+          border-color: rgba(236, 72, 153, 0.2);
+        }
+        .benefit-card-shell:nth-child(2):hover .benefit-card-inner {
+          background: radial-gradient(circle at top right, rgba(244, 63, 94, 0.12) 0%, rgba(15, 23, 42, 0.7) 65%);
+          border-color: rgba(244, 63, 94, 0.2);
+        }
+        .benefit-card-shell:nth-child(3):hover .benefit-card-inner {
+          background: radial-gradient(circle at top right, rgba(245, 158, 11, 0.12) 0%, rgba(15, 23, 42, 0.7) 65%);
+          border-color: rgba(245, 158, 11, 0.2);
+        }
+        .benefit-card-shell:nth-child(4):hover .benefit-card-inner {
+          background: radial-gradient(circle at top right, rgba(16, 185, 129, 0.12) 0%, rgba(15, 23, 42, 0.7) 65%);
+          border-color: rgba(16, 185, 129, 0.2);
         }
 
         .benefit-icon {
-          font-size: 2.5rem;
-          margin-bottom: 15px;
-          display: block;
-          animation: pulse 2s infinite;
+          width: 56px;
+          height: 56px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 14px;
+          font-size: 1.6rem;
+          margin-bottom: 20px;
+          transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+          background: rgba(255, 255, 255, 0.02);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+        }
+
+        .benefit-card-shell:hover .benefit-icon {
+          transform: scale(1.1) rotate(4deg);
+        }
+
+        .benefit-icon-pink {
+          border-color: rgba(236, 72, 153, 0.2);
+          background: rgba(236, 72, 153, 0.05);
+        }
+        .benefit-card-shell:hover .benefit-icon-pink {
+          background: rgba(236, 72, 153, 0.15);
+          border-color: rgba(236, 72, 153, 0.4);
+          box-shadow: 0 0 20px rgba(236, 72, 153, 0.25);
+        }
+
+        .benefit-icon-red {
+          border-color: rgba(244, 63, 94, 0.2);
+          background: rgba(244, 63, 94, 0.05);
+        }
+        .benefit-card-shell:hover .benefit-icon-red {
+          background: rgba(244, 63, 94, 0.15);
+          border-color: rgba(244, 63, 94, 0.4);
+          box-shadow: 0 0 20px rgba(244, 63, 94, 0.25);
+        }
+
+        .benefit-icon-gold {
+          border-color: rgba(245, 158, 11, 0.2);
+          background: rgba(245, 158, 11, 0.05);
+        }
+        .benefit-card-shell:hover .benefit-icon-gold {
+          background: rgba(245, 158, 11, 0.15);
+          border-color: rgba(245, 158, 11, 0.4);
+          box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
+        }
+
+        .benefit-icon-emerald {
+          border-color: rgba(16, 185, 129, 0.2);
+          background: rgba(16, 185, 129, 0.05);
+        }
+        .benefit-card-shell:hover .benefit-icon-emerald {
+          background: rgba(16, 185, 129, 0.15);
+          border-color: rgba(16, 185, 129, 0.4);
+          box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
         }
 
         .resources-showcase {
