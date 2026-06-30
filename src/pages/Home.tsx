@@ -398,10 +398,14 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* 🎯 Primary Quiz CTA Button */}
-              <div className="mt-8 text-left">
+              {/* 🎯 Primary Quiz and Life Practice CTA Buttons */}
+              <div className="mt-8 flex flex-col sm:flex-row gap-4 text-left">
                 <Link to="/health-quiz" className="inline-flex justify-center items-center px-6 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-bold uppercase tracking-wider text-xs transition-all active:scale-[0.98] shadow-lg shadow-blue-900/30 border border-blue-500/20 whitespace-nowrap">
                   Begin Your 5-Minute Assessment
+                  <ArrowRight size={14} className="ml-2" />
+                </Link>
+                <Link to="/#life-practice" className="inline-flex justify-center items-center px-6 py-3.5 bg-amber-500/5 hover:bg-amber-500/10 text-slate-300 hover:text-amber-400 rounded-xl font-bold uppercase tracking-wider text-xs transition-all active:scale-[0.98] border border-amber-500/25 whitespace-nowrap shadow-lg shadow-amber-950/10">
+                  Cultivate Your Life Practice
                   <ArrowRight size={14} className="ml-2" />
                 </Link>
               </div>
