@@ -395,30 +395,66 @@ export default function Home() {
                 </p>
               </div>
 
+              {/* 🎯 Primary Quiz CTA Button */}
+              <div className="mt-8 text-left">
+                <Link to="/health-quiz" className="inline-flex justify-center items-center px-6 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-bold uppercase tracking-wider text-xs transition-all active:scale-[0.98] shadow-lg shadow-blue-900/30 border border-blue-500/20 whitespace-nowrap">
+                  Begin Your 5-Minute Assessment
+                  <ArrowRight size={14} className="ml-2" />
+                </Link>
+              </div>
+
               <div className="mt-16 pt-12 border-t border-white/5 text-left">
                 <h3 className="text-2xl md:text-3xl font-display uppercase tracking-tight text-white mb-8">
                   Your Toolkit for a Longer, Healthier Life
                 </h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-300">
-                  <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
-                    <strong className="text-white block text-lg mb-2">Six Core Optimization Protocols</strong>
-                    <span className="text-slate-400 text-sm leading-relaxed block">Detailed, actionable guides covering healthspan and longevity, metabolic nutrition, autonomic engineering, and socio-biological architecture.</span>
+                  {/* Toolkit item 1: Roadmap (Primary Quiz starting point) */}
+                  <div className="p-6 rounded-2xl bg-blue-500/5 border border-blue-500/25 hover:border-blue-500/40 transition-colors flex flex-col justify-between shadow-[inset_0_1px_1px_rgba(59,130,246,0.15)] relative overflow-hidden group/card">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl pointer-events-none transition-opacity group-hover/card:opacity-100 opacity-60"></div>
+                    <div>
+                      <strong className="text-white block text-lg mb-2 flex items-center gap-2">
+                        A Personalized Roadmap 
+                        <span className="text-[10px] font-black uppercase bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full border border-blue-500/30">Start Here</span>
+                      </strong>
+                      <span className="text-slate-400 text-sm leading-relaxed block mb-6">Start with a 5-minute wellness diagnostic and get a clear, focused plan based on where you actually stand today, not generic advice.</span>
+                    </div>
+                    <Link to="/health-quiz" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
+                      Start Diagnostic Quiz <ArrowRight size={12} className="group-hover/card:translate-x-1 transition-transform" />
+                    </Link>
                   </div>
 
-                  <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
-                    <strong className="text-white block text-lg mb-2">A Personalized Roadmap</strong>
-                    <span className="text-slate-400 text-sm leading-relaxed block">Start with a 5-minute wellness diagnostic and get a clear, focused plan based on where you actually stand today, not generic advice.</span>
+                  {/* Toolkit item 2: Protocols */}
+                  <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors flex flex-col justify-between group/card">
+                    <div>
+                      <strong className="text-white block text-lg mb-2">Six Core Optimization Protocols</strong>
+                      <span className="text-slate-400 text-sm leading-relaxed block mb-6">Detailed, actionable guides covering healthspan and longevity, metabolic nutrition, autonomic engineering, and socio-biological architecture.</span>
+                    </div>
+                    <Link to="/premium-guides" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
+                      Explore Guides <ArrowRight size={12} className="group-hover/card:translate-x-1 transition-transform" />
+                    </Link>
                   </div>
 
-                  <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
-                    <strong className="text-white block text-lg mb-2">Expert Guides & Daily Intelligence</strong>
-                    <span className="text-slate-400 text-sm leading-relaxed block">A daily feed of clinical research and insights, plus downloadable in-depth guides on fitness, nutrition, and stress management.</span>
+                  {/* Toolkit item 3: Intelligence */}
+                  <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors flex flex-col justify-between group/card">
+                    <div>
+                      <strong className="text-white block text-lg mb-2">Expert Guides & Daily Intelligence</strong>
+                      <span className="text-slate-400 text-sm leading-relaxed block mb-6">A daily feed of clinical research and insights, plus downloadable in-depth guides on fitness, nutrition, and stress management.</span>
+                    </div>
+                    <Link to="/intelligence-hub" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
+                      Enter Intelligence Hub <ArrowRight size={12} className="group-hover/card:translate-x-1 transition-transform" />
+                    </Link>
                   </div>
 
-                  <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors">
-                    <strong className="text-white block text-lg mb-2">A Curated Marketplace</strong>
-                    <span className="text-slate-400 text-sm leading-relaxed block">Over 100 expert-vetted tools, supplements, and bio-tracking devices, selected purely for quality and performance.</span>
+                  {/* Toolkit item 4: Marketplace */}
+                  <div className="p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors flex flex-col justify-between group/card">
+                    <div>
+                      <strong className="text-white block text-lg mb-2">A Curated Marketplace</strong>
+                      <span className="text-slate-400 text-sm leading-relaxed block mb-6">Over 100 expert-vetted tools, supplements, and bio-tracking devices, selected purely for quality and performance.</span>
+                    </div>
+                    <a href="#pillars" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors">
+                      Browse Marketplace <ArrowRight size={12} className="group-hover/card:translate-x-1 transition-transform" />
+                    </a>
                   </div>
                 </div>
               </div>
