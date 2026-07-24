@@ -28,6 +28,11 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [showingMockData, setShowingMockData] = useState(false);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  // Detect touch device once on mount (no hover events on mobile/tablet)
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  useEffect(() => {
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
 
   // Lead Capture Modal States
   const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
@@ -403,10 +408,10 @@ export default function Home() {
                 {/* Glowing backdrop */}
                 <div className="absolute -inset-4 bg-gradient-to-tr from-wellness-cyan to-wellness-amber rounded-3xl blur-[32px] opacity-10 pointer-events-none"></div>
                 
-                {/* Video Frame — hover to play */}
+                {/* Video Frame — hover to play on desktop, tap on mobile */}
                 <div
                   className="relative rounded-2xl overflow-hidden border border-slate-grey-700 bg-slate-grey-900 shadow-2xl"
-                  onMouseEnter={() => setIsVideoPlaying(true)}
+                  onMouseEnter={() => { if (!isTouchDevice) setIsVideoPlaying(true); }}
                 >
                   {isVideoPlaying ? (
                     <iframe
@@ -418,7 +423,10 @@ export default function Home() {
                       title="Longevity Paradigm Video"
                     />
                   ) : (
-                    <div className="aspect-video w-full flex items-center justify-center relative overflow-hidden bg-black/40 cursor-pointer group">
+                    <div
+                      className="aspect-video w-full flex items-center justify-center relative overflow-hidden bg-black/40 cursor-pointer group"
+                      onClick={() => { if (isTouchDevice) setIsVideoPlaying(true); }}
+                    >
                       {/* Thumbnail background overlay */}
                       <div className="absolute inset-0 bg-gradient-to-tr from-slate-grey-950 via-slate-grey-900 to-slate-grey-800 opacity-85 group-hover:opacity-70 transition-opacity duration-300"></div>
 
@@ -426,14 +434,16 @@ export default function Home() {
                         <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-wellness-cyan">[ HUMAN OPTIMIZATION INTRO ]</span>
                         <div>
                           <h3 className="text-sm font-display uppercase tracking-wider text-white font-black mb-1">Longevity Paradigm Video</h3>
-                          <p className="text-[10px] text-slate-grey-400">Hover to play • Duration: 2 mins • Audio commentary</p>
+                          <p className="text-[10px] text-slate-grey-400">
+                            {isTouchDevice ? 'Tap to play' : 'Hover to play'} • Duration: 2 mins • Audio
+                          </p>
                         </div>
                       </div>
 
                       {/* Play Button overlay */}
                       <div
-                        className="relative z-20 w-16 h-16 rounded-full bg-gradient-to-tr from-wellness-cyan to-indigo-600 text-white flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300 border border-wellness-cyan/20"
-                        aria-label="Hover to play Longevity Paradigm introduction video"
+                        className="relative z-20 w-16 h-16 rounded-full bg-gradient-to-tr from-wellness-cyan to-indigo-600 text-white flex items-center justify-center shadow-2xl group-hover:scale-110 active:scale-95 transition-transform duration-300 border border-wellness-cyan/20"
+                        aria-label={isTouchDevice ? 'Tap to play Longevity Paradigm video' : 'Hover to play Longevity Paradigm video'}
                       >
                         <svg className="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path d="M8 5v14l11-7z"></path>
