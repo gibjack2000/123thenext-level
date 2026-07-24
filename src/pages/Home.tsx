@@ -403,8 +403,11 @@ export default function Home() {
                 {/* Glowing backdrop */}
                 <div className="absolute -inset-4 bg-gradient-to-tr from-wellness-cyan to-wellness-amber rounded-3xl blur-[32px] opacity-10 pointer-events-none"></div>
                 
-                {/* Video Frame */}
-                <div className="relative rounded-2xl overflow-hidden border border-slate-grey-700 bg-slate-grey-900 shadow-2xl">
+                {/* Video Frame — hover to play */}
+                <div
+                  className="relative rounded-2xl overflow-hidden border border-slate-grey-700 bg-slate-grey-900 shadow-2xl"
+                  onMouseEnter={() => setIsVideoPlaying(true)}
+                >
                   {isVideoPlaying ? (
                     <iframe
                       className="w-full aspect-video"
@@ -415,28 +418,27 @@ export default function Home() {
                       title="Longevity Paradigm Video"
                     />
                   ) : (
-                    <div className="aspect-video w-full flex items-center justify-center relative overflow-hidden bg-black/40">
+                    <div className="aspect-video w-full flex items-center justify-center relative overflow-hidden bg-black/40 cursor-pointer group">
                       {/* Thumbnail background overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-tr from-slate-grey-950 via-slate-grey-900 to-slate-grey-800 opacity-85"></div>
-                      
+                      <div className="absolute inset-0 bg-gradient-to-tr from-slate-grey-950 via-slate-grey-900 to-slate-grey-800 opacity-85 group-hover:opacity-70 transition-opacity duration-300"></div>
+
                       <div className="absolute inset-0 flex flex-col justify-between p-6 z-10 text-left">
                         <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-wellness-cyan">[ HUMAN OPTIMIZATION INTRO ]</span>
                         <div>
                           <h3 className="text-sm font-display uppercase tracking-wider text-white font-black mb-1">Longevity Paradigm Video</h3>
-                          <p className="text-[10px] text-slate-grey-400">Duration: 2 mins • Audio commentary</p>
+                          <p className="text-[10px] text-slate-grey-400">Hover to play • Duration: 2 mins • Audio commentary</p>
                         </div>
                       </div>
 
                       {/* Play Button overlay */}
-                      <button 
-                        onClick={() => setIsVideoPlaying(true)}
-                        className="relative z-20 w-16 h-16 rounded-full bg-gradient-to-tr from-wellness-cyan to-indigo-600 text-white flex items-center justify-center shadow-2xl hover:scale-105 transition-transform duration-300 border border-wellness-cyan/20 focus:outline-none focus:ring-2 focus:ring-wellness-cyan cursor-pointer"
-                        aria-label="Play Longevity Paradigm introduction video"
+                      <div
+                        className="relative z-20 w-16 h-16 rounded-full bg-gradient-to-tr from-wellness-cyan to-indigo-600 text-white flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300 border border-wellness-cyan/20"
+                        aria-label="Hover to play Longevity Paradigm introduction video"
                       >
                         <svg className="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                           <path d="M8 5v14l11-7z"></path>
                         </svg>
-                      </button>
+                      </div>
                     </div>
                   )}
                 </div>
