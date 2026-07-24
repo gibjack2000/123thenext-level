@@ -50,17 +50,15 @@ export default function Home() {
     e.preventDefault();
     if (!leadEmail) return;
 
-    // Trigger file download programmatically immediately while user gesture is active
+    // Trigger file download programmatically using anchor element
     const link = document.createElement('a');
     link.href = '/assets/docs/longevity-blueprint.pdf';
-    link.setAttribute('download', 'longevity-blueprint.pdf');
+    link.download = 'longevity-blueprint.pdf';
     link.setAttribute('target', '_blank');
-    link.style.display = 'none';
     document.body.appendChild(link);
     link.click();
-    setTimeout(() => {
-      document.body.removeChild(link);
-    }, 500);
+    // Remove the link after a short delay to ensure the download initiates
+    setTimeout(() => document.body.removeChild(link), 3000);
 
     setLeadStatus('loading');
     try {

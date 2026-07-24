@@ -27,10 +27,12 @@
     </style>
   </head>
   <body class="bg-[#090c10] text-slate-grey-200 antialiased font-sans min-h-screen flex flex-col justify-between relative overflow-x-hidden selection:bg-wellness-cyan/30 selection:text-wellness-cyan-light">
-    
-    <!-- Ambient background glows -->
-    <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-wellness-cyan/5 rounded-full blur-[120px] pointer-events-none" aria-hidden="true"></div>
-    <div class="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-wellness-amber/5 rounded-full blur-[150px] pointer-events-none" aria-hidden="true"></div>
+  <!-- Debug panel (visible only in DEBUG mode) -->
+  <div id="debug-log" class="fixed bottom-0 left-0 right-0 max-h-40 overflow-y-auto bg-black/80 text-white text-xs p-2 whitespace-pre" style="display:none;"></div>
+
+  <!-- Ambient background glows -->
+  <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-wellness-cyan/5 rounded-full blur-[120px] pointer-events-none" aria-hidden="true"></div>
+  <div class="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-wellness-amber/5 rounded-full blur-[150px] pointer-events-none" aria-hidden="true"></div>
 
     <!-- Navigation Header -->
     <nav class="w-full z-[100] border-b border-white/5 bg-slate-950/80 backdrop-blur-xl sticky top-0">
