@@ -256,6 +256,36 @@ export const affiliateLinks = {
       us: 'https://www.amazon.com/dp/B073429DV2?tag=123znl08-20',
       uk: 'https://www.amazon.co.uk/dp/B073429DV2?tag=123znl0f3-21',
       es: 'https://www.amazon.es/dp/B073429DV2?tag=123znl08a-21',
+    },
+    'smartwatch': {
+      us: 'https://www.amazon.com/s?k=garmin+smartwatch',
+      uk: 'https://www.amazon.co.uk/s?k=garmin+smartwatch',
+      es: 'https://www.amazon.es/s?k=garmin+smartwatch',
+    },
+    'sony-headphones': {
+      us: 'https://www.amazon.com/s?k=Sony+WH-CH720N+headphones',
+      uk: 'https://www.amazon.co.uk/s?k=Sony+WH-CH720N+headphones',
+      es: 'https://www.amazon.es/s?k=Sony+WH-CH720N+headphones',
+    },
+    'bluetooth-scales': {
+      us: 'https://www.amazon.com/s?k=Bluetooth+Smart+Scales',
+      uk: 'https://www.amazon.co.uk/s?k=Bluetooth+Smart+Scales',
+      es: 'https://www.amazon.es/s?k=Bluetooth+Smart+Scales',
+    },
+    'poounur-watch': {
+      us: 'https://www.amazon.com/s?k=Poounur+Smart+Watch',
+      uk: 'https://www.amazon.co.uk/s?k=Poounur+Smart+Watch',
+      es: 'https://www.amazon.es/s?k=Poounur+Smart+Watch',
+    },
+    'marine-collagen': {
+      us: 'https://www.amazon.com/s?k=ZEBORA+Marine+Collagen',
+      uk: 'https://www.amazon.co.uk/s?k=ZEBORA+Marine+Collagen',
+      es: 'https://www.amazon.es/s?k=ZEBORA+Marine+Collagen',
+    },
+    'owala-bottle': {
+      us: 'https://www.amazon.com/s?k=Owala+FreeSip+Water+Bottles',
+      uk: 'https://www.amazon.co.uk/s?k=Owala+FreeSip+Water+Bottles',
+      es: 'https://www.amazon.es/s?k=Owala+FreeSip+Water+Bottles',
     }
   }
 };

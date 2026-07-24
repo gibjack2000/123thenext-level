@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wellness Diagnostic Quiz — 123TheNextLevel</title>
+    
+    <!-- Elegant Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Link the main style sheet compiled by Vite -->
+    <link rel="stylesheet" href="/src/index.css" />
+    
+    <style>
+      /* Smooth transitions respecting accessibility settings */
+      @media (prefers-reduced-motion: reduce) {
+        .transition-all, .animate-pulse, .progress-bar-fill {
+          transition: none !important;
+          animation: none !important;
+        }
+      }
+      
+      .progress-bar-fill {
+        transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+    </style>
+  </head>
+  <body class="bg-slate-grey-950 text-slate-grey-200 antialiased font-sans min-h-screen flex items-center justify-center p-4 relative overflow-x-hidden selection:bg-wellness-cyan/30 selection:text-wellness-cyan-light">
+    
+    <!-- Ambient background glows -->
+    <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-wellness-cyan/5 rounded-full blur-[120px] pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-wellness-amber/5 rounded-full blur-[150px] pointer-events-none" aria-hidden="true"></div>
+
+    <div class="w-full max-w-xl z-10" id="quiz-app">
+      <!-- ---------------------------------------------------- -->
+      <!-- SCREEN 1: WELCOME SCREEN -->
+      <!-- ---------------------------------------------------- -->
+      <div id="screen-welcome" class="bg-slate-grey-900 border border-slate-grey-700/80 rounded-[2rem] p-8 md:p-12 shadow-2xl relative overflow-hidden text-center space-y-8">
+        <div class="absolute -inset-4 bg-gradient-to-tr from-wellness-cyan to-wellness-amber rounded-3xl blur-[40px] opacity-10 pointer-events-none" aria-hidden="true"></div>
+        
+        <div class="space-y-4 relative z-10">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light font-bold" aria-hidden="true">
+            <span class="flex h-1.5 w-1.5 rounded-full bg-wellness-cyan animate-pulse"></span>
+            Diagnostic Blueprint
+          </span>
+          <h1 class="text-3xl md:text-5xl font-display font-black uppercase tracking-tight text-white leading-tight">
+            5-Minute Wellness Assessment
+          </h1>
+          <p class="text-slate-grey-300 text-sm leading-relaxed max-w-[42ch] mx-auto font-light">
+            Measure your biological standing across our Six Core Optimization Pillars to uncover your personalized longevity roadmap.
+          </p>
+        </div>
+
+        <div class="pt-4 relative z-10">
+          <button 
+            id="btn-start"
+            type="button"
+            class="w-full justify-center inline-flex items-center px-6 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all active:scale-[0.98] shadow-lg shadow-wellness-cyan/15 border border-wellness-cyan/25 cursor-pointer"
+          >
+            Begin Assessment
+          </button>
+        </div>
+      </div>
+
+      <!-- ---------------------------------------------------- -->
+      <!-- SCREEN 2: QUESTION SCREEN (DYNAMICALLY CONTROLLED) -->
+      <!-- ---------------------------------------------------- -->
+      <div id="screen-question" class="hidden bg-slate-grey-900 border border-slate-grey-700/80 rounded-[2rem] p-8 md:p-10 shadow-2xl space-y-8 text-left transition-all duration-300">
+        <!-- Progress Indicator -->
+        <div class="space-y-3">
+          <div class="flex justify-between items-center text-[10px] font-mono uppercase tracking-wider text-slate-grey-400">
+            <span id="question-index">Question 1 of 6</span>
+            <span id="question-pillar">[ Cellular Longevity ]</span>
+          </div>
+          <div class="w-full bg-slate-grey-800 h-1.5 rounded-full overflow-hidden" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="6">
+            <div id="progress-bar-fill" class="progress-bar-fill h-full bg-gradient-to-r from-wellness-cyan to-wellness-amber" style="width: 16.6%"></div>
+          </div>
+        </div>
+
+        <!-- Question Title -->
+        <h2 id="question-text" class="text-xl sm:text-2xl font-display uppercase tracking-tight text-white leading-tight">
+          How would you rate your cellular recovery speed?
+        </h2>
+
+        <!-- Options Container -->
+        <div id="options-container" class="space-y-4" role="radiogroup" aria-labelledby="question-text">
+          <!-- Options will be dynamically rendered here -->
+        </div>
+
+        <!-- Back Button -->
+        <div class="pt-4 flex justify-between border-t border-slate-grey-800">
+          <button 
+            id="btn-back"
+            type="button"
+            class="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-slate-grey-400 hover:text-white transition-colors cursor-pointer"
+          >
+            ← Previous Question
+          </button>
+        </div>
+      </div>
+
+      <!-- ---------------------------------------------------- -->
+      <!-- SCREEN 3: OPT-IN / CAPSULE DIGEST SCREEN -->
+      <!-- ---------------------------------------------------- -->
+      <div id="screen-optin" class="hidden bg-slate-grey-900 border border-slate-grey-700/80 rounded-[2rem] p-8 md:p-10 shadow-2xl space-y-8 text-center transition-all duration-300">
+        <div class="space-y-3">
+          <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-widest bg-wellness-amber/10 border border-wellness-amber/30 text-wellness-amber font-bold">
+            Calculation Complete
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white leading-tight">
+            Unlock Your Biological Blueprint
+          </h2>
+          <p class="text-slate-grey-300 text-xs sm:text-sm font-light leading-relaxed max-w-[42ch] mx-auto">
+            Provide your email address to lock in your diagnostic scores and subscribe to the weekly 'Bento Box' longevity summary.
+          </p>
+        </div>
+
+        <form id="optin-form" class="space-y-4 text-left">
+          <div class="relative">
+            <label for="optin-email" class="sr-only">Email Address</label>
+            <input 
+              id="optin-email"
+              type="email" 
+              placeholder="Enter your email address" 
+              required
+              class="w-full px-4 py-3.5 bg-slate-grey-800 border border-slate-grey-700 focus:border-wellness-cyan text-white text-xs rounded-xl focus:outline-none placeholder-slate-grey-400 transition-colors"
+              aria-required="true"
+            />
+          </div>
+          <button 
+            type="submit" 
+            class="w-full justify-center inline-flex items-center px-6 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all active:scale-[0.98] border border-wellness-cyan/25 cursor-pointer"
+          >
+            Generate Blueprint
+          </button>
+        </form>
+      </div>
+
+      <!-- ---------------------------------------------------- -->
+      <!-- SCREEN 4: RESULTS & BLUEPRINT SCREEN -->
+      <!-- ---------------------------------------------------- -->
+      <div id="screen-results" class="hidden bg-slate-grey-900 border border-slate-grey-700/80 rounded-[2rem] p-8 md:p-10 shadow-2xl space-y-8 text-left transition-all duration-300">
+        
+        <!-- Header -->
+        <div class="space-y-2 border-b border-slate-grey-800 pb-4">
+          <span class="text-[10px] font-mono uppercase tracking-[0.25em] text-wellness-cyan block">Assessment Scores</span>
+          <h2 class="text-2xl sm:text-4xl font-display uppercase tracking-tight text-white leading-none">
+            Your Biological Blueprint
+          </h2>
+          <p class="text-slate-grey-400 text-xs font-light">
+            Analysis calculated dynamically based on your diagnostic answers.
+          </p>
+        </div>
+
+        <!-- Scores Breakdown Grid -->
+        <div class="grid grid-cols-2 gap-4" id="scores-grid">
+          <!-- Dynamically filled with score badges -->
+        </div>
+
+        <!-- Dynamic Recommendations Section -->
+        <div class="space-y-6 pt-4 border-t border-slate-grey-800">
+          <h3 class="text-xs font-mono uppercase tracking-[0.2em] text-slate-grey-300">
+            Targeted Actions & Recommendations
+          </h3>
+
+          <div id="recommendations-container" class="space-y-6">
+            <!-- Dynamically populated recommendations -->
+          </div>
+        </div>
+
+        <!-- Restart Button -->
+        <div class="pt-6 border-t border-slate-grey-800 text-center">
+          <button 
+            id="btn-restart"
+            type="button"
+            class="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-slate-grey-400 hover:text-white transition-colors cursor-pointer"
+          >
+            ← Restart Assessment
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Interactive Logic Script -->
+    <script>
+      // 1. Definition of the Six Pillars & 12 Questions (2 per pillar)
+      const questions = [
+        // Pillar 1: Cellular Longevity
+        {
+          pillarId: 'cellular',
+          pillarName: 'Cellular Longevity & DNA Integrity',
+          question: 'How would you rate your cellular recovery speed (e.g. skin regeneration, muscle recovery, or general energy bounce-back)?',
+          options: [
+            { text: 'Exceptional: Feel fully recovered within 12-24 hours.', score: 10 },
+            { text: 'Moderate: Takes a couple of days to feel baseline normal.', score: 6 },
+            { text: 'Sub-optimal: Sluggish recovery, feel fatigued for several days.', score: 2 }
+          ]
+        },
+        {
+          pillarId: 'cellular',
+          pillarName: 'Cellular Longevity & DNA Integrity',
+          question: 'How frequently do you experience persistent joint stiffness, skin flaring, or unexplained sluggishness?',
+          options: [
+            { text: 'Rarely/Never: Body feels fluid, skin is clear, energy is stable.', score: 10 },
+            { text: 'Occasionally: Mild stiffness after intense activity or stressful periods.', score: 6 },
+            { text: 'Frequently: Constant joint aches, slow healing, or chronic fatigue.', score: 2 }
+          ]
+        },
+        // Pillar 2: Performance
+        {
+          pillarId: 'performance',
+          pillarName: 'Performance & VO2 Max',
+          question: 'What is your level of cardiorespiratory endurance during high-intensity exertion (VO2 Max output)?',
+          options: [
+            { text: 'Elite: Can sustain high output easily without gasping for air.', score: 10 },
+            { text: 'Intermediate: Elevate heart rate quickly, but can recover in a minute.', score: 6 },
+            { text: 'Low: Get winded almost immediately and take long to catch breath.', score: 2 }
+          ]
+        },
+        {
+          pillarId: 'performance',
+          pillarName: 'Performance & VO2 Max',
+          question: 'How would you rate your functional body strength (e.g. carrying heavy loads, bodyweight movements, lifting)?',
+          options: [
+            { text: 'Strong: Can lift heavy loads and perform functional tasks easily.', score: 10 },
+            { text: 'Average: Moderate strength, but experience strain or lower back fatigue.', score: 6 },
+            { text: 'Sub-optimal: Struggle with bodyweight movements or feel physically weak.', score: 2 }
+          ]
+        },
+        // Pillar 3: Metabolic Nutrition
+        {
+          pillarId: 'nutrition',
+          pillarName: 'Metabolic Nutrition & Glucose',
+          question: 'How stable is your energy level throughout the afternoon (e.g. brain fog or post-lunch crashes)?',
+          options: [
+            { text: 'Highly stable: Consistent energy all day, zero afternoon crashes.', score: 10 },
+            { text: 'Fluctuating: Occasional mild slumps, crave sugar or afternoon coffee.', score: 6 },
+            { text: 'Severe crashes: Extreme fatigue and heavy brain fog every afternoon.', score: 2 }
+          ]
+        },
+        {
+          pillarId: 'nutrition',
+          pillarName: 'Metabolic Nutrition & Glucose',
+          question: 'How does your body react to carbohydrate-rich meals (e.g. bread, pasta, sweets)?',
+          options: [
+            { text: 'Efficient: Stay alert, feel satisfied, no immediate sleepiness.', score: 10 },
+            { text: 'Sensitive: Occasional bloating or mild lethargy 1 hour after eating.', score: 6 },
+            { text: 'Poor: Experience immediate heavy brain fog or intense sleepiness.', score: 2 }
+          ]
+        },
+        // Pillar 4: Autonomic
+        {
+          pillarId: 'autonomic',
+          pillarName: 'Autonomic Engineering & HRV Tuning',
+          question: 'How effectively does your nervous system bounce back from acute stress, anxiety, or high pressure?',
+          options: [
+            { text: 'Highly resilient: Calm down quickly using breathing or meditation.', score: 10 },
+            { text: 'Standard recovery: Carry tension for a few hours, but recover overnight.', score: 6 },
+            { text: 'Chronic tension: Feel constantly wired, experience poor sleep, high resting pulse.', score: 2 }
+          ]
+        },
+        {
+          pillarId: 'autonomic',
+          pillarName: 'Autonomic Engineering & HRV Tuning',
+          question: 'How would you rate your sleep architecture, morning alertness, and overall restfulness?',
+          options: [
+            { text: 'Excellent: Sleep soundly, wake up feeling fully charged and clear.', score: 10 },
+            { text: 'Restless: Sleep okay, but experience night wakings or morning grogginess.', score: 6 },
+            { text: 'Insufficient: Sleep is shallow, wake up exhausted, rely on caffeine.', score: 2 }
+          ]
+        },
+        // Pillar 5: Endocrine
+        {
+          pillarId: 'endocrine',
+          pillarName: 'Women\'s Health & Endocrine balance',
+          question: 'How balanced is your sleep cycle, thermal regulation, and overall hormonal stability?',
+          options: [
+            { text: 'Optimal equilibrium: Regular sleep cycles, stable mood, minimal disruptions.', score: 10 },
+            { text: 'Mild fluctuations: Occasional stress-induced sleep issues or mood swings.', score: 6 },
+            { text: 'Disrupted: Chronic sleep disturbances, heavy mood swings, or temperature issues.', score: 2 }
+          ]
+        },
+        {
+          pillarId: 'endocrine',
+          pillarName: 'Women\'s Health & Endocrine balance',
+          question: 'How is your tolerance to environmental stresses, sudden temperature shifts, or heavy physical exertion?',
+          options: [
+            { text: 'High: Adapt easily, maintain stable body temperature and steady moods.', score: 10 },
+            { text: 'Moderate: Feel drained by extreme weather or intense physical work.', score: 6 },
+            { text: 'Low: Easily overwhelmed, experience cold hands/feet, or feel burned out quickly.', score: 2 }
+          ]
+        },
+        // Pillar 6: Social
+        {
+          pillarId: 'social',
+          pillarName: 'Socio-Biological Architecture',
+          question: 'How integrated are your physical workouts or wellness practices with your social circle and community check-ins?',
+          options: [
+            { text: 'Strongly integrated: Regular workouts or performance goals shared with peers.', score: 10 },
+            { text: 'Partially integrated: Workout mostly alone, but share stats or check-in.', score: 6 },
+            { text: 'Isolated: Exercise completely alone, with no peer accountability.', score: 2 }
+          ]
+        },
+        {
+          pillarId: 'social',
+          pillarName: 'Socio-Biological Architecture',
+          question: 'How strong is your support network for maintaining healthy lifestyle choices?',
+          options: [
+            { text: 'Empowering: Peers actively encourage my routines and wellness goals.', score: 10 },
+            { text: 'Neutral: Social circle is supportive but doesn\'t share my habits.', score: 6 },
+            { text: 'Opposing: Social environments regularly pressure me to disrupt my wellness choices.', score: 2 }
+          ]
+        }
+      ];
+
+      // 2. Application State Management
+      let currentStep = 0; // 0: Welcome, 1-12: Questions, 13: Opt-In, 14: Results
+      let userScores = {}; // Map of question index -> score
+
+      // DOM Elements
+      const welcomeScreen = document.getElementById('screen-welcome');
+      const questionScreen = document.getElementById('screen-question');
+      const optinScreen = document.getElementById('screen-optin');
+      const resultsScreen = document.getElementById('screen-results');
+      
+      const btnStart = document.getElementById('btn-start');
+      const btnBack = document.getElementById('btn-back');
+      const btnRestart = document.getElementById('btn-restart');
+      
+      const questionIndexText = document.getElementById('question-index');
+      const questionPillarText = document.getElementById('question-pillar');
+      const questionText = document.getElementById('question-text');
+      const optionsContainer = document.getElementById('options-container');
+      const progressBarFill = document.getElementById('progress-bar-fill');
+      const optinForm = document.getElementById('optin-form');
+      const scoresGrid = document.getElementById('scores-grid');
+      const recommendationsContainer = document.getElementById('recommendations-container');
+
+      // Setup Event Listeners
+      btnStart.addEventListener('click', () => changeStep(1));
+      btnBack.addEventListener('click', () => changeStep(currentStep - 1));
+      btnRestart.addEventListener('click', () => {
+        userScores = {};
+        changeStep(0);
+      });
+      
+      optinForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        changeStep(14);
+      });
+
+      // Function to render steps
+      function changeStep(step) {
+        currentStep = step;
+        
+        welcomeScreen.classList.add('hidden');
+        questionScreen.classList.add('hidden');
+        optinScreen.classList.add('hidden');
+        resultsScreen.classList.add('hidden');
+
+        setTimeout(reportIframeHeight, 100);
+
+        if (step === 0) {
+          welcomeScreen.classList.remove('hidden');
+        } else if (step >= 1 && step <= 12) {
+          renderQuestion(step - 1);
+          questionScreen.classList.remove('hidden');
+        } else if (step === 13) {
+          optinScreen.classList.remove('hidden');
+        } else if (step === 14) {
+          renderResults();
+          resultsScreen.classList.remove('hidden');
+        }
+      }
+
+      // Render Question screen content
+      function renderQuestion(index) {
+        const q = questions[index];
+        
+        questionIndexText.textContent = `Question ${index + 1} of 12`;
+        questionPillarText.textContent = `[ ${q.pillarName} ]`;
+        questionText.textContent = q.question;
+        
+        const progressPercentage = ((index + 1) / 12) * 100;
+        progressBarFill.style.width = `${progressPercentage}%`;
+        
+        optionsContainer.innerHTML = '';
+        q.options.forEach((opt) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'w-full text-left p-5 bg-slate-grey-800 border border-slate-grey-700/60 rounded-2xl hover:border-wellness-cyan focus:outline-none focus:ring-2 focus:ring-wellness-cyan cursor-pointer transition-all active:scale-[0.99] flex items-center justify-between group';
+          
+          const textSpan = document.createElement('span');
+          textSpan.className = 'text-xs sm:text-sm font-medium text-slate-grey-200 group-hover:text-white transition-colors';
+          textSpan.textContent = opt.text;
+          
+          const iconSpan = document.createElement('span');
+          iconSpan.className = 'h-5 w-5 rounded-full border border-slate-grey-600 flex-shrink-0 flex items-center justify-center group-hover:border-wellness-cyan transition-colors ml-4';
+          
+          button.appendChild(textSpan);
+          button.appendChild(iconSpan);
+          
+          button.addEventListener('click', () => {
+            userScores[index] = opt.score;
+            
+            if (index < 11) {
+              changeStep(currentStep + 1);
+            } else {
+              changeStep(13); // Show Opt-in
+            }
+          });
+          
+          optionsContainer.appendChild(button);
+        });
+      }
+
+      // Render Results & Recommendations
+      function renderResults() {
+        scoresGrid.innerHTML = '';
+        recommendationsContainer.innerHTML = '';
+
+        // Retrieve dynamic affiliate links from the same-origin parent context if available
+        let dynamicLinks = null;
+        let region = 'us';
+
+        try {
+          if (window.parent && window.parent.nextLevelAffiliateLinks) {
+            dynamicLinks = window.parent.nextLevelAffiliateLinks;
+          }
+          
+          // Determine region
+          if (window.parent && window.parent.location) {
+            const pathParts = window.parent.location.pathname.split('/').filter(Boolean);
+            const knownRegions = ['us', 'uk', 'es'];
+            if (pathParts.length > 0 && knownRegions.includes(pathParts[0].toLowerCase())) {
+              region = pathParts[0].toLowerCase();
+            } else if (window.parent.localStorage) {
+              const savedRegion = window.parent.localStorage.getItem('selected-region');
+              if (savedRegion && knownRegions.includes(savedRegion.toLowerCase())) {
+                region = savedRegion.toLowerCase();
+              }
+            }
+          }
+        } catch (e) {
+          console.warn('Cross-origin check or parent access restriction encountered:', e);
+        }
+
+        // Helper to resolve affiliate product link dynamically (with fallback)
+        function resolveAffiliateLink(slug, fallbackUrl) {
+          if (dynamicLinks && dynamicLinks.quiz && dynamicLinks.quiz[slug]) {
+            const mappedUrl = dynamicLinks.quiz[slug][region];
+            if (mappedUrl) return mappedUrl;
+          }
+          return fallbackUrl;
+        }
+
+        const zafuLink = resolveAffiliateLink('meditation-cushion', 'https://www.amazon.com/s?k=zafu+meditation+cushion');
+        const smartwatchLink = resolveAffiliateLink('smartwatch', 'https://www.amazon.com/s?k=garmin+smartwatch');
+
+        // Pillar configuration mappings
+        const pillars = [
+          { id: 'cellular', name: 'Cellular Longevity & DNA Integrity', qIndexes: [0, 1] },
+          { id: 'performance', name: 'Performance & VO2 Max', qIndexes: [2, 3] },
+          { id: 'nutrition', name: 'Metabolic Nutrition & Glucose', qIndexes: [4, 5] },
+          { id: 'autonomic', name: 'Autonomic Engineering & HRV Tuning', qIndexes: [6, 7] },
+          { id: 'endocrine', name: 'Women\'s Health & Endocrine balance', qIndexes: [8, 9] },
+          { id: 'social', name: 'Socio-Biological Architecture', qIndexes: [10, 11] }
+        ];
+        
+        const calculatedPillarScores = {};
+
+        // Calculate averaged score for each pillar
+        pillars.forEach((p) => {
+          const scoreQ1 = userScores[p.qIndexes[0]] || 0;
+          const scoreQ2 = userScores[p.qIndexes[1]] || 0;
+          const averageScore = (scoreQ1 + scoreQ2) / 2;
+          calculatedPillarScores[p.id] = averageScore;
+
+          // Create badge card
+          const card = document.createElement('div');
+          card.className = 'p-4 bg-slate-grey-800/40 border border-slate-grey-700 rounded-2xl flex flex-col justify-between';
+          
+          const label = document.createElement('span');
+          label.className = 'text-[9px] font-mono uppercase text-slate-grey-400 block mb-1';
+          label.textContent = p.name.split(' & ')[0]; // shorten name
+          
+          const val = document.createElement('span');
+          val.className = `text-lg sm:text-xl font-display font-medium leading-none ${
+            averageScore === 10 ? 'text-emerald-400' : averageScore >= 6 ? 'text-wellness-amber' : 'text-rose-400'
+          }`;
+          val.textContent = averageScore === 10 ? 'OPTIMAL' : averageScore >= 6 ? 'MODERATE' : 'LOW';
+          
+          card.appendChild(label);
+          card.appendChild(val);
+          scoresGrid.appendChild(card);
+        });
+
+        // Autonomic Engineering Recommendation (Primary £22 Guide + Zafu Cushion)
+        if (calculatedPillarScores['autonomic'] <= 6) {
+          const block = document.createElement('div');
+          block.className = 'p-6 bg-slate-grey-800 border border-slate-grey-700 rounded-3xl space-y-4';
+          block.innerHTML = `
+            <div class="flex justify-between items-start">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase bg-rose-500/10 border border-rose-500/30 text-rose-400 font-bold">
+                Low Autonomic Score
+              </span>
+              <span class="text-xs text-wellness-cyan-light font-black uppercase tracking-wider">£22 Guide Recommendation</span>
+            </div>
+            
+            <div class="space-y-2">
+              <h4 class="text-lg font-display uppercase tracking-tight text-white font-bold">
+                Cortisol & Stress Management Protocol
+              </h4>
+              <p class="text-slate-grey-300 text-xs leading-relaxed font-light">
+                Your Autonomic Engineering scores show significant parasympathetic strain. Unlock our high-resolution Cortisol protocol to rebuild HRV, stabilize morning cortisol curves, and optimize circadian rhythms.
+              </p>
+            </div>
+            
+            <div class="pt-2 flex flex-col sm:flex-row gap-3">
+              <a 
+                href="/premium-guides/stress-management-toolkit" 
+                target="_blank"
+                class="inline-flex justify-center items-center px-4 py-3 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider border border-wellness-cyan/20"
+              >
+                Unlock Protocol (£22)
+              </a>
+              <a 
+                href="${zafuLink}" 
+                target="_blank"
+                class="inline-flex justify-center items-center px-4 py-3 bg-slate-grey-900 border border-slate-grey-700 text-slate-grey-200 hover:text-white rounded-xl text-xs font-black uppercase tracking-wider transition-colors"
+              >
+                Get Zafu Cushion (Affiliate Link)
+              </a>
+            </div>
+          `;
+          recommendationsContainer.appendChild(block);
+        }
+
+        // Performance / VO2 Max Recommendation
+        if (calculatedPillarScores['performance'] <= 6) {
+          const block = document.createElement('div');
+          block.className = 'p-6 bg-slate-grey-800 border border-slate-grey-700 rounded-3xl space-y-4';
+          block.innerHTML = `
+            <div class="flex justify-between items-start">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase bg-wellness-amber/10 border border-wellness-amber/30 text-wellness-amber font-bold">
+                Low Performance Score
+              </span>
+              <span class="text-xs text-wellness-cyan-light font-black uppercase tracking-wider">Wearable Diagnostic</span>
+            </div>
+            
+            <div class="space-y-2">
+              <h4 class="text-lg font-display uppercase tracking-tight text-white font-bold">
+                VO2 Max & Aerobic Ceiling Optimization
+              </h4>
+              <p class="text-slate-grey-300 text-xs leading-relaxed font-light">
+                Your VO2 Max results indicate sub-optimal cardiorespiratory reserve. We recommend monitoring your biometric heart rate zones during training using a smart tracker.
+              </p>
+            </div>
+            
+            <div class="pt-2">
+              <a 
+                href="${smartwatchLink}" 
+                target="_blank"
+                class="inline-flex justify-center items-center px-4 py-3 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider border border-wellness-cyan/20"
+              >
+                Find Smartwatch Tracker (Affiliate Link)
+              </a>
+            </div>
+          `;
+          recommendationsContainer.appendChild(block);
+        }
+
+        // Default General Recommendation (if scores are fine or as a general blueprint)
+        if (recommendationsContainer.children.length === 0) {
+          const block = document.createElement('div');
+          block.className = 'p-6 bg-slate-grey-800 border border-slate-grey-700 rounded-3xl space-y-3';
+          block.innerHTML = `
+            <h4 class="text-lg font-display uppercase tracking-tight text-white font-bold">
+              Baseline Optimization Blueprint
+            </h4>
+            <p class="text-slate-grey-300 text-xs leading-relaxed font-light">
+              Your overall baseline is stable. To take your cellular health to the absolute next level, explore our six core blueprints.
+            </p>
+            <a 
+              href="/start-here" 
+              class="inline-flex justify-center items-center px-4 py-3 bg-slate-grey-900 border border-slate-grey-700 text-slate-grey-200 hover:text-white rounded-xl text-xs font-black uppercase tracking-wider transition-colors mt-2"
+            >
+              Explore Wellness Roadmap
+            </a>
+          `;
+          recommendationsContainer.appendChild(block);
+        }
+      }
+
+      // Height reporting function for embed mode
+      function reportIframeHeight() {
+        const height = document.body.scrollHeight || document.documentElement.scrollHeight;
+        if (window.parent && window.parent.postMessage) {
+          window.parent.postMessage({
+            source: 'health-quiz',
+            action: 'resize',
+            height: height + 30
+          }, '*');
+        }
+      }
+
+      // Initialize
+      changeStep(0);
+    </script>
+  </body>
+</html>

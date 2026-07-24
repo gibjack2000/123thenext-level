@@ -192,29 +192,29 @@ export default function UniversalQA() {
   };
 
   return (
-    <section className="py-24 bg-white border-t border-slate-100" id="qa-hub">
+    <section className="py-24 bg-slate-grey-950 border-t border-slate-grey-900" id="qa-hub">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
           <div className="max-w-2xl">
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              className="inline-flex items-center px-3 py-1 rounded-full bg-slate-100 text-slate-500 font-bold text-xs uppercase tracking-widest mb-4"
+              className="inline-flex items-center px-3 py-1 rounded-full bg-slate-grey-900 border border-slate-grey-800 text-slate-grey-450 font-bold text-xs uppercase tracking-widest mb-4"
             >
-              <HelpCircle size={14} className="mr-2" />
+              <HelpCircle size={14} className="mr-2 text-wellness-cyan" />
               {t('uqa_title')}
             </motion.div>
-            <h2 className="text-4xl md:text-5xl font-display font-black uppercase tracking-tighter text-slate-900 leading-none">
+            <h2 className="text-4xl md:text-5xl font-display font-black uppercase tracking-tighter text-white leading-none">
               {t('uqa_subtitle')}
             </h2>
           </div>
 
           <div className="relative w-full md:w-96">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-grey-500" size={20} />
             <input 
               type="text"
               placeholder={t('uqa_search_placeholder')}
-              className="w-full bg-slate-50 border-none rounded-2xl md:py-4 py-3 pl-12 pr-4 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-500 transition-all font-medium"
+              className="w-full bg-slate-grey-900 border border-slate-grey-800 rounded-2xl md:py-4 py-3 pl-12 pr-4 text-white placeholder:text-slate-grey-500 focus:outline-none focus:border-wellness-cyan focus:ring-1 focus:ring-wellness-cyan transition-all font-medium text-xs sm:text-sm"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -222,15 +222,15 @@ export default function UniversalQA() {
         </div>
 
         {/* Category Tabs */}
-        <div className="flex flex-wrap gap-2 mb-12">
+        <div class="flex flex-wrap gap-2 mb-12">
           {CATEGORIES.map(cat => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`px-4 md:px-5 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-bold uppercase tracking-wider transition-all ${
+              className={`px-4 md:px-5 py-2 md:py-2.5 rounded-full text-xs md:text-sm font-bold uppercase tracking-wider transition-all cursor-pointer ${
                 activeCategory === cat.id 
-                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-200 scale-105' 
-                  : 'bg-slate-50 text-slate-500 hover:bg-slate-100'
+                  ? 'bg-gradient-to-r from-wellness-cyan to-indigo-600 text-white shadow-lg shadow-wellness-cyan/10 scale-105' 
+                  : 'bg-slate-grey-900 text-slate-grey-400 hover:bg-slate-grey-850 hover:text-white border border-slate-grey-800/80'
               }`}
             >
               {cat.id === 'all' ? cat.label : t(`uqa_${cat.id}` as any)}
@@ -239,7 +239,7 @@ export default function UniversalQA() {
         </div>
 
         {/* Question Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <AnimatePresence mode="popLayout">
             {filteredQuestions.map((q) => (
               <motion.div
@@ -250,28 +250,28 @@ export default function UniversalQA() {
                 exit={{ opacity: 0, scale: 0.95 }}
                 className={`group cursor-pointer rounded-[2rem] border transition-all duration-300 ${
                   expandedId === q.id 
-                    ? 'bg-slate-900 border-slate-900 shadow-2xl p-10' 
-                    : 'bg-white border-slate-100 p-8 hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-50/50'
+                    ? 'bg-slate-grey-900 border-slate-grey-800 shadow-2xl p-10' 
+                    : 'bg-slate-grey-900/40 border-slate-grey-800/80 p-8 hover:border-wellness-cyan/40 hover:shadow-xl hover:shadow-wellness-cyan/5'
                 }`}
                 onClick={() => toggleExpand(q.id)}
               >
-                <div className="flex items-start gap-6">
+                <div class="flex items-start gap-6">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors ${
-                    expandedId === q.id ? 'bg-white/10' : 'bg-slate-50 group-hover:bg-indigo-50'
+                    expandedId === q.id ? 'bg-white/10' : 'bg-slate-grey-950 group-hover:bg-slate-grey-850 border border-slate-grey-800/60'
                   }`}>
                     {q.icon}
                   </div>
                   <div className="flex-grow">
                     <h3 className={`text-xl font-bold leading-tight mb-2 transition-colors ${
-                      expandedId === q.id ? 'text-white' : 'text-slate-900 group-hover:text-indigo-600'
+                      expandedId === q.id ? 'text-white' : 'text-slate-grey-200 group-hover:text-wellness-cyan'
                     }`}>
                       {t(q.questionKey as any)}
                     </h3>
                     
-                    <div className="flex flex-wrap gap-2 mb-4">
+                    <div class="flex flex-wrap gap-2 mb-4">
                       {q.tags.map(tag => (
                         <span key={tag} className={`text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded ${
-                          expandedId === q.id ? 'bg-white/10 text-white/50' : 'bg-slate-100 text-slate-400'
+                          expandedId === q.id ? 'bg-white/10 text-white/50' : 'bg-slate-grey-950 text-slate-grey-450 border border-slate-grey-800/30'
                         }`}>
                           {tag}
                         </span>
@@ -286,13 +286,13 @@ export default function UniversalQA() {
                           exit={{ opacity: 0, height: 0 }}
                           className="overflow-hidden"
                         >
-                          <div className="h-px bg-white/10 my-6" />
-                          <p className="text-slate-300 leading-relaxed mb-8">
+                          <div class="h-px bg-white/10 my-6" />
+                          <p className="text-slate-grey-300 leading-relaxed mb-8 text-sm font-light">
                             {t(q.answerKey as any)}
                           </p>
                           
                           {q.links && (
-                            <div className="space-y-3">
+                            <div class="space-y-3">
                               <p className="text-white font-black text-[10px] uppercase tracking-widest mb-2">Technical Deep Dive:</p>
                               {q.links.map(link => (
                                 <a 
@@ -304,7 +304,7 @@ export default function UniversalQA() {
                                   onClick={(e) => e.stopPropagation()}
                                 >
                                   <span className="font-bold">{link.label}</span>
-                                  <ExternalLink size={16} className="text-white/40 group-hover/link:text-indigo-400 transition-colors" />
+                                  <ExternalLink size={16} className="text-white/40 group-hover/link:text-wellness-cyan transition-colors" />
                                 </a>
                               ))}
                             </div>
@@ -314,7 +314,7 @@ export default function UniversalQA() {
                     </AnimatePresence>
                   </div>
                   <div className={`mt-1 transition-transform duration-300 ${expandedId === q.id ? 'rotate-180' : ''}`}>
-                    <ArrowRight size={20} className={expandedId === q.id ? 'text-indigo-400' : 'text-slate-300'} />
+                    <ArrowRight size={20} className={expandedId === q.id ? 'text-wellness-cyan' : 'text-slate-grey-500'} />
                   </div>
                 </div>
               </motion.div>
@@ -323,11 +323,11 @@ export default function UniversalQA() {
         </div>
 
         {filteredQuestions.length === 0 && (
-          <div className="text-center py-20 bg-slate-50 rounded-[3rem] border-2 border-dashed border-slate-200">
-            <p className="text-slate-500 font-medium">No intelligence markers found matching your query.</p>
+          <div class="text-center py-20 bg-slate-grey-900 rounded-[3rem] border-2 border-dashed border-slate-grey-800">
+            <p className="text-slate-grey-450 font-medium">No intelligence markers found matching your query.</p>
             <button 
               onClick={() => { setSearchQuery(''); setActiveCategory('all'); }}
-              className="mt-4 text-indigo-600 font-bold uppercase text-xs tracking-widest"
+              className="mt-4 text-wellness-cyan hover:text-wellness-cyan-light font-bold uppercase text-xs tracking-widest cursor-pointer"
             >
               Clear Filters
             </button>

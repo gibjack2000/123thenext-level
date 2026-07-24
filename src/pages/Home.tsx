@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Globe2, MapPin, ShoppingBag, ArrowRight, Heart, Dumbbell, Apple, Sparkles, BookOpen, Shield, UserCheck, Wind, HeartPulse, ExternalLink, Compass, Microscope, Users } from 'lucide-react';
+import { Globe2, MapPin, ShoppingBag, ArrowRight, Heart, Dumbbell, Apple, Sparkles, BookOpen, Shield, UserCheck, Wind, HeartPulse, ExternalLink, Compass, Microscope, Users, X, CheckCircle2 } from 'lucide-react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { Product, mapToProduct, PremiumGuide } from '../types';
 import { MOCK_PRODUCTS } from '../data/mockData';
@@ -27,6 +27,67 @@ export default function Home() {
   const [guides, setGuides] = useState<PremiumGuide[]>([]);
   const [loading, setLoading] = useState(true);
   const [showingMockData, setShowingMockData] = useState(false);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+
+  // Lead Capture Modal States
+  const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
+  const [leadFirstName, setLeadFirstName] = useState('');
+  const [leadEmail, setLeadEmail] = useState('');
+  const [leadStatus, setLeadStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  // Handle Escape key to close lead modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsLeadModalOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const handleLeadSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!leadEmail) return;
+
+    // Trigger file download programmatically immediately while user gesture is active
+    const link = document.createElement('a');
+    link.href = '/assets/docs/longevity-blueprint.pdf';
+    link.setAttribute('download', 'longevity-blueprint.pdf');
+    link.setAttribute('target', '_blank');
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    setTimeout(() => {
+      document.body.removeChild(link);
+    }, 500);
+
+    setLeadStatus('loading');
+    try {
+      // Send a POST request to email list endpoint
+      const response = await fetch('/api/newsletter/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: leadEmail,
+          preferences: ['Health', 'Fitness', 'Nutrition', 'Wellness']
+        })
+      });
+      
+      // Also record in supabase if present
+      if (hasValidSupabaseConfig && supabase) {
+        await supabase
+          .from('newsletter_subscribers')
+          .insert([{ email: leadEmail, preferences: ['Health', 'Fitness', 'Nutrition', 'Wellness'] }]);
+      }
+
+      setLeadStatus('success');
+    } catch (err) {
+      console.error('Lead form submission failed:', err);
+      // Still set to success so the user gets the success feedback page
+      setLeadStatus('success');
+    }
+  };
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const imagesRef = useRef<HTMLImageElement[]>([]);
@@ -297,224 +358,195 @@ export default function Home() {
         <div className="absolute inset-0 z-0 pointer-events-none">
           <canvas
             ref={canvasRef}
-            className="w-full h-full object-cover opacity-60"
+            className="w-full h-full object-cover opacity-65"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent md:bg-gradient-to-r md:from-slate-950 md:via-slate-950/80 md:to-transparent"></div>
         </div>
 
         {/* Background glow and grids */}
-        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.08),transparent_60%)] pointer-events-none"></div>
+        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.06),transparent_60%)] pointer-events-none"></div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-28 z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
             {/* Left side: Content */}
             <div className="lg:col-span-6 space-y-6 md:space-y-8 text-left">
-              {/* Badge */}
-              <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-bold tracking-widest uppercase border border-blue-500/20">
-                <Sparkles size={14} className="mr-2" />
-                {t('hero_badge')}
+              {/* Eyebrow Badge */}
+              <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-wellness-cyan/10 text-wellness-cyan-light text-[10px] font-mono font-bold tracking-[0.2em] uppercase border border-wellness-cyan/20">
+                <Sparkles size={12} className="mr-2 animate-pulse" />
+                Paradigm Shift Active
               </div>
               
               {/* Headline */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-black uppercase tracking-tight text-white leading-[1.05]">
-                {t('hero_title1')} <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">{t('hero_title2')}</span>
+                Push Your Limits. <br />
+                Reach the <span className="text-transparent bg-clip-text bg-gradient-to-r from-wellness-cyan to-wellness-amber">Next Level</span>.
               </h1>
               
               {/* Subtext */}
-              <p className="text-lg text-slate-400 leading-relaxed max-w-[45ch]">
-                {t('hero_subtitle')}
+              <p className="text-base sm:text-lg text-slate-grey-300 leading-relaxed font-light max-w-[50ch]">
+                Welcome to a premium proactive longevity and human performance platform. We help you move beyond reactive sick-care, replacing symptom management with daily autonomic and cellular optimization.
               </p>
               
               {/* Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                <Link to="/health-quiz" className="inline-flex justify-center items-center px-6 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-bold uppercase tracking-wider text-xs transition-all active:scale-[0.98] shadow-lg shadow-blue-900/30 border border-blue-500/20 whitespace-nowrap">
-                  Take Wellness Quiz
-                  <ArrowRight size={14} className="ml-2" />
-                </Link>
-                <a href="#pillars" className="inline-flex justify-center items-center px-6 py-3.5 bg-white/5 hover:bg-white/10 text-white rounded-xl font-bold uppercase tracking-wider text-xs transition-colors border border-white/15 whitespace-nowrap">
-                  Explore Pillars
-                  <ArrowRight size={14} className="ml-2" />
+                <a href="/quiz.html" className="inline-flex justify-center items-center px-6 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all active:scale-[0.98] shadow-lg shadow-wellness-cyan/15 border border-wellness-cyan/25 whitespace-nowrap cursor-pointer">
+                  Take the 5-Minute Wellness Quiz
                 </a>
-              </div>
-
-              {/* Quiz Urgency Metrics */}
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-slate-400 pt-2 border-t border-white/5">
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
-                  <span><strong>142</strong> assessments completed this week</span>
-                </div>
-                <div className="w-1 h-1 rounded-full bg-slate-700 hidden sm:block"></div>
-                <div className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                  <span><strong>5-minute</strong> diagnostic blueprint</span>
-                </div>
+                <button onClick={() => setIsLeadModalOpen(true)} className="inline-flex justify-center items-center px-6 py-4 bg-slate-grey-900 border border-slate-grey-700/60 hover:border-wellness-cyan hover:text-white text-slate-grey-200 rounded-xl text-xs font-black uppercase tracking-wider transition-colors active:scale-[0.98] shadow whitespace-nowrap cursor-pointer">
+                  Download Free Longevity Blueprint
+                </button>
               </div>
             </div>
 
-            {/* Right side: Video Player */}
+            {/* Right side: Video Player Placeholder / Real Video Player */}
             <div className="lg:col-span-6 flex justify-center">
               <div className="w-full max-w-xl lg:max-w-none relative">
                 {/* Glowing backdrop */}
-                <div className="absolute -inset-4 bg-gradient-to-tr from-blue-500 to-emerald-400 rounded-3xl blur-[32px] opacity-10 pointer-events-none"></div>
+                <div className="absolute -inset-4 bg-gradient-to-tr from-wellness-cyan to-wellness-amber rounded-3xl blur-[32px] opacity-10 pointer-events-none"></div>
                 
                 {/* Video Frame */}
-                <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-slate-900 shadow-2xl">
-                  <video
-                    className="w-full object-cover aspect-video"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="auto"
-                  >
-                    <source src="https://res.cloudinary.com/dbhpaqnq8/video/upload/v1782468396/Add_meditation_image_1080p_202606261104_yofrsn.mp4" type="video/mp4" />
-                  </video>
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/20 to-transparent pointer-events-none"></div>
+                <div className="relative rounded-2xl overflow-hidden border border-slate-grey-700 bg-slate-grey-900 shadow-2xl">
+                  {isVideoPlaying ? (
+                    <video
+                      className="w-full object-cover aspect-video"
+                      autoPlay
+                      controls
+                      playsInline
+                      preload="auto"
+                    >
+                      <source src="https://res.cloudinary.com/dbhpaqnq8/video/upload/v1782468396/Add_meditation_image_1080p_202606261104_yofrsn.mp4" type="video/mp4" />
+                    </video>
+                  ) : (
+                    <div className="aspect-video w-full flex items-center justify-center relative overflow-hidden bg-black/40">
+                      {/* Thumbnail background overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-tr from-slate-grey-950 via-slate-grey-900 to-slate-grey-800 opacity-85"></div>
+                      
+                      <div className="absolute inset-0 flex flex-col justify-between p-6 z-10 text-left">
+                        <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-wellness-cyan">[ HUMAN OPTIMIZATION INTRO ]</span>
+                        <div>
+                          <h3 className="text-sm font-display uppercase tracking-wider text-white font-black mb-1">Longevity Paradigm Video</h3>
+                          <p className="text-[10px] text-slate-grey-400">Duration: 2 mins • Audio commentary</p>
+                        </div>
+                      </div>
+
+                      {/* Play Button overlay */}
+                      <button 
+                        onClick={() => setIsVideoPlaying(true)}
+                        className="relative z-20 w-16 h-16 rounded-full bg-gradient-to-tr from-wellness-cyan to-indigo-600 text-white flex items-center justify-center shadow-2xl hover:scale-105 transition-transform duration-300 border border-wellness-cyan/20 focus:outline-none focus:ring-2 focus:ring-wellness-cyan cursor-pointer"
+                        aria-label="Play Longevity Paradigm introduction video"
+                      >
+                        <svg className="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M8 5v14l11-7z"></path>
+                        </svg>
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
 
           </div>
 
-          {/* 🌱 Holistic Benefits Section */}
-          <div className="mt-24 pt-16 border-t border-white/5">
-            <div className="max-w-4xl mx-auto mb-16">
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-500 block mb-3">Our Mission</span>
-              <h2 className="text-3xl md:text-5xl font-display uppercase tracking-tight text-white mb-8 text-left">
-                The Proactive Health Paradigm
+          {/* 🌱 The Dual-Track Comparison Section */}
+          <div className="mt-24 pt-16 border-t border-white/5" id="strategy">
+            <div className="max-w-3xl mx-auto mb-16 text-center">
+              <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-wellness-amber block mb-2">The Optimization Strategy</span>
+              <h2 className="text-3xl md:text-5xl font-display uppercase tracking-tight text-white leading-tight">
+                Dual-Track Performance Framework
               </h2>
-              
-              <div className="space-y-6 text-slate-300 text-lg leading-relaxed font-medium text-left">
-                <p>
-                  At <span className="text-white font-bold">123TheNext Level</span>, our mission is to give you the resources, tools, and knowledge to move beyond reactive "sick-care" and into proactive health optimization — building resilience before problems arise, not scrambling to fix them after.
-                </p>
-                <p>
-                  Research shows that 80–90% of how well you age comes down to lifestyle, not genetics. That means your daily choices, not your DNA, are the biggest lever you have. We help you pull it — turning reactive repair into sustainable, lasting vitality through science-backed protocols paired with practical daily habits.
-                </p>
-                <p>
-                  Equally vital is the <Link to="/#life-practice" className="text-amber-400 hover:text-amber-300 font-bold transition-colors underline decoration-dotted">Evolution of Self: Cultivate Your Life Practice</Link> protocol. True longevity is not merely physiological; it requires cultivating inner resilience, mindfulness, and cognitive-emotional balance. We address autonomic and psychological engineering as one of our top priorities because a balanced, stress-resilient mind is the foundation upon which all physical health and cellular optimization stands.
-                </p>
-              </div>
-
-              {/* 🎯 Primary Quiz and Life Practice CTA Buttons */}
-              <div className="mt-8 flex flex-col sm:flex-row gap-4 text-left">
-                <Link to="/health-quiz" className="inline-flex justify-center items-center px-6 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-bold uppercase tracking-wider text-xs transition-all active:scale-[0.98] shadow-lg shadow-blue-900/30 border border-blue-500/20 whitespace-nowrap">
-                  Begin Your 5-Minute Assessment
-                  <ArrowRight size={14} className="ml-2" />
-                </Link>
-                <Link to="/#life-practice" className="inline-flex justify-center items-center px-6 py-3.5 bg-amber-500/5 hover:bg-amber-500/10 text-slate-300 hover:text-amber-400 rounded-xl font-bold uppercase tracking-wider text-xs transition-all active:scale-[0.98] border border-amber-500/25 whitespace-nowrap shadow-lg shadow-amber-950/10">
-                  Cultivate Your Life Practice
-                  <ArrowRight size={14} className="ml-2" />
-                </Link>
-              </div>
-
-              <div className="mt-16 pt-12 border-t border-white/5 text-left">
-                <h3 className="text-2xl md:text-3xl font-display uppercase tracking-tight text-white mb-8">
-                  Your Toolkit for a Longer, Healthier Life
-                </h3>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-300">
-                  {/* Toolkit item 1: Roadmap (Primary Quiz starting point) */}
-                  <div className="toolkit-card-shell group">
-                    <div className="toolkit-card-inner justify-between">
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-3xl pointer-events-none transition-opacity group-hover:opacity-100 opacity-60"></div>
-                      <div>
-                        <strong className="text-white block text-lg mb-2 flex items-center gap-2 font-display uppercase tracking-tight">
-                          A Personalized Roadmap 
-                          <span className="text-[9px] font-black uppercase bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full border border-blue-500/30">Start Here</span>
-                        </strong>
-                        <span className="text-slate-400 text-sm leading-relaxed block mb-6 transition-colors duration-500 group-hover:text-slate-300">Start with a 5-minute wellness diagnostic and get a clear, focused plan based on where you actually stand today, not generic advice.</span>
-                      </div>
-                      <Link to="/health-quiz" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors self-start mt-auto">
-                        Start Diagnostic Quiz <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* Toolkit item 2: Protocols */}
-                  <div className="toolkit-card-shell group">
-                    <div className="toolkit-card-inner justify-between">
-                      <div>
-                        <strong className="text-white block text-lg mb-2 font-display uppercase tracking-tight group-hover:text-indigo-400 transition-colors duration-500">Six Core Optimization Protocols</strong>
-                        <span className="text-slate-400 text-sm leading-relaxed block mb-6 transition-colors duration-500 group-hover:text-slate-300">Detailed, actionable guides covering healthspan and longevity, metabolic nutrition, autonomic engineering, and socio-biological architecture.</span>
-                      </div>
-                      <Link to="/#six-core-optimization" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors self-start mt-auto">
-                        Explore Protocols <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* Toolkit item 3: Intelligence */}
-                  <div className="toolkit-card-shell group">
-                    <div className="toolkit-card-inner justify-between">
-                      <div>
-                        <strong className="text-white block text-lg mb-2 font-display uppercase tracking-tight group-hover:text-violet-400 transition-colors duration-500">Expert Guides & Daily Intelligence</strong>
-                        <span className="text-slate-400 text-sm leading-relaxed block mb-6 transition-colors duration-500 group-hover:text-slate-300">A daily feed of clinical research and insights, plus downloadable in-depth guides on fitness, nutrition, and stress management.</span>
-                      </div>
-                      <Link to="/intelligence-hub" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors self-start mt-auto">
-                        Enter Intelligence Hub <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* Toolkit item 4: Marketplace */}
-                  <div className="toolkit-card-shell group">
-                    <div className="toolkit-card-inner justify-between">
-                      <div>
-                        <strong className="text-white block text-lg mb-2 font-display uppercase tracking-tight group-hover:text-emerald-400 transition-colors duration-500">A Curated Marketplace</strong>
-                        <span className="text-slate-400 text-sm leading-relaxed block mb-6 transition-colors duration-500 group-hover:text-slate-300">Over 100 expert-vetted tools, supplements, and bio-tracking devices, selected purely for quality and performance.</span>
-                      </div>
-                      <Link to="/#shop" className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors self-start mt-auto">
-                        Browse Marketplace <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-12 text-slate-300 text-lg leading-relaxed font-medium text-left">
-                <p>
-                  Our goal is simple: keep your body strong, active, and independent as you age. With the right insights to track your progress and the right strategies to optimize your physical and mental health, <span className="text-white font-bold">123TheNext Level</span> helps you stop waiting for problems and start building a longer, healthier life today.
-                </p>
-              </div>
+              <p className="text-slate-grey-400 text-sm max-w-[60ch] mx-auto mt-2 leading-relaxed">
+                Optimizing human healthspan requires balancing precise, high-end quarterly biomarkers with actionable daily micro-habits.
+              </p>
             </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {/* Card 1: Mind-Body Connection */}
-              <div className="benefit-card-shell group">
-                <div className="benefit-card-inner">
-                  <div className="benefit-icon benefit-icon-pink">🧠</div>
-                  <h4 className="text-lg font-bold text-white mb-2 group-hover:text-pink-400 transition-colors duration-500 font-display uppercase tracking-tight">Mind-Body Connection</h4>
-                  <p className="text-slate-400 text-sm leading-relaxed transition-colors duration-500 group-hover:text-slate-300">Your wellness journey connects mental clarity with physical vitality, creating true balance.</p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+              
+              {/* Column A: Quarterly Diagnostics (Desaturated Blue Accent) */}
+              <div className="bg-[#0f172a] border border-slate-700/60 rounded-3xl p-8 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:border-slate-600/80 text-left">
+                <div className="space-y-6">
+                  <div className="flex justify-between items-start">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-sickcare-500/10 border border-sickcare-400/30 text-sickcare-300 font-bold">
+                      Quarterly Diagnostics
+                    </div>
+                    <span className="text-[10px] font-mono text-sickcare-400">[ PHASE 1 ]</span>
+                  </div>
+
+                  <div className="space-y-3">
+                    <h3 className="text-xl sm:text-2xl font-display uppercase tracking-tight text-white">
+                      In-Depth Health Testing
+                    </h3>
+                    <p className="text-slate-grey-300 text-xs sm:text-sm font-light leading-relaxed">
+                      Get a clear picture of your body's true health. We check key biological markers so you can identify potential wellness issues early, before they become problems.
+                    </p>
+                  </div>
+
+                  <ul className="space-y-3 pt-2" aria-label="Diagnostics tracking list">
+                    <li className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-sickcare-700 flex items-center justify-center text-sickcare-300 font-bold text-xs">1</div>
+                      <span className="text-xs sm:text-sm text-slate-grey-300 font-medium"><strong>Epigenetic Biological Age Tests</strong> (Find out how fast your cells are aging)</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-sickcare-700 flex items-center justify-center text-sickcare-300 font-bold text-xs">2</div>
+                      <span className="text-xs sm:text-sm text-slate-grey-300 font-medium"><strong>Lola Vital Check 56</strong> (Comprehensive blood diagnostics)</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-sickcare-700 flex items-center justify-center text-sickcare-300 font-bold text-xs">3</div>
+                      <span className="text-xs sm:text-sm text-slate-grey-300 font-medium"><strong>Continuous Biomarker Diagnostics</strong> (Monitoring blood sugar & stress response)</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="pt-8 border-t border-slate-800/80 mt-8 flex justify-between items-center">
+                  <span className="text-[9px] font-mono uppercase tracking-wider text-sickcare-400">Access Clinician Panel</span>
+                  <a href="/intelligence-hub" className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-sickcare-300 hover:text-white transition-colors">
+                    Read Protocols <span aria-hidden="true">→</span>
+                  </a>
                 </div>
               </div>
 
-              {/* Card 2: Proactive Prevention */}
-              <div className="benefit-card-shell group">
-                <div className="benefit-card-inner">
-                  <div className="benefit-icon benefit-icon-red">🎯</div>
-                  <h4 className="text-lg font-bold text-white mb-2 group-hover:text-rose-400 transition-colors duration-500 font-display uppercase tracking-tight">Proactive Prevention</h4>
-                  <p className="text-slate-400 text-sm leading-relaxed transition-colors duration-500 group-hover:text-slate-300">Build resilience before problems arise. Transform reactive care into sustainable wellness.</p>
-                </div>
-              </div>
+              {/* Column B: Your Daily Small Wins (Cyan/Amber Accent) */}
+              <div className="bg-slate-grey-900 border border-slate-grey-700/80 rounded-3xl p-8 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:border-slate-500/50 text-left">
+                <div className="absolute -top-24 -right-24 w-48 h-48 bg-wellness-cyan/5 rounded-full blur-[80px] pointer-events-none"></div>
 
-              {/* Card 3: Comprehensive Support */}
-              <div className="benefit-card-shell group">
-                <div className="benefit-card-inner">
-                  <div className="benefit-icon benefit-icon-gold">⚖️</div>
-                  <h4 className="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition-colors duration-500 font-display uppercase tracking-tight">Comprehensive Support</h4>
-                  <p className="text-slate-400 text-sm leading-relaxed transition-colors duration-500 group-hover:text-slate-300">Science-backed protocols integrated with proven wellness practices for optimal results.</p>
-                </div>
-              </div>
+                <div className="space-y-6">
+                  <div className="flex justify-between items-start">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light font-bold">
+                      Your Daily Small Wins
+                    </div>
+                    <span className="text-[10px] font-mono text-wellness-amber">[ PHASE 2 ]</span>
+                  </div>
 
-              {/* Card 4: Measurable Progress */}
-              <div className="benefit-card-shell group">
-                <div className="benefit-card-inner">
-                  <div className="benefit-icon benefit-icon-emerald">📈</div>
-                  <h4 className="text-lg font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors duration-500 font-display uppercase tracking-tight">Measurable Progress</h4>
-                  <p className="text-slate-400 text-sm leading-relaxed transition-colors duration-500 group-hover:text-slate-300">Track your transformation from reactive patterns to proactive wellness habits.</p>
+                  <div className="space-y-3">
+                    <h3 className="text-xl sm:text-2xl font-display uppercase tracking-tight text-white">
+                      Simple Daily Habits
+                    </h3>
+                    <p className="text-slate-grey-300 text-xs sm:text-sm font-light leading-relaxed">
+                      Testing only matters if you take action. We translate complex health data into simple, high-impact daily routines that boost your energy and help manage stress.
+                    </p>
+                  </div>
+
+                  <ul className="space-y-3 pt-2" aria-label="Daily habits list">
+                    <li className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-bold text-xs">1</div>
+                      <span className="text-xs sm:text-sm text-slate-grey-300 font-medium"><strong>10-Minute Mobility Walks</strong> (Quick, effective low-intensity movement)</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-bold text-xs">2</div>
+                      <span className="text-xs sm:text-sm text-slate-grey-300 font-medium"><strong>Breathing Mindfulness</strong> (Simple vagus nerve relaxation)</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-bold text-xs">3</div>
+                      <span className="text-xs sm:text-sm text-slate-grey-300 font-medium"><strong>Glycemic Snacking</strong> (Healthy choices to prevent energy crashes)</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="pt-8 border-t border-slate-800/80 mt-8 flex justify-between items-center">
+                  <span className="text-[9px] font-mono uppercase tracking-wider text-wellness-amber">Interactive daily trackers</span>
+                  <a href="/start-here" className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-wellness-cyan hover:text-wellness-cyan-light transition-colors">
+                    Explore Wins <span aria-hidden="true">→</span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -1924,6 +1956,115 @@ export default function Home() {
           }
         }
       `}} />
+
+      {/* Lead Capture Modal */}
+      {isLeadModalOpen && (
+        <div 
+          className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-[fadeIn_0.3s_ease]"
+          onClick={() => setIsLeadModalOpen(false)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div 
+            className="relative w-full max-w-md bg-[#0d1117] border border-slate-grey-700/80 rounded-3xl p-8 shadow-2xl flex flex-col justify-between overflow-hidden text-left"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button */}
+            <button 
+              onClick={() => setIsLeadModalOpen(false)}
+              className="absolute top-4 right-4 text-slate-grey-400 hover:text-white p-2 rounded-full hover:bg-slate-grey-800/60 transition-colors cursor-pointer"
+              aria-label="Close modal"
+            >
+              <X size={18} />
+            </button>
+
+            {leadStatus === 'success' ? (
+              <div className="text-center py-6 space-y-4">
+                <div className="mx-auto flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+                  <CheckCircle2 size={24} />
+                </div>
+                <h3 className="text-xl font-display font-black uppercase tracking-tight text-white">Download Started!</h3>
+                <p className="text-slate-grey-300 text-xs leading-relaxed font-light">
+                  Thank you, {leadFirstName || 'there'}! The Free Longevity Blueprint PDF has been triggered for download. Check your email for additional exclusive performance insights.
+                </p>
+                <div className="flex flex-col gap-2">
+                  <a 
+                    href="/assets/docs/longevity-blueprint.pdf" 
+                    download="longevity-blueprint.pdf"
+                    target="_blank"
+                    className="w-full py-3 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all text-center block cursor-pointer border border-wellness-cyan/25"
+                  >
+                    Click Here to Download Manually
+                  </a>
+                  <button 
+                    onClick={() => {
+                      setIsLeadModalOpen(false);
+                      setLeadStatus('idle');
+                      setLeadFirstName('');
+                      setLeadEmail('');
+                    }}
+                    className="w-full py-3 bg-slate-grey-800 hover:bg-slate-grey-700 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-colors cursor-pointer text-center block"
+                  >
+                    Close Window
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-6">
+                <div>
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-[9px] font-mono uppercase bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light font-bold mb-3">
+                    Premium Resource Access
+                  </span>
+                  <h3 className="text-2xl font-display font-black uppercase tracking-tight text-white">
+                    Unlock the Longevity Blueprint
+                  </h3>
+                  <p className="text-slate-grey-450 text-xs font-light leading-relaxed mt-2">
+                    Enter your details below to download the comprehensive guide on biological age reduction, cellular tuning, and optimal physical zones.
+                  </p>
+                </div>
+
+                <form onSubmit={handleLeadSubmit} className="space-y-4">
+                  <div className="space-y-1.5">
+                    <label className="block text-[9px] font-mono uppercase text-slate-grey-450 font-bold">First Name</label>
+                    <input 
+                      type="text" 
+                      required
+                      value={leadFirstName}
+                      onChange={(e) => setLeadFirstName(e.target.value)}
+                      placeholder="e.g. John" 
+                      className="w-full bg-slate-grey-950 border border-slate-grey-800 focus:border-wellness-cyan text-white rounded-xl py-3 px-4 text-xs font-medium placeholder-slate-grey-600 outline-none transition-colors"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="block text-[9px] font-mono uppercase text-slate-grey-450 font-bold">Email Address</label>
+                    <input 
+                      type="email" 
+                      required
+                      value={leadEmail}
+                      onChange={(e) => setLeadEmail(e.target.value)}
+                      placeholder="you@example.com" 
+                      className="w-full bg-slate-grey-950 border border-slate-grey-800 focus:border-wellness-cyan text-white rounded-xl py-3 px-4 text-xs font-medium placeholder-slate-grey-600 outline-none transition-colors"
+                    />
+                  </div>
+
+                  {leadStatus === 'error' && (
+                    <p className="text-rose-400 text-xs font-semibold">An error occurred. Please try again.</p>
+                  )}
+
+                  <button 
+                    type="submit"
+                    disabled={leadStatus === 'loading'}
+                    className="w-full py-3.5 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-wellness-cyan/15 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer border border-wellness-cyan/20"
+                  >
+                    {leadStatus === 'loading' ? 'Processing...' : 'Download Guide Now'}
+                  </button>
+                </form>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

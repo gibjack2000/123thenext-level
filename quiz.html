@@ -1,0 +1,687 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wellness Diagnostic Quiz — 123TheNextLevel</title>
+    
+    <!-- Elegant Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Link the main style sheet compiled by Vite -->
+    <link rel="stylesheet" href="/src/index.css" />
+    
+    <style>
+      @media (prefers-reduced-motion: reduce) {
+        .transition-all, .animate-pulse, .progress-bar-fill {
+          transition: none !important;
+          animation: none !important;
+        }
+      }
+      
+      .progress-bar-fill {
+        transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+    </style>
+  </head>
+  <body class="bg-[#090c10] text-slate-grey-200 antialiased font-sans min-h-screen flex flex-col justify-between relative overflow-x-hidden selection:bg-wellness-cyan/30 selection:text-wellness-cyan-light">
+    
+    <!-- Ambient background glows -->
+    <div class="absolute top-0 left-1/4 w-[500px] h-[500px] bg-wellness-cyan/5 rounded-full blur-[120px] pointer-events-none" aria-hidden="true"></div>
+    <div class="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-wellness-amber/5 rounded-full blur-[150px] pointer-events-none" aria-hidden="true"></div>
+
+    <!-- Navigation Header -->
+    <nav class="w-full z-[100] border-b border-white/5 bg-slate-950/80 backdrop-blur-xl sticky top-0">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+        <!-- Logo -->
+        <a href="/" class="flex items-center group">
+          <div class="bg-gradient-to-br from-blue-500 to-indigo-600 p-2 rounded-xl text-white mr-3 shadow-lg shadow-blue-900/20 group-hover:scale-105 transition-transform">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <span class="font-display font-black uppercase tracking-tighter text-xl text-white group-hover:text-blue-400 transition-colors">
+            123TheNext<span class="text-blue-500">Level</span>
+          </span>
+        </a>
+        
+        <!-- Navigation Links -->
+        <div class="hidden md:flex items-center space-x-6">
+          <a href="/" class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors">Home</a>
+          <a href="/start-here" class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors">Start Here</a>
+          <a href="/premium-guides" class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors">Premium Guides</a>
+          <a href="/#pillars" class="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors">Pillars</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Center Card Section -->
+    <main class="flex-grow flex items-center justify-center p-4 md:p-8 z-10 w-full">
+      <div class="w-full max-w-xl" id="quiz-app">
+        <!-- ---------------------------------------------------- -->
+        <!-- SCREEN 1: WELCOME SCREEN -->
+        <!-- ---------------------------------------------------- -->
+        <div id="screen-welcome" class="bg-slate-grey-900 border border-slate-grey-700/80 rounded-[2rem] p-8 md:p-12 shadow-2xl relative overflow-hidden text-center space-y-8">
+          <div class="absolute -inset-4 bg-gradient-to-tr from-wellness-cyan to-wellness-amber rounded-3xl blur-[40px] opacity-10 pointer-events-none" aria-hidden="true"></div>
+          
+          <div class="space-y-4 relative z-10">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light font-bold" aria-hidden="true">
+              <span class="flex h-1.5 w-1.5 rounded-full bg-wellness-cyan animate-pulse"></span>
+              Diagnostic Blueprint
+            </span>
+            <h1 class="text-3xl md:text-5xl font-display font-black uppercase tracking-tight text-white leading-tight">
+              5-Minute Wellness Assessment
+            </h1>
+            <p class="text-slate-grey-300 text-sm leading-relaxed max-w-[42ch] mx-auto font-light">
+              Measure your biological standing across our Six Core Optimization Pillars to uncover your personalized longevity roadmap.
+            </p>
+          </div>
+
+          <div class="pt-4 relative z-10">
+            <button 
+              id="btn-start"
+              type="button"
+              class="w-full justify-center inline-flex items-center px-6 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all active:scale-[0.98] shadow-lg shadow-wellness-cyan/15 border border-wellness-cyan/25 cursor-pointer"
+            >
+              Begin Assessment
+            </button>
+          </div>
+        </div>
+
+        <!-- ---------------------------------------------------- -->
+        <!-- SCREEN 2: QUESTION SCREEN (DYNAMICALLY CONTROLLED) -->
+        <!-- ---------------------------------------------------- -->
+        <div id="screen-question" class="hidden bg-slate-grey-900 border border-slate-grey-700/80 rounded-[2rem] p-8 md:p-10 shadow-2xl space-y-8 text-left transition-all duration-300">
+          <!-- Progress Indicator -->
+          <div class="space-y-3">
+            <div class="flex justify-between items-center text-[10px] font-mono uppercase tracking-wider text-slate-grey-400">
+              <span id="question-index">Question 1 of 6</span>
+              <span id="question-pillar">[ Cellular Longevity ]</span>
+            </div>
+            <div class="w-full bg-slate-grey-800 h-1.5 rounded-full overflow-hidden" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="6">
+              <div id="progress-bar-fill" class="progress-bar-fill h-full bg-gradient-to-r from-wellness-cyan to-wellness-amber" style="width: 16.6%"></div>
+            </div>
+          </div>
+
+          <!-- Question Title -->
+          <h2 id="question-text" class="text-xl sm:text-2xl font-display uppercase tracking-tight text-white leading-tight">
+            How would you rate your cellular recovery speed?
+          </h2>
+
+          <!-- Options Container -->
+          <div id="options-container" class="space-y-4" role="radiogroup" aria-labelledby="question-text">
+            <!-- Options will be dynamically rendered here -->
+          </div>
+
+          <!-- Back Button -->
+          <div class="pt-4 flex justify-between border-t border-slate-grey-800">
+            <button 
+              id="btn-back"
+              type="button"
+              class="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-slate-grey-400 hover:text-white transition-colors cursor-pointer"
+            >
+              ← Previous Question
+            </button>
+          </div>
+        </div>
+
+        <!-- ---------------------------------------------------- -->
+        <!-- SCREEN 3: OPT-IN / CAPSULE DIGEST SCREEN -->
+        <!-- ---------------------------------------------------- -->
+        <div id="screen-optin" class="hidden bg-slate-grey-900 border border-slate-grey-700/80 rounded-[2rem] p-8 md:p-10 shadow-2xl space-y-8 text-center transition-all duration-300">
+          <div class="space-y-3">
+            <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-widest bg-wellness-amber/10 border border-wellness-amber/30 text-wellness-amber font-bold">
+              Calculation Complete
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white leading-tight">
+              Unlock Your Biological Blueprint
+            </h2>
+            <p class="text-slate-grey-300 text-xs sm:text-sm font-light leading-relaxed max-w-[42ch] mx-auto">
+              Provide your email address to lock in your diagnostic scores and subscribe to the weekly 'Bento Box' longevity summary.
+            </p>
+          </div>
+
+          <form id="optin-form" class="space-y-4 text-left">
+            <div class="relative">
+              <label for="optin-email" class="sr-only">Email Address</label>
+              <input 
+                id="optin-email"
+                type="email" 
+                placeholder="Enter your email address" 
+                required
+                class="w-full px-4 py-3.5 bg-slate-grey-800 border border-slate-grey-700 focus:border-wellness-cyan text-white text-xs rounded-xl focus:outline-none placeholder-slate-grey-450 transition-colors"
+                aria-required="true"
+              />
+            </div>
+            <button 
+              type="submit" 
+              class="w-full justify-center inline-flex items-center px-6 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all active:scale-[0.98] border border-wellness-cyan/25 cursor-pointer"
+            >
+              Generate Blueprint
+            </button>
+          </form>
+        </div>
+
+        <!-- ---------------------------------------------------- -->
+        <!-- SCREEN 4: RESULTS & BLUEPRINT SCREEN -->
+        <!-- ---------------------------------------------------- -->
+        <div id="screen-results" class="hidden bg-slate-grey-900 border border-slate-grey-700/80 rounded-[2rem] p-8 md:p-10 shadow-2xl space-y-8 text-left transition-all duration-300">
+          
+          <!-- Header -->
+          <div class="space-y-2 border-b border-slate-grey-800 pb-4">
+            <span class="text-[10px] font-mono uppercase tracking-[0.25em] text-wellness-cyan block">Assessment Scores</span>
+            <h2 class="text-2xl sm:text-4xl font-display uppercase tracking-tight text-white leading-none">
+              Your Biological Blueprint
+            </h2>
+            <p class="text-slate-grey-400 text-xs font-light">
+              Analysis calculated dynamically based on your diagnostic answers.
+            </p>
+          </div>
+
+          <!-- Scores Breakdown Grid -->
+          <div class="grid grid-cols-2 gap-4" id="scores-grid">
+            <!-- Dynamically filled with score badges -->
+          </div>
+
+          <!-- Dynamic Recommendations Section -->
+          <div class="space-y-6 pt-4 border-t border-slate-grey-800">
+            <h3 class="text-xs font-mono uppercase tracking-[0.2em] text-slate-grey-300">
+              Targeted Actions & Recommendations
+            </h3>
+
+            <div id="recommendations-container" class="space-y-6">
+              <!-- Dynamically populated recommendations -->
+            </div>
+          </div>
+
+          <!-- Restart Button -->
+          <div class="pt-6 border-t border-slate-grey-800 text-center">
+            <button 
+              id="btn-restart"
+              type="button"
+              class="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-slate-grey-400 hover:text-white transition-colors cursor-pointer"
+            >
+              ← Restart Assessment
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="relative bg-slate-950 text-slate-300 pt-12 pb-8 border-t border-white/5 w-full">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+        <span class="font-display font-black uppercase tracking-tighter text-lg text-white">
+          123TheNext<span class="text-blue-500">Level</span>
+        </span>
+        <p class="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
+          Disclaimer: The diagnostic quiz is for educational purposes only. Results are not medical advice and should not replace clinical consultations.
+        </p>
+        <div class="text-[10px] text-slate-600 uppercase tracking-widest pt-2">
+          &copy; 2026 123TheNextLevel. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+    <!-- Interactive Logic Script -->
+    <script>
+      const SUPABASE_URL = 'https://seoaictzhmqdwnkfymxt.supabase.co';
+      const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlb2FpY3R6aG1xZHdua2Z5bXh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwNjI4ODIsImV4cCI6MjA4OTYzODg4Mn0.CTDyJuHKfujUudqcVHyJYJV6K0lMkA5vajiGTVXRzxI';
+
+      // Definition of the Six Pillars & 6 Questions (1 per pillar)
+      const questions = [
+        {
+          pillarId: 'cellular',
+          pillarName: 'Cellular Longevity',
+          question: 'How would you rate your cellular recovery speed (e.g. skin healing, muscle repair, or daily vitality)?',
+          options: [
+            { text: 'Exceptional: Feel fully recovered within 12-24 hours.', score: 10 },
+            { text: 'Moderate: Takes a couple of days to feel baseline normal.', score: 6 },
+            { text: 'Sub-optimal: Sluggish recovery, feel fatigued for several days.', score: 2 }
+          ]
+        },
+        {
+          pillarId: 'performance',
+          pillarName: 'Performance & Bio-Data',
+          question: 'What is your level of cardiorespiratory endurance during high-intensity exercise (VO2 Max output)?',
+          options: [
+            { text: 'Elite: Can sustain high output easily without gasping for air.', score: 10 },
+            { text: 'Intermediate: Elevate heart rate quickly, but recover inside a minute.', score: 6 },
+            { text: 'Low: Get winded almost immediately and take long to catch breath.', score: 2 }
+          ]
+        },
+        {
+          pillarId: 'nutrition',
+          pillarName: 'Metabolic Nutrition',
+          question: 'How stable is your energy level throughout the afternoon (e.g. brain fog or post-lunch crashes)?',
+          options: [
+            { text: 'Highly stable: Consistent energy all day, zero afternoon crashes.', score: 10 },
+            { text: 'Fluctuating: Occasional mild slumps, crave sugar or afternoon coffee.', score: 6 },
+            { text: 'Severe crashes: Extreme fatigue and heavy brain fog every afternoon.', score: 2 }
+          ]
+        },
+        {
+          pillarId: 'autonomic',
+          pillarName: 'Autonomic Engineering',
+          question: 'How effectively does your nervous system bounce back from acute stress, anxiety, or high pressure?',
+          options: [
+            { text: 'Highly resilient: Calm down quickly using breathing or meditation.', score: 10 },
+            { text: 'Standard recovery: Carry tension for a few hours, but recover overnight.', score: 6 },
+            { text: 'Chronic tension: Feel constantly wired, experience poor sleep, high resting pulse.', score: 2 }
+          ]
+        },
+        {
+          pillarId: 'endocrine',
+          pillarName: "Women's Health",
+          question: 'How balanced is your sleep cycle, thermal regulation, and overall hormonal stability?',
+          options: [
+            { text: 'Optimal equilibrium: Regular sleep cycles, stable mood, minimal disruptions.', score: 10 },
+            { text: 'Mild fluctuations: Occasional stress-induced sleep issues or mood swings.', score: 6 },
+            { text: 'Disrupted: Chronic sleep disturbances, heavy mood swings, or temperature issues.', score: 2 }
+          ]
+        },
+        {
+          pillarId: 'social',
+          pillarName: 'Socio-Biological Architecture',
+          question: 'How integrated are your physical workouts or wellness practices with your social circle and community check-ins?',
+          options: [
+            { text: 'Strongly integrated: Regular workouts or performance goals shared with peers.', score: 10 },
+            { text: 'Partially integrated: Workout mostly alone, but share stats or check-in.', score: 6 },
+            { text: 'Isolated: Exercise completely alone, with no peer accountability.', score: 2 }
+          ]
+        }
+      ];
+
+      // Application State Management
+      let currentStep = 0; // 0: Welcome, 1-6: Questions, 7: Opt-In, 8: Results
+      let userScores = {}; // Map of question index -> score
+      let dynamicLinks = null;
+      let region = 'us';
+
+      // Fallback links mapping
+      const fallbackLinks = {
+        'meditation-cushion': {
+          us: 'https://www.amazon.com/dp/B01698E3A6?tag=123znl08-20',
+          uk: 'https://www.amazon.co.uk/dp/B01698E3A6?tag=123znl0f3-21',
+          es: 'https://www.amazon.es/dp/B01698E3A6?tag=123znl08a-21',
+        },
+        'sony-headphones': {
+          us: 'https://www.amazon.com/s?k=Sony+WH-CH720N+headphones',
+          uk: 'https://www.amazon.co.uk/s?k=Sony+WH-CH720N+headphones',
+          es: 'https://www.amazon.es/s?k=Sony+WH-CH720N+headphones',
+        },
+        'bluetooth-scales': {
+          us: 'https://www.amazon.com/s?k=Bluetooth+Smart+Scales',
+          uk: 'https://www.amazon.co.uk/s?k=Bluetooth+Smart+Scales',
+          es: 'https://www.amazon.es/s?k=Bluetooth+Smart+Scales',
+        },
+        'poounur-watch': {
+          us: 'https://www.amazon.com/s?k=Poounur+Smart+Watch',
+          uk: 'https://www.amazon.co.uk/s?k=Poounur+Smart+Watch',
+          es: 'https://www.amazon.es/s?k=Poounur+Smart+Watch',
+        },
+        'marine-collagen': {
+          us: 'https://www.amazon.com/s?k=ZEBORA+Marine+Collagen',
+          uk: 'https://www.amazon.co.uk/s?k=ZEBORA+Marine+Collagen',
+          es: 'https://www.amazon.es/s?k=ZEBORA+Marine+Collagen',
+        },
+        'owala-bottle': {
+          us: 'https://www.amazon.com/s?k=Owala+FreeSip+Water+Bottles',
+          uk: 'https://www.amazon.co.uk/s?k=Owala+FreeSip+Water+Bottles',
+          es: 'https://www.amazon.es/s?k=Owala+FreeSip+Water+Bottles',
+        }
+      };
+
+      // DOM Elements
+      const welcomeScreen = document.getElementById('screen-welcome');
+      const questionScreen = document.getElementById('screen-question');
+      const optinScreen = document.getElementById('screen-optin');
+      const resultsScreen = document.getElementById('screen-results');
+      
+      const btnStart = document.getElementById('btn-start');
+      const btnBack = document.getElementById('btn-back');
+      const btnRestart = document.getElementById('btn-restart');
+      
+      const questionIndexText = document.getElementById('question-index');
+      const questionPillarText = document.getElementById('question-pillar');
+      const questionText = document.getElementById('question-text');
+      const optionsContainer = document.getElementById('options-container');
+      const progressBarFill = document.getElementById('progress-bar-fill');
+      const optinForm = document.getElementById('optin-form');
+      const scoresGrid = document.getElementById('scores-grid');
+      const recommendationsContainer = document.getElementById('recommendations-container');
+
+      // Setup Event Listeners
+      btnStart.addEventListener('click', () => changeStep(1));
+      btnBack.addEventListener('click', () => changeStep(currentStep - 1));
+      btnRestart.addEventListener('click', () => {
+        userScores = {};
+        changeStep(0);
+      });
+      
+      optinForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        changeStep(8);
+      });
+
+      // Function to render steps
+      function changeStep(step) {
+        currentStep = step;
+        
+        welcomeScreen.classList.add('hidden');
+        questionScreen.classList.add('hidden');
+        optinScreen.classList.add('hidden');
+        resultsScreen.classList.add('hidden');
+
+        if (step === 0) {
+          welcomeScreen.classList.remove('hidden');
+        } else if (step >= 1 && step <= 6) {
+          renderQuestion(step - 1);
+          questionScreen.classList.remove('hidden');
+        } else if (step === 7) {
+          optinScreen.classList.remove('hidden');
+        } else if (step === 8) {
+          renderResults();
+          resultsScreen.classList.remove('hidden');
+        }
+      }
+
+      // Render Question screen content
+      function renderQuestion(index) {
+        const q = questions[index];
+        
+        questionIndexText.textContent = `Question ${index + 1} of 6`;
+        questionPillarText.textContent = `[ ${q.pillarName} ]`;
+        questionText.textContent = q.question;
+        
+        const progressPercentage = ((index + 1) / 6) * 100;
+        progressBarFill.style.width = `${progressPercentage}%`;
+        
+        optionsContainer.innerHTML = '';
+        q.options.forEach((opt) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'w-full text-left p-5 bg-slate-grey-800 border border-slate-grey-700/60 rounded-2xl hover:border-wellness-cyan focus:outline-none focus:ring-2 focus:ring-wellness-cyan cursor-pointer transition-all active:scale-[0.99] flex items-center justify-between group';
+          
+          const textSpan = document.createElement('span');
+          textSpan.className = 'text-xs sm:text-sm font-medium text-slate-grey-200 group-hover:text-white transition-colors';
+          textSpan.textContent = opt.text;
+          
+          const iconSpan = document.createElement('span');
+          iconSpan.className = 'h-5 w-5 rounded-full border border-slate-grey-600 flex-shrink-0 flex items-center justify-center group-hover:border-wellness-cyan transition-colors ml-4';
+          
+          button.appendChild(textSpan);
+          button.appendChild(iconSpan);
+          
+          button.addEventListener('click', () => {
+            userScores[q.pillarId] = opt.score;
+            
+            if (index < 5) {
+              changeStep(currentStep + 1);
+            } else {
+              changeStep(7); // Show Opt-in
+            }
+          });
+          
+          optionsContainer.appendChild(button);
+        });
+      }
+
+      // Helper to resolve affiliate product link dynamically (with fallback)
+      function resolveAffiliateLink(slug) {
+        if (dynamicLinks && dynamicLinks[slug]) {
+          const mappedUrl = dynamicLinks[slug][region];
+          if (mappedUrl) return mappedUrl;
+        }
+        if (fallbackLinks[slug]) {
+          return fallbackLinks[slug][region] || fallbackLinks[slug]['us'];
+        }
+        return `https://www.amazon.com/s?k=${encodeURIComponent(slug)}`;
+      }
+
+      // Render Results & Recommendations
+      async function renderResults() {
+        scoresGrid.innerHTML = '';
+        recommendationsContainer.innerHTML = '';
+
+        // Read region
+        try {
+          const savedRegion = localStorage.getItem('selected-region');
+          if (savedRegion) {
+            region = savedRegion.toLowerCase();
+          }
+        } catch (e) {
+          console.warn('Unable to read selected-region from localStorage:', e);
+        }
+
+        // Fetch dynamic links
+        if (!dynamicLinks) {
+          try {
+            const mappingsRes = await fetch(`${SUPABASE_URL}/rest/v1/affiliate_link_mappings?select=*`, {
+              headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+              }
+            });
+            const mappings = await mappingsRes.json();
+            
+            const productsRes = await fetch(`${SUPABASE_URL}/rest/v1/amazon_affiliate_products?select=*`, {
+              headers: {
+                'apikey': SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+              }
+            });
+            const products = await productsRes.json();
+            
+            dynamicLinks = {};
+            mappings.forEach(m => {
+              const prod = products.find(p => p.id === m.product_id);
+              if (prod) {
+                dynamicLinks[m.key] = {
+                  us: prod.us_link || prod.affiliate_link || '',
+                  uk: prod.uk_link || prod.affiliate_link || '',
+                  es: prod.es_link || prod.affiliate_link || ''
+                };
+              }
+            });
+          } catch (e) {
+            console.warn('Failed to load dynamic links from Supabase, relying on fallback configurations:', e);
+          }
+        }
+
+        // Output scores list
+        questions.forEach((q) => {
+          const score = userScores[q.pillarId] || 0;
+          
+          const card = document.createElement('div');
+          card.className = 'p-4 bg-slate-grey-800/40 border border-slate-grey-700 rounded-2xl flex flex-col justify-between';
+          
+          const label = document.createElement('span');
+          label.className = 'text-[9px] font-mono uppercase text-slate-grey-400 block mb-1';
+          label.textContent = q.pillarName;
+          
+          const val = document.createElement('span');
+          val.className = `text-lg sm:text-xl font-display font-medium leading-none ${
+            score === 10 ? 'text-emerald-400' : score >= 6 ? 'text-wellness-amber' : 'text-rose-400'
+          }`;
+          val.textContent = score === 10 ? 'OPTIMAL' : score >= 6 ? 'MODERATE' : 'LOW';
+          
+          card.appendChild(label);
+          card.appendChild(val);
+          scoresGrid.appendChild(card);
+        });
+
+        // Determine lowest scoring category among the three primary tracks
+        // autonomic (stress), performance (fitness), nutrition (metabolism)
+        const mappingScores = {
+          autonomic: userScores['autonomic'] || 0,
+          performance: userScores['performance'] || 0,
+          nutrition: userScores['nutrition'] || 0
+        };
+
+        // If one of the auxiliary pillars is lower, factor it into primary category
+        if ((userScores['endocrine'] || 0) < mappingScores.autonomic) {
+          mappingScores.autonomic = userScores['endocrine'];
+        }
+        if ((userScores['social'] || 0) < mappingScores.performance) {
+          mappingScores.performance = userScores['social'];
+        }
+        if ((userScores['cellular'] || 0) < mappingScores.nutrition) {
+          mappingScores.nutrition = userScores['cellular'];
+        }
+
+        let recommendationCategory = 'autonomic';
+        let minScore = 999;
+        for (const cat in mappingScores) {
+          if (mappingScores[cat] < minScore) {
+            minScore = mappingScores[cat];
+            recommendationCategory = cat;
+          }
+        }
+
+        // Dynamically output recommendation block
+        const block = document.createElement('div');
+        block.className = 'p-6 bg-slate-grey-800 border border-slate-grey-700 rounded-3xl space-y-4';
+        
+        if (recommendationCategory === 'autonomic') {
+          const zafuLink = resolveAffiliateLink('meditation-cushion');
+          const sonyLink = resolveAffiliateLink('sony-headphones');
+          block.innerHTML = `
+            <div class="flex justify-between items-start">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase bg-rose-500/10 border border-rose-500/30 text-rose-400 font-bold">
+                Low Autonomic/Stress Score
+              </span>
+              <span class="text-xs text-wellness-cyan-light font-black uppercase tracking-wider">Recommended Guide</span>
+            </div>
+            
+            <div class="space-y-2">
+              <h4 class="text-lg font-display uppercase tracking-tight text-white font-bold">
+                Cortisol & Stress Management Protocol
+              </h4>
+              <p class="text-slate-grey-300 text-xs leading-relaxed font-light">
+                Your Autonomic Engineering scores show significant stress indicators. Unlock our high-resolution Cortisol protocol to rebuild HRV, stabilize cortisol curves, and optimize circadian rhythms.
+              </p>
+            </div>
+            
+            <div class="pt-2 flex flex-col sm:flex-row gap-3">
+              <a 
+                href="/premium-guides/stress-management-toolkit" 
+                class="inline-flex justify-center items-center px-4 py-3 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider border border-wellness-cyan/20 text-center"
+              >
+                Unlock Protocol (£22)
+              </a>
+              <a 
+                href="${zafuLink}" 
+                target="_blank"
+                class="inline-flex justify-center items-center px-4 py-3 bg-slate-grey-900 border border-slate-grey-700 text-slate-grey-200 hover:text-white rounded-xl text-xs font-black uppercase tracking-wider transition-colors text-center"
+              >
+                Get Zafu Cushion (Affiliate Link)
+              </a>
+              <a 
+                href="${sonyLink}" 
+                target="_blank"
+                class="inline-flex justify-center items-center px-4 py-3 bg-slate-grey-900 border border-slate-grey-700 text-slate-grey-200 hover:text-white rounded-xl text-xs font-black uppercase tracking-wider transition-colors text-center"
+              >
+                Sony WH-CH720N (Affiliate Link)
+              </a>
+            </div>
+          `;
+        } else if (recommendationCategory === 'performance') {
+          const scalesLink = resolveAffiliateLink('bluetooth-scales');
+          const watchLink = resolveAffiliateLink('poounur-watch');
+          block.innerHTML = `
+            <div class="flex justify-between items-start">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase bg-blue-500/10 border border-blue-500/30 text-blue-400 font-bold">
+                Low Performance/Fitness Score
+              </span>
+              <span class="text-xs text-wellness-cyan-light font-black uppercase tracking-wider">Recommended Guide</span>
+            </div>
+            
+            <div class="space-y-2">
+              <h4 class="text-lg font-display uppercase tracking-tight text-white font-bold">
+                Beginner Home Workout Plan
+              </h4>
+              <p class="text-slate-grey-300 text-xs leading-relaxed font-light">
+                Your performance scores indicate a need to build foundational strength and mobility. Our 4-week zero-equipment protocol will help you build daily physical habits from home.
+              </p>
+            </div>
+            
+            <div class="pt-2 flex flex-col sm:flex-row gap-3">
+              <a 
+                href="/premium-guides/beginner-home-workout-plan" 
+                class="inline-flex justify-center items-center px-4 py-3 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider border border-wellness-cyan/20 text-center"
+              >
+                Unlock Protocol (£19)
+              </a>
+              <a 
+                href="${scalesLink}" 
+                target="_blank"
+                class="inline-flex justify-center items-center px-4 py-3 bg-slate-grey-900 border border-slate-grey-700 text-slate-grey-200 hover:text-white rounded-xl text-xs font-black uppercase tracking-wider transition-colors text-center"
+              >
+                Bluetooth Scales (Affiliate Link)
+              </a>
+              <a 
+                href="${watchLink}" 
+                target="_blank"
+                class="inline-flex justify-center items-center px-4 py-3 bg-slate-grey-900 border border-slate-grey-700 text-slate-grey-200 hover:text-white rounded-xl text-xs font-black uppercase tracking-wider transition-colors text-center"
+              >
+                Poounur Watch (Affiliate Link)
+              </a>
+            </div>
+          `;
+        } else {
+          const collagenLink = resolveAffiliateLink('marine-collagen');
+          const bottleLink = resolveAffiliateLink('owala-bottle');
+          block.innerHTML = `
+            <div class="flex justify-between items-start">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold">
+                Low Metabolism/Nutrition Score
+              </span>
+              <span class="text-xs text-wellness-cyan-light font-black uppercase tracking-wider">Recommended Guide</span>
+            </div>
+            
+            <div class="space-y-2">
+              <h4 class="text-lg font-display uppercase tracking-tight text-white font-bold">
+                The Master Meal Planning Guide
+              </h4>
+              <p class="text-slate-grey-300 text-xs leading-relaxed font-light">
+                Your metabolism results indicate glycemic fluctuations and irregular dietary patterns. Learn how to batch-cook, grocery shop, and macro-balance your weekly meals efficiently.
+              </p>
+            </div>
+            
+            <div class="pt-2 flex flex-col sm:flex-row gap-3">
+              <a 
+                href="/premium-guides/healthy-meal-planning-guide" 
+                class="inline-flex justify-center items-center px-4 py-3 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider border border-wellness-cyan/20 text-center"
+              >
+                Unlock Protocol (£24)
+              </a>
+              <a 
+                href="${collagenLink}" 
+                target="_blank"
+                class="inline-flex justify-center items-center px-4 py-3 bg-slate-grey-900 border border-slate-grey-700 text-slate-grey-200 hover:text-white rounded-xl text-xs font-black uppercase tracking-wider transition-colors text-center"
+              >
+                ZEBORA Collagen (Affiliate Link)
+              </a>
+              <a 
+                href="${bottleLink}" 
+                target="_blank"
+                class="inline-flex justify-center items-center px-4 py-3 bg-slate-grey-900 border border-slate-grey-700 text-slate-grey-200 hover:text-white rounded-xl text-xs font-black uppercase tracking-wider transition-colors text-center"
+              >
+                Owala Bottle (Affiliate Link)
+              </a>
+            </div>
+          `;
+        }
+        recommendationsContainer.appendChild(block);
+      }
+
+      // Initialize
+      changeStep(0);
+    </script>
+  </body>
+</html>

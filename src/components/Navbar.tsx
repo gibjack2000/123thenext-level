@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Home as HomeIcon, Zap, Shield, Heart, Info, ChevronRight, Compass, ChevronDown, Dumbbell, Apple, Users } from 'lucide-react';
+import { Menu, X, Home as HomeIcon, Zap, Shield, Heart, Info, ChevronRight, Compass, ChevronDown, Dumbbell, Apple, Users, Sparkles } from 'lucide-react';
 import MarketSelector from './MarketSelector';
 import { useT } from '../translations';
 
@@ -219,6 +219,9 @@ const Navbar = () => {
               <Link to="/intelligence-hub" className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors">
                 Intelligence
               </Link>
+              <Link to="/design-system" className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors">
+                Design System
+              </Link>
               
               <div className="h-4 w-px bg-white/10 mx-4"></div>
               
@@ -414,6 +417,16 @@ const Navbar = () => {
             >
               <Shield size={16} className="text-blue-400" />
               <span className="text-base font-display font-black uppercase tracking-tight">Intelligence</span>
+            </Link>
+
+            {/* Flat Link Design System */}
+            <Link
+              to="/design-system"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-3 p-4 bg-white/5 rounded-2xl border border-white/5 text-white"
+            >
+              <Sparkles size={16} className="text-blue-400" />
+              <span className="text-base font-display font-black uppercase tracking-tight">Design System</span>
             </Link>
           </div>
         </div>

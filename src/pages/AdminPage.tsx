@@ -52,7 +52,13 @@ const QUIZ_ITEMS = [
   { slug: 'weighted-eye-mask', label: 'Weighted Eye Mask', category: 'Relaxation & Recovery' },
   { slug: 'essential-oil-diffuser', label: 'Essential Oil Diffuser', category: 'Relaxation & Recovery' },
   { slug: 'sunrise-alarm', label: 'Sunrise Alarm Clock', category: 'Relaxation & Recovery' },
-  { slug: 'weighted-blanket', label: 'Weighted Blanket', category: 'Relaxation & Recovery' }
+  { slug: 'weighted-blanket', label: 'Weighted Blanket', category: 'Relaxation & Recovery' },
+  { slug: 'smartwatch', label: 'Smartwatch Tracker', category: 'Relaxation & Recovery' },
+  { slug: 'sony-headphones', label: 'Sony WH-CH720N Headphones', category: 'Relaxation & Recovery' },
+  { slug: 'bluetooth-scales', label: 'Bluetooth Smart Scales', category: 'Relaxation & Recovery' },
+  { slug: 'poounur-watch', label: 'Poounur Smart Watch', category: 'Relaxation & Recovery' },
+  { slug: 'marine-collagen', label: 'ZEBORA Marine Collagen', category: 'Relaxation & Recovery' },
+  { slug: 'owala-bottle', label: 'Owala FreeSip Water Bottles', category: 'Relaxation & Recovery' }
 ];
 
 export default function AdminPage() {

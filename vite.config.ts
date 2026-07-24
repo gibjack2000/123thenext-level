@@ -30,6 +30,10 @@ export default defineConfig(({mode}) => {
     build: {
       chunkSizeWarningLimit: 1500,
       rollupOptions: {
+        input: {
+          main: path.resolve(__dirname, 'index.html'),
+          quiz: path.resolve(__dirname, 'quiz.html'),
+        },
         output: {
           manualChunks(id) {
             if (id.includes('node_modules')) {
