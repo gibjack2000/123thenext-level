@@ -406,15 +406,14 @@ export default function Home() {
                 {/* Video Frame */}
                 <div className="relative rounded-2xl overflow-hidden border border-slate-grey-700 bg-slate-grey-900 shadow-2xl">
                   {isVideoPlaying ? (
-                    <video
-                      className="w-full object-cover aspect-video"
-                      autoPlay
-                      controls
-                      playsInline
-                      preload="auto"
-                    >
-                      <source src="https://res.cloudinary.com/dbhpaqnq8/video/upload/v1782468396/Add_meditation_image_1080p_202606261104_yofrsn.mp4" type="video/mp4" />
-                    </video>
+                    <iframe
+                      className="w-full aspect-video"
+                      src="https://streamable.com/e/atkhiu?autoplay=1"
+                      frameBorder="0"
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      allowFullScreen
+                      title="Longevity Paradigm Video"
+                    />
                   ) : (
                     <div className="aspect-video w-full flex items-center justify-center relative overflow-hidden bg-black/40">
                       {/* Thumbnail background overlay */}
