@@ -11,4 +11,5 @@ coverage/
 # public/Products is now included in distribution
 # !public/Products/.gitkeep
 scratch/
+.claude/
 .agents/
