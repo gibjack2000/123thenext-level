@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Sparkles, ArrowLeft, Sun, ThermometerSnowflake, Moon, Eye, ExternalLink, Brain, Waves, RefreshCw, Zap, Activity, Shield, Wind, Microscope } from 'lucide-react';
+import { Sparkles, ArrowLeft, ArrowRight, Sun, ThermometerSnowflake, Moon, Eye, ExternalLink, Brain, Waves, RefreshCw, Zap, Activity, Shield, Wind, Microscope, Heart, UserCheck, HeartPulse, Compass } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../translations';
@@ -300,6 +300,182 @@ export default function WellnessPillar() {
                         </a>
                       ))}
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Cultivate Your Life Practice Section */}
+        <section className="mb-40">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 px-4">
+            <div className="space-y-4">
+              <span className="text-indigo-500 font-black uppercase tracking-[0.3em] text-xs">
+                {t('lp_badge')}
+              </span>
+              <h2 className="text-4xl md:text-6xl font-display font-black uppercase tracking-tight text-white leading-[0.9]">
+                {t('lp_title1')}<br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-blue-400 to-indigo-600">
+                  {t('lp_title2')}
+                </span>
+              </h2>
+            </div>
+            <p className="text-slate-400 max-w-md leading-relaxed font-medium">
+              {t('lp_subtitle')}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+            <Link to="/life-practice/universal-love" className="relative p-8 rounded-[2.5rem] overflow-hidden group border border-white/5 transition-all hover:border-indigo-500/50 shadow-xl h-48 flex flex-col justify-between">
+              <div className="absolute inset-0 z-0">
+                <img src="/assets2/foundations/universal_love.png" alt="Universal Love" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-slate-950/70 group-hover:bg-slate-950/60 transition-colors duration-500"></div>
+              </div>
+              <div className="relative z-10 flex flex-col h-full justify-between">
+                <div className="flex items-center">
+                  <div className="w-12 h-12 rounded-2xl bg-white/5 text-indigo-400 flex items-center justify-center mr-4 backdrop-blur-md border border-white/10 group-hover:scale-110 transition-transform duration-500">
+                    <Heart size={20} />
+                  </div>
+                  <h4 className="font-display font-bold uppercase text-white text-lg">{t('lp_universal_love')}</h4>
+                </div>
+                <p className="text-slate-300 text-xs leading-relaxed line-clamp-2 max-w-[280px] my-3">{t('lp_universal_love_desc')}</p>
+                <div className="text-indigo-450 text-[10px] font-black uppercase tracking-wider flex items-center group-hover:translate-x-1 transition-transform">
+                  Explore Protocol <ArrowRight size={12} className="ml-1" />
+                </div>
+              </div>
+            </Link>
+
+            <Link to="/life-practice/do-no-harm" className="relative p-8 rounded-[2.5rem] overflow-hidden group border border-white/5 transition-all hover:border-indigo-500/50 shadow-xl h-48 flex flex-col justify-between">
+              <div className="absolute inset-0 z-0">
+                <img src="/assets2/foundations/do_no_harm.png" alt="Do No Harm" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-slate-955/70 group-hover:bg-slate-955/60 transition-colors duration-500"></div>
+              </div>
+              <div className="relative z-10 flex flex-col h-full justify-between">
+                <div className="flex items-center">
+                  <div className="w-12 h-12 rounded-2xl bg-white/5 text-indigo-400 flex items-center justify-center mr-4 backdrop-blur-md border border-white/10 group-hover:scale-110 transition-transform duration-500">
+                    <Shield size={20} />
+                  </div>
+                  <h4 className="font-display font-bold uppercase text-white text-lg">{t('lp_do_no_harm')}</h4>
+                </div>
+                <p className="text-slate-300 text-xs leading-relaxed line-clamp-2 max-w-[280px] my-3">{t('lp_do_no_harm_desc')}</p>
+                <div className="text-indigo-450 text-[10px] font-black uppercase tracking-wider flex items-center group-hover:translate-x-1 transition-transform">
+                  Explore Protocol <ArrowRight size={12} className="ml-1" />
+                </div>
+              </div>
+            </Link>
+
+            <Link to="/life-practice/good-moral-person" className="relative p-8 rounded-[2.5rem] overflow-hidden group border border-white/5 transition-all hover:border-indigo-500/50 shadow-xl h-48 flex flex-col justify-between">
+              <div className="absolute inset-0 z-0">
+                <img src="/assets2/foundations/moral_integrity.png" alt="Moral Integrity" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-slate-950/70 group-hover:bg-slate-955/60 transition-colors duration-500"></div>
+              </div>
+              <div className="relative z-10 flex flex-col h-full justify-between">
+                <div className="flex items-center">
+                  <div className="w-12 h-12 rounded-2xl bg-white/5 text-indigo-400 flex items-center justify-center mr-4 backdrop-blur-md border border-white/10 group-hover:scale-110 transition-transform duration-500">
+                    <UserCheck size={20} />
+                  </div>
+                  <h4 className="font-display font-bold uppercase text-white text-lg">{t('lp_moral_person')}</h4>
+                </div>
+                <p className="text-slate-300 text-xs leading-relaxed line-clamp-2 max-w-[280px] my-3">{t('lp_moral_person_desc')}</p>
+                <div className="text-indigo-450 text-[10px] font-black uppercase tracking-wider flex items-center group-hover:translate-x-1 transition-transform">
+                  Explore Protocol <ArrowRight size={12} className="ml-1" />
+                </div>
+              </div>
+            </Link>
+
+            <Link to="/life-practice/breathing-mindfulness" className="relative p-8 rounded-[2.5rem] overflow-hidden group border border-white/5 transition-all hover:border-indigo-500/50 shadow-xl h-48 flex flex-col justify-between">
+              <div className="absolute inset-0 z-0">
+                <img src="/assets2/foundations/breathing_mindfulness.png" alt="Breathing Mindfulness" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-slate-950/70 group-hover:bg-slate-950/60 transition-colors duration-500"></div>
+              </div>
+              <div className="relative z-10 flex flex-col h-full justify-between">
+                <div className="flex items-center">
+                  <div className="w-12 h-12 rounded-2xl bg-white/5 text-indigo-400 flex items-center justify-center mr-4 backdrop-blur-md border border-white/10 group-hover:scale-110 transition-transform duration-500">
+                    <Wind size={20} />
+                  </div>
+                  <h4 className="font-display font-bold uppercase text-white text-lg">{t('lp_breathing')}</h4>
+                </div>
+                <p className="text-slate-300 text-xs leading-relaxed line-clamp-2 max-w-[280px] my-3">{t('lp_breathing_desc')}</p>
+                <div className="text-indigo-450 text-[10px] font-black uppercase tracking-wider flex items-center group-hover:translate-x-1 transition-transform">
+                  Explore Protocol <ArrowRight size={12} className="ml-1" />
+                </div>
+              </div>
+            </Link>
+
+            <Link to="/life-practice/loving-kindness" className="relative p-8 rounded-[2.5rem] overflow-hidden group border border-white/5 transition-all hover:border-indigo-500/50 shadow-xl h-48 flex flex-col justify-between">
+              <div className="absolute inset-0 z-0">
+                <img src="/assets2/foundations/loving_kindness.png" alt="Loving-kindness" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-slate-955/70 group-hover:bg-slate-955/60 transition-colors duration-500"></div>
+              </div>
+              <div className="relative z-10 flex flex-col h-full justify-between">
+                <div className="flex items-center">
+                  <div className="w-12 h-12 rounded-2xl bg-white/5 text-indigo-400 flex items-center justify-center mr-4 backdrop-blur-md border border-white/10 group-hover:scale-110 transition-transform duration-500">
+                    <HeartPulse size={20} />
+                  </div>
+                  <h4 className="font-display font-bold uppercase text-white text-lg">{t('lp_loving_kindness')}</h4>
+                </div>
+                <p className="text-slate-300 text-xs leading-relaxed line-clamp-2 max-w-[280px] my-3">{t('lp_loving_kindness_desc')}</p>
+                <div className="text-indigo-450 text-[10px] font-black uppercase tracking-wider flex items-center group-hover:translate-x-1 transition-transform">
+                  Explore Protocol <ArrowRight size={12} className="ml-1" />
+                </div>
+              </div>
+            </Link>
+
+            <Link to="/life-practice/beginners-guide" className="relative p-8 rounded-[2.5rem] overflow-hidden group border border-white/5 transition-all hover:border-indigo-500/50 shadow-xl h-48 flex flex-col justify-between">
+              <div className="absolute inset-0 z-0">
+                <img src="/assets2/foundations/beginners_guide.png" alt="Beginners Guide" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-slate-950/70 group-hover:bg-slate-950/60 transition-colors duration-500"></div>
+              </div>
+              <div className="relative z-10 flex flex-col h-full justify-between">
+                <div className="flex items-center">
+                  <div className="w-12 h-12 rounded-2xl bg-white/5 text-indigo-400 flex items-center justify-center mr-4 backdrop-blur-md border border-white/10 group-hover:scale-110 transition-transform duration-500">
+                    <Compass size={20} />
+                  </div>
+                  <h4 className="font-display font-bold uppercase text-white text-lg">{t('lp_beginners_guide')}</h4>
+                </div>
+                <p className="text-slate-300 text-xs leading-relaxed line-clamp-2 max-w-[280px] my-3">{t('lp_beginners_guide_desc')}</p>
+                <div className="text-indigo-450 text-[10px] font-black uppercase tracking-wider flex items-center group-hover:translate-x-1 transition-transform">
+                  Explore Protocol <ArrowRight size={12} className="ml-1" />
+                </div>
+              </div>
+            </Link>
+          </div>
+
+          {/* Journey with David Banner */}
+          <div className="relative rounded-[3rem] overflow-hidden group shadow-3xl border border-white/5 bg-slate-900/40 backdrop-blur-sm">
+            <div className="md:flex items-center">
+              <div className="md:w-1/2 relative h-72 md:h-[400px]">
+                <img 
+                  src="/assets2/foundations/journey_with_david.jpg" 
+                  alt="Start your journey with David" 
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-[#020617]/20 to-transparent"></div>
+              </div>
+              <div className="md:w-1/2 p-12 md:p-16 relative text-left">
+                <div className="absolute top-0 right-0 p-8 opacity-10">
+                  <Sparkles size={120} className="text-indigo-400 rotate-12" />
+                </div>
+                <div className="relative z-10">
+                  <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-indigo-500/10 text-indigo-400 text-[10px] uppercase font-bold tracking-widest mb-6 border border-indigo-500/20">
+                    {t('lp_cta_badge')}
+                  </div>
+                  <h3 className="text-3xl md:text-4xl font-display font-black uppercase tracking-tight text-white mb-6 leading-tight">
+                    {t('lp_cta_title')} <span className="text-indigo-400">{t('lp_cta_name')}</span>
+                  </h3>
+                  <p className="text-slate-300 text-base leading-relaxed mb-8 max-w-md">
+                    {t('lp_cta_desc')}
+                  </p>
+                  <div className="flex flex-wrap gap-4">
+                    <a 
+                      href="https://www.buddhadailywisdom.com/" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-2xl transition-all shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40 hover:-translate-y-0.5 active:translate-y-0 text-sm uppercase tracking-wider"
+                    >
+                      {t('lp_cta_btn')} <ExternalLink size={18} className="ml-2" />
+                    </a>
                   </div>
                 </div>
               </div>
