@@ -80,7 +80,7 @@ export default function HealthQuiz() {
           )}
           <iframe
             ref={iframeRef}
-            src="/quiz.html"
+            src="/health-quiz.html"
             title="Health Baseline Quiz"
             loading="lazy"
             onLoad={() => setLoaded(true)}

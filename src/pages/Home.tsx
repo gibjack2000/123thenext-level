@@ -391,9 +391,9 @@ export default function Home() {
               
               {/* Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                <a href="/quiz.html" className="inline-flex justify-center items-center px-6 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all active:scale-[0.98] shadow-lg shadow-wellness-cyan/15 border border-wellness-cyan/25 whitespace-nowrap cursor-pointer">
+                <Link to="/health-quiz" className="inline-flex justify-center items-center px-6 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all active:scale-[0.98] shadow-lg shadow-wellness-cyan/15 border border-wellness-cyan/25 whitespace-nowrap cursor-pointer">
                   Take the 5-Minute Wellness Quiz
-                </a>
+                </Link>
                 <button onClick={() => setIsLeadModalOpen(true)} className="inline-flex justify-center items-center px-6 py-4 bg-slate-grey-900 border border-slate-grey-700/60 hover:border-wellness-cyan hover:text-white text-slate-grey-200 rounded-xl text-xs font-black uppercase tracking-wider transition-colors active:scale-[0.98] shadow whitespace-nowrap cursor-pointer">
                   Download Free Longevity Blueprint
                 </button>
