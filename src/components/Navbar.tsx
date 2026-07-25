@@ -48,13 +48,9 @@ const Navbar = () => {
     { name: 'Health', path: '/health', icon: Shield, desc: 'Preventive engineering & longevity' },
     { name: 'Fitness', path: '/fitness', icon: Dumbbell, desc: 'Strength mandate & Vo2 max' },
     { name: 'Nutrition', path: '/nutrition', icon: Apple, desc: 'Metabolic fuel & supplement guides' },
-    { name: 'Wellness', path: '/wellness', icon: Heart, desc: 'VNS deep-dive & breathwork', hasSubmenu: true },
+    { name: 'Wellness', path: '/wellness', icon: Heart, desc: 'VNS deep-dive & breathwork' },
     { name: "Women's Health", path: '/womens-health', icon: Heart, desc: 'Ovarian longevity & cognitive preservation' },
     { name: 'Social Fitness & Community', path: '/social-fitness', icon: Users, desc: 'Pickleball & community protocols' },
-  ];
-
-  const wellnessSubmenu = [
-    { name: 'Cultivate Your Life Practice', path: '/#life-practice' },
   ];
 
   return (
@@ -102,54 +98,6 @@ const Navbar = () => {
                     <div className="text-[9px] font-black uppercase tracking-wider text-slate-500 mb-2 px-3 border-b border-slate-900 pb-2">Explore Optimization Pillars</div>
                     {pillars.map(pillar => {
                       const Icon = pillar.icon;
-                      if (pillar.hasSubmenu) {
-                        const submenuItems = wellnessSubmenu;
-                        const submenuTitle = 'Wellness Practices';
-                        
-                        return (
-                          <div key={pillar.name} className="relative group/sub">
-                            <Link
-                              to={pillar.path}
-                              className="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition-all"
-                            >
-                              <div className="flex items-center gap-3">
-                                <Icon size={16} className="text-blue-400" />
-                                <div>
-                                  <div className="text-[11px] font-black uppercase tracking-wider text-left">{pillar.name}</div>
-                                  <div className="text-[9px] text-slate-500 mt-0.5 text-left">{pillar.desc}</div>
-                                </div>
-                              </div>
-                              <ChevronRight size={12} className="text-slate-500" />
-                            </Link>
-
-                            {/* Submenu flyout */}
-                            <div className="absolute left-full top-0 hidden group-hover/sub:block pl-3 w-72 z-50">
-                              <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 shadow-2xl space-y-1">
-                                <div className="text-[9px] font-black uppercase tracking-wider text-slate-500 mb-2 px-3 border-b border-slate-900 pb-2">{submenuTitle}</div>
-                                {submenuItems.map(item => (
-                                  item.path.startsWith('/#') ? (
-                                    <a
-                                      key={item.name}
-                                      href={item.path}
-                                      className="block px-3 py-2.5 text-[10px] text-left font-bold uppercase tracking-wider text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-all"
-                                    >
-                                      {item.name}
-                                    </a>
-                                  ) : (
-                                    <Link
-                                      key={item.name}
-                                      to={item.path}
-                                      className="block px-3 py-2.5 text-[10px] text-left font-bold uppercase tracking-wider text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-all"
-                                    >
-                                      {item.name}
-                                    </Link>
-                                  )
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      }
                       return (
                         <Link
                           key={pillar.name}
@@ -291,52 +239,6 @@ const Navbar = () => {
                 <div className="bg-slate-950/60 border-t border-white/5 p-3 space-y-1">
                   {pillars.map(pillar => {
                     const PillarIcon = pillar.icon;
-                    if (pillar.hasSubmenu) {
-                      const isOpenState = mobileWellnessOpen;
-                      const setOpenState = setMobileWellnessOpen;
-                      const submenuItems = wellnessSubmenu;
-                      
-                      return (
-                        <div key={pillar.name} className="space-y-1">
-                          <button
-                            onClick={() => setOpenState(!isOpenState)}
-                            className="w-full flex items-center justify-between p-3 rounded-xl hover:bg-white/5 text-slate-300 text-xs font-bold uppercase tracking-wider transition-all"
-                          >
-                            <div className="flex items-center gap-2">
-                              <PillarIcon size={14} className="text-blue-400" />
-                              <span>{pillar.name}</span>
-                            </div>
-                            <ChevronDown size={14} className={`text-slate-500 transition-transform duration-300 ${isOpenState ? 'rotate-180' : ''}`} />
-                          </button>
-
-                          {isOpenState && (
-                            <div className="pl-6 py-1 space-y-1 border-l border-white/5 ml-4">
-                              {submenuItems.map(item => (
-                                item.path.startsWith('/#') ? (
-                                  <a
-                                    key={item.name}
-                                    href={item.path}
-                                    onClick={() => setIsOpen(false)}
-                                    className="block py-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400 hover:text-white text-left"
-                                  >
-                                    {item.name}
-                                  </a>
-                                ) : (
-                                  <Link
-                                    key={item.name}
-                                    to={item.path}
-                                    onClick={() => setIsOpen(false)}
-                                    className="block py-2 text-[11px] font-semibold uppercase tracking-wider text-slate-400 hover:text-white text-left"
-                                  >
-                                    {item.name}
-                                  </Link>
-                                )
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      );
-                    }
                     return (
                       <Link
                         key={pillar.name}
