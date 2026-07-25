@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   CheckCircle2, 
@@ -14,6 +14,16 @@ import {
 
 export default function Success() {
   const [isProcessing, setIsProcessing] = useState(false);
+
+  useEffect(() => {
+    // Automatically trigger the blueprint download on mount
+    const link = document.createElement('a');
+    link.href = '/assets/docs/longevity-blueprint.pdf';
+    link.download = 'longevity-blueprint.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }, []);
 
   const handleCheckoutBundle = async () => {
     setIsProcessing(true);
@@ -73,7 +83,7 @@ export default function Success() {
           </h1>
           
           <p className="text-slate-400 text-base sm:text-lg max-w-[60ch] mx-auto leading-relaxed">
-            Please check your browser's downloads folder. While your blueprint downloads, you are required to complete the two critical onboarding tasks detailed below.
+            Please check your browser's downloads folder. If your download did not start automatically, please <a href="/assets/docs/longevity-blueprint.pdf" download="longevity-blueprint.pdf" className="text-cyan-400 hover:text-cyan-300 underline font-bold transition-colors">click here to download manually</a>.
           </p>
         </div>
 

@@ -56,17 +56,7 @@ export default function Home() {
     e.preventDefault();
     if (!leadEmail) return;
 
-    // Trigger file download programmatically using anchor element
-    const link = document.createElement('a');
-    link.href = '/assets/docs/longevity-blueprint.pdf';
-    link.download = 'longevity-blueprint.pdf';
-    link.setAttribute('target', '_blank');
-    document.body.appendChild(link);
-    link.click();
-    // Remove the link after a short delay to ensure the download initiates
-    setTimeout(() => document.body.removeChild(link), 3000);
-
-    // Immediately route to success page for a seamless transition
+    // Immediately route to success page which handles the automatic download
     navigate('/blueprint-success');
 
     // Perform API subscriptions asynchronously in the background
