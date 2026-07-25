@@ -23,6 +23,28 @@ function getExpiryDate() {
   return date.toISOString();
 }
 
+// Helper to create download tokens for a product, expanding bundles if necessary
+async function createDownloadTokensForProduct(orderId, productId) {
+  if (productId === 'g-bundle-1') {
+    const constituentProductIds = ['g-fit-1', 'g-nut-1', 'g-wel-1'];
+    for (const pid of constituentProductIds) {
+      await db.createDownloadToken({
+        order_id: orderId,
+        product_id: pid,
+        expires_at: getExpiryDate(),
+        max_downloads: MAX_USES
+      });
+    }
+  } else {
+    await db.createDownloadToken({
+      order_id: orderId,
+      product_id: productId,
+      expires_at: getExpiryDate(),
+      max_downloads: MAX_USES
+    });
+  }
+}
+
 /**
  * 1. POST /api/create-checkout-session
  * Validates frontend cart items and returns a Stripe Checkout session URL
@@ -129,12 +151,7 @@ router.get('/order-summary', async (req, res) => {
           // Generate tokens if missing
           const items = await db.getOrderItems(order.id);
           for (const item of items) {
-            await db.createDownloadToken({
-              order_id: order.id,
-              product_id: item.product_id,
-              expires_at: getExpiryDate(),
-              max_downloads: MAX_USES
-            });
+            await createDownloadTokensForProduct(order.id, item.product_id);
           }
         }
       } catch (stripeError) {
@@ -157,19 +174,25 @@ router.get('/order-summary', async (req, res) => {
     }
 
     for (const item of orderItems) {
-      const product = getProductById(item.product_id);
-      if (product) {
-        purchasedProducts.push({
-          id: product.id,
-          title: product.title,
-          slug: product.slug
-        });
+      const resolvedProductIds = item.product_id === 'g-bundle-1'
+        ? ['g-fit-1', 'g-nut-1', 'g-wel-1']
+        : [item.product_id];
 
-        // Map token download link if available
-        const tokenRecord = tokens.find(t => t.product_id === product.id);
-        if (tokenRecord) {
-          // Construct API download link
-          downloadLinks[product.id] = `/api/download/${tokenRecord.token}`;
+      for (const pid of resolvedProductIds) {
+        const product = getProductById(pid);
+        if (product) {
+          purchasedProducts.push({
+            id: product.id,
+            title: product.title,
+            slug: product.slug
+          });
+
+          // Map token download link if available
+          const tokenRecord = tokens.find(t => t.product_id === product.id);
+          if (tokenRecord) {
+            // Construct API download link
+            downloadLinks[product.id] = `/api/download/${tokenRecord.token}`;
+          }
         }
       }
     }
@@ -260,12 +283,7 @@ router.post('/stripe-webhook', async (req, res) => {
       // 3. Generate secure download tokens for each item (idempotent creation)
       const orderItems = await db.getOrderItems(order.id);
       for (const item of orderItems) {
-        await db.createDownloadToken({
-          order_id: order.id,
-          product_id: item.product_id,
-          expires_at: getExpiryDate(),
-          max_downloads: MAX_USES
-        });
+        await createDownloadTokensForProduct(order.id, item.product_id);
       }
 
       console.log(`Successfully fulfilled order ${order.id} for session ${session.id}`);

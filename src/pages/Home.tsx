@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Globe2, MapPin, ShoppingBag, ArrowRight, Heart, Dumbbell, Apple, Sparkles, BookOpen, Shield, UserCheck, Wind, HeartPulse, ExternalLink, Compass, Microscope, Users, X, CheckCircle2 } from 'lucide-react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { Product, mapToProduct, PremiumGuide } from '../types';
@@ -21,6 +21,7 @@ import { guides as fallbackGuides } from '../data/guides';
 
 export default function Home() {
   const t = useT();
+  const navigate = useNavigate();
   const [topPicks, setTopPicks] = useState<Product[]>([]);
   const [shuffledTopPicks, setShuffledTopPicks] = useState<Product[]>([]);
   const [latestProducts, setLatestProducts] = useState<Product[]>([]);
@@ -65,10 +66,12 @@ export default function Home() {
     // Remove the link after a short delay to ensure the download initiates
     setTimeout(() => document.body.removeChild(link), 3000);
 
-    setLeadStatus('loading');
+    // Immediately route to success page for a seamless transition
+    navigate('/blueprint-success');
+
+    // Perform API subscriptions asynchronously in the background
     try {
-      // Send a POST request to email list endpoint
-      const response = await fetch('/api/newsletter/subscribe', {
+      await fetch('/api/newsletter/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -77,18 +80,13 @@ export default function Home() {
         })
       });
       
-      // Also record in supabase if present
       if (hasValidSupabaseConfig && supabase) {
         await supabase
           .from('newsletter_subscribers')
           .insert([{ email: leadEmail, preferences: ['Health', 'Fitness', 'Nutrition', 'Wellness'] }]);
       }
-
-      setLeadStatus('success');
     } catch (err) {
-      console.error('Lead form submission failed:', err);
-      // Still set to success so the user gets the success feedback page
-      setLeadStatus('success');
+      console.error('Lead form subscription background execution failed:', err);
     }
   };
 

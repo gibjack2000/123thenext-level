@@ -92,6 +92,16 @@ export const products = [
     stripePriceId: process.env.STRIPE_PRICE_WEL3 || 'price_placeholder_wel3',
     filePath: 'habit_reset_workbook.pdf',
     active: true
+  },
+  {
+    id: 'g-bundle-1',
+    slug: '3-part-bundle',
+    title: '3-Part Digital Master Guides Bundle',
+    price: 29.00,
+    currency: 'gbp',
+    stripePriceId: process.env.STRIPE_PRICE_BUNDLE1 || 'price_placeholder_bundle1',
+    filePath: '',
+    active: true
   }
 ];
 

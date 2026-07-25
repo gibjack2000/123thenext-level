@@ -86,6 +86,7 @@ const CheckoutCancel = lazy(() => import('./pages/premium/CheckoutCancel'));
 const PremiumGuideDetailPage = lazy(() => import('./pages/premium/PremiumGuideDetailPage'));
 const MagazineRack = lazy(() => import('./pages/MagazineRack'));
 const DesignSystem = lazy(() => import('./pages/DesignSystem'));
+const Success = lazy(() => import('./pages/Success'));
 
 // Loading spinner shown during page transitions
 const PageLoader = () => (
@@ -181,6 +182,7 @@ function App() {
                 <Route path="/blog/category/:category" element={<BlogCategoryPage />} />
                 <Route path="/updates" element={<MagazineRack />} />
                 <Route path="/design-system" element={<DesignSystem />} />
+                <Route path="/blueprint-success" element={<Success />} />
                 <Route path="/:region" element={<RegionHub />} />
                 <Route path="/:region/:category" element={<CategoryPage />} />
               </Routes>
