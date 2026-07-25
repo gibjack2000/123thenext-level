@@ -84,10 +84,7 @@ export default function Home() {
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const canvas2Ref = useRef<HTMLCanvasElement>(null);
   const images2Ref = useRef<HTMLImageElement[]>([]);
-  const canvas3Ref = useRef<HTMLCanvasElement>(null);
-  const images3Ref = useRef<HTMLImageElement[]>([]);
   const extendedHeroRef = useRef<HTMLDivElement>(null);
-  const lifePracticeRef = useRef<HTMLDivElement>(null);
 
   const frameCount = 120;
 
@@ -103,15 +100,10 @@ export default function Home() {
       const img2 = new Image();
       img2.src = `/assets1/frame_${frameNum}_delay-0.066s.webp`;
       images2Ref.current.push(img2);
-
-      const img3 = new Image();
-      img3.src = `/assets2/frame_${frameNum}_delay-0.066s.webp`;
-      images3Ref.current.push(img3);
     }
 
     // Draw first frames
     const firstImg = imagesRef.current[0];
-    const firstImg3 = images3Ref.current[0];
 
     const drawInitial = (canvas: HTMLCanvasElement | null, img: HTMLImageElement) => {
       if (canvas && canvas.getContext) {
@@ -130,7 +122,6 @@ export default function Home() {
 
     drawInitial(canvasRef.current, firstImg);
     drawInitial(canvas2Ref.current, firstImg);
-    drawInitial(canvas3Ref.current, firstImg3);
   }, []);
 
   const location = useLocation();
@@ -201,37 +192,6 @@ export default function Home() {
               canvas2.height = img2.height;
             }
             ctx2?.drawImage(img2, 0, 0);
-          }
-        }
-        // Life Practice Section Scrubbing
-        const practiceContainer = lifePracticeRef.current;
-        const canvas3 = canvas3Ref.current;
-        if (practiceContainer && canvas3) {
-          const rect = practiceContainer.getBoundingClientRect();
-          const windowHeight = window.innerHeight;
-
-          // Calculate progress: 0 when top enters, 1 when bottom leaves
-          const totalDistance = rect.height + windowHeight;
-          const currentPos = windowHeight - rect.top;
-          let scrollFraction3 = currentPos / totalDistance;
-
-          scrollFraction3 = Math.max(0, Math.min(1, scrollFraction3));
-
-          const frameIndex3 = Math.min(
-            frameCount - 1,
-            Math.floor(scrollFraction3 * frameCount)
-          );
-
-          const ctx3 = canvas3.getContext('2d');
-          const img3 = images3Ref.current[frameIndex3];
-          if (img3 && img3.complete && img3.width > 0) {
-            const dpr = window.devicePixelRatio || 1;
-            if (canvas3.width !== img3.width * dpr || canvas3.height !== img3.height * dpr) {
-              canvas3.width = img3.width * dpr;
-              canvas3.height = img3.height * dpr;
-              ctx3?.scale(dpr, dpr);
-            }
-            ctx3?.drawImage(img3, 0, 0, img3.width, img3.height);
           }
         }
       });
@@ -802,21 +762,104 @@ export default function Home() {
                 hoverBorderColor: "hover:border-orange-500/50",
                 hoverShadowColor: "hover:shadow-orange-500/20"
               }
-            ].map((pillar, idx) => (
-              <motion.div
-                key={pillar.title}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ 
-                  delay: idx * 0.1, 
-                  duration: 0.8, 
-                  ease: [0.21, 0.45, 0.32, 0.9] 
-                }}
-              >
-                <PillarCard {...pillar} />
-              </motion.div>
-            ))}
+            ].map((pillar, idx) => {
+              if (pillar.title === "Autonomic Engineering") {
+                return (
+                  <motion.div
+                    key={pillar.title}
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ 
+                      delay: idx * 0.1, 
+                      duration: 0.8, 
+                      ease: [0.21, 0.45, 0.32, 0.9] 
+                    }}
+                  >
+                    <Link
+                      to="/neurowellness"
+                      className="relative p-10 pb-12 rounded-3xl shadow-xl border border-slate-700/50 overflow-hidden group flex flex-col h-full transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] hover:border-cyan-500/50 hover:shadow-cyan-500/20 backdrop-blur-sm"
+                    >
+                      <div className="absolute inset-0">
+                        <img
+                          src={pillar.image}
+                          alt={pillar.title}
+                          className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 brightness-75 contrast-[1.1]"
+                          referrerPolicy="no-referrer"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-br from-slate-950/80 via-slate-900/40 to-slate-900/80 group-hover:via-slate-900/30 transition-all duration-500"></div>
+                      </div>
+                      
+                      <div className="relative z-10 flex flex-col h-full w-full">
+                        <div className="w-14 h-14 bg-white/10 text-cyan-400 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center mb-8 shadow-2xl group-hover:scale-110 transition-transform duration-500">
+                          <Sparkles size={28} />
+                        </div>
+                        
+                        <h3 className="text-3xl md:text-4xl font-display font-black uppercase tracking-tighter text-white mb-6 leading-[0.9] group-hover:text-cyan-400 transition-colors duration-300">
+                          Wellness & Autonomic Engineering
+                        </h3>
+                        
+                        <p className="text-slate-300 mb-8 leading-relaxed font-medium text-lg lg:pr-4">
+                          Daily behavioral and mental choices are direct physiological inputs. Optimize your nervous system to lower chronic cortisol, rebuild autonomic resilience, and maximize Heart Rate Variability (HRV).
+                        </p>
+                        
+                        {/* Two-Column Grid */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 text-left">
+                          {/* Column A: Clinical Neuro-Metrics */}
+                          <div className="space-y-4">
+                            <h4 className="text-cyan-400 font-display font-bold uppercase tracking-wider text-xs border-b border-white/10 pb-2">
+                              Clinical Neuro-Metrics
+                            </h4>
+                            <ul className="space-y-3 text-slate-100 font-bold text-sm tracking-wide">
+                              {["Vagal Tone Optimization", "Circadian Sleep Precision", "NSDR Neuro-Resets"].map((item, index) => (
+                                <li key={index} className="flex items-center gap-3">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.8)]"></span>
+                                  {item}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+
+                          {/* Column B: Daily Life Practices */}
+                          <div className="space-y-4">
+                            <h4 className="text-cyan-400 font-display font-bold uppercase tracking-wider text-xs border-b border-white/10 pb-2">
+                              Daily Life Practices
+                            </h4>
+                            <ul className="space-y-3 text-slate-100 font-bold text-sm tracking-wide">
+                              {["Breathing Mindfulness", "Universal Metta Love", "Precept-Based Harmlessness"].map((item, index) => (
+                                <li key={index} className="flex items-center gap-3">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.8)]"></span>
+                                  {item}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                        
+                        <div className="mt-auto text-white font-black uppercase tracking-widest text-xs flex items-center group-hover:translate-x-2 transition-transform duration-300 underline-offset-8 decoration-2 hover:underline">
+                          Explore Protocols <ArrowRight size={16} className="ml-2 text-cyan-500" />
+                        </div>
+                      </div>
+                    </Link>
+                  </motion.div>
+                );
+              }
+              return (
+                <motion.div
+                  key={pillar.title}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ 
+                    delay: idx * 0.1, 
+                    duration: 0.8, 
+                    ease: [0.21, 0.45, 0.32, 0.9] 
+                  }}
+                >
+                  <PillarCard {...pillar} />
+                </motion.div>
+              );
+            })}
           </div>
         </div>
 
@@ -879,236 +922,6 @@ export default function Home() {
               >
                 View All Premium Guides <ArrowRight size={16} className="ml-2" />
               </Link>
-            </div>
-          </div>
-        </div>
-
-        {/* Life Practice Section */}
-        <div id="life-practice" ref={lifePracticeRef} className="relative h-[250vh] scroll-mt-20 bg-slate-900 overflow-visible">
-          <div className="sticky top-0 h-screen w-full overflow-hidden z-0">
-            {/* Background Canvas Layer */}
-            <div className="absolute inset-0">
-              <canvas
-                ref={canvas3Ref}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-slate-900/40"></div>
-              {/* Bottom transition blend */}
-              <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-slate-900 to-transparent"></div>
-            </div>
-          </div>
-
-          <div className="relative z-10 -mt-[100vh] min-h-screen flex items-center pointer-events-none sticky top-0">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-20 pointer-events-auto relative">
-              {/* Floating Free Guidance Badge */}
-              <div className="absolute top-24 right-4 sm:right-8 lg:right-12 z-20 hidden md:block">
-                <a 
-                  href="https://www.buddhadailywisdom.com/" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="group block"
-                >
-                  <div className="relative overflow-hidden rounded-2xl border border-white/20 bg-slate-900/40 p-6 backdrop-blur-xl shadow-2xl transition-all duration-500 hover:scale-105 hover:border-amber-500/50 hover:bg-slate-900/60">
-                    {/* Animated Gradient Background */}
-                    <div className="absolute -inset-x-20 -inset-y-20 bg-gradient-to-r from-transparent via-amber-500/10 to-transparent rotate-45 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
-                    
-                    <div className="relative z-10 flex flex-col items-end text-right">
-                      <div className="flex items-center gap-3 mb-1">
-                        <span className="h-px w-8 bg-amber-500/50 transition-all duration-500 group-hover:w-12"></span>
-                        <h3 className="text-sm font-bold tracking-[0.2em] text-amber-500 uppercase">
-                          Free Guidance
-                        </h3>
-                      </div>
-                      <p className="text-xl lg:text-2xl font-serif italic text-white/90 leading-tight">
-                        The path to inner peace
-                      </p>
-                      <div className="mt-4 flex items-center gap-2 text-xs font-semibold text-amber-500/80 uppercase tracking-widest opacity-0 -translate-y-2 transition-all duration-500 group-hover:opacity-100 group-hover:translate-y-0">
-                        Explore Wisdom
-                        <svg className="w-4 h-4 transition-transform duration-500 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                      </div>
-                    </div>
-                    
-                    {/* Corner Accent */}
-                    <div className="absolute top-0 right-0 w-12 h-12 bg-gradient-to-br from-amber-500/20 to-transparent opacity-50"></div>
-                  </div>
-                </a>
-              </div>
-
-              <div className="max-w-3xl">
-                <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-amber-500/10 text-amber-400 text-sm font-bold tracking-wider uppercase mb-8 border border-amber-500/20 shadow-sm backdrop-blur-md">
-                  <Sparkles size={16} className="mr-2" />
-                  {t('lp_badge')}
-                </div>
-                <h2 className="text-4xl md:text-5xl lg:text-7xl font-display uppercase tracking-tight text-white mb-8 leading-[0.95]">
-                  {t('lp_title1')} <br />
-                  <span className="text-amber-500">{t('lp_title2')}</span>
-                </h2>
-                <p className="text-xl text-slate-200 leading-relaxed mb-12 max-w-xl font-medium drop-shadow-md">
-                  {t('lp_subtitle')}
-                </p>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                  <Link to="/life-practice/universal-love" className="relative p-6 rounded-3xl overflow-hidden group border border-white/10 transition-all hover:border-amber-500/50 shadow-xl overflow-hidden h-40">
-                    <div className="absolute inset-0">
-                      <img src="/assets2/foundations/universal_love.png" alt="Universal Love" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                      <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/40 transition-colors duration-500"></div>
-                    </div>
-                    <div className="relative z-10 flex flex-col h-full">
-                      <div className="flex items-center mb-2">
-                        <div className="w-10 h-10 rounded-xl bg-white/10 text-amber-400 flex items-center justify-center mr-3 backdrop-blur-md border border-white/10">
-                          <Heart size={18} />
-                        </div>
-                        <h4 className="font-bold text-white text-lg">{t('lp_universal_love')}</h4>
-                      </div>
-                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">{t('lp_universal_love_desc')}</p>
-                      <div className="mt-auto text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center">
-                        {t('lp_explore')} <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
-                      </div>
-                    </div>
-                  </Link>
-
-                  <Link to="/life-practice/do-no-harm" className="relative p-6 rounded-3xl overflow-hidden group border border-white/10 transition-all hover:border-amber-500/50 shadow-xl overflow-hidden h-40">
-                    <div className="absolute inset-0">
-                      <img src="/assets2/foundations/do_no_harm.png" alt="Do No Harm" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                      <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/40 transition-colors duration-500"></div>
-                    </div>
-                    <div className="relative z-10 flex flex-col h-full">
-                      <div className="flex items-center mb-2">
-                        <div className="w-10 h-10 rounded-xl bg-white/10 text-amber-400 flex items-center justify-center mr-3 backdrop-blur-md border border-white/10">
-                          <Shield size={18} />
-                        </div>
-                        <h4 className="font-bold text-white text-lg">{t('lp_do_no_harm')}</h4>
-                      </div>
-                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">{t('lp_do_no_harm_desc')}</p>
-                      <div className="mt-auto text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center">
-                        {t('lp_explore')} <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
-                      </div>
-                    </div>
-                  </Link>
-
-                  <Link to="/life-practice/good-moral-person" className="relative p-6 rounded-3xl overflow-hidden group border border-white/10 transition-all hover:border-amber-500/50 shadow-xl overflow-hidden h-40">
-                    <div className="absolute inset-0">
-                      <img src="/assets2/foundations/moral_integrity.png" alt="Moral Integrity" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                      <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/40 transition-colors duration-500"></div>
-                    </div>
-                    <div className="relative z-10 flex flex-col h-full">
-                      <div className="flex items-center mb-2">
-                        <div className="w-10 h-10 rounded-xl bg-white/10 text-amber-400 flex items-center justify-center mr-3 backdrop-blur-md border border-white/10">
-                          <UserCheck size={18} />
-                        </div>
-                        <h4 className="font-bold text-white text-lg">{t('lp_moral_person')}</h4>
-                      </div>
-                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">{t('lp_moral_person_desc')}</p>
-                      <div className="mt-auto text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center">
-                        {t('lp_explore')} <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
-                      </div>
-                    </div>
-                  </Link>
-
-                  <Link to="/life-practice/breathing-mindfulness" className="relative p-6 rounded-3xl overflow-hidden group border border-white/10 transition-all hover:border-amber-500/50 shadow-xl overflow-hidden h-40">
-                    <div className="absolute inset-0">
-                      <img src="/assets2/foundations/breathing_mindfulness.png" alt="Breathing Mindfulness" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                      <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/40 transition-colors duration-500"></div>
-                    </div>
-                    <div className="relative z-10 flex flex-col h-full">
-                      <div className="flex items-center mb-2">
-                        <div className="w-10 h-10 rounded-xl bg-white/10 text-amber-400 flex items-center justify-center mr-3 backdrop-blur-md border border-white/10">
-                          <Wind size={18} />
-                        </div>
-                        <h4 className="font-bold text-white text-lg">{t('lp_breathing')}</h4>
-                      </div>
-                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">{t('lp_breathing_desc')}</p>
-                      <div className="mt-auto text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center">
-                        {t('lp_explore')} <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
-                      </div>
-                    </div>
-                  </Link>
-
-                  <Link to="/life-practice/loving-kindness" className="relative p-6 rounded-3xl overflow-hidden group border border-white/10 transition-all hover:border-amber-500/50 shadow-xl h-40">
-                    <div className="absolute inset-0">
-                      <img src="/assets2/foundations/loving_kindness.png" alt="Loving-kindness" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                      <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/40 transition-colors duration-500"></div>
-                    </div>
-                    <div className="relative z-10 flex flex-col h-full">
-                      <div className="flex items-center mb-2">
-                        <div className="w-10 h-10 rounded-xl bg-white/10 text-amber-400 flex items-center justify-center mr-3 backdrop-blur-md border border-white/10">
-                          <HeartPulse size={18} />
-                        </div>
-                        <h4 className="font-bold text-white text-lg">{t('lp_loving_kindness')}</h4>
-                      </div>
-                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-1 max-w-xl">{t('lp_loving_kindness_desc')}</p>
-                      <div className="mt-auto text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center">
-                        {t('lp_explore')} <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
-                      </div>
-                    </div>
-                  </Link>
-
-                  <Link to="/life-practice/beginners-guide" className="relative p-6 rounded-3xl overflow-hidden group border border-white/10 transition-all hover:border-amber-500/50 shadow-xl h-40">
-                    <div className="absolute inset-0">
-                      <img src="/assets2/foundations/beginners_guide.png" alt="Beginners Guide" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                      <div className="absolute inset-0 bg-slate-900/60 group-hover:bg-slate-900/40 transition-colors duration-500"></div>
-                    </div>
-                    <div className="relative z-10 flex flex-col h-full">
-                      <div className="flex items-center mb-2">
-                        <div className="w-10 h-10 rounded-xl bg-white/10 text-amber-400 flex items-center justify-center mr-3 backdrop-blur-md border border-white/10">
-                          <Compass size={18} />
-                        </div>
-                        <h4 className="font-bold text-white text-lg">{t('lp_beginners_guide')}</h4>
-                      </div>
-                      <p className="text-slate-200 text-xs leading-relaxed line-clamp-2 max-w-[240px]">{t('lp_beginners_guide_desc')}</p>
-                      <div className="mt-auto text-amber-400 text-xs font-bold uppercase tracking-wider flex items-center">
-                        {t('lp_explore')} <ArrowRight size={12} className="ml-1 transition-transform group-hover:translate-x-1" />
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-
-                {/* New "Journey with David" CTA Banner */}
-                <div className="relative rounded-3xl overflow-hidden group shadow-2xl border border-white/5 bg-slate-900/40 backdrop-blur-sm mb-12">
-                  <div className="md:flex items-center">
-                    <div className="md:w-1/2 relative h-64 md:h-[400px]">
-                      <img 
-                        src="/assets2/foundations/journey_with_david.jpg" 
-                        alt="Start your journey with David" 
-                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-r from-slate-900/10 to-transparent"></div>
-                    </div>
-                    <div className="md:w-1/2 p-8 md:p-12 relative text-left">
-                      <div className="absolute top-0 right-0 p-6 opacity-10">
-                        <Sparkles size={120} className="text-amber-500 rotate-12" />
-                      </div>
-                      <div className="relative z-10">
-                        <div className="inline-flex items-center px-3 py-1 rounded-full bg-amber-500/10 text-amber-500 text-[10px] uppercase font-bold tracking-widest mb-6 border border-amber-500/20">
-                          {t('lp_cta_badge')}
-                        </div>
-                        <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 leading-tight">
-                        {t('lp_cta_title')} <span className="text-amber-500">{t('lp_cta_name')}</span>
-                        </h3>
-                        <p className="text-slate-300 text-sm md:text-base leading-relaxed mb-8 max-w-md">
-                          {t('lp_cta_desc')}
-                        </p>
-                        <div className="flex flex-wrap gap-4">
-                          <a 
-                            href="https://www.buddhadailywisdom.com/" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center px-6 py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-2xl transition-all shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 hover:-translate-y-0.5 active:translate-y-0"
-                          >
-                            {t('lp_cta_btn')} <ExternalLink size={18} className="ml-2" />
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <Link to="/wellness" className="inline-flex items-center px-10 py-5 bg-amber-600 text-white rounded-full font-bold text-lg hover:bg-amber-500 transition-all hover:scale-105 shadow-2xl shadow-amber-900/20">
-                  Explore The Practice
-                  <ArrowRight size={20} className="ml-3" />
-                </Link>
-              </div>
             </div>
           </div>
         </div>
