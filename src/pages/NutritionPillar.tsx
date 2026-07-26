@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { Apple, ArrowLeft, ArrowRight, Droplets, Zap, Shield, ExternalLink, Activity, Brain, BarChart3, FlaskConical, Database, Microscope, Search, Dna, Target, Gauge } from 'lucide-react';
+import { Apple, ArrowLeft, ArrowRight, Droplets, Zap, Shield, ExternalLink, Activity, Brain, BarChart3, FlaskConical, Database, Microscope, Search, Dna, Target, Gauge, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useT } from '../translations';
 import BlogSection from '../components/BlogSection';
 import IntelligenceTeaser from '../components/IntelligenceTeaser';
@@ -10,6 +10,7 @@ import { useAffiliateLinks } from '../contexts/AffiliateLinksContext';
 export default function NutritionPillar() {
   const t = useT();
   const { links } = useAffiliateLinks();
+  const [activeProtocol, setActiveProtocol] = React.useState<'epigenetic' | 'biomarkers' | 'glp1' | 'cognitive' | null>(null);
 
   useEffect(() => {
     document.title = `${t('np_title_start')} ${t('np_title_end')} | 123TheNext Level`;
@@ -294,26 +295,36 @@ export default function NutritionPillar() {
 
               <div className="lg:col-span-7 space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <motion.div 
-                    whileHover={{ scale: 1.02 }}
-                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-white/10"
+                  <div 
+                    onClick={() => setActiveProtocol('epigenetic')}
+                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-emerald-950/20 hover:border-emerald-500/30 cursor-pointer group flex flex-col justify-between"
                   >
-                    <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 mb-6 border border-emerald-500/20">
-                      <Dna size={24} />
+                    <div>
+                      <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 mb-6 border border-emerald-500/20 group-hover:bg-emerald-500 group-hover:text-slate-950 transition-all duration-300">
+                        <Dna size={24} />
+                      </div>
+                      <h4 className="text-xl font-display font-bold uppercase text-white mb-4">{t('np_med_epigenetic_title')}</h4>
+                      <p className="text-sm text-slate-400 leading-relaxed font-medium group-hover:text-slate-200 transition-colors">{t('np_med_epigenetic_desc')}</p>
                     </div>
-                    <h4 className="text-xl font-display font-bold uppercase text-white mb-4">{t('np_med_epigenetic_title')}</h4>
-                    <p className="text-sm text-slate-500 leading-relaxed font-medium">{t('np_med_epigenetic_desc')}</p>
-                  </motion.div>
-                  <motion.div 
-                    whileHover={{ scale: 1.02 }}
-                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-white/10"
+                    <div className="mt-6 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-400 group-hover:text-emerald-300 transition-colors">
+                      Open Protocol Details <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                  <div 
+                    onClick={() => setActiveProtocol('biomarkers')}
+                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-emerald-950/20 hover:border-emerald-500/30 cursor-pointer group flex flex-col justify-between"
                   >
-                    <div className="w-12 h-12 bg-teal-500/10 rounded-2xl flex items-center justify-center text-teal-400 mb-6 border border-teal-500/20">
-                      <Gauge size={24} />
+                    <div>
+                      <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 mb-6 border border-emerald-500/20 group-hover:bg-emerald-500 group-hover:text-slate-950 transition-all duration-300">
+                        <Gauge size={24} />
+                      </div>
+                      <h4 className="text-xl font-display font-bold uppercase text-white mb-4">{t('np_med_big3_title')}</h4>
+                      <p className="text-sm text-slate-400 leading-relaxed font-medium group-hover:text-slate-200 transition-colors">{t('np_med_big3_desc')}</p>
                     </div>
-                    <h4 className="text-xl font-display font-bold uppercase text-white mb-4">{t('np_med_big3_title')}</h4>
-                    <p className="text-sm text-slate-500 leading-relaxed font-medium">{t('np_med_big3_desc')}</p>
-                  </motion.div>
+                    <div className="mt-6 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-emerald-400 group-hover:text-emerald-300 transition-colors">
+                      Open Protocol Details <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
                 </div>
 
                 <div className="p-10 bg-white/5 rounded-[3rem] border border-white/10">
@@ -321,14 +332,30 @@ export default function NutritionPillar() {
                     <Shield size={24} className="text-emerald-400" />
                     <h4 className="text-xl font-display font-bold uppercase text-white">Clinical Synergies</h4>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                      <span className="text-[10px] font-black uppercase text-emerald-500 mb-2 block tracking-widest">GLP-1 Companion</span>
-                      <p className="text-xs text-slate-500 leading-relaxed font-medium">{t('np_med_synergy_glp1')}</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div 
+                      onClick={() => setActiveProtocol('glp1')}
+                      className="p-6 rounded-2xl border border-transparent hover:border-emerald-500/20 hover:bg-emerald-950/10 cursor-pointer group/item transition-all duration-300 flex flex-col justify-between"
+                    >
+                      <div>
+                        <span className="text-[10px] font-black uppercase text-emerald-500 mb-2 block tracking-widest group-hover/item:text-emerald-400 transition-colors">GLP-1 Companion</span>
+                        <p className="text-xs text-slate-400 leading-relaxed font-medium group-hover/item:text-slate-200 transition-colors">{t('np_med_synergy_glp1')}</p>
+                      </div>
+                      <div className="mt-4 flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-emerald-400 opacity-0 group-hover/item:opacity-100 transition-all duration-300">
+                        Open Protocol <ArrowRight size={12} className="inline group-hover/item:translate-x-0.5 transition-transform" />
+                      </div>
                     </div>
-                    <div>
-                      <span className="text-[10px] font-black uppercase text-teal-500 mb-2 block tracking-widest">Cognitive Fueling</span>
-                      <p className="text-xs text-slate-500 leading-relaxed font-medium">{t('np_med_synergy_neuro')}</p>
+                    <div 
+                      onClick={() => setActiveProtocol('cognitive')}
+                      className="p-6 rounded-2xl border border-transparent hover:border-emerald-500/20 hover:bg-emerald-950/10 cursor-pointer group/item transition-all duration-300 flex flex-col justify-between"
+                    >
+                      <div>
+                        <span className="text-[10px] font-black uppercase text-teal-400 mb-2 block tracking-widest group-hover/item:text-emerald-400 transition-colors">Cognitive Fueling</span>
+                        <p className="text-xs text-slate-400 leading-relaxed font-medium group-hover/item:text-slate-200 transition-colors">{t('np_med_synergy_neuro')}</p>
+                      </div>
+                      <div className="mt-4 flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-emerald-400 opacity-0 group-hover/item:opacity-100 transition-all duration-300">
+                        Open Protocol <ArrowRight size={12} className="inline group-hover/item:translate-x-0.5 transition-transform" />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -443,6 +470,158 @@ export default function NutritionPillar() {
           </div>
         </div>
       </div>
+
+      {/* Protocol Details Modal */}
+      <AnimatePresence>
+        {activeProtocol && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-955/90 backdrop-blur-md"
+            onClick={() => setActiveProtocol(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="w-full max-w-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-950 border border-emerald-500/30 rounded-[3rem] p-8 md:p-12 shadow-2xl shadow-emerald-500/10 relative overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setActiveProtocol(null)}
+                className="absolute top-8 right-8 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-all cursor-pointer focus:outline-none"
+              >
+                <X size={20} />
+              </button>
+
+              {activeProtocol === 'epigenetic' ? (
+                <div>
+                  <div className="w-16 h-16 bg-emerald-500/10 rounded-3xl flex items-center justify-center text-emerald-400 mb-8 border border-emerald-500/20">
+                    <Dna size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    Epigenetic Fueling
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-8 block">
+                    Nutrigenomic Pathways & Gene Expression
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Epigenetic Fueling leverages specific bioactive phytonutrients to directly regulate gene transcription pathways (like Nrf2 and SIRT1), suppressing inflammatory cytokines and promoting cellular autophagy.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Nrf2 Pathway Activation (Sulforaphane / EGCG)", desc: "Consume 100-200g of raw broccoli sprouts or supplement with high-yield sulforaphane daily. This up-regulates phase-II antioxidant enzyme transcription, shielding DNA from oxidative stress." },
+                      { step: "02", title: "SIRT1 Histone Deacetylase Support (NAD+ precursors)", desc: "Supplement with 500mg trans-resveratrol combined with 300mg Nicotinamide Mononucleotide (NMN) in the morning. This activates sirtuin pathways, promoting mitochondrial biogenesis." },
+                      { step: "03", title: "DNA Methylation Balancing (Methyl donors)", desc: "Maintain optimal intake of active folate (5-MTHF) and methylcobalamin (B12) to support clean methylation cycles, keeping oncogenes deactivated." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : activeProtocol === 'biomarkers' ? (
+                <div>
+                  <div className="w-16 h-16 bg-emerald-500/10 rounded-3xl flex items-center justify-center text-emerald-400 mb-8 border border-emerald-500/20">
+                    <Gauge size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    The Big 3 Biomarkers
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-8 block">
+                    Precision Autonomic & Metabolic Markers
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Metabolic health is monitored through three core clinical biomarkers that reflect systemic insulin response, cellular energy levels, and cardiorespiratory load.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Fasting Insulin (< 5.0 µIU/mL)", desc: "Measures pancreatic cell reserve. Keep levels low by maintaining a 14-hour daily fasting window and prioritizing resistance training to stimulate non-insulin-mediated glucose uptake." },
+                      { step: "02", title: "Fasting Glucose (70 - 85 mg/dL)", desc: "Reflects baseline glycemic balance. Minimize variability by utilizing a Continuous Glucose Monitor (CGM) to identify and remove foods triggering spikes above 140 mg/dL." },
+                      { step: "03", title: "HbA1c (< 5.3%)", desc: "Reflects 3-month average glycation. Prevent advanced glycation endproducts (AGEs) by walking for 10-15 minutes immediately following high-glycemic meals." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : activeProtocol === 'glp1' ? (
+                <div>
+                  <div className="w-16 h-16 bg-emerald-500/10 rounded-3xl flex items-center justify-center text-emerald-400 mb-8 border border-emerald-500/20">
+                    <Activity size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    GLP-1 Companion Protocol
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-8 block">
+                    Autonomic & Lean Tissue Preservation
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    When utilizing GLP-1 receptor agonists, appetite suppression can lead to severe muscle wasting (sarcopenia) and micronutrient deficiencies. A dedicated companion protocol preserves active lean tissue and metabolic rate.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "High-Density Protein Ingestion", desc: "Consume a minimum of 1.6 to 2.2 grams of protein per kilogram of body weight daily (divided into 3-4 doses of 30-40g each) to stimulate Muscle Protein Synthesis (MPS) despite calorie restriction." },
+                      { step: "02", title: "GI Motility Maintenance", desc: "Support slowed digestion with 35g of daily dietary fiber and high-strain probiotics to maintain optimal transit times and prevent bloating or nausea." },
+                      { step: "03", title: "Electrolyte Baseline (Sodium, Potassium, Magnesium)", desc: "Supplement daily to offset lower mineral absorption and preserve intracellular hydration." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className="w-16 h-16 bg-emerald-500/10 rounded-3xl flex items-center justify-center text-emerald-400 mb-8 border border-emerald-500/20">
+                    <Brain size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    Cognitive Fueling Protocol
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-8 block">
+                    Brain Energy Stack & Neural Cellular Repair
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    The brain consumes 20% of resting metabolic energy. Cognitive fueling utilizes targeted ketone esters and bioavailable fats to bypass glucose resistance, providing clean energy to neural circuits.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Exogenous Ketone Esters", desc: "Ingest 10-25g of ketone monoesters (e.g., C6/C8 MCT oil or delta-G) in the morning to induce rapid nutritional ketosis, fueling cognitive circuits even in the presence of insulin resistance." },
+                      { step: "02", title: "Phospholipid DHA Complex", desc: "Supplement with high-bioavailability omega-3s bound to phospholipids (krill or algae source) to support neural membrane integrity and dendritic branching." },
+                      { step: "03", title: "Adenosine Triphosphate (ATP) Promoters", desc: "Daily intake of 5g micronized creatine monohydrate to saturate cellular phosphocreatine pools, enhancing short-term memory and working capacity." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
