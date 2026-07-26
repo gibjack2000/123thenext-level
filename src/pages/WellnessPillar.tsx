@@ -246,7 +246,7 @@ export default function WellnessPillar() {
 
               {/* Title & Description */}
               <h2 className="text-2xl md:text-3xl font-display font-black uppercase tracking-tight text-white mb-6 leading-tight">
-                Protocol 04 • Metta-Biometrics: Engineering the Heart-Brain Axis
+                Metta-Biometrics: Engineering the Heart-Brain Axis
               </h2>
               
               <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
