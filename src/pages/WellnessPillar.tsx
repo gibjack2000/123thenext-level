@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Sparkles, ArrowLeft, ArrowRight, Sun, ThermometerSnowflake, Moon, Eye, ExternalLink, Brain, Waves, RefreshCw, Zap, Activity, Shield, Wind, Microscope, Heart, UserCheck, HeartPulse, Compass } from 'lucide-react';
+import { Sparkles, ArrowLeft, ArrowRight, Sun, ThermometerSnowflake, Moon, Eye, ExternalLink, Brain, Waves, RefreshCw, Zap, Activity, Shield, Wind, Microscope, Heart, UserCheck, HeartPulse, Compass, Play, Pause, Headphones, Volume2, VolumeX, RotateCcw } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../translations';
@@ -10,6 +10,73 @@ import { useAffiliateLinks } from '../contexts/AffiliateLinksContext';
 export default function WellnessPillar() {
   const t = useT();
   const { links } = useAffiliateLinks();
+
+  const audioRef = React.useRef<HTMLAudioElement>(null);
+  const [isPlaying, setIsPlaying] = React.useState(false);
+  const [currentTime, setCurrentTime] = React.useState(0);
+  const [duration, setDuration] = React.useState(0);
+  const [volume, setVolume] = React.useState(0.8);
+  const [isMuted, setIsMuted] = React.useState(false);
+
+  const togglePlay = () => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      audioRef.current.play().catch(err => console.log("Audio play failed:", err));
+      setIsPlaying(true);
+    }
+  };
+
+  const handleTimeUpdate = () => {
+    if (!audioRef.current) return;
+    setCurrentTime(audioRef.current.currentTime);
+  };
+
+  const handleLoadedMetadata = () => {
+    if (!audioRef.current) return;
+    setDuration(audioRef.current.duration);
+  };
+
+  const handleAudioEnded = () => {
+    setIsPlaying(false);
+    setCurrentTime(0);
+  };
+
+  const handleSeek = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!audioRef.current) return;
+    const time = parseFloat(e.target.value);
+    audioRef.current.currentTime = time;
+    setCurrentTime(time);
+  };
+
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!audioRef.current) return;
+    const vol = parseFloat(e.target.value);
+    audioRef.current.volume = vol;
+    setVolume(vol);
+    if (vol > 0) {
+      audioRef.current.muted = false;
+      setIsMuted(false);
+    }
+  };
+
+  const toggleMute = () => {
+    if (!audioRef.current) return;
+    const nextMute = !isMuted;
+    audioRef.current.muted = nextMute;
+    setIsMuted(nextMute);
+  };
+
+  const formatTime = (time: number) => {
+    if (isNaN(time)) return '0:00';
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+
+  const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   useEffect(() => {
     document.title = `${t('wp_title_start')} ${t('wp_title_end')} | 123TheNext Level`;
@@ -146,6 +213,122 @@ export default function WellnessPillar() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-24 pb-32">
+        <audio
+          ref={audioRef}
+          src="/assets/audio/universal-love-overview.mp3"
+          onTimeUpdate={handleTimeUpdate}
+          onLoadedMetadata={handleLoadedMetadata}
+          onEnded={handleAudioEnded}
+        />
+
+        {/* Custom Audio Player Card (Protocol 04 Alignment) */}
+        <div className="max-w-3xl mx-auto mb-20 relative z-30">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="relative bg-gradient-to-br from-slate-900 via-slate-950 to-slate-950 p-8 md:p-12 rounded-[2.5rem] border border-cyan-500/20 shadow-2xl shadow-cyan-500/5 group overflow-hidden"
+          >
+            {/* Visual glow overlay */}
+            <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-700 bg-[radial-gradient(circle_at_50%_0%,rgba(6,182,212,0.15)_0%,transparent_50%)]" />
+            
+            <div className="relative z-10">
+              {/* Header: Label + Icon */}
+              <div className="flex items-center justify-between mb-8">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 text-cyan-400 font-display font-black text-[10px] uppercase tracking-[0.2em] border border-cyan-500/20 shadow-[0_0_15px_rgba(6,182,212,0.05)]">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                  Audio Overview • 8 Mins
+                </div>
+                <div className="text-cyan-500/60 group-hover:text-cyan-400 transition-colors duration-300">
+                  <Headphones size={20} className={isPlaying ? "animate-bounce" : ""} />
+                </div>
+              </div>
+
+              {/* Title & Description */}
+              <h2 className="text-2xl md:text-3xl font-display font-black uppercase tracking-tight text-white mb-6 leading-tight">
+                Protocol 04 • Universal Love as a Biological Input
+              </h2>
+              
+              <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                Your daily life practice is the physical vehicle for neural state regulation. Cultivating Universal Love (developing compassion for all living beings, recognizing our shared journey) and Loving-kindness (Metta, cultivating a heart free of ill-will) are no longer just philosophical or spiritual concepts—they are active, zero-cost biophysical inputs.
+                <br /><br />
+                In this comprehensive audio discussion, our hosts unpack the hard neuroscience behind these practices. Learn how daily intentional choices directly down-regulate sympathetic alert states, manage chronic cortisol, stimulate vagal tone, and optimize Heart Rate Variability (HRV) to protect your long-term cellular healthspan.
+              </p>
+
+              {/* Player Controls Grid */}
+              <div className="flex flex-col md:flex-row items-center gap-6 pt-6 border-t border-white/5">
+                {/* Play/Pause & Reset */}
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={togglePlay}
+                    className="w-14 h-14 rounded-full bg-cyan-500 text-slate-950 flex items-center justify-center hover:bg-cyan-400 active:scale-95 transition-all shadow-[0_0_15px_rgba(6,182,212,0.4)] group/play focus:outline-none focus:ring-2 focus:ring-cyan-500/50 cursor-pointer"
+                    aria-label={isPlaying ? 'Pause' : 'Play'}
+                  >
+                    {isPlaying ? <Pause size={24} className="fill-slate-950 text-slate-950" /> : <Play size={24} className="fill-slate-950 text-slate-950 ml-1" />}
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (!audioRef.current) return;
+                      audioRef.current.currentTime = 0;
+                      setCurrentTime(0);
+                    }}
+                    className="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 text-slate-400 flex items-center justify-center hover:text-white hover:border-slate-700 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-500/30 cursor-pointer"
+                    title="Restart Audio"
+                  >
+                    <RotateCcw size={16} />
+                  </button>
+                </div>
+
+                {/* Seek Bar and Timers */}
+                <div className="flex-grow w-full flex items-center gap-4">
+                  <span className="text-[10px] font-mono text-slate-500 select-none">
+                    {formatTime(currentTime)}
+                  </span>
+                  <div className="flex-grow relative group/seek">
+                    <input
+                      type="range"
+                      min="0"
+                      max={duration || 100}
+                      value={currentTime}
+                      onChange={handleSeek}
+                      className="w-full h-1.5 rounded-full appearance-none cursor-pointer outline-none transition-all focus:outline-none focus:ring-1 focus:ring-cyan-500/50 bg-slate-800 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-cyan-400 [&::-webkit-slider-thumb]:shadow-[0_0_8px_#06b6d4] [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:hover:scale-125"
+                      style={{
+                        background: `linear-gradient(to right, #06b6d4 ${progressPercent}%, #1e293b ${progressPercent}%)`
+                      }}
+                    />
+                  </div>
+                  <span className="text-[10px] font-mono text-slate-500 select-none">
+                    {formatTime(duration)}
+                  </span>
+                </div>
+
+                {/* Volume Controls */}
+                <div className="flex items-center gap-2 min-w-[120px] max-md:w-full max-md:justify-center">
+                  <button
+                    onClick={toggleMute}
+                    className="text-slate-400 hover:text-cyan-400 transition-colors focus:outline-none cursor-pointer"
+                    aria-label={isMuted ? 'Unmute' : 'Mute'}
+                  >
+                    {isMuted || volume === 0 ? <VolumeX size={18} /> : <Volume2 size={18} />}
+                  </button>
+                  <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value={isMuted ? 0 : volume}
+                    onChange={handleVolumeChange}
+                    className="w-20 h-1 rounded-full appearance-none cursor-pointer outline-none transition-all bg-slate-800 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-2 [&::-webkit-slider-thumb]:h-2 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-cyan-400 [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:hover:scale-125"
+                    style={{
+                      background: `linear-gradient(to right, #06b6d4 ${(isMuted ? 0 : volume) * 100}%, #1e293b ${(isMuted ? 0 : volume) * 100}%)`
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+
         {/* Hub Methodology */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-40">
           <motion.div 
