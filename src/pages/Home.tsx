@@ -377,9 +377,9 @@ export default function Home() {
                     >
                       {/* Engaging Cinematic Cover Image */}
                       <img 
-                        src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=1200" 
-                        alt="Longevity Paradigm cover" 
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 brightness-[0.4] contrast-[1.1] grayscale-[20%]"
+                        src="https://images.unsplash.com/photo-1524850301259-772984de357c?auto=format&fit=crop&q=80&w=1200" 
+                        alt="Ticking clock longevity paradigm cover" 
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 brightness-[0.35] contrast-[1.1] grayscale-[10%]"
                         referrerPolicy="no-referrer"
                       />
                       
@@ -402,8 +402,8 @@ export default function Home() {
                           </span>
                         </div>
                         <div>
-                          <h3 className="text-xl md:text-2xl font-display uppercase tracking-tight text-white font-black mb-1 drop-shadow-md leading-none">
-                            AGING IS A DISEASE
+                          <h3 className="text-xl md:text-2xl font-display uppercase tracking-tight text-white font-black mb-2 drop-shadow-md leading-[1.15]">
+                            AGING IS A DISEASE — AND THE CLOCK IS RUNNING
                           </h3>
                           <p className="text-[10px] font-mono uppercase tracking-widest text-wellness-cyan mb-2">
                             The Autonomic Bypass Protocol
