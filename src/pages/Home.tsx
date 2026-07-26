@@ -377,10 +377,9 @@ export default function Home() {
                     >
                       {/* Engaging Cinematic Cover Image */}
                       <img 
-                        src="https://images.unsplash.com/photo-1524850301259-772984de357c?auto=format&fit=crop&q=80&w=1200" 
-                        alt="Ticking clock longevity paradigm cover" 
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 brightness-[0.35] contrast-[1.1] grayscale-[10%]"
-                        referrerPolicy="no-referrer"
+                        src="/assets/longevity-paradigm-cover.jpg" 
+                        alt="Cybernetic David Longevity Paradigm Cover" 
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 brightness-[0.65] contrast-[1.1]"
                       />
                       
                       {/* Gradient Overlay */}
