@@ -394,20 +394,23 @@ export default function Home() {
                       {/* Video Info Overlay */}
                       <div className="absolute inset-0 flex flex-col justify-between p-8 z-10 text-left">
                         <div className="flex justify-between items-center">
-                          <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-wellness-cyan bg-wellness-cyan/10 px-3 py-1 rounded-full border border-wellness-cyan/20 backdrop-blur-md">
-                            [ AUTONOMIC BIO-SYSTEM ]
+                          <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-rose-400 bg-rose-500/10 px-3 py-1 rounded-full border border-rose-500/20 backdrop-blur-md">
+                            [ CLINICAL ALERT ]
                           </span>
                           <span className="text-[9px] font-mono text-slate-400">
-                            VERIFIED SECURE
+                            DECLASSIFIED
                           </span>
                         </div>
                         <div>
-                          <h3 className="text-xl font-display uppercase tracking-wider text-white font-black mb-1 drop-shadow-md">
-                            Longevity Paradigm
+                          <h3 className="text-xl md:text-2xl font-display uppercase tracking-tight text-white font-black mb-1 drop-shadow-md leading-none">
+                            AGING IS A DISEASE
                           </h3>
+                          <p className="text-[10px] font-mono uppercase tracking-widest text-wellness-cyan mb-2">
+                            The Autonomic Bypass Protocol
+                          </p>
                           <p className="text-xs text-slate-300 flex items-center gap-2 font-medium">
-                            <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                            {isTouchDevice ? 'Tap to initialize playback' : 'Hover / Click to play'} • 2 Mins
+                            <span className="inline-block w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+                            {isTouchDevice ? 'Tap to play briefing' : 'Hover / Click to play'} • 2 Mins
                           </p>
                         </div>
                       </div>
