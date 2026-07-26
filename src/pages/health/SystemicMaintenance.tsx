@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, Moon, Sun, Shield, Info, ExternalLink, Timer, Activity, Zap, Brain, Target, ArrowRight, Gauge, Thermometer } from 'lucide-react';
+import { ArrowLeft, Moon, Sun, Shield, Info, ExternalLink, Timer, Activity, Zap, Brain, Target, ArrowRight, Gauge, Thermometer, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useT } from '../../translations';
 
 export default function SystemicMaintenance() {
   const t = useT();
+  const [activeProtocol, setActiveProtocol] = React.useState<'rem' | 'deep' | 'thermic' | null>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -87,32 +88,44 @@ export default function SystemicMaintenance() {
 
               <div className="lg:col-span-7 space-y-12">
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <motion.div 
-                      whileHover={{ scale: 1.02 }}
-                      className="p-10 bg-slate-950/50 rounded-[3.5rem] border border-white/5 shadow-2xl flex flex-col gap-4"
+                    <div 
+                      onClick={() => setActiveProtocol('rem')}
+                      className="p-10 bg-slate-955/50 rounded-[3.5rem] border border-white/5 shadow-2xl flex flex-col gap-4 hover:bg-rose-955/10 hover:border-rose-500/30 transition-all duration-300 cursor-pointer group justify-between"
                     >
-                       <span className="text-4xl font-display font-black text-rose-400">REM</span>
-                       <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 font-display">Neural Sorting</span>
-                       <p className="text-sm text-slate-500 leading-relaxed font-medium">Critical for emotional regulation, creative problem solving, and long-term memory consolidation.</p>
-                    </motion.div>
-                    <motion.div 
-                      whileHover={{ scale: 1.02 }}
-                      className="p-10 bg-slate-950/50 rounded-[3.5rem] border border-white/5 shadow-2xl flex flex-col gap-4"
+                      <div>
+                         <span className="text-4xl font-display font-black text-rose-400 group-hover:text-rose-300 transition-colors">REM</span>
+                         <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 font-display block mt-1">Neural Sorting</span>
+                         <p className="text-sm text-slate-400 leading-relaxed font-medium mt-2">Critical for emotional regulation, creative problem solving, and long-term memory consolidation.</p>
+                      </div>
+                      <span className="text-[9px] font-mono uppercase tracking-widest text-rose-400 mt-4 inline-block group-hover:text-rose-300 transition-colors">Open Protocol Details →</span>
+                    </div>
+                    <div 
+                      onClick={() => setActiveProtocol('deep')}
+                      className="p-10 bg-slate-955/50 rounded-[3.5rem] border border-white/5 shadow-2xl flex flex-col gap-4 hover:bg-indigo-955/10 hover:border-indigo-500/30 transition-all duration-300 cursor-pointer group justify-between"
                     >
-                       <span className="text-4xl font-display font-black text-indigo-400">DEEP</span>
-                       <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 font-display">Physical Repair</span>
-                       <p className="text-sm text-slate-500 leading-relaxed font-medium">The window where Growth Hormone peaks and systemic protein synthesis facilitates tissue repair.</p>
-                    </motion.div>
+                      <div>
+                         <span className="text-4xl font-display font-black text-indigo-400 group-hover:text-indigo-300 transition-colors">DEEP</span>
+                         <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 font-display block mt-1">Physical Repair</span>
+                         <p className="text-sm text-slate-400 leading-relaxed font-medium mt-2">The window where Growth Hormone peaks and systemic protein synthesis facilitates tissue repair.</p>
+                      </div>
+                      <span className="text-[9px] font-mono uppercase tracking-widest text-indigo-400 mt-4 inline-block group-hover:text-indigo-300 transition-colors">Open Protocol Details →</span>
+                    </div>
                  </div>
                  
-                 <div className="p-10 bg-white/5 rounded-[3rem] border border-white/10 shadow-2xl relative overflow-hidden group">
-                    <div className="flex items-center gap-4 mb-6">
-                       <Thermometer size={24} className="text-rose-500" />
-                       <h4 className="text-xl font-display font-black uppercase text-white tracking-widest">Thermic Signaling</h4>
+                 <div 
+                   onClick={() => setActiveProtocol('thermic')}
+                   className="p-10 bg-white/5 rounded-[3rem] border border-white/10 shadow-2xl relative overflow-hidden hover:bg-rose-955/10 hover:border-rose-500/30 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
+                 >
+                    <div>
+                      <div className="flex items-center gap-4 mb-6">
+                         <Thermometer size={24} className="text-rose-500 group-hover:text-rose-400 transition-colors" />
+                         <h4 className="text-xl font-display font-black uppercase text-white tracking-widest">Thermic Signaling</h4>
+                      </div>
+                      <p className="text-slate-400 text-base leading-relaxed font-medium">
+                         Maintaining a core body temperature drop of 1-3°C is required to initiate and maintain high-quality slow-wave sleep.
+                      </p>
                     </div>
-                    <p className="text-slate-400 text-base leading-relaxed font-medium">
-                       Maintaining a core body temperature drop of 1-3°C is required to initiate and maintain high-quality slow-wave sleep.
-                    </p>
+                    <span className="text-[9px] font-mono uppercase tracking-widest text-rose-400 mt-6 inline-block group-hover:text-rose-300 transition-colors">Open Protocol Details →</span>
                  </div>
               </div>
 
@@ -178,6 +191,128 @@ export default function SystemicMaintenance() {
            </Link>
         </div>
       </div>
+
+      {/* Protocol Details Modal */}
+      <AnimatePresence>
+        {activeProtocol && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-955/90 backdrop-blur-md"
+            onClick={() => setActiveProtocol(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="w-full max-w-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-950 border border-rose-500/30 rounded-[3rem] p-8 md:p-12 shadow-2xl shadow-rose-500/10 relative overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setActiveProtocol(null)}
+                className="absolute top-8 right-8 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-all cursor-pointer focus:outline-none"
+              >
+                <X size={20} />
+              </button>
+
+              {activeProtocol === 'rem' ? (
+                <div>
+                  <div className="w-16 h-16 bg-rose-500/10 rounded-3xl flex items-center justify-center text-rose-400 mb-8 border border-rose-500/20">
+                    <Brain size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    REM Sleep Protocol
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-rose-400 mb-8 block">
+                    Glymphatic Tau Clearance & Neural Sorting
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    REM sleep is the primary neurological phase for emotional regulation, creative consolidation, and metabolic clearing of waste proteins like Tau.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Target Sleep Architecture", desc: "Maintain a stable 8-hour sleep window, allowing REM density to naturally accumulate in the final hours of the sleep cycle." },
+                      { step: "02", title: "Circadian Light Shielding", desc: "Utilize high-fidelity blue-blocking glasses or enforce zero-screen habits 2 hours before bed to prevent phase delays." },
+                      { step: "03", title: "Neurotransmitter Optimization", desc: "Ensure adequate dietary intake of tryptophan and active B6 to support serotonin-to-melatonin conversion." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-rose-400 bg-rose-500/10 border border-rose-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : activeProtocol === 'deep' ? (
+                <div>
+                  <div className="w-16 h-16 bg-indigo-500/10 rounded-3xl flex items-center justify-center text-indigo-400 mb-8 border border-indigo-500/20">
+                    <Moon size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    DEEP Sleep Protocol
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-indigo-400 mb-8 block">
+                    Growth Hormone peak & Systemic Protein Repair
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Slow-wave (Deep) sleep is the primary physiological recovery window where human growth hormone (hGH) peaks, supporting physical tissue repair and immunological wellness.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Target Thermal Comfort", desc: "Cool the ambient sleeping surface to 64-68°F (17-20°C) to facilitate the core temperature drop required to initiate slow-wave sleep." },
+                      { step: "02", title: "Glycemic Buffer Windows", desc: "Avoid heavy carbohydrates or calorie-dense meals within 3 hours of sleep to prevent insulin spikes from suppressing hGH secretion." },
+                      { step: "03", title: "Environmental Light Audit", desc: "Maintain bedroom darkness below 0.2 lux and sound levels below 40 decibels to prevent micro-arousals during slow-wave cycles." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-indigo-400 bg-indigo-500/10 border border-indigo-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className="w-16 h-16 bg-rose-500/10 rounded-3xl flex items-center justify-center text-rose-400 mb-8 border border-rose-500/20">
+                    <Thermometer size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    Thermic Signaling
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-rose-400 mb-8 block">
+                    Parasympathetic Transition & Core Temp Regulation
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Thermal cues (such as deliberate pre-sleep cooling and evening heating) manipulate blood flow and vascular tone to accelerate parasympathetic autonomic dominance.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Pre-Sleep Thermal Dips", desc: "Take a warm shower or bath 90 minutes before bed. Subsequent rapid heat dissipation from the skin forces core temperatures down." },
+                      { step: "02", title: "Autonomic Activation Dips", desc: "Pair thermal recovery with slow diaphragmatic 6-second exhalations to shift the nervous system into rest-and-digest mode." },
+                      { step: "03", title: "Microvascular Conditioning", desc: "Use regular contrast heat/cold exposure to maintain vascular dilation elasticity and lower resting systemic blood pressures." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-rose-400 bg-rose-500/10 border border-rose-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

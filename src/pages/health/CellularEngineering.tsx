@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, Dna, Microscope, Zap, Shield, ExternalLink, Binary, Sparkles, Target, ArrowRight, FlaskConical, Activity } from 'lucide-react';
+import { ArrowLeft, Dna, Microscope, Zap, Shield, ExternalLink, Binary, Sparkles, Target, ArrowRight, FlaskConical, Activity, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useAffiliateLinks } from '../../contexts/AffiliateLinksContext';
 
 export default function CellularEngineering() {
   const { links } = useAffiliateLinks();
+  const [activeProtocol, setActiveProtocol] = React.useState<'nad' | 'mtor' | 'senolytic' | null>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -140,32 +141,44 @@ export default function CellularEngineering() {
 
               <div className="lg:col-span-7 space-y-12">
                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <motion.div 
-                      whileHover={{ scale: 1.02 }}
-                      className="p-10 bg-slate-950/50 rounded-[3.5rem] border border-white/5 shadow-2xl flex flex-col gap-4"
+                    <div 
+                      onClick={() => setActiveProtocol('nad')}
+                      className="p-10 bg-slate-950/50 rounded-[3.5rem] border border-white/5 shadow-2xl flex flex-col gap-4 hover:bg-indigo-955/10 hover:border-indigo-500/30 transition-all duration-300 cursor-pointer group justify-between"
                     >
-                       <span className="text-4xl font-display font-black text-indigo-400">NAD+</span>
-                       <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 font-display">Sirtuin Activation</span>
-                       <p className="text-sm text-slate-500 leading-relaxed font-medium">Critical for DNA repair and cellular energy. NAD+ levels decline by 50% every 20 years without intervention.</p>
-                    </motion.div>
-                    <motion.div 
-                      whileHover={{ scale: 1.02 }}
-                      className="p-10 bg-slate-950/50 rounded-[3.5rem] border border-white/5 shadow-2xl flex flex-col gap-4"
+                      <div>
+                         <span className="text-4xl font-display font-black text-indigo-400 group-hover:text-indigo-300 transition-colors">NAD+</span>
+                         <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 font-display block mt-1">Sirtuin Activation</span>
+                         <p className="text-sm text-slate-400 leading-relaxed font-medium mt-2">Critical for DNA repair and cellular energy. NAD+ levels decline by 50% every 20 years without intervention.</p>
+                      </div>
+                      <span className="text-[9px] font-mono uppercase tracking-widest text-indigo-400 mt-4 inline-block group-hover:text-indigo-300 transition-colors">Open Protocol Details →</span>
+                    </div>
+                    <div 
+                      onClick={() => setActiveProtocol('mtor')}
+                      className="p-10 bg-slate-950/50 rounded-[3.5rem] border border-white/5 shadow-2xl flex flex-col gap-4 hover:bg-emerald-955/10 hover:border-emerald-500/30 transition-all duration-300 cursor-pointer group justify-between"
                     >
-                       <span className="text-4xl font-display font-black text-emerald-400">mTOR</span>
-                       <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 font-display">Growth Regulation</span>
-                       <p className="text-sm text-slate-500 leading-relaxed font-medium">Strategically inhibiting mTOR through periodic fasting triggers the switch from growth to repair mode.</p>
-                    </motion.div>
+                      <div>
+                         <span className="text-4xl font-display font-black text-emerald-400 group-hover:text-emerald-300 transition-colors">mTOR</span>
+                         <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 font-display block mt-1">Growth Regulation</span>
+                         <p className="text-sm text-slate-400 leading-relaxed font-medium mt-2">Strategically inhibiting mTOR through periodic fasting triggers the switch from growth to repair mode.</p>
+                      </div>
+                      <span className="text-[9px] font-mono uppercase tracking-widest text-emerald-400 mt-4 inline-block group-hover:text-emerald-300 transition-colors">Open Protocol Details →</span>
+                    </div>
                  </div>
                  
-                 <div className="p-10 bg-white/5 rounded-[3rem] border border-white/10 shadow-2xl relative overflow-hidden group">
-                    <div className="flex items-center gap-4 mb-6">
-                       <Shield size={24} className="text-emerald-500" />
-                       <h4 className="text-xl font-display font-black uppercase text-white tracking-widest">Senolytic Oversight</h4>
+                 <div 
+                   onClick={() => setActiveProtocol('senolytic')}
+                   className="p-10 bg-white/5 rounded-[3rem] border border-white/10 shadow-2xl relative overflow-hidden hover:bg-emerald-955/10 hover:border-emerald-500/30 transition-all duration-300 cursor-pointer group flex flex-col justify-between"
+                 >
+                    <div>
+                      <div className="flex items-center gap-4 mb-6">
+                         <Shield size={24} className="text-emerald-500 group-hover:text-emerald-400 transition-colors" />
+                         <h4 className="text-xl font-display font-black uppercase text-white tracking-widest">Senolytic Oversight</h4>
+                      </div>
+                      <p className="text-slate-400 text-base leading-relaxed font-medium">
+                         Clearing "zombie cells" (senescent cells) that secrete inflammatory signals is the next tactical step in systemic longevity management.
+                      </p>
                     </div>
-                    <p className="text-slate-400 text-base leading-relaxed font-medium">
-                       Clearing "zombie cells" (senescent cells) that secrete inflammatory signals is the next tactical step in systemic longevity management.
-                    </p>
+                    <span className="text-[9px] font-mono uppercase tracking-widest text-emerald-400 mt-6 inline-block group-hover:text-emerald-300 transition-colors">Open Protocol Details →</span>
                  </div>
               </div>
 
@@ -299,6 +312,128 @@ export default function CellularEngineering() {
            </Link>
         </div>
       </div>
+
+      {/* Protocol Details Modal */}
+      <AnimatePresence>
+        {activeProtocol && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-955/90 backdrop-blur-md"
+            onClick={() => setActiveProtocol(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="w-full max-w-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-950 border border-indigo-500/30 rounded-[3rem] p-8 md:p-12 shadow-2xl shadow-indigo-500/10 relative overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setActiveProtocol(null)}
+                className="absolute top-8 right-8 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-all cursor-pointer focus:outline-none"
+              >
+                <X size={20} />
+              </button>
+
+              {activeProtocol === 'nad' ? (
+                <div>
+                  <div className="w-16 h-16 bg-indigo-500/10 rounded-3xl flex items-center justify-center text-indigo-400 mb-8 border border-indigo-500/20">
+                    <Binary size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    NAD+ Sirtuin Activation
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-indigo-400 mb-8 block">
+                    DNA Repair & Intracellular Energy Optimization
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Sirtuins are NAD+-dependent deacetylases regulating DNA repair, metabolic adaptation, and mitochondrial health. Raising systemic NAD+ pools directly activates SIRT1 and SIRT3.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Precursor Supplementation", desc: "Consume 250-500mg liposomal NMN or NR daily in the morning to maintain optimal intracellular pools." },
+                      { step: "02", title: "Sirtuin Activation Synergy", desc: "Combine NAD+ precursors with Resveratrol or Pterostilbene to enhance SIRT1 binding efficiency." },
+                      { step: "03", title: "Circadian Synchronization", desc: "Align natural NAD+ production pathways by maintaining consistent sleep/wake cycles and morning light exposure." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-indigo-400 bg-indigo-500/10 border border-indigo-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : activeProtocol === 'mtor' ? (
+                <div>
+                  <div className="w-16 h-16 bg-emerald-500/10 rounded-3xl flex items-center justify-center text-emerald-400 mb-8 border border-emerald-500/20">
+                    <Zap size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    mTOR Growth Regulation
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-8 block">
+                    Autophagy Induction & Intracellular Cleanup
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    mTOR (mechanistic target of rapamycin) regulates cellular protein synthesis. Strategically down-regulating mTOR activity switches cells from replication mode into repair and autophagic clearance.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Therapeutic Fasting Windows", desc: "Implement a monthly 24-36 hour water-only fast to suppress circulating insulin and trigger systemic autophagy." },
+                      { step: "02", title: "Amino Acid Restriction", desc: "Periodically limit animal protein consumption to temporarily lower circulating methionine and branched-chain amino acids." },
+                      { step: "03", title: "Exercise Sequencing", desc: "Utilize high-intensity resistance workouts to locally stimulate mTOR, followed by nutrient-restricted recovery windows." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className="w-16 h-16 bg-emerald-500/10 rounded-3xl flex items-center justify-center text-emerald-400 mb-8 border border-emerald-500/20">
+                    <Shield size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    Senolytic Oversight
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-8 block">
+                    Zombie Cell Clearance & SASP Mitigation
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Senescent cells accumulate with age, releasing inflammatory cytokines (SASP) that damage surrounding tissue. Targeted senolytics selectively eliminate these non-functional cells.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Natural Senolytic Stacks", desc: "Integrate plant-based senolytic compounds (such as Quercetin and Fisetin) to induce apoptosis in senescent cells." },
+                      { step: "02", title: "Pulsed Hit-and-Run Schedules", desc: "Take senolytic stacks on a pulsed schedule (e.g., 2 consecutive days per month) to clear targets without continuous tissue exposure." },
+                      { step: "03", title: "SASP Cytokine Suppression", desc: "Lower systemic inflammatory loads by pairing cellular clearance with a high-polyphenol anti-inflammatory diet." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, Activity, Microscope, Zap, Shield, ExternalLink, Binary, Sparkles, Target, ArrowRight, Search, FlaskConical, Gauge, Clipboard } from 'lucide-react';
+import { ArrowLeft, Activity, Microscope, Zap, Shield, ExternalLink, Binary, Sparkles, Target, ArrowRight, Search, FlaskConical, Gauge, Clipboard, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useAffiliateLinks } from '../contexts/AffiliateLinksContext';
 import { affiliateLinks } from '../config/affiliateLinks';
 
 export default function PreventiveHealth() {
   const { links } = useAffiliateLinks();
+  const [activeProtocol, setActiveProtocol] = React.useState<'blood' | 'epigenetic' | 'cancer' | null>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -128,37 +129,47 @@ export default function PreventiveHealth() {
                   const linkToProp = isAnchor || isExternal ? {} : { to: d.url };
 
                   return (
-                    <motion.div 
+                    <div 
                       key={d.id}
-                      whileHover={{ y: -10 }}
-                      className="bg-slate-900/50 p-10 rounded-[3.5rem] border border-white/5 shadow-2xl flex flex-col h-full"
+                      onClick={() => {
+                        if (d.id === 'blood-panel') setActiveProtocol('blood');
+                        else if (d.id === 'epigenetic-clock') setActiveProtocol('epigenetic');
+                        else if (d.id === 'cancer-screening') setActiveProtocol('cancer');
+                      }}
+                      className="bg-slate-900/50 p-10 rounded-[3.5rem] border border-white/5 shadow-2xl flex flex-col h-full hover:bg-emerald-955/10 hover:border-emerald-500/30 transition-all duration-300 cursor-pointer group justify-between"
                     >
-                      <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 mb-8 border border-emerald-500/20">
-                        <Gauge size={24} />
+                      <div>
+                        <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 mb-8 border border-emerald-500/20 group-hover:bg-emerald-500 group-hover:text-slate-950 transition-all duration-300">
+                          <Gauge size={24} />
+                        </div>
+                        <h3 className="text-2xl font-display font-black uppercase text-white mb-2 tracking-tight group-hover:text-emerald-400 transition-colors">
+                          {d.name}
+                        </h3>
+                        <p className="text-[10px] font-black uppercase text-slate-500 tracking-widest mb-6 font-display">{d.spec}</p>
+                        <p className="text-slate-400 text-sm leading-relaxed mb-8 font-medium">
+                          {d.desc}
+                        </p>
+                        <div className="space-y-3 mb-10">
+                          {d.metrics.map(m => (
+                            <div key={m} className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-slate-300">
+                              <div className="w-1 h-1 rounded-full bg-emerald-500" />
+                              {m}
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                      <h3 className="text-2xl font-display font-black uppercase text-white mb-2 tracking-tight group-hover:text-emerald-400 transition-colors">
-                        {d.name}
-                      </h3>
-                      <p className="text-[10px] font-black uppercase text-slate-500 tracking-widest mb-6 font-display">{d.spec}</p>
-                      <p className="text-slate-400 text-sm leading-relaxed mb-8 flex-grow font-medium">
-                        {d.desc}
-                      </p>
-                      <div className="space-y-3 mb-10">
-                        {d.metrics.map(m => (
-                          <div key={m} className="flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-slate-300">
-                            <div className="w-1 h-1 rounded-full bg-emerald-500" />
-                            {m}
-                          </div>
-                        ))}
+                      <div>
+                        <span className="text-[9px] font-mono uppercase tracking-widest text-emerald-400 mb-6 inline-block group-hover:text-emerald-300 transition-colors">Open Protocol Guide →</span>
+                        <LinkComponent 
+                          {...buttonProps}
+                          {...linkToProp}
+                          onClick={(e) => e.stopPropagation()}
+                          className="w-full py-4 bg-white/5 rounded-2xl text-center text-[10px] font-black uppercase tracking-[0.2em] text-white hover:bg-emerald-600 transition-all border border-white/10 group-hover:border-emerald-500/50 block"
+                        >
+                          {d.id === 'blood-panel' ? 'View Recommended Panels' : 'View Clinical Specs'}
+                        </LinkComponent>
                       </div>
-                      <LinkComponent 
-                        {...buttonProps}
-                        {...linkToProp}
-                        className="w-full py-4 bg-white/5 rounded-2xl text-center text-[10px] font-black uppercase tracking-[0.2em] text-white hover:bg-emerald-600 transition-all border border-white/10 group-hover:border-emerald-500/50 block"
-                      >
-                        {d.id === 'blood-panel' ? 'View Recommended Panels' : 'View Clinical Specs'}
-                      </LinkComponent>
-                    </motion.div>
+                    </div>
                   );
                 })}
               </div>
@@ -400,6 +411,128 @@ export default function PreventiveHealth() {
            </Link>
         </div>
       </div>
+
+      {/* Protocol Details Modal */}
+      <AnimatePresence>
+        {activeProtocol && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-955/90 backdrop-blur-md"
+            onClick={() => setActiveProtocol(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="w-full max-w-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-950 border border-emerald-500/30 rounded-[3rem] p-8 md:p-12 shadow-2xl shadow-emerald-500/10 relative overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setActiveProtocol(null)}
+                className="absolute top-8 right-8 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-all cursor-pointer focus:outline-none"
+              >
+                <X size={20} />
+              </button>
+
+              {activeProtocol === 'blood' ? (
+                <div>
+                  <div className="w-16 h-16 bg-emerald-500/10 rounded-3xl flex items-center justify-center text-emerald-400 mb-8 border border-emerald-500/20">
+                    <Gauge size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    Advanced Blood Chemistry
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-8 block">
+                    Full Metabolic, Inflammatory & Endocrinology Reference
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Venous draws enable high-resolution analysis of critical blood chemistry indicators. These biomarkers reveal organ stress, metabolic activity, and cardiovascular risks long before standard clinical checks flag them.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Apolipoprotein B (ApoB)", desc: "Maintain ApoB levels below 60 mg/dL. ApoB is the single best predictor of atherogenic particle count and long-term heart health." },
+                      { step: "02", title: "Systemic Inflammation (hs-CRP)", desc: "Target hs-CRP levels below 1.0 mg/L. Chronic elevation indicates systemic vascular or tissue inflammation." },
+                      { step: "03", title: "Endocrine & Glycemic Control", desc: "Audit fasting insulin (keep under 5 uIU/mL) and HbA1c (keep under 5.4%) to ensure high insulin sensitivity and metabolic longevity." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : activeProtocol === 'epigenetic' ? (
+                <div>
+                  <div className="w-16 h-16 bg-emerald-500/10 rounded-3xl flex items-center justify-center text-emerald-400 mb-8 border border-emerald-500/20">
+                    <Binary size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    DunedinPACE Methylation
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-8 block">
+                    Epigenetic Clock pacing & Telomere Preservation
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    The DunedinPACE algorithm is the gold standard for measuring your biological pace of aging. It tracks the speed of methylation tags to determine how fast you are aging relative to chronological calendars.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Target Epigenetic Pace", desc: "Aim for a DunedinPACE rate below 0.85, meaning you age only 0.85 biological years per calendar year." },
+                      { step: "02", title: "Locus Epigenetic Regulation", desc: "Stabilize DNA methylation pathways by supplementing with natural methyl donors (such as TMG or methyl-cobalamin)." },
+                      { step: "03", title: "Telomere Length Maintenance", desc: "Protect terminal DNA sequences through antioxidants, stress-reduction frameworks, and clean aerobic conditioning." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className="w-16 h-16 bg-emerald-500/10 rounded-3xl flex items-center justify-center text-emerald-400 mb-8 border border-emerald-500/20">
+                    <Microscope size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    Galleri® Multi-Cancer Detection
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 mb-8 block">
+                    cfDNA Liquid Biopsy & Early Oncological Screening
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Analyzing cell-free DNA (cfDNA) shedding in the blood allows Galleri screening to identify early signals from over 50 types of cancer, often at Stage 0 or 1 before tumors can be detected by physical imaging.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Signal Origin Mapping", desc: "Liquid biopsy maps the specific organ system producing the cfDNA mutation signal, facilitating directed clinical follow-ups." },
+                      { step: "02", title: "Target Screening Cadence", desc: "Perform the Galleri cfDNA blood panel annually if over age 50 or if harboring genetic oncological predispositions." },
+                      { step: "03", title: "Early Intervention Pipeline", desc: "Detecting oncological signals early transforms survival prognosis, shifting cancer management from reactive containment to immediate curation." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { Heart, ArrowLeft, Activity, Shield, Zap, ExternalLink, Dna, Microscope, Sparkles, Binary, FlaskConical, Target, Search, Moon, ArrowRight } from 'lucide-react';
+import { Heart, ArrowLeft, Activity, Shield, Zap, ExternalLink, Dna, Microscope, Sparkles, Binary, FlaskConical, Target, Search, Moon, ArrowRight, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useT } from '../translations';
 import BlogSection from '../components/BlogSection';
 import IntelligenceTeaser from '../components/IntelligenceTeaser';
@@ -10,6 +10,7 @@ import { useAffiliateLinks } from '../contexts/AffiliateLinksContext';
 export default function HealthPillar() {
   const t = useT();
   const { links } = useAffiliateLinks();
+  const [activeProtocol, setActiveProtocol] = React.useState<'how' | 'why' | null>(null);
 
   useEffect(() => {
     document.title = `${t('hp_title')} ${t('hp_subtitle')} | 123TheNext Level`;
@@ -232,26 +233,36 @@ export default function HealthPillar() {
 
               <div className="lg:col-span-7 space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <motion.div 
-                    whileHover={{ scale: 1.02 }}
-                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-white/10"
+                  <div 
+                    onClick={() => setActiveProtocol('how')}
+                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-indigo-955/20 hover:border-indigo-500/30 cursor-pointer group flex flex-col justify-between"
                   >
-                    <div className="w-12 h-12 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-400 mb-6 border border-indigo-500/20">
-                      <Binary size={24} />
+                    <div>
+                      <div className="w-12 h-12 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-400 mb-6 border border-indigo-500/20 group-hover:bg-indigo-500 group-hover:text-slate-950 transition-all duration-300">
+                        <Binary size={24} />
+                      </div>
+                      <h4 className="text-xl font-display font-bold uppercase text-white mb-4">{t('hp_how_title')}</h4>
+                      <p className="text-sm text-slate-400 leading-relaxed font-medium group-hover:text-slate-200 transition-colors">{t('hp_how_desc')}</p>
                     </div>
-                    <h4 className="text-xl font-display font-bold uppercase text-white mb-4">{t('hp_how_title')}</h4>
-                    <p className="text-sm text-slate-500 leading-relaxed font-medium">{t('hp_how_desc')}</p>
-                  </motion.div>
-                  <motion.div 
-                    whileHover={{ scale: 1.02 }}
-                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-white/10"
+                    <div className="mt-6 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-indigo-400 group-hover:text-indigo-300 transition-colors">
+                      Open Protocol Details <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                  <div 
+                    onClick={() => setActiveProtocol('why')}
+                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-indigo-955/20 hover:border-indigo-500/30 cursor-pointer group flex flex-col justify-between"
                   >
-                    <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 mb-6 border border-emerald-500/20">
-                      <Activity size={24} />
+                    <div>
+                      <div className="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 mb-6 border border-emerald-500/20 group-hover:bg-emerald-500 group-hover:text-slate-950 transition-all duration-300">
+                        <Activity size={24} />
+                      </div>
+                      <h4 className="text-xl font-display font-bold uppercase text-white mb-4">{t('hp_why_title')}</h4>
+                      <p className="text-sm text-slate-400 leading-relaxed font-medium group-hover:text-slate-200 transition-colors">{t('hp_why_desc')}</p>
                     </div>
-                    <h4 className="text-xl font-display font-bold uppercase text-white mb-4">{t('hp_why_title')}</h4>
-                    <p className="text-sm text-slate-500 leading-relaxed font-medium">{t('hp_why_desc')}</p>
-                  </motion.div>
+                    <div className="mt-6 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-indigo-400 group-hover:text-indigo-300 transition-colors">
+                      Open Protocol Details <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
                 </div>
 
                 <Link to="/health/preventive" className="flex items-center justify-between p-8 bg-[#1e293b] text-white rounded-[2.5rem] hover:bg-indigo-600 transition-all font-bold uppercase tracking-widest text-xs group shadow-xl">
@@ -367,6 +378,98 @@ export default function HealthPillar() {
           </div>
         </div>
       </div>
+
+      {/* Protocol Details Modal */}
+      <AnimatePresence>
+        {activeProtocol && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-955/90 backdrop-blur-md"
+            onClick={() => setActiveProtocol(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="w-full max-w-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-950 border border-indigo-500/30 rounded-[3rem] p-8 md:p-12 shadow-2xl shadow-indigo-500/10 relative overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setActiveProtocol(null)}
+                className="absolute top-8 right-8 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-all cursor-pointer focus:outline-none"
+              >
+                <X size={20} />
+              </button>
+
+              {activeProtocol === 'how' ? (
+                <div>
+                  <div className="w-16 h-16 bg-indigo-500/10 rounded-3xl flex items-center justify-center text-indigo-400 mb-8 border border-indigo-500/20">
+                    <Binary size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    Epigenetic Aging Clock
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-indigo-400 mb-8 block">
+                    DNA Methylation & Biological Pace of Aging
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Unlike chronological birth age, biological age is determined by measuring DNA Methylation—chemical changes that occur on your DNA over time. These changes act as accurate indicators of cellular senescence and predict overall healthspan.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Genomic Sample Capture", desc: "Perform annual saliva or dry blood spot collection to decode your personal DNA methylation patterns." },
+                      { step: "02", title: "Pace of Aging Audit", desc: "Track your DunedinPACE value. A score below 1.0 indicates that your biological cells are aging slower than chronological calendar time." },
+                      { step: "03", title: "Locus Gene Regulation", desc: "Implement targeted interventions (SIRT1 precursors, clean caloric restriction, exercise) to optimize methylation tags at critical longevity loci." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-indigo-400 bg-indigo-500/10 border border-indigo-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className="w-16 h-16 bg-indigo-500/10 rounded-3xl flex items-center justify-center text-indigo-400 mb-8 border border-indigo-500/20">
+                    <Activity size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    Biometric Healthspan Markers
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-indigo-400 mb-8 block">
+                    Pre-emptive Biomarker Auditing & Homeostasis Calibration
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Tracking sub-clinical health metrics allows you to intervene before chronic symptoms manifest. Precision bio-data helps maintain cellular homeostasis and supports long-term organ systems health.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Comprehensive Homeostatic Blood panels", desc: "Audit base metabolic markers, lipid fractions, glucose variables, and inflammation markers (hs-CRP) twice annually." },
+                      { step: "02", title: "Adaptive Biological Calibration", desc: "Adjust nutritional stacks and exercise protocols immediately when shifts in blood markers are detected." },
+                      { step: "03", title: "Neurodegenerative Defense Protocols", desc: "Keep systemic inflammation indicators low to support capillary flow and safeguard blood-brain barrier integrity." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-indigo-400 bg-indigo-500/10 border border-indigo-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
