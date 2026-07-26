@@ -64,10 +64,12 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             {/* Logo */}
-            <Link to="/" onClick={handleHomeClick} className="flex items-center group">
-              <div className="bg-gradient-to-br from-blue-500 to-indigo-600 p-2 rounded-xl text-white mr-3 shadow-lg shadow-blue-900/20 group-hover:scale-110 transition-transform duration-500">
-                <Zap size={20} strokeWidth={2.5} />
-              </div>
+            <Link to="/" onClick={handleHomeClick} className="flex items-center group shrink-0 mr-8">
+              <img 
+                src="/assets/logo.png" 
+                alt="123 The Next Level Logo" 
+                className="w-9 h-9 object-contain mr-3 group-hover:scale-110 transition-transform duration-500"
+              />
               <span className="font-display font-black uppercase tracking-tighter text-xl text-white group-hover:text-blue-400 transition-colors duration-300">
                 123TheNext<span className="text-blue-500">Level</span>
               </span>
