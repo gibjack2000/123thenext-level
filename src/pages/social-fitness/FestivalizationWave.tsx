@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, Music, Zap, Users, ExternalLink, Ticket, Trophy, Heart, ArrowRight, Sparkles, Activity } from 'lucide-react';
+import { ArrowLeft, Music, Zap, Users, ExternalLink, Ticket, Trophy, Heart, ArrowRight, Sparkles, Activity, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useT } from '../../translations';
 
 export default function FestivalizationWave() {
   const t = useT();
+  const [activeProtocol, setActiveProtocol] = React.useState<'acoustic' | 'dopaminergic' | null>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -88,20 +89,33 @@ export default function FestivalizationWave() {
             </div>
             
             <div className="grid grid-cols-1 gap-6">
-              {[
-                { title: 'Acoustic Coupling', desc: 'Synchronizing brainwaves through high-fidelity, frequency-specific sonic environments.', icon: Music },
-                { title: 'Dopaminergic Flux', desc: 'Managing collective dopamine spikes to prevent post-event neural depletion.', icon: Activity }
-              ].map((item, i) => (
-                <div key={i} className="bg-white/5 p-8 rounded-[3rem] border border-white/10 flex items-start gap-6 group hover:bg-white/10 transition-colors">
-                  <div className="w-14 h-14 bg-amber-500/10 rounded-2xl flex items-center justify-center text-amber-400 border border-amber-500/20 group-hover:scale-110 transition-transform">
-                    <item.icon size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-display font-black uppercase tracking-tight text-white mb-2">{item.title}</h4>
-                    <p className="text-slate-500 text-sm font-medium leading-relaxed">{item.desc}</p>
-                  </div>
+              <div 
+                onClick={() => setActiveProtocol('acoustic')}
+                className="bg-white/5 p-8 rounded-[3rem] border border-white/10 flex items-start gap-6 group hover:bg-amber-955/20 hover:border-amber-500/30 transition-all cursor-pointer"
+              >
+                <div className="w-14 h-14 bg-amber-500/10 rounded-2xl flex items-center justify-center text-amber-400 border border-amber-500/20 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all duration-300">
+                  <Music size={24} />
                 </div>
-              ))}
+                <div>
+                  <h4 className="font-display font-black uppercase tracking-tight text-white mb-2 group-hover:text-amber-400 transition-colors">Acoustic Coupling</h4>
+                  <p className="text-slate-400 text-sm font-medium leading-relaxed group-hover:text-slate-200 transition-colors">Synchronizing brainwaves through high-fidelity, frequency-specific sonic environments.</p>
+                  <span className="text-[9px] font-mono uppercase tracking-widest text-amber-400 mt-3 inline-block">Open Guide →</span>
+                </div>
+              </div>
+
+              <div 
+                onClick={() => setActiveProtocol('dopaminergic')}
+                className="bg-white/5 p-8 rounded-[3rem] border border-white/10 flex items-start gap-6 group hover:bg-amber-955/20 hover:border-amber-500/30 transition-all cursor-pointer"
+              >
+                <div className="w-14 h-14 bg-amber-500/10 rounded-2xl flex items-center justify-center text-amber-400 border border-amber-500/20 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all duration-300">
+                  <Activity size={24} />
+                </div>
+                <div>
+                  <h4 className="font-display font-black uppercase tracking-tight text-white mb-2 group-hover:text-amber-400 transition-colors">Dopaminergic Flux</h4>
+                  <p className="text-slate-400 text-sm font-medium leading-relaxed group-hover:text-slate-200 transition-colors">Managing collective dopamine spikes to prevent post-event neural depletion.</p>
+                  <span className="text-[9px] font-mono uppercase tracking-widest text-amber-400 mt-3 inline-block">Open Guide →</span>
+                </div>
+              </div>
             </div>
           </div>
           
@@ -186,6 +200,98 @@ export default function FestivalizationWave() {
           </div>
         </section>
       </div>
+
+      {/* Protocol Details Modal */}
+      <AnimatePresence>
+        {activeProtocol && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-955/90 backdrop-blur-md"
+            onClick={() => setActiveProtocol(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="w-full max-w-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-950 border border-amber-500/30 rounded-[3rem] p-8 md:p-12 shadow-2xl shadow-amber-500/10 relative overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setActiveProtocol(null)}
+                className="absolute top-8 right-8 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-all cursor-pointer focus:outline-none"
+              >
+                <X size={20} />
+              </button>
+
+              {activeProtocol === 'acoustic' ? (
+                <div>
+                  <div className="w-16 h-16 bg-amber-500/10 rounded-3xl flex items-center justify-center text-amber-400 mb-8 border border-amber-500/20">
+                    <Music size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    Acoustic Coupling
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-amber-400 mb-8 block">
+                    Brainwave Entrainment & Sonic Synchronization
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Synchronizing brainwave oscillations using high-fidelity, frequency-specific sonic environments helps align neurological activity across groups, creating collective states of flow and unified focus.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Sonic Entrainment Selection", desc: "Select audio profiles with clear 40Hz gamma structures for collective focus, or 10Hz alpha structures for shared creative output." },
+                      { step: "02", title: "Active Spatial Listening", desc: "Position audio sources symmetrically to create a cohesive acoustic envelope that minimizes auditory distraction and supports neural alignment." },
+                      { step: "03", title: "Group Breathing Integration", desc: "Perform slow, paced breathing to the rhythm of the sonic structure to align heart rate variability metrics across participants." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-amber-400 bg-amber-500/10 border border-amber-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className="w-16 h-16 bg-amber-500/10 rounded-3xl flex items-center justify-center text-amber-400 mb-8 border border-amber-500/20">
+                    <Activity size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    Dopaminergic Flux
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-amber-400 mb-8 block">
+                    Neurotransmitter Management & Neural Depletion Prevention
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Carefully managing collective excitement spikes during social events prevents subsequent neurotransmitter depletion, ensuring stable mental energy and long-term emotional resilience.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Intense Striving Pacing", desc: "Intersperse periods of intense social/physical activity with 5-minute quiet breaks to allow baseline neural stabilization." },
+                      { step: "02", title: "Nutrient Cofactor Support", desc: "Consume amino acid precursors (such as L-Tyrosine) alongside active electrolytes to support healthy neurotransmitter production." },
+                      { step: "03", title: "Integration Transitions", desc: "Incorporate structured decompression intervals post-event, using soft lighting and minimal cognitive load to prevent crashes." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-amber-400 bg-amber-500/10 border border-amber-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

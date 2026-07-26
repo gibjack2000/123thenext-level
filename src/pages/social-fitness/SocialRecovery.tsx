@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, Thermometer, Smile, Users, ExternalLink, Heart, Shield, Activity, ArrowRight, Zap, Target } from 'lucide-react';
+import { ArrowLeft, Thermometer, Smile, Users, ExternalLink, Heart, Shield, Activity, ArrowRight, Zap, Target, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useT } from '../../translations';
 
 export default function SocialRecovery() {
   const t = useT();
+  const [activeProtocol, setActiveProtocol] = React.useState<'vagus' | 'deescalation' | null>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -88,20 +89,33 @@ export default function SocialRecovery() {
             </div>
             
             <div className="grid grid-cols-1 gap-6">
-              {[
-                { title: 'Vagus Synchronization', desc: 'Shared physiological stress (heat/cold) induces deep trust through ventral vagal signaling.', icon: Heart },
-                { title: 'Metabolic De-escalation', desc: 'Lowering the collective basal heart rate through intentional shared silence and ritual.', icon: Activity }
-              ].map((item, i) => (
-                <div key={i} className="bg-white/5 p-8 rounded-[3rem] border border-white/10 flex items-start gap-6 group hover:bg-white/10 transition-colors">
-                  <div className="w-14 h-14 bg-orange-500/10 rounded-2xl flex items-center justify-center text-orange-400 border border-orange-500/20 group-hover:scale-110 transition-transform">
-                    <item.icon size={24} />
-                  </div>
-                  <div>
-                    <h4 className="font-display font-black uppercase tracking-tight text-white mb-2">{item.title}</h4>
-                    <p className="text-slate-500 text-sm font-medium leading-relaxed">{item.desc}</p>
-                  </div>
+              <div 
+                onClick={() => setActiveProtocol('vagus')}
+                className="bg-white/5 p-8 rounded-[3rem] border border-white/10 flex items-start gap-6 group hover:bg-orange-955/20 hover:border-orange-500/30 transition-all cursor-pointer"
+              >
+                <div className="w-14 h-14 bg-orange-500/10 rounded-2xl flex items-center justify-center text-orange-400 border border-orange-500/20 group-hover:bg-orange-500 group-hover:text-slate-950 transition-all duration-300">
+                  <Heart size={24} />
                 </div>
-              ))}
+                <div>
+                  <h4 className="font-display font-black uppercase tracking-tight text-white mb-2 group-hover:text-orange-400 transition-colors">Vagus Synchronization</h4>
+                  <p className="text-slate-400 text-sm font-medium leading-relaxed group-hover:text-slate-200 transition-colors">Shared physiological stress (heat/cold) induces deep trust through ventral vagal signaling.</p>
+                  <span className="text-[9px] font-mono uppercase tracking-widest text-orange-400 mt-3 inline-block">Open Guide →</span>
+                </div>
+              </div>
+
+              <div 
+                onClick={() => setActiveProtocol('deescalation')}
+                className="bg-white/5 p-8 rounded-[3rem] border border-white/10 flex items-start gap-6 group hover:bg-orange-955/20 hover:border-orange-500/30 transition-all cursor-pointer"
+              >
+                <div className="w-14 h-14 bg-orange-500/10 rounded-2xl flex items-center justify-center text-orange-400 border border-orange-500/20 group-hover:bg-orange-500 group-hover:text-slate-950 transition-all duration-300">
+                  <Activity size={24} />
+                </div>
+                <div>
+                  <h4 className="font-display font-black uppercase tracking-tight text-white mb-2 group-hover:text-orange-400 transition-colors">Metabolic De-escalation</h4>
+                  <p className="text-slate-400 text-sm font-medium leading-relaxed group-hover:text-slate-200 transition-colors">Lowering the collective basal heart rate through intentional shared silence and ritual.</p>
+                  <span className="text-[9px] font-mono uppercase tracking-widest text-orange-400 mt-3 inline-block">Open Guide →</span>
+                </div>
+              </div>
             </div>
           </div>
           
@@ -186,6 +200,98 @@ export default function SocialRecovery() {
           </div>
         </section>
       </div>
+
+      {/* Protocol Details Modal */}
+      <AnimatePresence>
+        {activeProtocol && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-955/90 backdrop-blur-md"
+            onClick={() => setActiveProtocol(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="w-full max-w-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-950 border border-orange-500/30 rounded-[3rem] p-8 md:p-12 shadow-2xl shadow-orange-500/10 relative overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setActiveProtocol(null)}
+                className="absolute top-8 right-8 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-all cursor-pointer focus:outline-none"
+              >
+                <X size={20} />
+              </button>
+
+              {activeProtocol === 'vagus' ? (
+                <div>
+                  <div className="w-16 h-16 bg-orange-500/10 rounded-3xl flex items-center justify-center text-orange-400 mb-8 border border-orange-500/20">
+                    <Heart size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    Vagus Synchronization
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-orange-400 mb-8 block">
+                    Ventral Vagal Tone & Shared Somatic Safety
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Inducing mild physiological stress in pairs/groups (contrast heat/cold therapy) triggers positive neural signaling, reinforcing a biological state of safety, trust, and shared resilience.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Thermal Contrast Cycles", desc: "Perform 15 minutes of infrared heat followed by a 3-minute cold plunge in sequence. Sharing this transition helps normalize cortisol spikes." },
+                      { step: "02", title: "Autonomic Trust Building", desc: "Partner up for respiratory guidance, helping your teammate regulate their breathing rate during intense cold transitions." },
+                      { step: "03", title: "Somatic Grounding Integration", desc: "Practice 5 minutes of direct barefoot earthing in union post-contrast to signal environmental safety to the nervous system." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-orange-400 bg-orange-500/10 border border-orange-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className="w-16 h-16 bg-orange-500/10 rounded-3xl flex items-center justify-center text-orange-400 mb-8 border border-orange-500/20">
+                    <Activity size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    Metabolic De-escalation
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-orange-400 mb-8 block">
+                    Parasympathetic Transition & Heart Rate Suppression
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Lowering collective heart rates and metabolic demand through shared quiet rituals triggers immediate parasympathetic dominance, allowing efficient cellular repair and cognitive reset.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Cooperative Silent Space", desc: "Create a 10-minute screen-free silent environment for the group to sit or lie in, lowering visual-sensory stimulation." },
+                      { step: "02", title: "Binaural Frequency Resonance", desc: "Utilize low-frequency (theta or delta) audio backgrounds during group recovery sessions to entrain brainwaves to a resting state." },
+                      { step: "03", title: "Vagal Humming Audits", desc: "Engage in 2 minutes of low, humming vocalizations to stimulate the vagal branch that directly slows the cardiac pacemaker." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-orange-400 bg-orange-500/10 border border-orange-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
