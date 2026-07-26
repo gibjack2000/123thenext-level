@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { Sparkles, ArrowLeft, ArrowRight, Sun, ThermometerSnowflake, Moon, Eye, ExternalLink, Brain, Waves, RefreshCw, Zap, Activity, Shield, Wind, Microscope, Heart, UserCheck, HeartPulse, Compass, Play, Pause, Headphones, Volume2, VolumeX, RotateCcw, Cpu, Layers } from 'lucide-react';
+import { Sparkles, ArrowLeft, ArrowRight, Sun, ThermometerSnowflake, Moon, Eye, ExternalLink, Brain, Waves, RefreshCw, Zap, Activity, Shield, Wind, Microscope, Heart, UserCheck, HeartPulse, Compass, Play, Pause, Headphones, Volume2, VolumeX, RotateCcw, Cpu, Layers, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useT } from '../translations';
 import BlogSection from '../components/BlogSection';
 import IntelligenceTeaser from '../components/IntelligenceTeaser';
@@ -17,6 +17,7 @@ export default function WellnessPillar() {
   const [duration, setDuration] = React.useState(0);
   const [volume, setVolume] = React.useState(0.8);
   const [isMuted, setIsMuted] = React.useState(false);
+  const [activeProtocol, setActiveProtocol] = React.useState<'biophilic' | 'nsdr' | null>(null);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
@@ -586,26 +587,36 @@ export default function WellnessPillar() {
 
               <div className="lg:col-span-7 space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <motion.div 
-                    whileHover={{ scale: 1.02 }}
-                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-white/10"
+                  <div 
+                    onClick={() => setActiveProtocol('biophilic')}
+                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-cyan-950/20 hover:border-cyan-500/30 cursor-pointer group flex flex-col justify-between"
                   >
-                    <div className="w-12 h-12 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-400 mb-6 border border-indigo-500/20">
-                      <Waves size={24} />
+                    <div>
+                      <div className="w-12 h-12 bg-cyan-500/10 rounded-2xl flex items-center justify-center text-cyan-400 mb-6 border border-cyan-500/20 group-hover:bg-cyan-500 group-hover:text-slate-950 transition-all duration-300">
+                        <Waves size={24} />
+                      </div>
+                      <h4 className="text-xl font-display font-bold uppercase text-white mb-4">{t('wp_nature_title')}</h4>
+                      <p className="text-sm text-slate-400 leading-relaxed font-medium group-hover:text-slate-200 transition-colors">{t('wp_nature_desc')}</p>
                     </div>
-                    <h4 className="text-xl font-display font-bold uppercase text-white mb-4">{t('wp_nature_title')}</h4>
-                    <p className="text-sm text-slate-500 leading-relaxed font-medium">{t('wp_nature_desc')}</p>
-                  </motion.div>
-                  <motion.div 
-                    whileHover={{ scale: 1.02 }}
-                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-white/10"
+                    <div className="mt-6 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-cyan-400 group-hover:text-cyan-300 transition-colors">
+                      Open Protocol Details <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                  <div 
+                    onClick={() => setActiveProtocol('nsdr')}
+                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-cyan-950/20 hover:border-cyan-500/30 cursor-pointer group flex flex-col justify-between"
                   >
-                    <div className="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 mb-6 border border-blue-500/20">
-                      <Wind size={24} />
+                    <div>
+                      <div className="w-12 h-12 bg-cyan-500/10 rounded-2xl flex items-center justify-center text-cyan-400 mb-6 border border-cyan-500/20 group-hover:bg-cyan-500 group-hover:text-slate-950 transition-all duration-300">
+                        <Wind size={24} />
+                      </div>
+                      <h4 className="text-xl font-display font-bold uppercase text-white mb-4">NSDR Protocols</h4>
+                      <p className="text-sm text-slate-400 leading-relaxed font-medium group-hover:text-slate-200 transition-colors">Non-Sleep Deep Rest techniques to down-regulate the nervous system in under 20 minutes.</p>
                     </div>
-                    <h4 className="text-xl font-display font-bold uppercase text-white mb-4">NSDR Protocols</h4>
-                    <p className="text-sm text-slate-500 leading-relaxed font-medium">Non-Sleep Deep Rest techniques to down-regulate the nervous system in under 20 minutes.</p>
-                  </motion.div>
+                    <div className="mt-6 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-cyan-400 group-hover:text-cyan-300 transition-colors">
+                      Open Protocol Details <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
                 </div>
 
                 <div className="p-10 bg-white/5 rounded-[3rem] border border-white/10">
@@ -942,6 +953,98 @@ export default function WellnessPillar() {
           </motion.div>
         </div>
       </div>
+
+      {/* Protocol Details Modal */}
+      <AnimatePresence>
+        {activeProtocol && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-955/90 backdrop-blur-md"
+            onClick={() => setActiveProtocol(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="w-full max-w-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-950 border border-cyan-500/30 rounded-[3rem] p-8 md:p-12 shadow-2xl shadow-cyan-500/10 relative overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setActiveProtocol(null)}
+                className="absolute top-8 right-8 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-all cursor-pointer focus:outline-none"
+              >
+                <X size={20} />
+              </button>
+
+              {activeProtocol === 'biophilic' ? (
+                <div>
+                  <div className="w-16 h-16 bg-cyan-500/10 rounded-3xl flex items-center justify-center text-cyan-400 mb-8 border border-cyan-500/20">
+                    <Waves size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    Biophilic Reset
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-cyan-400 mb-8 block">
+                    Earthing & Botanical Phytoncide Exposure
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Grounding (earthing) and volatile organic compounds (phytoncides) emitted by plants directly modulate human autonomic activity, lowering cortisol levels, calming visual alert pathways, and stabilizing blood pressure.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Direct Earthing (10 Mins)", desc: "Walk barefoot on natural grass, soil, or sand to transfer free electrons from the Earth, neutralizing positive charges and reducing systemic inflammatory baselines." },
+                      { step: "02", title: "Phytoncide Inhalation (15 Mins)", desc: "Sit near coniferous or broadleaf trees. Practice slow nasal breathing (5s inhale, 5s exhale) to absorb volatile organic compounds that trigger Natural Killer (NK) immune cell activity." },
+                      { step: "03", title: "Soft visual focus (5 Mins)", desc: "Soften visual focus on natural fractal geometry (leaves, branches) to down-regulate visual threat alert circuits and stimulate ventral vagal pathways." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className="w-16 h-16 bg-cyan-500/10 rounded-3xl flex items-center justify-center text-cyan-400 mb-8 border border-cyan-500/20">
+                    <Wind size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    NSDR Protocol
+                    </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-cyan-400 mb-8 block">
+                    Non-Sleep Deep Rest Autonomic Reset
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    NSDR utilizes deliberate breath control and body scanning to guide the brain into alpha and theta wave states (similar to deep sleep), allowing rapid cognitive recharge and nervous system resetting.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Physiological Sighs (3-5 cycles)", desc: "Take two quick inhales through the nose (one deep, followed immediately by a sharp top-off inhale), then release a slow, fully relaxed exhale through the mouth." },
+                      { step: "02", title: "Systematic Body Scan (10 Mins)", desc: "Direct focused attention to individual parts of the body sequentially (from toes to forehead), consciously relaxing and 'releasing weight' into the surface underneath." },
+                      { step: "03", title: "Mechanical Vagus Hum (2 Mins)", desc: "On the exhales, produce a low-frequency hum. This mechanical vibration stimulates the vagus nerve in the larynx, increasing vagal tone and lowering heart rate." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
