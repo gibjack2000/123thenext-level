@@ -372,30 +372,57 @@ export default function Home() {
                     />
                   ) : (
                     <div
-                      className="aspect-video w-full flex items-center justify-center relative overflow-hidden bg-black/40 cursor-pointer group"
-                      onClick={() => { if (isTouchDevice) setIsVideoPlaying(true); }}
+                      className="aspect-video w-full flex items-center justify-center relative overflow-hidden bg-black cursor-pointer group"
+                      onClick={() => setIsVideoPlaying(true)}
                     >
-                      {/* Thumbnail background overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-tr from-slate-grey-950 via-slate-grey-900 to-slate-grey-800 opacity-85 group-hover:opacity-70 transition-opacity duration-300"></div>
+                      {/* Engaging Cinematic Cover Image */}
+                      <img 
+                        src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=1200" 
+                        alt="Longevity Paradigm cover" 
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 brightness-[0.4] contrast-[1.1] grayscale-[20%]"
+                        referrerPolicy="no-referrer"
+                      />
+                      
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-90 group-hover:opacity-75 transition-opacity duration-300"></div>
+                      
+                      {/* Technical Grid Lines */}
+                      <div className="absolute inset-0 opacity-[0.08] pointer-events-none" 
+                           style={{ backgroundImage: "linear-gradient(rgba(6,182,212,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(6,182,212,0.1) 1px, transparent 1px)", backgroundSize: "20px 20px" }}>
+                      </div>
 
-                      <div className="absolute inset-0 flex flex-col justify-between p-6 z-10 text-left">
-                        <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-wellness-cyan">[ HUMAN OPTIMIZATION INTRO ]</span>
+                      {/* Video Info Overlay */}
+                      <div className="absolute inset-0 flex flex-col justify-between p-8 z-10 text-left">
+                        <div className="flex justify-between items-center">
+                          <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-wellness-cyan bg-wellness-cyan/10 px-3 py-1 rounded-full border border-wellness-cyan/20 backdrop-blur-md">
+                            [ AUTONOMIC BIO-SYSTEM ]
+                          </span>
+                          <span className="text-[9px] font-mono text-slate-400">
+                            VERIFIED SECURE
+                          </span>
+                        </div>
                         <div>
-                          <h3 className="text-sm font-display uppercase tracking-wider text-white font-black mb-1">Longevity Paradigm Video</h3>
-                          <p className="text-[10px] text-slate-grey-400">
-                            {isTouchDevice ? 'Tap to play' : 'Hover to play'} • Duration: 2 mins • Audio
+                          <h3 className="text-xl font-display uppercase tracking-wider text-white font-black mb-1 drop-shadow-md">
+                            Longevity Paradigm
+                          </h3>
+                          <p className="text-xs text-slate-300 flex items-center gap-2 font-medium">
+                            <span className="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                            {isTouchDevice ? 'Tap to initialize playback' : 'Hover / Click to play'} • 2 Mins
                           </p>
                         </div>
                       </div>
 
-                      {/* Play Button overlay */}
-                      <div
-                        className="relative z-20 w-16 h-16 rounded-full bg-gradient-to-tr from-wellness-cyan to-indigo-600 text-white flex items-center justify-center shadow-2xl group-hover:scale-110 active:scale-95 transition-transform duration-300 border border-wellness-cyan/20"
-                        aria-label={isTouchDevice ? 'Tap to play Longevity Paradigm video' : 'Hover to play Longevity Paradigm video'}
-                      >
-                        <svg className="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M8 5v14l11-7z"></path>
-                        </svg>
+                      {/* Play Button Overlay with Pulsing Ring */}
+                      <div className="relative z-20 flex items-center justify-center">
+                        <div className="absolute w-28 h-28 rounded-full bg-wellness-cyan/10 animate-ping pointer-events-none"></div>
+                        <div
+                          className="w-20 h-20 rounded-full bg-gradient-to-tr from-wellness-cyan to-indigo-600 text-white flex items-center justify-center shadow-3xl hover:scale-110 active:scale-95 transition-all duration-300 border border-wellness-cyan/30"
+                          aria-label={isTouchDevice ? 'Tap to play Longevity Paradigm video' : 'Click to play Longevity Paradigm video'}
+                        >
+                          <svg className="w-8 h-8 ml-1 text-white drop-shadow-[0_2px_8px_rgba(6,182,212,0.5)]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M8 5v14l11-7z"></path>
+                          </svg>
+                        </div>
                       </div>
                     </div>
                   )}
