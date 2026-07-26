@@ -17,7 +17,7 @@ export default function WellnessPillar() {
   const [duration, setDuration] = React.useState(0);
   const [volume, setVolume] = React.useState(0.8);
   const [isMuted, setIsMuted] = React.useState(false);
-  const [activeProtocol, setActiveProtocol] = React.useState<'biophilic' | 'nsdr' | null>(null);
+  const [activeProtocol, setActiveProtocol] = React.useState<'biophilic' | 'nsdr' | 'thermoregulation' | 'decompression' | null>(null);
 
   const togglePlay = () => {
     if (!audioRef.current) return;
@@ -621,17 +621,33 @@ export default function WellnessPillar() {
 
                 <div className="p-10 bg-white/5 rounded-[3rem] border border-white/10">
                   <div className="flex items-center gap-4 mb-6">
-                    <Microscope size={24} className="text-indigo-400" />
+                    <Microscope size={24} className="text-cyan-400" />
                     <h4 className="text-xl font-display font-bold uppercase text-white">Clinical Recovery Tools</h4>
                   </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div>
-                      <span className="text-[10px] font-black uppercase text-indigo-500 mb-2 block tracking-widest">Thermoregulation</span>
-                      <p className="text-xs text-slate-500 leading-relaxed font-medium">Using cold/heat cycles to trigger HSP (Heat Shock Proteins) and improve sleep depth.</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div 
+                      onClick={() => setActiveProtocol('thermoregulation')}
+                      className="p-6 rounded-2xl border border-transparent hover:border-cyan-500/20 hover:bg-cyan-950/10 cursor-pointer group/item transition-all duration-300 flex flex-col justify-between"
+                    >
+                      <div>
+                        <span className="text-[10px] font-black uppercase text-indigo-400 mb-2 block tracking-widest group-hover/item:text-cyan-400 transition-colors">Thermoregulation</span>
+                        <p className="text-xs text-slate-400 leading-relaxed font-medium group-hover/item:text-slate-200 transition-colors">Using cold/heat cycles to trigger HSP (Heat Shock Proteins) and improve sleep depth.</p>
+                      </div>
+                      <div className="mt-4 flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-cyan-400 opacity-0 group-hover/item:opacity-100 transition-all duration-300">
+                        Open Protocol <ArrowRight size={12} className="inline group-hover/item:translate-x-0.5 transition-transform" />
+                      </div>
                     </div>
-                    <div>
-                      <span className="text-[10px] font-black uppercase text-blue-500 mb-2 block tracking-widest">Neural Decompression</span>
-                      <p className="text-xs text-slate-500 leading-relaxed font-medium">Sound-frequency and vibration therapy to induce alpha-state brain waves.</p>
+                    <div 
+                      onClick={() => setActiveProtocol('decompression')}
+                      className="p-6 rounded-2xl border border-transparent hover:border-cyan-500/20 hover:bg-cyan-950/10 cursor-pointer group/item transition-all duration-300 flex flex-col justify-between"
+                    >
+                      <div>
+                        <span className="text-[10px] font-black uppercase text-blue-400 mb-2 block tracking-widest group-hover/item:text-cyan-400 transition-colors">Neural Decompression</span>
+                        <p className="text-xs text-slate-400 leading-relaxed font-medium group-hover/item:text-slate-200 transition-colors">Sound-frequency and vibration therapy to induce alpha-state brain waves.</p>
+                      </div>
+                      <div className="mt-4 flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider text-cyan-400 opacity-0 group-hover/item:opacity-100 transition-all duration-300">
+                        Open Protocol <ArrowRight size={12} className="inline group-hover/item:translate-x-0.5 transition-transform" />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1010,14 +1026,14 @@ export default function WellnessPillar() {
                     ))}
                   </div>
                 </div>
-              ) : (
+              ) : activeProtocol === 'nsdr' ? (
                 <div>
                   <div className="w-16 h-16 bg-cyan-500/10 rounded-3xl flex items-center justify-center text-cyan-400 mb-8 border border-cyan-500/20">
                     <Wind size={32} />
                   </div>
                   <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
                     NSDR Protocol
-                    </h3>
+                  </h3>
                   <span className="text-[10px] font-black uppercase tracking-widest text-cyan-400 mb-8 block">
                     Non-Sleep Deep Rest Autonomic Reset
                   </span>
@@ -1029,6 +1045,66 @@ export default function WellnessPillar() {
                       { step: "01", title: "Physiological Sighs (3-5 cycles)", desc: "Take two quick inhales through the nose (one deep, followed immediately by a sharp top-off inhale), then release a slow, fully relaxed exhale through the mouth." },
                       { step: "02", title: "Systematic Body Scan (10 Mins)", desc: "Direct focused attention to individual parts of the body sequentially (from toes to forehead), consciously relaxing and 'releasing weight' into the surface underneath." },
                       { step: "03", title: "Mechanical Vagus Hum (2 Mins)", desc: "On the exhales, produce a low-frequency hum. This mechanical vibration stimulates the vagus nerve in the larynx, increasing vagal tone and lowering heart rate." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : activeProtocol === 'thermoregulation' ? (
+                <div>
+                  <div className="w-16 h-16 bg-cyan-500/10 rounded-3xl flex items-center justify-center text-cyan-400 mb-8 border border-cyan-500/20">
+                    <Microscope size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    Thermoregulation
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-cyan-400 mb-8 block">
+                    HSP Induction & Autonomic Conditioning
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Controlled heat and cold exposure triggers Heat-Shock Proteins (HSPs) and cold-shock proteins (RBM3) that support cellular repair, boost mitochondrial density, and optimize restorative slow-wave sleep.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Hyperthermic Induction (15-20 Mins)", desc: "Sit in a dry sauna at 80-90°C (or hot bath at 40-42°C). This increases heart rate, improves circulation, and stimulates protective HSP70 expression." },
+                      { step: "02", title: "Hypothermic Shock (2-3 Mins)", desc: "Submerge in a cold plunge at 10-15°C (or cold shower). Focus on slow, deep exhales. This induces cold-shock proteins and activates a major surge in central norepinephrine." },
+                      { step: "03", title: "Equilibration baseline (10 Mins)", desc: "Rest at room temperature. Let your body return to core baseline temperature and heart rate naturally before repeating or concluding." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className="w-16 h-16 bg-cyan-500/10 rounded-3xl flex items-center justify-center text-cyan-400 mb-8 border border-cyan-500/20">
+                    <Waves size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    Neural Decompression
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-cyan-400 mb-8 block">
+                    Binaural Auditory & Somatosensory Resonance
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Sound and physical frequency waves alter nervous system oscillations, shifting brainwave patterns down to deep relaxation alpha/theta waves to trigger cellular recovery.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Binaural Entrainment (15 Mins)", desc: "Use headphones. Play a track with slightly offset frequencies (e.g., 200 Hz / 210 Hz). The brain locks into the 10 Hz difference, triggering alpha relaxation brainwaves." },
+                      { step: "02", title: "Somatosensory Resonance (10 Mins)", desc: "Place a vibration device or bass-resonance pad at 40-60 Hz against your chest cavity to mechanically stimulate the thoracic branches of the vagus nerve." },
+                      { step: "03", title: "Visual Field Occlusion (5 Mins)", desc: "Wear a weighted eye mask to block out photon input, down-regulating sensory threat detection pathways in the occipital cortex to calm active circuits." }
                     ].map((step, i) => (
                       <div key={i} className="flex gap-6 items-start">
                         <span className="text-xs font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
