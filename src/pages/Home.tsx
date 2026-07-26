@@ -400,30 +400,33 @@ export default function Home() {
                             DECLASSIFIED
                           </span>
                         </div>
-                        <div>
-                          <h3 className="text-xl md:text-2xl font-display uppercase tracking-tight text-white font-black mb-2 drop-shadow-md leading-[1.15]">
-                            AGING IS A DISEASE — AND THE CLOCK IS RUNNING
-                          </h3>
-                          <p className="text-[10px] font-mono uppercase tracking-widest text-wellness-cyan mb-2">
-                            The Autonomic Bypass Protocol
-                          </p>
-                          <p className="text-xs text-slate-300 flex items-center gap-2 font-medium">
-                            <span className="inline-block w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
-                            {isTouchDevice ? 'Tap to play briefing' : 'Hover / Click to play'} • 2 Mins
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Play Button Overlay with Pulsing Ring */}
-                      <div className="relative z-20 flex items-center justify-center">
-                        <div className="absolute w-28 h-28 rounded-full bg-wellness-cyan/10 animate-ping pointer-events-none"></div>
-                        <div
-                          className="w-20 h-20 rounded-full bg-gradient-to-tr from-wellness-cyan to-indigo-600 text-white flex items-center justify-center shadow-3xl hover:scale-110 active:scale-95 transition-all duration-300 border border-wellness-cyan/30"
-                          aria-label={isTouchDevice ? 'Tap to play Longevity Paradigm video' : 'Click to play Longevity Paradigm video'}
-                        >
-                          <svg className="w-8 h-8 ml-1 text-white drop-shadow-[0_2px_8px_rgba(6,182,212,0.5)]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8 5v14l11-7z"></path>
-                          </svg>
+                        
+                        <div className="flex items-end justify-between gap-6">
+                          <div className="max-w-[70%]">
+                            <h3 className="text-lg md:text-xl lg:text-2xl font-display uppercase tracking-tight text-white font-black mb-2 drop-shadow-md leading-[1.15]">
+                              AGING IS A DISEASE — AND THE CLOCK IS RUNNING
+                            </h3>
+                            <p className="text-[10px] font-mono uppercase tracking-widest text-wellness-cyan mb-2">
+                              The Autonomic Bypass Protocol
+                            </p>
+                            <p className="text-xs text-slate-300 flex items-center gap-2 font-medium">
+                              <span className="inline-block w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+                              {isTouchDevice ? 'Tap to play briefing' : 'Hover / Click to play'} • 2 Mins
+                            </p>
+                          </div>
+                          
+                          {/* Play Button positioned in the bottom-right corner to prevent obscuring the artwork */}
+                          <div className="relative flex items-center justify-center flex-shrink-0 mb-1">
+                            <div className="absolute w-20 h-20 rounded-full bg-wellness-cyan/15 animate-ping pointer-events-none"></div>
+                            <div
+                              className="w-14 h-14 rounded-full bg-gradient-to-tr from-wellness-cyan to-indigo-600 text-white flex items-center justify-center shadow-2xl group-hover:scale-110 active:scale-95 transition-all duration-300 border border-wellness-cyan/30"
+                              aria-label={isTouchDevice ? 'Tap to play Longevity Paradigm video' : 'Click to play Longevity Paradigm video'}
+                            >
+                              <svg className="w-6 h-6 ml-0.5 text-white drop-shadow-[0_2px_6px_rgba(6,182,212,0.5)]" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M8 5v14l11-7z"></path>
+                              </svg>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
