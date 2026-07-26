@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, Cpu, Shield, Zap, Info, ExternalLink, BarChart3, Binary, Activity, Gauge, Disc, BookOpen } from 'lucide-react';
+import { ArrowLeft, Cpu, Shield, Zap, Info, ExternalLink, BarChart3, Binary, Activity, Gauge, Disc, BookOpen, X, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useT } from '../../translations';
 
 export default function WearableWar() {
   const t = useT();
+  const [activeProtocol, setActiveProtocol] = React.useState<'overtraining' | 'sleep' | null>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -83,8 +84,11 @@ export default function WearableWar() {
 
             {/* Everyday Symptoms of Overtraining */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-8 bg-slate-900/50 backdrop-blur-3xl rounded-[3rem] border border-white/5 space-y-4">
-                <h4 className="text-xs font-black uppercase tracking-widest text-rose-400 font-display flex items-center gap-2">
+              <div 
+                onClick={() => setActiveProtocol('overtraining')}
+                className="p-8 bg-slate-900/50 backdrop-blur-3xl rounded-[3rem] border border-white/5 space-y-4 hover:bg-rose-955/10 hover:border-rose-500/30 transition-all duration-300 cursor-pointer group"
+              >
+                <h4 className="text-xs font-black uppercase tracking-widest text-rose-400 font-display flex items-center gap-2 group-hover:text-rose-300 transition-colors">
                   <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
                   Signs of Overtraining
                 </h4>
@@ -102,10 +106,14 @@ export default function WearableWar() {
                     Feeling physically heavy and sluggish during warmups.
                   </li>
                 </ul>
+                <span className="text-[9px] font-mono uppercase tracking-widest text-rose-400 mt-4 inline-block">Open Protocol Details →</span>
               </div>
 
-              <div className="p-8 bg-slate-900/50 backdrop-blur-3xl rounded-[3rem] border border-white/5 space-y-4">
-                <h4 className="text-xs font-black uppercase tracking-widest text-blue-400 font-display flex items-center gap-2">
+              <div 
+                onClick={() => setActiveProtocol('sleep')}
+                className="p-8 bg-slate-900/50 backdrop-blur-3xl rounded-[3rem] border border-white/5 space-y-4 hover:bg-blue-955/10 hover:border-blue-500/30 transition-all duration-300 cursor-pointer group"
+              >
+                <h4 className="text-xs font-black uppercase tracking-widest text-blue-400 font-display flex items-center gap-2 group-hover:text-blue-300 transition-colors">
                   <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse"></span>
                   Poor Sleep Indicators
                 </h4>
@@ -123,6 +131,7 @@ export default function WearableWar() {
                     Waking up feeling unrefreshed and mentally cloudy.
                   </li>
                 </ul>
+                <span className="text-[9px] font-mono uppercase tracking-widest text-blue-400 mt-4 inline-block">Open Protocol Details →</span>
               </div>
             </div>
 
@@ -327,6 +336,98 @@ export default function WearableWar() {
         </section>
 
       </div>
+
+      {/* Protocol Details Modal */}
+      <AnimatePresence>
+        {activeProtocol && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-955/90 backdrop-blur-md"
+            onClick={() => setActiveProtocol(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="w-full max-w-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-950 border border-blue-500/30 rounded-[3rem] p-8 md:p-12 shadow-2xl shadow-blue-500/10 relative overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setActiveProtocol(null)}
+                className="absolute top-8 right-8 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-all cursor-pointer focus:outline-none"
+              >
+                <X size={20} />
+              </button>
+
+              {activeProtocol === 'overtraining' ? (
+                <div>
+                  <div className="w-16 h-16 bg-rose-500/10 rounded-3xl flex items-center justify-center text-rose-400 mb-8 border border-rose-500/20">
+                    <Activity size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    Sympathetic Exhaustion
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-rose-400 mb-8 block">
+                    Nervous System Depletion & Recovery Interventions
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    When the sympathetic branch (fight-or-flight) of the autonomic nervous system is chronically overstimulated by excessive training load or poor rest, baseline heart rates rise, heart rate variability (HRV) collapses, and physical performance deteriorates.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Immediate Strain Cessation", desc: "Reduce active workout volume by 50% for 3-5 days. Replace intensive resistance training with steady-state Zone 2 mobility walks." },
+                      { step: "02", title: "Autonomic Down-Regulation", desc: "Incorporate 15 minutes of slow, diaphragmatic box breathing (4s inhale, 4s hold, 4s exhale, 4s hold) twice daily to increase vagal activity." },
+                      { step: "03", title: "Sleep Support Stack", desc: "Prioritize sleep hygiene. Avoid light exposure and screen usage 90 minutes before bedtime to prevent artificial suppression of natural melatonin." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-rose-400 bg-rose-500/10 border border-rose-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className="w-16 h-16 bg-blue-500/10 rounded-3xl flex items-center justify-center text-blue-400 mb-8 border border-blue-500/20">
+                    <BarChart3 size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    Sleep Architecture Protocol
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-blue-400 mb-8 block">
+                    Deep and REM Stage Optimization Framework
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Restorative deep sleep (physical tissue repair) and REM sleep (mental processing/memory consolidation) are the primary biological mechanisms for recovery. Fragmented, low-quality sleep prevents autonomic restoration.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Thermal Sleep Environment", desc: "Lower ambient bedroom temperature to 65-68°F (18-20°C). A drop in core body temperature is essential to initiate and sustain deep sleep cycles." },
+                      { step: "02", title: "Consistent Sleep Anchors", desc: "Go to bed and wake up at the exact same time daily, even on weekends, to lock in and stabilize your circadian pacemaker." },
+                      { step: "03", title: "Substrate Avoidance Guidelines", desc: "Avoid caffeine intake within 10 hours of bedtime and eliminate alcohol consumption within 4 hours, as both destroy REM sleep patterns." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-blue-400 bg-blue-500/10 border border-blue-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { Dumbbell, ArrowLeft, Cpu, Activity, Zap, ExternalLink, Timer, TrendingUp, BarChart3, Target, Gauge, Shield, FlaskConical } from 'lucide-react';
+import { Dumbbell, ArrowLeft, Cpu, Activity, Zap, ExternalLink, Timer, TrendingUp, BarChart3, Target, Gauge, Shield, FlaskConical, X, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useT } from '../translations';
 import BlogSection from '../components/BlogSection';
 import IntelligenceTeaser from '../components/IntelligenceTeaser';
@@ -10,6 +10,7 @@ import { useAffiliateLinks } from '../contexts/AffiliateLinksContext';
 export default function FitnessPillar() {
   const t = useT();
   const { links } = useAffiliateLinks();
+  const [activeProtocol, setActiveProtocol] = React.useState<'zone2' | 'vo2max' | null>(null);
 
   useEffect(() => {
     document.title = `${t('fp_title')} ${t('fp_subtitle')} | 123TheNext Level`;
@@ -211,26 +212,36 @@ export default function FitnessPillar() {
 
               <div className="lg:col-span-7 space-y-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <motion.div 
-                    whileHover={{ scale: 1.02 }}
-                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-white/10"
+                  <div 
+                    onClick={() => setActiveProtocol('zone2')}
+                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-cyan-955/20 hover:border-cyan-500/30 cursor-pointer group flex flex-col justify-between"
                   >
-                    <div className="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 mb-6 border border-blue-500/20">
-                      <Timer size={24} />
+                    <div>
+                      <div className="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 mb-6 border border-blue-500/20 group-hover:bg-blue-500 group-hover:text-slate-950 transition-all duration-300">
+                        <Timer size={24} />
+                      </div>
+                      <h4 className="text-xl font-display font-bold uppercase text-white mb-4">{t('fp_recovery_title')}</h4>
+                      <p className="text-sm text-slate-400 leading-relaxed font-medium group-hover:text-slate-200 transition-colors">{t('fp_recovery_desc')}</p>
                     </div>
-                    <h4 className="text-xl font-display font-bold uppercase text-white mb-4">{t('fp_recovery_title')}</h4>
-                    <p className="text-sm text-slate-500 leading-relaxed font-medium">{t('fp_recovery_desc')}</p>
-                  </motion.div>
-                  <motion.div 
-                    whileHover={{ scale: 1.02 }}
-                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-white/10"
+                    <div className="mt-6 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-cyan-400 group-hover:text-cyan-300 transition-colors">
+                      Open Protocol Details <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                  <div 
+                    onClick={() => setActiveProtocol('vo2max')}
+                    className="p-10 bg-white/5 rounded-[3rem] border border-white/10 transition-all hover:bg-cyan-955/20 hover:border-cyan-500/30 cursor-pointer group flex flex-col justify-between"
                   >
-                    <div className="w-12 h-12 bg-cyan-500/10 rounded-2xl flex items-center justify-center text-cyan-400 mb-6 border border-cyan-500/20">
-                      <BarChart3 size={24} />
+                    <div>
+                      <div className="w-12 h-12 bg-cyan-500/10 rounded-2xl flex items-center justify-center text-cyan-400 mb-6 border border-cyan-500/20 group-hover:bg-cyan-500 group-hover:text-slate-950 transition-all duration-300">
+                        <BarChart3 size={24} />
+                      </div>
+                      <h4 className="text-xl font-display font-bold uppercase text-white mb-4">{t('fp_metric_title')}</h4>
+                      <p className="text-sm text-slate-400 leading-relaxed font-medium group-hover:text-slate-200 transition-colors">{t('fp_metric_desc')}</p>
                     </div>
-                    <h4 className="text-xl font-display font-bold uppercase text-white mb-4">{t('fp_metric_title')}</h4>
-                    <p className="text-sm text-slate-500 leading-relaxed font-medium">{t('fp_metric_desc')}</p>
-                  </motion.div>
+                    <div className="mt-6 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-cyan-400 group-hover:text-cyan-300 transition-colors">
+                      Open Protocol Details <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
                 </div>
 
                 <div className="p-10 bg-white/5 rounded-[3rem] border border-white/10">
@@ -353,6 +364,98 @@ export default function FitnessPillar() {
           </div>
         </div>
       </div>
+
+      {/* Protocol Details Modal */}
+      <AnimatePresence>
+        {activeProtocol && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-955/90 backdrop-blur-md"
+            onClick={() => setActiveProtocol(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.95, y: 20 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="w-full max-w-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-950 border border-cyan-500/30 rounded-[3rem] p-8 md:p-12 shadow-2xl shadow-cyan-500/10 relative overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setActiveProtocol(null)}
+                className="absolute top-8 right-8 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-full transition-all cursor-pointer focus:outline-none"
+              >
+                <X size={20} />
+              </button>
+
+              {activeProtocol === 'zone2' ? (
+                <div>
+                  <div className="w-16 h-16 bg-cyan-500/10 rounded-3xl flex items-center justify-center text-cyan-400 mb-8 border border-cyan-500/20">
+                    <Timer size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    Zone-2 Respiration
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-cyan-400 mb-8 block">
+                    Mitochondrial Biogenesis & Steady-State Aerobic Base
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Zone 2 aerobic exercise (60-70% of maximum heart rate) stimulates mitochondrial density and respiration volume. Developing this baseline enhances cellular energy production, increases insulin sensitivity, and accelerates muscular lactic recovery.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "Target Heart Rate Cadence", desc: "Maintain a steady intensity corresponding to 130-140 BPM, utilizing nasal breathing exclusively to stay strictly within the aerobic envelope." },
+                      { step: "02", title: "Training Volume Targets", desc: "Accumulate 150-180 minutes of Zone 2 training per week, ideally structured in continuous blocks of 45-60 minutes." },
+                      { step: "03", title: "Fasted Substrate Utilization", desc: "Perform sessions in a fasted or low-carbohydrate state to promote fat oxidation and optimize mitochondrial efficiency." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className="w-16 h-16 bg-cyan-500/10 rounded-3xl flex items-center justify-center text-cyan-400 mb-8 border border-cyan-500/20">
+                    <BarChart3 size={32} />
+                  </div>
+                  <h3 className="text-3xl font-display font-black uppercase text-white mb-2 leading-none">
+                    VO2 Max Intervals
+                  </h3>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-cyan-400 mb-8 block">
+                    Peak Cardiorespiratory Capacity & Stroke Volume Optimization
+                  </span>
+                  <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 font-medium">
+                    Intensive interval training at 90-95% of maximum heart rate expands the physical capacity of the lungs, enhances cardiac stroke volume, and serves as one of the strongest predictive biometrics for long-term healthspan.
+                  </p>
+                  <div className="space-y-6">
+                    {[
+                      { step: "01", title: "The Norwegian 4x4 Framework", desc: "Perform 4 minutes of high-intensity output at 90-95% max heart rate, followed by 3 minutes of Zone 1 active recovery. Repeat 4 times." },
+                      { step: "02", title: "Weekly Session Pacing", desc: "Limit VO2 max interval training to 1 session per week, ensuring adequate systemic nervous recovery before and after." },
+                      { step: "03", title: "Cardiac Output Tracking", desc: "Monitor your heart rate drop during the first 60 seconds of recovery; a faster decrease is a clinical indicator of high parasympathetic tone." }
+                    ].map((step, i) => (
+                      <div key={i} className="flex gap-6 items-start">
+                        <span className="text-xs font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/25 px-2.5 py-1 rounded-md flex-shrink-0">{step.step}</span>
+                        <div>
+                          <h4 className="text-white font-bold uppercase text-sm mb-1">{step.title}</h4>
+                          <p className="text-slate-500 text-xs leading-relaxed font-medium">{step.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
