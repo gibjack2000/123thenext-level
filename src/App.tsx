@@ -36,7 +36,6 @@ const NutritionGLP1 = lazy(() => import('./pages/NutritionGLP1'));
 const NutritionMuscleBrain = lazy(() => import('./pages/NutritionMuscleBrain'));
 const NutritionBiomarkers = lazy(() => import('./pages/NutritionBiomarkers'));
 const WellnessPillar = lazy(() => import('./pages/WellnessPillar'));
-const NeurowellnessPillar = lazy(() => import('./pages/NeurowellnessPillar'));
 const NeurowellnessHardCare = lazy(() => import('./pages/NeurowellnessHardCare'));
 const NeurowellnessSoftCare = lazy(() => import('./pages/NeurowellnessSoftCare'));
 const NeurowellnessMetabolism = lazy(() => import('./pages/NeurowellnessMetabolism'));
@@ -140,7 +139,7 @@ function App() {
                 <Route path="/nutrition/post-h" element={<NutritionPostH />} />
                 <Route path="/nutrition/post-i" element={<NutritionPostI />} />
                 <Route path="/wellness" element={<WellnessPillar />} />
-                <Route path="/neurowellness" element={<NeurowellnessPillar />} />
+                <Route path="/neurowellness" element={<WellnessPillar />} />
                 <Route path="/neurowellness/hard-care" element={<NeurowellnessHardCare />} />
                 <Route path="/neurowellness/soft-care" element={<NeurowellnessSoftCare />} />
                 <Route path="/neurowellness/metabolism" element={<NeurowellnessMetabolism />} />
