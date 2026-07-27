@@ -238,7 +238,27 @@ export default function StartHere() {
                   </p>
                 </div>
 
-                {/* 3-Step Checklist */}
+                {/* Styled GP-Ready Consultation Template PDF Card */}
+                <div className="p-6 rounded-2xl border border-wellness-cyan/20 bg-wellness-cyan/5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                  <div>
+                    <h3 className="text-sm sm:text-base font-display uppercase tracking-wider text-white font-bold flex items-center gap-2">
+                      📥 Printable GP-Ready Consultation Template (PDF)
+                    </h3>
+                    <p className="text-xs text-slate-grey-400 font-light mt-1">
+                      Download the official workbook to record and discuss your quarterly metrics with your GP.
+                    </p>
+                  </div>
+                  <a
+                    href="/assets/docs/clinical-baseline-consultation-template.pdf"
+                    download="clinical-baseline-consultation-template.pdf"
+                    className="inline-flex items-center gap-2.5 py-3.5 px-6 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white border border-wellness-cyan/20 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-lg shadow-wellness-cyan/15 hover:scale-[1.02] active:scale-[0.98] cursor-pointer whitespace-nowrap"
+                  >
+                    <Download size={14} />
+                    <span>Download PDF</span>
+                  </a>
+                </div>
+
+                {/* Integration Steps */}
                 <div className="space-y-4 pt-2">
                   <h3 className="text-sm font-mono uppercase tracking-wider text-white font-bold">
                     Integration Steps:
@@ -247,9 +267,9 @@ export default function StartHere() {
                     <div className="p-4 bg-slate-950/40 border border-slate-900 rounded-xl flex gap-3 items-start">
                       <div className="w-5 h-5 rounded-full bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">1</div>
                       <div>
-                        <h4 className="text-xs font-bold text-white uppercase tracking-wider">Print the Workbook</h4>
+                        <h4 className="text-xs font-bold text-white uppercase tracking-wider">Print the workbook template</h4>
                         <p className="text-[11px] text-slate-grey-450 mt-1 font-light leading-relaxed">
-                          Download and print the official Consultation Workbook template to log your biometrics and medical overview.
+                          Download and print the consultation workbook template to log your health overview.
                         </p>
                       </div>
                     </div>
@@ -257,9 +277,9 @@ export default function StartHere() {
                     <div className="p-4 bg-slate-950/40 border border-slate-900 rounded-xl flex gap-3 items-start">
                       <div className="w-5 h-5 rounded-full bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">2</div>
                       <div>
-                        <h4 className="text-xs font-bold text-white uppercase tracking-wider">Log Telemetry</h4>
+                        <h4 className="text-xs font-bold text-white uppercase tracking-wider">Log your 7-day wearable biometrics</h4>
                         <p className="text-[11px] text-slate-grey-450 mt-1 font-light leading-relaxed">
-                          Record your 7-day smartwatch baselines (resting heart rate, nocturnal HRV, and sleep trends) directly onto the template.
+                          Track your resting heart rate, sleep duration, and nocturnal HRV trends.
                         </p>
                       </div>
                     </div>
@@ -267,25 +287,13 @@ export default function StartHere() {
                     <div className="p-4 bg-slate-950/40 border border-slate-900 rounded-xl flex gap-3 items-start">
                       <div className="w-5 h-5 rounded-full bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">3</div>
                       <div>
-                        <h4 className="text-xs font-bold text-white uppercase tracking-wider">Consult General Practitioner</h4>
+                        <h4 className="text-xs font-bold text-white uppercase tracking-wider">Schedule a GP Consultation</h4>
                         <p className="text-[11px] text-slate-grey-450 mt-1 font-light leading-relaxed">
-                          Schedule a check-up with your local general practitioner to co-evaluate the logs and validate any target diagnostic panels.
+                          Consult with your local healthcare professional to co-evaluate and validate your baseline diagnostics.
                         </p>
                       </div>
                     </div>
                   </div>
-                </div>
-
-                {/* Direct Download Button */}
-                <div className="pt-4 flex justify-start">
-                  <a
-                    href="/assets/docs/clinical-baseline-consultation-template.pdf"
-                    download="clinical-baseline-consultation-template.pdf"
-                    className="inline-flex items-center gap-2.5 py-3.5 px-6 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white border border-wellness-cyan/20 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-lg shadow-wellness-cyan/15 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
-                  >
-                    <Download size={14} />
-                    <span>Download GP Consultation Template (PDF)</span>
-                  </a>
                 </div>
               </div>
             </div>
