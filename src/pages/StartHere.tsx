@@ -4,17 +4,31 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   Shield, Lock, Play, Activity, ExternalLink, 
   ArrowRight, Star, HeartPulse, RefreshCw, Info,
-  CheckCircle2, AlertTriangle, Compass, FileText
+  CheckCircle2, AlertTriangle, Compass, FileText,
+  ChevronDown, ChevronUp, Download, Eye, Award
 } from 'lucide-react';
 
 export default function StartHere() {
   const [activeTab, setActiveTab] = useState<'phase1' | 'phase2' | 'clinician'>('phase1');
+  const [activeScript, setActiveScript] = useState<number | null>(null);
+  const [showVideoAlert, setShowVideoAlert] = useState<string | null>(null);
 
   // Animation variants for tab content transition
   const tabContentVariants = {
     hidden: { opacity: 0, y: 15 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
     exit: { opacity: 0, y: -15, transition: { duration: 0.2 } }
+  };
+
+  const toggleScript = (idx: number) => {
+    setActiveScript(activeScript === idx ? null : idx);
+  };
+
+  const handleVideoPlaceholderClick = (briefingTitle: string) => {
+    setShowVideoAlert(briefingTitle);
+    setTimeout(() => {
+      setShowVideoAlert(null);
+    }, 4000);
   };
 
   return (
@@ -25,6 +39,26 @@ export default function StartHere() {
       {/* Radial ambient glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
       <div className="absolute bottom-0 right-10 w-[300px] h-[300px] bg-indigo-500/5 rounded-full blur-[100px] pointer-events-none z-0"></div>
+
+      {/* Floating Notification for Briefing Playback */}
+      <AnimatePresence>
+        {showVideoAlert && (
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.9 }}
+            className="fixed bottom-6 right-6 z-50 max-w-sm p-4 bg-slate-900 border border-cyan-500/30 text-white rounded-2xl shadow-2xl flex items-start gap-3 backdrop-blur-md"
+          >
+            <Info className="text-cyan-400 shrink-0 mt-0.5" size={18} />
+            <div className="text-left space-y-1">
+              <h4 className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold">Briefing Pending</h4>
+              <p className="text-[11px] text-slate-350 leading-relaxed font-light">
+                The spoken briefing <strong>&quot;{showVideoAlert}&quot;</strong> is currently in clinical production and will be deployed shortly.
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -85,6 +119,8 @@ export default function StartHere() {
 
         {/* Tab Content Display Area */}
         <AnimatePresence mode="wait">
+          
+          {/* TAB A: DIAGNOSTIC BASELINE (PHASE 1) */}
           {activeTab === 'phase1' && (
             <motion.div
               key="phase1"
@@ -102,7 +138,7 @@ export default function StartHere() {
                     <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
                       Phase 1: Establish Your Diagnostic Baseline
                     </h2>
-                    <p className="text-slate-300 text-sm md:text-base leading-relaxed font-light">
+                    <p className="text-slate-300 text-sm md:text-base leading-relaxed font-light font-light">
                       True preventive medicine is an information-gathering game. Continuous biometric telemetry and epigenetic testing establish an &apos;Early Warning Radar&apos;—diagnosing subclinical physiological shifts early, before they become physical issues, to directly improve long-term longevity and daily quality of life.
                     </p>
                   </div>
@@ -138,7 +174,10 @@ export default function StartHere() {
                     {/* Central Glowing Electric-Cyan Play Button Trigger */}
                     <div className="my-8 flex items-center justify-center relative z-10">
                       <div className="absolute w-20 h-20 rounded-full bg-cyan-500/10 animate-ping"></div>
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-tr from-cyan-500 to-indigo-600 text-slate-950 flex items-center justify-center shadow-2xl group-hover:scale-105 active:scale-95 transition-all duration-300 border border-cyan-400/30 cursor-pointer">
+                      <div 
+                        onClick={() => handleVideoPlaceholderClick("Building the Optimized Human")}
+                        className="w-16 h-16 rounded-full bg-gradient-to-tr from-cyan-500 to-indigo-600 text-slate-950 flex items-center justify-center shadow-2xl group-hover:scale-105 active:scale-95 transition-all duration-300 border border-cyan-400/30 cursor-pointer"
+                      >
                         <Play size={24} className="ml-1 text-white fill-white drop-shadow-[0_2px_8px_rgba(6,182,212,0.4)]" />
                       </div>
                     </div>
@@ -171,7 +210,7 @@ export default function StartHere() {
                       <h4 className="text-base font-display uppercase tracking-tight text-white font-bold">
                         Epigenetic Cellular Age Testing
                       </h4>
-                      <p className="text-xs text-slate-300 leading-relaxed font-light font-light">
+                      <p className="text-xs text-slate-300 leading-relaxed font-light">
                         Chronological age is just a calendar metric. Measuring genomic methylation calculates true biological age velocity versus calendar age to determine rate of decay.
                       </p>
                     </div>
@@ -266,6 +305,7 @@ export default function StartHere() {
             </motion.div>
           )}
 
+          {/* TAB B: DAILY SMALL WINS (PHASE 2) */}
           {activeTab === 'phase2' && (
             <motion.div
               key="phase2"
@@ -273,47 +313,271 @@ export default function StartHere() {
               animate="visible"
               exit="exit"
               variants={tabContentVariants}
-              className="space-y-8"
+              className="space-y-12"
             >
-              {/* Phase 2: Beautiful Dark Routing Placeholder */}
-              <div className="p-8 sm:p-12 rounded-3xl bg-slate-900/30 border border-slate-900 text-center max-w-4xl mx-auto space-y-6 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-tr from-amber-500/5 to-transparent pointer-events-none"></div>
-                
-                <div className="mx-auto w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center shadow-xl">
-                  <RefreshCw size={32} className="animate-spin-slow" />
-                </div>
-                
-                <div className="space-y-2">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-amber-400">
-                    Phase 2 Workspace • Simple Daily Habits
-                  </span>
-                  <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
-                    Frictionless Day 1 Wins
-                  </h2>
-                  <p className="text-slate-400 text-sm max-w-xl mx-auto leading-relaxed font-light">
-                    Establish physical and autonomic switches you can execute this second with zero equipment and zero cost. Tap into baseline cardiovascular efficiency, stress down-regulation, and glycemic snacking protocol details.
-                  </p>
+              {/* Tab Header Positioning + Video 3 Split Layout */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                {/* Left Column: Heading & Content */}
+                <div className="lg:col-span-7 flex flex-col justify-between space-y-6 text-left">
+                  <div className="space-y-4">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-amber-500/10 border border-amber-500/30 text-amber-400 font-bold">
+                      Phase 2 • Autonomic Optimization
+                    </span>
+                    <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
+                      Phase 2: Daily Biophysical Inputs • Protecting Your Daily Quality of Life
+                    </h2>
+                    <p className="text-slate-350 text-sm md:text-base leading-relaxed font-light">
+                      Daily behavioral choices are direct software updates for your cells. We combine frictionless, zero-cost behavioral habits with highly accessible, low-cost environmental accelerators to optimize your sleep, strength, and metabolic nutrition from Day 1.
+                    </p>
+                  </div>
+
+                  {/* Vetted Brand Banner */}
+                  <div className="p-4 border border-cyan-500/10 bg-slate-900/20 backdrop-blur-md rounded-2xl flex items-center gap-3">
+                    <Award size={16} className="text-cyan-400 flex-shrink-0" />
+                    <p className="text-[11px] text-slate-400 leading-normal font-light">
+                      Every tool, guide, and biochemical accelerator listed below has been rigorously vetted for biological activity and vascular safety parameters.
+                    </p>
+                  </div>
                 </div>
 
-                <div className="p-4 border border-amber-500/10 bg-slate-950/60 rounded-2xl text-xs text-slate-350 leading-relaxed font-light max-w-xl mx-auto flex items-start gap-3">
-                  <Info size={16} className="text-amber-400 flex-shrink-0 mt-0.5" />
-                  <p className="text-left text-[11px] text-slate-400 leading-normal">
-                    This section will carry detailed step-by-step guidelines for 10-Minute Mobility Walks, Vagal Tone Breathing Mindfulness audio tracks, and Glycemic Snacking choices.
-                  </p>
+                {/* Right Column: Video 3 Placeholder */}
+                <div className="lg:col-span-5 flex items-stretch">
+                  <div className="w-full flex flex-col justify-between p-6 sm:p-8 rounded-3xl bg-slate-900/30 border border-cyan-500/10 backdrop-blur-md shadow-2xl relative overflow-hidden group">
+                    <div className="space-y-4 relative z-10 text-left">
+                      <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-cyan-400 block">
+                        [ Performance Briefing ]
+                      </span>
+                      <h3 className="text-lg font-display uppercase tracking-tight text-white font-black">
+                        Start Here, Start Now (Coaching Briefing)
+                      </h3>
+                    </div>
+
+                    {/* Central Play Button */}
+                    <div className="my-8 flex items-center justify-center relative z-10">
+                      <div className="absolute w-20 h-20 rounded-full bg-cyan-500/10 animate-ping"></div>
+                      <div 
+                        onClick={() => handleVideoPlaceholderClick("Start Here, Start Now")}
+                        className="w-16 h-16 rounded-full bg-gradient-to-tr from-cyan-500 to-indigo-600 text-slate-950 flex items-center justify-center shadow-2xl group-hover:scale-105 active:scale-95 transition-all duration-300 border border-cyan-400/30 cursor-pointer"
+                      >
+                        <Play size={24} className="ml-1 text-white fill-white drop-shadow-[0_2px_8px_rgba(6,182,212,0.4)]" />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2 relative z-10 text-left">
+                      <p className="text-[11px] text-slate-400 leading-relaxed font-light font-light">
+                        <strong>Upcoming 65-second coaching session</strong> detailing how to execute your frictionless biophysical habits on Day 1, and how to accelerate your sleep, strength, and metabolic nutrition using our vetted daily vitamin, collagen, and low-cost toolkits.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3-Column Onboarding Cards Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+                
+                {/* CARD 1: Mobility & Strength */}
+                <div className="flex flex-col justify-between p-6 rounded-2xl bg-slate-900/30 border border-slate-900 hover:border-cyan-500/20 transition-all duration-300 text-left shadow-xl space-y-6">
+                  <div className="space-y-4">
+                    <span className="px-2.5 py-1 rounded-md text-[9px] font-mono uppercase bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-bold">
+                      Movement & Strength
+                    </span>
+                    <h3 className="text-base font-display uppercase tracking-tight text-white font-bold">
+                      10-Minute Mobility Walks
+                    </h3>
+                    <div className="space-y-2 text-xs leading-relaxed text-slate-350">
+                      <p className="font-semibold text-slate-200">Daily Win:</p>
+                      <p className="font-light">Post-meal walking to clear systemic cortisol and flatten blood sugar spikes.</p>
+                    </div>
+                    
+                    <div className="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-2 text-[11px] leading-relaxed">
+                      <span className="font-semibold text-white block">Direct Digital Product:</span>
+                      <p className="text-slate-400 font-light">
+                        Deploy our Beginner Home Workout Plan (£19.00) — a 4-week zero-equipment routine to build baseline structural joint and lean mass health.
+                      </p>
+                      <Link 
+                        to="/premium-guides"
+                        className="inline-flex items-center gap-1 text-[10px] text-cyan-400 hover:underline uppercase font-mono tracking-wider pt-1"
+                      >
+                        Acquire Guide <ArrowRight size={10} />
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 border-t border-slate-900">
+                    <div className="space-y-2">
+                      <span className="text-[9px] font-mono uppercase tracking-wider text-slate-400 block">Vetted Affiliate Tool</span>
+                      <p className="text-[10px] text-slate-300 leading-normal font-light">
+                        <strong>Amazon Basics Cast Iron Kettlebell:</strong> The ultimate, low-cost home strength extension.
+                      </p>
+                      <a
+                        href="https://www.amazon.co.uk/dp/B076QJY2FN?tag=123znl0f3-21"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-[10px] font-mono text-cyan-400 hover:text-cyan-300 tracking-wider uppercase pt-1"
+                      >
+                        Shop Amazon Affiliate Link →
+                      </a>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="pt-2">
-                  <button
-                    onClick={() => setActiveTab('phase1')}
-                    className="inline-flex justify-center items-center gap-2 px-6 py-3 bg-slate-800 hover:bg-slate-750 text-slate-200 rounded-xl text-xs font-black uppercase tracking-wider transition-all border border-slate-700 hover:border-slate-650 cursor-pointer"
-                  >
-                    ← Back to Phase 1: Diagnostic Baseline
-                  </button>
+                {/* CARD 2: Recovery & Sleep */}
+                <div className="flex flex-col justify-between p-6 rounded-2xl bg-slate-900/30 border border-slate-900 hover:border-cyan-500/20 transition-all duration-300 text-left shadow-xl space-y-6">
+                  <div className="space-y-4">
+                    <span className="px-2.5 py-1 rounded-md text-[9px] font-mono uppercase bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-bold">
+                      Nervous System & Recovery
+                    </span>
+                    <h3 className="text-base font-display uppercase tracking-tight text-white font-bold">
+                      Breathing Mindfulness & Sleep Resets
+                    </h3>
+                    <div className="space-y-2 text-xs leading-relaxed text-slate-350">
+                      <p className="font-semibold text-slate-200">Daily Win:</p>
+                      <p className="font-light">Activating deep autonomic resets to stimulate the vagus nerve, manage nightly cortisol, and elevate overnight Heart Rate Variability (HRV).</p>
+                    </div>
+
+                    <div className="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-2 text-[11px] leading-relaxed">
+                      <span className="font-semibold text-white block">Direct Digital Product:</span>
+                      <p className="text-slate-400 font-light">
+                        Master your circadian sleep architecture with our Cortisol & Stress Management Guide (£22.00).
+                      </p>
+                      <Link 
+                        to="/premium-guides"
+                        className="inline-flex items-center gap-1 text-[10px] text-cyan-400 hover:underline uppercase font-mono tracking-wider pt-1"
+                      >
+                        Acquire Guide <ArrowRight size={10} />
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 border-t border-slate-900 space-y-3">
+                    <span className="text-[9px] font-mono uppercase tracking-wider text-slate-400 block">Low-Cost Affiliate Tools</span>
+                    
+                    <div className="space-y-2.5 text-[10px]">
+                      <div className="space-y-1">
+                        <p className="text-slate-300 leading-normal font-light">
+                          <strong>Sony WH-CH720N Noise-Canceling Headphones:</strong> Block out environmental sensory pollution for resets.
+                        </p>
+                        <a
+                          href="https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[9px] font-mono text-cyan-400 hover:text-cyan-300 uppercase tracking-wider block"
+                        >
+                          Shop on Amazon →
+                        </a>
+                      </div>
+
+                      <div className="space-y-1">
+                        <p className="text-slate-300 leading-normal font-light">
+                          <strong>basaho Classic Zafu Meditation Cushion:</strong> Ergonomic support for structural mindfulness resets.
+                        </p>
+                        <a
+                          href="https://www.amazon.co.uk/dp/B01B81R34U?tag=123znl0a-21&"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[9px] font-mono text-cyan-400 hover:text-cyan-300 uppercase tracking-wider block"
+                        >
+                          Shop on Amazon →
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+
+                {/* CARD 3: Glycemic Snacking & Metabolic Nutrition */}
+                <div className="flex flex-col justify-between p-6 rounded-2xl bg-slate-900/30 border border-slate-900 hover:border-cyan-500/20 transition-all duration-300 text-left shadow-xl space-y-6">
+                  <div className="space-y-4">
+                    <span className="px-2.5 py-1 rounded-md text-[9px] font-mono uppercase bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">
+                      Nutrition & Food Prep
+                    </span>
+                    <h3 className="text-base font-display uppercase tracking-tight text-white font-bold">
+                      Glycemic Snacking & Metabolism
+                    </h3>
+                    <div className="space-y-2 text-xs leading-relaxed text-slate-350">
+                      <p className="font-semibold text-slate-200">Daily Win:</p>
+                      <p className="font-light">Strategic, low-glycemic dietary choices to stabilize cellular energy and protect insulin sensitivity.</p>
+                    </div>
+
+                    <div className="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-2 text-[11px] leading-relaxed">
+                      <span className="font-semibold text-white block">Direct Digital Product:</span>
+                      <p className="text-slate-400 font-light">
+                        Structure your weekly grocery and macro workflows with The Master Meal Planning Guide (£24.00).
+                      </p>
+                      <Link 
+                        to="/premium-guides"
+                        className="inline-flex items-center gap-1 text-[10px] text-cyan-400 hover:underline uppercase font-mono tracking-wider pt-1"
+                      >
+                        Acquire Guide <ArrowRight size={10} />
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div className="pt-2 border-t border-slate-900 space-y-3">
+                    <span className="text-[9px] font-mono uppercase tracking-wider text-slate-400 block">Vetted Kitchen & Accelerator Tools</span>
+                    
+                    <div className="space-y-2 text-[10px]">
+                      {/* Kitchen Gadgets */}
+                      <div className="p-2 bg-slate-950 rounded-lg border border-slate-900 space-y-1">
+                        <span className="text-white font-semibold">Ninja Foodi Dual Zone Air Fryer</span>
+                        <p className="text-slate-400 text-[9px] leading-normal font-light">The gold standard for preparing low-oil, metabolic family meals.</p>
+                        <a
+                          href="https://123thenextlevel.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[9px] font-mono text-cyan-400 hover:text-cyan-300 uppercase block tracking-wider pt-0.5"
+                        >
+                          Shop on Amazon →
+                        </a>
+                      </div>
+
+                      <div className="p-2 bg-slate-950 rounded-lg border border-slate-900 space-y-1">
+                        <span className="text-white font-semibold">Moulinex Easy Fry & Grill (4.2L)</span>
+                        <p className="text-slate-400 text-[9px] leading-normal font-light">Compact kitchen tool for single-person glycemic meal prep.</p>
+                        <a
+                          href="https://www.amazon.co.uk/dp/B09FQBKFQ6?tag=123znl08a-21"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[9px] font-mono text-cyan-400 hover:text-cyan-300 uppercase block tracking-wider pt-0.5"
+                        >
+                          Shop on Amazon →
+                        </a>
+                      </div>
+
+                      {/* Biochemical Accelerators */}
+                      <div className="p-2 bg-slate-950 rounded-lg border border-slate-900 space-y-1">
+                        <span className="text-white font-semibold">Zebora Marine Collagen</span>
+                        <p className="text-slate-400 text-[9px] leading-normal font-light">Vetted supplement for gut-mitochondrial axis.</p>
+                        <a
+                          href="https://www.amazon.com/dp/B07Z8G2G2M?tag=123znl0e-20"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[9px] font-mono text-cyan-400 hover:text-cyan-300 uppercase block tracking-wider pt-0.5"
+                        >
+                          Shop Affiliate Link →
+                        </a>
+                      </div>
+
+                      <div className="p-2 bg-slate-950 rounded-lg border border-slate-900 space-y-1">
+                        <span className="text-white font-semibold">Owala Insulated Water Bottle</span>
+                        <p className="text-slate-400 text-[9px] leading-normal font-light">Maintain cellular hydration during eating windows.</p>
+                        <a
+                          href="https://www.amazon.com/dp/B085DV8C54?tag=123znl0e-20"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[9px] font-mono text-cyan-400 hover:text-cyan-300 uppercase block tracking-wider pt-0.5"
+                        >
+                          Shop Affiliate Link →
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </motion.div>
           )}
 
+          {/* TAB C: CLINICIAN PARTNERSHIP HUB */}
           {activeTab === 'clinician' && (
             <motion.div
               key="clinician"
@@ -321,32 +585,35 @@ export default function StartHere() {
               animate="visible"
               exit="exit"
               variants={tabContentVariants}
-              className="space-y-8"
+              className="space-y-12"
             >
-              {/* Clinician Partnership Hub: Beautiful Dark Routing Placeholder */}
-              <div className="p-8 sm:p-12 rounded-3xl bg-slate-900/30 border border-slate-900 text-center max-w-4xl mx-auto space-y-6 relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500/5 to-transparent pointer-events-none"></div>
+              {/* Tab Header Positioning */}
+              <div className="text-left space-y-4 max-w-4xl">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 font-bold">
+                  Shared Decision Making
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
+                  Clinician Integration Hub • Safe, Collaborative Care
+                </h2>
+                <p className="text-slate-350 text-sm md:text-base leading-relaxed font-light">
+                  Raw biometric data is not a diagnosis. We make clinician partnership a mandatory operational protocol. Our printable workbook and GP discussion scripts are designed to help you and your doctor co-evaluate your data safely.
+                </p>
+              </div>
+
+              {/* Primary Action Callout Card (Center-Aligned) */}
+              <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/40 border border-cyan-500/10 backdrop-blur-md text-center max-w-3xl mx-auto space-y-6 shadow-2xl relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/5 to-transparent pointer-events-none"></div>
                 
-                <div className="mx-auto w-16 h-16 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center shadow-xl">
-                  <Shield size={32} />
+                <div className="mx-auto w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center shadow-lg">
+                  <Download size={24} />
                 </div>
                 
                 <div className="space-y-2">
-                  <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-indigo-400">
-                    Clinician integration hub
-                  </span>
-                  <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
-                    Clinician Partnership Hub
-                  </h2>
-                  <p className="text-slate-400 text-sm max-w-xl mx-auto leading-relaxed font-light">
-                    Collaborate with your local medical practitioner using pre-formatted templates and shared decision-making guidelines to co-evaluate diagnostic biomarker datasets safely and effectively.
-                  </p>
-                </div>
-
-                <div className="p-4 border border-indigo-500/10 bg-slate-950/60 rounded-2xl text-xs text-slate-350 leading-relaxed font-light max-w-xl mx-auto flex items-start gap-3">
-                  <FileText size={16} className="text-indigo-400 flex-shrink-0 mt-0.5" />
-                  <p className="text-left text-[11px] text-slate-400 leading-normal">
-                    This section will host printable consultation checklists, guideline documents for shared biometric assessment, and clinical communication templates to bring directly to your next GP visit.
+                  <h3 className="text-lg font-display uppercase tracking-tight text-white font-black">
+                    📥 Download Printable GP-Ready Consultation Template (PDF)
+                  </h3>
+                  <p className="text-slate-400 text-xs max-w-xl mx-auto leading-relaxed font-light">
+                    Our structured, patient-held workbook features dedicated logging grids for personal health history, wearable metric baselines (resting HR, HRV, sleep duration), and lab biomarker results.
                   </p>
                 </div>
 
@@ -354,10 +621,113 @@ export default function StartHere() {
                   <a
                     href="/assets/docs/clinical-baseline-consultation-template.pdf"
                     download="clinical-baseline-consultation-template.pdf"
-                    className="inline-flex justify-center items-center gap-2 px-6 py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/10 cursor-pointer"
+                    className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
                   >
-                    📥 Download Consultation Template PDF Directly
+                    Download Consultation Template Workbook
                   </a>
+                </div>
+              </div>
+
+              {/* GP Integration Steps (3-Column Layout) */}
+              <div className="space-y-6">
+                <div className="border-b border-slate-900 pb-3 text-left">
+                  <h3 className="text-sm font-mono uppercase tracking-wider text-slate-400 font-bold">
+                    Protocol Workflow
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                  <div className="p-6 bg-slate-900/30 border border-slate-900 rounded-2xl space-y-3">
+                    <span className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold">Step 1</span>
+                    <h4 className="text-base font-display uppercase tracking-tight text-white font-bold">1. Download & Print</h4>
+                    <p className="text-xs text-slate-400 leading-relaxed font-light">
+                      Print the baseline workbook template before your clinical appointment so you have a physical copy to reference.
+                    </p>
+                  </div>
+
+                  <div className="p-6 bg-slate-900/30 border border-slate-900 rounded-2xl space-y-3">
+                    <span className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold">Step 2</span>
+                    <h4 className="text-base font-display uppercase tracking-tight text-white font-bold">2. Log Wearable Metrics</h4>
+                    <p className="text-xs text-slate-400 leading-relaxed font-light">
+                      Log 7 days of resting vital signs (HRV, deep sleep cycles, resting HR) from your smartwatch or scale onto the grid sheets.
+                    </p>
+                  </div>
+
+                  <div className="p-6 bg-slate-900/30 border border-slate-900 rounded-2xl space-y-3">
+                    <span className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold">Step 3</span>
+                    <h4 className="text-base font-display uppercase tracking-tight text-white font-bold">3. Schedule Consultation</h4>
+                    <p className="text-xs text-slate-400 leading-relaxed font-light">
+                      Book an appointment with your general practitioner to co-evaluate and validate your diagnostic data collaboratively.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Clinician Discussion Scripts (Interactive Accordion) */}
+              <div className="space-y-6">
+                <div className="border-b border-slate-900 pb-3 text-left">
+                  <h3 className="text-sm font-mono uppercase tracking-wider text-slate-400 font-bold flex items-center gap-2">
+                    <Compass size={14} className="text-indigo-400" />
+                    Clinician Discussion Scripts
+                  </h3>
+                </div>
+
+                <div className="max-w-4xl mx-auto space-y-3.5 text-left">
+                  {/* Script 1 Accordion */}
+                  <div className="border border-slate-900 rounded-2xl bg-slate-900/20 overflow-hidden transition-all duration-300">
+                    <button
+                      onClick={() => toggleScript(1)}
+                      className="w-full p-5 flex items-center justify-between hover:bg-slate-900/40 text-left transition-colors cursor-pointer"
+                    >
+                      <span className="text-xs sm:text-sm font-display uppercase tracking-wider text-white font-bold">
+                        Script A: How to Introduce Your Baseline
+                      </span>
+                      {activeScript === 1 ? <ChevronUp size={16} className="text-cyan-400" /> : <ChevronDown size={16} className="text-slate-400" />}
+                    </button>
+                    
+                    <AnimatePresence initial={false}>
+                      {activeScript === 1 && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25 }}
+                        >
+                          <div className="p-5 bg-slate-950/80 border-t border-slate-900 text-xs sm:text-sm leading-relaxed text-slate-300 font-light italic font-serif">
+                            &ldquo;Doctor, I am tracking my lifestyle biometrics proactively to prevent chronic disease. I have logged my baseline wearable telemetry and would like to coordinate a Lola Vital Check 56 panel to establish my metabolic and vascular indicators.&rdquo;
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Script 2 Accordion */}
+                  <div className="border border-slate-900 rounded-2xl bg-slate-900/20 overflow-hidden transition-all duration-300">
+                    <button
+                      onClick={() => toggleScript(2)}
+                      className="w-full p-5 flex items-center justify-between hover:bg-slate-900/40 text-left transition-colors cursor-pointer"
+                    >
+                      <span className="text-xs sm:text-sm font-display uppercase tracking-wider text-white font-bold">
+                        Script B: On Data Sovereignty & Collaboration
+                      </span>
+                      {activeScript === 2 ? <ChevronUp size={16} className="text-cyan-400" /> : <ChevronDown size={16} className="text-slate-400" />}
+                    </button>
+                    
+                    <AnimatePresence initial={false}>
+                      {activeScript === 2 && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.25 }}
+                        >
+                          <div className="p-5 bg-slate-950/80 border-t border-slate-900 text-xs sm:text-sm leading-relaxed text-slate-300 font-light italic font-serif">
+                            &ldquo;I maintain full ownership of my clinical results. I would like us to use this patient-held template as a collaborative care directive to track my healthy life expectancy over time.&rdquo;
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 </div>
               </div>
             </motion.div>
