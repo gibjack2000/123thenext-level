@@ -50,6 +50,7 @@ export default function Home() {
   const [pairedDevices, setPairedDevices] = useState<string[]>([]);
   const [diagnosticTab, setDiagnosticTab] = useState<'epigenetic' | 'lola' | 'wearables'>('epigenetic');
   const [isOnboardingVideoOpen, setIsOnboardingVideoOpen] = useState(false);
+  const [isDualTrackVideoOpen, setIsDualTrackVideoOpen] = useState(false);
 
   const handleDnaUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
