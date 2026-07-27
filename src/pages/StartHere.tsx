@@ -338,7 +338,7 @@ export default function StartHere() {
                     <div className="space-y-3">
                       <span className="text-xs font-mono text-wellness-cyan font-bold block">[ PROTOCOL 2 ]</span>
                       <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
-                        Breathing Mindfulness
+                        Breathing Mindfulness & Cortisol Control
                       </h3>
                       <p className="text-[11px] sm:text-xs text-slate-grey-455 leading-relaxed font-light">
                         Stimulates the vagus nerve to down-regulate sympathetic fight-or-flight states, immediately reducing baseline cortisol, achieving vagus nerve stimulation, and promoting HRV gains.
@@ -349,31 +349,36 @@ export default function StartHere() {
                       {/* Direct Product */}
                       <div className="p-2.5 rounded-lg bg-slate-900/40 border border-slate-850 hover:border-wellness-cyan/15 transition-all">
                         <p className="text-slate-grey-400 font-light leading-relaxed">
-                          Master your stress response with the <Link to="/premium-guides" className="text-wellness-cyan font-bold hover:underline">Cortisol & Stress Management Guide (£22.00)</Link> to systematically lower baseline systemic tension.
+                          Build the ultimate bedtime routine and master your circadian sleep architecture with our <Link to="/premium-guides" className="text-wellness-cyan font-bold hover:underline">Cortisol & Stress Management Guide (£22.00)</Link>.
                         </p>
                       </div>
 
-                      {/* Vetted Extensions */}
+                      {/* Sleep & Relaxation Accelerators */}
                       <div className="space-y-1.5">
-                        <span className="text-[9px] font-mono uppercase tracking-wider text-slate-grey-450 block font-bold">Vetted recovery extensions</span>
+                        <span className="text-[9px] font-mono uppercase tracking-wider text-slate-grey-450 block font-bold">Sleep & Relaxation Accelerators</span>
                         <div className="flex flex-col gap-1.5">
                           <a
                             href="https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex justify-between items-center p-2 rounded bg-slate-900/30 hover:bg-slate-900/60 border border-slate-850 text-slate-grey-300 hover:text-white transition-all"
+                            className="flex flex-col p-2.5 rounded bg-slate-900/30 hover:bg-slate-900/60 border border-slate-850 text-slate-grey-300 hover:text-white transition-all text-left gap-1"
                           >
-                            <span className="font-medium">Sony WH-CH720N Headphones</span>
-                            <span className="text-[10px] text-wellness-cyan font-bold">4.9★</span>
+                            <div className="flex justify-between items-center w-full">
+                              <span className="font-bold text-slate-200">Sony WH-CH720N Noise-Canceling Headphones</span>
+                              <span className="text-[10px] text-wellness-cyan font-bold">4.9★</span>
+                            </div>
+                            <span className="text-[10px] text-slate-grey-455 font-light leading-relaxed">
+                              Block out environmental sensory pollution for deep-sleep preparation, NSDR neuro-resets, and vagal breathing exercises.
+                            </span>
                           </a>
                           <a
-                            href="https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123znl0f3-21"
+                            href="https://www.amazon.com/dp/B01698E3A6?tag=123znl08-20"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex justify-between items-center p-2 rounded bg-slate-900/30 hover:bg-slate-900/60 border border-slate-850 text-slate-grey-300 hover:text-white transition-all"
                           >
-                            <span className="font-medium">Portable Full Body Infrared Sauna Tent</span>
-                            <span className="text-[10px] text-wellness-cyan font-bold">4.9★</span>
+                            <span className="font-medium">basaho Classic Zafu Meditation Cushion</span>
+                            <span className="text-[10px] text-wellness-cyan font-bold">4.8★</span>
                           </a>
                         </div>
                       </div>
@@ -385,7 +390,7 @@ export default function StartHere() {
                     <div className="space-y-3">
                       <span className="text-xs font-mono text-wellness-cyan font-bold block">[ PROTOCOL 3 ]</span>
                       <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
-                        Glycemic Snacking
+                        Glycemic Snacking & Metabolic Nutrition
                       </h3>
                       <p className="text-[11px] sm:text-xs text-slate-grey-455 leading-relaxed font-light">
                         Focuses on glucose stabilization and preserving insulin sensitivity, prioritizing low-glycemic cellular fueling to protect metabolic health and prevent glycemic spikes.
@@ -396,27 +401,42 @@ export default function StartHere() {
                       {/* Direct Product */}
                       <div className="p-2.5 rounded-lg bg-slate-900/40 border border-slate-850 hover:border-wellness-cyan/15 transition-all">
                         <p className="text-slate-grey-400 font-light leading-relaxed">
-                          Master long-term glucose stabilization and metabolic kitchen workflows with <Link to="/premium-guides" className="text-wellness-cyan font-bold hover:underline">The Master Meal Planning Guide (£24.00)</Link>.
+                          Master your metabolic kitchen workflows with <Link to="/premium-guides" className="text-wellness-cyan font-bold hover:underline">The Master Meal Planning Guide (£24.00)</Link>.
                         </p>
                       </div>
 
-                      {/* Vetted Extensions */}
+                      {/* Metabolic & Vitamin Accelerators */}
                       <div className="space-y-1.5">
-                        <span className="text-[9px] font-mono uppercase tracking-wider text-slate-grey-450 block font-bold">Vetted Metabolic Extensions</span>
+                        <span className="text-[9px] font-mono uppercase tracking-wider text-slate-grey-450 block font-bold">Metabolic & Vitamin Accelerators</span>
                         <div className="flex flex-col gap-1.5">
                           <a
-                            href="https://www.amazon.com/dp/B006QF3TW4?tag=123znl08-20"
+                            href="https://www.amazon.com/s?k=ZEBORA+Marine+Collagen"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex justify-between items-center p-2 rounded bg-slate-900/30 hover:bg-slate-900/60 border border-slate-850 text-slate-grey-300 hover:text-white transition-all"
+                            className="flex flex-col p-2.5 rounded bg-slate-900/30 hover:bg-slate-900/60 border border-slate-850 text-slate-grey-300 hover:text-white transition-all text-left gap-1"
                           >
-                            <span className="font-medium">LifeStraw Personal Filter</span>
-                            <span className="text-[10px] text-wellness-cyan font-bold">4.8★</span>
+                            <div className="flex justify-between items-center w-full">
+                              <span className="font-bold text-slate-200">Zebora Marine Collagen</span>
+                              <span className="text-[10px] text-wellness-cyan font-bold">4.8★</span>
+                            </div>
+                            <span className="text-[10px] text-slate-grey-455 font-light leading-relaxed">
+                              Expert-recommended daily marine collagen to support gut integrity, tissue recovery, and cellular structure.
+                            </span>
                           </a>
-                          <span className="flex justify-between items-center p-2 rounded bg-slate-900/35 border border-slate-850/50 text-slate-grey-450">
-                            <span className="font-medium">Premium Insulated Shaker Bottle</span>
-                            <span className="text-[10px] text-slate-grey-500">Essential</span>
-                          </span>
+                          <a
+                            href="https://www.amazon.com/s?k=Owala+FreeSip+Water+Bottles"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex flex-col p-2.5 rounded bg-slate-900/30 hover:bg-slate-900/60 border border-slate-850 text-slate-grey-300 hover:text-white transition-all text-left gap-1"
+                          >
+                            <div className="flex justify-between items-center w-full">
+                              <span className="font-bold text-slate-200">Owala Insulated Bottles</span>
+                              <span className="text-[10px] text-wellness-cyan font-bold">4.9★</span>
+                            </div>
+                            <span className="text-[10px] text-slate-grey-455 font-light leading-relaxed">
+                              Maintain optimal metabolic hydration throughout your fasting and feeding windows.
+                            </span>
+                          </a>
                         </div>
                       </div>
                     </div>
