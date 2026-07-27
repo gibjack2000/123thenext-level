@@ -538,7 +538,7 @@ export default function Home() {
                     {isDualTrackCardVideoPlaying ? (
                       <video
                         className="w-full h-full object-cover aspect-video animate-fade-in"
-                        src="/assets/video/AvatarHeroPage.mp4"
+                        src="https://res.cloudinary.com/dbhpaqnq8/video/upload/v1785146306/startingline_vefnde.mp4"
                         controls
                         autoPlay
                       />
@@ -2119,7 +2119,7 @@ export default function Home() {
             </button>
              <div className="aspect-video bg-black flex items-center justify-center">
               <video 
-                src="/assets/video/AvatarHeroPage.mp4" 
+                src="https://res.cloudinary.com/dbhpaqnq8/video/upload/v1785146306/startingline_vefnde.mp4" 
                 controls 
                 autoPlay 
                 className="w-full h-full object-cover"
