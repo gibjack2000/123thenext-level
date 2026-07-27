@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { motion } from 'motion/react';
 import { 
   Shield, Activity, Heart, Clock, ArrowRight, 
-  FileText, Download, CheckCircle2, Info, Lock 
+  FileText, Download, CheckCircle2, Info, Lock, RefreshCw
 } from 'lucide-react';
 
 export default function DualTrack() {
@@ -50,36 +51,83 @@ export default function DualTrack() {
 
         {/* Tab Navigation */}
         <div className="flex justify-center mb-10 relative z-10">
-          <div className="flex p-1 bg-slate-900 border border-slate-800 rounded-2xl gap-1 overflow-x-auto scrollbar-none max-w-full">
+          <div className="inline-flex p-1.5 bg-slate-950/60 backdrop-blur-xl border border-slate-900/60 rounded-2xl gap-1 sm:gap-2 overflow-x-auto scrollbar-none max-w-full shadow-2xl relative">
             <button
               onClick={() => handleTabChange('diagnostics')}
-              className={`px-5 py-3 rounded-xl font-display uppercase tracking-wider text-[11px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer ${
+              className={`relative px-6 py-3 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2 z-10 select-none group outline-none ${
                 activeTab === 'diagnostics'
-                  ? 'bg-gradient-to-r from-wellness-cyan to-indigo-600 text-white shadow-lg shadow-wellness-cyan/10'
-                  : 'text-slate-grey-400 hover:text-white hover:bg-slate-850'
+                  ? 'text-cyan-400 text-shadow-[0_0_12px_rgba(6,182,212,0.4)]'
+                  : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              Phase 1: Diagnostic Baseline
+              {activeTab === 'diagnostics' && (
+                <motion.div
+                  layoutId="activeTabPill"
+                  className="absolute inset-0 bg-slate-900 border border-cyan-500/25 rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.12)] -z-10"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
+              <Activity 
+                size={14} 
+                className={`transition-all duration-300 ${
+                  activeTab === 'diagnostics' 
+                    ? 'text-cyan-400 scale-110 drop-shadow-[0_0_6px_rgba(6,182,212,0.6)]' 
+                    : 'text-slate-500 group-hover:text-slate-300 group-hover:scale-110'
+                }`} 
+              />
+              <span>Phase 1: Diagnostic Baseline</span>
             </button>
+            
             <button
               onClick={() => handleTabChange('habits')}
-              className={`px-5 py-3 rounded-xl font-display uppercase tracking-wider text-[11px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer ${
+              className={`relative px-6 py-3 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2 z-10 select-none group outline-none ${
                 activeTab === 'habits'
-                  ? 'bg-gradient-to-r from-wellness-cyan to-indigo-600 text-white shadow-lg shadow-wellness-cyan/10'
-                  : 'text-slate-grey-400 hover:text-white hover:bg-slate-850'
+                  ? 'text-cyan-400 text-shadow-[0_0_12px_rgba(6,182,212,0.4)]'
+                  : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              Phase 2: Daily Small Wins
+              {activeTab === 'habits' && (
+                <motion.div
+                  layoutId="activeTabPill"
+                  className="absolute inset-0 bg-slate-900 border border-cyan-500/25 rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.12)] -z-10"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
+              <RefreshCw 
+                size={14} 
+                className={`transition-all duration-500 ${
+                  activeTab === 'habits' 
+                    ? 'text-cyan-400 scale-110 rotate-180 drop-shadow-[0_0_6px_rgba(6,182,212,0.6)]' 
+                    : 'text-slate-500 group-hover:text-slate-300 group-hover:scale-110'
+                }`} 
+              />
+              <span>Phase 2: Daily Small Wins</span>
             </button>
+            
             <button
               onClick={() => handleTabChange('clinician')}
-              className={`px-5 py-3 rounded-xl font-display uppercase tracking-wider text-[11px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer ${
+              className={`relative px-6 py-3 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2 z-10 select-none group outline-none ${
                 activeTab === 'clinician'
-                  ? 'bg-gradient-to-r from-wellness-cyan to-indigo-600 text-white shadow-lg shadow-wellness-cyan/10'
-                  : 'text-slate-grey-400 hover:text-white hover:bg-slate-850'
+                  ? 'text-cyan-400 text-shadow-[0_0_12px_rgba(6,182,212,0.4)]'
+                  : 'text-slate-450 hover:text-slate-200'
               }`}
             >
-              Clinician Integration Hub
+              {activeTab === 'clinician' && (
+                <motion.div
+                  layoutId="activeTabPill"
+                  className="absolute inset-0 bg-slate-900 border border-cyan-500/25 rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.12)] -z-10"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
+              <Shield 
+                size={14} 
+                className={`transition-all duration-300 ${
+                  activeTab === 'clinician' 
+                    ? 'text-cyan-400 scale-110 drop-shadow-[0_0_6px_rgba(6,182,212,0.6)]' 
+                    : 'text-slate-500 group-hover:text-slate-300 group-hover:scale-110'
+                }`} 
+              />
+              <span>Clinician Integration Hub</span>
             </button>
           </div>
         </div>

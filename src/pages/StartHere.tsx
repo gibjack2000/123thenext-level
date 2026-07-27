@@ -77,42 +77,84 @@ export default function StartHere() {
         </div>
 
         {/* Elegant Centered 3-Tab Navigation Group */}
-        <div className="flex justify-center mb-16">
-          <div className="inline-flex p-1.5 bg-slate-900/60 backdrop-blur-xl border border-slate-900 rounded-2xl gap-1.5 overflow-x-auto scrollbar-none max-w-full shadow-2xl relative">
+        <div className="flex justify-center mb-16 relative z-10">
+          <div className="inline-flex p-1.5 bg-slate-950/60 backdrop-blur-xl border border-slate-900/60 rounded-2xl gap-1 sm:gap-2 overflow-x-auto scrollbar-none max-w-full shadow-2xl relative">
             <button
               onClick={() => setActiveTab('phase1')}
-              className={`px-5 py-3 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2 ${
+              className={`relative px-6 py-3 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2 z-10 select-none group outline-none ${
                 activeTab === 'phase1'
-                  ? 'bg-slate-950 text-cyan-400 border border-cyan-500 shadow-[0_0_20px_rgba(6,182,212,0.15)] text-shadow-[0_0_10px_rgba(6,182,212,0.4)]'
-                  : 'text-slate-450 hover:text-slate-200 border border-transparent'
+                  ? 'text-cyan-400 text-shadow-[0_0_12px_rgba(6,182,212,0.4)]'
+                  : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              <Activity size={14} className={activeTab === 'phase1' ? 'text-cyan-400' : 'text-slate-500'} />
-              Phase 1: Diagnostic Baseline
+              {activeTab === 'phase1' && (
+                <motion.div
+                  layoutId="activeTabPill"
+                  className="absolute inset-0 bg-slate-900 border border-cyan-500/25 rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.12)] -z-10"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
+              <Activity 
+                size={14} 
+                className={`transition-all duration-300 ${
+                  activeTab === 'phase1' 
+                    ? 'text-cyan-400 scale-110 drop-shadow-[0_0_6px_rgba(6,182,212,0.6)]' 
+                    : 'text-slate-500 group-hover:text-slate-300 group-hover:scale-110'
+                }`} 
+              />
+              <span>Phase 1: Diagnostic Baseline</span>
             </button>
             
             <button
               onClick={() => setActiveTab('phase2')}
-              className={`px-5 py-3 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2 ${
+              className={`relative px-6 py-3 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2 z-10 select-none group outline-none ${
                 activeTab === 'phase2'
-                  ? 'bg-slate-950 text-cyan-400 border border-cyan-500 shadow-[0_0_20px_rgba(6,182,212,0.15)] text-shadow-[0_0_10px_rgba(6,182,212,0.4)]'
-                  : 'text-slate-450 hover:text-slate-200 border border-transparent'
+                  ? 'text-cyan-400 text-shadow-[0_0_12px_rgba(6,182,212,0.4)]'
+                  : 'text-slate-400 hover:text-slate-200'
               }`}
             >
-              <RefreshCw size={14} className={activeTab === 'phase2' ? 'text-cyan-400' : 'text-slate-500'} />
-              Phase 2: Daily Small Wins
+              {activeTab === 'phase2' && (
+                <motion.div
+                  layoutId="activeTabPill"
+                  className="absolute inset-0 bg-slate-900 border border-cyan-500/25 rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.12)] -z-10"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
+              <RefreshCw 
+                size={14} 
+                className={`transition-all duration-500 ${
+                  activeTab === 'phase2' 
+                    ? 'text-cyan-400 scale-110 rotate-180 drop-shadow-[0_0_6px_rgba(6,182,212,0.6)]' 
+                    : 'text-slate-500 group-hover:text-slate-300 group-hover:scale-110'
+                }`} 
+              />
+              <span>Phase 2: Daily Small Wins</span>
             </button>
             
             <button
               onClick={() => setActiveTab('clinician')}
-              className={`px-5 py-3 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2 ${
+              className={`relative px-6 py-3 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2 z-10 select-none group outline-none ${
                 activeTab === 'clinician'
-                  ? 'bg-slate-950 text-cyan-400 border border-cyan-500 shadow-[0_0_20px_rgba(6,182,212,0.15)] text-shadow-[0_0_10px_rgba(6,182,212,0.4)]'
-                  : 'text-slate-450 hover:text-slate-200 border border-transparent'
+                  ? 'text-cyan-400 text-shadow-[0_0_12px_rgba(6,182,212,0.4)]'
+                  : 'text-slate-450 hover:text-slate-200'
               }`}
             >
-              <Shield size={14} className={activeTab === 'clinician' ? 'text-cyan-400' : 'text-slate-500'} />
-              Clinician Partnership Hub
+              {activeTab === 'clinician' && (
+                <motion.div
+                  layoutId="activeTabPill"
+                  className="absolute inset-0 bg-slate-900 border border-cyan-500/25 rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.12)] -z-10"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
+              <Shield 
+                size={14} 
+                className={`transition-all duration-300 ${
+                  activeTab === 'clinician' 
+                    ? 'text-cyan-400 scale-110 drop-shadow-[0_0_6px_rgba(6,182,212,0.6)]' 
+                    : 'text-slate-500 group-hover:text-slate-300 group-hover:scale-110'
+                }`} 
+              />
+              <span>Clinician Partnership Hub</span>
             </button>
           </div>
         </div>
