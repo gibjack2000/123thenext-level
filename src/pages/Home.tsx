@@ -483,545 +483,109 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-              
-              {/* Column A: Quarterly Diagnostics (Desaturated Blue Accent) */}
-              <div className="bg-[#0f172a] border border-slate-700/60 rounded-3xl p-8 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:border-slate-600/80 text-left">
-                <div className="space-y-6">
-                  {/* Header metadata */}
-                  <div className="flex justify-between items-center">
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-sickcare-500/10 border border-sickcare-400/30 text-sickcare-300 font-bold">
-                      Quarterly Diagnostics
-                    </div>
-                    <span className="text-[10px] font-mono text-sickcare-400">[ PHASE 1 ]</span>
+            {/* The Dual-Track Teaser Card */}
+            <div className="bg-[#0f172a]/90 border border-slate-800 rounded-3xl p-8 lg:p-12 relative overflow-hidden transition-all duration-500 hover:border-slate-700/80 text-left shadow-2xl space-y-8">
+              {/* Background gradient radial glow */}
+              <div className="absolute -top-48 -right-48 w-96 h-96 bg-wellness-cyan/5 rounded-full blur-[100px] pointer-events-none"></div>
+              <div className="absolute -bottom-48 -left-48 w-96 h-96 bg-indigo-600/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+              {/* Header */}
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 border-b border-slate-800/80 pb-6 relative z-10">
+                <div className="space-y-1.5">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light font-bold">
+                    Performance Framework
                   </div>
-
-                  {/* Section Title with Circular Onboarding Video Trigger */}
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-800/80 pb-4">
-                    <div className="space-y-1">
-                      <h3 className="text-xl sm:text-2xl font-display uppercase tracking-tight text-white font-bold">
-                        In-Depth Health Testing
-                      </h3>
-                      <p className="text-slate-grey-450 text-[10px] font-mono uppercase tracking-wider">
-                        Clinician-First Onboarding
-                      </p>
-                    </div>
-
-                    <button
-                      type="button"
-                      onClick={() => setIsOnboardingVideoOpen(true)}
-                      className="group flex-shrink-0 flex items-center gap-2 p-1.5 px-3 rounded-full bg-slate-900/60 border border-slate-800 hover:border-wellness-cyan/50 hover:bg-slate-900 transition-all cursor-pointer shadow-sm"
-                    >
-                      <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-wellness-cyan to-indigo-600 flex items-center justify-center text-white relative">
-                        <span className="absolute inset-0 rounded-full bg-wellness-cyan/30 animate-ping scale-110"></span>
-                        <svg className="w-2.5 h-2.5 ml-0.5 fill-current text-white" viewBox="0 0 24 24">
-                          <path d="M8 5v14l11-7z"></path>
-                        </svg>
-                      </div>
-                      <span className="text-[9px] font-bold text-slate-grey-300 group-hover:text-white uppercase tracking-wider font-mono">
-                        Watch Baseline Guide (45s)
-                      </span>
-                    </button>
-                  </div>
-
-                  <p className="text-slate-grey-300 text-xs sm:text-sm font-light leading-relaxed">
-                    We translate complex diagnostics into a secure, clinician-ready baseline strategy. Partner with your primary care provider using our structured templates.
-                  </p>
-
-                  {/* STEP 1: CLINICAL PLAN OF ACTION (The Advisable Suite) */}
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-mono font-bold text-xs">1</div>
-                      <span className="text-xs font-mono uppercase tracking-wider text-white font-bold">Step 1: Clinical Plan of Action</span>
-                    </div>
-
-                    {/* Tab Selector */}
-                    <div className="flex border-b border-slate-800/80 gap-1 pb-px overflow-x-auto scrollbar-none">
-                      <button
-                        type="button"
-                        onClick={() => setDiagnosticTab('epigenetic')}
-                        className={`px-3 py-1.5 border-b-2 text-[10px] font-mono uppercase tracking-wider whitespace-nowrap transition-all cursor-pointer ${
-                          diagnosticTab === 'epigenetic'
-                            ? 'border-wellness-cyan text-wellness-cyan-light font-bold bg-wellness-cyan/5'
-                            : 'border-transparent text-slate-grey-450 hover:text-slate-grey-200'
-                        }`}
-                      >
-                        gDNA Methylation
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setDiagnosticTab('lola')}
-                        className={`px-3 py-1.5 border-b-2 text-[10px] font-mono uppercase tracking-wider whitespace-nowrap transition-all cursor-pointer ${
-                          diagnosticTab === 'lola'
-                            ? 'border-wellness-cyan text-wellness-cyan-light font-bold bg-wellness-cyan/5'
-                            : 'border-transparent text-slate-grey-450 hover:text-slate-grey-200'
-                        }`}
-                      >
-                        Lola Check 56
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => setDiagnosticTab('wearables')}
-                        className={`px-3 py-1.5 border-b-2 text-[10px] font-mono uppercase tracking-wider whitespace-nowrap transition-all cursor-pointer ${
-                          diagnosticTab === 'wearables'
-                            ? 'border-wellness-cyan text-wellness-cyan-light font-bold bg-wellness-cyan/5'
-                            : 'border-transparent text-slate-grey-450 hover:text-slate-grey-200'
-                        }`}
-                      >
-                        Continuous Sync
-                      </button>
-                    </div>
-
-                    {/* Tab Contents */}
-                    <div className="space-y-3 pt-1">
-                      {diagnosticTab === 'epigenetic' && (
-                        <div className="space-y-3">
-                          <p className="text-xs text-slate-grey-300 font-light leading-relaxed">
-                            <strong>Epigenetic Whole-Genome Methylation (gDNA):</strong> Measures true biological rate of cellular aging to quantify clinical longevity baselines.
-                          </p>
-                          {/* DNA Import Gateway Dropzone */}
-                          <div className="border border-dashed border-wellness-cyan/20 bg-slate-900/50 hover:bg-slate-900/80 transition-all rounded-xl p-4 space-y-3">
-                            <p className="text-[11px] text-slate-grey-300 leading-relaxed font-light">
-                              Already tested? Upload your raw genomic data from 23andMe or AncestryDNA to compute your baseline risk metrics instantly.
-                            </p>
-                            <div className="flex items-center justify-between">
-                              <label className="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 rounded bg-wellness-cyan/10 hover:bg-wellness-cyan/20 border border-wellness-cyan/30 text-wellness-cyan-light text-[10px] font-mono uppercase tracking-wider transition-colors">
-                                <UploadCloud size={12} />
-                                <span>{dnaUploadStatus === 'uploading' ? 'Analyzing...' : dnaUploadStatus === 'success' ? 'DNA Imported ✓' : 'Upload RAW Data'}</span>
-                                <input
-                                  type="file"
-                                  accept=".txt,.csv"
-                                  className="hidden"
-                                  onChange={handleDnaUpload}
-                                />
-                              </label>
-                              {dnaUploadStatus === 'success' && (
-                                <span className="text-[10px] font-mono text-emerald-400 flex items-center gap-1">
-                                  <CheckCircle size={10} /> {dnaFileName}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      )}
-
-                      {diagnosticTab === 'lola' && (
-                        <div className="space-y-3">
-                          <p className="text-xs text-slate-grey-300 font-light leading-relaxed">
-                            <strong>The Lola Vital Check 56:</strong> A comprehensive clinical blood panel measuring key metrics like ApoB (cardiovascular risk), HbA1c (90-day glycemic control), and hs-CRP (systemic inflammation).
-                          </p>
-                          
-                          {/* Biomarker Accordion Block */}
-                          <div className="border border-slate-800 bg-slate-950/40 rounded-xl overflow-hidden divide-y divide-slate-900">
-                            <div className="px-3.5 py-2 text-[10px] font-mono text-sickcare-400 uppercase tracking-wider bg-slate-900/30 flex justify-between items-center">
-                              <span>Biomarker Inspector</span>
-                              <span className="text-wellness-cyan">Active Protocol</span>
-                            </div>
-                            {[
-                              {
-                                id: 'apob',
-                                name: 'ApoB',
-                                short: 'The essential metric for identifying plaque-causing arterial particles.',
-                                what: 'Apolipoprotein B (ApoB) is the primary structural protein found on all major atherogenic (plaque-forming) lipoprotein particles, including LDL and VLDL.',
-                                why: 'It provides a direct, highly accurate count of the total number of atherogenic particles in circulation, serving as a superior predictor of cardiovascular risk compared to standard LDL-C.',
-                                range: '< 80 mg/dL (Optimal), < 60 mg/dL (High-risk prevention)'
-                              },
-                              {
-                                id: 'hba1c',
-                                name: 'HbA1c',
-                                short: 'Measures average glycemic control over the past 90 days to monitor insulin sensitivity.',
-                                what: 'Glycated hemoglobin (HbA1c) reflects the average blood glucose levels over the preceding 2–3 months by measuring the percentage of hemoglobin proteins coated with sugar.',
-                                why: 'Key indicator for insulin resistance, prediabetes, and type 2 diabetes risk. Essential for monitoring metabolic baseline and long-term glycemic control.',
-                                range: '< 5.4% (Optimal metabolic health), 5.7%–6.4% (Prediabetes)'
-                              },
-                              {
-                                id: 'hscrp',
-                                name: 'hs-CRP',
-                                short: 'An ultra-sensitive marker for identifying systemic and cardiovascular inflammation.',
-                                what: 'High-sensitivity C-Reactive Protein (hs-CRP) is an acute-phase reactant protein synthesized by the liver in response to inflammatory cytokines.',
-                                why: 'An ultra-sensitive marker of systemic, low-grade vascular inflammation. Highly predictive of cardiovascular disease risk, arterial plaque vulnerability, and overall systemic stress.',
-                                range: '< 1.0 mg/L (Low systemic inflammation), > 3.0 mg/L (High risk/active inflammation)'
-                              }
-                            ].map((marker) => {
-                              const isOpen = expandedMarker === marker.id;
-                              return (
-                                <div key={marker.id} className="transition-all duration-250">
-                                  <button
-                                    type="button"
-                                    onClick={() => setExpandedMarker(isOpen ? null : (marker.id as any))}
-                                    className="w-full text-left px-4 py-3 flex items-center justify-between text-xs hover:bg-slate-900/30 transition-colors"
-                                  >
-                                    <span className="font-semibold text-white">{marker.name}</span>
-                                    <span className="text-[10px] text-slate-grey-450 font-light flex items-center gap-1.5">
-                                      {isOpen ? <ChevronUp size={12} className="text-wellness-cyan" /> : <ChevronDown size={12} />}
-                                    </span>
-                                  </button>
-                                  
-                                  {isOpen && (
-                                    <div className="px-4 pb-4 space-y-3 text-[11px] text-slate-grey-300 font-light border-t border-slate-900 pt-3 bg-slate-900/10">
-                                      <p className="text-wellness-cyan-light font-mono text-[10px] tracking-wide mb-1.5">{marker.short}</p>
-                                      <div>
-                                        <strong className="text-slate-grey-400 font-semibold block text-[10px] uppercase font-mono tracking-wider">What it is</strong>
-                                        <p className="mt-0.5">{marker.what}</p>
-                                      </div>
-                                      <div>
-                                        <strong className="text-slate-grey-400 font-semibold block text-[10px] uppercase font-mono tracking-wider">Why we test it</strong>
-                                        <p className="mt-0.5">{marker.why}</p>
-                                      </div>
-                                      <div>
-                                        <strong className="text-slate-grey-400 font-semibold block text-[10px] uppercase font-mono tracking-wider">Target clinical range</strong>
-                                        <p className="mt-0.5 text-wellness-cyan font-mono font-semibold">{marker.range}</p>
-                                      </div>
-                                    </div>
-                                  )}
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      )}
-
-                      {diagnosticTab === 'wearables' && (
-                        <div className="space-y-3">
-                          <p className="text-xs text-slate-grey-300 font-light leading-relaxed">
-                            <strong>Continuous Tracking:</strong> Establish resting heart rate, nocturnal Heart Rate Variability (HRV), and continuous glucose curves to map systemic trends.
-                          </p>
-                          
-                          {/* Live Sync Preview Bento Hub */}
-                          <div className="border border-slate-800 bg-slate-950/40 rounded-xl p-4 space-y-4">
-                            <div className="flex items-center justify-between">
-                              <span className="text-[10px] font-mono text-sickcare-400 uppercase tracking-wider">Live Sync Preview</span>
-                              <span className="inline-flex items-center gap-1.5 text-[9px] font-mono text-wellness-cyan-light">
-                                <span className="w-1.5 h-1.5 rounded-full bg-wellness-cyan animate-pulse"></span>
-                                Active Connection
-                              </span>
-                            </div>
-
-                            <div className="grid grid-cols-1 gap-2.5">
-                              {[
-                                {
-                                  id: 'apple_watch',
-                                  name: 'Apple Watch Series 10',
-                                  metric: 'Heart Rate & Nocturnal HRV',
-                                  telemetry: 'HRV 62ms (Real-time)',
-                                  icon: Activity
-                                },
-                                {
-                                  id: 'smart_scale',
-                                  name: 'Bluetooth Smart Scale',
-                                  metric: 'Active Body Composition',
-                                  telemetry: 'Impedance sync complete',
-                                  icon: Weight
-                                },
-                                {
-                                  id: 'cgm',
-                                  name: 'Continuous Glucose Monitor (CGM)',
-                                  metric: 'Real-time Glycemic Baseline',
-                                  telemetry: 'Sensor active (104 mg/dL)',
-                                  icon: Wifi
-                                }
-                              ].map((device) => {
-                                const isPaired = pairedDevices.includes(device.id);
-                                return (
-                                  <div key={device.id} className="flex items-center justify-between p-2.5 bg-slate-900/50 border border-slate-800/80 rounded-lg">
-                                    <div className="flex items-center gap-3">
-                                      <div className={`w-8 h-8 rounded-lg flex items-center justify-center border ${isPaired ? 'bg-wellness-cyan/10 border-wellness-cyan/30 text-wellness-cyan-light' : 'bg-slate-800 border-slate-700 text-slate-grey-450'}`}>
-                                        <device.icon size={14} />
-                                      </div>
-                                      <div>
-                                        <div className="text-[11px] font-bold text-white leading-tight">{device.name}</div>
-                                        <div className="text-[9px] text-slate-grey-450 font-light mt-0.5">{device.metric}</div>
-                                      </div>
-                                    </div>
-                                    <div className="text-right">
-                                      {isPaired ? (
-                                        <div className="space-y-0.5">
-                                          <div className="text-[9px] font-mono text-emerald-400 font-semibold">{device.telemetry}</div>
-                                          <span className="text-[8px] font-mono text-slate-grey-500 uppercase tracking-widest">Linked</span>
-                                        </div>
-                                      ) : (
-                                        <button
-                                          type="button"
-                                          onClick={() => setActivePairingDevice(device.id as any)}
-                                          className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-grey-300 hover:text-white rounded border border-slate-700 text-[10px] font-mono uppercase tracking-wider transition-colors cursor-pointer"
-                                        >
-                                          Connect
-                                        </button>
-                                      )}
-                                    </div>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* STEP 2: THE MANDATORY BIOMETRIC TEMPLATE CARD */}
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-mono font-bold text-xs">2</div>
-                      <span className="text-xs font-mono uppercase tracking-wider text-white font-bold">Step 2: Consultation Template</span>
-                    </div>
-
-                    <div className="border-dashed border-slate-700 bg-slate-900/40 p-5 rounded-xl space-y-4 printable-consult-card text-left">
-                      <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                        <div>
-                          <h4 className="text-xs sm:text-sm font-display uppercase tracking-tight text-white font-bold">
-                            Proactive Baseline & GP Consultation Template
-                          </h4>
-                          <p className="text-[9px] text-slate-grey-450 font-mono">
-                            DOCUMENT STATUS: CLINICAL PRE-FLIGHT
-                          </p>
-                        </div>
-                        <Printer className="text-wellness-cyan hidden sm:block" size={16} />
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                        {/* Demographics & History */}
-                        <div className="space-y-2 bg-slate-950/40 border border-slate-900 p-3 rounded-lg">
-                          <span className="text-[9px] font-mono uppercase text-wellness-cyan font-bold tracking-wider block border-b border-slate-900 pb-1">
-                            Demographics & History
-                          </span>
-                          <div className="grid grid-cols-2 gap-x-2 gap-y-1.5 text-[9px]">
-                            <div>
-                              <span className="text-slate-grey-450 block text-[8px]">PATIENT NAME</span>
-                              <input type="text" placeholder="Pending input" className="w-full bg-transparent border-b border-slate-800/85 text-white outline-none focus:border-wellness-cyan pb-0.5" />
-                            </div>
-                            <div>
-                              <span className="text-slate-grey-450 block text-[8px]">DATE OF BIRTH</span>
-                              <input type="text" placeholder="DD/MM/YYYY" className="w-full bg-transparent border-b border-slate-800/85 text-white outline-none focus:border-wellness-cyan pb-0.5" />
-                            </div>
-                            <div className="col-span-2">
-                              <span className="text-slate-grey-450 block text-[8px]">PCP CLINIC / PHYSICIAN</span>
-                              <input type="text" placeholder="Enter clinician name or clinic" className="w-full bg-transparent border-b border-slate-800/85 text-white outline-none focus:border-wellness-cyan pb-0.5" />
-                            </div>
-                            <div className="col-span-2">
-                              <span className="text-slate-grey-450 block text-[8px]">FAMILY HISTORY FLAGS</span>
-                              <input type="text" placeholder="e.g. Cardiovascular, Diabetes" className="w-full bg-transparent border-b border-slate-800/85 text-white outline-none focus:border-wellness-cyan pb-0.5" />
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Wearable Baselines */}
-                        <div className="space-y-2 bg-slate-950/40 border border-slate-900 p-3 rounded-lg">
-                          <span className="text-[9px] font-mono uppercase text-wellness-cyan font-bold tracking-wider block border-b border-slate-900 pb-1">
-                            Wearable Baselines
-                          </span>
-                          <div className="grid grid-cols-1 gap-y-1.5 text-[9px]">
-                            <div className="flex justify-between items-center border-b border-slate-900/60 pb-1">
-                              <span className="text-slate-grey-450">7-DAY AVG RESTING HR</span>
-                              <span className="text-white font-mono font-medium">62 bpm (Avg)</span>
-                            </div>
-                            <div className="flex justify-between items-center border-b border-slate-900/60 pb-1">
-                              <span className="text-slate-grey-450">NOCTURNAL HRV</span>
-                              <span className="text-white font-mono font-medium">58 ms (Sync)</span>
-                            </div>
-                            <div className="flex justify-between items-center border-b border-slate-900/60 pb-1">
-                              <span className="text-slate-grey-450">SLEEP DURATION</span>
-                              <span className="text-white font-mono font-medium">7h 14m (Avg)</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Biomarker Checklist */}
-                      <div className="bg-slate-950/40 border border-slate-900 p-3 rounded-lg text-xs space-y-2">
-                        <span className="text-[9px] font-mono uppercase text-wellness-cyan font-bold tracking-wider block border-b border-slate-900 pb-1">
-                          Required Baseline Biomarkers
-                        </span>
-                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[9px]">
-                          {[
-                            { name: 'Epigenetic Age', desc: 'Cellular rate' },
-                            { name: 'ApoB', desc: 'Atherogenic risk' },
-                            { name: 'HbA1c', desc: 'Glycemic control' },
-                            { name: 'hs-CRP', desc: 'Inflammation marker' }
-                          ].map((biomarker, index) => (
-                            <div key={index} className="flex items-center gap-2 p-1.5 bg-slate-900/30 rounded border border-slate-800">
-                              <input type="checkbox" defaultChecked className="rounded border-slate-700 text-wellness-cyan bg-slate-950 focus:ring-wellness-cyan w-3 h-3 cursor-pointer" />
-                              <div>
-                                <div className="text-white font-bold leading-tight">{biomarker.name}</div>
-                                <div className="text-[8px] text-slate-grey-450 leading-none">{biomarker.desc}</div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Dedicated Physician Notes Field */}
-                      <div className="space-y-1 bg-slate-950/40 border border-slate-900 p-3 rounded-lg text-xs">
-                        <span className="text-[9px] font-mono uppercase text-slate-grey-450 font-bold tracking-wider block">
-                          Clinical Care Directives (Notes for Physician)
-                        </span>
-                        <textarea
-                          rows={2}
-                          placeholder="Licensed clinician may add personalized physiological directives, follow-up tests, or target ranges here..."
-                          className="w-full bg-transparent text-[9px] text-white placeholder-slate-grey-600 outline-none border-t border-slate-900 pt-1.5 leading-relaxed resize-none"
-                        />
-                      </div>
-
-                      {/* Print Consultation Action Button */}
-                      <button
-                        type="button"
-                        onClick={() => window.print()}
-                        className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white border border-wellness-cyan/25 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-lg hover:shadow-wellness-cyan/15 active:scale-[0.98]"
-                      >
-                        <Printer size={14} />
-                        <span>Print / Export Consultation PDF</span>
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* STEP 3: THE CLINICIAN-PARTNERSHIP MANDATE */}
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-2">
-                      <div className="w-5 h-5 rounded bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-mono font-bold text-xs">3</div>
-                      <span className="text-xs font-mono uppercase tracking-wider text-white font-bold">Step 3: Clinician-Partnership Mandate</span>
-                    </div>
-
-                    <div className="border border-amber-500/20 bg-amber-500/5 text-slate-300 p-4 rounded-xl text-xs flex gap-3 text-left leading-relaxed">
-                      <AlertTriangle className="text-wellness-amber flex-shrink-0 mt-0.5 animate-pulse" size={16} />
-                      <div className="space-y-1">
-                        <span className="font-bold text-wellness-amber uppercase tracking-wider font-mono text-[9px] block">
-                          Critical Safety Protocol
-                        </span>
-                        <p className="text-[11px] font-light leading-relaxed">
-                          Raw biomarker telemetry is not a medical diagnosis. Establishing your baseline is a shared clinical journey. Our platform strictly mandates that you print this template, complete your home-logging window, and schedule an appointment with your local primary care physician. All data must be co-processed, verified, and interpreted in partnership with a licensed healthcare professional before any physiological intervention.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Clinician PDF report generator */}
-                  <div className="p-4 border border-slate-800 bg-slate-950/60 rounded-xl space-y-3.5">
-                    <div className="flex items-start gap-3">
-                      <div className="w-8 h-8 rounded bg-wellness-cyan/10 border border-wellness-cyan/20 flex items-center justify-center text-wellness-cyan-light flex-shrink-0 mt-0.5">
-                        <Lock size={14} className="text-wellness-cyan" />
-                      </div>
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                          <span className="text-xs text-white font-bold">Clinician-Ready GP Report</span>
-                          <span className="text-[8px] font-mono bg-wellness-cyan/15 border border-wellness-cyan/20 text-wellness-cyan-light px-1.5 py-0.5 rounded font-black uppercase tracking-wider">Secure PDF</span>
-                        </div>
-                        <p className="text-[11px] text-slate-grey-300 leading-relaxed font-light">
-                          Our diagnostic findings compile into a structured, clinician-ready PDF report containing standard reference ranges. Shared decision-making is a mandatory safety protocol; we require downloading this summary and scheduling a consultation with your local primary care physician to review your outcomes.
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <button
-                      type="button"
-                      onClick={handleGpDownload}
-                      className="w-full flex items-center justify-center gap-2 py-2 px-3 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white border border-wellness-cyan/25 rounded-lg text-xs font-black uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-md active:scale-[0.98]"
-                    >
-                      <FileText size={13} />
-                      <span>{gpReportStatus === 'generating' ? 'Compiling PDF...' : gpReportStatus === 'downloaded' ? 'Report Downloaded ✓' : 'Download GP-Ready PDF Template'}</span>
-                    </button>
-                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
+                    The Dual-Track Performance Framework
+                  </h3>
                 </div>
 
-                <div className="pt-8 border-t border-slate-800/80 mt-8 flex justify-between items-center">
-                  <span className="text-[9px] font-mono uppercase tracking-wider text-sickcare-400">Access Clinician Panel</span>
-                  <a href="/intelligence-hub" className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-sickcare-300 hover:text-white transition-colors">
-                    Read Protocols <span aria-hidden="true">→</span>
-                  </a>
-                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsDualTrackVideoOpen(true)}
+                  className="group flex-shrink-0 flex items-center gap-2 p-1.5 px-4 rounded-full bg-slate-900/60 border border-slate-800 hover:border-wellness-cyan/50 hover:bg-slate-900 transition-all cursor-pointer shadow-sm animate-fade-in"
+                >
+                  <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-wellness-cyan to-indigo-600 flex items-center justify-center text-white relative">
+                    <span className="absolute inset-0 rounded-full bg-wellness-cyan/30 animate-ping scale-110"></span>
+                    <svg className="w-2.5 h-2.5 ml-0.5 fill-current text-white" viewBox="0 0 24 24">
+                      <path d="M8 5v14l11-7z"></path>
+                    </svg>
+                  </div>
+                  <span className="text-[10px] font-bold text-slate-grey-300 group-hover:text-white uppercase tracking-wider font-mono">
+                    Watch Guide • 60s
+                  </span>
+                </button>
               </div>
 
-              {/* Column B: Your Daily Small Wins (Cyan/Amber Accent) */}
-              <div className="bg-slate-grey-900 border border-slate-grey-700/80 rounded-3xl p-8 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:border-slate-500/50 text-left">
-                <div className="absolute -top-24 -right-24 w-48 h-48 bg-wellness-cyan/5 rounded-full blur-[80px] pointer-events-none"></div>
-
-                <div className="space-y-6">
-                  <div className="flex justify-between items-start">
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light font-bold">
-                      Your Daily Small Wins
-                    </div>
-                    <span className="text-[10px] font-mono text-wellness-amber">[ PHASE 2 ]</span>
+              {/* Two Visual Columns */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 relative z-10">
+                {/* Left Column: Diagnostics */}
+                <div className="space-y-4 p-6 rounded-2xl bg-slate-950/40 border border-slate-900">
+                  <div className="flex items-center justify-between border-b border-slate-900 pb-3">
+                    <h4 className="text-sm font-display uppercase tracking-wider text-white font-bold flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-wellness-cyan"></span>
+                      Phase 1: Your Diagnostic Baseline
+                    </h4>
+                    <span className="text-[9px] font-mono bg-wellness-cyan/10 border border-wellness-cyan/20 text-wellness-cyan-light px-2 py-0.5 rounded uppercase tracking-wider">Baseline Setup</span>
                   </div>
-
-                  <div className="space-y-3">
-                    <h3 className="text-xl sm:text-2xl font-display uppercase tracking-tight text-white">
-                      Simple Daily Habits
-                    </h3>
-                    <p className="text-slate-grey-300 text-xs sm:text-sm font-light leading-relaxed">
-                      Testing only matters if you take action. We translate complex health data into simple, high-impact daily routines that boost your energy and help manage stress.
-                    </p>
-                  </div>
-
-                  <ul className="space-y-4 pt-2" aria-label="Daily habits list">
-                    {/* Item 1: 10-Minute Mobility Walks */}
-                    <li className="flex items-start gap-3">
-                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-bold text-xs mt-0.5">1</div>
-                      <div className="space-y-1">
-                        <span className="text-xs sm:text-sm text-white font-bold block">10-Minute Mobility Walks</span>
-                        <p className="text-xs text-slate-grey-300 font-light leading-relaxed">
-                          Preserves joint mobility and builds foundational cardiovascular efficiency. Track your active steps and heart rate in real-time with the Apple Watch Series 10, or track weekly body composition changes using our Bluetooth Smart Scale.
-                        </p>
-                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs pt-1">
-                          <span className="text-slate-grey-400 font-normal">
-                            • <a href="#shop" className="text-wellness-cyan hover:text-wellness-cyan-light transition-colors font-medium">Shop Tracker Tools →</a>
-                          </span>
-                          <span className="text-slate-grey-400 font-normal">
-                            • <Link to="/premium-guides" className="text-wellness-cyan hover:text-wellness-cyan-light transition-colors font-medium">Upgrade to Beginner Home Workout Plan (£19.00) →</Link>
-                          </span>
-                        </div>
-                      </div>
+                  <ul className="space-y-3.5 text-xs text-slate-grey-300 font-light leading-relaxed">
+                    <li className="flex items-start gap-2.5">
+                      <span className="text-wellness-cyan text-xs mt-0.5 font-bold">•</span>
+                      <span><strong>Epigenetic Cellular Aging Assessment:</strong> Establishing biological velocity profiles using Whole-Genome Methylation (gDNA) aging tests.</span>
                     </li>
-
-                    {/* Item 2: Breathing Mindfulness */}
-                    <li className="flex items-start gap-3">
-                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-bold text-xs mt-0.5">2</div>
-                      <div className="space-y-1">
-                        <span className="text-xs sm:text-sm text-white font-bold block">Breathing Mindfulness</span>
-                        <p className="text-xs text-slate-grey-300 font-light leading-relaxed">
-                          Down-regulates sympathetic 'fight-or-flight' alert states and optimizes Heart Rate Variability (HRV). Use our built-in 10-Minute Autonomic Reset audio to actively train your vagal tone.
-                        </p>
-                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs pt-1">
-                          <span className="text-slate-grey-400 font-normal">
-                            • <Link to="/wellness" className="text-wellness-cyan hover:text-wellness-cyan-light transition-colors font-medium">▶ Play 10-Min Autonomic Reset (Free) →</Link>
-                          </span>
-                          <span className="text-slate-grey-400 font-normal">
-                            • <Link to="/premium-guides" className="text-wellness-cyan hover:text-wellness-cyan-light transition-colors font-medium">Get Cortisol & Stress Management Guide (£22.00) →</Link>
-                          </span>
-                        </div>
-                      </div>
+                    <li className="flex items-start gap-2.5">
+                      <span className="text-wellness-cyan text-xs mt-0.5 font-bold">•</span>
+                      <span><strong>Lola Vital Check 56 Blood Panel:</strong> Analyzing 56 critical baseline blood biomarkers including cardiovascular ApoB, glycemic HbA1c, and inflammation hs-CRP.</span>
                     </li>
-
-                    {/* Item 3: Glycemic Snacking */}
-                    <li className="flex items-start gap-3">
-                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-bold text-xs mt-0.5">3</div>
-                      <div className="space-y-1">
-                        <span className="text-xs sm:text-sm text-white font-bold block">Glycemic Snacking</span>
-                        <p className="text-xs text-slate-grey-300 font-light leading-relaxed">
-                          Eliminates silent glucose spikes and protects insulin sensitivity. Monitor your body's real-time metabolic response to daily nutrition using Continuous Glucose Monitoring (CGM).
-                        </p>
-                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs pt-1">
-                          <span className="text-slate-grey-400 font-normal">
-                            • <Link to="/blog/10-blood-sugar-friendly-snacks" className="text-wellness-cyan hover:text-wellness-cyan-light transition-colors font-medium">Explore 10 Blood-Sugar-Friendly Snacks →</Link>
-                          </span>
-                          <span className="text-slate-grey-400 font-normal">
-                            • <Link to="/premium-guides" className="text-wellness-cyan hover:text-wellness-cyan-light transition-colors font-medium">Get The Master Meal Planning Guide (£24.00) →</Link>
-                          </span>
-                        </div>
-                      </div>
+                    <li className="flex items-start gap-2.5">
+                      <span className="text-wellness-cyan text-xs mt-0.5 font-bold">•</span>
+                      <span><strong>Continuous Telemetry Syncing:</strong> Real-time logging of average resting heart rate, nocturnal Heart Rate Variability (HRV), and continuous glucose curves.</span>
                     </li>
                   </ul>
                 </div>
 
-                <div className="pt-6 border-t border-slate-800/80 mt-8 space-y-2">
-                  <div className="text-[10px] font-mono uppercase tracking-wider text-wellness-amber font-bold">
-                    Interactive Daily Trackers
+                {/* Right Column: Daily Wins */}
+                <div className="space-y-4 p-6 rounded-2xl bg-slate-950/40 border border-slate-900">
+                  <div className="flex items-center justify-between border-b border-slate-900 pb-3">
+                    <h4 className="text-sm font-display uppercase tracking-wider text-white font-bold flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-wellness-amber"></span>
+                      Phase 2: Your Daily Small Wins
+                    </h4>
+                    <span className="text-[9px] font-mono bg-wellness-amber/10 border border-wellness-amber/20 text-wellness-amber px-2 py-0.5 rounded uppercase tracking-wider">Daily Logging</span>
                   </div>
-                  <p className="text-xs text-slate-grey-300 font-light leading-relaxed">
-                    Testing only matters if you take action. Understand how your daily wins actively improve your baseline biological age and advanced blood biomarkers (such as the Lola Vital Check 56).{' '}
-                    <Link to="/health-quiz" className="text-wellness-cyan hover:text-wellness-cyan-light font-semibold transition-colors">
-                      Start with the 5-Minute Wellness Quiz to build your custom roadmap →
-                    </Link>
-                  </p>
+                  <ul className="space-y-3.5 text-xs text-slate-grey-300 font-light leading-relaxed">
+                    <li className="flex items-start gap-2.5">
+                      <span className="text-wellness-amber text-xs mt-0.5 font-bold">•</span>
+                      <span><strong>HRV & Autonomic Resets:</strong> Targeted mindfulness practices to down-regulate sympathetic fight-or-flight alert states and optimize HRV.</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="text-wellness-amber text-xs mt-0.5 font-bold">•</span>
+                      <span><strong>Low-Glycemic Fueling:</strong> Actionable nutritional strategies to prevent blood glucose spikes, protect insulin response, and stabilize energy curves.</span>
+                    </li>
+                    <li className="flex items-start gap-2.5">
+                      <span className="text-wellness-amber text-xs mt-0.5 font-bold">•</span>
+                      <span><strong>Joint Mobility & Cardiovascular Steps:</strong> Focused, low-intensity active movement steps to protect joint integrity and build heart efficiency.</span>
+                    </li>
+                  </ul>
                 </div>
+              </div>
+
+              {/* Privacy Alignment Bottom Subtitle Banner */}
+              <div className="p-4 border border-slate-800 bg-slate-950/60 rounded-2xl text-xs text-slate-grey-300 text-center leading-relaxed font-light max-w-3xl mx-auto relative z-10 flex gap-3.5 items-start">
+                <Shield size={16} className="text-wellness-cyan flex-shrink-0 mt-0.5" />
+                <p className="text-left text-[11px] text-slate-grey-450 leading-relaxed">
+                  Proactive medicine is a shared decision-making partnership. We do not collect, store, or process your sensitive clinical metrics. Instead, we provide the evidence-backed guidance, custom tracking frameworks, and print-ready consultation templates; you and your general practitioner co-process the data to build your clinical roadmap.
+                </p>
+              </div>
+
+              {/* Primary Call to Action Button */}
+              <div className="flex justify-center pt-2 relative z-10">
+                <Link
+                  to="/start-here"
+                  className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-xl shadow-wellness-cyan/15 border border-wellness-cyan/20 hover:scale-[1.02] active:scale-[0.98] text-center w-full sm:w-auto"
+                >
+                  Get Your Longevity Roadmap & Printable GP Consultation Template →
+                </Link>
               </div>
             </div>
           </div>
@@ -2475,6 +2039,31 @@ export default function Home() {
             </div>
             <div className="p-4 bg-slate-900/60 text-center text-xs text-slate-grey-400 font-mono uppercase tracking-wider">
               Phase 1 Onboarding Briefing: Clinician-First Baseline Setup
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Dual-Track Video Modal */}
+      {isDualTrackVideoOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+          <div className="bg-[#0f172a] border border-slate-700/60 rounded-3xl overflow-hidden max-w-2xl w-full shadow-2xl relative">
+            <button
+              onClick={() => setIsDualTrackVideoOpen(false)}
+              className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-slate-950/60 text-slate-grey-450 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <X size={18} />
+            </button>
+            <div className="aspect-video bg-black flex items-center justify-center">
+              <video 
+                src="/assets/video/dual-track-guide.mp4" 
+                controls 
+                autoPlay 
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="p-4 bg-slate-900/60 text-center text-xs text-slate-grey-400 font-mono uppercase tracking-wider">
+              Dual-Track Performance Framework Briefing
             </div>
           </div>
         </div>
