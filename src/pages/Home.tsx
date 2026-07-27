@@ -467,6 +467,9 @@ export default function Home() {
                     </div>
                   )}
                 </div>
+                <p className="text-xs sm:text-sm text-slate-400 max-w-xl leading-relaxed mt-4 font-light text-left">
+                  Learn how to bypass chronic stress-induced cellular aging using targeted autonomic nervous system modulation and clinical-grade biophysical inputs.
+                </p>
               </div>
             </div>
 
