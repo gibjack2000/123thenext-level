@@ -521,22 +521,20 @@ export default function Home() {
               {/* Abbreviated explanation of the Dual-Track philosophy */}
               <div className="space-y-4 text-xs sm:text-sm text-slate-grey-300 font-light leading-relaxed max-w-3xl mx-auto relative z-10">
                 <p>
-                  The Dual-Track Performance Framework is a systematic approach to human longevity that balances precise, high-end quarterly biomarkers with actionable daily micro-habits.
+                  True human longevity is achieved by balancing precise, high-end quarterly diagnostics with zero-cost daily biophysical habits. 
                 </p>
                 <div className="space-y-3 pl-4 border-l border-slate-800/80">
                   <p>
-                    <strong className="text-wellness-cyan font-bold block sm:inline">• Track 1 (Diagnostics):</strong> Establishes your true scientific baseline through advanced clinical-grade assessments (epigenetic biological age, ApoB, and sleep telemetry).
+                    <strong className="text-wellness-cyan font-bold block sm:inline">• Track 1:</strong> Establish your molecular baseline safely with clinical-grade, at-home diagnostic panels.
                   </p>
                   <p>
-                    <strong className="text-wellness-amber font-bold block sm:inline">• Track 2 (Daily Habits):</strong> Translates complex health data into zero-cost, high-impact routines (vagal tone resets, glycemic controls) that act as direct biological inputs to optimize your cellular longevity.
+                    <strong className="text-wellness-amber font-bold block sm:inline">• Track 2:</strong> Execute simple, evidence-backed daily wins to optimize your cardiovascular and autonomic systems.
                   </p>
                 </div>
+                <p className="text-xs text-slate-grey-450 leading-relaxed pt-2">
+                  Proactive health is a partnership. We provide the scientific tracking sheets and guidelines; you and your general practitioner co-process your data to build your clinical roadmap.
+                </p>
               </div>
-
-              {/* Centered Trust Subtitle */}
-              <p className="text-center text-xs text-slate-grey-450 max-w-2xl mx-auto leading-relaxed relative z-10">
-                Proactive health is a collaborative partnership. Take our quick wellness assessment to map your interest pillars, or download our print-ready template to log your baseline biometrics and co-process the data directly with your general practitioner.
-              </p>
 
               {/* Privacy Alignment Bottom Subtitle Banner */}
               <div className="p-4 border border-slate-800 bg-slate-950/60 rounded-2xl text-xs text-slate-grey-300 text-center leading-relaxed font-light max-w-3xl mx-auto relative z-10 flex gap-3.5 items-start">
@@ -546,30 +544,14 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Primary Call to Action Button & Secondary Direct Download */}
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 relative z-10">
-                <Link
-                  to="/health-quiz"
-                  className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-xl shadow-wellness-cyan/15 border border-wellness-cyan/20 hover:scale-[1.02] active:scale-[0.98] text-center w-full sm:w-auto"
-                >
-                  Take the 5-Minute Wellness Quiz to Build Your Roadmap →
-                </Link>
+              {/* Primary Call to Action Button */}
+              <div className="flex justify-center pt-2 relative z-10">
                 <Link
                   to="/start-here"
-                  className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-slate-900 hover:bg-slate-850 text-slate-200 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 border border-slate-800 hover:border-slate-700 text-center w-full sm:w-auto"
+                  className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-xl shadow-wellness-cyan/15 border border-wellness-cyan/20 hover:scale-[1.02] active:scale-[0.98] text-center w-full sm:w-auto"
                 >
-                  Read Dual-Track Framework Details →
+                  Explore the Dual-Track Blueprint & Download Template →
                 </Link>
-              </div>
-
-              <div className="flex justify-center relative z-10">
-                <a
-                  href="/assets/docs/clinical-baseline-consultation-template.pdf"
-                  download="clinical-baseline-consultation-template.pdf"
-                  className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-slate-grey-400 hover:text-wellness-cyan-light transition-colors text-center"
-                >
-                  📥 Or, Download the Printable GP Consultation Template (PDF) Directly
-                </a>
               </div>
             </div>
           </div>
