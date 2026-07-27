@@ -529,11 +529,13 @@ export default function Home() {
 
                 {/* Homepage Live Video Integration */}
                 <div className="w-full max-w-2xl mx-auto rounded-xl overflow-hidden border border-slate-800 bg-slate-950 aspect-video relative group/card-video shadow-lg mt-2">
-                  <video 
-                    src="/assets/video/AvatarHeroPage.mp4" 
-                    controls
-                    className="w-full h-full object-cover"
-                    poster="/assets/longevity-paradigm-cover.jpg"
+                  <iframe
+                    className="w-full h-full object-cover aspect-video"
+                    src="https://streamable.com/e/atkhiu"
+                    frameBorder="0"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowFullScreen
+                    title="Dual-Track Performance Framework Briefing"
                   />
                 </div>
 
@@ -2089,11 +2091,13 @@ export default function Home() {
               <X size={18} />
             </button>
             <div className="aspect-video bg-black flex items-center justify-center">
-              <video 
-                src="/assets/video/AvatarHeroPage.mp4" 
-                controls 
-                autoPlay 
-                className="w-full h-full object-cover"
+              <iframe
+                className="w-full h-full object-cover aspect-video"
+                src="https://streamable.com/e/atkhiu?autoplay=1"
+                frameBorder="0"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowFullScreen
+                title="Dual-Track Performance Framework Briefing Modal"
               />
             </div>
             <div className="p-4 bg-slate-900/60 text-center text-xs text-slate-grey-400 font-mono uppercase tracking-wider">
