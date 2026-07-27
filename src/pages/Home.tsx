@@ -513,27 +513,54 @@ export default function Home() {
                     </svg>
                   </div>
                   <span className="text-[10px] font-bold text-slate-grey-300 group-hover:text-white uppercase tracking-wider font-mono">
-                    ▶ Watch Framework Briefing • 60s
+                    ▶ Watch Onboarding Briefing • 60s
                   </span>
                 </button>
               </div>
 
-              {/* Abbreviated explanation of the Dual-Track philosophy */}
-              <div className="space-y-4 text-xs sm:text-sm text-slate-grey-300 font-light leading-relaxed max-w-3xl mx-auto relative z-10">
-                <p>
-                  True human longevity is achieved by balancing precise, high-end quarterly diagnostics with zero-cost daily biophysical habits. 
-                </p>
-                <div className="space-y-3 pl-4 border-l border-slate-800/80">
-                  <p>
-                    <strong className="text-wellness-cyan font-bold block sm:inline">• Track 1:</strong> Establish your molecular baseline safely with clinical-grade, at-home diagnostic panels.
-                  </p>
-                  <p>
-                    <strong className="text-wellness-amber font-bold block sm:inline">• Track 2:</strong> Execute simple, evidence-backed daily wins to optimize your cardiovascular and autonomic systems.
+              {/* Two Visual Columns representing Clinical Baseline vs Immediate Wins */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 relative z-10">
+                {/* Left Column: Diagnostics */}
+                <div className="space-y-4 p-6 rounded-2xl bg-slate-950/40 border border-slate-900 text-left">
+                  <div className="flex items-center justify-between border-b border-slate-900 pb-3">
+                    <h4 className="text-sm font-display uppercase tracking-wider text-white font-bold flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-wellness-cyan"></span>
+                      Phase 1: Diagnostic Baseline (Quarterly Map)
+                    </h4>
+                  </div>
+                  <p className="text-xs text-slate-grey-300 font-light leading-relaxed">
+                    Establish your scientific baseline. Detailed guidelines for clinical-grade assessments—including Epigenetic cellular aging velocity and the Lola Vital Check 56 blood panel—designed to be co-processed with your local GP.
                   </p>
                 </div>
-                <p className="text-xs text-slate-grey-450 leading-relaxed pt-2">
-                  Proactive health is a partnership. We provide the scientific tracking sheets and guidelines; you and your general practitioner co-process your data to build your clinical roadmap.
-                </p>
+
+                {/* Right Column: Daily Wins */}
+                <div className="space-y-4 p-6 rounded-2xl bg-slate-950/40 border border-slate-900 text-left">
+                  <div className="flex items-center justify-between border-b border-slate-900 pb-3">
+                    <h4 className="text-sm font-display uppercase tracking-wider text-white font-bold flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-wellness-amber"></span>
+                      Phase 2: Simple Daily Habits (Frictionless Wins)
+                    </h4>
+                  </div>
+                  <div className="space-y-3">
+                    <p className="text-xs text-slate-grey-300 font-light leading-relaxed">
+                      Your immediate, zero-cost Day 1 starting line. Science-backed physical and autonomic switches you can execute this very second with no equipment or testing:
+                    </p>
+                    <ul className="space-y-2 text-xs text-slate-grey-450 font-light pl-1">
+                      <li className="flex items-start gap-2">
+                        <span className="text-wellness-cyan font-bold">1.</span>
+                        <span className="text-slate-grey-300"><strong>10-Minute Mobility Walks:</strong> Build baseline cardiovascular efficiency.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-wellness-cyan font-bold">2.</span>
+                        <span className="text-slate-grey-300"><strong>Breathing Mindfulness:</strong> Instantly down-regulate stress using our free built-in audio.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-wellness-cyan font-bold">3.</span>
+                        <span className="text-slate-grey-300"><strong>Glycemic Snacking:</strong> Simple meal choices to protect insulin sensitivity.</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
 
               {/* Privacy Alignment Bottom Subtitle Banner */}
@@ -544,14 +571,22 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Primary Call to Action Button */}
-              <div className="flex justify-center pt-2 relative z-10">
+              {/* Decoupled CTA Pathway Actions */}
+              <div className="flex flex-col items-center gap-4 pt-2 relative z-10">
                 <Link
                   to="/start-here"
                   className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-xl shadow-wellness-cyan/15 border border-wellness-cyan/20 hover:scale-[1.02] active:scale-[0.98] text-center w-full sm:w-auto"
                 >
-                  Explore the Dual-Track Blueprint & Download Template →
+                  Explore the Blueprint & Start Day 1 Habits →
                 </Link>
+
+                <a
+                  href="/assets/docs/clinical-baseline-consultation-template.pdf"
+                  download="clinical-baseline-consultation-template.pdf"
+                  className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-slate-grey-400 hover:text-wellness-cyan-light transition-colors text-center"
+                >
+                  📥 Or, Download the Printable GP Consultation Template (PDF) Directly
+                </a>
               </div>
             </div>
           </div>
