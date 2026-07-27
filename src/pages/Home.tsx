@@ -547,7 +547,7 @@ export default function Home() {
                     <div className="w-full h-full relative flex items-center justify-center bg-black group">
                       {/* Cover Image */}
                       <img 
-                        src="/assets/longevity-paradigm-cover.jpg" 
+                        src="/assets/stop-guessing.jpg" 
                         alt="Dual-Track Framework Cover" 
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover/card-video:scale-105 brightness-[0.7] contrast-[1.05]"
                       />
