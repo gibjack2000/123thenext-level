@@ -110,6 +110,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/dual-track" element={<DualTrack />} />
                 <Route path="/dual-track/:tab" element={<DualTrack />} />
+                <Route path="/start-here" element={<DualTrack />} />
                 <Route path="/health-quiz" element={<HealthQuiz />} />
                 <Route path="/health" element={<HealthPillar />} />
                 <Route path="/health/preventive" element={<PreventiveHealth />} />
