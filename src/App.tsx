@@ -86,6 +86,7 @@ const PremiumGuideDetailPage = lazy(() => import('./pages/premium/PremiumGuideDe
 const MagazineRack = lazy(() => import('./pages/MagazineRack'));
 const DesignSystem = lazy(() => import('./pages/DesignSystem'));
 const Success = lazy(() => import('./pages/Success'));
+const StartHere = lazy(() => import('./pages/StartHere'));
 
 // Loading spinner shown during page transitions
 const PageLoader = () => (
@@ -110,7 +111,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/dual-track" element={<DualTrack />} />
                 <Route path="/dual-track/:tab" element={<DualTrack />} />
-                <Route path="/start-here" element={<DualTrack />} />
+                <Route path="/start-here" element={<StartHere />} />
                 <Route path="/health-quiz" element={<HealthQuiz />} />
                 <Route path="/health" element={<HealthPillar />} />
                 <Route path="/health/preventive" element={<PreventiveHealth />} />
