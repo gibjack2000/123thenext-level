@@ -72,18 +72,38 @@ export default function StartHere() {
           {activeTab === 'diagnostics' && (
             <div className="space-y-8 animate-fade-in">
               <div className="p-8 rounded-3xl bg-[#0f172a]/80 border border-slate-800 shadow-xl space-y-6 text-left">
-                <div>
-                  <span className="text-[10px] font-mono text-wellness-cyan uppercase tracking-wider block mb-1">[ STEP 1 ]</span>
-                  <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
-                    Phase 1 • Establishing Your Biophysical Baseline
-                  </h2>
-                  <p className="text-slate-grey-300 text-xs sm:text-sm leading-relaxed mt-2 font-light">
-                    True longevity planning requires objective measurement. We map out the three critical biological data layers needed to establish a comprehensive physical starting point.
-                  </p>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                  <div className="space-y-4">
+                    <span className="text-[10px] font-mono text-wellness-cyan uppercase tracking-wider block mb-1">[ STEP 1 ]</span>
+                    <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
+                      Phase 1 • Establishing Your Biophysical Baseline
+                    </h2>
+                    <p className="text-slate-grey-300 text-xs sm:text-sm leading-relaxed font-light">
+                      True longevity planning requires objective measurement. Establishing a biological baseline transitions you from guessing to knowing, laying the quantitative foundation before any clinical optimization protocols begin.
+                    </p>
+                  </div>
+
+                  {/* Detailed Video 2 Placeholder */}
+                  <div className="p-6 rounded-2xl bg-slate-900 border border-cyan-500/10 hover:border-cyan-500/25 transition-all relative overflow-hidden flex flex-col md:flex-row gap-4 items-center group/vid-placeholder">
+                    <div className="w-16 h-16 rounded-xl bg-slate-950 flex items-center justify-center flex-shrink-0 border border-slate-800 relative group-hover/vid-placeholder:border-wellness-cyan/30 transition-all">
+                      <span className="absolute inset-0 rounded-xl bg-wellness-cyan/5 animate-pulse"></span>
+                      <svg className="w-6 h-6 fill-current text-wellness-cyan/60 group-hover/vid-placeholder:text-wellness-cyan transition-colors" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"></path>
+                      </svg>
+                    </div>
+                    <div className="space-y-1">
+                      <h4 className="text-xs font-display uppercase tracking-wider text-white font-bold">
+                        Building the Optimized Human (Upcoming Briefing)
+                      </h4>
+                      <p className="text-[11px] text-slate-grey-455 leading-relaxed font-light">
+                        This upcoming 60-second clinical briefing will guide you through ordering diagnostic kits, tracking baselines, and preparing for your GP partnership.
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
-                {/* 3 Detail Blocks */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+                {/* 3 Detail Blocks (Biomarker Glossary) */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4 border-t border-slate-800/50">
                   {/* Epigenetics */}
                   <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-4 flex flex-col justify-between">
                     <div className="space-y-3">
@@ -91,10 +111,10 @@ export default function StartHere() {
                         <Heart size={18} />
                       </div>
                       <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
-                        Epigenetic Age (gDNA)
+                        Epigenetic Biological Age Testing (gDNA)
                       </h3>
                       <p className="text-[11px] sm:text-xs text-slate-grey-450 leading-relaxed font-light">
-                        Whole-methylome gDNA testing analyzes specific cellular methylation patterns across your genome. This identifies your true rate of cellular aging, providing a baseline metric to measure biological age reduction.
+                        Whole-methylome gDNA sequencing analyzes specific cellular methylation patterns across your genome to track cellular aging velocity over time.
                       </p>
                     </div>
                     <div className="pt-3 border-t border-slate-900">
@@ -104,16 +124,16 @@ export default function StartHere() {
                     </div>
                   </div>
 
-                  {/* Biomarker Glossary */}
+                  {/* Biomarker Glossary - Blood panel */}
                   <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-4 flex flex-col justify-between">
                     <div className="space-y-3">
                       <div className="w-9 h-9 rounded-xl bg-wellness-cyan/10 border border-wellness-cyan/20 flex items-center justify-center text-wellness-cyan-light">
                         <Activity size={18} />
                       </div>
                       <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
-                        Vital Check 56 Biomarkers
+                        Lola Vital Check 56 Blood Panel
                       </h3>
-                      <div className="space-y-2.5 text-[11px] sm:text-xs text-slate-grey-450 font-light">
+                      <div className="space-y-2.5 text-[11px] sm:text-xs text-slate-grey-455 font-light">
                         <div>
                           <strong className="text-slate-300 block font-semibold">ApoB (Apolipoprotein B)</strong>
                           Directly counts atherogenic plaque-forming particles to evaluate subclinical cardiovascular risk.
@@ -124,7 +144,7 @@ export default function StartHere() {
                         </div>
                         <div>
                           <strong className="text-slate-300 block font-semibold">hs-CRP (High-Sensitivity CRP)</strong>
-                          An ultra-sensitive inflammatory marker signaling low-grade systemic vascular stress.
+                          An ultra-sensitive inflammatory marker signaling low-grade systemic vascular inflammation tracking.
                         </div>
                       </div>
                     </div>
@@ -142,10 +162,10 @@ export default function StartHere() {
                         <Clock size={18} />
                       </div>
                       <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
-                        Wearable Telemetry
+                        Continuous Telemetry Baselines
                       </h3>
                       <p className="text-[11px] sm:text-xs text-slate-grey-450 leading-relaxed font-light">
-                        Continuous monitoring maps systemic resilience trends. By logging sleep staging patterns, average resting heart rate (RHR), and nocturnal Heart Rate Variability (HRV), you establish baseline recovery and stress tolerance curves.
+                        Continuous monitoring maps sleep duration, average resting heart rate (RHR), and nocturnal Heart Rate Variability (HRV) trends to establish baseline recovery and stress tolerance curves.
                       </p>
                     </div>
                     <div className="pt-3 border-t border-slate-900 text-[10px] sm:text-xs text-slate-grey-500 font-mono">
@@ -181,11 +201,11 @@ export default function StartHere() {
                       </a>
                     </div>
 
-                    {/* Ovarian Reserve UK Test */}
+                    {/* Ovarian Test UK */}
                     <div className="p-4 rounded-xl bg-slate-900/50 border border-slate-855 hover:border-wellness-cyan/20 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
-                          <span className="text-xs font-bold text-white uppercase">Ovarian Reserve UK Test</span>
+                          <span className="text-xs font-bold text-white uppercase">Ovarian Test UK</span>
                           <span className="text-[10px] px-1.5 py-0.5 rounded bg-wellness-cyan/15 text-wellness-cyan font-bold">5.0★ Rating</span>
                         </div>
                         <p className="text-[11px] text-slate-grey-455 font-light leading-relaxed">
@@ -204,12 +224,12 @@ export default function StartHere() {
                   </div>
                 </div>
 
-                {/* Disclaimer Banner */}
+                {/* Privacy Banner */}
                 <div className="p-4 border border-wellness-cyan/20 bg-wellness-cyan/5 rounded-2xl flex gap-3 items-start text-left mt-6">
                   <Shield size={16} className="text-wellness-cyan flex-shrink-0 mt-0.5" />
                   <div className="space-y-1">
                     <span className="text-[10px] font-mono uppercase text-wellness-cyan-light font-bold tracking-wider block">
-                      Clinical Data Privacy Protocol
+                      Clinical Privacy Protocol
                     </span>
                     <p className="text-[11px] text-slate-grey-300 font-light leading-relaxed">
                       Data privacy is absolute. We do not collect or accept uploads of your medical results. You maintain 100% control of your physical biomarkers.
@@ -224,14 +244,34 @@ export default function StartHere() {
           {activeTab === 'habits' && (
             <div className="space-y-8 animate-fade-in">
               <div className="p-8 rounded-3xl bg-[#0f172a]/80 border border-slate-800 shadow-xl space-y-6 text-left">
-                <div>
-                  <span className="text-[10px] font-mono text-wellness-amber uppercase tracking-wider block mb-1">[ STEP 2 ]</span>
-                  <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
-                    Phase 2 • Daily Behavioral & Autonomic Inputs
-                  </h2>
-                  <p className="text-slate-grey-300 text-xs sm:text-sm leading-relaxed mt-2 font-light">
-                    Continuous diagnostics only matter if they drive daily action. We translate complex biometric feedback loops into high-yield, zero-cost lifestyle habits.
-                  </p>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                  <div className="space-y-4">
+                    <span className="text-[10px] font-mono text-wellness-amber uppercase tracking-wider block mb-1">[ STEP 2 ]</span>
+                    <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
+                      Phase 2 • Daily Behavioral & Autonomic Inputs
+                    </h2>
+                    <p className="text-slate-grey-300 text-xs sm:text-sm leading-relaxed font-light">
+                      Continuous diagnostics only matter if they drive daily action. We translate complex biometric feedback loops into high-yield, zero-cost lifestyle habits. Phase 2 daily habits are the direct, zero-cost "inputs" used to improve the clinical biomarker baselines measured in Phase 1.
+                    </p>
+                  </div>
+
+                  {/* Detailed Video 3 Placeholder */}
+                  <div className="p-6 rounded-2xl bg-slate-900 border border-cyan-500/10 hover:border-cyan-500/25 transition-all relative overflow-hidden flex flex-col md:flex-row gap-4 items-center group/vid-placeholder">
+                    <div className="w-16 h-16 rounded-xl bg-slate-950 flex items-center justify-center flex-shrink-0 border border-slate-800 relative group-hover/vid-placeholder:border-wellness-cyan/30 transition-all">
+                      <span className="absolute inset-0 rounded-xl bg-wellness-cyan/5 animate-pulse"></span>
+                      <svg className="w-6 h-6 fill-current text-wellness-cyan/60 group-hover/vid-placeholder:text-wellness-cyan transition-colors" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"></path>
+                      </svg>
+                    </div>
+                    <div className="space-y-1">
+                      <h4 className="text-xs font-display uppercase tracking-wider text-white font-bold">
+                        Start Here, Start Now (Upcoming Coaching Briefing)
+                      </h4>
+                      <p className="text-[11px] text-slate-grey-450 leading-relaxed font-light">
+                        This upcoming 65-second coaching session details how to execute your zero-cost biophysical habits on Day 1 without waiting for lab results.
+                      </p>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Mechanical Description */}
@@ -254,7 +294,7 @@ export default function StartHere() {
                         10-Minute Mobility Walks
                       </h3>
                       <p className="text-[11px] sm:text-xs text-slate-grey-455 leading-relaxed font-light">
-                        Preserves joint lubrication, increases vascular elasticity, and builds foundational cardiovascular efficiency. Simple, low-intensity movement acts as a constant baseline metabolic signal.
+                        Preserves joint lubrication, increases vascular elasticity, and builds structural cardiovascular efficiency. Simple, low-intensity movement acts as a constant baseline metabolic signal.
                       </p>
                     </div>
 
@@ -276,7 +316,7 @@ export default function StartHere() {
                             rel="noopener noreferrer"
                             className="flex justify-between items-center p-2 rounded bg-slate-900/30 hover:bg-slate-900/60 border border-slate-850 text-slate-grey-300 hover:text-white transition-all"
                           >
-                            <span className="font-medium">Concept2 Rower Model D</span>
+                            <span className="font-medium">Cocept2 Remo Indoor Model D Black Rower</span>
                             <span className="text-[10px] text-wellness-cyan font-bold">4.9★</span>
                           </a>
                           <a
@@ -285,7 +325,7 @@ export default function StartHere() {
                             rel="noopener noreferrer"
                             className="flex justify-between items-center p-2 rounded bg-slate-900/30 hover:bg-slate-900/60 border border-slate-850 text-slate-grey-300 hover:text-white transition-all"
                           >
-                            <span className="font-medium">Basics Cast Iron Kettlebell</span>
+                            <span className="font-medium">Amazon Basics Cast Iron Kettlebell</span>
                             <span className="text-[10px] text-wellness-cyan font-bold">4.8★</span>
                           </a>
                         </div>
@@ -301,7 +341,7 @@ export default function StartHere() {
                         Breathing Mindfulness
                       </h3>
                       <p className="text-[11px] sm:text-xs text-slate-grey-455 leading-relaxed font-light">
-                        Stimulates the vagus nerve to down-regulate sympathetic fight-or-flight states, immediately reducing baseline cortisol and improving nocturnal Heart Rate Variability (HRV) recovery.
+                        Stimulates the vagus nerve to down-regulate sympathetic fight-or-flight states, immediately reducing baseline cortisol, achieving vagus nerve stimulation, and promoting HRV gains.
                       </p>
                     </div>
 
@@ -309,7 +349,7 @@ export default function StartHere() {
                       {/* Direct Product */}
                       <div className="p-2.5 rounded-lg bg-slate-900/40 border border-slate-850 hover:border-wellness-cyan/15 transition-all">
                         <p className="text-slate-grey-400 font-light leading-relaxed">
-                          Master your stress response with the <Link to="/premium-guides" className="text-wellness-cyan font-bold hover:underline">Cortisol & Stress Management Master Guide (£22.00)</Link> to systematically lower baseline systemic tension.
+                          Master your stress response with the <Link to="/premium-guides" className="text-wellness-cyan font-bold hover:underline">Cortisol & Stress Management Guide (£22.00)</Link> to systematically lower baseline systemic tension.
                         </p>
                       </div>
 
@@ -332,7 +372,7 @@ export default function StartHere() {
                             rel="noopener noreferrer"
                             className="flex justify-between items-center p-2 rounded bg-slate-900/30 hover:bg-slate-900/60 border border-slate-850 text-slate-grey-300 hover:text-white transition-all"
                           >
-                            <span className="font-medium">Full Body Infrared Sauna Tent</span>
+                            <span className="font-medium">Portable Full Body Infrared Sauna Tent</span>
                             <span className="text-[10px] text-wellness-cyan font-bold">4.9★</span>
                           </a>
                         </div>
@@ -348,7 +388,7 @@ export default function StartHere() {
                         Glycemic Snacking
                       </h3>
                       <p className="text-[11px] sm:text-xs text-slate-grey-455 leading-relaxed font-light">
-                        Prioritizes low-glycemic cellular fueling to stabilize blood sugar curves, protect pancreas insulin sensitivity, and prevent inflammatory glycemic spikes.
+                        Focuses on glucose stabilization and preserving insulin sensitivity, prioritizing low-glycemic cellular fueling to protect metabolic health and prevent glycemic spikes.
                       </p>
                     </div>
 

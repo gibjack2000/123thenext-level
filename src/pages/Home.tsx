@@ -494,69 +494,97 @@ export default function Home() {
               <div className="absolute -bottom-48 -left-48 w-96 h-96 bg-indigo-600/5 rounded-full blur-[100px] pointer-events-none"></div>
 
               {/* Header */}
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 border-b border-slate-800/80 pb-6 relative z-10">
-                <div className="space-y-1.5">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light font-bold">
-                      Performance Framework
+              <div className="flex flex-col gap-6 border-b border-slate-800/80 pb-6 relative z-10">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+                  <div className="space-y-1.5">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light font-bold">
+                        Performance Framework
+                      </div>
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 font-bold">
+                        Vetted Hardware Hub
+                      </div>
                     </div>
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 font-bold">
-                      Vetted Hardware Hub
-                    </div>
+                    <h3 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
+                      The Dual-Track Performance Framework
+                    </h3>
                   </div>
-                  <h3 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
-                    The Dual-Track Performance Framework
-                  </h3>
+
+                  <button
+                    type="button"
+                    onClick={() => setIsDualTrackVideoOpen(true)}
+                    className="group flex-shrink-0 flex items-center gap-2 p-1.5 px-4 rounded-full bg-slate-900/60 border border-slate-800 hover:border-wellness-cyan/50 hover:bg-slate-900 transition-all cursor-pointer shadow-sm animate-fade-in"
+                  >
+                    <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-wellness-cyan to-indigo-600 flex items-center justify-center text-white relative">
+                      <span className="absolute inset-0 rounded-full bg-wellness-cyan/30 animate-ping scale-110"></span>
+                      <svg className="w-2.5 h-2.5 ml-0.5 fill-current text-white" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z"></path>
+                      </svg>
+                    </div>
+                    <span className="text-[10px] font-bold text-slate-grey-300 group-hover:text-white uppercase tracking-wider font-mono">
+                      ▶ Watch Clinical Briefing • 60s
+                    </span>
+                  </button>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => setIsDualTrackVideoOpen(true)}
-                  className="group flex-shrink-0 flex items-center gap-2 p-1.5 px-4 rounded-full bg-slate-900/60 border border-slate-800 hover:border-wellness-cyan/50 hover:bg-slate-900 transition-all cursor-pointer shadow-sm animate-fade-in"
-                >
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-wellness-cyan to-indigo-600 flex items-center justify-center text-white relative">
-                    <span className="absolute inset-0 rounded-full bg-wellness-cyan/30 animate-ping scale-110"></span>
-                    <svg className="w-2.5 h-2.5 ml-0.5 fill-current text-white" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z"></path>
-                    </svg>
-                  </div>
-                  <span className="text-[10px] font-bold text-slate-grey-300 group-hover:text-white uppercase tracking-wider font-mono">
-                    ▶ Watch Framework Briefing • 60s
-                  </span>
-                </button>
+                {/* Homepage Live Video Integration */}
+                <div className="w-full max-w-2xl mx-auto rounded-xl overflow-hidden border border-slate-800 bg-slate-950 aspect-video relative group/card-video shadow-lg mt-2">
+                  <video 
+                    src="/assets/video/AvatarHeroPage.mp4" 
+                    controls
+                    className="w-full h-full object-cover"
+                    poster="/assets/longevity-paradigm-cover.jpg"
+                  />
+                </div>
+
+                {/* Written Explainer Companion */}
+                <p className="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto text-center leading-relaxed mt-4 font-light relative z-10">
+                  Eighty to ninety percent of how quickly you age is governed by your daily lifestyle choices, not your raw genetics. The Dual-Track Performance Framework balances precise, high-end quarterly diagnostics with immediate, daily micro-habits to rewrite your cellular trajectory.
+                </p>
               </div>
 
-              {/* Teaser Copy explanation of the Dual-Track philosophy */}
-              <div className="space-y-4 text-xs sm:text-sm text-slate-grey-300 font-light leading-relaxed max-w-3xl mx-auto relative z-10">
-                <p>
-                  True human longevity is achieved by balancing precise, clinical-grade diagnostics with immediate, zero-cost biophysical habits. 
-                </p>
-                <div className="space-y-3 pl-4 border-l border-slate-800/80">
-                  <p>
-                    <strong className="text-wellness-cyan font-bold block sm:inline">• Track 1:</strong> Establish your molecular baseline safely with advanced quarterly diagnostics.
-                  </p>
-                  <p>
-                    <strong className="text-wellness-amber font-bold block sm:inline">• Track 2:</strong> Execute simple, evidence-backed daily wins to optimize your nervous system today.
+              {/* Two-Column Bento Teaser Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 relative z-10">
+                {/* Left Column: Diagnostics */}
+                <div className="space-y-4 p-6 rounded-2xl bg-slate-950/40 border border-slate-900 text-left">
+                  <div className="flex items-center justify-between border-b border-slate-900 pb-3">
+                    <h4 className="text-sm font-display uppercase tracking-wider text-white font-bold flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-wellness-cyan"></span>
+                      Phase 1: Diagnostic Baseline (Quarterly Map)
+                    </h4>
+                  </div>
+                  <p className="text-xs text-slate-grey-300 font-light leading-relaxed">
+                    Establish your scientific baseline. Detailed guidelines for clinical-grade assessments—including Epigenetic cellular aging velocity and the Lola Vital Check 56 blood panel—designed to be co-processed with your local GP.
                   </p>
                 </div>
-                <p className="text-xs text-slate-grey-450 leading-relaxed pt-1">
-                  Proactive health is a collaborative partnership. We provide the scientific tracking frameworks; you and your general practitioner co-process your data to design your clinical roadmap.
-                </p>
 
-                {/* Monetization Accelerator and Quick Win Recommendations */}
-                <div className="pt-3 border-t border-slate-800/50 space-y-2 text-slate-grey-400 text-[11px] sm:text-xs">
-                  <p className="flex flex-wrap items-center gap-1">
-                    <span className="font-semibold text-slate-300">Track 1 Accelerators:</span>
-                    <Link to="/health" className="text-wellness-cyan hover:underline">Order Epigenetic Cellular Kits →</Link>
-                    <span className="text-slate-800">|</span>
-                    <a href="https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl0e-20" target="_blank" rel="noopener noreferrer" className="text-wellness-cyan hover:underline">Get Apple Watch Series 10 (GPS 46mm) →</a>
-                  </p>
-                  <p className="flex flex-wrap items-center gap-1">
-                    <span className="font-semibold text-slate-300">Track 2 Quick-Wins:</span>
-                    <Link to="/premium-guides" className="text-wellness-cyan hover:underline">Download Cortisol & Stress Guide (£22.00) →</Link>
-                    <span className="text-slate-800">|</span>
-                    <a href="#shop" className="text-wellness-cyan hover:underline">Shop Vetted Wellness Gear →</a>
-                  </p>
+                {/* Right Column: Daily Wins */}
+                <div className="space-y-4 p-6 rounded-2xl bg-slate-950/40 border border-slate-900 text-left">
+                  <div className="flex items-center justify-between border-b border-slate-900 pb-3">
+                    <h4 className="text-sm font-display uppercase tracking-wider text-white font-bold flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-wellness-amber"></span>
+                      Phase 2: Simple Daily Habits (Frictionless Wins)
+                    </h4>
+                  </div>
+                  <div className="space-y-3">
+                    <p className="text-xs text-slate-grey-300 font-light leading-relaxed">
+                      Your immediate, zero-cost Day 1 starting line. Science-backed physical and autonomic switches you can execute this very second with no equipment, no cost, and no waiting:
+                    </p>
+                    <ul className="space-y-2 text-xs text-slate-grey-450 font-light pl-1">
+                      <li className="flex items-start gap-2">
+                        <span className="text-wellness-cyan font-bold">1.</span>
+                        <span className="text-slate-grey-300"><strong>10-Minute Mobility Walks:</strong> Build baseline cardiovascular efficiency.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-wellness-cyan font-bold">2.</span>
+                        <span className="text-slate-grey-300"><strong>Breathing Mindfulness:</strong> Instantly down-regulate stress using our free built-in audio.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-wellness-cyan font-bold">3.</span>
+                        <span className="text-slate-grey-300"><strong>Glycemic Snacking:</strong> Simple meal choices to protect insulin sensitivity.</span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
 
@@ -568,14 +596,21 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Center Primary Call to Action Button */}
-              <div className="flex justify-center pt-2 relative z-10">
+              {/* Decoupled Call to Action (CTA) Bar */}
+              <div className="flex flex-col items-center gap-4 pt-2 relative z-10">
                 <Link
-                  to="/start-here"
+                  to="/health-quiz"
                   className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-xl shadow-wellness-cyan/15 border border-wellness-cyan/20 hover:scale-[1.02] active:scale-[0.98] text-center w-full sm:w-auto"
                 >
-                  Explore the Dual-Track Blueprint & Download Template →
+                  Take the 5-Minute Wellness Quiz to Build Your Roadmap →
                 </Link>
+                <a
+                  href="/assets/docs/clinical-baseline-consultation-template.pdf"
+                  download="clinical-baseline-consultation-template.pdf"
+                  className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-slate-grey-450 hover:text-wellness-cyan transition-colors text-center"
+                >
+                  📥 Or, Download the Printable GP Consultation Template (PDF) Directly
+                </a>
               </div>
             </div>
           </div>
@@ -2040,13 +2075,13 @@ export default function Home() {
           <div className="bg-[#0f172a] border border-slate-700/60 rounded-3xl overflow-hidden max-w-2xl w-full shadow-2xl relative">
             <button
               onClick={() => setIsDualTrackVideoOpen(false)}
-              className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-slate-950/60 text-slate-grey-450 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+              className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-slate-950/60 text-slate-grey-455 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
             >
               <X size={18} />
             </button>
             <div className="aspect-video bg-black flex items-center justify-center">
               <video 
-                src="/assets/video/dual-track-guide.mp4" 
+                src="/assets/video/AvatarHeroPage.mp4" 
                 controls 
                 autoPlay 
                 className="w-full h-full object-cover"
