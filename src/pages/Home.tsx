@@ -51,6 +51,7 @@ export default function Home() {
   const [diagnosticTab, setDiagnosticTab] = useState<'epigenetic' | 'lola' | 'wearables'>('epigenetic');
   const [isOnboardingVideoOpen, setIsOnboardingVideoOpen] = useState(false);
   const [isDualTrackVideoOpen, setIsDualTrackVideoOpen] = useState(false);
+  const [isDualTrackCardVideoPlaying, setIsDualTrackCardVideoPlaying] = useState(false);
 
   const handleDnaUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -528,15 +529,45 @@ export default function Home() {
                 </div>
 
                 {/* Homepage Live Video Integration */}
-                <div className="w-full max-w-2xl mx-auto rounded-xl overflow-hidden border border-slate-800 bg-slate-950 aspect-video relative group/card-video shadow-lg mt-2">
-                  <iframe
-                    className="w-full h-full object-cover aspect-video"
-                    src="https://player.cloudinary.com/embed/?cloud_name=dbhpaqnq8&public_id=startingline_vefnde"
-                    frameBorder="0"
-                    allow="autoplay; fullscreen; picture-in-picture"
-                    allowFullScreen
-                    title="Dual-Track Performance Framework Briefing"
-                  />
+                <div 
+                  className="w-full max-w-2xl mx-auto rounded-xl overflow-hidden border border-slate-800 bg-slate-950 aspect-video relative group/card-video shadow-lg mt-2 cursor-pointer"
+                  onMouseEnter={() => { if (!isTouchDevice) setIsDualTrackCardVideoPlaying(true); }}
+                  onClick={() => setIsDualTrackCardVideoPlaying(true)}
+                >
+                  {isDualTrackCardVideoPlaying ? (
+                    <iframe
+                      className="w-full h-full object-cover aspect-video animate-fade-in"
+                      src="https://player.cloudinary.com/embed/?cloud_name=dbhpaqnq8&public_id=startingline_vefnde&autoplay=true"
+                      frameBorder="0"
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      allowFullScreen
+                      title="Dual-Track Performance Framework Briefing"
+                    />
+                  ) : (
+                    <div className="w-full h-full relative flex items-center justify-center bg-black group">
+                      {/* Cover Image */}
+                      <img 
+                        src="/assets/longevity-paradigm-cover.jpg" 
+                        alt="Dual-Track Framework Cover" 
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover/card-video:scale-105 brightness-[0.7] contrast-[1.05]"
+                      />
+                      
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-90"></div>
+                      
+                      {/* Hover action overlay indicator */}
+                      <div className="relative z-10 flex flex-col items-center gap-3">
+                        <div className="w-14 h-14 rounded-full bg-gradient-to-tr from-wellness-cyan to-indigo-600 text-white flex items-center justify-center shadow-2xl group-hover/card-video:scale-110 active:scale-95 transition-all duration-300 border border-wellness-cyan/30">
+                          <svg className="w-6 h-6 ml-0.5 text-white drop-shadow-[0_2px_6px_rgba(6,182,212,0.5)]" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"></path>
+                          </svg>
+                        </div>
+                        <span className="text-[10px] font-bold text-slate-300 font-mono tracking-wider uppercase bg-slate-950/60 border border-slate-800 px-3 py-1 rounded-full backdrop-blur-sm">
+                          {isTouchDevice ? 'Tap to play briefing' : 'Hover to play briefing'}
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Written Explainer Companion */}
