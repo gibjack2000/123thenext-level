@@ -496,8 +496,13 @@ export default function Home() {
               {/* Header */}
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 border-b border-slate-800/80 pb-6 relative z-10">
                 <div className="space-y-1.5">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light font-bold">
-                    Performance Framework
+                  <div className="flex flex-wrap items-center gap-2">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light font-bold">
+                      Performance Framework
+                    </div>
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 font-bold">
+                      Vetted Hardware Hub
+                    </div>
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
                     The Dual-Track Performance Framework
@@ -534,9 +539,25 @@ export default function Home() {
                     <strong className="text-wellness-amber font-bold block sm:inline">• Track 2:</strong> Execute simple, evidence-backed daily wins to optimize your nervous system today.
                   </p>
                 </div>
-                <p className="text-xs text-slate-grey-450 leading-relaxed pt-2">
+                <p className="text-xs text-slate-grey-450 leading-relaxed pt-1">
                   Proactive health is a collaborative partnership. We provide the scientific tracking frameworks; you and your general practitioner co-process your data to design your clinical roadmap.
                 </p>
+
+                {/* Monetization Accelerator and Quick Win Recommendations */}
+                <div className="pt-3 border-t border-slate-800/50 space-y-2 text-slate-grey-400 text-[11px] sm:text-xs">
+                  <p className="flex flex-wrap items-center gap-1">
+                    <span className="font-semibold text-slate-300">Track 1 Accelerators:</span>
+                    <Link to="/health" className="text-wellness-cyan hover:underline">Order Epigenetic Cellular Kits →</Link>
+                    <span className="text-slate-800">|</span>
+                    <a href="https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl0e-20" target="_blank" rel="noopener noreferrer" className="text-wellness-cyan hover:underline">Get Apple Watch Series 10 (GPS 46mm) →</a>
+                  </p>
+                  <p className="flex flex-wrap items-center gap-1">
+                    <span className="font-semibold text-slate-300">Track 2 Quick-Wins:</span>
+                    <Link to="/premium-guides" className="text-wellness-cyan hover:underline">Download Cortisol & Stress Guide (£22.00) →</Link>
+                    <span className="text-slate-800">|</span>
+                    <a href="#shop" className="text-wellness-cyan hover:underline">Shop Vetted Wellness Gear →</a>
+                  </p>
+                </div>
               </div>
 
               {/* Privacy Alignment Bottom Subtitle Banner */}

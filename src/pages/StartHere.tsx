@@ -85,53 +85,122 @@ export default function StartHere() {
                 {/* 3 Detail Blocks */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
                   {/* Epigenetics */}
-                  <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-3">
-                    <div className="w-9 h-9 rounded-xl bg-wellness-cyan/10 border border-wellness-cyan/20 flex items-center justify-center text-wellness-cyan-light">
-                      <Heart size={18} />
+                  <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-4 flex flex-col justify-between">
+                    <div className="space-y-3">
+                      <div className="w-9 h-9 rounded-xl bg-wellness-cyan/10 border border-wellness-cyan/20 flex items-center justify-center text-wellness-cyan-light">
+                        <Heart size={18} />
+                      </div>
+                      <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
+                        Epigenetic Age (gDNA)
+                      </h3>
+                      <p className="text-[11px] sm:text-xs text-slate-grey-450 leading-relaxed font-light">
+                        Whole-methylome gDNA testing analyzes specific cellular methylation patterns across your genome. This identifies your true rate of cellular aging, providing a baseline metric to measure biological age reduction.
+                      </p>
                     </div>
-                    <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
-                      Epigenetic Age (gDNA)
-                    </h3>
-                    <p className="text-[11px] sm:text-xs text-slate-grey-400 leading-relaxed font-light">
-                      Whole-methylome gDNA testing analyzes specific cellular methylation patterns across your genome. This identifies your true rate of cellular aging, providing a baseline metric to measure biological age reduction.
-                    </p>
+                    <div className="pt-3 border-t border-slate-900">
+                      <Link to="/health" className="inline-flex items-center text-[10px] sm:text-xs font-bold uppercase tracking-wider text-wellness-cyan hover:underline">
+                        Order Home Epigenetic Testing Kit →
+                      </Link>
+                    </div>
                   </div>
 
                   {/* Biomarker Glossary */}
-                  <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-3">
-                    <div className="w-9 h-9 rounded-xl bg-wellness-cyan/10 border border-wellness-cyan/20 flex items-center justify-center text-wellness-cyan-light">
-                      <Activity size={18} />
+                  <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-4 flex flex-col justify-between">
+                    <div className="space-y-3">
+                      <div className="w-9 h-9 rounded-xl bg-wellness-cyan/10 border border-wellness-cyan/20 flex items-center justify-center text-wellness-cyan-light">
+                        <Activity size={18} />
+                      </div>
+                      <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
+                        Vital Check 56 Biomarkers
+                      </h3>
+                      <div className="space-y-2.5 text-[11px] sm:text-xs text-slate-grey-450 font-light">
+                        <div>
+                          <strong className="text-slate-300 block font-semibold">ApoB (Apolipoprotein B)</strong>
+                          Directly counts atherogenic plaque-forming particles to evaluate subclinical cardiovascular risk.
+                        </div>
+                        <div>
+                          <strong className="text-slate-300 block font-semibold">HbA1c (Glycated Hemoglobin)</strong>
+                          Measures average glycemic control over the past 90 days to screen for insulin sensitivity.
+                        </div>
+                        <div>
+                          <strong className="text-slate-300 block font-semibold">hs-CRP (High-Sensitivity CRP)</strong>
+                          An ultra-sensitive inflammatory marker signaling low-grade systemic vascular stress.
+                        </div>
+                      </div>
                     </div>
-                    <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
-                      Vital Check 56 Biomarkers
-                    </h3>
-                    <div className="space-y-2.5 text-[11px] sm:text-xs text-slate-grey-400 font-light">
-                      <div>
-                        <strong className="text-slate-300 block font-semibold">ApoB (Apolipoprotein B)</strong>
-                        Directly counts atherogenic plaque-forming particles to evaluate subclinical cardiovascular risk.
-                      </div>
-                      <div>
-                        <strong className="text-slate-300 block font-semibold">HbA1c (Glycated Hemoglobin)</strong>
-                        Measures average glycemic control over the past 90 days to screen for insulin sensitivity.
-                      </div>
-                      <div>
-                        <strong className="text-slate-300 block font-semibold">hs-CRP (High-Sensitivity CRP)</strong>
-                        An ultra-sensitive inflammatory marker signaling low-grade systemic vascular stress.
-                      </div>
+                    <div className="pt-3 border-t border-slate-900">
+                      <Link to="/intelligence-hub" className="inline-flex items-center text-[10px] sm:text-xs font-bold uppercase tracking-wider text-wellness-cyan hover:underline">
+                        Book Partner Lab Clinical Draw →
+                      </Link>
                     </div>
                   </div>
 
                   {/* Wearable Telemetry */}
-                  <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-3">
-                    <div className="w-9 h-9 rounded-xl bg-wellness-cyan/10 border border-wellness-cyan/20 flex items-center justify-center text-wellness-cyan-light">
-                      <Clock size={18} />
+                  <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-3 flex flex-col justify-between">
+                    <div className="space-y-3">
+                      <div className="w-9 h-9 rounded-xl bg-wellness-cyan/10 border border-wellness-cyan/20 flex items-center justify-center text-wellness-cyan-light">
+                        <Clock size={18} />
+                      </div>
+                      <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
+                        Wearable Telemetry
+                      </h3>
+                      <p className="text-[11px] sm:text-xs text-slate-grey-450 leading-relaxed font-light">
+                        Continuous monitoring maps systemic resilience trends. By logging sleep staging patterns, average resting heart rate (RHR), and nocturnal Heart Rate Variability (HRV), you establish baseline recovery and stress tolerance curves.
+                      </p>
                     </div>
-                    <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
-                      Wearable Telemetry
-                    </h3>
-                    <p className="text-[11px] sm:text-xs text-slate-grey-400 leading-relaxed font-light">
-                      Continuous monitoring maps systemic resilience trends. By logging sleep staging patterns, average resting heart rate (RHR), and nocturnal Heart Rate Variability (HRV), you establish baseline recovery and stress tolerance curves.
-                    </p>
+                    <div className="pt-3 border-t border-slate-900 text-[10px] sm:text-xs text-slate-grey-500 font-mono">
+                      VETTED HARDWARE DETAILS BELOW
+                    </div>
+                  </div>
+                </div>
+
+                {/* Continuous Biometric Logging / Vetted Hardware Hub */}
+                <div className="pt-6 border-t border-slate-800/80 space-y-4">
+                  <h3 className="text-xs font-mono uppercase tracking-wider text-white font-bold">
+                    Vetted Continuous Telemetry Hardware
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Apple Watch Series 10 */}
+                    <div className="p-4 rounded-xl bg-slate-900/50 border border-slate-855 hover:border-wellness-cyan/20 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-bold text-white uppercase">Apple Watch Series 10 [GPS 46mm case]</span>
+                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-wellness-cyan/15 text-wellness-cyan font-bold">4.7★ Rating</span>
+                        </div>
+                        <p className="text-[11px] text-slate-grey-455 font-light leading-relaxed">
+                          The gold standard for continuous, passive heart rate and nocturnal Heart Rate Variability (HRV) telemetry.
+                        </p>
+                      </div>
+                      <a
+                        href="https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl0e-20"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-950 border border-slate-800 hover:border-wellness-cyan text-[10px] sm:text-xs font-bold uppercase tracking-wider text-wellness-cyan transition-all"
+                      >
+                        Buy on Amazon →
+                      </a>
+                    </div>
+
+                    {/* Ovarian Reserve UK Test */}
+                    <div className="p-4 rounded-xl bg-slate-900/50 border border-slate-855 hover:border-wellness-cyan/20 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all">
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs font-bold text-white uppercase">Ovarian Reserve UK Test</span>
+                          <span className="text-[10px] px-1.5 py-0.5 rounded bg-wellness-cyan/15 text-wellness-cyan font-bold">5.0★ Rating</span>
+                        </div>
+                        <p className="text-[11px] text-slate-grey-455 font-light leading-relaxed">
+                          Focused biology-specific screening for female athletic and endocrine performance.
+                        </p>
+                      </div>
+                      <a
+                        href="https://www.amazon.com/SUPFINE-Compatible-Protection-Translucent-Anti-Fingerprint/dp/B0G3NVZLVJ?ref=dlx_deals_dg_dcl_B0G3NVZLVJ_dt_sl14_b7_pi&pf_rd_r=PJF6ECN5EE7CRH82WJRJ&pf_rd_p=1e04acd0-30fe-482c-b054-5487f3e9a5b7&th=1"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-950 border border-slate-800 hover:border-wellness-cyan text-[10px] sm:text-xs font-bold uppercase tracking-wider text-wellness-cyan transition-all"
+                      >
+                        Buy on Amazon →
+                      </a>
+                    </div>
                   </div>
                 </div>
 
@@ -143,7 +212,7 @@ export default function StartHere() {
                       Clinical Data Privacy Protocol
                     </span>
                     <p className="text-[11px] text-slate-grey-300 font-light leading-relaxed">
-                      Data privacy is absolute. We do not collect, store, or accept uploads of your medical results. You maintain 100% control of your physical biomarkers.
+                      Data privacy is absolute. We do not collect or accept uploads of your medical results. You maintain 100% control of your physical biomarkers.
                     </p>
                   </div>
                 </div>
@@ -178,36 +247,139 @@ export default function StartHere() {
                 {/* Habit Protocols */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
                   {/* Mobility Walks */}
-                  <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-3">
-                    <span className="text-xs font-mono text-wellness-cyan font-bold block">[ PROTOCOL 1 ]</span>
-                    <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
-                      10-Minute Mobility Walks
-                    </h3>
-                    <p className="text-[11px] sm:text-xs text-slate-grey-450 leading-relaxed font-light">
-                      Preserves joint lubrication, increases vascular elasticity, and builds foundational cardiovascular efficiency. Simple, low-intensity movement acts as a constant baseline metabolic signal.
-                    </p>
+                  <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-4 flex flex-col justify-between">
+                    <div className="space-y-3">
+                      <span className="text-xs font-mono text-wellness-cyan font-bold block">[ PROTOCOL 1 ]</span>
+                      <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
+                        10-Minute Mobility Walks
+                      </h3>
+                      <p className="text-[11px] sm:text-xs text-slate-grey-455 leading-relaxed font-light">
+                        Preserves joint lubrication, increases vascular elasticity, and builds foundational cardiovascular efficiency. Simple, low-intensity movement acts as a constant baseline metabolic signal.
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-900 space-y-3 text-[11px]">
+                      {/* Direct Product */}
+                      <div className="p-2.5 rounded-lg bg-slate-900/40 border border-slate-850 hover:border-wellness-cyan/15 transition-all">
+                        <p className="text-slate-grey-400 font-light leading-relaxed">
+                          Upgrade your functional strength progress with the <Link to="/premium-guides" className="text-wellness-cyan font-bold hover:underline">Beginner Home Workout Plan (£19.00)</Link>—our 4-week zero-equipment protocol to build foundational joint stability.
+                        </p>
+                      </div>
+
+                      {/* Vetted Extensions */}
+                      <div className="space-y-1.5">
+                        <span className="text-[9px] font-mono uppercase tracking-wider text-slate-grey-450 block font-bold">Vetted Equipment extensions</span>
+                        <div className="flex flex-col gap-1.5">
+                          <a
+                            href="https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex justify-between items-center p-2 rounded bg-slate-900/30 hover:bg-slate-900/60 border border-slate-850 text-slate-grey-300 hover:text-white transition-all"
+                          >
+                            <span className="font-medium">Concept2 Rower Model D</span>
+                            <span className="text-[10px] text-wellness-cyan font-bold">4.9★</span>
+                          </a>
+                          <a
+                            href="https://www.amazon.co.uk/dp/B076QJY2FN?tag=123znl0f3-21"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex justify-between items-center p-2 rounded bg-slate-900/30 hover:bg-slate-900/60 border border-slate-850 text-slate-grey-300 hover:text-white transition-all"
+                          >
+                            <span className="font-medium">Basics Cast Iron Kettlebell</span>
+                            <span className="text-[10px] text-wellness-cyan font-bold">4.8★</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   {/* Breathing Mindfulness */}
-                  <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-3">
-                    <span className="text-xs font-mono text-wellness-cyan font-bold block">[ PROTOCOL 2 ]</span>
-                    <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
-                      Breathing Mindfulness
-                    </h3>
-                    <p className="text-[11px] sm:text-xs text-slate-grey-450 leading-relaxed font-light">
-                      Stimulates the vagus nerve to down-regulate sympathetic fight-or-flight states, immediately reducing baseline cortisol and improving nocturnal Heart Rate Variability (HRV) recovery.
-                    </p>
+                  <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-4 flex flex-col justify-between">
+                    <div className="space-y-3">
+                      <span className="text-xs font-mono text-wellness-cyan font-bold block">[ PROTOCOL 2 ]</span>
+                      <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
+                        Breathing Mindfulness
+                      </h3>
+                      <p className="text-[11px] sm:text-xs text-slate-grey-455 leading-relaxed font-light">
+                        Stimulates the vagus nerve to down-regulate sympathetic fight-or-flight states, immediately reducing baseline cortisol and improving nocturnal Heart Rate Variability (HRV) recovery.
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-900 space-y-3 text-[11px]">
+                      {/* Direct Product */}
+                      <div className="p-2.5 rounded-lg bg-slate-900/40 border border-slate-850 hover:border-wellness-cyan/15 transition-all">
+                        <p className="text-slate-grey-400 font-light leading-relaxed">
+                          Master your stress response with the <Link to="/premium-guides" className="text-wellness-cyan font-bold hover:underline">Cortisol & Stress Management Master Guide (£22.00)</Link> to systematically lower baseline systemic tension.
+                        </p>
+                      </div>
+
+                      {/* Vetted Extensions */}
+                      <div className="space-y-1.5">
+                        <span className="text-[9px] font-mono uppercase tracking-wider text-slate-grey-450 block font-bold">Vetted recovery extensions</span>
+                        <div className="flex flex-col gap-1.5">
+                          <a
+                            href="https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex justify-between items-center p-2 rounded bg-slate-900/30 hover:bg-slate-900/60 border border-slate-850 text-slate-grey-300 hover:text-white transition-all"
+                          >
+                            <span className="font-medium">Sony WH-CH720N Headphones</span>
+                            <span className="text-[10px] text-wellness-cyan font-bold">4.9★</span>
+                          </a>
+                          <a
+                            href="https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123znl0f3-21"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex justify-between items-center p-2 rounded bg-slate-900/30 hover:bg-slate-900/60 border border-slate-850 text-slate-grey-300 hover:text-white transition-all"
+                          >
+                            <span className="font-medium">Full Body Infrared Sauna Tent</span>
+                            <span className="text-[10px] text-wellness-cyan font-bold">4.9★</span>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   {/* Glycemic Snacking */}
-                  <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-3">
-                    <span className="text-xs font-mono text-wellness-cyan font-bold block">[ PROTOCOL 3 ]</span>
-                    <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
-                      Glycemic Snacking
-                    </h3>
-                    <p className="text-[11px] sm:text-xs text-slate-grey-450 leading-relaxed font-light">
-                      Prioritizes low-glycemic cellular fueling to stabilize blood sugar curves, protect pancreas insulin sensitivity, and prevent inflammatory glycemic spikes.
-                    </p>
+                  <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-4 flex flex-col justify-between">
+                    <div className="space-y-3">
+                      <span className="text-xs font-mono text-wellness-cyan font-bold block">[ PROTOCOL 3 ]</span>
+                      <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
+                        Glycemic Snacking
+                      </h3>
+                      <p className="text-[11px] sm:text-xs text-slate-grey-455 leading-relaxed font-light">
+                        Prioritizes low-glycemic cellular fueling to stabilize blood sugar curves, protect pancreas insulin sensitivity, and prevent inflammatory glycemic spikes.
+                      </p>
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-900 space-y-3 text-[11px]">
+                      {/* Direct Product */}
+                      <div className="p-2.5 rounded-lg bg-slate-900/40 border border-slate-850 hover:border-wellness-cyan/15 transition-all">
+                        <p className="text-slate-grey-400 font-light leading-relaxed">
+                          Master long-term glucose stabilization and metabolic kitchen workflows with <Link to="/premium-guides" className="text-wellness-cyan font-bold hover:underline">The Master Meal Planning Guide (£24.00)</Link>.
+                        </p>
+                      </div>
+
+                      {/* Vetted Extensions */}
+                      <div className="space-y-1.5">
+                        <span className="text-[9px] font-mono uppercase tracking-wider text-slate-grey-450 block font-bold">Vetted Metabolic Extensions</span>
+                        <div className="flex flex-col gap-1.5">
+                          <a
+                            href="https://www.amazon.com/dp/B006QF3TW4?tag=123znl08-20"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex justify-between items-center p-2 rounded bg-slate-900/30 hover:bg-slate-900/60 border border-slate-850 text-slate-grey-300 hover:text-white transition-all"
+                          >
+                            <span className="font-medium">LifeStraw Personal Filter</span>
+                            <span className="text-[10px] text-wellness-cyan font-bold">4.8★</span>
+                          </a>
+                          <span className="flex justify-between items-center p-2 rounded bg-slate-900/35 border border-slate-850/50 text-slate-grey-450">
+                            <span className="font-medium">Premium Insulated Shaker Bottle</span>
+                            <span className="text-[10px] text-slate-grey-500">Essential</span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
