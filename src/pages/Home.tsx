@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Globe2, MapPin, ShoppingBag, ArrowRight, Heart, Dumbbell, Apple, Sparkles, BookOpen, Shield, UserCheck, Wind, HeartPulse, ExternalLink, Compass, Microscope, Users, X, CheckCircle2 } from 'lucide-react';
+import { Globe2, MapPin, ShoppingBag, ArrowRight, Heart, Dumbbell, Apple, Sparkles, BookOpen, Shield, UserCheck, Wind, HeartPulse, ExternalLink, Compass, Microscope, Users, X, CheckCircle2, UploadCloud, ChevronDown, ChevronUp, Lock, FileText, Smartphone, Activity, Weight, Wifi, CheckCircle } from 'lucide-react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { Product, mapToProduct, PremiumGuide } from '../types';
 import { MOCK_PRODUCTS } from '../data/mockData';
@@ -40,6 +40,38 @@ export default function Home() {
   const [leadFirstName, setLeadFirstName] = useState('');
   const [leadEmail, setLeadEmail] = useState('');
   const [leadStatus, setLeadStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  // Diagnostic Modules States
+  const [dnaUploadStatus, setDnaUploadStatus] = useState<'idle' | 'uploading' | 'success'>('idle');
+  const [dnaFileName, setDnaFileName] = useState('');
+  const [expandedMarker, setExpandedMarker] = useState<'apob' | 'hba1c' | 'hscrp' | null>(null);
+  const [gpReportStatus, setGpReportStatus] = useState<'idle' | 'generating' | 'downloaded'>('idle');
+  const [activePairingDevice, setActivePairingDevice] = useState<'apple_watch' | 'smart_scale' | 'cgm' | null>(null);
+  const [pairedDevices, setPairedDevices] = useState<string[]>([]);
+
+  const handleDnaUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setDnaUploadStatus('uploading');
+    setDnaFileName(file.name);
+    setTimeout(() => {
+      setDnaUploadStatus('success');
+    }, 1500);
+  };
+
+  const handleGpDownload = () => {
+    setGpReportStatus('generating');
+    setTimeout(() => {
+      setGpReportStatus('downloaded');
+      // Create a mock download trigger
+      const link = document.createElement('a');
+      link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent('CLINICAL REPORT TEMPLATE:\nShared decision-making is a mandatory safety protocol.\nGP Consultation Recommendation included.');
+      link.download = 'Clinician_Ready_GP_Report_Template.txt';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }, 1200);
+  };
 
   // Handle Escape key to close lead modal
   useEffect(() => {
@@ -470,20 +502,218 @@ export default function Home() {
                     </p>
                   </div>
 
-                  <ul className="space-y-3 pt-2" aria-label="Diagnostics tracking list">
-                    <li className="flex items-center gap-3">
-                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-sickcare-700 flex items-center justify-center text-sickcare-300 font-bold text-xs">1</div>
-                      <span className="text-xs sm:text-sm text-slate-grey-300 font-medium"><strong>Epigenetic Biological Age Tests</strong> (Find out how fast your cells are aging)</span>
+                  <ul className="space-y-5 pt-2" aria-label="Diagnostics tracking list">
+                    {/* Module 1: Epigenetic Biological Age Tests + Raw DNA Import Gateway */}
+                    <li className="flex flex-col gap-3">
+                      <div className="flex items-center gap-3">
+                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-sickcare-700 flex items-center justify-center text-sickcare-300 font-bold text-xs">1</div>
+                        <span className="text-xs sm:text-sm text-slate-grey-300 font-medium"><strong>Epigenetic Biological Age Tests</strong></span>
+                      </div>
+                      
+                      {/* DNA Import Gateway Dropzone */}
+                      <div className="ml-9 border border-dashed border-wellness-cyan/20 bg-slate-900/50 hover:bg-slate-900/80 transition-all rounded-xl p-4 space-y-3">
+                        <p className="text-[11px] text-slate-grey-300 leading-relaxed font-light">
+                          Already tested? Upload your raw genomic data from 23andMe or AncestryDNA to compute your baseline risk metrics instantly.
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <label className="cursor-pointer inline-flex items-center gap-2 px-3 py-1.5 rounded bg-wellness-cyan/10 hover:bg-wellness-cyan/20 border border-wellness-cyan/30 text-wellness-cyan-light text-[10px] font-mono uppercase tracking-wider transition-colors">
+                            <UploadCloud size={12} />
+                            <span>{dnaUploadStatus === 'uploading' ? 'Analyzing...' : dnaUploadStatus === 'success' ? 'DNA Imported ✓' : 'Upload RAW Data'}</span>
+                            <input
+                              type="file"
+                              accept=".txt,.csv"
+                              className="hidden"
+                              onChange={handleDnaUpload}
+                            />
+                          </label>
+                          {dnaUploadStatus === 'success' && (
+                            <span className="text-[10px] font-mono text-emerald-400 flex items-center gap-1">
+                              <CheckCircle size={10} /> {dnaFileName}
+                            </span>
+                          )}
+                        </div>
+                      </div>
                     </li>
-                    <li className="flex items-center gap-3">
-                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-sickcare-700 flex items-center justify-center text-sickcare-300 font-bold text-xs">2</div>
-                      <span className="text-xs sm:text-sm text-slate-grey-300 font-medium"><strong>Lola Vital Check 56</strong> (Comprehensive blood diagnostics)</span>
+
+                    {/* Module 2: Lola Vital Check 56 + Expandable Biomarker Glossary */}
+                    <li className="flex flex-col gap-3">
+                      <div className="flex items-center gap-3">
+                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-sickcare-700 flex items-center justify-center text-sickcare-300 font-bold text-xs">2</div>
+                        <span className="text-xs sm:text-sm text-slate-grey-300 font-medium"><strong>Lola Vital Check 56</strong></span>
+                      </div>
+
+                      {/* Biomarker Accordion Block */}
+                      <div className="ml-9 border border-slate-800 bg-slate-950/40 rounded-xl overflow-hidden divide-y divide-slate-900">
+                        <div className="px-3.5 py-2 text-[10px] font-mono text-sickcare-400 uppercase tracking-wider bg-slate-900/30 flex justify-between items-center">
+                          <span>Biomarker Inspector</span>
+                          <span className="text-wellness-cyan">Active Protocol</span>
+                        </div>
+                        {[
+                          {
+                            id: 'apob',
+                            name: 'ApoB',
+                            short: 'The essential metric for identifying plaque-causing arterial particles.',
+                            what: 'Apolipoprotein B (ApoB) is the primary structural protein found on all major atherogenic (plaque-forming) lipoprotein particles, including LDL and VLDL.',
+                            why: 'It provides a direct, highly accurate count of the total number of atherogenic particles in circulation, serving as a superior predictor of cardiovascular risk compared to standard LDL-C.',
+                            range: '< 80 mg/dL (Optimal), < 60 mg/dL (High-risk prevention)'
+                          },
+                          {
+                            id: 'hba1c',
+                            name: 'HbA1c',
+                            short: 'Measures average glycemic control over the past 90 days to monitor insulin sensitivity.',
+                            what: 'Glycated hemoglobin (HbA1c) reflects the average blood glucose levels over the preceding 2–3 months by measuring the percentage of hemoglobin proteins coated with sugar.',
+                            why: 'Key indicator for insulin resistance, prediabetes, and type 2 diabetes risk. Essential for monitoring metabolic baseline and long-term glycemic control.',
+                            range: '< 5.4% (Optimal metabolic health), 5.7%–6.4% (Prediabetes)'
+                          },
+                          {
+                            id: 'hscrp',
+                            name: 'hs-CRP',
+                            short: 'An ultra-sensitive marker for identifying systemic and cardiovascular inflammation.',
+                            what: 'High-sensitivity C-Reactive Protein (hs-CRP) is an acute-phase reactant protein synthesized by the liver in response to inflammatory cytokines.',
+                            why: 'An ultra-sensitive marker of systemic, low-grade vascular inflammation. Highly predictive of cardiovascular disease risk, arterial plaque vulnerability, and overall systemic stress.',
+                            range: '< 1.0 mg/L (Low systemic inflammation), > 3.0 mg/L (High risk/active inflammation)'
+                          }
+                        ].map((marker) => {
+                          const isOpen = expandedMarker === marker.id;
+                          return (
+                            <div key={marker.id} className="transition-all duration-250">
+                              <button
+                                type="button"
+                                onClick={() => setExpandedMarker(isOpen ? null : (marker.id as any))}
+                                className="w-full text-left px-4 py-3 flex items-center justify-between text-xs hover:bg-slate-900/30 transition-colors"
+                              >
+                                <span className="font-semibold text-white">{marker.name}</span>
+                                <span className="text-[10px] text-slate-grey-450 font-light flex items-center gap-1.5">
+                                  {isOpen ? <ChevronUp size={12} className="text-wellness-cyan" /> : <ChevronDown size={12} />}
+                                </span>
+                              </button>
+                              
+                              {isOpen && (
+                                <div className="px-4 pb-4 space-y-3 text-[11px] text-slate-grey-300 font-light border-t border-slate-900 pt-3 bg-slate-900/10">
+                                  <p className="text-wellness-cyan-light font-mono text-[10px] tracking-wide mb-1.5">{marker.short}</p>
+                                  <div>
+                                    <strong className="text-slate-grey-400 font-semibold block text-[10px] uppercase font-mono tracking-wider">What it is</strong>
+                                    <p className="mt-0.5">{marker.what}</p>
+                                  </div>
+                                  <div>
+                                    <strong className="text-slate-grey-400 font-semibold block text-[10px] uppercase font-mono tracking-wider">Why we test it</strong>
+                                    <p className="mt-0.5">{marker.why}</p>
+                                  </div>
+                                  <div>
+                                    <strong className="text-slate-grey-400 font-semibold block text-[10px] uppercase font-mono tracking-wider">Target clinical range</strong>
+                                    <p className="mt-0.5 text-wellness-cyan font-mono font-semibold">{marker.range}</p>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
                     </li>
-                    <li className="flex items-center gap-3">
-                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-sickcare-700 flex items-center justify-center text-sickcare-300 font-bold text-xs">3</div>
-                      <span className="text-xs sm:text-sm text-slate-grey-300 font-medium"><strong>Continuous Biomarker Diagnostics</strong> (Monitoring blood sugar & stress response)</span>
+
+                    {/* Module 3: Continuous Biomarker Diagnostics + Live Wearable Sync Preview */}
+                    <li className="flex flex-col gap-3">
+                      <div className="flex items-center gap-3">
+                        <div className="flex-shrink-0 w-6 h-6 rounded-full bg-sickcare-700 flex items-center justify-center text-sickcare-300 font-bold text-xs">3</div>
+                        <span className="text-xs sm:text-sm text-slate-grey-300 font-medium"><strong>Continuous Biomarker Diagnostics</strong></span>
+                      </div>
+
+                      {/* Live Sync Preview Bento Hub */}
+                      <div className="ml-9 border border-slate-800 bg-slate-950/40 rounded-xl p-4 space-y-4">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-mono text-sickcare-400 uppercase tracking-wider">Live Sync Preview</span>
+                          <span className="inline-flex items-center gap-1.5 text-[9px] font-mono text-wellness-cyan-light">
+                            <span className="w-1.5 h-1.5 rounded-full bg-wellness-cyan animate-pulse"></span>
+                            Active Connection
+                          </span>
+                        </div>
+
+                        <div className="grid grid-cols-1 gap-2.5">
+                          {[
+                            {
+                              id: 'apple_watch',
+                              name: 'Apple Watch Series 10',
+                              metric: 'Heart Rate & Nocturnal HRV',
+                              telemetry: 'HRV 62ms (Real-time)',
+                              icon: Activity
+                            },
+                            {
+                              id: 'smart_scale',
+                              name: 'Bluetooth Smart Scale',
+                              metric: 'Active Body Composition',
+                              telemetry: 'Impedance sync complete',
+                              icon: Weight
+                            },
+                            {
+                              id: 'cgm',
+                              name: 'Continuous Glucose Monitor (CGM)',
+                              metric: 'Real-time Glycemic Baseline',
+                              telemetry: 'Sensor active (104 mg/dL)',
+                              icon: Wifi
+                            }
+                          ].map((device) => {
+                            const isPaired = pairedDevices.includes(device.id);
+                            return (
+                              <div key={device.id} className="flex items-center justify-between p-2.5 bg-slate-900/50 border border-slate-800/80 rounded-lg">
+                                <div className="flex items-center gap-3">
+                                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center border ${isPaired ? 'bg-wellness-cyan/10 border-wellness-cyan/30 text-wellness-cyan-light' : 'bg-slate-800 border-slate-700 text-slate-grey-450'}`}>
+                                    <device.icon size={14} />
+                                  </div>
+                                  <div>
+                                    <div className="text-[11px] font-bold text-white leading-tight">{device.name}</div>
+                                    <div className="text-[9px] text-slate-grey-400 font-light mt-0.5">{device.metric}</div>
+                                  </div>
+                                </div>
+                                <div className="text-right">
+                                  {isPaired ? (
+                                    <div className="space-y-0.5">
+                                      <div className="text-[9px] font-mono text-emerald-400 font-semibold">{device.telemetry}</div>
+                                      <span className="text-[8px] font-mono text-slate-grey-500 uppercase tracking-widest">Linked</span>
+                                    </div>
+                                  ) : (
+                                    <button
+                                      type="button"
+                                      onClick={() => setActivePairingDevice(device.id as any)}
+                                      className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-grey-300 hover:text-white rounded border border-slate-700 text-[10px] font-mono uppercase tracking-wider transition-colors cursor-pointer"
+                                    >
+                                      Connect
+                                    </button>
+                                  )}
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
                     </li>
                   </ul>
+
+                  {/* Module 4: Clinician-Ready GP Report Generator */}
+                  <div className="ml-9 mt-4 p-4 border border-slate-800 bg-slate-950/60 rounded-xl space-y-3.5">
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded bg-wellness-cyan/10 border border-wellness-cyan/20 flex items-center justify-center text-wellness-cyan-light flex-shrink-0 mt-0.5">
+                        <Lock size={14} className="text-wellness-cyan" />
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs text-white font-bold">Clinician-Ready GP Report</span>
+                          <span className="text-[8px] font-mono bg-wellness-cyan/15 border border-wellness-cyan/20 text-wellness-cyan-light px-1.5 py-0.5 rounded font-black uppercase tracking-wider">Secure PDF</span>
+                        </div>
+                        <p className="text-[11px] text-slate-grey-300 leading-relaxed font-light">
+                          Our diagnostic findings compile into a structured, clinician-ready PDF report containing standard reference ranges. Shared decision-making is a mandatory safety protocol; we require downloading this summary and scheduling a consultation with your local primary care physician to review your outcomes.
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <button
+                      type="button"
+                      onClick={handleGpDownload}
+                      className="w-full flex items-center justify-center gap-2 py-2 px-3 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white border border-wellness-cyan/25 rounded-lg text-xs font-black uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-md active:scale-[0.98]"
+                    >
+                      <FileText size={13} />
+                      <span>{gpReportStatus === 'generating' ? 'Compiling PDF...' : gpReportStatus === 'downloaded' ? 'Report Downloaded ✓' : 'Download GP-Ready PDF Template'}</span>
+                    </button>
+                  </div>
                 </div>
 
                 <div className="pt-8 border-t border-slate-800/80 mt-8 flex justify-between items-center">
@@ -515,27 +745,76 @@ export default function Home() {
                     </p>
                   </div>
 
-                  <ul className="space-y-3 pt-2" aria-label="Daily habits list">
-                    <li className="flex items-center gap-3">
-                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-bold text-xs">1</div>
-                      <span className="text-xs sm:text-sm text-slate-grey-300 font-medium"><strong>10-Minute Mobility Walks</strong> (Quick, effective low-intensity movement)</span>
+                  <ul className="space-y-4 pt-2" aria-label="Daily habits list">
+                    {/* Item 1: 10-Minute Mobility Walks */}
+                    <li className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-bold text-xs mt-0.5">1</div>
+                      <div className="space-y-1">
+                        <span className="text-xs sm:text-sm text-white font-bold block">10-Minute Mobility Walks</span>
+                        <p className="text-xs text-slate-grey-300 font-light leading-relaxed">
+                          Preserves joint mobility and builds foundational cardiovascular efficiency. Track your active steps and heart rate in real-time with the Apple Watch Series 10, or track weekly body composition changes using our Bluetooth Smart Scale.
+                        </p>
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs pt-1">
+                          <span className="text-slate-grey-400 font-normal">
+                            • <a href="#shop" className="text-wellness-cyan hover:text-wellness-cyan-light transition-colors font-medium">Shop Tracker Tools →</a>
+                          </span>
+                          <span className="text-slate-grey-400 font-normal">
+                            • <Link to="/premium-guides" className="text-wellness-cyan hover:text-wellness-cyan-light transition-colors font-medium">Upgrade to Beginner Home Workout Plan (£19.00) →</Link>
+                          </span>
+                        </div>
+                      </div>
                     </li>
-                    <li className="flex items-center gap-3">
-                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-bold text-xs">2</div>
-                      <span className="text-xs sm:text-sm text-slate-grey-300 font-medium"><strong>Breathing Mindfulness</strong> (Simple vagus nerve relaxation)</span>
+
+                    {/* Item 2: Breathing Mindfulness */}
+                    <li className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-bold text-xs mt-0.5">2</div>
+                      <div className="space-y-1">
+                        <span className="text-xs sm:text-sm text-white font-bold block">Breathing Mindfulness</span>
+                        <p className="text-xs text-slate-grey-300 font-light leading-relaxed">
+                          Down-regulates sympathetic 'fight-or-flight' alert states and optimizes Heart Rate Variability (HRV). Use our built-in 10-Minute Autonomic Reset audio to actively train your vagal tone.
+                        </p>
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs pt-1">
+                          <span className="text-slate-grey-400 font-normal">
+                            • <Link to="/wellness" className="text-wellness-cyan hover:text-wellness-cyan-light transition-colors font-medium">▶ Play 10-Min Autonomic Reset (Free) →</Link>
+                          </span>
+                          <span className="text-slate-grey-400 font-normal">
+                            • <Link to="/premium-guides" className="text-wellness-cyan hover:text-wellness-cyan-light transition-colors font-medium">Get Cortisol & Stress Management Guide (£22.00) →</Link>
+                          </span>
+                        </div>
+                      </div>
                     </li>
-                    <li className="flex items-center gap-3">
-                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-bold text-xs">3</div>
-                      <span className="text-xs sm:text-sm text-slate-grey-300 font-medium"><strong>Glycemic Snacking</strong> (Healthy choices to prevent energy crashes)</span>
+
+                    {/* Item 3: Glycemic Snacking */}
+                    <li className="flex items-start gap-3">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-bold text-xs mt-0.5">3</div>
+                      <div className="space-y-1">
+                        <span className="text-xs sm:text-sm text-white font-bold block">Glycemic Snacking</span>
+                        <p className="text-xs text-slate-grey-300 font-light leading-relaxed">
+                          Eliminates silent glucose spikes and protects insulin sensitivity. Monitor your body's real-time metabolic response to daily nutrition using Continuous Glucose Monitoring (CGM).
+                        </p>
+                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs pt-1">
+                          <span className="text-slate-grey-400 font-normal">
+                            • <Link to="/blog/10-blood-sugar-friendly-snacks" className="text-wellness-cyan hover:text-wellness-cyan-light transition-colors font-medium">Explore 10 Blood-Sugar-Friendly Snacks →</Link>
+                          </span>
+                          <span className="text-slate-grey-400 font-normal">
+                            • <Link to="/premium-guides" className="text-wellness-cyan hover:text-wellness-cyan-light transition-colors font-medium">Get The Master Meal Planning Guide (£24.00) →</Link>
+                          </span>
+                        </div>
+                      </div>
                     </li>
                   </ul>
                 </div>
 
-                <div className="pt-8 border-t border-slate-800/80 mt-8 flex justify-between items-center">
-                  <span className="text-[9px] font-mono uppercase tracking-wider text-wellness-amber">Interactive daily trackers</span>
-                  <a href="/start-here" className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-wellness-cyan hover:text-wellness-cyan-light transition-colors">
-                    Explore Wins <span aria-hidden="true">→</span>
-                  </a>
+                <div className="pt-6 border-t border-slate-800/80 mt-8 space-y-2">
+                  <div className="text-[10px] font-mono uppercase tracking-wider text-wellness-amber font-bold">
+                    Interactive Daily Trackers
+                  </div>
+                  <p className="text-xs text-slate-grey-300 font-light leading-relaxed">
+                    Testing only matters if you take action. Understand how your daily wins actively improve your baseline biological age and advanced blood biomarkers (such as the Lola Vital Check 56).{' '}
+                    <Link to="/health-quiz" className="text-wellness-cyan hover:text-wellness-cyan-light font-semibold transition-colors">
+                      Start with the 5-Minute Wellness Quiz to build your custom roadmap →
+                    </Link>
+                  </p>
                 </div>
               </div>
             </div>
@@ -1904,6 +2183,68 @@ export default function Home() {
                 </form>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Device Connection Modal */}
+      {activePairingDevice && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
+          <div className="bg-slate-grey-900 border border-slate-grey-700 rounded-3xl p-6 max-w-sm w-full space-y-6 shadow-2xl relative">
+            <button
+              onClick={() => setActivePairingDevice(null)}
+              className="absolute top-4 right-4 text-slate-grey-450 hover:text-white transition-colors cursor-pointer"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="text-center space-y-2">
+              <div className="w-12 h-12 rounded-full bg-wellness-cyan/10 border border-wellness-cyan/30 flex items-center justify-center mx-auto text-wellness-cyan-light animate-bounce">
+                <Smartphone size={24} />
+              </div>
+              <h4 className="text-lg font-display uppercase tracking-tight text-white">
+                Authorize Connection
+              </h4>
+              <p className="text-xs text-slate-grey-300 leading-relaxed font-light">
+                Securely sync health telemetry with <strong>{
+                  activePairingDevice === 'apple_watch' ? 'Apple Watch Series 10' :
+                  activePairingDevice === 'smart_scale' ? 'Bluetooth Smart Scale' :
+                  'Continuous Glucose Monitor'
+                }</strong>.
+              </p>
+            </div>
+
+            <div className="bg-slate-950/40 border border-slate-800 rounded-xl p-4 space-y-2.5 text-xs text-slate-grey-300">
+              <div className="flex items-center gap-2">
+                <Shield size={14} className="text-wellness-cyan" />
+                <span className="font-semibold text-white">Clinical Data Privacy Protocols</span>
+              </div>
+              <p className="text-[10px] leading-relaxed font-light">
+                Your biological datasets remain fully encrypted. Telemetry transmission complies strictly with HIPAA and GDPR security standard frameworks.
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => setActivePairingDevice(null)}
+                className="flex-1 py-2.5 bg-slate-850 hover:bg-slate-800 text-slate-grey-300 hover:text-white rounded-xl text-xs font-black uppercase tracking-wider transition-colors border border-slate-700 cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  if (activePairingDevice) {
+                    setPairedDevices([...pairedDevices, activePairingDevice]);
+                    setActivePairingDevice(null);
+                  }
+                }}
+                className="flex-1 py-2.5 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-200 border border-wellness-cyan/20 shadow-lg shadow-wellness-cyan/15 cursor-pointer"
+              >
+                Pair Device
+              </button>
+            </div>
           </div>
         </div>
       )}
