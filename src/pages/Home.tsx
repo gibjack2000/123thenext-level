@@ -531,7 +531,7 @@ export default function Home() {
                 <div className="w-full max-w-2xl mx-auto rounded-xl overflow-hidden border border-slate-800 bg-slate-950 aspect-video relative group/card-video shadow-lg mt-2">
                   <iframe
                     className="w-full h-full object-cover aspect-video"
-                    src="https://streamable.com/e/atkhiu"
+                    src="https://player.cloudinary.com/embed/?cloud_name=dbhpaqnq8&public_id=startingline_vefnde"
                     frameBorder="0"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowFullScreen
@@ -2093,7 +2093,7 @@ export default function Home() {
             <div className="aspect-video bg-black flex items-center justify-center">
               <iframe
                 className="w-full h-full object-cover aspect-video"
-                src="https://streamable.com/e/atkhiu?autoplay=1"
+                src="https://player.cloudinary.com/embed/?cloud_name=dbhpaqnq8&public_id=startingline_vefnde&autoplay=true"
                 frameBorder="0"
                 allow="autoplay; fullscreen; picture-in-picture"
                 allowFullScreen
