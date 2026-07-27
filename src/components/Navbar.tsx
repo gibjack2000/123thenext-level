@@ -83,8 +83,8 @@ const Navbar = () => {
               </Link>
               
               {/* Start Here */}
-              <Link to="/start-here" className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors">
-                Start Here
+              <Link to="/dual-track" className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors">
+                Dual-Track
               </Link>
 
               {/* Pillars Dropdown Trigger */}
@@ -216,12 +216,12 @@ const Navbar = () => {
 
             {/* Flat Link Start Here */}
             <Link
-              to="/start-here"
+              to="/dual-track"
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-3 p-4 bg-white/5 rounded-2xl border border-white/5 text-white"
             >
               <Compass size={16} className="text-blue-400" />
-              <span className="text-base font-display font-black uppercase tracking-tight">Start Here</span>
+              <span className="text-base font-display font-black uppercase tracking-tight">Dual-Track</span>
             </Link>
 
             {/* Accordion: Pillars */}

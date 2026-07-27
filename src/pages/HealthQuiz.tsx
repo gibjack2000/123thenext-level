@@ -49,11 +49,11 @@ export default function HealthQuiz() {
       <div className="max-w-4xl mx-auto px-4 pt-28 pb-16">
         {/* Back link */}
         <Link
-          to="/start-here"
+          to="/dual-track"
           className="inline-flex items-center text-sm font-bold uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors group mb-6"
         >
           <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" />
-          Back to Start Here
+          Back to Dual-Track Framework
         </Link>
 
         {/* Frame header */}

@@ -1,16 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   Shield, Activity, Heart, Clock, ArrowRight, 
   FileText, Download, CheckCircle2, Info, Lock 
 } from 'lucide-react';
 
-export default function StartHere() {
-  const [activeTab, setActiveTab] = useState<'diagnostics' | 'habits' | 'clinician'>('diagnostics');
+export default function DualTrack() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Derive active tab from path: /dual-track/diagnostics -> 'diagnostics', etc.
+  const pathParts = location.pathname.split('/');
+  const subPath = pathParts[pathParts.length - 1];
+  const activeTab = ['diagnostics', 'habits', 'clinician'].includes(subPath) 
+    ? (subPath as 'diagnostics' | 'habits' | 'clinician') 
+    : 'diagnostics';
+
+  const handleTabChange = (tab: 'diagnostics' | 'habits' | 'clinician') => {
+    navigate(`/dual-track/${tab}`);
+  };
+
+  useEffect(() => {
+    // If exact parent path is accessed, redirect to diagnostics
+    if (location.pathname === '/dual-track' || location.pathname === '/dual-track/') {
+      navigate('/dual-track/diagnostics', { replace: true });
+    }
+  }, [location.pathname, navigate]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [activeTab]);
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 selection:bg-wellness-cyan/30 font-sans pt-24 pb-16">
@@ -33,7 +52,7 @@ export default function StartHere() {
         <div className="flex justify-center mb-10 relative z-10">
           <div className="flex p-1 bg-slate-900 border border-slate-800 rounded-2xl gap-1 overflow-x-auto scrollbar-none max-w-full">
             <button
-              onClick={() => setActiveTab('diagnostics')}
+              onClick={() => handleTabChange('diagnostics')}
               className={`px-5 py-3 rounded-xl font-display uppercase tracking-wider text-[11px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer ${
                 activeTab === 'diagnostics'
                   ? 'bg-gradient-to-r from-wellness-cyan to-indigo-600 text-white shadow-lg shadow-wellness-cyan/10'
@@ -43,7 +62,7 @@ export default function StartHere() {
               Phase 1: Diagnostic Baseline
             </button>
             <button
-              onClick={() => setActiveTab('habits')}
+              onClick={() => handleTabChange('habits')}
               className={`px-5 py-3 rounded-xl font-display uppercase tracking-wider text-[11px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer ${
                 activeTab === 'habits'
                   ? 'bg-gradient-to-r from-wellness-cyan to-indigo-600 text-white shadow-lg shadow-wellness-cyan/10'
@@ -53,7 +72,7 @@ export default function StartHere() {
               Phase 2: Daily Small Wins
             </button>
             <button
-              onClick={() => setActiveTab('clinician')}
+              onClick={() => handleTabChange('clinician')}
               className={`px-5 py-3 rounded-xl font-display uppercase tracking-wider text-[11px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer ${
                 activeTab === 'clinician'
                   ? 'bg-gradient-to-r from-wellness-cyan to-indigo-600 text-white shadow-lg shadow-wellness-cyan/10'

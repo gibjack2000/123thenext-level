@@ -13,7 +13,7 @@ import SlideInNewsletter from './components/newsletter/SlideInNewsletter';
 
 // Lazy-load all pages for code-splitting (each page becomes its own JS chunk)
 const Home = lazy(() => import('./pages/Home'));
-const StartHere = lazy(() => import('./pages/StartHere'));
+const DualTrack = lazy(() => import('./pages/DualTrack'));
 const HealthQuiz = lazy(() => import('./pages/HealthQuiz'));
 const HealthPillar = lazy(() => import('./pages/HealthPillar'));
 const HealthPostA = lazy(() => import('./pages/HealthPostA'));
@@ -108,7 +108,8 @@ function App() {
             <Suspense fallback={<PageLoader />}>
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/start-here" element={<StartHere />} />
+                <Route path="/dual-track" element={<DualTrack />} />
+                <Route path="/dual-track/:tab" element={<DualTrack />} />
                 <Route path="/health-quiz" element={<HealthQuiz />} />
                 <Route path="/health" element={<HealthPillar />} />
                 <Route path="/health/preventive" element={<PreventiveHealth />} />
