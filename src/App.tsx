@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import { CartProvider } from './contexts/CartContext';
+import { MarketProvider } from './contexts/MarketContext';
 import Navbar from './components/Navbar';
 import SlideInNewsletter from './components/newsletter/SlideInNewsletter';
 
@@ -87,6 +88,8 @@ const MagazineRack = lazy(() => import('./pages/MagazineRack'));
 const DesignSystem = lazy(() => import('./pages/DesignSystem'));
 const Success = lazy(() => import('./pages/Success'));
 const StartHere = lazy(() => import('./pages/StartHere'));
+const QuizResults = lazy(() => import('./pages/QuizResults'));
+
 
 // Loading spinner shown during page transitions
 const PageLoader = () => (
@@ -101,8 +104,9 @@ function App() {
   return (
     <CartProvider>
       <BrowserRouter>
-        <ScrollToTop />
-        <div className="min-h-screen bg-slate-950 flex flex-col">
+        <MarketProvider>
+          <ScrollToTop />
+          <div className="min-h-screen bg-slate-950 flex flex-col">
           <Navbar />
 
           <main className="flex-grow">
@@ -185,6 +189,8 @@ function App() {
                 <Route path="/updates" element={<MagazineRack />} />
                 <Route path="/design-system" element={<DesignSystem />} />
                 <Route path="/blueprint-success" element={<Success />} />
+                <Route path="/quiz-results" element={<QuizResults />} />
+
                 <Route path="/:region" element={<RegionHub />} />
                 <Route path="/:region/:category" element={<CategoryPage />} />
               </Routes>
@@ -194,6 +200,7 @@ function App() {
           <Footer />
           <SlideInNewsletter />
         </div>
+        </MarketProvider>
       </BrowserRouter>
     </CartProvider>
   );

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ClipboardCheck } from 'lucide-react';
 import { useAffiliateLinks } from '../contexts/AffiliateLinksContext';
 
@@ -17,6 +17,7 @@ export default function HealthQuiz() {
   const [loaded, setLoaded] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const { links } = useAffiliateLinks();
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -38,11 +39,24 @@ export default function HealthQuiz() {
         if (data.action === 'scrollToTop') {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+        if (data.action === 'quizComplete') {
+          let pillar = 'fitness';
+          const cat = data.lowestPillar;
+          if (cat === 'Movement & Exercise') pillar = 'fitness';
+          else if (cat === 'Nutrition & Hydration') pillar = 'nutrition';
+          else if (cat === 'Sleep & Recovery' || cat === 'Stress & Mental Wellbeing') pillar = 'wellness';
+          else if (cat === 'Preventive Care & Energy' || cat === 'Lifestyle & Habits') pillar = 'health';
+          
+          const market = (data.market || 'us').toUpperCase();
+          const scoresStr = data.scores ? `&scores=${encodeURIComponent(JSON.stringify(data.scores))}` : '';
+          navigate(`/quiz-results?score=${data.score}&pillar=${pillar}&market=${market}${scoresStr}`);
+        }
       }
     }
     window.addEventListener('message', onMessage);
     return () => window.removeEventListener('message', onMessage);
-  }, []);
+  }, [navigate]);
+
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-200 font-sans">

@@ -2736,6 +2736,49 @@ function renderResults() {
   Object.values(dims).forEach(d => { totalScore += d.total; totalMax += d.max; });
   const overall = Math.round((totalScore / totalMax) * 100);
 
+  // Compute lowest-scoring category
+  let lowestPillar = 'Movement & Exercise';
+  let lowestRatio = 1.1;
+  Object.entries(dims).forEach(([catName, data]) => {
+    const ratio = data.total / data.max;
+    if (ratio < lowestRatio) {
+      lowestRatio = ratio;
+      lowestPillar = catName;
+    }
+  });
+
+  if (window.parent && window.parent !== window) {
+    const finalScores = {};
+    Object.entries(dims).forEach(([catName, data]) => {
+      let key = 'health';
+      if (catName === 'Movement & Exercise') key = 'fitness';
+      else if (catName === 'Nutrition & Hydration') key = 'nutrition';
+      else if (catName === 'Sleep & Recovery' || catName === 'Stress & Mental Wellbeing') key = 'wellness';
+      else if (catName === 'Preventive Care & Energy' || catName === 'Lifestyle & Habits') key = 'health';
+
+      if (!finalScores[key]) {
+        finalScores[key] = { total: 0, max: 0 };
+      }
+      finalScores[key].total += data.total;
+      finalScores[key].max += data.max;
+    });
+
+    const scoresPayload = {};
+    Object.entries(finalScores).forEach(([k, val]) => {
+      scoresPayload[k] = Math.round((val.total / val.max) * 100);
+    });
+
+    window.parent.postMessage({
+      source: 'health-quiz',
+      action: 'quizComplete',
+      score: overall,
+      lowestPillar: lowestPillar,
+      market: state.selectedRegion,
+      scores: scoresPayload
+    }, '*');
+  }
+
+
   // Animate the score ring
   const circumference = 2 * Math.PI * 52; // r=52
   const offset = circumference - (overall / 100) * circumference;
