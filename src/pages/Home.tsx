@@ -572,8 +572,8 @@ export default function Home() {
               </div>
 
               {/* Centered Trust Subtitle */}
-              <p className="text-center text-xs text-slate-grey-400 max-w-2xl mx-auto leading-relaxed relative z-10">
-                Proactive health is a partnership. We provide the scientific tracking templates; you and your GP co-process the data to build your execution plan.
+              <p className="text-center text-xs text-slate-grey-450 max-w-2xl mx-auto leading-relaxed relative z-10">
+                Proactive health is a collaborative partnership. Take our quick wellness assessment to map your interest pillars, or download our print-ready template to log your baseline biometrics and co-process the data directly with your general practitioner.
               </p>
 
               {/* Privacy Alignment Bottom Subtitle Banner */}
@@ -584,14 +584,22 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Primary Call to Action Button */}
-              <div className="flex justify-center pt-2 relative z-10">
+              {/* Primary Call to Action Button & Secondary Direct Download */}
+              <div className="flex flex-col items-center gap-4 pt-2 relative z-10">
                 <Link
                   to="/health-quiz"
                   className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-xl shadow-wellness-cyan/15 border border-wellness-cyan/20 hover:scale-[1.02] active:scale-[0.98] text-center w-full sm:w-auto"
                 >
-                  Get Your Longevity Roadmap & Printable Template →
+                  Take the 5-Minute Wellness Quiz to Build Your Roadmap →
                 </Link>
+
+                <a
+                  href="/assets/docs/clinical-baseline-consultation-template.pdf"
+                  download="clinical-baseline-consultation-template.pdf"
+                  className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-slate-grey-400 hover:text-wellness-cyan-light transition-colors text-center"
+                >
+                  📥 Or, Download the Printable GP Consultation Template (PDF) Directly
+                </a>
               </div>
             </div>
           </div>
