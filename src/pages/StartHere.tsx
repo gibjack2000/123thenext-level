@@ -251,7 +251,7 @@ export default function StartHere() {
                       Phase 2 • Daily Behavioral & Autonomic Inputs
                     </h2>
                     <p className="text-slate-grey-300 text-xs sm:text-sm leading-relaxed font-light">
-                      Continuous diagnostics only matter if they drive daily action. We translate complex biometric feedback loops into high-yield, zero-cost lifestyle habits. Phase 2 daily habits are the direct, zero-cost "inputs" used to improve the clinical biomarker baselines measured in Phase 1.
+                      Track 2 represents your immediate, frictionless starting line. We combine zero-cost daily behavioral habits with highly accessible, low-cost physical accelerators and master guides you can deploy on Day 1.
                     </p>
                   </div>
 
@@ -268,7 +268,7 @@ export default function StartHere() {
                         Start Here, Start Now (Upcoming Coaching Briefing)
                       </h4>
                       <p className="text-[11px] text-slate-grey-450 leading-relaxed font-light">
-                        This upcoming 65-second coaching session details how to execute your zero-cost biophysical habits on Day 1 without waiting for lab results.
+                        This upcoming 65-second coaching session details how to execute your frictionless biophysical habits on Day 1, and how to accelerate your sleep, strength, and metabolic nutrition using our vetted daily vitamin, collagen, and affordable toolkits.
                       </p>
                     </div>
                   </div>
@@ -294,7 +294,7 @@ export default function StartHere() {
                         10-Minute Mobility Walks
                       </h3>
                       <p className="text-[11px] sm:text-xs text-slate-grey-455 leading-relaxed font-light">
-                        Preserves joint lubrication, increases vascular elasticity, and builds structural cardiovascular efficiency. Simple, low-intensity movement acts as a constant baseline metabolic signal.
+                        Post-meal walking to clear the mind and flatten blood sugar spikes. Preserves joint lubrication, increases vascular elasticity, and builds structural cardiovascular efficiency.
                       </p>
                     </div>
 
@@ -308,17 +308,8 @@ export default function StartHere() {
 
                       {/* Vetted Extensions */}
                       <div className="space-y-1.5">
-                        <span className="text-[9px] font-mono uppercase tracking-wider text-slate-grey-450 block font-bold">Vetted Equipment extensions</span>
+                        <span className="text-[9px] font-mono uppercase tracking-wider text-slate-grey-450 block font-bold">Low-Cost Strength Extensions</span>
                         <div className="flex flex-col gap-1.5">
-                          <a
-                            href="https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex justify-between items-center p-2 rounded bg-slate-900/30 hover:bg-slate-900/60 border border-slate-850 text-slate-grey-300 hover:text-white transition-all"
-                          >
-                            <span className="font-medium">Cocept2 Remo Indoor Model D Black Rower</span>
-                            <span className="text-[10px] text-wellness-cyan font-bold">4.9★</span>
-                          </a>
                           <a
                             href="https://www.amazon.co.uk/dp/B076QJY2FN?tag=123znl0f3-21"
                             target="_blank"
@@ -341,7 +332,7 @@ export default function StartHere() {
                         Breathing Mindfulness & Cortisol Control
                       </h3>
                       <p className="text-[11px] sm:text-xs text-slate-grey-455 leading-relaxed font-light">
-                        Stimulates the vagus nerve to down-regulate sympathetic fight-or-flight states, immediately reducing baseline cortisol, achieving vagus nerve stimulation, and promoting HRV gains.
+                        Autonomic resets to stimulate the vagus nerve, manage cortisol, and boost HRV. Stimulates the vagus nerve to down-regulate sympathetic fight-or-flight states.
                       </p>
                     </div>
 
@@ -355,22 +346,8 @@ export default function StartHere() {
 
                       {/* Sleep & Relaxation Accelerators */}
                       <div className="space-y-1.5">
-                        <span className="text-[9px] font-mono uppercase tracking-wider text-slate-grey-450 block font-bold">Sleep & Relaxation Accelerators</span>
+                        <span className="text-[9px] font-mono uppercase tracking-wider text-slate-grey-450 block font-bold">Low-Cost Autonomic Extensions</span>
                         <div className="flex flex-col gap-1.5">
-                          <a
-                            href="https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex flex-col p-2.5 rounded bg-slate-900/30 hover:bg-slate-900/60 border border-slate-850 text-slate-grey-300 hover:text-white transition-all text-left gap-1"
-                          >
-                            <div className="flex justify-between items-center w-full">
-                              <span className="font-bold text-slate-200">Sony WH-CH720N Noise-Canceling Headphones</span>
-                              <span className="text-[10px] text-wellness-cyan font-bold">4.9★</span>
-                            </div>
-                            <span className="text-[10px] text-slate-grey-455 font-light leading-relaxed">
-                              Block out environmental sensory pollution for deep-sleep preparation, NSDR neuro-resets, and vagal breathing exercises.
-                            </span>
-                          </a>
                           <a
                             href="https://www.amazon.com/dp/B01698E3A6?tag=123znl08-20"
                             target="_blank"
@@ -393,7 +370,7 @@ export default function StartHere() {
                         Glycemic Snacking & Metabolic Nutrition
                       </h3>
                       <p className="text-[11px] sm:text-xs text-slate-grey-455 leading-relaxed font-light">
-                        Focuses on glucose stabilization and preserving insulin sensitivity, prioritizing low-glycemic cellular fueling to protect metabolic health and prevent glycemic spikes.
+                        Smart, low-glycemic dietary choices to stabilize cellular energy and protect insulin sensitivity. Prioritizes low-glycemic cellular fueling to protect metabolic health.
                       </p>
                     </div>
 
@@ -401,28 +378,14 @@ export default function StartHere() {
                       {/* Direct Product */}
                       <div className="p-2.5 rounded-lg bg-slate-900/40 border border-slate-850 hover:border-wellness-cyan/15 transition-all">
                         <p className="text-slate-grey-400 font-light leading-relaxed">
-                          Master your metabolic kitchen workflows with <Link to="/premium-guides" className="text-wellness-cyan font-bold hover:underline">The Master Meal Planning Guide (£24.00)</Link>.
+                          Recommend <Link to="/premium-guides" className="text-wellness-cyan font-bold hover:underline">The Master Meal Planning Guide (£24.00)</Link> for structuring weekly grocery and macro workflows.
                         </p>
                       </div>
 
                       {/* Metabolic & Vitamin Accelerators */}
                       <div className="space-y-1.5">
-                        <span className="text-[9px] font-mono uppercase tracking-wider text-slate-grey-450 block font-bold">Metabolic & Vitamin Accelerators</span>
+                        <span className="text-[9px] font-mono uppercase tracking-wider text-slate-grey-450 block font-bold">Low-Cost Hydration & Vitamin Regimens</span>
                         <div className="flex flex-col gap-1.5">
-                          <a
-                            href="https://www.amazon.com/s?k=ZEBORA+Marine+Collagen"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex flex-col p-2.5 rounded bg-slate-900/30 hover:bg-slate-900/60 border border-slate-850 text-slate-grey-300 hover:text-white transition-all text-left gap-1"
-                          >
-                            <div className="flex justify-between items-center w-full">
-                              <span className="font-bold text-slate-200">Zebora Marine Collagen</span>
-                              <span className="text-[10px] text-wellness-cyan font-bold">4.8★</span>
-                            </div>
-                            <span className="text-[10px] text-slate-grey-455 font-light leading-relaxed">
-                              Expert-recommended daily marine collagen to support gut integrity, tissue recovery, and cellular structure.
-                            </span>
-                          </a>
                           <a
                             href="https://www.amazon.com/s?k=Owala+FreeSip+Water+Bottles"
                             target="_blank"
@@ -434,7 +397,7 @@ export default function StartHere() {
                               <span className="text-[10px] text-wellness-cyan font-bold">4.9★</span>
                             </div>
                             <span className="text-[10px] text-slate-grey-455 font-light leading-relaxed">
-                              Maintain optimal metabolic hydration throughout your fasting and feeding windows.
+                              Maintain optimal metabolic cellular hydration throughout fasting and feeding windows.
                             </span>
                           </a>
                         </div>
