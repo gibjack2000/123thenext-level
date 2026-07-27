@@ -518,56 +518,18 @@ export default function Home() {
                 </button>
               </div>
 
-              {/* Two Visual Columns */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 relative z-10">
-                {/* Left Column: Diagnostics */}
-                <div className="space-y-4 p-6 rounded-2xl bg-slate-950/40 border border-slate-900">
-                  <div className="flex items-center justify-between border-b border-slate-900 pb-3">
-                    <h4 className="text-sm font-display uppercase tracking-wider text-white font-bold flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-wellness-cyan"></span>
-                      Phase 1: Diagnostic Baseline
-                    </h4>
-                    <span className="text-[9px] font-mono bg-wellness-cyan/10 border border-wellness-cyan/20 text-wellness-cyan-light px-2 py-0.5 rounded uppercase tracking-wider">Baseline Setup</span>
-                  </div>
-                  <ul className="space-y-3.5 text-xs text-slate-grey-300 font-light leading-relaxed">
-                    <li className="flex items-start gap-2.5">
-                      <span className="text-wellness-cyan text-xs mt-0.5 font-bold">•</span>
-                      <span><strong>Epigenetic Age:</strong> Measures biological velocity and cellular aging profile baseline rates.</span>
-                    </li>
-                    <li className="flex items-start gap-2.5">
-                      <span className="text-wellness-cyan text-xs mt-0.5 font-bold">•</span>
-                      <span><strong>Lola Vital Check 56 Biomarkers:</strong> Comprehensive panel measuring ApoB, HbA1c, and hs-CRP.</span>
-                    </li>
-                    <li className="flex items-start gap-2.5">
-                      <span className="text-wellness-cyan text-xs mt-0.5 font-bold">•</span>
-                      <span><strong>Continuous Tracking:</strong> Real-time wearable metrics including heart rate, nocturnal HRV, and sleep logging.</span>
-                    </li>
-                  </ul>
-                </div>
-
-                {/* Right Column: Daily Wins */}
-                <div className="space-y-4 p-6 rounded-2xl bg-slate-950/40 border border-slate-900">
-                  <div className="flex items-center justify-between border-b border-slate-900 pb-3">
-                    <h4 className="text-sm font-display uppercase tracking-wider text-white font-bold flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-wellness-amber"></span>
-                      Phase 2: Simple Daily Habits
-                    </h4>
-                    <span className="text-[9px] font-mono bg-wellness-amber/10 border border-wellness-amber/20 text-wellness-amber px-2 py-0.5 rounded uppercase tracking-wider">Daily Logging</span>
-                  </div>
-                  <ul className="space-y-3.5 text-xs text-slate-grey-300 font-light leading-relaxed">
-                    <li className="flex items-start gap-2.5">
-                      <span className="text-wellness-amber text-xs mt-0.5 font-bold">•</span>
-                      <span><strong>Autonomic Nervous System Resets:</strong> Targeted mindfulness techniques and breathing routines to improve HRV.</span>
-                    </li>
-                    <li className="flex items-start gap-2.5">
-                      <span className="text-wellness-amber text-xs mt-0.5 font-bold">•</span>
-                      <span><strong>Glycemic Control:</strong> Actionable fuel intake adjustments to optimize daily glucose curves.</span>
-                    </li>
-                    <li className="flex items-start gap-2.5">
-                      <span className="text-wellness-amber text-xs mt-0.5 font-bold">•</span>
-                      <span><strong>Foundational Mobility Walks:</strong> Daily low-intensity active step routines to support joints and stamina.</span>
-                    </li>
-                  </ul>
+              {/* Abbreviated explanation of the Dual-Track philosophy */}
+              <div className="space-y-4 text-xs sm:text-sm text-slate-grey-300 font-light leading-relaxed max-w-3xl mx-auto relative z-10">
+                <p>
+                  The Dual-Track Performance Framework is a systematic approach to human longevity that balances precise, high-end quarterly biomarkers with actionable daily micro-habits.
+                </p>
+                <div className="space-y-3 pl-4 border-l border-slate-800/80">
+                  <p>
+                    <strong className="text-wellness-cyan font-bold block sm:inline">• Track 1 (Diagnostics):</strong> Establishes your true scientific baseline through advanced clinical-grade assessments (epigenetic biological age, ApoB, and sleep telemetry).
+                  </p>
+                  <p>
+                    <strong className="text-wellness-amber font-bold block sm:inline">• Track 2 (Daily Habits):</strong> Translates complex health data into zero-cost, high-impact routines (vagal tone resets, glycemic controls) that act as direct biological inputs to optimize your cellular longevity.
+                  </p>
                 </div>
               </div>
 
