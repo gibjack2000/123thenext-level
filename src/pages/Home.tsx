@@ -512,7 +512,7 @@ export default function Home() {
                     </svg>
                   </div>
                   <span className="text-[10px] font-bold text-slate-grey-300 group-hover:text-white uppercase tracking-wider font-mono">
-                    Watch Guide • 60s
+                    ▶ Watch Framework Briefing • 60s
                   </span>
                 </button>
               </div>
@@ -524,22 +524,22 @@ export default function Home() {
                   <div className="flex items-center justify-between border-b border-slate-900 pb-3">
                     <h4 className="text-sm font-display uppercase tracking-wider text-white font-bold flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-wellness-cyan"></span>
-                      Phase 1: Your Diagnostic Baseline
+                      Phase 1: Diagnostic Baseline
                     </h4>
                     <span className="text-[9px] font-mono bg-wellness-cyan/10 border border-wellness-cyan/20 text-wellness-cyan-light px-2 py-0.5 rounded uppercase tracking-wider">Baseline Setup</span>
                   </div>
                   <ul className="space-y-3.5 text-xs text-slate-grey-300 font-light leading-relaxed">
                     <li className="flex items-start gap-2.5">
                       <span className="text-wellness-cyan text-xs mt-0.5 font-bold">•</span>
-                      <span><strong>Epigenetic Cellular Aging Assessment:</strong> Establishing biological velocity profiles using Whole-Genome Methylation (gDNA) aging tests.</span>
+                      <span><strong>Epigenetic Age:</strong> Measures biological velocity and cellular aging profile baseline rates.</span>
                     </li>
                     <li className="flex items-start gap-2.5">
                       <span className="text-wellness-cyan text-xs mt-0.5 font-bold">•</span>
-                      <span><strong>Lola Vital Check 56 Blood Panel:</strong> Analyzing 56 critical baseline blood biomarkers including cardiovascular ApoB, glycemic HbA1c, and inflammation hs-CRP.</span>
+                      <span><strong>Lola Vital Check 56 Biomarkers:</strong> Comprehensive panel measuring ApoB, HbA1c, and hs-CRP.</span>
                     </li>
                     <li className="flex items-start gap-2.5">
                       <span className="text-wellness-cyan text-xs mt-0.5 font-bold">•</span>
-                      <span><strong>Continuous Telemetry Syncing:</strong> Real-time logging of average resting heart rate, nocturnal Heart Rate Variability (HRV), and continuous glucose curves.</span>
+                      <span><strong>Continuous Tracking:</strong> Real-time wearable metrics including heart rate, nocturnal HRV, and sleep logging.</span>
                     </li>
                   </ul>
                 </div>
@@ -549,42 +549,47 @@ export default function Home() {
                   <div className="flex items-center justify-between border-b border-slate-900 pb-3">
                     <h4 className="text-sm font-display uppercase tracking-wider text-white font-bold flex items-center gap-2">
                       <span className="w-1.5 h-1.5 rounded-full bg-wellness-amber"></span>
-                      Phase 2: Your Daily Small Wins
+                      Phase 2: Simple Daily Habits
                     </h4>
                     <span className="text-[9px] font-mono bg-wellness-amber/10 border border-wellness-amber/20 text-wellness-amber px-2 py-0.5 rounded uppercase tracking-wider">Daily Logging</span>
                   </div>
                   <ul className="space-y-3.5 text-xs text-slate-grey-300 font-light leading-relaxed">
                     <li className="flex items-start gap-2.5">
                       <span className="text-wellness-amber text-xs mt-0.5 font-bold">•</span>
-                      <span><strong>HRV & Autonomic Resets:</strong> Targeted mindfulness practices to down-regulate sympathetic fight-or-flight alert states and optimize HRV.</span>
+                      <span><strong>Autonomic Nervous System Resets:</strong> Targeted mindfulness techniques and breathing routines to improve HRV.</span>
                     </li>
                     <li className="flex items-start gap-2.5">
                       <span className="text-wellness-amber text-xs mt-0.5 font-bold">•</span>
-                      <span><strong>Low-Glycemic Fueling:</strong> Actionable nutritional strategies to prevent blood glucose spikes, protect insulin response, and stabilize energy curves.</span>
+                      <span><strong>Glycemic Control:</strong> Actionable fuel intake adjustments to optimize daily glucose curves.</span>
                     </li>
                     <li className="flex items-start gap-2.5">
                       <span className="text-wellness-amber text-xs mt-0.5 font-bold">•</span>
-                      <span><strong>Joint Mobility & Cardiovascular Steps:</strong> Focused, low-intensity active movement steps to protect joint integrity and build heart efficiency.</span>
+                      <span><strong>Foundational Mobility Walks:</strong> Daily low-intensity active step routines to support joints and stamina.</span>
                     </li>
                   </ul>
                 </div>
               </div>
 
+              {/* Centered Trust Subtitle */}
+              <p className="text-center text-xs text-slate-grey-400 max-w-2xl mx-auto leading-relaxed relative z-10">
+                Proactive health is a partnership. We provide the scientific tracking templates; you and your GP co-process the data to build your execution plan.
+              </p>
+
               {/* Privacy Alignment Bottom Subtitle Banner */}
               <div className="p-4 border border-slate-800 bg-slate-950/60 rounded-2xl text-xs text-slate-grey-300 text-center leading-relaxed font-light max-w-3xl mx-auto relative z-10 flex gap-3.5 items-start">
                 <Shield size={16} className="text-wellness-cyan flex-shrink-0 mt-0.5" />
                 <p className="text-left text-[11px] text-slate-grey-450 leading-relaxed">
-                  Proactive medicine is a shared decision-making partnership. We do not collect, store, or process your sensitive clinical metrics. Instead, we provide the evidence-backed guidance, custom tracking frameworks, and print-ready consultation templates; you and your general practitioner co-process the data to build your clinical roadmap.
+                  We do not collect, store, or process your sensitive medical data. You retain 100% ownership and control of your biometrics.
                 </p>
               </div>
 
               {/* Primary Call to Action Button */}
               <div className="flex justify-center pt-2 relative z-10">
                 <Link
-                  to="/start-here"
+                  to="/health-quiz"
                   className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-xl shadow-wellness-cyan/15 border border-wellness-cyan/20 hover:scale-[1.02] active:scale-[0.98] text-center w-full sm:w-auto"
                 >
-                  Get Your Longevity Roadmap & Printable GP Consultation Template →
+                  Get Your Longevity Roadmap & Printable Template →
                 </Link>
               </div>
             </div>
