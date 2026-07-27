@@ -547,14 +547,22 @@ export default function Home() {
               </div>
 
               {/* Primary Call to Action Button & Secondary Direct Download */}
-              <div className="flex flex-col items-center gap-4 pt-2 relative z-10">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2 relative z-10">
                 <Link
                   to="/health-quiz"
                   className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-xl shadow-wellness-cyan/15 border border-wellness-cyan/20 hover:scale-[1.02] active:scale-[0.98] text-center w-full sm:w-auto"
                 >
                   Take the 5-Minute Wellness Quiz to Build Your Roadmap →
                 </Link>
+                <Link
+                  to="/start-here"
+                  className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-slate-900 hover:bg-slate-850 text-slate-200 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 border border-slate-800 hover:border-slate-700 text-center w-full sm:w-auto"
+                >
+                  Read Dual-Track Framework Details →
+                </Link>
+              </div>
 
+              <div className="flex justify-center relative z-10">
                 <a
                   href="/assets/docs/clinical-baseline-consultation-template.pdf"
                   download="clinical-baseline-consultation-template.pdf"

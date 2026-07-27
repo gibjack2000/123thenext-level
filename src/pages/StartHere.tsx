@@ -1,987 +1,326 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'motion/react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
-  BookOpen, Compass, Dumbbell, Apple, Heart, Sparkles, 
-  ArrowRight, Shield, Activity, Brain, Moon,
-  ShoppingBag, Smartphone, Pill, ChefHat, ClipboardCheck
+  Shield, Activity, Heart, Clock, ArrowRight, 
+  FileText, Download, CheckCircle2, Info, Lock 
 } from 'lucide-react';
-import { affiliateLinks } from '../config/affiliateLinks';
-
-/* ── Quiz-highlight ticker tape (inline, quiz-specific messages) ── */
-const QUIZ_TICKER = [
-  "TAKE THE FREE 2-MINUTE HEALTH BASELINE QUIZ",
-  "DISCOVER YOUR SCORE ACROSS 6 PILLARS OF WELLBEING",
-  "GET A PERSONALIZED ACTION PLAN — START THIS WEEK",
-  "12 SIMPLE QUESTIONS · 100% PRIVATE · NO SIGNUP",
-  "STOP GUESSING. START KNOWING YOUR HEALTH BASELINE",
-];
-
-interface CuratedItem {
-  name: string;
-  price: string;
-  category: string;
-  categorySlug: string;
-  desc: string;
-  affLink: string;
-  icon: React.ComponentType<any>;
-  glowColor: string;
-  badgeColor: string;
-  image: string;
-  objectFit: 'cover' | 'contain';
-}
 
 export default function StartHere() {
-  const [selectedRegion, setSelectedRegion] = useState<'us' | 'uk' | 'es'>('us');
+  const [activeTab, setActiveTab] = useState<'diagnostics' | 'habits' | 'clinician'>('diagnostics');
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const curatedItemsByRegion: Record<'us' | 'uk' | 'es', CuratedItem[]> = {
-    us: [
-      {
-        name: "Oura Ring Gen 5 - Silver",
-        price: "$349.00",
-        category: "Tech Gadgets",
-        categorySlug: "tech_gadgets",
-        desc: "Track sleep quality, HRV, and readiness to optimize your recovery.",
-        affLink: affiliateLinks.oura,
-        icon: Smartphone,
-        glowColor: "from-indigo-500/20 to-blue-500/5",
-        badgeColor: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
-        image: "/Products/Oura1.jpg",
-        objectFit: "cover"
-      },
-      {
-        name: "Withings Body Smart Scale",
-        price: "$89.95",
-        category: "Tech Gadgets",
-        categorySlug: "tech_gadgets",
-        desc: "Measure precise body composition metrics beyond simple weight.",
-        affLink: affiliateLinks.whp_scale,
-        icon: Activity,
-        glowColor: "from-blue-500/20 to-cyan-500/5",
-        badgeColor: "text-blue-400 bg-blue-500/10 border-blue-500/20",
-        image: "/Products/withings.jpg",
-        objectFit: "cover"
-      },
-      {
-        name: "Thorne Basic Nutrients",
-        price: "$36.00",
-        category: "Supplements",
-        categorySlug: "supplements",
-        desc: "High bioavailability daily multi-vitamin with clinical-grade purity.",
-        affLink: affiliateLinks.whp_multivitamin,
-        icon: Pill,
-        glowColor: "from-emerald-500/20 to-teal-500/5",
-        badgeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
-        image: "/Products/thorne.jpg",
-        objectFit: "contain"
-      },
-      {
-        name: "High Density Foam Roller",
-        price: "$15.29",
-        category: "Sports & Outdoors",
-        categorySlug: "Sports & Outdoors",
-        desc: "Essential tool for muscle recovery, physical therapy, and flexibility.",
-        affLink: "https://www.amazon.com/dp/B0XM2MXK8?tag=123znl0e-20",
-        icon: Dumbbell,
-        glowColor: "from-cyan-500/20 to-indigo-500/5",
-        badgeColor: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20",
-        image: "/Products/roller.jpg",
-        objectFit: "contain"
-      }
-    ],
-    uk: [
-      {
-        name: "Ninja Foodi Dual Zone Air Fryer",
-        price: "£149.00",
-        category: "Home & Kitchen",
-        categorySlug: "home_kitchen",
-        desc: "Cook healthier meals with dual zone capability and zero oil.",
-        affLink: "https://www.amazon.co.uk/dp/B08CN3G4N9?tag=123znl0a-21",
-        icon: ChefHat,
-        glowColor: "from-amber-500/20 to-orange-500/5",
-        badgeColor: "text-amber-400 bg-amber-500/10 border-amber-500/20",
-        image: "/Products/airfryer.jpg",
-        objectFit: "contain"
-      },
-      {
-        name: "Bulk Vitamin C Tablets 1000mg",
-        price: "£14.49",
-        category: "Supplements",
-        categorySlug: "supplements",
-        desc: "270 pack of daily immune and cellular health supporting tablets.",
-        affLink: "https://www.amazon.co.uk/dp/B00IZD3YC0?tag=123znl0e-20",
-        icon: Pill,
-        glowColor: "from-emerald-500/20 to-teal-500/5",
-        badgeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
-        image: "/Products/vitc.jpg",
-        objectFit: "contain"
-      },
-      {
-        name: "WeightWorld Vibration Plate",
-        price: "£89.99",
-        category: "Fitness Gear",
-        categorySlug: "fitness_gear",
-        desc: "Activate muscle fibers and improve circulation at home.",
-        affLink: "https://www.amazon.co.uk/dp/B07LH6X6VC?tag=123znl0e-20",
-        icon: Dumbbell,
-        glowColor: "from-cyan-500/20 to-blue-500/5",
-        badgeColor: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20",
-        image: "/Products/vibration.jpg",
-        objectFit: "contain"
-      },
-      {
-        name: "Ninja Blast Portable Blender",
-        price: "£35.99",
-        category: "Home & Kitchen",
-        categorySlug: "home_kitchen",
-        desc: "Cordless and leak-proof personal blender for nutrition on the go.",
-        affLink: "https://www.amazon.co.uk/dp/B0CJ39H6GG?tag=123znl0a-21",
-        icon: ChefHat,
-        glowColor: "from-indigo-500/20 to-violet-500/5",
-        badgeColor: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
-        image: "/Products/ninjablast.jpg",
-        objectFit: "contain"
-      }
-    ],
-    es: [
-      {
-        name: "Xiaomi Redmi Watch 5 Active",
-        price: "29,90 €",
-        category: "Sports Electronics & Gadgets",
-        categorySlug: "Sports Electronics & Gadgets",
-        desc: "Reloj inteligente con monitor de ritmo cardíaco y 140 deportes.",
-        affLink: "https://www.amazon.es/dp/B0DFZPR9Z4?tag=123znl0e-20",
-        icon: Smartphone,
-        glowColor: "from-indigo-500/20 to-blue-500/5",
-        badgeColor: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
-        image: "/Products/redmiwatch5.jpg",
-        objectFit: "cover"
-      },
-      {
-        name: "Natulim Detergent Strips Eco",
-        price: "9,96 €",
-        category: "Health & Household",
-        categorySlug: "Health & Household",
-        desc: "Tiras de detergente ecológico y antialérgico, libre de tóxicos.",
-        affLink: "https://www.amazon.es/dp/B09WH2BXSH?tag=123znl0e-20",
-        icon: Shield,
-        glowColor: "from-blue-500/20 to-cyan-500/5",
-        badgeColor: "text-blue-400 bg-blue-500/10 border-blue-500/20",
-        image: "/Products/Natulim.jpg",
-        objectFit: "contain"
-      },
-      {
-        name: "Magnesium Complex Nutralie",
-        price: "16,91 €",
-        category: "Supplements",
-        categorySlug: "supplements",
-        desc: "Complejo de alta biodisponibilidad para reducir el cansancio.",
-        affLink: "https://www.amazon.es/dp/B07M7L3J7Y?tag=123znl0e-20",
-        icon: Pill,
-        glowColor: "from-emerald-500/20 to-teal-500/5",
-        badgeColor: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
-        image: "/Products/magnesium.jpg",
-        objectFit: "contain"
-      },
-      {
-        name: "EnterSports Rodillo Abdominal",
-        price: "34,97 €",
-        category: "Fitness Gear",
-        categorySlug: "Fitness",
-        desc: "Rodillo 2-en-1 y equipo de flexiones para fortalecer el core.",
-        affLink: "https://www.amazon.es/dp/B0B59M5L3Y?tag=123znl0e-20",
-        icon: Dumbbell,
-        glowColor: "from-cyan-500/20 to-indigo-500/5",
-        badgeColor: "text-cyan-400 bg-cyan-500/10 border-cyan-500/20",
-        image: "/Products/roller.jpg",
-        objectFit: "contain"
-      }
-    ]
-  };
-
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 selection:bg-blue-500/30 font-sans">
-      
-      {/* 1. Welcoming Introduction (The 'Why') */}
-      <section className="relative pt-32 pb-20 overflow-hidden border-b border-slate-800/50">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-slate-950" />
-          <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-blue-500/10 blur-[120px] -mr-32 -mt-32" />
+    <div className="min-h-screen bg-slate-950 text-slate-200 selection:bg-wellness-cyan/30 font-sans pt-24 pb-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Header Section */}
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light font-bold mb-4">
+            Performance Architecture
+          </span>
+          <h1 className="text-3xl md:text-5xl font-display uppercase tracking-tight text-white font-black leading-tight">
+            The Dual-Track Performance Framework
+          </h1>
+          <p className="text-slate-grey-450 text-sm md:text-base mt-3 leading-relaxed font-light">
+            A systematic, evidence-based approach to longevity. Establish your biological baseline through quarterly clinical-grade data, and optimize cellular aging pace with targeted daily inputs.
+          </p>
         </div>
-        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-sm font-bold tracking-wider uppercase mb-8 border border-blue-500/20">
-              <Compass size={16} className="mr-2" />
-              Beginner's Pathway
-            </div>
-            <h1 className="text-4xl md:text-6xl font-display uppercase tracking-tight text-white mb-8 leading-tight">
-              The best time to start was <span className="text-blue-500">yesterday</span>.<br />
-              The second best time is <span className="text-blue-400">now</span>.
-            </h1>
-            <p className="text-xl md:text-2xl text-slate-300 font-medium leading-relaxed mb-6">
-              Good health is about keeping the body strong, active, and independent. Our Six-Pillar plan provides a clear map to balance both body and mind.
-            </p>
-            <p className="text-lg text-slate-400 max-w-3xl mx-auto">
-              Sustainable health is simply about small, consistent daily steps. Do not wait for "warning signals" before giving your body the care it deserves. Start your journey today.
-            </p>
-          </motion.div>
-        </div>
-      </section>
 
-      {/* Health Quiz Ticker Tape */}
-      <div className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white overflow-hidden py-2.5 relative z-30 border-b border-blue-500/30">
-        <div className="flex animate-marquee whitespace-nowrap">
-          {[...QUIZ_TICKER, ...QUIZ_TICKER, ...QUIZ_TICKER, ...QUIZ_TICKER].map((msg, i) => (
-            <React.Fragment key={i}>
-              <Link to="/health-quiz" className="flex items-center gap-4 text-sm font-display uppercase tracking-[0.2em] font-bold px-6 group/t hover:text-amber-300 transition-colors">
-                <ClipboardCheck size={14} className="text-amber-400 animate-pulse" />
-                <span className="drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]">{msg}</span>
-                <ArrowRight size={14} className="text-blue-300 group-hover/t:text-amber-300 transition-colors" />
-              </Link>
-              <span className="text-blue-400/40 font-black opacity-50 select-none">/</span>
-            </React.Fragment>
-          ))}
-        </div>
-      </div>
-
-      {/* Health Baseline Quiz — Featured Banner */}
-      <section className="relative py-12 bg-slate-950 border-b border-slate-800/50">
-        <div className="max-w-5xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="relative overflow-hidden rounded-3xl border border-blue-500/30 shadow-2xl group"
-          >
-            {/* Gradient background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-slate-900 to-slate-950" />
-            <div className="absolute -top-24 -right-24 w-72 h-72 bg-blue-500/15 rounded-full blur-3xl" />
-            <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl" />
-            <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-500" />
-
-            <div className="relative z-10 p-8 md:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              {/* Animated score-ring visual */}
-              <div className="lg:col-span-4 flex justify-center">
-                <div className="relative w-44 h-44 group/viz">
-                  {/* Floating pillar emojis orbiting the ring */}
-                  <span className="absolute -top-1 left-1/2 -translate-x-1/2 text-2xl drop-shadow-lg group-hover/viz:animate-bounce" style={{ animationDelay: '0s' }}>😴</span>
-                  <span className="absolute top-1/2 -right-2 -translate-y-1/2 text-2xl drop-shadow-lg" style={{ animationDelay: '0.2s' }}>🥗</span>
-                  <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 text-2xl drop-shadow-lg" style={{ animationDelay: '0.4s' }}>🏃</span>
-                  <span className="absolute top-1/2 -left-2 -translate-y-1/2 text-2xl drop-shadow-lg" style={{ animationDelay: '0.6s' }}>🧘</span>
-
-                  {/* Pulse ring */}
-                  <div className="absolute inset-0 rounded-full border-2 border-blue-400/30 animate-ping" style={{ animationDuration: '2.5s' }} />
-
-                  {/* Score ring SVG */}
-                  <svg viewBox="0 0 120 120" className="w-full h-full -rotate-90 relative z-10">
-                    <defs>
-                      <linearGradient id="quizRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#3b82f6" />
-                        <stop offset="100%" stopColor="#818cf8" />
-                      </linearGradient>
-                    </defs>
-                    <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="9" />
-                    <circle
-                      cx="60" cy="60" r="52" fill="none"
-                      stroke="url(#quizRingGrad)" strokeWidth="9" strokeLinecap="round"
-                      strokeDasharray="326.7" strokeDashoffset="98"
-                      className="drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
-                    />
-                  </svg>
-
-                  {/* Center label */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
-                    <span className="text-3xl font-black text-white leading-none tracking-tight">78</span>
-                    <span className="text-[9px] font-black uppercase tracking-widest text-blue-400 mt-0.5">/ 100</span>
-                    <span className="text-[8px] font-bold uppercase tracking-wider text-slate-400 mt-1">Your Score</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Copy */}
-              <div className="lg:col-span-5 text-center lg:text-left">
-                <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-xs font-black uppercase tracking-widest mb-3 border border-blue-500/20">
-                  <Sparkles size={12} className="mr-1.5" />
-                  Free · 2 Minutes · 100% Private
-                </span>
-                <h2 className="text-2xl md:text-3xl font-display uppercase tracking-tight text-white mb-2 leading-tight">
-                  Discover Your <span className="text-blue-400">Health Baseline</span>
-                </h2>
-                <p className="text-slate-300 text-sm md:text-base leading-relaxed mb-4">
-                  Take this 12-question quiz to get a clear snapshot of where you stand across the six pillars of wellbeing — plus a personalized, prioritized action plan you can start this week.
-                </p>
-                {/* Mini stat strip */}
-                <div className="flex flex-wrap justify-center lg:justify-start gap-x-5 gap-y-1 text-xs">
-                  <span className="flex items-center gap-1.5 text-slate-300"><span className="w-1.5 h-1.5 rounded-full bg-blue-400" /> 12 Questions</span>
-                  <span className="flex items-center gap-1.5 text-slate-300"><span className="w-1.5 h-1.5 rounded-full bg-indigo-400" /> 6 Pillars</span>
-                  <span className="flex items-center gap-1.5 text-slate-300"><span className="w-1.5 h-1.5 rounded-full bg-amber-400" /> Action Plan</span>
-                </div>
-              </div>
-
-              {/* Action button */}
-              <div className="lg:col-span-3 flex justify-center lg:justify-end">
-                <Link
-                  to="/health-quiz"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-black uppercase tracking-wider text-sm rounded-2xl shadow-lg shadow-blue-900/40 transition-all duration-300 hover:scale-105 group/btn"
-                >
-                  <ClipboardCheck size={18} className="mr-2" />
-                  Take the Quiz
-                  <ArrowRight size={18} className="ml-2 group-hover/btn:translate-x-1 transition-transform" />
-                </Link>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Drivers of Good Health & Diagnostics Section */}
-      <section className="relative py-24 bg-slate-950 border-b border-slate-800/50">
-        <div className="max-w-5xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="lg:col-span-6 space-y-6"
+        {/* Tab Navigation */}
+        <div className="flex justify-center mb-10 relative z-10">
+          <div className="flex p-1 bg-slate-900 border border-slate-800 rounded-2xl gap-1 overflow-x-auto scrollbar-none max-w-full">
+            <button
+              onClick={() => setActiveTab('diagnostics')}
+              className={`px-5 py-3 rounded-xl font-display uppercase tracking-wider text-[11px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer ${
+                activeTab === 'diagnostics'
+                  ? 'bg-gradient-to-r from-wellness-cyan to-indigo-600 text-white shadow-lg shadow-wellness-cyan/10'
+                  : 'text-slate-grey-400 hover:text-white hover:bg-slate-850'
+              }`}
             >
-              <h2 className="text-2xl md:text-3xl font-display uppercase tracking-tight text-white border-l-4 border-blue-500 pl-4">
-                The biggest changes driving <br />
-                <span className="text-blue-400">today's approach to health</span>
-              </h2>
-              <p className="text-slate-300 leading-relaxed text-base font-medium">
-                The fundamental shift in how we deal with health today is the <strong className="text-white">transition from "reactive repair to proactive optimization"</strong>. Instead of waiting to treat illnesses, the focus has moved toward disease prevention and biological age reversal using the "2026 Longevity Standards".
-              </p>
-              <p className="text-slate-300 leading-relaxed text-base">
-                This shift is largely driven by the scientific realization that <strong className="text-white">80% to 90% of how quickly you age depends on your lifestyle and "Epigenetics,"</strong> rather than just your genetics. As a result, the health landscape has evolved into what your site calls "Medicalized Wellness," which replaces generic dieting and wellness routines with highly specific, clinical-level precision, such as optimizing glycemic control or tailoring protocols specifically to female biology.
-              </p>
-              
-              {/* Visual 1: Epigenetics Circular Gauge */}
-              <div className="relative mt-8 p-6 bg-slate-900/40 rounded-2xl border border-slate-800/80 overflow-hidden flex items-center gap-6 shadow-md hover:shadow-lg transition-all">
-                <div className="w-1/3 flex-shrink-0 relative">
-                  <svg viewBox="0 0 100 100" className="w-full h-auto">
-                    <circle cx="50" cy="50" r="40" stroke="rgba(255,255,255,0.05)" strokeWidth="8" fill="transparent" />
-                    {/* 20% Genetics (Rose) */}
-                    <circle cx="50" cy="50" r="40" stroke="#f43f5e" strokeWidth="8" fill="transparent"
-                      strokeDasharray="251.2" strokeDashoffset="200.96" strokeLinecap="round" transform="rotate(-90 50 50)" />
-                    {/* 80% Epigenetics (Blue) */}
-                    <circle cx="50" cy="50" r="40" stroke="#3b82f6" strokeWidth="8" fill="transparent"
-                      strokeDasharray="251.2" strokeDashoffset="50.24" strokeLinecap="round" transform="rotate(27 50 50)" />
-                    <text x="50" y="56" textAnchor="middle" fill="#ffffff" className="text-[14px] font-black font-display">80%</text>
-                  </svg>
-                </div>
-                <div className="space-y-2">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-blue-400 block">Biological Epigenetic Balance</span>
-                  <p className="text-xs text-slate-400 leading-relaxed font-medium">
-                    Your DNA is not your destiny. <strong className="text-white">80% of aging pace</strong> is determined by lifestyle choices (nutrition, activity, sleep), while genetics only dictate <strong className="text-rose-500">20%</strong>.
-                  </p>
-                  <div className="flex gap-4 text-[9px] font-bold uppercase tracking-wider pt-1">
-                    <span className="flex items-center gap-1.5 text-blue-400"><span className="w-2 h-2 rounded-full bg-blue-500" /> Epigenetics (80%)</span>
-                    <span className="flex items-center gap-1.5 text-rose-400"><span className="w-2 h-2 rounded-full bg-rose-500" /> Genetics (20%)</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-            
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="lg:col-span-6 space-y-6 bg-slate-900/50 border border-slate-800 p-8 rounded-3xl relative overflow-hidden"
+              Phase 1: Diagnostic Baseline
+            </button>
+            <button
+              onClick={() => setActiveTab('habits')}
+              className={`px-5 py-3 rounded-xl font-display uppercase tracking-wider text-[11px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer ${
+                activeTab === 'habits'
+                  ? 'bg-gradient-to-r from-wellness-cyan to-indigo-600 text-white shadow-lg shadow-wellness-cyan/10'
+                  : 'text-slate-grey-400 hover:text-white hover:bg-slate-850'
+              }`}
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none"></div>
-              <h2 className="text-2xl md:text-3xl font-display uppercase tracking-tight text-white border-l-4 border-indigo-500 pl-4">
-                The importance of <br />
-                <span className="text-indigo-400">lab diagnostics and health data</span>
-              </h2>
-              <p className="text-slate-300 leading-relaxed text-base font-medium">
-                Because health has shifted toward precise, proactive optimization, gathering personal health data through lab diagnostics is critical. The goal is to <strong className="text-indigo-400 font-bold">"Stop guessing. Start knowing."</strong>
-              </p>
-              
-              <div className="space-y-4 pt-4">
-                <div className="flex items-start">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center mr-4 text-xs font-bold font-display">1</span>
-                  <div>
-                    <strong className="text-white block mb-1 text-sm">Precision Over Generalization</strong>
-                    <span className="text-slate-400 text-sm leading-relaxed block">Transition from "general fitness to precision performance and recovery". By tracking metrics like "Real-time HRV" or "Hormonal Bio-Data," you can fuel your body's biological machinery with exact measurements.</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center mr-4 text-xs font-bold font-display">2</span>
-                  <div>
-                    <strong className="text-white block mb-1 text-sm">Tracking Biological Age</strong>
-                    <span className="text-slate-400 text-sm leading-relaxed block">Diagnostics allow you to measure whether your lifestyle changes are actually working. Test your biological age at home using a "Biological Age (Epigenetic) Test".</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 flex items-center justify-center mr-4 text-xs font-bold font-display">3</span>
-                  <div>
-                    <strong className="text-white block mb-1 text-sm">Targeted Optimization</strong>
-                    <span className="text-slate-400 text-sm leading-relaxed block">Accessing specific biomarkers helps map out targeted protocols. For example, utilizing an "Ovarian Reserve Test Kit" provides clinical precision for women's health, while testing can help identify "42 more intelligence markers" to guide your journey.</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Visual 2: Healthspan Curve Graph */}
-              <div className="relative mt-6 p-6 bg-slate-950/50 rounded-2xl border border-slate-800/80 overflow-hidden shadow-inner">
-                <span className="text-[10px] font-black uppercase tracking-widest text-indigo-400 block mb-4">Healthspan Trajectory mapping</span>
-                <svg viewBox="0 0 200 100" className="w-full h-auto">
-                  <line x1="10" y1="10" x2="190" y2="10" stroke="rgba(255,255,255,0.02)" />
-                  <line x1="10" y1="50" x2="190" y2="50" stroke="rgba(255,255,255,0.02)" />
-                  <line x1="10" y1="90" x2="190" y2="90" stroke="rgba(255,255,255,0.08)" />
-                  
-                  <text x="12" y="24" fill="rgba(255,255,255,0.3)" className="text-[6px] font-black uppercase tracking-wider">Vitality</text>
-                  <text x="180" y="85" fill="rgba(255,255,255,0.3)" className="text-[6px] font-black uppercase tracking-wider text-right">Age</text>
-                  
-                  {/* Reactive Repair Curve (declining early, steep drop) */}
-                  <path d="M 10,20 Q 80,30 120,60 T 170,90" fill="none" stroke="#f43f5e" strokeWidth="2" strokeDasharray="3" />
-                  <text x="100" y="70" fill="#f43f5e" className="text-[5px] font-black uppercase tracking-widest">Reactive Decline</text>
-
-                  {/* Proactive Optimization Curve (sustained high, rectangular drop late) */}
-                  <path d="M 10,20 Q 120,20 150,32 T 185,90" fill="none" stroke="#10b981" strokeWidth="2.5" />
-                  <text x="60" y="16" fill="#10b981" className="text-[5px] font-black uppercase tracking-widest">Proactive Optimization</text>
-                </svg>
-                <div className="flex justify-between items-center mt-3 text-[8px] font-bold uppercase tracking-wider text-slate-500">
-                  <span>Start (Baseline)</span>
-                  <span>Target Healthspan Peak</span>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="mt-12 p-8 md:p-12 rounded-3xl bg-slate-900 border border-slate-800 hover:border-rose-500/30 transition-all duration-500 text-center text-slate-300 relative overflow-hidden shadow-2xl group"
-          >
-            {/* Background image & gradient overlay */}
-            <div 
-              className="absolute inset-0 bg-cover bg-center opacity-[0.22] group-hover:opacity-[0.35] transition-all duration-1000 scale-100 group-hover:scale-105 pointer-events-none"
-              style={{ backgroundImage: `url('/assets/diagnostics_bg.png')` }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/30 pointer-events-none" />
-            <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-rose-500 via-indigo-500 to-rose-500 z-10" />
-            <div className="absolute top-0 right-0 w-64 h-64 bg-rose-500/5 rounded-full blur-3xl pointer-events-none"></div>
-            
-            <div className="relative z-10">
-              <span className="inline-flex items-center px-3 py-1 rounded-full bg-rose-500/10 text-rose-400 text-xs font-black uppercase tracking-widest mb-4 border border-rose-500/20">
-                Establish Baseline Urgency
-              </span>
-              <p className="text-xl md:text-2xl text-white font-bold mb-4 leading-snug max-w-3xl mx-auto">
-                There is an urgent need to get your basic necessary tests done today.
-              </p>
-              <p className="text-lg text-slate-300 max-w-3xl mx-auto mb-6 leading-relaxed">
-                Establishing your biological baseline is the critical starting point to determine where your health stands and map out an exact, personalized course of action.
-              </p>
-              
-              {/* Lola Health UK Test CTA */}
-              <div className="mt-8 mb-8 flex flex-col sm:flex-row justify-center gap-4">
-                <a 
-                  href={affiliateLinks.lola_core_health} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-rose-600 to-indigo-600 hover:from-rose-700 hover:to-indigo-700 text-white rounded-xl font-bold uppercase tracking-widest text-xs shadow-lg shadow-indigo-950/50 transition-all duration-300 hover:scale-105"
-                >
-                  <Activity size={18} className="mr-2 animate-pulse" />
-                  Order Lola Health UK Blood Test (Venous Draw)
-                </a>
-              </div>
-              
-              <p className="text-sm text-slate-400 max-w-2xl mx-auto leading-relaxed border-t border-slate-800 pt-4">
-                By building a foundation on <strong className="text-white">personal health data rather than waiting for "warning signals,"</strong> you can actively protect your body and maintain physical and mental resilience as you age.
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* 2. Step 1: Learn the Language (Handholding) */}
-      <section className="relative py-24 bg-slate-900 border-b border-slate-800/50">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
+              Phase 2: Daily Small Wins
+            </button>
+            <button
+              onClick={() => setActiveTab('clinician')}
+              className={`px-5 py-3 rounded-xl font-display uppercase tracking-wider text-[11px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer ${
+                activeTab === 'clinician'
+                  ? 'bg-gradient-to-r from-wellness-cyan to-indigo-600 text-white shadow-lg shadow-wellness-cyan/10'
+                  : 'text-slate-grey-400 hover:text-white hover:bg-slate-850'
+              }`}
             >
-              <div className="text-blue-500 font-black tracking-widest uppercase mb-2 text-sm">Step 1</div>
-              <h2 className="text-3xl md:text-4xl font-display uppercase tracking-tight text-white mb-6">
-                Learn the <span className="text-blue-400">Language</span>
-              </h2>
-              <p className="text-lg text-slate-300 leading-relaxed mb-8">
-                As you explore our platform, you will encounter advanced clinical terminology like "Autophagy Induction" and "Glycemic Index Mastering." Don't let the science overwhelm you. 
-                <br /><br />
-                We built a comprehensive Jargon Buster to handhold you through these concepts so you never feel lost.
-              </p>
-              <Link to="/glossary" className="inline-flex items-center px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl font-bold uppercase tracking-wider text-sm transition-colors border border-slate-700 group">
-                <BookOpen size={18} className="mr-3 text-blue-400" />
-                Access the Glossary
-                <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative p-8 rounded-[2rem] bg-slate-800/50 border border-slate-700/50 shadow-2xl backdrop-blur-sm"
-            >
-              <div className="absolute top-0 right-0 p-6 opacity-10">
-                <BookOpen size={120} />
-              </div>
-              <div className="relative z-10 space-y-6">
-                <div className="p-4 bg-slate-900 rounded-xl border border-slate-700/50">
-                  <span className="text-blue-400 font-bold block mb-1">VO2 Max</span>
-                  <span className="text-sm text-slate-400">The maximum rate of oxygen consumption measured during incremental exercise.</span>
-                </div>
-                <div className="p-4 bg-slate-900 rounded-xl border border-slate-700/50">
-                  <span className="text-emerald-400 font-bold block mb-1">Autophagy</span>
-                  <span className="text-sm text-slate-400">The body's way of cleaning out damaged cells, in order to regenerate newer, healthier cells.</span>
-                </div>
-              </div>
-            </motion.div>
+              Clinician Integration Hub
+            </button>
           </div>
         </div>
-      </section>
 
-      {/* 3. Step 2: Build the Foundation (Free Content) */}
-      <section className="relative py-24 bg-slate-950 border-b border-slate-800/50">
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="mb-16"
-          >
-            <div className="text-amber-500 font-black tracking-widest uppercase mb-2 text-sm">Step 2</div>
-            <h2 className="text-3xl md:text-4xl font-display uppercase tracking-tight text-white mb-6">
-              Build the <span className="text-amber-500">Foundation</span>
-            </h2>
-            <p className="text-lg text-slate-300 max-w-2xl mx-auto">
-              Before running, we must walk. Start your mindful journey by setting the right mindset and optimizing your physical activity at home—no gym required.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <Link to="/life-practice/beginners-guide" className="relative overflow-hidden block p-8 rounded-3xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition-all group h-full shadow-xl">
-                {/* Background image & gradient overlay */}
-                <div 
-                  className="absolute inset-0 bg-cover bg-center opacity-[0.22] group-hover:opacity-[0.35] transition-all duration-700 scale-100 group-hover:scale-105 pointer-events-none"
-                  style={{ backgroundImage: `url('/assets/mindset_bg.png')` }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/30 pointer-events-none" />
-
-                <div className="relative z-10 flex flex-col h-full justify-between">
-                  <div>
-                    <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-6">
-                      <Sparkles size={28} />
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-amber-400 transition-colors">Mindset: The Beginner's Guide</h3>
-                    <p className="text-slate-400 leading-relaxed mb-8">
-                      Prepare your mind for a life-changing journey. Understanding the 'why' is critical before exploring the 'how'.
-                    </p>
-                  </div>
-                  <span className="text-sm font-bold uppercase tracking-wider text-amber-500 flex items-center">
-                    Read the Guide <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </div>
-              </Link>
-            </motion.div>
-            
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <Link to="/fitness/fundamentals" className="relative overflow-hidden block p-8 rounded-3xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition-all group h-full shadow-xl">
-                {/* Background image & gradient overlay */}
-                <div 
-                  className="absolute inset-0 bg-cover bg-center opacity-[0.22] group-hover:opacity-[0.35] transition-all duration-700 scale-100 group-hover:scale-105 pointer-events-none"
-                  style={{ backgroundImage: `url('/assets/strength_bg.png')` }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/30 pointer-events-none" />
-
-                <div className="relative z-10 flex flex-col h-full justify-between">
-                  <div>
-                    <div className="w-14 h-14 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center mb-6">
-                      <Dumbbell size={28} />
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-amber-400 transition-colors">Strength Training at Home</h3>
-                    <div className="inline-flex items-center px-2 py-1 bg-amber-500/20 text-amber-400 text-xs font-bold rounded mb-4">12-Minute Read</div>
-                    <p className="text-slate-400 leading-relaxed mb-8">
-                      Our foundational free guide to optimizing your physical activity without needing a gym membership or expensive equipment.
-                    </p>
-                  </div>
-                  <span className="text-sm font-bold uppercase tracking-wider text-amber-500 flex items-center">
-                    Start Training <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                  </span>
-                </div>
-              </Link>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Step 3: Equip Your Journey (Curated Shopping Section) */}
-      <section className="relative py-24 bg-slate-900 border-b border-slate-800/50 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-blue-600/5 blur-[150px] rounded-full pointer-events-none" />
-        </div>
-        <div className="max-w-6xl mx-auto px-4 relative z-10">
+        {/* Tab Contents */}
+        <div className="relative z-10 transition-all duration-300">
           
-          <div className="text-center mb-12">
-            <div className="text-cyan-500 font-black tracking-widest uppercase mb-2 text-sm">Step 3</div>
-            <h2 className="text-3xl md:text-4xl font-display uppercase tracking-tight text-white mb-6">
-              Equip Your <span className="text-cyan-400">Health Journey</span>
-            </h2>
-            <p className="text-lg text-slate-300 max-w-2xl mx-auto mb-8">
-              Foundational equipment, biometric trackers, and quality supplements are key to monitoring and supporting your physical progress. We've handpicked these top-rated essentials from our trusted partners.
-            </p>
+          {/* TAB A: DIAGNOSTICS */}
+          {activeTab === 'diagnostics' && (
+            <div className="space-y-8 animate-fade-in">
+              <div className="p-8 rounded-3xl bg-[#0f172a]/80 border border-slate-800 shadow-xl space-y-6 text-left">
+                <div>
+                  <span className="text-[10px] font-mono text-wellness-cyan uppercase tracking-wider block mb-1">[ STEP 1 ]</span>
+                  <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
+                    Phase 1 • Establishing Your Biophysical Baseline
+                  </h2>
+                  <p className="text-slate-grey-300 text-xs sm:text-sm leading-relaxed mt-2 font-light">
+                    True longevity planning requires objective measurement. We map out the three critical biological data layers needed to establish a comprehensive physical starting point.
+                  </p>
+                </div>
 
-            {/* Region Tab Selector */}
-            <div className="inline-flex p-1.5 bg-slate-950 border border-slate-800 rounded-2xl gap-2 shadow-inner">
-              {[
-                { id: 'us', label: 'United States', code: 'US' },
-                { id: 'uk', label: 'United Kingdom', code: 'UK' },
-                { id: 'es', label: 'España', code: 'ES' }
-              ].map((regionTab) => (
-                <button
-                  key={regionTab.id}
-                  onClick={() => setSelectedRegion(regionTab.id as any)}
-                  className={`px-6 py-2.5 rounded-xl font-bold uppercase tracking-wider text-xs transition-all duration-300 ${
-                    selectedRegion === regionTab.id
-                      ? 'bg-blue-600 text-white shadow-lg shadow-blue-900/40'
-                      : 'text-slate-400 hover:text-white hover:bg-slate-900'
-                  }`}
-                >
-                  {regionTab.label} ({regionTab.code})
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Curated Items Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            {curatedItemsByRegion[selectedRegion].map((item, i) => {
-              const Icon = item.icon;
-              return (
-                <motion.div
-                  key={item.name + selectedRegion}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="group relative bg-slate-950/40 border border-slate-800 hover:border-blue-500/40 rounded-3xl p-6 flex flex-col justify-between transition-all duration-500 hover:scale-[1.02] shadow-xl hover:shadow-2xl overflow-hidden animate-none"
-                >
-                  {/* Ambient card glow */}
-                  <div className={`absolute -top-12 -left-12 w-32 h-32 bg-gradient-to-br ${item.glowColor} rounded-full blur-2xl opacity-40 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none`} />
-                  
-                  <div>
-                    {/* Icon & Category Badge */}
-                    <div className="flex items-center justify-between mb-4 relative z-10">
-                      <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/5 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform duration-300">
-                        <Icon size={22} />
-                      </div>
-                      <span className={`text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full border ${item.badgeColor}`}>
-                        {item.category}
-                      </span>
+                {/* 3 Detail Blocks */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-4">
+                  {/* Epigenetics */}
+                  <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-3">
+                    <div className="w-9 h-9 rounded-xl bg-wellness-cyan/10 border border-wellness-cyan/20 flex items-center justify-center text-wellness-cyan-light">
+                      <Heart size={18} />
                     </div>
-
-                    {/* Product Image Container */}
-                    <div className="relative aspect-[4/3] w-full bg-slate-950 rounded-2xl flex items-center justify-center mb-4 overflow-hidden shadow-inner border border-slate-800/10 group-hover:shadow-lg transition-shadow duration-305">
-                      <img 
-                        src={item.image} 
-                        alt={item.name} 
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-slate-950/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-                    </div>
-
-                    {/* Product Info */}
-                    <h3 className="text-lg font-bold text-white mb-2 leading-tight group-hover:text-blue-400 transition-colors line-clamp-2">
-                      {item.name}
+                    <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
+                      Epigenetic Age (gDNA)
                     </h3>
-                    <p className="text-sm text-slate-400 leading-relaxed mb-6 font-medium line-clamp-3">
-                      {item.desc}
+                    <p className="text-[11px] sm:text-xs text-slate-grey-400 leading-relaxed font-light">
+                      Whole-methylome gDNA testing analyzes specific cellular methylation patterns across your genome. This identifies your true rate of cellular aging, providing a baseline metric to measure biological age reduction.
                     </p>
                   </div>
 
-                  {/* Actions & Price */}
-                  <div className="pt-4 border-t border-slate-900 relative z-10">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">Estimated Price</span>
-                      <span className="text-base font-black text-white">{item.price}</span>
+                  {/* Biomarker Glossary */}
+                  <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-3">
+                    <div className="w-9 h-9 rounded-xl bg-wellness-cyan/10 border border-wellness-cyan/20 flex items-center justify-center text-wellness-cyan-light">
+                      <Activity size={18} />
                     </div>
-                    
-                    <div className="grid grid-cols-2 gap-2">
-                      <Link
-                        to={`/${selectedRegion}/${item.categorySlug}`}
-                        className="inline-flex items-center justify-center py-2.5 bg-slate-900 hover:bg-slate-850 border border-slate-800 text-slate-300 hover:text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-colors"
-                      >
-                        <ShoppingBag size={13} className="mr-1.5" />
-                        View Shop
-                      </Link>
-                      <a
-                        href={item.affLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center justify-center py-2.5 bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white border border-blue-500/20 hover:border-transparent rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300"
-                      >
-                        Buy Now
-                      </a>
+                    <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
+                      Vital Check 56 Biomarkers
+                    </h3>
+                    <div className="space-y-2.5 text-[11px] sm:text-xs text-slate-grey-400 font-light">
+                      <div>
+                        <strong className="text-slate-300 block font-semibold">ApoB (Apolipoprotein B)</strong>
+                        Directly counts atherogenic plaque-forming particles to evaluate subclinical cardiovascular risk.
+                      </div>
+                      <div>
+                        <strong className="text-slate-300 block font-semibold">HbA1c (Glycated Hemoglobin)</strong>
+                        Measures average glycemic control over the past 90 days to screen for insulin sensitivity.
+                      </div>
+                      <div>
+                        <strong className="text-slate-300 block font-semibold">hs-CRP (High-Sensitivity CRP)</strong>
+                        An ultra-sensitive inflammatory marker signaling low-grade systemic vascular stress.
+                      </div>
                     </div>
                   </div>
-                </motion.div>
-              );
-            })}
-          </div>
 
-          {/* Call to action pointing to regional hub */}
-          <div className="text-center">
-            <Link
-              to={`/${selectedRegion}`}
-              className="inline-flex items-center text-sm font-bold uppercase tracking-wider text-blue-400 hover:text-blue-300 transition-colors group"
-            >
-              Explore Full {selectedRegion.toUpperCase()} Shopping Hub
-              <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 5. Step 4: Take Action (Monetization Funnel) */}
-      <section className="relative py-24 bg-slate-900 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3/4 h-3/4 bg-blue-600/5 blur-[150px] rounded-full pointer-events-none" />
-        </div>
-        <div className="max-w-6xl mx-auto px-4 relative z-10">
-          <div className="text-center mb-16">
-            <div className="text-emerald-400 font-black tracking-widest uppercase mb-2 text-sm">Step 4</div>
-            <h2 className="text-4xl md:text-5xl font-display uppercase tracking-tight text-white mb-6">
-              Take Action with <br className="md:hidden" /><span className="text-emerald-400">Digital Master Guides</span>
-            </h2>
-            <p className="text-lg text-slate-300 max-w-2xl mx-auto">
-              Ready to implement a structured plan? Our zero-barrier entry-level guides provide systematic approaches to fitness and nutrition.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Guide 1 */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="relative overflow-hidden bg-slate-950 border border-slate-800 p-8 rounded-3xl flex flex-col hover:border-emerald-500/50 transition-all shadow-2xl group"
-            >
-              {/* Background image & gradient overlay */}
-              <div 
-                className="absolute inset-0 bg-cover bg-center opacity-[0.22] group-hover:opacity-[0.35] transition-all duration-1000 scale-100 group-hover:scale-105 pointer-events-none"
-                style={{ backgroundImage: `url('/assets/workout_plan_bg.png')` }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/30 pointer-events-none" />
-
-              <div className="relative z-10 flex flex-col h-full justify-between flex-grow">
-                <div>
-                  <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-6">
-                    <Activity size={32} />
+                  {/* Wearable Telemetry */}
+                  <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-3">
+                    <div className="w-9 h-9 rounded-xl bg-wellness-cyan/10 border border-wellness-cyan/20 flex items-center justify-center text-wellness-cyan-light">
+                      <Clock size={18} />
+                    </div>
+                    <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
+                      Wearable Telemetry
+                    </h3>
+                    <p className="text-[11px] sm:text-xs text-slate-grey-400 leading-relaxed font-light">
+                      Continuous monitoring maps systemic resilience trends. By logging sleep staging patterns, average resting heart rate (RHR), and nocturnal Heart Rate Variability (HRV), you establish baseline recovery and stress tolerance curves.
+                    </p>
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">Beginner Home Workout Plan</h3>
-                  <p className="text-slate-400 leading-relaxed mb-8 flex-grow">
-                    A definitive 4-week zero-equipment protocol. Build foundational strength, increase mobility, and establish a bulletproof routine from the comfort of your living room.
-                  </p>
                 </div>
-                <div className="flex items-center justify-between mt-auto pt-6 border-t border-slate-800">
-                  <span className="text-2xl font-black text-white">£19.00</span>
-                  <Link to="/premium-guides" className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-sm transition-colors uppercase tracking-wider relative z-20">
-                    Get Plan
-                  </Link>
+
+                {/* Disclaimer Banner */}
+                <div className="p-4 border border-wellness-cyan/20 bg-wellness-cyan/5 rounded-2xl flex gap-3 items-start text-left mt-6">
+                  <Shield size={16} className="text-wellness-cyan flex-shrink-0 mt-0.5" />
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-mono uppercase text-wellness-cyan-light font-bold tracking-wider block">
+                      Clinical Data Privacy Protocol
+                    </span>
+                    <p className="text-[11px] text-slate-grey-300 font-light leading-relaxed">
+                      Data privacy is absolute. We do not collect, store, or accept uploads of your medical results. You maintain 100% control of your physical biomarkers.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </motion.div>
+            </div>
+          )}
 
-            {/* Guide 2 */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative overflow-hidden bg-slate-950 border border-slate-800 p-8 rounded-3xl flex flex-col hover:border-emerald-500/50 transition-all shadow-2xl group"
-            >
-              {/* Background image & gradient overlay */}
-              <div 
-                className="absolute inset-0 bg-cover bg-center opacity-[0.22] group-hover:opacity-[0.35] transition-all duration-1000 scale-100 group-hover:scale-105 pointer-events-none"
-                style={{ backgroundImage: `url('/assets/meal_plan_bg.png')` }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/30 pointer-events-none" />
-
-              <div className="relative z-10 flex flex-col h-full justify-between flex-grow">
+          {/* TAB B: HABITS */}
+          {activeTab === 'habits' && (
+            <div className="space-y-8 animate-fade-in">
+              <div className="p-8 rounded-3xl bg-[#0f172a]/80 border border-slate-800 shadow-xl space-y-6 text-left">
                 <div>
-                  <div className="w-16 h-16 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-6">
-                    <Apple size={32} />
-                  </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">The Master Meal Planning Guide</h3>
-                  <p className="text-slate-400 leading-relaxed mb-8 flex-grow">
-                    The practical next step. A systematic approach to weekly meal prep and macro-balancing to ensure your body is fueled with optimal metabolic nutrition.
+                  <span className="text-[10px] font-mono text-wellness-amber uppercase tracking-wider block mb-1">[ STEP 2 ]</span>
+                  <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
+                    Phase 2 • Daily Behavioral & Autonomic Inputs
+                  </h2>
+                  <p className="text-slate-grey-300 text-xs sm:text-sm leading-relaxed mt-2 font-light">
+                    Continuous diagnostics only matter if they drive daily action. We translate complex biometric feedback loops into high-yield, zero-cost lifestyle habits.
                   </p>
                 </div>
-                <div className="flex items-center justify-between mt-auto pt-6 border-t border-slate-800">
-                  <span className="text-2xl font-black text-white">£24.00</span>
-                  <Link to="/premium-guides" className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-sm transition-colors uppercase tracking-wider relative z-20">
-                    Get Guide
-                  </Link>
+
+                {/* Mechanical Description */}
+                <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-2">
+                  <span className="text-[10px] font-mono text-wellness-amber uppercase tracking-wider font-bold block">
+                    Epigenetic Velocity Mechanism
+                  </span>
+                  <p className="text-xs sm:text-sm text-slate-grey-300 leading-relaxed font-light">
+                    Daily behavioral inputs directly regulate your autonomic state. Scientific consensus confirms that <strong>80-90% of cellular aging velocity is driven by lifestyle choices</strong> and environmental inputs rather than raw genetics. Small daily practices modulate gene expression to support healthspan.
+                  </p>
+                </div>
+
+                {/* Habit Protocols */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
+                  {/* Mobility Walks */}
+                  <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-3">
+                    <span className="text-xs font-mono text-wellness-cyan font-bold block">[ PROTOCOL 1 ]</span>
+                    <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
+                      10-Minute Mobility Walks
+                    </h3>
+                    <p className="text-[11px] sm:text-xs text-slate-grey-450 leading-relaxed font-light">
+                      Preserves joint lubrication, increases vascular elasticity, and builds foundational cardiovascular efficiency. Simple, low-intensity movement acts as a constant baseline metabolic signal.
+                    </p>
+                  </div>
+
+                  {/* Breathing Mindfulness */}
+                  <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-3">
+                    <span className="text-xs font-mono text-wellness-cyan font-bold block">[ PROTOCOL 2 ]</span>
+                    <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
+                      Breathing Mindfulness
+                    </h3>
+                    <p className="text-[11px] sm:text-xs text-slate-grey-450 leading-relaxed font-light">
+                      Stimulates the vagus nerve to down-regulate sympathetic fight-or-flight states, immediately reducing baseline cortisol and improving nocturnal Heart Rate Variability (HRV) recovery.
+                    </p>
+                  </div>
+
+                  {/* Glycemic Snacking */}
+                  <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-3">
+                    <span className="text-xs font-mono text-wellness-cyan font-bold block">[ PROTOCOL 3 ]</span>
+                    <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
+                      Glycemic Snacking
+                    </h3>
+                    <p className="text-[11px] sm:text-xs text-slate-grey-450 leading-relaxed font-light">
+                      Prioritizes low-glycemic cellular fueling to stabilize blood sugar curves, protect pancreas insulin sensitivity, and prevent inflammatory glycemic spikes.
+                    </p>
+                  </div>
                 </div>
               </div>
-            </motion.div>
-          </div>
+            </div>
+          )}
+
+          {/* TAB C: CLINICIAN HUB */}
+          {activeTab === 'clinician' && (
+            <div className="space-y-8 animate-fade-in">
+              <div className="p-8 rounded-3xl bg-[#0f172a]/80 border border-slate-800 shadow-xl space-y-6 text-left">
+                <div>
+                  <span className="text-[10px] font-mono text-wellness-cyan uppercase tracking-wider block mb-1">[ CLINICAL OVERWATCH ]</span>
+                  <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
+                    Clinician Collaboration • Shared Decision Making
+                  </h2>
+                  <p className="text-slate-grey-300 text-xs sm:text-sm leading-relaxed mt-2 font-light">
+                    We bridge the gap between tracking frameworks and medical oversight, ensuring a safe, supervised pathway.
+                  </p>
+                </div>
+
+                {/* Philosophy Copy */}
+                <div className="p-5 rounded-2xl bg-slate-950/40 border border-slate-900 space-y-2">
+                  <span className="text-[10px] font-mono text-slate-grey-450 uppercase tracking-wider font-bold block">
+                    Core Philosophy
+                  </span>
+                  <p className="text-xs sm:text-sm text-slate-grey-300 leading-relaxed font-light">
+                    "Proactive medicine is a partnership. Raw metrics are not a diagnosis; they are a clinical map. Shared decision-making is a mandatory safety protocol of our platform."
+                  </p>
+                </div>
+
+                {/* 3-Step Checklist */}
+                <div className="space-y-4 pt-2">
+                  <h3 className="text-sm font-mono uppercase tracking-wider text-white font-bold">
+                    Integration Steps:
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="p-4 bg-slate-950/40 border border-slate-900 rounded-xl flex gap-3 items-start">
+                      <div className="w-5 h-5 rounded-full bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">1</div>
+                      <div>
+                        <h4 className="text-xs font-bold text-white uppercase tracking-wider">Print the Workbook</h4>
+                        <p className="text-[11px] text-slate-grey-450 mt-1 font-light leading-relaxed">
+                          Download and print the official Consultation Workbook template to log your biometrics and medical overview.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="p-4 bg-slate-950/40 border border-slate-900 rounded-xl flex gap-3 items-start">
+                      <div className="w-5 h-5 rounded-full bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">2</div>
+                      <div>
+                        <h4 className="text-xs font-bold text-white uppercase tracking-wider">Log Telemetry</h4>
+                        <p className="text-[11px] text-slate-grey-450 mt-1 font-light leading-relaxed">
+                          Record your 7-day smartwatch baselines (resting heart rate, nocturnal HRV, and sleep trends) directly onto the template.
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="p-4 bg-slate-950/40 border border-slate-900 rounded-xl flex gap-3 items-start">
+                      <div className="w-5 h-5 rounded-full bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light flex items-center justify-center font-bold text-xs flex-shrink-0 mt-0.5">3</div>
+                      <div>
+                        <h4 className="text-xs font-bold text-white uppercase tracking-wider">Consult General Practitioner</h4>
+                        <p className="text-[11px] text-slate-grey-450 mt-1 font-light leading-relaxed">
+                          Schedule a check-up with your local general practitioner to co-evaluate the logs and validate any target diagnostic panels.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Direct Download Button */}
+                <div className="pt-4 flex justify-start">
+                  <a
+                    href="/assets/docs/clinical-baseline-consultation-template.pdf"
+                    download="clinical-baseline-consultation-template.pdf"
+                    className="inline-flex items-center gap-2.5 py-3.5 px-6 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white border border-wellness-cyan/20 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-lg shadow-wellness-cyan/15 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+                  >
+                    <Download size={14} />
+                    <span>Download GP Consultation Template (PDF)</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
+
         </div>
-      </section>
 
-      {/* 6. Step 5: Explore the Six Pillars (The Holistic Benefit) */}
-      <section className="relative py-24 bg-slate-950 border-t border-slate-800/50">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <div className="text-purple-400 font-black tracking-widest uppercase mb-2 text-sm">Step 5</div>
-            <h2 className="text-3xl md:text-4xl font-display uppercase tracking-tight text-white mb-6">
-              Explore the <span className="text-purple-400">Six Pillars</span>
+        {/* Global Wellness Quiz Action Callout */}
+        <div className="mt-16 p-8 rounded-3xl bg-slate-900 border border-slate-800 text-center relative overflow-hidden group">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-wellness-cyan/5 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-600/5 rounded-full blur-3xl pointer-events-none"></div>
+          
+          <div className="relative z-10 max-w-2xl mx-auto space-y-6">
+            <span className="inline-flex items-center px-3 py-1 rounded-full bg-wellness-cyan/10 text-wellness-cyan-light text-[10px] font-black uppercase tracking-widest border border-wellness-cyan/25">
+              Intake Assessment
+            </span>
+            <h2 className="text-xl sm:text-2xl font-display uppercase tracking-tight text-white font-black">
+              Compute Your Baseline Longevity Score
             </h2>
-            <p className="text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              True longevity comes from understanding how these systems are interconnected. 
-              Metabolic Nutrition fuels the body, Restorative Sleep rebuilds it, and Mental Well-Being manages the stress that breaks it down.
+            <p className="text-slate-grey-300 text-xs sm:text-sm font-light leading-relaxed">
+              Complete our structured, clinical-grade intake questionnaire to evaluate your current habits and diagnostics. Receive a prioritized roadmap addressing your active physiological pillars.
             </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-16">
-            {[
-              { 
-                icon: Apple, 
-                label: "Metabolic Nutrition", 
-                color: "text-emerald-400", 
-                bg: "bg-emerald-500/10", 
-                path: "/nutrition",
-                image: "/assets/nutrition_bg.png"
-              },
-              { 
-                icon: Activity, 
-                label: "Physical Activity", 
-                color: "text-blue-400", 
-                bg: "bg-blue-500/10", 
-                path: "/fitness",
-                image: "/assets/fitness_bg.png"
-              },
-              { 
-                icon: Moon, 
-                label: "Restorative Sleep", 
-                color: "text-indigo-400", 
-                bg: "bg-indigo-500/10", 
-                path: "/neurowellness",
-                image: "/assets/sleep_bg.png"
-              },
-              { 
-                icon: Brain, 
-                label: "Mental Well-Being", 
-                color: "text-purple-400", 
-                bg: "bg-purple-500/10", 
-                path: "/wellness",
-                image: "/assets/mental_bg.png"
-              },
-              { 
-                icon: Heart, 
-                label: "Social Fitness", 
-                color: "text-rose-400", 
-                bg: "bg-rose-500/10", 
-                path: "/social-fitness",
-                image: "/assets/social_bg.png"
-              },
-              { 
-                icon: Shield, 
-                label: "Preventive Health", 
-                color: "text-amber-400", 
-                bg: "bg-amber-500/10", 
-                path: "/health/preventive",
-                image: "/assets/preventive_bg.png"
-              }
-            ].map((pillar, i) => (
-              <Link 
-                key={i}
-                to={pillar.path}
-                className="block group"
+            <div className="pt-2">
+              <Link
+                to="/health-quiz"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-xl shadow-wellness-cyan/15 border border-wellness-cyan/20 hover:scale-[1.03] active:scale-[0.97]"
               >
-                <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="relative overflow-hidden flex flex-col items-center text-center p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-slate-700 hover:bg-slate-900/80 transition-all cursor-pointer h-full shadow-lg hover:shadow-2xl"
-                >
-                  {/* Background image & gradient overlay */}
-                  <div 
-                    className="absolute inset-0 bg-cover bg-center opacity-[0.2] group-hover:opacity-[0.38] transition-all duration-700 scale-100 group-hover:scale-105 pointer-events-none"
-                    style={{ backgroundImage: `url('${pillar.image}')` }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/30 pointer-events-none" />
-
-                  <div className="relative z-10 flex flex-col items-center">
-                    <div className={`w-12 h-12 rounded-xl ${pillar.bg} ${pillar.color} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform duration-300`}>
-                      <pillar.icon size={24} />
-                    </div>
-                    <span className="text-sm font-bold text-slate-300 uppercase tracking-wide group-hover:text-white transition-colors">{pillar.label}</span>
-                  </div>
-                </motion.div>
-              </Link>
-            ))}
-          </div>
-
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="p-10 md:p-16 rounded-[2rem] bg-slate-900 border border-slate-800 hover:border-blue-500/30 transition-all duration-500 text-center max-w-3xl mx-auto shadow-2xl relative overflow-hidden group"
-          >
-            {/* Background image & gradient overlay */}
-            <div 
-              className="absolute inset-0 bg-cover bg-center opacity-[0.25] group-hover:opacity-[0.4] transition-all duration-1000 scale-100 group-hover:scale-105 pointer-events-none"
-              style={{ backgroundImage: `url('/assets/next_level_bg.png')` }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-slate-950/20 pointer-events-none" />
-            <div className="absolute -top-12 -right-12 w-64 h-64 bg-blue-500/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-            <div className="relative z-10">
-              <h3 className="text-2xl md:text-3xl font-display font-black text-white mb-4 uppercase tracking-wider drop-shadow-md">Ready for the Next Level?</h3>
-              <p className="text-slate-200 mb-8 max-w-xl mx-auto text-base md:text-lg leading-relaxed font-medium">
-                Once you master these basics, enter the Intelligence Hub to access the latest technical deep-dives and evidence-based optimization updates.
-              </p>
-              <Link to="/intelligence-hub" className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-full font-bold uppercase tracking-widest text-xs transition-all duration-300 hover:scale-105 shadow-lg shadow-indigo-950/50">
-                <Sparkles size={16} className="mr-2" />
-                Enter the Intelligence Hub
+                <span>Take the 5-Minute Wellness Quiz to Build Your Roadmap</span>
+                <ArrowRight size={14} />
               </Link>
             </div>
-          </motion.div>
+          </div>
         </div>
-      </section>
 
+      </div>
     </div>
   );
 }
