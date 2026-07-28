@@ -5,6 +5,7 @@ import {
   Info, Lock, AlertTriangle, Droplet, RefreshCw 
 } from 'lucide-react';
 import { jsPDF } from 'jspdf';
+import UrinalysisInstructions from './UrinalysisInstructions';
 
 // 1. DATA MODEL & SCHEMA
 export interface UrinalysisReadings {
@@ -599,6 +600,9 @@ export default function Track1Diagnostics() {
           <span className="text-xs font-light">{statusMessage}</span>
         </div>
       )}
+
+      {/* Protocol Instructions manual */}
+      <UrinalysisInstructions />
 
       {/* Main split-screen grid layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
