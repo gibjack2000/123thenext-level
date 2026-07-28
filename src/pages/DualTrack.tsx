@@ -5,6 +5,7 @@ import {
   Shield, Activity, Heart, Clock, ArrowRight, 
   FileText, Download, CheckCircle2, Info, Lock, RefreshCw
 } from 'lucide-react';
+import Track1Diagnostics from '../components/Track1Diagnostics';
 
 export default function DualTrack() {
   const location = useLocation();
@@ -240,6 +241,9 @@ export default function DualTrack() {
                     </div>
                   </div>
                 </div>
+
+                {/* 10-Parameter At-Home Urinalysis Suite */}
+                <Track1Diagnostics />
 
                 {/* Continuous Biometric Logging / Vetted Hardware Hub */}
                 <div className="pt-6 border-t border-slate-800/80 space-y-4">
