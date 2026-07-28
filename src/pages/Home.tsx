@@ -635,7 +635,7 @@ export default function Home() {
               <div className="flex flex-col items-center gap-6 pt-2 relative z-30">
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
                   <Link
-                    to="/start-here"
+                    to="/dual-track"
                     className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-cyan-500 md:hover:bg-cyan-400 text-slate-950 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.3)] md:hover:shadow-[0_0_30px_rgba(6,182,212,0.5)] md:hover:scale-[1.02] active:scale-[0.98] text-center w-full sm:w-auto font-bold cursor-pointer"
                   >
                     Explore the Dual-Track Blueprint & Start Day 1 Habits →
