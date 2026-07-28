@@ -147,65 +147,99 @@ export default function HealthPillar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 -mt-24 pb-32">
         {/* Sub-Hub Entry Points: The 2026 Methodology */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-40">
+          
+          {/* Card 1: Biometric Foundation */}
           <motion.div 
-            whileHover={{ y: -10 }}
-            className="bg-slate-900/50 backdrop-blur-3xl p-12 rounded-[4rem] border border-white/5 flex flex-col justify-between group overflow-hidden relative shadow-2xl h-full"
+            whileHover={{ y: -8 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className="bg-slate-950/60 backdrop-blur-3xl p-12 rounded-[3.5rem] border border-white/5 hover:border-indigo-500/20 flex flex-col justify-between group overflow-hidden relative shadow-[0_0_50px_-12px_rgba(0,0,0,0.8)] h-full transition-colors duration-500"
           >
-            <div className="absolute top-0 right-0 w-64 h-64 bg-indigo-600/10 blur-[100px] -mr-32 -mt-32"></div>
-            <div className="relative z-10">
-              <div className="w-16 h-16 bg-white/5 rounded-3xl flex items-center justify-center text-indigo-400 mb-10 border border-white/10 group-hover:scale-110 transition-transform duration-500">
-                <Search size={32} />
+            {/* Mesh Grid Overlay */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:24px_24px] opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0"></div>
+            
+            {/* Glowing Corner Spill */}
+            <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-indigo-500/15 via-indigo-700/5 to-transparent rounded-full blur-[80px] -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-125 pointer-events-none z-0"></div>
+            <div className="absolute -bottom-48 -left-48 w-80 h-80 bg-indigo-500/5 rounded-full blur-[100px] pointer-events-none z-0"></div>
+
+            <div className="relative z-10 flex flex-col justify-between h-full">
+              <div>
+                <div className="w-16 h-16 bg-slate-950/80 rounded-2xl flex items-center justify-center text-indigo-400 mb-10 border border-slate-800 group-hover:border-indigo-500/40 group-hover:shadow-[0_0_20px_rgba(99,102,241,0.15)] transition-all duration-500">
+                  <Search size={28} className="group-hover:scale-110 transition-transform duration-500" />
+                </div>
+                <h2 className="text-3xl font-display font-black uppercase tracking-tight text-white mb-6 leading-[1]">
+                  Biometric<br />Foundation
+                </h2>
+                <p className="text-slate-400 text-sm leading-relaxed mb-10 font-light">
+                  Proactive diagnostic monitoring to identify sub-clinical risks before they manifest as chronic disease.
+                </p>
               </div>
-              <h2 className="text-3xl font-display font-black uppercase tracking-tight text-white mb-6 leading-[1]">
-                Biometric<br />Foundation
-              </h2>
-              <p className="text-slate-500 text-sm leading-relaxed mb-10 font-medium italic">
-                 Proactive diagnostic monitoring to identify sub-clinical risks before they manifest as chronic disease.
-              </p>
               <Link to="/health/preventive" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-indigo-400 group-hover:text-white transition-colors font-display">
-                 View Diagnostics <ArrowRight size={14} />
+                 <span>View Diagnostics</span>
+                 <ArrowRight size={14} className="group-hover:translate-x-1.5 transition-transform duration-200" />
               </Link>
             </div>
           </motion.div>
 
+          {/* Card 2: Cellular Engineering */}
           <motion.div 
-            whileHover={{ y: -10 }}
-            className="bg-slate-900/50 backdrop-blur-3xl p-12 rounded-[4rem] border border-white/5 flex flex-col justify-between group overflow-hidden relative shadow-2xl h-full"
+            whileHover={{ y: -8 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className="bg-slate-950/60 backdrop-blur-3xl p-12 rounded-[3.5rem] border border-white/5 hover:border-blue-500/20 flex flex-col justify-between group overflow-hidden relative shadow-[0_0_50px_-12px_rgba(0,0,0,0.8)] h-full transition-colors duration-500"
           >
-            <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/10 blur-[100px] -mr-32 -mt-32"></div>
-            <div className="relative z-10">
-              <div className="w-16 h-16 bg-white/5 rounded-3xl flex items-center justify-center text-blue-400 mb-10 border border-white/10 group-hover:scale-110 transition-transform duration-500">
-                <Dna size={32} />
+            {/* Mesh Grid Overlay */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(59,130,246,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(59,130,246,0.03)_1px,transparent_1px)] bg-[size:24px_24px] opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0"></div>
+
+            {/* Glowing Corner Spill */}
+            <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-blue-500/15 via-blue-700/5 to-transparent rounded-full blur-[80px] -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-125 pointer-events-none z-0"></div>
+            <div className="absolute -bottom-48 -left-48 w-80 h-80 bg-blue-500/5 rounded-full blur-[100px] pointer-events-none z-0"></div>
+
+            <div className="relative z-10 flex flex-col justify-between h-full">
+              <div>
+                <div className="w-16 h-16 bg-slate-950/80 rounded-2xl flex items-center justify-center text-blue-400 mb-10 border border-slate-800 group-hover:border-blue-500/40 group-hover:shadow-[0_0_20px_rgba(59,130,246,0.15)] transition-all duration-500">
+                  <Dna size={28} className="group-hover:scale-110 transition-transform duration-500" />
+                </div>
+                <h2 className="text-3xl font-display font-black uppercase tracking-tight text-white mb-6 leading-[1]">
+                  Cellular<br />Engineering
+                </h2>
+                <p className="text-slate-400 text-sm leading-relaxed mb-10 font-light">
+                  Epigenetic maintenance focusing on NAD+ homeostasis, senolytic clearance, and mitochondrial density.
+                </p>
               </div>
-              <h2 className="text-3xl font-display font-black uppercase tracking-tight text-white mb-6 leading-[1]">
-                Cellular<br />Engineering
-              </h2>
-              <p className="text-slate-500 text-sm leading-relaxed mb-10 font-medium italic">
-                 Epigenetic maintenance focusing on NAD+ homeostasis, senolytic clearance, and mitochondrial density.
-              </p>
               <Link to="/health/cellular" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-blue-400 group-hover:text-white transition-colors font-display">
-                 Enter Molecular Lab <ArrowRight size={14} />
+                 <span>Enter Molecular Lab</span>
+                 <ArrowRight size={14} className="group-hover:translate-x-1.5 transition-transform duration-200" />
               </Link>
             </div>
           </motion.div>
 
+          {/* Card 3: Systemic Maintenance */}
           <motion.div 
-            whileHover={{ y: -10 }}
-            className="bg-slate-900/50 backdrop-blur-3xl p-12 rounded-[4rem] border border-white/5 flex flex-col justify-between group overflow-hidden relative shadow-2xl h-full"
+            whileHover={{ y: -8 }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+            className="bg-slate-950/60 backdrop-blur-3xl p-12 rounded-[3.5rem] border border-white/5 hover:border-rose-500/20 flex flex-col justify-between group overflow-hidden relative shadow-[0_0_50px_-12px_rgba(0,0,0,0.8)] h-full transition-colors duration-500"
           >
-            <div className="absolute top-0 right-0 w-64 h-64 bg-rose-600/10 blur-[100px] -mr-32 -mt-32"></div>
-            <div className="relative z-10">
-              <div className="w-16 h-16 bg-white/5 rounded-3xl flex items-center justify-center text-rose-400 mb-10 border border-white/10 group-hover:scale-110 transition-transform duration-500">
-                <Moon size={32} />
+            {/* Mesh Grid Overlay */}
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(244,63,94,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(244,63,94,0.03)_1px,transparent_1px)] bg-[size:24px_24px] opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0"></div>
+
+            {/* Glowing Corner Spill */}
+            <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-rose-500/15 via-rose-700/5 to-transparent rounded-full blur-[80px] -mr-32 -mt-32 transition-transform duration-1000 group-hover:scale-125 pointer-events-none z-0"></div>
+            <div className="absolute -bottom-48 -left-48 w-80 h-80 bg-rose-500/5 rounded-full blur-[100px] pointer-events-none z-0"></div>
+
+            <div className="relative z-10 flex flex-col justify-between h-full">
+              <div>
+                <div className="w-16 h-16 bg-slate-950/80 rounded-2xl flex items-center justify-center text-rose-400 mb-10 border border-slate-800 group-hover:border-rose-500/40 group-hover:shadow-[0_0_20px_rgba(244,63,94,0.15)] transition-all duration-500">
+                  <Moon size={28} className="group-hover:scale-110 transition-transform duration-500" />
+                </div>
+                <h2 className="text-3xl font-display font-black uppercase tracking-tight text-white mb-6 leading-[1]">
+                  Systemic<br />Maintenance
+                </h2>
+                <p className="text-slate-400 text-sm leading-relaxed mb-10 font-light">
+                  Optimizing the glymphatic window and autonomic recovery through thermic signaling and deep sleep engineering.
+                </p>
               </div>
-              <h2 className="text-3xl font-display font-black uppercase tracking-tight text-white mb-6 leading-[1]">
-                Systemic<br />Maintenance
-              </h2>
-              <p className="text-slate-500 text-sm leading-relaxed mb-10 font-medium italic">
-                 Optimizing the glymphatic window and autonomic recovery through thermic signaling and deep sleep engineering.
-              </p>
               <Link to="/health/maintenance" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-rose-400 group-hover:text-white transition-colors font-display">
-                 Enter Recovery Suite <ArrowRight size={14} />
+                 <span>Enter Recovery Suite</span>
+                 <ArrowRight size={14} className="group-hover:translate-x-1.5 transition-transform duration-200" />
               </Link>
             </div>
           </motion.div>
