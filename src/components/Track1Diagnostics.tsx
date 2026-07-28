@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 import { 
   Shield, Activity, Heart, Clock, Download, CheckCircle2, 
-  Info, Lock, AlertTriangle, Droplet, RefreshCw 
+  Info, Lock, AlertTriangle, Droplet, RefreshCw, Calendar, FileText 
 } from 'lucide-react';
 import { jsPDF } from 'jspdf';
 import UrinalysisInstructions from './UrinalysisInstructions';
+import { useBloodPressure } from '../hooks/useBloodPressure';
 
 // 1. DATA MODEL & SCHEMA
 export interface UrinalysisReadings {
@@ -199,11 +200,14 @@ export default function Track1Diagnostics() {
   const [saveStatus, setSaveStatus] = useState<'idle' | 'success' | 'error' | 'local_cached'>('idle');
   const [statusMessage, setStatusMessage] = useState('');
 
-  // Cardiovascular / BP state variables
-  const [systolic, setSystolic] = useState<number>(120);
-  const [diastolic, setDiastolic] = useState<number>(80);
-  const [pulse, setPulse] = useState<number>(65);
-  const [isSavingBP, setIsSavingBP] = useState(false);
+  // STAGE 1: Blood Pressure State & Custom Hook integration
+  const { logs: bpLogs, loading: bpLoading, error: bpError, saveBPLog, fetchBPLogs, classifyBloodPressure } = useBloodPressure();
+  const [bpInput, setBpInput] = useState({
+    systolic: 120,
+    diastolic: 80,
+    pulse: 65,
+    notes: ''
+  });
 
   // Hydrate session ID from localStorage or generate a new one
   useEffect(() => {
@@ -233,48 +237,15 @@ export default function Track1Diagnostics() {
       }
     }
 
-    const savedBP = localStorage.getItem('blood_pressure_readings');
-    if (savedBP) {
+    const savedBPInput = localStorage.getItem('bp_input_cache');
+    if (savedBPInput) {
       try {
-        const parsed = JSON.parse(savedBP);
-        if (parsed.systolic) setSystolic(Number(parsed.systolic));
-        if (parsed.diastolic) setDiastolic(Number(parsed.diastolic));
-        if (parsed.pulse) setPulse(Number(parsed.pulse));
+        setBpInput(JSON.parse(savedBPInput));
       } catch (e) {
-        console.error('Failed to parse cached blood pressure:', e);
+        console.error('Failed to parse cached BP inputs:', e);
       }
     }
   }, []);
-
-  // Vascular / BP Status check logic
-  const getVascularStatus = (sys: number, dia: number) => {
-    if (sys >= 140 || dia >= 90) {
-      return {
-        status: 'Stage 2 Hypertension',
-        badge: 'Vascular Warning • High Tension flagged for GP Consultation',
-        color: 'alert'
-      };
-    }
-    if ((sys >= 130 && sys <= 139) || (dia >= 80 && dia <= 89)) {
-      return {
-        status: 'Stage 1 Hypertension',
-        badge: 'Vascular Warning • High Tension flagged for GP Consultation',
-        color: 'alert'
-      };
-    }
-    if (sys >= 120 && sys <= 129 && dia < 80) {
-      return {
-        status: 'Elevated',
-        badge: 'Elevated • Monitor Hydration & Vagal Tone',
-        color: 'warning'
-      };
-    }
-    return {
-      status: 'Optimal',
-      badge: 'Optimal Arterial Tension • Low Vascular Load',
-      color: 'optimal'
-    };
-  };
 
   // Determine if a specific value is abnormal
   const isValueAbnormal = (param: keyof UrinalysisReadings, val: string): boolean => {
@@ -345,7 +316,26 @@ export default function Track1Diagnostics() {
     localStorage.setItem('bloodwork_readings', JSON.stringify(updated));
   };
 
-  const handleSave = async () => {
+  const handleBPInputChange = (field: string, val: any) => {
+    const updated = { ...bpInput, [field]: val };
+    setBpInput(updated);
+    localStorage.setItem('bp_input_cache', JSON.stringify(updated));
+  };
+
+  const handleLogBP = async () => {
+    const result = await saveBPLog(bpInput.systolic, bpInput.diastolic, bpInput.pulse, bpInput.notes);
+    if (result) {
+      setSaveStatus('success');
+      setStatusMessage('Blood pressure log synced with Supabase.');
+      setTimeout(() => setSaveStatus('idle'), 4000);
+    } else if (bpError) {
+      setSaveStatus('local_cached');
+      setStatusMessage(`Log stored locally. (${bpError})`);
+      setTimeout(() => setSaveStatus('idle'), 4000);
+    }
+  };
+
+  const handleSaveUrinalysis = async () => {
     setIsSaving(true);
     setSaveStatus('idle');
     setStatusMessage('');
@@ -353,7 +343,7 @@ export default function Track1Diagnostics() {
     try {
       if (!supabase) {
         setSaveStatus('local_cached');
-        setStatusMessage('Supabase not configured. Readings saved securely to local cache.');
+        setStatusMessage('Supabase not configured. Urinalysis saved securely to local cache.');
         setIsSaving(false);
         return;
       }
@@ -372,9 +362,6 @@ export default function Track1Diagnostics() {
           blood: readings.blood,
           specific_gravity: readings.specific_gravity,
           leukocytes: readings.leukocytes,
-          systolic,
-          diastolic,
-          pulse,
           updated_at: new Date().toISOString()
         }, { onConflict: 'session_id' });
 
@@ -384,7 +371,7 @@ export default function Track1Diagnostics() {
         setStatusMessage('Supabase network error. Readings cached in secure local storage.');
       } else {
         setSaveStatus('success');
-        setStatusMessage('Clinical baseline successfully synchronized with your encrypted cloud portal.');
+        setStatusMessage('Urinalysis baseline successfully synchronized with your encrypted cloud portal.');
       }
     } catch (err) {
       console.error('Network exception saving readings:', err);
@@ -392,64 +379,6 @@ export default function Track1Diagnostics() {
       setStatusMessage('Exception thrown. Readings saved locally.');
     } finally {
       setIsSaving(false);
-      setTimeout(() => {
-        setSaveStatus('idle');
-        setStatusMessage('');
-      }, 5000);
-    }
-  };
-
-  const handleSaveBP = async () => {
-    setIsSavingBP(true);
-    setSaveStatus('idle');
-    setStatusMessage('');
-
-    // Cache locally
-    const bpData = { systolic, diastolic, pulse };
-    localStorage.setItem('blood_pressure_readings', JSON.stringify(bpData));
-
-    try {
-      if (!supabase) {
-        setSaveStatus('local_cached');
-        setStatusMessage('Supabase not configured. Blood pressure saved securely to local cache.');
-        setIsSavingBP(false);
-        return;
-      }
-
-      const { error } = await supabase
-        .from('urinalysis_readings')
-        .upsert({
-          session_id: sessionId,
-          glucose: readings.glucose,
-          ketones: readings.ketones,
-          bilirubin: readings.bilirubin,
-          nitrite: readings.nitrite,
-          urobilinogen: readings.urobilinogen,
-          protein: readings.protein,
-          ph: readings.ph,
-          blood: readings.blood,
-          specific_gravity: readings.specific_gravity,
-          leukocytes: readings.leukocytes,
-          systolic,
-          diastolic,
-          pulse,
-          updated_at: new Date().toISOString()
-        }, { onConflict: 'session_id' });
-
-      if (error) {
-        console.error('Supabase save error:', error);
-        setSaveStatus('local_cached');
-        setStatusMessage('Supabase network error. Blood pressure cached in secure local storage.');
-      } else {
-        setSaveStatus('success');
-        setStatusMessage('Cardiovascular baseline successfully synchronized with your encrypted cloud portal.');
-      }
-    } catch (err) {
-      console.error('Network exception saving BP:', err);
-      setSaveStatus('local_cached');
-      setStatusMessage('Exception thrown. Blood pressure saved locally.');
-    } finally {
-      setIsSavingBP(false);
       setTimeout(() => {
         setSaveStatus('idle');
         setStatusMessage('');
@@ -584,12 +513,12 @@ export default function Track1Diagnostics() {
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8.5);
     
-    const bpStatus = getVascularStatus(systolic, diastolic);
+    const classification = classifyBloodPressure(bpInput.systolic, bpInput.diastolic);
     
     const bpRows = [
-      { name: "Systolic Blood Pressure", val: `${systolic} mmHg`, range: "Optimal <120 / Elevated 120-129 / High 130+", status: bpStatus.status },
-      { name: "Diastolic Blood Pressure", val: `${diastolic} mmHg`, range: "Optimal <80 / Elevated <80 / High 80+", status: bpStatus.status },
-      { name: "Pulse (Resting Heart Rate)", val: `${pulse} BPM`, range: "Optimal 60-80 BPM (Vagal baseline)", status: pulse >= 55 && pulse <= 75 ? "Optimal" : "Logged" }
+      { name: "Systolic Blood Pressure", val: `${bpInput.systolic} mmHg`, range: "Optimal <120 / Elevated 120-129 / High 130+", status: classification.status },
+      { name: "Diastolic Blood Pressure", val: `${bpInput.diastolic} mmHg`, range: "Optimal <80 / Elevated <80 / High 80+", status: classification.status },
+      { name: "Pulse (Resting Heart Rate)", val: `${bpInput.pulse} BPM`, range: "Optimal 60-80 BPM (Vagal baseline)", status: bpInput.pulse >= 55 && bpInput.pulse <= 75 ? "Optimal" : "Logged" }
     ];
     
     bpRows.forEach((r, i) => {
@@ -615,8 +544,8 @@ export default function Track1Diagnostics() {
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8.5);
     doc.text([
-      `Arterial tension reading of ${systolic}/${diastolic} mmHg is classified as ${bpStatus.status.toUpperCase()}.`,
-      `Pulse profile of ${pulse} BPM reflects the baseline sympathetic/parasympathetic autonomic balance.`,
+      `Arterial tension reading of ${bpInput.systolic}/${bpInput.diastolic} mmHg is classified as ${classification.status.toUpperCase()}.`,
+      `Pulse profile of ${bpInput.pulse} BPM reflects the baseline sympathetic/parasympathetic autonomic balance.`,
       "Persistent elevated metrics warrant verification via automated 24-hour ambulatory monitoring (ABPM)."
     ], 15, 198);
 
@@ -711,7 +640,7 @@ export default function Track1Diagnostics() {
       issues.push("- Leukocyte/Nitrite signals: rule out subclinical or asymptomatic urinary tract infection (UTI) via culture.");
     }
     if (isValueAbnormal('blood', readings.blood)) issues.push("- Hematuria detected: investigate possible urinary micro-bleeding, kidney stones, or physical exercise-induced hemolysis.");
-    if (systolic >= 130 || diastolic >= 80) {
+    if (bpInput.systolic >= 130 || bpInput.diastolic >= 80) {
       issues.push("- Blood pressure flagged as Hypertension Stage 1/2: suggest validation via home cuff monitoring and GP review.");
     }
 
@@ -731,12 +660,12 @@ export default function Track1Diagnostics() {
     doc.setFontSize(7.5);
     doc.text("Lola Human Performance Architecture is a baseline assessment framework. This document does not constitute direct medical advice or diagnoses.", 15, 280);
 
-    doc.save(`clinical-gp-briefing-template-${sessionId}.pdf`);
+    doc.save("clinical-baseline-consultation-template-v2.pdf");
   };
 
   const getPathwayColor = (state: string) => {
     switch (state) {
-      case 'alert': return 'border-rose-500 bg-rose-500/10 shadow-[0_0_12px_rgba(244,63,94,0.15)] text-rose-400';
+      case 'alert': return 'border-rose-500 bg-rose-500/10 shadow-[0_0_12px_rgba(244,63,94,0.15)] text-rose-400 animate-pulse';
       case 'warning': return 'border-amber-500/50 bg-amber-500/5 shadow-[0_0_10px_rgba(245,158,11,0.1)] text-amber-400';
       default: return 'border-emerald-500/25 bg-emerald-500/5 text-emerald-400';
     }
@@ -752,33 +681,10 @@ export default function Track1Diagnostics() {
 
   return (
     <div className="space-y-8 pt-8 border-t border-slate-800/85">
-      
-      {/* Introduction Banner */}
-      <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 relative overflow-hidden flex flex-col md:flex-row gap-6 justify-between items-start md:items-center">
-        <div className="space-y-1.5 text-left max-w-2xl">
-          <div className="flex items-center gap-2">
-            <span className="text-[9px] font-mono text-wellness-cyan uppercase tracking-wider bg-wellness-cyan/15 px-2 py-0.5 rounded font-bold">New Protocol</span>
-            <span className="text-[10px] font-mono text-slate-500">Session Portal: {sessionId}</span>
-          </div>
-          <h3 className="text-lg font-display uppercase tracking-wider text-white font-bold">10-Parameter At-Home Urinalysis Diagnostic</h3>
-          <p className="text-xs text-slate-grey-300 leading-relaxed font-light">
-            Measure critical renal filter, hepatic pathways, metabolic substrate balance, and systemic pH clearance. Log physical test strips below to evaluate live physiological impact.
-          </p>
-        </div>
-        
-        <div className="flex items-center gap-3 w-full md:w-auto">
-          <button
-            onClick={handleSave}
-            disabled={isSaving}
-            className="w-full md:w-auto py-2.5 px-5 bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-wellness-cyan/40 text-wellness-cyan text-xs font-black uppercase tracking-wider rounded-xl transition-all duration-200 active:scale-95 flex items-center justify-center gap-2"
-          >
-            <RefreshCw size={12} className={isSaving ? 'animate-spin' : ''} />
-            <span>{isSaving ? 'Syncing...' : 'Collate & Save Readings'}</span>
-          </button>
-        </div>
-      </div>
+      {/* 1. Instruction Manual at the top */}
+      <UrinalysisInstructions />
 
-      {/* Save Status Alerts */}
+      {/* Save Status Banner */}
       {saveStatus !== 'idle' && (
         <div className={`p-4 rounded-xl border flex items-center gap-3 transition-all duration-300 ${
           saveStatus === 'success' ? 'border-emerald-500/30 bg-emerald-500/5 text-emerald-300' : 
@@ -790,13 +696,208 @@ export default function Track1Diagnostics() {
         </div>
       )}
 
-      {/* Protocol Instructions manual */}
-      <UrinalysisInstructions />
-
-      {/* Main split-screen grid layout */}
+      {/* 2. Main split-screen grid layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        {/* LEFT COLUMN (Span 7): Step-by-Step Dipstick Logger */}
+        {/* LEFT PANEL (Span 5): Vascular & Blood Pressure Logging Widget */}
+        <div className="lg:col-span-5 space-y-6">
+          <div className="p-6 rounded-3xl bg-[#0f172a]/95 border border-slate-800 text-left space-y-5 relative">
+            <div>
+              <span className="text-[10px] font-mono text-wellness-cyan uppercase tracking-wider block">[ CARDIOVASCULAR BASELINE ]</span>
+              <h4 className="text-sm font-display uppercase tracking-wider text-white font-bold mt-0.5">Vascular & Blood Pressure Logging</h4>
+              <p className="text-xs text-slate-grey-455 leading-relaxed font-light mt-1">
+                Input your current arterial tension metrics and resting pulse rate.
+              </p>
+            </div>
+
+            {/* Glowing Digital Telemetry Screen */}
+            {(() => {
+              const classification = classifyBloodPressure(bpInput.systolic, bpInput.diastolic);
+              return (
+                <div className="bg-slate-950 border border-slate-800/80 rounded-2xl p-5 flex flex-col gap-4 relative overflow-hidden shadow-inner">
+                  <div className="flex justify-between items-center w-full">
+                    <div>
+                      <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest block">ARTERIAL PRESSURE</span>
+                      <div className="flex items-baseline gap-1.5 mt-0.5">
+                        <span className={`text-2xl sm:text-3xl font-display font-black tracking-tight ${
+                          classification.status.includes('Hypertension') ? 'text-rose-500 drop-shadow-[0_0_6px_rgba(244,63,94,0.4)] animate-pulse' :
+                          classification.status === 'Elevated' ? 'text-yellow-400 drop-shadow-[0_0_6px_rgba(245,158,11,0.3)]' :
+                          'text-emerald-400 drop-shadow-[0_0_6px_rgba(52,211,153,0.3)]'
+                        }`}>
+                          {bpInput.systolic} / {bpInput.diastolic}
+                        </span>
+                        <span className="text-[10px] font-mono text-slate-500 font-medium">mmHg</span>
+                      </div>
+                    </div>
+
+                    <div className="text-right">
+                      <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest block">RESTING PULSE</span>
+                      <div className="flex items-center gap-2 mt-0.5 justify-end">
+                        <span className="text-2xl sm:text-3xl font-display font-black text-white font-mono tracking-tight">{bpInput.pulse}</span>
+                        <span className="text-[10px] font-mono text-slate-500">BPM</span>
+                        <span className="relative flex h-3 w-3">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-500 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-600"></span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Status Badge */}
+                  <div className={`p-3 rounded-xl border text-[11px] font-mono flex items-start gap-2 ${
+                    classification.status.includes('Hypertension') ? 'border-rose-500/30 bg-rose-500/10 text-rose-300' :
+                    classification.status === 'Elevated' ? 'border-yellow-500/30 bg-yellow-500/10 text-yellow-300' :
+                    'border-emerald-500/20 bg-emerald-500/10 text-emerald-300'
+                  }`}>
+                    <Info size={14} className="flex-shrink-0 mt-0.5 text-slate-400" />
+                    <div>
+                      <strong className="block uppercase tracking-wider">{classification.status}</strong>
+                      <span className="text-[10px] text-slate-grey-300 font-light mt-0.5 block leading-normal">{classification.description}</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* BP Inputs */}
+            <div className="grid grid-cols-3 gap-3">
+              <div className="space-y-1">
+                <label className="text-[9px] font-mono text-slate-450 uppercase tracking-wider block">Systolic</label>
+                <input
+                  type="number"
+                  value={bpInput.systolic}
+                  onChange={(e) => handleBPInputChange('systolic', Number(e.target.value))}
+                  className="w-full bg-slate-950 border border-cyan-500/10 focus:border-wellness-cyan rounded-xl p-3 text-xs text-white outline-none transition-all font-mono"
+                  placeholder="120"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-mono text-slate-450 uppercase tracking-wider block">Diastolic</label>
+                <input
+                  type="number"
+                  value={bpInput.diastolic}
+                  onChange={(e) => handleBPInputChange('diastolic', Number(e.target.value))}
+                  className="w-full bg-slate-950 border border-cyan-500/10 focus:border-wellness-cyan rounded-xl p-3 text-xs text-white outline-none transition-all font-mono"
+                  placeholder="80"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-mono text-slate-450 uppercase tracking-wider block">Pulse</label>
+                <input
+                  type="number"
+                  value={bpInput.pulse}
+                  onChange={(e) => handleBPInputChange('pulse', Number(e.target.value))}
+                  className="w-full bg-slate-950 border border-cyan-500/10 focus:border-wellness-cyan rounded-xl p-3 text-xs text-white outline-none transition-all font-mono"
+                  placeholder="65"
+                />
+              </div>
+            </div>
+
+            <button
+              onClick={handleLogBP}
+              disabled={bpLoading}
+              className="w-full py-3 bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-wellness-cyan/40 text-wellness-cyan text-xs font-black uppercase tracking-wider rounded-xl transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-slate-950/40"
+            >
+              <Activity size={12} className={bpLoading ? 'animate-spin' : ''} />
+              <span>{bpLoading ? 'Syncing...' : 'Log Vascular Readings'}</span>
+            </button>
+
+            {/* Scrollable historical list of previous logs fetched from Supabase */}
+            <div className="border-t border-slate-900 pt-4 space-y-3">
+              <div className="flex justify-between items-center">
+                <span className="text-[10px] font-mono text-slate-450 uppercase tracking-wider">Vascular History</span>
+                <span className="text-[9px] font-mono text-slate-600">{bpLogs.length} Records</span>
+              </div>
+              
+              <div className="max-h-40 overflow-y-auto space-y-2 pr-1.5 no-scrollbar">
+                {bpLogs.length === 0 ? (
+                  <div className="p-4 text-center rounded-xl bg-slate-950/20 border border-dashed border-slate-900 text-[10px] font-mono text-slate-600 uppercase">
+                    No vascular telemetry logged yet
+                  </div>
+                ) : (
+                  bpLogs.map((log, idx) => {
+                    const statusClass = classifyBloodPressure(log.systolic_mmhg, log.diastolic_mmhg);
+                    return (
+                      <div key={log.id || idx} className="p-3 rounded-xl bg-slate-950 border border-slate-900/60 flex justify-between items-center">
+                        <div className="space-y-1">
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-mono font-bold text-white">
+                              {log.systolic_mmhg} / {log.diastolic_mmhg}
+                            </span>
+                            <span className="text-[8px] font-mono text-slate-500">mmHg</span>
+                            <span className={`text-[8px] px-1.5 py-0.5 rounded border font-mono uppercase ${statusClass.colorClass.split(' ')[0]} ${statusClass.colorClass.split(' ')[1]}`}>
+                              {statusClass.status.replace(' Hypertension', '')}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-1.5 text-[9px] font-mono text-slate-500">
+                            <Calendar size={10} />
+                            <span>{log.logged_at ? new Date(log.logged_at).toLocaleDateString() : 'Just now'}</span>
+                            <span className="w-1 h-1 rounded-full bg-slate-800"></span>
+                            <Activity size={10} className="text-rose-500" />
+                            <span>{log.pulse_bpm} BPM</span>
+                          </div>
+                        </div>
+                        <span className="text-[8px] font-mono text-slate-600 uppercase">#{bpLogs.length - idx}</span>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+            </div>
+
+          </div>
+
+          {/* Collated Bloodwork Metrics Card */}
+          <div className="p-6 rounded-3xl bg-[#0f172a]/95 border border-slate-800 text-left space-y-5">
+            <div>
+              <span className="text-[10px] font-mono text-wellness-cyan uppercase tracking-wider block">[ BLOOD PANEL MOCKUP ]</span>
+              <h4 className="text-sm font-display uppercase tracking-wider text-white font-bold mt-0.5">Physician-Vetted Lab Biomarkers</h4>
+              <p className="text-xs text-slate-grey-450 leading-relaxed font-light mt-1">
+                Maintain ApoB, HbA1c, and hs-CRP parameters to output next to baseline diagnostics.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-3 gap-3">
+              <div className="space-y-1">
+                <label className="text-[9px] font-mono text-slate-400 uppercase tracking-wider block">ApoB (mg/dL)</label>
+                <input
+                  type="number"
+                  value={bloodwork.apob}
+                  onChange={(e) => handleBloodworkChange('apob', e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-wellness-cyan rounded-xl p-3 text-xs text-white outline-none transition-all font-mono"
+                  placeholder="75"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-mono text-slate-400 uppercase tracking-wider block">HbA1c (%)</label>
+                <input
+                  type="text"
+                  value={bloodwork.hba1c}
+                  onChange={(e) => handleBloodworkChange('hba1c', e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-wellness-cyan rounded-xl p-3 text-xs text-white outline-none transition-all font-mono"
+                  placeholder="5.1"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-mono text-slate-400 uppercase tracking-wider block">hs-CRP (mg/L)</label>
+                <input
+                  type="text"
+                  value={bloodwork.hscrp}
+                  onChange={(e) => handleBloodworkChange('hscrp', e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-wellness-cyan rounded-xl p-3 text-xs text-white outline-none transition-all font-mono"
+                  placeholder="0.8"
+                />
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        {/* RIGHT PANEL (Span 7): Urinalysis Reagent Logger & Biological System Impact Map */}
         <div className="lg:col-span-7 space-y-6">
           <div className="p-6 rounded-3xl bg-[#0f172a]/90 border border-slate-800 space-y-6 text-left relative">
             <div className="flex justify-between items-center border-b border-slate-800/80 pb-4">
@@ -806,7 +907,7 @@ export default function Track1Diagnostics() {
               </div>
               <div className="flex items-center gap-1 text-[10px] font-mono text-slate-500">
                 <Info size={12} />
-                <span>Match colors to bottle reference chart</span>
+                <span>Compare colors to bottle chart</span>
               </div>
             </div>
 
@@ -816,12 +917,9 @@ export default function Track1Diagnostics() {
               {/* Virtual physical urine strip */}
               <div className="flex-shrink-0 flex flex-col items-center select-none bg-slate-950 p-3 rounded-2xl border border-slate-800/60 shadow-[inset_0_2px_4px_rgba(0,0,0,0.6)]">
                 <div className="text-[8px] font-mono text-slate-600 mb-1.5 uppercase font-bold tracking-widest">STRIP</div>
-                {/* Physical plastic stick representation */}
                 <div className="w-6 min-h-[360px] bg-slate-900/60 rounded-full border border-slate-800/30 p-1 flex flex-col justify-between items-center gap-2 relative shadow-inner">
-                  {/* Absolute positioning background element to simulate white plastic strip */}
                   <div className="absolute top-2 bottom-2 w-2.5 bg-slate-300 rounded-full -z-10 shadow-sm opacity-90"></div>
                   
-                  {/* Render 10 pads in order */}
                   {(Object.keys(URINALYSIS_CONFIG) as Array<keyof UrinalysisReadings>).map((paramName) => {
                     const cfg = URINALYSIS_CONFIG[paramName];
                     const selectedVal = readings[paramName];
@@ -839,12 +937,9 @@ export default function Track1Diagnostics() {
                         }`}
                         style={{ backgroundColor: padColor }}
                       >
-                        {/* Status dot if abnormal */}
                         {isValueAbnormal(paramName, selectedVal) && (
                           <span className="absolute w-1.5 h-1.5 bg-yellow-500 rounded-full animate-ping"></span>
                         )}
-                        
-                        {/* Tooltip for parameter name */}
                         <div className="absolute left-6 ml-2 hidden group-hover:block bg-slate-950 border border-slate-800 px-2 py-1 rounded text-[8px] font-mono text-white whitespace-nowrap uppercase tracking-wider z-20 shadow-xl">
                           {cfg.label}: {selectedVal}
                         </div>
@@ -903,7 +998,7 @@ export default function Track1Diagnostics() {
                         <p className="text-xs text-slate-grey-455 leading-relaxed font-light pt-1">{cfg.desc}</p>
                       </div>
 
-                      {/* Tailwind Selection Chips */}
+                      {/* Chips */}
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                         {cfg.options.map((opt) => {
                           const isSelected = currentVal === opt;
@@ -941,356 +1036,117 @@ export default function Track1Diagnostics() {
 
               </div>
             </div>
-          </div>
 
-          {/* Collated Bloodwork Metrics Card (Side-by-side verification) */}
-          <div className="p-6 rounded-3xl bg-[#0f172a]/95 border border-slate-800 text-left space-y-5">
-            <div>
-              <span className="text-[10px] font-mono text-wellness-cyan uppercase tracking-wider block">[ BLOOD PANEL MOCKUP ]</span>
-              <h4 className="text-sm font-display uppercase tracking-wider text-white font-bold mt-0.5">Physician-Vetted Lab Biomarkers</h4>
-              <p className="text-xs text-slate-grey-450 leading-relaxed font-light mt-1">
-                Inputs below map directly to your primary cardiovascular, systemic inflammation, and long-term metabolic health baselines.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {/* ApoB */}
-              <div className="space-y-1.5">
-                <label className="text-[9px] font-mono text-slate-400 uppercase tracking-wider block">ApoB (mg/dL)</label>
-                <div className="relative">
-                  <input
-                    type="number"
-                    value={bloodwork.apob}
-                    onChange={(e) => handleBloodworkChange('apob', e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-wellness-cyan rounded-xl p-3 text-xs text-white outline-none transition-all font-mono"
-                    placeholder="75"
-                  />
-                  <span className="absolute right-3 top-3 text-[10px] font-mono text-slate-600">Optimal &lt;80</span>
-                </div>
-              </div>
-
-              {/* HbA1c */}
-              <div className="space-y-1.5">
-                <label className="text-[9px] font-mono text-slate-400 uppercase tracking-wider block">HbA1c (%)</label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={bloodwork.hba1c}
-                    onChange={(e) => handleBloodworkChange('hba1c', e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-wellness-cyan rounded-xl p-3 text-xs text-white outline-none transition-all font-mono"
-                    placeholder="5.1"
-                  />
-                  <span className="absolute right-3 top-3 text-[10px] font-mono text-slate-600">Optimal &lt;5.4</span>
-                </div>
-              </div>
-
-              {/* hs-CRP */}
-              <div className="space-y-1.5">
-                <label className="text-[9px] font-mono text-slate-400 uppercase tracking-wider block">hs-CRP (mg/L)</label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={bloodwork.hscrp}
-                    onChange={(e) => handleBloodworkChange('hscrp', e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-wellness-cyan rounded-xl p-3 text-xs text-white outline-none transition-all font-mono"
-                    placeholder="0.8"
-                  />
-                  <span className="absolute right-3 top-3 text-[10px] font-mono text-slate-600">Optimal &lt;1.0</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Cardiovascular & Arterial Tension Baseline Card */}
-          <div className="p-6 rounded-3xl bg-[#0f172a]/95 border border-slate-800 text-left space-y-5">
-            <div className="flex justify-between items-start">
+            {/* Biological System Impact Map */}
+            <div className="border-t border-slate-850 pt-5 space-y-4">
               <div>
-                <span className="text-[10px] font-mono text-wellness-cyan uppercase tracking-wider block">[ CARDIOVASCULAR TELEMETRY ]</span>
-                <h4 className="text-sm font-display uppercase tracking-wider text-white font-bold mt-0.5">Cardiovascular & Arterial Tension</h4>
-                <p className="text-xs text-slate-grey-455 leading-relaxed font-light mt-1">
-                  Log your resting blood pressure and pulse rate. The system monitors vascular load in real-time.
-                </p>
-              </div>
-            </div>
-
-            {/* Glowing Digital Telemetry Screen */}
-            {(() => {
-              const status = getVascularStatus(systolic, diastolic);
-              return (
-                <div className="bg-slate-950 border border-slate-800/80 rounded-2xl p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 relative overflow-hidden shadow-inner">
-                  <span className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-950/20 via-slate-950 to-slate-950 -z-10"></span>
-                  
-                  <div className="flex items-baseline gap-2">
-                    <div>
-                      <span className="text-xs font-mono text-slate-500 uppercase tracking-widest block">ARTERIAL PRESSURE</span>
-                      <div className="flex items-baseline gap-1.5 mt-0.5">
-                        <span className={`text-2xl sm:text-3xl font-display font-black tracking-tight ${
-                          status.color === 'alert' ? 'text-rose-500 drop-shadow-[0_0_6px_rgba(244,63,94,0.4)] animate-pulse' :
-                          status.color === 'warning' ? 'text-amber-400 drop-shadow-[0_0_6px_rgba(245,158,11,0.3)]' :
-                          'text-emerald-400 drop-shadow-[0_0_6px_rgba(52,211,153,0.3)]'
-                        }`}>
-                          {systolic || 120} / {diastolic || 80}
-                        </span>
-                        <span className="text-[10px] font-mono text-slate-500 font-medium">mmHg</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <div className="text-left sm:text-right">
-                      <span className="text-xs font-mono text-slate-500 uppercase tracking-widest block">RESTING PULSE</span>
-                      <div className="flex items-center gap-2 mt-0.5 justify-start sm:justify-end">
-                        <span className="text-2xl sm:text-3xl font-display font-black text-white font-mono tracking-tight">{pulse || 65}</span>
-                        <span className="text-[10px] font-mono text-slate-500">BPM</span>
-                        <span className="relative flex h-3 w-3">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-500 opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-600"></span>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Status Badge (Mobile) */}
-                  <div className="w-full border-t border-slate-900 pt-3 flex flex-col gap-1.5 sm:hidden">
-                    <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">CLINICAL CLASSIFICATION</span>
-                    <span className={`text-[10px] font-mono py-1 px-3.5 rounded-full border text-center ${
-                      status.color === 'alert' ? 'bg-rose-500/15 border-rose-500/30 text-rose-300 animate-pulse' :
-                      status.color === 'warning' ? 'bg-amber-500/15 border-amber-500/30 text-amber-300' :
-                      'bg-emerald-500/15 border-emerald-500/30 text-emerald-300'
-                    }`}>
-                      {status.badge}
-                    </span>
-                  </div>
-
-                  {/* Desktop status display floating inside */}
-                  <div className="hidden sm:block absolute right-5 top-5">
-                    <span className={`text-[9px] font-mono py-0.5 px-2.5 rounded border ${
-                      status.color === 'alert' ? 'bg-rose-500/10 border-rose-500/30 text-rose-400' :
-                      status.color === 'warning' ? 'bg-amber-500/10 border-amber-500/30 text-amber-400' :
-                      'bg-emerald-500/10 border-emerald-255/20 text-emerald-450'
-                    }`}>
-                      {status.status}
-                    </span>
-                  </div>
-                </div>
-              );
-            })()}
-
-            {/* Inputs & Sync Action Panel */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {/* Systolic */}
-              <div className="space-y-1.5">
-                <label className="text-[9px] font-mono text-slate-400 uppercase tracking-wider block">Systolic (mmHg)</label>
-                <div className="relative">
-                  <input
-                    type="number"
-                    value={systolic}
-                    onChange={(e) => {
-                      const val = Number(e.target.value);
-                      setSystolic(val);
-                      localStorage.setItem('blood_pressure_readings', JSON.stringify({ systolic: val, diastolic, pulse }));
-                    }}
-                    className="w-full bg-slate-950 border border-cyan-500/10 focus:border-wellness-cyan rounded-xl p-3 text-xs text-white outline-none transition-all font-mono"
-                    placeholder="120"
-                  />
-                  <span className="absolute right-3 top-3 text-[10px] font-mono text-slate-600">SYS</span>
-                </div>
+                <span className="text-[10px] font-mono text-wellness-cyan uppercase tracking-wider block">[ PATHWAY BASELINES ]</span>
+                <h5 className="text-xs font-display uppercase tracking-wider text-white font-bold">Real-Time Biological System Impact Map</h5>
               </div>
 
-              {/* Diastolic */}
-              <div className="space-y-1.5">
-                <label className="text-[9px] font-mono text-slate-400 uppercase tracking-wider block">Diastolic (mmHg)</label>
-                <div className="relative">
-                  <input
-                    type="number"
-                    value={diastolic}
-                    onChange={(e) => {
-                      const val = Number(e.target.value);
-                      setDiastolic(val);
-                      localStorage.setItem('blood_pressure_readings', JSON.stringify({ systolic, diastolic: val, pulse }));
-                    }}
-                    className="w-full bg-slate-950 border border-cyan-500/10 focus:border-wellness-cyan rounded-xl p-3 text-xs text-white outline-none transition-all font-mono"
-                    placeholder="80"
-                  />
-                  <span className="absolute right-3 top-3 text-[10px] font-mono text-slate-600">DIA</span>
-                </div>
-              </div>
-
-              {/* Pulse */}
-              <div className="space-y-1.5">
-                <label className="text-[9px] font-mono text-slate-400 uppercase tracking-wider block">Pulse (BPM)</label>
-                <div className="relative">
-                  <input
-                    type="number"
-                    value={pulse}
-                    onChange={(e) => {
-                      const val = Number(e.target.value);
-                      setPulse(val);
-                      localStorage.setItem('blood_pressure_readings', JSON.stringify({ systolic, diastolic, pulse: val }));
-                    }}
-                    className="w-full bg-slate-950 border border-cyan-500/10 focus:border-wellness-cyan rounded-xl p-3 text-xs text-white outline-none transition-all font-mono"
-                    placeholder="65"
-                  />
-                  <span className="absolute right-3 top-3 text-[10px] font-mono text-slate-600">Pulse</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Save Button for BP */}
-            <div className="flex justify-between items-center pt-2 border-t border-slate-900">
-              {/* Desktop classification text */}
-              <div className="hidden sm:block">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Glycemic */}
                 {(() => {
-                  const status = getVascularStatus(systolic, diastolic);
+                  const status = getPathwayStatus('glycemic');
                   return (
-                    <span className="text-[10px] font-mono text-slate-500">
-                      Classification: <strong className={
-                        status.color === 'alert' ? 'text-rose-500' :
-                        status.color === 'warning' ? 'text-amber-400' :
-                        'text-emerald-450 font-semibold'
-                      }>{status.badge}</strong>
-                    </span>
+                    <div className={`p-4 rounded-xl border transition-all duration-300 ${getPathwayColor(status.state)}`}>
+                      <div className="flex justify-between items-center">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-white">Glycemic / Metabolic</span>
+                        <span className={`text-[8px] font-mono uppercase px-1.5 py-0.5 rounded border ${getBadgeColor(status.state)}`}>
+                          {status.state}
+                        </span>
+                      </div>
+                      <p className="text-[10px] font-light leading-relaxed mt-2 text-slate-300">{status.text}</p>
+                    </div>
+                  );
+                })()}
+
+                {/* Renal */}
+                {(() => {
+                  const status = getPathwayStatus('renal');
+                  return (
+                    <div className={`p-4 rounded-xl border transition-all duration-300 ${getPathwayColor(status.state)}`}>
+                      <div className="flex justify-between items-center">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-white">Renal / Filtration</span>
+                        <span className={`text-[8px] font-mono uppercase px-1.5 py-0.5 rounded border ${getBadgeColor(status.state)}`}>
+                          {status.state}
+                        </span>
+                      </div>
+                      <p className="text-[10px] font-light leading-relaxed mt-2 text-slate-300">{status.text}</p>
+                    </div>
+                  );
+                })()}
+
+                {/* Immune */}
+                {(() => {
+                  const status = getPathwayStatus('immune');
+                  return (
+                    <div className={`p-4 rounded-xl border transition-all duration-300 ${getPathwayColor(status.state)}`}>
+                      <div className="flex justify-between items-center">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-white">Immune Defense</span>
+                        <span className={`text-[8px] font-mono uppercase px-1.5 py-0.5 rounded border ${getBadgeColor(status.state)}`}>
+                          {status.state}
+                        </span>
+                      </div>
+                      <p className="text-[10px] font-light leading-relaxed mt-2 text-slate-300">{status.text}</p>
+                    </div>
+                  );
+                })()}
+
+                {/* Hepatic */}
+                {(() => {
+                  const status = getPathwayStatus('hepatic');
+                  return (
+                    <div className={`p-4 rounded-xl border transition-all duration-300 ${getPathwayColor(status.state)}`}>
+                      <div className="flex justify-between items-center">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-white">Hepatic & Liver</span>
+                        <span className={`text-[8px] font-mono uppercase px-1.5 py-0.5 rounded border ${getBadgeColor(status.state)}`}>
+                          {status.state}
+                        </span>
+                      </div>
+                      <p className="text-[10px] font-light leading-relaxed mt-2 text-slate-300">{status.text}</p>
+                    </div>
+                  );
+                })()}
+
+                {/* pH & Vascular */}
+                {(() => {
+                  const status = getPathwayStatus('ph_vascular');
+                  return (
+                    <div className={`p-4 rounded-xl border transition-all duration-300 ${getPathwayColor(status.state)} sm:col-span-2`}>
+                      <div className="flex justify-between items-center">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-white">pH & Vascular Tension</span>
+                        <span className={`text-[8px] font-mono uppercase px-1.5 py-0.5 rounded border ${getBadgeColor(status.state)}`}>
+                          {status.state}
+                        </span>
+                      </div>
+                      <p className="text-[10px] font-light leading-relaxed mt-2 text-slate-300">{status.text}</p>
+                    </div>
                   );
                 })()}
               </div>
+            </div>
+
+            {/* Bottom Actions */}
+            <div className="flex flex-col sm:flex-row gap-4 pt-4 border-t border-slate-850">
+              <button
+                onClick={handleSaveUrinalysis}
+                disabled={isSaving}
+                className="flex-grow py-3 bg-gradient-to-r from-wellness-cyan to-wellness-cyan-dark hover:from-wellness-cyan-light hover:to-wellness-cyan text-white text-xs font-black uppercase tracking-wider rounded-xl transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-wellness-cyan/15"
+              >
+                <RefreshCw size={12} className={isSaving ? 'animate-spin' : ''} />
+                <span>{isSaving ? 'Syncing...' : 'Collate & Save Readings'}</span>
+              </button>
 
               <button
-                onClick={handleSaveBP}
-                disabled={isSavingBP}
-                className="w-full sm:w-auto py-2.5 px-5 bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-wellness-cyan/40 text-wellness-cyan text-xs font-black uppercase tracking-wider rounded-xl transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+                onClick={handleDownloadPDF}
+                className="py-3 px-5 bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-wellness-cyan/40 text-wellness-cyan text-xs font-black uppercase tracking-wider rounded-xl transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-slate-950/40"
               >
-                <Activity size={12} className={isSavingBP ? 'animate-spin' : ''} />
-                <span>{isSavingBP ? 'Logging...' : 'Log Blood Pressure Reading'}</span>
+                <Download size={14} />
+                <span>GP Template v2 (PDF)</span>
               </button>
             </div>
-          </div>
-        </div>
 
-        {/* RIGHT COLUMN (Span 5): System Impact Map & GP download */}
-        <div className="lg:col-span-5 space-y-6">
-          <div className="p-6 rounded-3xl bg-[#0f172a]/90 border border-slate-800 space-y-6 text-left relative">
-            <div>
-              <span className="text-[10px] font-mono text-wellness-cyan uppercase tracking-wider block">[ PATHWAY BASELINES ]</span>
-              <h4 className="text-sm font-display uppercase tracking-wider text-white font-bold mt-0.5">Real-Time System Impact Map</h4>
-              <p className="text-xs text-slate-grey-450 leading-relaxed font-light mt-1">
-                Urinalysis parameters map directly to your underlying physiology. Watch baseline values shift live.
-              </p>
-            </div>
-
-            {/* Dynamic Map Listing */}
-            <div className="space-y-4">
-              
-              {/* Glycemic Pathway */}
-              {(() => {
-                const status = getPathwayStatus('glycemic');
-                return (
-                  <div className={`p-4 rounded-xl border transition-all duration-300 ${getPathwayColor(status.state)}`}>
-                    <div className="flex justify-between items-center">
-                      <span className="text-xs font-bold uppercase tracking-wider text-white">Glycemic & Metabolic</span>
-                      <span className={`text-[9px] font-mono uppercase px-2 py-0.5 rounded border ${getBadgeColor(status.state)}`}>
-                        {status.state}
-                      </span>
-                    </div>
-                    <p className="text-[11px] font-light leading-relaxed mt-2 text-slate-200">
-                      {status.text}
-                    </p>
-                  </div>
-                );
-              })()}
-
-              {/* Renal Health */}
-              {(() => {
-                const status = getPathwayStatus('renal');
-                return (
-                  <div className={`p-4 rounded-xl border transition-all duration-300 ${getPathwayColor(status.state)}`}>
-                    <div className="flex justify-between items-center">
-                      <span className="text-xs font-bold uppercase tracking-wider text-white">Renal & Filtration</span>
-                      <span className={`text-[9px] font-mono uppercase px-2 py-0.5 rounded border ${getBadgeColor(status.state)}`}>
-                        {status.state}
-                      </span>
-                    </div>
-                    <p className="text-[11px] font-light leading-relaxed mt-2 text-slate-200">
-                      {status.text}
-                    </p>
-                  </div>
-                );
-              })()}
-
-              {/* Immune Defense */}
-              {(() => {
-                const status = getPathwayStatus('immune');
-                return (
-                  <div className={`p-4 rounded-xl border transition-all duration-300 ${getPathwayColor(status.state)}`}>
-                    <div className="flex justify-between items-center">
-                      <span className="text-xs font-bold uppercase tracking-wider text-white">Immune & Defense</span>
-                      <span className={`text-[9px] font-mono uppercase px-2 py-0.5 rounded border ${getBadgeColor(status.state)}`}>
-                        {status.state}
-                      </span>
-                    </div>
-                    <p className="text-[11px] font-light leading-relaxed mt-2 text-slate-200">
-                      {status.text}
-                    </p>
-                  </div>
-                );
-              })()}
-
-              {/* Hepatic Map */}
-              {(() => {
-                const status = getPathwayStatus('hepatic');
-                return (
-                  <div className={`p-4 rounded-xl border transition-all duration-300 ${getPathwayColor(status.state)}`}>
-                    <div className="flex justify-between items-center">
-                      <span className="text-xs font-bold uppercase tracking-wider text-white">Hepatic & Biliary</span>
-                      <span className={`text-[9px] font-mono uppercase px-2 py-0.5 rounded border ${getBadgeColor(status.state)}`}>
-                        {status.state}
-                      </span>
-                    </div>
-                    <p className="text-[11px] font-light leading-relaxed mt-2 text-slate-200">
-                      {status.text}
-                    </p>
-                  </div>
-                );
-              })()}
-
-              {/* pH & Vascular */}
-              {(() => {
-                const status = getPathwayStatus('ph_vascular');
-                return (
-                  <div className={`p-4 rounded-xl border transition-all duration-300 ${getPathwayColor(status.state)}`}>
-                    <div className="flex justify-between items-center">
-                      <span className="text-xs font-bold uppercase tracking-wider text-white">pH & Vascular Tension</span>
-                      <span className={`text-[9px] font-mono uppercase px-2 py-0.5 rounded border ${getBadgeColor(status.state)}`}>
-                        {status.state}
-                      </span>
-                    </div>
-                    <p className="text-[11px] font-light leading-relaxed mt-2 text-slate-200">
-                      {status.text}
-                    </p>
-                  </div>
-                );
-              })()}
-
-            </div>
-
-            {/* PDF Generation Action Card */}
-            <div className="pt-6 border-t border-slate-800/80 space-y-4">
-              <div className="p-4 rounded-2xl bg-gradient-to-br from-wellness-cyan/15 to-indigo-950 border border-wellness-cyan/20 space-y-4">
-                <div className="space-y-1">
-                  <h5 className="text-xs font-mono text-wellness-cyan-light uppercase font-bold tracking-wider">Consultation Document Compiler</h5>
-                  <p className="text-[11px] text-slate-grey-300 leading-relaxed font-light">
-                    Update your lab panel values above, then run the compiler to compile your 13 biometric signals into a printable PDF report for your physician.
-                  </p>
-                </div>
-
-                <button
-                  onClick={handleDownloadPDF}
-                  className="w-full py-3 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-200 flex items-center justify-center gap-2 active:scale-95 cursor-pointer shadow-lg shadow-wellness-cyan/10"
-                >
-                  <Download size={14} />
-                  <span>📥 Update & Download GP Template</span>
-                </button>
-              </div>
-            </div>
           </div>
         </div>
 
