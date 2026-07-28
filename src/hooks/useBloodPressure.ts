@@ -7,6 +7,8 @@ export interface BloodPressureLog {
   systolic_mmhg: number;
   diastolic_mmhg: number;
   pulse_bpm: number;
+  sleep_hours?: number;
+  hrv_ms?: number;
   logged_at?: string;
   notes?: string;
 }
@@ -58,7 +60,7 @@ export function useBloodPressure() {
     }
   };
 
-  const saveBPLog = async (systolic: number, diastolic: number, pulse: number, notes?: string) => {
+  const saveBPLog = async (systolic: number, diastolic: number, pulse: number, sleepHours: number, hrvMs: number, notes?: string) => {
     setLoading(true);
     setError(null);
 
@@ -82,6 +84,8 @@ export function useBloodPressure() {
       systolic_mmhg: systolic,
       diastolic_mmhg: diastolic,
       pulse_bpm: pulse,
+      sleep_hours: sleepHours,
+      hrv_ms: hrvMs,
       notes: notes || ''
     };
 

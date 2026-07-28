@@ -206,6 +206,8 @@ export default function Track1Diagnostics() {
     systolic: 120,
     diastolic: 80,
     pulse: 65,
+    sleepHours: 7.5,
+    hrvMs: 55,
     notes: ''
   });
 
@@ -323,10 +325,17 @@ export default function Track1Diagnostics() {
   };
 
   const handleLogBP = async () => {
-    const result = await saveBPLog(bpInput.systolic, bpInput.diastolic, bpInput.pulse, bpInput.notes);
+    const result = await saveBPLog(
+      bpInput.systolic,
+      bpInput.diastolic,
+      bpInput.pulse,
+      bpInput.sleepHours,
+      bpInput.hrvMs,
+      bpInput.notes
+    );
     if (result) {
       setSaveStatus('success');
-      setStatusMessage('Blood pressure log synced with Supabase.');
+      setStatusMessage('Cardiovascular and telemetry log synced with Supabase.');
       setTimeout(() => setSaveStatus('idle'), 4000);
     } else if (bpError) {
       setSaveStatus('local_cached');
@@ -518,7 +527,9 @@ export default function Track1Diagnostics() {
     const bpRows = [
       { name: "Systolic Blood Pressure", val: `${bpInput.systolic} mmHg`, range: "Optimal <120 / Elevated 120-129 / High 130+", status: classification.status },
       { name: "Diastolic Blood Pressure", val: `${bpInput.diastolic} mmHg`, range: "Optimal <80 / Elevated <80 / High 80+", status: classification.status },
-      { name: "Pulse (Resting Heart Rate)", val: `${bpInput.pulse} BPM`, range: "Optimal 60-80 BPM (Vagal baseline)", status: bpInput.pulse >= 55 && bpInput.pulse <= 75 ? "Optimal" : "Logged" }
+      { name: "Pulse (Resting Heart Rate)", val: `${bpInput.pulse} BPM`, range: "Optimal 60-80 BPM (Vagal baseline)", status: bpInput.pulse >= 55 && bpInput.pulse <= 75 ? "Optimal" : "Logged" },
+      { name: "Sleep Duration (7-Day Avg)", val: `${bpInput.sleepHours} Hours`, range: "Optimal 7.0 - 9.0 Hours/night", status: bpInput.sleepHours >= 7.0 && bpInput.sleepHours <= 9.0 ? "Optimal" : "Review" },
+      { name: "Nocturnal HRV (7-Day Avg)", val: `${bpInput.hrvMs} ms`, range: "Optimal > 50 ms (Autonomic tone)", status: bpInput.hrvMs >= 50 ? "Optimal" : "Review" }
     ];
     
     bpRows.forEach((r, i) => {
@@ -529,7 +540,7 @@ export default function Track1Diagnostics() {
       doc.text(r.range, 115, y + 5.5);
       
       if (r.status.includes('Optimal')) doc.setTextColor(22, 163, 74);
-      else if (r.status.includes('Hypertension') || r.status.includes('Warning')) doc.setTextColor(220, 38, 38);
+      else if (r.status.includes('Hypertension') || r.status.includes('Warning') || r.status.includes('Review')) doc.setTextColor(220, 38, 38);
       else doc.setTextColor(217, 119, 6);
       doc.setFont('helvetica', 'bold');
       doc.text(r.status, 175, y + 5.5);
@@ -537,17 +548,18 @@ export default function Track1Diagnostics() {
       doc.setTextColor(15, 23, 42);
     });
 
-    // Clinical comments on vascular tension
+    // Clinical comments on vascular & telemetry tension
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(9.5);
-    doc.text("Clinical Notes on Cardiovascular Baseline:", 15, 192);
+    doc.text("Clinical Notes on Cardiovascular & Telemetry Baseline:", 15, 208);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8.5);
     doc.text([
       `Arterial tension reading of ${bpInput.systolic}/${bpInput.diastolic} mmHg is classified as ${classification.status.toUpperCase()}.`,
-      `Pulse profile of ${bpInput.pulse} BPM reflects the baseline sympathetic/parasympathetic autonomic balance.`,
+      `Pulse profile of ${bpInput.pulse} BPM, sleep duration of ${bpInput.sleepHours} hours, and nocturnal HRV of ${bpInput.hrvMs} ms`,
+      `represent the patient's autonomic recovery and vagal baseline over the tracking period.`,
       "Persistent elevated metrics warrant verification via automated 24-hour ambulatory monitoring (ABPM)."
-    ], 15, 198);
+    ], 15, 214);
 
     // ==========================================
     // PAGE 2: URINALYSIS & CLINICIAN ACTION PLAN
@@ -795,6 +807,32 @@ export default function Track1Diagnostics() {
               </div>
             </div>
 
+            {/* Wearable Telemetry Inputs */}
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1">
+                <label className="text-[9px] font-mono text-slate-450 uppercase tracking-wider block">Sleep Duration (Hrs)</label>
+                <input
+                  type="number"
+                  step="0.1"
+                  value={bpInput.sleepHours}
+                  onChange={(e) => handleBPInputChange('sleepHours', Number(e.target.value))}
+                  className="w-full bg-slate-950 border border-cyan-500/10 focus:border-wellness-cyan rounded-xl p-3 text-xs text-white outline-none transition-all font-mono"
+                  placeholder="7.5"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <label className="text-[9px] font-mono text-slate-450 uppercase tracking-wider block">Nocturnal HRV (ms)</label>
+                <input
+                  type="number"
+                  value={bpInput.hrvMs}
+                  onChange={(e) => handleBPInputChange('hrvMs', Number(e.target.value))}
+                  className="w-full bg-slate-950 border border-cyan-500/10 focus:border-wellness-cyan rounded-xl p-3 text-xs text-white outline-none transition-all font-mono"
+                  placeholder="55"
+                />
+              </div>
+            </div>
+
             <button
               onClick={handleLogBP}
               disabled={bpLoading}
@@ -831,12 +869,24 @@ export default function Track1Diagnostics() {
                               {statusClass.status.replace(' Hypertension', '')}
                             </span>
                           </div>
-                          <div className="flex items-center gap-1.5 text-[9px] font-mono text-slate-500">
+                          <div className="flex items-center gap-1.5 text-[9px] font-mono text-slate-500 flex-wrap">
                             <Calendar size={10} />
                             <span>{log.logged_at ? new Date(log.logged_at).toLocaleDateString() : 'Just now'}</span>
                             <span className="w-1 h-1 rounded-full bg-slate-800"></span>
                             <Activity size={10} className="text-rose-500" />
                             <span>{log.pulse_bpm} BPM</span>
+                            {log.sleep_hours !== undefined && log.sleep_hours !== null && (
+                              <>
+                                <span className="w-1 h-1 rounded-full bg-slate-800"></span>
+                                <span>💤 {log.sleep_hours}h</span>
+                              </>
+                            )}
+                            {log.hrv_ms !== undefined && log.hrv_ms !== null && (
+                              <>
+                                <span className="w-1 h-1 rounded-full bg-slate-800"></span>
+                                <span>⚡ {log.hrv_ms}ms</span>
+                              </>
+                            )}
                           </div>
                         </div>
                         <span className="text-[8px] font-mono text-slate-600 uppercase">#{bpLogs.length - idx}</span>

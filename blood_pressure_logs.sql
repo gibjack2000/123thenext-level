@@ -7,6 +7,8 @@ CREATE TABLE IF NOT EXISTS blood_pressure_logs (
   systolic_mmhg INTEGER NOT NULL,
   diastolic_mmhg INTEGER NOT NULL,
   pulse_bpm INTEGER NOT NULL,
+  sleep_hours NUMERIC DEFAULT 7.5,
+  hrv_ms INTEGER DEFAULT 55,
   logged_at TIMESTAMPTZ DEFAULT NOW(),
   notes TEXT DEFAULT ''
 );
@@ -23,3 +25,7 @@ CREATE POLICY "Allow public insert BP logs" ON blood_pressure_logs
 
 -- Enable Realtime
 ALTER PUBLICATION supabase_realtime ADD TABLE blood_pressure_logs;
+
+-- Backwards compatibility support: Add columns in case the table already exists
+ALTER TABLE blood_pressure_logs ADD COLUMN IF NOT EXISTS sleep_hours NUMERIC DEFAULT 7.5;
+ALTER TABLE blood_pressure_logs ADD COLUMN IF NOT EXISTS hrv_ms INTEGER DEFAULT 55;
