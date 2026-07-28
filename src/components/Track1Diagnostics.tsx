@@ -199,6 +199,12 @@ export default function Track1Diagnostics() {
   const [saveStatus, setSaveStatus] = useState<'idle' | 'success' | 'error' | 'local_cached'>('idle');
   const [statusMessage, setStatusMessage] = useState('');
 
+  // Cardiovascular / BP state variables
+  const [systolic, setSystolic] = useState<number>(120);
+  const [diastolic, setDiastolic] = useState<number>(80);
+  const [pulse, setPulse] = useState<number>(65);
+  const [isSavingBP, setIsSavingBP] = useState(false);
+
   // Hydrate session ID from localStorage or generate a new one
   useEffect(() => {
     let id = localStorage.getItem('urinalysis_session_id');
@@ -226,7 +232,49 @@ export default function Track1Diagnostics() {
         console.error('Failed to parse cached bloodwork:', e);
       }
     }
+
+    const savedBP = localStorage.getItem('blood_pressure_readings');
+    if (savedBP) {
+      try {
+        const parsed = JSON.parse(savedBP);
+        if (parsed.systolic) setSystolic(Number(parsed.systolic));
+        if (parsed.diastolic) setDiastolic(Number(parsed.diastolic));
+        if (parsed.pulse) setPulse(Number(parsed.pulse));
+      } catch (e) {
+        console.error('Failed to parse cached blood pressure:', e);
+      }
+    }
   }, []);
+
+  // Vascular / BP Status check logic
+  const getVascularStatus = (sys: number, dia: number) => {
+    if (sys >= 140 || dia >= 90) {
+      return {
+        status: 'Stage 2 Hypertension',
+        badge: 'Vascular Warning • High Tension flagged for GP Consultation',
+        color: 'alert'
+      };
+    }
+    if ((sys >= 130 && sys <= 139) || (dia >= 80 && dia <= 89)) {
+      return {
+        status: 'Stage 1 Hypertension',
+        badge: 'Vascular Warning • High Tension flagged for GP Consultation',
+        color: 'alert'
+      };
+    }
+    if (sys >= 120 && sys <= 129 && dia < 80) {
+      return {
+        status: 'Elevated',
+        badge: 'Elevated • Monitor Hydration & Vagal Tone',
+        color: 'warning'
+      };
+    }
+    return {
+      status: 'Optimal',
+      badge: 'Optimal Arterial Tension • Low Vascular Load',
+      color: 'optimal'
+    };
+  };
 
   // Determine if a specific value is abnormal
   const isValueAbnormal = (param: keyof UrinalysisReadings, val: string): boolean => {
@@ -304,7 +352,6 @@ export default function Track1Diagnostics() {
 
     try {
       if (!supabase) {
-        // Fallback for missing/empty Supabase configuration
         setSaveStatus('local_cached');
         setStatusMessage('Supabase not configured. Readings saved securely to local cache.');
         setIsSaving(false);
@@ -325,6 +372,9 @@ export default function Track1Diagnostics() {
           blood: readings.blood,
           specific_gravity: readings.specific_gravity,
           leukocytes: readings.leukocytes,
+          systolic,
+          diastolic,
+          pulse,
           updated_at: new Date().toISOString()
         }, { onConflict: 'session_id' });
 
@@ -349,11 +399,72 @@ export default function Track1Diagnostics() {
     }
   };
 
-  // Compile GP Consultation template and trigger PDF download
+  const handleSaveBP = async () => {
+    setIsSavingBP(true);
+    setSaveStatus('idle');
+    setStatusMessage('');
+
+    // Cache locally
+    const bpData = { systolic, diastolic, pulse };
+    localStorage.setItem('blood_pressure_readings', JSON.stringify(bpData));
+
+    try {
+      if (!supabase) {
+        setSaveStatus('local_cached');
+        setStatusMessage('Supabase not configured. Blood pressure saved securely to local cache.');
+        setIsSavingBP(false);
+        return;
+      }
+
+      const { error } = await supabase
+        .from('urinalysis_readings')
+        .upsert({
+          session_id: sessionId,
+          glucose: readings.glucose,
+          ketones: readings.ketones,
+          bilirubin: readings.bilirubin,
+          nitrite: readings.nitrite,
+          urobilinogen: readings.urobilinogen,
+          protein: readings.protein,
+          ph: readings.ph,
+          blood: readings.blood,
+          specific_gravity: readings.specific_gravity,
+          leukocytes: readings.leukocytes,
+          systolic,
+          diastolic,
+          pulse,
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'session_id' });
+
+      if (error) {
+        console.error('Supabase save error:', error);
+        setSaveStatus('local_cached');
+        setStatusMessage('Supabase network error. Blood pressure cached in secure local storage.');
+      } else {
+        setSaveStatus('success');
+        setStatusMessage('Cardiovascular baseline successfully synchronized with your encrypted cloud portal.');
+      }
+    } catch (err) {
+      console.error('Network exception saving BP:', err);
+      setSaveStatus('local_cached');
+      setStatusMessage('Exception thrown. Blood pressure saved locally.');
+    } finally {
+      setIsSavingBP(false);
+      setTimeout(() => {
+        setSaveStatus('idle');
+        setStatusMessage('');
+      }, 5000);
+    }
+  };
+
+  // Compile GP Consultation template and trigger PDF download (Two-Page Layout)
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
+    const rowHeight = 8;
     
-    // Page setup
+    // ==========================================
+    // PAGE 1: HEADER & BLOODWORK & CARDIOVASCULAR
+    // ==========================================
     doc.setFillColor(15, 23, 42); // slate-900 background for header banner
     doc.rect(0, 0, 210, 40, 'F');
     
@@ -364,14 +475,14 @@ export default function Track1Diagnostics() {
     
     doc.setFontSize(10);
     doc.setFont('helvetica', 'normal');
-    doc.text("GP CONSULTATION BRIEFING - SYSTEMIC BIOMARKERS REPORT", 15, 24);
+    doc.text("GP CONSULTATION BRIEFING - CLINICAL BIOMARKERS REPORT", 15, 24);
     
     doc.setTextColor(148, 163, 184); // slate-400
     doc.setFontSize(8);
     doc.text(`PATIENT SESSION ID: ${sessionId}`, 15, 32);
     doc.text(`GENERATED: ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`, 130, 32);
     
-    // Section 1: Introduction for the GP
+    // Introduction for the GP
     doc.setTextColor(15, 23, 42);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(11);
@@ -387,7 +498,7 @@ export default function Track1Diagnostics() {
     ];
     doc.text(introText, 15, 58);
     
-    // Section 2: Bloodwork Biomarkers
+    // Section 1: Bloodwork Biomarkers
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(11);
     doc.text("1. METABOLIC & CARDIOVASCULAR BLOOD MARKERS", 15, 85);
@@ -427,7 +538,6 @@ export default function Track1Diagnostics() {
       return 'Logged';
     };
 
-    const rowHeight = 8;
     const bloodRows = [
       { name: "ApoB (Apolipoprotein B)", val: `${bloodwork.apob} mg/dL`, range: "< 80 mg/dL (Cardiovascular baseline)", status: checkBloodworkStatus('apob', bloodwork.apob) },
       { name: "HbA1c (Glycated Hemoglobin)", val: `${bloodwork.hba1c} %`, range: "4.0% - 5.3% (Insulin sensitivity)", status: checkBloodworkStatus('hba1c', bloodwork.hba1c) },
@@ -451,24 +561,100 @@ export default function Track1Diagnostics() {
       doc.setTextColor(15, 23, 42);
     });
 
-    // Section 3: Urinalysis
+    // Section 2: Cardiovascular & Arterial Tension Telemetry
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(11);
-    doc.text("2. 10-PARAMETER URINALYSIS METRIC RECORD", 15, 135);
+    doc.text("2. CARDIOVASCULAR & ARTERIAL TENSION TELEMETRY", 15, 140);
     
-    // Draw table headers
+    // Draw table headers for BP
     doc.setFillColor(241, 245, 249);
-    doc.rect(15, 140, 180, 8, 'F');
-    doc.line(15, 140, 195, 140);
-    doc.line(15, 148, 195, 148);
+    doc.rect(15, 145, 180, 8, 'F');
+    doc.line(15, 145, 195, 145);
+    doc.line(15, 153, 195, 153);
     
     doc.setTextColor(71, 85, 105);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8.5);
-    doc.text("URINALYSIS PARAMETER", 18, 145);
-    doc.text("CURRENT READING", 75, 145);
-    doc.text("OPTIMAL VALUE", 120, 145);
-    doc.text("PATHWAY CORRELATION", 150, 145);
+    doc.text("CARDIOVASCULAR TELEMETRY", 18, 150);
+    doc.text("PATIENT VALUE", 75, 150);
+    doc.text("CLINICAL THRESHOLDS", 115, 150);
+    doc.text("STATUS", 175, 150);
+    
+    doc.setTextColor(15, 23, 42);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.5);
+    
+    const bpStatus = getVascularStatus(systolic, diastolic);
+    
+    const bpRows = [
+      { name: "Systolic Blood Pressure", val: `${systolic} mmHg`, range: "Optimal <120 / Elevated 120-129 / High 130+", status: bpStatus.status },
+      { name: "Diastolic Blood Pressure", val: `${diastolic} mmHg`, range: "Optimal <80 / Elevated <80 / High 80+", status: bpStatus.status },
+      { name: "Pulse (Resting Heart Rate)", val: `${pulse} BPM`, range: "Optimal 60-80 BPM (Vagal baseline)", status: pulse >= 55 && pulse <= 75 ? "Optimal" : "Logged" }
+    ];
+    
+    bpRows.forEach((r, i) => {
+      const y = 153 + (i * rowHeight);
+      doc.line(15, y + rowHeight, 195, y + rowHeight);
+      doc.text(r.name, 18, y + 5.5);
+      doc.text(r.val, 75, y + 5.5);
+      doc.text(r.range, 115, y + 5.5);
+      
+      if (r.status.includes('Optimal')) doc.setTextColor(22, 163, 74);
+      else if (r.status.includes('Hypertension') || r.status.includes('Warning')) doc.setTextColor(220, 38, 38);
+      else doc.setTextColor(217, 119, 6);
+      doc.setFont('helvetica', 'bold');
+      doc.text(r.status, 175, y + 5.5);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(15, 23, 42);
+    });
+
+    // Clinical comments on vascular tension
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9.5);
+    doc.text("Clinical Notes on Cardiovascular Baseline:", 15, 192);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.5);
+    doc.text([
+      `Arterial tension reading of ${systolic}/${diastolic} mmHg is classified as ${bpStatus.status.toUpperCase()}.`,
+      `Pulse profile of ${pulse} BPM reflects the baseline sympathetic/parasympathetic autonomic balance.`,
+      "Persistent elevated metrics warrant verification via automated 24-hour ambulatory monitoring (ABPM)."
+    ], 15, 198);
+
+    // ==========================================
+    // PAGE 2: URINALYSIS & CLINICIAN ACTION PLAN
+    // ==========================================
+    doc.addPage();
+    
+    // Page 2 header banner
+    doc.setFillColor(15, 23, 42); // slate-900
+    doc.rect(0, 0, 210, 20, 'F');
+    
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    doc.text("LOLA DUAL-TRACK LONGEVITY ARCHITECTURE", 15, 12);
+    doc.setFontSize(8);
+    doc.setFont('helvetica', 'normal');
+    doc.text("Page 2 - 10-Parameter At-Home Urinalysis & Recommendations", 120, 12);
+    
+    doc.setTextColor(15, 23, 42);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.text("3. 10-PARAMETER URINALYSIS METRIC RECORD", 15, 35);
+    
+    // Draw table headers for Urinalysis
+    doc.setFillColor(241, 245, 249);
+    doc.rect(15, 40, 180, 8, 'F');
+    doc.line(15, 40, 195, 40);
+    doc.line(15, 48, 195, 48);
+    
+    doc.setTextColor(71, 85, 105);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8.5);
+    doc.text("URINALYSIS PARAMETER", 18, 45);
+    doc.text("CURRENT READING", 75, 45);
+    doc.text("OPTIMAL VALUE", 120, 45);
+    doc.text("PATHWAY CORRELATION", 150, 45);
 
     // Draw rows for urinalysis
     doc.setTextColor(15, 23, 42);
@@ -479,7 +665,7 @@ export default function Track1Diagnostics() {
     uriParams.forEach((param, i) => {
       const cfg = URINALYSIS_CONFIG[param];
       const val = readings[param];
-      const y = 148 + (i * rowHeight);
+      const y = 48 + (i * rowHeight);
       
       doc.line(15, y + rowHeight, 195, y + rowHeight);
       doc.text(cfg.label, 18, y + 5.5);
@@ -510,7 +696,7 @@ export default function Track1Diagnostics() {
     // Section 4: System Action Prompts
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(11);
-    doc.text("3. CLINICIAN BASELINE ACTION RECOMMENDATIONS", 15, 238);
+    doc.text("4. CLINICIAN BASELINE ACTION RECOMMENDATIONS", 15, 145);
     
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(8.5);
@@ -525,6 +711,9 @@ export default function Track1Diagnostics() {
       issues.push("- Leukocyte/Nitrite signals: rule out subclinical or asymptomatic urinary tract infection (UTI) via culture.");
     }
     if (isValueAbnormal('blood', readings.blood)) issues.push("- Hematuria detected: investigate possible urinary micro-bleeding, kidney stones, or physical exercise-induced hemolysis.");
+    if (systolic >= 130 || diastolic >= 80) {
+      issues.push("- Blood pressure flagged as Hypertension Stage 1/2: suggest validation via home cuff monitoring and GP review.");
+    }
 
     if (issues.length === 0) {
       issues.push("- All tracked biomarkers fall within optimal parameters. Maintain current daily habits.");
@@ -532,7 +721,7 @@ export default function Track1Diagnostics() {
     }
 
     issues.forEach((issue, idx) => {
-      doc.text(issue, 15, 246 + (idx * 6));
+      doc.text(issue, 15, 155 + (idx * 6));
     });
 
     // Footer signature
@@ -809,6 +998,170 @@ export default function Track1Diagnostics() {
                   <span className="absolute right-3 top-3 text-[10px] font-mono text-slate-600">Optimal &lt;1.0</span>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Cardiovascular & Arterial Tension Baseline Card */}
+          <div className="p-6 rounded-3xl bg-[#0f172a]/95 border border-slate-800 text-left space-y-5">
+            <div className="flex justify-between items-start">
+              <div>
+                <span className="text-[10px] font-mono text-wellness-cyan uppercase tracking-wider block">[ CARDIOVASCULAR TELEMETRY ]</span>
+                <h4 className="text-sm font-display uppercase tracking-wider text-white font-bold mt-0.5">Cardiovascular & Arterial Tension</h4>
+                <p className="text-xs text-slate-grey-455 leading-relaxed font-light mt-1">
+                  Log your resting blood pressure and pulse rate. The system monitors vascular load in real-time.
+                </p>
+              </div>
+            </div>
+
+            {/* Glowing Digital Telemetry Screen */}
+            {(() => {
+              const status = getVascularStatus(systolic, diastolic);
+              return (
+                <div className="bg-slate-950 border border-slate-800/80 rounded-2xl p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 relative overflow-hidden shadow-inner">
+                  <span className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-950/20 via-slate-950 to-slate-950 -z-10"></span>
+                  
+                  <div className="flex items-baseline gap-2">
+                    <div>
+                      <span className="text-xs font-mono text-slate-500 uppercase tracking-widest block">ARTERIAL PRESSURE</span>
+                      <div className="flex items-baseline gap-1.5 mt-0.5">
+                        <span className={`text-2xl sm:text-3xl font-display font-black tracking-tight ${
+                          status.color === 'alert' ? 'text-rose-500 drop-shadow-[0_0_6px_rgba(244,63,94,0.4)] animate-pulse' :
+                          status.color === 'warning' ? 'text-amber-400 drop-shadow-[0_0_6px_rgba(245,158,11,0.3)]' :
+                          'text-emerald-400 drop-shadow-[0_0_6px_rgba(52,211,153,0.3)]'
+                        }`}>
+                          {systolic || 120} / {diastolic || 80}
+                        </span>
+                        <span className="text-[10px] font-mono text-slate-500 font-medium">mmHg</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <div className="text-left sm:text-right">
+                      <span className="text-xs font-mono text-slate-500 uppercase tracking-widest block">RESTING PULSE</span>
+                      <div className="flex items-center gap-2 mt-0.5 justify-start sm:justify-end">
+                        <span className="text-2xl sm:text-3xl font-display font-black text-white font-mono tracking-tight">{pulse || 65}</span>
+                        <span className="text-[10px] font-mono text-slate-500">BPM</span>
+                        <span className="relative flex h-3 w-3">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-500 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-600"></span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Status Badge (Mobile) */}
+                  <div className="w-full border-t border-slate-900 pt-3 flex flex-col gap-1.5 sm:hidden">
+                    <span className="text-[9px] font-mono text-slate-500 uppercase tracking-widest">CLINICAL CLASSIFICATION</span>
+                    <span className={`text-[10px] font-mono py-1 px-3.5 rounded-full border text-center ${
+                      status.color === 'alert' ? 'bg-rose-500/15 border-rose-500/30 text-rose-300 animate-pulse' :
+                      status.color === 'warning' ? 'bg-amber-500/15 border-amber-500/30 text-amber-300' :
+                      'bg-emerald-500/15 border-emerald-500/30 text-emerald-300'
+                    }`}>
+                      {status.badge}
+                    </span>
+                  </div>
+
+                  {/* Desktop status display floating inside */}
+                  <div className="hidden sm:block absolute right-5 top-5">
+                    <span className={`text-[9px] font-mono py-0.5 px-2.5 rounded border ${
+                      status.color === 'alert' ? 'bg-rose-500/10 border-rose-500/30 text-rose-400' :
+                      status.color === 'warning' ? 'bg-amber-500/10 border-amber-500/30 text-amber-400' :
+                      'bg-emerald-500/10 border-emerald-255/20 text-emerald-450'
+                    }`}>
+                      {status.status}
+                    </span>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Inputs & Sync Action Panel */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {/* Systolic */}
+              <div className="space-y-1.5">
+                <label className="text-[9px] font-mono text-slate-400 uppercase tracking-wider block">Systolic (mmHg)</label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    value={systolic}
+                    onChange={(e) => {
+                      const val = Number(e.target.value);
+                      setSystolic(val);
+                      localStorage.setItem('blood_pressure_readings', JSON.stringify({ systolic: val, diastolic, pulse }));
+                    }}
+                    className="w-full bg-slate-950 border border-cyan-500/10 focus:border-wellness-cyan rounded-xl p-3 text-xs text-white outline-none transition-all font-mono"
+                    placeholder="120"
+                  />
+                  <span className="absolute right-3 top-3 text-[10px] font-mono text-slate-600">SYS</span>
+                </div>
+              </div>
+
+              {/* Diastolic */}
+              <div className="space-y-1.5">
+                <label className="text-[9px] font-mono text-slate-400 uppercase tracking-wider block">Diastolic (mmHg)</label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    value={diastolic}
+                    onChange={(e) => {
+                      const val = Number(e.target.value);
+                      setDiastolic(val);
+                      localStorage.setItem('blood_pressure_readings', JSON.stringify({ systolic, diastolic: val, pulse }));
+                    }}
+                    className="w-full bg-slate-950 border border-cyan-500/10 focus:border-wellness-cyan rounded-xl p-3 text-xs text-white outline-none transition-all font-mono"
+                    placeholder="80"
+                  />
+                  <span className="absolute right-3 top-3 text-[10px] font-mono text-slate-600">DIA</span>
+                </div>
+              </div>
+
+              {/* Pulse */}
+              <div className="space-y-1.5">
+                <label className="text-[9px] font-mono text-slate-400 uppercase tracking-wider block">Pulse (BPM)</label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    value={pulse}
+                    onChange={(e) => {
+                      const val = Number(e.target.value);
+                      setPulse(val);
+                      localStorage.setItem('blood_pressure_readings', JSON.stringify({ systolic, diastolic, pulse: val }));
+                    }}
+                    className="w-full bg-slate-950 border border-cyan-500/10 focus:border-wellness-cyan rounded-xl p-3 text-xs text-white outline-none transition-all font-mono"
+                    placeholder="65"
+                  />
+                  <span className="absolute right-3 top-3 text-[10px] font-mono text-slate-600">Pulse</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Save Button for BP */}
+            <div className="flex justify-between items-center pt-2 border-t border-slate-900">
+              {/* Desktop classification text */}
+              <div className="hidden sm:block">
+                {(() => {
+                  const status = getVascularStatus(systolic, diastolic);
+                  return (
+                    <span className="text-[10px] font-mono text-slate-500">
+                      Classification: <strong className={
+                        status.color === 'alert' ? 'text-rose-500' :
+                        status.color === 'warning' ? 'text-amber-400' :
+                        'text-emerald-450 font-semibold'
+                      }>{status.badge}</strong>
+                    </span>
+                  );
+                })()}
+              </div>
+
+              <button
+                onClick={handleSaveBP}
+                disabled={isSavingBP}
+                className="w-full sm:w-auto py-2.5 px-5 bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-wellness-cyan/40 text-wellness-cyan text-xs font-black uppercase tracking-wider rounded-xl transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <Activity size={12} className={isSavingBP ? 'animate-spin' : ''} />
+                <span>{isSavingBP ? 'Logging...' : 'Log Blood Pressure Reading'}</span>
+              </button>
             </div>
           </div>
         </div>

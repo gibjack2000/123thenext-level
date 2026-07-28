@@ -17,7 +17,12 @@ CREATE TABLE IF NOT EXISTS urinalysis_readings (
   ph TEXT CHECK (ph IN ('5.0', '6.0', '6.5', '7.0', '8.0')),
   blood TEXT CHECK (blood IN ('Negative', 'Trace', 'Positive')),
   specific_gravity TEXT CHECK (specific_gravity IN ('1.005', '1.010', '1.015', '1.020', '1.025', '1.030')),
-  leukocytes TEXT CHECK (leukocytes IN ('Negative', 'Trace', 'Positive'))
+  leukocytes TEXT CHECK (leukocytes IN ('Negative', 'Trace', 'Positive')),
+  
+  -- Cardiovascular / BP Baseline columns
+  systolic INTEGER DEFAULT 120,
+  diastolic INTEGER DEFAULT 80,
+  pulse INTEGER DEFAULT 65
 );
 
 -- Enable Row Level Security (RLS)
@@ -35,3 +40,8 @@ CREATE POLICY "Allow public update by session_id" ON urinalysis_readings
 
 -- Enable Realtime
 ALTER PUBLICATION supabase_realtime ADD TABLE urinalysis_readings;
+
+-- Backwards compatibility support: Add columns in case the table already exists
+ALTER TABLE urinalysis_readings ADD COLUMN IF NOT EXISTS systolic INTEGER DEFAULT 120;
+ALTER TABLE urinalysis_readings ADD COLUMN IF NOT EXISTS diastolic INTEGER DEFAULT 80;
+ALTER TABLE urinalysis_readings ADD COLUMN IF NOT EXISTS pulse INTEGER DEFAULT 65;
