@@ -89,6 +89,9 @@ const DesignSystem = lazy(() => import('./pages/DesignSystem'));
 const Success = lazy(() => import('./pages/Success'));
 const StartHere = lazy(() => import('./pages/StartHere'));
 const QuizResults = lazy(() => import('./pages/QuizResults'));
+const AgeReversalShowcase = lazy(() => import('./pages/AgeReversalShowcase'));
+const HardwareStorePage = lazy(() => import('./pages/HardwareStorePage'));
+const Science = lazy(() => import('./pages/Science'));
 
 
 // Loading spinner shown during page transitions
@@ -123,6 +126,13 @@ function App() {
                 <Route path="/health/post-b" element={<HealthPostB />} />
                 <Route path="/health/post-c" element={<HealthPostC />} />
                 <Route path="/health/cellular" element={<CellularEngineering />} />
+                <Route path="/science" element={<Science />} />
+                <Route path="/health/cellular/age-reversal" element={<AgeReversalShowcase />} />
+                <Route path="/science-of-age-reversal" element={<AgeReversalShowcase />} />
+                <Route path="/age-reversal-showcase" element={<AgeReversalShowcase />} />
+                <Route path="/hardware-store" element={<HardwareStorePage />} />
+                <Route path="/store" element={<HardwareStorePage />} />
+                <Route path="/products/hardware" element={<HardwareStorePage />} />
                 <Route path="/health/cellular/deep-dive" element={<CellularDeepDive />} />
                 <Route path="/health/cellular/glossary/:topicId" element={<CellularGlossary />} />
                 <Route path="/health/cellular/epigenetic-tracking" element={<EpigeneticTracking />} />

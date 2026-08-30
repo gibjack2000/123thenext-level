@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, LucideIcon } from 'lucide-react';
 import { useT } from '../../translations';
 
@@ -13,6 +13,10 @@ interface PillarCardProps {
   description: string;
   hoverBorderColor: string;
   hoverShadowColor: string;
+  subLink?: {
+    text: string;
+    to: string;
+  };
 }
 
 export default function PillarCard({
@@ -25,16 +29,27 @@ export default function PillarCard({
   description,
   hoverBorderColor,
   hoverShadowColor,
+  subLink,
 }: PillarCardProps) {
   const t = useT();
+  const navigate = useNavigate();
   const isExternal = to.startsWith('http') || to.startsWith('#');
-  const Component = isExternal ? 'a' : Link;
-  const props = isExternal ? { href: to } : { to };
+
+  const handleCardClick = (e: React.MouseEvent) => {
+    if ((e.target as HTMLElement).closest('a')) {
+      return;
+    }
+    if (isExternal) {
+      window.location.href = to;
+    } else {
+      navigate(to);
+    }
+  };
 
   return (
-    <Component
-      {...props as any}
-      className={`relative p-10 pb-12 rounded-3xl shadow-xl border border-slate-700/50 overflow-hidden group flex flex-col h-full transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] ${hoverBorderColor} ${hoverShadowColor} backdrop-blur-sm`}
+    <div
+      onClick={handleCardClick}
+      className={`relative p-10 pb-12 rounded-3xl shadow-xl border border-slate-700/50 overflow-hidden group flex flex-col h-full transition-all duration-500 hover:scale-[1.02] active:scale-[0.98] ${hoverBorderColor} ${hoverShadowColor} backdrop-blur-sm cursor-pointer`}
     >
       <div className="absolute inset-0">
         <img
@@ -65,14 +80,30 @@ export default function PillarCard({
           ))}
         </ul>
         
-        <p className="text-slate-300 mb-10 leading-relaxed font-medium text-lg lg:pr-4">
+        <p className="text-slate-300 mb-6 leading-relaxed font-medium text-lg lg:pr-4">
           {description}
         </p>
+
+        {subLink && (
+          <div className="mb-8 pt-4 border-t border-white/10">
+            <Link
+              to={subLink.to}
+              onClick={(e) => e.stopPropagation()}
+              className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-cyan-400 hover:text-cyan-300 transition-all group/sub py-1"
+            >
+              <span className="underline underline-offset-4 decoration-cyan-500/40 group-hover/sub:decoration-cyan-300">
+                {subLink.text}
+              </span>
+            </Link>
+          </div>
+        )}
         
         <div className="mt-auto text-white font-black uppercase tracking-widest text-xs flex items-center group-hover:translate-x-2 transition-transform duration-300 underline-offset-8 decoration-2 hover:underline">
-          {t('pillar_learn_more')} <ArrowRight size={16} className="ml-2 text-blue-500" />
+          <Link to={to} className="inline-flex items-center">
+            {t('pillar_learn_more')} <ArrowRight size={16} className="ml-2 text-blue-500" />
+          </Link>
         </div>
       </div>
-    </Component>
+    </div>
   );
 }

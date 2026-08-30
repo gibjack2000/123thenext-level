@@ -632,7 +632,7 @@ export default function Home() {
               </div>
 
               {/* Decoupled Call to Action (CTA) Bar */}
-              <div className="flex flex-col items-center gap-6 pt-2 relative z-30">
+              <div className="flex flex-col items-center gap-5 pt-2 relative z-30">
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full">
                   <Link
                     to="/dual-track"
@@ -641,6 +641,15 @@ export default function Home() {
                     Explore the Dual-Track Blueprint & Start Day 1 Habits →
                   </Link>
                 </div>
+
+                {/* Subtle, elegant link to /science */}
+                <Link
+                  to="/science"
+                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-mono text-cyan-400 hover:text-cyan-300 transition-all underline underline-offset-4 decoration-cyan-500/40 hover:decoration-cyan-300 group/bridge-link"
+                >
+                  <span>[The Longevity Horizon] Discover the 10-Year Proactive Bridge & Molecular Science</span>
+                  <span className="group-hover/bridge-link:translate-x-1 transition-transform">→</span>
+                </Link>
                 
                 <a
                   href="/assets/docs/clinical-baseline-consultation-template.pdf"
@@ -849,7 +858,11 @@ export default function Home() {
                 bullets: ["Cellular Age Optimization", "Autophagy Induction", "NAD+ Modulation", "Systems Maintenance"],
                 description: "Master the science of cellular health and aging. Transition from reactive repair to proactive optimization using the 2026 Longevity Standards.",
                 hoverBorderColor: "hover:border-rose-500/50",
-                hoverShadowColor: "hover:shadow-rose-500/20"
+                hoverShadowColor: "hover:shadow-rose-500/20",
+                subLink: {
+                  text: "[The Longevity Horizon] Discover the 10-Year Proactive Bridge & Molecular Science →",
+                  to: "/science"
+                }
               },
               {
                 to: "/fitness",

@@ -3,6 +3,7 @@ import { ArrowLeft, Dna, Microscope, Zap, Shield, ExternalLink, Binary, Sparkles
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { useAffiliateLinks } from '../../contexts/AffiliateLinksContext';
+import ScienceOfAgeReversalWidget from '../../components/ScienceOfAgeReversalWidget';
 
 export default function CellularEngineering() {
   const { links } = useAffiliateLinks();
@@ -119,6 +120,22 @@ export default function CellularEngineering() {
             </Link>
           </div>
         </div>
+
+        {/* The Science of Age Reversal Interactive Showcase */}
+        <section className="mb-32">
+          <div className="mb-8 text-center sm:text-left">
+            <span className="text-cyan-400 font-mono font-bold uppercase tracking-[0.25em] text-[10px] bg-cyan-500/10 px-4 py-1.5 rounded-full border border-cyan-500/20 inline-block mb-3">
+              Flagship Interactive Explorer
+            </span>
+            <h2 className="text-3xl md:text-5xl font-display font-black uppercase text-white tracking-tight">
+              The Science of Age Reversal
+            </h2>
+            <p className="text-slate-400 text-sm md:text-base mt-2 max-w-3xl">
+              Toggle between the 3 core principles of cellular rejuvenation, test the epigenetic scratch simulator, and scrub the dynamic hormesis waveform.
+            </p>
+          </div>
+          <ScienceOfAgeReversalWidget />
+        </section>
 
         {/* The Autophagy Frontier */}
         <section className="mb-40">
