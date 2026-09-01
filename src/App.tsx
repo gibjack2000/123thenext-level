@@ -4,7 +4,7 @@
  */
 
 import React, { useState, Suspense, lazy } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import { CartProvider } from './contexts/CartContext';
@@ -200,6 +200,15 @@ function App() {
                 <Route path="/design-system" element={<DesignSystem />} />
                 <Route path="/blueprint-success" element={<Success />} />
                 <Route path="/quiz-results" element={<QuizResults />} />
+
+                {/* Regional Storefront Aliases */}
+                <Route path="/store-us" element={<Navigate to="/us" replace />} />
+                <Route path="/us-store" element={<Navigate to="/us" replace />} />
+                <Route path="/store-uk" element={<Navigate to="/uk" replace />} />
+                <Route path="/uk-store" element={<Navigate to="/uk" replace />} />
+                <Route path="/store-es" element={<Navigate to="/es" replace />} />
+                <Route path="/es-store" element={<Navigate to="/es" replace />} />
+                <Route path="/spain-store" element={<Navigate to="/es" replace />} />
 
                 <Route path="/:region" element={<RegionHub />} />
                 <Route path="/:region/:category" element={<CategoryPage />} />

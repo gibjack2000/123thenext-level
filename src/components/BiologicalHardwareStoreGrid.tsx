@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   ShieldCheck, 
@@ -49,6 +50,7 @@ interface LocalizedListing {
     affiliateKey: string;
     fallbackUrl: string;
     priceEstimate: string;
+    ctaText: string;
   }>;
 }
 
@@ -73,7 +75,7 @@ export const hardwareListings: LocalizedListing[] = [
       'Catch Hydration & Acid-Base Drift at Dawn'
     ],
     specs: '100 Medical-Grade Reagent Strips • Desiccant Bottle Storage • 24-Month Stability',
-    ctaText: 'Explore Reagent Specifications (Amazon)',
+    ctaText: 'Explore Reagent Specs on Amazon US 🇺🇸',
     icon: Droplets,
     accentColor: 'cyan',
     countryDetails: {
@@ -82,21 +84,24 @@ export const hardwareListings: LocalizedListing[] = [
         logistics: 'US Prime 1-Day Delivery via Amazon US',
         affiliateKey: 'hp_urinalysis_strips',
         fallbackUrl: 'https://www.amazon.com/dp/B0855CY29W',
-        priceEstimate: '$14.99 (100 Tests)'
+        priceEstimate: '$14.99 (100 Tests)',
+        ctaText: 'Explore Reagent Specs on Amazon US 🇺🇸'
       },
       UK: {
         badge: 'MHRA Registered & UKCA Compliant',
         logistics: 'Fulfilled locally via Amazon UK Prime',
         affiliateKey: 'hp_urinalysis_strips_uk',
         fallbackUrl: 'https://www.amazon.co.uk/dp/B0855CY29W',
-        priceEstimate: '£12.99 (100 Tests)'
+        priceEstimate: '£12.99 (100 Tests)',
+        ctaText: 'Explore Reagent Specs on Amazon UK 🇬🇧'
       },
       ES: {
         badge: 'CE 0123 Marked & ISO 13485',
         logistics: 'Distribución local Amazon España / Almacén UE',
         affiliateKey: 'hp_urinalysis_strips_es',
         fallbackUrl: 'https://www.amazon.es/dp/B0855CY29W',
-        priceEstimate: '14,50 € (100 Tiras)'
+        priceEstimate: '14,50 € (100 Tiras)',
+        ctaText: 'Explore Reagent Specs on Amazon ES 🇪🇸'
       }
     }
   },
@@ -117,7 +122,7 @@ export const hardwareListings: LocalizedListing[] = [
       'Purified Cofactors for Cellular ATP Synthesis'
     ],
     specs: 'Pharmaceutical-Grade Purity • Heavy Metal & Solvent Screened • 30-Day Supply',
-    ctaText: 'Review Certified Ingredient Profile',
+    ctaText: 'Review Certified Profile on Momentus US 🇺🇸',
     icon: Sparkles,
     accentColor: 'amber',
     countryDetails: {
@@ -126,21 +131,24 @@ export const hardwareListings: LocalizedListing[] = [
         logistics: 'Direct fulfillment from LiveMomentous.com (US Hub)',
         affiliateKey: 'hp_momentous_stack',
         fallbackUrl: 'https://www.livemomentous.com/',
-        priceEstimate: '$65.00 / mo'
+        priceEstimate: '$65.00 / mo',
+        ctaText: 'Review Certified Profile on Momentus US 🇺🇸'
       },
       UK: {
         badge: 'Informed-Sport Certified • UK Approved',
         logistics: 'Dispatched locally via Healf UK (No import fees)',
         affiliateKey: 'hp_momentous_stack_uk',
         fallbackUrl: 'https://healf.com/',
-        priceEstimate: '£54.00 / mo'
+        priceEstimate: '£54.00 / mo',
+        ctaText: 'Review Certified Profile on Healf UK 🇬🇧'
       },
       ES: {
         badge: 'Registro Sanitario UE • Libre de Aduana',
         logistics: 'Sourced via Newtra EU (Bypasses Spanish customs seizures)',
         affiliateKey: 'hp_momentous_stack_es',
         fallbackUrl: 'https://www.livemomentous.com/',
-        priceEstimate: '59,00 € / mes'
+        priceEstimate: '59,00 € / mes',
+        ctaText: 'Review Certified Profile on Newtra EU 🇪🇸'
       }
     }
   },
@@ -165,7 +173,7 @@ export const hardwareListings: LocalizedListing[] = [
       'Preserves Mitochondrial Energy Capacity'
     ],
     specs: '14-Day Continuous Sensor Life • Waterproof IP28 • Bluetooth 5.0 BLE Streaming',
-    ctaText: 'Examine Glycemic Compatibility Protocols',
+    ctaText: 'Examine Glycemic Protocols on Lingo US 🇺🇸',
     icon: Zap,
     accentColor: 'amber',
     countryDetails: {
@@ -174,21 +182,24 @@ export const hardwareListings: LocalizedListing[] = [
         logistics: 'Abbott Lingo™ & Dexcom Stelo™ direct to door',
         affiliateKey: 'hp_cgm_us',
         fallbackUrl: 'https://hellolingo.com/',
-        priceEstimate: '$89 / 2 Sensors (Monthly)'
+        priceEstimate: '$89 / 2 Sensors (Monthly)',
+        ctaText: 'Examine Glycemic Protocols on Lingo US 🇺🇸'
       },
       UK: {
         badge: 'MHRA Registered • CE Medical Device',
         logistics: 'Abbott Lingo™ UK Direct dispatch',
         affiliateKey: 'hp_cgm_uk',
         fallbackUrl: 'https://hellolingo.com/en-gb/',
-        priceEstimate: '£79 / 2 Sensors (Monthly)'
+        priceEstimate: '£79 / 2 Sensors (Monthly)',
+        ctaText: 'Examine Glycemic Protocols on Lingo UK 🇬🇧'
       },
       ES: {
         badge: 'Marcado CE Médico • Farmacia Regulada',
         logistics: 'Dexcom ONE+ o unidades Freestyle Libre autorizadas en farmacia local',
         affiliateKey: 'hp_cgm_es',
         fallbackUrl: 'https://www.dexcom.com/es-es',
-        priceEstimate: '75,00 € / mes'
+        priceEstimate: '75,00 € / mes',
+        ctaText: 'Examine Glycemic Protocols on Dexcom ES 🇪🇸'
       }
     }
   },
@@ -209,7 +220,7 @@ export const hardwareListings: LocalizedListing[] = [
       'Monitors Long-Term Arterial Compliance Drift'
     ],
     specs: 'Oscillometric Matrix • 6-Month Rechargeable Battery • Universal Cuff 22–42 cm',
-    ctaText: 'Review Vascular Compliance Details',
+    ctaText: 'Review Vascular Compliance details on Withings US 🇺🇸',
     icon: HeartPulse,
     accentColor: 'rose',
     countryDetails: {
@@ -218,21 +229,24 @@ export const hardwareListings: LocalizedListing[] = [
         logistics: 'Withings US Direct & Amazon Prime US',
         affiliateKey: 'hp_withings_bpm',
         fallbackUrl: 'https://www.withings.com/us/en/bpm-connect',
-        priceEstimate: '$129.95'
+        priceEstimate: '$129.95',
+        ctaText: 'Review Vascular Compliance details on Withings US 🇺🇸'
       },
       UK: {
         badge: 'CE Medical Class IIa • MHRA Registered',
         logistics: 'Withings UK Official Store fulfillment',
         affiliateKey: 'hp_withings_bpm_uk',
         fallbackUrl: 'https://www.withings.com/uk/en/bpm-connect',
-        priceEstimate: '£109.95'
+        priceEstimate: '£109.95',
+        ctaText: 'Review Vascular Compliance details on Withings UK 🇬🇧'
       },
       ES: {
         badge: 'Certificación Sanitaria CE Clase IIa',
         logistics: 'Envío oficial Withings España y distribuidores autorizados',
         affiliateKey: 'hp_withings_bpm_es',
         fallbackUrl: 'https://www.withings.com/es/es/bpm-connect',
-        priceEstimate: '119,95 €'
+        priceEstimate: '119,95 €',
+        ctaText: 'Review Vascular Compliance details on Withings ES 🇪🇸'
       }
     }
   },
@@ -253,7 +267,7 @@ export const hardwareListings: LocalizedListing[] = [
       'Exports Clinical Waveforms Directly to Cardiologist'
     ],
     specs: '40x Acoustic Amp • Full-Color OLED Waveform Screen • HIPAA/GDPR Cloud Ready',
-    ctaText: 'Review Acoustic Cardiopulmonary Specifications',
+    ctaText: 'Review Acoustic Specs on Eko US 🇺🇸',
     icon: Stethoscope,
     accentColor: 'cyan',
     countryDetails: {
@@ -262,21 +276,24 @@ export const hardwareListings: LocalizedListing[] = [
         logistics: 'Sourced direct from EkoHealth.com (US HQ)',
         affiliateKey: 'hp_eko_core500',
         fallbackUrl: 'https://www.ekohealth.com/products/core-500-digital-stethoscope',
-        priceEstimate: '$429.00'
+        priceEstimate: '$429.00',
+        ctaText: 'Review Acoustic Specs on Eko US 🇺🇸'
       },
       UK: {
         badge: 'MHRA Registered • UKCA Approved',
         logistics: 'Direct dispatch via EkoHealth UK international logistics',
         affiliateKey: 'hp_eko_core500_uk',
         fallbackUrl: 'https://www.ekohealth.com/',
-        priceEstimate: '£379.00'
+        priceEstimate: '£379.00',
+        ctaText: 'Review Acoustic Specs on Eko UK 🇬🇧'
       },
       ES: {
         badge: 'Marcado CE Médico Clase IIa',
         logistics: 'Distributed via European DocCheck Shop (Entregas seguras UE)',
         affiliateKey: 'hp_eko_core500_es',
         fallbackUrl: 'https://www.doccheckshop.com/',
-        priceEstimate: '419,00 €'
+        priceEstimate: '419,00 €',
+        ctaText: 'Review Acoustic Specs on DocCheck ES 🇪🇸'
       }
     }
   },
@@ -301,7 +318,7 @@ export const hardwareListings: LocalizedListing[] = [
       'Medical-Grade Sleep Breathing Disturbance Tracking'
     ],
     specs: 'Pneumatic Sensor Array • Under-Mattress Form Factor • Zero EMF Emission in Bed',
-    ctaText: 'Examine Passive Telemetry Specs',
+    ctaText: 'Examine Passive Sleep Telemetry on Withings US 🇺🇸',
     icon: Moon,
     accentColor: 'cyan',
     countryDetails: {
@@ -310,21 +327,24 @@ export const hardwareListings: LocalizedListing[] = [
         logistics: 'Withings US Direct Fulfillment & Amazon Prime',
         affiliateKey: 'hp_withings_sleep',
         fallbackUrl: 'https://www.withings.com/us/en/sleep',
-        priceEstimate: '$129.95'
+        priceEstimate: '$129.95',
+        ctaText: 'Examine Passive Sleep Telemetry on Withings US 🇺🇸'
       },
       UK: {
         badge: 'Medically CE-Validated (Sleep Apnea Tracking)',
         logistics: 'Withings UK Store (Compliant UK plug included)',
         affiliateKey: 'hp_withings_sleep_uk',
         fallbackUrl: 'https://www.withings.com/uk/en/sleep-analyzer',
-        priceEstimate: '£129.95'
+        priceEstimate: '£129.95',
+        ctaText: 'Examine Passive Sleep Telemetry on Withings UK 🇬🇧'
       },
       ES: {
         badge: 'Validado CE Médico (Detección de Apnea del Sueño)',
         logistics: 'Withings Europa / Envío prioritario España',
         affiliateKey: 'hp_withings_sleep_es',
         fallbackUrl: 'https://www.withings.com/es/es/sleep-analyzer',
-        priceEstimate: '149,95 €'
+        priceEstimate: '149,95 €',
+        ctaText: 'Examine Passive Sleep Telemetry on Withings ES 🇪🇸'
       }
     }
   },
@@ -349,7 +369,7 @@ export const hardwareListings: LocalizedListing[] = [
       'Guides Dynamic Hormesis (Autophagy vs Hypertrophy)'
     ],
     specs: '8 Stainless Steel Electrodes • Retractable Handle • 0.1 lb High-Precision Load Cells',
-    ctaText: 'Examine Somatic Segmental Analytics',
+    ctaText: 'Examine Somatic Analytics on Withings US 🇺🇸',
     icon: Dumbbell,
     accentColor: 'amber',
     countryDetails: {
@@ -358,21 +378,24 @@ export const hardwareListings: LocalizedListing[] = [
         logistics: 'Direct US dispatch via Withings Portal',
         affiliateKey: 'hp_withings_bodyscan',
         fallbackUrl: 'https://www.withings.com/us/en/body-scan',
-        priceEstimate: '$399.95'
+        priceEstimate: '$399.95',
+        ctaText: 'Examine Somatic Analytics on Withings US 🇺🇸'
       },
       UK: {
         badge: 'CE Medical Approved Segmental Station',
         logistics: 'Withings UK Official Direct dispatch',
         affiliateKey: 'hp_withings_bodyscan_uk',
         fallbackUrl: 'https://www.withings.com/uk/en/body-scan',
-        priceEstimate: '£349.95'
+        priceEstimate: '£349.95',
+        ctaText: 'Examine Somatic Analytics on Withings UK 🇬🇧'
       },
       ES: {
         badge: 'Certificado CE Médico Clase IIa',
         logistics: 'Distribuidor oficial Withings España',
         affiliateKey: 'hp_withings_bodyscan_es',
         fallbackUrl: 'https://www.withings.com/es/es/body-scan',
-        priceEstimate: '399,95 €'
+        priceEstimate: '399,95 €',
+        ctaText: 'Examine Somatic Analytics on Withings ES 🇪🇸'
       }
     }
   },
@@ -393,7 +416,7 @@ export const hardwareListings: LocalizedListing[] = [
       'Monitors Autonomic Balance Without Daily Alert Fatigue'
     ],
     specs: 'Multi-Spectral Optical Sensor • ECG Functionality • Water Resistant 50m',
-    ctaText: 'Compare Certified Wearables',
+    ctaText: 'Compare Certified Wearables on Amazon US 🇺🇸',
     icon: Activity,
     accentColor: 'cyan',
     countryDetails: {
@@ -402,21 +425,24 @@ export const hardwareListings: LocalizedListing[] = [
         logistics: 'Amazon US Prime / Apple Store US',
         affiliateKey: 'hp_apple_watch',
         fallbackUrl: 'https://www.amazon.com/dp/B0DGJ9M8D7',
-        priceEstimate: 'From $399.00'
+        priceEstimate: 'From $399.00',
+        ctaText: 'Compare Certified Wearables on Amazon US 🇺🇸'
       },
       UK: {
         badge: 'CE / MHRA Approved Sensor Array',
         logistics: 'Amazon UK Prime / Currys UK',
         affiliateKey: 'hp_apple_watch_uk',
         fallbackUrl: 'https://www.amazon.co.uk/dp/B0DGJ9M8D7',
-        priceEstimate: 'From £399.00'
+        priceEstimate: 'From £399.00',
+        ctaText: 'Compare Certified Wearables on Amazon UK 🇬🇧'
       },
       ES: {
         badge: 'Marcado CE Sanitario • Distribución Oficial',
         logistics: 'Amazon España / Distribuidores Autorizados',
         affiliateKey: 'hp_apple_watch_es',
         fallbackUrl: 'https://www.amazon.es/dp/B0DGJ9M8D7',
-        priceEstimate: 'Desde 449,00 €'
+        priceEstimate: 'Desde 449,00 €',
+        ctaText: 'Compare Certified Wearables on Amazon ES 🇪🇸'
       }
     }
   },
@@ -441,7 +467,7 @@ export const hardwareListings: LocalizedListing[] = [
       'Confidential Physician-Reviewed Digital Telehealth Portal'
     ],
     specs: 'CLIA & CAP Accredited Laboratories • 48-Hour Digital Turnaround • Private Results',
-    ctaText: 'Map Your Cellular Biomarker Baseline',
+    ctaText: 'Map Your Biomarker Baseline via HealthLabs US 🇺🇸',
     icon: FileText,
     accentColor: 'rose',
     countryDetails: {
@@ -450,21 +476,24 @@ export const hardwareListings: LocalizedListing[] = [
         logistics: 'Partnered with Quest & Labcorp via HealthLabs on CJ Affiliate',
         affiliateKey: 'hp_healthlabs_panel',
         fallbackUrl: 'https://www.healthlabs.com/',
-        priceEstimate: '$249.00 (Full Panel)'
+        priceEstimate: '$249.00 (Full Panel)',
+        ctaText: 'Map Your Biomarker Baseline via HealthLabs US 🇺🇸'
       },
       UK: {
         badge: 'UKAS Accredited Private Lab Network',
         logistics: 'Connected to local private clinics & home phlebotomy',
         affiliateKey: 'hp_blood_panel_uk',
         fallbackUrl: 'https://healf.com/',
-        priceEstimate: '£199.00 (Full Panel)'
+        priceEstimate: '£199.00 (Full Panel)',
+        ctaText: 'Map Your Biomarker Baseline via UK Labs 🇬🇧'
       },
       ES: {
         badge: 'Laboratorios Acreditados ISO 15189',
         logistics: 'Partnered with Unilabs & Laboratorios Megalab via Melio',
         affiliateKey: 'hp_blood_panel_es',
         fallbackUrl: 'https://www.melio.es/',
-        priceEstimate: '189,00 € (Panel Completo)'
+        priceEstimate: '189,00 € (Panel Completo)',
+        ctaText: 'Map Your Biomarker Baseline via Melio ES 🇪🇸'
       }
     }
   }
@@ -472,9 +501,45 @@ export const hardwareListings: LocalizedListing[] = [
 
 export const BiologicalHardwareStoreGrid: React.FC = () => {
   const { links } = useAffiliateLinks();
+  const [searchParams] = useSearchParams();
   const [selectedCountry, setSelectedCountry] = useState<StoreCountry>('US');
   const [activeSuite, setActiveSuite] = useState<BioSuiteKey>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [highlightPulse, setHighlightPulse] = useState<boolean>(false);
+
+  useEffect(() => {
+    // 1. Process Country Parameter
+    const countryParam = searchParams.get('country');
+    if (countryParam) {
+      const upper = countryParam.toUpperCase();
+      if (upper === 'US' || upper === 'UK' || upper === 'ES') {
+        setSelectedCountry(upper as StoreCountry);
+      }
+    }
+
+    // 2. Process Suite Parameter
+    const suiteParam = searchParams.get('suite');
+    if (suiteParam) {
+      if (suiteParam === 'hardware') {
+        setActiveSuite('suite-b');
+      } else if (suiteParam === 'reagents') {
+        setActiveSuite('suite-a');
+      } else if (suiteParam === 'blood') {
+        setActiveSuite('suite-e');
+      } else if (['suite-a', 'suite-b', 'suite-c', 'suite-d', 'suite-e', 'all'].includes(suiteParam)) {
+        setActiveSuite(suiteParam as BioSuiteKey);
+      }
+      
+      setTimeout(() => {
+        const gridEl = document.getElementById('hardware-catalog-grid');
+        if (gridEl) {
+          gridEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          setHighlightPulse(true);
+          setTimeout(() => setHighlightPulse(false), 2400);
+        }
+      }, 100);
+    }
+  }, [searchParams]);
 
   const countries = [
     {
@@ -521,9 +586,13 @@ export const BiologicalHardwareStoreGrid: React.FC = () => {
   });
 
   return (
-    <div className="w-full max-w-7xl mx-auto my-16 font-sans">
+    <div id="hardware-catalog-grid" className="w-full max-w-7xl mx-auto my-16 font-sans scroll-mt-28">
       {/* Outer Shell: Double-Bezel Hardware Architecture */}
-      <div className="relative rounded-[2.25rem] bg-slate-900/60 p-2 md:p-3 ring-1 ring-white/10 shadow-[0_30px_90px_rgba(0,0,0,0.85)] backdrop-blur-xl">
+      <div className={`relative rounded-[2.25rem] bg-slate-900/60 p-2 md:p-3 ring-1 transition-all duration-700 shadow-[0_30px_90px_rgba(0,0,0,0.85)] backdrop-blur-xl ${
+        highlightPulse 
+          ? 'ring-2 ring-cyan-400 shadow-[0_0_50px_rgba(6,182,212,0.6)] animate-pulse' 
+          : 'ring-white/10'
+      }`}>
         {/* Glow Accent Lines */}
         <div className="absolute top-0 left-1/3 w-80 h-1 bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
         <div className="absolute bottom-0 right-1/3 w-80 h-1 bg-gradient-to-r from-transparent via-amber-500/40 to-transparent" />
@@ -753,7 +822,7 @@ export const BiologicalHardwareStoreGrid: React.FC = () => {
                         rel="noopener noreferrer"
                         className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 hover:from-cyan-950/60 hover:via-slate-800 hover:to-cyan-950/60 border border-slate-700 hover:border-cyan-500/50 text-white hover:text-cyan-200 text-xs font-mono font-bold flex items-center justify-between transition-all group/btn shadow"
                       >
-                        <span className="truncate">{item.ctaText}</span>
+                        <span className="truncate">{countryInfo.ctaText || item.ctaText}</span>
                         <div className="flex items-center space-x-1 flex-shrink-0 text-cyan-400">
                           <ExternalLink size={13} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                         </div>

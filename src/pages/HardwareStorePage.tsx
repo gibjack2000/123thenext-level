@@ -16,8 +16,11 @@ import MorningBalanceCheck from '../components/MorningBalanceCheck';
 
 export default function HardwareStorePage() {
   useEffect(() => {
-    window.scrollTo(0, 0);
     document.title = 'Biological Hardware Store & Verified Telemetry Catalog | 123TheNextLevel';
+    const params = new URLSearchParams(window.location.search);
+    if (!params.get('suite')) {
+      window.scrollTo(0, 0);
+    }
   }, []);
 
   return (
