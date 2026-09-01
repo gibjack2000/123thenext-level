@@ -73,7 +73,7 @@ export const hardwareListings: LocalizedListing[] = [
       'Catch Hydration & Acid-Base Drift at Dawn'
     ],
     specs: '100 Medical-Grade Reagent Strips • Desiccant Bottle Storage • 24-Month Stability',
-    ctaText: 'Purchase on Amazon',
+    ctaText: 'Explore Reagent Specifications (Amazon)',
     icon: Droplets,
     accentColor: 'cyan',
     countryDetails: {
@@ -117,7 +117,7 @@ export const hardwareListings: LocalizedListing[] = [
       'Purified Cofactors for Cellular ATP Synthesis'
     ],
     specs: 'Pharmaceutical-Grade Purity • Heavy Metal & Solvent Screened • 30-Day Supply',
-    ctaText: 'Access Verified Supplement Stack',
+    ctaText: 'Review Certified Ingredient Profile',
     icon: Sparkles,
     accentColor: 'amber',
     countryDetails: {
@@ -165,7 +165,7 @@ export const hardwareListings: LocalizedListing[] = [
       'Preserves Mitochondrial Energy Capacity'
     ],
     specs: '14-Day Continuous Sensor Life • Waterproof IP28 • Bluetooth 5.0 BLE Streaming',
-    ctaText: 'Access Glycemic Telemetry',
+    ctaText: 'Examine Glycemic Compatibility Protocols',
     icon: Zap,
     accentColor: 'amber',
     countryDetails: {
@@ -209,7 +209,7 @@ export const hardwareListings: LocalizedListing[] = [
       'Monitors Long-Term Arterial Compliance Drift'
     ],
     specs: 'Oscillometric Matrix • 6-Month Rechargeable Battery • Universal Cuff 22–42 cm',
-    ctaText: 'Access Vascular Telemetry',
+    ctaText: 'Review Vascular Compliance Details',
     icon: HeartPulse,
     accentColor: 'rose',
     countryDetails: {
@@ -253,7 +253,7 @@ export const hardwareListings: LocalizedListing[] = [
       'Exports Clinical Waveforms Directly to Cardiologist'
     ],
     specs: '40x Acoustic Amp • Full-Color OLED Waveform Screen • HIPAA/GDPR Cloud Ready',
-    ctaText: 'Access AI Auscultation',
+    ctaText: 'Review Acoustic Cardiopulmonary Specifications',
     icon: Stethoscope,
     accentColor: 'cyan',
     countryDetails: {
@@ -301,7 +301,7 @@ export const hardwareListings: LocalizedListing[] = [
       'Medical-Grade Sleep Breathing Disturbance Tracking'
     ],
     specs: 'Pneumatic Sensor Array • Under-Mattress Form Factor • Zero EMF Emission in Bed',
-    ctaText: 'Access Passive Sleep Telemetry',
+    ctaText: 'Examine Passive Telemetry Specs',
     icon: Moon,
     accentColor: 'cyan',
     countryDetails: {
@@ -349,7 +349,7 @@ export const hardwareListings: LocalizedListing[] = [
       'Guides Dynamic Hormesis (Autophagy vs Hypertrophy)'
     ],
     specs: '8 Stainless Steel Electrodes • Retractable Handle • 0.1 lb High-Precision Load Cells',
-    ctaText: 'Access Somatic Telemetry',
+    ctaText: 'Examine Somatic Segmental Analytics',
     icon: Dumbbell,
     accentColor: 'amber',
     countryDetails: {
@@ -393,7 +393,7 @@ export const hardwareListings: LocalizedListing[] = [
       'Monitors Autonomic Balance Without Daily Alert Fatigue'
     ],
     specs: 'Multi-Spectral Optical Sensor • ECG Functionality • Water Resistant 50m',
-    ctaText: 'Explore Compatible Wearables',
+    ctaText: 'Compare Certified Wearables',
     icon: Activity,
     accentColor: 'cyan',
     countryDetails: {
@@ -441,7 +441,7 @@ export const hardwareListings: LocalizedListing[] = [
       'Confidential Physician-Reviewed Digital Telehealth Portal'
     ],
     specs: 'CLIA & CAP Accredited Laboratories • 48-Hour Digital Turnaround • Private Results',
-    ctaText: 'Access Clinical Blood Panel',
+    ctaText: 'Map Your Cellular Biomarker Baseline',
     icon: FileText,
     accentColor: 'rose',
     countryDetails: {

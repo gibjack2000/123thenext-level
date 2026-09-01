@@ -164,7 +164,7 @@ const Navbar = () => {
                 </div>
               </div>
               <Link to="/science" className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-cyan-400 transition-colors">
-                The Longevity Horizon
+                The Anti-Aging Health Revolution
               </Link>
               <Link to="/premium-guides" className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors">
                 Premium Guides
@@ -227,14 +227,14 @@ const Navbar = () => {
               <span className="text-base font-display font-black uppercase tracking-tight">Dual-Track</span>
             </Link>
 
-            {/* Flat Link The Longevity Horizon */}
+            {/* Flat Link The Anti-Aging Health Revolution */}
             <Link
               to="/science"
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-3 p-4 bg-white/5 rounded-2xl border border-white/5 text-cyan-400 hover:text-cyan-300"
             >
               <Sparkles size={16} className="text-cyan-400" />
-              <span className="text-base font-display font-black uppercase tracking-tight">The Longevity Horizon</span>
+              <span className="text-base font-display font-black uppercase tracking-tight">The Anti-Aging Health Revolution</span>
             </Link>
 
             {/* Accordion: Pillars */}

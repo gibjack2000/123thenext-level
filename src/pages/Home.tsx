@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Globe2, MapPin, ShoppingBag, ArrowRight, Heart, Dumbbell, Apple, Sparkles, BookOpen, Shield, UserCheck, Wind, HeartPulse, ExternalLink, Compass, Microscope, Users, X, CheckCircle2, UploadCloud, ChevronDown, ChevronUp, Lock, FileText, Smartphone, Activity, Weight, Wifi, CheckCircle, Printer, AlertTriangle } from 'lucide-react';
+import { Globe2, MapPin, ShoppingBag, ArrowRight, Heart, Dumbbell, Apple, Sparkles, BookOpen, Shield, UserCheck, Wind, HeartPulse, ExternalLink, Compass, Microscope, Users, X, CheckCircle2, UploadCloud, ChevronDown, ChevronUp, Lock, FileText, Smartphone, Activity, Weight, Wifi, CheckCircle, Printer, AlertTriangle, Flame, ShieldAlert, ShieldCheck, Disc, Dna, Zap, Sun, Award, Cpu } from 'lucide-react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { Product, mapToProduct, PremiumGuide } from '../types';
 import { MOCK_PRODUCTS } from '../data/mockData';
@@ -17,6 +17,7 @@ import { motion } from 'motion/react';
 import PillarCard from '../components/home/PillarCard';
 import IntelligenceTeaser from '../components/IntelligenceTeaser';
 import { guides as fallbackGuides } from '../data/guides';
+import FriendlyWellnessQuizModal from '../components/FriendlyWellnessQuizModal';
 
 
 export default function Home() {
@@ -35,11 +36,22 @@ export default function Home() {
     setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
   }, []);
 
-  // Lead Capture Modal States
+  // Lead Capture & Awakening Quiz Modal States
   const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
+  const [leadModalInitialState, setLeadModalInitialState] = useState<'ebook' | 'quiz'>('ebook');
   const [leadFirstName, setLeadFirstName] = useState('');
   const [leadEmail, setLeadEmail] = useState('');
   const [leadStatus, setLeadStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  const handleOpenQuiz = () => {
+    setLeadModalInitialState('quiz');
+    setIsLeadModalOpen(true);
+  };
+
+  const handleOpenEbook = () => {
+    setLeadModalInitialState('ebook');
+    setIsLeadModalOpen(true);
+  };
 
   // Diagnostic Modules States
   const [dnaUploadStatus, setDnaUploadStatus] = useState<'idle' | 'uploading' | 'success'>('idle');
@@ -340,7 +352,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative bg-slate-950 text-white overflow-hidden min-h-[90dvh] flex items-center">
+      <div className="relative bg-slate-950 text-white overflow-hidden min-h-[90dvh] flex items-center pt-28 sm:pt-32 md:pt-36 pb-16 md:pb-24">
         {/* Animated Background Canvas */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <canvas
@@ -353,34 +365,65 @@ export default function Home() {
         {/* Background glow and grids */}
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.06),transparent_60%)] pointer-events-none"></div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-28 z-10 w-full">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 md:py-10 z-10 w-full">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
             {/* Left side: Content */}
-            <div className="lg:col-span-6 space-y-6 md:space-y-8 text-left">
+            <div className="lg:col-span-6 space-y-6 md:space-y-7 text-left">
               {/* Eyebrow Badge */}
-              <div className="inline-flex items-center px-3.5 py-1 rounded-full bg-wellness-cyan/10 text-wellness-cyan-light text-[10px] font-mono font-bold tracking-[0.2em] uppercase border border-wellness-cyan/20">
-                <Sparkles size={12} className="mr-2 animate-pulse" />
-                Paradigm Shift Active
+              <div className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-cyan-500/10 text-cyan-300 text-[10px] sm:text-xs font-mono font-bold tracking-[0.2em] uppercase border border-cyan-500/25 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+                <Sparkles size={12} className="mr-2 animate-pulse text-cyan-400 flex-shrink-0" />
+                <span className="leading-normal">Epigenetic Sovereignty • Systems Engineering</span>
               </div>
               
               {/* Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-black uppercase tracking-tight text-white leading-[1.05]">
-                Push Your Limits. <br />
-                Reach the <span className="text-transparent bg-clip-text bg-gradient-to-r from-wellness-cyan to-wellness-amber">Next Level</span>.
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-display font-black uppercase tracking-tight text-white leading-[1.08]">
+                You Are the <br className="hidden sm:inline" />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-amber-400">
+                  Software Engineer
+                </span> <br className="hidden sm:inline" />
+                of Your Own Biology.
               </h1>
               
               {/* Subtext */}
-              <p className="text-base sm:text-lg text-slate-grey-300 leading-relaxed font-light max-w-[50ch]">
-                Welcome to a premium proactive longevity and human performance platform. We help you move beyond reactive sick-care, replacing symptom management with daily autonomic and cellular optimization.
+              <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
+                Eighty to ninety percent of how quickly your cells age is governed entirely by your daily lifestyle, metabolic, and environmental inputs—not your inherited genetics. Our platform maps your Critical Path to longevity: protecting and preserving your biological hardware today using simple, friction-free daily habits, so your cells remain pristine and ready to run the epigenetic age-reversal software of tomorrow. This proactive shift is not a waiting game—it is an immediate daily awakening that unlocks an active, highly enhanced, and high-performance life right now, miles ahead of traditional emergency-based care.
               </p>
+
+              {/* Key Clinical Stats Row */}
+              <div className="grid grid-cols-2 gap-3 pt-1">
+                <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-cyan-500/20 backdrop-blur-sm">
+                  <div className="text-2xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-amber-300">
+                    1.8x
+                  </div>
+                  <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mt-0.5">
+                    Healthspan Expansion Trajectory
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-slate-900/70 border border-cyan-500/20 backdrop-blur-sm">
+                  <div className="text-2xl font-display font-black text-cyan-400">
+                    ▼ 30% Risk
+                  </div>
+                  <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider mt-0.5">
+                    Reduction in Chronic Biological Drift
+                  </div>
+                </div>
+              </div>
               
               {/* Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 pt-2">
-                <Link to="/health-quiz" className="inline-flex justify-center items-center px-6 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all active:scale-[0.98] shadow-lg shadow-wellness-cyan/15 border border-wellness-cyan/25 whitespace-nowrap cursor-pointer">
+              <div className="flex flex-col sm:flex-row gap-3.5 pt-1">
+                <button 
+                  onClick={handleOpenQuiz} 
+                  className="inline-flex justify-center items-center px-6 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all active:scale-[0.98] shadow-lg shadow-wellness-cyan/20 border border-wellness-cyan/30 whitespace-nowrap cursor-pointer transform hover:scale-[1.02]"
+                >
+                  <Sparkles size={14} className="mr-2 text-cyan-200" />
                   Take the 5-Minute Wellness Quiz
-                </Link>
-                <button onClick={() => setIsLeadModalOpen(true)} className="inline-flex justify-center items-center px-6 py-4 bg-slate-grey-900 border border-slate-grey-700/60 hover:border-wellness-cyan hover:text-white text-slate-grey-200 rounded-xl text-xs font-black uppercase tracking-wider transition-colors active:scale-[0.98] shadow whitespace-nowrap cursor-pointer">
+                </button>
+                <button 
+                  onClick={handleOpenEbook} 
+                  className="inline-flex justify-center items-center px-6 py-4 bg-slate-900/80 border border-slate-700/80 hover:border-wellness-cyan hover:text-white text-slate-200 rounded-xl text-xs font-black uppercase tracking-wider transition-colors active:scale-[0.98] shadow backdrop-blur-sm whitespace-nowrap cursor-pointer"
+                >
                   Download Free Longevity Blueprint
                 </button>
               </div>
@@ -474,6 +517,192 @@ export default function Home() {
               </div>
             </div>
 
+          </div>
+
+          {/* ========================================================================= */}
+          {/* PHASE 1.5: HOMEPAGE MINDSET TRIGGER SECTION */}
+          {/* ========================================================================= */}
+          <div className="mt-20 pt-16 border-t border-cyan-500/20 relative z-10" id="mindset-trigger">
+            {/* Ambient Background Glows */}
+            <div className="absolute top-10 left-1/4 w-[500px] h-[300px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
+            <div className="absolute top-20 right-1/4 w-[450px] h-[300px] bg-amber-500/10 rounded-full blur-[130px] pointer-events-none" />
+
+            <div className="max-w-6xl mx-auto text-center space-y-10">
+              {/* 1. Centered Header */}
+              <div className="space-y-4 max-w-4xl mx-auto">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-950/40 border border-cyan-500/30 text-cyan-300 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-widest shadow-[0_0_20px_rgba(6,182,212,0.15)]">
+                  <ShieldAlert size={14} className="text-cyan-400" />
+                  <span>SYSTEMIC ALIGNMENT CHECK</span>
+                </div>
+
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-extrabold tracking-tight text-white leading-[1.1]">
+                  Are you still depending on the{' '}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-amber-300 to-rose-300">
+                    old reactive system?
+                  </span>
+                </h2>
+
+                <p className="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed font-light max-w-3xl mx-auto">
+                  Traditional medicine is a brilliant crisis firefighter—essential for acute trauma and surgical emergencies. But relying on it to design your lifespan is a defensive waiting game. By the time chronic illness is clinically flagged, years of silent, subclinical wear-and-tear have already occurred on your biological hardware. Take control of your critical path today.
+                </p>
+              </div>
+
+              {/* 2. Side-by-Side System Comparison Cards (1/3 vs 2/3 Grid Layout on Desktop) */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 text-left">
+                
+                {/* Left Card: 1/3 (lg:col-span-4) - The Reactive Dead-End - Off the Critical Path */}
+                <div className="lg:col-span-4 p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-[#161218] via-[#10121a] to-[#0a0c12] border border-rose-900/40 hover:border-rose-500/40 shadow-xl flex flex-col justify-between space-y-6 relative overflow-hidden group transition-all duration-300 hover:scale-[1.01]">
+                  <div className="space-y-5">
+                    {/* Top Row: Title & Status Label */}
+                    <div className="flex items-center justify-between gap-2 border-b border-rose-950/60 pb-3">
+                      <div>
+                        <span className="text-[10px] font-mono text-rose-400 uppercase tracking-widest block font-semibold">
+                          Reactive Dead-End
+                        </span>
+                        <h3 className="text-xl font-display font-bold text-white">
+                          The Legacy System
+                        </h3>
+                      </div>
+                      <span className="px-2.5 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 text-[9px] font-mono font-bold uppercase tracking-wider flex-shrink-0">
+                        OFF CRITICAL PATH
+                      </span>
+                    </div>
+
+                    {/* Metric Box */}
+                    <div className="p-3 rounded-2xl bg-rose-950/25 border border-rose-900/40 flex items-center justify-between">
+                      <div>
+                        <div className="text-xl font-display font-black text-rose-400">0% Predictive</div>
+                        <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">Waits for System Failure</div>
+                      </div>
+                      <div className="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400">
+                        <Flame size={16} />
+                      </div>
+                    </div>
+
+                    {/* Key Bullets */}
+                    <div className="space-y-3 pt-1">
+                      <div className="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed">
+                        <span className="text-rose-400 font-bold text-sm leading-none mt-0.5">✕</span>
+                        <span>Waits for physical symptoms to appear before playing defense with your life.</span>
+                      </div>
+
+                      <div className="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed">
+                        <span className="text-rose-400 font-bold text-sm leading-none mt-0.5">✕</span>
+                        <span>Relies on isolated, high-stress annual diagnostic snapshots that miss active daily trends.</span>
+                      </div>
+
+                      <div className="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed">
+                        <span className="text-rose-400 font-bold text-sm leading-none mt-0.5">✕</span>
+                        <span>Operates under a volume-driven model that rewards procedures over long-term cellular vitality.</span>
+                      </div>
+
+                      <div className="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed">
+                        <span className="text-rose-400 font-bold text-sm leading-none mt-0.5">✕</span>
+                        <span>Lets surface scratches accumulate on your cellular compact disc until the music completely stops.</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-3 border-t border-rose-950/60 flex items-center justify-between text-[11px] font-mono text-rose-400/80">
+                    <span>Emergency Crisis Care Only</span>
+                    <span className="text-rose-500 font-bold">0% Trajectory</span>
+                  </div>
+                </div>
+
+                {/* Right Card: 2/3 (lg:col-span-8) - The Proactive Path Today - On the Critical Path */}
+                <div className="lg:col-span-8 p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-[#091522] via-[#0b1320] to-[#070b14] border border-cyan-500/40 hover:border-cyan-400 ring-1 ring-cyan-500/20 shadow-[0_0_40px_rgba(6,182,212,0.15)] flex flex-col justify-between space-y-6 relative overflow-hidden group transition-all duration-300 hover:scale-[1.01]">
+                  <div className="space-y-5">
+                    {/* Top Row: Title & Status Label */}
+                    <div className="flex items-center justify-between gap-2 border-b border-cyan-950/80 pb-3">
+                      <div>
+                        <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest block font-semibold">
+                          The Proactive Path Today
+                        </span>
+                        <h3 className="text-xl sm:text-2xl font-display font-bold text-white">
+                          Today's Active Preservation
+                        </h3>
+                      </div>
+                      <span className="px-3 py-1 rounded-full bg-cyan-400/20 border border-cyan-400/50 text-cyan-300 text-[10px] font-mono font-bold uppercase tracking-wider animate-pulse flex-shrink-0">
+                        ACTIVE PROGRAM
+                      </span>
+                    </div>
+
+                    {/* Metric Box */}
+                    <div className="p-3.5 rounded-2xl bg-cyan-950/40 border border-cyan-500/30 flex items-center justify-between">
+                      <div>
+                        <div className="text-xl sm:text-2xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-amber-300">
+                          1.8x Healthspan
+                        </div>
+                        <div className="text-[10px] font-mono text-cyan-300/80 uppercase tracking-wider font-semibold">
+                          Active Cellular Optimization & Hardware Defense
+                        </div>
+                      </div>
+                      <div className="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/40 flex items-center justify-center text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.3)]">
+                        <ShieldCheck size={20} />
+                      </div>
+                    </div>
+
+                    {/* Key Bullets Grid (2 columns on md/lg for the 2/3 card) */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-1">
+                      <div className="p-3 rounded-2xl bg-slate-950/60 border border-cyan-500/20 flex items-start gap-2.5 text-xs text-slate-200 leading-relaxed">
+                        <CheckCircle2 size={16} className="text-cyan-400 flex-shrink-0 mt-0.5" />
+                        <span>Focuses on continuous metabolic tracking, sleep autonomic engineering, and vascular compliance in real-time.</span>
+                      </div>
+
+                      <div className="p-3 rounded-2xl bg-slate-950/60 border border-cyan-500/20 flex items-start gap-2.5 text-xs text-slate-200 leading-relaxed">
+                        <CheckCircle2 size={16} className="text-cyan-400 flex-shrink-0 mt-0.5" />
+                        <span>Empowers you with direct epigenetic sovereignty—choices that write the code turning off cellular decay markers.</span>
+                      </div>
+
+                      <div className="p-3 rounded-2xl bg-slate-950/60 border border-cyan-500/20 flex items-start gap-2.5 text-xs text-slate-200 leading-relaxed">
+                        <CheckCircle2 size={16} className="text-cyan-400 flex-shrink-0 mt-0.5" />
+                        <span>Weaves a multitude of immediate, high-performance daily habits that act as miles-ahead upgrades to your daily energy.</span>
+                      </div>
+
+                      <div className="p-3 rounded-2xl bg-slate-950/60 border border-cyan-500/20 flex items-start gap-2.5 text-xs text-slate-200 leading-relaxed">
+                        <CheckCircle2 size={16} className="text-cyan-400 flex-shrink-0 mt-0.5" />
+                        <span>Keeps your biological hardware pristine to safely cross the 10-year bridge to future age-reversal software.</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-3 border-t border-cyan-950/80 flex items-center justify-between text-[11px] font-mono text-cyan-400">
+                    <span>Active Daily Biological Sovereignty</span>
+                    <span className="text-cyan-300 font-bold">100% Critical Path</span>
+                  </div>
+                </div>
+
+              </div>
+
+              {/* 3. The Epigenetic Future Glimpse Teaser (Horizontal Banner) */}
+              <div className="p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-amber-950/25 via-slate-900/90 to-cyan-950/25 border border-amber-500/30 shadow-xl text-left space-y-2 relative overflow-hidden">
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+                  <strong className="text-amber-300 font-bold font-mono uppercase tracking-wider block sm:inline mr-2">
+                    🔬 THE HORIZON:
+                  </strong>
+                  Continuous research in clinical laboratories is rapidly perfecting Nobel Prize-winning cellular reprogramming (such as the ER-100 epigenetic reversal therapies currently restoring optic nerve function) to reboot cells back to factory-fresh settings. This software is projected to reach safe mainstream parameters in roughly 10 years. But you cannot reboot a completely destroyed computer. We optimize our hardware today to survive to run the epigenetic software of tomorrow.
+                </p>
+              </div>
+
+              {/* 4. The Action Trigger Button */}
+              <div className="pt-2 flex flex-col items-center gap-4">
+                <button
+                  type="button"
+                  onClick={handleOpenQuiz}
+                  className="w-full sm:w-auto px-10 py-5 rounded-2xl bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500 hover:from-cyan-300 hover:to-indigo-400 text-slate-950 font-black text-xs sm:text-sm font-mono uppercase tracking-wider transition-all duration-300 shadow-[0_0_35px_rgba(6,182,212,0.4)] hover:shadow-[0_0_50px_rgba(6,182,212,0.65)] flex items-center justify-center gap-2.5 cursor-pointer transform hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  <Sparkles size={18} className="text-slate-950" />
+                  <span>Run Your 5-Minute Critical Path Trajectory Scan →</span>
+                </button>
+
+                <Link
+                  to="/science"
+                  className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-mono text-cyan-400 hover:text-cyan-300 transition-all underline underline-offset-4 decoration-cyan-500/40 hover:decoration-cyan-300"
+                >
+                  <span>Or, explore The Anti-Aging Health Revolution & Molecular Science →</span>
+                </Link>
+              </div>
+            </div>
           </div>
 
           {/* 🌱 The Dual-Track Comparison Section */}
@@ -647,8 +876,7 @@ export default function Home() {
                   to="/science"
                   className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-mono text-cyan-400 hover:text-cyan-300 transition-all underline underline-offset-4 decoration-cyan-500/40 hover:decoration-cyan-300 group/bridge-link"
                 >
-                  <span>[The Longevity Horizon] Discover the 10-Year Proactive Bridge & Molecular Science</span>
-                  <span className="group-hover/bridge-link:translate-x-1 transition-transform">→</span>
+                  <span>Discover the Anti-Aging Health Revolution & Molecular Science →</span>
                 </Link>
                 
                 <a
@@ -860,7 +1088,7 @@ export default function Home() {
                 hoverBorderColor: "hover:border-rose-500/50",
                 hoverShadowColor: "hover:shadow-rose-500/20",
                 subLink: {
-                  text: "[The Longevity Horizon] Discover the 10-Year Proactive Bridge & Molecular Science →",
+                  text: "Discover the Anti-Aging Health Revolution & Molecular Science →",
                   to: "/science"
                 }
               },
@@ -1924,114 +2152,12 @@ export default function Home() {
         }
       `}} />
 
-      {/* Lead Capture Modal */}
-      {isLeadModalOpen && (
-        <div 
-          className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-[fadeIn_0.3s_ease]"
-          onClick={() => setIsLeadModalOpen(false)}
-          role="dialog"
-          aria-modal="true"
-        >
-          <div 
-            className="relative w-full max-w-md bg-[#0d1117] border border-slate-grey-700/80 rounded-3xl p-8 shadow-2xl flex flex-col justify-between overflow-hidden text-left"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Close Button */}
-            <button 
-              onClick={() => setIsLeadModalOpen(false)}
-              className="absolute top-4 right-4 text-slate-grey-400 hover:text-white p-2 rounded-full hover:bg-slate-grey-800/60 transition-colors cursor-pointer"
-              aria-label="Close modal"
-            >
-              <X size={18} />
-            </button>
-
-            {leadStatus === 'success' ? (
-              <div className="text-center py-6 space-y-4">
-                <div className="mx-auto flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
-                  <CheckCircle2 size={24} />
-                </div>
-                <h3 className="text-xl font-display font-black uppercase tracking-tight text-white">Download Started!</h3>
-                <p className="text-slate-grey-300 text-xs leading-relaxed font-light">
-                  Thank you, {leadFirstName || 'there'}! The Free Longevity Blueprint PDF has been triggered for download. Check your email for additional exclusive performance insights.
-                </p>
-                <div className="flex flex-col gap-2">
-                  <a 
-                    href="/assets/docs/longevity-blueprint.pdf" 
-                    download="longevity-blueprint.pdf"
-                    target="_blank"
-                    className="w-full py-3 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all text-center block cursor-pointer border border-wellness-cyan/25"
-                  >
-                    Click Here to Download Manually
-                  </a>
-                  <button 
-                    onClick={() => {
-                      setIsLeadModalOpen(false);
-                      setLeadStatus('idle');
-                      setLeadFirstName('');
-                      setLeadEmail('');
-                    }}
-                    className="w-full py-3 bg-slate-grey-800 hover:bg-slate-grey-700 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-colors cursor-pointer text-center block"
-                  >
-                    Close Window
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <div className="space-y-6">
-                <div>
-                  <span className="inline-flex items-center px-3 py-1 rounded-full text-[9px] font-mono uppercase bg-wellness-cyan/10 border border-wellness-cyan/30 text-wellness-cyan-light font-bold mb-3">
-                    Premium Resource Access
-                  </span>
-                  <h3 className="text-2xl font-display font-black uppercase tracking-tight text-white">
-                    Unlock the Longevity Blueprint
-                  </h3>
-                  <p className="text-slate-grey-450 text-xs font-light leading-relaxed mt-2">
-                    Enter your details below to download the comprehensive guide on biological age reduction, cellular tuning, and optimal physical zones.
-                  </p>
-                </div>
-
-                <form onSubmit={handleLeadSubmit} className="space-y-4">
-                  <div className="space-y-1.5">
-                    <label className="block text-[9px] font-mono uppercase text-slate-grey-450 font-bold">First Name</label>
-                    <input 
-                      type="text" 
-                      required
-                      value={leadFirstName}
-                      onChange={(e) => setLeadFirstName(e.target.value)}
-                      placeholder="e.g. John" 
-                      className="w-full bg-slate-grey-950 border border-slate-grey-800 focus:border-wellness-cyan text-white rounded-xl py-3 px-4 text-xs font-medium placeholder-slate-grey-600 outline-none transition-colors"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="block text-[9px] font-mono uppercase text-slate-grey-450 font-bold">Email Address</label>
-                    <input 
-                      type="email" 
-                      required
-                      value={leadEmail}
-                      onChange={(e) => setLeadEmail(e.target.value)}
-                      placeholder="you@example.com" 
-                      className="w-full bg-slate-grey-950 border border-slate-grey-800 focus:border-wellness-cyan text-white rounded-xl py-3 px-4 text-xs font-medium placeholder-slate-grey-600 outline-none transition-colors"
-                    />
-                  </div>
-
-                  {leadStatus === 'error' && (
-                    <p className="text-rose-400 text-xs font-semibold">An error occurred. Please try again.</p>
-                  )}
-
-                  <button 
-                    type="submit"
-                    disabled={leadStatus === 'loading'}
-                    className="w-full py-3.5 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-wellness-cyan/15 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer border border-wellness-cyan/20"
-                  >
-                    {leadStatus === 'loading' ? 'Processing...' : 'Download Guide Now'}
-                  </button>
-                </form>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      {/* Closed-Loop Onboarding & Quiz Modal */}
+      <FriendlyWellnessQuizModal
+        isOpen={isLeadModalOpen}
+        onClose={() => setIsLeadModalOpen(false)}
+        initialState="ebook"
+      />
 
       {/* Device Connection Modal */}
       {activePairingDevice && (

@@ -81,8 +81,11 @@ export const ScienceHeaderIntro: React.FC<ScienceHeaderIntroProps> = ({ onScroll
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-amber-300 mb-2">
               The Longevity Horizon
             </span>
-            Maintaining Your Biological Hardware for Tomorrow's Software.
+            Upgrade the Hardware Before You Wait for the Software.
           </h1>
+          <p className="text-base sm:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed font-light mt-4">
+            A unified geroscience manifesto: The breakthroughs of 2036 — cellular reprogramming, senescence reversal, the works — won't save a body that can't run them. Real longevity starts now, in the vessels, the metabolism, the mitochondria. Preserve the machine today, or there's nothing left to upgrade tomorrow.
+          </p>
         </motion.div>
 
         {/* 3. Reassuring, Human-First Introductory Text (3 Progressive Anchors) */}
