@@ -46,9 +46,9 @@ INSERT INTO public.products (
 ('sirtuin-stack-us', 'Momentous Sirtuin Activation & Cell Recovery Stack', 'Supplements', 4.90, 'Premium NSF Certified for Sport Trans-Resveratrol, NMN, and Nattokinase. Formulated to provide biological cofactors to activate Sirtuin pathways.', '$89.95', 'https://livemomentous.com/modernwisdom?code=modernwisdom', 'US', 'NSF Certified for Sport', '/assets/images/shop/sirtuin-stack.png'),
 ('sirtuin-stack-uk', 'Momentous Sirtuin Activation & Cell Recovery Stack', 'Supplements', 4.90, 'Premium NSF Certified for Sport Trans-Resveratrol, NMN, and Nattokinase. Formulated to provide biological cofactors to activate Sirtuin pathways.', '£79.99', 'https://healf.co.uk/collections/momentus', 'UK', 'NSF Certified / UK Sourced (Healf)', '/assets/images/shop/sirtuin-stack.png'),
 ('sirtuin-stack-es', 'Paquete de Activación de Sirtuina y Recuperación Celular Momentous', 'Supplements', 4.90, 'Trans-Resveratrol, NMN y Natokinasa de alta calidad con certificación NSF para el deporte. Proporciona cofactores para activar las vías de sirtuinas.', '89,95€', 'https://newtra.eu', 'ES', 'Customs-Safe EU Delivery (Newtra)', '/assets/images/shop/sirtuin-stack.png'),
-('cgm-us', 'Continuous Glucose Monitor (Abbott Lingo / Dexcom Stelo)', 'Tech Gadgets & Wearables', 4.75, 'Real-time interstitial glucose tracking mapping energy peaks and valleys. Instantly syncs blood sugar fluctuations to target metabolic health.', '$89.00 / month', 'https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl0e-20', 'US', 'FDA Cleared / OTC Eligible', '/assets/images/shop/cgm.png'),
-('cgm-uk', 'Continuous Glucose Monitor (Abbott Lingo UK)', 'Tech Gadgets & Wearables', 4.75, 'Real-time interstitial glucose tracking mapping energy peaks and valleys. Instantly syncs blood sugar fluctuations to target metabolic health.', '£79.00 / month', 'https://hellolingo.co.uk', 'UK', 'MHRA Registered', '/assets/images/shop/cgm.png'),
-('cgm-es', 'Monitor Continuo de Glucosa (Dexcom ONE+ / Abbott Libre)', 'Tech Gadgets & Wearables', 4.75, 'Monitoreo de glucosa en tiempo real que mapea picos de energía. Sincroniza datos para optimizar la nutrición metabólica.', '79,00€ / mes', 'https://www.dexcom.com/es-ES', 'ES', 'CE Marked / Pharmacy Approved', '/assets/images/shop/cgm.png'),
+('cgm-us', 'Continuous Glucose Monitor (Abbott Lingo / Dexcom Stelo)', 'Performance & Testing', 4.75, 'Real-time interstitial glucose tracking mapping energy peaks and valleys. Instantly syncs blood sugar fluctuations to target metabolic health.', '$89.00 / month', 'https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl0e-20', 'US', 'FDA Cleared / OTC Eligible', '/assets/images/shop/cgm.png'),
+('cgm-uk', 'Continuous Glucose Monitor (Abbott Lingo UK)', 'Performance & Testing', 4.75, 'Real-time interstitial glucose tracking mapping energy peaks and valleys. Instantly syncs blood sugar fluctuations to target metabolic health.', '£79.00 / month', 'https://hellolingo.co.uk', 'UK', 'MHRA Registered', '/assets/images/shop/cgm.png'),
+('cgm-es', 'Monitor Continuo de Glucosa (Dexcom ONE+ / Abbott Libre)', 'Performance & Testing', 4.75, 'Monitoreo de glucosa en tiempo real que mapea picos de energía. Sincroniza datos para optimizar la nutrición metabólica.', '79,00€ / mes', 'https://www.dexcom.com/es-ES', 'ES', 'CE Marked / Pharmacy Approved', '/assets/images/shop/cgm.png'),
 ('blood-pressure-cuff-us', 'Withings BPM Connect Wi-Fi Cuff', 'Tech Gadgets & Wearables', 4.80, 'Smart Wi-Fi blood pressure cuff. Automatically logs systolic, diastolic, and pulse trends, classifying cardiovascular data.', '$99.95', 'https://www.amazon.com/dp/B07SJV1HNR?tag=123znl0e-20', 'US', 'FDA Cleared', '/assets/images/shop/bpm-connect.png'),
 ('blood-pressure-cuff-uk', 'Withings BPM Connect Wi-Fi Cuff', 'Tech Gadgets & Wearables', 4.80, 'Smart Wi-Fi blood pressure cuff. Automatically logs systolic, diastolic, and pulse trends, classifying cardiovascular data.', '£89.99', 'https://www.amazon.co.uk/dp/B07SJV1HNR?tag=123znl0f3-21', 'UK', 'CE Medical Class IIa', '/assets/images/shop/bpm-connect.png'),
 ('blood-pressure-cuff-es', 'Withings BPM Connect Tensiómetro Inteligente', 'Tech Gadgets & Wearables', 4.80, 'Tensiómetro inteligente Wi-Fi. Registra automáticamente las tendencias cardiovasculares en su panel de control privado.', '99,95€', 'https://www.amazon.es/dp/B07SJV1HNR?tag=123znl08a-21', 'ES', 'CE Medical Class IIa', '/assets/images/shop/bpm-connect.png'),
@@ -87,13 +87,13 @@ WHERE id IN (
   'blood-pressure-cuff-us', 'blood-pressure-cuff-uk', 'blood-pressure-cuff-es',
   'sleep-analyzer-us', 'sleep-analyzer-uk', 'sleep-analyzer-es',
   'segmental-scale-us', 'segmental-scale-uk', 'segmental-scale-es',
-  'wearable-tracker-us', 'wearable-tracker-uk', 'wearable-tracker-es',
-  'cgm-us', 'cgm-uk', 'cgm-es'
+  'wearable-tracker-us', 'wearable-tracker-uk', 'wearable-tracker-es'
 );
 
 -- 2. Performance & Testing
 UPDATE public.products SET category = 'Performance & Testing' 
 WHERE id IN (
+  'cgm-us', 'cgm-uk', 'cgm-es',
   'stethoscope-us', 'stethoscope-uk', 'stethoscope-es',
   'blood-panel-us', 'blood-panel-uk', 'blood-panel-es',
   'reagent-strips-us', 'reagent-strips-uk', 'reagent-strips-es'

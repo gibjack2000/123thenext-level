@@ -55,14 +55,14 @@ export default function HardwareStorePage() {
             </motion.div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-black uppercase tracking-tight text-white leading-[0.95]">
-              Preserving the <br />
+              Taking Care of <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-amber-400">
-                Biological Hardware
+                Your Body
               </span>
             </h1>
 
             <p className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-3xl">
-              Equip your daily routine with localized, regulatory-cleared diagnostics, zero screen-time chemical reagents, and continuous cardiac telemetry to protect your biological substrate on the 10-Year Bridge.
+              A curated directory of lab-grade health supplies — including medical-grade chemicals, heart rate monitors you can wear 24/7, sleep trackers that work without touching your skin, and at-home blood tests that check dozens of health markers at once. Everything is set up for your country: local pricing, shipping that clears customs smoothly, and products that meet your region's health regulations.
             </p>
           </div>
         </div>
