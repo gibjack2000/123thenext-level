@@ -147,80 +147,26 @@ const Navbar = () => {
               </span>
             </div>
 
-            {/* 2. Center Column: Clickable Flag Buttons & Regulatory Badge */}
-            <div className="flex items-center gap-2 flex-wrap justify-center">
+            {/* 2. Center Column: Live Regulatory Compliance Readout */}
+            <div className="flex items-center gap-2 flex-wrap justify-center font-mono text-[11px]">
               <span className="text-slate-400 text-[11px] font-mono mr-1 hidden md:inline-block">
-                Marketplace Country:
+                Clinical Standards:
               </span>
-
-              {/* 3 Clickable Country Marketplace Dedicated Page Links */}
-              <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-950/90 border border-slate-800/90 shadow-inner">
-                {/* US Marketplace Button */}
-                <Link
-                  to="/us"
-                  onClick={() => setActiveCountry('US')}
-                  className={`px-2.5 py-1 rounded-lg font-mono text-[10px] font-bold flex items-center gap-1.5 transition-all duration-300 cursor-pointer ${
-                    activeCountry === 'US'
-                      ? 'bg-cyan-950/80 border border-cyan-400 text-white shadow-[0_0_15px_rgba(6,182,212,0.45)] ring-1 ring-cyan-400/60 opacity-100 scale-105'
-                      : 'bg-slate-900/40 border border-transparent text-slate-400 opacity-50 hover:opacity-100 hover:scale-105 grayscale hover:grayscale-0 hover:bg-slate-800/60'
-                  }`}
-                  title="Explore Dedicated US Marketplace Storefront"
-                >
-                  <span className="text-xs">🇺🇸</span>
-                  <span>US Marketplace</span>
-                </Link>
-
-                {/* UK Marketplace Button */}
-                <Link
-                  to="/uk"
-                  onClick={() => setActiveCountry('UK')}
-                  className={`px-2.5 py-1 rounded-lg font-mono text-[10px] font-bold flex items-center gap-1.5 transition-all duration-300 cursor-pointer ${
-                    activeCountry === 'UK'
-                      ? 'bg-cyan-950/80 border border-cyan-400 text-white shadow-[0_0_15px_rgba(6,182,212,0.45)] ring-1 ring-cyan-400/60 opacity-100 scale-105'
-                      : 'bg-slate-900/40 border border-transparent text-slate-400 opacity-50 hover:opacity-100 hover:scale-105 grayscale hover:grayscale-0 hover:bg-slate-800/60'
-                  }`}
-                  title="Explore Dedicated UK Marketplace Storefront"
-                >
-                  <span className="text-xs">🇬🇧</span>
-                  <span>UK Marketplace</span>
-                </Link>
-
-                {/* ES Marketplace Button */}
-                <Link
-                  to="/es"
-                  onClick={() => setActiveCountry('ES')}
-                  className={`px-2.5 py-1 rounded-lg font-mono text-[10px] font-bold flex items-center gap-1.5 transition-all duration-300 cursor-pointer ${
-                    activeCountry === 'ES'
-                      ? 'bg-cyan-950/80 border border-cyan-400 text-white shadow-[0_0_15px_rgba(6,182,212,0.45)] ring-1 ring-cyan-400/60 opacity-100 scale-105'
-                      : 'bg-slate-900/40 border border-transparent text-slate-400 opacity-50 hover:opacity-100 hover:scale-105 grayscale hover:grayscale-0 hover:bg-slate-800/60'
-                  }`}
-                  title="Explore Dedicated España / EU Marketplace Storefront"
-                >
-                  <span className="text-xs">🇪🇸</span>
-                  <span>España / EU Marketplace</span>
-                </Link>
-              </div>
-
-              {/* Corresponding Regulatory Shield Badge with Smooth Fade-in */}
-              <div className="transition-all duration-300">
-                {activeCountry === 'US' && (
-                  <div className="px-2.5 py-1 rounded-lg bg-amber-950/80 border border-amber-400/60 text-amber-300 text-[9px] font-mono font-bold shadow-[0_0_12px_rgba(245,158,11,0.3)] flex items-center gap-1 animate-fade-in">
-                    <ShieldCheck size={11} className="text-amber-400 flex-shrink-0" />
-                    <span>US: FDA & CLIA COMPLIANT</span>
-                  </div>
-                )}
-                {activeCountry === 'UK' && (
-                  <div className="px-2.5 py-1 rounded-lg bg-cyan-950/80 border border-cyan-400/60 text-cyan-300 text-[9px] font-mono font-bold shadow-[0_0_12px_rgba(6,182,212,0.3)] flex items-center gap-1 animate-fade-in">
-                    <ShieldCheck size={11} className="text-cyan-400 flex-shrink-0" />
-                    <span>UK: MHRA REGISTERED</span>
-                  </div>
-                )}
-                {activeCountry === 'ES' && (
-                  <div className="px-2.5 py-1 rounded-lg bg-cyan-950/80 border border-cyan-400/60 text-cyan-300 text-[9px] font-mono font-bold shadow-[0_0_12px_rgba(6,182,212,0.3)] flex items-center gap-1 animate-fade-in">
-                    <ShieldCheck size={11} className="text-cyan-400 flex-shrink-0" />
-                    <span>ES/EU: CE 0123 MARKED</span>
-                  </div>
-                )}
+              <div className="flex items-center gap-2 px-3 py-1 rounded-xl bg-slate-950/90 border border-slate-800/90 shadow-inner text-[10px]">
+                <span className="text-amber-300 font-bold flex items-center gap-1">
+                  <ShieldCheck size={11} className="text-amber-400" />
+                  <span>US (FDA & CLIA)</span>
+                </span>
+                <span className="text-slate-600">|</span>
+                <span className="text-cyan-300 font-bold flex items-center gap-1">
+                  <ShieldCheck size={11} className="text-cyan-400" />
+                  <span>UK (MHRA)</span>
+                </span>
+                <span className="text-slate-600">|</span>
+                <span className="text-sky-300 font-bold flex items-center gap-1">
+                  <ShieldCheck size={11} className="text-sky-400" />
+                  <span>ES/EU (CE 0123)</span>
+                </span>
               </div>
             </div>
 
@@ -314,22 +260,22 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-1">
+            <div className="hidden lg:flex items-center space-x-0.5 xl:space-x-1 flex-nowrap shrink-0">
               {/* Home */}
-              <Link to="/" onClick={handleHomeClick} className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors">
+              <Link to="/" onClick={handleHomeClick} className="px-2.5 xl:px-3 py-2 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
                 {t('nav_home')}
               </Link>
               
               {/* Start Here */}
-              <Link to="/dual-track" className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors">
+              <Link to="/dual-track" className="px-2.5 xl:px-3 py-2 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
                 Dual-Track
               </Link>
 
               {/* Pillars Dropdown Trigger */}
               <div className="relative group py-2">
-                <button className="flex items-center px-4 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors cursor-pointer outline-none">
+                <button className="flex items-center px-2.5 xl:px-3 py-1 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors cursor-pointer outline-none">
                   Pillars
-                  <ChevronDown size={10} className="ml-1.5 transition-transform group-hover:rotate-180 duration-300" />
+                  <ChevronDown size={10} className="ml-1 transition-transform group-hover:rotate-180 duration-300" />
                 </button>
                 
                 {/* Pillars Dropdown Panel */}
@@ -356,12 +302,11 @@ const Navbar = () => {
                 </div>
               </div>
 
-              {/* Remaining flat links */}
               {/* Updates Dropdown */}
               <div className="relative group py-2">
-                <button className="flex items-center px-4 py-1 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors cursor-pointer outline-none">
+                <button className="flex items-center px-2.5 xl:px-3 py-1 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors cursor-pointer outline-none">
                   Blog Updates
-                  <ChevronDown size={10} className="ml-1.5 transition-transform group-hover:rotate-180 duration-300" />
+                  <ChevronDown size={10} className="ml-1 transition-transform group-hover:rotate-180 duration-300" />
                 </button>
                 
                 {/* Updates Dropdown Panel */}
@@ -401,26 +346,26 @@ const Navbar = () => {
                   </div>
                 </div>
               </div>
-              <Link to="/science" className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-cyan-400 transition-colors">
+              <Link to="/science" className="px-2.5 xl:px-3 py-2 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-cyan-400 transition-colors">
                 The Anti-Aging Health Revolution
               </Link>
-              <Link to="/store" className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400 hover:text-cyan-300 transition-colors">
+              <Link to="/store" className="px-2.5 xl:px-3 py-2 text-[10px] font-black uppercase tracking-[0.15em] text-cyan-400 hover:text-cyan-300 transition-colors font-bold">
                 Store
               </Link>
-              <Link to="/premium-guides" className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors">
+              <Link to="/premium-guides" className="px-2.5 xl:px-3 py-2 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
                 Premium Guides
               </Link>
-              <Link to="/intelligence-hub" className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors">
+              <Link to="/intelligence-hub" className="px-2.5 xl:px-3 py-2 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
                 Intelligence
               </Link>
-              <Link to="/design-system" className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors">
+              <Link to="/design-system" className="px-2.5 xl:px-3 py-2 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
                 Design System
               </Link>
               
-              <div className="h-4 w-px bg-white/10 mx-4"></div>
+              <div className="h-4 w-px bg-white/10 mx-2"></div>
               
               {/* Global Market Selector in Navbar */}
-              <MarketSelector className="bg-white/5 p-1.5 rounded-xl border border-white/5" />
+              <MarketSelector />
             </div>
 
             {/* Mobile Menu Button */}
