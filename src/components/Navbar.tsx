@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Home as HomeIcon, Zap, Shield, Heart, Info, ChevronRight, Compass, ChevronDown, Dumbbell, Apple, Users, Sparkles, ShieldCheck } from 'lucide-react';
+import { Menu, X, Home as HomeIcon, Zap, Shield, Heart, Info, ChevronRight, Compass, ChevronDown, Dumbbell, Apple, Users, Sparkles, ShieldCheck, ShoppingBag } from 'lucide-react';
 import MarketSelector from './MarketSelector';
 import { useT } from '../translations';
 
@@ -404,6 +404,9 @@ const Navbar = () => {
               <Link to="/science" className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-cyan-400 transition-colors">
                 The Anti-Aging Health Revolution
               </Link>
+              <Link to="/store" className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-cyan-400 hover:text-cyan-300 transition-colors">
+                Store
+              </Link>
               <Link to="/premium-guides" className="px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-white transition-colors">
                 Premium Guides
               </Link>
@@ -473,6 +476,16 @@ const Navbar = () => {
             >
               <Sparkles size={16} className="text-cyan-400" />
               <span className="text-base font-display font-black uppercase tracking-tight">The Anti-Aging Health Revolution</span>
+            </Link>
+
+            {/* Flat Link Store */}
+            <Link
+              to="/store"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-3 p-4 bg-cyan-950/40 rounded-2xl border border-cyan-500/30 text-cyan-300 hover:text-white"
+            >
+              <ShoppingBag size={16} className="text-cyan-400" />
+              <span className="text-base font-display font-black uppercase tracking-tight">Sovereign Store</span>
             </Link>
 
             {/* Accordion: Pillars */}

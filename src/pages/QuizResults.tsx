@@ -491,12 +491,12 @@ export default function QuizResults() {
             <span className="text-center text-[13px] text-slate-300 leading-relaxed font-light max-w-2xl">
               🛍 <strong>Looking for more?</strong> Explore over 100+ expert-recommended tools, circadian sleep aids, and daily vitamin protocols custom-vetted for your market inside our Curated essentials shop.
             </span>
-            <a
-              href="https://123thenextlevel.com/#shop"
+            <Link
+              to="/store"
               className="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-cyan-400 hover:text-cyan-300 transition-colors shrink-0 group"
             >
-              Browse the Full Shop <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-            </a>
+              Browse the Sovereign Store <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+            </Link>
           </div>
 
         </div>

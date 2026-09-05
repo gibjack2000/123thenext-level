@@ -912,14 +912,14 @@ export default function Home() {
                 </div>
               </Link>
 
-              <a href="#shop" className="resource-preview">
+              <Link to="/store" className="resource-preview">
                 <div className="resource-icon">🛍️</div>
                 <div className="resource-content text-left">
                   <h4>Curated Wellness Products</h4>
                   <p>Expert-recommended tools, supplements, and resources for your journey</p>
                   <span className="resource-count">100+ vetted products</span>
                 </div>
-              </a>
+              </Link>
 
               <Link to="/intelligence-hub" className="resource-preview">
                 <div className="resource-icon">🎯</div>
