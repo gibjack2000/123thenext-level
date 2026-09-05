@@ -91,6 +91,7 @@ const StartHere = lazy(() => import('./pages/StartHere'));
 const QuizResults = lazy(() => import('./pages/QuizResults'));
 const AgeReversalShowcase = lazy(() => import('./pages/AgeReversalShowcase'));
 const HardwareStorePage = lazy(() => import('./pages/HardwareStorePage'));
+const Store = lazy(() => import('./pages/Store'));
 const Science = lazy(() => import('./pages/Science'));
 
 
@@ -131,7 +132,7 @@ function App() {
                 <Route path="/science-of-age-reversal" element={<AgeReversalShowcase />} />
                 <Route path="/age-reversal-showcase" element={<AgeReversalShowcase />} />
                 <Route path="/hardware-store" element={<HardwareStorePage />} />
-                <Route path="/store" element={<HardwareStorePage />} />
+                <Route path="/store" element={<Store />} />
                 <Route path="/products/hardware" element={<HardwareStorePage />} />
                 <Route path="/health/cellular/deep-dive" element={<CellularDeepDive />} />
                 <Route path="/health/cellular/glossary/:topicId" element={<CellularGlossary />} />

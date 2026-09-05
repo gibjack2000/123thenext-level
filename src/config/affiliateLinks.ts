@@ -290,3 +290,393 @@ export const affiliateLinks = {
   }
 };
 
+export type MarketRegion = 'US' | 'UK' | 'ES';
+export type ProductCategory = 
+  | 'Tech Gadgets & Wearables' 
+  | 'Performance & Testing' 
+  | 'Supplements'
+  | 'reagents' 
+  | 'telemetry' 
+  | 'recovery' 
+  | 'somatic' 
+  | 'blood' 
+  | 'all'
+  | string;
+
+export interface SovereignProduct {
+  id: string;
+  name: string;
+  category: ProductCategory | string;
+  rating: number;
+  description: string;
+  price_text: string;
+  deal_url: string;
+  market_region: MarketRegion;
+  badge_text: string;
+  image_url: string;
+}
+
+export const sovereignHealthStack: SovereignProduct[] = [
+  // ============================================================
+  // 1. REAGENT STRIPS (Performance & Testing)
+  // ============================================================
+  {
+    id: 'reagent-strips-us',
+    name: 'ALLTEST 10-Parameter Urinary Reagent Strips',
+    category: 'Performance & Testing',
+    rating: 4.85,
+    description: 'A visual, dip-and-read chemical test tracking 10 critical parameters in under 2 minutes. Zero digital screen-time.',
+    price_text: '$14.99',
+    deal_url: 'https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20',
+    market_region: 'US',
+    badge_text: 'FDA Cleared & CLIA Waived',
+    image_url: '/assets/images/shop/reagent-strips.png'
+  },
+  {
+    id: 'reagent-strips-uk',
+    name: 'ALLTEST 10-Parameter Urinary Reagent Strips',
+    category: 'Performance & Testing',
+    rating: 4.85,
+    description: 'A visual, dip-and-read chemical test tracking 10 critical parameters in under 2 minutes. Zero digital screen-time.',
+    price_text: '£12.99',
+    deal_url: 'https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123znl0f3-21',
+    market_region: 'UK',
+    badge_text: 'MHRA Registered',
+    image_url: '/assets/images/shop/reagent-strips.png'
+  },
+  {
+    id: 'reagent-strips-es',
+    name: 'ALLTEST Tiras de Reactivos Urinarios de 10 Parámetros',
+    category: 'Performance & Testing',
+    rating: 4.85,
+    description: 'Prueba química visual de inmersión y lectura que rastrea 10 parámetros críticos en menos de 2 minutos. Cero tiempo de pantalla digital.',
+    price_text: '14,99€',
+    deal_url: 'https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21',
+    market_region: 'ES',
+    badge_text: 'CE 0123 Medical Marked',
+    image_url: '/assets/images/shop/reagent-strips.png'
+  },
+
+  // ============================================================
+  // 2. SIRTUIN STACK (Supplements)
+  // ============================================================
+  {
+    id: 'sirtuin-stack-us',
+    name: 'Momentous Sirtuin Activation & Cell Recovery Stack',
+    category: 'Supplements',
+    rating: 4.90,
+    description: 'Premium NSF Certified for Sport Trans-Resveratrol, NMN, and Nattokinase. Formulated to provide biological cofactors to activate Sirtuin pathways.',
+    price_text: '$89.95',
+    deal_url: 'https://livemomentous.com/modernwisdom?code=modernwisdom',
+    market_region: 'US',
+    badge_text: 'NSF Certified for Sport',
+    image_url: '/assets/images/shop/sirtuin-stack.png'
+  },
+  {
+    id: 'sirtuin-stack-uk',
+    name: 'Momentous Sirtuin Activation & Cell Recovery Stack',
+    category: 'Supplements',
+    rating: 4.90,
+    description: 'Premium NSF Certified for Sport Trans-Resveratrol, NMN, and Nattokinase. Formulated to provide biological cofactors to activate Sirtuin pathways.',
+    price_text: '£79.99',
+    deal_url: 'https://healf.co.uk/collections/momentus',
+    market_region: 'UK',
+    badge_text: 'NSF Certified / UK Sourced (Healf)',
+    image_url: '/assets/images/shop/sirtuin-stack.png'
+  },
+  {
+    id: 'sirtuin-stack-es',
+    name: 'Paquete de Activación de Sirtuina y Recuperación Celular Momentous',
+    category: 'Supplements',
+    rating: 4.90,
+    description: 'Trans-Resveratrol, NMN y Natokinasa de alta calidad con certificación NSF para el deporte. Proporciona cofactores para activar las vías de sirtuinas.',
+    price_text: '89,95€',
+    deal_url: 'https://newtra.eu',
+    market_region: 'ES',
+    badge_text: 'Customs-Safe EU Delivery (Newtra)',
+    image_url: '/assets/images/shop/sirtuin-stack.png'
+  },
+
+  // ============================================================
+  // 3. CONTINUOUS GLUCOSE MONITOR (Tech Gadgets & Wearables)
+  // ============================================================
+  {
+    id: 'cgm-us',
+    name: 'Continuous Glucose Monitor (Abbott Lingo / Dexcom Stelo)',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.75,
+    description: 'Real-time interstitial glucose tracking mapping energy peaks and valleys. Instantly syncs blood sugar fluctuations to target metabolic health.',
+    price_text: '$89.00 / month',
+    deal_url: 'https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl0e-20',
+    market_region: 'US',
+    badge_text: 'FDA Cleared / OTC Eligible',
+    image_url: '/assets/images/shop/cgm.png'
+  },
+  {
+    id: 'cgm-uk',
+    name: 'Continuous Glucose Monitor (Abbott Lingo UK)',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.75,
+    description: 'Real-time interstitial glucose tracking mapping energy peaks and valleys. Instantly syncs blood sugar fluctuations to target metabolic health.',
+    price_text: '£79.00 / month',
+    deal_url: 'https://hellolingo.co.uk',
+    market_region: 'UK',
+    badge_text: 'MHRA Registered',
+    image_url: '/assets/images/shop/cgm.png'
+  },
+  {
+    id: 'cgm-es',
+    name: 'Monitor Continuo de Glucosa (Dexcom ONE+ / Abbott Libre)',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.75,
+    description: 'Monitoreo de glucosa en tiempo real que mapea picos de energía. Sincroniza datos para optimizar la nutrición metabólica.',
+    price_text: '79,00€ / mes',
+    deal_url: 'https://www.dexcom.com/es-ES',
+    market_region: 'ES',
+    badge_text: 'CE Marked / Pharmacy Approved',
+    image_url: '/assets/images/shop/cgm.png'
+  },
+
+  // ============================================================
+  // 4. BLOOD PRESSURE CUFF (Tech Gadgets & Wearables)
+  // ============================================================
+  {
+    id: 'blood-pressure-cuff-us',
+    name: 'Withings BPM Connect Wi-Fi Cuff',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.80,
+    description: 'Smart Wi-Fi blood pressure cuff. Automatically logs systolic, diastolic, and pulse trends, classifying cardiovascular data.',
+    price_text: '$99.95',
+    deal_url: 'https://www.amazon.com/dp/B07SJV1HNR?tag=123znl0e-20',
+    market_region: 'US',
+    badge_text: 'FDA Cleared',
+    image_url: '/assets/images/shop/bpm-connect.png'
+  },
+  {
+    id: 'blood-pressure-cuff-uk',
+    name: 'Withings BPM Connect Wi-Fi Cuff',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.80,
+    description: 'Smart Wi-Fi blood pressure cuff. Automatically logs systolic, diastolic, and pulse trends, classifying cardiovascular data.',
+    price_text: '£89.99',
+    deal_url: 'https://www.amazon.co.uk/dp/B07SJV1HNR?tag=123znl0f3-21',
+    market_region: 'UK',
+    badge_text: 'CE Medical Class IIa',
+    image_url: '/assets/images/shop/bpm-connect.png'
+  },
+  {
+    id: 'blood-pressure-cuff-es',
+    name: 'Withings BPM Connect Tensiómetro Inteligente',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.80,
+    description: 'Tensiómetro inteligente Wi-Fi. Registra automáticamente las tendencias cardiovasculares en su panel de control privado.',
+    price_text: '99,95€',
+    deal_url: 'https://www.amazon.es/dp/B07SJV1HNR?tag=123znl08a-21',
+    market_region: 'ES',
+    badge_text: 'CE Medical Class IIa',
+    image_url: '/assets/images/shop/bpm-connect.png'
+  },
+
+  // ============================================================
+  // 5. DIGITAL AI STETHOSCOPE (Performance & Testing)
+  // ============================================================
+  {
+    id: 'stethoscope-us',
+    name: 'Eko CORE 500™ Digital AI Stethoscope',
+    category: 'Performance & Testing',
+    rating: 4.95,
+    description: 'FDA-cleared electronic stethoscope with 3-lead ECG. Uses clinical AI to detect murmurs, arrhythmias, and cardiac strain signs in 15 seconds.',
+    price_text: '$429.00',
+    deal_url: 'https://www.ekohealth.com/products/core-500-digital-stethoscope',
+    market_region: 'US',
+    badge_text: 'FDA Cleared AI Auscultation',
+    image_url: '/assets/images/shop/core-500.png'
+  },
+  {
+    id: 'stethoscope-uk',
+    name: 'Eko CORE 500™ Digital AI Stethoscope',
+    category: 'Performance & Testing',
+    rating: 4.95,
+    description: 'FDA-cleared electronic stethoscope with 3-lead ECG. Uses clinical AI to detect murmurs, arrhythmias, and cardiac strain signs in 15 seconds.',
+    price_text: '£379.00',
+    deal_url: 'https://www.ekohealth.com/products/core-500-digital-stethoscope',
+    market_region: 'UK',
+    badge_text: 'MHRA Registered',
+    image_url: '/assets/images/shop/core-500.png'
+  },
+  {
+    id: 'stethoscope-es',
+    name: 'Estetoscopio Digital con IA Eko CORE 500™',
+    category: 'Performance & Testing',
+    rating: 4.95,
+    description: 'Estetoscopio electrónico con ECG de 3 derivaciones. Utiliza IA clínica para evaluar soplos cardíacos y arritmias en 15 segundos.',
+    price_text: '429,00€',
+    deal_url: 'https://www.doccheck.com/es/',
+    market_region: 'ES',
+    badge_text: 'CE Marked Clinical Device',
+    image_url: '/assets/images/shop/core-500.png'
+  },
+
+  // ============================================================
+  // 6. PASSIVE SLEEP ANALYZER (Tech Gadgets & Wearables)
+  // ============================================================
+  {
+    id: 'sleep-analyzer-us',
+    name: 'Withings Sleep Analyzer Under-Mattress Pad',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.82,
+    description: 'A contact-free ballistocardiography mat placed under the mattress. Logs sleeping heart rate, sleep cycles, and passive breathing disturbances.',
+    price_text: '$129.95',
+    deal_url: 'https://www.amazon.com/dp/B078Z1B34S?tag=123znl0e-20',
+    market_region: 'US',
+    badge_text: 'Touch-Free Sleep Science',
+    image_url: '/assets/images/shop/sleep-analyzer.png'
+  },
+  {
+    id: 'sleep-analyzer-uk',
+    name: 'Withings Medically Validated Sleep Analyzer',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.82,
+    description: 'A contact-free ballistocardiography mat placed under the mattress. Logs sleeping heart rate, sleep cycles, and medically validated Sleep Apnea episodes.',
+    price_text: '£119.99',
+    deal_url: 'https://www.amazon.co.uk/dp/B0892BGFX7?tag=123znl0f3-21',
+    market_region: 'UK',
+    badge_text: 'CE Medically Validated (Apnea)',
+    image_url: '/assets/images/shop/sleep-analyzer.png'
+  },
+  {
+    id: 'sleep-analyzer-es',
+    name: 'Withings Analizador de Sueño de Contacto Cero',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.82,
+    description: 'Alfombrilla neumática bajo el colchón. Registra el ritmo cardíaco nocturno y detecta la apnea obstructiva del sueño con validación médica CE.',
+    price_text: '129,95€',
+    deal_url: 'https://www.amazon.es/dp/B0892BGFX7?tag=123znl08a-21',
+    market_region: 'ES',
+    badge_text: 'CE Medically Validated (Apnea)',
+    image_url: '/assets/images/shop/sleep-analyzer.png'
+  },
+
+  // ============================================================
+  // 7. SEGMENTAL COMPOSITION SCALE (Tech Gadgets & Wearables)
+  // ============================================================
+  {
+    id: 'segmental-scale-us',
+    name: 'Withings Body Scan Segmental Composition Scale',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.88,
+    description: 'FDA-cleared 8-electrode bioelectrical impedance scale. Segmentally maps skeletal muscle mass, fat percentage by limb, and visceral fat index.',
+    price_text: '$399.95',
+    deal_url: 'https://www.amazon.com/dp/B0B9849CD1?tag=123znl0e-20',
+    market_region: 'US',
+    badge_text: 'FDA Cleared',
+    image_url: '/assets/images/shop/body-scan.png'
+  },
+  {
+    id: 'segmental-scale-uk',
+    name: 'Withings Body Scan Segmental Composition Scale',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.88,
+    description: 'CE Medical-marked 8-electrode bioelectrical impedance scale. Segmentally maps skeletal muscle mass, fat percentage by limb, and visceral fat index.',
+    price_text: '£349.99',
+    deal_url: 'https://www.amazon.co.uk/dp/B0B9849CD1?tag=123znl0f3-21',
+    market_region: 'UK',
+    badge_text: 'CE Medical Marked',
+    image_url: '/assets/images/shop/body-scan.png'
+  },
+  {
+    id: 'segmental-scale-es',
+    name: 'Báscula de Composición Segmentaria Withings Body Scan',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.88,
+    description: 'Báscula médica de impedancia con 8 electrodos. Mapea la masa muscular y el índice de grasa visceral para guiar los ciclos metabólicos.',
+    price_text: '399,95€',
+    deal_url: 'https://www.amazon.es/dp/B0B9849CD1?tag=123znl08a-21',
+    market_region: 'ES',
+    badge_text: 'CE Medical Marked',
+    image_url: '/assets/images/shop/body-scan.png'
+  },
+
+  // ============================================================
+  // 8. WEARABLE TRACKER (Tech Gadgets & Wearables)
+  // ============================================================
+  {
+    id: 'wearable-tracker-us',
+    name: 'Apple Watch Series 10 (GPS 46mm)',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.80,
+    description: 'Advanced multispectral wearable capturing sleep architecture, resting heart rate, sleep apnea flags, and Heart Rate Variability (HRV).',
+    price_text: '$399.00',
+    deal_url: 'https://www.amazon.com/dp/B0DGJG692K?tag=123znl0e-20',
+    market_region: 'US',
+    badge_text: 'FDA Approved Heart Notifications',
+    image_url: '/assets/images/shop/apple-watch.png'
+  },
+  {
+    id: 'wearable-tracker-uk',
+    name: 'Apple Watch Series 10 (GPS 46mm)',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.80,
+    description: 'Advanced multispectral wearable capturing sleep architecture, resting heart rate, sleep apnea flags, and Heart Rate Variability (HRV).',
+    price_text: '£379.00',
+    deal_url: 'https://www.amazon.co.uk/dp/B0DGJHCPX5?tag=123znl0f3-21',
+    market_region: 'UK',
+    badge_text: 'MHRA Certified Telemetry',
+    image_url: '/assets/images/shop/apple-watch.png'
+  },
+  {
+    id: 'wearable-tracker-es',
+    name: 'Apple Watch Series 10 (GPS 46mm)',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.80,
+    description: 'Reloj inteligente avanzado con sensores multiespectrales para monitorizar la variabilidad de la frecuencia cardíaca nocturna (HRV).',
+    price_text: '399,00€',
+    deal_url: 'https://www.amazon.es/dp/B0DGJG692K?tag=123znl08a-21',
+    market_region: 'ES',
+    badge_text: 'CE Compliant Biometrics',
+    image_url: '/assets/images/shop/apple-watch.png'
+  },
+
+  // ============================================================
+  // 9. DIRECT-TO-CONSUMER BLOOD PANEL (Performance & Testing)
+  // ============================================================
+  {
+    id: 'blood-panel-us',
+    name: 'Personalized Cellular Biomarker Map (56 Biomarkers)',
+    category: 'Performance & Testing',
+    rating: 4.92,
+    description: 'Direct-to-consumer longevity blood panels mapping 56 essential biomarkers. Draws completed at local Quest or Labcorp patient centers.',
+    price_text: '$299.00',
+    deal_url: 'https://www.healthlabs.com/?affiliate=123znl',
+    market_region: 'US',
+    badge_text: 'CLIA Certified & CAP Accredited',
+    image_url: '/assets/images/shop/blood-panel.png'
+  },
+  {
+    id: 'blood-panel-uk',
+    name: 'Lola Vital Check 56 (Baseline Longevity Blood Map)',
+    category: 'Performance & Testing',
+    rating: 4.98,
+    description: 'Advanced, direct-to-consumer longevity blood panel analyzing 56 primary biomarkers including ApoB, hs-CRP, and HbA1c.',
+    price_text: '£149.00',
+    deal_url: 'https://snwbl.io/out/NcealZ11',
+    market_region: 'UK',
+    badge_text: 'UKAS Accredited & ISO 9001 Certified',
+    image_url: '/assets/images/shop/blood-panel.png'
+  },
+  {
+    id: 'blood-panel-es',
+    name: 'Mapa de Biomarcadores Celulares Melio (56 Biomarcadores)',
+    category: 'Performance & Testing',
+    rating: 4.92,
+    description: 'Análisis de sangre integral que cubre 56 biomarcadores metabólicos y cardiovasculares. Extracción privada en centros colaboradores de España.',
+    price_text: '149,00€',
+    deal_url: 'https://www.melio.es',
+    market_region: 'ES',
+    badge_text: 'CE Marked & Megalab/Unilabs Certified Partner',
+    image_url: '/assets/images/shop/blood-panel.png'
+  }
+];
+
+
+
