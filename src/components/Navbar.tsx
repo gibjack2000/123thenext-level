@@ -248,32 +248,32 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center">
             {/* Logo */}
-            <Link to="/" onClick={handleHomeClick} className="flex items-center group shrink-0 mr-8">
+            <Link to="/" onClick={handleHomeClick} className="flex items-center group shrink-0 mr-3 xl:mr-5">
               <img 
                 src="/assets/logo.png" 
                 alt="123 The Next Level Logo" 
-                className="w-9 h-9 object-contain mr-3 group-hover:scale-110 transition-transform duration-500"
+                className="w-8 h-8 xl:w-9 xl:h-9 object-contain mr-2.5 group-hover:scale-110 transition-transform duration-500"
               />
-              <span className="font-display font-black uppercase tracking-tighter text-xl text-white group-hover:text-blue-400 transition-colors duration-300">
+              <span className="font-display font-black uppercase tracking-tighter text-lg xl:text-xl text-white group-hover:text-blue-400 transition-colors duration-300">
                 123TheNext<span className="text-blue-500">Level</span>
               </span>
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-0.5 xl:space-x-1 flex-nowrap shrink-0">
+            <div className="hidden lg:flex items-center space-x-1 xl:space-x-1.5 flex-nowrap shrink-0">
               {/* Home */}
-              <Link to="/" onClick={handleHomeClick} className="px-2.5 xl:px-3 py-2 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
+              <Link to="/" onClick={handleHomeClick} className="px-2 xl:px-2.5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
                 {t('nav_home')}
               </Link>
               
-              {/* Start Here */}
-              <Link to="/dual-track" className="px-2.5 xl:px-3 py-2 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
+              {/* Dual-Track */}
+              <Link to="/dual-track" className="px-2 xl:px-2.5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
                 Dual-Track
               </Link>
 
               {/* Pillars Dropdown Trigger */}
-              <div className="relative group py-2">
-                <button className="flex items-center px-2.5 xl:px-3 py-1 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors cursor-pointer outline-none">
+              <div className="relative group py-1">
+                <button className="flex items-center px-2 xl:px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors cursor-pointer outline-none">
                   Pillars
                   <ChevronDown size={10} className="ml-1 transition-transform group-hover:rotate-180 duration-300" />
                 </button>
@@ -303,9 +303,9 @@ const Navbar = () => {
               </div>
 
               {/* Updates Dropdown */}
-              <div className="relative group py-2">
-                <button className="flex items-center px-2.5 xl:px-3 py-1 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors cursor-pointer outline-none">
-                  Blog Updates
+              <div className="relative group py-1">
+                <button className="flex items-center px-2 xl:px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors cursor-pointer outline-none">
+                  Updates
                   <ChevronDown size={10} className="ml-1 transition-transform group-hover:rotate-180 duration-300" />
                 </button>
                 
@@ -346,23 +346,40 @@ const Navbar = () => {
                   </div>
                 </div>
               </div>
-              <Link to="/science" className="px-2.5 xl:px-3 py-2 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-cyan-400 transition-colors">
-                The Anti-Aging Health Revolution
+
+              {/* Science / Revolution */}
+              <Link 
+                to="/science" 
+                title="The Anti-Aging Health Revolution"
+                className="px-2 xl:px-2.5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-cyan-400 transition-colors"
+              >
+                Science
               </Link>
-              <Link to="/store" className="px-2.5 xl:px-3 py-2 text-[10px] font-black uppercase tracking-[0.15em] text-cyan-400 hover:text-cyan-300 transition-colors font-bold">
+
+              {/* Sovereign Store */}
+              <Link 
+                to="/store" 
+                className="px-2.5 xl:px-3 py-1 text-[10px] font-black uppercase tracking-[0.15em] text-cyan-300 hover:text-white bg-cyan-950/60 border border-cyan-500/40 rounded-lg shadow-[0_0_10px_rgba(6,182,212,0.2)] hover:border-cyan-400 transition-all font-mono"
+              >
                 Store
               </Link>
-              <Link to="/premium-guides" className="px-2.5 xl:px-3 py-2 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
-                Premium Guides
+
+              {/* Guides */}
+              <Link to="/premium-guides" className="px-2 xl:px-2.5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
+                Guides
               </Link>
-              <Link to="/intelligence-hub" className="px-2.5 xl:px-3 py-2 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
-                Intelligence
+
+              {/* Intel */}
+              <Link to="/intelligence-hub" className="px-2 xl:px-2.5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
+                Intel
               </Link>
-              <Link to="/design-system" className="px-2.5 xl:px-3 py-2 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
-                Design System
+
+              {/* Design */}
+              <Link to="/design-system" className="px-2 xl:px-2.5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
+                Design
               </Link>
               
-              <div className="h-4 w-px bg-white/10 mx-2"></div>
+              <div className="h-4 w-px bg-white/10 mx-1.5"></div>
               
               {/* Global Market Selector in Navbar */}
               <MarketSelector />
