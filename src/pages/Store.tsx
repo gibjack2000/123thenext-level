@@ -26,6 +26,7 @@ import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { 
   sovereignHealthStack, 
   SovereignProduct, 
+  SovereignProductItem,
   MarketRegion, 
   ProductCategory 
 } from '../config/affiliateLinks';
@@ -104,7 +105,7 @@ export default function Store() {
   const [selectedRegion, setSelectedRegion] = useState<MarketRegion>('US');
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [products, setProducts] = useState<SovereignProduct[]>([]);
+  const [products, setProducts] = useState<SovereignProductItem[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [dataSource, setDataSource] = useState<'supabase' | 'fallback'>('fallback');
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
@@ -121,9 +122,22 @@ export default function Store() {
 
     const loadProducts = async () => {
       // Step 1: Default fallback from static config
-      const staticRegionItems = sovereignHealthStack.filter(
-        item => item.market_region.toUpperCase() === selectedRegion.toUpperCase()
-      );
+      const rKey = selectedRegion.toLowerCase() as 'us' | 'uk' | 'es';
+      const staticRegionItems: SovereignProductItem[] = sovereignHealthStack.map(item => {
+        const market = item[rKey] || item.us;
+        return {
+          id: `${item.id}-${rKey}`,
+          name: item.name,
+          category: item.category,
+          rating: item.rating,
+          description: item.description,
+          price_text: item.price_text,
+          deal_url: market.url,
+          market_region: selectedRegion,
+          badge_text: market.badge,
+          image_url: item.image_url
+        };
+      });
 
       // If Supabase is not configured, immediately use static stack
       if (!hasValidSupabaseConfig || !supabase) {
@@ -151,7 +165,7 @@ export default function Store() {
             console.warn('[Store] Supabase query returned error, using fallback:', error.message);
             return { timeout: false, data: null };
           }
-          return { timeout: false, data: data as SovereignProduct[] };
+          return { timeout: false, data: data as SovereignProductItem[] };
         } catch (err) {
           console.warn('[Store] Network error fetching Supabase products:', err);
           return { timeout: false, data: null };

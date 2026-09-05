@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Shield, Lock, Play, Activity, ExternalLink, 
   ArrowRight, Star, HeartPulse, RefreshCw, Info,
   CheckCircle2, AlertTriangle, Compass, FileText,
-  ChevronDown, ChevronUp, Download, Eye, Award
+  ChevronDown, ChevronUp, Download, Eye, Award, Sparkles
 } from 'lucide-react';
 
 export default function StartHere() {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<'phase1' | 'phase2' | 'clinician'>('phase1');
   const [activeScript, setActiveScript] = useState<number | null>(null);
   const [showVideoAlert, setShowVideoAlert] = useState<string | null>(null);
@@ -63,7 +64,7 @@ export default function StartHere() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Workspace Title Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <div className="text-center max-w-3xl mx-auto mb-10">
           <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-bold mb-4 shadow-[0_0_15px_rgba(6,182,212,0.05)]">
             <Activity size={12} className="animate-pulse" />
             Client Starting Line
@@ -74,6 +75,34 @@ export default function StartHere() {
           <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed font-light">
             Your onboarding path to human longevity. Balance clinical baseline telemetry with actionable daily habits to rewrite your biological decay rate.
           </p>
+        </div>
+
+        {/* Glowing Callout Banner: Sovereign Storefront Integration */}
+        <div className="mb-14 p-6 sm:p-8 rounded-2xl bg-slate-900 border border-cyan-500/30 shadow-[0_0_30px_rgba(6,182,212,0.12)] backdrop-blur-xl relative overflow-hidden group text-left">
+          <div className="absolute top-0 right-0 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none -mr-16 -mt-16 group-hover:bg-cyan-500/15 transition-colors" />
+          <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="space-y-2 max-w-3xl">
+              <div className="inline-flex items-center gap-1.5 text-cyan-400 font-mono text-[11px] font-bold tracking-wider uppercase">
+                <Sparkles size={14} className="text-cyan-400 animate-pulse" />
+                <span>Localized Biological Hardware & Diagnostics</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-display uppercase tracking-tight text-white font-black">
+                Ready to transition from guessing to knowing?
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+                Explore our country-localized Sovereign Storefront to review FDA, MHRA, and CE compliant home testing reagents, medical-grade telemetry, and comprehensive cellular blood baselines tailored specifically for the US, UK, and Spanish markets.
+              </p>
+            </div>
+            <div className="flex-shrink-0">
+              <button
+                type="button"
+                onClick={() => navigate('/store')}
+                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500 hover:from-cyan-300 hover:to-indigo-400 text-slate-950 font-black text-xs font-mono uppercase tracking-wider shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_25px_rgba(6,182,212,0.6)] transition-all transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2"
+              >
+                <span>Explore Sovereign Storefront →</span>
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Elegant Centered 3-Tab Navigation Group */}
@@ -258,12 +287,13 @@ export default function StartHere() {
                     </div>
                     
                     <div className="pt-2">
-                      <Link
-                        to="/health"
+                      <button
+                        type="button"
+                        onClick={() => navigate('/store')}
                         className="inline-flex justify-center items-center w-full py-3 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 hover:text-cyan-300 rounded-xl text-xs font-black uppercase tracking-wider transition-all border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.15)] text-center cursor-pointer"
                       >
                         Order Home Epigenetic Testing Kit →
-                      </Link>
+                      </button>
                     </div>
                   </div>
 
@@ -282,14 +312,13 @@ export default function StartHere() {
                     </div>
                     
                     <div className="pt-2">
-                      <a
-                        href="https://referrals.lolahealth.com/NextLevel15"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <button
+                        type="button"
+                        onClick={() => navigate('/store')}
                         className="inline-flex justify-center items-center w-full py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-xl text-xs font-black uppercase tracking-wider transition-all text-center cursor-pointer shadow-[0_0_15px_rgba(6,182,212,0.2)]"
                       >
                         Secure Partner Lab Clinical Draw (£237) →
-                      </a>
+                      </button>
                     </div>
                   </div>
 
