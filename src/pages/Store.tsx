@@ -165,6 +165,7 @@ export default function Store() {
         image_url: product.image_url,
         deal_url: marketConfig?.url || '',
         badge_text: marketConfig?.badge || 'Clinical Grade',
+        network: marketConfig?.network,
         market_region: region
       };
     });

@@ -236,52 +236,61 @@ const Navbar = () => {
       )}
 
       {/* ========================================================================= */}
-      {/* MAIN WEBSITE NAVIGATION MENU (Permanently visible at top, adaptive)      */}
+      {/* MAIN WEBSITE NAVIGATION MENU (Single Sleek Bar with 2-Line Stacked Labels) */}
       {/* ========================================================================= */}
       <div className={`transition-all duration-300 ease-in-out relative z-50 transform-gpu ${
         !isHomepage
-          ? 'bg-[#020617] backdrop-blur-2xl border-b border-slate-800/80 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.85)]'
+          ? 'bg-[#020617]/95 backdrop-blur-2xl border-b border-slate-800/80 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.85)]'
           : isScrolled 
-            ? 'bg-[#020617] backdrop-blur-2xl border-b border-slate-800/80 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.85)]' 
-            : 'bg-slate-950/80 backdrop-blur-xl border-b border-white/5 py-4 lg:bg-transparent lg:border-none lg:py-5'
+            ? 'bg-[#020617]/95 backdrop-blur-2xl border-b border-slate-800/80 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.85)]' 
+            : 'bg-slate-950/90 backdrop-blur-xl border-b border-slate-800/40 py-2.5 shadow-[0_4px_20px_rgba(0,0,0,0.5)]'
       }`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-[1600px] mx-auto px-2 sm:px-3 lg:px-5">
           <div className="flex justify-between items-center">
+            
             {/* Logo */}
-            <Link to="/" onClick={handleHomeClick} className="flex items-center group shrink-0 mr-3 xl:mr-5">
+            <Link to="/" onClick={handleHomeClick} className="flex items-center group shrink-0 mr-2 xl:mr-4">
               <img 
                 src="/assets/logo.png" 
                 alt="123 The Next Level Logo" 
-                className="w-8 h-8 xl:w-9 xl:h-9 object-contain mr-2.5 group-hover:scale-110 transition-transform duration-500"
+                className="w-7 h-7 xl:w-8 xl:h-8 object-contain mr-1.5 group-hover:scale-105 transition-transform duration-300"
               />
-              <span className="font-display font-black uppercase tracking-tighter text-lg xl:text-xl text-white group-hover:text-blue-400 transition-colors duration-300">
+              <span className="font-display font-black uppercase tracking-tight text-sm sm:text-base xl:text-lg text-white group-hover:text-blue-400 transition-colors duration-300">
                 123TheNext<span className="text-blue-500">Level</span>
               </span>
             </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-1 xl:space-x-1.5 flex-nowrap shrink-0">
+            {/* Desktop Navigation with 2-Line Stacked Labels for Large, Bold Typography */}
+            <div className="hidden lg:flex items-center space-x-1 xl:space-x-2.5 shrink-0">
               {/* Home */}
-              <Link to="/" onClick={handleHomeClick} className="px-2 xl:px-2.5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
+              <Link 
+                to="/" 
+                onClick={handleHomeClick} 
+                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors whitespace-nowrap flex items-center"
+              >
                 {t('nav_home')}
               </Link>
               
-              {/* Dual-Track */}
-              <Link to="/dual-track" className="px-2 xl:px-2.5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
-                Dual-Track
+              {/* Dual-Track (Stacked 2 Lines) */}
+              <Link 
+                to="/dual-track" 
+                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors flex flex-col items-center text-center leading-tight"
+              >
+                <span>Dual</span>
+                <span>Track</span>
               </Link>
 
               {/* Pillars Dropdown Trigger */}
               <div className="relative group py-1">
-                <button className="flex items-center px-2 xl:px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors cursor-pointer outline-none">
-                  Pillars
-                  <ChevronDown size={10} className="ml-1 transition-transform group-hover:rotate-180 duration-300" />
+                <button className="flex items-center px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors cursor-pointer outline-none">
+                  <span>Pillars</span>
+                  <ChevronDown size={13} className="ml-0.5 transition-transform group-hover:rotate-180 duration-300 text-slate-400" />
                 </button>
                 
                 {/* Pillars Dropdown Panel */}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 hidden group-hover:block w-80 pt-3 z-50">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 hidden group-hover:block w-80 pt-2 z-50">
                   <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 shadow-2xl space-y-1">
-                    <div className="text-[9px] font-black uppercase tracking-wider text-slate-500 mb-2 px-3 border-b border-slate-900 pb-2">Explore Optimization Pillars</div>
+                    <div className="text-[10px] font-black uppercase tracking-wider text-slate-500 mb-2 px-3 border-b border-slate-900 pb-2">Explore Optimization Pillars</div>
                     {pillars.map(pillar => {
                       const Icon = pillar.icon;
                       return (
@@ -292,8 +301,8 @@ const Navbar = () => {
                         >
                           <Icon size={16} className="text-blue-400" />
                           <div>
-                            <div className="text-[11px] font-black uppercase tracking-wider text-left">{pillar.name}</div>
-                            <div className="text-[9px] text-slate-500 mt-0.5 text-left">{pillar.desc}</div>
+                            <div className="text-xs font-black uppercase tracking-wider text-left">{pillar.name}</div>
+                            <div className="text-[10px] text-slate-400 mt-0.5 text-left">{pillar.desc}</div>
                           </div>
                         </Link>
                       );
@@ -302,21 +311,24 @@ const Navbar = () => {
                 </div>
               </div>
 
-              {/* Updates Dropdown */}
+              {/* Blog Updates Dropdown (Stacked 2 Lines) */}
               <div className="relative group py-1">
-                <button className="flex items-center px-2 xl:px-2.5 py-1 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors cursor-pointer outline-none">
-                  Updates
-                  <ChevronDown size={10} className="ml-1 transition-transform group-hover:rotate-180 duration-300" />
+                <button className="flex items-center px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors cursor-pointer outline-none">
+                  <span className="flex flex-col items-center text-center leading-tight">
+                    <span>Blog</span>
+                    <span>Updates</span>
+                  </span>
+                  <ChevronDown size={13} className="ml-0.5 transition-transform group-hover:rotate-180 duration-300 text-slate-400" />
                 </button>
                 
                 {/* Updates Dropdown Panel */}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 hidden group-hover:block w-72 pt-3 z-50">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 hidden group-hover:block w-72 pt-2 z-50">
                   <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 shadow-2xl space-y-1">
-                    <div className="text-[9px] font-black uppercase tracking-wider text-slate-500 mb-2 px-3 border-b border-slate-900 pb-2">Research Categories</div>
+                    <div className="text-[10px] font-black uppercase tracking-wider text-slate-500 mb-2 px-3 border-b border-slate-900 pb-2">Research Categories</div>
                     
                     <Link
                       to="/updates"
-                      className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition-all text-[11px] font-black uppercase tracking-wider text-left"
+                      className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition-all text-xs font-black uppercase tracking-wider text-left"
                     >
                       <Info size={14} className="text-blue-400" />
                       <span>All Updates</span>
@@ -337,8 +349,8 @@ const Navbar = () => {
                         >
                           <Icon size={14} className="text-blue-400" />
                           <div>
-                            <div className="text-[11px] font-black uppercase tracking-wider text-left">{cat.name}</div>
-                            <div className="text-[9px] text-slate-500 mt-0.5 text-left">{cat.desc}</div>
+                            <div className="text-xs font-black uppercase tracking-wider text-left">{cat.name}</div>
+                            <div className="text-[10px] text-slate-400 mt-0.5 text-left">{cat.desc}</div>
                           </div>
                         </Link>
                       );
@@ -347,49 +359,68 @@ const Navbar = () => {
                 </div>
               </div>
 
-              {/* Science / Revolution */}
+              {/* The Anti-Aging Health Revolution (Stacked 2 Lines) */}
               <Link 
                 to="/science" 
+                className="px-1.5 xl:px-2.5 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors flex flex-col items-center text-center leading-tight"
                 title="The Anti-Aging Health Revolution"
-                className="px-2 xl:px-2.5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-cyan-400 transition-colors"
               >
-                Science
+                <span>The Anti-Aging</span>
+                <span>Health Revolution</span>
               </Link>
 
-              {/* Sovereign Store */}
+              {/* Sovereign Store (Stacked 2 Lines) */}
               <Link 
                 to="/store" 
-                className="px-2.5 xl:px-3 py-1 text-[10px] font-black uppercase tracking-[0.15em] text-cyan-300 hover:text-white bg-cyan-950/60 border border-cyan-500/40 rounded-lg shadow-[0_0_10px_rgba(6,182,212,0.2)] hover:border-cyan-400 transition-all font-mono"
+                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors flex flex-col items-center text-center leading-tight"
+                title="Sovereign Store"
               >
-                Store
+                <span>Sovereign</span>
+                <span>Store</span>
               </Link>
 
-              {/* Guides */}
-              <Link to="/premium-guides" className="px-2 xl:px-2.5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
-                Guides
+              {/* Premium Guides (Stacked 2 Lines) */}
+              <Link 
+                to="/premium-guides" 
+                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors flex flex-col items-center text-center leading-tight"
+              >
+                <span>Premium</span>
+                <span>Guides</span>
               </Link>
 
-              {/* Intel */}
-              <Link to="/intelligence-hub" className="px-2 xl:px-2.5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
-                Intel
+              {/* Intelligence */}
+              <Link 
+                to="/intelligence-hub" 
+                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors whitespace-nowrap flex items-center"
+              >
+                Intelligence
               </Link>
 
-              {/* Design */}
-              <Link to="/design-system" className="px-2 xl:px-2.5 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-slate-400 hover:text-white transition-colors">
-                Design
+              {/* Design System (Stacked 2 Lines) */}
+              <Link 
+                to="/design-system" 
+                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-colors flex flex-col items-center text-center leading-tight"
+              >
+                <span>Design</span>
+                <span>System</span>
               </Link>
-              
-              <div className="h-4 w-px bg-white/10 mx-1.5"></div>
-              
+
+              {/* Vertical divider */}
+              <div className="h-6 w-px bg-slate-800 shrink-0 mx-1 xl:mx-1.5"></div>
+
               {/* Global Market Selector in Navbar */}
-              <MarketSelector />
+              <div className="shrink-0">
+                <MarketSelector />
+              </div>
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="lg:hidden flex items-center gap-4">
+            <div className="lg:hidden flex items-center gap-3">
+              <MarketSelector />
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-white p-2 hover:bg-white/10 rounded-xl transition-colors animate-fade-in"
+                className="text-white p-2 hover:bg-white/10 rounded-xl transition-colors"
+                aria-label="Toggle Navigation Menu"
               >
                 {isOpen ? <X size={24} /> : <Menu size={24} />}
               </button>

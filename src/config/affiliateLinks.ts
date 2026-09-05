@@ -94,7 +94,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
   {
     id: "cgm",
     name: "Continuous Glucose Monitor (Abbott Lingo / Dexcom ONE+)",
-    category: "Tech Gadgets & Wearables",
+    category: "Performance & Testing",
     rating: 4.75,
     description: "Real-time interstitial glucose tracking mapping energy peaks and valleys. Instantly syncs blood sugar fluctuations to target metabolic health.",
     price_text: "$89.00 / £79.00 / 79,00€ per month",
