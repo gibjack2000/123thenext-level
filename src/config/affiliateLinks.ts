@@ -30,9 +30,10 @@ export interface SovereignProductItem {
   description: string;
   price_text: string;
   deal_url: string;
-  market_region: MarketRegion;
+  market_region?: MarketRegion;
   badge_text: string;
   image_url: string;
+  network?: string;
 }
 
 export const sovereignHealthStack: SovereignProduct[] = [

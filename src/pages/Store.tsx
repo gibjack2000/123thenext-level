@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   ShieldCheck, 
@@ -16,11 +17,11 @@ import {
   Sparkles, 
   FileText, 
   Stethoscope, 
-  Star,
-  RefreshCw,
-  SlidersHorizontal,
-  ChevronRight,
-  CheckCircle2
+  Star, 
+  RefreshCw, 
+  SlidersHorizontal, 
+  ChevronRight, 
+  CheckCircle2 
 } from 'lucide-react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { 
@@ -102,7 +103,15 @@ const categoryTabs: { key: string; label: string }[] = [
 ];
 
 export default function Store() {
-  const [selectedRegion, setSelectedRegion] = useState<MarketRegion>('US');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Extract initial country from URL search params if present
+  const initialCountryParam = searchParams.get('country')?.toUpperCase();
+  const initialRegion: MarketRegion = ['US', 'UK', 'ES'].includes(initialCountryParam || '')
+    ? (initialCountryParam as MarketRegion)
+    : 'US';
+
+  const [selectedRegion, setSelectedRegion] = useState<MarketRegion>(initialRegion);
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [products, setProducts] = useState<SovereignProductItem[]>([]);
@@ -115,34 +124,65 @@ export default function Store() {
     window.scrollTo(0, 0);
   }, []);
 
+  // Sync state with URL parameters
+  useEffect(() => {
+    const country = searchParams.get('country')?.toUpperCase();
+    if (country && ['US', 'UK', 'ES'].includes(country) && country !== selectedRegion) {
+      setSelectedRegion(country as MarketRegion);
+    }
+    const suite = searchParams.get('suite')?.toLowerCase();
+    if (suite === 'hardware') {
+      setActiveCategory('Tech Gadgets & Wearables');
+    } else if (suite === 'reagents') {
+      setActiveCategory('Supplements');
+    } else if (suite === 'blood') {
+      setActiveCategory('Performance & Testing');
+    }
+  }, [searchParams]);
+
+  // Helper function to dynamically map sovereignHealthStack into flat regional items
+  const getFormattedFallbackProducts = (region: MarketRegion): SovereignProductItem[] => {
+    const marketKey = region.toLowerCase() as 'us' | 'uk' | 'es';
+    return sovereignHealthStack.map((product) => {
+      const marketConfig = product[marketKey] || product.us;
+
+      // Parse localized price if multiple are listed
+      let localizedPrice = product.price_text;
+      if (product.price_text && product.price_text.includes('/')) {
+        const parts = product.price_text.split('/').map((s) => s.trim());
+        if (marketKey === 'us' && parts[0]) localizedPrice = parts[0];
+        else if (marketKey === 'uk' && parts[1]) localizedPrice = parts[1];
+        else if (marketKey === 'es' && parts[2]) localizedPrice = parts[2];
+      }
+
+      return {
+        id: `${product.id}-${region}`,
+        name: product.name,
+        category: product.category,
+        rating: product.rating,
+        description: product.description,
+        price_text: localizedPrice,
+        image_url: product.image_url,
+        deal_url: marketConfig?.url || '',
+        badge_text: marketConfig?.badge || 'Clinical Grade',
+        market_region: region
+      };
+    });
+  };
+
   // Resilient fetch with a 1.5-second timeout race condition against Supabase
   useEffect(() => {
     let isMounted = true;
     setIsLoading(true);
 
     const loadProducts = async () => {
-      // Step 1: Default fallback from static config
-      const rKey = selectedRegion.toLowerCase() as 'us' | 'uk' | 'es';
-      const staticRegionItems: SovereignProductItem[] = sovereignHealthStack.map(item => {
-        const market = item[rKey] || item.us;
-        return {
-          id: `${item.id}-${rKey}`,
-          name: item.name,
-          category: item.category,
-          rating: item.rating,
-          description: item.description,
-          price_text: item.price_text,
-          deal_url: market.url,
-          market_region: selectedRegion,
-          badge_text: market.badge,
-          image_url: item.image_url
-        };
-      });
+      // Step 1: Compute dynamic fallback for the currently selected region
+      const formattedFallback = getFormattedFallbackProducts(selectedRegion);
 
-      // If Supabase is not configured, immediately use static stack
+      // If Supabase is not configured, offline, or unavailable, immediately use static stack
       if (!hasValidSupabaseConfig || !supabase) {
         if (isMounted) {
-          setProducts(staticRegionItems);
+          setProducts(formattedFallback);
           setDataSource('fallback');
           setIsLoading(false);
         }
@@ -172,24 +212,33 @@ export default function Store() {
         }
       })();
 
-      const raceResult = await Promise.race([fetchPromise, timeoutPromise]);
+      try {
+        const raceResult = await Promise.race([fetchPromise, timeoutPromise]);
 
-      if (!isMounted) return;
+        if (!isMounted) return;
 
-      if ('timeout' in raceResult && raceResult.timeout) {
-        console.info('[Store] Supabase query took >1.5s. Rendered high-speed static fallback stack.');
-        setProducts(staticRegionItems);
-        setDataSource('fallback');
-      } else if ('data' in raceResult && raceResult.data && raceResult.data.length > 0) {
-        setProducts(raceResult.data);
-        setDataSource('supabase');
-      } else {
-        // Fallback if data is empty or errored
-        setProducts(staticRegionItems);
-        setDataSource('fallback');
+        if ('timeout' in raceResult && raceResult.timeout) {
+          console.info('[Store] Supabase query took >1.5s. Rendered high-speed static fallback stack.');
+          setProducts(formattedFallback);
+          setDataSource('fallback');
+        } else if ('data' in raceResult && raceResult.data && raceResult.data.length > 0) {
+          setProducts(raceResult.data);
+          setDataSource('supabase');
+        } else {
+          // Fallback if data is empty or errored
+          setProducts(formattedFallback);
+          setDataSource('fallback');
+        }
+      } catch (err) {
+        if (isMounted) {
+          setProducts(formattedFallback);
+          setDataSource('fallback');
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
       }
-
-      setIsLoading(false);
     };
 
     loadProducts();
