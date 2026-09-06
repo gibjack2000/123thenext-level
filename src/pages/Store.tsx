@@ -3,72 +3,718 @@ import { supabase } from '../lib/supabaseClient';
 
 type MarketTab = 'US' | 'UK' | 'ES';
 
-// Complete Local Fallback Registry to guarantee the page is never blank
-const localFallbackCatalog = [
+interface ProductMarketConfig {
+  url: string;
+  ctaText: string;
+  badge: string;
+  network: string;
+  priceText: string;
+}
+
+interface SovereignProduct {
+  id: string;
+  name: string;
+  category: string;
+  isDirectAffiliate: boolean;
+  rating: number;
+  description: string;
+  image_url: string;
+  us: ProductMarketConfig;
+  uk: ProductMarketConfig;
+  es: ProductMarketConfig;
+}
+
+// 100% COMPLETE STATIC CATALOG FALLBACK REGISTRY
+const localMasterCatalog: SovereignProduct[] = [
   {
-    id: "blood-panel-us",
+    id: "blood-panel",
     name: "Personalized Cellular Biomarker Map (56 Biomarkers)",
     category: "Performance & Testing",
-    is_direct_affiliate: true,
+    isDirectAffiliate: true,
     rating: 4.95,
-    description: "Direct-to-consumer longevity blood panels mapping 56 essential biomarkers. Local Quest/Labcorp draw in the US.",
+    description: "Direct-to-consumer longevity blood panels mapping 56 essential biomarkers. Local Quest/Labcorp draw in the US, private clinical setups in UK and ES.",
     image_url: "https://123thenextlevel.com/assets/images/shop/blood-panel.png",
-    deal_url: "https://www.healthlabs.com/?affiliate=123znl",
-    badge_text: "CLIA Certified & CAP Accredited",
-    price_text: "$299.00",
-    market_region: "US"
+    us: {
+      url: "https://www.healthlabs.com/?affiliate=123znl",
+      ctaText: "Map Your Biomarkers on HealthLabs US 🇺🇸",
+      badge: "CLIA Certified & CAP Accredited",
+      network: "HealthLabs Direct",
+      priceText: "$299.00"
+    },
+    uk: {
+      url: "https://snwbl.io/out/NcealZ11",
+      ctaText: "Map Your Biomarkers on LOLA Health UK 🇬🇧",
+      badge: "UKAS Accredited & ISO Certified",
+      network: "LOLA Health Partner",
+      priceText: "£149.00"
+    },
+    es: {
+      url: "https://www.melio.es",
+      ctaText: "Map Your Biomarkers on Melio ES 🇪🇸",
+      badge: "CE Marked & Megalab Certified Partner",
+      network: "Melio ES Partner",
+      priceText: "149,00€"
+    }
   },
   {
-    id: "cgm-us",
+    id: "cgm",
     name: "Continuous Glucose Monitor (Abbott Lingo / Dexcom ONE+)",
     category: "Tech Gadgets & Wearables",
-    is_direct_affiliate: true,
+    isDirectAffiliate: true,
     rating: 4.80,
-    description: "Real-time interstitial glucose tracking mapping energy peaks and valleys.",
+    description: "Real-time interstitial glucose tracking mapping energy peaks and valleys. Instantly syncs blood sugar fluctuations to target metabolic health.",
     image_url: "https://123thenextlevel.com/assets/images/shop/cgm.png",
-    deal_url: "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl0e-20",
-    badge_text: "FDA Cleared / OTC Eligible",
-    price_text: "$89.00/mo",
-    market_region: "US"
+    us: {
+      url: "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl0e-20",
+      ctaText: "Examine Glycemic Protocols on Lingo US 🇺🇸",
+      badge: "FDA Cleared / OTC Eligible",
+      network: "Amazon Associates",
+      priceText: "$89.00/mo"
+    },
+    uk: {
+      url: "https://hellolingo.co.uk",
+      ctaText: "Examine Glycemic Protocols on Lingo UK 🇬🇧",
+      badge: "MHRA Registered",
+      network: "Lingo UK Direct",
+      priceText: "£79.00/mo"
+    },
+    es: {
+      url: "https://www.dexcom.com/es-ES",
+      ctaText: "Examine Glycemic Protocols on Dexcom ES 🇪🇸",
+      badge: "CE Marked / Pharmacy Approved",
+      network: "Dexcom ES Portal",
+      priceText: "79,00€/mo"
+    }
   },
   {
-    id: "kitchen-blender-us",
-    name: "Premium Longevity Nutrient Blender",
-    category: "Kitchen",
-    is_direct_affiliate: false,
+    id: "stethoscope",
+    name: "Eko CORE 500™ Digital AI Stethoscope",
+    category: "Performance & Testing",
+    isDirectAffiliate: true,
+    rating: 4.95,
+    description: "FDA-cleared electronic stethoscope with 3-lead ECG. Uses clinical AI to detect murmurs, arrhythmias, and cardiac strain signs in 15 seconds.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/core-500.png",
+    us: {
+      url: "https://www.ekohealth.com/products/core-500-digital-stethoscope",
+      ctaText: "Review Acoustic Specs on Eko US 🇺🇸",
+      badge: "FDA Cleared AI Auscultation",
+      network: "Eko Health Direct",
+      priceText: "$429.00"
+    },
+    uk: {
+      url: "https://www.ekohealth.com/products/core-500-digital-stethoscope",
+      ctaText: "Review Acoustic Specs on Eko UK 🇬🇧",
+      badge: "MHRA Registered",
+      network: "Eko Health Direct",
+      priceText: "£379.00"
+    },
+    es: {
+      url: "https://www.doccheck.com/es/",
+      ctaText: "Review Acoustic Specs on DocCheck ES 🇪🇸",
+      badge: "CE Marked Clinical Device",
+      network: "DocCheck EU Partner",
+      priceText: "429,00€"
+    }
+  },
+  {
+    id: "sirtuin-stack",
+    name: "Momentous Sirtuin Activation Stack",
+    category: "Supplements",
+    isDirectAffiliate: true,
     rating: 4.90,
-    description: "High-speed precision cyclonic nutrient extractor to pulverize tough cell walls of leafy greens and frozen adaptogens.",
-    image_url: "https://123thenextlevel.com/assets/images/shop/water-bottle.png",
-    deal_url: "https://www.amazon.com/dp/B08524B5C6?tag=123znl0e-20",
-    badge_text: "1200W Professional Base",
-    price_text: "$89.99",
-    market_region: "US"
+    description: "Premium NSF Certified for Sport Trans-Resveratrol, NMN, and Nattokinase. Formulated to provide biological cofactors to activate Sirtuin pathways.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/sirtuin-stack.png",
+    us: {
+      url: "https://livemomentous.com/modernwisdom?code=modernwisdom",
+      ctaText: "Review Certified Ingredients on Momentous US 🇺🇸",
+      badge: "NSF Certified for Sport",
+      network: "Momentous Partner",
+      priceText: "$89.95"
+    },
+    uk: {
+      url: "https://healf.co.uk/collections/momentus",
+      ctaText: "Review Certified Ingredients on Healf UK 🇬🇧",
+      badge: "NSF Certified / UK Sourced",
+      network: "Healf UK Portal",
+      priceText: "£79.99"
+    },
+    es: {
+      url: "https://newtra.eu",
+      ctaText: "Review Certified Ingredients on Newtra ES 🇪🇸",
+      badge: "Customs-Safe EU Delivery",
+      network: "Newtra EU Portal",
+      priceText: "89,95€"
+    }
   },
   {
-    id: "rower-us",
+    id: "ag1-nutrition",
+    name: "AG1 Essential Nutrition (75 Vitamins & Minerals)",
+    category: "Supplements",
+    isDirectAffiliate: true,
+    rating: 4.90,
+    description: "Comprehensive daily nutritional insurance packing 75 vitamins, minerals, probiotics, and whole-food ingredients in a single daily scoop.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/ag1-nutrition.png",
+    us: {
+      url: "https://drinkag1.com/modernwisdom",
+      ctaText: "Buy AG1 on drinkag1.com US 🇺🇸",
+      badge: "4 Clinical Trials | NSF Certified",
+      network: "AG1 Direct",
+      priceText: "$79.00/mo"
+    },
+    uk: {
+      url: "https://drinkag1.com/modernwisdom",
+      ctaText: "Buy AG1 on drinkag1.com UK 🇬🇧",
+      badge: "4 Clinical Trials | NSF Certified",
+      network: "AG1 Direct",
+      priceText: "£79.00/mo"
+    },
+    es: {
+      url: "https://drinkag1.com/modernwisdom",
+      ctaText: "Buy AG1 on drinkag1.com ES 🇪🇸",
+      badge: "4 Ensayos Clínicos | Certificado NSF",
+      network: "AG1 Direct",
+      priceText: "87,00€/mes"
+    }
+  },
+  {
+    id: "timeline-mitopure",
+    name: "Timeline Mitopure Cellular Energy (Urolithin A)",
+    category: "Supplements",
+    isDirectAffiliate: true,
+    rating: 4.95,
+    description: "Clinically proven to trigger mitophagy, clearing away damaged mitochondria to renew cellular energy and enhance muscle strength over time.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/timeline-mitopure.png",
+    us: {
+      url: "https://timeline.com/modernwisdom",
+      ctaText: "Examine Mitopure on Timeline US 🇺🇸",
+      badge: "50+ Patents | FDA GRAS Status",
+      network: "Timeline Direct",
+      priceText: "$99.00"
+    },
+    uk: {
+      url: "https://timeline.com/modernwisdom",
+      ctaText: "Examine Mitopure on Timeline UK 🇬🇧",
+      badge: "50+ Patents | UKAS Validated",
+      network: "Timeline Direct",
+      priceText: "£89.00"
+    },
+    es: {
+      url: "https://timeline.com/modernwisdom",
+      ctaText: "Examine Mitopure on Timeline ES 🇪🇸",
+      badge: "50+ Patentes | Estado GRAS de la FDA",
+      network: "Timeline Direct",
+      priceText: "99,00€"
+    }
+  },
+  {
+    id: "reagent-strips",
+    name: "ALLTEST 10-Parameter Urinary Reagent Strips",
+    category: "Performance & Testing",
+    isDirectAffiliate: false,
+    rating: 4.85,
+    description: "A visual, dip-and-read chemical test tracking 10 critical parameters in under 2 minutes. Zero digital screen-time.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/reagent-strips.png",
+    us: {
+      url: "https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20",
+      ctaText: "Explore Reagents on Amazon US 🇺🇸",
+      badge: "FDA Cleared & CLIA Waived",
+      network: "Amazon Associates",
+      priceText: "$14.99"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123znl0f3-21",
+      ctaText: "Explore Reagents on Amazon UK 🇬🇧",
+      badge: "MHRA Registered",
+      network: "Amazon Associates",
+      priceText: "£12.99"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21",
+      ctaText: "Explore Reagents on Amazon ES 🇪🇸",
+      badge: "CE 0123 Medical Marked",
+      network: "Amazon Associates",
+      priceText: "14,99€"
+    }
+  },
+  {
+    id: "blood-pressure-cuff",
+    name: "Withings BPM Connect Wi-Fi Cuff",
+    category: "Tech Gadgets & Wearables",
+    isDirectAffiliate: false,
+    rating: 4.80,
+    description: "Smart Wi-Fi blood pressure cuff. Automatically logs systolic, diastolic, and pulse trends, classifying cardiovascular data.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/bpm-connect.png",
+    us: {
+      url: "https://www.amazon.com/dp/B07SJV1HNR?tag=123znl0e-20",
+      ctaText: "Review Vascular Compliance on Withings US 🇺🇸",
+      badge: "FDA Cleared",
+      network: "Amazon Associates",
+      priceText: "$99.95"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B07SJV1HNR?tag=123znl0f3-21",
+      ctaText: "Review Vascular Compliance on Withings UK 🇬🇧",
+      badge: "CE Medical Class IIa",
+      network: "Amazon Associates",
+      priceText: "£89.99"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B07SJV1HNR?tag=123znl08a-21",
+      ctaText: "Review Vascular Compliance on Withings ES 🇪🇸",
+      badge: "CE Medical Class IIa",
+      network: "Amazon Associates",
+      priceText: "99,95€"
+    }
+  },
+  {
+    id: "sleep-analyzer",
+    name: "Withings Sleep Analyzer Under-Mattress Pad",
+    category: "Tech Gadgets & Wearables",
+    isDirectAffiliate: false,
+    rating: 4.82,
+    description: "A contact-free sleep tracker placed under your mattress. Automatically logs sleeping heart rate, sleep cycles, and passive breathing disturbances.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/sleep-analyzer.png",
+    us: {
+      url: "https://www.amazon.com/dp/B078Z1B34S?tag=123znl0e-20",
+      ctaText: "Review Sleep Telemetry on Withings US 🇺🇸",
+      badge: "Touch-Free Sleep Science",
+      network: "Amazon Associates",
+      priceText: "$129.95"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B0892BGFX7?tag=123znl0f3-21",
+      ctaText: "Review Sleep Telemetry on Withings UK 🇬🇧",
+      badge: "CE Medically Validated (Apnea)",
+      network: "Amazon Associates",
+      priceText: "£119.99"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B0892BGFX7?tag=123znl08a-21",
+      ctaText: "Review Sleep Telemetry on Withings ES 🇪🇸",
+      badge: "CE Medically Validated (Apnea)",
+      network: "Amazon Associates",
+      priceText: "129,95€"
+    }
+  },
+  {
+    id: "segmental-scale",
+    name: "Withings Body Scan Segmental Composition Scale",
+    category: "Tech Gadgets & Wearables",
+    isDirectAffiliate: false,
+    rating: 4.88,
+    description: "FDA-cleared 8-electrode bioelectrical impedance scale. Segmentally maps skeletal muscle mass, fat percentage by limb, and visceral fat index.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/body-scan.png",
+    us: {
+      url: "https://www.amazon.com/dp/B0B9849CD1?tag=123znl0e-20",
+      ctaText: "Examine Somatic Metrics on Withings US 🇺🇸",
+      badge: "FDA Cleared",
+      network: "Amazon Associates",
+      priceText: "$399.95"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B0B9849CD1?tag=123znl0f3-21",
+      ctaText: "Examine Somatic Metrics on Withings UK 🇬🇧",
+      badge: "CE Medical Marked",
+      network: "Amazon Associates",
+      priceText: "£349.99"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B0B9849CD1?tag=123znl08a-21",
+      ctaText: "Examine Somatic Metrics on Withings ES 🇪🇸",
+      badge: "CE Medical Marked",
+      network: "Amazon Associates",
+      priceText: "399,95€"
+    }
+  },
+  {
+    id: "wearable-tracker",
+    name: "Apple Watch Series 10 (GPS 46mm)",
+    category: "Tech Gadgets & Wearables",
+    isDirectAffiliate: false,
+    rating: 4.80,
+    description: "Advanced multispectral wearable capturing sleep architecture, resting heart rate, sleep apnea flags, and Heart Rate Variability (HRV).",
+    image_url: "https://123thenextlevel.com/assets/images/shop/apple-watch.png",
+    us: {
+      url: "https://www.amazon.com/dp/B0DGJG692K?tag=123znl0e-20",
+      ctaText: "Compare Wearables on Amazon US 🇺🇸",
+      badge: "FDA Approved Heart Notifications",
+      network: "Amazon Associates",
+      priceText: "$399.00"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B0DGJHCPX5?tag=123znl0f3-21",
+      ctaText: "Compare Wearables on Amazon UK 🇬🇧",
+      badge: "MHRA Certified Telemetry",
+      network: "Amazon Associates",
+      priceText: "£379.00"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B0DGJG692K?tag=123znl08a-21",
+      ctaText: "Compare Wearables on Amazon ES 🇪🇸",
+      badge: "CE Compliant Biometrics",
+      network: "Amazon Associates",
+      priceText: "399,00€"
+    }
+  },
+  {
+    id: "noise-headphones",
+    name: "Sony WH-CH720N Noise-Canceling Headphones",
+    category: "Lifestyle & Performance Gear",
+    isDirectAffiliate: false,
+    rating: 4.90,
+    description: "Immersive active noise cancellation to completely isolate your auditory environment during vagal and deep-breathing mindfulness cycles.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/sony-headphones.png",
+    us: {
+      url: "https://www.amazon.com/dp/B0BTY3Y6PP?tag=123znl0e-20",
+      ctaText: "Examine Noise Isolation on Amazon US 🇺🇸",
+      badge: "Ultra-Lightweight Comfort",
+      network: "Amazon Associates",
+      priceText: "$149.99"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B0BTY3Y6PP?tag=123znl0f3-21",
+      ctaText: "Examine Noise Isolation on Amazon UK 🇬🇧",
+      badge: "35-Hour Battery Life",
+      network: "Amazon Associates",
+      priceText: "£119.00"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B0BTY3Y6PP?tag=123znl08a-21",
+      ctaText: "Examine Noise Isolation on Amazon ES 🇪🇸",
+      badge: "Cancelación Activa de Ruido",
+      network: "Amazon Associates",
+      priceText: "129,00€"
+    }
+  },
+  {
+    id: "meditation-cushion",
+    name: "basaho Classic Zafu Meditation Cushion",
+    category: "Lifestyle & Performance Gear",
+    isDirectAffiliate: false,
+    rating: 4.85,
+    description: "Buckwheat-filled organic cotton meditation cushion to optimize posture, spinal alignment, and vagal tone training.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/meditation-cushion.png",
+    us: {
+      url: "https://www.amazon.com/dp/B01697W160?tag=123znl0e-20",
+      ctaText: "View Ergonomics on Amazon US 🇺🇸",
+      badge: "Organic Cotton Certified",
+      network: "Amazon Associates",
+      priceText: "$35.00"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B01697W160?tag=123znl0f3-21",
+      ctaText: "View Ergonomics on Amazon UK 🇬🇧",
+      badge: "Buckwheat Filled Premium",
+      network: "Amazon Associates",
+      priceText: "£29.99"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B01697W160?tag=123znl08a-21",
+      ctaText: "View Ergonomics on Amazon ES 🇪🇸",
+      badge: "Algodón Orgánico Certificado",
+      network: "Amazon Associates",
+      priceText: "34,99€"
+    }
+  },
+  {
+    id: "marine-collagen",
+    name: "Zebora Marine Collagen Peptides Powder",
+    category: "Lifestyle & Performance Gear",
+    isDirectAffiliate: false,
+    rating: 4.75,
+    description: "Hydrolyzed Type I & III fish collagen with biotin and vitamin C to reinforce structural tissue matrix and joint integrity.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/marine-collagen.png",
+    us: {
+      url: "https://www.amazon.com/dp/B07T8H5N1M?tag=123znl0e-20",
+      ctaText: "Buy Marine Collagen on Amazon US 🇺🇸",
+      badge: "Non-GMO & Gluten-Free",
+      network: "Amazon Associates",
+      priceText: "$28.99"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B07T8H5N1M?tag=123znl0f3-21",
+      ctaText: "Buy Marine Collagen on Amazon UK 🇬🇧",
+      badge: "Wild-Caught Sourced",
+      network: "Amazon Associates",
+      priceText: "£24.99"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B07T8H5N1M?tag=123znl08a-21",
+      ctaText: "Buy Marine Collagen on Amazon ES 🇪🇸",
+      badge: "Péptidos de Colágeno Hidrolizado",
+      network: "Amazon Associates",
+      priceText: "27,99€"
+    }
+  },
+  {
+    id: "water-bottle",
+    name: "Owala FreeSip Insulated Stainless Steel Bottle",
+    category: "Lifestyle & Performance Gear",
+    isDirectAffiliate: false,
+    rating: 4.90,
+    description: "Triple-insulated water bottle with patented FreeSip built-in straw, keeping hydration clean and ice-cold for 24 hours.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/water-bottle.png",
+    us: {
+      url: "https://www.amazon.com/dp/B08524B5C6?tag=123znl0e-20",
+      ctaText: "Examine Hydration Gear on Amazon US 🇺🇸",
+      badge: "Leak-Proof Double Wall",
+      network: "Amazon Associates",
+      priceText: "$27.99"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B08524B5C6?tag=123znl0f3-21",
+      ctaText: "Examine Hydration Gear on Amazon UK 🇬🇧",
+      badge: "Leak-Proof Double Wall",
+      network: "Amazon Associates",
+      priceText: "£22.99"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B08524B5C6?tag=123znl08a-21",
+      ctaText: "Examine Hydration Gear on Amazon ES 🇪🇸",
+      badge: "Aislamiento de Doble Pared",
+      network: "Amazon Associates",
+      priceText: "26,99€"
+    }
+  },
+  {
+    id: "rowing-machine",
     name: "Concept2 Remo Indoor Model D Rower",
     category: "Fitness",
-    is_direct_affiliate: false,
+    isDirectAffiliate: false,
     rating: 4.95,
-    description: "The gold-standard indoor rowing machine with PM5 monitor to optimize cardiorespiratory output.",
+    description: "The gold-standard indoor rowing machine with PM5 monitor to optimize cardiorespiratory output, muscular baseline, and metabolic power.",
     image_url: "https://123thenextlevel.com/assets/images/shop/rower.png",
-    deal_url: "https://www.amazon.com/dp/B099KBD9X8?tag=123znl0e-20",
-    badge_text: "Clinical Standard PM5 Monitor",
-    price_text: "$990.00",
-    market_region: "US"
+    us: {
+      url: "https://www.amazon.com/dp/B099KBD9X8?tag=123znl0e-20",
+      ctaText: "Compare Rowers on Amazon US 🇺🇸",
+      badge: "Clinical Standard PM5 Monitor",
+      network: "Amazon Associates",
+      priceText: "$990.00"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B099KBD9X8?tag=123znl0f3-21",
+      ctaText: "Compare Rowers on Amazon UK 🇬🇧",
+      badge: "Clinical Standard PM5 Monitor",
+      network: "Amazon Associates",
+      priceText: "£850.00"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B099KBD9X8?tag=123znl08a-21",
+      ctaText: "Compare Rowers on Amazon ES 🇪🇸",
+      badge: "Monitor PM5 Estándar",
+      network: "Amazon Associates",
+      priceText: "950,00€"
+    }
   },
   {
-    id: "sirtuin-us",
-    name: "Momentous Sirtuin Activation & Cell Recovery Stack",
+    id: "sauna-tent",
+    name: "Portable Full-Body Infrared Sauna Tent",
+    category: "Lifestyle & Performance Gear",
+    isDirectAffiliate: false,
+    rating: 4.80,
+    description: "Advanced far-infrared full-body heating cabin with folding chair, remote control, and heated footpad to accelerate cellular recovery and detoxification.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/sauna.png",
+    us: {
+      url: "https://www.amazon.com/dp/B08H23V7S5?tag=123znl0e-20",
+      ctaText: "Review Thermal Caps on Amazon US 🇺🇸",
+      badge: "Low EMF Carbon Panels",
+      network: "Amazon Associates",
+      priceText: "$249.00"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B08H23V7S5?tag=123znl0f3-21",
+      ctaText: "Review Thermal Caps on Amazon UK 🇬🇧",
+      badge: "Low EMF Carbon Panels",
+      network: "Amazon Associates",
+      priceText: "£199.99"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B08H23V7S5?tag=123znl08a-21",
+      ctaText: "Review Thermal Caps on Amazon ES 🇪🇸",
+      badge: "Paneles de Carbono de Bajo EMF",
+      network: "Amazon Associates",
+      priceText: "229,00€"
+    }
+  },
+  {
+    id: "ovarian-test",
+    name: "Ovarian Reserve Female Hormone Test Kit",
+    category: "Performance & Testing",
+    isDirectAffiliate: false,
+    rating: 4.85,
+    description: "A biology-specific finger-prick blood test to evaluate ovarian reserve and reproductive longevity baselines.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/ovarian-test.png",
+    us: {
+      url: "https://www.amazon.com/dp/B08H7V69F7?tag=123znl0e-20",
+      ctaText: "Buy Ovarian Test on Amazon US 🇺🇸",
+      badge: "CLIA Certified Labs",
+      network: "Amazon Associates",
+      priceText: "$49.00"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B08H7V69F7?tag=123znl0f3-21",
+      ctaText: "Buy Ovarian Test on Amazon UK 🇬🇧",
+      badge: "UKAS Accredited Labs",
+      network: "Amazon Associates",
+      priceText: "£39.00"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B08H7V69F7?tag=123znl08a-21",
+      ctaText: "Buy Ovarian Test on Amazon ES 🇪🇸",
+      badge: "Laboratorios Acreditados UE",
+      network: "Amazon Associates",
+      priceText: "45,00€"
+    }
+  },
+  {
+    id: "omega3-fishoil",
+    name: "Nordic Naturals Ultimate Omega 2X",
     category: "Supplements",
-    is_direct_affiliate: true,
+    isDirectAffiliate: false,
+    rating: 4.88,
+    description: "Doctor-recommended double-strength omega-3 fish oil supporting cardiovascular health, joint mobility, and autonomic nervous system balance.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/omega3-fishoil.png",
+    us: {
+      url: "https://www.amazon.com/dp/B07371SREH?tag=123znl0e-20",
+      ctaText: "Purchase Omega-3s on Amazon US 🇺🇸",
+      badge: "Third-Party Purity Certified",
+      network: "Amazon Associates",
+      priceText: "$49.95"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B07371SREH?tag=123znl0f3-21",
+      ctaText: "Purchase Omega-3s on Amazon UK 🇬🇧",
+      badge: "Third-Party Purity Certified",
+      network: "Amazon Associates",
+      priceText: "£42.99"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B07371SREH?tag=123znl08a-21",
+      ctaText: "Purchase Omega-3s on Amazon ES 🇪🇸",
+      badge: "Certificado de Pureza de Terceros",
+      network: "Amazon Associates",
+      priceText: "49,95€"
+    }
+  },
+  {
+    id: "nattokinase-enzyme",
+    name: "Pure Nattokinase Plaque-Clearing Enzyme (10,000 FU)",
+    category: "Supplements",
+    isDirectAffiliate: false,
+    rating: 4.80,
+    description: "Natural fibrinolytic enzyme extracted from fermented Japanese Natto, clinically studied to support arterial plaque clearance and optimal vascular blood flow.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/nattokinase-enzyme.png",
+    us: {
+      url: "https://www.amazon.com/dp/B0045YV0SM?tag=123znl0e-20",
+      ctaText: "Purchase Nattokinase on Amazon US 🇺🇸",
+      badge: "100% Vegan | Non-GMO Verified",
+      network: "Amazon Associates",
+      priceText: "$24.99"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B0045YV0SM?tag=123znl0f3-21",
+      ctaText: "Purchase Nattokinase on Amazon UK 🇬🇧",
+      badge: "100% Vegan | Non-GMO Verified",
+      network: "Amazon Associates",
+      priceText: "£19.99"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B0045YV0SM?tag=123znl08a-21",
+      ctaText: "Purchase Nattokinase on Amazon ES 🇪🇸",
+      badge: "Sin OGM Verificado | 100% Vegano",
+      network: "Amazon Associates",
+      priceText: "24,99€"
+    }
+  },
+  {
+    id: "coq10-energy",
+    name: "Doctor's Best Coenzyme Q10 (CoQ10 100mg)",
+    category: "Supplements",
+    isDirectAffiliate: false,
+    rating: 4.85,
+    description: "Essential cellular coenzyme required to support mitochondrial vitality, cardiovascular contraction power, and statin users.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/coq10-energy.png",
+    us: {
+      url: "https://www.amazon.com/dp/B0019GW3G8?tag=123znl0e-20",
+      ctaText: "Purchase CoQ10 on Amazon US 🇺🇸",
+      badge: "USP Verified Active Ingredients",
+      network: "Amazon Associates",
+      priceText: "$29.95"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B0019GW3G8?tag=123znl0f3-21",
+      ctaText: "Purchase CoQ10 on Amazon UK 🇬🇧",
+      badge: "USP Verified Active Ingredients",
+      network: "Amazon Associates",
+      priceText: "£24.99"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B0019GW3G8?tag=123znl08a-21",
+      ctaText: "Purchase CoQ10 on Amazon ES 🇪🇸",
+      badge: "Ingredientes Activos Verificados USP",
+      network: "Amazon Associates",
+      priceText: "29,95€"
+    }
+  },
+  {
+    id: "ala-mitochondrial",
+    name: "Source Naturals Alpha Lipoic Acid (ALA 300mg)",
+    category: "Supplements",
+    isDirectAffiliate: false,
+    rating: 4.75,
+    description: "Universal metabolic antioxidant and coenzyme that enhances glucose uptake, regenerates glutathione, and reinforces mitochondrial cellular defense.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/ala-mitochondrial.png",
+    us: {
+      url: "https://www.amazon.com/dp/B00020IA7Y?tag=123znl0e-20",
+      ctaText: "Purchase ALA on Amazon US 🇺🇸",
+      badge: "Mitochondrial Coenzyme Support",
+      network: "Amazon Associates",
+      priceText: "$19.95"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B00020IA7Y?tag=123znl0f3-21",
+      ctaText: "Purchase ALA on Amazon UK 🇬🇧",
+      badge: "Mitochondrial Coenzyme Support",
+      network: "Amazon Associates",
+      priceText: "£16.99"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B00020IA7Y?tag=123znl08a-21",
+      ctaText: "Purchase ALA on Amazon ES 🇪🇸",
+      badge: "Soporte Coenzimático Mitocondrial",
+      network: "Amazon Associates",
+      priceText: "19,95€"
+    }
+  },
+  {
+    id: "kitchen-blender",
+    name: "Premium Longevity Nutrient Blender & Extractor",
+    category: "Kitchen",
+    isDirectAffiliate: false,
     rating: 4.90,
-    description: "Premium NSF Certified for Sport Trans-Resveratrol, NMN, and Nattokinase to activate cellular sirtuin pathways.",
-    image_url: "https://123thenextlevel.com/assets/images/shop/sirtuin-stack.png",
-    deal_url: "https://livemomentous.com/modernwisdom?code=modernwisdom",
-    badge_text: "NSF Certified for Sport",
-    price_text: "$89.95",
-    market_region: "US"
+    description: "High-speed precision cyclonic nutrient extractor designed to pulverize tough cell walls of leafy greens, seeds, and frozen longevity superfoods.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/water-bottle.png",
+    us: {
+      url: "https://www.amazon.com/dp/B08524B5C6?tag=123znl0e-20",
+      ctaText: "Buy Blender on Amazon US 🇺🇸",
+      badge: "1200W Professional Motor",
+      network: "Amazon Associates",
+      priceText: "$89.99"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B08524B5C6?tag=123znl0f3-21",
+      ctaText: "Buy Blender on Amazon UK 🇬🇧",
+      badge: "1200W Professional Motor",
+      network: "Amazon Associates",
+      priceText: "£79.99"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B08524B5C6?tag=123znl08a-21",
+      ctaText: "Buy Blender on Amazon ES 🇪🇸",
+      badge: "Motor Profesional de 1200W",
+      network: "Amazon Associates",
+      priceText: "84,99€"
+    }
   }
 ];
 
@@ -80,21 +726,20 @@ export default function Store() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchStoreCatalog() {
+    async function fetchDynamicStore() {
       setLoading(true);
       try {
-        // Query products for active tab
+        // 1. Fetch live products from Supabase
         const { data, error } = await supabase
           .from('products')
           .select('*')
           .eq('market_region', activeTab);
 
-        // If connection fails or returned database is empty, fall back gracefully
         if (error || !data || data.length === 0) {
-          throw error || new Error("Database returned an empty array.");
+          throw error || new Error("Database is empty or disconnected");
         }
 
-        // Dynamically heal pathing on the client-side
+        // 2. Client-side absolute image link matching
         const healedData = data.map((p: any) => {
           let healedImg = p.image_url;
           if (healedImg && healedImg.startsWith('/assets/') && !healedImg.startsWith('http')) {
@@ -111,7 +756,7 @@ export default function Store() {
 
         setProducts(healedData);
 
-        // Dynamically extract and capitalize unique categories present in the database
+        // 3. Extract unique categories present in the database
         const rawCategories = healedData.map((p: any) => p.category).filter(Boolean);
         const uniqueCategories = Array.from(new Set(rawCategories)).map((cat: any) => {
           return cat.charAt(0).toUpperCase() + cat.slice(1);
@@ -121,26 +766,45 @@ export default function Store() {
       } catch (err) {
         console.warn("Supabase fetch failed. Falling back to local offline registry:", err);
         
-        // Filter local fallbacks for country
-        const fallbacks = localFallbackCatalog.filter(p => p.market_region === activeTab);
-        setProducts(fallbacks);
+        // 4. Offline Fallback logic: Load from our built-in master registry
+        const marketKey = activeTab.toLowerCase() as 'us' | 'uk' | 'es';
+        const formattedFallback = localMasterCatalog.map(product => {
+          const marketConfig = product[marketKey];
+          return {
+            id: `${product.id}-${marketKey}`,
+            name: product.name,
+            category: product.category,
+            is_direct_affiliate: product.isDirectAffiliate,
+            rating: product.rating,
+            description: product.description,
+            image_url: product.image_url,
+            deal_url: marketConfig.url,
+            badge_text: marketConfig.badge,
+            network: marketConfig.network,
+            price_text: marketConfig.priceText,
+            market_region: activeTab
+          };
+        });
 
-        const uniqueCategories = Array.from(new Set(fallbacks.map(p => p.category)));
+        setProducts(formattedFallback);
+
+        // Dynamically extract categories from fallback
+        const uniqueCategories = Array.from(new Set(formattedFallback.map(p => p.category)));
         setCategories(['All', ...uniqueCategories]);
       } finally {
         setLoading(false);
       }
     }
 
-    fetchStoreCatalog();
+    fetchDynamicStore();
   }, [activeTab]);
 
-  // Handle case-insensitive category filtering
+  // Handle case-insensitive filtering
   const filteredProducts = activeCategory === 'All'
     ? products
     : products.filter(p => p.category && p.category.toLowerCase() === activeCategory.toLowerCase());
 
-  // Split into direct partners (Clinical) and standard referrers (Amazon)
+  // Split into Tier 1 (Clinical Direct) and Tier 2 (Amazon Hub)
   const clinicalPartners = filteredProducts.filter(p => 
     p.is_direct_affiliate === true || 
     (p.deal_url && !p.deal_url.toLowerCase().includes('amazon'))
@@ -190,7 +854,7 @@ export default function Store() {
         ))}
       </div>
 
-      {/* Dynamic Filter Pills */}
+      {/* Dynamic Filter Pills (Kitchen, Fitness, Supplements, etc. populate here!) */}
       <div className="max-w-7xl mx-auto flex flex-wrap justify-center gap-2 mb-12 border-b border-slate-900 pb-6">
         {categories.map(category => (
           <button
