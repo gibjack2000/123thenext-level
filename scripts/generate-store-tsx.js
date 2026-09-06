@@ -12,6 +12,7 @@ import {
   Sparkles, 
   Zap, 
   Activity,
+  HeartPulse,
   Star
 } from 'lucide-react';
 
@@ -83,6 +84,20 @@ function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marke
         iconBorder: 'border-amber-500/30',
         iconGlow: 'shadow-[0_0_25px_rgba(245,158,11,0.25)]',
         radarColor: 'text-amber-500/10'
+      };
+    }
+
+    if (cat.includes('health') || cat.includes('wellness')) {
+      return {
+        title: market === 'ES' ? 'ES SALUD Y BIENESTAR' : \`\${market} HEALTH & WELLNESS\`,
+        subtitle: market === 'ES' 
+          ? 'Mantas térmicas, inmersión en frío, presoterapia y equipos de relajación y sueño en España' 
+          : \`Cold plunge tubs, infrared saunas, percussive massage, and sleep optimization gear in the \${market === 'UK' ? 'UK' : 'US'}\`,
+        icon: HeartPulse,
+        iconColor: 'text-sky-400',
+        iconBorder: 'border-sky-500/30',
+        iconGlow: 'shadow-[0_0_25px_rgba(56,189,248,0.25)]',
+        radarColor: 'text-sky-500/10'
       };
     }
 
@@ -518,4 +533,4 @@ export default function Store() {
 `;
 
 fs.writeFileSync('src/pages/Store.tsx', fileContent, 'utf8');
-console.log('Successfully wrote src/pages/Store.tsx with aspect-square fitting boxes and line clamping!');
+console.log('Successfully wrote src/pages/Store.tsx with Health & Wellness banner and updated catalogs!');
