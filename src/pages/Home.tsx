@@ -388,19 +388,25 @@ export default function Home() {
               {/* Subtext */}
               <div className="space-y-3.5 text-sm sm:text-base text-slate-300 leading-relaxed font-light">
                 <p>
-                  Genetics didn't write this story. You did — one skipped workout, one bad night of sleep, one stress spike at a time.
+                  Genetics didn't write this story. You did — every skipped workout, every bad night, every ignored stress spike.
                 </p>
                 <p>
-                  <strong className="text-white font-semibold">90% of how fast you age has nothing to do with your DNA.</strong> It's lifestyle. It's metabolic. It's environmental. And it's happening right now, whether you're paying attention or not.
+                  <strong className="text-white font-semibold">90% of aging isn't genetic.</strong> It's decision-driven. Metabolic. Environmental. Happening right now — whether you're watching or not.
                 </p>
                 <p>
-                  Most people wait for a diagnosis to start caring about their biology. By then, the damage isn't a warning sign — it's the bill coming due.
+                  Most people wait for a diagnosis to start caring. By then it's not a warning. It's the bill.
                 </p>
                 <p>
-                  We map your <span className="text-cyan-300 font-medium">Critical Path</span>: the daily, friction-free habits that protect your cellular hardware today, so it's still running when tomorrow's age-reversal science arrives. Because the upgrade won't matter if the hardware's already broken.
+                  We map your <span className="text-cyan-300 font-medium">Critical Path</span> — the friction-free daily habits that protect your hardware now, so it's still running when the software upgrade arrives.
                 </p>
-                <p className="text-cyan-100/90 font-medium">
-                  This isn't maintenance. It's an awakening — and it starts today, not at your next checkup.
+                <p>
+                  The cure won't matter if the machine's already broken.
+                </p>
+                <p className="text-cyan-100 font-medium">
+                  This isn't maintenance. It's an awakening.
+                </p>
+                <p className="text-cyan-300 font-semibold font-mono tracking-wide">
+                  → Start today. Not at your next checkup.
                 </p>
               </div>
 
