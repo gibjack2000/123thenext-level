@@ -386,9 +386,23 @@ export default function Home() {
               </h1>
               
               {/* Subtext */}
-              <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-light">
-                Eighty to ninety percent of how quickly your cells age is governed entirely by your daily lifestyle, metabolic, and environmental inputs—not your inherited genetics. Our platform maps your Critical Path to longevity: protecting and preserving your biological hardware today using simple, friction-free daily habits, so your cells remain pristine and ready to run the epigenetic age-reversal software of tomorrow. This proactive shift is not a waiting game—it is an immediate daily awakening that unlocks an active, highly enhanced, and high-performance life right now, miles ahead of traditional emergency-based care.
-              </p>
+              <div className="space-y-3.5 text-sm sm:text-base text-slate-300 leading-relaxed font-light">
+                <p>
+                  Genetics didn't write this story. You did — one skipped workout, one bad night of sleep, one stress spike at a time.
+                </p>
+                <p>
+                  <strong className="text-white font-semibold">90% of how fast you age has nothing to do with your DNA.</strong> It's lifestyle. It's metabolic. It's environmental. And it's happening right now, whether you're paying attention or not.
+                </p>
+                <p>
+                  Most people wait for a diagnosis to start caring about their biology. By then, the damage isn't a warning sign — it's the bill coming due.
+                </p>
+                <p>
+                  We map your <span className="text-cyan-300 font-medium">Critical Path</span>: the daily, friction-free habits that protect your cellular hardware today, so it's still running when tomorrow's age-reversal science arrives. Because the upgrade won't matter if the hardware's already broken.
+                </p>
+                <p className="text-cyan-100/90 font-medium">
+                  This isn't maintenance. It's an awakening — and it starts today, not at your next checkup.
+                </p>
+              </div>
 
               {/* Key Clinical Stats Row */}
               <div className="grid grid-cols-2 gap-3 pt-1">
