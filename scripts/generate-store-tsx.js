@@ -11,7 +11,8 @@ import {
   Pill, 
   Sparkles, 
   Zap, 
-  Activity 
+  Activity,
+  Star
 } from 'lucide-react';
 
 type MarketTab = 'US' | 'UK' | 'ES';
@@ -334,11 +335,12 @@ export default function Store() {
                   <div key={product.id} className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 hover:border-rose-500/30 p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
                     <div>
                       {product.image_url && (
-                        <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-slate-950/80 border border-slate-800/80 mb-4 flex items-center justify-center p-4">
+                        <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-800/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
                           <img 
                             src={product.image_url} 
                             alt={product.name} 
-                            className="object-contain max-h-full max-w-full group-hover:scale-105 transition-transform duration-500"
+                            className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                            referrerPolicy="no-referrer"
                             onError={(e) => {
                               (e.target as HTMLImageElement).src = 'https://123thenextlevel.com/assets/images/shop/placeholder.png';
                             }}
@@ -350,11 +352,12 @@ export default function Store() {
                           {product.category}
                         </span>
                         <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
-                          <span>★</span> <span>{product.rating || '4.85'}</span>
+                          <Star size={13} className="fill-amber-400 text-amber-400" />
+                          <span>{product.rating ? Number(product.rating).toFixed(1) : '4.9'}</span>
                         </span>
                       </div>
-                      <h3 className="text-lg font-bold text-slate-100 group-hover:text-rose-400 transition-colors duration-300">{product.name}</h3>
-                      <p className="text-xs text-slate-400 mt-3 leading-relaxed">{product.description}</p>
+                      <h3 className="text-lg font-bold text-slate-100 group-hover:text-rose-400 transition-colors duration-300 line-clamp-2">{product.name}</h3>
+                      <p className="text-xs text-slate-400 mt-3 leading-relaxed line-clamp-3">{product.description}</p>
                     </div>
                     <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
                       <div className="flex justify-between items-center">
@@ -396,11 +399,12 @@ export default function Store() {
                           <div key={product.id} className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-850 hover:border-cyan-500/20 p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
                             <div>
                               {product.image_url && (
-                                <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-slate-950/80 border border-slate-850/80 mb-4 flex items-center justify-center p-4">
+                                <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-850/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
                                   <img 
                                     src={product.image_url} 
                                     alt={product.name} 
-                                    className="object-contain max-h-full max-w-full group-hover:scale-105 transition-transform duration-500"
+                                    className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                                    referrerPolicy="no-referrer"
                                     onError={(e) => {
                                       (e.target as HTMLImageElement).src = 'https://123thenextlevel.com/assets/images/shop/placeholder.png';
                                     }}
@@ -412,11 +416,12 @@ export default function Store() {
                                   {product.category}
                                 </span>
                                 <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
-                                  <span>★</span> <span>{product.rating || '4.80'}</span>
+                                  <Star size={13} className="fill-amber-400 text-amber-400" />
+                                  <span>{product.rating ? Number(product.rating).toFixed(1) : '4.8'}</span>
                                 </span>
                               </div>
-                              <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300">{product.name}</h3>
-                              <p className="text-xs text-slate-400 mt-3 leading-relaxed">{product.description}</p>
+                              <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2">{product.name}</h3>
+                              <p className="text-xs text-slate-400 mt-3 leading-relaxed line-clamp-3">{product.description}</p>
                             </div>
                             <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
                               <div className="flex justify-between items-center">
@@ -446,11 +451,12 @@ export default function Store() {
                       <div key={product.id} className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-850 hover:border-cyan-500/20 p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
                         <div>
                           {product.image_url && (
-                            <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-slate-950/80 border border-slate-850/80 mb-4 flex items-center justify-center p-4">
+                            <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-850/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
                               <img 
                                 src={product.image_url} 
                                 alt={product.name} 
-                                className="object-contain max-h-full max-w-full group-hover:scale-105 transition-transform duration-500"
+                                className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                                referrerPolicy="no-referrer"
                                 onError={(e) => {
                                   (e.target as HTMLImageElement).src = 'https://123thenextlevel.com/assets/images/shop/placeholder.png';
                                 }}
@@ -462,11 +468,12 @@ export default function Store() {
                               {product.category}
                             </span>
                             <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
-                              <span>★</span> <span>{product.rating || '4.80'}</span>
+                              <Star size={13} className="fill-amber-400 text-amber-400" />
+                              <span>{product.rating ? Number(product.rating).toFixed(1) : '4.8'}</span>
                             </span>
                           </div>
-                          <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300">{product.name}</h3>
-                          <p className="text-xs text-slate-400 mt-3 leading-relaxed">{product.description}</p>
+                          <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2">{product.name}</h3>
+                          <p className="text-xs text-slate-400 mt-3 leading-relaxed line-clamp-3">{product.description}</p>
                         </div>
                         <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
                           <div className="flex justify-between items-center">
@@ -511,4 +518,4 @@ export default function Store() {
 `;
 
 fs.writeFileSync('src/pages/Store.tsx', fileContent, 'utf8');
-console.log('Successfully wrote src/pages/Store.tsx with dedicated regional catalogs!');
+console.log('Successfully wrote src/pages/Store.tsx with aspect-square fitting boxes and line clamping!');
