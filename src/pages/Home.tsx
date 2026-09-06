@@ -689,13 +689,30 @@ export default function Home() {
               </div>
 
               {/* 3. The Epigenetic Future Glimpse Teaser (Horizontal Banner) */}
-              <div className="p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-amber-950/25 via-slate-900/90 to-cyan-950/25 border border-amber-500/30 shadow-xl text-left space-y-2 relative overflow-hidden">
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
-                  <strong className="text-amber-300 font-bold font-mono uppercase tracking-wider block sm:inline mr-2">
-                    🔬 THE HORIZON:
-                  </strong>
-                  Continuous research in clinical laboratories is rapidly perfecting Nobel Prize-winning cellular reprogramming (such as the ER-100 epigenetic reversal therapies currently restoring optic nerve function) to reboot cells back to factory-fresh settings. This software is projected to reach safe mainstream parameters in roughly 10 years. But you cannot reboot a completely destroyed computer. We optimize our hardware today to survive to run the epigenetic software of tomorrow.
-                </p>
+              <div className="p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-amber-950/25 via-slate-900/90 to-cyan-950/25 border border-amber-500/30 shadow-xl text-left space-y-3 relative overflow-hidden">
+                <div className="text-amber-300 font-bold font-mono uppercase tracking-wider text-xs sm:text-sm">
+                  🔬 THE HORIZON:
+                </div>
+                <div className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light space-y-3">
+                  <p className="text-white font-medium text-sm sm:text-base">
+                    Your cells have a reset button. Scientists just found it.
+                  </p>
+                  <p>
+                    Nobel Prize-winning research (Yamanaka factors) can flip aging cells back to a younger state — like software rewinding to factory settings. It's already in human trials: Life Biosciences' ER-100 is testing this exact reset on damaged optic nerves right now.
+                  </p>
+                  <p className="font-mono text-cyan-300/90 text-xs sm:text-sm">
+                    Realistic timeline to mainstream use: ~10 years.
+                  </p>
+                  <p className="text-amber-200/90 font-medium">
+                    But here's the catch: you can't reboot hardware that's already been destroyed.
+                  </p>
+                  <p>
+                    The software is coming. The question is whether your body will still be running when it arrives.
+                  </p>
+                  <p className="text-cyan-300 font-semibold font-mono tracking-wide pt-1">
+                    Build the hardware today. Run tomorrow's software.
+                  </p>
+                </div>
               </div>
 
               {/* 4. The Action Trigger Button */}
