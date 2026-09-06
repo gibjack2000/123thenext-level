@@ -267,17 +267,71 @@ export const ScienceOfAgeReversalWidget: React.FC<ScienceOfAgeReversalWidgetProp
 
           {/* Tab Navigation Strip (3 Progressive Stages) */}
           <div className="relative mb-8">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 p-1.5 rounded-2xl bg-slate-950/90 border border-slate-800/90 backdrop-blur-md">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 p-2 rounded-2xl bg-[#060a12]/95 border border-slate-800/90 backdrop-blur-xl shadow-2xl">
               {tabsData.map((tab) => {
                 const isActive = activeTab === tab.id;
                 const IconComponent = tab.icon;
+
+                const getTabTheme = () => {
+                  if (tab.id === 'crisis-firefighter') {
+                    return {
+                      inactiveBg: 'bg-gradient-to-br from-[#1a0f16]/60 via-[#10121a]/60 to-[#0c0d12]/90 border-rose-950/40 hover:border-rose-500/40 hover:from-rose-950/30',
+                      activeGradient: 'bg-gradient-to-br from-[#2a0d16] via-[#1a0f16] to-[#0d0f17]',
+                      radialGlow: 'bg-[radial-gradient(ellipse_at_top_left,rgba(244,63,94,0.35),transparent_70%)]',
+                      borderColor: 'border-rose-500/70',
+                      shadow: 'shadow-[0_0_30px_rgba(244,63,94,0.3)]',
+                      topBar: 'bg-gradient-to-r from-rose-500 via-amber-400 to-rose-600',
+                      iconActive: 'bg-rose-500/20 border-rose-500/60 text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.5)]',
+                      badge: 'Stage 01 • Reactive Emergency',
+                      badgeColor: 'text-rose-400/90 font-semibold',
+                      dotColor: 'bg-rose-500',
+                      dotStatic: 'bg-rose-400',
+                      activeTextColor: 'text-rose-100',
+                    };
+                  }
+                  if (tab.id === 'ten-year-bridge') {
+                    return {
+                      inactiveBg: 'bg-gradient-to-br from-[#0a1824]/60 via-[#0b121e]/60 to-[#070e17]/90 border-cyan-950/40 hover:border-cyan-500/40 hover:from-cyan-950/30',
+                      activeGradient: 'bg-gradient-to-br from-[#062432] via-[#0b1b2d] to-[#06111f]',
+                      radialGlow: 'bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.38),transparent_70%)]',
+                      borderColor: 'border-cyan-400/80',
+                      shadow: 'shadow-[0_0_35px_rgba(6,182,212,0.35)]',
+                      topBar: 'bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-500',
+                      iconActive: 'bg-cyan-500/20 border-cyan-400/60 text-cyan-300 shadow-[0_0_15px_rgba(6,182,212,0.5)]',
+                      badge: 'Stage 02 • 100% Critical Path',
+                      badgeColor: 'text-cyan-300 font-bold',
+                      dotColor: 'bg-cyan-400',
+                      dotStatic: 'bg-cyan-300',
+                      activeTextColor: 'text-cyan-100',
+                    };
+                  }
+                  // restorative-horizon
+                  return {
+                    inactiveBg: 'bg-gradient-to-br from-[#1a140c]/60 via-[#121118]/60 to-[#0b0c13]/90 border-amber-950/40 hover:border-amber-500/40 hover:from-amber-950/30',
+                    activeGradient: 'bg-gradient-to-br from-[#2a1a07] via-[#1c140d] to-[#0e0c17]',
+                    radialGlow: 'bg-[radial-gradient(ellipse_at_top_right,rgba(245,158,11,0.38),transparent_70%)]',
+                    borderColor: 'border-amber-400/80',
+                    shadow: 'shadow-[0_0_35px_rgba(245,158,11,0.35)]',
+                    topBar: 'bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-600',
+                    iconActive: 'bg-amber-500/20 border-amber-400/60 text-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.5)]',
+                    badge: 'Stage 03 • OSK Factor Horizon',
+                    badgeColor: 'text-amber-300/90 font-semibold',
+                    dotColor: 'bg-amber-400',
+                    dotStatic: 'bg-amber-300',
+                    activeTextColor: 'text-amber-100',
+                  };
+                };
+
+                const theme = getTabTheme();
 
                 return (
                   <button
                     key={tab.id}
                     onClick={() => handleTabChange(tab.id)}
-                    className={`relative px-4 py-3 rounded-xl text-left transition-all duration-300 flex items-center space-x-3 cursor-pointer group z-10 ${
-                      isActive ? 'text-white' : 'text-slate-400 hover:text-slate-200'
+                    className={`relative p-3.5 sm:p-4 rounded-xl text-left transition-all duration-300 flex items-center space-x-3 cursor-pointer group z-10 overflow-hidden border ${
+                      isActive 
+                        ? `${theme.borderColor} ${theme.shadow}` 
+                        : `${theme.inactiveBg}`
                     }`}
                   >
                     {/* Active Background Pill Animation */}
@@ -285,37 +339,49 @@ export const ScienceOfAgeReversalWidget: React.FC<ScienceOfAgeReversalWidgetProp
                       <motion.div
                         layoutId="activeEvolutionTab"
                         transition={{ type: 'spring', stiffness: 450, damping: 35 }}
-                        className={`absolute inset-0 rounded-xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border shadow-lg ${
-                          tab.accentColor === 'rose'
-                            ? 'border-rose-500/40 shadow-[0_0_20px_rgba(244,63,94,0.2)]'
-                            : tab.accentColor === 'amber'
-                              ? 'border-amber-500/40 shadow-[0_0_20px_rgba(245,158,11,0.2)]'
-                              : 'border-cyan-500/40 shadow-[0_0_20px_rgba(6,182,212,0.2)]'
-                        }`}
-                      />
+                        className={`absolute inset-0 rounded-xl ${theme.activeGradient} overflow-hidden -z-10`}
+                      >
+                        {/* Thematic Radial Light Glow */}
+                        <div className={`absolute inset-0 ${theme.radialGlow} pointer-events-none`} />
+                        
+                        {/* Luminous Top Highlighting Beam */}
+                        <div className={`absolute top-0 left-0 right-0 h-[2px] ${theme.topBar} shadow-sm`} />
+                        
+                        {/* Subtle Grid Pattern */}
+                        <div 
+                          className="absolute inset-0 opacity-[0.05] pointer-events-none" 
+                          style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0)', backgroundSize: '16px 16px' }} 
+                        />
+                      </motion.div>
                     )}
 
                     {/* Step Number & Icon */}
                     <div className="relative z-10 flex items-center space-x-3 w-full">
-                      <div className={`w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 transition-all ${
+                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 transition-all border ${
                         isActive 
-                          ? tab.accentColor === 'rose'
-                            ? 'bg-rose-500/20 border border-rose-500/50 text-rose-300 shadow-[0_0_12px_rgba(244,63,94,0.4)]'
-                            : tab.accentColor === 'amber' 
-                              ? 'bg-amber-500/20 border border-amber-500/50 text-amber-300 shadow-[0_0_12px_rgba(245,158,11,0.4)]'
-                              : 'bg-cyan-500/20 border border-cyan-500/50 text-cyan-300 shadow-[0_0_12px_rgba(6,182,212,0.4)]'
-                          : 'bg-slate-900 border border-slate-800 text-slate-400 group-hover:text-slate-300'
+                          ? theme.iconActive
+                          : 'bg-slate-900/90 border-slate-800 text-slate-400 group-hover:text-slate-200 group-hover:scale-105 group-hover:border-slate-700'
                       }`}>
-                        <IconComponent size={18} />
+                        <IconComponent size={19} />
                       </div>
 
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">
-                            {tab.id === 'ten-year-bridge' ? 'Core Focus Today' : `Stage ${tab.stepNumber}`}
+                        <div className="flex items-center justify-between gap-1 mb-0.5">
+                          <span className={`text-[9px] sm:text-[10px] font-mono uppercase tracking-widest truncate ${
+                            isActive ? theme.badgeColor : 'text-slate-400 group-hover:text-slate-300'
+                          }`}>
+                            {theme.badge}
                           </span>
+                          {isActive && (
+                            <span className="flex h-2 w-2 relative flex-shrink-0">
+                              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${theme.dotColor}`} />
+                              <span className={`relative inline-flex rounded-full h-2 w-2 ${theme.dotStatic}`} />
+                            </span>
+                          )}
                         </div>
-                        <div className="text-xs md:text-sm font-bold truncate">
+                        <div className={`text-xs sm:text-sm font-bold truncate tracking-tight transition-colors ${
+                          isActive ? `${theme.activeTextColor} font-extrabold` : 'text-slate-300 group-hover:text-white'
+                        }`}>
                           {tab.tabLabel}
                         </div>
                       </div>

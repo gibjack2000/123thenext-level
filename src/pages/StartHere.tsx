@@ -107,27 +107,30 @@ export default function StartHere() {
 
         {/* Elegant Centered 3-Tab Navigation Group */}
         <div className="flex justify-center mb-16 relative z-10">
-          <div className="inline-flex p-1.5 bg-slate-950/60 backdrop-blur-xl border border-slate-900/60 rounded-2xl gap-1 sm:gap-2 overflow-x-auto scrollbar-none max-w-full shadow-2xl relative">
+          <div className="inline-flex p-2 bg-[#060a12]/95 backdrop-blur-xl border border-slate-800/90 rounded-2xl gap-2 overflow-x-auto scrollbar-none max-w-full shadow-2xl relative">
             <button
               onClick={() => setActiveTab('phase1')}
-              className={`relative px-6 py-3 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2 z-10 select-none group outline-none ${
+              className={`relative px-5 sm:px-6 py-3.5 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2.5 z-10 select-none group outline-none overflow-hidden ${
                 activeTab === 'phase1'
-                  ? 'text-cyan-400 text-shadow-[0_0_12px_rgba(6,182,212,0.4)]'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'text-cyan-300 shadow-[0_0_25px_rgba(6,182,212,0.3)]'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
               }`}
             >
               {activeTab === 'phase1' && (
                 <motion.div
                   layoutId="activeTabPill"
-                  className="absolute inset-0 bg-slate-900 border border-cyan-500/25 rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.12)] -z-10"
+                  className="absolute inset-0 bg-gradient-to-r from-cyan-950/90 via-slate-900 to-sky-950/80 border border-cyan-400/70 rounded-xl overflow-hidden -z-10"
                   transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                />
+                >
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.3),transparent_70%)] pointer-events-none" />
+                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400" />
+                </motion.div>
               )}
               <Activity 
-                size={14} 
+                size={15} 
                 className={`transition-all duration-300 ${
                   activeTab === 'phase1' 
-                    ? 'text-cyan-400 scale-110 drop-shadow-[0_0_6px_rgba(6,182,212,0.6)]' 
+                    ? 'text-cyan-300 scale-110 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]' 
                     : 'text-slate-500 group-hover:text-slate-300 group-hover:scale-110'
                 }`} 
               />
@@ -136,24 +139,27 @@ export default function StartHere() {
             
             <button
               onClick={() => setActiveTab('phase2')}
-              className={`relative px-6 py-3 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2 z-10 select-none group outline-none ${
+              className={`relative px-5 sm:px-6 py-3.5 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2.5 z-10 select-none group outline-none overflow-hidden ${
                 activeTab === 'phase2'
-                  ? 'text-cyan-400 text-shadow-[0_0_12px_rgba(6,182,212,0.4)]'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'text-emerald-300 shadow-[0_0_25px_rgba(16,185,129,0.3)]'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
               }`}
             >
               {activeTab === 'phase2' && (
                 <motion.div
                   layoutId="activeTabPill"
-                  className="absolute inset-0 bg-slate-900 border border-cyan-500/25 rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.12)] -z-10"
+                  className="absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-slate-900 to-teal-950/80 border border-emerald-400/70 rounded-xl overflow-hidden -z-10"
                   transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                />
+                >
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.3),transparent_70%)] pointer-events-none" />
+                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400" />
+                </motion.div>
               )}
               <RefreshCw 
-                size={14} 
+                size={15} 
                 className={`transition-all duration-500 ${
                   activeTab === 'phase2' 
-                    ? 'text-cyan-400 scale-110 rotate-180 drop-shadow-[0_0_6px_rgba(6,182,212,0.6)]' 
+                    ? 'text-emerald-300 scale-110 rotate-180 drop-shadow-[0_0_8px_rgba(16,185,129,0.8)]' 
                     : 'text-slate-500 group-hover:text-slate-300 group-hover:scale-110'
                 }`} 
               />
@@ -162,24 +168,27 @@ export default function StartHere() {
             
             <button
               onClick={() => setActiveTab('clinician')}
-              className={`relative px-6 py-3 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2 z-10 select-none group outline-none ${
+              className={`relative px-5 sm:px-6 py-3.5 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2.5 z-10 select-none group outline-none overflow-hidden ${
                 activeTab === 'clinician'
-                  ? 'text-cyan-400 text-shadow-[0_0_12px_rgba(6,182,212,0.4)]'
-                  : 'text-slate-450 hover:text-slate-200'
+                  ? 'text-indigo-300 shadow-[0_0_25px_rgba(99,102,241,0.3)]'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
               }`}
             >
               {activeTab === 'clinician' && (
                 <motion.div
                   layoutId="activeTabPill"
-                  className="absolute inset-0 bg-slate-900 border border-cyan-500/25 rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.12)] -z-10"
+                  className="absolute inset-0 bg-gradient-to-r from-indigo-950/90 via-slate-900 to-purple-950/80 border border-indigo-400/70 rounded-xl overflow-hidden -z-10"
                   transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                />
+                >
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.3),transparent_70%)] pointer-events-none" />
+                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400" />
+                </motion.div>
               )}
               <Shield 
-                size={14} 
+                size={15} 
                 className={`transition-all duration-300 ${
                   activeTab === 'clinician' 
-                    ? 'text-cyan-400 scale-110 drop-shadow-[0_0_6px_rgba(6,182,212,0.6)]' 
+                    ? 'text-indigo-300 scale-110 drop-shadow-[0_0_8px_rgba(99,102,241,0.8)]' 
                     : 'text-slate-500 group-hover:text-slate-300 group-hover:scale-110'
                 }`} 
               />

@@ -74,20 +74,33 @@ export const MorningBalanceCheck: React.FC = () => {
         </div>
 
         {/* Toggle Controls */}
-        <div className="flex items-center gap-1 bg-slate-950 p-1 border border-slate-800 rounded-xl self-stretch sm:self-auto">
-          {(['US', 'UK', 'ES'] as Region[]).map((r) => (
-            <button
-              key={r}
-              onClick={() => setRegion(r)}
-              className={`flex-1 sm:flex-initial px-4 py-2 rounded-lg text-xs font-semibold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
-                region === r
-                  ? 'bg-slate-800 text-cyan-400 shadow-md border border-slate-700/50'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900'
-              }`}
-            >
-              {r === 'ES' ? 'España' : r}
-            </button>
-          ))}
+        <div className="flex items-center gap-1.5 bg-[#060a12] p-1.5 border border-slate-800/90 rounded-2xl self-stretch sm:self-auto shadow-xl">
+          {(['US', 'UK', 'ES'] as Region[]).map((r) => {
+            const isSelected = region === r;
+            const flag = r === 'US' ? '🇺🇸' : r === 'UK' ? '🇬🇧' : '🇪🇸';
+            const label = r === 'ES' ? 'España' : r;
+            
+            const getActiveStyles = () => {
+              if (r === 'US') return 'bg-gradient-to-r from-cyan-950/90 via-slate-900 to-blue-950/90 text-cyan-300 border-cyan-400/70 shadow-[0_0_18px_rgba(6,182,212,0.35)]';
+              if (r === 'UK') return 'bg-gradient-to-r from-indigo-950/90 via-slate-900 to-sky-950/90 text-indigo-300 border-indigo-400/70 shadow-[0_0_18px_rgba(99,102,241,0.35)]';
+              return 'bg-gradient-to-r from-amber-950/90 via-slate-900 to-rose-950/90 text-amber-300 border-amber-400/70 shadow-[0_0_18px_rgba(245,158,11,0.35)]';
+            };
+
+            return (
+              <button
+                key={r}
+                onClick={() => setRegion(r)}
+                className={`flex-1 sm:flex-initial px-4 py-2.5 rounded-xl text-xs font-mono font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer flex items-center justify-center gap-1.5 border ${
+                  isSelected
+                    ? `${getActiveStyles()}`
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60 border-transparent'
+                }`}
+              >
+                <span>{flag}</span>
+                <span>{label}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
 

@@ -223,33 +223,33 @@ export const BodyHarmonyDashboard: React.FC = () => {
             </div>
 
             {/* Perspective Filter Pills */}
-            <div className="flex items-center p-1 rounded-xl bg-slate-950/90 border border-slate-800 text-xs font-mono self-start lg:self-end">
+            <div className="flex items-center p-1.5 rounded-2xl bg-[#060a12] border border-slate-800/90 text-xs font-mono self-start lg:self-end shadow-xl gap-1">
               <button
                 onClick={() => setViewMode('interactive')}
-                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-bold ${
                   viewMode === 'interactive' 
-                    ? 'bg-slate-800 text-cyan-300 font-bold shadow-[0_0_12px_rgba(6,182,212,0.2)]' 
-                    : 'text-slate-400 hover:text-slate-200'
+                    ? 'bg-gradient-to-r from-cyan-950/90 via-slate-900 to-sky-950/90 text-cyan-300 border border-cyan-400/60 shadow-[0_0_15px_rgba(6,182,212,0.3)]' 
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
                 }`}
               >
                 Comprehensive 2x2
               </button>
               <button
                 onClick={() => setViewMode('threats')}
-                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-bold ${
                   viewMode === 'threats' 
-                    ? 'bg-rose-950/60 text-rose-300 font-bold border border-rose-500/30' 
-                    : 'text-slate-400 hover:text-slate-200'
+                    ? 'bg-gradient-to-r from-rose-950/90 via-[#220d18] to-red-950/90 text-rose-300 border border-rose-500/70 shadow-[0_0_18px_rgba(244,63,94,0.35)]' 
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
                 }`}
               >
                 The Silent Threats
               </button>
               <button
                 onClick={() => setViewMode('solutions')}
-                className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+                className={`px-3.5 py-2 rounded-xl transition-all cursor-pointer font-bold ${
                   viewMode === 'solutions' 
-                    ? 'bg-cyan-950/60 text-cyan-300 font-bold border border-cyan-500/30' 
-                    : 'text-slate-400 hover:text-slate-200'
+                    ? 'bg-gradient-to-r from-emerald-950/90 via-[#07241e] to-teal-950/90 text-emerald-300 border border-emerald-400/70 shadow-[0_0_18px_rgba(16,185,129,0.35)]' 
+                    : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
                 }`}
               >
                 Proactive Solutions
@@ -263,18 +263,59 @@ export const BodyHarmonyDashboard: React.FC = () => {
               const IconComponent = card.icon;
               const isSelected = activeCardId === card.id;
 
+              const getCardAtmosphere = () => {
+                if (card.id === 'circulation') {
+                  return {
+                    bg: 'bg-gradient-to-b from-[#180d16] via-[#0d1222] to-[#070a13]',
+                    glow: 'bg-rose-500/10 group-hover:bg-rose-500/20',
+                    borderActive: 'border-rose-500/70 shadow-[0_0_30px_rgba(244,63,94,0.3)] ring-1 ring-rose-400/40',
+                    topBar: 'bg-gradient-to-r from-rose-500 via-amber-400 to-cyan-400'
+                  };
+                }
+                if (card.id === 'metabolic') {
+                  return {
+                    bg: 'bg-gradient-to-b from-[#181308] via-[#0d1422] to-[#070a13]',
+                    glow: 'bg-amber-500/10 group-hover:bg-amber-500/20',
+                    borderActive: 'border-amber-500/70 shadow-[0_0_30px_rgba(245,158,11,0.3)] ring-1 ring-amber-400/40',
+                    topBar: 'bg-gradient-to-r from-amber-400 via-yellow-300 to-cyan-400'
+                  };
+                }
+                if (card.id === 'nervous-system') {
+                  return {
+                    bg: 'bg-gradient-to-b from-[#150d20] via-[#0c1224] to-[#060914]',
+                    glow: 'bg-purple-500/10 group-hover:bg-purple-500/20',
+                    borderActive: 'border-purple-500/70 shadow-[0_0_30px_rgba(168,85,247,0.3)] ring-1 ring-purple-400/40',
+                    topBar: 'bg-gradient-to-r from-purple-400 via-indigo-400 to-cyan-400'
+                  };
+                }
+                // kidney-fluid
+                return {
+                  bg: 'bg-gradient-to-b from-[#08181e] via-[#091524] to-[#060a14]',
+                  glow: 'bg-teal-500/10 group-hover:bg-teal-500/20',
+                  borderActive: 'border-teal-400/70 shadow-[0_0_30px_rgba(20,184,166,0.3)] ring-1 ring-teal-400/40',
+                  topBar: 'bg-gradient-to-r from-teal-400 via-cyan-400 to-sky-400'
+                };
+              };
+
+              const atmos = getCardAtmosphere();
+
               return (
                 <div
                   key={card.id}
                   onMouseEnter={() => setActiveCardId(card.id)}
-                  className={`relative rounded-2xl bg-gradient-to-b from-[#0a0f1c] via-[#0d1424] to-[#070b14] p-6 sm:p-7 border transition-all duration-500 flex flex-col justify-between group overflow-hidden ${
+                  className={`relative rounded-2xl ${atmos.bg} p-6 sm:p-7 border transition-all duration-500 flex flex-col justify-between group overflow-hidden ${
                     isSelected
-                      ? 'border-cyan-500/60 shadow-[0_0_30px_rgba(6,182,212,0.25)] ring-1 ring-cyan-400/40'
+                      ? atmos.borderActive
                       : 'border-slate-800/90 hover:border-cyan-500/40 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)]'
                   }`}
                 >
+                  {/* Luminous Top Highlighting Beam on Active Card */}
+                  {isSelected && (
+                    <div className={`absolute top-0 left-0 right-0 h-[2px] ${atmos.topBar} shadow-sm`} />
+                  )}
+
                   {/* Ambient Hover Glow behind card */}
-                  <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/5 rounded-full blur-[70px] pointer-events-none group-hover:bg-cyan-500/10 transition-colors duration-500" />
+                  <div className={`absolute top-0 right-0 w-72 h-72 ${atmos.glow} rounded-full blur-[80px] pointer-events-none transition-colors duration-500`} />
                   
                   {/* Top Card Strip: Category Eyebrow + Minimalist Clinical Diagnostic Icon */}
                   <div className="relative z-10 space-y-4">

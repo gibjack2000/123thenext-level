@@ -555,180 +555,240 @@ export default function Home() {
                   <span>SYSTEMIC ALIGNMENT CHECK</span>
                 </div>
 
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-extrabold tracking-tight text-white leading-[1.1]">
-                  Are you still depending on the{' '}
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-extrabold tracking-tight text-white leading-[1.1] uppercase">
+                  Still Running the{' '}
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-amber-300 to-rose-300">
-                    old reactive system?
+                    Old Healthcare System?
                   </span>
                 </h2>
 
                 <p className="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed font-light max-w-3xl mx-auto">
-                  Traditional medicine is a brilliant crisis firefighter—essential for acute trauma and surgical emergencies. But relying on it to design your lifespan is a defensive waiting game. By the time chronic illness is clinically flagged, years of silent, subclinical wear-and-tear have already occurred on your biological hardware. Take control of your critical path today.
+                  Traditional medicine is a firefighter — great for emergencies, useless for prevention. It waits for symptoms. By then, the damage is already done.
                 </p>
               </div>
 
-              {/* 2. Side-by-Side System Comparison Cards (1/3 vs 2/3 Grid Layout on Desktop) */}
+              {/* 2. Side-by-Side System Comparison Cards */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 text-left">
                 
-                {/* Left Card: 1/3 (lg:col-span-4) - The Reactive Dead-End - Off the Critical Path */}
-                <div className="lg:col-span-4 p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-[#161218] via-[#10121a] to-[#0a0c12] border border-rose-900/40 hover:border-rose-500/40 shadow-xl flex flex-col justify-between space-y-6 relative overflow-hidden group transition-all duration-300 hover:scale-[1.01]">
-                  <div className="space-y-5">
+                {/* Left Card: (lg:col-span-5) - The Legacy System */}
+                <div className="lg:col-span-5 p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-[#220d18] via-[#160d15] to-[#0a070c] border border-rose-500/40 hover:border-rose-500/70 shadow-[0_0_40px_rgba(244,63,94,0.18)] flex flex-col justify-between space-y-6 relative overflow-hidden group transition-all duration-300 hover:scale-[1.01]">
+                  {/* Thematic Ambient Flame & Emergency Hazard Glows */}
+                  <div className="absolute top-0 left-0 w-80 h-80 bg-[radial-gradient(ellipse_at_top_left,rgba(244,63,94,0.22),transparent_65%)] pointer-events-none" />
+                  <div className="absolute bottom-0 right-0 w-64 h-64 bg-[radial-gradient(ellipse_at_bottom_right,rgba(245,158,11,0.12),transparent_60%)] pointer-events-none" />
+                  
+                  {/* Glowing Top Hazard Alert Line */}
+                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-rose-500 via-red-400 to-amber-500 shadow-[0_0_12px_rgba(244,63,94,0.6)]" />
+
+                  <div className="space-y-5 relative z-10">
                     {/* Top Row: Title & Status Label */}
-                    <div className="flex items-center justify-between gap-2 border-b border-rose-950/60 pb-3">
+                    <div className="flex items-center justify-between gap-2 border-b border-rose-950/80 pb-3.5">
                       <div>
-                        <span className="text-[10px] font-mono text-rose-400 uppercase tracking-widest block font-semibold">
+                        <span className="text-[10px] font-mono text-rose-400/90 uppercase tracking-widest block font-bold">
                           Reactive Dead-End
                         </span>
-                        <h3 className="text-xl font-display font-bold text-white">
-                          The Legacy System
+                        <h3 className="text-xl sm:text-2xl font-display font-black text-white flex items-center gap-2 mt-0.5">
+                          <span className="text-rose-500">❌</span>
+                          <span>THE LEGACY SYSTEM</span>
                         </h3>
                       </div>
-                      <span className="px-2.5 py-1 rounded-full bg-rose-500/15 border border-rose-500/30 text-rose-300 text-[9px] font-mono font-bold uppercase tracking-wider flex-shrink-0">
+                      <span className="px-2.5 py-1 rounded-full bg-rose-500/20 border border-rose-500/40 text-rose-300 text-[9px] font-mono font-bold uppercase tracking-wider flex-shrink-0 shadow-[0_0_10px_rgba(244,63,94,0.2)]">
                         OFF CRITICAL PATH
                       </span>
                     </div>
 
                     {/* Metric Box */}
-                    <div className="p-3 rounded-2xl bg-rose-950/25 border border-rose-900/40 flex items-center justify-between">
+                    <div className="p-3.5 rounded-2xl bg-[#2a0d16]/70 border border-rose-500/30 flex items-center justify-between shadow-inner">
                       <div>
                         <div className="text-xl font-display font-black text-rose-400">0% Predictive</div>
                         <div className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">Waits for System Failure</div>
                       </div>
-                      <div className="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center text-rose-400">
-                        <Flame size={16} />
+                      <div className="w-9 h-9 rounded-xl bg-rose-500/15 border border-rose-500/30 flex items-center justify-center text-rose-400 shadow-[0_0_12px_rgba(244,63,94,0.3)]">
+                        <Flame size={18} />
                       </div>
                     </div>
 
-                    {/* Key Bullets */}
+                    {/* Key Bullets as Glassmorphic Alert Cards */}
                     <div className="space-y-3 pt-1">
-                      <div className="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed">
-                        <span className="text-rose-400 font-bold text-sm leading-none mt-0.5">✕</span>
-                        <span>Waits for physical symptoms to appear before playing defense with your life.</span>
+                      <div className="p-3 rounded-2xl bg-slate-950/70 border border-rose-900/50 hover:border-rose-500/40 transition-colors flex items-start gap-3 text-xs sm:text-sm text-slate-200 leading-relaxed shadow-sm">
+                        <div className="w-6 h-6 rounded-lg bg-rose-500/15 border border-rose-500/30 text-rose-400 flex items-center justify-center flex-shrink-0 mt-0.5 font-bold text-xs">
+                          ✕
+                        </div>
+                        <span>Waits for symptoms, not signals</span>
                       </div>
 
-                      <div className="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed">
-                        <span className="text-rose-400 font-bold text-sm leading-none mt-0.5">✕</span>
-                        <span>Relies on isolated, high-stress annual diagnostic snapshots that miss active daily trends.</span>
+                      <div className="p-3 rounded-2xl bg-slate-950/70 border border-rose-900/50 hover:border-rose-500/40 transition-colors flex items-start gap-3 text-xs sm:text-sm text-slate-200 leading-relaxed shadow-sm">
+                        <div className="w-6 h-6 rounded-lg bg-rose-500/15 border border-rose-500/30 text-rose-400 flex items-center justify-center flex-shrink-0 mt-0.5 font-bold text-xs">
+                          ✕
+                        </div>
+                        <span>One diagnostic snapshot a year — blind the other 364 days</span>
                       </div>
 
-                      <div className="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed">
-                        <span className="text-rose-400 font-bold text-sm leading-none mt-0.5">✕</span>
-                        <span>Operates under a volume-driven model that rewards procedures over long-term cellular vitality.</span>
+                      <div className="p-3 rounded-2xl bg-slate-950/70 border border-rose-900/50 hover:border-rose-500/40 transition-colors flex items-start gap-3 text-xs sm:text-sm text-slate-200 leading-relaxed shadow-sm">
+                        <div className="w-6 h-6 rounded-lg bg-rose-500/15 border border-rose-500/30 text-rose-400 flex items-center justify-center flex-shrink-0 mt-0.5 font-bold text-xs">
+                          ✕
+                        </div>
+                        <span>Rewards treating breakdowns, not preventing them</span>
                       </div>
 
-                      <div className="flex items-start gap-2.5 text-xs text-slate-300 leading-relaxed">
-                        <span className="text-rose-400 font-bold text-sm leading-none mt-0.5">✕</span>
-                        <span>Lets surface scratches accumulate on your cellular compact disc until the music completely stops.</span>
+                      <div className="p-3 rounded-2xl bg-slate-950/70 border border-rose-900/50 hover:border-rose-500/40 transition-colors flex items-start gap-3 text-xs sm:text-sm text-slate-200 leading-relaxed shadow-sm">
+                        <div className="w-6 h-6 rounded-lg bg-rose-500/15 border border-rose-500/30 text-rose-400 flex items-center justify-center flex-shrink-0 mt-0.5 font-bold text-xs">
+                          ✕
+                        </div>
+                        <span>Damage accumulates silently until the system fails</span>
                       </div>
                     </div>
                   </div>
 
-                  <div className="pt-3 border-t border-rose-950/60 flex items-center justify-between text-[11px] font-mono text-rose-400/80">
+                  <div className="pt-3.5 border-t border-rose-950/80 flex items-center justify-between text-[11px] font-mono text-rose-400/90 relative z-10">
                     <span>Emergency Crisis Care Only</span>
-                    <span className="text-rose-500 font-bold">0% Trajectory</span>
+                    <span className="text-rose-400 font-bold">0% Trajectory</span>
                   </div>
                 </div>
 
-                {/* Right Card: 2/3 (lg:col-span-8) - The Proactive Path Today - On the Critical Path */}
-                <div className="lg:col-span-8 p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-[#091522] via-[#0b1320] to-[#070b14] border border-cyan-500/40 hover:border-cyan-400 ring-1 ring-cyan-500/20 shadow-[0_0_40px_rgba(6,182,212,0.15)] flex flex-col justify-between space-y-6 relative overflow-hidden group transition-all duration-300 hover:scale-[1.01]">
-                  <div className="space-y-5">
+                {/* Right Card: (lg:col-span-7) - The Critical Path */}
+                <div className="lg:col-span-7 p-6 sm:p-8 rounded-3xl bg-gradient-to-b from-[#072430] via-[#091829] to-[#040e1a] border border-cyan-400/60 hover:border-cyan-300 ring-1 ring-cyan-500/30 shadow-[0_0_50px_rgba(6,182,212,0.25)] flex flex-col justify-between space-y-6 relative overflow-hidden group transition-all duration-300 hover:scale-[1.01]">
+                  {/* Thematic Optical Laser Scan & Vitality Ambient Glows */}
+                  <div className="absolute top-0 right-0 w-96 h-96 bg-[radial-gradient(ellipse_at_top_right,rgba(6,182,212,0.28),transparent_65%)] pointer-events-none" />
+                  <div className="absolute bottom-0 left-0 w-80 h-80 bg-[radial-gradient(ellipse_at_bottom_left,rgba(16,185,129,0.18),transparent_60%)] pointer-events-none" />
+                  
+                  {/* Glowing Top Optical Laser Beam */}
+                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-sky-300 to-emerald-400 shadow-[0_0_15px_rgba(6,182,212,0.8)]" />
+
+                  <div className="space-y-5 relative z-10">
                     {/* Top Row: Title & Status Label */}
-                    <div className="flex items-center justify-between gap-2 border-b border-cyan-950/80 pb-3">
+                    <div className="flex items-center justify-between gap-2 border-b border-cyan-950/80 pb-3.5">
                       <div>
-                        <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest block font-semibold">
+                        <span className="text-[10px] font-mono text-cyan-300 uppercase tracking-widest block font-bold">
                           The Proactive Path Today
                         </span>
-                        <h3 className="text-xl sm:text-2xl font-display font-bold text-white">
-                          Today's Active Preservation
+                        <h3 className="text-xl sm:text-2xl font-display font-black text-white flex items-center gap-2 mt-0.5">
+                          <span className="text-emerald-400">✅</span>
+                          <span>THE CRITICAL PATH</span>
                         </h3>
                       </div>
-                      <span className="px-3 py-1 rounded-full bg-cyan-400/20 border border-cyan-400/50 text-cyan-300 text-[10px] font-mono font-bold uppercase tracking-wider animate-pulse flex-shrink-0">
+                      <span className="px-3 py-1 rounded-full bg-cyan-400/25 border border-cyan-400/60 text-cyan-200 text-[10px] font-mono font-bold uppercase tracking-wider animate-pulse flex-shrink-0 shadow-[0_0_15px_rgba(6,182,212,0.4)]">
                         ACTIVE PROGRAM
                       </span>
                     </div>
 
                     {/* Metric Box */}
-                    <div className="p-3.5 rounded-2xl bg-cyan-950/40 border border-cyan-500/30 flex items-center justify-between">
+                    <div className="p-3.5 rounded-2xl bg-cyan-950/50 border border-cyan-400/40 flex items-center justify-between shadow-inner">
                       <div>
-                        <div className="text-xl sm:text-2xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-amber-300">
+                        <div className="text-xl sm:text-2xl font-display font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-emerald-300">
                           1.8x Healthspan
                         </div>
-                        <div className="text-[10px] font-mono text-cyan-300/80 uppercase tracking-wider font-semibold">
-                          Active Cellular Optimization & Hardware Defense
+                        <div className="text-[10px] font-mono text-cyan-200/90 uppercase tracking-wider font-semibold">
+                          Continuous Hardware Defense & Longevity Trajectory
                         </div>
                       </div>
-                      <div className="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/40 flex items-center justify-center text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.3)]">
-                        <ShieldCheck size={20} />
+                      <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-400/50 flex items-center justify-center text-cyan-300 shadow-[0_0_18px_rgba(6,182,212,0.4)]">
+                        <ShieldCheck size={22} />
                       </div>
                     </div>
 
-                    {/* Key Bullets Grid (2 columns on md/lg for the 2/3 card) */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 pt-1">
-                      <div className="p-3 rounded-2xl bg-slate-950/60 border border-cyan-500/20 flex items-start gap-2.5 text-xs text-slate-200 leading-relaxed">
-                        <CheckCircle2 size={16} className="text-cyan-400 flex-shrink-0 mt-0.5" />
-                        <span>Focuses on continuous metabolic tracking, sleep autonomic engineering, and vascular compliance in real-time.</span>
+                    {/* Key Bullets as Glassmorphic Cards with Glowing Badges */}
+                    <div className="space-y-3 pt-1">
+                      <div className="p-3.5 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900/80 to-slate-950/70 border border-cyan-500/30 hover:border-cyan-400/60 shadow-[0_0_15px_rgba(6,182,212,0.1)] transition-all flex items-start gap-3.5 text-xs sm:text-sm text-slate-200 leading-relaxed">
+                        <div className="w-7 h-7 rounded-xl bg-cyan-500/20 border border-cyan-400/50 text-cyan-300 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-[0_0_10px_rgba(6,182,212,0.3)]">
+                          <CheckCircle2 size={16} />
+                        </div>
+                        <div>
+                          <strong className="text-white block font-bold text-sm">Predictive, not reactive</strong>
+                          <span className="text-slate-300 text-xs">Monitors early baseline trends before subclinical damage accumulates.</span>
+                        </div>
                       </div>
 
-                      <div className="p-3 rounded-2xl bg-slate-950/60 border border-cyan-500/20 flex items-start gap-2.5 text-xs text-slate-200 leading-relaxed">
-                        <CheckCircle2 size={16} className="text-cyan-400 flex-shrink-0 mt-0.5" />
-                        <span>Empowers you with direct epigenetic sovereignty—choices that write the code turning off cellular decay markers.</span>
+                      <div className="p-3.5 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900/80 to-slate-950/70 border border-cyan-500/30 hover:border-cyan-400/60 shadow-[0_0_15px_rgba(6,182,212,0.1)] transition-all flex items-start gap-3.5 text-xs sm:text-sm text-slate-200 leading-relaxed">
+                        <div className="w-7 h-7 rounded-xl bg-cyan-500/20 border border-cyan-400/50 text-cyan-300 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-[0_0_10px_rgba(6,182,212,0.3)]">
+                          <CheckCircle2 size={16} />
+                        </div>
+                        <div>
+                          <strong className="text-white block font-bold text-sm">Tracks daily trends, not annual snapshots</strong>
+                          <span className="text-slate-300 text-xs">Continuous metabolic tracking and sleep autonomic engineering in real-time.</span>
+                        </div>
                       </div>
 
-                      <div className="p-3 rounded-2xl bg-slate-950/60 border border-cyan-500/20 flex items-start gap-2.5 text-xs text-slate-200 leading-relaxed">
-                        <CheckCircle2 size={16} className="text-cyan-400 flex-shrink-0 mt-0.5" />
-                        <span>Weaves a multitude of immediate, high-performance daily habits that act as miles-ahead upgrades to your daily energy.</span>
-                      </div>
-
-                      <div className="p-3 rounded-2xl bg-slate-950/60 border border-cyan-500/20 flex items-start gap-2.5 text-xs text-slate-200 leading-relaxed">
-                        <CheckCircle2 size={16} className="text-cyan-400 flex-shrink-0 mt-0.5" />
-                        <span>Keeps your biological hardware pristine to safely cross the 10-year bridge to future age-reversal software.</span>
+                      <div className="p-3.5 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900/80 to-slate-950/70 border border-cyan-500/30 hover:border-cyan-400/60 shadow-[0_0_15px_rgba(6,182,212,0.1)] transition-all flex items-start gap-3.5 text-xs sm:text-sm text-slate-200 leading-relaxed">
+                        <div className="w-7 h-7 rounded-xl bg-cyan-500/20 border border-cyan-400/50 text-cyan-300 flex items-center justify-center flex-shrink-0 mt-0.5 shadow-[0_0_10px_rgba(6,182,212,0.3)]">
+                          <CheckCircle2 size={16} />
+                        </div>
+                        <div>
+                          <strong className="text-white block font-bold text-sm">Protect your BODY now — so it's still running when the cure arrives</strong>
+                          <span className="text-slate-300 text-xs">Preserves cellular machinery today to safely cross the bridge to tomorrow's age-reversal software.</span>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <div className="pt-3 border-t border-cyan-950/80 flex items-center justify-between text-[11px] font-mono text-cyan-400">
+                  <div className="pt-3.5 border-t border-cyan-950/80 flex items-center justify-between text-[11px] font-mono text-cyan-300 font-bold relative z-10">
                     <span>Active Daily Biological Sovereignty</span>
-                    <span className="text-cyan-300 font-bold">100% Critical Path</span>
+                    <span className="text-cyan-400">100% Critical Path</span>
                   </div>
                 </div>
 
               </div>
 
-              {/* 3. The Epigenetic Future Glimpse Teaser (Horizontal Banner) */}
-              <div className="p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-amber-950/25 via-slate-900/90 to-cyan-950/25 border border-amber-500/30 shadow-xl text-left space-y-3 relative overflow-hidden">
-                <div className="text-amber-300 font-bold font-mono uppercase tracking-wider text-xs sm:text-sm">
-                  🔬 THE HORIZON:
-                </div>
-                <div className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light space-y-3">
-                  <p className="text-white font-medium text-sm sm:text-base">
+              {/* 3. The Epigenetic Future Glimpse Teaser (Horizontal Horizon Banner) */}
+              <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-[#241708] via-[#101424] to-[#071f28] border border-amber-500/40 hover:border-amber-400/70 shadow-[0_0_40px_rgba(245,158,11,0.15)] text-left space-y-4 relative overflow-hidden group transition-all duration-300">
+                {/* Celestial Golden Dawn & Cyber Reprogramming Glows */}
+                <div className="absolute top-0 left-0 w-96 h-96 bg-[radial-gradient(ellipse_at_top_left,rgba(245,158,11,0.25),transparent_60%)] pointer-events-none" />
+                <div className="absolute bottom-0 right-0 w-96 h-96 bg-[radial-gradient(ellipse_at_bottom_right,rgba(6,182,212,0.22),transparent_60%)] pointer-events-none" />
+                
+                {/* Luminous Multi-Spectrum Horizon Top Beam */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-amber-400 via-yellow-200 via-sky-300 to-cyan-400 shadow-[0_0_15px_rgba(245,158,11,0.6)]" />
+
+                <div className="relative z-10 space-y-3.5">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-400/40 text-amber-300 font-mono font-bold text-xs uppercase tracking-wider shadow-[0_0_15px_rgba(245,158,11,0.2)]">
+                    <Sparkles size={14} className="text-amber-400 animate-pulse" />
+                    <span>🔬 THE HORIZON</span>
+                  </div>
+                  
+                  <p className="text-white font-bold text-base sm:text-lg tracking-tight">
                     Your cells have a reset button. Scientists just found it.
                   </p>
-                  <p>
+
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
                     Nobel Prize-winning research (Yamanaka factors) can flip aging cells back to a younger state — like software rewinding to factory settings. It's already in human trials: Life Biosciences' ER-100 is testing this exact reset on damaged optic nerves right now.
                   </p>
-                  <p className="font-mono text-cyan-300/90 text-xs sm:text-sm">
-                    Realistic timeline to mainstream use: ~10 years.
-                  </p>
-                  <p className="text-amber-200/90 font-medium">
-                    But here's the catch: you can't reboot hardware that's already been destroyed.
-                  </p>
-                  <p>
+
+                  <div className="flex flex-wrap items-center gap-3 pt-1">
+                    <div className="px-3.5 py-1.5 rounded-xl bg-cyan-950/60 border border-cyan-500/30 font-mono text-cyan-300 text-xs sm:text-sm inline-flex items-center gap-1.5 shadow-[0_0_12px_rgba(6,182,212,0.15)]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                      <span>Realistic timeline to mainstream use: ~10 years.</span>
+                    </div>
+
+                    <div className="px-3.5 py-1.5 rounded-xl bg-amber-950/50 border border-amber-500/30 text-amber-200 font-medium text-xs sm:text-sm">
+                      But here's the catch: you can't reboot hardware that's already been destroyed.
+                    </div>
+                  </div>
+
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light pt-1">
                     The software is coming. The question is whether your body will still be running when it arrives.
                   </p>
-                  <p className="text-cyan-300 font-semibold font-mono tracking-wide pt-1">
-                    Build the hardware today. Run tomorrow's software.
-                  </p>
+
+                  <div className="p-3 px-4 rounded-2xl bg-gradient-to-r from-cyan-950/70 via-slate-900/90 to-amber-950/50 border border-cyan-400/40 flex items-center justify-between shadow-lg">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-sky-200 to-amber-300 font-extrabold font-mono text-xs sm:text-sm uppercase tracking-wide">
+                      Build the hardware today. Run tomorrow's software.
+                    </span>
+                    <span className="text-cyan-400 font-mono text-xs font-bold hidden sm:inline">
+                      100% Critical Path →
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              {/* 4. The Action Trigger Button */}
+              {/* 4. The Action Trigger Button & Callout */}
               <div className="pt-2 flex flex-col items-center gap-4">
+                <p className="text-xs sm:text-sm md:text-base font-mono font-semibold text-amber-300 tracking-wide text-center">
+                  Don't wait for the inflated bill. Map your Critical Path today.
+                </p>
+
                 <Link
                   to="/health-quiz"
                   className="w-full sm:w-auto px-10 py-5 rounded-2xl bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500 hover:from-cyan-300 hover:to-indigo-400 text-slate-950 font-black text-xs sm:text-sm font-mono uppercase tracking-wider transition-all duration-300 shadow-[0_0_35px_rgba(6,182,212,0.4)] hover:shadow-[0_0_50px_rgba(6,182,212,0.65)] flex items-center justify-center gap-2.5 cursor-pointer transform hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <Sparkles size={18} className="text-slate-950" />
-                  <span>Run Your 5-Minute Critical Path Trajectory Scan →</span>
+                  <span>Start Now →</span>
                 </Link>
 
                 <Link
