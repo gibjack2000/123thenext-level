@@ -2297,11 +2297,45 @@ export default function Store() {
   const [categories, setCategories] = useState<string[]>(['All']);
   const [loading, setLoading] = useState(true);
 
+  // 1. Automatic Geo-IP Storefront Switcher (ES, UK/GB, US fallback)
+  useEffect(() => {
+    async function detectVisitorCountry() {
+      try {
+        // Respect explicit URL parameter if present (?country=ES, ?country=UK, etc.)
+        const searchParams = new URLSearchParams(window.location.search);
+        const urlCountry = searchParams.get('country')?.toUpperCase();
+        if (urlCountry === 'ES' || urlCountry === 'UK' || urlCountry === 'US') {
+          setActiveTab(urlCountry as MarketTab);
+          return;
+        }
+
+        const response = await fetch('https://ipapi.co/json/');
+        if (response.ok) {
+          const locationData = await response.json();
+          const country = (locationData.country_code || locationData.country || '').toUpperCase();
+
+          if (country === 'ES') {
+            setActiveTab('ES');
+          } else if (country === 'GB' || country === 'UK') {
+            setActiveTab('UK');
+          } else {
+            setActiveTab('US');
+          }
+        }
+      } catch (geoErr) {
+        console.warn('Geo-IP auto-detection defaulted to US:', geoErr);
+      }
+    }
+
+    detectVisitorCountry();
+  }, []);
+
+  // 2. Fetch products whenever activeTab changes
   useEffect(() => {
     async function fetchDynamicStore() {
       setLoading(true);
       try {
-        // 1. Fetch live products from Supabase for the strictly selected market
+        // Fetch live products from Supabase for the strictly selected market
         const { data, error } = await supabase
           .from('products')
           .select('*')
@@ -2311,7 +2345,7 @@ export default function Store() {
           throw error || new Error(`Database is empty for ${activeTab}`);
         }
 
-        // 2. Client-side absolute image link and deal URL matching
+        // Client-side absolute image link and deal URL matching
         const healedData = data.map((p: any) => {
           let healedImg = p.image_url;
           if (healedImg && healedImg.startsWith('/assets/') && !healedImg.startsWith('http')) {
@@ -2330,7 +2364,7 @@ export default function Store() {
 
         setProducts(healedData);
 
-        // 3. Extract unique categories present in this specific market
+        // Extract unique categories present in this specific market
         const rawCategories = healedData.map((p: any) => p.category).filter(Boolean);
         const uniqueCategories = Array.from(new Set(rawCategories)).map((cat: any) => {
           return cat.charAt(0).toUpperCase() + cat.slice(1);
@@ -2340,7 +2374,7 @@ export default function Store() {
       } catch (err) {
         console.warn(`Supabase fetch failed for ${activeTab}. Falling back to regional offline registry:`, err);
         
-        // 4. Strict Market-Specific Offline Fallback logic
+        // Strict Market-Specific Offline Fallback logic
         const fallbackList = REGIONAL_MASTER_CATALOGS[activeTab] || [];
         setProducts(fallbackList);
 
