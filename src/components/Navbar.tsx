@@ -117,13 +117,14 @@ const Navbar = () => {
           {/* ========================================================================= */}
           {/* TIER 1: UPPER REGISTRY ANNOUNCEMENT BOX (The Peak Hook - Absolute Top)   */}
           {/* ========================================================================= */}
-          <div className="relative z-10 p-3 sm:p-4 rounded-xl bg-[#0f172a] border border-slate-800/80 shadow-md backdrop-blur-md text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start gap-1.5 text-cyan-400 font-bold text-xs sm:text-sm mb-1 tracking-tight font-display">
-              <span>⚙️</span>
-              <span className="text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.3)]">CLINICAL REGISTRY: Now Active</span>
+          <div className="relative z-10 p-4 sm:p-6 rounded-xl bg-[#0f172a] border border-slate-800/80 shadow-md backdrop-blur-md text-center md:text-left">
+            <div className="flex items-center justify-center md:justify-start gap-2.5 text-cyan-400 font-bold text-xl sm:text-2xl md:text-3xl mb-2 tracking-tight font-display">
+              <span className="text-xl sm:text-2xl">⚙️</span>
+              <span className="text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.35)]">THE SOVEREIGN HEALTH STACK — LIVE NOW</span>
             </div>
-            <p className="text-slate-300 text-xs sm:text-[12.5px] leading-relaxed font-sans">
-              <strong className="text-white font-semibold">Recommended Sovereign Health Stack</strong> — a curated arsenal of certified diagnostic hardware, NSF-certified cellular fuel stacks, targeted vitamins and supplements, and multi-omic blood panels, built for one purpose: keeping your biological hardware running strong across the 10-year critical path.
+            <p className="text-slate-300 text-base sm:text-lg md:text-xl lg:text-[24px] leading-snug md:leading-relaxed font-sans">
+              Diagnostic-grade hardware. NSF-certified fuel. Precision supplements. Full-spectrum blood panels.{" "}
+              <strong className="text-white font-semibold">Upgrade your biology. Not someday — now.</strong>
             </p>
           </div>
 
@@ -172,14 +173,13 @@ const Navbar = () => {
 
             {/* 3. Right Column: Action Trigger */}
             <div className="flex items-center flex-shrink-0">
-              <button
-                type="button"
-                onClick={() => setIsQuizOpen(true)}
+              <Link
+                to="/health-quiz"
                 className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500 hover:from-cyan-300 hover:to-indigo-400 text-slate-950 font-black text-[11px] font-mono uppercase tracking-wider shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_25px_rgba(6,182,212,0.6)] transition-all transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex items-center gap-1.5 flex-shrink-0"
               >
                 <Zap size={11} className="fill-current text-slate-950" />
                 <span>Run Systems Check →</span>
-              </button>
+              </Link>
             </div>
 
           </div>

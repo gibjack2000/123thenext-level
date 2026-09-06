@@ -22,7 +22,8 @@ import {
   ShieldAlert,
   ChevronRight,
   TrendingUp,
-  FileText
+  FileText,
+  ClipboardCheck
 } from 'lucide-react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 
@@ -523,6 +524,20 @@ export const FriendlyWellnessQuizModal: React.FC<FriendlyWellnessQuizModalProps>
                         >
                           <Sparkles size={16} />
                           <span>{isSubmitting ? 'Calculating...' : 'Reveal My Score & Daily Toolkit →'}</span>
+                        </button>
+                      </div>
+
+                      <div className="pt-2 text-center border-t border-slate-800/80">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onClose();
+                            navigate('/health-quiz');
+                          }}
+                          className="text-xs font-mono text-cyan-400 hover:text-cyan-300 transition-colors underline cursor-pointer flex items-center justify-center gap-1.5 mx-auto"
+                        >
+                          <ClipboardCheck size={14} />
+                          <span>Or launch the comprehensive 12-Question Diagnostic Health Quiz →</span>
                         </button>
                       </div>
                     </form>

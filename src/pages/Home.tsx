@@ -413,13 +413,13 @@ export default function Home() {
               
               {/* Buttons */}
               <div className="flex flex-col sm:flex-row gap-3.5 pt-1">
-                <button 
-                  onClick={handleOpenQuiz} 
+                <Link 
+                  to="/health-quiz" 
                   className="inline-flex justify-center items-center px-6 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all active:scale-[0.98] shadow-lg shadow-wellness-cyan/20 border border-wellness-cyan/30 whitespace-nowrap cursor-pointer transform hover:scale-[1.02]"
                 >
                   <Sparkles size={14} className="mr-2 text-cyan-200" />
                   Take the 5-Minute Wellness Quiz
-                </button>
+                </Link>
                 <button 
                   onClick={handleOpenEbook} 
                   className="inline-flex justify-center items-center px-6 py-4 bg-slate-900/80 border border-slate-700/80 hover:border-wellness-cyan hover:text-white text-slate-200 rounded-xl text-xs font-black uppercase tracking-wider transition-colors active:scale-[0.98] shadow backdrop-blur-sm whitespace-nowrap cursor-pointer"
@@ -686,14 +686,13 @@ export default function Home() {
 
               {/* 4. The Action Trigger Button */}
               <div className="pt-2 flex flex-col items-center gap-4">
-                <button
-                  type="button"
-                  onClick={handleOpenQuiz}
+                <Link
+                  to="/health-quiz"
                   className="w-full sm:w-auto px-10 py-5 rounded-2xl bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500 hover:from-cyan-300 hover:to-indigo-400 text-slate-950 font-black text-xs sm:text-sm font-mono uppercase tracking-wider transition-all duration-300 shadow-[0_0_35px_rgba(6,182,212,0.4)] hover:shadow-[0_0_50px_rgba(6,182,212,0.65)] flex items-center justify-center gap-2.5 cursor-pointer transform hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <Sparkles size={18} className="text-slate-950" />
                   <span>Run Your 5-Minute Critical Path Trajectory Scan →</span>
-                </button>
+                </Link>
 
                 <Link
                   to="/science"
@@ -2156,7 +2155,7 @@ export default function Home() {
       <FriendlyWellnessQuizModal
         isOpen={isLeadModalOpen}
         onClose={() => setIsLeadModalOpen(false)}
-        initialState="ebook"
+        initialState={leadModalInitialState}
       />
 
       {/* Device Connection Modal */}
