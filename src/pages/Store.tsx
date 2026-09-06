@@ -1,5 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
+import { 
+  Dumbbell, 
+  ChefHat, 
+  Smartphone, 
+  Pill, 
+  Sparkles, 
+  Zap, 
+  Activity, 
+  Flame, 
+  HeartPulse 
+} from 'lucide-react';
 
 type MarketTab = 'US' | 'UK' | 'ES';
 
@@ -23,6 +34,102 @@ interface SovereignProduct {
   uk: ProductMarketConfig;
   es: ProductMarketConfig;
 }
+
+// Category Header Definitions
+interface CategoryBannerConfig {
+  title: string;
+  subtitle: string;
+  icon: React.ComponentType<{ className?: string }>;
+  iconColor: string;
+  iconBorder: string;
+  iconGlow: string;
+  radarColor: string;
+}
+
+const CATEGORY_BANNERS: Record<string, CategoryBannerConfig> = {
+  fitness: {
+    title: 'FITNESS GEAR',
+    subtitle: 'Home gym essentials and workout equipment',
+    icon: Dumbbell,
+    iconColor: 'text-cyan-400',
+    iconBorder: 'border-cyan-500/30',
+    iconGlow: 'shadow-[0_0_25px_rgba(6,182,212,0.25)]',
+    radarColor: 'text-cyan-500/10'
+  },
+  'fitness gear': {
+    title: 'FITNESS GEAR',
+    subtitle: 'Home gym essentials and workout equipment',
+    icon: Dumbbell,
+    iconColor: 'text-cyan-400',
+    iconBorder: 'border-cyan-500/30',
+    iconGlow: 'shadow-[0_0_25px_rgba(6,182,212,0.25)]',
+    radarColor: 'text-cyan-500/10'
+  },
+  kitchen: {
+    title: 'HOME & KITCHEN',
+    subtitle: 'Appliances, cookware, and longevity nutrient extractors',
+    icon: ChefHat,
+    iconColor: 'text-amber-400',
+    iconBorder: 'border-amber-500/30',
+    iconGlow: 'shadow-[0_0_25px_rgba(245,158,11,0.25)]',
+    radarColor: 'text-amber-500/10'
+  },
+  'home & kitchen': {
+    title: 'HOME & KITCHEN',
+    subtitle: 'Appliances, cookware, and longevity nutrient extractors',
+    icon: ChefHat,
+    iconColor: 'text-amber-400',
+    iconBorder: 'border-amber-500/30',
+    iconGlow: 'shadow-[0_0_25px_rgba(245,158,11,0.25)]',
+    radarColor: 'text-amber-500/10'
+  },
+  'tech gadgets & wearables': {
+    title: 'TECH GADGETS & WEARABLES',
+    subtitle: 'Latest biophysical monitors, wearables, and sleep sensors',
+    icon: Smartphone,
+    iconColor: 'text-indigo-400',
+    iconBorder: 'border-indigo-500/30',
+    iconGlow: 'shadow-[0_0_25px_rgba(99,102,241,0.25)]',
+    radarColor: 'text-indigo-500/10'
+  },
+  supplements: {
+    title: 'SUPPLEMENTS & NUTRACEUTICALS',
+    subtitle: 'Mitochondrial cofactors, purity-tested enzymes, and daily nutrition',
+    icon: Pill,
+    iconColor: 'text-emerald-400',
+    iconBorder: 'border-emerald-500/30',
+    iconGlow: 'shadow-[0_0_25px_rgba(16,185,129,0.25)]',
+    radarColor: 'text-emerald-500/10'
+  },
+  'performance & testing': {
+    title: 'PERFORMANCE & TESTING',
+    subtitle: 'Diagnostic tools, biomarker testing, and telemetry devices',
+    icon: Sparkles,
+    iconColor: 'text-rose-400',
+    iconBorder: 'border-rose-500/30',
+    iconGlow: 'shadow-[0_0_25px_rgba(244,63,94,0.25)]',
+    radarColor: 'text-rose-500/10'
+  },
+  'lifestyle & performance gear': {
+    title: 'LIFESTYLE & RECOVERY GEAR',
+    subtitle: 'Somatic recovery gear, thermal saunas, and sensory optimization',
+    icon: Zap,
+    iconColor: 'text-blue-400',
+    iconBorder: 'border-blue-500/30',
+    iconGlow: 'shadow-[0_0_25px_rgba(59,130,246,0.25)]',
+    radarColor: 'text-blue-500/10'
+  }
+};
+
+const DEFAULT_BANNER_CONFIG: CategoryBannerConfig = {
+  title: 'CURATED GEAR HUB',
+  subtitle: 'High-performance lifestyle accelerators and equipment',
+  icon: Activity,
+  iconColor: 'text-cyan-400',
+  iconBorder: 'border-cyan-500/30',
+  iconGlow: 'shadow-[0_0_25px_rgba(6,182,212,0.25)]',
+  radarColor: 'text-cyan-500/10'
+};
 
 // 100% COMPLETE STATIC CATALOG FALLBACK REGISTRY
 const localMasterCatalog: SovereignProduct[] = [
@@ -507,6 +614,66 @@ const localMasterCatalog: SovereignProduct[] = [
     }
   },
   {
+    id: "kettlebell-set",
+    name: "Bowflex SelectTech 840 Adjustable Kettlebell",
+    category: "Fitness",
+    isDirectAffiliate: false,
+    rating: 4.88,
+    description: "Adjusts from 8 to 40 lbs with the turn of a dial for rapid eccentric loading, posterior chain power, and functional hypertrophy.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/rower.png",
+    us: {
+      url: "https://www.amazon.com/dp/B07V2C6374?tag=123znl0e-20",
+      ctaText: "View Kettlebells on Amazon US 🇺🇸",
+      badge: "6-in-1 Compact Resistance",
+      network: "Amazon Associates",
+      priceText: "$149.00"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B07V2C6374?tag=123znl0f3-21",
+      ctaText: "View Kettlebells on Amazon UK 🇬🇧",
+      badge: "6-in-1 Compact Resistance",
+      network: "Amazon Associates",
+      priceText: "£139.00"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B07V2C6374?tag=123znl08a-21",
+      ctaText: "View Kettlebells on Amazon ES 🇪🇸",
+      badge: "Resistencia Compacta 6 en 1",
+      network: "Amazon Associates",
+      priceText: "149,00€"
+    }
+  },
+  {
+    id: "pullup-bar",
+    name: "Iron Gym Total Upper Body Workout Bar",
+    category: "Fitness",
+    isDirectAffiliate: false,
+    rating: 4.82,
+    description: "Multifunctional doorway resistance system for strict pull-ups, chin-ups, and core decompression without wall screws.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/rower.png",
+    us: {
+      url: "https://www.amazon.com/dp/B001EJMS6B?tag=123znl0e-20",
+      ctaText: "View Bar on Amazon US 🇺🇸",
+      badge: "Heavy-Duty Steel Construction",
+      network: "Amazon Associates",
+      priceText: "$29.99"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B001EJMS6B?tag=123znl0f3-21",
+      ctaText: "View Bar on Amazon UK 🇬🇧",
+      badge: "Heavy-Duty Steel Construction",
+      network: "Amazon Associates",
+      priceText: "£26.99"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B001EJMS6B?tag=123znl08a-21",
+      ctaText: "View Bar on Amazon ES 🇪🇸",
+      badge: "Construcción de Acero",
+      network: "Amazon Associates",
+      priceText: "29,99€"
+    }
+  },
+  {
     id: "sauna-tent",
     name: "Portable Full-Body Infrared Sauna Tent",
     category: "Lifestyle & Performance Gear",
@@ -718,6 +885,55 @@ const localMasterCatalog: SovereignProduct[] = [
   }
 ];
 
+function CategoryBanner({ categoryKey }: { categoryKey: string }) {
+  const normKey = categoryKey.toLowerCase();
+  const config = CATEGORY_BANNERS[normKey] || DEFAULT_BANNER_CONFIG;
+  const Icon = config.icon;
+
+  return (
+    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900/90 to-slate-950 border border-slate-800 p-6 md:p-8 flex items-center justify-between shadow-2xl transition-all duration-300">
+      {/* Subtle Dot Matrix Pattern */}
+      <div 
+        className="absolute inset-0 opacity-20 pointer-events-none" 
+        style={{
+          backgroundImage: 'radial-gradient(circle, #38bdf8 1px, transparent 1px)',
+          backgroundSize: '18px 18px'
+        }}
+      />
+
+      {/* Futuristic Radar & Circular Reticle Graphics (Right-aligned) */}
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-80 h-80 pointer-events-none opacity-20 overflow-hidden">
+        <svg className="w-full h-full text-cyan-400" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.6">
+          <circle cx="75" cy="50" r="44" strokeDasharray="3 3" />
+          <circle cx="75" cy="50" r="32" />
+          <circle cx="75" cy="50" r="18" strokeDasharray="2 2" />
+          <circle cx="75" cy="50" r="6" />
+          <path d="M75 6 v88 M31 50 h88" strokeDasharray="1 3" />
+          <path d="M44 19 l62 62 M44 81 l62 -62" strokeWidth="0.3" strokeDasharray="2 4" />
+        </svg>
+      </div>
+
+      {/* Main Content Info */}
+      <div className="relative z-10 flex items-center space-x-6">
+        {/* Squircle Badge Icon */}
+        <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl md:rounded-3xl bg-slate-950/90 border ${config.iconBorder} flex items-center justify-center ${config.iconGlow} flex-shrink-0 transition-transform duration-300 hover:scale-105`}>
+          <Icon className={`w-8 h-8 md:w-10 md:h-10 ${config.iconColor} transform -rotate-45`} />
+        </div>
+
+        {/* Text Area */}
+        <div>
+          <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white uppercase font-sans">
+            {config.title}
+          </h3>
+          <p className="text-slate-400 text-sm md:text-base mt-1.5 font-normal">
+            {config.subtitle}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Store() {
   const [activeTab, setActiveTab] = useState<MarketTab>('US');
   const [activeCategory, setActiveCategory] = useState<string>('All');
@@ -815,6 +1031,11 @@ export default function Store() {
     (p.deal_url && p.deal_url.toLowerCase().includes('amazon'))
   );
 
+  // Group amazon products by category for structured sections when "All" is active
+  const amazonCategoriesInView = Array.from(
+    new Set(amazonHubProducts.map(p => p.category).filter(Boolean))
+  );
+
   const getFlagEmoji = (tab: MarketTab) => {
     if (tab === 'US') return '🇺🇸';
     if (tab === 'UK') return '🇬🇧';
@@ -854,7 +1075,7 @@ export default function Store() {
         ))}
       </div>
 
-      {/* Dynamic Filter Pills (Kitchen, Fitness, Supplements, etc. populate here!) */}
+      {/* Dynamic Filter Pills */}
       <div className="max-w-7xl mx-auto flex flex-wrap justify-center gap-2 mb-12 border-b border-slate-900 pb-6">
         {categories.map(category => (
           <button
@@ -934,54 +1155,116 @@ export default function Store() {
 
           {/* TIER 2: CURATED LIFESTYLE & GEAR (AMAZON ASSOCIATES) */}
           {amazonHubProducts.length > 0 && (
-            <div className="space-y-6 pt-6 border-t border-slate-900">
+            <div className="space-y-10 pt-6 border-t border-slate-900">
               <div className="border-l-4 border-cyan-500 pl-4">
                 <span className="text-xs text-cyan-400 uppercase font-semibold tracking-widest">CURATED LIFESTYLE & PILLAR HARDWARE</span>
                 <h2 className="text-2xl font-bold text-slate-100 mt-1">Amazon Longevity Gear Hub</h2>
               </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {amazonHubProducts.map(product => (
-                  <div key={product.id} className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-850 hover:border-cyan-500/20 p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
-                    <div>
-                      {product.image_url && (
-                        <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-slate-950/80 border border-slate-850/80 mb-4 flex items-center justify-center p-4">
-                          <img 
-                            src={product.image_url} 
-                            alt={product.name} 
-                            className="object-contain max-h-full max-w-full group-hover:scale-105 transition-transform duration-500"
-                            onError={(e) => {
-                              (e.target as HTMLImageElement).src = 'https://123thenextlevel.com/assets/images/shop/placeholder.png';
-                            }}
-                          />
+              {/* If "All" is active, render category-by-category with header banners */}
+              {activeCategory === 'All' ? (
+                amazonCategoriesInView.map(catKey => {
+                  const catProducts = amazonHubProducts.filter(p => p.category === catKey);
+                  return (
+                    <div key={catKey} className="space-y-6 pt-4">
+                      {/* Section Header Banner with Icon & Telemetry Background */}
+                      <CategoryBanner categoryKey={catKey} />
+
+                      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {catProducts.map(product => (
+                          <div key={product.id} className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-850 hover:border-cyan-500/20 p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
+                            <div>
+                              {product.image_url && (
+                                <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-slate-950/80 border border-slate-850/80 mb-4 flex items-center justify-center p-4">
+                                  <img 
+                                    src={product.image_url} 
+                                    alt={product.name} 
+                                    className="object-contain max-h-full max-w-full group-hover:scale-105 transition-transform duration-500"
+                                    onError={(e) => {
+                                      (e.target as HTMLImageElement).src = 'https://123thenextlevel.com/assets/images/shop/placeholder.png';
+                                    }}
+                                  />
+                                </div>
+                              )}
+                              <div className="flex justify-between items-start mb-4">
+                                <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-widest px-2 py-1 rounded bg-cyan-950/20 border border-cyan-900/30">
+                                  {product.category}
+                                </span>
+                                <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
+                                  <span>★</span> <span>{product.rating || '4.80'}</span>
+                                </span>
+                              </div>
+                              <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300">{product.name}</h3>
+                              <p className="text-xs text-slate-400 mt-3 leading-relaxed">{product.description}</p>
+                            </div>
+                            <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
+                              <div className="flex justify-between items-center">
+                                <span className="text-xs text-slate-500 font-semibold">Network Target</span>
+                                <span className="text-[10px] text-slate-400 font-semibold px-2 py-0.5 rounded bg-slate-905 border border-slate-800">{product.network || 'Amazon Associates'}</span>
+                              </div>
+                              <div className="flex justify-between items-center bg-slate-900/20 p-3 rounded-xl border border-slate-900">
+                                <span className="font-extrabold text-slate-100 text-lg">{product.price_text}</span>
+                                <a href={product.deal_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400 text-xs font-bold transition-all duration-300">
+                                  Buy on Amazon {getFlagEmoji(activeTab)}
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })
+              ) : (
+                /* Specific Category Filter Active: Render Single Matching Category Banner */
+                <div className="space-y-6">
+                  <CategoryBanner categoryKey={activeCategory} />
+
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {amazonHubProducts.map(product => (
+                      <div key={product.id} className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-850 hover:border-cyan-500/20 p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
+                        <div>
+                          {product.image_url && (
+                            <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden bg-slate-950/80 border border-slate-850/80 mb-4 flex items-center justify-center p-4">
+                              <img 
+                                src={product.image_url} 
+                                alt={product.name} 
+                                className="object-contain max-h-full max-w-full group-hover:scale-105 transition-transform duration-500"
+                                onError={(e) => {
+                                  (e.target as HTMLImageElement).src = 'https://123thenextlevel.com/assets/images/shop/placeholder.png';
+                                }}
+                              />
+                            </div>
+                          )}
+                          <div className="flex justify-between items-start mb-4">
+                            <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-widest px-2 py-1 rounded bg-cyan-950/20 border border-cyan-900/30">
+                              {product.category}
+                            </span>
+                            <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
+                              <span>★</span> <span>{product.rating || '4.80'}</span>
+                            </span>
+                          </div>
+                          <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300">{product.name}</h3>
+                          <p className="text-xs text-slate-400 mt-3 leading-relaxed">{product.description}</p>
                         </div>
-                      )}
-                      <div className="flex justify-between items-start mb-4">
-                        <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-widest px-2 py-1 rounded bg-cyan-950/20 border border-cyan-900/30">
-                          {product.category}
-                        </span>
-                        <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
-                          <span>★</span> <span>{product.rating || '4.80'}</span>
-                        </span>
+                        <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
+                          <div className="flex justify-between items-center">
+                            <span className="text-xs text-slate-500 font-semibold">Network Target</span>
+                            <span className="text-[10px] text-slate-400 font-semibold px-2 py-0.5 rounded bg-slate-905 border border-slate-800">{product.network || 'Amazon Associates'}</span>
+                          </div>
+                          <div className="flex justify-between items-center bg-slate-900/20 p-3 rounded-xl border border-slate-900">
+                            <span className="font-extrabold text-slate-100 text-lg">{product.price_text}</span>
+                            <a href={product.deal_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400 text-xs font-bold transition-all duration-300">
+                              Buy on Amazon {getFlagEmoji(activeTab)}
+                            </a>
+                          </div>
+                        </div>
                       </div>
-                      <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300">{product.name}</h3>
-                      <p className="text-xs text-slate-400 mt-3 leading-relaxed">{product.description}</p>
-                    </div>
-                    <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs text-slate-500 font-semibold">Network Target</span>
-                        <span className="text-[10px] text-slate-400 font-semibold px-2 py-0.5 rounded bg-slate-905 border border-slate-800">{product.network || 'Amazon Associates'}</span>
-                      </div>
-                      <div className="flex justify-between items-center bg-slate-900/20 p-3 rounded-xl border border-slate-900">
-                        <span className="font-extrabold text-slate-100 text-lg">{product.price_text}</span>
-                        <a href={product.deal_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400 text-xs font-bold transition-all duration-300">
-                          Buy on Amazon {getFlagEmoji(activeTab)}
-                        </a>
-                      </div>
-                    </div>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </div>
+              )}
+
             </div>
           )}
 
