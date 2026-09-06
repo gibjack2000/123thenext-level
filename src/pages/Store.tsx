@@ -7,9 +7,7 @@ import {
   Pill, 
   Sparkles, 
   Zap, 
-  Activity, 
-  Flame, 
-  HeartPulse 
+  Activity 
 } from 'lucide-react';
 
 type MarketTab = 'US' | 'UK' | 'ES';
@@ -47,6 +45,24 @@ interface CategoryBannerConfig {
 }
 
 const CATEGORY_BANNERS: Record<string, CategoryBannerConfig> = {
+  supplements: {
+    title: 'SUPPLEMENTS',
+    subtitle: 'Vitamins, proteins, and dietary supplements',
+    icon: Pill,
+    iconColor: 'text-emerald-400',
+    iconBorder: 'border-emerald-500/30',
+    iconGlow: 'shadow-[0_0_25px_rgba(16,185,129,0.25)]',
+    radarColor: 'text-emerald-500/10'
+  },
+  supplement: {
+    title: 'SUPPLEMENTS',
+    subtitle: 'Vitamins, proteins, and dietary supplements',
+    icon: Pill,
+    iconColor: 'text-emerald-400',
+    iconBorder: 'border-emerald-500/30',
+    iconGlow: 'shadow-[0_0_25px_rgba(16,185,129,0.25)]',
+    radarColor: 'text-emerald-500/10'
+  },
   fitness: {
     title: 'FITNESS GEAR',
     subtitle: 'Home gym essentials and workout equipment',
@@ -91,15 +107,6 @@ const CATEGORY_BANNERS: Record<string, CategoryBannerConfig> = {
     iconBorder: 'border-indigo-500/30',
     iconGlow: 'shadow-[0_0_25px_rgba(99,102,241,0.25)]',
     radarColor: 'text-indigo-500/10'
-  },
-  supplements: {
-    title: 'SUPPLEMENTS & NUTRACEUTICALS',
-    subtitle: 'Mitochondrial cofactors, purity-tested enzymes, and daily nutrition',
-    icon: Pill,
-    iconColor: 'text-emerald-400',
-    iconBorder: 'border-emerald-500/30',
-    iconGlow: 'shadow-[0_0_25px_rgba(16,185,129,0.25)]',
-    radarColor: 'text-emerald-500/10'
   },
   'performance & testing': {
     title: 'PERFORMANCE & TESTING',
@@ -311,6 +318,186 @@ const localMasterCatalog: SovereignProduct[] = [
       badge: "50+ Patentes | Estado GRAS de la FDA",
       network: "Timeline Direct",
       priceText: "99,00€"
+    }
+  },
+  {
+    id: "omega3-fishoil",
+    name: "Nordic Naturals Ultimate Omega 2X",
+    category: "Supplements",
+    isDirectAffiliate: false,
+    rating: 4.88,
+    description: "Doctor-recommended double-strength omega-3 fish oil supporting cardiovascular health, joint mobility, and autonomic nervous system balance.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/omega3-fishoil.png",
+    us: {
+      url: "https://www.amazon.com/dp/B07371SREH?tag=123znl0e-20",
+      ctaText: "Purchase Omega-3s on Amazon US 🇺🇸",
+      badge: "Third-Party Purity Certified",
+      network: "Amazon Associates",
+      priceText: "$49.95"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B07371SREH?tag=123znl0f3-21",
+      ctaText: "Purchase Omega-3s on Amazon UK 🇬🇧",
+      badge: "Third-Party Purity Certified",
+      network: "Amazon Associates",
+      priceText: "£42.99"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B07371SREH?tag=123znl08a-21",
+      ctaText: "Purchase Omega-3s on Amazon ES 🇪🇸",
+      badge: "Certificado de Pureza de Terceros",
+      network: "Amazon Associates",
+      priceText: "49,95€"
+    }
+  },
+  {
+    id: "nattokinase-enzyme",
+    name: "Pure Nattokinase Plaque-Clearing Enzyme (10,000 FU)",
+    category: "Supplements",
+    isDirectAffiliate: false,
+    rating: 4.80,
+    description: "Natural fibrinolytic enzyme extracted from fermented Japanese Natto, clinically studied to support arterial plaque clearance and optimal vascular blood flow.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/nattokinase-enzyme.png",
+    us: {
+      url: "https://www.amazon.com/dp/B0045YV0SM?tag=123znl0e-20",
+      ctaText: "Purchase Nattokinase on Amazon US 🇺🇸",
+      badge: "100% Vegan | Non-GMO Verified",
+      network: "Amazon Associates",
+      priceText: "$24.99"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B0045YV0SM?tag=123znl0f3-21",
+      ctaText: "Purchase Nattokinase on Amazon UK 🇬🇧",
+      badge: "100% Vegan | Non-GMO Verified",
+      network: "Amazon Associates",
+      priceText: "£19.99"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B0045YV0SM?tag=123znl08a-21",
+      ctaText: "Purchase Nattokinase on Amazon ES 🇪🇸",
+      badge: "Sin OGM Verificado | 100% Vegano",
+      network: "Amazon Associates",
+      priceText: "24,99€"
+    }
+  },
+  {
+    id: "coq10-energy",
+    name: "Doctor's Best Coenzyme Q10 (CoQ10 100mg)",
+    category: "Supplements",
+    isDirectAffiliate: false,
+    rating: 4.85,
+    description: "Essential cellular coenzyme required to support mitochondrial vitality, cardiovascular contraction power, and statin users.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/coq10-energy.png",
+    us: {
+      url: "https://www.amazon.com/dp/B0019GW3G8?tag=123znl0e-20",
+      ctaText: "Purchase CoQ10 on Amazon US 🇺🇸",
+      badge: "USP Verified Active Ingredients",
+      network: "Amazon Associates",
+      priceText: "$29.95"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B0019GW3G8?tag=123znl0f3-21",
+      ctaText: "Purchase CoQ10 on Amazon UK 🇬🇧",
+      badge: "USP Verified Active Ingredients",
+      network: "Amazon Associates",
+      priceText: "£24.99"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B0019GW3G8?tag=123znl08a-21",
+      ctaText: "Purchase CoQ10 on Amazon ES 🇪🇸",
+      badge: "Ingredientes Activos Verificados USP",
+      network: "Amazon Associates",
+      priceText: "29,95€"
+    }
+  },
+  {
+    id: "ala-mitochondrial",
+    name: "Source Naturals Alpha Lipoic Acid (ALA 300mg)",
+    category: "Supplements",
+    isDirectAffiliate: false,
+    rating: 4.75,
+    description: "Universal metabolic antioxidant and coenzyme that enhances glucose uptake, regenerates glutathione, and reinforces mitochondrial cellular defense.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/ala-mitochondrial.png",
+    us: {
+      url: "https://www.amazon.com/dp/B00020IA7Y?tag=123znl0e-20",
+      ctaText: "Purchase ALA on Amazon US 🇺🇸",
+      badge: "Mitochondrial Coenzyme Support",
+      network: "Amazon Associates",
+      priceText: "$19.95"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B00020IA7Y?tag=123znl0f3-21",
+      ctaText: "Purchase ALA on Amazon UK 🇬🇧",
+      badge: "Mitochondrial Coenzyme Support",
+      network: "Amazon Associates",
+      priceText: "£16.99"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B00020IA7Y?tag=123znl08a-21",
+      ctaText: "Purchase ALA on Amazon ES 🇪🇸",
+      badge: "Soporte Coenzimático Mitocondrial",
+      network: "Amazon Associates",
+      priceText: "19,95€"
+    }
+  },
+  {
+    id: "magnesium-threonate",
+    name: "Life Extension Neuro-Mag Magnesium L-Threonate",
+    category: "Supplements",
+    isDirectAffiliate: false,
+    rating: 4.90,
+    description: "Patented form of magnesium shown to cross the blood-brain barrier to support synaptic plasticity, recall speed, and sleep quality.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/coq10-energy.png",
+    us: {
+      url: "https://www.amazon.com/dp/B006P536E6?tag=123znl0e-20",
+      ctaText: "Purchase Magtein on Amazon US 🇺🇸",
+      badge: "Crosses Blood-Brain Barrier",
+      network: "Amazon Associates",
+      priceText: "$32.95"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B006P536E6?tag=123znl0f3-21",
+      ctaText: "Purchase Magtein on Amazon UK 🇬🇧",
+      badge: "Crosses Blood-Brain Barrier",
+      network: "Amazon Associates",
+      priceText: "£28.99"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B006P536E6?tag=123znl08a-21",
+      ctaText: "Purchase Magtein on Amazon ES 🇪🇸",
+      badge: "Cruza Barrera Hematoencefálica",
+      network: "Amazon Associates",
+      priceText: "32,95€"
+    }
+  },
+  {
+    id: "creatine-monohydrate",
+    name: "Thorne Creatine Monohydrate Pure Creapure",
+    category: "Supplements",
+    isDirectAffiliate: false,
+    rating: 4.92,
+    description: "Highest-grade micronized creatine powder supporting cellular phosphocreatine reserves, power output, and cognitive metabolic performance.",
+    image_url: "https://123thenextlevel.com/assets/images/shop/ala-mitochondrial.png",
+    us: {
+      url: "https://www.amazon.com/dp/B07978R94X?tag=123znl0e-20",
+      ctaText: "Purchase Creatine on Amazon US 🇺🇸",
+      badge: "NSF Certified for Sport",
+      network: "Amazon Associates",
+      priceText: "$36.00"
+    },
+    uk: {
+      url: "https://www.amazon.co.uk/dp/B07978R94X?tag=123znl0f3-21",
+      ctaText: "Purchase Creatine on Amazon UK 🇬🇧",
+      badge: "NSF Certified for Sport",
+      network: "Amazon Associates",
+      priceText: "£32.00"
+    },
+    es: {
+      url: "https://www.amazon.es/dp/B07978R94X?tag=123znl08a-21",
+      ctaText: "Purchase Creatine on Amazon ES 🇪🇸",
+      badge: "Certificado NSF para Deporte",
+      network: "Amazon Associates",
+      priceText: "36,00€"
     }
   },
   {
@@ -734,126 +921,6 @@ const localMasterCatalog: SovereignProduct[] = [
     }
   },
   {
-    id: "omega3-fishoil",
-    name: "Nordic Naturals Ultimate Omega 2X",
-    category: "Supplements",
-    isDirectAffiliate: false,
-    rating: 4.88,
-    description: "Doctor-recommended double-strength omega-3 fish oil supporting cardiovascular health, joint mobility, and autonomic nervous system balance.",
-    image_url: "https://123thenextlevel.com/assets/images/shop/omega3-fishoil.png",
-    us: {
-      url: "https://www.amazon.com/dp/B07371SREH?tag=123znl0e-20",
-      ctaText: "Purchase Omega-3s on Amazon US 🇺🇸",
-      badge: "Third-Party Purity Certified",
-      network: "Amazon Associates",
-      priceText: "$49.95"
-    },
-    uk: {
-      url: "https://www.amazon.co.uk/dp/B07371SREH?tag=123znl0f3-21",
-      ctaText: "Purchase Omega-3s on Amazon UK 🇬🇧",
-      badge: "Third-Party Purity Certified",
-      network: "Amazon Associates",
-      priceText: "£42.99"
-    },
-    es: {
-      url: "https://www.amazon.es/dp/B07371SREH?tag=123znl08a-21",
-      ctaText: "Purchase Omega-3s on Amazon ES 🇪🇸",
-      badge: "Certificado de Pureza de Terceros",
-      network: "Amazon Associates",
-      priceText: "49,95€"
-    }
-  },
-  {
-    id: "nattokinase-enzyme",
-    name: "Pure Nattokinase Plaque-Clearing Enzyme (10,000 FU)",
-    category: "Supplements",
-    isDirectAffiliate: false,
-    rating: 4.80,
-    description: "Natural fibrinolytic enzyme extracted from fermented Japanese Natto, clinically studied to support arterial plaque clearance and optimal vascular blood flow.",
-    image_url: "https://123thenextlevel.com/assets/images/shop/nattokinase-enzyme.png",
-    us: {
-      url: "https://www.amazon.com/dp/B0045YV0SM?tag=123znl0e-20",
-      ctaText: "Purchase Nattokinase on Amazon US 🇺🇸",
-      badge: "100% Vegan | Non-GMO Verified",
-      network: "Amazon Associates",
-      priceText: "$24.99"
-    },
-    uk: {
-      url: "https://www.amazon.co.uk/dp/B0045YV0SM?tag=123znl0f3-21",
-      ctaText: "Purchase Nattokinase on Amazon UK 🇬🇧",
-      badge: "100% Vegan | Non-GMO Verified",
-      network: "Amazon Associates",
-      priceText: "£19.99"
-    },
-    es: {
-      url: "https://www.amazon.es/dp/B0045YV0SM?tag=123znl08a-21",
-      ctaText: "Purchase Nattokinase on Amazon ES 🇪🇸",
-      badge: "Sin OGM Verificado | 100% Vegano",
-      network: "Amazon Associates",
-      priceText: "24,99€"
-    }
-  },
-  {
-    id: "coq10-energy",
-    name: "Doctor's Best Coenzyme Q10 (CoQ10 100mg)",
-    category: "Supplements",
-    isDirectAffiliate: false,
-    rating: 4.85,
-    description: "Essential cellular coenzyme required to support mitochondrial vitality, cardiovascular contraction power, and statin users.",
-    image_url: "https://123thenextlevel.com/assets/images/shop/coq10-energy.png",
-    us: {
-      url: "https://www.amazon.com/dp/B0019GW3G8?tag=123znl0e-20",
-      ctaText: "Purchase CoQ10 on Amazon US 🇺🇸",
-      badge: "USP Verified Active Ingredients",
-      network: "Amazon Associates",
-      priceText: "$29.95"
-    },
-    uk: {
-      url: "https://www.amazon.co.uk/dp/B0019GW3G8?tag=123znl0f3-21",
-      ctaText: "Purchase CoQ10 on Amazon UK 🇬🇧",
-      badge: "USP Verified Active Ingredients",
-      network: "Amazon Associates",
-      priceText: "£24.99"
-    },
-    es: {
-      url: "https://www.amazon.es/dp/B0019GW3G8?tag=123znl08a-21",
-      ctaText: "Purchase CoQ10 on Amazon ES 🇪🇸",
-      badge: "Ingredientes Activos Verificados USP",
-      network: "Amazon Associates",
-      priceText: "29,95€"
-    }
-  },
-  {
-    id: "ala-mitochondrial",
-    name: "Source Naturals Alpha Lipoic Acid (ALA 300mg)",
-    category: "Supplements",
-    isDirectAffiliate: false,
-    rating: 4.75,
-    description: "Universal metabolic antioxidant and coenzyme that enhances glucose uptake, regenerates glutathione, and reinforces mitochondrial cellular defense.",
-    image_url: "https://123thenextlevel.com/assets/images/shop/ala-mitochondrial.png",
-    us: {
-      url: "https://www.amazon.com/dp/B00020IA7Y?tag=123znl0e-20",
-      ctaText: "Purchase ALA on Amazon US 🇺🇸",
-      badge: "Mitochondrial Coenzyme Support",
-      network: "Amazon Associates",
-      priceText: "$19.95"
-    },
-    uk: {
-      url: "https://www.amazon.co.uk/dp/B00020IA7Y?tag=123znl0f3-21",
-      ctaText: "Purchase ALA on Amazon UK 🇬🇧",
-      badge: "Mitochondrial Coenzyme Support",
-      network: "Amazon Associates",
-      priceText: "£16.99"
-    },
-    es: {
-      url: "https://www.amazon.es/dp/B00020IA7Y?tag=123znl08a-21",
-      ctaText: "Purchase ALA on Amazon ES 🇪🇸",
-      badge: "Soporte Coenzimático Mitocondrial",
-      network: "Amazon Associates",
-      priceText: "19,95€"
-    }
-  },
-  {
     id: "kitchen-blender",
     name: "Premium Longevity Nutrient Blender & Extractor",
     category: "Kitchen",
@@ -903,7 +970,7 @@ function CategoryBanner({ categoryKey }: { categoryKey: string }) {
 
       {/* Futuristic Radar & Circular Reticle Graphics (Right-aligned) */}
       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-80 h-80 pointer-events-none opacity-20 overflow-hidden">
-        <svg className="w-full h-full text-cyan-400" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.6">
+        <svg className={`w-full h-full ${config.radarColor || 'text-cyan-400'}`} viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="0.6">
           <circle cx="75" cy="50" r="44" strokeDasharray="3 3" />
           <circle cx="75" cy="50" r="32" />
           <circle cx="75" cy="50" r="18" strokeDasharray="2 2" />
@@ -925,7 +992,7 @@ function CategoryBanner({ categoryKey }: { categoryKey: string }) {
           <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white uppercase font-sans">
             {config.title}
           </h3>
-          <p className="text-slate-400 text-sm md:text-base mt-1.5 font-normal">
+          <p className="text-slate-400 text-sm md:text-base mt-1 font-normal">
             {config.subtitle}
           </p>
         </div>
