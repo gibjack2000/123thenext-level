@@ -18,7 +18,8 @@ import PillarCard from '../components/home/PillarCard';
 import IntelligenceTeaser from '../components/IntelligenceTeaser';
 import { guides as fallbackGuides } from '../data/guides';
 import FriendlyWellnessQuizModal from '../components/FriendlyWellnessQuizModal';
-import HomeTwinGateway from '../components/home/HomeTwinGateway';
+import HomeTripleGateway from '../components/home/HomeTripleGateway';
+import HomeExpressShop from '../components/HomeExpressShop';
 
 export default function Home() {
   const t = useT();
@@ -1405,9 +1406,14 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Split-Column Twin-Gateway Lead Capture & Quiz Suite */}
+            {/* Split-Column Triple-Gateway Lead Capture, Quiz & Express Shop Suite */}
             <div className="pt-16 pb-4">
-              <HomeTwinGateway />
+              <HomeTripleGateway />
+            </div>
+
+            {/* Product Express Lane: Supplements, Gym Equipment & Autonomic Reset Gear */}
+            <div className="pt-6 pb-4">
+              <HomeExpressShop />
             </div>
           </div>
         </div>
