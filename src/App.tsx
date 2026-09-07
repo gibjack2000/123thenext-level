@@ -93,6 +93,7 @@ const AgeReversalShowcase = lazy(() => import('./pages/AgeReversalShowcase'));
 const HardwareStorePage = lazy(() => import('./pages/HardwareStorePage'));
 const Store = lazy(() => import('./pages/Store'));
 const Science = lazy(() => import('./pages/Science'));
+const Library = lazy(() => import('./pages/Library'));
 
 
 // Loading spinner shown during page transitions
@@ -200,6 +201,7 @@ function App() {
                 <Route path="/updates" element={<MagazineRack />} />
                 <Route path="/design-system" element={<DesignSystem />} />
                 <Route path="/blueprint-success" element={<Success />} />
+                <Route path="/library" element={<Library />} />
                 <Route path="/quiz" element={<Navigate to="/health-quiz" replace />} />
                 <Route path="/quiz-results" element={<QuizResults />} />
 

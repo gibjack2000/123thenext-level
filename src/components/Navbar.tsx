@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Menu, X, Home as HomeIcon, Zap, Shield, Heart, Info, ChevronRight, Compass, ChevronDown, Dumbbell, Apple, Users, Sparkles, ShieldCheck, ShoppingBag } from 'lucide-react';
+import { Menu, X, Home as HomeIcon, Zap, Shield, Heart, Info, ChevronRight, Compass, ChevronDown, Dumbbell, Apple, Users, Sparkles, ShieldCheck, ShoppingBag, BookOpen } from 'lucide-react';
 import MarketSelector from './MarketSelector';
 import { useT } from '../translations';
 
@@ -388,6 +388,16 @@ const Navbar = () => {
                 <span>Guides</span>
               </Link>
 
+              {/* Clinical Library (Stacked 2 Lines) */}
+              <Link 
+                to="/library" 
+                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-cyan-400 hover:text-cyan-300 transition-colors flex flex-col items-center text-center leading-tight"
+                title="The Sovereign Library"
+              >
+                <span>Clinical</span>
+                <span>Library</span>
+              </Link>
+
               {/* Intelligence */}
               <Link 
                 to="/intelligence-hub" 
@@ -568,6 +578,16 @@ const Navbar = () => {
             >
               <Shield size={16} className="text-blue-400" />
               <span className="text-base font-display font-black uppercase tracking-tight">Premium Guides</span>
+            </Link>
+
+            {/* Flat Link Library */}
+            <Link
+              to="/library"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center gap-3 p-4 bg-cyan-950/40 rounded-2xl border border-cyan-500/30 text-cyan-300 hover:text-white"
+            >
+              <BookOpen size={16} className="text-cyan-400" />
+              <span className="text-base font-display font-black uppercase tracking-tight">Clinical Library</span>
             </Link>
 
             {/* Flat Link Intelligence Hub */}
