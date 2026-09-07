@@ -55,7 +55,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     tag: "Autophagy & NAD+",
     rating: 4.95,
     reviewsCount: "2.8k+",
-    shortBenefit: "Synergistic Trans-Resveratrol, NMN & Nattokinase to activate cellular repair and NAD+ longevity cofactors.",
+    shortBenefit: "Synergistic Trans-Resveratrol, NMN & Nattokinase to activate cellular repair, genomic stability, and NAD+ longevity cofactors.",
     description: "NSF Certified for Sport. Clinical-grade longevity cofactors designed for mitochondrial integrity and cellular geroscience.",
     imageUrl: "/assets/images/shop/sirtuin-stack.png",
     isDirectAffiliate: true,
@@ -91,7 +91,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     tag: "Joint & Fascia Matrix",
     rating: 4.80,
     reviewsCount: "4.1k+",
-    shortBenefit: "Wild-caught hydrolyzed marine peptides paired with Biotin & Vitamin C for ligament and tendon resilience.",
+    shortBenefit: "Wild-caught hydrolyzed marine peptides paired with Biotin & Vitamin C for ligament, tendon, and vascular resilience.",
     description: "Highly bioavailable micro-granulated peptides supporting connective joint elasticity, arterial walls, and skin barrier density.",
     imageUrl: "/assets/images/shop/marine-collagen.png",
     isDirectAffiliate: false,
@@ -121,13 +121,13 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
   },
   {
     id: "creatine-monohydrate",
-    name: "Optimum Nutrition Micronized Creatine Monohydrate",
+    name: "Optimum Nutrition Micronized Pure Creatine Monohydrate",
     category: "supplements",
     categoryLabel: "Specialized Supplements & Vitamins",
     tag: "Cognitive & Power Reserve",
     rating: 4.90,
     reviewsCount: "68k+",
-    shortBenefit: "100% pure micronized creatine supporting ATP cellular energy, executive brain function, and muscular strength.",
+    shortBenefit: "100% pure micronized creatine supporting ATP cellular energy, executive brain function, and muscular power density.",
     description: "Unflavored pure creatine powder designed to saturate phosphocreatine cellular reserves and enhance muscular power output.",
     imageUrl: "https://images-na.ssl-images-amazon.com/images/P/B002DYIZEO.01._SL500_.jpg",
     isDirectAffiliate: false,
@@ -163,7 +163,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     tag: "Synaptic & Sleep Protocol",
     rating: 4.88,
     reviewsCount: "12k+",
-    shortBenefit: "The only magnesium compound proven to cross the blood-brain barrier for deep slow-wave sleep and memory density.",
+    shortBenefit: "The only magnesium compound clinically proven to cross the blood-brain barrier for deep slow-wave sleep and memory density.",
     description: "Patented Magtein® complex formulated to enhance synaptic plasticity, nighttime HRV recovery, and neuro-metabolic stability.",
     imageUrl: "https://images-na.ssl-images-amazon.com/images/P/B01M4GM9R1.01._SL500_.jpg",
     isDirectAffiliate: false,
@@ -186,6 +186,150 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "34,00€",
         badge: "L-Treonato de Magnesio Patentado",
         url: "https://www.amazon.es/dp/B01M4GM9R1?tag=123znl08a-21",
+        ctaText: "Order on Amazon ES 🇪🇸",
+        network: "Amazon Associates"
+      }
+    }
+  },
+  {
+    id: "spermidine-complex",
+    name: "Spermidine Autophagy & Cellular Renewal Matrix",
+    category: "supplements",
+    categoryLabel: "Specialized Supplements & Vitamins",
+    tag: "Cellular Autophagy",
+    rating: 4.86,
+    reviewsCount: "3.2k+",
+    shortBenefit: "Natural polyamine that induces deep cellular autophagy, clearing senescent debris and recycling damaged mitochondria.",
+    description: "Concentrated wheat germ extract standardized for bioactive spermidine to support healthy cellular lifespans and cardiovascular resilience.",
+    imageUrl: "https://images-na.ssl-images-amazon.com/images/P/B08J5P8D9D.01._SL500_.jpg",
+    isDirectAffiliate: false,
+    regions: {
+      US: {
+        price: "$49.95",
+        badge: "Standardized 99% Pure Extract",
+        url: "https://www.amazon.com/dp/B08J5P8D9D?tag=123znl0e-20",
+        ctaText: "Order on Amazon US 🇺🇸",
+        network: "Amazon Associates"
+      },
+      UK: {
+        price: "£42.00",
+        badge: "Natural Autophagy Inducer",
+        url: "https://www.amazon.co.uk/dp/B08J5P8D9D?tag=123znl0f3-21",
+        ctaText: "Order on Amazon UK 🇬🇧",
+        network: "Amazon Associates"
+      },
+      ES: {
+        price: "47,50€",
+        badge: "Inductor de Autofagia Celular",
+        url: "https://www.amazon.es/dp/B08J5P8D9D?tag=123znl08a-21",
+        ctaText: "Order on Amazon ES 🇪🇸",
+        network: "Amazon Associates"
+      }
+    }
+  },
+  {
+    id: "quercetin-phytosome",
+    name: "Quercetin Phytosome Senolytic Bioflavonoid",
+    category: "supplements",
+    categoryLabel: "Specialized Supplements & Vitamins",
+    tag: "Senolytic Defense",
+    rating: 4.82,
+    reviewsCount: "5.6k+",
+    shortBenefit: "Enhanced-absorption quercetin phytosome targeting zombie senescent cells and dampening chronic low-grade inflammation.",
+    description: "Phospholipid-bound quercetin delivery system offering 20x higher plasma absorption than standard unformulated quercetin powder.",
+    imageUrl: "https://images-na.ssl-images-amazon.com/images/P/B07BFR4QC2.01._SL500_.jpg",
+    isDirectAffiliate: false,
+    regions: {
+      US: {
+        price: "$32.50",
+        badge: "20x Bioavailability Phytosome",
+        url: "https://www.amazon.com/dp/B07BFR4QC2?tag=123znl0e-20",
+        ctaText: "Order on Amazon US 🇺🇸",
+        network: "Amazon Associates"
+      },
+      UK: {
+        price: "£28.00",
+        badge: "Liposomal Bioflavonoid Matrix",
+        url: "https://www.amazon.co.uk/dp/B07BFR4QC2?tag=123znl0f3-21",
+        ctaText: "Order on Amazon UK 🇬🇧",
+        network: "Amazon Associates"
+      },
+      ES: {
+        price: "31,90€",
+        badge: "Fitosoma de Quercetina Avanzado",
+        url: "https://www.amazon.es/dp/B07BFR4QC2?tag=123znl08a-21",
+        ctaText: "Order on Amazon ES 🇪🇸",
+        network: "Amazon Associates"
+      }
+    }
+  },
+  {
+    id: "coq10-ubiquinol",
+    name: "Doctor's Best Ubiquinol CoQ10 (200mg with Kaneka)",
+    category: "supplements",
+    categoryLabel: "Specialized Supplements & Vitamins",
+    tag: "Mitochondrial Bio-Energetics",
+    rating: 4.92,
+    reviewsCount: "21k+",
+    shortBenefit: "Active antioxidant form of Coenzyme Q10 powering cardiac ATP synthesis and neutralizing free-radical lipid peroxidation.",
+    description: "Genuine Kaneka Ubiquinol in pharmaceutical-grade softgels supporting myocardial elasticity, vascular tone, and endurance performance.",
+    imageUrl: "https://images-na.ssl-images-amazon.com/images/P/B0019GW3Y8.01._SL500_.jpg",
+    isDirectAffiliate: false,
+    regions: {
+      US: {
+        price: "$44.99",
+        badge: "Genuine Kaneka Ubiquinol®",
+        url: "https://www.amazon.com/dp/B0019GW3Y8?tag=123znl0e-20",
+        ctaText: "Order on Amazon US 🇺🇸",
+        network: "Amazon Associates"
+      },
+      UK: {
+        price: "£38.50",
+        badge: "Active Mitochondrial CoQ10",
+        url: "https://www.amazon.co.uk/dp/B0019GW3Y8?tag=123znl0f3-21",
+        ctaText: "Order on Amazon UK 🇬🇧",
+        network: "Amazon Associates"
+      },
+      ES: {
+        price: "42,00€",
+        badge: "Ubiquinol Activo Kaneka 200mg",
+        url: "https://www.amazon.es/dp/B0019GW3Y8?tag=123znl08a-21",
+        ctaText: "Order on Amazon ES 🇪🇸",
+        network: "Amazon Associates"
+      }
+    }
+  },
+  {
+    id: "omega3-fish-oil",
+    name: "Sports Research Triple Strength Omega-3 Fish Oil (1250mg)",
+    category: "supplements",
+    categoryLabel: "Specialized Supplements & Vitamins",
+    tag: "Arterial & Brain Lipids",
+    rating: 4.91,
+    reviewsCount: "82k+",
+    shortBenefit: "IFOS 5-star certified wild Alaska pollock triglyceride fish oil yielding 1055mg active EPA & DHA per single softgel.",
+    description: "Molecularly distilled triglyceride-form omega-3 fatty acids engineered to modulate the Omega-3 Index and optimize cellular membrane fluidity.",
+    imageUrl: "https://images-na.ssl-images-amazon.com/images/P/B00TAK5HCI.01._SL500_.jpg",
+    isDirectAffiliate: false,
+    regions: {
+      US: {
+        price: "$29.95",
+        badge: "IFOS 5-Star Certified Triglyceride",
+        url: "https://www.amazon.com/dp/B00TAK5HCI?tag=123znl0e-20",
+        ctaText: "Order on Amazon US 🇺🇸",
+        network: "Amazon Associates"
+      },
+      UK: {
+        price: "£26.50",
+        badge: "Wild Alaska Pollock Sourced",
+        url: "https://www.amazon.co.uk/dp/B00TAK5HCI?tag=123znl0f3-21",
+        ctaText: "Order on Amazon UK 🇬🇧",
+        network: "Amazon Associates"
+      },
+      ES: {
+        price: "29,00€",
+        badge: "Aceite de Pescado Triglicérido Puro",
+        url: "https://www.amazon.es/dp/B00TAK5HCI?tag=123znl08a-21",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -216,14 +360,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         network: "Amazon Associates"
       },
       UK: {
-        price: "£895.00",
+        price: "£850.00",
         badge: "Concept2 Official PM5 Monitor",
         url: "https://www.amazon.co.uk/dp/B099KBD9X8?tag=123znl0f3-21",
         ctaText: "Check Availability on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
       ES: {
-        price: "990,00€",
+        price: "950,00€",
         badge: "Remo Indoor Profesional Concept2",
         url: "https://www.amazon.es/dp/B099KBD9X8?tag=123znl08a-21",
         ctaText: "Check Availability on Amazon ES 🇪🇸",
@@ -339,10 +483,190 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       }
     }
   },
+  {
+    id: "water-bottle",
+    name: "Owala FreeSip Insulated Stainless Steel 30oz Bottle",
+    category: "fitness",
+    categoryLabel: "Fitness & Gym Equipment",
+    tag: "Hydration & Electrolytes",
+    rating: 4.90,
+    reviewsCount: "52k+",
+    shortBenefit: "Triple-insulated water bottle with patented FreeSip built-in straw, keeping cellular hydration ice-cold for 24 hours.",
+    description: "BPA-free leak-proof stainless steel hydration vessel with carry-loop lid designed for high-performance training sessions.",
+    imageUrl: "/assets/images/shop/water-bottle.png",
+    isDirectAffiliate: false,
+    regions: {
+      US: {
+        price: "$34.99",
+        badge: "Patented 2-Way FreeSip Spout",
+        url: "https://www.amazon.com/dp/B08524B5C6?tag=123znl0e-20",
+        ctaText: "Order on Amazon US 🇺🇸",
+        network: "Amazon Associates"
+      },
+      UK: {
+        price: "£28.99",
+        badge: "24-Hour Thermal Isolation",
+        url: "https://www.amazon.co.uk/dp/B08524B5C6?tag=123znl0f3-21",
+        ctaText: "Order on Amazon UK 🇬🇧",
+        network: "Amazon Associates"
+      },
+      ES: {
+        price: "32,99€",
+        badge: "Aislamiento Térmico Acero Inox",
+        url: "https://www.amazon.es/dp/B08524B5C6?tag=123znl08a-21",
+        ctaText: "Order on Amazon ES 🇪🇸",
+        network: "Amazon Associates"
+      }
+    }
+  },
+  {
+    id: "swim-goggles",
+    name: "Seago Anti-Fog UV Protection Wide-View Swim Goggles",
+    category: "fitness",
+    categoryLabel: "Fitness & Gym Equipment",
+    tag: "Cardio & Aquatic Training",
+    rating: 4.75,
+    reviewsCount: "6.8k+",
+    shortBenefit: "Anti-fog, 180-degree wide panoramic lenses with 100% UV protection and leak-free silicone eye gasket.",
+    description: "High-clarity swimming goggles engineered for low-impact aquatic conditioning, breathwork laps, and zone 2 cardiovascular endurance.",
+    imageUrl: "https://123thenextlevel.com/Products/seago.jpg",
+    isDirectAffiliate: false,
+    regions: {
+      US: {
+        price: "$14.99",
+        badge: "Anti-Fog & 180° Panoramic Vision",
+        url: "https://www.amazon.com/dp/B08XQ35T47?tag=123znl0e-20",
+        ctaText: "Order on Amazon US 🇺🇸",
+        network: "Amazon Associates"
+      },
+      UK: {
+        price: "£12.99",
+        badge: "Leak-Free Silicone Seal",
+        url: "https://www.amazon.co.uk/dp/B08XQ35T47?tag=123znl0f3-21",
+        ctaText: "Order on Amazon UK 🇬🇧",
+        network: "Amazon Associates"
+      },
+      ES: {
+        price: "13,99€",
+        badge: "Gafas de Natación Antivaho UV",
+        url: "https://www.amazon.es/dp/B08XQ35T47?tag=123znl08a-21",
+        ctaText: "Order on Amazon ES 🇪🇸",
+        network: "Amazon Associates"
+      }
+    }
+  },
+  {
+    id: "lifestraw-filter",
+    name: "LifeStraw Personal Cellular Water Filter Straw",
+    category: "fitness",
+    categoryLabel: "Fitness & Gym Equipment",
+    tag: "Micro-Filtration Hydration",
+    rating: 4.88,
+    reviewsCount: "98k+",
+    shortBenefit: "0.2 micron membrane filtration removing 99.999999% of bacteria, parasites, and microplastics from any freshwater source.",
+    description: "Compact emergency and outdoor adventure water filtration straw ensuring clean, contaminant-free hydration anywhere in the world.",
+    imageUrl: "https://images-na.ssl-images-amazon.com/images/P/B006QF3TW4.01._SL500_.jpg",
+    isDirectAffiliate: false,
+    regions: {
+      US: {
+        price: "$13.18",
+        badge: "Removes 99.999999% Bacteria",
+        url: "https://www.amazon.com/dp/B006QF3TW4?tag=123znl0e-20",
+        ctaText: "Order on Amazon US 🇺🇸",
+        network: "Amazon Associates"
+      },
+      UK: {
+        price: "£11.99",
+        badge: "0.2 Micron Hollow Fiber Membrane",
+        url: "https://www.amazon.co.uk/dp/B006QF3TW4?tag=123znl0f3-21",
+        ctaText: "Order on Amazon UK 🇬🇧",
+        network: "Amazon Associates"
+      },
+      ES: {
+        price: "12,95€",
+        badge: "Filtro de Agua Personal Portátil",
+        url: "https://www.amazon.es/dp/B006QF3TW4?tag=123znl08a-21",
+        ctaText: "Order on Amazon ES 🇪🇸",
+        network: "Amazon Associates"
+      }
+    }
+  },
 
   // ==========================================
   // 3. AUTONOMIC RESET & WELLNESS GEAR
   // ==========================================
+  {
+    id: "blood-panel",
+    name: "Personalized Cellular Biomarker Map (56 Biomarkers)",
+    category: "wellness",
+    categoryLabel: "Autonomic Reset & Wellness Gear",
+    tag: "Clinical Epigenetic Baseline",
+    rating: 4.95,
+    reviewsCount: "940+",
+    shortBenefit: "Direct-to-consumer longevity blood panels mapping 56 essential biomarkers across ApoB, HbA1c, hs-CRP, liver enzymes & hormones.",
+    description: "Comprehensive preventative blood test with physician review. Quest/Labcorp draw in US, private partner clinics across UK and Spain.",
+    imageUrl: "/assets/images/shop/blood-panel.png",
+    isDirectAffiliate: true,
+    regions: {
+      US: {
+        price: "$299.00",
+        badge: "CLIA Certified & CAP Accredited",
+        url: "https://www.healthlabs.com/?affiliate=123znl",
+        ctaText: "Order on HealthLabs US 🇺🇸",
+        network: "HealthLabs Direct"
+      },
+      UK: {
+        price: "£149.00",
+        badge: "UKAS Accredited & ISO Certified",
+        url: "https://snwbl.io/out/NcealZ11",
+        ctaText: "Order on LOLA Health UK 🇬🇧",
+        network: "LOLA Partner"
+      },
+      ES: {
+        price: "149,00€",
+        badge: "Marcado CE & Megalab Partner",
+        url: "https://www.melio.es",
+        ctaText: "Order on Melio ES 🇪🇸",
+        network: "Melio ES Partner"
+      }
+    }
+  },
+  {
+    id: "cgm",
+    name: "Continuous Glucose Monitor (Abbott Lingo / Dexcom ONE+)",
+    category: "wellness",
+    categoryLabel: "Autonomic Reset & Wellness Gear",
+    tag: "Metabolic Telemetry",
+    rating: 4.80,
+    reviewsCount: "1.8k+",
+    shortBenefit: "Real-time interstitial glucose tracking mapping energy peaks and glycemic variability to optimize metabolic longevity.",
+    description: "Waterproof sensor logging glucose fluctuations every minute, streaming continuous glycemic curves directly to your smartphone.",
+    imageUrl: "/assets/images/shop/cgm.png",
+    isDirectAffiliate: true,
+    regions: {
+      US: {
+        price: "$89.00/mo",
+        badge: "FDA Cleared / OTC Eligible",
+        url: "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl0e-20",
+        ctaText: "Examine Lingo on Amazon US 🇺🇸",
+        network: "Amazon Associates"
+      },
+      UK: {
+        price: "£79.00/mo",
+        badge: "MHRA Registered Device",
+        url: "https://hellolingo.co.uk",
+        ctaText: "Order on Lingo UK Direct 🇬🇧",
+        network: "Lingo UK Direct"
+      },
+      ES: {
+        price: "79,00€/mo",
+        badge: "Aprobado por Farmacia / CE",
+        url: "https://www.dexcom.com/es-ES",
+        ctaText: "Order on Dexcom ES 🇪🇸",
+        network: "Dexcom ES Portal"
+      }
+    }
+  },
   {
     id: "stethoscope",
     name: "Eko CORE 500™ Digital AI Stethoscope & 3-Lead ECG",
@@ -452,11 +776,191 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     }
   },
   {
-    id: "meditation-cushion",
-    name: "basaho Classic Zafu Ergonomic Meditation Cushion",
+    id: "segmental-scale",
+    name: "Withings Body Scan 8-Electrode Segmental Scale",
     category: "wellness",
     categoryLabel: "Autonomic Reset & Wellness Gear",
-    tag: "Vagal Tone & Posture",
+    tag: "Skeletal Muscle & Visceral Fat",
+    rating: 4.88,
+    reviewsCount: "2.1k+",
+    shortBenefit: "FDA-cleared 6-lead ECG and 8-electrode bioelectrical impedance mapping limb-by-limb muscle mass and visceral fat index.",
+    description: "Retractable handle composition scale measuring autonomic nervous system vascular age and nerve health markers at home.",
+    imageUrl: "/assets/images/shop/body-scan.png",
+    isDirectAffiliate: false,
+    regions: {
+      US: {
+        price: "$399.95",
+        badge: "FDA Cleared 6-Lead ECG",
+        url: "https://www.amazon.com/dp/B0B9849CD1?tag=123znl0e-20",
+        ctaText: "Order on Amazon US 🇺🇸",
+        network: "Amazon Associates"
+      },
+      UK: {
+        price: "£349.99",
+        badge: "CE Marked Clinical Scale",
+        url: "https://www.amazon.co.uk/dp/B0B9849CD1?tag=123znl0f3-21",
+        ctaText: "Order on Amazon UK 🇬🇧",
+        network: "Amazon Associates"
+      },
+      ES: {
+        price: "399,95€",
+        badge: "Báscula Segmental 8 Electrodos",
+        url: "https://www.amazon.es/dp/B0B9849CD1?tag=123znl08a-21",
+        ctaText: "Order on Amazon ES 🇪🇸",
+        network: "Amazon Associates"
+      }
+    }
+  },
+  {
+    id: "wearable-tracker",
+    name: "Apple Watch Series 10 Multispectral Sensor (GPS 46mm)",
+    category: "wellness",
+    categoryLabel: "Autonomic Reset & Wellness Gear",
+    tag: "Continuous HRV & Apnea",
+    rating: 4.80,
+    reviewsCount: "18k+",
+    shortBenefit: "Advanced multispectral optical sensor capturing sleep apnea notifications, resting heart rate, and real-time HRV variance.",
+    description: "Sleek biometric wearable tracking VO2 max, temperature variation, and sudden cardiac rhythm alerts with high clinical fidelity.",
+    imageUrl: "/assets/images/shop/apple-watch.png",
+    isDirectAffiliate: false,
+    regions: {
+      US: {
+        price: "$399.00",
+        badge: "FDA Approved Heart Notifications",
+        url: "https://www.amazon.com/dp/B0DGJG692K?tag=123znl0e-20",
+        ctaText: "Order on Amazon US 🇺🇸",
+        network: "Amazon Associates"
+      },
+      UK: {
+        price: "£379.00",
+        badge: "MHRA Certified Telemetry",
+        url: "https://www.amazon.co.uk/dp/B0DGJHCPX5?tag=123znl0f3-21",
+        ctaText: "Order on Amazon UK 🇬🇧",
+        network: "Amazon Associates"
+      },
+      ES: {
+        price: "399,00€",
+        badge: "Biometría Compatible con la UE",
+        url: "https://www.amazon.es/dp/B0DGJG692K?tag=123znl08a-21",
+        ctaText: "Order on Amazon ES 🇪🇸",
+        network: "Amazon Associates"
+      }
+    }
+  },
+  {
+    id: "reagent-strips",
+    name: "ALLTEST 10-Parameter Urinary Biomarker Reagent Strips",
+    category: "wellness",
+    categoryLabel: "Autonomic Reset & Wellness Gear",
+    tag: "Immediate Chemical Panel",
+    rating: 4.85,
+    reviewsCount: "11k+",
+    shortBenefit: "Zero-screen dip-and-read chemical diagnostic testing 10 parameters (Ketones, Protein, pH, Specific Gravity, Leucocytes) in 2 min.",
+    description: "Rapid physiological feedback reagent kit tracking hydration efficiency, kidney filtration, and metabolic acid-base equilibrium.",
+    imageUrl: "/assets/images/shop/reagent-strips.png",
+    isDirectAffiliate: false,
+    regions: {
+      US: {
+        price: "$14.99",
+        badge: "FDA Cleared & CLIA Waived",
+        url: "https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20",
+        ctaText: "Order on Amazon US 🇺🇸",
+        network: "Amazon Associates"
+      },
+      UK: {
+        price: "£12.99",
+        badge: "MHRA Registered Test",
+        url: "https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123znl0f3-21",
+        ctaText: "Order on Amazon UK 🇬🇧",
+        network: "Amazon Associates"
+      },
+      ES: {
+        price: "14,99€",
+        badge: "Marcado Médico CE 0123",
+        url: "https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21",
+        ctaText: "Order on Amazon ES 🇪🇸",
+        network: "Amazon Associates"
+      }
+    }
+  },
+  {
+    id: "sauna-tent",
+    name: "Portable Full-Body Infrared Sauna Tent with Heated Footpad",
+    category: "wellness",
+    categoryLabel: "Autonomic Reset & Wellness Gear",
+    tag: "Thermal Shock & Detox",
+    rating: 4.80,
+    reviewsCount: "2.7k+",
+    shortBenefit: "Far-infrared full-body cabin inducing heat-shock protein (HSP70) synthesis, microvascular dilation, and deep autonomic calm.",
+    description: "Compact foldable low-EMF carbon panel sauna system with insulated chair and multi-level thermostat for home recovery suites.",
+    imageUrl: "/assets/images/shop/sauna.png",
+    isDirectAffiliate: false,
+    regions: {
+      US: {
+        price: "$249.00",
+        badge: "Low EMF Carbon Heating Panels",
+        url: "https://www.amazon.com/dp/B08H23V7S5?tag=123znl0e-20",
+        ctaText: "Order on Amazon US 🇺🇸",
+        network: "Amazon Associates"
+      },
+      UK: {
+        price: "£199.99",
+        badge: "HSP70 Thermal Synthesis",
+        url: "https://www.amazon.co.uk/dp/B08H23V7S5?tag=123znl0f3-21",
+        ctaText: "Order on Amazon UK 🇬🇧",
+        network: "Amazon Associates"
+      },
+      ES: {
+        price: "229,00€",
+        badge: "Paneles de Carbono de Bajo EMF",
+        url: "https://www.amazon.es/dp/B08H23V7S5?tag=123znl08a-21",
+        ctaText: "Order on Amazon ES 🇪🇸",
+        network: "Amazon Associates"
+      }
+    }
+  },
+  {
+    id: "noise-headphones",
+    name: "Sony WH-CH720N Noise-Canceling Sensory Isolation",
+    category: "wellness",
+    categoryLabel: "Autonomic Reset & Wellness Gear",
+    tag: "Sensory Deprivation & Vagus",
+    rating: 4.90,
+    reviewsCount: "34k+",
+    shortBenefit: "Integrated V1 processor active noise cancellation to isolate auditory inputs during parasympathetic resets and breathwork.",
+    description: "Ultra-lightweight 35-hour battery headphones designed for focused autonomic downregulation and binaural audio therapy.",
+    imageUrl: "/assets/images/shop/sony-headphones.png",
+    isDirectAffiliate: false,
+    regions: {
+      US: {
+        price: "$149.99",
+        badge: "Integrated V1 ANC Processor",
+        url: "https://www.amazon.com/dp/B0BTY3Y6PP?tag=123znl0e-20",
+        ctaText: "Order on Amazon US 🇺🇸",
+        network: "Amazon Associates"
+      },
+      UK: {
+        price: "£119.00",
+        badge: "35-Hour Battery & Dual Mics",
+        url: "https://www.amazon.co.uk/dp/B0BTY3Y6PP?tag=123znl0f3-21",
+        ctaText: "Order on Amazon UK 🇬🇧",
+        network: "Amazon Associates"
+      },
+      ES: {
+        price: "129,00€",
+        badge: "Cancelación Activa de Ruido Dual",
+        url: "https://www.amazon.es/dp/B0BTY3Y6PP?tag=123znl08a-21",
+        ctaText: "Order on Amazon ES 🇪🇸",
+        network: "Amazon Associates"
+      }
+    }
+  },
+  {
+    id: "meditation-cushion",
+    name: "basaho Classic Zafu Ergonomic Buckwheat Meditation Cushion",
+    category: "wellness",
+    categoryLabel: "Autonomic Reset & Wellness Gear",
+    tag: "Vagal Tone & Diaphragmatic Breath",
     rating: 4.88,
     reviewsCount: "1.9k+",
     shortBenefit: "Buckwheat-filled organic cotton cushion designed for pelvis alignment during somatic breathwork and parasympathetic resets.",
@@ -486,6 +990,42 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         network: "Amazon Associates"
       }
     }
+  },
+  {
+    id: "ovarian-test",
+    name: "Ovarian Reserve & Hormonal Baseline Female Test Kit",
+    category: "wellness",
+    categoryLabel: "Autonomic Reset & Wellness Gear",
+    tag: "Ovarian Longevity",
+    rating: 4.85,
+    reviewsCount: "820+",
+    shortBenefit: "Direct-to-lab finger-prick blood test evaluating Anti-Müllerian Hormone (AMH) and endocrine longevity metrics.",
+    description: "Accredited home collection test with physician-approved clinical lab report mapping reproductive healthspan baselines.",
+    imageUrl: "/assets/images/shop/ovarian-test.png",
+    isDirectAffiliate: false,
+    regions: {
+      US: {
+        price: "$49.00",
+        badge: "CLIA Certified Diagnostic Lab",
+        url: "https://www.amazon.com/dp/B08H7V69F7?tag=123znl0e-20",
+        ctaText: "Order on Amazon US 🇺🇸",
+        network: "Amazon Associates"
+      },
+      UK: {
+        price: "£39.00",
+        badge: "UKAS Accredited Clinical Analysis",
+        url: "https://www.amazon.co.uk/dp/B08H7V69F7?tag=123znl0f3-21",
+        ctaText: "Order on Amazon UK 🇬🇧",
+        network: "Amazon Associates"
+      },
+      ES: {
+        price: "45,00€",
+        badge: "Análisis Clínico Acreditado UE",
+        url: "https://www.amazon.es/dp/B08H7V69F7?tag=123znl08a-21",
+        ctaText: "Order on Amazon ES 🇪🇸",
+        network: "Amazon Associates"
+      }
+    }
   }
 ];
 
@@ -507,24 +1047,27 @@ export default function HomeExpressShop() {
   const categoryMetadata = {
     supplements: {
       title: "Specialized Supplements & Vitamins",
-      subtitle: "Molecular-grade longevity fuel, NAD+ cofactors, joint matrix peptides & cognitive minerals.",
+      subtitle: "Molecular-grade longevity fuel, NAD+ cofactors, joint matrix peptides, spermidine & cognitive minerals.",
       icon: Pill,
       color: "from-cyan-500 to-blue-500",
-      accent: "text-cyan-400"
+      accent: "text-cyan-400",
+      count: EXPRESS_PRODUCTS.filter(p => p.category === 'supplements').length
     },
     fitness: {
       title: "Fitness & Gym Equipment",
-      subtitle: "Clinical ergometers, progressive dumbbells, resistance loops & osteogenic loading tools.",
+      subtitle: "Clinical ergometers, progressive cast-iron dumbbells, resistance loops & osteogenic loading tools.",
       icon: Dumbbell,
       color: "from-amber-500 to-orange-500",
-      accent: "text-amber-400"
+      accent: "text-amber-400",
+      count: EXPRESS_PRODUCTS.filter(p => p.category === 'fitness').length
     },
     wellness: {
       title: "Autonomic Reset & Wellness Gear",
-      subtitle: "FDA-cleared AI stethoscopes, under-mattress sleep labs, Wi-Fi cuffs & somatic cushions.",
+      subtitle: "FDA-cleared AI stethoscopes, under-mattress sleep labs, Wi-Fi cuffs, infrared saunas & biomarker tests.",
       icon: Waves,
       color: "from-indigo-500 to-purple-500",
-      accent: "text-indigo-400"
+      accent: "text-indigo-400",
+      count: EXPRESS_PRODUCTS.filter(p => p.category === 'wellness').length
     }
   };
 
@@ -551,7 +1094,7 @@ export default function HomeExpressShop() {
         </h2>
 
         <p className="text-sm sm:text-base text-slate-400 max-w-3xl mx-auto font-sans leading-relaxed">
-          Direct-to-consumer procurement for biological optimization. Verified Amazon Associate catalog items and clinical-partner test kits mapped to our core geroscience protocols.
+          Direct-to-consumer procurement for biological optimization. Verified Amazon Associate catalog items and clinical-partner test kits mapped directly to our core geroscience protocols across US, UK, and Spain.
         </p>
       </div>
 
@@ -570,7 +1113,7 @@ export default function HomeExpressShop() {
               }`}
             >
               <Pill size={16} />
-              <span>Supplements &amp; Vitamins</span>
+              <span>Supplements &amp; Vitamins ({categoryMetadata.supplements.count})</span>
             </button>
 
             <button
@@ -582,7 +1125,7 @@ export default function HomeExpressShop() {
               }`}
             >
               <Dumbbell size={16} />
-              <span>Fitness &amp; Gym Equipment</span>
+              <span>Fitness &amp; Gym Equipment ({categoryMetadata.fitness.count})</span>
             </button>
 
             <button
@@ -594,7 +1137,7 @@ export default function HomeExpressShop() {
               }`}
             >
               <Waves size={16} />
-              <span>Autonomic Reset &amp; Gear</span>
+              <span>Autonomic Reset &amp; Gear ({categoryMetadata.wellness.count})</span>
             </button>
           </div>
 
@@ -677,7 +1220,7 @@ export default function HomeExpressShop() {
           <p className="text-sm text-slate-400">No products found matching "{searchQuery}" in this category.</p>
           <button 
             onClick={() => setSearchQuery('')}
-            className="mt-3 text-xs text-cyan-400 hover:underline font-bold"
+            className="mt-3 text-xs text-cyan-400 hover:underline font-bold cursor-pointer"
           >
             Clear Search Filter
           </button>
@@ -789,7 +1332,7 @@ export default function HomeExpressShop() {
 
         <Link
           to="/store"
-          className="shrink-0 px-6 py-3.5 rounded-xl text-xs font-black uppercase tracking-widest bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 hover:border-slate-600 transition flex items-center gap-2 shadow-lg"
+          className="shrink-0 px-6 py-3.5 rounded-xl text-xs font-black uppercase tracking-widest bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 hover:border-slate-600 transition flex items-center gap-2 shadow-lg cursor-pointer"
         >
           <span>View Sovereign Store (50+)</span>
           <ArrowRight size={14} />
