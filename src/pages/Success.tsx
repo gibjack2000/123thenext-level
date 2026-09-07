@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 export default function SuccessPage() {
   useEffect(() => {
-    document.title = "Onboarding | 123TheNextLevel";
+    document.title = "Access Granted | 123TheNextLevel";
     
     // Auto-trigger the download of our exact PDF filename
     const downloadTimer = setTimeout(() => {
