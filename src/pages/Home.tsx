@@ -18,7 +18,7 @@ import PillarCard from '../components/home/PillarCard';
 import IntelligenceTeaser from '../components/IntelligenceTeaser';
 import { guides as fallbackGuides } from '../data/guides';
 import FriendlyWellnessQuizModal from '../components/FriendlyWellnessQuizModal';
-
+import HomeLeadCapture from '../components/home/HomeLeadCapture';
 
 export default function Home() {
   const t = useT();
@@ -1403,6 +1403,11 @@ export default function Home() {
               >
                 View All Premium Guides <ArrowRight size={16} className="ml-2" />
               </Link>
+            </div>
+
+            {/* Split-Column Lead Capture Hook: An Idiot's Guide to the Next Level Lifespan */}
+            <div className="pt-16 pb-4">
+              <HomeLeadCapture />
             </div>
           </div>
         </div>
