@@ -60,7 +60,7 @@ export default function HomeLeadCapture() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-slate-950 border border-slate-900 rounded-3xl p-8 md:p-12 max-w-5xl mx-auto shadow-2xl my-12">
+    <section id="onboarding-gateway" className="relative overflow-hidden bg-slate-950 border border-slate-900 rounded-3xl p-8 md:p-12 max-w-5xl mx-auto shadow-2xl my-12 scroll-mt-28">
       {/* Soft blue ambient glow */}
       <div className="absolute top-0 right-0 -mr-24 -mt-24 w-80 h-80 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none" />
       

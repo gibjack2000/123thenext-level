@@ -5,6 +5,7 @@ import MarketSelector from './MarketSelector';
 import { useT } from '../translations';
 
 import FriendlyWellnessQuizModal from './FriendlyWellnessQuizModal';
+import PromoBanner from './PromoBanner';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -98,6 +99,7 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-[100] transition-all duration-300">
+      <PromoBanner />
       {/* ========================================================================= */}
       {/* PHASE 0: CLINICAL COMMAND CONSOLE HEADER (HOMEPAGE ONLY)                 */}
       {/* ========================================================================= */}
