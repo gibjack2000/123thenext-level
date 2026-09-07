@@ -532,7 +532,7 @@ export const FriendlyWellnessQuizModal: React.FC<FriendlyWellnessQuizModalProps>
                           type="button"
                           onClick={() => {
                             onClose();
-                            navigate('/health-quiz');
+                            navigate('/quiz');
                           }}
                           className="text-xs font-mono text-cyan-400 hover:text-cyan-300 transition-colors underline cursor-pointer flex items-center justify-center gap-1.5 mx-auto"
                         >

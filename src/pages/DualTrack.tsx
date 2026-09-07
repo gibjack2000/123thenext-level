@@ -584,7 +584,7 @@ export default function DualTrack() {
             </p>
             <div className="pt-2">
               <Link
-                to="/health-quiz"
+                to="/quiz"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-xl shadow-wellness-cyan/15 border border-wellness-cyan/20 hover:scale-[1.03] active:scale-[0.97]"
               >
                 <span>Take the 5-Minute Wellness Quiz to Build Your Roadmap</span>

@@ -174,7 +174,7 @@ const Navbar = () => {
             {/* 3. Right Column: Action Trigger */}
             <div className="flex items-center flex-shrink-0">
               <Link
-                to="/health-quiz"
+                to="/quiz"
                 className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500 hover:from-cyan-300 hover:to-indigo-400 text-slate-950 font-black text-[11px] font-mono uppercase tracking-wider shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_25px_rgba(6,182,212,0.6)] transition-all transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex items-center gap-1.5 flex-shrink-0"
               >
                 <Zap size={11} className="fill-current text-slate-950" />
