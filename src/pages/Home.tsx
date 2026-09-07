@@ -460,6 +460,7 @@ export default function Home() {
                 <div
                   className="relative rounded-2xl overflow-hidden border border-slate-grey-700 bg-slate-grey-900 shadow-2xl"
                   onMouseEnter={() => { if (!isTouchDevice) setIsVideoPlaying(true); }}
+                  onMouseLeave={() => { if (!isTouchDevice) setIsVideoPlaying(false); }}
                 >
                   {isVideoPlaying ? (
                     <iframe
@@ -859,6 +860,7 @@ export default function Home() {
                   <div 
                     className="w-full rounded-2xl overflow-hidden border border-slate-800 bg-slate-950 aspect-video relative group/card-video shadow-lg cursor-pointer"
                     onMouseEnter={() => { if (!isTouchDevice) setIsDualTrackCardVideoPlaying(true); }}
+                    onMouseLeave={() => { if (!isTouchDevice) setIsDualTrackCardVideoPlaying(false); }}
                     onClick={() => setIsDualTrackCardVideoPlaying(true)}
                   >
                     {isDualTrackCardVideoPlaying ? (
