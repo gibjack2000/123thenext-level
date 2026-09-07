@@ -6,6 +6,7 @@ import {
 import { ProductRecommendation, RECOMMENDATIONS_MAP } from '../data/productRecommendations';
 import { useMarket } from '../contexts/MarketContext';
 import { useAffiliateLinks } from '../contexts/AffiliateLinksContext';
+import QuizResultsLeadCapture from '../components/QuizResultsLeadCapture';
 
 export default function QuizResults() {
   const location = useLocation();
@@ -372,6 +373,9 @@ export default function QuizResults() {
               Based on your personalized biomarkers, our clinical algorithm has flagged <strong className="text-cyan-400 font-bold">{getPillarDisplayName(pillar)}</strong> as your primary path to optimization. We have curated your essential baseline hardware, targeted daily vitamins, and metabolic food preparation tools available directly in your market to diagnose subclinical risks early and protect your cellular longevity.
             </p>
           </div>
+
+          {/* Lead Capture: Personalized Idiot's Guide & Score Lock */}
+          <QuizResultsLeadCapture score={score} />
 
           {/* Three-Tier Product Reconstruction Grid */}
           <div className="space-y-6">
