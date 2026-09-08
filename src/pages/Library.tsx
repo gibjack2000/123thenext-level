@@ -31,7 +31,7 @@ export default function LibraryPage() {
       description: "Our academic master manual written for high-performers. Dive deep into Yamanaka cellular factors, autophagy mechanics, NAD+ modulation pathways, whole-methylome epigenetic testing, and clinical biomarker baselines.",
       fileUrl: "/assets/docs/the-next-level-lifespan.pdf",
       fileName: "the-next-level-lifespan.pdf",
-      coverImage: null, // Fallback stylized card
+      coverImage: "/assets/images/shop/longevity_blueprint_cover.png",
       buttonText: "Download Longevity Blueprint (PDF)",
       buttonStyle: "bg-slate-900 text-slate-100 hover:bg-slate-850 border border-slate-800",
       highlights: ["NAD+ modulation pathways", "Autophagy thresholds & ApoB", "Whole-methylome epigenetic testing"]
@@ -44,7 +44,7 @@ export default function LibraryPage() {
       description: "Cross the bridge from guessing to knowing with this clinician-ready consultation suite. Includes our Lola Vital Check 56 biomarker breakdown, laboratory draw checklist, and a printable template to co-evaluate your telemetry with your doctor.",
       fileUrl: "/assets/docs/clinical-baseline-consultation-template-v2.pdf",
       fileName: "clinical-baseline-consultation-template-v2.pdf",
-      coverImage: null, // Fallback stylized card
+      coverImage: "/assets/images/shop/gp_consultation_cover.png",
       buttonText: "Download GP Consultation Template (PDF)",
       buttonStyle: "bg-slate-900 text-slate-100 hover:bg-slate-850 border border-slate-800",
       highlights: ["Printable doctor note template", "Lola Vital Check 56 breakdown", "Actionable consultation questions"]
