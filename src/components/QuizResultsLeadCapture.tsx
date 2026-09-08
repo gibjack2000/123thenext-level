@@ -55,8 +55,8 @@ export default function QuizResultsLeadCapture({ score }: QuizResultsPanelProps)
 
       // 2. Programmatically fire the "Idiot's Guide" PDF download
       const link = document.createElement('a');
-      link.href = '/assets/docs/Finalthe-next-level-lifespan.pdf';
-      link.download = 'Finalthe-next-level-lifespan.pdf';
+      link.href = '/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf';
+      link.download = 'idiots-guide-to-the-next-level-lifespan.pdf';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

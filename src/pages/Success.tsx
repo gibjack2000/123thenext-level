@@ -4,11 +4,11 @@ export default function SuccessPage() {
   useEffect(() => {
     document.title = "Access Granted | 123TheNextLevel";
     
-    // Auto-trigger the download of our exact PDF filename
+    // Auto-trigger the download of our exact non-colliding PDF filename
     const downloadTimer = setTimeout(() => {
       const link = document.createElement('a');
-      link.href = '/assets/docs/Finalthe-next-level-lifespan.pdf'; 
-      link.download = 'Finalthe-next-level-lifespan.pdf';
+      link.href = '/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf'; 
+      link.download = 'idiots-guide-to-the-next-level-lifespan.pdf';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -51,19 +51,19 @@ export default function SuccessPage() {
               </p>
               <div className="pt-2 space-y-2">
                 <a 
-                  href="/assets/docs/the-next-level-lifespan.pdf" 
-                  download="the-next-level-lifespan.pdf"
+                  href="/assets/docs/longevity-blueprint-master-manual.pdf" 
+                  download="longevity-blueprint-master-manual.pdf"
                   className="inline-flex items-center text-xs font-bold text-cyan-400 hover:text-cyan-300 transition"
                 >
-                  ➜ Download: The Longevity Blueprint &amp; Phase 1 Diagnostic Guide (PDF)
+                  ➜ Download: The Longevity Blueprint Master Manual (PDF)
                 </a>
                 <br />
                 <a 
-                  href="/assets/docs/clinical-baseline-consultation-template-v2.pdf" 
-                  download="clinical-baseline-consultation-template-v2.pdf"
+                  href="/assets/docs/clinical-baseline-consultation-workbook.pdf" 
+                  download="clinical-baseline-consultation-workbook.pdf"
                   className="inline-flex items-center text-xs font-bold text-cyan-400 hover:text-cyan-300 transition"
                 >
-                  ➜ Download: Clinical Baseline Workbook &amp; GP Consultation Template (PDF)
+                  ➜ Download: Clinical Baseline Consultation Workbook (PDF)
                 </a>
               </div>
             </div>
