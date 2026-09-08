@@ -48,11 +48,11 @@ export default function HomeTripleGateway() {
         // non-blocking
       }
 
-      navigate('/blueprint-success');
+      navigate('/library?download=idiots-guide');
     } catch (err: any) {
       console.error('Subscription error:', err.message);
       // Fallback redirect so we never block a potential lead
-      navigate('/blueprint-success');
+      navigate('/library?download=idiots-guide');
     } finally {
       setLoading(false);
     }
@@ -80,7 +80,11 @@ export default function HomeTripleGateway() {
         
         {/* Left Hand Column: Holographic Cover Art */}
         <div className="col-span-12 lg:col-span-4 flex flex-col items-center">
-          <div className="relative group max-w-[220px] sm:max-w-[250px] transition-all duration-500 hover:scale-[1.02]">
+          <div 
+            onClick={() => navigate('/library')}
+            className="relative group max-w-[220px] sm:max-w-[250px] transition-all duration-500 hover:scale-[1.02] cursor-pointer"
+            title="Access the Clinical Library"
+          >
             <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-500 opacity-20 blur-lg group-hover:opacity-30 transition duration-500" />
             <img 
               src="/assets/images/shop/next_level_cover.png" 

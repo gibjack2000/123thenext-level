@@ -200,7 +200,7 @@ function App() {
                 <Route path="/blog/category/:category" element={<BlogCategoryPage />} />
                 <Route path="/updates" element={<MagazineRack />} />
                 <Route path="/design-system" element={<DesignSystem />} />
-                <Route path="/blueprint-success" element={<Success />} />
+                <Route path="/blueprint-success" element={<Navigate to="/library?download=idiots-guide" replace />} />
                 <Route path="/library" element={<Library />} />
                 <Route path="/quiz" element={<Navigate to="/health-quiz" replace />} />
                 <Route path="/quiz-results" element={<QuizResults />} />

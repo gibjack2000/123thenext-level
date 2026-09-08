@@ -48,11 +48,11 @@ export default function HomeTwinGateway() {
         // non-blocking
       }
 
-      navigate('/blueprint-success');
+      navigate('/library?download=idiots-guide');
     } catch (err: any) {
       console.error('Subscription error:', err.message);
       // Fallback redirect so we never block a potential lead
-      navigate('/blueprint-success');
+      navigate('/library?download=idiots-guide');
     } finally {
       setLoading(false);
     }

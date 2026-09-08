@@ -1,13 +1,29 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export default function LibraryPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [downloadTriggered, setDownloadTriggered] = useState(false);
 
   useEffect(() => {
     document.title = "The Sovereign Library | 123TheNextLevel";
     window.scrollTo(0, 0);
-  }, []);
+
+    const isDownload = searchParams.get('download') === 'idiots-guide' || searchParams.get('download') === 'true';
+    if (isDownload && !downloadTriggered) {
+      setDownloadTriggered(true);
+      const timer = setTimeout(() => {
+        const link = document.createElement('a');
+        link.href = '/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf';
+        link.download = 'idiots-guide-to-the-next-level-lifespan.pdf';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }, 800);
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams, downloadTriggered]);
 
   const resources = [
     {
@@ -40,6 +56,16 @@ export default function LibraryPage() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans antialiased selection:bg-cyan-500/30">
+
+      {/* Access Granted Notification Banner */}
+      {downloadTriggered && (
+        <div className="bg-gradient-to-r from-cyan-950 via-slate-900 to-cyan-950 border-b border-cyan-500/30 py-3.5 px-4 text-center">
+          <p className="text-xs sm:text-sm font-bold text-cyan-300 flex items-center justify-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+            <span>✓ Access Granted — Your Idiot’s Guide is downloading. Access all clinical manuals below:</span>
+          </p>
+        </div>
+      )}
 
       {/* Hero Section */}
       <header className="relative py-20 overflow-hidden border-b border-slate-900">

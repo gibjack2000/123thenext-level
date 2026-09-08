@@ -105,8 +105,8 @@ export default function Home() {
     e.preventDefault();
     if (!leadEmail) return;
 
-    // Immediately route to success page which handles the automatic download
-    navigate('/blueprint-success');
+    // Immediately route to library page which handles the automatic download
+    navigate('/library?download=idiots-guide');
 
     // Perform API subscriptions asynchronously in the background
     try {
