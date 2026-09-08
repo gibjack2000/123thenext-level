@@ -30,59 +30,51 @@ export default function SuccessPage() {
             Your Idiot’s Guide is downloading...
           </h1>
           <p className="text-base text-slate-400 max-w-2xl mx-auto">
-            Your PDF has triggered automatically. While it downloads, you must add these two critical onboarding tasks to your immediate schedule to cross the bridge from guessing to knowing:
+            Your PDF has triggered automatically. While it downloads, complete these two critical onboarding tasks to cross the bridge from biological speculation to molecular certainty:
           </p>
         </div>
 
         {/* Dual Onboarding Strategy Cards */}
         <div className="grid md:grid-cols-2 gap-8 text-left">
           
-          {/* Card 1: Advanced Clinical Bibles */}
-          <div className="p-8 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-6 shadow-xl hover:border-cyan-500/25 transition duration-300">
+          {/* Card 1: Clinical Baseline Consultation Workbook */}
+          <div className="p-8 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-6 shadow-xl hover:border-amber-500/30 transition duration-300">
             <div className="space-y-3">
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded text-[10px] font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 uppercase tracking-wider">
-                Advanced Clinical Manuals
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20 uppercase tracking-wider">
+                Clinician Co-Pilot Suite
               </span>
               <h2 className="text-xl font-bold text-white flex items-center">
-                <span className="mr-2">📚</span> Unlock Advanced Manuals
+                <span className="mr-2">🩺</span> GP Consultation Workbook
               </h2>
               <p className="text-sm leading-relaxed text-slate-400">
-                Ready to dig deeper? We have unlocked our medical-grade master manuals for high-performers who want the exact clinical mechanisms, ApoB tracking structures, and biological baselines:
+                Ready to take clinical action? Download our 3-page clinician-ready workbook to interpret your blood panels (Lola Vital Check 56) and co-evaluate your biomarkers with your doctor:
               </p>
-              <div className="pt-2 space-y-2">
-                <a 
-                  href="/assets/docs/longevity-blueprint-master-manual.pdf" 
-                  download="longevity-blueprint-master-manual.pdf"
-                  className="inline-flex items-center text-xs font-bold text-cyan-400 hover:text-cyan-300 transition"
-                >
-                  ➜ Download: The Longevity Blueprint Master Manual (PDF)
-                </a>
-                <br />
+              <div className="pt-2">
                 <a 
                   href="/assets/docs/clinical-baseline-consultation-workbook.pdf" 
                   download="clinical-baseline-consultation-workbook.pdf"
-                  className="inline-flex items-center text-xs font-bold text-cyan-400 hover:text-cyan-300 transition"
+                  className="inline-flex items-center text-xs font-bold text-amber-400 hover:text-amber-300 transition"
                 >
-                  ➜ Download: Clinical Baseline Consultation Workbook (PDF)
+                  ➜ Download: GP Consultation Workbook (PDF)
                 </a>
               </div>
             </div>
             <div className="pt-4 border-t border-slate-800/60 text-xs text-slate-500">
-              Complete these to establish your ultimate biological roadmap.
+              Print this template before your next annual physical or lab draw.
             </div>
           </div>
 
           {/* Card 2: Establish Your Baseline Score (Wellness Quiz) */}
-          <div className="p-8 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-6 shadow-xl hover:border-cyan-500/25 transition duration-300">
+          <div className="p-8 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-6 shadow-xl hover:border-cyan-500/30 transition duration-300">
             <div className="space-y-3">
-              <span className="inline-flex items-center px-2.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20 uppercase tracking-wider">
+              <span className="inline-flex items-center px-2.5 py-0.5 rounded text-[10px] font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 uppercase tracking-wider">
                 Required Onboarding Step
               </span>
-              <h2 className="text-xl font-bold text-amber-400 flex items-center">
+              <h2 className="text-xl font-bold text-white flex items-center">
                 <span className="mr-2">🎯</span> Take the 5-Minute Wellness Quiz
               </h2>
               <p className="text-sm leading-relaxed text-slate-400">
-                To bypass the variance of home-use biological telemetry and eliminate guessing, you must establish your true health score across our six core protocols.
+                To bypass the variance of home-use biological telemetry and eliminate guessing, establish your true health score across our six core protocols.
               </p>
               <p className="text-xs text-slate-500">
                 Take the high-fidelity quiz to generate a structured biological scorecard that you can directly print and co-evaluate alongside your doctor.
