@@ -122,11 +122,11 @@ export default function MarketSelector({ currentCategory, className = "" }: Mark
   };
 
   return (
-    <div className={`flex items-center gap-1.5 shrink-0 ${className}`}>
-      <span className="text-[10px] xl:text-[11px] font-mono font-bold uppercase tracking-[0.1em] text-slate-400 select-none mr-0.5 hidden xl:inline">
+    <div className={`flex items-center gap-1 xl:gap-1.5 shrink-0 ${className}`}>
+      <span className="text-[10px] xl:text-[11px] font-mono font-bold uppercase tracking-[0.1em] text-slate-400 select-none mr-0.5 hidden 2xl:inline">
         MARKET:
       </span>
-      <div className="flex items-center gap-1 bg-slate-950/90 p-0.5 rounded-lg border border-slate-800/90 shadow-inner">
+      <div className="flex items-center gap-1 bg-slate-950/90 p-0.5 rounded-lg border border-slate-800/90 shadow-inner shrink-0">
         {REGIONS.map((r) => {
           const isActive = activeRegionId === r.id;
           const FlagComp = r.FlagComponent;
@@ -136,7 +136,7 @@ export default function MarketSelector({ currentCategory, className = "" }: Mark
               key={r.id}
               type="button"
               onClick={() => handleSelectMarket(r.id)}
-              className={`group relative flex items-center gap-1.5 px-2 py-1 rounded-md text-xs font-mono font-bold transition-all duration-300 cursor-pointer ${
+              className={`group relative flex items-center gap-1 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md text-xs font-mono font-bold transition-all duration-300 cursor-pointer shrink-0 ${
                 isActive 
                   ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 shadow-[0_0_8px_rgba(6,182,212,0.3)]' 
                   : 'bg-slate-900/40 text-slate-400 hover:text-slate-200 border border-transparent hover:border-slate-700 hover:bg-slate-800/60'
@@ -144,8 +144,8 @@ export default function MarketSelector({ currentCategory, className = "" }: Mark
               title={r.name}
               aria-label={`Select ${r.name} Market`}
             >
-              <FlagComp className="w-4 h-3" />
-              <span className="text-[11px] font-bold tracking-tight">{r.label}</span>
+              <FlagComp className="w-3.5 h-2.5 sm:w-4 sm:h-3" />
+              <span className="text-[10px] sm:text-[11px] font-bold tracking-tight">{r.label}</span>
               {isActive && (
                 <div className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 bg-cyan-400 rounded-full shadow-[0_0_4px_#22d3ee]"></div>
               )}

@@ -247,11 +247,11 @@ const Navbar = () => {
             ? 'bg-[#020617]/95 backdrop-blur-2xl border-b border-slate-800/80 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.85)]' 
             : 'bg-slate-950/90 backdrop-blur-xl border-b border-slate-800/40 py-2.5 shadow-[0_4px_20px_rgba(0,0,0,0.5)]'
       }`}>
-        <div className="w-full max-w-[1600px] mx-auto px-2 sm:px-3 lg:px-5">
+        <div className="w-full max-w-[1720px] mx-auto px-2 sm:px-3 lg:px-4">
           <div className="flex justify-between items-center">
             
             {/* Logo */}
-            <Link to="/" onClick={handleHomeClick} className="flex items-center group shrink-0 mr-2 xl:mr-4">
+            <Link to="/" onClick={handleHomeClick} className="flex items-center group shrink-0 mr-1.5 xl:mr-3">
               <img 
                 src="/assets/logo.png" 
                 alt="123 The Next Level Logo" 
@@ -263,7 +263,7 @@ const Navbar = () => {
             </Link>
 
             {/* Desktop Navigation with 2-Line Stacked Labels for Large, Bold Typography */}
-            <div className="hidden lg:flex items-center space-x-1 xl:space-x-2.5 shrink-0">
+            <div className="hidden lg:flex items-center space-x-1 xl:space-x-1.5 2xl:space-x-2 shrink-0">
               {/* Home */}
               <Link 
                 to="/" 
@@ -276,7 +276,7 @@ const Navbar = () => {
               {/* Dual-Track (Stacked 2 Lines) */}
               <Link 
                 to="/dual-track" 
-                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors flex flex-col items-center text-center leading-tight"
+                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors flex flex-col items-center text-center leading-tight whitespace-nowrap"
               >
                 <span>Dual</span>
                 <span>Track</span>
@@ -284,7 +284,7 @@ const Navbar = () => {
 
               {/* Pillars Dropdown Trigger */}
               <div className="relative group py-1">
-                <button className="flex items-center px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors cursor-pointer outline-none">
+                <button className="flex items-center px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors cursor-pointer outline-none whitespace-nowrap">
                   <span>Pillars</span>
                   <ChevronDown size={13} className="ml-0.5 transition-transform group-hover:rotate-180 duration-300 text-slate-400" />
                 </button>
@@ -315,7 +315,7 @@ const Navbar = () => {
 
               {/* Blog Updates Dropdown (Stacked 2 Lines) */}
               <div className="relative group py-1">
-                <button className="flex items-center px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors cursor-pointer outline-none">
+                <button className="flex items-center px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors cursor-pointer outline-none whitespace-nowrap">
                   <span className="flex flex-col items-center text-center leading-tight">
                     <span>Blog</span>
                     <span>Updates</span>
@@ -364,17 +364,17 @@ const Navbar = () => {
               {/* The Anti-Aging Health Revolution (Stacked 2 Lines) */}
               <Link 
                 to="/science" 
-                className="px-1.5 xl:px-2.5 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors flex flex-col items-center text-center leading-tight"
+                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors flex flex-col items-center text-center leading-tight whitespace-nowrap"
                 title="The Anti-Aging Health Revolution"
               >
-                <span>The Anti-Aging</span>
-                <span>Health Revolution</span>
+                <span>Anti-Aging</span>
+                <span>Revolution</span>
               </Link>
 
               {/* Sovereign Store (Stacked 2 Lines) */}
               <Link 
                 to="/store" 
-                className="px-2 xl:px-2.5 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-amber-300 hover:text-white transition-all flex flex-col items-center text-center leading-tight rounded-xl bg-amber-500/10 border border-amber-500/30 hover:border-amber-400 hover:shadow-[0_0_15px_rgba(245,158,11,0.25)]"
+                className="px-1.5 xl:px-2.5 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-amber-300 hover:text-white transition-all flex flex-col items-center text-center leading-tight rounded-xl bg-amber-500/10 border border-amber-500/30 hover:border-amber-400 hover:shadow-[0_0_15px_rgba(245,158,11,0.25)] whitespace-nowrap"
                 title="Sovereign Express Store"
               >
                 <span className="flex items-center gap-1">
@@ -387,7 +387,7 @@ const Navbar = () => {
               {/* Premium Guides (Stacked 2 Lines) */}
               <Link 
                 to="/premium-guides" 
-                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors flex flex-col items-center text-center leading-tight"
+                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors flex flex-col items-center text-center leading-tight whitespace-nowrap"
               >
                 <span>Premium</span>
                 <span>Guides</span>
@@ -396,7 +396,7 @@ const Navbar = () => {
               {/* Clinical Library (Stacked 2 Lines) */}
               <Link 
                 to="/library" 
-                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-cyan-400 hover:text-cyan-300 transition-colors flex flex-col items-center text-center leading-tight"
+                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-cyan-400 hover:text-cyan-300 transition-colors flex flex-col items-center text-center leading-tight whitespace-nowrap"
                 title="The Sovereign Library"
               >
                 <span>Clinical</span>
@@ -411,20 +411,20 @@ const Navbar = () => {
                 Intelligence
               </Link>
 
-              {/* Design System (Stacked 2 Lines) */}
+              {/* Design System (Stacked 2 Lines - shown on ultra-wide viewports) */}
               <Link 
                 to="/design-system" 
-                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-colors flex flex-col items-center text-center leading-tight"
+                className="hidden 2xl:flex px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-colors flex-col items-center text-center leading-tight whitespace-nowrap"
               >
                 <span>Design</span>
                 <span>System</span>
               </Link>
 
               {/* Vertical divider */}
-              <div className="h-6 w-px bg-slate-800 shrink-0 mx-1 xl:mx-1.5"></div>
+              <div className="h-5 w-px bg-slate-800 shrink-0 mx-0.5 xl:mx-1"></div>
 
               {/* Global Market Selector in Navbar */}
-              <div className="shrink-0">
+              <div className="shrink-0 flex items-center">
                 <MarketSelector />
               </div>
             </div>
