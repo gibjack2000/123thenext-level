@@ -144,6 +144,56 @@ export default function LibraryPage() {
         </div>
       </section>
 
+      {/* E-Commerce Sovereign Store Callout Banner */}
+      <section className="max-w-5xl mx-auto px-6 pb-12">
+        <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border-2 border-amber-500/30 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-2xl relative overflow-hidden text-left">
+          <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 rounded-full bg-amber-500/10 blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none" />
+
+          <div className="space-y-4 max-w-2xl relative z-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/25 text-amber-400 text-[10px] font-black uppercase tracking-widest">
+              <span>🛒 Sovereign Hardware &amp; Clinical Fuel</span>
+            </div>
+            
+            <h2 className="text-2xl sm:text-3xl font-display font-black text-white tracking-tight uppercase leading-tight">
+              Procure Your Complete <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">Health Stack</span>
+            </h2>
+
+            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-sans">
+              Pair your clinical knowledge with direct-to-consumer molecular fuels and diagnostic hardware. Browse our verified Amazon Associate catalog and clinical partner test kits mapped across US 🇺🇸, UK 🇬🇧, and Spain 🇪🇸.
+            </p>
+
+            <div className="flex flex-wrap gap-2 pt-1">
+              <span className="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                💊 NAD+ Sirtuin Stacks
+              </span>
+              <span className="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                📊 Continuous Glucose Monitors (CGM)
+              </span>
+              <span className="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                🩺 3-Lead Digital ECG Stethoscopes
+              </span>
+              <span className="px-2.5 py-1 rounded-lg text-[10px] font-bold bg-slate-900 border border-slate-800 text-slate-300">
+                🩸 Multi-Omic Blood Panels
+              </span>
+            </div>
+          </div>
+
+          <div className="relative z-10 shrink-0 w-full lg:w-auto flex flex-col gap-3">
+            <button
+              onClick={() => navigate('/store')}
+              className="w-full lg:w-auto py-4 px-8 rounded-xl text-xs font-black uppercase tracking-widest bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 transition-all duration-200 flex items-center justify-center gap-2 shadow-xl shadow-amber-500/20 hover:scale-[1.02] cursor-pointer"
+            >
+              <span>Enter Sovereign Store (50+)</span>
+              <span>➔</span>
+            </button>
+            <p className="text-[10px] text-slate-500 text-center font-mono">
+              Live Currency: USD ($) • GBP (£) • EUR (€)
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Critical Pathway Recommendation Bar */}
       <section className="max-w-5xl mx-auto px-6 pb-24">
         <div className="p-8 md:p-12 rounded-3xl bg-slate-900 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl relative overflow-hidden">

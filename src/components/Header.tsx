@@ -23,8 +23,14 @@ export default function Header() {
         <Link to="/quiz" className="text-slate-350 hover:text-cyan-400 transition-colors">
           ⚡ Free Wellness Quiz
         </Link>
-        <Link to="/store" className="hover:text-cyan-400 transition-colors">
-          🛒 Shop
+        <Link 
+          to="/store" 
+          className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/90 border border-amber-500/40 text-amber-300 hover:text-white hover:border-amber-400 hover:shadow-lg hover:shadow-amber-500/20 transition-all duration-300 font-bold"
+        >
+          <span>🛒 Store</span>
+          <span className="px-1.5 py-0.2 rounded-full text-[9px] font-black uppercase bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 shadow-sm shadow-amber-500/30 animate-pulse">
+            Express
+          </span>
         </Link>
       </nav>
 

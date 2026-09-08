@@ -11,6 +11,7 @@ import { CartProvider } from './contexts/CartContext';
 import { MarketProvider } from './contexts/MarketContext';
 import Navbar from './components/Navbar';
 import SlideInNewsletter from './components/newsletter/SlideInNewsletter';
+import FloatingShopFAB from './components/FloatingShopFAB';
 
 // Lazy-load all pages for code-splitting (each page becomes its own JS chunk)
 const Home = lazy(() => import('./pages/Home'));
@@ -200,7 +201,8 @@ function App() {
                 <Route path="/blog/category/:category" element={<BlogCategoryPage />} />
                 <Route path="/updates" element={<MagazineRack />} />
                 <Route path="/design-system" element={<DesignSystem />} />
-                <Route path="/blueprint-success" element={<Navigate to="/library?download=idiots-guide" replace />} />
+                <Route path="/blueprint-success" element={<Success />} />
+                <Route path="/success" element={<Success />} />
                 <Route path="/library" element={<Library />} />
                 <Route path="/quiz" element={<Navigate to="/health-quiz" replace />} />
                 <Route path="/quiz-results" element={<QuizResults />} />
@@ -222,6 +224,7 @@ function App() {
 
           <Footer />
           <SlideInNewsletter />
+          <FloatingShopFAB />
         </div>
         </MarketProvider>
       </BrowserRouter>

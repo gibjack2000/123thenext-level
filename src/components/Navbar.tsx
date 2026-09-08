@@ -374,10 +374,13 @@ const Navbar = () => {
               {/* Sovereign Store (Stacked 2 Lines) */}
               <Link 
                 to="/store" 
-                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors flex flex-col items-center text-center leading-tight"
-                title="Sovereign Store"
+                className="px-2 xl:px-2.5 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-amber-300 hover:text-white transition-all flex flex-col items-center text-center leading-tight rounded-xl bg-amber-500/10 border border-amber-500/30 hover:border-amber-400 hover:shadow-[0_0_15px_rgba(245,158,11,0.25)]"
+                title="Sovereign Express Store"
               >
-                <span>Sovereign</span>
+                <span className="flex items-center gap-1">
+                  <span>Sovereign</span>
+                  <span className="px-1 py-0.2 rounded text-[8px] font-black uppercase bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 animate-pulse">Express</span>
+                </span>
                 <span>Store</span>
               </Link>
 
@@ -487,10 +490,15 @@ const Navbar = () => {
             <Link
               to="/store"
               onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 p-4 bg-cyan-950/40 rounded-2xl border border-cyan-500/30 text-cyan-300 hover:text-white"
+              className="flex items-center justify-between p-4 bg-gradient-to-r from-amber-950/40 via-slate-900 to-amber-950/20 rounded-2xl border border-amber-500/30 text-amber-300 hover:text-white"
             >
-              <ShoppingBag size={16} className="text-cyan-400" />
-              <span className="text-base font-display font-black uppercase tracking-tight">Sovereign Store</span>
+              <div className="flex items-center gap-3">
+                <ShoppingBag size={16} className="text-amber-400" />
+                <span className="text-base font-display font-black uppercase tracking-tight">Sovereign Store</span>
+              </div>
+              <span className="px-2 py-0.5 rounded text-[9px] font-black uppercase bg-amber-500 text-slate-950 animate-pulse">
+                Express
+              </span>
             </Link>
 
             {/* Accordion: Pillars */}
