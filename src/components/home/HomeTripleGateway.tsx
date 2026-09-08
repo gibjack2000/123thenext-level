@@ -58,14 +58,6 @@ export default function HomeTripleGateway() {
     }
   };
 
-  const scrollToExpressShop = () => {
-    const el = document.getElementById('express-shop') || document.getElementById('shop');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      navigate('/store');
-    }
-  };
 
   return (
     <section 
@@ -171,7 +163,7 @@ export default function HomeTripleGateway() {
                 </p>
               </div>
               <button 
-                onClick={scrollToExpressShop}
+                onClick={() => navigate('/store')}
                 className="w-full py-2.5 px-3 rounded-xl text-xs font-bold bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 hover:from-amber-400 hover:to-orange-400 hover:scale-[1.01] transition duration-200 shadow-md shadow-amber-500/5 cursor-pointer"
               >
                 Shop Longevity Gear 🛒

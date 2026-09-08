@@ -23,7 +23,9 @@ export default function Header() {
         <Link to="/quiz" className="text-slate-350 hover:text-cyan-400 transition-colors">
           ⚡ Free Wellness Quiz
         </Link>
-        <a href="#shop" className="hover:text-cyan-400 transition-colors">Shop</a>
+        <Link to="/store" className="hover:text-cyan-400 transition-colors">
+          🛒 Shop
+        </Link>
       </nav>
 
       {/* Primary Conversion Button (Highlighted & Neon Styled) */}
