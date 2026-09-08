@@ -51,19 +51,19 @@ export default function SuccessPage() {
               </p>
               <div className="pt-2 space-y-2">
                 <a 
-                  href="/assets/docs/longevity-blueprint.pdf" 
-                  download="longevity-blueprint.pdf"
+                  href="/assets/docs/the-next-level-lifespan.pdf" 
+                  download="the-next-level-lifespan.pdf"
                   className="inline-flex items-center text-xs font-bold text-cyan-400 hover:text-cyan-300 transition"
                 >
-                  ➜ Download: The Longevity Blueprint (PDF)
+                  ➜ Download: The Longevity Blueprint &amp; Phase 1 Diagnostic Guide (PDF)
                 </a>
                 <br />
                 <a 
-                  href="/assets/docs/phase1-diagnostic-guide.pdf" 
-                  download="phase1-diagnostic-guide.pdf"
+                  href="/assets/docs/clinical-baseline-consultation-template-v2.pdf" 
+                  download="clinical-baseline-consultation-template-v2.pdf"
                   className="inline-flex items-center text-xs font-bold text-cyan-400 hover:text-cyan-300 transition"
                 >
-                  ➜ Download: Phase 1 Onboarding Blueprint (PDF)
+                  ➜ Download: Clinical Baseline Workbook &amp; GP Consultation Template (PDF)
                 </a>
               </div>
             </div>
@@ -89,7 +89,7 @@ export default function SuccessPage() {
               </p>
             </div>
             <div>
-              <a href="/quiz" className="inline-flex items-center justify-center w-full px-5 py-4 rounded-xl text-sm font-bold bg-cyan-500 text-slate-950 hover:bg-cyan-400 hover:scale-[1.01] transition-all duration-200 shadow-lg shadow-cyan-500/10">
+              <a href="/quiz" className="inline-flex items-center justify-center w-full px-5 py-4 rounded-xl text-sm font-bold bg-cyan-500 text-slate-950 hover:bg-cyan-400 hover:scale-[1.01] transition-all duration-200 shadow-lg shadow-cyan-500/10 cursor-pointer">
                 Take the 5-Minute Quiz Now
               </a>
             </div>
@@ -110,7 +110,7 @@ export default function SuccessPage() {
           {/* Product Cards Mini-Grid */}
           <div className="grid sm:grid-cols-3 gap-4">
             <div className="p-4 rounded-xl bg-slate-950 border border-slate-850">
-              <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">1. Performance & Strength</h4>
+              <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">1. Performance &amp; Strength</h4>
               <p className="text-sm font-bold text-slate-200 mt-1">Beginner Home Workout Plan</p>
               <span className="text-xs text-slate-500 block mt-1">Regularly £19.00</span>
             </div>
@@ -121,7 +121,7 @@ export default function SuccessPage() {
             </div>
             <div className="p-4 rounded-xl bg-slate-950 border border-slate-850">
               <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">3. Autonomic Engineering</h4>
-              <p className="text-sm font-bold text-slate-200 mt-1">Cortisol & Stress Management</p>
+              <p className="text-sm font-bold text-slate-200 mt-1">Cortisol &amp; Stress Management</p>
               <span className="text-xs text-slate-500 block mt-1">Regularly £22.00</span>
             </div>
           </div>
@@ -132,7 +132,7 @@ export default function SuccessPage() {
               <p className="text-sm text-slate-400">Unlock the complete 3-Part Master Guide Bundle</p>
               <p className="text-2xl font-black text-white">Save over 55% — Only £29.00</p>
             </div>
-            <a href="https://123thenextlevel.com/premium-guides" className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-4 rounded-lg text-sm font-bold bg-cyan-500 text-slate-950 hover:bg-cyan-400 shadow-lg shadow-cyan-500/15 transition-all duration-200">
+            <a href="https://123thenextlevel.com/premium-guides" className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-4 rounded-lg text-sm font-bold bg-cyan-500 text-slate-950 hover:bg-cyan-400 shadow-lg shadow-cyan-500/15 transition-all duration-200 cursor-pointer">
               Upgrade My Onboarding Plan
             </a>
           </div>
