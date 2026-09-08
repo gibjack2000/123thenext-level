@@ -68,11 +68,12 @@ export default function LibraryPage() {
               <div className="space-y-6">
 
                 {/* Book Cover Container */}
-                <div className="aspect-[4/5] max-w-[280px] mx-auto w-full rounded-2xl bg-slate-950 border border-slate-800 overflow-hidden relative flex items-center justify-center shadow-2xl group-hover:scale-[1.02] transition duration-500">
+                <div className="relative max-w-[280px] mx-auto w-full flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-500">
+                  <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-tr from-cyan-500/20 to-indigo-500/20 blur-lg opacity-40 group-hover:opacity-70 transition duration-500" />
                   <img
                     src={res.coverImage}
                     alt={res.title}
-                    className="w-full h-full object-cover"
+                    className="relative w-full h-auto max-h-[380px] object-contain rounded-2xl border border-slate-800/90 shadow-2xl bg-slate-950"
                   />
                 </div>
 

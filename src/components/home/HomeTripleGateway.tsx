@@ -85,7 +85,7 @@ export default function HomeTripleGateway() {
             <img 
               src="/assets/images/shop/next_level_cover.png" 
               alt="An Idiot's Guide to the Next Level Lifespan" 
-              className="relative rounded-2xl border border-slate-800 shadow-2xl object-cover"
+              className="relative rounded-2xl border border-slate-800 shadow-2xl w-full h-auto object-contain"
             />
             <span className="absolute top-3 left-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 text-[10px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider shadow-md">
               100% Free

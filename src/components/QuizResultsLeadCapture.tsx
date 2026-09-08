@@ -79,7 +79,7 @@ export default function QuizResultsLeadCapture({ score }: QuizResultsPanelProps)
             <img 
               src="/assets/images/shop/next_level_cover.png" 
               alt="An Idiot's Guide" 
-              className="rounded-xl border border-slate-800 shadow-xl object-cover"
+              className="rounded-xl border border-slate-800 shadow-xl w-full h-auto object-contain"
             />
           </div>
         </div>
