@@ -26,17 +26,41 @@ export default function BlogPostPage() {
         
         if (supabase && hasValidSupabaseConfig) {
           try {
-            const { data, error: postError } = await supabase
-              .from('blog_posts')
+            // 1. Primary Query from blogs table
+            const { data: blogDb, error: blogErr } = await supabase
+              .from('blogs')
               .select('*')
               .eq('slug', slug)
               .single();
-              
-            if (postError) throw postError;
-            postData = data;
+
+            if (!blogErr && blogDb) {
+              postData = {
+                ...blogDb,
+                image_url: blogDb.cover_image_url || blogDb.image_url,
+                created_at: blogDb.published_at || blogDb.created_at
+              };
+            } else {
+              // 2. Fallback to legacy blog_posts table
+              const { data: legacyDb, error: legacyErr } = await supabase
+                .from('blog_posts')
+                .select('*')
+                .eq('slug', slug)
+                .single();
+
+              if (!legacyErr && legacyDb) {
+                postData = {
+                  ...legacyDb,
+                  image_url: legacyDb.cover_image_url || legacyDb.image_url
+                };
+              } else {
+                throw new Error('Post not found in database');
+              }
+            }
           } catch (dbErr) {
-            console.warn('Post not found in database:', dbErr);
-            throw new Error('Post not found');
+            console.warn('Post not found in database, checking mock data:', dbErr);
+            const mockPost = MOCK_BLOG_POSTS.find(p => p.slug === slug);
+            if (!mockPost) throw new Error('Post not found');
+            postData = mockPost;
           }
         } else {
           console.warn('Supabase not initialized, using mock data');
@@ -45,9 +69,10 @@ export default function BlogPostPage() {
           postData = mockPost;
         }
         
-        // If it's a draft and not in preview mode, hide it
-        if (postData.status === 'draft' && !isPreview) {
-          setError('This article is currently a draft.');
+        // If it's a draft or future-scheduled and not in preview mode, block public view
+        const isFutureScheduled = postData.published_at && new Date(postData.published_at) > new Date();
+        if ((postData.status === 'draft' || postData.status === 'scheduled' || isFutureScheduled) && !isPreview) {
+          setError('This article is currently in draft or scheduled for publication.');
           return;
         }
 

@@ -81,6 +81,7 @@ const IntelligenceHub = lazy(() => import('./pages/IntelligenceHub'));
 const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 const BlogCategoryPage = lazy(() => import('./pages/BlogCategoryPage'));
 const BlogAutomationAdmin = lazy(() => import('./pages/BlogAutomationAdmin'));
+const BlogAdminPage = lazy(() => import('./pages/BlogAdminPage'));
 const PremiumGuides = lazy(() => import('./pages/premium/PremiumGuides'));
 const CheckoutSuccess = lazy(() => import('./pages/premium/CheckoutSuccess'));
 const CheckoutCancel = lazy(() => import('./pages/premium/CheckoutCancel'));
@@ -182,9 +183,11 @@ function App() {
                 <Route path="/social-fitness/festivals" element={<FestivalizationWave />} />
                 <Route path="/social-fitness/recovery" element={<SocialRecovery />} />
                 <Route path="/admin" element={<AdminPage />} />
+                <Route path="/admin/blogs" element={<BlogAdminPage />} />
                 <Route path="/superadmin" element={<SuperAdminPage />} />
                 <Route path="/automation-admin" element={<BlogAutomationAdmin />} />
                 <Route path="/intelligence-hub" element={<IntelligenceHub />} />
+                <Route path="/blog" element={<MagazineRack />} />
                 <Route path="/blog/:slug" element={<BlogPostPage />} />
                 <Route path="/life-practice/universal-love" element={<UniversalLove />} />
                 <Route path="/life-practice/do-no-harm" element={<DoNoHarm />} />

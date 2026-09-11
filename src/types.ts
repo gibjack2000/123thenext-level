@@ -18,24 +18,33 @@ export type Product = {
 
 export type BlogPost = {
   id: string;
-  created_at: string;
-  category: 'health' | 'fitness' | 'nutrition' | 'wellness' | 'social-fitness' | 'womens-health';
+  created_at?: string;
+  updated_at?: string;
+  published_at?: string | null;
+  category: 'health' | 'fitness' | 'nutrition' | 'wellness' | 'social-fitness' | 'womens-health' | string;
   title: string;
   slug: string;
   author: string;
   content: string;
-  image_url: string;
+  image_url?: string;
+  cover_image_url?: string;
   image_url_2?: string;
   image_url_3?: string;
   affiliate_url?: string;
-  affiliate_product_1?: string;
-  affiliate_product_2?: string;
-  affiliate_product_3?: string;
-  affiliate_product_4?: string;
-  excerpt: string;
-  tags: string[];
-  featured: boolean;
-  status: 'draft' | 'published';
+  affiliate_product_1?: string | any;
+  affiliate_product_2?: string | any;
+  affiliate_product_3?: string | any;
+  affiliate_product_4?: string | any;
+  excerpt?: string;
+  tags?: string[];
+  featured?: boolean;
+  status?: 'draft' | 'scheduled' | 'published';
+  meta_title?: string;
+  meta_description?: string;
+  canonical_url?: string;
+  og_image_url?: string;
+  reading_time_minutes?: number;
+  view_count?: number;
 };
 
 // Mapper from DB amazon_affiliate_products to internal Product type

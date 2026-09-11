@@ -17,7 +17,9 @@ export default function MagazineRack() {
     { id: 'health', name: 'Health' },
     { id: 'fitness', name: 'Fitness' },
     { id: 'nutrition', name: 'Nutrition' },
-    { id: 'wellness', name: 'Wellness' }
+    { id: 'wellness', name: 'Wellness' },
+    { id: 'womens-health', name: "Women's Health" },
+    { id: 'social-fitness', name: 'Social Fitness' }
   ];
 
   const filteredPosts = selectedCategory === 'all'
@@ -33,21 +35,47 @@ export default function MagazineRack() {
       }
 
       try {
-        const { data, error } = await supabase
-          .from('blog_posts')
+        const nowIso = new Date().toISOString();
+        let loadedPosts: BlogPost[] = [];
+
+        // 1. Primary Query: public.blogs with status = 'published' AND published_at <= NOW()
+        const { data: blogsData, error: blogsError } = await supabase
+          .from('blogs')
           .select('*')
           .eq('status', 'published')
-          .order('created_at', { ascending: false });
+          .lte('published_at', nowIso)
+          .order('published_at', { ascending: false, nullsFirst: false });
 
-        if (error) throw error;
-        if (data && data.length > 0) {
-          setPosts(data);
+        if (!blogsError && blogsData && blogsData.length > 0) {
+          loadedPosts = blogsData.map((item: any) => ({
+            ...item,
+            image_url: item.cover_image_url || item.image_url,
+            created_at: item.published_at || item.created_at
+          }));
         } else {
-          setPosts([]);
+          // 2. Fallback query to legacy blog_posts
+          const { data: legacyData, error: legacyError } = await supabase
+            .from('blog_posts')
+            .select('*')
+            .eq('status', 'published')
+            .order('created_at', { ascending: false });
+
+          if (!legacyError && legacyData && legacyData.length > 0) {
+            loadedPosts = legacyData.map((item: any) => ({
+              ...item,
+              image_url: item.cover_image_url || item.image_url
+            }));
+          }
+        }
+
+        if (loadedPosts.length > 0) {
+          setPosts(loadedPosts);
+        } else {
+          setPosts(MOCK_BLOG_POSTS as BlogPost[]);
         }
       } catch (err) {
         console.error('Error fetching blog posts for Magazine Rack:', err);
-        setPosts([]);
+        setPosts(MOCK_BLOG_POSTS as BlogPost[]);
       } finally {
         setLoading(false);
       }
