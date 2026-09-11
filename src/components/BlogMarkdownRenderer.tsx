@@ -177,8 +177,8 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
         const curLine = lines[j];
         htmlLines.push(curLine);
 
-        const opens = (curLine.match(/<(div|section|article|figure|table)[\s>]/gi) || []).length;
-        const closes = (curLine.match(/<\/(div|section|article|figure|table)>/gi) || []).length;
+        const opens = (curLine.match(/<(div|section|article|figure|table|svg)[\s>]/gi) || []).length;
+        const closes = (curLine.match(/<\/(div|section|article|figure|table|svg)>/gi) || []).length;
         depth += opens - closes;
 
         if (depth <= 0 && (opens > 0 || closes > 0)) {

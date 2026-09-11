@@ -1983,9 +1983,6 @@ ON CONFLICT (slug) DO UPDATE SET
   updated_at = timezone('utc'::text, now());
 `;
 
-fs.writeFileSync('supabase-blogs-schema-and-seed-v3.sql', sqlOutput, 'utf8');
-console.log('✅ Successfully wrote full masterclass script to supabase-blogs-schema-and-seed-v3.sql');
-
 async function runDirectSeed() {
   console.log('\n--- Syncing Masterclass V3 Drafts Directly to Live Supabase Database ---');
   for (const a of articles) {
@@ -2033,4 +2030,14 @@ async function runDirectSeed() {
   console.log('\n--- Masterclass Sync Complete! ---');
 }
 
-runDirectSeed();
+import { fileURLToPath } from 'url';
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  fs.writeFileSync('supabase-blogs-schema-and-seed-v3.sql', sqlOutput, 'utf8');
+  console.log('✅ Successfully wrote full masterclass script to supabase-blogs-schema-and-seed-v3.sql');
+  runDirectSeed();
+}
+
+export { p1_content, p2_content, p3_content, p4_content, p5_content, p6_content, articles };
+
+
+
