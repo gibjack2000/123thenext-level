@@ -235,3 +235,55 @@ ON CONFLICT (slug) DO UPDATE SET
   meta_description = EXCLUDED.meta_description,
   og_image_url = EXCLUDED.og_image_url,
   updated_at = timezone('utc'::text, now());
+
+-- ==============================================================================
+-- 7. DATABASE WEBHOOK TRIGGERS (pg_net)
+-- ==============================================================================
+CREATE EXTENSION IF NOT EXISTS pg_net;
+
+-- 7a. Trigger: Alert when a new row is inserted with status = 'draft'
+CREATE OR REPLACE FUNCTION public.notify_blog_draft_created()
+RETURNS TRIGGER AS $$
+DECLARE
+  payload JSONB;
+BEGIN
+  IF NEW.status = 'draft' THEN
+    payload := jsonb_build_object(
+      'type', TG_OP,
+      'table', TG_TABLE_NAME,
+      'schema', TG_TABLE_SCHEMA,
+      'record', jsonb_build_object(
+        'id', NEW.id,
+        'title', NEW.title,
+        'category', NEW.category,
+        'status', NEW.status,
+        'slug', NEW.slug,
+        'created_at', NEW.created_at
+      )
+    );
+
+    PERFORM net.http_post(
+      url := 'https://123thenextlevel.com/api/webhooks/blog-draft-alert',
+      body := payload,
+      headers := jsonb_build_object('Content-Type', 'application/json')
+    );
+  END IF;
+
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+DROP TRIGGER IF EXISTS trigger_notify_blogs_draft ON public.blogs;
+CREATE TRIGGER trigger_notify_blogs_draft
+AFTER INSERT ON public.blogs
+FOR EACH ROW
+EXECUTE FUNCTION public.notify_blog_draft_created();
+
+-- 7b. Drop any legacy database-level queue empty triggers
+-- Queue Empty alerts are handled safely via the Admin Dashboard (/api/webhooks/blog-queue-empty-check)
+-- to prevent false positives during bulk database seeding or migrations.
+DROP TRIGGER IF EXISTS trigger_queue_empty_blogs ON public.blogs;
+DROP TRIGGER IF EXISTS trigger_queue_empty_blog_posts ON public.blog_posts;
+DROP FUNCTION IF EXISTS public.notify_blog_queue_empty_check();
+
+

@@ -1,7 +1,7 @@
 import express from 'express';
 import { processCategoryJob, getQueue } from './blog-generator.js';
 import checkoutRouter from './routes/checkout.js';
-import { sendQuizResultsEmail, sendNewsletterWelcomeEmail } from './services/mailer.js';
+import { sendQuizResultsEmail, sendNewsletterWelcomeEmail, sendBlogDraftAlertEmail, sendQueueEmptyAlertEmail } from './services/mailer.js';
 import { sendWhatsAppDraftAlert } from './services/whatsapp.js';
 
 import { createClient } from '@supabase/supabase-js';
@@ -16,13 +16,14 @@ const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY;
 const supabase = (supabaseUrl && supabaseKey) ? createClient(supabaseUrl, supabaseKey) : null;
 
-// --- Supabase / Make / Zapier Webhook: Blog Draft WhatsApp Alert ---
+// --- Supabase Database Webhook: Blog Draft Email Alert ---
+// Trigger: Whenever a new row is inserted into public.blogs with status = 'draft'
 router.post('/webhooks/blog-draft-alert', async (req, res) => {
   try {
     const payload = req.body || {};
     
     // Support Supabase Database Webhook payload format: { type: 'INSERT', table: 'blogs', record: { ... } }
-    // As well as direct payloads: { title, category, status }
+    // As well as direct payloads: { title, category, status, ... }
     const record = payload.record || payload;
     const { title, category, status, slug, id } = record;
 
@@ -38,11 +39,12 @@ router.post('/webhooks/blog-draft-alert', async (req, res) => {
     if (normalizedStatus && normalizedStatus !== 'draft') {
       return res.json({
         skipped: true,
-        message: `Skipped: Status is "${status}". Alert is only sent for draft rows.`
+        message: `Skipped: Status is "${status}". Email alert is only sent for draft rows.`
       });
     }
 
-    const alertResult = await sendWhatsAppDraftAlert({
+    // 1. Primary Action: Send Automated Notification Email to admin (gibjack2000@googlemail.com)
+    const emailResult = await sendBlogDraftAlertEmail({
       title: title || record.title || 'New Draft Post',
       category: category || record.category || 'Wellness',
       status: 'Draft',
@@ -50,16 +52,109 @@ router.post('/webhooks/blog-draft-alert', async (req, res) => {
       id: id || record.id
     });
 
+    // 2. Optional: If WhatsApp is configured in .env, also send WhatsApp alert
+    let whatsappResult = null;
+    if (process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN) {
+      try {
+        whatsappResult = await sendWhatsAppDraftAlert({
+          title: title || record.title || 'New Draft Post',
+          category: category || record.category || 'Wellness',
+          status: 'Draft',
+          slug: slug || record.slug,
+          id: id || record.id
+        });
+      } catch (waErr) {
+        console.warn('[Webhook /api/webhooks/blog-draft-alert] WhatsApp optional alert skipped/failed:', waErr.message);
+      }
+    }
+
     res.json({
       success: true,
-      message: 'Draft alert processed successfully',
-      result: alertResult
+      message: 'Draft alert email sent successfully',
+      email: emailResult,
+      whatsapp: whatsappResult
     });
   } catch (error) {
     console.error('[Webhook /api/webhooks/blog-draft-alert] Error:', error);
     res.status(500).json({ error: 'Failed to process draft alert: ' + error.message });
   }
 });
+
+// Dedicated alias route for email-specific webhook
+router.post('/webhooks/blog-draft-email-alert', async (req, res) => {
+  // Delegate directly to the main webhook handler
+  return router.handle(req, res);
+});
+
+// --- Supabase Database Webhook / Server Check: Queue Empty Alert ---
+// Trigger: Whenever a blog post status changed to 'published' or deleted AND COUNT(status = 'draft') == 0
+router.post('/webhooks/blog-queue-empty-check', async (req, res) => {
+  try {
+    const payload = req.body || {};
+    console.log('[Webhook /api/webhooks/blog-queue-empty-check] Event received:', payload.type || 'direct_check');
+
+    let draftCount = 0;
+    if (supabase) {
+      // 1. Query blogs table for remaining drafts
+      try {
+        const { count: blogsCount, error: blogsErr } = await supabase
+          .from('blogs')
+          .select('*', { count: 'exact', head: true })
+          .eq('status', 'draft');
+
+        if (!blogsErr && typeof blogsCount === 'number') {
+          draftCount += blogsCount;
+        }
+      } catch (bErr) {
+        // blogs table may not exist
+      }
+
+      // 2. Query blog_posts table for remaining drafts
+      try {
+        const { count: postsCount, error: postsErr } = await supabase
+          .from('blog_posts')
+          .select('*', { count: 'exact', head: true })
+          .eq('status', 'draft');
+
+        if (!postsErr && typeof postsCount === 'number') {
+          draftCount += postsCount;
+        }
+      } catch (pErr) {
+        // ignore
+      }
+    }
+
+    console.log(`[Queue Empty Check] Current draft count across tables: ${draftCount}`);
+
+    // If queue is empty (0 drafts remaining)
+    if (draftCount === 0) {
+      console.log('[Queue Empty Check] Queue is empty! Sending notification email to jack@123thenextlevel.com...');
+      const emailResult = await sendQueueEmptyAlertEmail();
+
+      return res.json({
+        success: true,
+        queueEmpty: true,
+        draftsRemaining: 0,
+        message: 'Queue is empty. Alert email dispatched to jack@123thenextlevel.com successfully.',
+        email: emailResult
+      });
+    }
+
+    // Queue still has drafts
+    return res.json({
+      success: true,
+      queueEmpty: false,
+      draftsRemaining: draftCount,
+      message: `${draftCount} draft(s) remain in the queue. No empty alert needed.`
+    });
+
+  } catch (error) {
+    console.error('[Webhook /api/webhooks/blog-queue-empty-check] Error:', error);
+    res.status(500).json({ error: 'Failed to verify queue empty status: ' + error.message });
+  }
+});
+
+
 
 // --- Quiz Results Route ---
 router.post('/quiz-results', async (req, res) => {

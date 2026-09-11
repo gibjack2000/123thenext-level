@@ -1,23 +1,34 @@
 -- ==============================================================================
--- SUPABASE DATABASE WEBHOOK SETUP FOR BLOG DRAFT ALERTS
+-- SUPABASE DATABASE WEBHOOK SETUP FOR BLOG DRAFT EMAIL ALERTS
 -- ==============================================================================
--- Option 1: Supabase Dashboard (Recommended - 2 Minutes Setup)
--- 1. Go to your Supabase Dashboard -> Database -> Webhooks
--- 2. Click "Create a new webhook" (or "Enable Webhooks" if not already enabled)
--- 3. Name: "blog_draft_whatsapp_alert"
--- 4. Table: "public.blogs"
--- 5. Events: Check "Insert" ONLY
--- 6. Type: "HTTP Request"
--- 7. Method: "POST"
--- 8. URL: "https://123thenextlevel.com/api/webhooks/blog-draft-alert"
---    (Or your Make.com / Zapier Webhook URL)
--- 9. HTTP Headers: 
---    Content-Type: application/json
--- 10. Click Save!
+-- Trigger: Whenever a new row is inserted into public.blogs with status = 'draft'
+-- Action:  Send automated email notification to gibjack2000@googlemail.com
+-- Target:  https://123thenextlevel.com/api/webhooks/blog-draft-alert
 -- ==============================================================================
 
--- Option 2: SQL / pg_net Extension (Direct Database Trigger)
--- If you prefer configuring via SQL with pg_net extension:
+-- ------------------------------------------------------------------------------
+-- OPTION 1: Supabase Dashboard UI (Recommended — 60 Seconds Setup)
+-- ------------------------------------------------------------------------------
+-- 1. Open your Supabase Dashboard: https://supabase.com/dashboard/project/_/database/webhooks
+-- 2. Go to "Database" -> "Webhooks" (or "Integrations" -> "Webhooks").
+-- 3. Click "Create a new webhook".
+-- 4. Set the following fields:
+--    - Name: blog_draft_email_alert
+--    - Table: public.blogs
+--    - Events: Check "Insert" ONLY
+--    - Type: HTTP Request
+--    - Method: POST
+--    - URL: https://123thenextlevel.com/api/webhooks/blog-draft-alert
+--    - HTTP Headers:
+--        Content-Type: application/json
+-- 5. Click "Save Webhook" or "Create Webhook".
+-- ------------------------------------------------------------------------------
+
+
+-- ------------------------------------------------------------------------------
+-- OPTION 2: SQL / pg_net Extension (Direct PostgreSQL Database Trigger)
+-- ------------------------------------------------------------------------------
+-- If you prefer configuring via the Supabase SQL Editor:
 
 CREATE EXTENSION IF NOT EXISTS pg_net;
 
@@ -26,7 +37,7 @@ RETURNS TRIGGER AS $$
 DECLARE
   payload JSONB;
 BEGIN
-  -- Only trigger if the inserted article status is 'draft'
+  -- Trigger only if the inserted article status is 'draft'
   IF NEW.status = 'draft' THEN
     payload := jsonb_build_object(
       'type', TG_OP,
@@ -42,7 +53,7 @@ BEGIN
       )
     );
 
-    -- Replace with your production domain or Make.com / Zapier webhook URL
+    -- POST event directly to server webhook endpoint
     PERFORM net.http_post(
       url := 'https://123thenextlevel.com/api/webhooks/blog-draft-alert',
       body := payload,
@@ -56,8 +67,41 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
-DROP TRIGGER IF EXISTS trigger_notify_blog_draft ON public.blogs;
-CREATE TRIGGER trigger_notify_blog_draft
-AFTER INSERT ON public.blogs
-FOR EACH ROW
-EXECUTE FUNCTION public.notify_blog_draft_created();
+-- Attach trigger to public.blogs (if created)
+DROP TRIGGER IF EXISTS trigger_notify_blogs_draft ON public.blogs;
+DO $$
+BEGIN
+  IF EXISTS (SELECT FROM pg_tables WHERE schemaname = 'public' AND tablename = 'blogs') THEN
+    CREATE TRIGGER trigger_notify_blogs_draft
+    AFTER INSERT ON public.blogs
+    FOR EACH ROW
+    EXECUTE FUNCTION public.notify_blog_draft_created();
+  END IF;
+END $$;
+
+-- Attach trigger to public.blog_posts (active table)
+DROP TRIGGER IF EXISTS trigger_notify_blog_posts_draft ON public.blog_posts;
+DO $$
+BEGIN
+  IF EXISTS (SELECT FROM pg_tables WHERE schemaname = 'public' AND tablename = 'blog_posts') THEN
+    CREATE TRIGGER trigger_notify_blog_posts_draft
+    AFTER INSERT ON public.blog_posts
+    FOR EACH ROW
+    EXECUTE FUNCTION public.notify_blog_draft_created();
+  END IF;
+END $$;
+
+
+-- ==============================================================================
+-- 2. QUEUE EMPTY ALERTS: HANDLED VIA ADMIN DASHBOARD ACTIONS
+-- ==============================================================================
+-- Queue Empty checks are triggered automatically by the Admin Dashboard (/admin/blogs)
+-- whenever an admin manually clicks "Approve & Publish" or deletes an article.
+-- This ensures bulk database seeding and migrations NEVER trigger false positive alerts.
+
+DROP TRIGGER IF EXISTS trigger_queue_empty_blogs ON public.blogs;
+DROP TRIGGER IF EXISTS trigger_queue_empty_blog_posts ON public.blog_posts;
+DROP FUNCTION IF EXISTS public.notify_blog_queue_empty_check();
+
+
+

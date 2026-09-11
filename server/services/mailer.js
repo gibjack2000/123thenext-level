@@ -442,3 +442,406 @@ export async function sendNewsletterWelcomeEmail({ email, preferences }) {
   return info;
 }
 
+const DEFAULT_NOTIFICATION_RECIPIENTS = [
+  'jack@123thenextlevel.com',
+  'gibjack2000@googlemail.com'
+];
+
+function resolveRecipients(customRecipient, envVar) {
+  if (customRecipient) {
+    return Array.isArray(customRecipient)
+      ? customRecipient
+      : customRecipient.split(',').map(e => e.trim()).filter(Boolean);
+  }
+  const envVal = envVar || process.env.ADMIN_NOTIFICATION_EMAILS || process.env.ADMIN_NOTIFICATION_EMAIL || process.env.ADMIN_EMAIL;
+  if (envVal) {
+    return envVal.split(',').map(e => e.trim()).filter(Boolean);
+  }
+  return DEFAULT_NOTIFICATION_RECIPIENTS;
+}
+
+/**
+ * Sends an automated notification email to the admin when a new blog draft is created in public.blogs
+ * Trigger: When a new row is inserted into public.blogs with status = 'draft'
+ * Recipients: jack@123thenextlevel.com AND gibjack2000@googlemail.com
+ */
+export async function sendBlogDraftAlertEmail({
+  title,
+  category,
+  status = 'Draft',
+  slug,
+  id,
+  recipientEmail
+}) {
+  const recipients = resolveRecipients(recipientEmail, process.env.ADMIN_NOTIFICATION_EMAIL);
+  const targetEmailStr = recipients.join(', ');
+
+  const articleTitle = title || 'Untitled Draft Article';
+  const articleCategory = category || 'General';
+  const articleStatus = status || 'Draft';
+  const baseUrl = (process.env.VITE_APP_URL || process.env.APP_URL || 'https://123thenextlevel.com').replace(/\/$/, '');
+  const adminReviewUrl = `${baseUrl}/admin/blogs`;
+
+  const subject = `📝 New Blog Draft Ready: ${articleTitle}`;
+
+  const plainTextBody = `Title: ${articleTitle}\nCategory: ${articleCategory}\nStatus: ${articleStatus} (Invisible on public site)\nReview & Publish Link: ${adminReviewUrl}`;
+
+  const htmlBody = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>New Blog Draft Ready</title>
+    </head>
+    <body style="margin: 0; padding: 0; background-color: #0f172a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#0f172a" style="padding: 32px 16px;">
+        <tr>
+          <td align="center">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 580px; background-color: #1e293b; border-radius: 16px; overflow: hidden; border: 1px solid #334155; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);">
+              
+              <!-- Header Bar -->
+              <tr>
+                <td bgcolor="#0b1120" style="padding: 24px 28px; border-bottom: 1px solid #334155;">
+                  <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                    <tr>
+                      <td>
+                        <span style="display: inline-block; background-color: #059669; color: #ffffff; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 6px;">
+                          Editorial CMS Alert
+                        </span>
+                        <h1 style="margin: 10px 0 0 0; color: #ffffff; font-size: 20px; font-weight: 800; letter-spacing: -0.02em;">
+                          📝 New Blog Draft Ready
+                        </h1>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              
+              <!-- Main Content Body -->
+              <tr>
+                <td style="padding: 28px;">
+                  <p style="margin: 0 0 20px 0; font-size: 15px; color: #cbd5e1; line-height: 1.6;">
+                    A new article draft has been staged in the database and is ready for your editorial review and approval before going live on the public site.
+                  </p>
+                  
+                  <!-- Metadata Box -->
+                  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #0f172a; border-radius: 12px; border: 1px solid #334155; margin-bottom: 26px;">
+                    <tr>
+                      <td style="padding: 20px;">
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
+                          <tr>
+                            <td style="padding: 6px 0; font-size: 13px; color: #94a3b8; font-weight: 600; width: 90px; vertical-align: top;">
+                              Title:
+                            </td>
+                            <td style="padding: 6px 0; font-size: 15px; color: #f8fafc; font-weight: 700;">
+                              ${articleTitle}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="padding: 6px 0; font-size: 13px; color: #94a3b8; font-weight: 600; vertical-align: top;">
+                              Category:
+                            </td>
+                            <td style="padding: 6px 0; font-size: 14px; color: #38bdf8; font-weight: 600;">
+                              ${articleCategory}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td style="padding: 6px 0; font-size: 13px; color: #94a3b8; font-weight: 600; vertical-align: top;">
+                              Status:
+                            </td>
+                            <td style="padding: 6px 0; font-size: 13px; color: #fbbf24; font-weight: 600;">
+                              <span style="background-color: rgba(251, 191, 36, 0.15); border: 1px solid rgba(251, 191, 36, 0.3); padding: 2px 8px; border-radius: 4px; display: inline-block;">
+                                Draft (Invisible on public site)
+                              </span>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  
+                  <!-- CTA Button -->
+                  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom: 24px;">
+                    <tr>
+                      <td align="center">
+                        <a href="${adminReviewUrl}" target="_blank" style="display: block; width: 100%; box-sizing: border-box; background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #ffffff; text-align: center; padding: 14px 24px; border-radius: 10px; font-weight: bold; font-size: 15px; text-decoration: none; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4);">
+                          Review &amp; Publish Link ➜
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                  
+                  <p style="margin: 0; font-size: 12px; color: #64748b; line-height: 1.5; text-align: center;">
+                    Direct Link: <a href="${adminReviewUrl}" style="color: #38bdf8; text-decoration: underline;">${adminReviewUrl}</a>
+                  </p>
+                </td>
+              </tr>
+              
+              <!-- Footer -->
+              <tr>
+                <td bgcolor="#0b1120" style="padding: 16px 28px; border-top: 1px solid #334155; text-align: center;">
+                  <p style="margin: 0; font-size: 11px; color: #64748b;">
+                    123TheNextLevel CMS Automation &bull; Automated draft alert sent to ${targetEmailStr}
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </body>
+    </html>
+  `;
+
+  const rawFrom = (process.env.SMTP_FROM || `"The Next Level" <${process.env.SMTP_USER || 'jack@123thenextlevel.com'}>`).replace(/"/g, '').trim();
+  const smtpFrom = formatFromAddress(rawFrom) || `"The Next Level" <jack@123thenextlevel.com>`;
+
+  // 1. Check if Resend API key is provided
+  if (process.env.RESEND_API_KEY) {
+    try {
+      console.log(`[Blog Draft Mailer] Dispatching alert via Resend API to ${targetEmailStr}...`);
+      const resendRes = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          from: smtpFrom.includes('<') ? smtpFrom : `The Next Level <${process.env.SMTP_USER || 'jack@123thenextlevel.com'}>`,
+          to: recipients,
+          subject,
+          text: plainTextBody,
+          html: htmlBody
+        })
+      });
+      const data = await resendRes.json();
+      if (!resendRes.ok) throw new Error(data.message || `Resend HTTP error ${resendRes.status}`);
+      console.log(`[Blog Draft Mailer] ✅ Email sent via Resend! ID: ${data.id}`);
+      return { success: true, provider: 'resend', id: data.id, recipients };
+    } catch (resendErr) {
+      console.warn('[Blog Draft Mailer] Resend dispatch failed, falling back to Nodemailer SMTP:', resendErr.message);
+    }
+  }
+
+  // 2. Check if SendGrid API key is provided
+  if (process.env.SENDGRID_API_KEY) {
+    try {
+      console.log(`[Blog Draft Mailer] Dispatching alert via SendGrid API to ${targetEmailStr}...`);
+      const fromEmail = (process.env.SMTP_USER || 'jack@123thenextlevel.com').trim();
+      const sendGridRes = await fetch('https://api.sendgrid.com/v3/mail/send', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.SENDGRID_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          personalizations: [{ to: recipients.map(e => ({ email: e })) }],
+          from: { email: fromEmail, name: '123TheNextLevel' },
+          subject,
+          content: [
+            { type: 'text/plain', value: plainTextBody },
+            { type: 'text/html', value: htmlBody }
+          ]
+        })
+      });
+      if (!sendGridRes.ok) {
+        const errorText = await sendGridRes.text();
+        throw new Error(`SendGrid HTTP error ${sendGridRes.status}: ${errorText}`);
+      }
+      console.log(`[Blog Draft Mailer] ✅ Email sent via SendGrid!`);
+      return { success: true, provider: 'sendgrid', recipients };
+    } catch (sendGridErr) {
+      console.warn('[Blog Draft Mailer] SendGrid dispatch failed, falling back to Nodemailer SMTP:', sendGridErr.message);
+    }
+  }
+
+  // 3. Default: Send via Nodemailer SMTP (Hostinger or custom SMTP)
+  const mailOptions = {
+    from: smtpFrom,
+    to: targetEmailStr,
+    subject,
+    text: plainTextBody,
+    html: htmlBody
+  };
+
+  const transporter = createTransporter();
+  console.log(`[Blog Draft Mailer] Sending draft alert email to ${targetEmailStr} from ${smtpFrom}...`);
+  const info = await transporter.sendMail(mailOptions);
+  console.log(`[Blog Draft Mailer] ✅ Email sent successfully! MessageID: ${info.messageId}`);
+  return { success: true, provider: 'nodemailer', messageId: info.messageId, recipients };
+}
+
+/**
+ * Sends an automated notification email when all blog drafts in the queue are published or deleted (COUNT(drafts) == 0)
+ * Trigger: Whenever a blog post status changes to 'published' or is deleted AND no drafts remain.
+ * Recipients: jack@123thenextlevel.com AND gibjack2000@googlemail.com
+ */
+export async function sendQueueEmptyAlertEmail({ recipientEmail } = {}) {
+  const recipients = resolveRecipients(recipientEmail, process.env.QUEUE_EMPTY_NOTIFICATION_EMAIL);
+  const targetEmailStr = recipients.join(', ');
+
+  const subject = `🎉 All Blog Drafts Published — Time for Batch 2!`;
+
+  const plainTextBody = `Hi Jack,\n\nAll blog drafts in your queue have now been published on 123thenextlevel.com!\n\nYour draft queue is currently empty. Whenever you are ready for your next batch of 6 clinical authority articles, drop back into your Gemini Notebook chat to generate Batch 2.\n\nBest,\n123TheNextLevel Automation`;
+
+  const htmlBody = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>All Blog Drafts Published</title>
+    </head>
+    <body style="margin: 0; padding: 0; background-color: #0f172a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#0f172a" style="padding: 36px 16px;">
+        <tr>
+          <td align="center">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 580px; background-color: #1e293b; border-radius: 16px; overflow: hidden; border: 1px solid #334155; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);">
+              
+              <!-- Header Bar -->
+              <tr>
+                <td bgcolor="#0b1120" style="padding: 26px 30px; border-bottom: 1px solid #334155; text-align: left;">
+                  <span style="display: inline-block; background-color: #10b981; color: #ffffff; font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 6px; margin-bottom: 8px;">
+                    Editorial Milestone
+                  </span>
+                  <h1 style="margin: 4px 0 0 0; color: #ffffff; font-size: 22px; font-weight: 800; letter-spacing: -0.02em;">
+                    🎉 All Blog Drafts Published!
+                  </h1>
+                </td>
+              </tr>
+              
+              <!-- Content Body -->
+              <tr>
+                <td style="padding: 32px 30px;">
+                  <p style="margin: 0 0 16px 0; font-size: 16px; color: #f8fafc; font-weight: 600;">
+                    Hi Jack,
+                  </p>
+                  
+                  <p style="margin: 0 0 20px 0; font-size: 15px; color: #cbd5e1; line-height: 1.65;">
+                    All blog drafts in your queue have now been published on <strong style="color: #38bdf8;">123thenextlevel.com</strong>!
+                  </p>
+
+                  <div style="background-color: #0f172a; border-radius: 12px; border: 1px solid #334155; padding: 20px; margin-bottom: 24px;">
+                    <p style="margin: 0 0 10px 0; font-size: 14px; color: #94a3b8;">
+                      📊 <strong>Queue Status:</strong> <span style="color: #10b981; font-weight: bold;">0 Drafts Remaining (Queue Empty)</span>
+                    </p>
+                    <p style="margin: 0; font-size: 14px; color: #cbd5e1; line-height: 1.6;">
+                      Your draft queue is currently empty. Whenever you are ready for your next batch of 6 clinical authority articles, drop back into your Gemini Notebook chat to generate <strong>Batch 2</strong>.
+                    </p>
+                  </div>
+
+                  <!-- CTA Button -->
+                  <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom: 20px;">
+                    <tr>
+                      <td align="center">
+                        <a href="https://123thenextlevel.com/admin/blogs" target="_blank" style="display: block; width: 100%; box-sizing: border-box; background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #ffffff; text-align: center; padding: 14px 24px; border-radius: 10px; font-weight: bold; font-size: 15px; text-decoration: none; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4);">
+                          View Blog CMS Dashboard ➜
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                  
+                  <p style="margin: 0; font-size: 13px; color: #94a3b8; line-height: 1.5;">
+                    Keep up the great momentum compounding your authority content library!
+                  </p>
+                </td>
+              </tr>
+              
+              <!-- Footer -->
+              <tr>
+                <td bgcolor="#0b1120" style="padding: 18px 30px; border-top: 1px solid #334155; text-align: center;">
+                  <p style="margin: 0; font-size: 11px; color: #64748b;">
+                    123TheNextLevel CMS Automation &bull; Automated queue alert sent to ${targetEmailStr}
+                  </p>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </body>
+    </html>
+  `;
+
+  const rawFrom = (process.env.SMTP_FROM || `"The Team at 123Next Level" <${process.env.SMTP_USER || 'jack@123thenextlevel.com'}>`).replace(/"/g, '').trim();
+  const smtpFrom = formatFromAddress(rawFrom) || `"The Team at 123Next Level" <jack@123thenextlevel.com>`;
+
+  // 1. Resend API support if configured
+  if (process.env.RESEND_API_KEY) {
+    try {
+      console.log(`[Queue Empty Mailer] Dispatching via Resend API to ${targetEmailStr}...`);
+      const resendRes = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          from: smtpFrom.includes('<') ? smtpFrom : `123TheNextLevel <${process.env.SMTP_USER || 'jack@123thenextlevel.com'}>`,
+          to: recipients,
+          subject,
+          text: plainTextBody,
+          html: htmlBody
+        })
+      });
+      const data = await resendRes.json();
+      if (!resendRes.ok) throw new Error(data.message || `Resend HTTP error ${resendRes.status}`);
+      console.log(`[Queue Empty Mailer] ✅ Email sent via Resend! ID: ${data.id}`);
+      return { success: true, provider: 'resend', id: data.id, recipients };
+    } catch (resendErr) {
+      console.warn('[Queue Empty Mailer] Resend dispatch failed, falling back to Nodemailer:', resendErr.message);
+    }
+  }
+
+  // 2. SendGrid API support if configured
+  if (process.env.SENDGRID_API_KEY) {
+    try {
+      console.log(`[Queue Empty Mailer] Dispatching via SendGrid API to ${targetEmailStr}...`);
+      const fromEmail = (process.env.SMTP_USER || 'jack@123thenextlevel.com').trim();
+      const sendGridRes = await fetch('https://api.sendgrid.com/v3/mail/send', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.SENDGRID_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          personalizations: [{ to: recipients.map(e => ({ email: e })) }],
+          from: { email: fromEmail, name: '123TheNextLevel' },
+          subject,
+          content: [
+            { type: 'text/plain', value: plainTextBody },
+            { type: 'text/html', value: htmlBody }
+          ]
+        })
+      });
+      if (!sendGridRes.ok) {
+        const errorText = await sendGridRes.text();
+        throw new Error(`SendGrid HTTP error ${sendGridRes.status}: ${errorText}`);
+      }
+      console.log(`[Queue Empty Mailer] ✅ Email sent via SendGrid!`);
+      return { success: true, provider: 'sendgrid', recipients };
+    } catch (sendGridErr) {
+      console.warn('[Queue Empty Mailer] SendGrid dispatch failed, falling back to Nodemailer:', sendGridErr.message);
+    }
+  }
+
+  // 3. Default: Nodemailer Hostinger SMTP
+  const mailOptions = {
+    from: smtpFrom,
+    to: targetEmailStr,
+    subject,
+    text: plainTextBody,
+    html: htmlBody
+  };
+
+  const transporter = createTransporter();
+  console.log(`[Queue Empty Mailer] Sending Queue Empty email to ${targetEmailStr} from ${smtpFrom}...`);
+  const info = await transporter.sendMail(mailOptions);
+  console.log(`[Queue Empty Mailer] ✅ Email sent successfully! MessageID: ${info.messageId}`);
+  return { success: true, provider: 'nodemailer', messageId: info.messageId, recipients };
+}
+
+
+
+

@@ -5,6 +5,7 @@ import { motion } from 'motion/react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { BlogPost } from '../types';
 import { MOCK_BLOG_POSTS } from '../data/mockBlogPosts';
+import BlogMarkdownRenderer from '../components/BlogMarkdownRenderer';
 import BlogNewsletterBanner from '../components/newsletter/BlogNewsletterBanner';
 
 export default function BlogPostPage() {
@@ -166,64 +167,6 @@ export default function BlogPostPage() {
     );
   }
 
-  const renderContent = () => {
-    // If post is marked as HTML, render it directly
-    if ((post as any).is_html || post.content.trim().startsWith('<')) {
-      return <div dangerouslySetInnerHTML={{ __html: post.content }} />;
-    }
-
-    // Basic markdown-like rendering for the content
-    return post.content.split('\n').map((paragraph, index) => {
-      const text = paragraph.trim();
-      if (!text) return <br key={index} />;
-      if (text.startsWith('### ')) {
-        return <h3 key={index} className="font-display uppercase tracking-tight text-xl mt-8 mb-4 text-slate-900">{text.replace('### ', '')}</h3>;
-      }
-      if (text.startsWith('## ')) {
-        return <h2 key={index} className="font-display uppercase tracking-tight text-2xl mt-12 mb-6 text-slate-900">{text.replace('## ', '')}</h2>;
-      }
-      if (text.startsWith('# ')) {
-        return <h1 key={index} className="font-display uppercase tracking-tight text-3xl mt-12 mb-8 text-slate-900">{text.replace('# ', '')}</h1>;
-      }
-      
-      const imgMatch = text.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
-      if (imgMatch) {
-        const alt = imgMatch[1];
-        const url = imgMatch[2];
-        return (
-          <div key={index} className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl group">
-            <a href={displayAffiliateUrl} target="_blank" rel="noopener noreferrer" className="block relative">
-              <img src={url} alt={alt} className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500" />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
-            </a>
-          </div>
-        );
-      }
-
-      const formatText = (content: string) => {
-        // Parse bold and markdown links into HTML safely
-        return content
-          .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-slate-900">$1</strong>')
-          .replace(/\[([^\]]+)\]\(([^)]+)\)/g, (match, title, url) => {
-            let validUrl = url;
-            if (!validUrl.startsWith('http') && !validUrl.startsWith('//')) {
-              validUrl = 'https://' + validUrl;
-            }
-            return `<a href="${validUrl}" target="_blank" rel="noopener noreferrer" class="text-blue-600 font-bold hover:text-blue-800 underline transition-colors">${title}</a>`;
-          });
-      };
-
-      if (text.startsWith('- ')) {
-        return <li key={index} className="ml-6 mb-2 text-slate-600" dangerouslySetInnerHTML={{ __html: formatText(text.replace('- ', '')) }} />;
-      }
-      if (text.startsWith('* ')) {
-        return <li key={index} className="ml-6 mb-2 text-slate-600" dangerouslySetInnerHTML={{ __html: formatText(text.replace('* ', '')) }} />;
-      }
-      
-      return <p key={index} className="text-slate-600 leading-relaxed mb-6" dangerouslySetInnerHTML={{ __html: formatText(text) }} />;
-    });
-  };
-
   // Safe fallback to extract first link from content if affiliate_url column is missing/empty
   const displayAffiliateUrl = post.affiliate_url || (() => {
     const match = post.content.match(/https?:\/\/(?:www\.)?(?:amazon|amzn)\.[a-z.]+(?:\/[^)\s]*)?/i);
@@ -259,7 +202,7 @@ export default function BlogPostPage() {
               src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" 
               alt="Engaging Post Background" 
               className="w-full h-full object-cover opacity-90" 
-              referrerPolicy="no-referrer"
+              referrerPolicy="no-referrer" 
             />
             {/* Gradient Overlay for text readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-slate-900/20"></div>
@@ -307,60 +250,28 @@ export default function BlogPostPage() {
 
       {/* Article Content Container */}
       <article className="relative z-20 max-w-4xl mx-auto px-6 sm:px-10 lg:px-12 py-16 bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200/50 -mt-24 border border-slate-100 mix-blend-normal">
-        <div className="prose prose-slate prose-lg lg:prose-xl max-w-none">
-          {(() => {
-            const content = renderContent();
-            if (Array.isArray(content)) {
-              return (
-                <>
-                  {content.slice(0, 4)}
+        <div className="max-w-none">
+          <BlogMarkdownRenderer content={post.content} theme="light" affiliateUrl={displayAffiliateUrl} />
 
-                  {post.image_url_2 && (
-                    <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl group">
-                      <a href={displayAffiliateUrl} target="_blank" rel="noopener noreferrer" className="block relative">
-                        <img src={post.image_url_2} alt="Supplementary visual" className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500" />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
-                      </a>
-                    </div>
-                  )}
+          {post.image_url_2 && (
+            <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl group">
+              <a href={displayAffiliateUrl} target="_blank" rel="noopener noreferrer" className="block relative">
+                <img src={post.image_url_2} alt="Supplementary visual" className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
+              </a>
+            </div>
+          )}
 
-                  {content.slice(4, 8)}
-
-                  {post.image_url_3 && (
-                    <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl group">
-                      <a href={displayAffiliateUrl} target="_blank" rel="noopener noreferrer" className="block relative">
-                        <img src={post.image_url_3} alt="Supplementary visual" className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500" />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
-                      </a>
-                    </div>
-                  )}
-
-                  {content.slice(8)}
-                </>
-              );
-            } else {
-              return (
-                <>
-                  {content}
-                  {post.image_url_2 && (
-                    <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl group">
-                      <a href={displayAffiliateUrl} target="_blank" rel="noopener noreferrer" className="block relative">
-                        <img src={post.image_url_2} alt="Supplementary visual" className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500" />
-                      </a>
-                    </div>
-                  )}
-                  {post.image_url_3 && (
-                    <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl group">
-                      <a href={displayAffiliateUrl} target="_blank" rel="noopener noreferrer" className="block relative">
-                        <img src={post.image_url_3} alt="Supplementary visual" className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500" />
-                      </a>
-                    </div>
-                  )}
-                </>
-              );
-            }
-          })()}
+          {post.image_url_3 && (
+            <div className="my-12 rounded-[2rem] overflow-hidden border border-slate-100 shadow-xl group">
+              <a href={displayAffiliateUrl} target="_blank" rel="noopener noreferrer" className="block relative">
+                <img src={post.image_url_3} alt="Supplementary visual" className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-500" />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors" />
+              </a>
+            </div>
+          )}
         </div>
+
         
         {/* Affiliate Products Section */}
         {((post as any).affiliate_product_1 || (post as any).affiliate_product_2 || (post as any).affiliate_product_3 || (post as any).affiliate_product_4) && (

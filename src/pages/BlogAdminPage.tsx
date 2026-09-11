@@ -29,6 +29,7 @@ import {
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { BlogPost } from '../types';
 import { MOCK_BLOG_POSTS } from '../data/mockBlogPosts';
+import BlogMarkdownRenderer from '../components/BlogMarkdownRenderer';
 
 const CATEGORY_OPTIONS = [
   { id: 'health', name: 'Health & Longevity', color: 'bg-rose-500/20 text-rose-300 border-rose-500/30' },
@@ -213,11 +214,19 @@ export default function BlogAdminPage() {
 
       setPosts(prev => prev.map(p => p.id === post.id ? updatedPost : p));
       showToast(`🎉 "${post.title}" is now PUBLISHED and live on the blog!`, 'success');
+
+      // Trigger Queue Empty check
+      fetch('/api/webhooks/blog-queue-empty-check', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ event: 'approve_and_publish', id: post.id })
+      }).catch(() => {});
     } catch (err: any) {
       console.error('Error approving blog:', err);
       showToast('Failed to approve article: ' + err.message, 'error');
     }
   };
+
 
   // Move back to draft
   const handleRevertToDraft = async (post: BlogPost) => {
@@ -356,6 +365,15 @@ export default function BlogAdminPage() {
       await fetchArticles();
       setIsEditorOpen(false);
       showToast(andPublish ? `🚀 "${payload.title}" published successfully!` : `💾 Saved "${payload.title}" as ${newStatus}!`, 'success');
+
+      // If published, check if queue is now empty and trigger notification
+      if (newStatus === 'published' || andPublish) {
+        fetch('/api/webhooks/blog-queue-empty-check', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ event: 'post_published', id: payload.id })
+        }).catch(() => {});
+      }
     } catch (err: any) {
       console.error('Error saving article:', err);
       showToast('Failed to save article: ' + err.message, 'error');
@@ -375,11 +393,19 @@ export default function BlogAdminPage() {
       }
       setPosts(prev => prev.filter(p => p.id !== post.id));
       showToast(`Article "${post.title}" deleted.`, 'info');
+
+      // Check if queue is now empty after deletion
+      fetch('/api/webhooks/blog-queue-empty-check', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ event: 'post_deleted', id: post.id })
+      }).catch(() => {});
     } catch (err: any) {
       console.error('Error deleting article:', err);
       showToast('Failed to delete: ' + err.message, 'error');
     }
   };
+
 
   // Filtering calculations
   const filteredPosts = posts.filter(p => {
@@ -1008,11 +1034,9 @@ export default function BlogAdminPage() {
                     className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-xs sm:text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-blue-500 font-mono leading-relaxed"
                   />
                 ) : (
-                  <div className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-6 text-slate-200 prose prose-invert max-w-none min-h-[300px] overflow-y-auto">
-                    <h1 className="text-2xl font-bold text-white mb-4">{editingPost.title || 'Untitled Post'}</h1>
-                    <div className="whitespace-pre-wrap text-sm leading-relaxed text-slate-300">
-                      {editingPost.content}
-                    </div>
+                  <div className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-6 text-slate-200 max-w-none min-h-[300px] overflow-y-auto">
+                    <h1 className="text-2xl font-bold text-white mb-6 border-b border-slate-800 pb-4">{editingPost.title || 'Untitled Post'}</h1>
+                    <BlogMarkdownRenderer content={editingPost.content || ''} theme="dark" />
                   </div>
                 )}
               </div>

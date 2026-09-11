@@ -77,3 +77,97 @@
     scrollbar-width: none;
   }
 }
+
+/* ==============================================================================
+   PRODUCT CALLOUT CARDS (BLOG POSTS & ADMIN PREVIEW)
+   ============================================================================== */
+.product-card-box {
+  position: relative;
+  margin: 2.25rem 0;
+  padding: 1.5rem;
+  border-radius: 1.25rem;
+  background: rgba(13, 17, 23, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.product-card-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.4), transparent);
+}
+
+.product-card-box:hover {
+  transform: translateY(-3px);
+  border-color: rgba(6, 182, 212, 0.45);
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.6), 0 0 25px rgba(6, 182, 212, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.product-card-box img {
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-card-box:hover img {
+  transform: scale(1.05);
+}
+
+.product-card-box h4 {
+  color: #f8fafc !important;
+}
+
+.product-card-box p {
+  color: #94a3b8 !important;
+}
+
+.product-card-box a {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
+.product-card-box a:hover {
+  filter: brightness(1.12);
+  box-shadow: 0 6px 20px rgba(6, 182, 212, 0.5);
+  transform: translateY(-1px);
+}
+
+.product-card-box a svg {
+  transition: transform 0.25s ease;
+}
+
+.product-card-box a:hover svg {
+  transform: translateX(3px);
+}
+
+/* Light Theme overrides when inside a light container */
+.theme-light .product-card-box,
+[data-theme="light"] .product-card-box {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(226, 232, 240, 0.9);
+  box-shadow: 0 12px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+}
+
+.theme-light .product-card-box:hover,
+[data-theme="light"] .product-card-box:hover {
+  border-color: rgba(6, 182, 212, 0.6);
+  box-shadow: 0 16px 30px -5px rgba(6, 182, 212, 0.15);
+}
+
+.theme-light .product-card-box h4 {
+  color: #0f172a !important;
+}
+
+.theme-light .product-card-box p {
+  color: #475569 !important;
+}
+
+

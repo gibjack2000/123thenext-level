@@ -18,35 +18,36 @@ const supabase = createClient(supabaseUrl, serviceRoleKey);
 const imageMappings = [
   {
     name: 'performance_biodata_cover.png',
-    source: 'C:\\Users\\Jack\\.gemini\\antigravity-ide\\brain\\056c0566-03ca-46d5-ad80-b5645b02e96c\\.user_uploaded\\media_1789100485123.jpg',
+    source: path.resolve('public', 'covers', 'performance_biodata_cover.png'),
     category: 'Performance & Biodata'
   },
   {
     name: 'healthspan_longevity_cover.png',
-    source: 'C:\\Users\\Jack\\.gemini\\antigravity-ide\\brain\\056c0566-03ca-46d5-ad80-b5645b02e96c\\.user_uploaded\\media_1789100485189.jpg',
+    source: path.resolve('public', 'covers', 'healthspan_longevity_cover.png'),
     category: 'Healthspan & Longevity'
   },
   {
     name: 'metabolic_nutrition_cover.png',
-    source: 'C:\\Users\\Jack\\.gemini\\antigravity-ide\\brain\\056c0566-03ca-46d5-ad80-b5645b02e96c\\.user_uploaded\\media_1789100485159.jpg',
+    source: path.resolve('public', 'covers', 'metabolic_nutrition_cover.png'),
     category: 'Metabolic Nutrition'
   },
   {
     name: 'autonomic_engineering_cover.png',
-    source: 'C:\\Users\\Jack\\.gemini\\antigravity-ide\\brain\\056c0566-03ca-46d5-ad80-b5645b02e96c\\.user_uploaded\\media_1789100485062.jpg',
+    source: path.resolve('public', 'covers', 'autonomic_engineering_cover.png'),
     category: 'Autonomic Engineering'
   },
   {
     name: 'womens_health_cover.png',
-    source: 'C:\\Users\\Jack\\.gemini\\antigravity-ide\\brain\\056c0566-03ca-46d5-ad80-b5645b02e96c\\womens_health_cover_1789100568625.jpg',
+    source: path.resolve('public', 'covers', 'womens_health_cover.png'),
     category: "Women's Health & Hormonal Vitality"
   },
   {
     name: 'socio_architecture_cover.png',
-    source: 'C:\\Users\\Jack\\.gemini\\antigravity-ide\\brain\\056c0566-03ca-46d5-ad80-b5645b02e96c\\.user_uploaded\\media_1789100485029.jpg',
+    source: path.resolve('public', 'covers', 'socio_architecture_cover.png'),
     category: 'Socio-Architecture & Bio-Networks'
   }
 ];
+
 
 async function main() {
   console.log('--- 1. Ensuring public storage bucket "blog-covers" exists ---');
