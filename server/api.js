@@ -2,6 +2,7 @@ import express from 'express';
 import { processCategoryJob, getQueue } from './blog-generator.js';
 import checkoutRouter from './routes/checkout.js';
 import { sendQuizResultsEmail, sendNewsletterWelcomeEmail } from './services/mailer.js';
+import { sendWhatsAppDraftAlert } from './services/whatsapp.js';
 
 import { createClient } from '@supabase/supabase-js';
 import dotenv from 'dotenv';
@@ -14,6 +15,51 @@ const router = express.Router();
 const supabaseUrl = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_ANON_KEY;
 const supabase = (supabaseUrl && supabaseKey) ? createClient(supabaseUrl, supabaseKey) : null;
+
+// --- Supabase / Make / Zapier Webhook: Blog Draft WhatsApp Alert ---
+router.post('/webhooks/blog-draft-alert', async (req, res) => {
+  try {
+    const payload = req.body || {};
+    
+    // Support Supabase Database Webhook payload format: { type: 'INSERT', table: 'blogs', record: { ... } }
+    // As well as direct payloads: { title, category, status }
+    const record = payload.record || payload;
+    const { title, category, status, slug, id } = record;
+
+    console.log('[Webhook /api/webhooks/blog-draft-alert] Received event:', {
+      type: payload.type,
+      table: payload.table,
+      title: title || record.title,
+      status: status || record.status
+    });
+
+    // Only process if status is 'draft' (or if directly requested)
+    const normalizedStatus = (status || record.status || '').toLowerCase();
+    if (normalizedStatus && normalizedStatus !== 'draft') {
+      return res.json({
+        skipped: true,
+        message: `Skipped: Status is "${status}". Alert is only sent for draft rows.`
+      });
+    }
+
+    const alertResult = await sendWhatsAppDraftAlert({
+      title: title || record.title || 'New Draft Post',
+      category: category || record.category || 'Wellness',
+      status: 'Draft',
+      slug: slug || record.slug,
+      id: id || record.id
+    });
+
+    res.json({
+      success: true,
+      message: 'Draft alert processed successfully',
+      result: alertResult
+    });
+  } catch (error) {
+    console.error('[Webhook /api/webhooks/blog-draft-alert] Error:', error);
+    res.status(500).json({ error: 'Failed to process draft alert: ' + error.message });
+  }
+});
 
 // --- Quiz Results Route ---
 router.post('/quiz-results', async (req, res) => {
