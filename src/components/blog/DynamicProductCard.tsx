@@ -23,6 +23,11 @@ export const DynamicProductCard: React.FC<DynamicProductCardProps> = ({
   const { product, loading, error, market } = useDynamicProduct(id, marketOverride);
   const [imgSrc, setImgSrc] = useState<string | null>(null);
 
+  // Reset image error state whenever product or id changes
+  React.useEffect(() => {
+    setImgSrc(null);
+  }, [product?.image_url, product?.id, market]);
+
   // Sync or fallback image
   const displayImage = imgSrc || product?.image_url || 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&auto=format&fit=crop&q=60';
 

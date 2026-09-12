@@ -339,9 +339,199 @@ export async function fetchAllProducts(): Promise<ProductDb[]> {
   return allProductsPromise;
 }
 
-// Friendly aliases mapping common short names to exact product IDs
+// Friendly aliases mapping common short names and cross-region IDs to exact product records
 const PRODUCT_ALIASES: Record<string, Record<Market, string>> = {
+  'cgm': {
+    'US': 'cgm-us',
+    'UK': 'cgm-uk',
+    'ES': 'cgm-es'
+  },
+  'cgm-us': {
+    'US': 'cgm-us',
+    'UK': 'cgm-uk',
+    'ES': 'cgm-es'
+  },
+  'cgm-uk': {
+    'US': 'cgm-us',
+    'UK': 'cgm-uk',
+    'ES': 'cgm-es'
+  },
+  'cgm-es': {
+    'US': 'cgm-us',
+    'UK': 'cgm-uk',
+    'ES': 'cgm-es'
+  },
+  'sleep-analyzer': {
+    'US': 'sleep-analyzer-us',
+    'UK': 'sleep-analyzer-uk',
+    'ES': 'sleep-analyzer-es'
+  },
+  'sleep-analyzer-us': {
+    'US': 'sleep-analyzer-us',
+    'UK': 'sleep-analyzer-uk',
+    'ES': 'sleep-analyzer-es'
+  },
+  'sleep-analyzer-uk': {
+    'US': 'sleep-analyzer-us',
+    'UK': 'sleep-analyzer-uk',
+    'ES': 'sleep-analyzer-es'
+  },
+  'sleep-analyzer-es': {
+    'US': 'sleep-analyzer-us',
+    'UK': 'sleep-analyzer-uk',
+    'ES': 'sleep-analyzer-es'
+  },
+  'reagent-strips': {
+    'US': 'reagent-strips-us',
+    'UK': 'reagent-strips-uk',
+    'ES': 'reagent-strips-es'
+  },
+  'reagent-strips-us': {
+    'US': 'reagent-strips-us',
+    'UK': 'reagent-strips-uk',
+    'ES': 'reagent-strips-es'
+  },
+  'reagent-strips-uk': {
+    'US': 'reagent-strips-us',
+    'UK': 'reagent-strips-uk',
+    'ES': 'reagent-strips-es'
+  },
+  'reagent-strips-es': {
+    'US': 'reagent-strips-us',
+    'UK': 'reagent-strips-uk',
+    'ES': 'reagent-strips-es'
+  },
+  'segmental-scale': {
+    'US': 'segmental-scale-us',
+    'UK': 'segmental-scale-uk',
+    'ES': 'segmental-scale-es'
+  },
+  'segmental-scale-us': {
+    'US': 'segmental-scale-us',
+    'UK': 'segmental-scale-uk',
+    'ES': 'segmental-scale-es'
+  },
+  'segmental-scale-uk': {
+    'US': 'segmental-scale-us',
+    'UK': 'segmental-scale-uk',
+    'ES': 'segmental-scale-es'
+  },
+  'segmental-scale-es': {
+    'US': 'segmental-scale-us',
+    'UK': 'segmental-scale-uk',
+    'ES': 'segmental-scale-es'
+  },
+  'sirtuin-stack': {
+    'US': 'sirtuin-stack-us',
+    'UK': 'sirtuin-stack-uk',
+    'ES': 'sirtuin-stack-es'
+  },
+  'sirtuin-stack-us': {
+    'US': 'sirtuin-stack-us',
+    'UK': 'sirtuin-stack-uk',
+    'ES': 'sirtuin-stack-es'
+  },
+  'sirtuin-stack-uk': {
+    'US': 'sirtuin-stack-us',
+    'UK': 'sirtuin-stack-uk',
+    'ES': 'sirtuin-stack-es'
+  },
+  'sirtuin-stack-es': {
+    'US': 'sirtuin-stack-us',
+    'UK': 'sirtuin-stack-uk',
+    'ES': 'sirtuin-stack-es'
+  },
+  'stethoscope': {
+    'US': 'stethoscope-us',
+    'UK': 'stethoscope-uk',
+    'ES': 'stethoscope-es'
+  },
+  'stethoscope-us': {
+    'US': 'stethoscope-us',
+    'UK': 'stethoscope-uk',
+    'ES': 'stethoscope-es'
+  },
+  'stethoscope-uk': {
+    'US': 'stethoscope-us',
+    'UK': 'stethoscope-uk',
+    'ES': 'stethoscope-es'
+  },
+  'stethoscope-es': {
+    'US': 'stethoscope-us',
+    'UK': 'stethoscope-uk',
+    'ES': 'stethoscope-es'
+  },
+  'blood-pressure-cuff': {
+    'US': 'blood-pressure-cuff-us',
+    'UK': 'blood-pressure-cuff-uk',
+    'ES': 'blood-pressure-cuff-es'
+  },
+  'blood-pressure-cuff-us': {
+    'US': 'blood-pressure-cuff-us',
+    'UK': 'blood-pressure-cuff-uk',
+    'ES': 'blood-pressure-cuff-es'
+  },
+  'blood-pressure-cuff-uk': {
+    'US': 'blood-pressure-cuff-us',
+    'UK': 'blood-pressure-cuff-uk',
+    'ES': 'blood-pressure-cuff-es'
+  },
+  'blood-pressure-cuff-es': {
+    'US': 'blood-pressure-cuff-us',
+    'UK': 'blood-pressure-cuff-uk',
+    'ES': 'blood-pressure-cuff-es'
+  },
+  'wearable-tracker': {
+    'US': 'wearable-tracker-us',
+    'UK': 'wearable-tracker-uk',
+    'ES': 'wearable-tracker-es'
+  },
+  'wearable-tracker-us': {
+    'US': 'wearable-tracker-us',
+    'UK': 'wearable-tracker-uk',
+    'ES': 'wearable-tracker-es'
+  },
+  'wearable-tracker-uk': {
+    'US': 'wearable-tracker-us',
+    'UK': 'wearable-tracker-uk',
+    'ES': 'wearable-tracker-es'
+  },
+  'wearable-tracker-es': {
+    'US': 'wearable-tracker-us',
+    'UK': 'wearable-tracker-uk',
+    'ES': 'wearable-tracker-es'
+  },
   'sauna': {
+    'US': 'amazon-health-us-b09pskn6x3',
+    'UK': 'amazon-health-uk-b09pskn6x3',
+    'ES': 'amazon-health-es-b09pskn6x3'
+  },
+  'sauna-us': {
+    'US': 'amazon-health-us-b09pskn6x3',
+    'UK': 'amazon-health-uk-b09pskn6x3',
+    'ES': 'amazon-health-es-b09pskn6x3'
+  },
+  'sauna-uk': {
+    'US': 'amazon-health-us-b09pskn6x3',
+    'UK': 'amazon-health-uk-b09pskn6x3',
+    'ES': 'amazon-health-es-b09pskn6x3'
+  },
+  'sauna-es': {
+    'US': 'amazon-health-us-b09pskn6x3',
+    'UK': 'amazon-health-uk-b09pskn6x3',
+    'ES': 'amazon-health-es-b09pskn6x3'
+  },
+  'amazon-health-us-b09pskn6x3': {
+    'US': 'amazon-health-us-b09pskn6x3',
+    'UK': 'amazon-health-uk-b09pskn6x3',
+    'ES': 'amazon-health-es-b09pskn6x3'
+  },
+  'amazon-health-uk-b09pskn6x3': {
+    'US': 'amazon-health-us-b09pskn6x3',
+    'UK': 'amazon-health-uk-b09pskn6x3',
+    'ES': 'amazon-health-es-b09pskn6x3'
+  },
+  'amazon-health-es-b09pskn6x3': {
     'US': 'amazon-health-us-b09pskn6x3',
     'UK': 'amazon-health-uk-b09pskn6x3',
     'ES': 'amazon-health-es-b09pskn6x3'
@@ -351,12 +541,72 @@ const PRODUCT_ALIASES: Record<string, Record<Market, string>> = {
     'UK': 'amazon-health-uk-b0c3hcd34r',
     'ES': 'amazon-health-es-b08hmwzbxc'
   },
-  'sony-headphones': {
+  'headphones-us': {
+    'US': 'amazon-health-us-b0c3hcd34r',
+    'UK': 'amazon-health-uk-b0c3hcd34r',
+    'ES': 'amazon-health-es-b08hmwzbxc'
+  },
+  'headphones-uk': {
+    'US': 'amazon-health-us-b0c3hcd34r',
+    'UK': 'amazon-health-uk-b0c3hcd34r',
+    'ES': 'amazon-health-es-b08hmwzbxc'
+  },
+  'headphones-es': {
+    'US': 'amazon-health-us-b0c3hcd34r',
+    'UK': 'amazon-health-uk-b0c3hcd34r',
+    'ES': 'amazon-health-es-b08hmwzbxc'
+  },
+  'bose-headphones': {
+    'US': 'amazon-health-us-b0c3hcd34r',
+    'UK': 'amazon-health-uk-b0c3hcd34r',
+    'ES': 'amazon-health-es-b08hmwzbxc'
+  },
+  'amazon-health-us-b0c3hcd34r': {
+    'US': 'amazon-health-us-b0c3hcd34r',
+    'UK': 'amazon-health-uk-b0c3hcd34r',
+    'ES': 'amazon-health-es-b08hmwzbxc'
+  },
+  'amazon-health-uk-b0c3hcd34r': {
+    'US': 'amazon-health-us-b0c3hcd34r',
+    'UK': 'amazon-health-uk-b0c3hcd34r',
+    'ES': 'amazon-health-es-b08hmwzbxc'
+  },
+  'amazon-health-es-b08hmwzbxc': {
     'US': 'amazon-health-us-b0c3hcd34r',
     'UK': 'amazon-health-uk-b0c3hcd34r',
     'ES': 'amazon-health-es-b08hmwzbxc'
   },
   'rower': {
+    'US': 'amazon-fitness-us-rower',
+    'UK': 'amazon-fitness-uk-rower',
+    'ES': 'amazon-fitness-es-rower'
+  },
+  'rower-us': {
+    'US': 'amazon-fitness-us-rower',
+    'UK': 'amazon-fitness-uk-rower',
+    'ES': 'amazon-fitness-es-rower'
+  },
+  'rower-uk': {
+    'US': 'amazon-fitness-us-rower',
+    'UK': 'amazon-fitness-uk-rower',
+    'ES': 'amazon-fitness-es-rower'
+  },
+  'rower-es': {
+    'US': 'amazon-fitness-us-rower',
+    'UK': 'amazon-fitness-uk-rower',
+    'ES': 'amazon-fitness-es-rower'
+  },
+  'amazon-fitness-us-rower': {
+    'US': 'amazon-fitness-us-rower',
+    'UK': 'amazon-fitness-uk-rower',
+    'ES': 'amazon-fitness-es-rower'
+  },
+  'amazon-fitness-uk-rower': {
+    'US': 'amazon-fitness-us-rower',
+    'UK': 'amazon-fitness-uk-rower',
+    'ES': 'amazon-fitness-es-rower'
+  },
+  'amazon-fitness-es-rower': {
     'US': 'amazon-fitness-us-rower',
     'UK': 'amazon-fitness-uk-rower',
     'ES': 'amazon-fitness-es-rower'
@@ -388,11 +638,11 @@ export function resolveRegionalProductId(
 
   // 0. Check alias dictionary
   const baseWithoutSuffix = normalizedRaw.replace(/-(us|uk|es)$/i, '');
-  if (PRODUCT_ALIASES[baseWithoutSuffix] && PRODUCT_ALIASES[baseWithoutSuffix][market]) {
-    return PRODUCT_ALIASES[baseWithoutSuffix][market];
-  }
   if (PRODUCT_ALIASES[normalizedRaw] && PRODUCT_ALIASES[normalizedRaw][market]) {
     return PRODUCT_ALIASES[normalizedRaw][market];
+  }
+  if (PRODUCT_ALIASES[baseWithoutSuffix] && PRODUCT_ALIASES[baseWithoutSuffix][market]) {
+    return PRODUCT_ALIASES[baseWithoutSuffix][market];
   }
 
   // 1. Direct match check in cache or provided list
@@ -466,11 +716,40 @@ export function useDynamicProduct(rawId: string, marketOverride?: Market) {
       contextMarket = marketCtx.market;
     }
   } catch {
-    // Graceful fallback if rendered outside MarketProvider
     contextMarket = 'US';
   }
 
-  const activeMarket = marketOverride || contextMarket || 'US';
+  // Local state to support instant window event listeners
+  const [activeMarket, setActiveMarket] = useState<Market>(marketOverride || contextMarket || 'US');
+
+  // Sync with context or marketOverride
+  useEffect(() => {
+    if (marketOverride) {
+      setActiveMarket(marketOverride);
+    } else if (contextMarket) {
+      setActiveMarket(contextMarket);
+    }
+  }, [contextMarket, marketOverride]);
+
+  // Direct event listener for instant responsiveness
+  useEffect(() => {
+    if (marketOverride) return;
+
+    const handleMarketEvent = (e: any) => {
+      const incoming = e?.detail?.market || e?.detail?.region;
+      if (incoming && ['US', 'UK', 'ES'].includes(incoming.toUpperCase())) {
+        setActiveMarket(incoming.toUpperCase() as Market);
+      }
+    };
+
+    window.addEventListener('market-changed', handleMarketEvent);
+    window.addEventListener('region-changed', handleMarketEvent);
+
+    return () => {
+      window.removeEventListener('market-changed', handleMarketEvent);
+      window.removeEventListener('region-changed', handleMarketEvent);
+    };
+  }, [marketOverride]);
 
   const [product, setProduct] = useState<ProductDb | null>(() => {
     const resolvedId = resolveRegionalProductId(rawId, activeMarket);
@@ -517,3 +796,4 @@ export function useDynamicProduct(rawId: string, marketOverride?: Market) {
 
   return { product, loading, error, market: activeMarket };
 }
+

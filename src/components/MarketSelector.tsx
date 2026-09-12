@@ -88,14 +88,16 @@ export default function MarketSelector({ currentCategory, className = "" }: Mark
     }
   }
 
-  // Active market determination based on pathname, search parameters, or global market context
+  // Active market determination based on global context, pathname, or search parameters
   const isStore = location.pathname.startsWith('/store');
   const storeCountry = searchParams.get('country')?.toLowerCase();
   
   const activeRegionId: 'us' | 'uk' | 'es' = (
-    isStore && storeCountry && ['us', 'uk', 'es'].includes(storeCountry)
-      ? storeCountry
-      : pathRegion || (market ? market.toLowerCase() : 'us')
+    market ? market.toLowerCase() : (
+      isStore && storeCountry && ['us', 'uk', 'es'].includes(storeCountry)
+        ? storeCountry
+        : pathRegion || 'us'
+    )
   ) as 'us' | 'uk' | 'es';
 
   const handleSelectMarket = (rId: 'us' | 'uk' | 'es') => {
@@ -111,14 +113,15 @@ export default function MarketSelector({ currentCategory, className = "" }: Mark
       if (parts[0] === 'region') {
         navigate(`/region/${rId}`);
       } else {
-        const categoryPart = currentCategory || parts[1] || '';
-        navigate(categoryPart ? `/${rId}/${categoryPart}` : `/${rId}`);
+        const remaining = parts.slice(1).join('/');
+        navigate(remaining ? `/${rId}/${remaining}` : `/${rId}`);
       }
     } else if (currentCategory) {
       navigate(`/${rId}/${currentCategory}`);
-    } else {
-      navigate(`/${rId}`);
     }
+    // Note: On blog posts (/blog/:slug), guides, and informational pages, we intentionally
+    // DO NOT navigate away. The active market state and event bus immediately update all
+    // dynamic product cards and regional pricing on the current page.
   };
 
   return (
