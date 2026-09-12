@@ -80,45 +80,7 @@ function generateDynamicAndFallbackProductCard({
   dealBtnText = 'Direct Live Deal',
   storeUrl = 'https://123thenextlevel.com/store'
 }) {
-  return `
-<ProductCard id="${id}" productType="${productType}" dealBtnText="${dealBtnText}" />
-
-<!-- Fallback HTML Representation for Static Parsers -->
-<div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" data-product-id="${id}" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
-  <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
-    <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="${imageUrl}" alt="${title}" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
-    </div>
-    <div style="flex: 1; min-width: 260px;">
-      <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
-        <span style="display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; padding: 0.25rem 0.6rem; border-radius: 9999px; background: rgba(16, 185, 129, 0.12); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3);">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          ${badgeText}
-        </span>
-        <span style="font-size: 0.75rem; color: #64748b; font-weight: 600;">${productType}</span>
-      </div>
-      <h4 style="margin: 0 0 0.5rem 0; font-size: 1.15rem; font-weight: 800; color: #f8fafc; line-height: 1.3;">${title}</h4>
-      <p style="margin: 0 0 1rem 0; font-size: 0.875rem; color: #94a3b8; line-height: 1.5;">${subtitle}</p>
-      <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 0.85rem;">
-        <div>
-          <span style="font-size: 0.7rem; color: #64748b; text-transform: uppercase; font-weight: 600; display: block;">Live Retail & Subscriptions</span>
-          <span style="font-size: 1.25rem; font-weight: 800; color: #f8fafc;">${price} <span style="font-size: 0.8rem; font-weight: 600; color: #64748b;">${priceSecondary ? `(${priceSecondary})` : ''}</span></span>
-        </div>
-        <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
-          <a href="${dealUrl}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: #ffffff; padding: 0.6rem 1.15rem; border-radius: 0.6rem; font-weight: 700; font-size: 0.825rem; text-decoration: none; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.35); transition: all 0.2s ease;">
-            <span>${dealBtnText}</span>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-          </a>
-          <a href="${storeUrl}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
-            <span>Store Hub</span>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`.trim();
+  return `<ProductCard id="${id}" productType="${productType}" dealBtnText="${dealBtnText}" />`;
 }
 
 // ==============================================================================

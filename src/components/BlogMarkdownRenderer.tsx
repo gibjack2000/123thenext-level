@@ -235,6 +235,7 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
   // Block parser
   const lines = content.split('\n');
   const blocks: React.ReactNode[] = [];
+  const renderedProductIds = new Set<string>();
   let i = 0;
 
   while (i < lines.length) {
@@ -265,6 +266,7 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
 
       const cardProps = extractProductCardProps(fullTag);
       if (cardProps && cardProps.id) {
+        renderedProductIds.add(cardProps.id.toLowerCase());
         blocks.push(
           <DynamicProductCard
             key={`product-card-${i}-${cardProps.id}`}
@@ -342,6 +344,11 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
       const embeddedCardProps = extractProductCardProps(htmlString);
 
       if (dataProdId) {
+        if (renderedProductIds.has(dataProdId.toLowerCase())) {
+          // Skip duplicate fallback HTML card if already rendered
+          continue;
+        }
+        renderedProductIds.add(dataProdId.toLowerCase());
         blocks.push(
           <DynamicProductCard
             key={`html-prod-${i}-${dataProdId}`}
@@ -351,6 +358,11 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
         );
         continue;
       } else if (embeddedCardProps && embeddedCardProps.id) {
+        if (renderedProductIds.has(embeddedCardProps.id.toLowerCase())) {
+          // Skip duplicate embedded card if already rendered
+          continue;
+        }
+        renderedProductIds.add(embeddedCardProps.id.toLowerCase());
         blocks.push(
           <DynamicProductCard
             key={`html-prod-embed-${i}-${embeddedCardProps.id}`}
@@ -371,6 +383,11 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
         const derivedId = imgMatch ? imgMatch[1] : asinMatch ? `amazon-${asinMatch[1]}` : null;
 
         if (derivedId) {
+          if (renderedProductIds.has(derivedId.toLowerCase())) {
+            // Skip duplicate legacy card
+            continue;
+          }
+          renderedProductIds.add(derivedId.toLowerCase());
           blocks.push(
             <DynamicProductCard
               key={`legacy-prod-${i}-${derivedId}`}
