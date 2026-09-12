@@ -261,6 +261,114 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     market_region: 'ES',
     badge_text: 'CE Medical Class IIa',
     image_url: 'https://123thenextlevel.com/assets/images/shop/bpm-connect.png'
+  },
+  {
+    id: 'amazon-health-us-b09pskn6x3',
+    name: 'Lifepro RejuvaWrap Infrared Sauna Blanket for Detox & Relaxation',
+    category: 'Lifestyle & Recovery Gear',
+    rating: 4.85,
+    description: 'Low-EMF far-infrared thermal blanket delivering deep mitochondrial heat shock protein activation at home.',
+    price_text: '$228.46',
+    deal_url: 'https://www.amazon.com/dp/B09PSKN6X3?tag=123znl08-20',
+    market_region: 'US',
+    badge_text: 'Biohacker Approved',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/sauna.png'
+  },
+  {
+    id: 'amazon-health-uk-b09pskn6x3',
+    name: 'LifePro Infrared Sauna Blanket For Relaxation, Detox & Rejuvenation',
+    category: 'Lifestyle & Recovery Gear',
+    rating: 4.85,
+    description: 'Low-EMF far-infrared thermal blanket delivering deep mitochondrial heat shock protein activation at home.',
+    price_text: '£254.99',
+    deal_url: 'https://www.amazon.co.uk/dp/B09PSKN6X3?tag=123znl0f3-21',
+    market_region: 'UK',
+    badge_text: 'UK Quality Standard',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/sauna.png'
+  },
+  {
+    id: 'amazon-health-es-b09pskn6x3',
+    name: 'LifePro RejuvaWrap Manta de Sauna Infrarroja Térmica',
+    category: 'Lifestyle & Recovery Gear',
+    rating: 4.85,
+    description: 'Manta térmica de infrarrojo lejano con bajo EMF para desintoxicación celular y recuperación mitocondrial.',
+    price_text: '289,99€',
+    deal_url: 'https://www.amazon.es/dp/B09PSKN6X3?tag=123znl08a-21',
+    market_region: 'ES',
+    badge_text: 'Certificado UE',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/sauna.png'
+  },
+  {
+    id: 'amazon-health-us-b0c3hcd34r',
+    name: 'Soundcore by Anker Q20i Hybrid Active Noise Cancelling Headphones',
+    category: 'Lifestyle & Recovery Gear',
+    rating: 4.8,
+    description: 'Over-ear hybrid ANC headphones engineered for acoustic sanctuary, noise attenuation, and focus entrainment.',
+    price_text: '$37.98',
+    deal_url: 'https://www.amazon.com/dp/B0C3HCD34R?tag=123znl08-20',
+    market_region: 'US',
+    badge_text: 'Biohacker Approved',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/headphones.png'
+  },
+  {
+    id: 'amazon-health-uk-b0c3hcd34r',
+    name: 'Soundcore by Anker Q20i Hybrid Active Noise Cancelling Headphones',
+    category: 'Lifestyle & Recovery Gear',
+    rating: 4.8,
+    description: 'Over-ear hybrid ANC headphones engineered for acoustic sanctuary, noise attenuation, and focus entrainment.',
+    price_text: '£28.40',
+    deal_url: 'https://www.amazon.co.uk/dp/B0C3HCD34R?tag=123znl0f3-21',
+    market_region: 'UK',
+    badge_text: 'UK Quality Standard',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/headphones.png'
+  },
+  {
+    id: 'amazon-health-es-b08hmwzbxc',
+    name: 'Soundcore Anker Q30 Auriculares Inalámbricos con Cancelación de Ruido',
+    category: 'Lifestyle & Recovery Gear',
+    rating: 4.8,
+    description: 'Auriculares inalámbricos con cancelación activa de ruido híbrida para un santuario acústico sin distracciones.',
+    price_text: '49,99€',
+    deal_url: 'https://www.amazon.es/dp/B08HMWZBXC?tag=123znl08a-21',
+    market_region: 'ES',
+    badge_text: 'Certificado UE',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/headphones.png'
+  },
+  {
+    id: 'amazon-fitness-us-rower',
+    name: 'Concept2 RowErg Indoor Rowing Machine with PM5 Monitor',
+    category: 'Fitness & Conditioning',
+    rating: 4.95,
+    description: 'Gold-standard low-impact cardiovascular conditioning and VO2 max training ergometer.',
+    price_text: '$990.00',
+    deal_url: 'https://www.amazon.com/dp/B00NH9WEUA?tag=123znl08-20',
+    market_region: 'US',
+    badge_text: 'PM5 Clinical Standard',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/rower.png'
+  },
+  {
+    id: 'amazon-fitness-uk-rower',
+    name: 'Concept2 RowErg Indoor Rowing Machine with PM5 Monitor',
+    category: 'Fitness & Conditioning',
+    rating: 4.95,
+    description: 'Gold-standard low-impact cardiovascular conditioning and VO2 max training ergometer.',
+    price_text: '£850.00',
+    deal_url: 'https://www.amazon.co.uk/dp/B00NH9WEUA?tag=123znl0f3-21',
+    market_region: 'UK',
+    badge_text: 'PM5 Clinical Standard',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/rower.png'
+  },
+  {
+    id: 'amazon-fitness-es-rower',
+    name: 'Concept2 RowErg Máquina de Remo de Interior con Monitor PM5',
+    category: 'Fitness & Conditioning',
+    rating: 4.95,
+    description: 'La máquina de remo de referencia mundial para acondicionamiento cardiovascular cruzado.',
+    price_text: '950,00€',
+    deal_url: 'https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21',
+    market_region: 'ES',
+    badge_text: 'Estándar Clínico PM5',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/rower.png'
   }
 ];
 

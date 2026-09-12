@@ -31,20 +31,23 @@ export function getInitialMarket(): Market {
       return urlCountry as Market;
     }
 
-    // 2. Check localStorage keys for previously saved explicit user selection
-    const keys = ['selected-market', 'selected_region', 'country_flag'];
-    for (const key of keys) {
-      const saved = localStorage.getItem(key);
-      if (saved && ['US', 'UK', 'ES'].includes(saved.toUpperCase())) {
-        return saved.toUpperCase() as Market;
-      }
-    }
-
-    // 3. Check route path prefix (/us/..., /uk/..., /es/...)
+    // 2. Check route path prefix (/us/..., /uk/..., /es/...)
     const parts = window.location.pathname.split('/').filter(Boolean);
     const knownRegions = ['us', 'uk', 'es'];
     if (parts.length > 0 && knownRegions.includes(parts[0].toLowerCase())) {
       return parts[0].toUpperCase() as Market;
+    }
+
+    // 3. Check if user EXPLICITLY chose a market flag previously
+    const hasExplicitChoice = localStorage.getItem('user_explicit_market_selection') === 'true';
+    if (hasExplicitChoice) {
+      const keys = ['selected-market', 'selected_region', 'country_flag'];
+      for (const key of keys) {
+        const saved = localStorage.getItem(key);
+        if (saved && ['US', 'UK', 'ES'].includes(saved.toUpperCase())) {
+          return saved.toUpperCase() as Market;
+        }
+      }
     }
   } catch {
     // Fallback on any error
@@ -66,6 +69,7 @@ export function MarketProvider({ children }: { children: React.ReactNode }) {
     
     setMarketState(finalMarket);
     try {
+      localStorage.setItem('user_explicit_market_selection', 'true');
       localStorage.setItem('selected-market', finalMarket);
       localStorage.setItem('selected_region', finalMarket);
       localStorage.setItem('country_flag', finalMarket);
@@ -87,12 +91,10 @@ export function MarketProvider({ children }: { children: React.ReactNode }) {
 
     const searchParams = new URLSearchParams(window.location.search);
     const hasUrlCountry = searchParams.get('country');
-    const hasSavedMarket = localStorage.getItem('selected-market') ||
-                           localStorage.getItem('selected_region') ||
-                           localStorage.getItem('country_flag');
+    const hasExplicitChoice = localStorage.getItem('user_explicit_market_selection') === 'true';
 
     // Only run auto-geolocation if user has not explicitly chosen a market or supplied ?country=
-    if (hasUrlCountry || hasSavedMarket) return;
+    if (hasUrlCountry || hasExplicitChoice) return;
 
     let isMounted = true;
     const controller = new AbortController();
