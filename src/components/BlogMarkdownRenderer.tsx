@@ -1,11 +1,38 @@
 import React from 'react';
 import { ExternalLink } from 'lucide-react';
+import DynamicProductCard from './blog/DynamicProductCard';
 
 interface BlogMarkdownRendererProps {
   content: string;
   className?: string;
   theme?: 'light' | 'dark' | 'auto';
   affiliateUrl?: string;
+}
+
+// Extract attributes from <ProductCard ... /> tag
+function extractProductCardProps(tagString: string): {
+  id: string;
+  productType?: string;
+  dealBtnText?: string;
+} | null {
+  const idMatch = tagString.match(/(?:id|productId|product_id)=["']([^"']+)["']/i);
+  if (!idMatch) return null;
+  const id = idMatch[1].trim();
+
+  const typeMatch = tagString.match(/(?:productType|type)=["']([^"']+)["']/i);
+  const btnMatch = tagString.match(/(?:dealBtnText|btnText)=["']([^"']+)["']/i);
+
+  return {
+    id,
+    productType: typeMatch ? typeMatch[1].trim() : undefined,
+    dealBtnText: btnMatch ? btnMatch[1].trim() : undefined
+  };
+}
+
+// Extract data-product-id from HTML element
+function extractDataProductId(htmlString: string): string | null {
+  const match = htmlString.match(/data-product-id=["']([^"']+)["']/i);
+  return match ? match[1].trim() : null;
 }
 
 export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
@@ -15,18 +42,6 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
   affiliateUrl
 }) => {
   if (!content) return null;
-
-  // If content is pure HTML, render dangerously
-  if (content.trim().startsWith('<') && !content.trim().startsWith('<!--')) {
-    return (
-      <div
-        className={`blog-content-rendered ${
-          theme === 'dark' ? 'theme-dark dark' : theme === 'light' ? 'theme-light' : ''
-        } ${className}`}
-        dangerouslySetInnerHTML={{ __html: content }}
-      />
-    );
-  }
 
   // Helper to format inline markdown (bold, italic, inline code, links)
   const renderInlineFormattedText = (rawText: string, keyPrefix: string = 'inline'): React.ReactNode[] => {
@@ -47,7 +62,7 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
         nodes.push(rawText.substring(lastIndex, match.index));
       }
 
-      const [fullMatch, , linkText, linkUrl, boldText, italicText, codeText] = match;
+      const [, , linkText, linkUrl, boldText, italicText, codeText] = match;
 
       if (linkText && linkUrl) {
         let validUrl = linkUrl.trim();
@@ -133,7 +148,39 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
       continue;
     }
 
-    // 2. Fenced code block (ASCII diagrams, code snippets)
+    // 2. Dynamic Product Card Tag: <ProductCard id="..." /> or <ProductCard ...>...</ProductCard>
+    if (/^<ProductCard[\s/>]/i.test(trimmed)) {
+      let fullTag = trimmed;
+      // If tag spans multiple lines until closing
+      if (!trimmed.endsWith('/>') && !trimmed.includes('</ProductCard>')) {
+        let j = i + 1;
+        while (j < lines.length && !lines[j].includes('/>') && !lines[j].includes('</ProductCard>')) {
+          fullTag += ' ' + lines[j].trim();
+          j++;
+        }
+        if (j < lines.length) {
+          fullTag += ' ' + lines[j].trim();
+          i = j;
+        }
+      }
+
+      const cardProps = extractProductCardProps(fullTag);
+      if (cardProps && cardProps.id) {
+        blocks.push(
+          <DynamicProductCard
+            key={`product-card-${i}-${cardProps.id}`}
+            id={cardProps.id}
+            theme={theme}
+            productType={cardProps.productType}
+            dealBtnText={cardProps.dealBtnText}
+          />
+        );
+        i++;
+        continue;
+      }
+    }
+
+    // 3. Fenced code block (ASCII diagrams, code snippets)
     if (trimmed.startsWith('```')) {
       const codeLines: string[] = [];
       i++;
@@ -160,7 +207,7 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
       continue;
     }
 
-    // 2b. Raw HTML Block (e.g. <div class="product-card-box">...</div>)
+    // 4. Raw HTML Block (e.g. <div data-product-id="...">, <div class="product-card-box">, or SVG infographics)
     if (
       trimmed.startsWith('<div') ||
       trimmed.startsWith('<section') ||
@@ -190,6 +237,53 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
 
       const htmlString = htmlLines.join('\n');
       i = j;
+
+      // Check if this HTML block has a data-product-id attribute or an embedded <ProductCard
+      const dataProdId = extractDataProductId(htmlString);
+      const embeddedCardProps = extractProductCardProps(htmlString);
+
+      if (dataProdId) {
+        blocks.push(
+          <DynamicProductCard
+            key={`html-prod-${i}-${dataProdId}`}
+            id={dataProdId}
+            theme={theme}
+          />
+        );
+        continue;
+      } else if (embeddedCardProps && embeddedCardProps.id) {
+        blocks.push(
+          <DynamicProductCard
+            key={`html-prod-embed-${i}-${embeddedCardProps.id}`}
+            id={embeddedCardProps.id}
+            theme={theme}
+            productType={embeddedCardProps.productType}
+            dealBtnText={embeddedCardProps.dealBtnText}
+          />
+        );
+        continue;
+      }
+
+      // Check if it's a legacy static product-card-box without data-product-id
+      if (htmlString.includes('class="product-card-box"') || htmlString.includes("class='product-card-box'")) {
+        // Attempt to extract product ID from amazon ASIN or image in the HTML block
+        const asinMatch = htmlString.match(/\/dp\/([A-Z0-9]{10})/i);
+        const imgMatch = htmlString.match(/\/shop\/([a-zA-Z0-9_-]+)\.(png|jpg|webp|jpeg)/i);
+        const derivedId = imgMatch ? imgMatch[1] : asinMatch ? `amazon-${asinMatch[1]}` : null;
+
+        if (derivedId) {
+          blocks.push(
+            <DynamicProductCard
+              key={`legacy-prod-${i}-${derivedId}`}
+              id={derivedId}
+              theme={theme}
+            />
+          );
+          continue;
+        }
+      }
+
+      // Standard HTML Block rendering (e.g. SVG infographics, styled callouts)
       blocks.push(
         <div
           key={`html-block-${i}`}
@@ -200,7 +294,7 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
       continue;
     }
 
-    // 3. Markdown Table (lines with |)
+    // 5. Markdown Table (lines with |)
     if (trimmed.startsWith('|') && trimmed.endsWith('|')) {
       const tableLines: string[] = [];
       while (i < lines.length && lines[i].trim().startsWith('|') && lines[i].trim().endsWith('|')) {
@@ -251,7 +345,7 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
       }
     }
 
-    // 4. Standalone Image: ![alt](url)
+    // 6. Standalone Image: ![alt](url)
     const imgMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)]+)\)$/);
     if (imgMatch) {
       const alt = imgMatch[1];
@@ -269,7 +363,7 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
       continue;
     }
 
-    // 5. Headings
+    // 7. Headings
     if (trimmed.startsWith('# ')) {
       blocks.push(
         <h1 key={`h1-${i}`} className={`font-display uppercase tracking-tight text-3xl sm:text-4xl mt-14 mb-8 font-extrabold ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
@@ -307,7 +401,7 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
       continue;
     }
 
-    // 6. Horizontal Rule
+    // 8. Horizontal Rule
     if (trimmed === '---' || trimmed === '***' || trimmed === '___') {
       blocks.push(
         <hr key={`hr-${i}`} className={`my-10 border-0 h-[1px] ${theme === 'dark' ? 'bg-gradient-to-r from-transparent via-slate-700 to-transparent' : 'bg-gradient-to-r from-transparent via-slate-300 to-transparent'}`} />
@@ -316,7 +410,7 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
       continue;
     }
 
-    // 7. Blockquote
+    // 9. Blockquote
     if (trimmed.startsWith('> ')) {
       const quoteLines: string[] = [];
       while (i < lines.length && lines[i].trim().startsWith('> ')) {
@@ -342,7 +436,7 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
       continue;
     }
 
-    // 8. Unordered List Items (- or *)
+    // 10. Unordered List Items (- or *)
     if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
       const listItems: string[] = [];
       while (i < lines.length && (lines[i].trim().startsWith('- ') || lines[i].trim().startsWith('* '))) {
@@ -362,7 +456,7 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
       continue;
     }
 
-    // 9. Ordered List Items (1. 2. etc)
+    // 11. Ordered List Items (1. 2. etc)
     if (/^\d+\.\s+/.test(trimmed)) {
       const listItems: string[] = [];
       while (i < lines.length && /^\d+\.\s+/.test(lines[i].trim())) {
@@ -386,7 +480,37 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
       continue;
     }
 
-    // 10. Standard Paragraph
+    // 12. Check if the line contains an embedded <ProductCard ... /> inside text
+    if (trimmed.includes('<ProductCard') && trimmed.includes('/>')) {
+      const parts = trimmed.split(/(<ProductCard\s+[^>]*\/>)/gi);
+      parts.forEach((part, partIdx) => {
+        const trimmedPart = part.trim();
+        if (/^<ProductCard\s+/i.test(trimmedPart)) {
+          const cardProps = extractProductCardProps(trimmedPart);
+          if (cardProps && cardProps.id) {
+            blocks.push(
+              <DynamicProductCard
+                key={`inline-product-card-${i}-${partIdx}-${cardProps.id}`}
+                id={cardProps.id}
+                theme={theme}
+                productType={cardProps.productType}
+                dealBtnText={cardProps.dealBtnText}
+              />
+            );
+          }
+        } else if (trimmedPart) {
+          blocks.push(
+            <p key={`p-split-${i}-${partIdx}`} className={`text-sm sm:text-base leading-relaxed mb-6 font-normal ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>
+              {renderInlineFormattedText(trimmedPart, `p-split-${i}-${partIdx}`)}
+            </p>
+          );
+        }
+      });
+      i++;
+      continue;
+    }
+
+    // 13. Standard Paragraph
     blocks.push(
       <p key={`p-${i}`} className={`text-sm sm:text-base leading-relaxed mb-6 font-normal ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>
         {renderInlineFormattedText(trimmed, `p-${i}`)}

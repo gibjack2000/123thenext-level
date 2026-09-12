@@ -1,0 +1,519 @@
+import { useState, useEffect } from 'react';
+import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
+import { useMarket, Market } from '../contexts/MarketContext';
+
+export interface ProductDb {
+  id: string;
+  name: string;
+  category: string;
+  rating: number;
+  description: string;
+  price_text: string;
+  deal_url: string;
+  market_region: 'US' | 'UK' | 'ES' | string;
+  badge_text: string;
+  image_url: string;
+}
+
+// In-memory cache of products across the application lifecycle
+const productCache = new Map<string, ProductDb>();
+let allProductsPromise: Promise<ProductDb[]> | null = null;
+let isCacheHydrated = false;
+
+// Fallback flagship products for instant initial render or offline resilience
+const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
+  {
+    id: 'reagent-strips-us',
+    name: 'ALLTEST 10-Parameter Urinary Reagent Strips',
+    category: 'Performance & Testing',
+    rating: 4.85,
+    description: 'A visual, dip-and-read chemical test tracking 10 critical parameters (Glucose, Ketones, Specific Gravity, Blood, pH, Protein, Nitrite, Bilirubin, Urobilinogen, Leucocytes) in under 2 minutes.',
+    price_text: '$14.99',
+    deal_url: 'https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20',
+    market_region: 'US',
+    badge_text: 'FDA Cleared & CLIA Waived',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/reagent-strips.png'
+  },
+  {
+    id: 'reagent-strips-uk',
+    name: 'ALLTEST 10-Parameter Urinary Reagent Strips',
+    category: 'Performance & Testing',
+    rating: 4.85,
+    description: 'A visual, dip-and-read chemical test tracking 10 critical parameters in under 2 minutes. Zero digital screen-time.',
+    price_text: '£12.99',
+    deal_url: 'https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123znl0f3-21',
+    market_region: 'UK',
+    badge_text: 'MHRA Registered',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/reagent-strips.png'
+  },
+  {
+    id: 'reagent-strips-es',
+    name: 'Tiras Reactivas Urinarias de 10 Parámetros ALLTEST',
+    category: 'Performance & Testing',
+    rating: 4.85,
+    description: 'Prueba química visual de inmersión y lectura que evalúa 10 parámetros críticos en menos de 2 minutos.',
+    price_text: '14,99€',
+    deal_url: 'https://www.amazon.es/dp/B0DJM3KV8X?tag=123znl08a-21',
+    market_region: 'ES',
+    badge_text: 'Marcado CE Conformidad Médica',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/reagent-strips.png'
+  },
+  {
+    id: 'sleep-analyzer-us',
+    name: 'Withings Sleep Analyzer Under-Mattress Pad',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.82,
+    description: 'A contact-free ballistocardiography mat placed under the mattress. Logs sleeping heart rate, sleep cycles, snoring, and passive breathing disturbances.',
+    price_text: '$129.95',
+    deal_url: 'https://www.amazon.com/dp/B078Z1B34S?tag=123znl0e-20',
+    market_region: 'US',
+    badge_text: 'Touch-Free Sleep Science',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/sleep-analyzer.png'
+  },
+  {
+    id: 'sleep-analyzer-uk',
+    name: 'Withings Medically Validated Sleep Analyzer',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.82,
+    description: 'A contact-free ballistocardiography mat placed under the mattress. Logs sleeping heart rate, sleep cycles, snoring, and medically validated Sleep Apnea episodes.',
+    price_text: '£119.99',
+    deal_url: 'https://www.amazon.co.uk/dp/B0892BGFX7?tag=123znl0f3-21',
+    market_region: 'UK',
+    badge_text: 'CE Medically Validated (Apnea)',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/sleep-analyzer.png'
+  },
+  {
+    id: 'sleep-analyzer-es',
+    name: 'Analizador de Sueño Withings para Debajo del Colchón',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.82,
+    description: 'Colchoneta de balistocardiografía sin contacto que registra frecuencia cardíaca, ciclos de sueño y apneas.',
+    price_text: '129,95€',
+    deal_url: 'https://www.amazon.es/dp/B0892BGFX7?tag=123znl08a-21',
+    market_region: 'ES',
+    badge_text: 'CE Validación Médica',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/sleep-analyzer.png'
+  },
+  {
+    id: 'cgm-us',
+    name: 'Continuous Glucose Monitor (Abbott FreeStyle Libre 3 Plus / Dexcom)',
+    category: 'Performance & Testing',
+    rating: 4.9,
+    description: 'Real-time interstitial glucose telemetry updating every 60 seconds directly to your smartphone.',
+    price_text: '$89.00 / month',
+    deal_url: 'https://www.freestyle.abbott/us-en/home.html',
+    market_region: 'US',
+    badge_text: 'FDA Cleared Continuous Biosensor',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/cgm.png'
+  },
+  {
+    id: 'cgm-uk',
+    name: 'Continuous Glucose Monitor (Abbott Lingo UK)',
+    category: 'Performance & Testing',
+    rating: 4.9,
+    description: 'Continuous metabolic glucose biosensor mapping dynamic insulin sensitivity and carbohydrate tolerance.',
+    price_text: '£79.00 / month',
+    deal_url: 'https://hellolingo.co.uk',
+    market_region: 'UK',
+    badge_text: 'MHRA Registered',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/cgm.png'
+  },
+  {
+    id: 'cgm-es',
+    name: 'Monitor Continuo de Glucosa (Abbott Lingo / Libre)',
+    category: 'Performance & Testing',
+    rating: 4.9,
+    description: 'Biosensor metabólico continuo que registra la glucosa intersticial en tiempo real para optimizar la longevidad.',
+    price_text: '79,00€ / mes',
+    deal_url: 'https://www.freestyle.abbott/es-es/home.html',
+    market_region: 'ES',
+    badge_text: 'Marcado CE Sanitario',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/cgm.png'
+  },
+  {
+    id: 'segmental-scale-us',
+    name: 'Withings Body Scan Segmental Composition Scale',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.88,
+    description: '6-lead ECG and segmental body impedance scale measuring torso, arm, and leg visceral fat and vascular age.',
+    price_text: '$399.95',
+    deal_url: 'https://www.amazon.com/dp/B0B9849CD1?tag=123znl0e-20',
+    market_region: 'US',
+    badge_text: 'FDA Cleared',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/body-scan.png'
+  },
+  {
+    id: 'segmental-scale-uk',
+    name: 'Withings Body Scan Segmental Composition Scale',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.88,
+    description: '6-lead ECG and segmental body impedance scale measuring torso, arm, and leg visceral fat and vascular age.',
+    price_text: '£349.99',
+    deal_url: 'https://www.amazon.co.uk/dp/B0B9849CD1?tag=123znl0f3-21',
+    market_region: 'UK',
+    badge_text: 'CE Medical Marked',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/body-scan.png'
+  },
+  {
+    id: 'segmental-scale-es',
+    name: 'Báscula Segmental Withings Body Scan',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.88,
+    description: 'Báscula médica de impedancia segmental con ECG de 6 derivaciones y evaluación de salud vascular.',
+    price_text: '399,95€',
+    deal_url: 'https://www.amazon.es/dp/B0B9849CD1?tag=123znl08a-21',
+    market_region: 'ES',
+    badge_text: 'Certificación Médica CE',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/body-scan.png'
+  },
+  {
+    id: 'sirtuin-stack-us',
+    name: 'Momentous Sirtuin Activation & Cell Recovery Stack',
+    category: 'Nutrition & Supplements',
+    rating: 4.92,
+    description: 'Clinically pure longevity stack featuring pharmaceutical-grade Resveratrol, NMN/NAD+ precursors, and Apigenin.',
+    price_text: '$89.95',
+    deal_url: 'https://livemomentous.com/modernwisdom?code=modernwisdom',
+    market_region: 'US',
+    badge_text: 'NSF Certified for Sport',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/sirtuin-stack.png'
+  },
+  {
+    id: 'sirtuin-stack-uk',
+    name: 'Momentous Sirtuin Activation & Cell Recovery Stack',
+    category: 'Nutrition & Supplements',
+    rating: 4.92,
+    description: 'Clinically pure longevity stack featuring pharmaceutical-grade Resveratrol, NMN/NAD+ precursors, and Apigenin.',
+    price_text: '£79.99',
+    deal_url: 'https://healf.co.uk/collections/momentus',
+    market_region: 'UK',
+    badge_text: 'NSF Certified / UK Sourced (Healf)',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/sirtuin-stack.png'
+  },
+  {
+    id: 'sirtuin-stack-es',
+    name: 'Paquete de Activación de Sirtuina y Recuperación Celular Momentous',
+    category: 'Nutrition & Supplements',
+    rating: 4.92,
+    description: 'Stack de longevidad celular de máxima pureza con Resveratrol, precursores NAD+ y Apigenina.',
+    price_text: '89,95€',
+    deal_url: 'https://newtra.eu',
+    market_region: 'ES',
+    badge_text: 'Customs-Safe EU Delivery (Newtra)',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/sirtuin-stack.png'
+  },
+  {
+    id: 'stethoscope-us',
+    name: 'Eko CORE 500™ Digital AI Stethoscope',
+    category: 'Performance & Testing',
+    rating: 4.95,
+    description: 'FDA-cleared electronic stethoscope with 3-lead ECG. Uses clinical AI to detect murmurs, arrhythmias, and cardiac strain signs.',
+    price_text: '$429.00',
+    deal_url: 'https://www.ekohealth.com/products/core-500-digital-stethoscope',
+    market_region: 'US',
+    badge_text: 'FDA Cleared AI Auscultation',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/core-500.png'
+  },
+  {
+    id: 'stethoscope-uk',
+    name: 'Eko CORE 500™ Digital AI Stethoscope',
+    category: 'Performance & Testing',
+    rating: 4.95,
+    description: 'FDA-cleared electronic stethoscope with 3-lead ECG. Uses clinical AI to detect murmurs, arrhythmias, and cardiac strain signs.',
+    price_text: '£379.00',
+    deal_url: 'https://www.ekohealth.com/products/core-500-digital-stethoscope',
+    market_region: 'UK',
+    badge_text: 'MHRA Registered',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/core-500.png'
+  },
+  {
+    id: 'blood-pressure-cuff-us',
+    name: 'Withings BPM Connect Wi-Fi Cuff',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.8,
+    description: 'Medically accurate Wi-Fi blood pressure and heart rate monitor syncing directly to your cardiovascular history.',
+    price_text: '$99.95',
+    deal_url: 'https://www.amazon.com/dp/B07SJV1HNR?tag=123znl0e-20',
+    market_region: 'US',
+    badge_text: 'FDA Cleared',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/bpm-connect.png'
+  },
+  {
+    id: 'blood-pressure-cuff-uk',
+    name: 'Withings BPM Connect Wi-Fi Cuff',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.8,
+    description: 'Medically accurate Wi-Fi blood pressure and heart rate monitor syncing directly to your cardiovascular history.',
+    price_text: '£89.99',
+    deal_url: 'https://www.amazon.co.uk/dp/B07SJV1HNR?tag=123znl0f3-21',
+    market_region: 'UK',
+    badge_text: 'CE Medical Class IIa',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/bpm-connect.png'
+  },
+  {
+    id: 'blood-pressure-cuff-es',
+    name: 'Withings BPM Connect Tensiómetro Inteligente',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.8,
+    description: 'Tensiómetro Wi-Fi clínicamente validado que sincroniza automáticamente con el historial vascular.',
+    price_text: '99,95€',
+    deal_url: 'https://www.amazon.es/dp/B07SJV1HNR?tag=123znl08a-21',
+    market_region: 'ES',
+    badge_text: 'CE Medical Class IIa',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/bpm-connect.png'
+  }
+];
+
+// Prepopulate cache with fallback products
+FALLBACK_FLAGSHIP_PRODUCTS.forEach(p => {
+  productCache.set(p.id.toLowerCase(), p);
+});
+
+/**
+ * Sanitize and heal image and deal URLs
+ */
+export function sanitizeProductData(p: any): ProductDb {
+  let healedImg = p.image_url || '';
+  if (healedImg) {
+    if (healedImg.startsWith('/assets/') && !healedImg.startsWith('http')) {
+      healedImg = `https://123thenextlevel.com${healedImg}`;
+    } else if (healedImg.startsWith('/Products/') && !healedImg.startsWith('http')) {
+      healedImg = `https://123thenextlevel.com${healedImg}`;
+    }
+  }
+
+  let healedDeal = p.deal_url || '#';
+  if (healedDeal.startsWith('https://123thenextlevel.comhttp')) {
+    healedDeal = healedDeal.replace('https://123thenextlevel.com', '');
+  }
+
+  return {
+    id: p.id || '',
+    name: p.name || 'Clinical Product',
+    category: p.category || 'Clinical Hardware',
+    rating: typeof p.rating === 'number' ? p.rating : parseFloat(p.rating || '4.8'),
+    description: p.description || '',
+    price_text: p.price_text || '$0.00',
+    deal_url: healedDeal,
+    market_region: (p.market_region || 'US').toUpperCase(),
+    badge_text: p.badge_text || 'Clinically Verified',
+    image_url: healedImg
+  };
+}
+
+/**
+ * Fetch all products from public.products in Supabase (with deduplicated promise)
+ */
+export async function fetchAllProducts(): Promise<ProductDb[]> {
+  if (isCacheHydrated && productCache.size > 10) {
+    return Array.from(productCache.values());
+  }
+
+  if (allProductsPromise) {
+    return allProductsPromise;
+  }
+
+  allProductsPromise = (async () => {
+    try {
+      if (supabase && hasValidSupabaseConfig) {
+        const { data, error } = await supabase
+          .from('products')
+          .select('*');
+
+        if (!error && data && data.length > 0) {
+          data.forEach((rawProd: any) => {
+            const sanitized = sanitizeProductData(rawProd);
+            productCache.set(sanitized.id.toLowerCase(), sanitized);
+          });
+          isCacheHydrated = true;
+          return Array.from(productCache.values());
+        }
+      }
+    } catch (err) {
+      console.warn('Could not fetch products from Supabase, utilizing cached master catalog:', err);
+    }
+
+    return Array.from(productCache.values());
+  })();
+
+  return allProductsPromise;
+}
+
+// Friendly aliases mapping common short names to exact product IDs
+const PRODUCT_ALIASES: Record<string, Record<Market, string>> = {
+  'sauna': {
+    'US': 'amazon-health-us-b09pskn6x3',
+    'UK': 'amazon-health-uk-b09pskn6x3',
+    'ES': 'amazon-health-es-b09pskn6x3'
+  },
+  'headphones': {
+    'US': 'amazon-health-us-b0c3hcd34r',
+    'UK': 'amazon-health-uk-b0c3hcd34r',
+    'ES': 'amazon-health-es-b08hmwzbxc'
+  },
+  'sony-headphones': {
+    'US': 'amazon-health-us-b0c3hcd34r',
+    'UK': 'amazon-health-uk-b0c3hcd34r',
+    'ES': 'amazon-health-es-b08hmwzbxc'
+  },
+  'rower': {
+    'US': 'amazon-fitness-us-rower',
+    'UK': 'amazon-fitness-uk-rower',
+    'ES': 'amazon-fitness-es-rower'
+  },
+  'kettlebell': {
+    'US': 'amazon-fitness-us-kettlebell',
+    'UK': 'amazon-fitness-uk-kettlebell',
+    'ES': 'amazon-fitness-es-kettlebell'
+  },
+  'apple-watch': {
+    'US': 'wearable-tracker-us',
+    'UK': 'wearable-tracker-uk',
+    'ES': 'wearable-tracker-es'
+  }
+};
+
+/**
+ * Dynamically resolve a requested product ID to match the active region (US, UK, ES)
+ */
+export function resolveRegionalProductId(
+  rawId: string,
+  targetMarket: Market = 'US',
+  productsList?: ProductDb[]
+): string {
+  if (!rawId) return '';
+  const normalizedRaw = rawId.trim().toLowerCase();
+  const market = (targetMarket || 'US').toUpperCase() as Market;
+  const targetSuffix = `-${market.toLowerCase()}`;
+
+  // 0. Check alias dictionary
+  const baseWithoutSuffix = normalizedRaw.replace(/-(us|uk|es)$/i, '');
+  if (PRODUCT_ALIASES[baseWithoutSuffix] && PRODUCT_ALIASES[baseWithoutSuffix][market]) {
+    return PRODUCT_ALIASES[baseWithoutSuffix][market];
+  }
+  if (PRODUCT_ALIASES[normalizedRaw] && PRODUCT_ALIASES[normalizedRaw][market]) {
+    return PRODUCT_ALIASES[normalizedRaw][market];
+  }
+
+  // 1. Direct match check in cache or provided list
+  const catalog = productsList || Array.from(productCache.values());
+
+  // Check if rawId exists and is already in the target market
+  const directMatch = catalog.find(p => p.id.toLowerCase() === normalizedRaw);
+  if (directMatch && directMatch.market_region.toUpperCase() === market) {
+    return directMatch.id;
+  }
+
+  // 2. Suffix conversion: if rawId ends with -us, -uk, or -es
+  if (/-(us|uk|es)$/i.test(normalizedRaw)) {
+    const baseId = normalizedRaw.replace(/-(us|uk|es)$/i, '');
+    const regionalCandidate = `${baseId}${targetSuffix}`;
+
+    const candidateMatch = catalog.find(p => p.id.toLowerCase() === regionalCandidate);
+    if (candidateMatch) {
+      return candidateMatch.id;
+    }
+  }
+
+  // 3. Infix conversion: if rawId contains -us-, -uk-, or -es- (e.g. amazon-supp-us-b004u3y8om, amazon-fitness-us-rower)
+  if (/-(us|uk|es)-/i.test(normalizedRaw)) {
+    const regionalInfixCandidate = normalizedRaw.replace(/-(us|uk|es)-/i, `-${market.toLowerCase()}-`);
+    const infixMatch = catalog.find(p => p.id.toLowerCase() === regionalInfixCandidate);
+    if (infixMatch) {
+      return infixMatch.id;
+    }
+  }
+
+  // 4. Base conversion: if rawId has no region (e.g. 'cgm', 'reagent-strips', 'sleep-analyzer')
+  const appendedCandidate = `${normalizedRaw}${targetSuffix}`;
+  const appendedMatch = catalog.find(p => p.id.toLowerCase() === appendedCandidate);
+  if (appendedMatch) {
+    return appendedMatch.id;
+  }
+
+  // 5. Fallback: return direct match if exists, or appended candidate, or original rawId
+  return directMatch ? directMatch.id : rawId;
+}
+
+/**
+ * Fetch a single product by ID, resolving market awareness
+ */
+export async function getProductById(
+  rawId: string,
+  market: Market = 'US'
+): Promise<ProductDb | null> {
+  const allProds = await fetchAllProducts();
+  const resolvedId = resolveRegionalProductId(rawId, market, allProds);
+
+  const matched = allProds.find(p => p.id.toLowerCase() === resolvedId.toLowerCase());
+  if (matched) return matched;
+
+  // Fallback to original rawId if different
+  const fallbackMatch = allProds.find(p => p.id.toLowerCase() === rawId.toLowerCase());
+  if (fallbackMatch) return fallbackMatch;
+
+  return productCache.get(resolvedId.toLowerCase()) || productCache.get(rawId.toLowerCase()) || null;
+}
+
+/**
+ * React Hook for consuming dynamic product recommendations in components
+ */
+export function useDynamicProduct(rawId: string, marketOverride?: Market) {
+  let contextMarket: Market = 'US';
+  try {
+    const marketCtx = useMarket();
+    if (marketCtx && marketCtx.market) {
+      contextMarket = marketCtx.market;
+    }
+  } catch {
+    // Graceful fallback if rendered outside MarketProvider
+    contextMarket = 'US';
+  }
+
+  const activeMarket = marketOverride || contextMarket || 'US';
+
+  const [product, setProduct] = useState<ProductDb | null>(() => {
+    const resolvedId = resolveRegionalProductId(rawId, activeMarket);
+    return productCache.get(resolvedId.toLowerCase()) || productCache.get(rawId.toLowerCase()) || null;
+  });
+
+  const [loading, setLoading] = useState(!product);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function load() {
+      if (!rawId) {
+        setProduct(null);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        setLoading(true);
+        setError(null);
+        const resolved = await getProductById(rawId, activeMarket);
+        if (isMounted) {
+          setProduct(resolved);
+        }
+      } catch (err: any) {
+        if (isMounted) {
+          setError(err.message || 'Error loading product');
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    }
+
+    load();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [rawId, activeMarket]);
+
+  return { product, loading, error, market: activeMarket };
+}

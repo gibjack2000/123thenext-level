@@ -1026,16 +1026,54 @@ export default function BlogAdminPage() {
                 </div>
 
                 {editorTab === 'write' ? (
-                  <textarea
-                    rows={12}
-                    value={editingPost.content || ''}
-                    onChange={(e) => setEditingPost({ ...editingPost, content: e.target.value })}
-                    placeholder="# Main Headline&#10;&#10;Write full article in Markdown syntax..."
-                    className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-xs sm:text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-blue-500 font-mono leading-relaxed"
-                  />
+                  <div className="space-y-2">
+                    {/* Quick Insert Dynamic Product Card Snippets */}
+                    <div className="flex items-center gap-1.5 flex-wrap p-2.5 bg-slate-950/60 border border-slate-800 rounded-xl text-[11px] text-slate-400">
+                      <span className="font-bold text-cyan-400 uppercase tracking-wider text-[10px] mr-1">Insert Product:</span>
+                      {[
+                        { label: 'Reagent Strips', id: 'reagent-strips-us' },
+                        { label: 'CGM Sensor', id: 'cgm-us' },
+                        { label: 'Sleep Mat', id: 'sleep-analyzer-us' },
+                        { label: 'Body Scan', id: 'segmental-scale-us' },
+                        { label: 'AI Stethoscope', id: 'stethoscope-us' },
+                        { label: 'Sirtuin Stack', id: 'sirtuin-stack-us' },
+                        { label: 'BP Cuff', id: 'blood-pressure-cuff-us' }
+                      ].map((item) => (
+                        <button
+                          key={item.id}
+                          type="button"
+                          onClick={() => {
+                            const tagToInsert = `\n\n<ProductCard id="${item.id}" />\n\n`;
+                            setEditingPost({
+                              ...editingPost,
+                              content: (editingPost.content || '') + tagToInsert
+                            });
+                          }}
+                          className="px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-cyan-950/60 text-slate-300 hover:text-cyan-300 border border-slate-800 hover:border-cyan-500/40 transition-colors font-mono cursor-pointer"
+                          title={`Insert <ProductCard id="${item.id}" />`}
+                        >
+                          + {item.label}
+                        </button>
+                      ))}
+                    </div>
+
+                    <textarea
+                      rows={14}
+                      value={editingPost.content || ''}
+                      onChange={(e) => setEditingPost({ ...editingPost, content: e.target.value })}
+                      placeholder="# Main Headline&#10;&#10;Write full article in Markdown syntax...&#10;&#10;<ProductCard id=&quot;reagent-strips-us&quot; />"
+                      className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-4 text-xs sm:text-sm text-slate-200 placeholder-slate-600 focus:outline-none focus:border-blue-500 font-mono leading-relaxed"
+                    />
+                  </div>
                 ) : (
-                  <div className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-6 text-slate-200 max-w-none min-h-[300px] overflow-y-auto">
-                    <h1 className="text-2xl font-bold text-white mb-6 border-b border-slate-800 pb-4">{editingPost.title || 'Untitled Post'}</h1>
+                  <div className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-6 text-slate-200 max-w-none min-h-[350px] max-h-[600px] overflow-y-auto">
+                    <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
+                      <h1 className="text-2xl font-bold text-white">{editingPost.title || 'Untitled Post'}</h1>
+                      <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-400 bg-slate-900 border border-slate-800 px-3 py-1 rounded-lg">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-pulse"></span>
+                        <span>Live Supabase Synced</span>
+                      </div>
+                    </div>
                     <BlogMarkdownRenderer content={editingPost.content || ''} theme="dark" />
                   </div>
                 )}

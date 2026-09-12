@@ -24,6 +24,8 @@ Before lifting heavy weights, you need to master your own bodyweight. Focus on t
 ### 2. Invest in Versatile Equipment
 Once bodyweight exercises become too easy, it is time to add resistance. You don't need a bulky squat rack.
 
+<ProductCard id="reagent-strips-us" />
+
 - [Adjustable Dumbbells](https://www.amazon.com/s?k=adjustable+dumbbells): These are the holy grail of home workouts. They save space and allow you to micro-load.
 - [Heavy Resistance Bands](https://www.amazon.com/s?k=heavy+resistance+bands): Perfect for adding resistance to squats or isolating smaller muscle groups.
 - [Adjustable Weight Bench](https://www.amazon.com/s?k=adjustable+weight+bench): A bench expands your exercise library exponentially.
@@ -56,6 +58,8 @@ Perform this sequence focusing on deep breathing and smooth, controlled motions.
 - **Deep Squat Hold with Prying:** Hold for a minute, shifting weight gently side to side.
 
 ### Tools to Accelerate Your Progress
+
+<ProductCard id="sleep-analyzer-us" />
 
 - [High-Density Foam Roller](https://www.amazon.com/s?k=high+density+foam+roller): Perfect for rolling out tight quads and lats.
 - [Lacrosse Massage Balls](https://www.amazon.com/s?k=lacrosse+massage+ball): For targeted relief in stubborn areas like glutes or feet.
@@ -171,6 +175,8 @@ This is the classic blood sugar roller coaster. The key to ending this cycle is 
 
 ### The Golden Rule of Snacking
 Always pair a carbohydrate with a source of protein or healthy fat. This slows down the absorption of carbohydrates, flattening the glucose curve.
+
+<ProductCard id="cgm-us" />
 
 ### Top Snack Ideas
 
