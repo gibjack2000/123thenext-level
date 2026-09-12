@@ -7,9 +7,11 @@ import { BlogPost } from '../types';
 import { MOCK_BLOG_POSTS } from '../data/mockBlogPosts';
 import BlogMarkdownRenderer from '../components/BlogMarkdownRenderer';
 import BlogNewsletterBanner from '../components/newsletter/BlogNewsletterBanner';
+import { useMarket } from '../contexts/MarketContext';
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
+  const { market } = useMarket();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -167,11 +169,28 @@ export default function BlogPostPage() {
     );
   }
 
-  // Safe fallback to extract first link from content if affiliate_url column is missing/empty
+  // Safe market-aware fallback for hero click url
   const displayAffiliateUrl = post.affiliate_url || (() => {
     const match = post.content.match(/https?:\/\/(?:www\.)?(?:amazon|amzn)\.[a-z.]+(?:\/[^)\s]*)?/i);
-    return match ? match[0] : '#';
+    if (match) return match[0];
+    return market === 'ES'
+      ? 'https://www.amazon.es/?tag=123znl08a-21'
+      : market === 'UK'
+      ? 'https://www.amazon.co.uk/?tag=123znl0f3-21'
+      : 'https://www.amazon.com/?tag=123znl0e-20';
   })();
+
+  const rawAffiliateProducts = [
+    (post as any).affiliate_product_1,
+    (post as any).affiliate_product_2,
+    (post as any).affiliate_product_3,
+    (post as any).affiliate_product_4
+  ].filter(Boolean);
+
+  const activeMarketProds = rawAffiliateProducts.filter((prod: any) => {
+    if (!prod.market) return true;
+    return prod.market.toUpperCase() === (market || 'US').toUpperCase();
+  });
 
   return (
     <main className="min-h-screen bg-slate-50 pb-20">
@@ -273,13 +292,13 @@ export default function BlogPostPage() {
         </div>
 
         
-        {/* Affiliate Products Section */}
-        {((post as any).affiliate_product_1 || (post as any).affiliate_product_2 || (post as any).affiliate_product_3 || (post as any).affiliate_product_4) && (
+        {/* Affiliate Products Section (Only rendered if matching products exist for user's active region) */}
+        {activeMarketProds.length > 0 && (
           <div className="mt-16 pt-12 border-t border-slate-100">
             <h3 className="text-2xl font-display uppercase tracking-tight text-slate-900 mb-2">Featured Clinical Arsenal</h3>
             <p className="text-slate-500 text-sm mb-8 font-medium">Clinically curated equipment and nutrition stacks matching this article's protocols.</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {[(post as any).affiliate_product_1, (post as any).affiliate_product_2, (post as any).affiliate_product_3, (post as any).affiliate_product_4].filter(Boolean).map((prod: any) => {
+              {activeMarketProds.map((prod: any) => {
                 const reviewCount = Math.abs(prod.title.charCodeAt(0) + prod.title.charCodeAt(prod.title.length - 1) * 7) % 850 + 120;
                 return (
                   <div key={prod.id} className="bg-slate-50/50 rounded-[2rem] p-6 border border-slate-100 flex flex-col sm:flex-row gap-6 hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-300 group relative overflow-hidden">

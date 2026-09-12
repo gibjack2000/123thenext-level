@@ -38,19 +38,12 @@ export function getInitialMarket(): Market {
       return parts[0].toUpperCase() as Market;
     }
 
-    // 3. Check if user EXPLICITLY chose a market flag previously
-    const hasExplicitChoice = localStorage.getItem('user_explicit_market_selection') === 'true';
-    if (hasExplicitChoice) {
-      const keys = ['selected-market', 'selected_region', 'country_flag'];
-      for (const key of keys) {
-        const saved = localStorage.getItem(key);
-        if (saved && ['US', 'UK', 'ES'].includes(saved.toUpperCase())) {
-          return saved.toUpperCase() as Market;
-        }
-      }
+    // 3. Check if user explicitly changed flag in current session
+    const sessionChoice = sessionStorage.getItem('user_explicit_market_selection');
+    if (sessionChoice && ['US', 'UK', 'ES'].includes(sessionChoice.toUpperCase())) {
+      return sessionChoice.toUpperCase() as Market;
     }
   } catch {
-    // Fallback on any error
     return 'US';
   }
 
@@ -69,6 +62,7 @@ export function MarketProvider({ children }: { children: React.ReactNode }) {
     
     setMarketState(finalMarket);
     try {
+      sessionStorage.setItem('user_explicit_market_selection', finalMarket);
       localStorage.setItem('user_explicit_market_selection', 'true');
       localStorage.setItem('selected-market', finalMarket);
       localStorage.setItem('selected_region', finalMarket);
@@ -83,48 +77,83 @@ export function MarketProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  // Post-hydration Geolocation Fallback:
-  // If no explicit user selection or URL param exists, detect visitor location via Geo-IP in the background.
-  // If IP/header geolocation returns null, undefined, or any country code outside UK or ES, default directly to 'US'.
+  // Post-hydration Geolocation Detection:
+  // Detects visitor country code via fast Geo-IP in the background.
+  // If IP is US (or outside UK/ES), guarantees strict 'US' state.
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
     const searchParams = new URLSearchParams(window.location.search);
     const hasUrlCountry = searchParams.get('country');
-    const hasExplicitChoice = localStorage.getItem('user_explicit_market_selection') === 'true';
+    const hasSessionChoice = sessionStorage.getItem('user_explicit_market_selection');
 
-    // Only run auto-geolocation if user has not explicitly chosen a market or supplied ?country=
-    if (hasUrlCountry || hasExplicitChoice) return;
+    // If user explicitly supplied ?country= or selected flag this session, don't overwrite
+    if (hasUrlCountry || hasSessionChoice) return;
 
     let isMounted = true;
     const controller = new AbortController();
 
     async function detectGeoMarket() {
       try {
-        const timeoutId = setTimeout(() => controller.abort(), 4000);
-        const res = await fetch('https://ipapi.co/json/', { signal: controller.signal });
-        clearTimeout(timeoutId);
+        let detectedCode: string | null = null;
 
-        if (res.ok) {
-          const data = await res.json();
-          const countryCode = (data.country_code || data.country || '').toUpperCase();
-
-          if (!isMounted) return;
-
-          if (countryCode === 'ES') {
-            setMarketState('ES');
-          } else if (countryCode === 'GB' || countryCode === 'UK') {
-            setMarketState('UK');
-          } else {
-            // Null, undefined, or any country code outside UK or ES defaults directly to 'US'
-            setMarketState('US');
+        // Try Endpoint 1: api.country.is (ultra fast, lightweight)
+        try {
+          const res1 = await fetch('https://api.country.is/', { signal: controller.signal });
+          if (res1.ok) {
+            const d1 = await res1.json();
+            if (d1?.country) detectedCode = d1.country.toUpperCase();
           }
-        } else {
-          if (isMounted) setMarketState('US');
+        } catch {}
+
+        // Try Endpoint 2: ipapi.co
+        if (!detectedCode) {
+          try {
+            const res2 = await fetch('https://ipapi.co/json/', { signal: controller.signal });
+            if (res2.ok) {
+              const d2 = await res2.json();
+              if (d2?.country_code || d2?.country) {
+                detectedCode = (d2.country_code || d2.country).toUpperCase();
+              }
+            }
+          } catch {}
         }
+
+        // Try Endpoint 3: ipwho.is
+        if (!detectedCode) {
+          try {
+            const res3 = await fetch('https://ipwho.is/', { signal: controller.signal });
+            if (res3.ok) {
+              const d3 = await res3.json();
+              if (d3?.country_code) detectedCode = d3.country_code.toUpperCase();
+            }
+          } catch {}
+        }
+
+        if (!isMounted) return;
+
+        let targetMarket: Market = 'US';
+        if (detectedCode === 'ES') {
+          targetMarket = 'ES';
+        } else if (detectedCode === 'GB' || detectedCode === 'UK') {
+          targetMarket = 'UK';
+        } else {
+          // US, CA, or any international visitor strictly gets US market
+          targetMarket = 'US';
+        }
+
+        setMarketState(targetMarket);
+        try {
+          localStorage.setItem('selected-market', targetMarket);
+          localStorage.setItem('selected_region', targetMarket);
+        } catch {}
+
+        window.dispatchEvent(new CustomEvent('market-changed', { detail: { market: targetMarket } }));
+        window.dispatchEvent(new CustomEvent('region-changed', { detail: { region: targetMarket } }));
       } catch {
-        // Default strictly to 'US' on network error, ad blocker, or timeout
-        if (isMounted) setMarketState('US');
+        if (isMounted) {
+          setMarketState('US');
+        }
       }
     }
 

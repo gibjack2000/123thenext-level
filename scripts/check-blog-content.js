@@ -6,28 +6,43 @@ const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SU
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 async function main() {
-  const { data: posts, error } = await supabase.from('blog_posts').select('id, slug, title, status, affiliate_product_1, affiliate_product_2, affiliate_product_3, affiliate_product_4, content');
+  const { data: posts, error } = await supabase.from('blog_posts').select('*');
   if (error) {
     console.error('Error fetching blog_posts:', error);
     return;
   }
   
-  console.log(`Found ${posts.length} posts in blog_posts table:`);
+  console.log(`Total posts: ${posts.length}`);
   for (const p of posts) {
-    console.log(`\n========================================`);
-    console.log(`Slug: ${p.slug} (${p.status})`);
-    console.log(`Title: ${p.title}`);
-    console.log(`Affiliate product IDs: 1:${p.affiliate_product_1}, 2:${p.affiliate_product_2}, 3:${p.affiliate_product_3}, 4:${p.affiliate_product_4}`);
-    
+    const ukLinks = p.content ? p.content.match(/amazon\.co\.uk[^\s"')]+/g) : null;
     const esLinks = p.content ? p.content.match(/amazon\.es[^\s"')]+/g) : null;
-    const euroPrices = p.content ? p.content.match(/\d+[\.,]?\d*\s*€|€\s*\d+[\.,]?\d*/g) : null;
-    const cards = p.content ? p.content.match(/<ProductCard[^>]+>/g) : null;
-    const htmlCards = p.content ? p.content.match(/<div[^>]*data-product-id[^>]*>|product-card-box/g) : null;
+    const usLinks = p.content ? p.content.match(/amazon\.com[^\s"')]+/g) : null;
+    const poundPrices = p.content ? p.content.match(/£\s*\d+[\.,]?\d*/g) : null;
+    const euroPrices = p.content ? p.content.match(/€\s*\d+[\.,]?\d*|\d+[\.,]?\d*\s*€/g) : null;
+    const dollarPrices = p.content ? p.content.match(/\$\s*\d+[\.,]?\d*/g) : null;
 
-    console.log('amazon.es links:', esLinks);
-    console.log('euro symbols count:', euroPrices ? euroPrices.length : 0);
-    console.log('ProductCard tags:', cards);
-    console.log('HTML Cards:', htmlCards);
+    if (ukLinks || poundPrices || esLinks || euroPrices || p.affiliate_product_1 || p.affiliate_product_2) {
+      console.log(`\n========================================`);
+      console.log(`Slug: ${p.slug} | Status: ${p.status} | Title: ${p.title}`);
+      console.log(`Affiliate fields: 1:${p.affiliate_product_1}, 2:${p.affiliate_product_2}, 3:${p.affiliate_product_3}, 4:${p.affiliate_product_4}`);
+      if (ukLinks) console.log('UK Links:', ukLinks);
+      if (poundPrices) console.log('Pound Prices:', poundPrices);
+      if (esLinks) console.log('ES Links:', esLinks);
+      if (euroPrices) console.log('Euro Prices:', euroPrices);
+      if (usLinks) console.log('US Links:', usLinks?.length);
+      if (dollarPrices) console.log('Dollar Prices:', dollarPrices?.length);
+    }
+  }
+
+  // Also check if public.blogs table exists or has any data
+  const { data: blogs, error: bErr } = await supabase.from('blogs').select('*');
+  if (blogs && blogs.length > 0) {
+    console.log(`\nFound ${blogs.length} posts in 'blogs' table:`);
+    for (const b of blogs) {
+      console.log(`Blogs table Slug: ${b.slug} | Title: ${b.title}`);
+    }
+  } else {
+    console.log(`\n'blogs' table error/empty:`, bErr?.message);
   }
 }
 
