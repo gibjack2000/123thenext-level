@@ -227,6 +227,54 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     image_url: 'https://123thenextlevel.com/assets/images/shop/core-500.png'
   },
   {
+    id: 'stethoscope-es',
+    name: 'Estetoscopio Digital con IA Eko CORE 500™',
+    category: 'Performance & Testing',
+    rating: 4.95,
+    description: 'Estetoscopio electrónico con ECG de 3 derivaciones e IA clínica para detección temprana de arritmias y soplos.',
+    price_text: '429,00€',
+    deal_url: 'https://www.doccheck.com/es/',
+    market_region: 'ES',
+    badge_text: 'CE Marked Clinical Device',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/core-500.png'
+  },
+  {
+    id: 'wearable-tracker-us',
+    name: 'Apple Watch Series 10 (GPS 46mm)',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.80,
+    description: 'Advanced multispectral wrist wearable capturing sleeping heart rate, sleep apnea notifications, and autonomic HRV.',
+    price_text: '$399.00',
+    deal_url: 'https://www.amazon.com/dp/B0DGJG692K?tag=123znl0e-20',
+    market_region: 'US',
+    badge_text: 'FDA Approved Heart Notifications',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/apple-watch.png'
+  },
+  {
+    id: 'wearable-tracker-uk',
+    name: 'Apple Watch Series 10 (GPS 46mm)',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.80,
+    description: 'Advanced multispectral wrist wearable capturing sleeping heart rate, sleep apnea notifications, and autonomic HRV.',
+    price_text: '£379.00',
+    deal_url: 'https://www.amazon.co.uk/dp/B0DGJHCPX5?tag=123znl0f3-21',
+    market_region: 'UK',
+    badge_text: 'MHRA Certified Telemetry',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/apple-watch.png'
+  },
+  {
+    id: 'wearable-tracker-es',
+    name: 'Apple Watch Series 10 (GPS 46mm)',
+    category: 'Tech Gadgets & Wearables',
+    rating: 4.80,
+    description: 'Reloj inteligente multiespectral avanzado que registra apnea del sueño, ECG y variabilidad de la frecuencia cardíaca.',
+    price_text: '399,00€',
+    deal_url: 'https://www.amazon.es/dp/B0DGJG692K?tag=123znl08a-21',
+    market_region: 'ES',
+    badge_text: 'CE Compliant Biometrics',
+    image_url: 'https://123thenextlevel.com/assets/images/shop/apple-watch.png'
+  },
+  {
     id: 'blood-pressure-cuff-us',
     name: 'Withings BPM Connect Wi-Fi Cuff',
     category: 'Tech Gadgets & Wearables',
@@ -372,9 +420,34 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
   }
 ];
 
-// Prepopulate cache with fallback products
+// Prepopulate cache with fallback products and alias mappings for instant synchronous rendering
 FALLBACK_FLAGSHIP_PRODUCTS.forEach(p => {
   productCache.set(p.id.toLowerCase(), p);
+});
+
+// Pre-map base names to US fallback products as strict default
+const baseAliasFallbacks: Record<string, string> = {
+  'wearable-tracker': 'wearable-tracker-us',
+  'sauna': 'amazon-health-us-b09pskn6x3',
+  'sauna-us': 'amazon-health-us-b09pskn6x3',
+  'headphones': 'amazon-health-us-b0c3hcd34r',
+  'headphones-us': 'amazon-health-us-b0c3hcd34r',
+  'rower': 'amazon-fitness-us-rower',
+  'rower-us': 'amazon-fitness-us-rower',
+  'cgm': 'cgm-us',
+  'sleep-analyzer': 'sleep-analyzer-us',
+  'reagent-strips': 'reagent-strips-us',
+  'segmental-scale': 'segmental-scale-us',
+  'sirtuin-stack': 'sirtuin-stack-us',
+  'stethoscope': 'stethoscope-us',
+  'blood-pressure-cuff': 'blood-pressure-cuff-us'
+};
+
+Object.entries(baseAliasFallbacks).forEach(([alias, targetId]) => {
+  const targetProd = productCache.get(targetId.toLowerCase());
+  if (targetProd) {
+    productCache.set(alias.toLowerCase(), targetProd);
+  }
 });
 
 /**

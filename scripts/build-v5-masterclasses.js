@@ -1263,7 +1263,7 @@ async function main() {
   for (const article of ARTICLES_V5) {
     console.log(`\n📄 Seeding: "${article.title}" (${article.slug})...`);
 
-    // Upsert to blog_posts
+    // Upsert to blog_posts (clearing any legacy affiliate product references)
     const { error: bpErr } = await supabase
       .from('blog_posts')
       .upsert({
@@ -1276,7 +1276,11 @@ async function main() {
         author: article.author,
         tags: article.tags,
         featured: article.featured,
-        status: 'draft'
+        status: 'draft',
+        affiliate_product_1: null,
+        affiliate_product_2: null,
+        affiliate_product_3: null,
+        affiliate_product_4: null
       }, { onConflict: 'slug' });
 
     if (bpErr) {
