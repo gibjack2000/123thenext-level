@@ -1,5 +1,6 @@
 import React from 'react';
-import { ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ExternalLink, ArrowRight, Sparkles, BookOpen, Activity, CheckCircle2 } from 'lucide-react';
 import DynamicProductCard from './blog/DynamicProductCard';
 
 interface BlogMarkdownRendererProps {
@@ -7,6 +8,49 @@ interface BlogMarkdownRendererProps {
   className?: string;
   theme?: 'light' | 'dark' | 'auto';
   affiliateUrl?: string;
+}
+
+// Normalize URLs to convert internal site links to client-side router paths
+function normalizeUrl(rawUrl: string): { url: string; isInternal: boolean; internalPath?: string } {
+  if (!rawUrl) return { url: '#', isInternal: false };
+  let cleaned = rawUrl.trim();
+
+  // Check if link matches full site domain or localhost
+  if (
+    cleaned.startsWith('https://123thenextlevel.com') ||
+    cleaned.startsWith('http://123thenextlevel.com') ||
+    cleaned.startsWith('https://www.123thenextlevel.com') ||
+    cleaned.startsWith('http://www.123thenextlevel.com') ||
+    cleaned.startsWith('http://localhost')
+  ) {
+    try {
+      const urlObj = new URL(cleaned);
+      return {
+        url: cleaned,
+        isInternal: true,
+        internalPath: urlObj.pathname + urlObj.search + urlObj.hash
+      };
+    } catch {}
+  }
+
+  // Relative internal path
+  if (cleaned.startsWith('/')) {
+    return {
+      url: cleaned,
+      isInternal: true,
+      internalPath: cleaned
+    };
+  }
+
+  // External web link
+  if (!cleaned.startsWith('http://') && !cleaned.startsWith('https://') && !cleaned.startsWith('//') && !cleaned.startsWith('mailto:')) {
+    cleaned = 'https://' + cleaned;
+  }
+
+  return {
+    url: cleaned,
+    isInternal: false
+  };
 }
 
 // Extract attributes from <ProductCard ... /> tag
@@ -43,71 +87,126 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
 }) => {
   if (!content) return null;
 
+  const isDark = theme === 'dark' || (theme === 'auto' && true);
+
   // Helper to format inline markdown (bold, italic, inline code, links)
   const renderInlineFormattedText = (rawText: string, keyPrefix: string = 'inline'): React.ReactNode[] => {
-    // Regex for:
-    // 1. Markdown link: [text](url)
-    // 2. Bold: **text**
-    // 3. Italic: *text* or _text_
-    // 4. Inline code: `text`
-    const tokenRegex = /(\[([^\]]+)\]\(([^)]+)\)|\*\*([^*]+)\*\*|\*([^*]+)\*|`([^`]+)`)/g;
+    if (!rawText) return [];
+
+    // Comprehensive token regex handling:
+    // 1. Bold link: **[text](url)**
+    // 2. Italic link: *[text](url)* or _[text](url)_
+    // 3. Regular link: [text](url)
+    // 4. Bold text: **text**
+    // 5. Italic text: *text* or _text_
+    // 6. Inline code: `text`
+    const tokenRegex = /(?:\*\*\[([^\]]+)\]\(([^)]+)\)\*\*|\*\[([^\]]+)\]\(([^)]+)\)\*|\[([^\]]+)\]\(([^)]+)\)|\*\*([^*]+)\*\*|\*([^*]+)\*|_([^_]+)_|`([^`]+)`)/g;
 
     const nodes: React.ReactNode[] = [];
     let lastIndex = 0;
     let match: RegExpExecArray | null;
 
     while ((match = tokenRegex.exec(rawText)) !== null) {
-      // Text before match
+      // Unformatted text before match
       if (match.index > lastIndex) {
         nodes.push(rawText.substring(lastIndex, match.index));
       }
 
-      const [, , linkText, linkUrl, boldText, italicText, codeText] = match;
+      const [
+        ,
+        boldLinkText,
+        boldLinkUrl,
+        italicLinkText,
+        italicLinkUrl,
+        regLinkText,
+        regLinkUrl,
+        boldText,
+        italicTextStar,
+        italicTextUnderscore,
+        codeText
+      ] = match;
+
+      const linkText = boldLinkText || italicLinkText || regLinkText;
+      const linkUrl = boldLinkUrl || italicLinkUrl || regLinkUrl;
+      const isBoldLink = Boolean(boldLinkText);
+      const isItalicLink = Boolean(italicLinkText);
+      const plainItalic = italicTextStar || italicTextUnderscore;
 
       if (linkText && linkUrl) {
-        let validUrl = linkUrl.trim();
-        if (!validUrl.startsWith('http://') && !validUrl.startsWith('https://') && !validUrl.startsWith('//') && !validUrl.startsWith('/')) {
-          validUrl = 'https://' + validUrl;
-        }
-
-        const isInternal = validUrl.startsWith('/') || validUrl.includes('123thenextlevel.com');
+        const { url: validUrl, isInternal, internalPath } = normalizeUrl(linkUrl);
+        const isQuiz = validUrl.includes('health-quiz') || validUrl.includes('/quiz');
         const isStore = validUrl.includes('/store');
-        const isQuiz = validUrl.includes('/health-quiz');
+        const isGuide = validUrl.includes('premium-guides') || validUrl.includes('/guides');
 
-        nodes.push(
-          <a
-            key={`${keyPrefix}-link-${match.index}`}
-            href={validUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`inline-flex items-baseline gap-1 font-semibold underline decoration-2 underline-offset-2 transition-all duration-200 cursor-pointer ${
-              theme === 'dark'
-                ? isQuiz
-                  ? 'text-emerald-400 decoration-emerald-500/50 hover:text-emerald-300 hover:decoration-emerald-400'
-                  : isStore
-                  ? 'text-cyan-400 decoration-cyan-500/50 hover:text-cyan-300 hover:decoration-cyan-400'
-                  : 'text-blue-400 decoration-blue-500/50 hover:text-blue-300 hover:decoration-blue-400'
-                : isQuiz
-                ? 'text-emerald-600 decoration-emerald-500/40 hover:text-emerald-700 hover:decoration-emerald-600'
-                : isStore
-                ? 'text-cyan-600 decoration-cyan-500/40 hover:text-cyan-700 hover:decoration-cyan-600'
-                : 'text-blue-600 decoration-blue-500/40 hover:text-blue-800 hover:decoration-blue-600'
-            }`}
-          >
-            <span>{linkText}</span>
-            {!isInternal && <ExternalLink size={12} className="inline opacity-75 shrink-0 self-center" />}
-          </a>
+        const linkStyles = `inline-flex items-baseline gap-1 font-bold underline decoration-2 underline-offset-2 transition-all duration-200 cursor-pointer ${
+          isDark
+            ? isQuiz
+              ? 'text-emerald-400 decoration-emerald-500/50 hover:text-emerald-300 hover:decoration-emerald-400'
+              : isGuide
+              ? 'text-indigo-400 decoration-indigo-500/50 hover:text-indigo-300 hover:decoration-indigo-400'
+              : isStore
+              ? 'text-cyan-400 decoration-cyan-500/50 hover:text-cyan-300 hover:decoration-cyan-400'
+              : 'text-blue-400 decoration-blue-500/50 hover:text-blue-300 hover:decoration-blue-400'
+            : isQuiz
+            ? 'text-emerald-600 decoration-emerald-500/40 hover:text-emerald-700 hover:decoration-emerald-600'
+            : isGuide
+            ? 'text-indigo-600 decoration-indigo-500/40 hover:text-indigo-700 hover:decoration-indigo-600'
+            : isStore
+            ? 'text-cyan-600 decoration-cyan-500/40 hover:text-cyan-700 hover:decoration-cyan-600'
+            : 'text-blue-600 decoration-blue-500/40 hover:text-blue-800 hover:decoration-blue-600'
+        }`;
+
+        const innerContent = (
+          <>
+            <span className={isBoldLink ? 'font-black' : isItalicLink ? 'italic font-bold' : 'font-bold'}>
+              {linkText}
+            </span>
+            {!isInternal && <ExternalLink size={12} className="inline opacity-75 shrink-0 self-center ml-0.5" />}
+          </>
         );
+
+        if (isInternal && internalPath) {
+          nodes.push(
+            <Link
+              key={`${keyPrefix}-link-${match.index}`}
+              to={internalPath}
+              className={linkStyles}
+            >
+              {innerContent}
+            </Link>
+          );
+        } else {
+          nodes.push(
+            <a
+              key={`${keyPrefix}-link-${match.index}`}
+              href={validUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={linkStyles}
+            >
+              {innerContent}
+            </a>
+          );
+        }
       } else if (boldText) {
-        nodes.push(
-          <strong key={`${keyPrefix}-b-${match.index}`} className={theme === 'dark' ? 'font-bold text-white' : 'font-bold text-slate-900'}>
-            {boldText}
-          </strong>
-        );
-      } else if (italicText) {
+        // If bold text contains nested markdown link e.g. [text](url), parse recursively
+        if (boldText.includes('[') && boldText.includes('](')) {
+          nodes.push(
+            <strong key={`${keyPrefix}-b-${match.index}`} className={isDark ? 'font-black text-white' : 'font-black text-slate-900'}>
+              {renderInlineFormattedText(boldText, `${keyPrefix}-b-nested-${match.index}`)}
+            </strong>
+          );
+        } else {
+          nodes.push(
+            <strong key={`${keyPrefix}-b-${match.index}`} className={isDark ? 'font-bold text-white' : 'font-bold text-slate-900'}>
+              {boldText}
+            </strong>
+          );
+        }
+      } else if (plainItalic) {
         nodes.push(
           <em key={`${keyPrefix}-i-${match.index}`} className="italic">
-            {italicText}
+            {plainItalic}
           </em>
         );
       } else if (codeText) {
@@ -115,7 +214,7 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
           <code
             key={`${keyPrefix}-c-${match.index}`}
             className={`px-1.5 py-0.5 rounded text-xs font-mono ${
-              theme === 'dark' ? 'bg-slate-800 text-cyan-300 border border-slate-700' : 'bg-slate-100 text-slate-800 border border-slate-200'
+              isDark ? 'bg-slate-800 text-cyan-300 border border-slate-700' : 'bg-slate-100 text-slate-800 border border-slate-200'
             }`}
           >
             {codeText}
@@ -510,9 +609,132 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
       continue;
     }
 
-    // 13. Standard Paragraph
+    // 13. Standalone Funnel / Action CTA Link (e.g. 👉 [Take Quiz](...), 📘 [Download Workbook](...), etc.)
+    const ctaLineMatch = trimmed.match(/^(?:👉|📘|🎯|⚡|🔗|💡)\s*(?:\*\*)?\[([^\]]+)\]\(([^)]+)\)(?:\*\*)?$/i);
+    if (ctaLineMatch) {
+      const linkTitle = ctaLineMatch[1].trim();
+      const rawTargetUrl = ctaLineMatch[2].trim();
+      const { url: finalUrl, isInternal, internalPath } = normalizeUrl(rawTargetUrl);
+      const isQuiz = finalUrl.includes('health-quiz') || finalUrl.includes('quiz');
+      const isGuide = finalUrl.includes('premium-guides') || finalUrl.includes('workbook') || finalUrl.includes('guide');
+      const isStore = finalUrl.includes('store');
+
+      const emojiPrefix = trimmed.match(/^(👉|📘|🎯|⚡|🔗|💡)/)?.[1] || (isQuiz ? '🎯' : isGuide ? '📘' : isStore ? '⚡' : '👉');
+      const categoryLabel = isQuiz
+        ? '5-MINUTE CLINICAL DIAGNOSTIC'
+        : isGuide
+        ? 'CLINICAL LONGEVITY PROTOCOL & WORKBOOK'
+        : isStore
+        ? 'SOVEREIGN HARDWARE'
+        : 'NEXT-LEVEL ACTION STEP';
+
+      const btnLabel = isQuiz
+        ? 'Take Free Diagnostic Quiz'
+        : isGuide
+        ? 'Access Protocol & Workbook'
+        : isStore
+        ? 'Explore Store Hardware'
+        : 'Open Resource';
+
+      blocks.push(
+        <div
+          key={`cta-shortcut-${i}`}
+          className={`my-5 p-4 sm:p-5 rounded-2xl border transition-all duration-300 shadow-xl group hover:shadow-cyan-500/10 ${
+            isDark
+              ? isQuiz
+                ? 'bg-gradient-to-r from-emerald-950/70 via-slate-950/90 to-slate-900 border-emerald-500/40 hover:border-emerald-400/80 shadow-emerald-950/20'
+                : isGuide
+                ? 'bg-gradient-to-r from-indigo-950/70 via-slate-950/90 to-slate-900 border-indigo-500/40 hover:border-indigo-400/80 shadow-indigo-950/20'
+                : isStore
+                ? 'bg-gradient-to-r from-cyan-950/70 via-slate-950/90 to-slate-900 border-cyan-500/40 hover:border-cyan-400/80 shadow-cyan-950/20'
+                : 'bg-gradient-to-r from-slate-900/90 via-slate-950 to-slate-900 border-slate-700/80 hover:border-cyan-400/60'
+              : 'bg-gradient-to-r from-slate-50 via-white to-slate-50 border-slate-200 hover:border-blue-400 shadow-sm'
+          }`}
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-3.5">
+              <div
+                className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 font-bold text-xl shadow-inner ${
+                  isDark
+                    ? isQuiz
+                      ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                      : isGuide
+                      ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30'
+                      : isStore
+                      ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/30'
+                      : 'bg-blue-500/20 text-blue-300 border border-blue-500/30'
+                    : isQuiz
+                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                    : 'bg-slate-100 text-slate-800 border border-slate-200'
+                }`}
+              >
+                <span>{emojiPrefix}</span>
+              </div>
+              <div className="min-w-0">
+                <div
+                  className={`text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-wider mb-0.5 ${
+                    isDark
+                      ? isQuiz
+                        ? 'text-emerald-400'
+                        : isGuide
+                        ? 'text-indigo-400'
+                        : isStore
+                        ? 'text-cyan-400'
+                        : 'text-slate-400'
+                      : 'text-slate-500'
+                  }`}
+                >
+                  {categoryLabel}
+                </div>
+                <div
+                  className={`font-display font-extrabold text-sm sm:text-base leading-snug transition-colors ${
+                    isDark ? 'text-white group-hover:text-cyan-300' : 'text-slate-900 group-hover:text-blue-600'
+                  }`}
+                >
+                  {linkTitle}
+                </div>
+              </div>
+            </div>
+
+            <div className="shrink-0 flex items-center sm:self-center">
+              {isInternal && internalPath ? (
+                <Link
+                  to={internalPath}
+                  className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-200 shadow-md transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer ${
+                    isQuiz
+                      ? 'bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 shadow-emerald-500/25'
+                      : isGuide
+                      ? 'bg-gradient-to-r from-indigo-500 to-sky-400 hover:from-indigo-400 hover:to-sky-300 text-white shadow-indigo-500/25'
+                      : isStore
+                      ? 'bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-slate-950 shadow-cyan-500/25'
+                      : 'bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white shadow-blue-500/25'
+                  }`}
+                >
+                  <span>{btnLabel}</span>
+                  <ArrowRight size={14} className="shrink-0" />
+                </Link>
+              ) : (
+                <a
+                  href={finalUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider text-slate-950 bg-gradient-to-r from-cyan-400 to-blue-400 hover:from-cyan-300 hover:to-blue-300 shadow-cyan-500/25 transition-all duration-200 cursor-pointer"
+                >
+                  <span>{btnLabel}</span>
+                  <ExternalLink size={14} className="shrink-0" />
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+      i++;
+      continue;
+    }
+
+    // 14. Standard Paragraph
     blocks.push(
-      <p key={`p-${i}`} className={`text-sm sm:text-base leading-relaxed mb-6 font-normal ${theme === 'dark' ? 'text-slate-300' : 'text-slate-700'}`}>
+      <p key={`p-${i}`} className={`text-sm sm:text-base leading-relaxed mb-6 font-normal ${isDark ? 'text-slate-300' : 'text-slate-700'}`}>
         {renderInlineFormattedText(trimmed, `p-${i}`)}
       </p>
     );
