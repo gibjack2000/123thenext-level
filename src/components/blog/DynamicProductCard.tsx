@@ -44,7 +44,7 @@ export const DynamicProductCard: React.FC<DynamicProductCardProps> = ({
 
   // Localized store button label
   const storeLabel = market === 'ES' ? 'Catálogo Store' : 'Store Hub';
-  const storeUrl = `/store?country=${market.toLowerCase()}`;
+  const storeUrl = `/store?country=${(market || 'US').toLowerCase()}`;
 
   // Deterministic review count for visual balance
   const reviewCount = product

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
+import { useMarket, Market } from '../contexts/MarketContext';
 import { 
   Dumbbell, 
   ChefHat, 
@@ -2291,11 +2292,24 @@ function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marke
 }
 
 export default function Store() {
-  const [activeTab, setActiveTab] = useState<MarketTab>('US');
+  const { market: contextMarket, setMarket } = useMarket();
+  const [activeTab, setActiveTab] = useState<MarketTab>(() => {
+    if (contextMarket && ['US', 'UK', 'ES'].includes(contextMarket)) {
+      return contextMarket as MarketTab;
+    }
+    return 'US';
+  });
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [products, setProducts] = useState<any[]>([]);
   const [categories, setCategories] = useState<string[]>(['All']);
   const [loading, setLoading] = useState(true);
+
+  // Sync activeTab whenever global market context changes
+  useEffect(() => {
+    if (contextMarket && ['US', 'UK', 'ES'].includes(contextMarket)) {
+      setActiveTab(contextMarket as MarketTab);
+    }
+  }, [contextMarket]);
 
   // 1. Automatic Geo-IP Storefront Switcher (ES, UK/GB, US fallback)
   useEffect(() => {
@@ -2306,6 +2320,7 @@ export default function Store() {
         const urlCountry = searchParams.get('country')?.toUpperCase();
         if (urlCountry === 'ES' || urlCountry === 'UK' || urlCountry === 'US') {
           setActiveTab(urlCountry as MarketTab);
+          setMarket(urlCountry as Market);
           return;
         }
 
@@ -2316,19 +2331,28 @@ export default function Store() {
 
           if (country === 'ES') {
             setActiveTab('ES');
+            setMarket('ES');
           } else if (country === 'GB' || country === 'UK') {
             setActiveTab('UK');
+            setMarket('UK');
           } else {
+            // Null, undefined, or any country code outside UK or ES defaults directly to 'US'
             setActiveTab('US');
+            setMarket('US');
           }
+        } else {
+          setActiveTab('US');
+          setMarket('US');
         }
       } catch (geoErr) {
         console.warn('Geo-IP auto-detection defaulted to US:', geoErr);
+        setActiveTab('US');
+        setMarket('US');
       }
     }
 
     detectVisitorCountry();
-  }, []);
+  }, [setMarket]);
 
   // 2. Fetch products whenever activeTab changes
   useEffect(() => {
@@ -2435,6 +2459,7 @@ export default function Store() {
             key={tab}
             onClick={() => {
               setActiveTab(tab);
+              setMarket(tab as Market);
               setActiveCategory('All');
             }}
             className={`flex-1 flex items-center justify-center space-x-2 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 ${

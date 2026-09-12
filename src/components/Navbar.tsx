@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Home as HomeIcon, Zap, Shield, Heart, Info, ChevronRight, Compass, ChevronDown, Dumbbell, Apple, Users, Sparkles, ShieldCheck, ShoppingBag, BookOpen } from 'lucide-react';
 import MarketSelector from './MarketSelector';
+import { useMarket } from '../contexts/MarketContext';
 import { useT } from '../translations';
 
 import FriendlyWellnessQuizModal from './FriendlyWellnessQuizModal';
@@ -19,6 +20,7 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const t = useT();
+  const { market } = useMarket();
 
   const isHomepage = location.pathname === '/';
 
@@ -34,21 +36,28 @@ const Navbar = () => {
     }
   }
 
-  // Active country state for Console Header (US, UK, ES)
+  // Active country state for Console Header (US, UK, ES) - defaults strictly to US
   const [activeCountry, setActiveCountry] = useState<'US' | 'UK' | 'ES'>(
-    (currentRegion.toUpperCase() as 'US' | 'UK' | 'ES') || 'US'
+    market || (currentRegion.toUpperCase() as 'US' | 'UK' | 'ES') || 'US'
   );
 
-  // Sync active country with location search params or route region
+  // Sync active country with global market context, location search params, or route region
   useEffect(() => {
+    if (market && ['US', 'UK', 'ES'].includes(market)) {
+      setActiveCountry(market);
+      return;
+    }
+
     const searchParams = new URLSearchParams(location.search);
     const countryParam = searchParams.get('country')?.toUpperCase();
     if (countryParam && ['US', 'UK', 'ES'].includes(countryParam)) {
       setActiveCountry(countryParam as 'US' | 'UK' | 'ES');
     } else if (currentRegion && ['us', 'uk', 'es'].includes(currentRegion)) {
       setActiveCountry(currentRegion.toUpperCase() as 'US' | 'UK' | 'ES');
+    } else {
+      setActiveCountry('US');
     }
-  }, [location.search, currentRegion]);
+  }, [market, location.search, currentRegion]);
 
   const handleHomeClick = (e: React.MouseEvent) => {
     if (location.pathname === '/') {

@@ -25,6 +25,7 @@ import {
   ShoppingCart
 } from 'lucide-react';
 import { useAffiliateLinks } from '../contexts/AffiliateLinksContext';
+import { useMarket } from '../contexts/MarketContext';
 
 export type StoreCountry = 'US' | 'UK' | 'ES';
 export type BioSuiteKey = 'all' | 'suite-a' | 'suite-b' | 'suite-c' | 'suite-d' | 'suite-e';
@@ -501,11 +502,21 @@ export const hardwareListings: LocalizedListing[] = [
 
 export const BiologicalHardwareStoreGrid: React.FC = () => {
   const { links } = useAffiliateLinks();
+  const { market } = useMarket();
   const [searchParams] = useSearchParams();
-  const [selectedCountry, setSelectedCountry] = useState<StoreCountry>('US');
+  const [selectedCountry, setSelectedCountry] = useState<StoreCountry>(
+    (market as StoreCountry) || 'US'
+  );
   const [activeSuite, setActiveSuite] = useState<BioSuiteKey>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [highlightPulse, setHighlightPulse] = useState<boolean>(false);
+
+  // Sync selected country whenever global market context changes
+  useEffect(() => {
+    if (market && ['US', 'UK', 'ES'].includes(market)) {
+      setSelectedCountry(market as StoreCountry);
+    }
+  }, [market]);
 
   useEffect(() => {
     // 1. Process Country Parameter

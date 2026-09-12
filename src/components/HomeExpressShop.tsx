@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useMarket, Market } from '../contexts/MarketContext';
 import { 
   Sparkles, 
   ExternalLink, 
@@ -1030,9 +1031,19 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
 ];
 
 export default function HomeExpressShop() {
+  const { market, setMarket } = useMarket();
   const [activeTab, setActiveTab] = useState<'supplements' | 'fitness' | 'wellness'>('supplements');
-  const [selectedRegion, setSelectedRegion] = useState<RegionKey>('US');
+  const [selectedRegion, setSelectedRegion] = useState<RegionKey>(
+    (market as RegionKey) || 'US'
+  );
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Sync selectedRegion whenever global market context changes
+  useEffect(() => {
+    if (market && ['US', 'UK', 'ES'].includes(market)) {
+      setSelectedRegion(market as RegionKey);
+    }
+  }, [market]);
 
   // Filter products by active tab and search query
   const filteredProducts = EXPRESS_PRODUCTS.filter(product => {
@@ -1150,7 +1161,10 @@ export default function HomeExpressShop() {
 
             <div className="inline-flex p-1 bg-slate-950 rounded-xl border border-slate-800">
               <button
-                onClick={() => setSelectedRegion('US')}
+                onClick={() => {
+                  setSelectedRegion('US');
+                  setMarket('US');
+                }}
                 className={`px-3 py-1.5 rounded-lg text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
                   selectedRegion === 'US'
                     ? 'bg-cyan-500 text-slate-950 shadow-md'
@@ -1162,7 +1176,10 @@ export default function HomeExpressShop() {
               </button>
 
               <button
-                onClick={() => setSelectedRegion('UK')}
+                onClick={() => {
+                  setSelectedRegion('UK');
+                  setMarket('UK');
+                }}
                 className={`px-3 py-1.5 rounded-lg text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
                   selectedRegion === 'UK'
                     ? 'bg-cyan-500 text-slate-950 shadow-md'
@@ -1174,7 +1191,10 @@ export default function HomeExpressShop() {
               </button>
 
               <button
-                onClick={() => setSelectedRegion('ES')}
+                onClick={() => {
+                  setSelectedRegion('ES');
+                  setMarket('ES');
+                }}
                 className={`px-3 py-1.5 rounded-lg text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
                   selectedRegion === 'ES'
                     ? 'bg-cyan-500 text-slate-950 shadow-md'

@@ -13,18 +13,25 @@ const MarketContext = createContext<MarketContextType>({
   setMarket: () => {},
 });
 
+/**
+ * Resolves the initial market synchronously for SSR and initial client hydration.
+ * Ensures SSR and initial render ALWAYS default to 'US' unless an explicit local
+ * parameter or saved preference is present.
+ */
 export function getInitialMarket(): Market {
   try {
-    // 1. Check URL Search Param
-    if (typeof window !== 'undefined') {
-      const searchParams = new URLSearchParams(window.location.search);
-      const urlCountry = searchParams.get('country')?.toUpperCase();
-      if (urlCountry && ['US', 'UK', 'ES'].includes(urlCountry)) {
-        return urlCountry as Market;
-      }
+    if (typeof window === 'undefined') {
+      return 'US';
     }
 
-    // 2. Check localStorage keys
+    // 1. Check URL Search Param (?country=US, ?country=UK, ?country=ES)
+    const searchParams = new URLSearchParams(window.location.search);
+    const urlCountry = searchParams.get('country')?.toUpperCase();
+    if (urlCountry && ['US', 'UK', 'ES'].includes(urlCountry)) {
+      return urlCountry as Market;
+    }
+
+    // 2. Check localStorage keys for previously saved explicit user selection
     const keys = ['selected-market', 'selected_region', 'country_flag'];
     for (const key of keys) {
       const saved = localStorage.getItem(key);
@@ -33,23 +40,99 @@ export function getInitialMarket(): Market {
       }
     }
 
-    // 3. Check path prefix
-    if (typeof window !== 'undefined') {
-      const parts = window.location.pathname.split('/').filter(Boolean);
-      const knownRegions = ['us', 'uk', 'es'];
-      if (parts.length > 0 && knownRegions.includes(parts[0].toLowerCase())) {
-        return parts[0].toUpperCase() as Market;
-      }
+    // 3. Check route path prefix (/us/..., /uk/..., /es/...)
+    const parts = window.location.pathname.split('/').filter(Boolean);
+    const knownRegions = ['us', 'uk', 'es'];
+    if (parts.length > 0 && knownRegions.includes(parts[0].toLowerCase())) {
+      return parts[0].toUpperCase() as Market;
     }
-  } catch {}
+  } catch {
+    // Fallback on any error
+    return 'US';
+  }
 
-  // 4. Default Fallback
+  // 4. Default Base State: Strictly 'US'
   return 'US';
 }
 
 export function MarketProvider({ children }: { children: React.ReactNode }) {
   const location = useLocation();
   const [market, setMarketState] = useState<Market>(getInitialMarket);
+
+  // Set market and broadcast to all listeners across the app
+  const setMarket = useCallback((newMarket: Market) => {
+    const normalized = (newMarket || 'US').toUpperCase() as Market;
+    const finalMarket = ['US', 'UK', 'ES'].includes(normalized) ? normalized : 'US';
+    
+    setMarketState(finalMarket);
+    try {
+      localStorage.setItem('selected-market', finalMarket);
+      localStorage.setItem('selected_region', finalMarket);
+      localStorage.setItem('country_flag', finalMarket);
+    } catch {}
+
+    // Dispatch global events for instant sync
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('market-changed', { detail: { market: finalMarket } }));
+      window.dispatchEvent(new CustomEvent('region-changed', { detail: { region: finalMarket } }));
+      window.dispatchEvent(new Event('storage'));
+    }
+  }, []);
+
+  // Post-hydration Geolocation Fallback:
+  // If no explicit user selection or URL param exists, detect visitor location via Geo-IP in the background.
+  // If IP/header geolocation returns null, undefined, or any country code outside UK or ES, default directly to 'US'.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const searchParams = new URLSearchParams(window.location.search);
+    const hasUrlCountry = searchParams.get('country');
+    const hasSavedMarket = localStorage.getItem('selected-market') ||
+                           localStorage.getItem('selected_region') ||
+                           localStorage.getItem('country_flag');
+
+    // Only run auto-geolocation if user has not explicitly chosen a market or supplied ?country=
+    if (hasUrlCountry || hasSavedMarket) return;
+
+    let isMounted = true;
+    const controller = new AbortController();
+
+    async function detectGeoMarket() {
+      try {
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
+        const res = await fetch('https://ipapi.co/json/', { signal: controller.signal });
+        clearTimeout(timeoutId);
+
+        if (res.ok) {
+          const data = await res.json();
+          const countryCode = (data.country_code || data.country || '').toUpperCase();
+
+          if (!isMounted) return;
+
+          if (countryCode === 'ES') {
+            setMarketState('ES');
+          } else if (countryCode === 'GB' || countryCode === 'UK') {
+            setMarketState('UK');
+          } else {
+            // Null, undefined, or any country code outside UK or ES defaults directly to 'US'
+            setMarketState('US');
+          }
+        } else {
+          if (isMounted) setMarketState('US');
+        }
+      } catch {
+        // Default strictly to 'US' on network error, ad blocker, or timeout
+        if (isMounted) setMarketState('US');
+      }
+    }
+
+    detectGeoMarket();
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
+  }, []);
 
   // Sync with route changes
   useEffect(() => {
@@ -78,24 +161,6 @@ export function MarketProvider({ children }: { children: React.ReactNode }) {
     }
   }, [location.pathname, location.search]);
 
-  // Set market and broadcast to all listeners across the app
-  const setMarket = useCallback((newMarket: Market) => {
-    const normalized = (newMarket || 'US').toUpperCase() as Market;
-    setMarketState(normalized);
-    try {
-      localStorage.setItem('selected-market', normalized);
-      localStorage.setItem('selected_region', normalized);
-      localStorage.setItem('country_flag', normalized);
-    } catch {}
-
-    // Dispatch global events for instant sync
-    if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('market-changed', { detail: { market: normalized } }));
-      window.dispatchEvent(new CustomEvent('region-changed', { detail: { region: normalized } }));
-      window.dispatchEvent(new Event('storage'));
-    }
-  }, []);
-
   // Listen for storage or external custom event changes
   useEffect(() => {
     const handleMarketChanged = (e: any) => {
@@ -111,6 +176,8 @@ export function MarketProvider({ children }: { children: React.ReactNode }) {
         const val = e.newValue?.toUpperCase();
         if (val && ['US', 'UK', 'ES'].includes(val)) {
           setMarketState(val as Market);
+        } else {
+          setMarketState('US');
         }
       }
     };
@@ -136,4 +203,5 @@ export function MarketProvider({ children }: { children: React.ReactNode }) {
 export function useMarket() {
   return useContext(MarketContext);
 }
+
 
