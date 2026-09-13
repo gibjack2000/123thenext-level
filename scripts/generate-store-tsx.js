@@ -13,7 +13,11 @@ import {
   Zap, 
   Activity,
   HeartPulse,
-  Star
+  Star,
+  ShieldCheck,
+  CheckCircle2,
+  Microscope,
+  Lock
 } from 'lucide-react';
 
 type MarketTab = 'US' | 'UK' | 'ES';
@@ -314,15 +318,51 @@ export default function Store() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white font-sans antialiased p-6 md:p-12">
+    <div className="min-h-screen bg-slate-950 text-white font-sans antialiased pt-28 pb-16 md:pt-36 md:pb-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Subtle Ambient Glows & Grid */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[850px] h-[450px] bg-gradient-to-b from-cyan-500/15 via-blue-500/5 to-transparent rounded-full blur-[140px] pointer-events-none" />
+      <div 
+        className="absolute inset-0 opacity-[0.025] pointer-events-none" 
+        style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, #22d3ee 1px, transparent 0)', backgroundSize: '32px 32px' }} 
+      />
+
       {/* Header */}
-      <div className="max-w-7xl mx-auto text-center mb-12">
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-3 bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-600 bg-clip-text text-transparent">
+      <div className="relative z-10 max-w-5xl mx-auto text-center mb-10 md:mb-14 space-y-4">
+        {/* Curated Procurement Pill */}
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-mono uppercase tracking-widest shadow-[0_0_20px_rgba(6,182,212,0.15)] backdrop-blur-md">
+          <Sparkles size={13} className="text-cyan-400 animate-pulse" />
+          <span>Selectively Procured & Clinically Vetted Protocols</span>
+        </div>
+
+        {/* H1 Title */}
+        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400 bg-clip-text text-transparent font-display">
           Sovereign Apothecary & Longevity Gear Store
         </h1>
-        <p className="text-slate-400 text-sm max-w-2xl mx-auto">
-          Access highly localized, premium diagnostic blood screening, advanced biophysical sensors, and curated lifestyle accelerators.
+
+        {/* Engaging Caption */}
+        <p className="text-slate-300 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed font-sans">
+          Every solution in our sovereign registry is <strong className="text-white font-semibold">selectively procured</strong> and relentlessly audited against clinical biomarker efficacy, independent third-party purity assays, and strict regional regulatory standards (<span className="text-cyan-300 font-mono font-semibold">FDA &bull; MHRA &bull; CE</span>). Upgrade your biological operating system with zero guesswork.
         </p>
+
+        {/* Highlights / Trust Pillars Grid */}
+        <div className="pt-2 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-[11px] sm:text-xs font-mono text-slate-300">
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900/80 border border-slate-800 backdrop-blur-sm">
+            <ShieldCheck size={13} className="text-emerald-400" />
+            <span>Purity & Batch Audited</span>
+          </div>
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900/80 border border-slate-800 backdrop-blur-sm">
+            <Microscope size={13} className="text-cyan-400" />
+            <span>Multi-Omic & Medical Telemetry</span>
+          </div>
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900/80 border border-slate-800 backdrop-blur-sm">
+            <CheckCircle2 size={13} className="text-amber-400" />
+            <span>Direct Partner Portals</span>
+          </div>
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900/80 border border-slate-800 backdrop-blur-sm">
+            <Lock size={13} className="text-sky-400" />
+            <span>Zero Data Retention</span>
+          </div>
+        </div>
       </div>
 
       {/* Country Selector */}
