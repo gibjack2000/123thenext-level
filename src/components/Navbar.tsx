@@ -128,15 +128,33 @@ const Navbar = () => {
           {/* ========================================================================= */}
           {/* TIER 1: UPPER REGISTRY ANNOUNCEMENT BOX (The Peak Hook - Absolute Top)   */}
           {/* ========================================================================= */}
-          <div className="relative z-10 p-4 sm:p-6 rounded-xl bg-[#0f172a] border border-slate-800/80 shadow-md backdrop-blur-md text-center md:text-left">
+          <div className="relative z-10 p-4 sm:p-6 rounded-xl bg-[#0f172a] border border-slate-800/80 shadow-md backdrop-blur-md text-center md:text-left overflow-hidden">
+            {/* Ambient subtle glow */}
+            <div className="absolute -top-10 right-0 w-80 h-40 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+
             <div className="flex items-center justify-center md:justify-start gap-2.5 text-cyan-400 font-bold text-xl sm:text-2xl md:text-3xl mb-2 tracking-tight font-display">
               <span className="text-xl sm:text-2xl">⚙️</span>
               <span className="text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.35)]">THE SOVEREIGN HEALTH STACK — LIVE NOW</span>
             </div>
-            <p className="text-slate-300 text-base sm:text-lg md:text-xl lg:text-[24px] leading-snug md:leading-relaxed font-sans">
+            <p className="text-slate-300 text-base sm:text-lg md:text-xl lg:text-[24px] leading-snug md:leading-relaxed font-sans mb-3">
               Diagnostic-grade hardware. NSF-certified fuel. Precision supplements. Full-spectrum blood panels.{" "}
               <strong className="text-white font-semibold">Upgrade your biology. Not someday — now.</strong>
             </p>
+
+            {/* Captivating Philosophy Quote */}
+            <div className="pt-2.5 border-t border-slate-800/70 flex items-center justify-center md:justify-start">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-slate-950/80 border border-cyan-500/30 shadow-[0_0_20px_rgba(6,182,212,0.15)] text-xs sm:text-sm md:text-base font-sans">
+                <span className="text-cyan-400 font-serif text-lg leading-none font-bold select-none">“</span>
+                <span className="italic text-slate-200 tracking-wide">
+                  The best time to start was yesterday, the second best time is{" "}
+                  <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-amber-300 not-italic">
+                    Today
+                  </span>
+                  .
+                </span>
+                <span className="text-cyan-400 font-serif text-lg leading-none font-bold select-none">”</span>
+              </div>
+            </div>
           </div>
 
           {/* ========================================================================= */}
