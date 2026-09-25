@@ -32,7 +32,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "MHRA Registered",
-      "image_url": "/assets/images/shop/reagent-strips.png"
+      "image_url": "/Products/oxford.jpeg"
     },
     {
       "id": "sleep-analyzer-uk",
@@ -44,7 +44,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0892BGFX7?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "CE Medically Validated (Apnea)",
-      "image_url": "/assets/images/shop/sleep-analyzer.png"
+      "image_url": "/Products/ouraring5.jpeg"
     },
     {
       "id": "stethoscope-uk",
@@ -56,7 +56,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.ekohealth.com/products/core-500-digital-stethoscope",
       "market_region": "UK",
       "badge_text": "MHRA Registered",
-      "image_url": "/assets/images/shop/core-500.png"
+      "image_url": "/Products/duronic520.jpg"
     },
     {
       "id": "blood-pressure-cuff-uk",
@@ -68,7 +68,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B07SJV1HNR?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "CE Medical Class IIa",
-      "image_url": "/assets/images/shop/bpm-connect.png"
+      "image_url": "/Products/beurer.jpeg"
     },
     {
       "id": "sirtuin-stack-uk",
@@ -80,7 +80,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://healf.co.uk/collections/momentus",
       "market_region": "UK",
       "badge_text": "NSF Certified / UK Sourced (Healf)",
-      "image_url": "/assets/images/shop/sirtuin-stack.png"
+      "image_url": "/Products/quercitin.jpeg"
     },
     {
       "id": "cgm-uk",
@@ -92,7 +92,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://hellolingo.co.uk",
       "market_region": "UK",
       "badge_text": "MHRA Registered",
-      "image_url": "/assets/images/shop/cgm.png"
+      "image_url": "/Products/thorne.jpg"
     },
     {
       "id": "segmental-scale-uk",
@@ -104,7 +104,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0B9849CD1?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "CE Medical Marked",
-      "image_url": "/assets/images/shop/body-scan.png"
+      "image_url": "/Products/renphoscale1.jpeg"
     },
     {
       "id": "wearable-tracker-uk",
@@ -116,7 +116,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0DGJHCPX5?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "MHRA Certified Telemetry",
-      "image_url": "/assets/images/shop/apple-watch.png"
+      "image_url": "/Products/apple10.jpg"
     },
     {
       "id": "blood-panel-uk",
@@ -128,7 +128,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://snwbl.io/out/NcealZ11",
       "market_region": "UK",
       "badge_text": "UKAS Accredited & ISO 9001 Certified",
-      "image_url": "/assets/images/shop/blood-panel.png"
+      "image_url": "/Products/ancientbrave.jpeg"
     },
     {
       "id": "amazon-supp-uk-b0dd7tjzp5",
@@ -838,7 +838,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B078Z1B34S?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "Touch-Free Sleep Science",
-      "image_url": "/assets/images/shop/sleep-analyzer.png"
+      "image_url": "/Products/ouraring5.jpeg"
     },
     {
       "id": "segmental-scale-us",
@@ -850,7 +850,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0B9849CD1?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "FDA Cleared",
-      "image_url": "/assets/images/shop/body-scan.png"
+      "image_url": "/Products/renphoscale1.jpeg"
     },
     {
       "id": "reagent-strips-us",
@@ -862,7 +862,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "FDA Cleared & CLIA Waived",
-      "image_url": "/assets/images/shop/reagent-strips.png"
+      "image_url": "/Products/oxford.jpeg"
     },
     {
       "id": "sirtuin-stack-us",
@@ -874,7 +874,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://livemomentous.com/modernwisdom?code=modernwisdom",
       "market_region": "US",
       "badge_text": "NSF Certified for Sport",
-      "image_url": "/assets/images/shop/sirtuin-stack.png"
+      "image_url": "/Products/quercitin.jpeg"
     },
     {
       "id": "stethoscope-us",
@@ -886,7 +886,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.ekohealth.com/products/core-500-digital-stethoscope",
       "market_region": "US",
       "badge_text": "FDA Cleared AI Auscultation",
-      "image_url": "/assets/images/shop/core-500.png"
+      "image_url": "/Products/duronic520.jpg"
     },
     {
       "id": "blood-pressure-cuff-us",
@@ -898,7 +898,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B07SJV1HNR?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "FDA Cleared",
-      "image_url": "/assets/images/shop/bpm-connect.png"
+      "image_url": "/Products/beurer.jpeg"
     },
     {
       "id": "wearable-tracker-us",
@@ -910,7 +910,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0DGJG692K?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "FDA Approved Heart Notifications",
-      "image_url": "/assets/images/shop/apple-watch.png"
+      "image_url": "/Products/apple10.jpg"
     },
     {
       "id": "blood-panel-us",
@@ -922,7 +922,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.healthlabs.com/?affiliate=123znl",
       "market_region": "US",
       "badge_text": "CLIA Certified & CAP Accredited",
-      "image_url": "/assets/images/shop/blood-panel.png"
+      "image_url": "/Products/ancientbrave.jpeg"
     },
     {
       "id": "cgm-us",
@@ -934,7 +934,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "FDA Cleared / OTC Eligible",
-      "image_url": "/assets/images/shop/cgm.png"
+      "image_url": "/Products/thorne.jpg"
     },
     {
       "id": "amazon-supp-us-b004u3y8om",
@@ -1404,7 +1404,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://newtra.eu",
       "market_region": "ES",
       "badge_text": "Customs-Safe EU Delivery (Newtra)",
-      "image_url": "/assets/images/shop/sirtuin-stack.png"
+      "image_url": "/Products/quercitin.jpeg"
     },
     {
       "id": "blood-pressure-cuff-es",
@@ -1416,7 +1416,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B07SJV1HNR?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "CE Medical Class IIa",
-      "image_url": "/assets/images/shop/bpm-connect.png"
+      "image_url": "/Products/beurer.jpeg"
     },
     {
       "id": "segmental-scale-es",
@@ -1428,7 +1428,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0B9849CD1?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "CE Medical Marked",
-      "image_url": "/assets/images/shop/body-scan.png"
+      "image_url": "/Products/renphoscale1.jpeg"
     },
     {
       "id": "blood-panel-es",
@@ -1440,7 +1440,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.melio.es",
       "market_region": "ES",
       "badge_text": "CE Marked & Megalab/Unilabs Certified",
-      "image_url": "/assets/images/shop/blood-panel.png"
+      "image_url": "/Products/ancientbrave.jpeg"
     },
     {
       "id": "wearable-tracker-es",
@@ -1452,7 +1452,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0DGJG692K?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "CE Compliant Biometrics",
-      "image_url": "/assets/images/shop/apple-watch.png"
+      "image_url": "/Products/apple10.jpg"
     },
     {
       "id": "cgm-es",
@@ -1464,7 +1464,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.dexcom.com/es-ES",
       "market_region": "ES",
       "badge_text": "CE Marked / Pharmacy Approved",
-      "image_url": "/assets/images/shop/cgm.png"
+      "image_url": "/Products/thorne.jpg"
     },
     {
       "id": "stethoscope-es",
@@ -1476,7 +1476,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.doccheck.com/es/",
       "market_region": "ES",
       "badge_text": "CE Marked Clinical Device",
-      "image_url": "/assets/images/shop/core-500.png"
+      "image_url": "/Products/duronic520.jpg"
     },
     {
       "id": "sleep-analyzer-es",
@@ -1488,7 +1488,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0892BGFX7?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "CE Medically Validated (Apnea)",
-      "image_url": "/assets/images/shop/sleep-analyzer.png"
+      "image_url": "/Products/ouraring5.jpeg"
     },
     {
       "id": "reagent-strips-es",
@@ -1500,7 +1500,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "CE 0123 Medical Marked",
-      "image_url": "/assets/images/shop/reagent-strips.png"
+      "image_url": "/Products/oxford.jpeg"
     },
     {
       "id": "amazon-supp-es-b08tcg2rh7",
@@ -2365,7 +2365,7 @@ export default function Store() {
       try {
         // Fetch live products from Supabase for the strictly selected market
         const { data, error } = await supabase
-          .from('products')
+          .from('amazon_affiliate_products')
           .select('*')
           .eq('market_region', activeTab);
 
@@ -2559,7 +2559,7 @@ export default function Store() {
                             className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                             referrerPolicy="no-referrer"
                             onError={(e) => {
-                              (e.target as HTMLImageElement).src = '/assets/images/shop/placeholder.png';
+                              (e.target as HTMLImageElement).src = '/Products/owala.jpg';
                             }}
                           />
                         </div>
@@ -2623,7 +2623,7 @@ export default function Store() {
                                     className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                                     referrerPolicy="no-referrer"
                                     onError={(e) => {
-                                      (e.target as HTMLImageElement).src = '/assets/images/shop/placeholder.png';
+                                      (e.target as HTMLImageElement).src = '/Products/owala.jpg';
                                     }}
                                   />
                                 </div>
@@ -2675,7 +2675,7 @@ export default function Store() {
                                 className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                                 referrerPolicy="no-referrer"
                                 onError={(e) => {
-                                  (e.target as HTMLImageElement).src = '/assets/images/shop/placeholder.png';
+                                  (e.target as HTMLImageElement).src = '/Products/owala.jpg';
                                 }}
                               />
                             </div>
