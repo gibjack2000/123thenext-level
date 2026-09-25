@@ -17,7 +17,7 @@ function generateProductCard({
   badgeText,
   imageUrl,
   productType = 'Clinical Grade Hardware',
-  storeUrl = 'https://123thenextlevel.com/store'
+  storeUrl = '/store'
 }) {
   return `
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2rem 0; padding: 1.5rem; border-radius: 1rem; border: 1px solid rgba(226, 232, 240, 0.8); background: #ffffff; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);">
@@ -61,9 +61,9 @@ const p1_cards = [
     price: '$990.00',
     priceSecondary: '£850.00 / 950€',
     badgeText: 'Clinical Standard PM5 Monitor',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/rower.png',
+    imageUrl: '/assets/images/shop/rower.png',
     productType: 'Precision Ergometer Hardware',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCard({
     title: 'Apple Watch Series 10 (GPS 46mm)',
@@ -71,9 +71,9 @@ const p1_cards = [
     price: '$399.00',
     priceSecondary: '£379.00 / 399€',
     badgeText: 'FDA Approved Heart Notifications',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/apple-watch.png',
+    imageUrl: '/assets/images/shop/apple-watch.png',
     productType: 'Multispectral Biosensing Wearable',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCard({
     title: 'ALLTEST 10-Parameter Urinary Reagent Strips',
@@ -81,9 +81,9 @@ const p1_cards = [
     price: '$14.99',
     priceSecondary: '£12.99 / 14,99€',
     badgeText: 'FDA Cleared & CLIA Waived',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/reagent-strips.png',
+    imageUrl: '/assets/images/shop/reagent-strips.png',
     productType: 'Rapid Biochemical Diagnostic',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   })
 ].join('\n\n');
 
@@ -300,7 +300,7 @@ To execute this performance telemetry architecture immediately:
 
 Are your current training loads, recovery practices, and autonomic reserves aligned with optimal longevity? Take our clinical diagnostic assessment to calculate your autonomic readiness baseline:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your personalized 6-pillar breakdown with custom actionable protocols delivered instantly to your inbox.*
 
@@ -329,9 +329,9 @@ const p2_cards = [
     price: '$299.00',
     priceSecondary: '£149.00 / 149€',
     badgeText: 'CLIA Certified & CAP Accredited',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/blood-panel.png',
+    imageUrl: '/assets/images/shop/blood-panel.png',
     productType: 'Direct-To-Consumer Clinical Diagnostics',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCard({
     title: 'Momentous Sirtuin Activation Stack',
@@ -339,9 +339,9 @@ const p2_cards = [
     price: '$89.95',
     priceSecondary: '£79.99 / 89,95€',
     badgeText: 'NSF Certified for Sport',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sirtuin-stack.png',
+    imageUrl: '/assets/images/shop/sirtuin-stack.png',
     productType: 'Cellular Longevity Formulation',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCard({
     title: 'Withings Body Scan Segmental Composition Scale',
@@ -349,9 +349,9 @@ const p2_cards = [
     price: '$399.95',
     priceSecondary: '£349.99 / 399,95€',
     badgeText: 'FDA Cleared 8-Electrode BIA',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/body-scan.png',
+    imageUrl: '/assets/images/shop/body-scan.png',
     productType: 'Clinical Bio-Impedance Telemetry',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   })
 ].join('\n\n');
 
@@ -581,7 +581,7 @@ Track these clinical biomarkers every 6 months to measure the rate of biological
 
 Are your cellular repair mechanisms, nutrient-sensing pathways, and mitochondrial reserves operating at peak capacity? Take our clinical diagnostic assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your custom 6-pillar longevity breakdown with tailored clinical protocols delivered directly to your inbox.*
 
@@ -610,9 +610,9 @@ const p3_cards = [
     price: '$89.00/mo',
     priceSecondary: '£79.00 / 79€/mo',
     badgeText: 'FDA Cleared / OTC Eligible',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/cgm.png',
+    imageUrl: '/assets/images/shop/cgm.png',
     productType: 'Real-Time Metabolic Biosensor',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCard({
     title: 'Zebora Marine Collagen Peptides Powder',
@@ -620,9 +620,9 @@ const p3_cards = [
     price: '$28.99',
     priceSecondary: '£24.99 / 27,99€',
     badgeText: 'Type I & III Hydrolyzed Wild-Caught',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/marine-collagen.png',
+    imageUrl: '/assets/images/shop/marine-collagen.png',
     productType: 'Gut Barrier & Structural Matrix',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCard({
     title: 'Owala FreeSip Insulated Water Bottle',
@@ -630,9 +630,9 @@ const p3_cards = [
     price: '$27.99',
     priceSecondary: '£22.99 / 26,99€',
     badgeText: 'Triple-Layer Vacuum Insulated',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/water-bottle.png',
+    imageUrl: '/assets/images/shop/water-bottle.png',
     productType: 'Cellular Hydration Delivery System',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   })
 ].join('\n\n');
 
@@ -828,7 +828,7 @@ To evaluate your true metabolic state beyond simple fasting glucose, review this
 
 Is your metabolic machinery running with clean, flexible efficiency or struggling with glycemic volatility? Take our clinical diagnostic assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your comprehensive 6-pillar diagnostic breakdown with personalized nutritional blueprints sent straight to your inbox.*
 
@@ -857,9 +857,9 @@ const p4_cards = [
     price: '$99.95',
     priceSecondary: '£89.99 / 99,95€',
     badgeText: 'FDA Cleared & CE Medical Class IIa',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/bpm-connect.png',
+    imageUrl: '/assets/images/shop/bpm-connect.png',
     productType: 'Vascular Tone & Hemodynamic Monitor',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCard({
     title: 'Sony WH-CH720N Noise-Canceling Headphones',
@@ -867,9 +867,9 @@ const p4_cards = [
     price: '$149.99',
     priceSecondary: '£119.00 / 129€',
     badgeText: 'Dual Noise Sensor V1 Processor',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sony-headphones.png',
+    imageUrl: '/assets/images/shop/sony-headphones.png',
     productType: 'Acoustic Neuromodulation Hardware',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCard({
     title: 'Portable Full-Body Infrared Sauna Tent',
@@ -877,9 +877,9 @@ const p4_cards = [
     price: '$249.00',
     priceSecondary: '£199.99 / 229€',
     badgeText: 'Ultra-Low EMF Carbon Heating Panels',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sauna.png',
+    imageUrl: '/assets/images/shop/sauna.png',
     productType: 'Thermal Hyperthermia Recovery Sanctuary',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCard({
     title: 'basaho Classic Zafu Meditation Cushion',
@@ -887,9 +887,9 @@ const p4_cards = [
     price: '$35.00',
     priceSecondary: '£29.99 / 34,99€',
     badgeText: '100% GOTS Certified Organic Cotton',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/meditation-cushion.png',
+    imageUrl: '/assets/images/shop/meditation-cushion.png',
     productType: 'Postural & Somatic Alignment Gear',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   })
 ].join('\n\n');
 
@@ -1086,7 +1086,7 @@ ${p4_cards}
 
 Is your nervous system locked in chronic fight-or-flight, or do you command flexible autonomic self-regulation? Take our clinical assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your comprehensive 6-pillar neuro-autonomic profile with actionable protocols delivered straight to your inbox.*
 
@@ -1115,9 +1115,9 @@ const p5_cards = [
     price: '$49.00',
     priceSecondary: '£39.00 / 45€',
     badgeText: 'CLIA Certified & UKAS Accredited Labs',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/ovarian-test.png',
+    imageUrl: '/assets/images/shop/ovarian-test.png',
     productType: 'Endocrine & Reproductive Diagnostic',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCard({
     title: 'Withings Sleep Analyzer Under-Mattress Pad',
@@ -1125,9 +1125,9 @@ const p5_cards = [
     price: '$129.95',
     priceSecondary: '£119.99 / 129,95€',
     badgeText: 'CE Medically Validated (Sleep Apnea)',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sleep-analyzer.png',
+    imageUrl: '/assets/images/shop/sleep-analyzer.png',
     productType: 'Contactless Nocturnal Sleep Lab',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCard({
     title: 'Zebora Marine Collagen Peptides Powder',
@@ -1135,9 +1135,9 @@ const p5_cards = [
     price: '$28.99',
     priceSecondary: '£24.99 / 27,99€',
     badgeText: 'Non-GMO, Wild-Caught & Gluten-Free',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/marine-collagen.png',
+    imageUrl: '/assets/images/shop/marine-collagen.png',
     productType: 'Connective Tissue & Dermis Matrix',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   })
 ].join('\n\n');
 
@@ -1345,7 +1345,7 @@ ${p5_cards}
 
 Are your daily routines synchronized with your 28-day infradian master clock? Take our comprehensive female diagnostic assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your personalized 6-pillar hormone and longevity profile delivered straight to your inbox.*
 
@@ -1374,9 +1374,9 @@ const p6_cards = [
     price: '$429.00',
     priceSecondary: '£379.00 / 429€',
     badgeText: 'FDA Cleared 3-Lead ECG & AI Auscultation',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/core-500.png',
+    imageUrl: '/assets/images/shop/core-500.png',
     productType: 'Clinical Cardiovascular Telemetry',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCard({
     title: 'Portable Full-Body Infrared Sauna Tent',
@@ -1384,9 +1384,9 @@ const p6_cards = [
     price: '$249.00',
     priceSecondary: '£199.99 / 229€',
     badgeText: 'Low EMF Thermal Recovery Sanctuary',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sauna.png',
+    imageUrl: '/assets/images/shop/sauna.png',
     productType: 'Biophilic Thermal Ecosystem',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCard({
     title: 'Sony WH-CH720N Noise-Canceling Headphones',
@@ -1394,9 +1394,9 @@ const p6_cards = [
     price: '$149.99',
     priceSecondary: '£119.00 / 129€',
     badgeText: '35-Hour Battery Life & Ultra-Lightweight',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sony-headphones.png',
+    imageUrl: '/assets/images/shop/sony-headphones.png',
     productType: 'Acoustic Sanctuary & Noise Defense',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   })
 ].join('\n\n');
 
@@ -1588,7 +1588,7 @@ ${p6_cards}
 
 Is your built environment actively enhancing your biological vitality, or silently accelerating cellular stress? Take our clinical assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your comprehensive 6-pillar environmental and longevity profile delivered straight to your inbox.*
 

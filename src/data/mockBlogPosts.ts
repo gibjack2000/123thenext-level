@@ -275,7 +275,7 @@ Carving out time to sit quietly and simply exist without producing is an act of 
     slug: "sunshine-vitamin-d3-immune-health",
     author: "123TheNext Level Team",
     category: "health",
-    image_url: "https://123thenextlevel.com/Products/vitd3.jpg",
+    image_url: "/Products/vitd3.jpg",
     tags: ["supplements", "immune health", "vitamin d3", "bone health"],
     featured: false,
     excerpt: "Discover how Vitamin D3 supports your immune system, bone health, and muscle function in our latest deep dive into the sunshine vitamin.",

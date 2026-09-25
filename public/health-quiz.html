@@ -1341,7 +1341,7 @@
           </div>
           <div class="optin-consent">
             <input type="checkbox" id="optinConsent" required />
-            <label for="optinConsent">Yes, send me my Health Baseline report and weekly tips. I can unsubscribe anytime. View our <a href="https://123thenextlevel.com/privacy" target="_blank" rel="noopener" style="color:var(--brand-deep);">Privacy Policy</a>.</label>
+            <label for="optinConsent">Yes, send me my Health Baseline report and weekly tips. I can unsubscribe anytime. View our <a href="/privacy" target="_blank" rel="noopener" style="color:var(--brand-deep);">Privacy Policy</a>.</label>
           </div>
           <div class="optin-error" id="optinError">Please enter a valid email address and check the consent box.</div>
           <button type="submit" class="btn btn-primary btn-block" id="optinSubmit">Send Me My Plan →</button>
@@ -1892,7 +1892,7 @@ const MEDITATION_PRACTICES = [
    update the `why` text to reflect your actual assessment notes.
    ========================================================= */
 const SHOP_CONFIG = {
-  baseUrl: 'https://123thenextlevel.com/shop/',   // your shop landing page
+  baseUrl: '/shop/',   // your shop landing page
   linkTarget: '_blank'                              // open product links in new tab
 };
 
@@ -2306,7 +2306,7 @@ function resolveAffiliateLink(itemLink) {
     
     // Double safety check: if it still has "/shop/", rewrite it to Amazon US/UK/ES fallback
     if (finalLink && finalLink.includes('123thenextlevel.com/shop/')) {
-      const cleanSlug = finalLink.replace('https://123thenextlevel.com/shop/', '').replace('-uk', '').replace('-es', '');
+      const cleanSlug = finalLink.replace('/shop/', '').replace('-uk', '').replace('-es', '');
       const fallback = FALLBACK_ASINS[cleanSlug];
       if (fallback) {
         const region = state.selectedRegion || 'us';

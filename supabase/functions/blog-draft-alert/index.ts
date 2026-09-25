@@ -36,7 +36,7 @@ serve(async (req) => {
 
     const articleTitle = title || "Untitled Draft Article";
     const articleCategory = category || "General";
-    const reviewUrl = "https://123thenextlevel.com/admin/blogs";
+    const reviewUrl = "/admin/blogs";
     const subject = `📝 New Blog Draft Ready: ${articleTitle}`;
     
     const plainText = `Title: ${articleTitle}\nCategory: ${articleCategory}\nStatus: Draft (Invisible on public site)\nReview & Publish Link: ${reviewUrl}`;
@@ -107,7 +107,7 @@ serve(async (req) => {
     return new Response(
       JSON.stringify({
         success: false,
-        message: "No email provider key (RESEND_API_KEY or SENDGRID_API_KEY) configured in Edge Function secrets. Use server webhook https://123thenextlevel.com/api/webhooks/blog-draft-alert for SMTP delivery."
+        message: "No email provider key (RESEND_API_KEY or SENDGRID_API_KEY) configured in Edge Function secrets. Use server webhook /api/webhooks/blog-draft-alert for SMTP delivery."
       }),
       { status: 400, headers: { "Content-Type": "application/json" } }
     );

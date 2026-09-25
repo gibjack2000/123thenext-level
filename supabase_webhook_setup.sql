@@ -3,7 +3,7 @@
 -- ==============================================================================
 -- Trigger: Whenever a new row is inserted into public.blogs with status = 'draft'
 -- Action:  Send automated email notification to gibjack2000@googlemail.com
--- Target:  https://123thenextlevel.com/api/webhooks/blog-draft-alert
+-- Target:  /api/webhooks/blog-draft-alert
 -- ==============================================================================
 
 -- ------------------------------------------------------------------------------
@@ -18,7 +18,7 @@
 --    - Events: Check "Insert" ONLY
 --    - Type: HTTP Request
 --    - Method: POST
---    - URL: https://123thenextlevel.com/api/webhooks/blog-draft-alert
+--    - URL: /api/webhooks/blog-draft-alert
 --    - HTTP Headers:
 --        Content-Type: application/json
 -- 5. Click "Save Webhook" or "Create Webhook".
@@ -55,7 +55,7 @@ BEGIN
 
     -- POST event directly to server webhook endpoint
     PERFORM net.http_post(
-      url := 'https://123thenextlevel.com/api/webhooks/blog-draft-alert',
+      url := '/api/webhooks/blog-draft-alert',
       body := payload,
       headers := jsonb_build_object(
         'Content-Type', 'application/json'

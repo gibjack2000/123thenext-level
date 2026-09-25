@@ -601,7 +601,7 @@ export default function StartHere() {
                         <span className="text-white font-semibold">Ninja Foodi Dual Zone Air Fryer</span>
                         <p className="text-slate-400 text-[9px] leading-normal font-light">The gold standard for preparing low-oil, metabolic family meals.</p>
                         <a
-                          href="https://123thenextlevel.com/"
+                          href="/"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-[9px] font-mono text-cyan-400 hover:text-cyan-300 uppercase block tracking-wider pt-0.5"

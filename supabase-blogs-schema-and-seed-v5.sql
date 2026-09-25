@@ -314,9 +314,9 @@ Equip your daily fitness protocol with clinical hardware directly synced from ou
 
 Ready to calibrate your personalized training zones and audit your biological horsepower?
 
-👉 **[Take the Free 5-Minute Health Baseline & Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free 5-Minute Health Baseline & Diagnostic Quiz](/health-quiz)**
 
-📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](https://123thenextlevel.com/premium-guides)**',
+📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](/premium-guides)**',
   'https://seoaictzhmqdwnkfymxt.supabase.co/storage/v1/object/public/blog-covers/performance_biodata_cover.png',
   'fitness',
   '123TheNextLevel Clinical Advisory Board',
@@ -486,9 +486,9 @@ Deploy clinically validated longevity hardware and cellular formulations from ou
 
 Take control of your biological clock and measure your arterial baseline:
 
-👉 **[Take the Free 5-Minute Longevity & Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free 5-Minute Longevity & Diagnostic Quiz](/health-quiz)**
 
-📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](https://123thenextlevel.com/premium-guides)**',
+📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](/premium-guides)**',
   'https://seoaictzhmqdwnkfymxt.supabase.co/storage/v1/object/public/blog-covers/healthspan_longevity_cover.png',
   'health',
   '123TheNextLevel Clinical Advisory Board',
@@ -642,9 +642,9 @@ Maintain strict glycemic stability with metabolic biosensors from our Sovereign 
 
 Audit your glycemic response and build a metabolic meal plan:
 
-👉 **[Take the Free 5-Minute Metabolic Nutrition Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free 5-Minute Metabolic Nutrition Diagnostic Quiz](/health-quiz)**
 
-📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](https://123thenextlevel.com/premium-guides)**',
+📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](/premium-guides)**',
   'https://seoaictzhmqdwnkfymxt.supabase.co/storage/v1/object/public/blog-covers/metabolic_nutrition_cover.png',
   'nutrition',
   '123TheNextLevel Clinical Advisory Board',
@@ -806,9 +806,9 @@ Systematically modulate vagal tone with clinical hardware from our Sovereign Sto
 
 Audit your nervous system balance and calculate your HRV recovery baseline:
 
-👉 **[Take the Free 5-Minute Nervous System Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free 5-Minute Nervous System Diagnostic Quiz](/health-quiz)**
 
-📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](https://123thenextlevel.com/premium-guides)**',
+📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](/premium-guides)**',
   'https://seoaictzhmqdwnkfymxt.supabase.co/storage/v1/object/public/blog-covers/autonomic_engineering_cover.png',
   'wellness',
   '123TheNextLevel Clinical Advisory Board',
@@ -989,9 +989,9 @@ Optimize infradian phases and ovarian longevity with hardware from our Sovereign
 
 Align your training with your infradian rhythm and audit your hormonal baseline:
 
-👉 **[Take the Free 5-Minute Women''s Health & Hormonal Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free 5-Minute Women''s Health & Hormonal Diagnostic Quiz](/health-quiz)**
 
-📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](https://123thenextlevel.com/premium-guides)**',
+📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](/premium-guides)**',
   'https://seoaictzhmqdwnkfymxt.supabase.co/storage/v1/object/public/blog-covers/womens_health_cover.png',
   'womens-health',
   '123TheNextLevel Clinical Advisory Board',
@@ -1171,9 +1171,9 @@ Transform your physical living space into a high-performance wellness sanctuary 
 
 Audit your home environment and calculate your living sanctuary score:
 
-👉 **[Take the Free 5-Minute Living Sanctuary Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free 5-Minute Living Sanctuary Diagnostic Quiz](/health-quiz)**
 
-📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](https://123thenextlevel.com/premium-guides)**',
+📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](/premium-guides)**',
   'https://seoaictzhmqdwnkfymxt.supabase.co/storage/v1/object/public/blog-covers/socio_architecture_cover.png',
   'social-fitness',
   '123TheNextLevel Clinical Advisory Board',
@@ -1373,9 +1373,9 @@ Equip your daily fitness protocol with clinical hardware directly synced from ou
 
 Ready to calibrate your personalized training zones and audit your biological horsepower?
 
-👉 **[Take the Free 5-Minute Health Baseline & Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free 5-Minute Health Baseline & Diagnostic Quiz](/health-quiz)**
 
-📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](https://123thenextlevel.com/premium-guides)**',
+📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](/premium-guides)**',
   'https://seoaictzhmqdwnkfymxt.supabase.co/storage/v1/object/public/blog-covers/performance_biodata_cover.png',
   'https://seoaictzhmqdwnkfymxt.supabase.co/storage/v1/object/public/blog-covers/performance_biodata_cover.png',
   'fitness',
@@ -1539,9 +1539,9 @@ Deploy clinically validated longevity hardware and cellular formulations from ou
 
 Take control of your biological clock and measure your arterial baseline:
 
-👉 **[Take the Free 5-Minute Longevity & Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free 5-Minute Longevity & Diagnostic Quiz](/health-quiz)**
 
-📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](https://123thenextlevel.com/premium-guides)**',
+📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](/premium-guides)**',
   'https://seoaictzhmqdwnkfymxt.supabase.co/storage/v1/object/public/blog-covers/healthspan_longevity_cover.png',
   'https://seoaictzhmqdwnkfymxt.supabase.co/storage/v1/object/public/blog-covers/healthspan_longevity_cover.png',
   'health',
@@ -1689,9 +1689,9 @@ Maintain strict glycemic stability with metabolic biosensors from our Sovereign 
 
 Audit your glycemic response and build a metabolic meal plan:
 
-👉 **[Take the Free 5-Minute Metabolic Nutrition Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free 5-Minute Metabolic Nutrition Diagnostic Quiz](/health-quiz)**
 
-📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](https://123thenextlevel.com/premium-guides)**',
+📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](/premium-guides)**',
   'https://seoaictzhmqdwnkfymxt.supabase.co/storage/v1/object/public/blog-covers/metabolic_nutrition_cover.png',
   'https://seoaictzhmqdwnkfymxt.supabase.co/storage/v1/object/public/blog-covers/metabolic_nutrition_cover.png',
   'nutrition',
@@ -1847,9 +1847,9 @@ Systematically modulate vagal tone with clinical hardware from our Sovereign Sto
 
 Audit your nervous system balance and calculate your HRV recovery baseline:
 
-👉 **[Take the Free 5-Minute Nervous System Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free 5-Minute Nervous System Diagnostic Quiz](/health-quiz)**
 
-📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](https://123thenextlevel.com/premium-guides)**',
+📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](/premium-guides)**',
   'https://seoaictzhmqdwnkfymxt.supabase.co/storage/v1/object/public/blog-covers/autonomic_engineering_cover.png',
   'https://seoaictzhmqdwnkfymxt.supabase.co/storage/v1/object/public/blog-covers/autonomic_engineering_cover.png',
   'wellness',
@@ -2024,9 +2024,9 @@ Optimize infradian phases and ovarian longevity with hardware from our Sovereign
 
 Align your training with your infradian rhythm and audit your hormonal baseline:
 
-👉 **[Take the Free 5-Minute Women''s Health & Hormonal Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free 5-Minute Women''s Health & Hormonal Diagnostic Quiz](/health-quiz)**
 
-📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](https://123thenextlevel.com/premium-guides)**',
+📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](/premium-guides)**',
   'https://seoaictzhmqdwnkfymxt.supabase.co/storage/v1/object/public/blog-covers/womens_health_cover.png',
   'https://seoaictzhmqdwnkfymxt.supabase.co/storage/v1/object/public/blog-covers/womens_health_cover.png',
   'womens-health',
@@ -2200,9 +2200,9 @@ Transform your physical living space into a high-performance wellness sanctuary 
 
 Audit your home environment and calculate your living sanctuary score:
 
-👉 **[Take the Free 5-Minute Living Sanctuary Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free 5-Minute Living Sanctuary Diagnostic Quiz](/health-quiz)**
 
-📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](https://123thenextlevel.com/premium-guides)**',
+📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](/premium-guides)**',
   'https://seoaictzhmqdwnkfymxt.supabase.co/storage/v1/object/public/blog-covers/socio_architecture_cover.png',
   'https://seoaictzhmqdwnkfymxt.supabase.co/storage/v1/object/public/blog-covers/socio_architecture_cover.png',
   'social-fitness',

@@ -263,7 +263,7 @@ BEGIN
     );
 
     PERFORM net.http_post(
-      url := 'https://123thenextlevel.com/api/webhooks/blog-draft-alert',
+      url := '/api/webhooks/blog-draft-alert',
       body := payload,
       headers := jsonb_build_object('Content-Type', 'application/json')
     );

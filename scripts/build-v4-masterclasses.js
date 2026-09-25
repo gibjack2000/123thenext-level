@@ -77,7 +77,7 @@ function generateProductCardV4({
   productType = 'Clinical Grade Hardware',
   dealUrl,
   dealBtnText = 'Direct Live Deal',
-  storeUrl = 'https://123thenextlevel.com/store'
+  storeUrl = '/store'
 }) {
   return `
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
@@ -243,11 +243,11 @@ const p1_cards_v4 = [
     price: '$990.00',
     priceSecondary: '£850.00 / 950€',
     badgeText: 'Clinical Standard PM5 Monitor',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/rower.png',
+    imageUrl: '/assets/images/shop/rower.png',
     productType: 'Precision Ergometer Hardware',
     dealUrl: 'https://www.amazon.com/dp/B099KBD9X8?tag=123znl0e-20',
     dealBtnText: 'View on Amazon Prime',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCardV4({
     title: 'Apple Watch Series 10 (GPS 46mm)',
@@ -255,11 +255,11 @@ const p1_cards_v4 = [
     price: '$399.00',
     priceSecondary: '£379.00 / 399€',
     badgeText: 'FDA Approved Heart Notifications',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/apple-watch.png',
+    imageUrl: '/assets/images/shop/apple-watch.png',
     productType: 'Multispectral Biosensing Wearable',
     dealUrl: 'https://www.amazon.com/dp/B0DGJG692K?tag=123znl0e-20',
     dealBtnText: 'Buy on Amazon',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCardV4({
     title: 'ALLTEST 10-Parameter Urinary Reagent Strips',
@@ -267,11 +267,11 @@ const p1_cards_v4 = [
     price: '$14.99',
     priceSecondary: '£12.99 / 14,99€',
     badgeText: 'FDA Cleared & CLIA Waived',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/reagent-strips.png',
+    imageUrl: '/assets/images/shop/reagent-strips.png',
     productType: 'Rapid Biochemical Diagnostic',
     dealUrl: 'https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20',
     dealBtnText: 'Order Reagent Strips',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   })
 ].join('\n\n');
 
@@ -339,11 +339,11 @@ const p2_cards_v4 = [
     price: '$299.00',
     priceSecondary: '£149.00 / 149€',
     badgeText: 'CLIA Certified & CAP Accredited',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/blood-panel.png',
+    imageUrl: '/assets/images/shop/blood-panel.png',
     productType: 'Direct-To-Consumer Clinical Diagnostics',
     dealUrl: 'https://www.healthlabs.com/?affiliate=123znl',
     dealBtnText: 'Order Biomarker Panel',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCardV4({
     title: 'Momentous Sirtuin Activation Stack',
@@ -351,11 +351,11 @@ const p2_cards_v4 = [
     price: '$89.95',
     priceSecondary: '£79.99 / 89,95€',
     badgeText: 'NSF Certified for Sport',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sirtuin-stack.png',
+    imageUrl: '/assets/images/shop/sirtuin-stack.png',
     productType: 'Cellular Longevity Formulation',
     dealUrl: 'https://livemomentous.com/modernwisdom?code=modernwisdom',
     dealBtnText: 'Get Momentous Stack',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCardV4({
     title: 'Withings Body Scan Segmental Composition Scale',
@@ -363,11 +363,11 @@ const p2_cards_v4 = [
     price: '$399.95',
     priceSecondary: '£349.99 / 399,95€',
     badgeText: 'FDA Cleared 8-Electrode BIA',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/body-scan.png',
+    imageUrl: '/assets/images/shop/body-scan.png',
     productType: 'Clinical Bio-Impedance Telemetry',
     dealUrl: 'https://www.amazon.com/dp/B0B9849CD1?tag=123znl0e-20',
     dealBtnText: 'View on Amazon',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   })
 ].join('\n\n');
 
@@ -416,11 +416,11 @@ const p3_cards_v4 = [
     price: '$89.00/mo',
     priceSecondary: '£79.00 / 79€/mo',
     badgeText: 'FDA Cleared / OTC Eligible',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/cgm.png',
+    imageUrl: '/assets/images/shop/cgm.png',
     productType: 'Real-Time Metabolic Biosensor',
     dealUrl: 'https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl0e-20',
     dealBtnText: 'Get CGM Monitor',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCardV4({
     title: 'Zebora Marine Collagen Peptides Powder',
@@ -428,11 +428,11 @@ const p3_cards_v4 = [
     price: '$28.99',
     priceSecondary: '£24.99 / 27,99€',
     badgeText: 'Type I & III Hydrolyzed Wild-Caught',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/marine-collagen.png',
+    imageUrl: '/assets/images/shop/marine-collagen.png',
     productType: 'Gut Barrier & Structural Matrix',
     dealUrl: 'https://www.amazon.com/dp/B07T8H5N1M?tag=123znl0e-20',
     dealBtnText: 'Order Collagen',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCardV4({
     title: 'Owala FreeSip Insulated Water Bottle',
@@ -440,11 +440,11 @@ const p3_cards_v4 = [
     price: '$27.99',
     priceSecondary: '£22.99 / 26,99€',
     badgeText: 'Triple-Layer Vacuum Insulated',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/water-bottle.png',
+    imageUrl: '/assets/images/shop/water-bottle.png',
     productType: 'Cellular Hydration Delivery System',
     dealUrl: 'https://www.amazon.com/dp/B08524B5C6?tag=123znl0e-20',
     dealBtnText: 'Buy on Amazon',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   })
 ].join('\n\n');
 
@@ -522,11 +522,11 @@ const p4_cards_v4 = [
     price: '$99.95',
     priceSecondary: '£89.99 / 99,95€',
     badgeText: 'FDA Cleared & CE Medical Class IIa',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/bpm-connect.png',
+    imageUrl: '/assets/images/shop/bpm-connect.png',
     productType: 'Vascular Tone & Hemodynamic Monitor',
     dealUrl: 'https://www.amazon.com/dp/B07SJV1HNR?tag=123znl0e-20',
     dealBtnText: 'Buy on Amazon',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCardV4({
     title: 'Sony WH-CH720N Noise-Canceling Headphones',
@@ -534,11 +534,11 @@ const p4_cards_v4 = [
     price: '$149.99',
     priceSecondary: '£119.00 / 129€',
     badgeText: 'Dual Noise Sensor V1 Processor',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sony-headphones.png',
+    imageUrl: '/assets/images/shop/sony-headphones.png',
     productType: 'Acoustic Neuromodulation Hardware',
     dealUrl: 'https://www.amazon.com/dp/B0BTY3Y6PP?tag=123znl0e-20',
     dealBtnText: 'View on Amazon',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCardV4({
     title: 'Portable Full-Body Infrared Sauna Tent',
@@ -546,11 +546,11 @@ const p4_cards_v4 = [
     price: '$249.00',
     priceSecondary: '£199.99 / 229€',
     badgeText: 'Ultra-Low EMF Carbon Heating Panels',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sauna.png',
+    imageUrl: '/assets/images/shop/sauna.png',
     productType: 'Thermal Hyperthermia Recovery Sanctuary',
     dealUrl: 'https://www.amazon.com/dp/B08H23V7S5?tag=123znl0e-20',
     dealBtnText: 'Check Sauna Deal',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCardV4({
     title: 'basaho Classic Zafu Meditation Cushion',
@@ -558,11 +558,11 @@ const p4_cards_v4 = [
     price: '$35.00',
     priceSecondary: '£29.99 / 34,99€',
     badgeText: '100% GOTS Certified Organic Cotton',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/meditation-cushion.png',
+    imageUrl: '/assets/images/shop/meditation-cushion.png',
     productType: 'Postural & Somatic Alignment Gear',
     dealUrl: 'https://www.amazon.com/dp/B01697W160?tag=123znl0e-20',
     dealBtnText: 'Order Meditation Cushion',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   })
 ].join('\n\n');
 
@@ -613,11 +613,11 @@ const p5_cards_v4 = [
     price: '$49.00',
     priceSecondary: '£39.00 / 45€',
     badgeText: 'CLIA Certified & UKAS Accredited Labs',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/ovarian-test.png',
+    imageUrl: '/assets/images/shop/ovarian-test.png',
     productType: 'Endocrine & Reproductive Diagnostic',
     dealUrl: 'https://www.amazon.com/dp/B08H7V69F7?tag=123znl0e-20',
     dealBtnText: 'Order Hormone Test',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCardV4({
     title: 'Withings Sleep Analyzer Under-Mattress Pad',
@@ -625,11 +625,11 @@ const p5_cards_v4 = [
     price: '$129.95',
     priceSecondary: '£119.99 / 129,95€',
     badgeText: 'CE Medically Validated (Sleep Apnea)',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sleep-analyzer.png',
+    imageUrl: '/assets/images/shop/sleep-analyzer.png',
     productType: 'Contactless Nocturnal Sleep Lab',
     dealUrl: 'https://www.amazon.com/dp/B078Z1B34S?tag=123znl0e-20',
     dealBtnText: 'Buy on Amazon',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCardV4({
     title: 'Zebora Marine Collagen Peptides Powder',
@@ -637,11 +637,11 @@ const p5_cards_v4 = [
     price: '$28.99',
     priceSecondary: '£24.99 / 27,99€',
     badgeText: 'Non-GMO, Wild-Caught & Gluten-Free',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/marine-collagen.png',
+    imageUrl: '/assets/images/shop/marine-collagen.png',
     productType: 'Connective Tissue & Dermis Matrix',
     dealUrl: 'https://www.amazon.com/dp/B07T8H5N1M?tag=123znl0e-20',
     dealBtnText: 'Order Marine Collagen',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   })
 ].join('\n\n');
 
@@ -713,11 +713,11 @@ const p6_cards_v4 = [
     price: '$429.00',
     priceSecondary: '£379.00 / 429€',
     badgeText: 'FDA Cleared 3-Lead ECG & AI Auscultation',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/core-500.png',
+    imageUrl: '/assets/images/shop/core-500.png',
     productType: 'Clinical Cardiovascular Telemetry',
     dealUrl: 'https://www.ekohealth.com/products/core-500-digital-stethoscope',
     dealBtnText: 'View Eko CORE 500',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCardV4({
     title: 'Portable Full-Body Infrared Sauna Tent',
@@ -725,11 +725,11 @@ const p6_cards_v4 = [
     price: '$249.00',
     priceSecondary: '£199.99 / 229€',
     badgeText: 'Low EMF Thermal Recovery Sanctuary',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sauna.png',
+    imageUrl: '/assets/images/shop/sauna.png',
     productType: 'Biophilic Thermal Ecosystem',
     dealUrl: 'https://www.amazon.com/dp/B08H23V7S5?tag=123znl0e-20',
     dealBtnText: 'Check Sauna Deal',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   }),
   generateProductCardV4({
     title: 'Sony WH-CH720N Noise-Canceling Headphones',
@@ -737,11 +737,11 @@ const p6_cards_v4 = [
     price: '$149.99',
     priceSecondary: '£119.00 / 129€',
     badgeText: '35-Hour Battery Life & Ultra-Lightweight',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sony-headphones.png',
+    imageUrl: '/assets/images/shop/sony-headphones.png',
     productType: 'Acoustic Sanctuary & Noise Defense',
     dealUrl: 'https://www.amazon.com/dp/B0BTY3Y6PP?tag=123znl0e-20',
     dealBtnText: 'Buy on Amazon',
-    storeUrl: 'https://123thenextlevel.com/store'
+    storeUrl: '/store'
   })
 ].join('\n\n');
 

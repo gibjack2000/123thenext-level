@@ -32,7 +32,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20',
     market_region: 'US',
     badge_text: 'FDA Cleared & CLIA Waived',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/reagent-strips.png'
+    image_url: '/assets/images/shop/reagent-strips.png'
   },
   {
     id: 'reagent-strips-uk',
@@ -44,7 +44,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123znl0f3-21',
     market_region: 'UK',
     badge_text: 'MHRA Registered',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/reagent-strips.png'
+    image_url: '/assets/images/shop/reagent-strips.png'
   },
   {
     id: 'reagent-strips-es',
@@ -56,7 +56,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.es/dp/B0DJM3KV8X?tag=123znl08a-21',
     market_region: 'ES',
     badge_text: 'Marcado CE Conformidad Médica',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/reagent-strips.png'
+    image_url: '/assets/images/shop/reagent-strips.png'
   },
   {
     id: 'sleep-analyzer-us',
@@ -68,7 +68,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.com/dp/B078Z1B34S?tag=123znl0e-20',
     market_region: 'US',
     badge_text: 'Touch-Free Sleep Science',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/sleep-analyzer.png'
+    image_url: '/assets/images/shop/sleep-analyzer.png'
   },
   {
     id: 'sleep-analyzer-uk',
@@ -80,7 +80,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.co.uk/dp/B0892BGFX7?tag=123znl0f3-21',
     market_region: 'UK',
     badge_text: 'CE Medically Validated (Apnea)',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/sleep-analyzer.png'
+    image_url: '/assets/images/shop/sleep-analyzer.png'
   },
   {
     id: 'sleep-analyzer-es',
@@ -92,7 +92,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.es/dp/B0892BGFX7?tag=123znl08a-21',
     market_region: 'ES',
     badge_text: 'CE Validación Médica',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/sleep-analyzer.png'
+    image_url: '/assets/images/shop/sleep-analyzer.png'
   },
   {
     id: 'cgm-us',
@@ -104,7 +104,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.freestyle.abbott/us-en/home.html',
     market_region: 'US',
     badge_text: 'FDA Cleared Continuous Biosensor',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/cgm.png'
+    image_url: '/assets/images/shop/cgm.png'
   },
   {
     id: 'cgm-uk',
@@ -116,7 +116,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://hellolingo.co.uk',
     market_region: 'UK',
     badge_text: 'MHRA Registered',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/cgm.png'
+    image_url: '/assets/images/shop/cgm.png'
   },
   {
     id: 'cgm-es',
@@ -128,7 +128,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.freestyle.abbott/es-es/home.html',
     market_region: 'ES',
     badge_text: 'Marcado CE Sanitario',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/cgm.png'
+    image_url: '/assets/images/shop/cgm.png'
   },
   {
     id: 'segmental-scale-us',
@@ -140,7 +140,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.com/dp/B0B9849CD1?tag=123znl0e-20',
     market_region: 'US',
     badge_text: 'FDA Cleared',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/body-scan.png'
+    image_url: '/assets/images/shop/body-scan.png'
   },
   {
     id: 'segmental-scale-uk',
@@ -152,7 +152,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.co.uk/dp/B0B9849CD1?tag=123znl0f3-21',
     market_region: 'UK',
     badge_text: 'CE Medical Marked',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/body-scan.png'
+    image_url: '/assets/images/shop/body-scan.png'
   },
   {
     id: 'segmental-scale-es',
@@ -164,7 +164,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.es/dp/B0B9849CD1?tag=123znl08a-21',
     market_region: 'ES',
     badge_text: 'Certificación Médica CE',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/body-scan.png'
+    image_url: '/assets/images/shop/body-scan.png'
   },
   {
     id: 'sirtuin-stack-us',
@@ -176,7 +176,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://livemomentous.com/modernwisdom?code=modernwisdom',
     market_region: 'US',
     badge_text: 'NSF Certified for Sport',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/sirtuin-stack.png'
+    image_url: '/assets/images/shop/sirtuin-stack.png'
   },
   {
     id: 'sirtuin-stack-uk',
@@ -188,7 +188,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://healf.co.uk/collections/momentus',
     market_region: 'UK',
     badge_text: 'NSF Certified / UK Sourced (Healf)',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/sirtuin-stack.png'
+    image_url: '/assets/images/shop/sirtuin-stack.png'
   },
   {
     id: 'sirtuin-stack-es',
@@ -200,7 +200,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://newtra.eu',
     market_region: 'ES',
     badge_text: 'Customs-Safe EU Delivery (Newtra)',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/sirtuin-stack.png'
+    image_url: '/assets/images/shop/sirtuin-stack.png'
   },
   {
     id: 'stethoscope-us',
@@ -212,7 +212,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.ekohealth.com/products/core-500-digital-stethoscope',
     market_region: 'US',
     badge_text: 'FDA Cleared AI Auscultation',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/core-500.png'
+    image_url: '/assets/images/shop/core-500.png'
   },
   {
     id: 'stethoscope-uk',
@@ -224,7 +224,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.ekohealth.com/products/core-500-digital-stethoscope',
     market_region: 'UK',
     badge_text: 'MHRA Registered',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/core-500.png'
+    image_url: '/assets/images/shop/core-500.png'
   },
   {
     id: 'stethoscope-es',
@@ -236,7 +236,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.doccheck.com/es/',
     market_region: 'ES',
     badge_text: 'CE Marked Clinical Device',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/core-500.png'
+    image_url: '/assets/images/shop/core-500.png'
   },
   {
     id: 'wearable-tracker-us',
@@ -248,7 +248,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.com/dp/B0DGJG692K?tag=123znl0e-20',
     market_region: 'US',
     badge_text: 'FDA Approved Heart Notifications',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/apple-watch.png'
+    image_url: '/assets/images/shop/apple-watch.png'
   },
   {
     id: 'wearable-tracker-uk',
@@ -260,7 +260,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.co.uk/dp/B0DGJHCPX5?tag=123znl0f3-21',
     market_region: 'UK',
     badge_text: 'MHRA Certified Telemetry',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/apple-watch.png'
+    image_url: '/assets/images/shop/apple-watch.png'
   },
   {
     id: 'wearable-tracker-es',
@@ -272,7 +272,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.es/dp/B0DGJG692K?tag=123znl08a-21',
     market_region: 'ES',
     badge_text: 'CE Compliant Biometrics',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/apple-watch.png'
+    image_url: '/assets/images/shop/apple-watch.png'
   },
   {
     id: 'blood-pressure-cuff-us',
@@ -284,7 +284,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.com/dp/B07SJV1HNR?tag=123znl0e-20',
     market_region: 'US',
     badge_text: 'FDA Cleared',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/bpm-connect.png'
+    image_url: '/assets/images/shop/bpm-connect.png'
   },
   {
     id: 'blood-pressure-cuff-uk',
@@ -296,7 +296,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.co.uk/dp/B07SJV1HNR?tag=123znl0f3-21',
     market_region: 'UK',
     badge_text: 'CE Medical Class IIa',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/bpm-connect.png'
+    image_url: '/assets/images/shop/bpm-connect.png'
   },
   {
     id: 'blood-pressure-cuff-es',
@@ -308,7 +308,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.es/dp/B07SJV1HNR?tag=123znl08a-21',
     market_region: 'ES',
     badge_text: 'CE Medical Class IIa',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/bpm-connect.png'
+    image_url: '/assets/images/shop/bpm-connect.png'
   },
   {
     id: 'amazon-health-us-b09pskn6x3',
@@ -320,7 +320,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.com/dp/B09PSKN6X3?tag=123znl08-20',
     market_region: 'US',
     badge_text: 'Biohacker Approved',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/sauna.png'
+    image_url: '/assets/images/shop/sauna.png'
   },
   {
     id: 'amazon-health-uk-b09pskn6x3',
@@ -332,7 +332,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.co.uk/dp/B09PSKN6X3?tag=123znl0f3-21',
     market_region: 'UK',
     badge_text: 'UK Quality Standard',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/sauna.png'
+    image_url: '/assets/images/shop/sauna.png'
   },
   {
     id: 'amazon-health-es-b09pskn6x3',
@@ -344,7 +344,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.es/dp/B09PSKN6X3?tag=123znl08a-21',
     market_region: 'ES',
     badge_text: 'Certificado UE',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/sauna.png'
+    image_url: '/assets/images/shop/sauna.png'
   },
   {
     id: 'amazon-health-us-b0c3hcd34r',
@@ -356,7 +356,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.com/dp/B0C3HCD34R?tag=123znl08-20',
     market_region: 'US',
     badge_text: 'Biohacker Approved',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/headphones.png'
+    image_url: '/assets/images/shop/headphones.png'
   },
   {
     id: 'amazon-health-uk-b0c3hcd34r',
@@ -368,7 +368,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.co.uk/dp/B0C3HCD34R?tag=123znl0f3-21',
     market_region: 'UK',
     badge_text: 'UK Quality Standard',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/headphones.png'
+    image_url: '/assets/images/shop/headphones.png'
   },
   {
     id: 'amazon-health-es-b08hmwzbxc',
@@ -380,7 +380,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.es/dp/B08HMWZBXC?tag=123znl08a-21',
     market_region: 'ES',
     badge_text: 'Certificado UE',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/headphones.png'
+    image_url: '/assets/images/shop/headphones.png'
   },
   {
     id: 'amazon-fitness-us-rower',
@@ -392,7 +392,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.com/dp/B00NH9WEUA?tag=123znl08-20',
     market_region: 'US',
     badge_text: 'PM5 Clinical Standard',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/rower.png'
+    image_url: '/assets/images/shop/rower.png'
   },
   {
     id: 'amazon-fitness-uk-rower',
@@ -404,7 +404,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.co.uk/dp/B00NH9WEUA?tag=123znl0f3-21',
     market_region: 'UK',
     badge_text: 'PM5 Clinical Standard',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/rower.png'
+    image_url: '/assets/images/shop/rower.png'
   },
   {
     id: 'amazon-fitness-es-rower',
@@ -416,7 +416,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21',
     market_region: 'ES',
     badge_text: 'Estándar Clínico PM5',
-    image_url: 'https://123thenextlevel.com/assets/images/shop/rower.png'
+    image_url: '/assets/images/shop/rower.png'
   }
 ];
 

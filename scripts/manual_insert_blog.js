@@ -15,7 +15,7 @@ async function insertBlog() {
     title: "Beyond the Basin: Why the Cuisinart Tri-Zone is the Future of Healthy Cooking",
     slug: "cuisinart-tri-zone-healthy-cooking-" + crypto.randomBytes(2).toString('hex'),
     author: '123TheNext Level Team',
-    image_url: "https://123thenextlevel.com/Products/triple.jpg",
+    image_url: "/Products/triple.jpg",
     excerpt: "Revolutionize your kitchen with the largest capacity air fryer that lets you cook entire healthy meals with 85% less oil.",
     tags: ["health", "nutrition", "air fryer", "cooking"],
     featured: false,

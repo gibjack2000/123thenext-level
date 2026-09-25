@@ -18,7 +18,7 @@ async function ensureFitnessAndKitchen() {
       deal_url: "https://www.amazon.co.uk/dp/B099KBD9X8?tag=123znl0f3-21",
       market_region: "UK",
       badge_text: "PM5 Clinical Standard",
-      image_url: "https://123thenextlevel.com/assets/images/shop/rower.png"
+      image_url: "/assets/images/shop/rower.png"
     },
     {
       id: "amazon-fitness-uk-kettlebell",
@@ -30,7 +30,7 @@ async function ensureFitnessAndKitchen() {
       deal_url: "https://www.amazon.co.uk/dp/B07V2C6374?tag=123znl0f3-21",
       market_region: "UK",
       badge_text: "6-in-1 Compact Weight",
-      image_url: "https://123thenextlevel.com/assets/images/shop/rower.png"
+      image_url: "/assets/images/shop/rower.png"
     },
     // US Fitness
     {
@@ -43,7 +43,7 @@ async function ensureFitnessAndKitchen() {
       deal_url: "https://www.amazon.com/dp/B099KBD9X8?tag=123znl0e-20",
       market_region: "US",
       badge_text: "PM5 Clinical Standard",
-      image_url: "https://123thenextlevel.com/assets/images/shop/rower.png"
+      image_url: "/assets/images/shop/rower.png"
     },
     {
       id: "amazon-fitness-us-kettlebell",
@@ -55,7 +55,7 @@ async function ensureFitnessAndKitchen() {
       deal_url: "https://www.amazon.com/dp/B07V2C6374?tag=123znl0e-20",
       market_region: "US",
       badge_text: "6-in-1 Compact Weight",
-      image_url: "https://123thenextlevel.com/assets/images/shop/rower.png"
+      image_url: "/assets/images/shop/rower.png"
     },
     // ES Fitness
     {
@@ -68,7 +68,7 @@ async function ensureFitnessAndKitchen() {
       deal_url: "https://www.amazon.es/dp/B099KBD9X8?tag=123znl08a-21",
       market_region: "ES",
       badge_text: "Estándar Clínico PM5",
-      image_url: "https://123thenextlevel.com/assets/images/shop/rower.png"
+      image_url: "/assets/images/shop/rower.png"
     },
     {
       id: "amazon-fitness-es-kettlebell",
@@ -80,7 +80,7 @@ async function ensureFitnessAndKitchen() {
       deal_url: "https://www.amazon.es/dp/B07V2C6374?tag=123znl08a-21",
       market_region: "ES",
       badge_text: "Compacta 6 en 1",
-      image_url: "https://123thenextlevel.com/assets/images/shop/rower.png"
+      image_url: "/assets/images/shop/rower.png"
     },
     // UK Kitchen
     {
@@ -93,7 +93,7 @@ async function ensureFitnessAndKitchen() {
       deal_url: "https://www.amazon.co.uk/dp/B08524B5C6?tag=123znl0f3-21",
       market_region: "UK",
       badge_text: "1200W High Speed",
-      image_url: "https://123thenextlevel.com/assets/images/shop/water-bottle.png"
+      image_url: "/assets/images/shop/water-bottle.png"
     },
     // US Kitchen
     {
@@ -106,7 +106,7 @@ async function ensureFitnessAndKitchen() {
       deal_url: "https://www.amazon.com/dp/B08524B5C6?tag=123znl0e-20",
       market_region: "US",
       badge_text: "1200W High Speed",
-      image_url: "https://123thenextlevel.com/assets/images/shop/water-bottle.png"
+      image_url: "/assets/images/shop/water-bottle.png"
     },
     // ES Kitchen
     {
@@ -119,7 +119,7 @@ async function ensureFitnessAndKitchen() {
       deal_url: "https://www.amazon.es/dp/B08524B5C6?tag=123znl08a-21",
       market_region: "ES",
       badge_text: "Motor Potente 1200W",
-      image_url: "https://123thenextlevel.com/assets/images/shop/water-bottle.png"
+      image_url: "/assets/images/shop/water-bottle.png"
     }
   ];
 

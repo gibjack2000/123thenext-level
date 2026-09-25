@@ -735,7 +735,7 @@ export async function sendQueueEmptyAlertEmail({ recipientEmail } = {}) {
                   <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom: 20px;">
                     <tr>
                       <td align="center">
-                        <a href="https://123thenextlevel.com/admin/blogs" target="_blank" style="display: block; width: 100%; box-sizing: border-box; background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #ffffff; text-align: center; padding: 14px 24px; border-radius: 10px; font-weight: bold; font-size: 15px; text-decoration: none; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4);">
+                        <a href="/admin/blogs" target="_blank" style="display: block; width: 100%; box-sizing: border-box; background: linear-gradient(135deg, #059669 0%, #10b981 100%); color: #ffffff; text-align: center; padding: 14px 24px; border-radius: 10px; font-weight: bold; font-size: 15px; text-decoration: none; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4);">
                           View Blog CMS Dashboard ➜
                         </a>
                       </td>

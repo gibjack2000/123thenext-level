@@ -174,11 +174,11 @@ Rigid, pre-planned calendar training routines inevitably fail because they ignor
 ## 5. Curated Bio-Telemetry Hardware & Recovery Stack
 
 To construct your personalized biological telemetry sanctuary, integrate high-precision clinical and wearable hardware:
-- **Continuous Heart Rate & HRV Telemetry Straps:** Explore precision biosensors in the [Sovereign Store](https://123thenextlevel.com/store).
-- **Muscle Oxygenation (NIRS) Biosensors:** Upgrade local tissue monitoring in the [Bio-Store](https://123thenextlevel.com/store).
-- **Medical-Grade Lactate Analyzers & Strips:** Available in our [Diagnostic Equipment Catalog](https://123thenextlevel.com/store).
-- **Percussive Therapy & Dynamic Air Compression Boots:** Discover neuromuscular tools in the [Sovereign Store](https://123thenextlevel.com/store).
-- **Wearable Thermal Core Temperature Sensors:** Browse thermal tracking hardware in our [Store Collection](https://123thenextlevel.com/store).
+- **Continuous Heart Rate & HRV Telemetry Straps:** Explore precision biosensors in the [Sovereign Store](/store).
+- **Muscle Oxygenation (NIRS) Biosensors:** Upgrade local tissue monitoring in the [Bio-Store](/store).
+- **Medical-Grade Lactate Analyzers & Strips:** Available in our [Diagnostic Equipment Catalog](/store).
+- **Percussive Therapy & Dynamic Air Compression Boots:** Discover neuromuscular tools in the [Sovereign Store](/store).
+- **Wearable Thermal Core Temperature Sensors:** Browse thermal tracking hardware in our [Store Collection](/store).
 
 ---
 
@@ -240,7 +240,7 @@ To execute this performance telemetry architecture immediately:
 
 Are your current training loads, recovery practices, and autonomic reserves aligned with optimal longevity? Take our clinical diagnostic assessment to calculate your autonomic readiness baseline:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your personalized 6-pillar breakdown with custom actionable protocols delivered instantly to your inbox.*
 
@@ -437,11 +437,11 @@ Autophagy is the lysosomal degradation pathway that clears damaged organelles, m
 ## 7. Curated Longevity & Cellular Optimization Stack
 
 Support your cellular rejuvenation protocols with verified longevity compounds:
-- **Ultra-Pure NMN & NAD+ Precursor Formulations:** Explore in the [Sovereign Store](https://123thenextlevel.com/store).
-- **Liposomal Apigenin & Quercetin CD38 Inhibitors:** Available in the [Bio-Store](https://123thenextlevel.com/store).
-- **High-Purity Fisetin & Senolytic Blends:** Discover in our [Longevity Collection](https://123thenextlevel.com/store).
-- **Micro-Filtered Urolithin A & Spermidine Formulations:** View in the [Sovereign Store](https://123thenextlevel.com/store).
-- **Whole-Body Photobiomodulation & Red Light Panels:** Explore cellular light therapy in the [Bio-Store](https://123thenextlevel.com/store).
+- **Ultra-Pure NMN & NAD+ Precursor Formulations:** Explore in the [Sovereign Store](/store).
+- **Liposomal Apigenin & Quercetin CD38 Inhibitors:** Available in the [Bio-Store](/store).
+- **High-Purity Fisetin & Senolytic Blends:** Discover in our [Longevity Collection](/store).
+- **Micro-Filtered Urolithin A & Spermidine Formulations:** View in the [Sovereign Store](/store).
+- **Whole-Body Photobiomodulation & Red Light Panels:** Explore cellular light therapy in the [Bio-Store](/store).
 
 ---
 
@@ -494,7 +494,7 @@ Track these clinical biomarkers every 6 months to measure the rate of biological
 
 Are your cellular repair mechanisms, nutrient-sensing pathways, and mitochondrial reserves operating at peak capacity? Take our clinical diagnostic assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your custom 6-pillar longevity breakdown with tailored clinical protocols delivered directly to your inbox.*
 
@@ -663,11 +663,11 @@ The human colonic microbiome acts as an endocrine metabolic organ:
 ## 7. Targeted Glycemic & Metabolic Formulations
 
 Equip your daily nutritional protocol with clinically validated metabolic modulators:
-- **Berberine Phytosome & Dihydroberberine:** Activate AMPK and upregulate GLUT-4 receptors in our [Sovereign Store](https://123thenextlevel.com/store).
-- **Ceylon Cinnamon & Alpha-Lipoic Acid Blends:** Support peripheral insulin sensitivity in the [Bio-Store](https://123thenextlevel.com/store).
-- **Apple Cider Vinegar & Organic Inulin Fiber Preloads:** Explore digestive health in our [Store Collection](https://123thenextlevel.com/store).
-- **Micro-Filtered Grass-Fed Whey & Plant Amino Complexes:** View pure protein in the [Sovereign Store](https://123thenextlevel.com/store).
-- **Exogenous Ketone Esters & Caprylic Acid (C8 MCT):** Discover rapid ketone fuels in the [Bio-Store](https://123thenextlevel.com/store).
+- **Berberine Phytosome & Dihydroberberine:** Activate AMPK and upregulate GLUT-4 receptors in our [Sovereign Store](/store).
+- **Ceylon Cinnamon & Alpha-Lipoic Acid Blends:** Support peripheral insulin sensitivity in the [Bio-Store](/store).
+- **Apple Cider Vinegar & Organic Inulin Fiber Preloads:** Explore digestive health in our [Store Collection](/store).
+- **Micro-Filtered Grass-Fed Whey & Plant Amino Complexes:** View pure protein in the [Sovereign Store](/store).
+- **Exogenous Ketone Esters & Caprylic Acid (C8 MCT):** Discover rapid ketone fuels in the [Bio-Store](/store).
 
 ---
 
@@ -711,7 +711,7 @@ To evaluate your true metabolic state beyond simple fasting glucose, review this
 
 Is your metabolic machinery running with clean, flexible efficiency or struggling with glycemic volatility? Take our clinical diagnostic assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your comprehensive 6-pillar diagnostic breakdown with personalized nutritional blueprints sent straight to your inbox.*
 
@@ -867,11 +867,11 @@ During stage 3 slow-wave delta sleep, cerebral interstitial space expands by ove
 ## 5. Curated Autonomic & Neuro-Recovery Gear
 
 Equip your recovery sanctuary with high-precision autonomic modulation hardware:
-- **Transcutaneous Vagus Nerve Stimulators (tVNS):** Explore bio-electrical devices in the [Sovereign Store](https://123thenextlevel.com/store).
-- **Far-Infrared Sauna Recovery Blankets & Domes:** Explore thermal recovery tools in our [Store Collection](https://123thenextlevel.com/store).
-- **Acoustic Somatosensory Resonance Mattresses:** View recovery hardware in the [Sovereign Store](https://123thenextlevel.com/store).
-- **Circadian Blue-Blocking Eyewear & Lamps:** Discover circadian optics in our [Bio-Store](https://123thenextlevel.com/store).
-- **Bio-Acoustic Frequency Entrainment Soundscapes:** Explore neuro-audio tools in the [Sovereign Store](https://123thenextlevel.com/store).
+- **Transcutaneous Vagus Nerve Stimulators (tVNS):** Explore bio-electrical devices in the [Sovereign Store](/store).
+- **Far-Infrared Sauna Recovery Blankets & Domes:** Explore thermal recovery tools in our [Store Collection](/store).
+- **Acoustic Somatosensory Resonance Mattresses:** View recovery hardware in the [Sovereign Store](/store).
+- **Circadian Blue-Blocking Eyewear & Lamps:** Discover circadian optics in our [Bio-Store](/store).
+- **Bio-Acoustic Frequency Entrainment Soundscapes:** Explore neuro-audio tools in the [Sovereign Store](/store).
 
 ---
 
@@ -930,7 +930,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware:
 
 Is your nervous system locked in chronic fight-or-flight, or do you command flexible autonomic self-regulation? Take our clinical assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your comprehensive 6-pillar neuro-autonomic profile with actionable protocols delivered straight to your inbox.*
 
@@ -1116,11 +1116,11 @@ During perimenopause (typically ages 42–52), erratic fluctuations in estradiol
 ## 7. Curated Endocrine & Infradian Vitality Formulations
 
 Support your hormonal rhythms with targeted clinical botanical and nutrient solutions:
-- **Bio-Identical Progesterone Support & Vitex Formulations:** Explore in the [Sovereign Store](https://123thenextlevel.com/store).
-- **Diindolylmethane (DIM) & Sulforaphane Estrogen Clearance:** Available in the [Bio-Store](https://123thenextlevel.com/store).
-- **Pure Ubiquinol CoQ10 & Myo-Inositol Ovarian Blends:** Discover in our [Women's Health Catalog](https://123thenextlevel.com/store).
-- **Bone Matrix Hydroxyapatite & Vitamin D3/K2 Stacks:** View in the [Sovereign Store](https://123thenextlevel.com/store).
-- **Targeted Adaptogen Blends (Ashwagandha, Rhodiola, Shatavari):** Explore in the [Bio-Store](https://123thenextlevel.com/store).
+- **Bio-Identical Progesterone Support & Vitex Formulations:** Explore in the [Sovereign Store](/store).
+- **Diindolylmethane (DIM) & Sulforaphane Estrogen Clearance:** Available in the [Bio-Store](/store).
+- **Pure Ubiquinol CoQ10 & Myo-Inositol Ovarian Blends:** Discover in our [Women's Health Catalog](/store).
+- **Bone Matrix Hydroxyapatite & Vitamin D3/K2 Stacks:** View in the [Sovereign Store](/store).
+- **Targeted Adaptogen Blends (Ashwagandha, Rhodiola, Shatavari):** Explore in the [Bio-Store](/store).
 
 ---
 
@@ -1160,7 +1160,7 @@ Support your hormonal rhythms with targeted clinical botanical and nutrient solu
 
 Are your daily routines synchronized with your 28-day infradian master clock? Take our comprehensive female diagnostic assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your personalized 6-pillar hormone and longevity profile delivered straight to your inbox.*
 
@@ -1310,11 +1310,11 @@ Human nervous systems do not operate in biological isolation; they continuously 
 ## 6. Curated Socio-Architectural & Environmental Hardware
 
 Transform your physical living space into a high-performance wellness sanctuary:
-- **Medical-Grade Multi-Stage Air Purification Systems:** Browse HEPA/Carbon systems in the [Sovereign Store](https://123thenextlevel.com/store).
-- **Circadian Full-Spectrum & Amber Biological Lighting:** Explore optical solutions in our [Bio-Store](https://123thenextlevel.com/store).
-- **Far-Infrared Sanctuary Saunas & Red Light Installations:** View wellness technology in the [Sovereign Store](https://123thenextlevel.com/store).
-- **EMF Shielding Canopies & Grounding Sleep Systems:** Discover sleep hardware in our [Store Collection](https://123thenextlevel.com/store).
-- **Acoustic Water Features & Biophilic Living Wall Systems:** Explore architectural tools in the [Bio-Store](https://123thenextlevel.com/store).
+- **Medical-Grade Multi-Stage Air Purification Systems:** Browse HEPA/Carbon systems in the [Sovereign Store](/store).
+- **Circadian Full-Spectrum & Amber Biological Lighting:** Explore optical solutions in our [Bio-Store](/store).
+- **Far-Infrared Sanctuary Saunas & Red Light Installations:** View wellness technology in the [Sovereign Store](/store).
+- **EMF Shielding Canopies & Grounding Sleep Systems:** Discover sleep hardware in our [Store Collection](/store).
+- **Acoustic Water Features & Biophilic Living Wall Systems:** Explore architectural tools in the [Bio-Store](/store).
 
 ---
 
@@ -1373,7 +1373,7 @@ Transform your physical living space into a high-performance wellness sanctuary:
 
 Is your built environment actively enhancing your biological vitality, or silently accelerating cellular stress? Take our clinical assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your comprehensive 6-pillar environmental and longevity profile delivered straight to your inbox.*
 
@@ -1709,7 +1709,7 @@ BEGIN
     );
 
     PERFORM net.http_post(
-      url := 'https://123thenextlevel.com/api/webhooks/blog-draft-alert',
+      url := '/api/webhooks/blog-draft-alert',
       body := payload,
       headers := jsonb_build_object('Content-Type', 'application/json')
     );

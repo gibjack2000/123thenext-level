@@ -431,7 +431,7 @@ export default function Store() {
                             className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                             referrerPolicy="no-referrer"
                             onError={(e) => {
-                              (e.target as HTMLImageElement).src = 'https://123thenextlevel.com/assets/images/shop/placeholder.png';
+                              (e.target as HTMLImageElement).src = '/assets/images/shop/placeholder.png';
                             }}
                           />
                         </div>
@@ -495,7 +495,7 @@ export default function Store() {
                                     className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                                     referrerPolicy="no-referrer"
                                     onError={(e) => {
-                                      (e.target as HTMLImageElement).src = 'https://123thenextlevel.com/assets/images/shop/placeholder.png';
+                                      (e.target as HTMLImageElement).src = '/assets/images/shop/placeholder.png';
                                     }}
                                   />
                                 </div>
@@ -547,7 +547,7 @@ export default function Store() {
                                 className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                                 referrerPolicy="no-referrer"
                                 onError={(e) => {
-                                  (e.target as HTMLImageElement).src = 'https://123thenextlevel.com/assets/images/shop/placeholder.png';
+                                  (e.target as HTMLImageElement).src = '/assets/images/shop/placeholder.png';
                                 }}
                               />
                             </div>

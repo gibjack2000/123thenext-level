@@ -530,7 +530,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "6.8k+",
     shortBenefit: "Anti-fog, 180-degree wide panoramic lenses with 100% UV protection and leak-free silicone eye gasket.",
     description: "High-clarity swimming goggles engineered for low-impact aquatic conditioning, breathwork laps, and zone 2 cardiovascular endurance.",
-    imageUrl: "https://123thenextlevel.com/Products/seago.jpg",
+    imageUrl: "/Products/seago.jpg",
     isDirectAffiliate: false,
     regions: {
       US: {

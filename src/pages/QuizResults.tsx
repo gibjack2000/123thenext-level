@@ -210,7 +210,7 @@ export default function QuizResults() {
           rating: 4.8,
           description: "Dual-drawer hot air cooking tool for low-oil, nutrient-dense glycemic family meal prep and metabolic control.",
           priceText: "£199.00",
-          dealUrl: "https://123thenextlevel.com/shop/ninja-af300",
+          dealUrl: "/shop/ninja-af300",
           badgeText: "Glycemic Meal Prep",
           imagePlaceholder: "/assets/products/ninja-airfryer.jpg"
         };

@@ -32,7 +32,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "MHRA Registered",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/reagent-strips.png"
+      "image_url": "/assets/images/shop/reagent-strips.png"
     },
     {
       "id": "sleep-analyzer-uk",
@@ -44,7 +44,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0892BGFX7?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "CE Medically Validated (Apnea)",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/sleep-analyzer.png"
+      "image_url": "/assets/images/shop/sleep-analyzer.png"
     },
     {
       "id": "stethoscope-uk",
@@ -56,7 +56,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.ekohealth.com/products/core-500-digital-stethoscope",
       "market_region": "UK",
       "badge_text": "MHRA Registered",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/core-500.png"
+      "image_url": "/assets/images/shop/core-500.png"
     },
     {
       "id": "blood-pressure-cuff-uk",
@@ -68,7 +68,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B07SJV1HNR?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "CE Medical Class IIa",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/bpm-connect.png"
+      "image_url": "/assets/images/shop/bpm-connect.png"
     },
     {
       "id": "sirtuin-stack-uk",
@@ -80,7 +80,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://healf.co.uk/collections/momentus",
       "market_region": "UK",
       "badge_text": "NSF Certified / UK Sourced (Healf)",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/sirtuin-stack.png"
+      "image_url": "/assets/images/shop/sirtuin-stack.png"
     },
     {
       "id": "cgm-uk",
@@ -92,7 +92,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://hellolingo.co.uk",
       "market_region": "UK",
       "badge_text": "MHRA Registered",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/cgm.png"
+      "image_url": "/assets/images/shop/cgm.png"
     },
     {
       "id": "segmental-scale-uk",
@@ -104,7 +104,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0B9849CD1?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "CE Medical Marked",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/body-scan.png"
+      "image_url": "/assets/images/shop/body-scan.png"
     },
     {
       "id": "wearable-tracker-uk",
@@ -116,7 +116,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0DGJHCPX5?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "MHRA Certified Telemetry",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/apple-watch.png"
+      "image_url": "/assets/images/shop/apple-watch.png"
     },
     {
       "id": "blood-panel-uk",
@@ -128,7 +128,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://snwbl.io/out/NcealZ11",
       "market_region": "UK",
       "badge_text": "UKAS Accredited & ISO 9001 Certified",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/blood-panel.png"
+      "image_url": "/assets/images/shop/blood-panel.png"
     },
     {
       "id": "amazon-supp-uk-b0dd7tjzp5",
@@ -140,7 +140,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0DD7TJZP5?tag=123znl08a-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/oxford.jpeg"
+      "image_url": "/Products/oxford.jpeg"
     },
     {
       "id": "amazon-supp-uk-b0cqcwkkwj",
@@ -152,7 +152,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0CQCWKKWJ?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/CollagenUK.jpg"
+      "image_url": "/Products/CollagenUK.jpg"
     },
     {
       "id": "amazon-supp-uk-b0dpbj26qd",
@@ -164,7 +164,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0DPBJ26QD?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/quercitin.jpeg"
+      "image_url": "/Products/quercitin.jpeg"
     },
     {
       "id": "amazon-supp-uk-b0dhynrw5g",
@@ -176,7 +176,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0DHYNRW5G?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/spermidineuk.jpeg"
+      "image_url": "/Products/spermidineuk.jpeg"
     },
     {
       "id": "amazon-supp-uk-b08tcg2rh7",
@@ -188,7 +188,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B08TCG2RH7?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/calciumvitduk.jpeg"
+      "image_url": "/Products/calciumvitduk.jpeg"
     },
     {
       "id": "amazon-supp-uk-b06xrvtyn3",
@@ -200,7 +200,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B06XRVTYN3?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/centrum3.jpg"
+      "image_url": "/Products/centrum3.jpg"
     },
     {
       "id": "amazon-supp-uk-b00ui3o5be",
@@ -212,7 +212,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B00UI3O5BE?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/wellman2.jpg"
+      "image_url": "/Products/wellman2.jpg"
     },
     {
       "id": "amazon-supp-uk-b00x0zce2o",
@@ -224,7 +224,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B00X0ZCE2O?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/d3.jpg"
+      "image_url": "/Products/d3.jpg"
     },
     {
       "id": "amazon-supp-uk-b00ui1o5ys",
@@ -236,7 +236,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B00UI1O5YS?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/wellwoman3.jpg"
+      "image_url": "/Products/wellwoman3.jpg"
     },
     {
       "id": "amazon-supp-uk-b086v74kkr",
@@ -248,7 +248,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B086V74KKR?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/vitamind3.jpeg"
+      "image_url": "/Products/vitamind3.jpeg"
     },
     {
       "id": "amazon-supp-uk-b0bnb8k8q5",
@@ -260,7 +260,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0BNB8K8Q5?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/nadplusus.jpg"
+      "image_url": "/Products/nadplusus.jpg"
     },
     {
       "id": "amazon-supp-uk-b08m3qrwhp",
@@ -272,7 +272,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B08M3QRWHP?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/d3k2uk.jpeg"
+      "image_url": "/Products/d3k2uk.jpeg"
     },
     {
       "id": "amazon-supp-uk-b00izd3yc0",
@@ -284,7 +284,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B00IZD3YC0?tag=https://www.amazon.co.uk/dp/B0G3Y7LW1T?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/vitc.jpg"
+      "image_url": "/Products/vitc.jpg"
     },
     {
       "id": "amazon-supp-uk-b0dbqzbstm",
@@ -296,7 +296,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0DBQZBSTM?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/nadplusukspain.jpg"
+      "image_url": "/Products/nadplusukspain.jpg"
     },
     {
       "id": "amazon-supp-uk-b0b4bbnd37",
@@ -308,7 +308,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0B4BBND37?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/ancientbrave.jpeg"
+      "image_url": "/Products/ancientbrave.jpeg"
     },
     {
       "id": "amazon-supp-uk-b00lke1q44",
@@ -320,7 +320,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B00LKE1Q44?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/impactcreatine.jpeg"
+      "image_url": "/Products/impactcreatine.jpeg"
     },
     {
       "id": "amazon-supp-uk-b084g5xc29",
@@ -332,7 +332,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B084G5XC29?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/omega3fish.jpeg"
+      "image_url": "/Products/omega3fish.jpeg"
     },
     {
       "id": "amazon-supp-uk-b0dhvh8mcg",
@@ -344,7 +344,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0DHVH8MCG?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/electrolytes.jpeg"
+      "image_url": "/Products/electrolytes.jpeg"
     },
     {
       "id": "amazon-supp-uk-b0bk8x47m5",
@@ -356,7 +356,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0BK8X47M5?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/glycine.jpeg"
+      "image_url": "/Products/glycine.jpeg"
     },
     {
       "id": "amazon-supp-uk-b0c9vvcl12",
@@ -368,7 +368,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0C9VVCL12?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/magnesiumglycinate.jpeg"
+      "image_url": "/Products/magnesiumglycinate.jpeg"
     },
     {
       "id": "amazon-supp-uk-b0c9twkqqv",
@@ -380,7 +380,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0C9TWKQQV?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/lionsmane.jpeg"
+      "image_url": "/Products/lionsmane.jpeg"
     },
     {
       "id": "amazon-supp-uk-b0fh7fxxb5",
@@ -392,7 +392,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0FH7FXXB5?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/coq10.jpeg"
+      "image_url": "/Products/coq10.jpeg"
     },
     {
       "id": "amazon-supp-uk-b0dqqdzgcw",
@@ -404,7 +404,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0DQQDZGCW?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/creatinemono.jpeg"
+      "image_url": "/Products/creatinemono.jpeg"
     },
     {
       "id": "amazon-supp-uk-b084hh913j",
@@ -416,7 +416,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B084HH913J?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/methylatedbcomplex.jpeg"
+      "image_url": "/Products/methylatedbcomplex.jpeg"
     },
     {
       "id": "amazon-supp-uk-b0c111hff4",
@@ -428,7 +428,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0C111HFF4?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/ashgawanda.jpeg"
+      "image_url": "/Products/ashgawanda.jpeg"
     },
     {
       "id": "amazon-supp-uk-b0892pb4rd",
@@ -440,7 +440,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0892PB4RD?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/creatineKinetica.jpeg"
+      "image_url": "/Products/creatineKinetica.jpeg"
     },
     {
       "id": "amazon-supp-uk-b077j3bfln",
@@ -452,7 +452,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B077J3BFLN?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/prebioticfibre.jpeg"
+      "image_url": "/Products/prebioticfibre.jpeg"
     },
     {
       "id": "amazon-supp-uk-b07zkmcn2z",
@@ -464,7 +464,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B07ZKMCN2Z?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/bioculturescomplex.jpeg"
+      "image_url": "/Products/bioculturescomplex.jpeg"
     },
     {
       "id": "amazon-supp-uk-b005a6964u",
@@ -476,7 +476,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B005A6964U?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
-      "image_url": "https://123thenextlevel.com/Products/maglycinatees.jpeg"
+      "image_url": "/Products/maglycinatees.jpeg"
     },
     {
       "id": "amazon-fitness-uk-rower",
@@ -488,7 +488,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B099KBD9X8?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "PM5 Clinical Standard",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/rower.png"
+      "image_url": "/assets/images/shop/rower.png"
     },
     {
       "id": "amazon-fitness-uk-kettlebell",
@@ -500,7 +500,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B07V2C6374?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "6-in-1 Compact Weight",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/rower.png"
+      "image_url": "/assets/images/shop/rower.png"
     },
     {
       "id": "amazon-kitchen-uk-blender",
@@ -512,7 +512,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B08524B5C6?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "1200W High Speed",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/water-bottle.png"
+      "image_url": "/assets/images/shop/water-bottle.png"
     },
     {
       "id": "amazon-kitchen-uk-b0b2kpcbjz",
@@ -524,7 +524,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0B2KPCBJZ?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/breville.jpg"
+      "image_url": "/Products/breville.jpg"
     },
     {
       "id": "amazon-kitchen-uk-b0cj39h6gg",
@@ -536,7 +536,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0CJ39H6GG?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/ninjablast.jpg"
+      "image_url": "/Products/ninjablast.jpg"
     },
     {
       "id": "amazon-kitchen-uk-b01b81r34u",
@@ -548,7 +548,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B01B81R34U?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/ninjaexpress.jpg"
+      "image_url": "/Products/ninjaexpress.jpg"
     },
     {
       "id": "amazon-kitchen-uk-b08cn3g4n9",
@@ -560,7 +560,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B08CN3G4N9",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/airfryer.jpg"
+      "image_url": "/Products/airfryer.jpg"
     },
     {
       "id": "amazon-kitchen-uk-b0g3y7lw1t",
@@ -572,7 +572,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0G3Y7LW1T?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/Bosch.jpg"
+      "image_url": "/Products/Bosch.jpg"
     },
     {
       "id": "amazon-kitchen-uk-b010fmo1xo",
@@ -584,7 +584,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B010FMO1XO?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/russelhobbsblender.jpg"
+      "image_url": "/Products/russelhobbsblender.jpg"
     },
     {
       "id": "amazon-kitchen-uk-b0f54nqbkv",
@@ -596,7 +596,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/\" & A14 & \"?tag=youruk-21\", B14)",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/triple.jpg"
+      "image_url": "/Products/triple.jpg"
     },
     {
       "id": "amazon-kitchen-uk-b09fqbkfq6",
@@ -608,7 +608,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B09FQBKFQ6?tag=123znl08a-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/moulinex4_2.jpg"
+      "image_url": "/Products/moulinex4_2.jpg"
     },
     {
       "id": "amazon-health-uk-b0c8b11715",
@@ -620,7 +620,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0C8B11715?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/ludo.jpeg"
+      "image_url": "/Products/ludo.jpeg"
     },
     {
       "id": "amazon-health-uk-b07532qyd4",
@@ -632,7 +632,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B07532QYD4?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/medcushion-uk.webp"
+      "image_url": "/Products/medcushion-uk.webp"
     },
     {
       "id": "amazon-health-uk-b08839l43j",
@@ -644,7 +644,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B08839L43J?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/smartscale.jpeg"
+      "image_url": "/Products/smartscale.jpeg"
     },
     {
       "id": "amazon-health-uk-b0c5j5fn17",
@@ -656,7 +656,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0C5J5FN17?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/thermolab1.jpeg"
+      "image_url": "/Products/thermolab1.jpeg"
     },
     {
       "id": "amazon-health-uk-b0cmd7yvrl",
@@ -668,7 +668,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0CMD7YVRL?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/Renphouk.jpeg"
+      "image_url": "/Products/Renphouk.jpeg"
     },
     {
       "id": "amazon-health-uk-b0djm3kv8x",
@@ -680,7 +680,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/sauna.jpeg"
+      "image_url": "/Products/sauna.jpeg"
     },
     {
       "id": "amazon-health-uk-b09sbcnrrb",
@@ -692,7 +692,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B09SBCNRRB?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/shiatsushoulder.jpeg"
+      "image_url": "/Products/shiatsushoulder.jpeg"
     },
     {
       "id": "amazon-health-uk-b0f18pqh6n",
@@ -704,7 +704,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0F18PQH6N?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/renphoscale1.jpeg"
+      "image_url": "/Products/renphoscale1.jpeg"
     },
     {
       "id": "amazon-health-uk-b08mysl6t8",
@@ -716,7 +716,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B08MYSL6T8?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/bodymassager.jpeg"
+      "image_url": "/Products/bodymassager.jpeg"
     },
     {
       "id": "amazon-health-uk-b0c3hcd34r",
@@ -728,7 +728,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0C3HCD34R?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/headphone-us.webp"
+      "image_url": "/Products/headphone-us.webp"
     },
     {
       "id": "amazon-health-uk-b0h1qly3rq",
@@ -740,7 +740,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0H1QLY3RQ?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/sunriseclock-us.webp"
+      "image_url": "/Products/sunriseclock-us.webp"
     },
     {
       "id": "amazon-health-uk-b08b8y24cr",
@@ -752,7 +752,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B08B8Y24CR?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/weightedeyemask-uk.webp"
+      "image_url": "/Products/weightedeyemask-uk.webp"
     },
     {
       "id": "amazon-health-uk-b0dm949c1m",
@@ -764,7 +764,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0DM949C1M?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/renphomassage.webp"
+      "image_url": "/Products/renphomassage.webp"
     },
     {
       "id": "amazon-health-uk-b0c3m9pd5x",
@@ -776,7 +776,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0C3M9PD5X?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/coldplunge-us.webp"
+      "image_url": "/Products/coldplunge-us.webp"
     },
     {
       "id": "amazon-health-uk-b0clvsw5yj",
@@ -788,7 +788,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0CLVSW5YJ?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/tibetanbowl-uk.webp"
+      "image_url": "/Products/tibetanbowl-uk.webp"
     },
     {
       "id": "amazon-health-uk-b09cv15tnx",
@@ -800,7 +800,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B09CV15TNX?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/diffuser-uk.webp"
+      "image_url": "/Products/diffuser-uk.webp"
     },
     {
       "id": "amazon-health-uk-b09pskn6x3",
@@ -812,7 +812,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B09PSKN6X3?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/Saunablanket.webp"
+      "image_url": "/Products/Saunablanket.webp"
     },
     {
       "id": "amazon-health-uk-b0c6g4z1py",
@@ -824,7 +824,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0C6G4Z1PY?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
-      "image_url": "https://123thenextlevel.com/Products/blanket-es.webp"
+      "image_url": "/Products/blanket-es.webp"
     }
   ],
   "US": [
@@ -838,7 +838,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B078Z1B34S?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "Touch-Free Sleep Science",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/sleep-analyzer.png"
+      "image_url": "/assets/images/shop/sleep-analyzer.png"
     },
     {
       "id": "segmental-scale-us",
@@ -850,7 +850,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0B9849CD1?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "FDA Cleared",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/body-scan.png"
+      "image_url": "/assets/images/shop/body-scan.png"
     },
     {
       "id": "reagent-strips-us",
@@ -862,7 +862,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "FDA Cleared & CLIA Waived",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/reagent-strips.png"
+      "image_url": "/assets/images/shop/reagent-strips.png"
     },
     {
       "id": "sirtuin-stack-us",
@@ -874,7 +874,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://livemomentous.com/modernwisdom?code=modernwisdom",
       "market_region": "US",
       "badge_text": "NSF Certified for Sport",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/sirtuin-stack.png"
+      "image_url": "/assets/images/shop/sirtuin-stack.png"
     },
     {
       "id": "stethoscope-us",
@@ -886,7 +886,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.ekohealth.com/products/core-500-digital-stethoscope",
       "market_region": "US",
       "badge_text": "FDA Cleared AI Auscultation",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/core-500.png"
+      "image_url": "/assets/images/shop/core-500.png"
     },
     {
       "id": "blood-pressure-cuff-us",
@@ -898,7 +898,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B07SJV1HNR?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "FDA Cleared",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/bpm-connect.png"
+      "image_url": "/assets/images/shop/bpm-connect.png"
     },
     {
       "id": "wearable-tracker-us",
@@ -910,7 +910,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0DGJG692K?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "FDA Approved Heart Notifications",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/apple-watch.png"
+      "image_url": "/assets/images/shop/apple-watch.png"
     },
     {
       "id": "blood-panel-us",
@@ -922,7 +922,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.healthlabs.com/?affiliate=123znl",
       "market_region": "US",
       "badge_text": "CLIA Certified & CAP Accredited",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/blood-panel.png"
+      "image_url": "/assets/images/shop/blood-panel.png"
     },
     {
       "id": "cgm-us",
@@ -934,7 +934,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "FDA Cleared / OTC Eligible",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/cgm.png"
+      "image_url": "/assets/images/shop/cgm.png"
     },
     {
       "id": "amazon-supp-us-b004u3y8om",
@@ -946,7 +946,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B004U3Y8OM?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
-      "image_url": "https://123thenextlevel.com/Products/vitd3.jpg"
+      "image_url": "/Products/vitd3.jpg"
     },
     {
       "id": "amazon-supp-us-b07tk5k5tq",
@@ -958,7 +958,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B07TK5K5TQ?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
-      "image_url": "https://123thenextlevel.com/Products/nadplusus.jpg"
+      "image_url": "/Products/nadplusus.jpg"
     },
     {
       "id": "amazon-supp-us-b07dx89zhn",
@@ -970,7 +970,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B07DX89ZHN?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
-      "image_url": "https://123thenextlevel.com/Products/omega3.jpg"
+      "image_url": "/Products/omega3.jpg"
     },
     {
       "id": "amazon-supp-us-b079h53d2b",
@@ -982,7 +982,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B079H53D2B?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
-      "image_url": "https://123thenextlevel.com/Products/probio.jpg"
+      "image_url": "/Products/probio.jpg"
     },
     {
       "id": "amazon-supp-us-b00fotmgtu",
@@ -994,7 +994,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B00FOTMGTU?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
-      "image_url": "https://123thenextlevel.com/Products/thorne.jpg"
+      "image_url": "/Products/thorne.jpg"
     },
     {
       "id": "amazon-supp-us-b0000djasy",
@@ -1006,7 +1006,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0000DJASY?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
-      "image_url": "https://123thenextlevel.com/Products/vitc.jpg"
+      "image_url": "/Products/vitc.jpg"
     },
     {
       "id": "amazon-supp-us-b084jvn2vt",
@@ -1018,7 +1018,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B084JVN2VT?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
-      "image_url": "https://123thenextlevel.com/Products/lionsmaneus.webp"
+      "image_url": "/Products/lionsmaneus.webp"
     },
     {
       "id": "amazon-supp-us-b09np4mpqb",
@@ -1030,7 +1030,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B09NP4MPQB?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
-      "image_url": "https://123thenextlevel.com/Products/spermidineus.jpeg"
+      "image_url": "/Products/spermidineus.jpeg"
     },
     {
       "id": "amazon-supp-us-b0cyzt7js9",
@@ -1042,7 +1042,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0CYZT7JS9?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
-      "image_url": "https://123thenextlevel.com/Products/d3k2us.jpeg"
+      "image_url": "/Products/d3k2us.jpeg"
     },
     {
       "id": "amazon-supp-us-b0f62vd96r",
@@ -1054,7 +1054,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0F62VD96R?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
-      "image_url": "https://123thenextlevel.com/Products/CollagenUS.jpg"
+      "image_url": "/Products/CollagenUS.jpg"
     },
     {
       "id": "amazon-supp-us-b01mz6yi2a",
@@ -1066,7 +1066,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B01MZ6YI2A?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
-      "image_url": "https://123thenextlevel.com/Products/calciumvitdspain.jpeg"
+      "image_url": "/Products/calciumvitdspain.jpeg"
     },
     {
       "id": "amazon-supp-us-b002j0rhtq",
@@ -1078,7 +1078,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B002J0RHTQ?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
-      "image_url": "https://123thenextlevel.com/Products/lysineus.webp"
+      "image_url": "/Products/lysineus.webp"
     },
     {
       "id": "amazon-supp-us-b0055ouoqq",
@@ -1090,7 +1090,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0055OUOQQ?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
-      "image_url": "https://123thenextlevel.com/Products/coq10us.webp"
+      "image_url": "/Products/coq10us.webp"
     },
     {
       "id": "amazon-supp-us-b01evvqx9u",
@@ -1102,7 +1102,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B01EVVQX9U?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
-      "image_url": "https://123thenextlevel.com/Products/creatineus.webp"
+      "image_url": "/Products/creatineus.webp"
     },
     {
       "id": "amazon-supp-us-b01iigq5kg",
@@ -1114,7 +1114,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B01IIGQ5KG?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
-      "image_url": "https://123thenextlevel.com/Products/electrolyteus.webp"
+      "image_url": "/Products/electrolyteus.webp"
     },
     {
       "id": "amazon-supp-us-b00cx3asfe",
@@ -1126,7 +1126,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B00CX3ASFE?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
-      "image_url": "https://123thenextlevel.com/Products/prefiberus.webp"
+      "image_url": "/Products/prefiberus.webp"
     },
     {
       "id": "amazon-supp-us-b003pge98k",
@@ -1138,7 +1138,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B003PGE98K?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
-      "image_url": "https://123thenextlevel.com/Products/ashgawandaus.webp"
+      "image_url": "/Products/ashgawandaus.webp"
     },
     {
       "id": "amazon-supp-us-b086rqvndv",
@@ -1150,7 +1150,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B086RQVNDV?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
-      "image_url": "https://123thenextlevel.com/Products/magglycinateus.webp"
+      "image_url": "/Products/magglycinateus.webp"
     },
     {
       "id": "amazon-supp-us-b0dllhrvly",
@@ -1162,7 +1162,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0DLLHRVLY?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
-      "image_url": "https://123thenextlevel.com/Products/methylatedBcomplexus.webp"
+      "image_url": "/Products/methylatedBcomplexus.webp"
     },
     {
       "id": "amazon-supp-us-b0mitonad",
@@ -1186,7 +1186,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B099KBD9X8?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "PM5 Clinical Standard",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/rower.png"
+      "image_url": "/assets/images/shop/rower.png"
     },
     {
       "id": "amazon-fitness-us-kettlebell",
@@ -1198,7 +1198,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B07V2C6374?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "6-in-1 Compact Weight",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/rower.png"
+      "image_url": "/assets/images/shop/rower.png"
     },
     {
       "id": "amazon-kitchen-us-blender",
@@ -1210,7 +1210,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B08524B5C6?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "1200W High Speed",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/water-bottle.png"
+      "image_url": "/assets/images/shop/water-bottle.png"
     },
     {
       "id": "amazon-kitchen-us-b09krdk677",
@@ -1222,7 +1222,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B09KRDK677?tag=123znl08a-21",
       "market_region": "US",
       "badge_text": "FDA / UL Certified",
-      "image_url": "https://123thenextlevel.com/Products/BluevuaRO100ROPOT.jpeg"
+      "image_url": "/Products/BluevuaRO100ROPOT.jpeg"
     },
     {
       "id": "amazon-kitchen-us-b0csz7wbyw",
@@ -1234,7 +1234,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0CSZ7WBYW?tag=123znl08a-21",
       "market_region": "US",
       "badge_text": "FDA / UL Certified",
-      "image_url": "https://123thenextlevel.com/Products/NinjaAirFryerCrisp.jpeg"
+      "image_url": "/Products/NinjaAirFryerCrisp.jpeg"
     },
     {
       "id": "amazon-kitchen-us-b0c61tl1yv",
@@ -1246,7 +1246,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0C61TL1YV?tag=123znl08a-21",
       "market_region": "US",
       "badge_text": "FDA / UL Certified",
-      "image_url": "https://123thenextlevel.com/Products/VakumarVacuumSealer.jpeg"
+      "image_url": "/Products/VakumarVacuumSealer.jpeg"
     },
     {
       "id": "amazon-kitchen-us-b00939i7ek",
@@ -1258,7 +1258,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B00939I7EK?tag=123znl08a-21",
       "market_region": "US",
       "badge_text": "FDA / UL Certified",
-      "image_url": "https://123thenextlevel.com/Products/NinjaBlender.jpeg"
+      "image_url": "/Products/NinjaBlender.jpeg"
     },
     {
       "id": "amazon-kitchen-us-b08zk5wdwn",
@@ -1270,7 +1270,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B08ZK5WDWN?tag=123znl08a-21",
       "market_region": "US",
       "badge_text": "FDA / UL Certified",
-      "image_url": "https://123thenextlevel.com/Products/AirtightfoodStorage.jpeg"
+      "image_url": "/Products/AirtightfoodStorage.jpeg"
     },
     {
       "id": "amazon-health-us-b0dllscvzw",
@@ -1282,7 +1282,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0DLLSCVZW?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
-      "image_url": "https://123thenextlevel.com/Products/sunriseclock-us.webp"
+      "image_url": "/Products/sunriseclock-us.webp"
     },
     {
       "id": "amazon-health-us-b0f74q25zr",
@@ -1294,7 +1294,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0F74Q25ZR?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
-      "image_url": "https://123thenextlevel.com/Products/coldplunge-us.webp"
+      "image_url": "/Products/coldplunge-us.webp"
     },
     {
       "id": "amazon-health-us-b0gmw3h7dl",
@@ -1306,7 +1306,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0GMW3H7DL?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
-      "image_url": "https://123thenextlevel.com/Products/eyemask-us.webp"
+      "image_url": "/Products/eyemask-us.webp"
     },
     {
       "id": "amazon-health-us-b0gwkd5tzc",
@@ -1318,7 +1318,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0GWKD5TZC?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
-      "image_url": "https://123thenextlevel.com/Products/diffuser-us.webp"
+      "image_url": "/Products/diffuser-us.webp"
     },
     {
       "id": "amazon-health-us-b09pskn6x3",
@@ -1330,7 +1330,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B09PSKN6X3?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
-      "image_url": "https://123thenextlevel.com/Products/Saunablanket.webp"
+      "image_url": "/Products/Saunablanket.webp"
     },
     {
       "id": "amazon-health-us-b0cr14yj23",
@@ -1342,7 +1342,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0CR14YJ23?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
-      "image_url": "https://123thenextlevel.com/Products/weightedblanket-us.webp"
+      "image_url": "/Products/weightedblanket-us.webp"
     },
     {
       "id": "amazon-health-us-b07bzzwp8m",
@@ -1354,7 +1354,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B07BZZWP8M?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
-      "image_url": "https://123thenextlevel.com/Products/tibetanbowl-us.webp"
+      "image_url": "/Products/tibetanbowl-us.webp"
     },
     {
       "id": "amazon-health-us-b0ff9zcw62",
@@ -1366,7 +1366,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0FF9ZCW62?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
-      "image_url": "https://123thenextlevel.com/Products/renphomassage.webp"
+      "image_url": "/Products/renphomassage.webp"
     },
     {
       "id": "amazon-health-us-b0cs3qt8j5",
@@ -1378,7 +1378,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0CS3QT8J5?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
-      "image_url": "https://123thenextlevel.com/Products/medcushion-us.webp"
+      "image_url": "/Products/medcushion-us.webp"
     },
     {
       "id": "amazon-health-us-b0c3hcd34r",
@@ -1390,7 +1390,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B0C3HCD34R?tag=123znl08-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
-      "image_url": "https://123thenextlevel.com/Products/headphone-us.webp"
+      "image_url": "/Products/headphone-us.webp"
     }
   ],
   "ES": [
@@ -1404,7 +1404,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://newtra.eu",
       "market_region": "ES",
       "badge_text": "Customs-Safe EU Delivery (Newtra)",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/sirtuin-stack.png"
+      "image_url": "/assets/images/shop/sirtuin-stack.png"
     },
     {
       "id": "blood-pressure-cuff-es",
@@ -1416,7 +1416,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B07SJV1HNR?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "CE Medical Class IIa",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/bpm-connect.png"
+      "image_url": "/assets/images/shop/bpm-connect.png"
     },
     {
       "id": "segmental-scale-es",
@@ -1428,7 +1428,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0B9849CD1?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "CE Medical Marked",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/body-scan.png"
+      "image_url": "/assets/images/shop/body-scan.png"
     },
     {
       "id": "blood-panel-es",
@@ -1440,7 +1440,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.melio.es",
       "market_region": "ES",
       "badge_text": "CE Marked & Megalab/Unilabs Certified",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/blood-panel.png"
+      "image_url": "/assets/images/shop/blood-panel.png"
     },
     {
       "id": "wearable-tracker-es",
@@ -1452,7 +1452,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0DGJG692K?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "CE Compliant Biometrics",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/apple-watch.png"
+      "image_url": "/assets/images/shop/apple-watch.png"
     },
     {
       "id": "cgm-es",
@@ -1464,7 +1464,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.dexcom.com/es-ES",
       "market_region": "ES",
       "badge_text": "CE Marked / Pharmacy Approved",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/cgm.png"
+      "image_url": "/assets/images/shop/cgm.png"
     },
     {
       "id": "stethoscope-es",
@@ -1476,7 +1476,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.doccheck.com/es/",
       "market_region": "ES",
       "badge_text": "CE Marked Clinical Device",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/core-500.png"
+      "image_url": "/assets/images/shop/core-500.png"
     },
     {
       "id": "sleep-analyzer-es",
@@ -1488,7 +1488,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0892BGFX7?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "CE Medically Validated (Apnea)",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/sleep-analyzer.png"
+      "image_url": "/assets/images/shop/sleep-analyzer.png"
     },
     {
       "id": "reagent-strips-es",
@@ -1500,7 +1500,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "CE 0123 Medical Marked",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/reagent-strips.png"
+      "image_url": "/assets/images/shop/reagent-strips.png"
     },
     {
       "id": "amazon-supp-es-b08tcg2rh7",
@@ -1512,7 +1512,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B08TCG2RH7?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/calciumvitdus.jpeg"
+      "image_url": "/Products/calciumvitdus.jpeg"
     },
     {
       "id": "amazon-supp-es-b01bccp44g",
@@ -1524,7 +1524,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B01BCCP44G?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/magnesiumchelate.jpg"
+      "image_url": "/Products/magnesiumchelate.jpg"
     },
     {
       "id": "amazon-supp-es-b07q31n9d4",
@@ -1536,7 +1536,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B07Q31N9D4?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/whey3.jpg"
+      "image_url": "/Products/whey3.jpg"
     },
     {
       "id": "amazon-supp-es-b07m7l3j7y",
@@ -1548,7 +1548,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B07M7L3J7Y?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/magnesium.jpg"
+      "image_url": "/Products/magnesium.jpg"
     },
     {
       "id": "amazon-supp-es-b09hhnz5q4",
@@ -1560,7 +1560,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B09HHNZ5Q4?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/CollagenSpain.jpg"
+      "image_url": "/Products/CollagenSpain.jpg"
     },
     {
       "id": "amazon-supp-es-b0dbqzbstm",
@@ -1572,7 +1572,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0DBQZBSTM?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/nadplusukspain.jpg"
+      "image_url": "/Products/nadplusukspain.jpg"
     },
     {
       "id": "amazon-supp-es-b084g5xc29",
@@ -1584,7 +1584,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B084G5XC29?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/omega3sp.jpeg.jpeg"
+      "image_url": "/Products/omega3sp.jpeg.jpeg"
     },
     {
       "id": "amazon-supp-es-b0bthkhphs",
@@ -1596,7 +1596,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0BTHKHPHS?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/spermidinespain.jpeg"
+      "image_url": "/Products/spermidinespain.jpeg"
     },
     {
       "id": "amazon-supp-es-b0888qxz14",
@@ -1608,7 +1608,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0888QXZ14?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/d3k2spain.jpeg"
+      "image_url": "/Products/d3k2spain.jpeg"
     },
     {
       "id": "amazon-supp-es-b0dzd7th17",
@@ -1620,7 +1620,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0DZD7TH17?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/elctrolyte-es.jpeg"
+      "image_url": "/Products/elctrolyte-es.jpeg"
     },
     {
       "id": "amazon-supp-es-b0924pfyn9",
@@ -1632,7 +1632,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0924PFYN9?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/creatine-es.webp"
+      "image_url": "/Products/creatine-es.webp"
     },
     {
       "id": "amazon-supp-es-b0cg64t7lg",
@@ -1644,7 +1644,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0CG64T7LG?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/melenaleon.jpeg"
+      "image_url": "/Products/melenaleon.jpeg"
     },
     {
       "id": "amazon-supp-es-b092q8sgpt",
@@ -1656,7 +1656,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B092Q8SGPT?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/multistrainprebio.jpeg"
+      "image_url": "/Products/multistrainprebio.jpeg"
     },
     {
       "id": "amazon-supp-es-b084hh913j",
@@ -1668,7 +1668,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B084HH913J?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/methylatedbcomplex.jpeg"
+      "image_url": "/Products/methylatedbcomplex.jpeg"
     },
     {
       "id": "amazon-supp-es-b0gfwqcjk9",
@@ -1680,7 +1680,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0GFWQCJK9?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/ashwagandhaes.jpeg"
+      "image_url": "/Products/ashwagandhaes.jpeg"
     },
     {
       "id": "amazon-supp-es-b07fdl3t4z",
@@ -1692,7 +1692,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B07FDL3T4Z?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/prebioticfibre.jpeg"
+      "image_url": "/Products/prebioticfibre.jpeg"
     },
     {
       "id": "amazon-supp-es-b07mzy4p1r",
@@ -1704,7 +1704,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B07MZY4P1R?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/coq10es.jpeg"
+      "image_url": "/Products/coq10es.jpeg"
     },
     {
       "id": "amazon-supp-es-b0bk8x47m5",
@@ -1716,7 +1716,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0BK8X47M5?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/glycine.jpeg"
+      "image_url": "/Products/glycine.jpeg"
     },
     {
       "id": "amazon-fitness-es-rower",
@@ -1728,7 +1728,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B099KBD9X8?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Estándar Clínico PM5",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/rower.png"
+      "image_url": "/assets/images/shop/rower.png"
     },
     {
       "id": "amazon-fitness-es-kettlebell",
@@ -1740,7 +1740,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B07V2C6374?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Compacta 6 en 1",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/rower.png"
+      "image_url": "/assets/images/shop/rower.png"
     },
     {
       "id": "amazon-kitchen-es-blender",
@@ -1752,7 +1752,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B08524B5C6?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Motor Potente 1200W",
-      "image_url": "https://123thenextlevel.com/assets/images/shop/water-bottle.png"
+      "image_url": "/assets/images/shop/water-bottle.png"
     },
     {
       "id": "amazon-kitchen-es-b09833f2tw",
@@ -1764,7 +1764,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B09833F2TW?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/xiaomiairfryer.jpg"
+      "image_url": "/Products/xiaomiairfryer.jpg"
     },
     {
       "id": "amazon-kitchen-es-b0bg8pf41k",
@@ -1776,7 +1776,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0BG8PF41K?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/duronic520.jpg"
+      "image_url": "/Products/duronic520.jpg"
     },
     {
       "id": "amazon-kitchen-es-b0gh7nw6mr",
@@ -1788,7 +1788,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0GH7NW6MR?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/airfryer12litres.jpg"
+      "image_url": "/Products/airfryer12litres.jpg"
     },
     {
       "id": "amazon-kitchen-es-b07bcns9yb",
@@ -1800,7 +1800,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B07BCNS9YB?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/moulinexblender.jpg"
+      "image_url": "/Products/moulinexblender.jpg"
     },
     {
       "id": "amazon-kitchen-es-b0d3vdv73j",
@@ -1812,7 +1812,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0D3VDV73J?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/phillips900.jpg"
+      "image_url": "/Products/phillips900.jpg"
     },
     {
       "id": "amazon-kitchen-es-b084869tw9",
@@ -1824,7 +1824,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B084869TW9?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/RusselHobbs.jpeg"
+      "image_url": "/Products/RusselHobbs.jpeg"
     },
     {
       "id": "amazon-kitchen-es-b0001iwwd4",
@@ -1836,7 +1836,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0001IWWD4?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/KitchenCraft.jpeg"
+      "image_url": "/Products/KitchenCraft.jpeg"
     },
     {
       "id": "amazon-health-es-b09nr1rwg8",
@@ -1848,7 +1848,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B09NR1RWG8?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/massage.jpg"
+      "image_url": "/Products/massage.jpg"
     },
     {
       "id": "amazon-health-es-b0dp9c8lby",
@@ -1860,7 +1860,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0DP9C8LBY?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/gescale.jpeg"
+      "image_url": "/Products/gescale.jpeg"
     },
     {
       "id": "amazon-health-es-b0fbrvpp3d",
@@ -1872,7 +1872,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0FBRVPP3D?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/snailax.jpeg"
+      "image_url": "/Products/snailax.jpeg"
     },
     {
       "id": "amazon-health-es-b07wc64npq",
@@ -1884,7 +1884,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B07WC64NPQ?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/spa.jpeg"
+      "image_url": "/Products/spa.jpeg"
     },
     {
       "id": "amazon-health-es-b0gw8gwk1q",
@@ -1896,7 +1896,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0GW8GWK1Q?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/blutoothsmartscale.jpeg"
+      "image_url": "/Products/blutoothsmartscale.jpeg"
     },
     {
       "id": "amazon-health-es-b0fxbf33cm",
@@ -1908,7 +1908,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0FXBF33CM?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/steam.jpeg"
+      "image_url": "/Products/steam.jpeg"
     },
     {
       "id": "amazon-health-es-b08m3mnwpq",
@@ -1920,7 +1920,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B08M3MNWPQ?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/Renphouk.jpeg"
+      "image_url": "/Products/Renphouk.jpeg"
     },
     {
       "id": "amazon-health-es-b073xpr6mc",
@@ -1932,7 +1932,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B073XPR6MC?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/voyorcell1.jpeg"
+      "image_url": "/Products/voyorcell1.jpeg"
     },
     {
       "id": "amazon-health-es-b0f6clt4wz",
@@ -1944,7 +1944,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0F6CLT4WZ?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/arboleaf.jpeg"
+      "image_url": "/Products/arboleaf.jpeg"
     },
     {
       "id": "amazon-health-es-b0872dqw46",
@@ -1956,7 +1956,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0872DQW46?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/beurer.jpeg"
+      "image_url": "/Products/beurer.jpeg"
     },
     {
       "id": "amazon-health-es-b0dphn9d2p",
@@ -1968,7 +1968,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0DPHN9D2P?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/blanket.jpeg"
+      "image_url": "/Products/blanket.jpeg"
     },
     {
       "id": "amazon-health-es-b0cvvtjl6j",
@@ -1980,7 +1980,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0CVVTJL6J?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/aerlang.jpeg"
+      "image_url": "/Products/aerlang.jpeg"
     },
     {
       "id": "amazon-health-es-b0c6g4z1py",
@@ -1992,7 +1992,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0C6G4Z1PY?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/blanket-es.webp"
+      "image_url": "/Products/blanket-es.webp"
     },
     {
       "id": "amazon-health-es-b09srxhcrr",
@@ -2004,7 +2004,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B09SRXHCRR?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/tibetbowl-es.webp"
+      "image_url": "/Products/tibetbowl-es.webp"
     },
     {
       "id": "amazon-health-es-b0fb9cwt4d",
@@ -2016,7 +2016,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0FB9CWT4D?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/sunriseclock-es.webp"
+      "image_url": "/Products/sunriseclock-es.webp"
     },
     {
       "id": "amazon-health-es-b09pskn6x3",
@@ -2028,7 +2028,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B09PSKN6X3?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/infraredblanket-es.jpg"
+      "image_url": "/Products/infraredblanket-es.jpg"
     },
     {
       "id": "amazon-health-es-b07mfy6bbv",
@@ -2040,7 +2040,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B07MFY6BBV?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/oildiffuse-es.jpg"
+      "image_url": "/Products/oildiffuse-es.jpg"
     },
     {
       "id": "amazon-health-es-b0bmkd1hg7",
@@ -2052,7 +2052,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0BMKD1HG7?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/renphomassage.webp"
+      "image_url": "/Products/renphomassage.webp"
     },
     {
       "id": "amazon-health-es-b01n6gk5ux",
@@ -2064,7 +2064,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B01N6GK5UX?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/meditatecushion-es.webp"
+      "image_url": "/Products/meditatecushion-es.webp"
     },
     {
       "id": "amazon-health-es-b07sm61fct",
@@ -2076,7 +2076,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B07SM61FCT?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/renphoeye-es.webp"
+      "image_url": "/Products/renphoeye-es.webp"
     },
     {
       "id": "amazon-health-es-b0bnpljcvh",
@@ -2088,7 +2088,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B0BNPLJCVH?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/coldplunge-es.webp"
+      "image_url": "/Products/coldplunge-es.webp"
     },
     {
       "id": "amazon-health-es-b08hmwzbxc",
@@ -2100,7 +2100,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B08HMWZBXC?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/headphone-es.webp"
+      "image_url": "/Products/headphone-es.webp"
     },
     {
       "id": "amazon-health-es-b09wh2bxsh",
@@ -2112,7 +2112,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B09WH2BXSH?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/Natulim.jpg"
+      "image_url": "/Products/Natulim.jpg"
     },
     {
       "id": "amazon-health-es-b0fnx72rpl",
@@ -2124,7 +2124,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B0FNX72RPL?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
-      "image_url": "https://123thenextlevel.com/Products/aroeve6l.jpg"
+      "image_url": "/Products/aroeve6l.jpg"
     }
   ]
 };
@@ -2559,7 +2559,7 @@ export default function Store() {
                             className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                             referrerPolicy="no-referrer"
                             onError={(e) => {
-                              (e.target as HTMLImageElement).src = 'https://123thenextlevel.com/assets/images/shop/placeholder.png';
+                              (e.target as HTMLImageElement).src = '/assets/images/shop/placeholder.png';
                             }}
                           />
                         </div>
@@ -2623,7 +2623,7 @@ export default function Store() {
                                     className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                                     referrerPolicy="no-referrer"
                                     onError={(e) => {
-                                      (e.target as HTMLImageElement).src = 'https://123thenextlevel.com/assets/images/shop/placeholder.png';
+                                      (e.target as HTMLImageElement).src = '/assets/images/shop/placeholder.png';
                                     }}
                                   />
                                 </div>
@@ -2675,7 +2675,7 @@ export default function Store() {
                                 className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                                 referrerPolicy="no-referrer"
                                 onError={(e) => {
-                                  (e.target as HTMLImageElement).src = 'https://123thenextlevel.com/assets/images/shop/placeholder.png';
+                                  (e.target as HTMLImageElement).src = '/assets/images/shop/placeholder.png';
                                 }}
                               />
                             </div>

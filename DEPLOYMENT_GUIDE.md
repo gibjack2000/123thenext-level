@@ -68,7 +68,7 @@ If the Hostinger Node.js dashboard doesn't have an Environment Variables section
 ## 6. Best Practices for Image Management
 
 - **Uploading New Images:** Use Hostinger's File Manager or FTP to upload new images directly to the `public_html/Products` folder.
-- **Reference in Dashboard:** When adding a product in the Admin Dashboard, use the path `https://123thenextlevel.com/Products/your-image-name.jpg`.
+- **Reference in Dashboard:** When adding a product in the Admin Dashboard, use the path `/Products/your-image-name.jpg`.
 - **Backups:** Even with these protections, we recommend periodically downloading a backup of your `public_html/Products` folder to your local computer using FTP (like FileZilla).
 
 ## 7. Local Development Warning

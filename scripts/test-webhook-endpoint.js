@@ -28,7 +28,7 @@ async function testWebhookLogic() {
   console.log(`Title: ${supabaseInsertPayload.record.title}`);
   console.log(`Category: ${supabaseInsertPayload.record.category}`);
   console.log(`Status: Draft (Invisible on public site)`);
-  console.log(`Review & Publish Link: https://123thenextlevel.com/admin/blogs`);
+  console.log(`Review & Publish Link: /admin/blogs`);
   console.log('Recipient: gibjack2000@googlemail.com');
   console.log('----------------------------------------------------');
 }

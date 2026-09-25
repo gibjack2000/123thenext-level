@@ -78,7 +78,7 @@ function generateDynamicAndFallbackProductCard({
   productType,
   dealUrl,
   dealBtnText = 'Direct Live Deal',
-  storeUrl = 'https://123thenextlevel.com/store'
+  storeUrl = '/store'
 }) {
   return `<ProductCard id="${id}" productType="${productType}" dealBtnText="${dealBtnText}" />`;
 }
@@ -153,7 +153,7 @@ const p1_cards = [
     price: '$990.00',
     priceSecondary: '£850.00 / 950€',
     badgeText: 'Clinical PM5 Telemetry',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/rower.png',
+    imageUrl: '/assets/images/shop/rower.png',
     productType: 'Precision Ergometer Hardware',
     dealUrl: 'https://www.amazon.com/dp/B099KBD9X8?tag=123znl0e-20',
     dealBtnText: 'Check Live Deal'
@@ -165,7 +165,7 @@ const p1_cards = [
     price: '$399.00',
     priceSecondary: '£379.00 / 399€',
     badgeText: 'FDA Approved Heart Monitoring',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/apple-watch.png',
+    imageUrl: '/assets/images/shop/apple-watch.png',
     productType: 'Multispectral Wearable Biosensor',
     dealUrl: 'https://www.amazon.com/dp/B0DGJG692K?tag=123znl0e-20',
     dealBtnText: 'View on Amazon'
@@ -177,7 +177,7 @@ const p1_cards = [
     price: '$14.99',
     priceSecondary: '£12.99 / 14,99€',
     badgeText: 'FDA Cleared & CLIA Waived',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/reagent-strips.png',
+    imageUrl: '/assets/images/shop/reagent-strips.png',
     productType: 'Rapid Biochemical Diagnostic',
     dealUrl: 'https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20',
     dealBtnText: 'Order Reagent Strips'
@@ -237,9 +237,9 @@ ${p1_cards}
 
 Ready to calibrate your personalized training zones and audit your biological horsepower?
 
-👉 **[Take the Free 5-Minute Health Baseline & Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free 5-Minute Health Baseline & Diagnostic Quiz](/health-quiz)**
 
-📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](https://123thenextlevel.com/premium-guides)**
+📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](/premium-guides)**
 `.trim();
 
 
@@ -288,7 +288,7 @@ const p2_cards = [
     price: '$89.95',
     priceSecondary: '£79.99 / 89,95€',
     badgeText: 'NSF Certified for Sport',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sirtuin-stack.png',
+    imageUrl: '/assets/images/shop/sirtuin-stack.png',
     productType: 'Cellular Epigenetic Stack',
     dealUrl: 'https://livemomentous.com/modernwisdom?code=modernwisdom',
     dealBtnText: 'Get Sirtuin Stack'
@@ -300,7 +300,7 @@ const p2_cards = [
     price: '$399.95',
     priceSecondary: '£349.99 / 399,95€',
     badgeText: 'FDA Cleared 6-Lead ECG',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/body-scan.png',
+    imageUrl: '/assets/images/shop/body-scan.png',
     productType: 'Clinical Segmental Hardware',
     dealUrl: 'https://www.amazon.com/dp/B0B9849CD1?tag=123znl0e-20',
     dealBtnText: 'Check Live Deal'
@@ -312,7 +312,7 @@ const p2_cards = [
     price: '$99.95',
     priceSecondary: '£89.99 / 99,95€',
     badgeText: 'FDA Cleared Medical Device',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/bpm-connect.png',
+    imageUrl: '/assets/images/shop/bpm-connect.png',
     productType: 'Arterial Telemetry Sensor',
     dealUrl: 'https://www.amazon.com/dp/B07SJV1HNR?tag=123znl0e-20',
     dealBtnText: 'Order BPM Connect'
@@ -363,9 +363,9 @@ ${p2_cards}
 
 Take control of your biological clock and measure your arterial baseline:
 
-👉 **[Take the Free 5-Minute Longevity & Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free 5-Minute Longevity & Diagnostic Quiz](/health-quiz)**
 
-📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](https://123thenextlevel.com/premium-guides)**
+📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](/premium-guides)**
 `.trim();
 
 
@@ -400,7 +400,7 @@ const p3_cards = [
     price: '$89.00 / month',
     priceSecondary: '£79.00 / 79,00€',
     badgeText: 'FDA Cleared / OTC Eligible',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/cgm.png',
+    imageUrl: '/assets/images/shop/cgm.png',
     productType: 'Continuous Metabolic Biosensor',
     dealUrl: 'https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl0e-20',
     dealBtnText: 'View Live Deal'
@@ -412,7 +412,7 @@ const p3_cards = [
     price: '$399.95',
     priceSecondary: '£349.99 / 399,95€',
     badgeText: 'FDA Cleared Muscle Telemetry',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/body-scan.png',
+    imageUrl: '/assets/images/shop/body-scan.png',
     productType: 'Visceral Adiposity Scale',
     dealUrl: 'https://www.amazon.com/dp/B0B9849CD1?tag=123znl0e-20',
     dealBtnText: 'Check Live Deal'
@@ -424,7 +424,7 @@ const p3_cards = [
     price: '$14.99',
     priceSecondary: '£12.99 / 14,99€',
     badgeText: 'FDA Cleared & CLIA Waived',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/reagent-strips.png',
+    imageUrl: '/assets/images/shop/reagent-strips.png',
     productType: 'Rapid Metabolic Diagnostic',
     dealUrl: 'https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20',
     dealBtnText: 'Order Reagent Strips'
@@ -473,9 +473,9 @@ ${p3_cards}
 
 Audit your glycemic response and build a metabolic meal plan:
 
-👉 **[Take the Free 5-Minute Metabolic Nutrition Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free 5-Minute Metabolic Nutrition Diagnostic Quiz](/health-quiz)**
 
-📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](https://123thenextlevel.com/premium-guides)**
+📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](/premium-guides)**
 `.trim();
 
 
@@ -517,7 +517,7 @@ const p4_cards = [
     price: '$129.95',
     priceSecondary: '£119.99 / 129,95€',
     badgeText: 'Touch-Free Sleep Science',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sleep-analyzer.png',
+    imageUrl: '/assets/images/shop/sleep-analyzer.png',
     productType: 'Zero-Wearable Sleep Sensor',
     dealUrl: 'https://www.amazon.com/dp/B078Z1B34S?tag=123znl0e-20',
     dealBtnText: 'Order Sleep Analyzer'
@@ -529,7 +529,7 @@ const p4_cards = [
     price: '$429.00',
     priceSecondary: '£379.00 / 429,00€',
     badgeText: 'FDA Cleared AI Auscultation',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/core-500.png',
+    imageUrl: '/assets/images/shop/core-500.png',
     productType: 'Clinical 3-Lead AI Sensor',
     dealUrl: 'https://www.ekohealth.com/products/core-500-digital-stethoscope',
     dealBtnText: 'View Eko CORE 500'
@@ -541,7 +541,7 @@ const p4_cards = [
     price: '$99.95',
     priceSecondary: '£89.99 / 99,95€',
     badgeText: 'FDA Cleared Medical Device',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/bpm-connect.png',
+    imageUrl: '/assets/images/shop/bpm-connect.png',
     productType: 'Autonomic Cardiovascular Sensor',
     dealUrl: 'https://www.amazon.com/dp/B07SJV1HNR?tag=123znl0e-20',
     dealBtnText: 'Order BPM Connect'
@@ -591,9 +591,9 @@ ${p4_cards}
 
 Audit your nervous system balance and calculate your HRV recovery baseline:
 
-👉 **[Take the Free 5-Minute Nervous System Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free 5-Minute Nervous System Diagnostic Quiz](/health-quiz)**
 
-📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](https://123thenextlevel.com/premium-guides)**
+📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](/premium-guides)**
 `.trim();
 
 
@@ -651,7 +651,7 @@ const p5_cards = [
     price: '$89.00 / month',
     priceSecondary: '£79.00 / 79,00€',
     badgeText: 'FDA Cleared Continuous Sensor',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/cgm.png',
+    imageUrl: '/assets/images/shop/cgm.png',
     productType: 'Infradian Metabolic Biosensor',
     dealUrl: 'https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl0e-20',
     dealBtnText: 'View Live Deal'
@@ -663,7 +663,7 @@ const p5_cards = [
     price: '$399.95',
     priceSecondary: '£349.99 / 399,95€',
     badgeText: 'FDA Cleared 6-Lead ECG',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/body-scan.png',
+    imageUrl: '/assets/images/shop/body-scan.png',
     productType: 'Segmental Bone & Lean Scale',
     dealUrl: 'https://www.amazon.com/dp/B0B9849CD1?tag=123znl0e-20',
     dealBtnText: 'Check Live Deal'
@@ -675,7 +675,7 @@ const p5_cards = [
     price: '$89.95',
     priceSecondary: '£79.99 / 89,95€',
     badgeText: 'NSF Certified for Sport',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sirtuin-stack.png',
+    imageUrl: '/assets/images/shop/sirtuin-stack.png',
     productType: 'Mitochondrial Cellular Stack',
     dealUrl: 'https://livemomentous.com/modernwisdom?code=modernwisdom',
     dealBtnText: 'Get Sirtuin Stack'
@@ -728,9 +728,9 @@ ${p5_cards}
 
 Align your training with your infradian rhythm and audit your hormonal baseline:
 
-👉 **[Take the Free 5-Minute Women's Health & Hormonal Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free 5-Minute Women's Health & Hormonal Diagnostic Quiz](/health-quiz)**
 
-📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](https://123thenextlevel.com/premium-guides)**
+📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](/premium-guides)**
 `.trim();
 
 
@@ -788,7 +788,7 @@ const p6_cards = [
     price: '$129.95',
     priceSecondary: '£119.99 / 129,95€',
     badgeText: 'Touch-Free Sleep Science',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sleep-analyzer.png',
+    imageUrl: '/assets/images/shop/sleep-analyzer.png',
     productType: 'Zero-Contact Sleep Biosensor',
     dealUrl: 'https://www.amazon.com/dp/B078Z1B34S?tag=123znl0e-20',
     dealBtnText: 'Order Sleep Analyzer'
@@ -800,7 +800,7 @@ const p6_cards = [
     price: '$228.46',
     priceSecondary: '£254.99 / 289,99€',
     badgeText: 'Low EMF Thermal Recovery Sanctuary',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sauna.png',
+    imageUrl: '/assets/images/shop/sauna.png',
     productType: 'Biophilic Thermal Ecosystem',
     dealUrl: 'https://www.amazon.com/dp/B09PSKN6X3?tag=123znl0e-20',
     dealBtnText: 'Check Sauna Deal'
@@ -812,7 +812,7 @@ const p6_cards = [
     price: '$37.98',
     priceSecondary: '£28.40 / 49,99€',
     badgeText: 'Acoustic Sanctuary & Noise Defense',
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sony-headphones.png',
+    imageUrl: '/assets/images/shop/sony-headphones.png',
     productType: 'Acoustic Sanctuary & Noise Defense',
     dealUrl: 'https://www.amazon.com/dp/B0C3HCD34R?tag=123znl0e-20',
     dealBtnText: 'Buy on Amazon'
@@ -864,9 +864,9 @@ ${p6_cards}
 
 Audit your home environment and calculate your living sanctuary score:
 
-👉 **[Take the Free 5-Minute Living Sanctuary Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free 5-Minute Living Sanctuary Diagnostic Quiz](/health-quiz)**
 
-📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](https://123thenextlevel.com/premium-guides)**
+📘 **[Download the Full Clinical Longevity Protocol & GP Consultation Workbook](/premium-guides)**
 `.trim();
 
 

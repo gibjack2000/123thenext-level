@@ -119,10 +119,10 @@ To prevent overtraining syndrome, elite conditioning should follow an autonomic 
 ## 5. Sovereign Store: Clinical Biometrics & Telemetry Gear
 
 Equip your training lab with verified clinical bio-hardware:
-- **Clinical Telemetry Bands & High-Resolution Optical PPGs:** Explore clinical hardware in the [Sovereign Store Collection](https://123thenextlevel.com/store).
-- **Continuous Blood Glucose & Biomarker Biosensors:** Explore real-time metabolic sensors in the [Sovereign Store](https://123thenextlevel.com/store).
-- **Percussive Neuromuscular Recovery Systems:** Explore therapeutic gear in our [Bio-Hardware Shop](https://123thenextlevel.com/store).
-- **Far-Infrared Cellular Thermal Recovery Saunas:** View full recovery systems in the [Sovereign Store](https://123thenextlevel.com/store).
+- **Clinical Telemetry Bands & High-Resolution Optical PPGs:** Explore clinical hardware in the [Sovereign Store Collection](/store).
+- **Continuous Blood Glucose & Biomarker Biosensors:** Explore real-time metabolic sensors in the [Sovereign Store](/store).
+- **Percussive Neuromuscular Recovery Systems:** Explore therapeutic gear in our [Bio-Hardware Shop](/store).
+- **Far-Infrared Cellular Thermal Recovery Saunas:** View full recovery systems in the [Sovereign Store](/store).
 
 ---
 
@@ -130,7 +130,7 @@ Equip your training lab with verified clinical bio-hardware:
 
 Are your current training loads, recovery practices, and autonomic reserves aligned with optimal longevity? Take our clinical diagnostic assessment to calculate your autonomic readiness baseline:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your personalized 6-pillar breakdown with custom actionable protocols delivered instantly to your inbox.*`;
 
@@ -226,10 +226,10 @@ Mitochondrial dysfunction leads to reduced ATP production, increased leakage of 
 ## 5. Sovereign Store: Curated Longevity & Cellular Renewal Gear
 
 Equip your longevity stack with medical-grade systems:
-- **Targeted NAD+ Boosters & Resveratrol Longevity Stacks:** Discover clinical formulas in the [Sovereign Store](https://123thenextlevel.com/store).
-- **Clinical Cold Plunge & Thermal Contrast Systems:** Explore thermal conditioning units in the [Sovereign Store](https://123thenextlevel.com/store).
-- **Red & Near-Infrared Photobiomodulation Panels:** Explore light therapy canopies in the [Sovereign Store Collection](https://123thenextlevel.com/store).
-- **Molecular Hydrogen & Mitochondrial Antioxidants:** Browse longevity tools in our [Bio-Store](https://123thenextlevel.com/store).
+- **Targeted NAD+ Boosters & Resveratrol Longevity Stacks:** Discover clinical formulas in the [Sovereign Store](/store).
+- **Clinical Cold Plunge & Thermal Contrast Systems:** Explore thermal conditioning units in the [Sovereign Store](/store).
+- **Red & Near-Infrared Photobiomodulation Panels:** Explore light therapy canopies in the [Sovereign Store Collection](/store).
+- **Molecular Hydrogen & Mitochondrial Antioxidants:** Browse longevity tools in our [Bio-Store](/store).
 
 ---
 
@@ -237,7 +237,7 @@ Equip your longevity stack with medical-grade systems:
 
 Curious where your daily lifestyle and biological metrics place you on the cellular health curve? Complete our diagnostic health audit to evaluate your longevity profile:
 
-👉 **[Take the Free Health Baseline & Epigenetic Longevity Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Epigenetic Longevity Quiz](/health-quiz)**
 
 *Receive your custom 6-pillar breakdown and longevity optimization action plan delivered directly to your inbox.*`;
 
@@ -325,10 +325,10 @@ Human metabolic gene transcription follows strict circadian rhythms. Peripheral 
 ## 5. Sovereign Store: Precision Metabolic & Culinary Gear
 
 Upgrade your kitchen and nutritional telemetry stack with clinical tools:
-- **Tri-Zone Precision Culinary Cookers & Air Steamers:** Explore culinary tech in the [Sovereign Store](https://123thenextlevel.com/store).
-- **Clinical Electrolyte & Mitochondrial Mineral Blends:** Explore bio-available minerals in our [Store Collection](https://123thenextlevel.com/store).
-- **Continuous Glucose Telemetry & Ketone Biosensors:** Discover metabolic hardware in the [Sovereign Store](https://123thenextlevel.com/store).
-- **Organic Cold-Pressed Polyphenol Oils:** Discover clean culinary nutrition in our [Bio-Store](https://123thenextlevel.com/store).
+- **Tri-Zone Precision Culinary Cookers & Air Steamers:** Explore culinary tech in the [Sovereign Store](/store).
+- **Clinical Electrolyte & Mitochondrial Mineral Blends:** Explore bio-available minerals in our [Store Collection](/store).
+- **Continuous Glucose Telemetry & Ketone Biosensors:** Discover metabolic hardware in the [Sovereign Store](/store).
+- **Organic Cold-Pressed Polyphenol Oils:** Discover clean culinary nutrition in our [Bio-Store](/store).
 
 ---
 
@@ -336,7 +336,7 @@ Upgrade your kitchen and nutritional telemetry stack with clinical tools:
 
 Are hidden glycemic crashes or meal timing errors undermining your daily performance? Take our 2-minute clinical assessment to map your metabolic profile:
 
-👉 **[Take the Free Health Baseline & Metabolic Nutrition Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Metabolic Nutrition Quiz](/health-quiz)**
 
 *Receive your custom 6-pillar score and immediate clinical nutritional roadmap directly in your inbox.*`;
 
@@ -421,10 +421,10 @@ Sleep is the brain's exclusive biological window for **glymphatic waste clearanc
 ## 4. Curated Autonomic & Neuro-Recovery Gear
 
 Equip your recovery sanctuary with high-precision autonomic modulation hardware:
-- **Transcutaneous Vagus Nerve Stimulators (tVNS):** Explore bio-electrical devices in the [Sovereign Store](https://123thenextlevel.com/store).
-- **Far-Infrared Sauna Recovery Blankets & Domes:** Explore thermal recovery tools in our [Store Collection](https://123thenextlevel.com/store).
-- **Acoustic Somatosensory Resonance Mattresses:** View recovery hardware in the [Sovereign Store](https://123thenextlevel.com/store).
-- **Circadian Blue-Blocking Eyewear & Lamps:** Discover circadian optics in our [Bio-Store](https://123thenextlevel.com/store).
+- **Transcutaneous Vagus Nerve Stimulators (tVNS):** Explore bio-electrical devices in the [Sovereign Store](/store).
+- **Far-Infrared Sauna Recovery Blankets & Domes:** Explore thermal recovery tools in our [Store Collection](/store).
+- **Acoustic Somatosensory Resonance Mattresses:** View recovery hardware in the [Sovereign Store](/store).
+- **Circadian Blue-Blocking Eyewear & Lamps:** Discover circadian optics in our [Bio-Store](/store).
 
 ---
 
@@ -432,7 +432,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware:
 
 Are chronic stressors degrading your autonomic balance? Take our clinical assessment to audit your nervous system resilience:
 
-👉 **[Take the Free Health Baseline & Autonomic Engineering Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Autonomic Engineering Quiz](/health-quiz)**
 
 *Receive a personalized 6-pillar analysis with actionable somatic protocols delivered directly to your inbox.*`;
 
@@ -503,9 +503,9 @@ The ovaries are the fastest-aging organ system in the human body, undergoing sen
 ## 4. Curated Women's Health & Vitality Hardware
 
 Equip your routine with clinical phase-support tools:
-- **Continuous Basal Body Temperature Telemetry Sensors:** Explore fertility & cycle hardware in the [Sovereign Store](https://123thenextlevel.com/store).
-- **Targeted Bio-Density & Resistance Systems:** Explore axial strength tools in our [Store Collection](https://123thenextlevel.com/store).
-- **Clinical Infradian Micronutrient Packs:** Discover curated female vitality stacks in the [Sovereign Store](https://123thenextlevel.com/store).
+- **Continuous Basal Body Temperature Telemetry Sensors:** Explore fertility & cycle hardware in the [Sovereign Store](/store).
+- **Targeted Bio-Density & Resistance Systems:** Explore axial strength tools in our [Store Collection](/store).
+- **Clinical Infradian Micronutrient Packs:** Discover curated female vitality stacks in the [Sovereign Store](/store).
 
 ---
 
@@ -513,7 +513,7 @@ Equip your routine with clinical phase-support tools:
 
 Are you experiencing unexplainable energy crashes or cycle-related training plateaus? Take our clinical assessment to calculate your personalized hormone profile:
 
-👉 **[Take the Free Health Baseline & Women's Health Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Women's Health Quiz](/health-quiz)**
 
 *Receive an immediate 6-pillar analysis with customized cycle-synced protocols delivered straight to your inbox.*`;
 
@@ -580,9 +580,9 @@ To construct an optimal domestic recovery sanctuary:
 ## 4. Curated Environmental & Socio-Fitness Gear
 
 Equip your living and training environments with medical-grade systems:
-- **Circadian Full-Spectrum Lighting Systems:** Explore photonic hardware in the [Sovereign Store](https://123thenextlevel.com/store).
-- **Acoustic & Somatosensory Resonance Panels:** Explore acoustic architecture in our [Store Collection](https://123thenextlevel.com/store).
-- **Group Recovery & Cold / Contrast Systems:** Discover communal recovery gear in the [Sovereign Store](https://123thenextlevel.com/store).
+- **Circadian Full-Spectrum Lighting Systems:** Explore photonic hardware in the [Sovereign Store](/store).
+- **Acoustic & Somatosensory Resonance Panels:** Explore acoustic architecture in our [Store Collection](/store).
+- **Group Recovery & Cold / Contrast Systems:** Discover communal recovery gear in the [Sovereign Store](/store).
 
 ---
 
@@ -590,7 +590,7 @@ Equip your living and training environments with medical-grade systems:
 
 Is your physical environment optimizing or depleting your vitality? Take our clinical assessment to audit your living sanctuary:
 
-👉 **[Take the Free Health Baseline & Socio-Architecture Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Socio-Architecture Quiz](/health-quiz)**
 
 *Receive your complete 6-pillar breakdown with custom environmental optimization protocols delivered straight to your inbox.*`;
 

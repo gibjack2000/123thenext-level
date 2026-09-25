@@ -67,7 +67,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       rating: 5.0,
       description: "Heavy-duty home strength rack supporting safe compound movements, pull-ups, and baseline resistance protocols.",
       priceText: "$499.00",
-      dealUrl: "https://123thenextlevel.com/shop/strength-rack",
+      dealUrl: "/shop/strength-rack",
       badgeText: "Structural Joint Health",
       imagePlaceholder: "/assets/products/strength-rack.jpg",
       pillar: "fitness"
@@ -113,7 +113,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       rating: 4.8,
       description: "Dual-drawer hot air cooking tool for low-oil, nutrient-dense glycemic family meal prep and metabolic control.",
       priceText: "£199.00",
-      dealUrl: "https://123thenextlevel.com/shop/ninja-af300",
+      dealUrl: "/shop/ninja-af300",
       badgeText: "Glycemic Meal Prep",
       imagePlaceholder: "/assets/products/ninja-airfryer.jpg",
       pillar: "nutrition"
@@ -168,7 +168,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       rating: 5.0,
       description: "Focused endocrine assessment screening for female biometrics, reproductive health, and athletic longevity.",
       priceText: "£79.00",
-      dealUrl: "https://123thenextlevel.com/shop/ovarian-test-uk",
+      dealUrl: "/shop/ovarian-test-uk",
       badgeText: "Biology-Specific Screening",
       imagePlaceholder: "/assets/products/ovarian-test-uk.jpg",
       pillar: "womens-health"

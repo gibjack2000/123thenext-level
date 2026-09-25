@@ -479,7 +479,7 @@ To construct your personalized biological telemetry sanctuary, integrate high-pr
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/rower.png" alt="Concept2 Remo Indoor Model D Rower" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/rower.png" alt="Concept2 Remo Indoor Model D Rower" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -501,7 +501,7 @@ To construct your personalized biological telemetry sanctuary, integrate high-pr
             <span>View on Amazon Prime</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -514,7 +514,7 @@ To construct your personalized biological telemetry sanctuary, integrate high-pr
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/apple-watch.png" alt="Apple Watch Series 10 (GPS 46mm)" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/apple-watch.png" alt="Apple Watch Series 10 (GPS 46mm)" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -536,7 +536,7 @@ To construct your personalized biological telemetry sanctuary, integrate high-pr
             <span>Buy on Amazon</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -549,7 +549,7 @@ To construct your personalized biological telemetry sanctuary, integrate high-pr
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/reagent-strips.png" alt="ALLTEST 10-Parameter Urinary Reagent Strips" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/reagent-strips.png" alt="ALLTEST 10-Parameter Urinary Reagent Strips" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -571,7 +571,7 @@ To construct your personalized biological telemetry sanctuary, integrate high-pr
             <span>Order Reagent Strips</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -641,7 +641,7 @@ To execute this performance telemetry architecture immediately:
 
 Are your current training loads, recovery practices, and autonomic reserves aligned with optimal longevity? Take our clinical diagnostic assessment to calculate your autonomic readiness baseline:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your personalized 6-pillar breakdown with custom actionable protocols delivered instantly to your inbox.*
 
@@ -929,7 +929,7 @@ Support your cellular rejuvenation protocols with verified longevity compounds a
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/blood-panel.png" alt="Personalized Cellular Biomarker Map (56 Biomarkers)" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/blood-panel.png" alt="Personalized Cellular Biomarker Map (56 Biomarkers)" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -951,7 +951,7 @@ Support your cellular rejuvenation protocols with verified longevity compounds a
             <span>Order Biomarker Panel</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -964,7 +964,7 @@ Support your cellular rejuvenation protocols with verified longevity compounds a
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/sirtuin-stack.png" alt="Momentous Sirtuin Activation Stack" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/sirtuin-stack.png" alt="Momentous Sirtuin Activation Stack" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -986,7 +986,7 @@ Support your cellular rejuvenation protocols with verified longevity compounds a
             <span>Get Momentous Stack</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -999,7 +999,7 @@ Support your cellular rejuvenation protocols with verified longevity compounds a
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/body-scan.png" alt="Withings Body Scan Segmental Composition Scale" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/body-scan.png" alt="Withings Body Scan Segmental Composition Scale" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -1021,7 +1021,7 @@ Support your cellular rejuvenation protocols with verified longevity compounds a
             <span>View on Amazon</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -1082,7 +1082,7 @@ Track these clinical biomarkers every 6 months to measure the rate of biological
 
 Are your cellular repair mechanisms, nutrient-sensing pathways, and mitochondrial reserves operating at peak capacity? Take our clinical diagnostic assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your custom 6-pillar longevity breakdown with tailored clinical protocols delivered directly to your inbox.*
 
@@ -1326,7 +1326,7 @@ Equip your daily nutritional protocol with clinically validated metabolic modula
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/cgm.png" alt="Continuous Glucose Monitor (Abbott Lingo / Dexcom ONE+)" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/cgm.png" alt="Continuous Glucose Monitor (Abbott Lingo / Dexcom ONE+)" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -1348,7 +1348,7 @@ Equip your daily nutritional protocol with clinically validated metabolic modula
             <span>Get CGM Monitor</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -1361,7 +1361,7 @@ Equip your daily nutritional protocol with clinically validated metabolic modula
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/marine-collagen.png" alt="Zebora Marine Collagen Peptides Powder" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/marine-collagen.png" alt="Zebora Marine Collagen Peptides Powder" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -1383,7 +1383,7 @@ Equip your daily nutritional protocol with clinically validated metabolic modula
             <span>Order Collagen</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -1396,7 +1396,7 @@ Equip your daily nutritional protocol with clinically validated metabolic modula
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/water-bottle.png" alt="Owala FreeSip Insulated Water Bottle" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/water-bottle.png" alt="Owala FreeSip Insulated Water Bottle" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -1418,7 +1418,7 @@ Equip your daily nutritional protocol with clinically validated metabolic modula
             <span>Buy on Amazon</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -1470,7 +1470,7 @@ To evaluate your true metabolic state beyond simple fasting glucose, review this
 
 Is your metabolic machinery running with clean, flexible efficiency or struggling with glycemic volatility? Take our clinical diagnostic assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your comprehensive 6-pillar diagnostic breakdown with personalized nutritional blueprints sent straight to your inbox.*
 
@@ -1728,7 +1728,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware 
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/bpm-connect.png" alt="Withings BPM Connect Wi-Fi Blood Pressure Cuff" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/bpm-connect.png" alt="Withings BPM Connect Wi-Fi Blood Pressure Cuff" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -1750,7 +1750,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware 
             <span>Buy on Amazon</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -1763,7 +1763,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware 
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/sony-headphones.png" alt="Sony WH-CH720N Noise-Canceling Headphones" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/sony-headphones.png" alt="Sony WH-CH720N Noise-Canceling Headphones" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -1785,7 +1785,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware 
             <span>View on Amazon</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -1798,7 +1798,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware 
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/sauna.png" alt="Portable Full-Body Infrared Sauna Tent" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/sauna.png" alt="Portable Full-Body Infrared Sauna Tent" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -1820,7 +1820,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware 
             <span>Check Sauna Deal</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -1833,7 +1833,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware 
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/meditation-cushion.png" alt="basaho Classic Zafu Meditation Cushion" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/meditation-cushion.png" alt="basaho Classic Zafu Meditation Cushion" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -1855,7 +1855,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware 
             <span>Order Meditation Cushion</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -1922,7 +1922,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware 
 
 Is your nervous system locked in chronic fight-or-flight, or do you command flexible autonomic self-regulation? Take our clinical assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your comprehensive 6-pillar neuro-autonomic profile with actionable protocols delivered straight to your inbox.*
 
@@ -2181,7 +2181,7 @@ Support your hormonal rhythms with targeted clinical botanical, testing, and nut
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/ovarian-test.png" alt="Ovarian Reserve Female Hormone Test Kit" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/ovarian-test.png" alt="Ovarian Reserve Female Hormone Test Kit" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -2203,7 +2203,7 @@ Support your hormonal rhythms with targeted clinical botanical, testing, and nut
             <span>Order Hormone Test</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -2216,7 +2216,7 @@ Support your hormonal rhythms with targeted clinical botanical, testing, and nut
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/sleep-analyzer.png" alt="Withings Sleep Analyzer Under-Mattress Pad" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/sleep-analyzer.png" alt="Withings Sleep Analyzer Under-Mattress Pad" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -2238,7 +2238,7 @@ Support your hormonal rhythms with targeted clinical botanical, testing, and nut
             <span>Buy on Amazon</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -2251,7 +2251,7 @@ Support your hormonal rhythms with targeted clinical botanical, testing, and nut
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/marine-collagen.png" alt="Zebora Marine Collagen Peptides Powder" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/marine-collagen.png" alt="Zebora Marine Collagen Peptides Powder" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -2273,7 +2273,7 @@ Support your hormonal rhythms with targeted clinical botanical, testing, and nut
             <span>Order Marine Collagen</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -2321,7 +2321,7 @@ Support your hormonal rhythms with targeted clinical botanical, testing, and nut
 
 Are your daily routines synchronized with your 28-day infradian master clock? Take our comprehensive female diagnostic assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your personalized 6-pillar hormone and longevity profile delivered straight to your inbox.*
 
@@ -2568,7 +2568,7 @@ Transform your physical living space into a high-performance wellness sanctuary 
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/core-500.png" alt="Eko CORE 500™ Digital AI Stethoscope" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/core-500.png" alt="Eko CORE 500™ Digital AI Stethoscope" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -2590,7 +2590,7 @@ Transform your physical living space into a high-performance wellness sanctuary 
             <span>View Eko CORE 500</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -2603,7 +2603,7 @@ Transform your physical living space into a high-performance wellness sanctuary 
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/sauna.png" alt="Portable Full-Body Infrared Sauna Tent" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/sauna.png" alt="Portable Full-Body Infrared Sauna Tent" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -2625,7 +2625,7 @@ Transform your physical living space into a high-performance wellness sanctuary 
             <span>Check Sauna Deal</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -2638,7 +2638,7 @@ Transform your physical living space into a high-performance wellness sanctuary 
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/sony-headphones.png" alt="Sony WH-CH720N Noise-Canceling Headphones" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/sony-headphones.png" alt="Sony WH-CH720N Noise-Canceling Headphones" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -2660,7 +2660,7 @@ Transform your physical living space into a high-performance wellness sanctuary 
             <span>Buy on Amazon</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -2727,7 +2727,7 @@ Transform your physical living space into a high-performance wellness sanctuary 
 
 Is your built environment actively enhancing your biological vitality, or silently accelerating cellular stress? Take our clinical assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your comprehensive 6-pillar environmental and longevity profile delivered straight to your inbox.*
 
@@ -3103,7 +3103,7 @@ To construct your personalized biological telemetry sanctuary, integrate high-pr
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/rower.png" alt="Concept2 Remo Indoor Model D Rower" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/rower.png" alt="Concept2 Remo Indoor Model D Rower" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -3125,7 +3125,7 @@ To construct your personalized biological telemetry sanctuary, integrate high-pr
             <span>View on Amazon Prime</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -3138,7 +3138,7 @@ To construct your personalized biological telemetry sanctuary, integrate high-pr
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/apple-watch.png" alt="Apple Watch Series 10 (GPS 46mm)" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/apple-watch.png" alt="Apple Watch Series 10 (GPS 46mm)" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -3160,7 +3160,7 @@ To construct your personalized biological telemetry sanctuary, integrate high-pr
             <span>Buy on Amazon</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -3173,7 +3173,7 @@ To construct your personalized biological telemetry sanctuary, integrate high-pr
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/reagent-strips.png" alt="ALLTEST 10-Parameter Urinary Reagent Strips" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/reagent-strips.png" alt="ALLTEST 10-Parameter Urinary Reagent Strips" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -3195,7 +3195,7 @@ To construct your personalized biological telemetry sanctuary, integrate high-pr
             <span>Order Reagent Strips</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -3265,7 +3265,7 @@ To execute this performance telemetry architecture immediately:
 
 Are your current training loads, recovery practices, and autonomic reserves aligned with optimal longevity? Take our clinical diagnostic assessment to calculate your autonomic readiness baseline:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your personalized 6-pillar breakdown with custom actionable protocols delivered instantly to your inbox.*
 
@@ -3549,7 +3549,7 @@ Support your cellular rejuvenation protocols with verified longevity compounds a
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/blood-panel.png" alt="Personalized Cellular Biomarker Map (56 Biomarkers)" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/blood-panel.png" alt="Personalized Cellular Biomarker Map (56 Biomarkers)" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -3571,7 +3571,7 @@ Support your cellular rejuvenation protocols with verified longevity compounds a
             <span>Order Biomarker Panel</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -3584,7 +3584,7 @@ Support your cellular rejuvenation protocols with verified longevity compounds a
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/sirtuin-stack.png" alt="Momentous Sirtuin Activation Stack" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/sirtuin-stack.png" alt="Momentous Sirtuin Activation Stack" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -3606,7 +3606,7 @@ Support your cellular rejuvenation protocols with verified longevity compounds a
             <span>Get Momentous Stack</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -3619,7 +3619,7 @@ Support your cellular rejuvenation protocols with verified longevity compounds a
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/body-scan.png" alt="Withings Body Scan Segmental Composition Scale" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/body-scan.png" alt="Withings Body Scan Segmental Composition Scale" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -3641,7 +3641,7 @@ Support your cellular rejuvenation protocols with verified longevity compounds a
             <span>View on Amazon</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -3702,7 +3702,7 @@ Track these clinical biomarkers every 6 months to measure the rate of biological
 
 Are your cellular repair mechanisms, nutrient-sensing pathways, and mitochondrial reserves operating at peak capacity? Take our clinical diagnostic assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your custom 6-pillar longevity breakdown with tailored clinical protocols delivered directly to your inbox.*
 
@@ -3942,7 +3942,7 @@ Equip your daily nutritional protocol with clinically validated metabolic modula
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/cgm.png" alt="Continuous Glucose Monitor (Abbott Lingo / Dexcom ONE+)" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/cgm.png" alt="Continuous Glucose Monitor (Abbott Lingo / Dexcom ONE+)" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -3964,7 +3964,7 @@ Equip your daily nutritional protocol with clinically validated metabolic modula
             <span>Get CGM Monitor</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -3977,7 +3977,7 @@ Equip your daily nutritional protocol with clinically validated metabolic modula
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/marine-collagen.png" alt="Zebora Marine Collagen Peptides Powder" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/marine-collagen.png" alt="Zebora Marine Collagen Peptides Powder" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -3999,7 +3999,7 @@ Equip your daily nutritional protocol with clinically validated metabolic modula
             <span>Order Collagen</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -4012,7 +4012,7 @@ Equip your daily nutritional protocol with clinically validated metabolic modula
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/water-bottle.png" alt="Owala FreeSip Insulated Water Bottle" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/water-bottle.png" alt="Owala FreeSip Insulated Water Bottle" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -4034,7 +4034,7 @@ Equip your daily nutritional protocol with clinically validated metabolic modula
             <span>Buy on Amazon</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -4086,7 +4086,7 @@ To evaluate your true metabolic state beyond simple fasting glucose, review this
 
 Is your metabolic machinery running with clean, flexible efficiency or struggling with glycemic volatility? Take our clinical diagnostic assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your comprehensive 6-pillar diagnostic breakdown with personalized nutritional blueprints sent straight to your inbox.*
 
@@ -4340,7 +4340,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware 
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/bpm-connect.png" alt="Withings BPM Connect Wi-Fi Blood Pressure Cuff" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/bpm-connect.png" alt="Withings BPM Connect Wi-Fi Blood Pressure Cuff" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -4362,7 +4362,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware 
             <span>Buy on Amazon</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -4375,7 +4375,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware 
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/sony-headphones.png" alt="Sony WH-CH720N Noise-Canceling Headphones" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/sony-headphones.png" alt="Sony WH-CH720N Noise-Canceling Headphones" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -4397,7 +4397,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware 
             <span>View on Amazon</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -4410,7 +4410,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware 
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/sauna.png" alt="Portable Full-Body Infrared Sauna Tent" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/sauna.png" alt="Portable Full-Body Infrared Sauna Tent" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -4432,7 +4432,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware 
             <span>Check Sauna Deal</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -4445,7 +4445,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware 
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/meditation-cushion.png" alt="basaho Classic Zafu Meditation Cushion" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/meditation-cushion.png" alt="basaho Classic Zafu Meditation Cushion" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -4467,7 +4467,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware 
             <span>Order Meditation Cushion</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -4534,7 +4534,7 @@ Equip your recovery sanctuary with high-precision autonomic modulation hardware 
 
 Is your nervous system locked in chronic fight-or-flight, or do you command flexible autonomic self-regulation? Take our clinical assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your comprehensive 6-pillar neuro-autonomic profile with actionable protocols delivered straight to your inbox.*
 
@@ -4789,7 +4789,7 @@ Support your hormonal rhythms with targeted clinical botanical, testing, and nut
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/ovarian-test.png" alt="Ovarian Reserve Female Hormone Test Kit" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/ovarian-test.png" alt="Ovarian Reserve Female Hormone Test Kit" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -4811,7 +4811,7 @@ Support your hormonal rhythms with targeted clinical botanical, testing, and nut
             <span>Order Hormone Test</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -4824,7 +4824,7 @@ Support your hormonal rhythms with targeted clinical botanical, testing, and nut
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/sleep-analyzer.png" alt="Withings Sleep Analyzer Under-Mattress Pad" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/sleep-analyzer.png" alt="Withings Sleep Analyzer Under-Mattress Pad" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -4846,7 +4846,7 @@ Support your hormonal rhythms with targeted clinical botanical, testing, and nut
             <span>Buy on Amazon</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -4859,7 +4859,7 @@ Support your hormonal rhythms with targeted clinical botanical, testing, and nut
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/marine-collagen.png" alt="Zebora Marine Collagen Peptides Powder" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/marine-collagen.png" alt="Zebora Marine Collagen Peptides Powder" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -4881,7 +4881,7 @@ Support your hormonal rhythms with targeted clinical botanical, testing, and nut
             <span>Order Marine Collagen</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -4929,7 +4929,7 @@ Support your hormonal rhythms with targeted clinical botanical, testing, and nut
 
 Are your daily routines synchronized with your 28-day infradian master clock? Take our comprehensive female diagnostic assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your personalized 6-pillar hormone and longevity profile delivered straight to your inbox.*
 
@@ -5172,7 +5172,7 @@ Transform your physical living space into a high-performance wellness sanctuary 
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/core-500.png" alt="Eko CORE 500™ Digital AI Stethoscope" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/core-500.png" alt="Eko CORE 500™ Digital AI Stethoscope" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -5194,7 +5194,7 @@ Transform your physical living space into a high-performance wellness sanctuary 
             <span>View Eko CORE 500</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -5207,7 +5207,7 @@ Transform your physical living space into a high-performance wellness sanctuary 
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/sauna.png" alt="Portable Full-Body Infrared Sauna Tent" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/sauna.png" alt="Portable Full-Body Infrared Sauna Tent" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -5229,7 +5229,7 @@ Transform your physical living space into a high-performance wellness sanctuary 
             <span>Check Sauna Deal</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -5242,7 +5242,7 @@ Transform your physical living space into a high-performance wellness sanctuary 
 <div class="product-card-box my-8 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 shadow-xl transition-all duration-300 hover:shadow-2xl hover:border-cyan-500/50" style="margin: 2.25rem 0; padding: 1.5rem; border-radius: 1.25rem; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(13, 17, 23, 0.85); box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08); backdrop-filter: blur(16px);">
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; align-items: center;">
     <div style="flex-shrink: 0; width: 140px; height: 140px; border-radius: 1rem; overflow: hidden; background: rgba(2, 6, 23, 0.6); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.08); padding: 0.5rem;">
-      <img src="https://123thenextlevel.com/assets/images/shop/sony-headphones.png" alt="Sony WH-CH720N Noise-Canceling Headphones" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
+      <img src="/assets/images/shop/sony-headphones.png" alt="Sony WH-CH720N Noise-Canceling Headphones" style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.4));" />
     </div>
     <div style="flex: 1; min-width: 260px;">
       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap;">
@@ -5264,7 +5264,7 @@ Transform your physical living space into a high-performance wellness sanctuary 
             <span>Buy on Amazon</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
           </a>
-          <a href="https://123thenextlevel.com/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
+          <a href="/store" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(15, 23, 42, 0.8); color: #cbd5e1; border: 1px solid rgba(255, 255, 255, 0.12); padding: 0.6rem 1.1rem; border-radius: 0.6rem; font-weight: 600; font-size: 0.825rem; text-decoration: none; transition: all 0.2s ease;">
             <span>Store Hub</span>
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle;"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
           </a>
@@ -5331,7 +5331,7 @@ Transform your physical living space into a high-performance wellness sanctuary 
 
 Is your built environment actively enhancing your biological vitality, or silently accelerating cellular stress? Take our clinical assessment:
 
-👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](https://123thenextlevel.com/health-quiz)**
+👉 **[Take the Free Health Baseline & Biometric Diagnostic Quiz](/health-quiz)**
 
 *Receive your comprehensive 6-pillar environmental and longevity profile delivered straight to your inbox.*
 

@@ -15,73 +15,73 @@ const imageUpdates = [
   // 1. CLINICAL DIAGNOSTICS & TELEMETRY
   {
     ids: ['blood-panel-us', 'blood-panel-uk', 'blood-panel-es'],
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/blood-panel.png'
+    imageUrl: '/assets/images/shop/blood-panel.png'
   },
   {
     ids: ['cgm-us', 'cgm-uk', 'cgm-es'],
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/cgm.png'
+    imageUrl: '/assets/images/shop/cgm.png'
   },
   {
     ids: ['stethoscope-us', 'stethoscope-uk', 'stethoscope-es'],
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/core-500.png'
+    imageUrl: '/assets/images/shop/core-500.png'
   },
   {
     ids: ['sirtuin-stack-us', 'sirtuin-stack-uk', 'sirtuin-stack-es'],
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sirtuin-stack.png'
+    imageUrl: '/assets/images/shop/sirtuin-stack.png'
   },
 
   // 2. TECH GADGETS & WEARABLES
   {
     ids: ['blood-pressure-cuff-us', 'blood-pressure-cuff-uk', 'blood-pressure-cuff-es'],
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/bpm-connect.png'
+    imageUrl: '/assets/images/shop/bpm-connect.png'
   },
   {
     ids: ['sleep-analyzer-us', 'sleep-analyzer-uk', 'sleep-analyzer-es'],
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sleep-analyzer.png'
+    imageUrl: '/assets/images/shop/sleep-analyzer.png'
   },
   {
     ids: ['segmental-scale-us', 'segmental-scale-uk', 'segmental-scale-es'],
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/body-scan.png'
+    imageUrl: '/assets/images/shop/body-scan.png'
   },
   {
     ids: ['wearable-tracker-us', 'wearable-tracker-uk', 'wearable-tracker-es'],
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/apple-watch.png'
+    imageUrl: '/assets/images/shop/apple-watch.png'
   },
 
   // 3. LIFESTYLE & PERFORMANCE GEAR
   {
     ids: ['noise-headphones-us', 'noise-headphones-uk', 'noise-headphones-es'],
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sony-headphones.png'
+    imageUrl: '/assets/images/shop/sony-headphones.png'
   },
   {
     ids: ['meditation-cushion-us', 'meditation-cushion-uk', 'meditation-cushion-es'],
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/meditation-cushion.png'
+    imageUrl: '/assets/images/shop/meditation-cushion.png'
   },
   {
     ids: ['marine-collagen-us', 'marine-collagen-uk', 'marine-collagen-es'],
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/marine-collagen.png'
+    imageUrl: '/assets/images/shop/marine-collagen.png'
   },
   {
     ids: ['water-bottle-us', 'water-bottle-uk', 'water-bottle-es'],
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/water-bottle.png'
+    imageUrl: '/assets/images/shop/water-bottle.png'
   },
   {
     ids: ['sauna-tent-us', 'sauna-tent-uk', 'sauna-tent-es'],
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/sauna.png'
+    imageUrl: '/assets/images/shop/sauna.png'
   },
 
   // 4. PERFORMANCE & TESTING
   {
     ids: ['reagent-strips-us', 'reagent-strips-uk', 'reagent-strips-es'],
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/reagent-strips.png'
+    imageUrl: '/assets/images/shop/reagent-strips.png'
   },
   {
     ids: ['rowing-machine-us', 'rowing-machine-uk', 'rowing-machine-es'],
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/rower.png'
+    imageUrl: '/assets/images/shop/rower.png'
   },
   {
     ids: ['ovarian-test-us', 'ovarian-test-uk', 'ovarian-test-es'],
-    imageUrl: 'https://123thenextlevel.com/assets/images/shop/ovarian-test.png'
+    imageUrl: '/assets/images/shop/ovarian-test.png'
   }
 ];
 

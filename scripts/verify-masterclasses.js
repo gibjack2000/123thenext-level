@@ -30,8 +30,8 @@ async function verify() {
   for (const post of data) {
     const wordCount = post.content.trim().split(/\s+/).length;
     const hasAscii = post.content.includes('===') || post.content.includes('+--');
-    const hasStore = post.content.includes('https://123thenextlevel.com/store');
-    const hasQuiz = post.content.includes('https://123thenextlevel.com/health-quiz');
+    const hasStore = post.content.includes('/store');
+    const hasQuiz = post.content.includes('/health-quiz');
     console.log(`✅ [${post.slug}]`);
     console.log(`   Title: "${post.title}"`);
     console.log(`   Status: [${post.status}] | Words: ~${wordCount} | ASCII: ${hasAscii} | Store: ${hasStore} | Quiz: ${hasQuiz}\n`);
