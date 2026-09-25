@@ -467,11 +467,23 @@ export function sanitizeProductData(p: any): ProductDb {
 
   let healedDeal = p.deal_url || p.affiliate_link || '';
 
+  let priceText = p.price_text || '';
+  if (!priceText && p.price !== undefined && p.price !== null) {
+    const curr = (p.currency || 'USD').toUpperCase();
+    const symbol = curr === 'GBP' ? '£' : curr === 'EUR' ? '€' : '$';
+    priceText = `${symbol}${p.price}`;
+  }
+
   return {
     id: String(p.id || '').toLowerCase(),
+    name: p.name || p.title || '',
+    category: p.category || '',
+    rating: typeof p.rating === 'number' ? p.rating : parseFloat(p.rating) || 5,
+    description: p.description || '',
+    price_text: priceText,
     deal_url: healedDeal,
-    market_region: (p.market_region || 'US').toUpperCase(),
-    badge_text: p.badge_text || 'Clinically Verified',
+    market_region: (p.market_region || p.market || 'US').toUpperCase(),
+    badge_text: p.badge_text || p.cta || 'Clinically Verified',
     image_url: healedImg
   };
 }
