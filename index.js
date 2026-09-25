@@ -71,16 +71,20 @@ app.use((req, res, next) => {
   next();
 });
 
-// Serve products images from dist/Products, and fallback to public_html/Products if it exists
-const parentDir = path.resolve(__dirname, '..');
-const publicHtmlProductsPath = path.resolve(parentDir, 'public_html', 'Products');
-app.use('/Products', express.static(path.resolve(distPath, 'Products')));
-if (fs.existsSync(publicHtmlProductsPath)) {
-  app.use('/Products', express.static(publicHtmlProductsPath));
-}
+// --- Static Asset Serving for Railway & Local ---
+const publicDir = path.resolve(__dirname, 'public');
+const distProducts = path.resolve(distPath, 'Products');
+const publicProducts = path.resolve(publicDir, 'Products');
 
-// Serve static files from the 'dist' directory
+// Serve Products from dist and public, supporting both case variations
+app.use('/Products', express.static(distProducts));
+app.use('/Products', express.static(publicProducts));
+app.use('/products', express.static(distProducts));
+app.use('/products', express.static(publicProducts));
+
+// Serve root static assets from dist and public
 app.use(express.static(distPath));
+app.use(express.static(publicDir));
 
 // Add a specific health check route before wildcard
 app.get('/health', (req, res) => {
