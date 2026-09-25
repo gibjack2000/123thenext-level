@@ -456,25 +456,19 @@ Object.entries(baseAliasFallbacks).forEach(([alias, targetId]) => {
 export function sanitizeProductData(p: any): ProductDb {
   let healedImg = p.image_url || '';
   if (healedImg) {
-    if (healedImg.startsWith('/assets/') && !healedImg.startsWith('http')) {
-      healedImg = `https://123thenextlevel.com${healedImg}`;
-    } else if (healedImg.startsWith('/Products/') && !healedImg.startsWith('http')) {
-      healedImg = `https://123thenextlevel.com${healedImg}`;
+    if (healedImg.startsWith('/Products/') || healedImg.startsWith('/products/')) {
+      healedImg = 'https://www.123thenextlevel.com' + healedImg;
+    } else if (healedImg.startsWith('/assets/')) {
+      healedImg = 'https://www.123thenextlevel.com' + healedImg;
+    } else if (healedImg.startsWith('http://') || healedImg.startsWith('https://')) {
+      healedImg = healedImg.replace('https://123thenextlevel.com/', 'https://www.123thenextlevel.com/');
     }
   }
 
-  let healedDeal = p.deal_url || '#';
-  if (healedDeal.startsWith('https://123thenextlevel.comhttp')) {
-    healedDeal = healedDeal.replace('https://123thenextlevel.com', '');
-  }
+  let healedDeal = p.deal_url || p.affiliate_link || '';
 
   return {
-    id: p.id || '',
-    name: p.name || 'Clinical Product',
-    category: p.category || 'Clinical Hardware',
-    rating: typeof p.rating === 'number' ? p.rating : parseFloat(p.rating || '4.8'),
-    description: p.description || '',
-    price_text: p.price_text || '$0.00',
+    id: String(p.id || '').toLowerCase(),
     deal_url: healedDeal,
     market_region: (p.market_region || 'US').toUpperCase(),
     badge_text: p.badge_text || 'Clinically Verified',
@@ -498,7 +492,7 @@ export async function fetchAllProducts(): Promise<ProductDb[]> {
     try {
       if (supabase && hasValidSupabaseConfig) {
         const { data, error } = await supabase
-          .from('products')
+          .from('amazon_affiliate_products')
           .select('*');
 
         if (!error && data && data.length > 0) {
