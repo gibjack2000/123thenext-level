@@ -37,31 +37,60 @@ export async function POST(req: Request) {
     }
 
     // 2. Add Subscriber to MailerLite Group (Triggers Welcome Automation)
-    const mailerliteRes = await fetch('https://connect.mailerlite.com/api/subscribers', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${process.env.MAILERLITE_API_KEY}`,
-      },
-      body: JSON.stringify({
+    if (process.env.MAILERLITE_API_KEY) {
+      const mailerlitePayload: any = {
         email: cleanEmail,
         fields: {
-          name: cleanName,
-          source: source || 'website',
-          quiz_score: quizScore ? String(quizScore) : '',
+          ...(cleanName ? { name: cleanName } : {}),
+          ...(source ? { source } : {}),
+          ...(quizScore ? { quiz_score: String(quizScore) } : {}),
         },
-        groups: process.env.MAILERLITE_GROUP_ID ? [process.env.MAILERLITE_GROUP_ID] : [],
-      }),
-    });
+        status: 'active',
+      };
+      if (process.env.MAILERLITE_GROUP_ID) {
+        mailerlitePayload.groups = [process.env.MAILERLITE_GROUP_ID.trim()];
+      }
 
-    if (!mailerliteRes.ok) {
-      const errorPayload = await mailerliteRes.json();
-      console.error('MailerLite API Sync Error:', errorPayload);
-      return NextResponse.json(
-        { error: 'Unable to register subscriber with MailerLite.' },
-        { status: 500 }
-      );
+      let mailerliteRes = await fetch('https://connect.mailerlite.com/api/subscribers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${process.env.MAILERLITE_API_KEY.trim()}`,
+        },
+        body: JSON.stringify(mailerlitePayload),
+      });
+
+      if (!mailerliteRes.ok && mailerliteRes.status === 422) {
+        const basicPayload: any = {
+          email: cleanEmail,
+          fields: cleanName ? { name: cleanName } : {},
+          status: 'active',
+        };
+        if (process.env.MAILERLITE_GROUP_ID) {
+          basicPayload.groups = [process.env.MAILERLITE_GROUP_ID.trim()];
+        }
+        mailerliteRes = await fetch('https://connect.mailerlite.com/api/subscribers', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${process.env.MAILERLITE_API_KEY.trim()}`,
+          },
+          body: JSON.stringify(basicPayload),
+        });
+      }
+
+      if (!mailerliteRes.ok) {
+        const errorPayload = await mailerliteRes.json().catch(() => ({}));
+        console.error('MailerLite API Sync Error:', mailerliteRes.status, errorPayload);
+        return NextResponse.json(
+          { error: 'Unable to register subscriber with MailerLite.' },
+          { status: 500 }
+        );
+      }
+    } else {
+      console.warn('⚠️ [MailerLite] MAILERLITE_API_KEY is not set in environment.');
     }
 
     return NextResponse.json({
