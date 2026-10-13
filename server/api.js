@@ -208,34 +208,156 @@ router.post('/quiz-results', async (req, res) => {
   }
 });
 
+// --- Primary Lead Capture & MailerLite Sync Route (/api/subscribe) ---
+router.post('/subscribe', async (req, res) => {
+  try {
+    const { email, firstName, source, quizScore } = req.body || {};
+
+    if (!email || !email.includes('@')) {
+      return res.status(400).json({ error: 'A valid email address is required.' });
+    }
+
+    const cleanEmail = email.toLowerCase().trim();
+    const cleanName = firstName ? String(firstName).trim() : '';
+    const cleanSource = source || 'website_lead';
+    const cleanScore = quizScore !== undefined && quizScore !== null ? String(quizScore) : null;
+
+    // 1. Save / Backup Lead in Supabase 'leads' table
+    if (supabase) {
+      try {
+        const { error: dbError } = await supabase.from('leads').upsert(
+          {
+            email: cleanEmail,
+            first_name: cleanName,
+            source: cleanSource,
+            quiz_score: cleanScore,
+            created_at: new Date().toISOString(),
+          },
+          { onConflict: 'email' }
+        );
+
+        if (dbError) {
+          console.warn('Supabase Lead Log Warning:', dbError.message);
+          // Fallback / secondary log to newsletter_subscribers if leads table doesn't exist
+          try {
+            await supabase
+              .from('newsletter_subscribers')
+              .upsert([{ email: cleanEmail, preferences: [cleanSource] }], { onConflict: 'email' });
+          } catch (fallbackErr) {
+            // non-blocking
+          }
+        }
+      } catch (dbEx) {
+        console.warn('Supabase Lead Log Exception:', dbEx.message);
+      }
+    }
+
+    // 2. Add Subscriber to MailerLite Group (Triggers Welcome Automation)
+    if (process.env.MAILERLITE_API_KEY) {
+      try {
+        const mailerlitePayload = {
+          email: cleanEmail,
+          fields: {
+            name: cleanName,
+            source: cleanSource,
+            quiz_score: cleanScore || '',
+          },
+          groups: process.env.MAILERLITE_GROUP_ID ? [process.env.MAILERLITE_GROUP_ID] : [],
+        };
+
+        const mailerliteRes = await fetch('https://connect.mailerlite.com/api/subscribers', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${process.env.MAILERLITE_API_KEY}`,
+          },
+          body: JSON.stringify(mailerlitePayload),
+        });
+
+        if (!mailerliteRes.ok) {
+          const errorPayload = await mailerliteRes.json().catch(() => ({}));
+          console.error('MailerLite API Sync Error:', errorPayload);
+          return res.status(500).json({ error: 'Unable to register subscriber with MailerLite.' });
+        }
+      } catch (mlErr) {
+        console.error('MailerLite network/request exception:', mlErr);
+        return res.status(500).json({ error: 'Unable to register subscriber with MailerLite.' });
+      }
+    } else {
+      console.warn('MAILERLITE_API_KEY is not set in environment. Skipping MailerLite call.');
+    }
+
+    return res.json({
+      success: true,
+      message: 'Subscriber successfully synced to MailerLite and database.',
+    });
+  } catch (error) {
+    console.error('Subscription Endpoint Exception:', error);
+    return res.status(500).json({ error: error.message || 'Internal server error.' });
+  }
+});
+
 // --- Newsletter Subscription Route ---
 router.post('/newsletter/subscribe', async (req, res) => {
-  const { email, preferences } = req.body;
-  if (!email) {
+  const { email, preferences, name, firstName, source } = req.body || {};
+  if (!email || !email.includes('@')) {
     return res.status(400).json({ error: 'Email address is required.' });
   }
 
-  // Save to Supabase newsletter_subscribers
+  const cleanEmail = email.toLowerCase().trim();
+  const cleanName = (firstName || name || '').trim();
+  const cleanSource = source || 'newsletter_subscription';
+
+  // Save to Supabase
   if (supabase) {
     try {
-      const { error: dbError } = await supabase
+      // Upsert to leads
+      await supabase.from('leads').upsert(
+        {
+          email: cleanEmail,
+          first_name: cleanName,
+          source: cleanSource,
+          created_at: new Date().toISOString(),
+        },
+        { onConflict: 'email' }
+      ).catch(() => {});
+
+      // Upsert to newsletter_subscribers
+      await supabase
         .from('newsletter_subscribers')
-        .upsert([{ email, preferences: preferences || [] }], { onConflict: 'email' });
-      
-      if (dbError) {
-        console.error('Failed to save newsletter subscription to Supabase:', dbError);
-      } else {
-        console.log(`Newsletter subscription for ${email} saved to Supabase.`);
-      }
+        .upsert([{ email: cleanEmail, preferences: preferences || ['Health', 'Fitness', 'Nutrition', 'Wellness'] }], { onConflict: 'email' });
     } catch (dbError) {
       console.error('Unexpected error saving newsletter subscription:', dbError);
     }
-  } else {
-    console.warn('Supabase is not configured; skipping newsletter subscription persistence.');
+  }
+
+  // Also sync to MailerLite if configured
+  if (process.env.MAILERLITE_API_KEY) {
+    try {
+      await fetch('https://connect.mailerlite.com/api/subscribers', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${process.env.MAILERLITE_API_KEY}`,
+        },
+        body: JSON.stringify({
+          email: cleanEmail,
+          fields: {
+            name: cleanName,
+            source: cleanSource,
+          },
+          groups: process.env.MAILERLITE_GROUP_ID ? [process.env.MAILERLITE_GROUP_ID] : [],
+        }),
+      });
+    } catch (mlErr) {
+      console.warn('MailerLite sync from newsletter route warning:', mlErr.message);
+    }
   }
 
   try {
-    await sendNewsletterWelcomeEmail({ email, preferences });
+    await sendNewsletterWelcomeEmail({ email: cleanEmail, preferences });
     res.json({ success: true, message: 'Subscribed to newsletter successfully.' });
   } catch (error) {
     console.error('Failed to send welcome email:', error);

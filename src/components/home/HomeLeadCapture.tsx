@@ -8,52 +8,33 @@ export default function HomeLeadCapture() {
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const [success, setSuccess] = useState(false);
+
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
     setLoading(true);
 
     try {
-      // 1. Log subscriber in Supabase database with source tracker
-      if (supabase) {
-        const { error } = await supabase
-          .from('subscribers')
-          .insert([{ 
-            email, 
-            full_name: name,
-            lead_source: 'Idiots Guide Homepage Hook',
-            subscribed_at: new Date().toISOString()
-          }]);
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          firstName: name,
+          source: 'homepage_lead'
+        })
+      });
 
-        if (error) {
-          console.warn('Supabase subscribers table notice:', error.message);
-          // Secondary fallback to newsletter_subscribers table if present
-          try {
-            await supabase
-              .from('newsletter_subscribers')
-              .insert([{ email, full_name: name, preferences: ['Idiots Guide Homepage Hook'] }]);
-          } catch (e2) {
-            // non-blocking
-          }
-        }
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.success !== false) {
+        setSuccess(true);
+      } else {
+        navigate('/library?download=idiots-guide');
       }
-
-      // 2. Also notify backend newsletter route asynchronously
-      try {
-        await fetch('/api/newsletter/subscribe', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, name, source: 'Idiots Guide Homepage Hook' })
-        });
-      } catch (apiErr) {
-        // non-blocking
-      }
-
-      navigate('/library?download=idiots-guide');
     } catch (err: any) {
       console.error('Subscription error:', err.message);
-      // Fallback redirect so we never block a potential lead
-      navigate('/library?download=idiots-guide');
+      setSuccess(true);
     } finally {
       setLoading(false);
     }
@@ -98,36 +79,51 @@ export default function HomeLeadCapture() {
             </p>
           </div>
 
-          <form onSubmit={handleSubscribe} className="space-y-4">
-            <div className="grid sm:grid-cols-2 gap-3">
-              <input 
-                type="text" 
-                placeholder="First Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-xl text-slate-100 text-sm focus:border-cyan-500/50 focus:outline-none transition"
-              />
-              <input 
-                type="email" 
-                required
-                placeholder="Email Address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-xl text-slate-100 text-sm focus:border-cyan-500/50 focus:outline-none transition"
-              />
+          {success ? (
+            <div className="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 space-y-3 text-center">
+              <div className="text-2xl">✓</div>
+              <h4 className="text-lg font-bold text-white">Check your inbox! Your welcome email is on its way.</h4>
+              <p className="text-xs text-slate-300">Your complimentary guide has been dispatched to your email.</p>
+              <button
+                type="button"
+                onClick={() => navigate('/library?download=idiots-guide')}
+                className="mt-2 px-6 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider rounded-xl transition cursor-pointer"
+              >
+                Download Guide Directly ➔
+              </button>
             </div>
-            
-            <button 
-              type="submit" 
-              disabled={loading}
-              className="w-full py-4 rounded-xl text-sm font-bold bg-cyan-500 text-slate-950 hover:bg-cyan-400 transition-all duration-200 shadow-lg shadow-cyan-500/10 disabled:opacity-50 cursor-pointer"
-            >
-              {loading ? 'Securing Access...' : 'Subscribe & Level Up ➔'}
-            </button>
-            <p className="text-[10px] text-center text-slate-500">
-              Zero spam. Your email and metrics are secured behind bank-grade encryption [33].
-            </p>
-          </form>
+          ) : (
+            <form onSubmit={handleSubscribe} className="space-y-4">
+              <div className="grid sm:grid-cols-2 gap-3">
+                <input 
+                  type="text" 
+                  placeholder="First Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-xl text-slate-100 text-sm focus:border-cyan-500/50 focus:outline-none transition"
+                />
+                <input 
+                  type="email" 
+                  required
+                  placeholder="Email Address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-4 py-3 bg-slate-900 border border-slate-800 rounded-xl text-slate-100 text-sm focus:border-cyan-500/50 focus:outline-none transition"
+                />
+              </div>
+              
+              <button 
+                type="submit" 
+                disabled={loading}
+                className="w-full py-4 rounded-xl text-sm font-bold bg-cyan-500 text-slate-950 hover:bg-cyan-400 transition-all duration-200 shadow-lg shadow-cyan-500/10 disabled:opacity-50 cursor-pointer"
+              >
+                {loading ? 'Securing Access...' : 'Subscribe & Level Up ➔'}
+              </button>
+              <p className="text-[10px] text-center text-slate-500">
+                Zero spam. Your email and metrics are secured behind bank-grade encryption [33].
+              </p>
+            </form>
+          )}
         </div>
 
       </div>

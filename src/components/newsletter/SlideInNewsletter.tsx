@@ -46,14 +46,14 @@ export default function SlideInNewsletter() {
     setErrorMessage('');
 
     try {
-      const response = await fetch('/api/newsletter/subscribe', {
+      const response = await fetch('/api/subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           email,
-          preferences: selectedPrefs,
+          source: 'slidein_lead',
         }),
       });
 
@@ -135,9 +135,9 @@ export default function SlideInNewsletter() {
                 <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 mb-1">
                   <Check size={20} />
                 </div>
-                <h4 className="text-white font-bold">Preferences Saved!</h4>
-                <p className="text-slate-400 text-xs leading-relaxed">
-                  Thank you! We've updated your newsletter topics. You will receive your welcome confirmation shortly.
+                <h4 className="text-white font-bold">Welcome aboard!</h4>
+                <p className="text-emerald-400 text-xs font-semibold leading-relaxed">
+                  Check your inbox! Your welcome email is on its way.
                 </p>
               </div>
             ) : (

@@ -85,27 +85,15 @@ export const FriendlyWellnessQuizModal: React.FC<FriendlyWellnessQuizModalProps>
 
     // Asynchronously register lead
     try {
-      await fetch('/api/newsletter/subscribe', {
+      await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email,
-          name,
-          source: 'ebook_onboarding_modal',
-          preferences: ['Health', 'Fitness', 'Nutrition', 'Wellness']
+          firstName: name,
+          source: 'homepage_lead'
         })
       }).catch(() => {});
-
-      if (hasValidSupabaseConfig && supabase) {
-        await supabase
-          .from('newsletter_subscribers')
-          .insert([{ 
-            email, 
-            name: name || null,
-            source: 'ebook_onboarding_modal',
-            preferences: ['Health', 'Fitness', 'Nutrition', 'Wellness'] 
-          }]);
-      }
     } catch (err) {
       console.error('Lead subscription background error:', err);
     }
@@ -125,28 +113,16 @@ export const FriendlyWellnessQuizModal: React.FC<FriendlyWellnessQuizModalProps>
     setIsSubmitting(true);
 
     try {
-      await fetch('/api/newsletter/subscribe', {
+      await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email,
-          name,
-          source: 'critical_path_trajectory_scan',
-          focus: selectedFrustration,
-          preferences: ['Health', 'Fitness', 'Nutrition', 'Wellness']
+          firstName: name,
+          quizScore: '85',
+          source: 'wellness_quiz'
         })
       }).catch(() => {});
-
-      if (hasValidSupabaseConfig && supabase) {
-        await supabase
-          .from('newsletter_subscribers')
-          .insert([{ 
-            email, 
-            name: name || null,
-            source: 'critical_path_trajectory_scan',
-            preferences: ['Health', 'Fitness', 'Nutrition', 'Wellness'] 
-          }]);
-      }
     } catch (err) {
       console.error('Quiz lead submission error:', err);
     }

@@ -110,20 +110,15 @@ export default function Home() {
 
     // Perform API subscriptions asynchronously in the background
     try {
-      await fetch('/api/newsletter/subscribe', {
+      await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: leadEmail,
-          preferences: ['Health', 'Fitness', 'Nutrition', 'Wellness']
+          firstName: leadFirstName || '',
+          source: 'homepage_lead'
         })
       });
-      
-      if (hasValidSupabaseConfig && supabase) {
-        await supabase
-          .from('newsletter_subscribers')
-          .insert([{ email: leadEmail, preferences: ['Health', 'Fitness', 'Nutrition', 'Wellness'] }]);
-      }
     } catch (err) {
       console.error('Lead form subscription background execution failed:', err);
     }

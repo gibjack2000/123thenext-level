@@ -1299,33 +1299,33 @@
       <div id="optinFormWrap">
         <div class="optin-hero">
           <div class="optin-mini-score">
-            <span class="lbl">Your Score</span>
-            <span class="num"><span id="optinScoreVal">0</span>/100</span>
-            <span class="lbl" id="optinScoreTier">—</span>
+            <span class="lbl">5-Minute Assessment Complete</span>
+            <span class="num" style="font-size:22px; letter-spacing:1px; color:var(--brand-deep);">🔒 RESULTS READY</span>
+            <span class="lbl" id="optinScoreTier">Enter your details below to reveal your score</span>
           </div>
-          <h2>Unlock Your Personalized Plan</h2>
-          <p>Enter your email and we'll send your full Health Baseline report — your pillar scores, prioritized action plan, and quick wins — plus weekly Next Level health tips.</p>
+          <h2>Unlock Your Personalized Score & Plan</h2>
+          <p>Enter your first name and email below to instantly reveal your personalized score, full biological blueprint, and action plan.</p>
         </div>
 
         <div class="optin-perks">
           <div class="optin-perk">
             <div class="check">✓</div>
-            <div><strong>Your full personalized plan</strong> — pillar scores + prioritized actions you can start this week</div>
+            <div><strong>Instant score reveal</strong> — unlock your overall 0–100 health score and pillar breakdown</div>
           </div>
           <div class="optin-perk">
             <div class="check">✓</div>
-            <div><strong>Weekly Next Level tips</strong> — short, actionable, no fluff. Unsubscribe anytime</div>
+            <div><strong>Your full personalized plan</strong> — prioritized clinical actions you can start this week</div>
           </div>
           <div class="optin-perk">
             <div class="check">✓</div>
-            <div><strong>Free "First 7 Days" roadmap</strong> — a day-by-day starter plan based on your weakest pillar</div>
+            <div><strong>Weekly Next Level tips</strong> — short, actionable protocols sent straight to your inbox</div>
           </div>
         </div>
 
         <form class="optin-form" id="optinForm" novalidate>
           <div class="field">
-            <label for="optinName">First name <span style="color:var(--ink-faint); font-weight:500;">(optional)</span></label>
-            <input type="text" id="optinName" name="name" placeholder="Alex" autocomplete="given-name" />
+            <label for="optinName">First name <span style="color:var(--danger);">*</span></label>
+            <input type="text" id="optinName" name="name" placeholder="Enter your first name" autocomplete="given-name" required />
           </div>
           <div class="field">
             <label for="optinEmail">Email <span style="color:var(--danger);">*</span></label>
@@ -1340,12 +1340,11 @@
             </select>
           </div>
           <div class="optin-consent">
-            <input type="checkbox" id="optinConsent" required />
-            <label for="optinConsent">Yes, send me my Health Baseline report and weekly tips. I can unsubscribe anytime. View our <a href="/privacy" target="_blank" rel="noopener" style="color:var(--brand-deep);">Privacy Policy</a>.</label>
+            <input type="checkbox" id="optinConsent" required checked />
+            <label for="optinConsent">Yes, reveal my score and send my Health Baseline report. View our <a href="/privacy" target="_blank" rel="noopener" style="color:var(--brand-deep);">Privacy Policy</a>.</label>
           </div>
-          <div class="optin-error" id="optinError">Please enter a valid email address and check the consent box.</div>
-          <button type="submit" class="btn btn-primary btn-block" id="optinSubmit">Send Me My Plan →</button>
-          <button type="button" class="optin-skip" id="optinSkip">No thanks, just show me my score →</button>
+          <div class="optin-error" id="optinError">Please enter your first name, a valid email address, and check consent.</div>
+          <button type="submit" class="btn btn-primary btn-block" id="optinSubmit">Reveal My Full Score & Results →</button>
         </form>
       </div>
 
@@ -2423,23 +2422,18 @@ $('nextBtn').addEventListener('click', () => {
    EMAIL OPT-IN FLOW
    ========================================================= */
 function showOptinScreen() {
-  // Compute score to show as teaser
-  const dims = computeScores();
-  let totalScore = 0, totalMax = 0;
-  Object.values(dims).forEach(d => { totalScore += d.total; totalMax += d.max; });
-  const overall = Math.round((totalScore / totalMax) * 100);
-  let tier;
-  if (overall >= 75) tier = 'THRIVING';
-  else if (overall >= 50) tier = 'BUILDING';
-  else tier = 'PRIORITY FOCUS';
-  $('optinScoreVal').textContent = overall;
-  $('optinScoreTier').textContent = '· ' + tier;
+  if ($('optinScoreTier')) {
+    $('optinScoreTier').textContent = 'Enter your details below to reveal your score';
+  }
 
   // Reset form visibility (in case of retake)
   $('optinFormWrap').classList.remove('hidden');
   $('optinSuccessWrap').classList.add('hidden');
   $('optinError').classList.remove('show');
   $('optinForm').reset();
+  if ($('optinConsent')) {
+    $('optinConsent').checked = true;
+  }
   if ($('optinRegion')) {
     $('optinRegion').value = state.selectedRegion;
   }
@@ -2451,42 +2445,83 @@ function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-$('optinForm').addEventListener('submit', (e) => {
+$('optinForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const email = $('optinEmail').value.trim();
   const name = $('optinName').value.trim();
   const consent = $('optinConsent').checked;
   const region = $('optinRegion') ? $('optinRegion').value : 'us';
 
-  if (!isValidEmail(email) || !consent) {
+  if (!name || !isValidEmail(email) || !consent) {
+    if (!name) {
+      $('optinError').textContent = 'Please enter your first name.';
+    } else if (!isValidEmail(email)) {
+      $('optinError').textContent = 'Please enter a valid email address.';
+    } else {
+      $('optinError').textContent = 'Please check the consent box.';
+    }
     $('optinError').classList.add('show');
     return;
   }
   $('optinError').classList.remove('show');
+
+  const submitBtn = $('optinSubmit');
+  if (submitBtn) {
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Revealing Your Score...';
+  }
+
+  // Compute full quiz score
+  const dims = computeScores();
+  let totalScore = 0, totalMax = 0;
+  Object.values(dims).forEach(d => { totalScore += d.total; totalMax += d.max; });
+  const quizScore = Math.round((totalScore / totalMax) * 100);
 
   state.userEmail = email;
   state.userName = name;
   state.selectedRegion = region;
   state.optedIn = true;
 
-  // Show success state immediately
+  // Persist email & name in session/local storage for persistence
+  try {
+    localStorage.setItem('quiz_subscriber_email', email);
+    localStorage.setItem('quiz_subscriber_name', name);
+  } catch (e) {}
+
+  // 1. Submit lead to /api/subscribe (MailerLite & Supabase sync)
+  try {
+    await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        firstName: name,
+        quizScore: quizScore,
+        source: 'wellness_quiz'
+      })
+    });
+  } catch (subErr) {
+    console.error('Lead subscription endpoint error:', subErr);
+  }
+
+  // 2. Dispatch detailed breakdown plan via SMTP service in background
+  try {
+    const plan = buildEmailPlan();
+    sendResultsEmail(email, name, plan);
+  } catch (pErr) {
+    console.warn('Plan email error:', pErr);
+  }
+
+  // 3. Instantly reveal full quiz results!
   $('optinFormWrap').classList.add('hidden');
   $('optinSuccessWrap').classList.remove('hidden');
 
-  // Fire the actual email subscription
-  submitToProvider(email, name);
-
-  // After short delay, show full results
   setTimeout(() => {
     renderResults();
     showScreen('results');
-  }, 1600);
-});
-
-$('optinSkip').addEventListener('click', () => {
-  state.optedIn = false;
-  renderResults();
-  showScreen('results');
+  }, 400);
 });
 
 function submitToProvider(email, name) {

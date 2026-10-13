@@ -19,14 +19,14 @@ const Footer = () => {
     setErrorMessage('');
 
     try {
-      const response = await fetch('/api/newsletter/subscribe', {
+      const response = await fetch('/api/subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           email,
-          preferences: ['Health', 'Fitness', 'Nutrition', 'Wellness'],
+          source: 'homepage_lead',
         }),
       });
 
@@ -68,7 +68,7 @@ const Footer = () => {
             {status === 'success' ? (
               <div className="flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-4 text-emerald-400">
                 <Check size={18} />
-                <span className="text-xs font-bold uppercase tracking-wider">Welcome aboard! Check your inbox.</span>
+                <span className="text-xs font-bold uppercase tracking-wider">Check your inbox! Your welcome email is on its way.</span>
               </div>
             ) : (
               <form onSubmit={handleSubscribe} className="space-y-3">

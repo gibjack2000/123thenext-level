@@ -6,6 +6,7 @@ interface QuizResultsPanelProps {
 }
 
 export default function QuizResultsLeadCapture({ score }: QuizResultsPanelProps) {
+  const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -16,44 +17,19 @@ export default function QuizResultsLeadCapture({ score }: QuizResultsPanelProps)
     setLoading(true);
 
     try {
-      // 1. Log quiz score & subscriber details into Supabase
-      if (supabase) {
-        const { error } = await supabase
-          .from('subscribers')
-          .insert([{ 
-            email, 
-            lead_source: 'Quiz Results Lead Capture',
-            quiz_score: score,
-            subscribed_at: new Date().toISOString()
-          }]);
+      // 1. Submit to /api/subscribe (MailerLite & Supabase sync)
+      await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          firstName,
+          quizScore: score,
+          source: 'wellness_quiz'
+        })
+      });
 
-        if (error) {
-          console.warn('Supabase subscribers insert notice:', error.message);
-          // Fallback to quiz_submissions or newsletter_subscribers if subscribers table schema differs
-          try {
-            await supabase
-              .from('quiz_submissions')
-              .insert([{ email, score, lead_source: 'Quiz Results Lead Capture' }]);
-          } catch (e2) {
-            // non-blocking
-          }
-        }
-      }
-
-      // Also post to backend if available
-      try {
-        await fetch('/api/quiz-results', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, score, lead_source: 'Quiz Results Lead Capture' })
-        });
-      } catch (e3) {
-        // non-blocking
-      }
-
-      setSuccess(true);
-
-      // 2. Programmatically fire the "Idiot's Guide" PDF download
+      // Also trigger PDF download
       const link = document.createElement('a');
       link.href = '/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf';
       link.download = 'idiots-guide-to-the-next-level-lifespan.pdf';
@@ -61,9 +37,10 @@ export default function QuizResultsLeadCapture({ score }: QuizResultsPanelProps)
       link.click();
       document.body.removeChild(link);
 
+      setSuccess(true);
     } catch (err: any) {
       console.error('Quiz lead capture failed:', err.message);
-      setSuccess(true); // Fallback to let them download anyway
+      setSuccess(true);
     } finally {
       setLoading(false);
     }
@@ -100,10 +77,17 @@ export default function QuizResultsLeadCapture({ score }: QuizResultsPanelProps)
 
           {success ? (
             <div className="p-4 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-semibold flex items-center justify-center">
-              ✓ Check your downloads! Your Idiot’s Guide has triggered.
+              ✓ Check your inbox! Your welcome email is on its way, and your Idiot’s Guide download has triggered.
             </div>
           ) : (
             <form onSubmit={handleQuizLeadSave} className="flex flex-col sm:flex-row gap-2">
+              <input 
+                type="text" 
+                placeholder="First name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                className="w-full sm:w-1/3 px-4 py-3 bg-slate-950 border border-slate-800 rounded-xl text-slate-100 text-sm focus:border-cyan-500/50 focus:outline-none transition"
+              />
               <input 
                 type="email" 
                 required

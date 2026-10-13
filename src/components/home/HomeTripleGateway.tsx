@@ -8,51 +8,33 @@ export default function HomeTripleGateway() {
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const [success, setSuccess] = useState(false);
+
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
     setLoading(true);
 
     try {
-      // 1. Log subscriber in Supabase database with source tracker
-      if (supabase) {
-        const { error } = await supabase
-          .from('subscribers')
-          .insert([{ 
-            email, 
-            full_name: name,
-            lead_source: 'Idiots Guide Homepage Triple-Gateway',
-            subscribed_at: new Date().toISOString()
-          }]);
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          source: 'homepage_lead'
+        })
+      });
 
-        if (error) {
-          console.warn('Supabase subscribers notice:', error.message);
-          try {
-            await supabase
-              .from('newsletter_subscribers')
-              .insert([{ email, full_name: name, preferences: ['Idiots Guide Homepage Triple-Gateway'] }]);
-          } catch (e2) {
-            // non-blocking
-          }
-        }
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.success !== false) {
+        setSuccess(true);
+      } else {
+        // Fallback to library redirect so user isn't blocked
+        navigate('/library?download=idiots-guide');
       }
-
-      // Also notify backend API asynchronously
-      try {
-        await fetch('/api/newsletter/subscribe', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, name, source: 'Idiots Guide Homepage Triple-Gateway' })
-        });
-      } catch (apiErr) {
-        // non-blocking
-      }
-
-      navigate('/library?download=idiots-guide');
     } catch (err: any) {
       console.error('Subscription error:', err.message);
-      // Fallback redirect so we never block a potential lead
-      navigate('/library?download=idiots-guide');
+      setSuccess(true);
     } finally {
       setLoading(false);
     }
@@ -146,23 +128,35 @@ export default function HomeTripleGateway() {
                 </p>
               </div>
               
-              <form onSubmit={handleSubscribe} className="space-y-2">
-                <input 
-                  type="email" 
-                  required
-                  placeholder="Enter email..."
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-slate-100 text-xs focus:border-cyan-500/50 focus:outline-none transition"
-                />
-                <button 
-                  type="submit" 
-                  disabled={loading}
-                  className="w-full py-2 px-3 rounded-lg text-xs font-bold bg-slate-800 hover:bg-slate-700 text-white transition disabled:opacity-50 cursor-pointer"
-                >
-                  {loading ? 'Sending...' : 'Get Free PDF ➔'}
-                </button>
-              </form>
+              {success ? (
+                <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl text-emerald-400 text-xs font-semibold text-center space-y-2">
+                  <p>Check your inbox! Your welcome email is on its way.</p>
+                  <button 
+                    onClick={() => navigate('/library?download=idiots-guide')}
+                    className="w-full py-1.5 px-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-[10px] font-bold uppercase transition"
+                  >
+                    Download Guide Now ➔
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubscribe} className="space-y-2">
+                  <input 
+                    type="email" 
+                    required
+                    placeholder="Enter email..."
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full px-2.5 py-1.5 bg-slate-950 border border-slate-800 rounded-lg text-slate-100 text-xs focus:border-cyan-500/50 focus:outline-none transition"
+                  />
+                  <button 
+                    type="submit" 
+                    disabled={loading}
+                    className="w-full py-2 px-3 rounded-lg text-xs font-bold bg-slate-800 hover:bg-slate-700 text-white transition disabled:opacity-50 cursor-pointer"
+                  >
+                    {loading ? 'Sending...' : 'Get Free PDF ➔'}
+                  </button>
+                </form>
+              )}
             </div>
 
             {/* Pathway 3: Express Shop */}

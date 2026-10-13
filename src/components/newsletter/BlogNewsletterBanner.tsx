@@ -38,14 +38,14 @@ export default function BlogNewsletterBanner({ currentCategory }: BlogNewsletter
     setErrorMessage('');
 
     try {
-      const response = await fetch('/api/newsletter/subscribe', {
+      const response = await fetch('/api/subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           email,
-          preferences: selectedPrefs,
+          source: 'blog_lead',
         }),
       });
 
@@ -92,9 +92,9 @@ export default function BlogNewsletterBanner({ currentCategory }: BlogNewsletter
               <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 mb-2">
                 <Check size={24} />
               </div>
-              <h4 className="text-white font-bold text-lg">You're on the list!</h4>
-              <p className="text-slate-400 text-xs leading-relaxed">
-                Check your inbox for a confirmation welcome email. We have saved your preferences.
+              <h4 className="text-white font-bold text-lg">Welcome aboard!</h4>
+              <p className="text-emerald-400 text-xs font-semibold leading-relaxed">
+                Check your inbox! Your welcome email is on its way.
               </p>
             </div>
           ) : (
