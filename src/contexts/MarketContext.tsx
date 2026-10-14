@@ -44,10 +44,14 @@ export function getInitialMarket(): Market {
       }
     }
 
-    // 3. Check if user explicitly changed flag in current session
+    // 3. Check if user explicitly changed flag in current session or previous visit
     const sessionChoice = sessionStorage.getItem('user_explicit_market_selection');
     if (sessionChoice && ['US', 'UK', 'ES'].includes(sessionChoice.toUpperCase())) {
       return sessionChoice.toUpperCase() as Market;
+    }
+    const localChoice = localStorage.getItem('selected-market') || localStorage.getItem('selected_region');
+    if (localChoice && ['US', 'UK', 'ES'].includes(localChoice.toUpperCase())) {
+      return localChoice.toUpperCase() as Market;
     }
   } catch {
     return 'US';
@@ -66,7 +70,7 @@ export function MarketProvider({ children }: { children: React.ReactNode }) {
     const normalized = (newMarket || 'US').toUpperCase() as Market;
     const finalMarket = ['US', 'UK', 'ES'].includes(normalized) ? normalized : 'US';
     
-    setMarketState(finalMarket);
+    setMarketState(prev => (prev !== finalMarket ? finalMarket : prev));
     try {
       sessionStorage.setItem('user_explicit_market_selection', finalMarket);
       localStorage.setItem('user_explicit_market_selection', 'true');
@@ -79,7 +83,6 @@ export function MarketProvider({ children }: { children: React.ReactNode }) {
     if (typeof window !== 'undefined') {
       window.dispatchEvent(new CustomEvent('market-changed', { detail: { market: finalMarket } }));
       window.dispatchEvent(new CustomEvent('region-changed', { detail: { region: finalMarket } }));
-      window.dispatchEvent(new Event('storage'));
     }
   }, []);
 
@@ -92,9 +95,16 @@ export function MarketProvider({ children }: { children: React.ReactNode }) {
     const searchParams = new URLSearchParams(window.location.search);
     const hasUrlCountry = searchParams.get('country');
     const hasSessionChoice = sessionStorage.getItem('user_explicit_market_selection');
+    const hasLocalChoice = localStorage.getItem('selected-market');
 
-    // If user explicitly supplied ?country= or selected flag this session, don't overwrite
-    if (hasUrlCountry || hasSessionChoice) return;
+    // Check if user is on an explicit regional route like /store-us, /store-uk, /store-es, /us, /uk, /es
+    const parts = window.location.pathname.split('/').filter(Boolean);
+    const first = parts[0]?.toLowerCase() || '';
+    const isRegionalRoute = ['us', 'uk', 'es'].includes(first) || 
+      (first.startsWith('store-') && ['us', 'uk', 'es'].includes(first.replace('store-', '')));
+
+    // If user explicitly supplied ?country=, selected flag, or is on an explicit regional route, don't overwrite
+    if (hasUrlCountry || hasSessionChoice || hasLocalChoice || isRegionalRoute) return;
 
     let isMounted = true;
     const controller = new AbortController();
@@ -144,11 +154,10 @@ export function MarketProvider({ children }: { children: React.ReactNode }) {
         } else if (detectedCode === 'GB' || detectedCode === 'UK') {
           targetMarket = 'UK';
         } else {
-          // US, CA, or any international visitor strictly gets US market
           targetMarket = 'US';
         }
 
-        setMarketState(targetMarket);
+        setMarketState(prev => (prev !== targetMarket ? targetMarket : prev));
         try {
           localStorage.setItem('selected-market', targetMarket);
           localStorage.setItem('selected_region', targetMarket);
@@ -157,9 +166,7 @@ export function MarketProvider({ children }: { children: React.ReactNode }) {
         window.dispatchEvent(new CustomEvent('market-changed', { detail: { market: targetMarket } }));
         window.dispatchEvent(new CustomEvent('region-changed', { detail: { region: targetMarket } }));
       } catch {
-        if (isMounted) {
-          setMarketState('US');
-        }
+        // Leave existing market state undisturbed on error
       }
     }
 
@@ -218,9 +225,7 @@ export function MarketProvider({ children }: { children: React.ReactNode }) {
       if (e.key === 'selected-market' || e.key === 'selected_region' || e.key === 'country_flag') {
         const val = e.newValue?.toUpperCase();
         if (val && ['US', 'UK', 'ES'].includes(val)) {
-          setMarketState(val as Market);
-        } else {
-          setMarketState('US');
+          setMarketState((prev) => (prev !== val ? (val as Market) : prev));
         }
       }
     };

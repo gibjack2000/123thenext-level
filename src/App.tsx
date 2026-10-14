@@ -8,10 +8,17 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 import Footer from './components/Footer';
 import { CartProvider } from './contexts/CartContext';
-import { MarketProvider } from './contexts/MarketContext';
+import { MarketProvider, useMarket } from './contexts/MarketContext';
 import Navbar from './components/Navbar';
 import SlideInNewsletter from './components/newsletter/SlideInNewsletter';
 import FloatingShopFAB from './components/FloatingShopFAB';
+
+// Transparent redirect from generic /store to active regional storefront (/store-us, /store-uk, /store-es)
+const StoreRedirect: React.FC = () => {
+  const { market } = useMarket();
+  const target = (market || 'us').toLowerCase();
+  return <Navigate to={`/store-${target}`} replace />;
+};
 
 // Lazy-load all pages for code-splitting (each page becomes its own JS chunk)
 const Home = lazy(() => import('./pages/Home'));
@@ -137,7 +144,7 @@ function App() {
                 <Route path="/science-of-age-reversal" element={<AgeReversalShowcase />} />
                 <Route path="/age-reversal-showcase" element={<AgeReversalShowcase />} />
                 <Route path="/hardware-store" element={<HardwareStorePage />} />
-                <Route path="/store" element={<Store />} />
+                <Route path="/store" element={<StoreRedirect />} />
                 <Route path="/products/hardware" element={<HardwareStorePage />} />
                 <Route path="/health/cellular/deep-dive" element={<CellularDeepDive />} />
                 <Route path="/health/cellular/glossary/:topicId" element={<CellularGlossary />} />

@@ -2297,6 +2297,9 @@ function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marke
   );
 }
 
+// Module-level in-memory catalog cache ensuring tab switching is 100% instantaneous with ZERO flicker
+const storeCatalogCache: Partial<Record<MarketTab, any[]>> = {};
+
 interface StoreProps {
   region?: 'us' | 'uk' | 'es' | 'US' | 'UK' | 'ES';
 }
@@ -2309,7 +2312,7 @@ export function Store({ region }: StoreProps = {}) {
 
   // Authoritative target market resolver:
   // Priority: 1. explicit route prop (`region`), 2. query param (`country`), 3. global context (`contextMarket`), 4. fallback ('US')
-  const resolvedMarket: MarketTab = (() => {
+  const activeTab: MarketTab = (() => {
     if (region && ['US', 'UK', 'ES'].includes(region.toUpperCase())) {
       return region.toUpperCase() as MarketTab;
     }
@@ -2322,54 +2325,51 @@ export function Store({ region }: StoreProps = {}) {
     return 'US';
   })();
 
-  const [activeTab, setActiveTab] = useState<MarketTab>(resolvedMarket);
   const [activeCategory, setActiveCategory] = useState<string>('All');
-  const [products, setProducts] = useState<any[]>([]);
-  const [categories, setCategories] = useState<string[]>(['All']);
-  const [loading, setLoading] = useState(true);
-
-  // Synchronize activeTab whenever route prop or global context resolves a new market
-  useEffect(() => {
-    if (resolvedMarket && activeTab !== resolvedMarket) {
-      setActiveTab(resolvedMarket);
-    }
-  }, [resolvedMarket]);
-
-  // Synchronize global market context if user navigated to a regional route directly (/store-us, /store-uk, /store-es)
-  useEffect(() => {
-    if (region && ['US', 'UK', 'ES'].includes(region.toUpperCase())) {
-      const target = region.toUpperCase() as Market;
-      if (contextMarket !== target) {
-        setMarket(target);
-      }
-    }
-  }, [region, contextMarket, setMarket]);
+  const [products, setProducts] = useState<any[]>(() => {
+    return storeCatalogCache[activeTab] || REGIONAL_MASTER_CATALOGS[activeTab] || [];
+  });
+  const [categories, setCategories] = useState<string[]>(() => {
+    const initialList = storeCatalogCache[activeTab] || REGIONAL_MASTER_CATALOGS[activeTab] || [];
+    const unique = Array.from(new Set(initialList.map((p: any) => p.category).filter(Boolean)));
+    return ['All', ...unique];
+  });
+  const [loading, setLoading] = useState(false);
 
   // Explicit handler when user clicks one of the country market tabs inside Store
   const handleTabChange = (tab: MarketTab) => {
-    setActiveTab(tab);
     setMarket(tab as Market);
     setActiveCategory('All');
     navigate(`/store-${tab.toLowerCase()}`);
   };
 
-  // 2. Fetch products whenever activeTab changes
+  // Fetch products whenever activeTab changes
   useEffect(() => {
+    let isCancelled = false;
+
+    // Immediately display cached or fallback products so the view is always solid
+    const currentList = storeCatalogCache[activeTab] || REGIONAL_MASTER_CATALOGS[activeTab] || [];
+    setProducts(currentList);
+    const uniqueCats = Array.from(new Set(currentList.map((p: any) => p.category).filter(Boolean)));
+    setCategories(['All', ...uniqueCats]);
+
     async function fetchDynamicStore() {
-      setLoading(true);
+      if (!storeCatalogCache[activeTab]) {
+        setLoading(true);
+      }
       try {
-        // Fetch live products from Supabase for the strictly selected market using 'market' column
         const { data, error } = await supabase
           .from('amazon_affiliate_products')
           .select('*')
           .eq('market', activeTab)
           .order('rating', { ascending: false });
 
+        if (isCancelled) return;
+
         if (error || !data || data.length === 0) {
           throw error || new Error(`Database is empty for ${activeTab}`);
         }
 
-        // Client-side absolute image link, deal URL matching, price formatting, and category cleanup
         const healedData = data.map((p: any) => {
           let healedImg = p.image_url;
           if (healedImg && healedImg.startsWith('/assets/') && !healedImg.startsWith('http')) {
@@ -2407,29 +2407,34 @@ export function Store({ region }: StoreProps = {}) {
           };
         });
 
+        if (isCancelled) return;
+
+        storeCatalogCache[activeTab] = healedData;
         setProducts(healedData);
 
-        // Extract unique categories present in this specific market
         const rawCategories = healedData.map((p: any) => p.category).filter(Boolean);
         const uniqueCategories = Array.from(new Set(rawCategories));
-
         setCategories(['All', ...uniqueCategories]);
       } catch (err) {
+        if (isCancelled) return;
         console.warn(`Supabase fetch failed for ${activeTab}. Falling back to regional offline registry:`, err);
-        
-        // Strict Market-Specific Offline Fallback logic
         const fallbackList = REGIONAL_MASTER_CATALOGS[activeTab] || [];
         setProducts(fallbackList);
-
         const uniqueCategories = Array.from(new Set(fallbackList.map((p: any) => p.category).filter(Boolean)))
           .map((cat: any) => cat.charAt(0).toUpperCase() + cat.slice(1));
         setCategories(['All', ...uniqueCategories]);
       } finally {
-        setLoading(false);
+        if (!isCancelled) {
+          setLoading(false);
+        }
       }
     }
 
     fetchDynamicStore();
+
+    return () => {
+      isCancelled = true;
+    };
   }, [activeTab]);
 
   // Handle case-insensitive filtering
@@ -2547,7 +2552,7 @@ export function Store({ region }: StoreProps = {}) {
         ))}
       </div>
 
-      {loading ? (
+      {loading && products.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-24 space-y-3">
           <div className="h-8 w-8 animate-spin rounded-full border-2 border-cyan-500 border-t-transparent"></div>
           <span className="text-xs text-slate-500 font-medium tracking-widest uppercase">Syncing Live {activeTab} Catalog...</span>

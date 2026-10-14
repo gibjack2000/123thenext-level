@@ -107,7 +107,7 @@ export default function MarketSelector({ currentCategory, className = "", size =
 
     // Smart contextual navigation based on the active page
     if (isStore) {
-      navigate(`/store?country=${marketUpper}`);
+      navigate(`/store-${rId}`);
     } else if (location.pathname.startsWith('/start-here')) {
       navigate(`/start-here?country=${marketUpper}`);
     } else if (pathRegion) {
@@ -122,8 +122,8 @@ export default function MarketSelector({ currentCategory, className = "", size =
     } else if (location.pathname.startsWith('/blog/') || location.pathname.startsWith('/premium-guides/') || location.pathname === '/health-quiz') {
       // On blog articles and quizzes, remain on article while regional product pricing auto-updates
     } else {
-      // On Homepage (/) and all general views, immediately direct user to that Amazon market storefront
-      navigate(`/store?country=${marketUpper}`);
+      // On Homepage (/) and all general views, immediately direct user to that regional storefront
+      navigate(`/store-${rId}`);
     }
   };
 
