@@ -12,6 +12,7 @@ const REGIONS = [
 ];
 
 import BlogSection from '../components/BlogSection';
+import { useMarket, Market } from '../contexts/MarketContext';
 import { useT } from '../translations';
 import { motion } from 'motion/react';
 import PillarCard from '../components/home/PillarCard';
@@ -24,6 +25,7 @@ import HomeExpressShop from '../components/HomeExpressShop';
 export default function Home() {
   const t = useT();
   const navigate = useNavigate();
+  const { setMarket } = useMarket();
   const [topPicks, setTopPicks] = useState<Product[]>([]);
   const [shuffledTopPicks, setShuffledTopPicks] = useState<Product[]>([]);
   const [latestProducts, setLatestProducts] = useState<Product[]>([]);
@@ -1730,15 +1732,27 @@ export default function Home() {
                 <Link
                   key={region.id}
                   to={`/${region.id}`}
-                  className="relative rounded-3xl p-8 shadow-sm border border-slate-700 hover:-translate-y-3 hover:shadow-[0_30px_60px_rgba(0,0,0,0.3)] transition-all duration-500 ease-out group overflow-hidden min-h-[240px] flex flex-col justify-end"
+                  onClick={() => {
+                    setMarket(region.id.toUpperCase() as Market);
+                  }}
+                  className="relative rounded-3xl p-8 shadow-sm border border-slate-700 hover:-translate-y-3 hover:shadow-[0_30px_60px_rgba(0,0,0,0.3)] transition-all duration-500 ease-out group overflow-hidden min-h-[240px] flex flex-col justify-end touch-manipulation cursor-pointer active:scale-98"
+                  aria-label={`Explore Amazon ${region.name} Marketplace`}
                 >
                   <div className="absolute inset-0">
-                    <img src={region.image} alt={region.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" referrerPolicy="no-referrer" />
+                    <img 
+                      src={region.image} 
+                      alt={region.name} 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                      referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = 'none';
+                      }}
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-slate-900/20 group-hover:via-slate-900/60 transition-colors duration-500"></div>
                   </div>
                   <div className="relative z-10">
                     <motion.div
-                      className="text-4xl mb-2 origin-bottom-left w-fit animate-flag-wave"
+                      className="text-4xl mb-2 origin-bottom-left w-fit animate-flag-wave select-none"
                       style={{ display: 'inline-block' }}
                     >
                       {region.flag}

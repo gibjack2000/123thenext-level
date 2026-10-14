@@ -119,10 +119,12 @@ export default function MarketSelector({ currentCategory, className = "", size =
       }
     } else if (currentCategory) {
       navigate(`/${rId}/${currentCategory}`);
+    } else if (location.pathname.startsWith('/blog/') || location.pathname.startsWith('/premium-guides/') || location.pathname === '/health-quiz') {
+      // On blog articles and quizzes, remain on article while regional product pricing auto-updates
+    } else {
+      // On Homepage (/) and all general views, immediately direct user to that Amazon market storefront
+      navigate(`/store?country=${marketUpper}`);
     }
-    // Note: On blog posts (/blog/:slug), guides, and informational pages, we intentionally
-    // DO NOT navigate away. The active market state and event bus immediately update all
-    // dynamic product cards and regional pricing on the current page.
   };
 
   const isLarge = size === 'lg';
@@ -144,10 +146,10 @@ export default function MarketSelector({ currentCategory, className = "", size =
               key={r.id}
               type="button"
               onClick={() => handleSelectMarket(r.id)}
-              className={`group relative flex items-center justify-center gap-1.5 rounded-lg font-mono font-bold transition-all duration-300 cursor-pointer shrink-0 touch-manipulation ${
+              className={`group relative flex items-center justify-center gap-1.5 rounded-lg font-mono font-bold transition-all duration-300 cursor-pointer shrink-0 touch-manipulation active:scale-95 ${
                 isLarge
                   ? 'min-h-[48px] min-w-[48px] px-3.5 sm:px-4 py-2.5 text-xs sm:text-sm flex-1'
-                  : 'min-h-[40px] sm:min-h-[44px] min-w-[40px] px-2 sm:px-2.5 py-1.5 text-[11px] sm:text-xs'
+                  : 'min-h-[44px] min-w-[44px] px-2.5 sm:px-3 py-2 text-xs sm:text-xs'
               } ${
                 isActive 
                   ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 shadow-[0_0_8px_rgba(6,182,212,0.3)]' 
@@ -155,6 +157,7 @@ export default function MarketSelector({ currentCategory, className = "", size =
               }`}
               title={r.name}
               aria-label={`Select ${r.name} Market`}
+              aria-pressed={isActive}
             >
               <FlagComp className={isLarge ? "w-5 h-3.5 sm:w-6 sm:h-4" : "w-4 h-3 sm:w-4.5 sm:h-3.5"} />
               <span className="tracking-tight">{r.label}</span>

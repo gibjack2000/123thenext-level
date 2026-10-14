@@ -5,6 +5,8 @@ import { Product, mapToProduct } from '../types';
 import ProductsClient from '../components/ProductsClient';
 import { ChevronRight, Home } from 'lucide-react';
 import { MOCK_PRODUCTS } from '../data/mockData';
+import { useMarket, Market } from '../contexts/MarketContext';
+import MarketSelector from '../components/MarketSelector';
 
 export default function CategoryPage() {
   const { region, category } = useParams<{ region: string; category: string }>();
@@ -12,9 +14,17 @@ export default function CategoryPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showingMockData, setShowingMockData] = useState(false);
+  const { market, setMarket } = useMarket();
 
   const regionUpper = region?.toUpperCase() || 'US';
   const categoryFormatted = category?.replace(/_/g, ' ') || '';
+
+  // Synchronize global market context with active route region
+  useEffect(() => {
+    if (['US', 'UK', 'ES'].includes(regionUpper) && market !== regionUpper) {
+      setMarket(regionUpper as Market);
+    }
+  }, [regionUpper, market, setMarket]);
 
   const loadMockData = () => {
     const filtered = MOCK_PRODUCTS.filter(
@@ -79,6 +89,7 @@ export default function CategoryPage() {
             <ChevronRight size={16} className="mx-2 text-slate-600" />
             <span className="text-white font-medium capitalize">{categoryFormatted}</span>
           </nav>
+          <MarketSelector currentCategory={category} size="md" />
         </div>
 
         <div className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">

@@ -3,6 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import { ChevronRight, Home, Dumbbell, HeartPulse, ChefHat, Smartphone, Sparkles, Pill } from 'lucide-react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { MOCK_PRODUCTS } from '../data/mockData';
+import { useMarket, Market } from '../contexts/MarketContext';
+import MarketSelector from '../components/MarketSelector';
 
 const CATEGORIES = [
   { id: 'fitness_gear', name: 'Fitness Gear', icon: Dumbbell, desc: 'Home gym essentials and workout equipment' },
@@ -156,9 +158,17 @@ function CategoryPattern({ id }: { id: string }) {
 export default function RegionHub() {
   const { region } = useParams<{ region: string }>();
   const regionUpper = region?.toUpperCase() || 'US';
+  const { market, setMarket } = useMarket();
   
   const [activeCategories, setActiveCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Keep global market context synchronized with the route
+  useEffect(() => {
+    if (['US', 'UK', 'ES'].includes(regionUpper) && market !== regionUpper) {
+      setMarket(regionUpper as Market);
+    }
+  }, [regionUpper, market, setMarket]);
 
   const regionNames: Record<string, string> = {
     'US': 'United States',
@@ -233,6 +243,7 @@ export default function RegionHub() {
             <ChevronRight size={16} className="mx-2 text-slate-600" />
             <span className="text-white font-medium uppercase tracking-widest">{regionUpper} Hub</span>
           </nav>
+          <MarketSelector size="md" />
         </div>
 
         <div className="mb-12">

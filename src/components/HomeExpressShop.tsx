@@ -1161,45 +1161,54 @@ export default function HomeExpressShop() {
 
             <div className="inline-flex p-1 bg-slate-950 rounded-xl border border-slate-800">
               <button
+                type="button"
                 onClick={() => {
                   setSelectedRegion('US');
                   setMarket('US');
                 }}
-                className={`px-3 py-1.5 rounded-lg text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
+                className={`min-h-[44px] min-w-[44px] px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition cursor-pointer flex items-center gap-1.5 touch-manipulation active:scale-95 ${
                   selectedRegion === 'US'
-                    ? 'bg-cyan-500 text-slate-950 shadow-md'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-900'
                 }`}
+                aria-pressed={selectedRegion === 'US'}
+                aria-label="Select US Amazon Pricing Market"
               >
                 <span>🇺🇸</span>
                 <span>US ($)</span>
               </button>
 
               <button
+                type="button"
                 onClick={() => {
                   setSelectedRegion('UK');
                   setMarket('UK');
                 }}
-                className={`px-3 py-1.5 rounded-lg text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
+                className={`min-h-[44px] min-w-[44px] px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition cursor-pointer flex items-center gap-1.5 touch-manipulation active:scale-95 ${
                   selectedRegion === 'UK'
-                    ? 'bg-cyan-500 text-slate-950 shadow-md'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-900'
                 }`}
+                aria-pressed={selectedRegion === 'UK'}
+                aria-label="Select UK Amazon Pricing Market"
               >
                 <span>🇬🇧</span>
                 <span>UK (£)</span>
               </button>
 
               <button
+                type="button"
                 onClick={() => {
                   setSelectedRegion('ES');
                   setMarket('ES');
                 }}
-                className={`px-3 py-1.5 rounded-lg text-xs font-black transition cursor-pointer flex items-center gap-1.5 ${
+                className={`min-h-[44px] min-w-[44px] px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition cursor-pointer flex items-center gap-1.5 touch-manipulation active:scale-95 ${
                   selectedRegion === 'ES'
-                    ? 'bg-cyan-500 text-slate-950 shadow-md'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-900'
                 }`}
+                aria-pressed={selectedRegion === 'ES'}
+                aria-label="Select Spain EU Amazon Pricing Market"
               >
                 <span>🇪🇸</span>
                 <span>ES (€)</span>

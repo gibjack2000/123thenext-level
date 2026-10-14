@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
 import { useMarket, Market } from '../contexts/MarketContext';
 import { 
@@ -2297,7 +2298,13 @@ function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marke
 
 export default function Store() {
   const { market: contextMarket, setMarket } = useMarket();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlCountry = searchParams.get('country')?.toUpperCase();
+
   const [activeTab, setActiveTab] = useState<MarketTab>(() => {
+    if (urlCountry && ['US', 'UK', 'ES'].includes(urlCountry)) {
+      return urlCountry as MarketTab;
+    }
     if (contextMarket && ['US', 'UK', 'ES'].includes(contextMarket)) {
       return contextMarket as MarketTab;
     }
@@ -2308,26 +2315,41 @@ export default function Store() {
   const [categories, setCategories] = useState<string[]>(['All']);
   const [loading, setLoading] = useState(true);
 
+  // Sync activeTab whenever URL search param changes
+  useEffect(() => {
+    if (urlCountry && ['US', 'UK', 'ES'].includes(urlCountry)) {
+      if (activeTab !== urlCountry) {
+        setActiveTab(urlCountry as MarketTab);
+      }
+    }
+  }, [urlCountry, activeTab]);
+
   // Sync activeTab whenever global market context changes
   useEffect(() => {
     if (contextMarket && ['US', 'UK', 'ES'].includes(contextMarket)) {
-      setActiveTab(contextMarket as MarketTab);
+      if (activeTab !== contextMarket && !urlCountry) {
+        setActiveTab(contextMarket as MarketTab);
+      }
     }
-  }, [contextMarket]);
+  }, [contextMarket, activeTab, urlCountry]);
+
+  // Explicit handler when user clicks one of the country market tabs
+  const handleTabChange = (tab: MarketTab) => {
+    setActiveTab(tab);
+    setMarket(tab as Market);
+    setActiveCategory('All');
+    setSearchParams({ country: tab }, { replace: true });
+  };
 
   // 1. Automatic Geo-IP Storefront Switcher (ES, UK/GB, US fallback)
+  // Runs ONLY if the visitor hasn't explicitly supplied ?country= or selected a market this session
   useEffect(() => {
     async function detectVisitorCountry() {
-      try {
-        // Respect explicit URL parameter if present (?country=ES, ?country=UK, etc.)
-        const searchParams = new URLSearchParams(window.location.search);
-        const urlCountry = searchParams.get('country')?.toUpperCase();
-        if (urlCountry === 'ES' || urlCountry === 'UK' || urlCountry === 'US') {
-          setActiveTab(urlCountry as MarketTab);
-          setMarket(urlCountry as Market);
-          return;
-        }
+      // Respect explicit URL parameter or session selection
+      if (urlCountry && ['US', 'UK', 'ES'].includes(urlCountry)) return;
+      if (sessionStorage.getItem('user_explicit_market_selection')) return;
 
+      try {
         const response = await fetch('https://ipapi.co/json/');
         if (response.ok) {
           const locationData = await response.json();
@@ -2336,44 +2358,42 @@ export default function Store() {
           if (country === 'ES') {
             setActiveTab('ES');
             setMarket('ES');
+            setSearchParams({ country: 'ES' }, { replace: true });
           } else if (country === 'GB' || country === 'UK') {
             setActiveTab('UK');
             setMarket('UK');
+            setSearchParams({ country: 'UK' }, { replace: true });
           } else {
-            // Null, undefined, or any country code outside UK or ES defaults directly to 'US'
             setActiveTab('US');
             setMarket('US');
+            setSearchParams({ country: 'US' }, { replace: true });
           }
-        } else {
-          setActiveTab('US');
-          setMarket('US');
         }
       } catch (geoErr) {
         console.warn('Geo-IP auto-detection defaulted to US:', geoErr);
-        setActiveTab('US');
-        setMarket('US');
       }
     }
 
     detectVisitorCountry();
-  }, [setMarket]);
+  }, [setMarket, urlCountry, setSearchParams]);
 
   // 2. Fetch products whenever activeTab changes
   useEffect(() => {
     async function fetchDynamicStore() {
       setLoading(true);
       try {
-        // Fetch live products from Supabase for the strictly selected market
+        // Fetch live products from Supabase for the strictly selected market using 'market' column
         const { data, error } = await supabase
           .from('amazon_affiliate_products')
           .select('*')
-          .eq('market_region', activeTab);
+          .eq('market', activeTab)
+          .order('rating', { ascending: false });
 
         if (error || !data || data.length === 0) {
           throw error || new Error(`Database is empty for ${activeTab}`);
         }
 
-        // Client-side absolute image link and deal URL matching
+        // Client-side absolute image link, deal URL matching, price formatting, and category cleanup
         const healedData = data.map((p: any) => {
           let healedImg = p.image_url;
           if (healedImg && healedImg.startsWith('/assets/') && !healedImg.startsWith('http')) {
@@ -2382,21 +2402,40 @@ export default function Store() {
             healedImg = `https://123thenextlevel.com${healedImg}`;
           }
 
-          let healedDeal = p.deal_url;
+          let healedDeal = p.deal_url || p.affiliate_link || '';
           if (healedDeal && healedDeal.startsWith('https://123thenextlevel.comhttp')) {
             healedDeal = healedDeal.replace('https://123thenextlevel.com', '');
           }
 
-          return { ...p, image_url: healedImg, deal_url: healedDeal };
+          const currencySymbol = p.currency === 'GBP' ? '£' : p.currency === 'EUR' ? '€' : '$';
+          const priceFormatted = p.price_text || (p.price != null ? (p.currency === 'EUR' ? `${Number(p.price).toFixed(2).replace('.', ',')}€` : `${currencySymbol}${Number(p.price).toFixed(2)}`) : '');
+
+          const categoryRaw = p.category || '';
+          let catFormatted = categoryRaw;
+          if (categoryRaw === 'home_kitchen') catFormatted = 'Home & Kitchen';
+          else if (categoryRaw === 'tech_gadgets') catFormatted = 'Tech Gadgets & Wearables';
+          else if (categoryRaw === 'fitness_gear') catFormatted = 'Fitness Gear';
+          else if (categoryRaw === 'performance_testing') catFormatted = 'Performance & Testing';
+          else if (categoryRaw === 'supplements') catFormatted = 'Supplements';
+          else if (categoryRaw) catFormatted = categoryRaw.split('_').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+
+          return {
+            ...p,
+            name: p.name || p.title || 'Curated Product',
+            deal_url: healedDeal,
+            image_url: healedImg,
+            price_text: priceFormatted,
+            category: catFormatted,
+            badge_text: p.badge_text || (activeTab === 'ES' ? 'Certificado UE' : activeTab === 'UK' ? 'UK Verified' : 'US Verified'),
+            network: p.network || (healedDeal.includes('amazon') ? 'Amazon Associates' : 'Clinical Partner')
+          };
         });
 
         setProducts(healedData);
 
         // Extract unique categories present in this specific market
         const rawCategories = healedData.map((p: any) => p.category).filter(Boolean);
-        const uniqueCategories = Array.from(new Set(rawCategories)).map((cat: any) => {
-          return cat.charAt(0).toUpperCase() + cat.slice(1);
-        });
+        const uniqueCategories = Array.from(new Set(rawCategories));
 
         setCategories(['All', ...uniqueCategories]);
       } catch (err) {
@@ -2497,18 +2536,17 @@ export default function Store() {
         {(['US', 'UK', 'ES'] as MarketTab[]).map(tab => (
           <button
             key={tab}
-            onClick={() => {
-              setActiveTab(tab);
-              setMarket(tab as Market);
-              setActiveCategory('All');
-            }}
-            className={`flex-1 flex items-center justify-center space-x-2 py-2.5 rounded-lg text-sm font-bold transition-all duration-300 ${
+            type="button"
+            onClick={() => handleTabChange(tab)}
+            className={`flex-1 flex items-center justify-center space-x-2 py-3 px-3 rounded-lg text-sm font-bold transition-all duration-300 cursor-pointer min-h-[48px] touch-manipulation active:scale-95 ${
               activeTab === tab
                 ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 shadow-lg scale-105'
-                : 'text-slate-400 hover:text-white hover:bg-slate-850'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
             }`}
+            aria-label={`Select ${tab === 'ES' ? 'Spain (EU)' : tab === 'UK' ? 'United Kingdom' : 'United States'} Market`}
+            aria-pressed={activeTab === tab}
           >
-            <span className="text-lg">{getFlagEmoji(tab)}</span>
+            <span className="text-xl">{getFlagEmoji(tab)}</span>
             <span>{tab === 'ES' ? 'España (EU)' : tab === 'UK' ? 'United Kingdom' : 'United States'}</span>
           </button>
         ))}
