@@ -1,14 +1,11 @@
-/**
- * Cloudflare Stream or R2 Video URLs for the Interactive Tabbed Hero component.
- * Values can be populated with Cloudflare Stream MP4 or HLS URLs when ready.
- * Empty strings ('') automatically trigger high-resolution poster image fallbacks.
- */
-export const HERO_VIDEOS: Record<string, string> = {
-  'start-here': '',
-  'epigenetics': '',
-  'diagnostics': '',
-  'mental': '',
-  'performance': '',
-  'nutrition': '',
-  'store': '',
+// File: src/config/heroVideos.ts
+
+export const HERO_VIDEOS = {
+  'start-here': '',  // TODO: Paste Cloudflare R2 MP4 URL for Start Here Tab
+  'epigenetics': '', // TODO: Paste Cloudflare R2 MP4 URL for Epigenetics Tab
+  'diagnostics': '', // TODO: Paste Cloudflare R2 MP4 URL for Diagnostics Tab
+  'mental': '',      // TODO: Paste Cloudflare R2 MP4 URL for Mental Health Tab
+  'performance': '', // TODO: Paste Cloudflare R2 MP4 URL for Performance Tab
+  'nutrition': '',   // TODO: Paste Cloudflare R2 MP4 URL for Nutrition Tab
+  'store': '',       // TODO: Paste Cloudflare R2 MP4 URL for Sovereign Store Tab
 };
