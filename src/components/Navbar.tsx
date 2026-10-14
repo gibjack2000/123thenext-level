@@ -36,52 +36,34 @@ export const Navbar: React.FC = () => {
   return (
     <header className="sticky top-0 z-50 bg-slate-950/95 backdrop-blur-md border-b border-slate-800/80">
       
-      {/* 1. Stacked 2-Line Moving Ticker Tape (Fixed height, no dropdowns) */}
+      {/* 1. Stacked 2-Line Moving Ticker Tape */}
       <TickerTapeBanner />
 
       {/* 2. Main Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
-        {/* Brand Logo & Mission Badge */}
-        <div className="flex items-center gap-3 shrink-0">
+        {/* Logo & Mission Badge */}
+        <div className="flex items-center gap-3">
           <Link to="/" className="flex items-center gap-2 group" onClick={closeMobileMenu}>
             <span className="text-xl font-black tracking-tight text-white group-hover:text-cyan-400 transition-colors">
               123<span className="text-cyan-400">TheNextLevel</span>
             </span>
           </Link>
-          <span className="hidden 2xl:inline-block text-[10px] font-bold text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-2 py-0.5 rounded-md uppercase tracking-wider">
+          <span className="hidden xl:inline-block text-[10px] font-bold text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-2 py-0.5 rounded-md uppercase tracking-wider">
             Geroscience Portal
           </span>
         </div>
 
-        {/* Master Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-3 xl:gap-5 text-[11px] xl:text-xs font-semibold uppercase tracking-wider">
+        {/* Master Navigation Links */}
+        <nav className="hidden lg:flex items-center gap-5 xl:gap-6 text-xs font-semibold uppercase tracking-wider">
           <Link 
             to="/" 
-            className={`transition-colors whitespace-nowrap ${location.pathname === '/' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+            className={`transition-colors ${location.pathname === '/' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
             Start Here
           </Link>
-          <Link 
-            to="/science" 
-            className={`transition-colors whitespace-nowrap ${location.pathname === '/science' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
-          >
-            Epigenetics
-          </Link>
-          <Link 
-            to="/guide" 
-            className={`transition-colors whitespace-nowrap ${location.pathname === '/guide' || location.pathname.startsWith('/dual-track') ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
-          >
-            🩸 Diagnostics
-          </Link>
-          <Link 
-            to="/wellness" 
-            className={`transition-colors whitespace-nowrap ${location.pathname === '/wellness' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
-          >
-            Autonomic
-          </Link>
 
-          {/* Pillars Dropdown */}
+          {/* COMPLETE 6-PILLAR DROPDOWN */}
           <div 
             className="relative"
             onMouseEnter={() => setIsPillarsOpen(true)}
@@ -89,40 +71,64 @@ export const Navbar: React.FC = () => {
           >
             <button 
               type="button"
-              className="text-slate-300 hover:text-white flex items-center gap-1 transition-colors py-2 cursor-pointer whitespace-nowrap"
+              className="text-cyan-400 font-bold hover:text-cyan-300 flex items-center gap-1 transition-colors py-2 cursor-pointer"
             >
-              🏛️ Pillars <span className="text-[10px]">▾</span>
+              Pillars (6) <span className="text-[10px]">▾</span>
             </button>
 
             {isPillarsOpen && (
               <div className="absolute top-full left-0 w-64 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-2 space-y-1 z-50 animate-fade-in">
+                <div className="px-3 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                  Core Longevity Protocols
+                </div>
+                <Link
+                  to="/science"
+                  onClick={() => setIsPillarsOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                >
+                  🧬 Pillar 1: Epigenetics & Longevity
+                </Link>
+                <Link
+                  to="/guide"
+                  onClick={() => setIsPillarsOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                >
+                  🩸 Pillar 2: Diagnostics & Telemetry
+                </Link>
+                <Link
+                  to="/wellness"
+                  onClick={() => setIsPillarsOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                >
+                  🧠 Pillar 3: Autonomic & Wellness
+                </Link>
                 <Link
                   to="/fitness"
                   onClick={() => setIsPillarsOpen(false)}
                   className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
                 >
-                  ⚡ Performance & Bio-Data
+                  ⚡ Pillar 4: Performance & Bio-Data
                 </Link>
                 <Link
                   to="/nutrition"
                   onClick={() => setIsPillarsOpen(false)}
                   className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
                 >
-                  🥗 Metabolic Nutrition
+                  🥗 Pillar 5: Metabolic Nutrition
                 </Link>
                 <Link
                   to="/blog-post-womens-health"
                   onClick={() => setIsPillarsOpen(false)}
                   className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
                 >
-                  🌸 Women's Health & Ovary-Span
+                  🌸 Pillar 6: Women's Health & Ovary-Span
                 </Link>
                 <Link
                   to="/blog-post-socio-architecture"
                   onClick={() => setIsPillarsOpen(false)}
                   className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
                 >
-                  🏛️ Socio-Architecture
+                  🏛️ Socio-Biological Architecture
                 </Link>
               </div>
             )}
@@ -130,39 +136,35 @@ export const Navbar: React.FC = () => {
 
           <Link 
             to="/library" 
-            className={`transition-colors whitespace-nowrap ${location.pathname === '/library' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+            className={`transition-colors ${location.pathname === '/library' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
             📁 Free PDFs
           </Link>
 
           <Link 
             to="/premium-guides" 
-            className={`transition-colors flex items-center gap-1 whitespace-nowrap ${
-              location.pathname.startsWith('/premium-guides') 
-                ? 'text-amber-300 font-black' 
-                : 'text-amber-400 font-bold hover:text-amber-300'
-            }`}
+            className={`transition-colors ${location.pathname === '/premium-guides' ? 'text-amber-400 font-bold' : 'text-amber-400/90 hover:text-amber-300'}`}
           >
             ⚡ Premium Guides
           </Link>
 
           <Link 
             to="/blog" 
-            className={`transition-colors whitespace-nowrap ${location.pathname === '/blog' || location.pathname.startsWith('/blog/') ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+            className={`transition-colors ${location.pathname === '/blog' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
             📚 Blogs
           </Link>
 
           <Link 
             to="/store" 
-            className={`transition-colors whitespace-nowrap ${location.pathname.startsWith('/store') ? 'text-cyan-400 font-bold font-black' : 'text-slate-300 hover:text-white'}`}
+            className={`transition-colors ${location.pathname.startsWith('/store') ? 'text-cyan-400 font-bold font-black' : 'text-slate-300 hover:text-white'}`}
           >
             🛒 Store
           </Link>
         </nav>
 
-        {/* Region Selector Pills & 5-Min Quiz Button */}
-        <div className="hidden sm:flex items-center gap-3 shrink-0">
+        {/* Region Selectors & Quiz Button */}
+        <div className="hidden sm:flex items-center gap-3">
           <div className="flex items-center bg-slate-900 border border-slate-800 rounded-full p-1 text-xs">
             <button
               type="button"
@@ -201,7 +203,7 @@ export const Navbar: React.FC = () => {
           </Link>
         </div>
 
-        {/* Mobile Toggle Button */}
+        {/* Mobile Toggle */}
         <button
           type="button"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -213,13 +215,13 @@ export const Navbar: React.FC = () => {
 
       </div>
 
-      {/* Complete Mobile Drawer */}
+      {/* Mobile Drawer */}
       {isMobileMenuOpen && (
         <div className="lg:hidden bg-slate-950 border-b border-slate-800 px-4 pt-3 pb-6 space-y-2 text-sm animate-fade-in">
           <Link to="/" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🚀 Start Here</Link>
-          <Link to="/science" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧬 Epigenetics</Link>
-          <Link to="/guide" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🩸 Diagnostics & Blood Tests</Link>
-          <Link to="/wellness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧠 Autonomic & Mental Health</Link>
+          <Link to="/science" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧬 Epigenetics & Longevity</Link>
+          <Link to="/guide" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🩸 Diagnostics & Telemetry</Link>
+          <Link to="/wellness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧠 Autonomic & Wellness</Link>
           <Link to="/fitness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">⚡ Performance & Bio-Data</Link>
           <Link to="/nutrition" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🥗 Metabolic Nutrition</Link>
           <Link to="/blog-post-womens-health" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🌸 Women's Health</Link>
