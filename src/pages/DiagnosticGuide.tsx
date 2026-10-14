@@ -7,6 +7,7 @@ import {
   ExternalLink, Lock, AlertCircle, Sparkles, ChevronRight
 } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
+import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
 import Track1Diagnostics from '../components/Track1Diagnostics';
 
 export const DiagnosticGuide: React.FC = () => {
@@ -62,29 +63,29 @@ export const DiagnosticGuide: React.FC = () => {
               <button
                 type="button"
                 onClick={() => handleRegionSwitch('UK')}
-                className={`px-3 py-1.5 rounded-full font-bold transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-full font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                   activeRegion === 'UK' ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20' : 'text-slate-400 hover:text-white'
                 }`}
               >
-                🇬🇧 UK (£149)
+                <FlagUK className="w-4 h-3 pointer-events-none" /> <span>UK (£149)</span>
               </button>
               <button
                 type="button"
                 onClick={() => handleRegionSwitch('US')}
-                className={`px-3 py-1.5 rounded-full font-bold transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-full font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                   activeRegion === 'US' ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20' : 'text-slate-400 hover:text-white'
                 }`}
               >
-                🇺🇸 US ($299)
+                <FlagUS className="w-4 h-3 pointer-events-none" /> <span>US ($299)</span>
               </button>
               <button
                 type="button"
                 onClick={() => handleRegionSwitch('ES')}
-                className={`px-3 py-1.5 rounded-full font-bold transition-all cursor-pointer ${
+                className={`px-3 py-1.5 rounded-full font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                   activeRegion === 'ES' ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20' : 'text-slate-400 hover:text-white'
                 }`}
               >
-                🇪🇸 ES (149€)
+                <FlagES className="w-4 h-3 pointer-events-none" /> <span>ES (149€)</span>
               </button>
             </div>
 

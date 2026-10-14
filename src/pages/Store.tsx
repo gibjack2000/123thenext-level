@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
 import { useMarket, Market } from '../contexts/MarketContext';
+import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
 import { 
   Dumbbell, 
   ChefHat, 
@@ -2344,11 +2345,11 @@ export function Store({ region }: StoreProps = {}) {
   // Sync activeTab whenever global market context changes
   useEffect(() => {
     if (contextMarket && ['US', 'UK', 'ES'].includes(contextMarket)) {
-      if (activeTab !== contextMarket && !urlCountry) {
+      if (activeTab !== contextMarket) {
         setActiveTab(contextMarket as MarketTab);
       }
     }
-  }, [contextMarket, activeTab, urlCountry]);
+  }, [contextMarket, activeTab]);
 
   // Explicit handler when user clicks one of the country market tabs
   const handleTabChange = (tab: MarketTab) => {
@@ -2362,7 +2363,8 @@ export function Store({ region }: StoreProps = {}) {
   // Runs ONLY if the visitor hasn't explicitly supplied ?country= or selected a market this session
   useEffect(() => {
     async function detectVisitorCountry() {
-      // Respect explicit URL parameter or session selection
+      // Respect explicit region prop, URL parameter, or session selection
+      if (region && ['US', 'UK', 'ES'].includes(region.toUpperCase())) return;
       if (urlCountry && ['US', 'UK', 'ES'].includes(urlCountry)) return;
       if (sessionStorage.getItem('user_explicit_market_selection')) return;
 
@@ -2563,7 +2565,9 @@ export function Store({ region }: StoreProps = {}) {
             aria-label={`Select ${tab === 'ES' ? 'Spain (EU)' : tab === 'UK' ? 'United Kingdom' : 'United States'} Market`}
             aria-pressed={activeTab === tab}
           >
-            <span className="text-xl">{getFlagEmoji(tab)}</span>
+            {tab === 'US' && <FlagUS className="w-5 h-4 pointer-events-none" />}
+            {tab === 'UK' && <FlagUK className="w-5 h-4 pointer-events-none" />}
+            {tab === 'ES' && <FlagES className="w-5 h-4 pointer-events-none" />}
             <span>{tab === 'ES' ? 'España (EU)' : tab === 'UK' ? 'United Kingdom' : 'United States'}</span>
           </button>
         ))}
