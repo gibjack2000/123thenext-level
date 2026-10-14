@@ -9,7 +9,7 @@ import { PremiumGuide } from '../types';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 
 export const PillarGateway: React.FC = () => {
-  const [guides, setGuides] = useState<PremiumGuide[]>(fallbackGuides);
+  const [guides, setGuides] = useState<any[]>(fallbackGuides);
 
   useEffect(() => {
     async function fetchGuides() {

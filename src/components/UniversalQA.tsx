@@ -222,7 +222,7 @@ export default function UniversalQA() {
         </div>
 
         {/* Category Tabs */}
-        <div class="flex flex-wrap gap-2 mb-12">
+        <div className="flex flex-wrap gap-2 mb-12">
           {CATEGORIES.map(cat => (
             <button
               key={cat.id}
@@ -239,7 +239,7 @@ export default function UniversalQA() {
         </div>
 
         {/* Question Grid */}
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <AnimatePresence mode="popLayout">
             {filteredQuestions.map((q) => (
               <motion.div
@@ -255,7 +255,7 @@ export default function UniversalQA() {
                 }`}
                 onClick={() => toggleExpand(q.id)}
               >
-                <div class="flex items-start gap-6">
+                <div className="flex items-start gap-6">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-colors ${
                     expandedId === q.id ? 'bg-white/10' : 'bg-slate-grey-950 group-hover:bg-slate-grey-850 border border-slate-grey-800/60'
                   }`}>
@@ -268,7 +268,7 @@ export default function UniversalQA() {
                       {t(q.questionKey as any)}
                     </h3>
                     
-                    <div class="flex flex-wrap gap-2 mb-4">
+                    <div className="flex flex-wrap gap-2 mb-4">
                       {q.tags.map(tag => (
                         <span key={tag} className={`text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded ${
                           expandedId === q.id ? 'bg-white/10 text-white/50' : 'bg-slate-grey-950 text-slate-grey-450 border border-slate-grey-800/30'
@@ -286,13 +286,13 @@ export default function UniversalQA() {
                           exit={{ opacity: 0, height: 0 }}
                           className="overflow-hidden"
                         >
-                          <div class="h-px bg-white/10 my-6" />
+                          <div className="h-px bg-white/10 my-6" />
                           <p className="text-slate-grey-300 leading-relaxed mb-8 text-sm font-light">
                             {t(q.answerKey as any)}
                           </p>
                           
                           {q.links && (
-                            <div class="space-y-3">
+                            <div className="space-y-3">
                               <p className="text-white font-black text-[10px] uppercase tracking-widest mb-2">Technical Deep Dive:</p>
                               {q.links.map(link => (
                                 <a 
@@ -323,7 +323,7 @@ export default function UniversalQA() {
         </div>
 
         {filteredQuestions.length === 0 && (
-          <div class="text-center py-20 bg-slate-grey-900 rounded-[3rem] border-2 border-dashed border-slate-grey-800">
+          <div className="text-center py-20 bg-slate-grey-900 rounded-[3rem] border-2 border-dashed border-slate-grey-800">
             <p className="text-slate-grey-450 font-medium">No intelligence markers found matching your query.</p>
             <button 
               onClick={() => { setSearchQuery(''); setActiveCategory('all'); }}

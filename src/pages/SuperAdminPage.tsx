@@ -122,7 +122,7 @@ export default function SuperAdminPage() {
   };
 
   const handleEditProduct = (product: Product) => {
-    setEditingProductId(product.id);
+    setEditingProductId(String(product.id));
     setFormData({
       region: product.region,
       category: product.category,
@@ -234,7 +234,7 @@ alter table blog_posts disable row level security;`;
     tags: '',
   });
 
-  const [blogFormData, setBlogFormData] = useState({
+  const initialBlogFormData = {
     category: 'health',
     title: '',
     slug: '',
@@ -251,7 +251,9 @@ alter table blog_posts disable row level security;`;
     additionalImage2: '',
     is_html: false,
     draftMode: 'ai' as 'ai' | 'manual',
-  });
+  };
+
+  const [blogFormData, setBlogFormData] = useState(initialBlogFormData);
 
   const handleBlogChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
@@ -274,6 +276,7 @@ alter table blog_posts disable row level security;`;
   const handleEditBlog = (post: BlogPost) => {
     setEditingBlogPostId(post.id);
     setBlogFormData({
+      ...initialBlogFormData,
       category: post.category,
       title: post.title,
       slug: post.slug,
@@ -303,17 +306,7 @@ alter table blog_posts disable row level security;`;
       setBlogPosts(prev => prev.filter(p => p.id !== id));
       if (editingBlogPostId === id) {
         setEditingBlogPostId(null);
-        setBlogFormData({
-          category: 'health',
-          title: '',
-          slug: '',
-          author: 'The Next Level Team',
-          content: '',
-          image_url: '',
-          excerpt: '',
-          tags: '',
-          featured: false,
-        });
+        setBlogFormData(initialBlogFormData);
       }
     } catch (err) {
       console.error('Error deleting blog post:', err);
@@ -366,17 +359,7 @@ alter table blog_posts disable row level security;`;
 
       setSuccess(true);
       setEditingBlogPostId(null);
-      setBlogFormData({
-        category: 'health',
-        title: '',
-        slug: '',
-        author: 'The Next Level Team',
-        content: '',
-        image_url: '',
-        excerpt: '',
-        tags: '',
-        featured: false,
-      });
+      setBlogFormData(initialBlogFormData);
       fetchBlogPosts();
     } catch (err: any) {
       console.error('Error saving blog post:', err);
@@ -458,8 +441,8 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
       setIsGenerating(true);
       setError(null);
       
-      const primaryProduct = products.find(p => p.id === blogFormData.linkedProductId);
-      const otherProducts = products.filter(p => blogFormData.additionalProductIds.includes(p.id));
+      const primaryProduct = products.find(p => String(p.id) === String(blogFormData.linkedProductId));
+      const otherProducts = products.filter(p => blogFormData.additionalProductIds.includes(String(p.id)));
       const allProducts = [...(primaryProduct ? [primaryProduct] : []), ...otherProducts];
       
       // No extra initialization needed here as it's done below correctly

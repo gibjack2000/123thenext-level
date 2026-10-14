@@ -125,7 +125,7 @@ export default function PreventiveHealth() {
                     ? { href: d.url, target: '_blank', rel: 'noopener noreferrer' }
                     : null;
 
-                  const LinkComponent = isAnchor || isExternal ? 'a' : Link;
+                  const LinkComponent: any = isAnchor || isExternal ? 'a' : Link;
                   const linkToProp = isAnchor || isExternal ? {} : { to: d.url };
 
                   return (

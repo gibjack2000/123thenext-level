@@ -151,7 +151,7 @@ export default function ProductsClient({
             <div className="flex items-center gap-2 mb-3">
               {renderStars(product.rating)}
               <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
-                ({getReviewCount(product.id || '')}+ Reviews)
+                ({getReviewCount(String(product.id || ''))}+ Reviews)
               </span>
             </div>
 

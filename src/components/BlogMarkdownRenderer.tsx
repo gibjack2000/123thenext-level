@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ExternalLink, ArrowRight, Sparkles, BookOpen, Activity, CheckCircle2 } from 'lucide-react';
 import DynamicProductCard from './blog/DynamicProductCard';
 
-interface BlogMarkdownRendererProps {
+export interface BlogMarkdownRendererProps {
   content: string;
   className?: string;
   theme?: 'light' | 'dark' | 'auto';

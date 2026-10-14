@@ -395,7 +395,7 @@ export default function AdminPage() {
 
   const handleEditProduct = useCallback((product: Product) => {
     setActiveTab('products');
-    setEditingProductId(product.id);
+    setEditingProductId(String(product.id));
     setFormData({
       region: product.region,
       category: product.category,
@@ -1234,7 +1234,7 @@ create table if not exists premium_guides (
                             <button onClick={() => handleEditProduct(product)} className="p-3 bg-white border border-slate-100 text-slate-400 hover:text-indigo-600 hover:border-indigo-100 rounded-xl transition-all shadow-sm">
                               <Pencil size={18} />
                             </button>
-                            <button onClick={() => handleDeleteProduct(product.id)} className="p-3 bg-white border border-slate-100 text-slate-400 hover:text-red-600 hover:border-red-100 rounded-xl transition-all shadow-sm">
+                            <button onClick={() => handleDeleteProduct(String(product.id))} className="p-3 bg-white border border-slate-100 text-slate-400 hover:text-red-600 hover:border-red-100 rounded-xl transition-all shadow-sm">
                               <Trash2 size={18} />
                             </button>
                             <a href={product.amazon_url} target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-900 text-white rounded-xl hover:bg-indigo-600 transition-all shadow-lg">

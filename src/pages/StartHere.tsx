@@ -15,7 +15,7 @@ export default function StartHere() {
   const [showVideoAlert, setShowVideoAlert] = useState<string | null>(null);
 
   // Animation variants for tab content transition
-  const tabContentVariants = {
+  const tabContentVariants: any = {
     hidden: { opacity: 0, y: 15 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
     exit: { opacity: 0, y: -15, transition: { duration: 0.2 } }

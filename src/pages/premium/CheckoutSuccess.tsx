@@ -26,6 +26,7 @@ interface OrderSummary {
   download_links: Record<string, string>;
   amount_total: number;
   currency: string;
+  currencySymbol?: string;
 }
 
 export default function CheckoutSuccess() {
