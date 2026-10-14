@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useMarket, Market } from '../contexts/MarketContext';
+import { TickerTapeBanner } from './TickerTapeBanner';
 
 export const Navbar: React.FC = () => {
   const { market, setMarket } = useMarket();
@@ -34,6 +35,10 @@ export const Navbar: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80">
+      {/* 1. Single-Line Ticker Tape (No Dropdowns) */}
+      <TickerTapeBanner />
+
+      {/* 2. Main Integrated Navbar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
         {/* LEFT: Brand Logo & Mission Badge */}
