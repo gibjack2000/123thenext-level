@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Home as HomeIcon, Zap, Shield, Heart, Info, ChevronRight, Compass, ChevronDown, Dumbbell, Apple, Users, Sparkles, ShieldCheck, ShoppingBag, BookOpen } from 'lucide-react';
 import MarketSelector from './MarketSelector';
@@ -12,11 +12,23 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isQuizOpen, setIsQuizOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  // Controlled React state for desktop navigation dropdowns (replaces CSS :hover)
+  const [desktopPillarsOpen, setDesktopPillarsOpen] = useState(false);
+  const [desktopUpdatesOpen, setDesktopUpdatesOpen] = useState(false);
+
+  // Mobile drawer sub-accordions
   const [mobilePillarsOpen, setMobilePillarsOpen] = useState(false);
   const [mobileSocialOpen, setMobileSocialOpen] = useState(false);
   const [mobileWellnessOpen, setMobileWellnessOpen] = useState(false);
   const [mobileUpdatesOpen, setMobileUpdatesOpen] = useState(false);
   
+  // Refs for outside click/touch dismiss listeners
+  const pillarsRef = useRef<HTMLDivElement>(null);
+  const updatesRef = useRef<HTMLDivElement>(null);
+  const mobileDrawerRef = useRef<HTMLDivElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+
   const location = useLocation();
   const navigate = useNavigate();
   const t = useT();
@@ -68,6 +80,8 @@ const Navbar = () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     setIsOpen(false);
+    setDesktopPillarsOpen(false);
+    setDesktopUpdatesOpen(false);
   };
 
   // Scroll state monitoring with window.scrollY > 80 threshold (Active ONLY on Homepage)
@@ -85,14 +99,68 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isHomepage]);
 
-  // Close mobile menu on route change
+  // Auto-close drawer and all dropdowns on route change (Technical Directive #4)
   useEffect(() => {
     setIsOpen(false);
+    setDesktopPillarsOpen(false);
+    setDesktopUpdatesOpen(false);
     setMobilePillarsOpen(false);
     setMobileSocialOpen(false);
     setMobileWellnessOpen(false);
     setMobileUpdatesOpen(false);
-  }, [location]);
+  }, [location.pathname]);
+
+  // Lock body scroll when mobile drawer is open to prevent background scrolling on Android/touchscreens
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
+
+  // Outside click & touch listener (Technical Directive #3 - pointerdown eliminates touch latency)
+  useEffect(() => {
+    const handlePointerDown = (event: PointerEvent) => {
+      const target = event.target as Node;
+      if (desktopPillarsOpen && pillarsRef.current && !pillarsRef.current.contains(target)) {
+        setDesktopPillarsOpen(false);
+      }
+      if (desktopUpdatesOpen && updatesRef.current && !updatesRef.current.contains(target)) {
+        setDesktopUpdatesOpen(false);
+      }
+      if (
+        isOpen &&
+        mobileDrawerRef.current &&
+        !mobileDrawerRef.current.contains(target) &&
+        hamburgerRef.current &&
+        !hamburgerRef.current.contains(target)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('pointerdown', handlePointerDown);
+    return () => {
+      document.removeEventListener('pointerdown', handlePointerDown);
+    };
+  }, [desktopPillarsOpen, desktopUpdatesOpen, isOpen]);
+
+  // Explicit tap & click handlers for desktop dropdowns
+  const handlePillarsToggle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setDesktopUpdatesOpen(false);
+    setDesktopPillarsOpen(prev => !prev);
+  };
+
+  const handleUpdatesToggle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setDesktopPillarsOpen(false);
+    setDesktopUpdatesOpen(prev => !prev);
+  };
 
   // Country flag emoji derived from activeCountry state
   const countryEmoji = activeCountry === 'US' ? '🇺🇸' : activeCountry === 'UK' ? '🇬🇧' : '🇪🇸';
@@ -289,13 +357,13 @@ const Navbar = () => {
               </span>
             </Link>
 
-            {/* Desktop Navigation with 2-Line Stacked Labels for Large, Bold Typography */}
-            <div className="hidden lg:flex items-center space-x-1 xl:space-x-1.5 2xl:space-x-2 shrink-0">
+            {/* Desktop Navigation with 2-Line Stacked Labels for Large, Bold Typography (xl:flex for 1280px+ viewports) */}
+            <div className="hidden xl:flex items-center space-x-1 xl:space-x-1.5 2xl:space-x-2 shrink-0 flex-nowrap">
               {/* Home */}
               <Link 
                 to="/" 
                 onClick={handleHomeClick} 
-                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors whitespace-nowrap flex items-center"
+                className="min-h-[48px] px-2 xl:px-2.5 py-1.5 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors whitespace-nowrap flex items-center touch-manipulation shrink-0"
               >
                 {t('nav_home')}
               </Link>
@@ -303,32 +371,57 @@ const Navbar = () => {
               {/* Dual-Track (Stacked 2 Lines) */}
               <Link 
                 to="/dual-track" 
-                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors flex flex-col items-center text-center leading-tight whitespace-nowrap"
+                className="min-h-[48px] px-2 xl:px-2.5 py-1.5 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors flex flex-col items-center justify-center text-center leading-tight whitespace-nowrap touch-manipulation shrink-0"
               >
                 <span>Dual</span>
                 <span>Track</span>
               </Link>
 
-              {/* Pillars Dropdown Trigger */}
-              <div className="relative group py-1">
-                <button className="flex items-center px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors cursor-pointer outline-none whitespace-nowrap">
+              {/* Pillars Dropdown Trigger (Controlled React state with explicit tap & click handlers) */}
+              <div 
+                ref={pillarsRef}
+                className="relative shrink-0"
+                onMouseEnter={() => setDesktopPillarsOpen(true)}
+                onMouseLeave={() => setDesktopPillarsOpen(false)}
+              >
+                <button 
+                  type="button"
+                  onClick={handlePillarsToggle}
+                  aria-expanded={desktopPillarsOpen}
+                  aria-haspopup="true"
+                  aria-label="Toggle Optimization Pillars Menu"
+                  className={`min-h-[48px] flex items-center px-2 xl:px-2.5 py-1.5 text-xs xl:text-[13px] font-bold uppercase tracking-wider transition-colors cursor-pointer outline-none whitespace-nowrap touch-manipulation rounded-lg ${
+                    desktopPillarsOpen ? 'text-white bg-white/5' : 'text-slate-300 hover:text-white'
+                  }`}
+                >
                   <span>Pillars</span>
-                  <ChevronDown size={13} className="ml-0.5 transition-transform group-hover:rotate-180 duration-300 text-slate-400" />
+                  <ChevronDown size={14} className={`ml-1 transition-transform duration-200 ${desktopPillarsOpen ? 'rotate-180 text-cyan-400' : 'text-slate-400'}`} />
                 </button>
                 
-                {/* Pillars Dropdown Panel */}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 hidden group-hover:block w-80 pt-2 z-50">
-                  <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 shadow-2xl space-y-1">
-                    <div className="text-[10px] font-black uppercase tracking-wider text-slate-500 mb-2 px-3 border-b border-slate-900 pb-2">Explore Optimization Pillars</div>
+                {/* Pillars Dropdown Panel with Controlled React State */}
+                <div 
+                  role="menu"
+                  aria-label="Pillars Menu"
+                  className={`absolute top-full left-1/2 -translate-x-1/2 mt-1 w-80 pt-2 z-[70] transition-all duration-200 ${
+                    desktopPillarsOpen 
+                      ? 'opacity-100 visible pointer-events-auto translate-y-0' 
+                      : 'opacity-0 invisible pointer-events-none -translate-y-2'
+                  }`}
+                >
+                  <div className="bg-slate-950/95 border border-slate-800 rounded-2xl p-3 shadow-2xl backdrop-blur-xl space-y-1">
+                    <div className="text-[10px] font-black uppercase tracking-wider text-slate-500 mb-2 px-3 border-b border-slate-900 pb-2">
+                      Explore Optimization Pillars
+                    </div>
                     {pillars.map(pillar => {
                       const Icon = pillar.icon;
                       return (
                         <Link
                           key={pillar.name}
                           to={pillar.path}
-                          className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition-all"
+                          onClick={() => setDesktopPillarsOpen(false)}
+                          className="min-h-[48px] flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 text-slate-300 hover:text-white transition-all touch-manipulation"
                         >
-                          <Icon size={16} className="text-blue-400" />
+                          <Icon size={16} className="text-blue-400 shrink-0" />
                           <div>
                             <div className="text-xs font-black uppercase tracking-wider text-left">{pillar.name}</div>
                             <div className="text-[10px] text-slate-400 mt-0.5 text-left">{pillar.desc}</div>
@@ -340,26 +433,51 @@ const Navbar = () => {
                 </div>
               </div>
 
-              {/* Blog Updates Dropdown (Stacked 2 Lines) */}
-              <div className="relative group py-1">
-                <button className="flex items-center px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors cursor-pointer outline-none whitespace-nowrap">
+              {/* Blog Updates Dropdown (Stacked 2 Lines - Controlled React state) */}
+              <div 
+                ref={updatesRef}
+                className="relative shrink-0"
+                onMouseEnter={() => setDesktopUpdatesOpen(true)}
+                onMouseLeave={() => setDesktopUpdatesOpen(false)}
+              >
+                <button 
+                  type="button"
+                  onClick={handleUpdatesToggle}
+                  aria-expanded={desktopUpdatesOpen}
+                  aria-haspopup="true"
+                  aria-label="Toggle Blog Updates Menu"
+                  className={`min-h-[48px] flex items-center px-2 xl:px-2.5 py-1.5 text-xs xl:text-[13px] font-bold uppercase tracking-wider transition-colors cursor-pointer outline-none whitespace-nowrap touch-manipulation rounded-lg ${
+                    desktopUpdatesOpen ? 'text-white bg-white/5' : 'text-slate-300 hover:text-white'
+                  }`}
+                >
                   <span className="flex flex-col items-center text-center leading-tight">
                     <span>Blog</span>
                     <span>Updates</span>
                   </span>
-                  <ChevronDown size={13} className="ml-0.5 transition-transform group-hover:rotate-180 duration-300 text-slate-400" />
+                  <ChevronDown size={14} className={`ml-1 transition-transform duration-200 ${desktopUpdatesOpen ? 'rotate-180 text-cyan-400' : 'text-slate-400'}`} />
                 </button>
                 
                 {/* Updates Dropdown Panel */}
-                <div className="absolute top-full left-1/2 -translate-x-1/2 mt-1 hidden group-hover:block w-72 pt-2 z-50">
-                  <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 shadow-2xl space-y-1">
-                    <div className="text-[10px] font-black uppercase tracking-wider text-slate-500 mb-2 px-3 border-b border-slate-900 pb-2">Research Categories</div>
+                <div 
+                  role="menu"
+                  aria-label="Research Categories Menu"
+                  className={`absolute top-full left-1/2 -translate-x-1/2 mt-1 w-72 pt-2 z-[70] transition-all duration-200 ${
+                    desktopUpdatesOpen 
+                      ? 'opacity-100 visible pointer-events-auto translate-y-0' 
+                      : 'opacity-0 invisible pointer-events-none -translate-y-2'
+                  }`}
+                >
+                  <div className="bg-slate-950/95 border border-slate-800 rounded-2xl p-3 shadow-2xl backdrop-blur-xl space-y-1">
+                    <div className="text-[10px] font-black uppercase tracking-wider text-slate-500 mb-2 px-3 border-b border-slate-900 pb-2">
+                      Research Categories
+                    </div>
                     
                     <Link
                       to="/updates"
-                      className="flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition-all text-xs font-black uppercase tracking-wider text-left"
+                      onClick={() => setDesktopUpdatesOpen(false)}
+                      className="min-h-[48px] flex items-center gap-3 px-3 py-2 rounded-xl hover:bg-white/10 text-slate-300 hover:text-white transition-all text-xs font-black uppercase tracking-wider text-left touch-manipulation"
                     >
-                      <Info size={14} className="text-blue-400" />
+                      <Info size={14} className="text-blue-400 shrink-0" />
                       <span>All Updates</span>
                     </Link>
 
@@ -374,9 +492,10 @@ const Navbar = () => {
                         <Link
                           key={cat.name}
                           to={cat.path}
-                          className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/5 text-slate-300 hover:text-white transition-all"
+                          onClick={() => setDesktopUpdatesOpen(false)}
+                          className="min-h-[48px] flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-white/10 text-slate-300 hover:text-white transition-all touch-manipulation"
                         >
-                          <Icon size={14} className="text-blue-400" />
+                          <Icon size={14} className="text-blue-400 shrink-0" />
                           <div>
                             <div className="text-xs font-black uppercase tracking-wider text-left">{cat.name}</div>
                             <div className="text-[10px] text-slate-400 mt-0.5 text-left">{cat.desc}</div>
@@ -391,7 +510,7 @@ const Navbar = () => {
               {/* The Anti-Aging Health Revolution (Stacked 2 Lines) */}
               <Link 
                 to="/science" 
-                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors flex flex-col items-center text-center leading-tight whitespace-nowrap"
+                className="min-h-[48px] px-2 xl:px-2.5 py-1.5 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors flex flex-col items-center justify-center text-center leading-tight whitespace-nowrap touch-manipulation shrink-0"
                 title="The Anti-Aging Health Revolution"
               >
                 <span>Anti-Aging</span>
@@ -401,7 +520,7 @@ const Navbar = () => {
               {/* Sovereign Store (Stacked 2 Lines) */}
               <Link 
                 to="/store" 
-                className="px-1.5 xl:px-2.5 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-amber-300 hover:text-white transition-all flex flex-col items-center text-center leading-tight rounded-xl bg-amber-500/10 border border-amber-500/30 hover:border-amber-400 hover:shadow-[0_0_15px_rgba(245,158,11,0.25)] whitespace-nowrap"
+                className="min-h-[48px] px-2.5 xl:px-3 py-1.5 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-amber-300 hover:text-white transition-all flex flex-col items-center justify-center text-center leading-tight rounded-xl bg-amber-500/10 border border-amber-500/30 hover:border-amber-400 hover:shadow-[0_0_15px_rgba(245,158,11,0.25)] whitespace-nowrap touch-manipulation shrink-0"
                 title="Sovereign Express Store"
               >
                 <span className="flex items-center gap-1">
@@ -414,7 +533,7 @@ const Navbar = () => {
               {/* Premium Guides (Stacked 2 Lines) */}
               <Link 
                 to="/premium-guides" 
-                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors flex flex-col items-center text-center leading-tight whitespace-nowrap"
+                className="min-h-[48px] px-2 xl:px-2.5 py-1.5 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors flex flex-col items-center justify-center text-center leading-tight whitespace-nowrap touch-manipulation shrink-0"
               >
                 <span>Premium</span>
                 <span>Guides</span>
@@ -423,7 +542,7 @@ const Navbar = () => {
               {/* Clinical Library (Stacked 2 Lines) */}
               <Link 
                 to="/library" 
-                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-cyan-400 hover:text-cyan-300 transition-colors flex flex-col items-center text-center leading-tight whitespace-nowrap"
+                className="min-h-[48px] px-2 xl:px-2.5 py-1.5 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-cyan-400 hover:text-cyan-300 transition-colors flex flex-col items-center justify-center text-center leading-tight whitespace-nowrap touch-manipulation shrink-0"
                 title="The Sovereign Library"
               >
                 <span>Clinical</span>
@@ -433,7 +552,7 @@ const Navbar = () => {
               {/* Intelligence */}
               <Link 
                 to="/intelligence-hub" 
-                className="px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors whitespace-nowrap flex items-center"
+                className="min-h-[48px] px-2 xl:px-2.5 py-1.5 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-colors whitespace-nowrap flex items-center touch-manipulation shrink-0"
               >
                 Intelligence
               </Link>
@@ -441,7 +560,7 @@ const Navbar = () => {
               {/* Design System (Stacked 2 Lines - shown on ultra-wide viewports) */}
               <Link 
                 to="/design-system" 
-                className="hidden 2xl:flex px-1.5 xl:px-2 py-1 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-colors flex-col items-center text-center leading-tight whitespace-nowrap"
+                className="hidden 2xl:flex min-h-[48px] px-2 xl:px-2.5 py-1.5 text-xs xl:text-[13px] font-bold uppercase tracking-wider text-slate-400 hover:text-white transition-colors flex-col items-center justify-center text-center leading-tight whitespace-nowrap touch-manipulation shrink-0"
               >
                 <span>Design</span>
                 <span>System</span>
@@ -452,17 +571,20 @@ const Navbar = () => {
 
               {/* Global Market Selector in Navbar */}
               <div className="shrink-0 flex items-center">
-                <MarketSelector />
+                <MarketSelector size="sm" />
               </div>
             </div>
 
-            {/* Mobile Menu Button */}
-            <div className="lg:hidden flex items-center gap-3">
-              <MarketSelector />
+            {/* Mobile & Tablet Header Controls (Active up to xl / 1280px) */}
+            <div className="xl:hidden flex items-center gap-2 sm:gap-3 shrink-0">
+              <MarketSelector size="sm" />
               <button
+                ref={hamburgerRef}
+                type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-white p-2 hover:bg-white/10 rounded-xl transition-colors"
-                aria-label="Toggle Navigation Menu"
+                className="min-h-[48px] min-w-[48px] p-2.5 flex items-center justify-center text-white hover:bg-white/10 rounded-xl transition-colors touch-manipulation cursor-pointer border border-white/5 active:scale-95"
+                aria-label={isOpen ? "Close Navigation Menu" : "Open Navigation Menu"}
+                aria-expanded={isOpen}
               >
                 {isOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
@@ -471,57 +593,112 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <div className={`lg:hidden fixed inset-0 z-40 bg-slate-950 transition-all duration-500 overflow-y-auto ${
-        isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-      }`}>
-        <div className="flex flex-col pt-24 pb-12 px-6">
-          {/* Market Selector at the Top of Mobile Menu */}
-          <div className="mb-6 bg-white/5 p-4 rounded-2xl border border-white/5 flex flex-col items-center">
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-3">Select Your Market</span>
-            <MarketSelector className="justify-center" />
+      {/* ========================================================================= */}
+      {/* MOBILE & TABLET TOUCH DRAWER (Active up to xl / 1280px - Technical Directive) */}
+      {/* ========================================================================= */}
+      <div 
+        className={`xl:hidden fixed inset-0 z-[110] transition-all duration-300 ${
+          isOpen ? 'opacity-100 pointer-events-auto visible' : 'opacity-0 pointer-events-none invisible'
+        }`}
+      >
+        {/* Semi-transparent dark blur backdrop (Tap outside closes drawer) */}
+        <div 
+          onClick={() => setIsOpen(false)}
+          className="fixed inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity duration-300 cursor-pointer"
+          aria-hidden="true"
+        />
+
+        {/* Drawer Sheet Container */}
+        <div 
+          ref={mobileDrawerRef}
+          className={`relative z-10 w-full max-w-lg ml-auto h-full bg-slate-950 border-l border-slate-800/80 shadow-2xl flex flex-col overflow-y-auto no-scrollbar transition-transform duration-300 ease-out transform ${
+            isOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
+        >
+          {/* Drawer Top Header with Brand and Explicit 48px Close Button */}
+          <div className="sticky top-0 z-20 flex items-center justify-between px-5 py-4 bg-slate-950/95 backdrop-blur-xl border-b border-slate-800/80">
+            <Link 
+              to="/" 
+              onClick={handleHomeClick} 
+              className="flex items-center group min-h-[48px] touch-manipulation"
+            >
+              <img 
+                src="/assets/logo.png" 
+                alt="123 The Next Level Logo" 
+                className="w-7 h-7 object-contain mr-2"
+              />
+              <span className="font-display font-black uppercase tracking-tight text-base text-white">
+                123TheNext<span className="text-blue-500">Level</span>
+              </span>
+            </Link>
+
+            <button
+              type="button"
+              onClick={() => setIsOpen(false)}
+              className="min-h-[48px] min-w-[48px] p-2.5 flex items-center justify-center rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors touch-manipulation cursor-pointer border border-white/5"
+              aria-label="Close navigation drawer"
+            >
+              <X size={22} />
+            </button>
           </div>
 
-          <div className="space-y-3">
-            {/* Flat Link Home */}
+          <div className="flex flex-col pt-4 pb-12 px-4 sm:px-6 space-y-3">
+            {/* Market Selector at the Top of Mobile Drawer with generous 48px touch targets */}
+            <div className="bg-white/5 p-4 rounded-2xl border border-white/5 flex flex-col items-center">
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-3">
+                Select Your Market
+              </span>
+              <MarketSelector size="lg" className="w-full justify-center" />
+            </div>
+
+            {/* Flat Link: Home */}
             <Link
               to="/"
               onClick={handleHomeClick}
-              className="flex items-center gap-3 p-4 bg-white/5 rounded-2xl border border-white/5 text-white"
+              className="min-h-[48px] min-w-[48px] px-4 py-3 flex items-center justify-between bg-white/5 hover:bg-white/10 rounded-2xl border border-white/5 text-white touch-manipulation transition-colors"
             >
-              <HomeIcon size={16} className="text-blue-400" />
-              <span className="text-base font-display font-black uppercase tracking-tight">{t('nav_home')}</span>
+              <div className="flex items-center gap-3">
+                <HomeIcon size={18} className="text-blue-400 shrink-0" />
+                <span className="text-sm font-display font-black uppercase tracking-tight">{t('nav_home')}</span>
+              </div>
+              <ChevronRight size={16} className="text-slate-500" />
             </Link>
 
-            {/* Flat Link Start Here */}
+            {/* Flat Link: Dual-Track */}
             <Link
               to="/dual-track"
               onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 p-4 bg-white/5 rounded-2xl border border-white/5 text-white"
+              className="min-h-[48px] min-w-[48px] px-4 py-3 flex items-center justify-between bg-white/5 hover:bg-white/10 rounded-2xl border border-white/5 text-white touch-manipulation transition-colors"
             >
-              <Compass size={16} className="text-blue-400" />
-              <span className="text-base font-display font-black uppercase tracking-tight">Dual-Track</span>
+              <div className="flex items-center gap-3">
+                <Compass size={18} className="text-blue-400 shrink-0" />
+                <span className="text-sm font-display font-black uppercase tracking-tight">Dual-Track</span>
+              </div>
+              <ChevronRight size={16} className="text-slate-500" />
             </Link>
 
-            {/* Flat Link The Anti-Aging Health Revolution */}
+            {/* Flat Link: The Anti-Aging Health Revolution */}
             <Link
               to="/science"
               onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 p-4 bg-white/5 rounded-2xl border border-white/5 text-cyan-400 hover:text-cyan-300"
+              className="min-h-[48px] min-w-[48px] px-4 py-3 flex items-center justify-between bg-white/5 hover:bg-white/10 rounded-2xl border border-white/5 text-cyan-400 hover:text-cyan-300 touch-manipulation transition-colors"
             >
-              <Sparkles size={16} className="text-cyan-400" />
-              <span className="text-base font-display font-black uppercase tracking-tight">The Anti-Aging Health Revolution</span>
+              <div className="flex items-center gap-3">
+                <Sparkles size={18} className="text-cyan-400 shrink-0" />
+                <span className="text-sm font-display font-black uppercase tracking-tight">The Anti-Aging Health Revolution</span>
+              </div>
+              <ChevronRight size={16} className="text-slate-500" />
             </Link>
 
-            {/* Flat Link Store */}
+            {/* Flat Link: Sovereign Store */}
             <Link
               to="/store"
               onClick={() => setIsOpen(false)}
-              className="flex items-center justify-between p-4 bg-gradient-to-r from-amber-950/40 via-slate-900 to-amber-950/20 rounded-2xl border border-amber-500/30 text-amber-300 hover:text-white"
+              className="min-h-[48px] min-w-[48px] px-4 py-3 flex items-center justify-between bg-gradient-to-r from-amber-950/40 via-slate-900 to-amber-950/20 hover:from-amber-950/60 rounded-2xl border border-amber-500/30 text-amber-300 hover:text-white touch-manipulation transition-all"
             >
               <div className="flex items-center gap-3">
-                <ShoppingBag size={16} className="text-amber-400" />
-                <span className="text-base font-display font-black uppercase tracking-tight">Sovereign Store</span>
+                <ShoppingBag size={18} className="text-amber-400 shrink-0" />
+                <span className="text-sm font-display font-black uppercase tracking-tight">Sovereign Store</span>
               </div>
               <span className="px-2 py-0.5 rounded text-[9px] font-black uppercase bg-amber-500 text-slate-950 animate-pulse">
                 Express
@@ -531,18 +708,20 @@ const Navbar = () => {
             {/* Accordion: Pillars */}
             <div className="bg-white/5 rounded-2xl border border-white/5 overflow-hidden">
               <button
+                type="button"
                 onClick={() => setMobilePillarsOpen(!mobilePillarsOpen)}
-                className="w-full flex items-center justify-between p-4 text-white hover:bg-white/5 transition-all outline-none"
+                aria-expanded={mobilePillarsOpen}
+                className="min-h-[48px] min-w-[48px] w-full px-4 py-3 flex items-center justify-between text-white hover:bg-white/5 transition-all outline-none touch-manipulation cursor-pointer"
               >
                 <div className="flex items-center gap-3">
-                  <Zap size={16} className="text-blue-400" />
-                  <span className="text-base font-display font-black uppercase tracking-tight">Pillars</span>
+                  <Zap size={18} className="text-blue-400 shrink-0" />
+                  <span className="text-sm font-display font-black uppercase tracking-tight">Pillars</span>
                 </div>
-                <ChevronDown size={16} className={`text-slate-500 transition-transform duration-300 ${mobilePillarsOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown size={18} className={`text-slate-400 transition-transform duration-300 ${mobilePillarsOpen ? 'rotate-180 text-cyan-400' : ''}`} />
               </button>
 
               {mobilePillarsOpen && (
-                <div className="bg-slate-950/60 border-t border-white/5 p-3 space-y-1">
+                <div className="bg-slate-950/80 border-t border-white/5 p-2 space-y-1">
                   {pillars.map(pillar => {
                     const PillarIcon = pillar.icon;
                     return (
@@ -550,10 +729,16 @@ const Navbar = () => {
                         key={pillar.name}
                         to={pillar.path}
                         onClick={() => setIsOpen(false)}
-                        className="flex items-center gap-2 p-3 rounded-xl hover:bg-white/5 text-slate-300 text-xs font-bold uppercase tracking-wider"
+                        className="min-h-[48px] min-w-[48px] px-3.5 py-3 flex items-center justify-between rounded-xl hover:bg-white/10 text-slate-300 hover:text-white transition-colors touch-manipulation"
                       >
-                        <PillarIcon size={14} className="text-blue-400" />
-                        <span>{pillar.name}</span>
+                        <div className="flex items-center gap-3">
+                          <PillarIcon size={16} className="text-blue-400 shrink-0" />
+                          <div className="text-left">
+                            <div className="text-xs font-black uppercase tracking-wider">{pillar.name}</div>
+                            <div className="text-[10px] text-slate-400 normal-case font-normal mt-0.5">{pillar.desc}</div>
+                          </div>
+                        </div>
+                        <ChevronRight size={14} className="text-slate-600" />
                       </Link>
                     );
                   })}
@@ -561,45 +746,56 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* Accordion: Updates */}
+            {/* Accordion: Blog Updates */}
             <div className="bg-white/5 rounded-2xl border border-white/5 overflow-hidden">
               <button
+                type="button"
                 onClick={() => setMobileUpdatesOpen(!mobileUpdatesOpen)}
-                className="w-full flex items-center justify-between p-4 text-white hover:bg-white/5 transition-all outline-none"
+                aria-expanded={mobileUpdatesOpen}
+                className="min-h-[48px] min-w-[48px] w-full px-4 py-3 flex items-center justify-between text-white hover:bg-white/5 transition-all outline-none touch-manipulation cursor-pointer"
               >
                 <div className="flex items-center gap-3">
-                  <Info size={16} className="text-blue-400" />
-                  <span className="text-base font-display font-black uppercase tracking-tight">Blog Updates</span>
+                  <Info size={18} className="text-blue-400 shrink-0" />
+                  <span className="text-sm font-display font-black uppercase tracking-tight">Blog Updates</span>
                 </div>
-                <ChevronDown size={16} className={`text-slate-500 transition-transform duration-300 ${mobileUpdatesOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown size={18} className={`text-slate-400 transition-transform duration-300 ${mobileUpdatesOpen ? 'rotate-180 text-cyan-400' : ''}`} />
               </button>
 
               {mobileUpdatesOpen && (
-                <div className="bg-slate-950/60 border-t border-white/5 p-3 space-y-1">
+                <div className="bg-slate-950/80 border-t border-white/5 p-2 space-y-1">
                   <Link
                     to="/updates"
                     onClick={() => setIsOpen(false)}
-                    className="flex items-center gap-2 p-3 rounded-xl hover:bg-white/5 text-slate-300 text-xs font-bold uppercase tracking-wider"
+                    className="min-h-[48px] min-w-[48px] px-3.5 py-3 flex items-center justify-between rounded-xl hover:bg-white/10 text-slate-300 hover:text-white text-xs font-black uppercase tracking-wider touch-manipulation"
                   >
-                    <Info size={14} className="text-blue-400" />
-                    <span>All Updates</span>
+                    <div className="flex items-center gap-3">
+                      <Info size={16} className="text-blue-400 shrink-0" />
+                      <span>All Updates</span>
+                    </div>
+                    <ChevronRight size={14} className="text-slate-600" />
                   </Link>
                   {[
-                    { name: 'Health', path: '/blog/category/health', icon: Shield },
-                    { name: 'Fitness', path: '/blog/category/fitness', icon: Dumbbell },
-                    { name: 'Nutrition', path: '/blog/category/nutrition', icon: Apple },
-                    { name: 'Wellness', path: '/blog/category/wellness', icon: Heart }
+                    { name: 'Health', path: '/blog/category/health', desc: 'Cellular & longevity research', icon: Shield },
+                    { name: 'Fitness', path: '/blog/category/fitness', desc: 'Training protocols & recovery', icon: Dumbbell },
+                    { name: 'Nutrition', path: '/blog/category/nutrition', desc: 'Nutrition & supplement strategy', icon: Apple },
+                    { name: 'Wellness', path: '/blog/category/wellness', desc: 'Nervous system & breathwork', icon: Heart }
                   ].map(cat => {
-                    const PillarIcon = cat.icon;
+                    const CatIcon = cat.icon;
                     return (
                       <Link
                         key={cat.name}
                         to={cat.path}
                         onClick={() => setIsOpen(false)}
-                        className="flex items-center gap-2 p-3 rounded-xl hover:bg-white/5 text-slate-300 text-xs font-bold uppercase tracking-wider"
+                        className="min-h-[48px] min-w-[48px] px-3.5 py-3 flex items-center justify-between rounded-xl hover:bg-white/10 text-slate-300 hover:text-white transition-colors touch-manipulation"
                       >
-                        <PillarIcon size={14} className="text-blue-400" />
-                        <span>{cat.name}</span>
+                        <div className="flex items-center gap-3">
+                          <CatIcon size={16} className="text-blue-400 shrink-0" />
+                          <div className="text-left">
+                            <div className="text-xs font-black uppercase tracking-wider">{cat.name}</div>
+                            <div className="text-[10px] text-slate-400 normal-case font-normal mt-0.5">{cat.desc}</div>
+                          </div>
+                        </div>
+                        <ChevronRight size={14} className="text-slate-600" />
                       </Link>
                     );
                   })}
@@ -607,44 +803,56 @@ const Navbar = () => {
               )}
             </div>
 
-            {/* Flat Link Premium Guides */}
+            {/* Flat Link: Premium Guides */}
             <Link
               to="/premium-guides"
               onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 p-4 bg-white/5 rounded-2xl border border-white/5 text-white"
+              className="min-h-[48px] min-w-[48px] px-4 py-3 flex items-center justify-between bg-white/5 hover:bg-white/10 rounded-2xl border border-white/5 text-white touch-manipulation transition-colors"
             >
-              <Shield size={16} className="text-blue-400" />
-              <span className="text-base font-display font-black uppercase tracking-tight">Premium Guides</span>
+              <div className="flex items-center gap-3">
+                <Shield size={18} className="text-blue-400 shrink-0" />
+                <span className="text-sm font-display font-black uppercase tracking-tight">Premium Guides</span>
+              </div>
+              <ChevronRight size={16} className="text-slate-500" />
             </Link>
 
-            {/* Flat Link Library */}
+            {/* Flat Link: Clinical Library */}
             <Link
               to="/library"
               onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 p-4 bg-cyan-950/40 rounded-2xl border border-cyan-500/30 text-cyan-300 hover:text-white"
+              className="min-h-[48px] min-w-[48px] px-4 py-3 flex items-center justify-between bg-cyan-950/40 hover:bg-cyan-900/40 rounded-2xl border border-cyan-500/30 text-cyan-300 hover:text-white touch-manipulation transition-colors"
             >
-              <BookOpen size={16} className="text-cyan-400" />
-              <span className="text-base font-display font-black uppercase tracking-tight">Clinical Library</span>
+              <div className="flex items-center gap-3">
+                <BookOpen size={18} className="text-cyan-400 shrink-0" />
+                <span className="text-sm font-display font-black uppercase tracking-tight">Clinical Library</span>
+              </div>
+              <ChevronRight size={16} className="text-slate-500" />
             </Link>
 
-            {/* Flat Link Intelligence Hub */}
+            {/* Flat Link: Intelligence Hub */}
             <Link
               to="/intelligence-hub"
               onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 p-4 bg-white/5 rounded-2xl border border-white/5 text-white"
+              className="min-h-[48px] min-w-[48px] px-4 py-3 flex items-center justify-between bg-white/5 hover:bg-white/10 rounded-2xl border border-white/5 text-white touch-manipulation transition-colors"
             >
-              <Shield size={16} className="text-blue-400" />
-              <span className="text-base font-display font-black uppercase tracking-tight">Intelligence</span>
+              <div className="flex items-center gap-3">
+                <Shield size={18} className="text-blue-400 shrink-0" />
+                <span className="text-sm font-display font-black uppercase tracking-tight">Intelligence</span>
+              </div>
+              <ChevronRight size={16} className="text-slate-500" />
             </Link>
 
-            {/* Flat Link Design System */}
+            {/* Flat Link: Design System */}
             <Link
               to="/design-system"
               onClick={() => setIsOpen(false)}
-              className="flex items-center gap-3 p-4 bg-white/5 rounded-2xl border border-white/5 text-white"
+              className="min-h-[48px] min-w-[48px] px-4 py-3 flex items-center justify-between bg-white/5 hover:bg-white/10 rounded-2xl border border-white/5 text-white touch-manipulation transition-colors"
             >
-              <Sparkles size={16} className="text-blue-400" />
-              <span className="text-base font-display font-black uppercase tracking-tight">Design System</span>
+              <div className="flex items-center gap-3">
+                <Sparkles size={18} className="text-blue-400 shrink-0" />
+                <span className="text-sm font-display font-black uppercase tracking-tight">Design System</span>
+              </div>
+              <ChevronRight size={16} className="text-slate-500" />
             </Link>
           </div>
         </div>

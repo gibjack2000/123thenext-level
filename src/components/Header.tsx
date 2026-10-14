@@ -17,15 +17,15 @@ export default function Header() {
 
       {/* Main Navigation Links */}
       <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
-        <Link to="/library" className="hover:text-cyan-400 transition-colors">
+        <Link to="/library" className="min-h-[48px] flex items-center hover:text-cyan-400 transition-colors touch-manipulation">
           📚 Library & Manuals
         </Link>
-        <Link to="/quiz" className="text-slate-350 hover:text-cyan-400 transition-colors">
+        <Link to="/quiz" className="min-h-[48px] flex items-center text-slate-350 hover:text-cyan-400 transition-colors touch-manipulation">
           ⚡ Free Wellness Quiz
         </Link>
         <Link 
           to="/store" 
-          className="relative flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/90 border border-amber-500/40 text-amber-300 hover:text-white hover:border-amber-400 hover:shadow-lg hover:shadow-amber-500/20 transition-all duration-300 font-bold"
+          className="min-h-[48px] relative flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/90 border border-amber-500/40 text-amber-300 hover:text-white hover:border-amber-400 hover:shadow-lg hover:shadow-amber-500/20 transition-all duration-300 font-bold touch-manipulation"
         >
           <span>🛒 Store</span>
           <span className="px-1.5 py-0.2 rounded-full text-[9px] font-black uppercase bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 shadow-sm shadow-amber-500/30 animate-pulse">
@@ -38,7 +38,7 @@ export default function Header() {
       <div>
         <Link 
           to="/quiz" 
-          className="px-5 py-2.5 rounded-full text-xs font-extrabold tracking-wide uppercase bg-cyan-500 text-slate-950 hover:bg-cyan-400 shadow-lg shadow-cyan-500/10 transition"
+          className="min-h-[48px] px-5 py-2.5 rounded-full text-xs font-extrabold tracking-wide uppercase bg-cyan-500 text-slate-950 hover:bg-cyan-400 shadow-lg shadow-cyan-500/10 transition inline-flex items-center touch-manipulation"
         >
           Start Free Quiz
         </Link>

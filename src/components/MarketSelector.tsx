@@ -67,9 +67,10 @@ const REGIONS: { id: 'us' | 'uk' | 'es'; name: string; label: string; flagEmoji:
 interface MarketSelectorProps {
   currentCategory?: string;
   className?: string;
+  size?: 'sm' | 'md' | 'lg';
 }
 
-export default function MarketSelector({ currentCategory, className = "" }: MarketSelectorProps) {
+export default function MarketSelector({ currentCategory, className = "", size = "md" }: MarketSelectorProps) {
   const location = useLocation();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -124,12 +125,16 @@ export default function MarketSelector({ currentCategory, className = "" }: Mark
     // dynamic product cards and regional pricing on the current page.
   };
 
+  const isLarge = size === 'lg';
+
   return (
     <div className={`flex items-center gap-1 xl:gap-1.5 shrink-0 ${className}`}>
-      <span className="text-[10px] xl:text-[11px] font-mono font-bold uppercase tracking-[0.1em] text-slate-400 select-none mr-0.5 hidden 2xl:inline">
-        MARKET:
-      </span>
-      <div className="flex items-center gap-1 bg-slate-950/90 p-0.5 rounded-lg border border-slate-800/90 shadow-inner shrink-0">
+      {!isLarge && (
+        <span className="text-[10px] xl:text-[11px] font-mono font-bold uppercase tracking-[0.1em] text-slate-400 select-none mr-0.5 hidden 2xl:inline">
+          MARKET:
+        </span>
+      )}
+      <div className={`flex items-center gap-1 sm:gap-1.5 bg-slate-950/90 p-1 rounded-xl border border-slate-800/90 shadow-inner shrink-0 ${isLarge ? 'w-full justify-center' : ''}`}>
         {REGIONS.map((r) => {
           const isActive = activeRegionId === r.id;
           const FlagComp = r.FlagComponent;
@@ -139,7 +144,11 @@ export default function MarketSelector({ currentCategory, className = "" }: Mark
               key={r.id}
               type="button"
               onClick={() => handleSelectMarket(r.id)}
-              className={`group relative flex items-center gap-1 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md text-xs font-mono font-bold transition-all duration-300 cursor-pointer shrink-0 ${
+              className={`group relative flex items-center justify-center gap-1.5 rounded-lg font-mono font-bold transition-all duration-300 cursor-pointer shrink-0 touch-manipulation ${
+                isLarge
+                  ? 'min-h-[48px] min-w-[48px] px-3.5 sm:px-4 py-2.5 text-xs sm:text-sm flex-1'
+                  : 'min-h-[40px] sm:min-h-[44px] min-w-[40px] px-2 sm:px-2.5 py-1.5 text-[11px] sm:text-xs'
+              } ${
                 isActive 
                   ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 shadow-[0_0_8px_rgba(6,182,212,0.3)]' 
                   : 'bg-slate-900/40 text-slate-400 hover:text-slate-200 border border-transparent hover:border-slate-700 hover:bg-slate-800/60'
@@ -147,10 +156,10 @@ export default function MarketSelector({ currentCategory, className = "" }: Mark
               title={r.name}
               aria-label={`Select ${r.name} Market`}
             >
-              <FlagComp className="w-3.5 h-2.5 sm:w-4 sm:h-3" />
-              <span className="text-[10px] sm:text-[11px] font-bold tracking-tight">{r.label}</span>
+              <FlagComp className={isLarge ? "w-5 h-3.5 sm:w-6 sm:h-4" : "w-4 h-3 sm:w-4.5 sm:h-3.5"} />
+              <span className="tracking-tight">{r.label}</span>
               {isActive && (
-                <div className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 bg-cyan-400 rounded-full shadow-[0_0_4px_#22d3ee]"></div>
+                <div className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-cyan-400 rounded-full shadow-[0_0_4px_#22d3ee]"></div>
               )}
             </button>
           );
