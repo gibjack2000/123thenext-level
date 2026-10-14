@@ -9,6 +9,7 @@ export const Navbar: React.FC = () => {
     (market?.toLowerCase() as 'us' | 'uk' | 'es') || 'us'
   );
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isPillarsDropdownOpen, setIsPillarsDropdownOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -31,14 +32,16 @@ export const Navbar: React.FC = () => {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
+    setIsPillarsDropdownOpen(false);
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80">
-      {/* 1. Single-Line Ticker Tape (No Dropdowns) */}
+    <header className="sticky top-0 z-50 bg-slate-950/95 backdrop-blur-md border-b border-slate-800/80">
+      
+      {/* 1. Stacked 2-Line Moving Ticker Tape */}
       <TickerTapeBanner />
 
-      {/* 2. Main Integrated Navbar */}
+      {/* 2. Full Integrated Main Navbar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
         {/* LEFT: Brand Logo & Mission Badge */}
@@ -48,13 +51,13 @@ export const Navbar: React.FC = () => {
               123<span className="text-cyan-400">TheNextLevel</span>
             </span>
           </Link>
-          <span className="hidden md:inline-block text-[10px] font-bold text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-2 py-0.5 rounded-md uppercase tracking-wider">
+          <span className="hidden xl:inline-block text-[10px] font-bold text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-2 py-0.5 rounded-md uppercase tracking-wider">
             Geroscience Portal
           </span>
         </div>
 
-        {/* CENTER: Main Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-6 text-xs font-semibold uppercase tracking-wider">
+        {/* CENTER: Complete Restored Navigation Links */}
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-5 text-xs font-semibold uppercase tracking-wider">
           <Link 
             to="/" 
             className={`transition-colors ${location.pathname === '/' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
@@ -65,7 +68,7 @@ export const Navbar: React.FC = () => {
             to="/science" 
             className={`transition-colors ${location.pathname === '/science' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
-            Science
+            Epigenetics
           </Link>
           <Link 
             to="/guide" 
@@ -80,6 +83,69 @@ export const Navbar: React.FC = () => {
             Autonomic
           </Link>
           <Link 
+            to="/fitness" 
+            className={`transition-colors ${location.pathname === '/fitness' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+          >
+            Performance
+          </Link>
+          <Link 
+            to="/nutrition" 
+            className={`transition-colors ${location.pathname === '/nutrition' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+          >
+            Nutrition
+          </Link>
+
+          {/* Additional Pillars Dropdown */}
+          <div 
+            className="relative"
+            onMouseEnter={() => setIsPillarsDropdownOpen(true)}
+            onMouseLeave={() => setIsPillarsDropdownOpen(false)}
+          >
+            <button 
+              type="button"
+              onClick={() => setIsPillarsDropdownOpen(!isPillarsDropdownOpen)}
+              className="text-slate-300 hover:text-white flex items-center gap-1 transition-colors py-2 cursor-pointer uppercase tracking-wider text-xs font-semibold"
+            >
+              More Pillars <span className="text-[10px]">▾</span>
+            </button>
+
+            {isPillarsDropdownOpen && (
+              <div className="absolute top-full left-0 w-64 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-2 space-y-1 z-50">
+                <Link
+                  to="/blog-post-womens-health"
+                  onClick={() => setIsPillarsDropdownOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                >
+                  🌸 Women's Health & Ovary-Span
+                </Link>
+                <Link
+                  to="/blog-post-socio-architecture"
+                  onClick={() => setIsPillarsDropdownOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                >
+                  🏛️ Socio-Architecture
+                </Link>
+                <Link
+                  to="/blog"
+                  onClick={() => setIsPillarsDropdownOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                >
+                  📚 Science & Article Library
+                </Link>
+                <a
+                  href="/clinical-baseline-consultation-template.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsPillarsDropdownOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-cyan-400 hover:bg-slate-800 transition-all"
+                >
+                  📄 GP Consultation Template (PDF) ↗
+                </a>
+              </div>
+            )}
+          </div>
+
+          <Link 
             to={`/store-${selectedRegion}`} 
             className={`transition-colors ${location.pathname.startsWith('/store') ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
@@ -87,15 +153,15 @@ export const Navbar: React.FC = () => {
           </Link>
         </nav>
 
-        {/* RIGHT: Market Selector & Quiz CTA */}
-        <div className="hidden sm:flex items-center gap-4">
+        {/* RIGHT: Market Region Selectors & Quiz Button */}
+        <div className="hidden sm:flex items-center gap-3">
           
           {/* Regional Selector Pills */}
           <div className="flex items-center bg-slate-900 border border-slate-800 rounded-full p-1 text-xs">
             <button
               type="button"
               onClick={() => handleRegionChange('us')}
-              className={`px-2.5 py-1 rounded-full font-bold transition-all cursor-pointer ${
+              className={`px-2 py-0.5 rounded-full font-bold transition-all cursor-pointer ${
                 selectedRegion === 'us' ? 'bg-cyan-500 text-slate-950 shadow-sm' : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -104,7 +170,7 @@ export const Navbar: React.FC = () => {
             <button
               type="button"
               onClick={() => handleRegionChange('uk')}
-              className={`px-2.5 py-1 rounded-full font-bold transition-all cursor-pointer ${
+              className={`px-2 py-0.5 rounded-full font-bold transition-all cursor-pointer ${
                 selectedRegion === 'uk' ? 'bg-cyan-500 text-slate-950 shadow-sm' : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -113,7 +179,7 @@ export const Navbar: React.FC = () => {
             <button
               type="button"
               onClick={() => handleRegionChange('es')}
-              className={`px-2.5 py-1 rounded-full font-bold transition-all cursor-pointer ${
+              className={`px-2 py-0.5 rounded-full font-bold transition-all cursor-pointer ${
                 selectedRegion === 'es' ? 'bg-cyan-500 text-slate-950 shadow-sm' : 'text-slate-400 hover:text-white'
               }`}
             >
@@ -124,13 +190,13 @@ export const Navbar: React.FC = () => {
           {/* Primary Action Button */}
           <Link
             to="/quiz"
-            className="py-2 px-4 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold rounded-lg transition-all shadow-md shadow-cyan-500/20 active:scale-95"
+            className="py-2 px-3.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold rounded-lg transition-all shadow-md shadow-cyan-500/20 whitespace-nowrap active:scale-95"
           >
             5-Min Quiz ➔
           </Link>
         </div>
 
-        {/* Mobile Menu Toggle Button */}
+        {/* Mobile Menu Button */}
         <button
           type="button"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -142,14 +208,20 @@ export const Navbar: React.FC = () => {
 
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Comprehensive Mobile Menu Drawer */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-slate-950 border-b border-slate-800 px-4 pt-3 pb-6 space-y-3 animate-fade-in">
-          <Link to="/" onClick={closeMobileMenu} className="block text-slate-300 font-medium py-1 hover:text-cyan-400 transition-colors">Start Here</Link>
-          <Link to="/science" onClick={closeMobileMenu} className="block text-slate-300 font-medium py-1 hover:text-cyan-400 transition-colors">Science</Link>
-          <Link to="/guide" onClick={closeMobileMenu} className="block text-slate-300 font-medium py-1 hover:text-cyan-400 transition-colors">Diagnostics</Link>
-          <Link to="/wellness" onClick={closeMobileMenu} className="block text-slate-300 font-medium py-1 hover:text-cyan-400 transition-colors">Autonomic</Link>
-          <Link to={`/store-${selectedRegion}`} onClick={closeMobileMenu} className="block text-slate-300 font-medium py-1 hover:text-cyan-400 transition-colors">Store</Link>
+        <div className="lg:hidden bg-slate-950 border-b border-slate-800 px-4 pt-3 pb-6 space-y-2 text-sm animate-fade-in">
+          <Link to="/" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🚀 Start Here</Link>
+          <Link to="/science" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧬 Epigenetics</Link>
+          <Link to="/guide" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🩸 Diagnostics</Link>
+          <Link to="/wellness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧠 Autonomic & Mental Health</Link>
+          <Link to="/fitness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">⚡ Performance & Bio-Data</Link>
+          <Link to="/nutrition" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🥗 Metabolic Nutrition</Link>
+          <Link to="/blog-post-womens-health" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🌸 Women's Health & Ovary-Span</Link>
+          <Link to="/blog-post-socio-architecture" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🏛️ Socio-Architecture</Link>
+          <Link to="/blog" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">📚 Science & Article Library</Link>
+          <a href="/clinical-baseline-consultation-template.pdf" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu} className="block text-cyan-400 hover:text-cyan-300 py-1 font-medium">📄 GP Consultation Template (PDF) ↗</a>
+          <Link to={`/store-${selectedRegion}`} onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🛒 Sovereign Store ({selectedRegion.toUpperCase()})</Link>
           
           <div className="pt-2">
             <Link
@@ -162,26 +234,26 @@ export const Navbar: React.FC = () => {
           </div>
 
           <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
-            <span className="text-xs text-slate-400 font-medium">Select Region:</span>
-            <div className="flex gap-2 text-xs">
+            <span className="text-xs text-slate-400 font-medium">Region:</span>
+            <div className="flex gap-2 text-xs font-bold">
               <button 
                 type="button" 
                 onClick={() => handleRegionChange('us')} 
-                className={`px-2 py-1 rounded font-bold cursor-pointer ${selectedRegion === 'us' ? 'text-cyan-400 bg-slate-900 border border-slate-800' : 'text-slate-400'}`}
+                className={`px-2 py-1 rounded cursor-pointer ${selectedRegion === 'us' ? 'text-cyan-400 bg-slate-900 border border-slate-800' : 'text-slate-400'}`}
               >
                 🇺🇸 US
               </button>
               <button 
                 type="button" 
                 onClick={() => handleRegionChange('uk')} 
-                className={`px-2 py-1 rounded font-bold cursor-pointer ${selectedRegion === 'uk' ? 'text-cyan-400 bg-slate-900 border border-slate-800' : 'text-slate-400'}`}
+                className={`px-2 py-1 rounded cursor-pointer ${selectedRegion === 'uk' ? 'text-cyan-400 bg-slate-900 border border-slate-800' : 'text-slate-400'}`}
               >
                 🇬🇧 UK
               </button>
               <button 
                 type="button" 
                 onClick={() => handleRegionChange('es')} 
-                className={`px-2 py-1 rounded font-bold cursor-pointer ${selectedRegion === 'es' ? 'text-cyan-400 bg-slate-900 border border-slate-800' : 'text-slate-400'}`}
+                className={`px-2 py-1 rounded cursor-pointer ${selectedRegion === 'es' ? 'text-cyan-400 bg-slate-900 border border-slate-800' : 'text-slate-400'}`}
               >
                 🇪🇸 ES
               </button>
