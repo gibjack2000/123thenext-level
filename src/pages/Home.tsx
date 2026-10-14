@@ -25,19 +25,19 @@ export const Home: React.FC = () => {
   return (
     <main className="bg-slate-950 min-h-screen text-slate-100">
       
-      {/* LAYER 1: New Clean 7-Tab Hero Gateway */}
+      {/* LAYER 1: New 7-Tab Hero Gateway (Streamable Video Active) */}
       <InteractiveTabbedHero />
 
-      {/* LAYER 2: Practical Diagnostic Roadmap & Mind-Body Companion Spotlight */}
+      {/* LAYER 2: Practical Diagnostic Suite & Mind-Body Companion Spotlight */}
       <DiagnosticRoadmap />
 
-      {/* LAYER 3: Interactive 6-Pillar Gateway Matrix */}
+      {/* LAYER 3: 6-Pillar Gateway Matrix */}
       <PillarGateway />
 
       {/* LAYER 4: Sovereign Store Showcase (Multi-Region US / UK / Spain) */}
       <SovereignStoreShowcase />
 
-      {/* LAYER 5: Epigenetic Engine & Yamanaka Hardware vs Software Science */}
+      {/* LAYER 5: Epigenetic Engine (Yamanaka Hardware vs Software Science) */}
       <EpigeneticsSection />
 
     </main>
