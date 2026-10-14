@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { HERO_VIDEOS } from '../config/heroVideos';
 
@@ -140,8 +140,13 @@ export const tabsData: TabData[] = [
 
 export const InteractiveTabbedHero: React.FC = () => {
   const [activeTabId, setActiveTabId] = useState<string>('start-here');
+  const [videoError, setVideoError] = useState<boolean>(false);
   const currentTab = tabsData.find((t) => t.id === activeTabId) || tabsData[0];
   const videoUrl = HERO_VIDEOS[currentTab.id as keyof typeof HERO_VIDEOS];
+
+  useEffect(() => {
+    setVideoError(false);
+  }, [activeTabId, videoUrl]);
 
   return (
     <section className="relative bg-slate-950 text-white pt-8 pb-16 px-4 sm:px-6 lg:px-8 border-b border-slate-800/80">
@@ -228,7 +233,7 @@ export const InteractiveTabbedHero: React.FC = () => {
 
           {/* Right Column: Media Frame (Cloudflare Video with Poster Fallback) */}
           <div className="lg:col-span-6 relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/80 p-1.5 shadow-2xl shadow-cyan-950/30">
-            {videoUrl ? (
+            {videoUrl && !videoError ? (
               <video
                 key={videoUrl}
                 autoPlay
@@ -237,9 +242,10 @@ export const InteractiveTabbedHero: React.FC = () => {
                 playsInline
                 preload="auto"
                 poster={currentTab.posterImage}
+                onError={() => setVideoError(true)}
                 className="w-full h-auto object-cover max-h-[460px] rounded-xl"
               >
-                <source src={videoUrl} type="video/mp4" />
+                <source src={videoUrl} type="video/mp4" onError={() => setVideoError(true)} />
               </video>
             ) : (
               <div className="relative group">

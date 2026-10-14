@@ -1,11 +1,14 @@
 // File: src/config/heroVideos.ts
 
 export const HERO_VIDEOS = {
-  'start-here': '',  // TODO: Paste Cloudflare R2 MP4 URL for Start Here Tab
-  'epigenetics': '', // TODO: Paste Cloudflare R2 MP4 URL for Epigenetics Tab
-  'diagnostics': '', // TODO: Paste Cloudflare R2 MP4 URL for Diagnostics Tab
-  'mental': '',      // TODO: Paste Cloudflare R2 MP4 URL for Mental Health Tab
-  'performance': '', // TODO: Paste Cloudflare R2 MP4 URL for Performance Tab
-  'nutrition': '',   // TODO: Paste Cloudflare R2 MP4 URL for Nutrition Tab
-  'store': '',       // TODO: Paste Cloudflare R2 MP4 URL for Sovereign Store Tab
+  // Ideal Location: Default video for the "Start Here" onboarding tab
+  'start-here': '/AvatarHeroPage.mp4', // Placeholder path (or your Streamable/Cloudflare URL)
+  
+  // Pillar tabs (use high-res poster images until video links are added)
+  'epigenetics': '',
+  'diagnostics': '',
+  'mental': '',
+  'performance': '',
+  'nutrition': '',
+  'store': '',
 };
