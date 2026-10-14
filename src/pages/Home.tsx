@@ -5,6 +5,7 @@ import { DiagnosticRoadmap } from '../components/DiagnosticRoadmap';
 import { PillarGateway } from '../components/PillarGateway';
 import { SovereignStoreShowcase } from '../components/SovereignStoreShowcase';
 import { EpigeneticsSection } from '../components/EpigeneticsSection';
+import { BottomProductTicker } from '../components/BottomProductTicker';
 
 export const Home: React.FC = () => {
   const location = useLocation();
@@ -39,6 +40,9 @@ export const Home: React.FC = () => {
 
       {/* LAYER 5: Epigenetic Engine (Yamanaka Hardware vs Software Science) */}
       <EpigeneticsSection />
+
+      {/* LAYER 6: Bottom Product Showcase Ticker Tape */}
+      <BottomProductTicker />
 
     </main>
   );
