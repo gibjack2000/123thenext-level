@@ -199,9 +199,12 @@ export default function DualTrack() {
                         <Activity size={18} />
                       </div>
                       <h3 className="text-sm font-display uppercase tracking-wider text-white font-bold">
-                        Lola Vital Check 56 Blood Panel
+                        Clinical Blood Panels (Lola • HealthLabs • Melio)
                       </h3>
                       <div className="space-y-2.5 text-[11px] sm:text-xs text-slate-grey-455 font-light">
+                        <div className="text-cyan-400 font-medium">
+                          Accredited Venous Draws: <strong>Lola Vital Check 56 (UK)</strong> • <strong>HealthLabs (US)</strong> • <strong>Melio (ES)</strong>
+                        </div>
                         <div>
                           <strong className="text-slate-300 block font-semibold">ApoB (Apolipoprotein B)</strong>
                           Directly counts atherogenic plaque-forming particles to evaluate subclinical cardiovascular risk.
@@ -217,8 +220,8 @@ export default function DualTrack() {
                       </div>
                     </div>
                     <div className="pt-3 border-t border-slate-900">
-                      <Link to="/intelligence-hub" className="inline-flex items-center text-[10px] sm:text-xs font-bold uppercase tracking-wider text-wellness-cyan hover:underline">
-                        Book Partner Lab Clinical Draw →
+                      <Link to="/store" className="inline-flex items-center text-[10px] sm:text-xs font-bold uppercase tracking-wider text-wellness-cyan hover:underline">
+                        Order Partner Lab Clinical Draw →
                       </Link>
                     </div>
                   </div>

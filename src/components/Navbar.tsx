@@ -9,7 +9,6 @@ export const Navbar: React.FC = () => {
     (market?.toLowerCase() as 'us' | 'uk' | 'es') || 'us'
   );
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isStoreDropdownOpen, setIsStoreDropdownOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -23,7 +22,7 @@ export const Navbar: React.FC = () => {
   const handleRegionChange = (region: 'us' | 'uk' | 'es') => {
     setSelectedRegion(region);
     setMarket(region.toUpperCase() as Market);
-    // Regional routing update logic for storefront
+    // Route to regional storefront if on store page
     if (location.pathname.startsWith('/store')) {
       navigate(`/store-${region}`);
     }
@@ -32,16 +31,15 @@ export const Navbar: React.FC = () => {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
-    setIsStoreDropdownOpen(false);
   };
 
   return (
     <header className="sticky top-0 z-50 bg-slate-950/95 backdrop-blur-md border-b border-slate-800/80">
       
-      {/* 1. Stacked Moving Ticker Tape */}
+      {/* 1. Stacked 2-Line Moving Ticker Tape */}
       <TickerTapeBanner />
 
-      {/* 2. Main Navigation Bar */}
+      {/* 2. Main Integrated Navbar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
         {/* Brand Logo & Mission Badge */}
@@ -70,12 +68,15 @@ export const Navbar: React.FC = () => {
           >
             Epigenetics
           </Link>
+
+          {/* Corrected Diagnostics Route -> /guide */}
           <Link 
             to="/guide" 
-            className={`transition-colors ${location.pathname === '/guide' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+            className={`transition-colors ${location.pathname === '/guide' || location.pathname.startsWith('/dual-track') ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
-            Diagnostics & Blood Tests
+            🩸 Diagnostics & Blood Tests
           </Link>
+
           <Link 
             to="/wellness" 
             className={`transition-colors ${location.pathname === '/wellness' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
@@ -83,70 +84,24 @@ export const Navbar: React.FC = () => {
             Autonomic
           </Link>
 
-          {/* Dedicated Store & Blood Test Hub Dropdown */}
-          <div 
-            className="relative"
-            onMouseEnter={() => setIsStoreDropdownOpen(true)}
-            onMouseLeave={() => setIsStoreDropdownOpen(false)}
+          {/* Restored Sovereign Store Route -> /store */}
+          <Link 
+            to="/store" 
+            className={`transition-colors ${location.pathname.startsWith('/store') ? 'text-cyan-400 font-bold font-black' : 'text-slate-300 hover:text-white'}`}
           >
-            <button 
-              type="button"
-              onClick={() => setIsStoreDropdownOpen(!isStoreDropdownOpen)}
-              className="text-cyan-400 font-bold hover:text-cyan-300 flex items-center gap-1 transition-colors py-2 cursor-pointer uppercase tracking-wider text-xs"
-            >
-              🛒 Store & Clinical Labs <span className="text-[10px]">▾</span>
-            </button>
+            🛒 Sovereign Store
+          </Link>
 
-            {isStoreDropdownOpen && (
-              <div className="absolute top-full right-0 w-72 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-2 space-y-1 z-50">
-                <div className="px-3 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-                  Clinical Diagnostics
-                </div>
-                <Link
-                  to="/guide"
-                  onClick={() => setIsStoreDropdownOpen(false)}
-                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
-                >
-                  🩸 Blood Tests & Lab Draws (Lola / HealthLabs)
-                </Link>
-                <Link
-                  to="/sovereign-express-shopping-catalog"
-                  onClick={() => setIsStoreDropdownOpen(false)}
-                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
-                >
-                  🔬 Clinical Hardware & Express Catalog
-                </Link>
-
-                <div className="pt-2 border-t border-slate-800 px-3 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
-                  Regional Storefronts
-                </div>
-                <Link
-                  to="/store-us"
-                  onClick={() => setIsStoreDropdownOpen(false)}
-                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
-                >
-                  🇺🇸 United States Storefront
-                </Link>
-                <Link
-                  to="/store-uk"
-                  onClick={() => setIsStoreDropdownOpen(false)}
-                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
-                >
-                  🇬🇧 United Kingdom Storefront
-                </Link>
-                <Link
-                  to="/store-es"
-                  onClick={() => setIsStoreDropdownOpen(false)}
-                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
-                >
-                  🇪🇸 Spain Storefront
-                </Link>
-              </div>
-            )}
-          </div>
+          {/* Separated Article Library -> /blog */}
+          <Link 
+            to="/blog" 
+            className={`transition-colors ${location.pathname === '/blog' || location.pathname.startsWith('/blog/') ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+          >
+            📚 Science Library
+          </Link>
         </nav>
 
-        {/* Market Region Selectors & Quiz Button */}
+        {/* Right Controls: US/UK/ES Region Selector & Quiz CTA */}
         <div className="hidden sm:flex items-center gap-3">
           <div className="flex items-center bg-slate-900 border border-slate-800 rounded-full p-1 text-xs">
             <button
@@ -198,15 +153,15 @@ export const Navbar: React.FC = () => {
 
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Menu Drawer */}
       {isMobileMenuOpen && (
         <div className="lg:hidden bg-slate-950 border-b border-slate-800 px-4 pt-3 pb-6 space-y-2 text-sm animate-fade-in">
           <Link to="/" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🚀 Start Here</Link>
           <Link to="/science" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧬 Epigenetics</Link>
-          <Link to="/guide" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🩸 Blood Tests & Diagnostics</Link>
+          <Link to="/guide" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🩸 Diagnostics & Blood Tests</Link>
           <Link to="/wellness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧠 Autonomic & Mental Health</Link>
-          <Link to="/sovereign-express-shopping-catalog" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🔬 Clinical Express Catalog</Link>
-          <Link to={`/store-${selectedRegion}`} onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🛒 Sovereign Storefront ({selectedRegion.toUpperCase()})</Link>
+          <Link to="/store" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🛒 Sovereign Store</Link>
+          <Link to="/blog" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">📚 Science Article Library</Link>
           
           <div className="pt-2">
             <Link
