@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-do
 import { useMarket, Market } from '../contexts/MarketContext';
 
 // Self-contained, offline-resilient SVG Flags for US, UK, and Spain (ES)
-const FlagUS = ({ className = "w-5 h-3.5" }: { className?: string }) => (
+export const FlagUS = ({ className = "w-5 h-3.5" }: { className?: string }) => (
   <svg viewBox="0 0 640 480" className={`${className} rounded-[2px] shadow-sm flex-shrink-0`} xmlns="http://www.w3.org/2000/svg">
     <path fill="#bd3d44" d="M0 0h640v480H0z"/>
     <path stroke="#fff" strokeWidth="37" d="M0 55.4h640M0 129.2h640M0 203h640M0 277h640M0 350.8h640M0 424.6h640"/>
@@ -31,7 +31,7 @@ const FlagUS = ({ className = "w-5 h-3.5" }: { className?: string }) => (
   </svg>
 );
 
-const FlagUK = ({ className = "w-5 h-3.5" }: { className?: string }) => (
+export const FlagUK = ({ className = "w-5 h-3.5" }: { className?: string }) => (
   <svg viewBox="0 0 640 480" className={`${className} rounded-[2px] shadow-sm flex-shrink-0`} xmlns="http://www.w3.org/2000/svg">
     <clipPath id="uk-clip-ms">
       <path d="M0 0v480h640V0z"/>
@@ -46,7 +46,7 @@ const FlagUK = ({ className = "w-5 h-3.5" }: { className?: string }) => (
   </svg>
 );
 
-const FlagES = ({ className = "w-5 h-3.5" }: { className?: string }) => (
+export const FlagES = ({ className = "w-5 h-3.5" }: { className?: string }) => (
   <svg viewBox="0 0 640 480" className={`${className} rounded-[2px] shadow-sm flex-shrink-0`} xmlns="http://www.w3.org/2000/svg">
     <path fill="#c60b1e" d="M0 0h640v480H0z"/>
     <path fill="#ffc400" d="M0 120h640v240H0z"/>

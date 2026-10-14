@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useMarket, Market } from '../contexts/MarketContext';
 import { TickerTapeBanner } from './TickerTapeBanner';
+import { FlagUS, FlagUK, FlagES } from './MarketSelector';
 
 export const Navbar: React.FC = () => {
   const { market, setMarket } = useMarket();
@@ -176,7 +177,7 @@ export const Navbar: React.FC = () => {
               }`}
               title="United States Market"
             >
-              <span>🇺🇸</span> <span>US</span>
+              <FlagUS className="w-4 h-3" /> <span>US</span>
             </button>
             <button
               type="button"
@@ -188,7 +189,7 @@ export const Navbar: React.FC = () => {
               }`}
               title="United Kingdom Market"
             >
-              <span>🇬🇧</span> <span>UK</span>
+              <FlagUK className="w-4 h-3" /> <span>UK</span>
             </button>
             <button
               type="button"
@@ -200,7 +201,7 @@ export const Navbar: React.FC = () => {
               }`}
               title="Spain / EU Market"
             >
-              <span>🇪🇸</span> <span>ES</span>
+              <FlagES className="w-4 h-3" /> <span>ES</span>
             </button>
           </div>
 
@@ -257,23 +258,23 @@ export const Navbar: React.FC = () => {
               <button 
                 type="button"
                 onClick={() => handleRegionChange('us')} 
-                className={`px-2 py-1 rounded-md flex items-center gap-1 cursor-pointer ${selectedRegion === 'us' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40' : 'text-slate-400'}`}
+                className={`px-2 py-1 rounded-md flex items-center gap-1.5 cursor-pointer ${selectedRegion === 'us' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40' : 'text-slate-400'}`}
               >
-                🇺🇸 US
+                <FlagUS className="w-4 h-3" /> US
               </button>
               <button 
                 type="button"
                 onClick={() => handleRegionChange('uk')} 
-                className={`px-2 py-1 rounded-md flex items-center gap-1 cursor-pointer ${selectedRegion === 'uk' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40' : 'text-slate-400'}`}
+                className={`px-2 py-1 rounded-md flex items-center gap-1.5 cursor-pointer ${selectedRegion === 'uk' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40' : 'text-slate-400'}`}
               >
-                🇬🇧 UK
+                <FlagUK className="w-4 h-3" /> UK
               </button>
               <button 
                 type="button"
                 onClick={() => handleRegionChange('es')} 
-                className={`px-2 py-1 rounded-md flex items-center gap-1 cursor-pointer ${selectedRegion === 'es' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40' : 'text-slate-400'}`}
+                className={`px-2 py-1 rounded-md flex items-center gap-1.5 cursor-pointer ${selectedRegion === 'es' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40' : 'text-slate-400'}`}
               >
-                🇪🇸 ES
+                <FlagES className="w-4 h-3" /> ES
               </button>
             </div>
           </div>
