@@ -2580,7 +2580,9 @@ export function Store({ region }: StoreProps = {}) {
                             className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                             referrerPolicy="no-referrer"
                             onError={(e) => {
-                              (e.target as HTMLImageElement).src = '/Products/owala.jpg';
+                              const target = e.currentTarget;
+                              target.onerror = null;
+                              target.src = '/Products/owala.jpg';
                             }}
                           />
                         </div>
@@ -2644,7 +2646,9 @@ export function Store({ region }: StoreProps = {}) {
                                     className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                                     referrerPolicy="no-referrer"
                                     onError={(e) => {
-                                      (e.target as HTMLImageElement).src = '/Products/owala.jpg';
+                                      const target = e.currentTarget;
+                                      target.onerror = null;
+                                      target.src = '/Products/owala.jpg';
                                     }}
                                   />
                                 </div>
@@ -2696,7 +2700,9 @@ export function Store({ region }: StoreProps = {}) {
                                 className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                                 referrerPolicy="no-referrer"
                                 onError={(e) => {
-                                  (e.target as HTMLImageElement).src = '/Products/owala.jpg';
+                                  const target = e.currentTarget;
+                                  target.onerror = null;
+                                  target.src = '/Products/owala.jpg';
                                 }}
                               />
                             </div>

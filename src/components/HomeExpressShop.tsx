@@ -58,7 +58,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "2.8k+",
     shortBenefit: "Synergistic Trans-Resveratrol, NMN & Nattokinase to activate cellular repair, genomic stability, and NAD+ longevity cofactors.",
     description: "NSF Certified for Sport. Clinical-grade longevity cofactors designed for mitochondrial integrity and cellular geroscience.",
-    imageUrl: "/assets/images/shop/sirtuin-stack.png",
+    imageUrl: "/Products/quercitin.jpeg",
     isDirectAffiliate: true,
     regions: {
       US: {
@@ -94,7 +94,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "4.1k+",
     shortBenefit: "Wild-caught hydrolyzed marine peptides paired with Biotin & Vitamin C for ligament, tendon, and vascular resilience.",
     description: "Highly bioavailable micro-granulated peptides supporting connective joint elasticity, arterial walls, and skin barrier density.",
-    imageUrl: "/assets/images/shop/marine-collagen.png",
+    imageUrl: "/Products/CollagenUS.jpg",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -350,7 +350,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "14k+",
     shortBenefit: "The gold-standard ergometer for whole-body cardiovascular threshold training and zero-impact joint longevity.",
     description: "Precision flywheel air-resistance rowing ergometer with PM5 performance monitor tracking wattage, split times, and heart rate telemetry.",
-    imageUrl: "/assets/images/shop/rower.png",
+    imageUrl: "/Products/yyfit.jpeg",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -494,7 +494,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "52k+",
     shortBenefit: "Triple-insulated water bottle with patented FreeSip built-in straw, keeping cellular hydration ice-cold for 24 hours.",
     description: "BPA-free leak-proof stainless steel hydration vessel with carry-loop lid designed for high-performance training sessions.",
-    imageUrl: "/assets/images/shop/water-bottle.png",
+    imageUrl: "/Products/owala.jpg",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -606,7 +606,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "940+",
     shortBenefit: "Direct-to-consumer longevity blood panels mapping 56 essential biomarkers across ApoB, HbA1c, hs-CRP, liver enzymes & hormones.",
     description: "Comprehensive preventative blood test with physician review. Quest/Labcorp draw in US, private partner clinics across UK and Spain.",
-    imageUrl: "/assets/images/shop/blood-panel.png",
+    imageUrl: "/Products/ancientbrave.jpeg",
     isDirectAffiliate: true,
     regions: {
       US: {
@@ -642,7 +642,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "1.8k+",
     shortBenefit: "Real-time interstitial glucose tracking mapping energy peaks and glycemic variability to optimize metabolic longevity.",
     description: "Waterproof sensor logging glucose fluctuations every minute, streaming continuous glycemic curves directly to your smartphone.",
-    imageUrl: "/assets/images/shop/cgm.png",
+    imageUrl: "/Products/thorne.jpg",
     isDirectAffiliate: true,
     regions: {
       US: {
@@ -678,7 +678,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "1.2k+",
     shortBenefit: "FDA-cleared acoustic amplifier with 3-lead ECG display and AI murmur/arrhythmia detection in 15 seconds.",
     description: "Next-generation clinician acoustic tool bridging digital stethoscope clarity with live wireless phonocardiogram telemetry.",
-    imageUrl: "/assets/images/shop/core-500.png",
+    imageUrl: "/Products/duronic520.jpg",
     isDirectAffiliate: true,
     regions: {
       US: {
@@ -714,7 +714,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "3.4k+",
     shortBenefit: "Zero-wearable pneumatic sensor analyzing sleep cycles, continuous heart rate, snoring, and breathing disturbances.",
     description: "Clinically validated under-mattress mat with automatic Wi-Fi sync, generating medical-grade sleep architecture and apnea diagnostics.",
-    imageUrl: "/assets/images/shop/sleep-analyzer.png",
+    imageUrl: "/Products/ouraring5.jpeg",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -750,7 +750,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "7.8k+",
     shortBenefit: "FDA-cleared wireless cuff delivering instant color-coded systolic, diastolic, and pulse feedback directly to your phone.",
     description: "Compact smart monitor that logs arterial elasticity trends and exports clinician-formatted PDF reports for shared decision-making.",
-    imageUrl: "/assets/images/shop/bpm-connect.png",
+    imageUrl: "/Products/beurer.jpeg",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -786,7 +786,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "2.1k+",
     shortBenefit: "FDA-cleared 6-lead ECG and 8-electrode bioelectrical impedance mapping limb-by-limb muscle mass and visceral fat index.",
     description: "Retractable handle composition scale measuring autonomic nervous system vascular age and nerve health markers at home.",
-    imageUrl: "/assets/images/shop/body-scan.png",
+    imageUrl: "/Products/renphoscale1.jpeg",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -822,7 +822,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "18k+",
     shortBenefit: "Advanced multispectral optical sensor capturing sleep apnea notifications, resting heart rate, and real-time HRV variance.",
     description: "Sleek biometric wearable tracking VO2 max, temperature variation, and sudden cardiac rhythm alerts with high clinical fidelity.",
-    imageUrl: "/assets/images/shop/apple-watch.png",
+    imageUrl: "/Products/apple10.jpg",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -858,7 +858,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "11k+",
     shortBenefit: "Zero-screen dip-and-read chemical diagnostic testing 10 parameters (Ketones, Protein, pH, Specific Gravity, Leucocytes) in 2 min.",
     description: "Rapid physiological feedback reagent kit tracking hydration efficiency, kidney filtration, and metabolic acid-base equilibrium.",
-    imageUrl: "/assets/images/shop/reagent-strips.png",
+    imageUrl: "/Products/oxford.jpeg",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -894,7 +894,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "2.7k+",
     shortBenefit: "Far-infrared full-body cabin inducing heat-shock protein (HSP70) synthesis, microvascular dilation, and deep autonomic calm.",
     description: "Compact foldable low-EMF carbon panel sauna system with insulated chair and multi-level thermostat for home recovery suites.",
-    imageUrl: "/assets/images/shop/sauna.png",
+    imageUrl: "/Products/sauna.jpeg",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -930,7 +930,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "34k+",
     shortBenefit: "Integrated V1 processor active noise cancellation to isolate auditory inputs during parasympathetic resets and breathwork.",
     description: "Ultra-lightweight 35-hour battery headphones designed for focused autonomic downregulation and binaural audio therapy.",
-    imageUrl: "/assets/images/shop/sony-headphones.png",
+    imageUrl: "/Products/sonyhead.jpg",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -966,7 +966,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "1.9k+",
     shortBenefit: "Buckwheat-filled organic cotton cushion designed for pelvis alignment during somatic breathwork and parasympathetic resets.",
     description: "Ergonomic meditation bolster providing firm spinal support, opening the diaphragm for optimal diaphragmatic breathing cycles.",
-    imageUrl: "/assets/images/shop/meditation-cushion.png",
+    imageUrl: "/Products/tibetanbowl-us.webp",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -1002,7 +1002,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "820+",
     shortBenefit: "Direct-to-lab finger-prick blood test evaluating Anti-Müllerian Hormone (AMH) and endocrine longevity metrics.",
     description: "Accredited home collection test with physician-approved clinical lab report mapping reproductive healthspan baselines.",
-    imageUrl: "/assets/images/shop/ovarian-test.png",
+    imageUrl: "/Products/ancientbrave.jpeg",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -1033,17 +1033,10 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
 export default function HomeExpressShop() {
   const { market, setMarket } = useMarket();
   const [activeTab, setActiveTab] = useState<'supplements' | 'fitness' | 'wellness'>('supplements');
-  const [selectedRegion, setSelectedRegion] = useState<RegionKey>(
-    (market as RegionKey) || 'US'
-  );
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Sync selectedRegion whenever global market context changes
-  useEffect(() => {
-    if (market && ['US', 'UK', 'ES'].includes(market)) {
-      setSelectedRegion(market as RegionKey);
-    }
-  }, [market]);
+  // Authoritative region derived directly from global market
+  const selectedRegion: RegionKey = (['US', 'UK', 'ES'].includes(market) ? market : 'US') as RegionKey;
 
   // Filter products by active tab and search query
   const filteredProducts = EXPRESS_PRODUCTS.filter(product => {
@@ -1162,10 +1155,7 @@ export default function HomeExpressShop() {
             <div className="inline-flex p-1 bg-slate-950 rounded-xl border border-slate-800">
               <button
                 type="button"
-                onClick={() => {
-                  setSelectedRegion('US');
-                  setMarket('US');
-                }}
+                onClick={() => setMarket('US')}
                 className={`min-h-[44px] min-w-[44px] px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition cursor-pointer flex items-center gap-1.5 touch-manipulation active:scale-95 ${
                   selectedRegion === 'US'
                     ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
@@ -1180,10 +1170,7 @@ export default function HomeExpressShop() {
 
               <button
                 type="button"
-                onClick={() => {
-                  setSelectedRegion('UK');
-                  setMarket('UK');
-                }}
+                onClick={() => setMarket('UK')}
                 className={`min-h-[44px] min-w-[44px] px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition cursor-pointer flex items-center gap-1.5 touch-manipulation active:scale-95 ${
                   selectedRegion === 'UK'
                     ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
@@ -1198,10 +1185,7 @@ export default function HomeExpressShop() {
 
               <button
                 type="button"
-                onClick={() => {
-                  setSelectedRegion('ES');
-                  setMarket('ES');
-                }}
+                onClick={() => setMarket('ES')}
                 className={`min-h-[44px] min-w-[44px] px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition cursor-pointer flex items-center gap-1.5 touch-manipulation active:scale-95 ${
                   selectedRegion === 'ES'
                     ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
@@ -1271,8 +1255,9 @@ export default function HomeExpressShop() {
                       src={product.imageUrl}
                       alt={product.name}
                       onError={(e) => {
-                        // Fallback image if remote url fails
-                        (e.target as HTMLImageElement).src = '/assets/images/shop/sirtuin-stack.png';
+                        const target = e.currentTarget;
+                        target.onerror = null;
+                        target.src = '/Products/owala.jpg';
                       }}
                       className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-500"
                     />
