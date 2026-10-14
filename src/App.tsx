@@ -94,6 +94,7 @@ const QuizResults = lazy(() => import('./pages/QuizResults'));
 const AgeReversalShowcase = lazy(() => import('./pages/AgeReversalShowcase'));
 const HardwareStorePage = lazy(() => import('./pages/HardwareStorePage'));
 const Store = lazy(() => import('./pages/Store'));
+const DiagnosticGuide = lazy(() => import('./pages/DiagnosticGuide'));
 const Science = lazy(() => import('./pages/Science'));
 const Library = lazy(() => import('./pages/Library'));
 
@@ -210,18 +211,18 @@ function App() {
                 <Route path="/quiz" element={<Navigate to="/health-quiz" replace />} />
                 <Route path="/quiz-results" element={<QuizResults />} />
 
-                {/* Regional Storefront Aliases */}
-                <Route path="/store-us" element={<Navigate to="/us" replace />} />
-                <Route path="/us-store" element={<Navigate to="/us" replace />} />
-                <Route path="/store-uk" element={<Navigate to="/uk" replace />} />
-                <Route path="/uk-store" element={<Navigate to="/uk" replace />} />
-                <Route path="/store-es" element={<Navigate to="/es" replace />} />
-                <Route path="/es-store" element={<Navigate to="/es" replace />} />
-                <Route path="/spain-store" element={<Navigate to="/es" replace />} />
-
-                {/* Diagnostics Suite Route */}
-                <Route path="/guide" element={<DualTrack />} />
+                {/* Diagnostics Route: Phase 1 Onboarding & Blood Panels */}
+                <Route path="/guide" element={<DiagnosticGuide />} />
                 <Route path="/guides" element={<Navigate to="/premium-guides" replace />} />
+
+                {/* Sovereign Store Regional Routes */}
+                <Route path="/store-us" element={<Store region="us" />} />
+                <Route path="/us-store" element={<Store region="us" />} />
+                <Route path="/store-uk" element={<Store region="uk" />} />
+                <Route path="/uk-store" element={<Store region="uk" />} />
+                <Route path="/store-es" element={<Store region="es" />} />
+                <Route path="/es-store" element={<Store region="es" />} />
+                <Route path="/spain-store" element={<Store region="es" />} />
                 <Route path="/blog-post-autonomic-engineering" element={<Navigate to="/wellness" replace />} />
                 <Route path="/blog-post-metabolic-nutrition" element={<Navigate to="/nutrition" replace />} />
                 <Route path="/sovereign-express-shopping-catalog" element={<Navigate to="/store" replace />} />

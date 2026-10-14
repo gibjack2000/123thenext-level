@@ -2296,12 +2296,19 @@ function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marke
   );
 }
 
-export default function Store() {
+interface StoreProps {
+  region?: 'us' | 'uk' | 'es' | 'US' | 'UK' | 'ES';
+}
+
+export function Store({ region }: StoreProps = {}) {
   const { market: contextMarket, setMarket } = useMarket();
   const [searchParams, setSearchParams] = useSearchParams();
   const urlCountry = searchParams.get('country')?.toUpperCase();
 
   const [activeTab, setActiveTab] = useState<MarketTab>(() => {
+    if (region && ['US', 'UK', 'ES'].includes(region.toUpperCase())) {
+      return region.toUpperCase() as MarketTab;
+    }
     if (urlCountry && ['US', 'UK', 'ES'].includes(urlCountry)) {
       return urlCountry as MarketTab;
     }
@@ -2314,6 +2321,16 @@ export default function Store() {
   const [products, setProducts] = useState<any[]>([]);
   const [categories, setCategories] = useState<string[]>(['All']);
   const [loading, setLoading] = useState(true);
+
+  // Sync activeTab whenever region prop changes
+  useEffect(() => {
+    if (region && ['US', 'UK', 'ES'].includes(region.toUpperCase())) {
+      const reg = region.toUpperCase() as MarketTab;
+      if (activeTab !== reg) {
+        setActiveTab(reg);
+      }
+    }
+  }, [region, activeTab]);
 
   // Sync activeTab whenever URL search param changes
   useEffect(() => {
@@ -2770,3 +2787,6 @@ export default function Store() {
     </div>
   );
 }
+
+export const SovereignStore = Store;
+export default Store;
