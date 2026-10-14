@@ -163,35 +163,44 @@ export const Navbar: React.FC = () => {
           </Link>
         </nav>
 
-        {/* Region Selectors & Quiz Button */}
+        {/* Regional Selector Pills (Desktop) */}
         <div className="hidden sm:flex items-center gap-3">
-          <div className="flex items-center bg-slate-900 border border-slate-800 rounded-full p-1 text-xs">
+          <div className="flex items-center bg-slate-900 border border-slate-800 rounded-full p-1 text-xs shadow-inner">
             <button
               type="button"
               onClick={() => handleRegionChange('us')}
-              className={`px-2 py-0.5 rounded-full font-bold transition-all cursor-pointer ${
-                selectedRegion === 'us' ? 'bg-cyan-500 text-slate-950 shadow-sm' : 'text-slate-400 hover:text-white'
+              className={`px-2.5 py-1 rounded-full font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                selectedRegion === 'us' 
+                  ? 'bg-cyan-500 text-slate-950 shadow-sm scale-105' 
+                  : 'text-slate-400 hover:text-white'
               }`}
+              title="United States Market"
             >
-              🇺🇸 US
+              <span>🇺🇸</span> <span>US</span>
             </button>
             <button
               type="button"
               onClick={() => handleRegionChange('uk')}
-              className={`px-2 py-0.5 rounded-full font-bold transition-all cursor-pointer ${
-                selectedRegion === 'uk' ? 'bg-cyan-500 text-slate-950 shadow-sm' : 'text-slate-400 hover:text-white'
+              className={`px-2.5 py-1 rounded-full font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                selectedRegion === 'uk' 
+                  ? 'bg-cyan-500 text-slate-950 shadow-sm scale-105' 
+                  : 'text-slate-400 hover:text-white'
               }`}
+              title="United Kingdom Market"
             >
-              🇬🇧 UK
+              <span>🇬🇧</span> <span>UK</span>
             </button>
             <button
               type="button"
               onClick={() => handleRegionChange('es')}
-              className={`px-2 py-0.5 rounded-full font-bold transition-all cursor-pointer ${
-                selectedRegion === 'es' ? 'bg-cyan-500 text-slate-950 shadow-sm' : 'text-slate-400 hover:text-white'
+              className={`px-2.5 py-1 rounded-full font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                selectedRegion === 'es' 
+                  ? 'bg-cyan-500 text-slate-950 shadow-sm scale-105' 
+                  : 'text-slate-400 hover:text-white'
               }`}
+              title="Spain / EU Market"
             >
-              🇪🇸 ES
+              <span>🇪🇸</span> <span>ES</span>
             </button>
           </div>
 
@@ -241,27 +250,28 @@ export const Navbar: React.FC = () => {
             </Link>
           </div>
 
+          {/* Regional Selector Pills (Mobile Drawer) */}
           <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
-            <span className="text-xs text-slate-400 font-medium">Select Region:</span>
+            <span className="text-xs text-slate-400 font-medium">Select Market Region:</span>
             <div className="flex gap-2 text-xs font-bold">
               <button 
-                type="button" 
+                type="button"
                 onClick={() => handleRegionChange('us')} 
-                className={`px-2 py-1 rounded cursor-pointer ${selectedRegion === 'us' ? 'text-cyan-400 bg-slate-900 border border-slate-800' : 'text-slate-400'}`}
+                className={`px-2 py-1 rounded-md flex items-center gap-1 cursor-pointer ${selectedRegion === 'us' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40' : 'text-slate-400'}`}
               >
                 🇺🇸 US
               </button>
               <button 
-                type="button" 
+                type="button"
                 onClick={() => handleRegionChange('uk')} 
-                className={`px-2 py-1 rounded cursor-pointer ${selectedRegion === 'uk' ? 'text-cyan-400 bg-slate-900 border border-slate-800' : 'text-slate-400'}`}
+                className={`px-2 py-1 rounded-md flex items-center gap-1 cursor-pointer ${selectedRegion === 'uk' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40' : 'text-slate-400'}`}
               >
                 🇬🇧 UK
               </button>
               <button 
-                type="button" 
+                type="button"
                 onClick={() => handleRegionChange('es')} 
-                className={`px-2 py-1 rounded cursor-pointer ${selectedRegion === 'es' ? 'text-cyan-400 bg-slate-900 border border-slate-800' : 'text-slate-400'}`}
+                className={`px-2 py-1 rounded-md flex items-center gap-1 cursor-pointer ${selectedRegion === 'es' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40' : 'text-slate-400'}`}
               >
                 🇪🇸 ES
               </button>
