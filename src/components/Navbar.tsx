@@ -22,7 +22,6 @@ export const Navbar: React.FC = () => {
   const handleRegionChange = (region: 'us' | 'uk' | 'es') => {
     setSelectedRegion(region);
     setMarket(region.toUpperCase() as Market);
-    // Route to regional storefront if on store page
     if (location.pathname.startsWith('/store')) {
       navigate(`/store-${region}`);
     }
@@ -36,13 +35,13 @@ export const Navbar: React.FC = () => {
   return (
     <header className="sticky top-0 z-50 bg-slate-950/95 backdrop-blur-md border-b border-slate-800/80">
       
-      {/* 1. Stacked 2-Line Moving Ticker Tape */}
+      {/* 1. Stacked 2-Line Moving Ticker Tape (No Dropdowns) */}
       <TickerTapeBanner />
 
-      {/* 2. Main Integrated Navbar */}
+      {/* 2. Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
-        {/* Brand Logo & Mission Badge */}
+        {/* Logo */}
         <div className="flex items-center gap-3">
           <Link to="/" className="flex items-center gap-2 group" onClick={closeMobileMenu}>
             <span className="text-xl font-black tracking-tight text-white group-hover:text-cyan-400 transition-colors">
@@ -54,7 +53,7 @@ export const Navbar: React.FC = () => {
           </span>
         </div>
 
-        {/* Clean Core Navigation Links */}
+        {/* Clean Core Nav Links */}
         <nav className="hidden lg:flex items-center gap-6 text-xs font-semibold uppercase tracking-wider">
           <Link 
             to="/" 
@@ -68,15 +67,12 @@ export const Navbar: React.FC = () => {
           >
             Epigenetics
           </Link>
-
-          {/* Corrected Diagnostics Route -> /guide */}
           <Link 
             to="/guide" 
             className={`transition-colors ${location.pathname === '/guide' || location.pathname.startsWith('/dual-track') ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
             🩸 Diagnostics & Blood Tests
           </Link>
-
           <Link 
             to="/wellness" 
             className={`transition-colors ${location.pathname === '/wellness' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
@@ -84,24 +80,24 @@ export const Navbar: React.FC = () => {
             Autonomic
           </Link>
 
-          {/* Restored Sovereign Store Route -> /store */}
+          {/* Blogs & Science Library */}
+          <Link 
+            to="/blog" 
+            className={`transition-colors ${location.pathname === '/blog' || location.pathname.startsWith('/blog/') ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+          >
+            📚 Blogs & Science
+          </Link>
+
+          {/* Sovereign Store */}
           <Link 
             to="/store" 
             className={`transition-colors ${location.pathname.startsWith('/store') ? 'text-cyan-400 font-bold font-black' : 'text-slate-300 hover:text-white'}`}
           >
             🛒 Sovereign Store
           </Link>
-
-          {/* Separated Article Library -> /blog */}
-          <Link 
-            to="/blog" 
-            className={`transition-colors ${location.pathname === '/blog' || location.pathname.startsWith('/blog/') ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
-          >
-            📚 Science Library
-          </Link>
         </nav>
 
-        {/* Right Controls: US/UK/ES Region Selector & Quiz CTA */}
+        {/* Market Region Selectors & Quiz Button */}
         <div className="hidden sm:flex items-center gap-3">
           <div className="flex items-center bg-slate-900 border border-slate-800 rounded-full p-1 text-xs">
             <button
@@ -141,7 +137,7 @@ export const Navbar: React.FC = () => {
           </Link>
         </div>
 
-        {/* Mobile Toggle Button */}
+        {/* Mobile Toggle */}
         <button
           type="button"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -153,16 +149,16 @@ export const Navbar: React.FC = () => {
 
       </div>
 
-      {/* Mobile Menu Drawer */}
+      {/* Mobile Drawer */}
       {isMobileMenuOpen && (
         <div className="lg:hidden bg-slate-950 border-b border-slate-800 px-4 pt-3 pb-6 space-y-2 text-sm animate-fade-in">
           <Link to="/" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🚀 Start Here</Link>
           <Link to="/science" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧬 Epigenetics</Link>
           <Link to="/guide" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🩸 Diagnostics & Blood Tests</Link>
           <Link to="/wellness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧠 Autonomic & Mental Health</Link>
+          <Link to="/blog" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">📚 Blogs & Science Library</Link>
           <Link to="/store" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🛒 Sovereign Store</Link>
-          <Link to="/blog" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">📚 Science Article Library</Link>
-          
+
           <div className="pt-2">
             <Link
               to="/quiz"
