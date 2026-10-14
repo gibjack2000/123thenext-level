@@ -31,11 +31,17 @@ export function getInitialMarket(): Market {
       return urlCountry as Market;
     }
 
-    // 2. Check route path prefix (/us/..., /uk/..., /es/...)
+    // 2. Check route path prefix (/us/..., /uk/..., /es/... or /store-us, /store-uk, /store-es)
     const parts = window.location.pathname.split('/').filter(Boolean);
     const knownRegions = ['us', 'uk', 'es'];
-    if (parts.length > 0 && knownRegions.includes(parts[0].toLowerCase())) {
-      return parts[0].toUpperCase() as Market;
+    if (parts.length > 0) {
+      const first = parts[0].toLowerCase();
+      if (knownRegions.includes(first)) {
+        return first.toUpperCase() as Market;
+      }
+      if (first.startsWith('store-') && knownRegions.includes(first.replace('store-', ''))) {
+        return first.replace('store-', '').toUpperCase() as Market;
+      }
     }
 
     // 3. Check if user explicitly changed flag in current session
@@ -169,26 +175,32 @@ export function MarketProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const parts = location.pathname.split('/').filter(Boolean);
     const knownRegions = ['us', 'uk', 'es'];
-    if (parts.length > 0 && knownRegions.includes(parts[0].toLowerCase())) {
-      const newMarket = parts[0].toUpperCase() as Market;
-      setMarketState(newMarket);
-      try {
-        localStorage.setItem('selected-market', newMarket);
-        localStorage.setItem('selected_region', newMarket);
-        localStorage.setItem('country_flag', newMarket);
-      } catch {}
-    } else {
+    let targetFromRoute: Market | null = null;
+
+    if (parts.length > 0) {
+      const first = parts[0].toLowerCase();
+      if (knownRegions.includes(first)) {
+        targetFromRoute = first.toUpperCase() as Market;
+      } else if (first.startsWith('store-') && knownRegions.includes(first.replace('store-', ''))) {
+        targetFromRoute = first.replace('store-', '').toUpperCase() as Market;
+      }
+    }
+
+    if (!targetFromRoute) {
       const searchParams = new URLSearchParams(location.search);
       const urlCountry = searchParams.get('country')?.toUpperCase();
       if (urlCountry && ['US', 'UK', 'ES'].includes(urlCountry)) {
-        const newMarket = urlCountry as Market;
-        setMarketState(newMarket);
-        try {
-          localStorage.setItem('selected-market', newMarket);
-          localStorage.setItem('selected_region', newMarket);
-          localStorage.setItem('country_flag', newMarket);
-        } catch {}
+        targetFromRoute = urlCountry as Market;
       }
+    }
+
+    if (targetFromRoute) {
+      setMarketState(prev => (prev !== targetFromRoute ? targetFromRoute : prev));
+      try {
+        localStorage.setItem('selected-market', targetFromRoute);
+        localStorage.setItem('selected_region', targetFromRoute);
+        localStorage.setItem('country_flag', targetFromRoute);
+      } catch {}
     }
   }, [location.pathname, location.search]);
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
 import { useMarket, Market } from '../contexts/MarketContext';
 import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
@@ -2302,11 +2302,14 @@ interface StoreProps {
 }
 
 export function Store({ region }: StoreProps = {}) {
+  const navigate = useNavigate();
   const { market: contextMarket, setMarket } = useMarket();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const urlCountry = searchParams.get('country')?.toUpperCase();
 
-  const [activeTab, setActiveTab] = useState<MarketTab>(() => {
+  // Authoritative target market resolver:
+  // Priority: 1. explicit route prop (`region`), 2. query param (`country`), 3. global context (`contextMarket`), 4. fallback ('US')
+  const resolvedMarket: MarketTab = (() => {
     if (region && ['US', 'UK', 'ES'].includes(region.toUpperCase())) {
       return region.toUpperCase() as MarketTab;
     }
@@ -2317,84 +2320,38 @@ export function Store({ region }: StoreProps = {}) {
       return contextMarket as MarketTab;
     }
     return 'US';
-  });
+  })();
+
+  const [activeTab, setActiveTab] = useState<MarketTab>(resolvedMarket);
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [products, setProducts] = useState<any[]>([]);
   const [categories, setCategories] = useState<string[]>(['All']);
   const [loading, setLoading] = useState(true);
 
-  // Sync activeTab whenever region prop changes
+  // Synchronize activeTab whenever route prop or global context resolves a new market
+  useEffect(() => {
+    if (resolvedMarket && activeTab !== resolvedMarket) {
+      setActiveTab(resolvedMarket);
+    }
+  }, [resolvedMarket]);
+
+  // Synchronize global market context if user navigated to a regional route directly (/store-us, /store-uk, /store-es)
   useEffect(() => {
     if (region && ['US', 'UK', 'ES'].includes(region.toUpperCase())) {
-      const reg = region.toUpperCase() as MarketTab;
-      if (activeTab !== reg) {
-        setActiveTab(reg);
+      const target = region.toUpperCase() as Market;
+      if (contextMarket !== target) {
+        setMarket(target);
       }
     }
-  }, [region, activeTab]);
+  }, [region, contextMarket, setMarket]);
 
-  // Sync activeTab whenever URL search param changes
-  useEffect(() => {
-    if (urlCountry && ['US', 'UK', 'ES'].includes(urlCountry)) {
-      if (activeTab !== urlCountry) {
-        setActiveTab(urlCountry as MarketTab);
-      }
-    }
-  }, [urlCountry, activeTab]);
-
-  // Sync activeTab whenever global market context changes
-  useEffect(() => {
-    if (contextMarket && ['US', 'UK', 'ES'].includes(contextMarket)) {
-      if (activeTab !== contextMarket) {
-        setActiveTab(contextMarket as MarketTab);
-      }
-    }
-  }, [contextMarket, activeTab]);
-
-  // Explicit handler when user clicks one of the country market tabs
+  // Explicit handler when user clicks one of the country market tabs inside Store
   const handleTabChange = (tab: MarketTab) => {
     setActiveTab(tab);
     setMarket(tab as Market);
     setActiveCategory('All');
-    setSearchParams({ country: tab }, { replace: true });
+    navigate(`/store-${tab.toLowerCase()}`);
   };
-
-  // 1. Automatic Geo-IP Storefront Switcher (ES, UK/GB, US fallback)
-  // Runs ONLY if the visitor hasn't explicitly supplied ?country= or selected a market this session
-  useEffect(() => {
-    async function detectVisitorCountry() {
-      // Respect explicit region prop, URL parameter, or session selection
-      if (region && ['US', 'UK', 'ES'].includes(region.toUpperCase())) return;
-      if (urlCountry && ['US', 'UK', 'ES'].includes(urlCountry)) return;
-      if (sessionStorage.getItem('user_explicit_market_selection')) return;
-
-      try {
-        const response = await fetch('https://ipapi.co/json/');
-        if (response.ok) {
-          const locationData = await response.json();
-          const country = (locationData.country_code || locationData.country || '').toUpperCase();
-
-          if (country === 'ES') {
-            setActiveTab('ES');
-            setMarket('ES');
-            setSearchParams({ country: 'ES' }, { replace: true });
-          } else if (country === 'GB' || country === 'UK') {
-            setActiveTab('UK');
-            setMarket('UK');
-            setSearchParams({ country: 'UK' }, { replace: true });
-          } else {
-            setActiveTab('US');
-            setMarket('US');
-            setSearchParams({ country: 'US' }, { replace: true });
-          }
-        }
-      } catch (geoErr) {
-        console.warn('Geo-IP auto-detection defaulted to US:', geoErr);
-      }
-    }
-
-    detectVisitorCountry();
-  }, [setMarket, urlCountry, setSearchParams]);
 
   // 2. Fetch products whenever activeTab changes
   useEffect(() => {
