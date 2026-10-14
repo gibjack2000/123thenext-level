@@ -82,7 +82,8 @@ const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 const BlogCategoryPage = lazy(() => import('./pages/BlogCategoryPage'));
 const BlogAutomationAdmin = lazy(() => import('./pages/BlogAutomationAdmin'));
 const BlogAdminPage = lazy(() => import('./pages/BlogAdminPage'));
-const PremiumGuides = lazy(() => import('./pages/premium/PremiumGuides'));
+const PremiumGuidesPage = lazy(() => import('./pages/PremiumGuides'));
+const CheckoutPage = lazy(() => import('./pages/Checkout'));
 const CheckoutSuccess = lazy(() => import('./pages/premium/CheckoutSuccess'));
 const CheckoutCancel = lazy(() => import('./pages/premium/CheckoutCancel'));
 const PremiumGuideDetailPage = lazy(() => import('./pages/premium/PremiumGuideDetailPage'));
@@ -196,7 +197,8 @@ function App() {
                 <Route path="/life-practice/breathing-mindfulness" element={<BreathingMindfulness />} />
                 <Route path="/life-practice/loving-kindness" element={<LovingKindness />} />
                 <Route path="/life-practice/beginners-guide" element={<BeginnersGuide />} />
-                <Route path="/premium-guides" element={<PremiumGuides />} />
+                <Route path="/premium-guides" element={<PremiumGuidesPage />} />
+                <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/premium-guides/success" element={<CheckoutSuccess />} />
                 <Route path="/premium-guides/cancel" element={<CheckoutCancel />} />
                 <Route path="/premium-guides/:slug" element={<PremiumGuideDetailPage />} />

@@ -39,66 +39,82 @@ export const Navbar: React.FC = () => {
       <TickerTapeBanner />
 
       {/* 2. Main Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         
         {/* Logo */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 shrink-0">
           <Link to="/" className="flex items-center gap-2 group" onClick={closeMobileMenu}>
             <span className="text-xl font-black tracking-tight text-white group-hover:text-cyan-400 transition-colors">
               123<span className="text-cyan-400">TheNextLevel</span>
             </span>
           </Link>
-          <span className="hidden xl:inline-block text-[10px] font-bold text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-2 py-0.5 rounded-md uppercase tracking-wider">
+          <span className="hidden 2xl:inline-block text-[10px] font-bold text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-2 py-0.5 rounded-md uppercase tracking-wider">
             Geroscience Portal
           </span>
         </div>
 
-        {/* Clean Core Nav Links */}
-        <nav className="hidden lg:flex items-center gap-6 text-xs font-semibold uppercase tracking-wider">
+        {/* Clean Core Nav Links (Includes Free PDFs and Premium Guides) */}
+        <nav className="hidden lg:flex items-center gap-3 xl:gap-5 text-[11px] xl:text-xs font-semibold uppercase tracking-wider">
           <Link 
             to="/" 
-            className={`transition-colors ${location.pathname === '/' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+            className={`transition-colors whitespace-nowrap ${location.pathname === '/' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
             Start Here
           </Link>
           <Link 
             to="/science" 
-            className={`transition-colors ${location.pathname === '/science' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+            className={`transition-colors whitespace-nowrap ${location.pathname === '/science' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
             Epigenetics
           </Link>
           <Link 
             to="/guide" 
-            className={`transition-colors ${location.pathname === '/guide' || location.pathname.startsWith('/dual-track') ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+            className={`transition-colors whitespace-nowrap ${location.pathname === '/guide' || location.pathname.startsWith('/dual-track') ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
-            🩸 Diagnostics & Blood Tests
+            🩸 Diagnostics
           </Link>
           <Link 
             to="/wellness" 
-            className={`transition-colors ${location.pathname === '/wellness' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+            className={`transition-colors whitespace-nowrap ${location.pathname === '/wellness' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
             Autonomic
           </Link>
-
-          {/* Blogs & Science Library */}
           <Link 
-            to="/blog" 
-            className={`transition-colors ${location.pathname === '/blog' || location.pathname.startsWith('/blog/') ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+            to="/library" 
+            className={`transition-colors whitespace-nowrap ${location.pathname === '/library' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
-            📚 Blogs & Science
+            📁 Free PDFs
           </Link>
 
-          {/* Sovereign Store */}
+          {/* Restored Paid E-Books Link */}
+          <Link 
+            to="/premium-guides" 
+            className={`transition-colors flex items-center gap-1 whitespace-nowrap ${
+              location.pathname.startsWith('/premium-guides') 
+                ? 'text-amber-300 font-black' 
+                : 'text-amber-400 font-bold hover:text-amber-300'
+            }`}
+          >
+            ⚡ Premium Guides
+          </Link>
+
+          <Link 
+            to="/blog" 
+            className={`transition-colors whitespace-nowrap ${location.pathname === '/blog' || location.pathname.startsWith('/blog/') ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+          >
+            📚 Blogs
+          </Link>
+
           <Link 
             to="/store" 
-            className={`transition-colors ${location.pathname.startsWith('/store') ? 'text-cyan-400 font-bold font-black' : 'text-slate-300 hover:text-white'}`}
+            className={`transition-colors whitespace-nowrap ${location.pathname.startsWith('/store') ? 'text-cyan-400 font-bold font-black' : 'text-slate-300 hover:text-white'}`}
           >
-            🛒 Sovereign Store
+            🛒 Store
           </Link>
         </nav>
 
         {/* Market Region Selectors & Quiz Button */}
-        <div className="hidden sm:flex items-center gap-3">
+        <div className="hidden sm:flex items-center gap-3 shrink-0">
           <div className="flex items-center bg-slate-900 border border-slate-800 rounded-full p-1 text-xs">
             <button
               type="button"
@@ -156,6 +172,8 @@ export const Navbar: React.FC = () => {
           <Link to="/science" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧬 Epigenetics</Link>
           <Link to="/guide" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🩸 Diagnostics & Blood Tests</Link>
           <Link to="/wellness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧠 Autonomic & Mental Health</Link>
+          <Link to="/library" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">📁 Free PDF Library</Link>
+          <Link to="/premium-guides" onClick={closeMobileMenu} className="block text-amber-400 font-bold hover:text-amber-300 py-1">⚡ Premium Master Guides</Link>
           <Link to="/blog" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">📚 Blogs & Science Library</Link>
           <Link to="/store" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🛒 Sovereign Store</Link>
 
