@@ -219,6 +219,13 @@ function App() {
                 <Route path="/es-store" element={<Navigate to="/es" replace />} />
                 <Route path="/spain-store" element={<Navigate to="/es" replace />} />
 
+                {/* Hero Sub-Layer & CTA Aliases */}
+                <Route path="/guide" element={<Navigate to="/library" replace />} />
+                <Route path="/guides" element={<Navigate to="/premium-guides" replace />} />
+                <Route path="/blog-post-autonomic-engineering" element={<Navigate to="/wellness" replace />} />
+                <Route path="/blog-post-metabolic-nutrition" element={<Navigate to="/nutrition" replace />} />
+                <Route path="/sovereign-express-shopping-catalog" element={<Navigate to="/store" replace />} />
+
                 <Route path="/:region" element={<RegionHub />} />
                 <Route path="/:region/:category" element={<CategoryPage />} />
               </Routes>
