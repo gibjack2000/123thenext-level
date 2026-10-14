@@ -9,7 +9,7 @@ export const Navbar: React.FC = () => {
     (market?.toLowerCase() as 'us' | 'uk' | 'es') || 'us'
   );
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isPillarsDropdownOpen, setIsPillarsDropdownOpen] = useState(false);
+  const [isStoreDropdownOpen, setIsStoreDropdownOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -32,19 +32,19 @@ export const Navbar: React.FC = () => {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
-    setIsPillarsDropdownOpen(false);
+    setIsStoreDropdownOpen(false);
   };
 
   return (
     <header className="sticky top-0 z-50 bg-slate-950/95 backdrop-blur-md border-b border-slate-800/80">
       
-      {/* 1. Stacked 2-Line Moving Ticker Tape */}
+      {/* 1. Stacked Moving Ticker Tape */}
       <TickerTapeBanner />
 
-      {/* 2. Full Integrated Main Navbar */}
+      {/* 2. Main Navigation Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
-        {/* LEFT: Brand Logo & Mission Badge */}
+        {/* Brand Logo & Mission Badge */}
         <div className="flex items-center gap-3">
           <Link to="/" className="flex items-center gap-2 group" onClick={closeMobileMenu}>
             <span className="text-xl font-black tracking-tight text-white group-hover:text-cyan-400 transition-colors">
@@ -56,8 +56,8 @@ export const Navbar: React.FC = () => {
           </span>
         </div>
 
-        {/* CENTER: Complete Restored Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-4 xl:gap-5 text-xs font-semibold uppercase tracking-wider">
+        {/* Clean Core Navigation Links */}
+        <nav className="hidden lg:flex items-center gap-6 text-xs font-semibold uppercase tracking-wider">
           <Link 
             to="/" 
             className={`transition-colors ${location.pathname === '/' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
@@ -74,7 +74,7 @@ export const Navbar: React.FC = () => {
             to="/guide" 
             className={`transition-colors ${location.pathname === '/guide' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
-            Diagnostics
+            Diagnostics & Blood Tests
           </Link>
           <Link 
             to="/wellness" 
@@ -82,81 +82,72 @@ export const Navbar: React.FC = () => {
           >
             Autonomic
           </Link>
-          <Link 
-            to="/fitness" 
-            className={`transition-colors ${location.pathname === '/fitness' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
-          >
-            Performance
-          </Link>
-          <Link 
-            to="/nutrition" 
-            className={`transition-colors ${location.pathname === '/nutrition' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
-          >
-            Nutrition
-          </Link>
 
-          {/* Additional Pillars Dropdown */}
+          {/* Dedicated Store & Blood Test Hub Dropdown */}
           <div 
             className="relative"
-            onMouseEnter={() => setIsPillarsDropdownOpen(true)}
-            onMouseLeave={() => setIsPillarsDropdownOpen(false)}
+            onMouseEnter={() => setIsStoreDropdownOpen(true)}
+            onMouseLeave={() => setIsStoreDropdownOpen(false)}
           >
             <button 
               type="button"
-              onClick={() => setIsPillarsDropdownOpen(!isPillarsDropdownOpen)}
-              className="text-slate-300 hover:text-white flex items-center gap-1 transition-colors py-2 cursor-pointer uppercase tracking-wider text-xs font-semibold"
+              onClick={() => setIsStoreDropdownOpen(!isStoreDropdownOpen)}
+              className="text-cyan-400 font-bold hover:text-cyan-300 flex items-center gap-1 transition-colors py-2 cursor-pointer uppercase tracking-wider text-xs"
             >
-              More Pillars <span className="text-[10px]">▾</span>
+              🛒 Store & Clinical Labs <span className="text-[10px]">▾</span>
             </button>
 
-            {isPillarsDropdownOpen && (
-              <div className="absolute top-full left-0 w-64 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-2 space-y-1 z-50">
+            {isStoreDropdownOpen && (
+              <div className="absolute top-full right-0 w-72 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-2 space-y-1 z-50">
+                <div className="px-3 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                  Clinical Diagnostics
+                </div>
                 <Link
-                  to="/blog-post-womens-health"
-                  onClick={() => setIsPillarsDropdownOpen(false)}
-                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                  to="/guide"
+                  onClick={() => setIsStoreDropdownOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
                 >
-                  🌸 Women's Health & Ovary-Span
+                  🩸 Blood Tests & Lab Draws (Lola / HealthLabs)
                 </Link>
                 <Link
-                  to="/blog-post-socio-architecture"
-                  onClick={() => setIsPillarsDropdownOpen(false)}
-                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                  to="/sovereign-express-shopping-catalog"
+                  onClick={() => setIsStoreDropdownOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
                 >
-                  🏛️ Socio-Architecture
+                  🔬 Clinical Hardware & Express Catalog
+                </Link>
+
+                <div className="pt-2 border-t border-slate-800 px-3 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                  Regional Storefronts
+                </div>
+                <Link
+                  to="/store-us"
+                  onClick={() => setIsStoreDropdownOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                >
+                  🇺🇸 United States Storefront
                 </Link>
                 <Link
-                  to="/blog"
-                  onClick={() => setIsPillarsDropdownOpen(false)}
-                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                  to="/store-uk"
+                  onClick={() => setIsStoreDropdownOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
                 >
-                  📚 Science & Article Library
+                  🇬🇧 United Kingdom Storefront
                 </Link>
-                <a
-                  href="/clinical-baseline-consultation-template.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => setIsPillarsDropdownOpen(false)}
-                  className="block px-3 py-2 rounded-lg text-xs font-medium text-cyan-400 hover:bg-slate-800 transition-all"
+                <Link
+                  to="/store-es"
+                  onClick={() => setIsStoreDropdownOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
                 >
-                  📄 GP Consultation Template (PDF) ↗
-                </a>
+                  🇪🇸 Spain Storefront
+                </Link>
               </div>
             )}
           </div>
-
-          <Link 
-            to={`/store-${selectedRegion}`} 
-            className={`transition-colors ${location.pathname.startsWith('/store') ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
-          >
-            Store
-          </Link>
         </nav>
 
-        {/* RIGHT: Market Region Selectors & Quiz Button */}
+        {/* Market Region Selectors & Quiz Button */}
         <div className="hidden sm:flex items-center gap-3">
-          
-          {/* Regional Selector Pills */}
           <div className="flex items-center bg-slate-900 border border-slate-800 rounded-full p-1 text-xs">
             <button
               type="button"
@@ -187,7 +178,6 @@ export const Navbar: React.FC = () => {
             </button>
           </div>
 
-          {/* Primary Action Button */}
           <Link
             to="/quiz"
             className="py-2 px-3.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold rounded-lg transition-all shadow-md shadow-cyan-500/20 whitespace-nowrap active:scale-95"
@@ -196,7 +186,7 @@ export const Navbar: React.FC = () => {
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Toggle Button */}
         <button
           type="button"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -208,20 +198,15 @@ export const Navbar: React.FC = () => {
 
       </div>
 
-      {/* Comprehensive Mobile Menu Drawer */}
+      {/* Mobile Drawer */}
       {isMobileMenuOpen && (
         <div className="lg:hidden bg-slate-950 border-b border-slate-800 px-4 pt-3 pb-6 space-y-2 text-sm animate-fade-in">
           <Link to="/" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🚀 Start Here</Link>
           <Link to="/science" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧬 Epigenetics</Link>
-          <Link to="/guide" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🩸 Diagnostics</Link>
+          <Link to="/guide" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🩸 Blood Tests & Diagnostics</Link>
           <Link to="/wellness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧠 Autonomic & Mental Health</Link>
-          <Link to="/fitness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">⚡ Performance & Bio-Data</Link>
-          <Link to="/nutrition" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🥗 Metabolic Nutrition</Link>
-          <Link to="/blog-post-womens-health" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🌸 Women's Health & Ovary-Span</Link>
-          <Link to="/blog-post-socio-architecture" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🏛️ Socio-Architecture</Link>
-          <Link to="/blog" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">📚 Science & Article Library</Link>
-          <a href="/clinical-baseline-consultation-template.pdf" target="_blank" rel="noopener noreferrer" onClick={closeMobileMenu} className="block text-cyan-400 hover:text-cyan-300 py-1 font-medium">📄 GP Consultation Template (PDF) ↗</a>
-          <Link to={`/store-${selectedRegion}`} onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🛒 Sovereign Store ({selectedRegion.toUpperCase()})</Link>
+          <Link to="/sovereign-express-shopping-catalog" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🔬 Clinical Express Catalog</Link>
+          <Link to={`/store-${selectedRegion}`} onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🛒 Sovereign Storefront ({selectedRegion.toUpperCase()})</Link>
           
           <div className="pt-2">
             <Link
@@ -234,7 +219,7 @@ export const Navbar: React.FC = () => {
           </div>
 
           <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
-            <span className="text-xs text-slate-400 font-medium">Region:</span>
+            <span className="text-xs text-slate-400 font-medium">Select Region:</span>
             <div className="flex gap-2 text-xs font-bold">
               <button 
                 type="button" 
