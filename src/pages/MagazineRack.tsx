@@ -132,7 +132,7 @@ export default function MagazineRack() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 pt-24 pb-20 overflow-hidden relative">
+    <div className="min-h-screen bg-slate-950 text-slate-100 pt-32 sm:pt-36 md:pt-40 pb-20 overflow-hidden relative">
       {/* Background decorations */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-10 left-0 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[120px] pointer-events-none" />

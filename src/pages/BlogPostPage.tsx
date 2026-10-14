@@ -150,15 +150,15 @@ export default function BlogPostPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-24 pb-12 flex justify-center items-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-slate-900"></div>
+      <div className="min-h-screen pt-40 pb-16 flex justify-center items-center bg-slate-950">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-400"></div>
       </div>
     );
   }
 
   if (error || !post) {
     return (
-      <div className="min-h-screen pt-24 pb-12 px-4 max-w-3xl mx-auto text-center">
+      <div className="min-h-screen pt-40 pb-16 px-4 max-w-3xl mx-auto text-center">
         <h1 className="text-3xl font-display uppercase text-slate-900 mb-4">{error || 'Article not found'}</h1>
         <p className="text-slate-500 mb-8">The blog post you're looking for doesn't exist or has been removed.</p>
         <Link to="/" className="inline-flex items-center px-6 py-3 bg-slate-900 text-white rounded-xl hover:bg-slate-800 font-medium transition-colors">
@@ -195,7 +195,7 @@ export default function BlogPostPage() {
   return (
     <main className="min-h-screen bg-slate-50 pb-20">
       {/* Hero Section */}
-      <div className="relative w-full h-[60vh] min-h-[400px] flex items-end justify-center mb-12">
+      <div className="relative w-full min-h-[560px] md:min-h-[640px] pt-36 sm:pt-40 md:pt-44 pb-28 sm:pb-32 flex flex-col justify-end items-center mb-12 overflow-hidden">
         {post.image_url ? (
           <div className="absolute inset-0 z-0">
             <img 
@@ -229,7 +229,7 @@ export default function BlogPostPage() {
         )}
 
         {/* Hero Content */}
-        <div className="relative z-10 w-full max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 pb-16">
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
           <Link to="/#blog" className="inline-flex items-center text-white/70 hover:text-white mb-8 font-medium transition-colors backdrop-blur-md bg-white/10 px-4 py-2 rounded-xl border border-white/20">
             <ArrowLeft size={16} className="mr-2" />
             Back to Insights
@@ -268,7 +268,7 @@ export default function BlogPostPage() {
       </div>
 
       {/* Article Content Container */}
-      <article className="relative z-20 max-w-4xl mx-auto px-6 sm:px-10 lg:px-12 py-16 bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200/50 -mt-24 border border-slate-100 mix-blend-normal">
+      <article className="relative z-20 max-w-4xl mx-auto px-6 sm:px-10 lg:px-12 py-16 bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200/50 -mt-20 border border-slate-100 mix-blend-normal">
         <div className="max-w-none">
           <BlogMarkdownRenderer content={post.content} theme="light" affiliateUrl={displayAffiliateUrl} />
 

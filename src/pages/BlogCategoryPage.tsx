@@ -134,7 +134,7 @@ export default function BlogCategoryPage() {
   }, [catKey]);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 pt-24 pb-20 relative overflow-hidden">
+    <div className="min-h-screen bg-slate-950 text-slate-100 pt-32 sm:pt-36 md:pt-40 pb-20 relative overflow-hidden">
       {/* Dynamic Background glow matched to category theme color */}
       <div className={`absolute top-0 right-0 w-[500px] h-[500px] rounded-full blur-[150px] pointer-events-none opacity-10 bg-current ${details.color.split(' ')[0]}`} />
       <div className="absolute bottom-10 left-0 w-[500px] h-[500px] bg-indigo-600/5 rounded-full blur-[150px] pointer-events-none" />
