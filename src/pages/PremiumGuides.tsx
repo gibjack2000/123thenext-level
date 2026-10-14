@@ -1,150 +1,191 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-export function PremiumGuidesPage() {
-  const navigate = useNavigate();
-
+export default function PremiumGuidesPage() {
   useEffect(() => {
     document.title = "Premium Digital Master Guides | 123TheNextLevel";
     window.scrollTo(0, 0);
   }, []);
 
-  const paidBooks = [
+  const masterGuides = [
     {
-      id: "workout-plan",
-      productId: "g-fit-1",
-      tag: "Protocol 1: Physical Hardware",
-      title: "Beginner Home Workout & Longevity Strength Plan",
-      price: "£19.00",
-      usPrice: "$24.00",
-      description: "Complete 12-week bodyweight and dumbbell progressive routine designed to increase VO2 max, preserve lean muscle mass, and prevent age-related frailty.",
+      id: "epigenetics-guide",
+      pillar: "Protocol 1: Epigenetics & Longevity",
+      title: "Cellular Reprogramming & Epigenetic Longevity",
+      price: "£22.00",
+      usPrice: "$28.00",
+      coverImage: "/assets/images/shop/healthspan_longevity_cover.png",
+      description: "Learn how to activate sirtuins, induce cellular autophagy, and protect your DNA from environmental methylation decay.",
       highlights: [
-        "12-Week Progressive Training Schedule",
-        "Zero-Gym Equipment Adaptations",
-        "Targeted VO2 Max & Zone 2 Conditioning"
+        "Sirtuin & NAD+ Activation Protocols",
+        "Autophagy Thresholds & Intermittent Fasting",
+        "Yamanaka Factor Science & Epigenetic Clocks"
       ],
-      checkoutUrl: "/checkout?product=workout-plan"
+      checkoutUrl: "/checkout?product=epigenetics-guide"
     },
     {
-      id: "meal-planner",
-      productId: "g-nut-1",
-      tag: "Protocol 2: Metabolic Fuel",
+      id: "performance-guide",
+      pillar: "Protocol 2: Physical Hardware",
+      title: "Beginner Home Workout & VO2 Max Strength Plan",
+      price: "£19.00",
+      usPrice: "$24.00",
+      coverImage: "/assets/images/shop/performance_biodata_cover.png",
+      description: "12-week progressive bodyweight and dumbbell routines to preserve skeletal muscle mass and build cardiorespiratory reserve.",
+      highlights: [
+        "12-Week Progressive Bodyweight Schedule",
+        "VO2 Max Conditioning & Zone 2 Endurance",
+        "Functional Joint Mobility & Muscle Preservation"
+      ],
+      checkoutUrl: "/checkout?product=performance-guide"
+    },
+    {
+      id: "nutrition-guide",
+      pillar: "Protocol 3: Metabolic Fuel",
       title: "The Master Metabolic Meal Planner & Grocery Guide",
       price: "£24.00",
       usPrice: "$29.00",
-      description: "A clinical guide to flattening post-meal glucose spikes, supporting gut microbiome diversity, and building anti-inflammatory meal templates.",
+      coverImage: "/assets/images/shop/metabolic_nutrition_cover.png",
+      description: "Flatten post-meal glucose curves, optimize gut microbiome diversity, and fuel cellular repair with low-glycemic templates.",
       highlights: [
-        "Low-Glycemic Spike Meal Recipes",
-        "Microbiome & Gut-Lining Grocery Checklist",
-        "Intermittent Fasting & Autophagy Protocols"
+        "Glucose Spike Mitigation Recipes",
+        "Microbiome Diversity Grocery Checklist",
+        "Anti-Inflammatory Meal Preparation"
       ],
-      checkoutUrl: "/checkout?product=meal-planner"
+      checkoutUrl: "/checkout?product=nutrition-guide"
     },
     {
-      id: "stress-management",
-      productId: "g-wel-1",
-      tag: "Protocol 3: Autonomic Reset",
-      title: "Cortisol & Stress Management Master Protocol",
+      id: "autonomic-guide",
+      pillar: "Protocol 4: Autonomic Engineering",
+      title: "Cortisol Down-Regulation & Vagal Tone Protocol",
       price: "£22.00",
       usPrice: "$28.00",
-      description: "Science-backed autonomic nervous system resets: 10-minute NSDR scripts, vagal tone breathing exercises, and circadian sleep engineering.",
+      coverImage: "/assets/images/shop/autonomic_engineering_cover.png",
+      description: "Master autonomic nervous system resets: 10-minute NSDR scripts, vagal tone exercises, and circadian sleep alignment.",
       highlights: [
         "10-Minute NSDR Audio & Written Scripts",
         "Vagal Tone Exercises to Boost Nocturnal HRV",
-        "Circadian Light & Cortisol Alignment Guide"
+        "Circadian Light & Sleep Architecture Guide"
       ],
-      checkoutUrl: "/checkout?product=stress-management"
+      checkoutUrl: "/checkout?product=autonomic-guide"
+    },
+    {
+      id: "womens-health-guide",
+      pillar: "Protocol 5: Women's Performance",
+      title: "Ovary-Span & Endocrine Performance Guide",
+      price: "£22.00",
+      usPrice: "$28.00",
+      coverImage: "/assets/images/shop/womens_health_cover.png",
+      description: "Female-specific longevity protocols focusing on hormone balancing, bone mineral density preservation, and ovary-span health.",
+      highlights: [
+        "Endocrine Health & Hormonal Balance",
+        "Strength-Over-Thinness Muscle Building",
+        "Ovarian Reserve & Biological Age Tracking"
+      ],
+      checkoutUrl: "/checkout?product=womens-health-guide"
+    },
+    {
+      id: "socio-architecture-guide",
+      pillar: "Protocol 6: Socio-Architecture",
+      title: "Socio-Biological Architecture & Connection Blueprint",
+      price: "£19.00",
+      usPrice: "$24.00",
+      coverImage: "/assets/images/shop/socio_architecture_cover.png",
+      description: "Build local support micro-communities and harness neural coupling to regulate systemic inflammation and stress.",
+      highlights: [
+        "Micro-Community Health Formation",
+        "Neural Coupling & Stress Reduction",
+        "Environmental & Lifestyle Design"
+      ],
+      checkoutUrl: "/checkout?product=socio-architecture-guide"
     }
   ];
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans antialiased">
       
-      {/* Hero Banner */}
-      <header className="relative py-16 border-b border-slate-900 bg-slate-950 overflow-hidden">
+      {/* Header */}
+      <header className="relative py-20 border-b border-slate-900 bg-slate-950 overflow-hidden">
         <div className="max-w-4xl mx-auto px-6 text-center space-y-4 relative z-10">
           <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20 uppercase tracking-widest">
             ⚡ Actionable Master Execution Books
           </span>
-          <h1 className="text-4xl md:text-5xl font-black tracking-tight text-white">
-            Premium Digital Master Guides
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white">
+            Pillar Master Guides Catalog
           </h1>
           <p className="text-sm md:text-base text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Translate high-level geroscience into day-by-day routines. Download complete, step-by-step PDF books to execute home workouts, metabolic meal plans, and autonomic resets.
+            Translate high-level geroscience into simple daily execution. Download complete, step-by-step PDF books with workout plans, meal guides, and autonomic resets.
           </p>
         </div>
       </header>
 
-      {/* Main Catalog Grid */}
-      <main className="max-w-6xl mx-auto px-6 py-12 space-y-12">
-        
-        {/* Individual Books Grid */}
-        <div className="grid md:grid-cols-3 gap-6">
-          {paidBooks.map((book) => (
-            <div key={book.id} className="p-6 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-6 hover:border-cyan-500/30 transition-all shadow-xl">
-              <div className="space-y-3">
-                <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-widest block">
-                  {book.tag}
-                </span>
-                <h3 className="text-lg font-bold text-white">{book.title}</h3>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-2xl font-black text-amber-400">{book.price}</span>
-                  <span className="text-xs text-slate-500">({book.usPrice})</span>
-                </div>
-                <p className="text-xs text-slate-400 leading-relaxed">{book.description}</p>
+      {/* 6-Card Grid with 3D Cover Images */}
+      <main className="max-w-7xl mx-auto px-6 py-16 space-y-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {masterGuides.map((guide) => (
+            <div 
+              key={guide.id}
+              className="group p-6 rounded-2xl bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-6 hover:border-cyan-500/40 hover:shadow-2xl transition duration-300 relative overflow-hidden"
+            >
+              <div className="space-y-5">
                 
-                <ul className="space-y-1.5 pt-2">
-                  {book.highlights.map((item, i) => (
-                    <li key={i} className="text-[11px] text-slate-300 flex items-center gap-2">
-                      <span className="text-cyan-400 font-bold">✓</span> {item}
+                {/* 3D Book Cover Image */}
+                <div className="aspect-[4/5] w-full rounded-xl bg-slate-950 border border-slate-800 overflow-hidden relative shadow-lg">
+                  <img 
+                    src={guide.coverImage} 
+                    alt={guide.title}
+                    loading="lazy"
+                    onError={(e) => {
+                      const target = e.currentTarget;
+                      const filename = guide.coverImage.split('/').pop();
+                      if (filename && !target.src.includes('/covers/')) {
+                        target.src = `/covers/${filename}`;
+                      }
+                    }}
+                    className="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-widest block">
+                    {guide.pillar}
+                  </span>
+                  <h3 className="text-lg font-black text-white leading-snug">
+                    {guide.title}
+                  </h3>
+                  
+                  <div className="flex items-baseline gap-2 pt-1">
+                    <span className="text-2xl font-black text-amber-400">{guide.price}</span>
+                    <span className="text-xs text-slate-500">({guide.usPrice})</span>
+                  </div>
+
+                  <p className="text-xs text-slate-400 leading-relaxed pt-1">
+                    {guide.description}
+                  </p>
+                </div>
+
+                <ul className="space-y-2 border-t border-slate-800 pt-4">
+                  {guide.highlights.map((item, idx) => (
+                    <li key={idx} className="text-xs text-slate-300 flex items-center gap-2">
+                      <span className="text-cyan-400 font-bold">⚡</span> {item}
                     </li>
                   ))}
                 </ul>
+
               </div>
 
-              <a
-                href={book.checkoutUrl}
-                className="w-full py-3 rounded-xl text-xs font-bold text-center bg-slate-950 text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500 hover:text-slate-950 transition-all shadow-md"
-              >
-                Buy Digital PDF ({book.price}) ➔
-              </a>
+              <div className="pt-4 border-t border-slate-800">
+                <a
+                  href={guide.checkoutUrl}
+                  className="w-full py-3.5 rounded-xl text-xs font-bold text-center block bg-cyan-500 text-slate-950 hover:bg-cyan-400 transition-all shadow-lg shadow-cyan-500/15"
+                >
+                  Buy Digital Master Book ({guide.price}) ➔
+                </a>
+              </div>
             </div>
           ))}
         </div>
-
-        {/* 55% OFF MASTER BUNDLE BANNER */}
-        <div className="p-8 md:p-10 rounded-3xl bg-gradient-to-r from-slate-900 via-cyan-950/40 to-slate-900 border border-cyan-500/30 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
-          <div className="space-y-3 text-left max-w-2xl">
-            <span className="text-xs font-bold text-amber-400 uppercase tracking-widest bg-amber-950/60 border border-amber-800/60 px-3 py-1 rounded-md inline-block">
-              🔥 SPECIAL NEW SUBSCRIBER BUNDLE (SAVE OVER 55%)
-            </span>
-            <h2 className="text-2xl md:text-3xl font-black text-white">
-              Get All Three Digital Master Guides
-            </h2>
-            <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
-              Unlock the complete 3-book execution suite: Beginner Home Workout Plan (£19) + Master Meal Planner (£24) + Stress Management Protocol (£22) — regularly £65.00 total.
-            </p>
-          </div>
-
-          <div className="flex flex-col items-center md:items-end gap-3 shrink-0">
-            <div className="text-center md:text-right">
-              <span className="text-xs text-slate-500 line-through block">Value: £65.00</span>
-              <span className="text-3xl md:text-4xl font-black text-cyan-400">£29.00</span>
-              <span className="text-xs text-slate-400 block">$39.00 / 35,00€</span>
-            </div>
-            <a
-              href="/checkout?bundle=all-three-master-guides"
-              className="py-4 px-8 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm rounded-xl shadow-xl shadow-cyan-500/20 transition-all"
-            >
-              Get Complete Bundle (£29.00) ➔
-            </a>
-          </div>
-        </div>
-
       </main>
     </div>
   );
 }
 
 export const PremiumGuides = PremiumGuidesPage;
-export default PremiumGuidesPage;

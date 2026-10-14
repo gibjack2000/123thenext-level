@@ -3,13 +3,37 @@ import { useSearchParams, Link } from 'react-router-dom';
 import { Lock, ShieldCheck, ArrowRight, Download, CheckCircle2, ShoppingBag } from 'lucide-react';
 
 const PRODUCT_MAP: Record<string, { id: string; name: string; price: string; usPrice: string; slug: string; desc: string }> = {
-  'workout-plan': {
+  'epigenetics-guide': {
+    id: 'g-epi-1',
+    name: 'Cellular Reprogramming & Epigenetic Longevity',
+    price: '£22.00',
+    usPrice: '$28.00',
+    slug: 'healthspan_longevity_cover',
+    desc: 'Activate sirtuins, induce cellular autophagy, and protect your DNA from environmental methylation decay.'
+  },
+  'performance-guide': {
     id: 'g-fit-1',
-    name: 'Beginner Home Workout & Longevity Strength Plan',
+    name: 'Beginner Home Workout & VO2 Max Strength Plan',
     price: '£19.00',
     usPrice: '$24.00',
     slug: 'beginner-home-workout-plan',
-    desc: '12-week bodyweight and dumbbell progressive routine for VO2 max and muscle preservation.'
+    desc: '12-week progressive bodyweight and dumbbell routines to preserve skeletal muscle mass and build reserve.'
+  },
+  'workout-plan': {
+    id: 'g-fit-1',
+    name: 'Beginner Home Workout & VO2 Max Strength Plan',
+    price: '£19.00',
+    usPrice: '$24.00',
+    slug: 'beginner-home-workout-plan',
+    desc: '12-week progressive bodyweight and dumbbell routines to preserve skeletal muscle mass and build reserve.'
+  },
+  'nutrition-guide': {
+    id: 'g-nut-1',
+    name: 'The Master Metabolic Meal Planner & Grocery Guide',
+    price: '£24.00',
+    usPrice: '$29.00',
+    slug: 'healthy-meal-planning-guide',
+    desc: 'Flatten post-meal glucose curves, optimize gut microbiome diversity, and fuel cellular repair.'
   },
   'meal-planner': {
     id: 'g-nut-1',
@@ -17,15 +41,39 @@ const PRODUCT_MAP: Record<string, { id: string; name: string; price: string; usP
     price: '£24.00',
     usPrice: '$29.00',
     slug: 'healthy-meal-planning-guide',
-    desc: 'Clinical guide to post-meal glucose flattening and gut microbiome diversity.'
+    desc: 'Flatten post-meal glucose curves, optimize gut microbiome diversity, and fuel cellular repair.'
   },
-  'stress-management': {
+  'autonomic-guide': {
     id: 'g-wel-1',
-    name: 'Cortisol & Stress Management Master Protocol',
+    name: 'Cortisol Down-Regulation & Vagal Tone Protocol',
     price: '£22.00',
     usPrice: '$28.00',
     slug: 'stress-management-toolkit',
-    desc: 'NSDR scripts, vagal tone breathing exercises, and circadian sleep engineering.'
+    desc: 'Master autonomic resets: 10-minute NSDR scripts, vagal tone exercises, and circadian sleep alignment.'
+  },
+  'stress-management': {
+    id: 'g-wel-1',
+    name: 'Cortisol Down-Regulation & Vagal Tone Protocol',
+    price: '£22.00',
+    usPrice: '$28.00',
+    slug: 'stress-management-toolkit',
+    desc: 'Master autonomic resets: 10-minute NSDR scripts, vagal tone exercises, and circadian sleep alignment.'
+  },
+  'womens-health-guide': {
+    id: 'g-fem-1',
+    name: 'Ovary-Span & Endocrine Performance Guide',
+    price: '£22.00',
+    usPrice: '$28.00',
+    slug: 'womens_health_cover',
+    desc: 'Hormone balancing, bone mineral density preservation, and ovary-span health.'
+  },
+  'socio-architecture-guide': {
+    id: 'g-soc-1',
+    name: 'Socio-Biological Architecture & Connection Blueprint',
+    price: '£19.00',
+    usPrice: '$24.00',
+    slug: 'socio_architecture_cover',
+    desc: 'Micro-community health formation, neural coupling, and environmental lifestyle design.'
   },
   'all-three-master-guides': {
     id: 'g-bundle-1',
