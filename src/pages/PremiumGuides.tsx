@@ -1,19 +1,31 @@
 import React, { useEffect } from 'react';
 
+interface MasterGuide {
+  id: string;
+  pillar: string;
+  title: string;
+  price: string;
+  usPrice: string;
+  imageName: string;
+  description: string;
+  highlights: string[];
+  checkoutUrl: string;
+}
+
 export default function PremiumGuidesPage() {
   useEffect(() => {
-    document.title = "Premium Digital Master Guides | 123TheNextLevel";
+    document.title = "Premium Master Guides | 123TheNextLevel";
     window.scrollTo(0, 0);
   }, []);
 
-  const masterGuides = [
+  const masterGuides: MasterGuide[] = [
     {
       id: "epigenetics-guide",
       pillar: "Protocol 1: Epigenetics & Longevity",
       title: "Cellular Reprogramming & Epigenetic Longevity",
       price: "£22.00",
       usPrice: "$28.00",
-      coverImage: "/assets/images/shop/healthspan_longevity_cover.png",
+      imageName: "healthspan_longevity_cover.png",
       description: "Learn how to activate sirtuins, induce cellular autophagy, and protect your DNA from environmental methylation decay.",
       highlights: [
         "Sirtuin & NAD+ Activation Protocols",
@@ -28,7 +40,7 @@ export default function PremiumGuidesPage() {
       title: "Beginner Home Workout & VO2 Max Strength Plan",
       price: "£19.00",
       usPrice: "$24.00",
-      coverImage: "/assets/images/shop/performance_biodata_cover.png",
+      imageName: "performance_biodata_cover.png",
       description: "12-week progressive bodyweight and dumbbell routines to preserve skeletal muscle mass and build cardiorespiratory reserve.",
       highlights: [
         "12-Week Progressive Bodyweight Schedule",
@@ -43,7 +55,7 @@ export default function PremiumGuidesPage() {
       title: "The Master Metabolic Meal Planner & Grocery Guide",
       price: "£24.00",
       usPrice: "$29.00",
-      coverImage: "/assets/images/shop/metabolic_nutrition_cover.png",
+      imageName: "metabolic_nutrition_cover.png",
       description: "Flatten post-meal glucose curves, optimize gut microbiome diversity, and fuel cellular repair with low-glycemic templates.",
       highlights: [
         "Glucose Spike Mitigation Recipes",
@@ -54,11 +66,11 @@ export default function PremiumGuidesPage() {
     },
     {
       id: "autonomic-guide",
-      pillar: "Protocol 4: Autonomic Engineering",
+      pillar: "Protocol 4: Wellness & Autonomic Reset",
       title: "Cortisol Down-Regulation & Vagal Tone Protocol",
       price: "£22.00",
       usPrice: "$28.00",
-      coverImage: "/assets/images/shop/autonomic_engineering_cover.png",
+      imageName: "autonomic_engineering_cover.png",
       description: "Master autonomic nervous system resets: 10-minute NSDR scripts, vagal tone exercises, and circadian sleep alignment.",
       highlights: [
         "10-Minute NSDR Audio & Written Scripts",
@@ -73,7 +85,7 @@ export default function PremiumGuidesPage() {
       title: "Ovary-Span & Endocrine Performance Guide",
       price: "£22.00",
       usPrice: "$28.00",
-      coverImage: "/assets/images/shop/womens_health_cover.png",
+      imageName: "womens_health_cover.png",
       description: "Female-specific longevity protocols focusing on hormone balancing, bone mineral density preservation, and ovary-span health.",
       highlights: [
         "Endocrine Health & Hormonal Balance",
@@ -88,7 +100,7 @@ export default function PremiumGuidesPage() {
       title: "Socio-Biological Architecture & Connection Blueprint",
       price: "£19.00",
       usPrice: "$24.00",
-      coverImage: "/assets/images/shop/socio_architecture_cover.png",
+      imageName: "socio_architecture_cover.png",
       description: "Build local support micro-communities and harness neural coupling to regulate systemic inflammation and stress.",
       highlights: [
         "Micro-Community Health Formation",
@@ -117,7 +129,7 @@ export default function PremiumGuidesPage() {
         </div>
       </header>
 
-      {/* 6-Card Grid with 3D Cover Images */}
+      {/* 6-Card Grid with Dual-Path Image Fallback */}
       <main className="max-w-7xl mx-auto px-6 py-16 space-y-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {masterGuides.map((guide) => (
@@ -127,17 +139,18 @@ export default function PremiumGuidesPage() {
             >
               <div className="space-y-5">
                 
-                {/* 3D Book Cover Image */}
+                {/* Image Container with Automatic Fallback */}
                 <div className="aspect-[4/5] w-full rounded-xl bg-slate-950 border border-slate-800 overflow-hidden relative shadow-lg">
                   <img 
-                    src={guide.coverImage} 
+                    src={`/assets/images/shop/${guide.imageName}`} 
                     alt={guide.title}
                     loading="lazy"
                     onError={(e) => {
-                      const target = e.currentTarget;
-                      const filename = guide.coverImage.split('/').pop();
-                      if (filename && !target.src.includes('/covers/')) {
-                        target.src = `/covers/${filename}`;
+                      const target = e.currentTarget as HTMLImageElement;
+                      if (!target.src.includes('/assets/images/blog/')) {
+                        target.src = `/assets/images/blog/${guide.imageName}`;
+                      } else if (!target.src.includes('/covers/')) {
+                        target.src = `/covers/${guide.imageName}`;
                       }
                     }}
                     className="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500"
