@@ -9,6 +9,7 @@ export const Navbar: React.FC = () => {
     (market?.toLowerCase() as 'us' | 'uk' | 'es') || 'us'
   );
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isPillarsOpen, setIsPillarsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -35,13 +36,13 @@ export const Navbar: React.FC = () => {
   return (
     <header className="sticky top-0 z-50 bg-slate-950/95 backdrop-blur-md border-b border-slate-800/80">
       
-      {/* 1. Stacked 2-Line Moving Ticker Tape (No Dropdowns) */}
+      {/* 1. Stacked 2-Line Moving Ticker Tape (Fixed height, no dropdowns) */}
       <TickerTapeBanner />
 
       {/* 2. Main Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-3">
         
-        {/* Logo */}
+        {/* Brand Logo & Mission Badge */}
         <div className="flex items-center gap-3 shrink-0">
           <Link to="/" className="flex items-center gap-2 group" onClick={closeMobileMenu}>
             <span className="text-xl font-black tracking-tight text-white group-hover:text-cyan-400 transition-colors">
@@ -53,7 +54,7 @@ export const Navbar: React.FC = () => {
           </span>
         </div>
 
-        {/* Clean Core Nav Links (Includes Free PDFs and Premium Guides) */}
+        {/* Master Desktop Navigation Links */}
         <nav className="hidden lg:flex items-center gap-3 xl:gap-5 text-[11px] xl:text-xs font-semibold uppercase tracking-wider">
           <Link 
             to="/" 
@@ -79,6 +80,54 @@ export const Navbar: React.FC = () => {
           >
             Autonomic
           </Link>
+
+          {/* Pillars Dropdown */}
+          <div 
+            className="relative"
+            onMouseEnter={() => setIsPillarsOpen(true)}
+            onMouseLeave={() => setIsPillarsOpen(false)}
+          >
+            <button 
+              type="button"
+              className="text-slate-300 hover:text-white flex items-center gap-1 transition-colors py-2 cursor-pointer whitespace-nowrap"
+            >
+              🏛️ Pillars <span className="text-[10px]">▾</span>
+            </button>
+
+            {isPillarsOpen && (
+              <div className="absolute top-full left-0 w-64 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-2 space-y-1 z-50 animate-fade-in">
+                <Link
+                  to="/fitness"
+                  onClick={() => setIsPillarsOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                >
+                  ⚡ Performance & Bio-Data
+                </Link>
+                <Link
+                  to="/nutrition"
+                  onClick={() => setIsPillarsOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                >
+                  🥗 Metabolic Nutrition
+                </Link>
+                <Link
+                  to="/blog-post-womens-health"
+                  onClick={() => setIsPillarsOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                >
+                  🌸 Women's Health & Ovary-Span
+                </Link>
+                <Link
+                  to="/blog-post-socio-architecture"
+                  onClick={() => setIsPillarsOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                >
+                  🏛️ Socio-Architecture
+                </Link>
+              </div>
+            )}
+          </div>
+
           <Link 
             to="/library" 
             className={`transition-colors whitespace-nowrap ${location.pathname === '/library' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
@@ -86,7 +135,6 @@ export const Navbar: React.FC = () => {
             📁 Free PDFs
           </Link>
 
-          {/* Restored Paid E-Books Link */}
           <Link 
             to="/premium-guides" 
             className={`transition-colors flex items-center gap-1 whitespace-nowrap ${
@@ -113,7 +161,7 @@ export const Navbar: React.FC = () => {
           </Link>
         </nav>
 
-        {/* Market Region Selectors & Quiz Button */}
+        {/* Region Selector Pills & 5-Min Quiz Button */}
         <div className="hidden sm:flex items-center gap-3 shrink-0">
           <div className="flex items-center bg-slate-900 border border-slate-800 rounded-full p-1 text-xs">
             <button
@@ -153,7 +201,7 @@ export const Navbar: React.FC = () => {
           </Link>
         </div>
 
-        {/* Mobile Toggle */}
+        {/* Mobile Toggle Button */}
         <button
           type="button"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -165,15 +213,19 @@ export const Navbar: React.FC = () => {
 
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Complete Mobile Drawer */}
       {isMobileMenuOpen && (
         <div className="lg:hidden bg-slate-950 border-b border-slate-800 px-4 pt-3 pb-6 space-y-2 text-sm animate-fade-in">
           <Link to="/" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🚀 Start Here</Link>
           <Link to="/science" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧬 Epigenetics</Link>
           <Link to="/guide" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🩸 Diagnostics & Blood Tests</Link>
           <Link to="/wellness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧠 Autonomic & Mental Health</Link>
-          <Link to="/library" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">📁 Free PDF Library</Link>
-          <Link to="/premium-guides" onClick={closeMobileMenu} className="block text-amber-400 font-bold hover:text-amber-300 py-1">⚡ Premium Master Guides</Link>
+          <Link to="/fitness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">⚡ Performance & Bio-Data</Link>
+          <Link to="/nutrition" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🥗 Metabolic Nutrition</Link>
+          <Link to="/blog-post-womens-health" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🌸 Women's Health</Link>
+          <Link to="/blog-post-socio-architecture" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🏛️ Socio-Architecture</Link>
+          <Link to="/library" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">📁 Free PDF Library</Link>
+          <Link to="/premium-guides" onClick={closeMobileMenu} className="block text-amber-400 font-bold py-1">⚡ Premium Paid Guides</Link>
           <Link to="/blog" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">📚 Blogs & Science Library</Link>
           <Link to="/store" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🛒 Sovereign Store</Link>
 

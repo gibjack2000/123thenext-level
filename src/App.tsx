@@ -227,6 +227,8 @@ function App() {
                 <Route path="/spain-store" element={<Store region="es" />} />
                 <Route path="/blog-post-autonomic-engineering" element={<Navigate to="/wellness" replace />} />
                 <Route path="/blog-post-metabolic-nutrition" element={<Navigate to="/nutrition" replace />} />
+                <Route path="/blog-post-womens-health" element={<Navigate to="/womens-health" replace />} />
+                <Route path="/blog-post-socio-architecture" element={<Navigate to="/social-fitness" replace />} />
                 <Route path="/sovereign-express-shopping-catalog" element={<Navigate to="/store" replace />} />
 
                 <Route path="/:region" element={<RegionHub />} />
