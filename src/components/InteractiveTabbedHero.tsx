@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { HERO_VIDEOS } from '../config/heroVideos';
 
@@ -140,17 +140,68 @@ export const tabsData: TabData[] = [
 
 export const InteractiveTabbedHero: React.FC = () => {
   const [activeTabId, setActiveTabId] = useState<string>('start-here');
+  const [isMuted, setIsMuted] = useState<boolean>(false);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [videoError, setVideoError] = useState<boolean>(false);
+
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const currentTab = tabsData.find((t) => t.id === activeTabId) || tabsData[0];
   const videoUrl = HERO_VIDEOS[activeTabId as keyof typeof HERO_VIDEOS];
 
+  // Reset playback and error states when switching tabs
+  useEffect(() => {
+    setIsPlaying(false);
+    setVideoError(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  }, [activeTabId, videoUrl]);
+
+  // Hover Handlers
+  const handleMouseEnter = () => {
+    setIsPlaying(true);
+    if (videoRef.current) {
+      videoRef.current.muted = isMuted;
+      videoRef.current.play().catch(() => {
+        // Fallback if browser blocks unmuted playback
+        if (videoRef.current) {
+          videoRef.current.muted = true;
+          videoRef.current.play().catch(() => {});
+        }
+      });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsPlaying(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const nextMuted = !isMuted;
+    setIsMuted(nextMuted);
+    if (videoRef.current) {
+      videoRef.current.muted = nextMuted;
+    }
+  };
+
+  const handleContainerClick = () => {
+    if (!isPlaying) {
+      handleMouseEnter();
+    } else {
+      handleMouseLeave();
+    }
+  };
+
   const isStreamable = Boolean(videoUrl && videoUrl.includes('streamable.com'));
-  const normalizedStreamableUrl = isStreamable
-    ? (videoUrl.includes('/e/') ? videoUrl : videoUrl.replace('streamable.com/', 'streamable.com/e/'))
-    : videoUrl;
-  const streamableSrc = isStreamable
-    ? (normalizedStreamableUrl.includes('?')
-        ? `${normalizedStreamableUrl}&autoplay=1&muted=1&loop=1&nocontrols=1`
-        : `${normalizedStreamableUrl}?autoplay=1&muted=1&loop=1&nocontrols=1`)
+  const streamableBaseUrl = isStreamable
+    ? (videoUrl.includes('/e/')
+        ? videoUrl.split('?')[0]
+        : videoUrl.replace('streamable.com/', 'streamable.com/e/').split('?')[0])
     : '';
 
   return (
@@ -163,7 +214,7 @@ export const InteractiveTabbedHero: React.FC = () => {
         </p>
 
         {/* Main Headline */}
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-white leading-tight">
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-white leading-tight font-display">
           You Are the Software Engineer of Your Own Biology.
         </h1>
 
@@ -211,7 +262,7 @@ export const InteractiveTabbedHero: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-3 pt-4">
               <Link
                 to={currentTab.primaryCtaLink}
-                className="py-3.5 px-6 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-xl text-center text-sm transition-all shadow-lg shadow-cyan-500/20"
+                className="py-3.5 px-6 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-xl text-center text-sm transition-all shadow-lg shadow-cyan-500/20 active:scale-95"
               >
                 {currentTab.primaryCtaText}
               </Link>
@@ -219,14 +270,14 @@ export const InteractiveTabbedHero: React.FC = () => {
                 <a
                   href={currentTab.secondaryCtaLink}
                   download
-                  className="py-3.5 px-6 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-medium rounded-xl text-center text-sm transition-all"
+                  className="py-3.5 px-6 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-medium rounded-xl text-center text-sm transition-all active:scale-95"
                 >
                   {currentTab.secondaryCtaText}
                 </a>
               ) : (
                 <Link
                   to={currentTab.secondaryCtaLink}
-                  className="py-3.5 px-6 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-medium rounded-xl text-center text-sm transition-all"
+                  className="py-3.5 px-6 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-medium rounded-xl text-center text-sm transition-all active:scale-95"
                 >
                   {currentTab.secondaryCtaText}
                 </Link>
@@ -234,39 +285,84 @@ export const InteractiveTabbedHero: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Video / Poster Frame */}
-          <div className="lg:col-span-6 relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/80 p-1.5 shadow-2xl shadow-cyan-950/30">
-            {videoUrl ? (
+          {/* Right Column: Hover-Triggered Media Frame with Sound Control */}
+          <div 
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            onClick={handleContainerClick}
+            className="lg:col-span-6 relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/80 p-1.5 shadow-2xl shadow-cyan-950/30 group cursor-pointer"
+          >
+            {videoUrl && !videoError ? (
               isStreamable ? (
+                /* Streamable Hover Player */
                 <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-black">
                   <iframe
-                    src={streamableSrc}
-                    className="w-full h-full border-0 rounded-xl aspect-video"
+                    src={`${streamableBaseUrl}?autoplay=${isPlaying ? 1 : 0}&muted=${isMuted ? 1 : 0}&loop=1`}
+                    className="w-full h-full border-0 rounded-xl pointer-events-none"
                     allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
                     allowFullScreen
                     title={currentTab.title}
                   />
+
+                  {/* Sound Toggle Button */}
+                  <button
+                    type="button"
+                    onClick={toggleMute}
+                    className="absolute top-3 right-3 z-20 bg-slate-950/80 hover:bg-slate-900 text-cyan-400 p-2 rounded-full border border-slate-700 transition-all text-xs font-bold flex items-center gap-1.5 px-3 pointer-events-auto"
+                  >
+                    {isMuted ? '🔇 Unmute' : '🔊 Sound On'}
+                  </button>
+
+                  {!isPlaying && (
+                    <div className="absolute inset-0 bg-slate-950/40 backdrop-blur-[2px] flex items-center justify-center transition-all">
+                      <span className="bg-cyan-500/90 text-slate-950 text-xs font-bold px-4 py-2 rounded-full shadow-lg">
+                        ▶ Hover or Tap to Play with Sound
+                      </span>
+                    </div>
+                  )}
                 </div>
               ) : (
-                <video
-                  key={videoUrl}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                  poster={currentTab.posterImage}
-                  className="w-full h-auto object-cover max-h-[460px] rounded-xl"
-                >
-                  <source src={videoUrl} type="video/mp4" />
-                </video>
+                /* Direct MP4 Player with Hover & Sound Toggle */
+                <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-black">
+                  <video
+                    ref={videoRef}
+                    key={videoUrl}
+                    loop
+                    playsInline
+                    muted={isMuted}
+                    preload="auto"
+                    poster={currentTab.posterImage}
+                    onError={() => setVideoError(true)}
+                    className="w-full h-full object-cover rounded-xl"
+                  >
+                    <source src={videoUrl} type="video/mp4" onError={() => setVideoError(true)} />
+                  </video>
+
+                  {/* Sound Toggle Button */}
+                  <button
+                    type="button"
+                    onClick={toggleMute}
+                    className="absolute top-3 right-3 z-20 bg-slate-950/80 hover:bg-slate-900 text-cyan-400 p-2 rounded-full border border-slate-700 transition-all text-xs font-bold flex items-center gap-1.5 px-3 pointer-events-auto"
+                  >
+                    {isMuted ? '🔇 Unmute' : '🔊 Sound On'}
+                  </button>
+
+                  {!isPlaying && (
+                    <div className="absolute inset-0 bg-slate-950/30 backdrop-blur-[2px] flex items-center justify-center">
+                      <span className="bg-cyan-500/90 text-slate-950 text-xs font-bold px-4 py-2 rounded-full shadow-lg">
+                        ▶ Hover or Tap to Play
+                      </span>
+                    </div>
+                  )}
+                </div>
               )
             ) : (
-              <div className="relative group">
+              /* Fallback Static Poster */
+              <div className="relative aspect-video w-full rounded-xl overflow-hidden">
                 <img
                   src={currentTab.posterImage}
                   alt={currentTab.title}
-                  className="w-full h-auto object-cover max-h-[460px] rounded-xl"
+                  className="w-full h-full object-cover rounded-xl"
                   onError={(e) => {
                     (e.target as HTMLImageElement).src = '/covers/healthspan_longevity_cover.png';
                   }}
