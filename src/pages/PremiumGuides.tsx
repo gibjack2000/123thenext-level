@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface MasterGuide {
   id: string;
@@ -6,11 +6,39 @@ interface MasterGuide {
   title: string;
   price: string;
   usPrice: string;
-  imageName: string;
+  imageFileName: string;
   description: string;
   highlights: string[];
   checkoutUrl: string;
 }
+
+// Fallback image handler component
+const GuideCoverImage: React.FC<{ fileName: string; altText: string }> = ({ fileName, altText }) => {
+  const possiblePaths = [
+    `/assets/images/shop/${fileName}`,
+    `/assets/images/blog/${fileName}`,
+    `/covers/${fileName}`,
+    `/assets/images/${fileName}`,
+    `/assets/${fileName}`
+  ];
+
+  const [currentPathIndex, setCurrentPathIndex] = useState(0);
+
+  const handleError = () => {
+    if (currentPathIndex < possiblePaths.length - 1) {
+      setCurrentPathIndex(prev => prev + 1);
+    }
+  };
+
+  return (
+    <img
+      src={possiblePaths[currentPathIndex]}
+      alt={altText}
+      onError={handleError}
+      className="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500"
+    />
+  );
+};
 
 export default function PremiumGuidesPage() {
   useEffect(() => {
@@ -25,7 +53,7 @@ export default function PremiumGuidesPage() {
       title: "Cellular Reprogramming & Epigenetic Longevity",
       price: "£22.00",
       usPrice: "$28.00",
-      imageName: "healthspan_longevity_cover.png",
+      imageFileName: "healthspan_longevity_cover.png",
       description: "Learn how to activate sirtuins, induce cellular autophagy, and protect your DNA from environmental methylation decay.",
       highlights: [
         "Sirtuin & NAD+ Activation Protocols",
@@ -40,7 +68,7 @@ export default function PremiumGuidesPage() {
       title: "Beginner Home Workout & VO2 Max Strength Plan",
       price: "£19.00",
       usPrice: "$24.00",
-      imageName: "performance_biodata_cover.png",
+      imageFileName: "performance_biodata_cover.png",
       description: "12-week progressive bodyweight and dumbbell routines to preserve skeletal muscle mass and build cardiorespiratory reserve.",
       highlights: [
         "12-Week Progressive Bodyweight Schedule",
@@ -55,7 +83,7 @@ export default function PremiumGuidesPage() {
       title: "The Master Metabolic Meal Planner & Grocery Guide",
       price: "£24.00",
       usPrice: "$29.00",
-      imageName: "metabolic_nutrition_cover.png",
+      imageFileName: "metabolic_nutrition_cover.png",
       description: "Flatten post-meal glucose curves, optimize gut microbiome diversity, and fuel cellular repair with low-glycemic templates.",
       highlights: [
         "Glucose Spike Mitigation Recipes",
@@ -66,11 +94,11 @@ export default function PremiumGuidesPage() {
     },
     {
       id: "autonomic-guide",
-      pillar: "Protocol 4: Wellness & Autonomic Reset",
+      pillar: "Protocol 4: Wellness",
       title: "Cortisol Down-Regulation & Vagal Tone Protocol",
       price: "£22.00",
       usPrice: "$28.00",
-      imageName: "autonomic_engineering_cover.png",
+      imageFileName: "autonomic_engineering_cover.png",
       description: "Master autonomic nervous system resets: 10-minute NSDR scripts, vagal tone exercises, and circadian sleep alignment.",
       highlights: [
         "10-Minute NSDR Audio & Written Scripts",
@@ -85,7 +113,7 @@ export default function PremiumGuidesPage() {
       title: "Ovary-Span & Endocrine Performance Guide",
       price: "£22.00",
       usPrice: "$28.00",
-      imageName: "womens_health_cover.png",
+      imageFileName: "womens_health_cover.png",
       description: "Female-specific longevity protocols focusing on hormone balancing, bone mineral density preservation, and ovary-span health.",
       highlights: [
         "Endocrine Health & Hormonal Balance",
@@ -99,8 +127,8 @@ export default function PremiumGuidesPage() {
       pillar: "Protocol 6: Socio-Architecture",
       title: "Socio-Biological Architecture & Connection Blueprint",
       price: "£19.00",
-      usPrice: "$24.00",
-      imageName: "socio_architecture_cover.png",
+      usPrice: "$19.00",
+      imageFileName: "socio_architecture_cover.png",
       description: "Build local support micro-communities and harness neural coupling to regulate systemic inflammation and stress.",
       highlights: [
         "Micro-Community Health Formation",
@@ -129,7 +157,7 @@ export default function PremiumGuidesPage() {
         </div>
       </header>
 
-      {/* 6-Card Grid with Dual-Path Image Fallback */}
+      {/* 6-Card Grid */}
       <main className="max-w-7xl mx-auto px-6 py-16 space-y-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {masterGuides.map((guide) => (
@@ -139,22 +167,9 @@ export default function PremiumGuidesPage() {
             >
               <div className="space-y-5">
                 
-                {/* Image Container with Automatic Fallback */}
+                {/* Image Container with Automatic Multi-Path Loader */}
                 <div className="aspect-[4/5] w-full rounded-xl bg-slate-950 border border-slate-800 overflow-hidden relative shadow-lg">
-                  <img 
-                    src={`/assets/images/shop/${guide.imageName}`} 
-                    alt={guide.title}
-                    loading="lazy"
-                    onError={(e) => {
-                      const target = e.currentTarget as HTMLImageElement;
-                      if (!target.src.includes('/assets/images/blog/')) {
-                        target.src = `/assets/images/blog/${guide.imageName}`;
-                      } else if (!target.src.includes('/covers/')) {
-                        target.src = `/covers/${guide.imageName}`;
-                      }
-                    }}
-                    className="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500"
-                  />
+                  <GuideCoverImage fileName={guide.imageFileName} altText={guide.title} />
                 </div>
 
                 <div className="space-y-2">
