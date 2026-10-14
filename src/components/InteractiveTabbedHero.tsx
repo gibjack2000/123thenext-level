@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { HERO_VIDEOS } from '../config/heroVideos';
 
@@ -72,7 +72,7 @@ export const tabsData: TabData[] = [
     id: 'mental',
     label: '🧠 Mental Health',
     badge: 'AUTONOMIC ENGINEERING',
-    title: 'Mind-Body Vagus Regulation',
+    title: 'Mind-Body Vagal Tone Regulation',
     description: 'True longevity balances physical output with nervous system resilience. Master breathing mindfulness, NSDR neuro-resets, and circadian sleep precision.',
     bullets: [
       'Vagal Tone & Parasympathetic Activation',
@@ -140,46 +140,34 @@ export const tabsData: TabData[] = [
 
 export const InteractiveTabbedHero: React.FC = () => {
   const [activeTabId, setActiveTabId] = useState<string>('start-here');
-  const [videoError, setVideoError] = useState<boolean>(false);
   const currentTab = tabsData.find((t) => t.id === activeTabId) || tabsData[0];
-  const videoUrl = HERO_VIDEOS[currentTab.id as keyof typeof HERO_VIDEOS];
+  const videoUrl = HERO_VIDEOS[activeTabId as keyof typeof HERO_VIDEOS];
 
-  const isEmbedVideo = Boolean(
-    videoUrl && (
-      videoUrl.includes('streamable.com') ||
-      videoUrl.includes('youtube.com') ||
-      videoUrl.includes('vimeo.com') ||
-      videoUrl.includes('player.cloudinary.com')
-    )
-  );
-
-  const getEmbedUrl = (url: string) => {
-    if (url.includes('streamable.com') && !url.includes('/e/')) {
-      const parts = url.split('streamable.com/');
-      return `https://streamable.com/e/${parts[1]}`;
-    }
-    return url;
-  };
-
-  useEffect(() => {
-    setVideoError(false);
-  }, [activeTabId, videoUrl]);
+  const isStreamable = Boolean(videoUrl && videoUrl.includes('streamable.com'));
+  const normalizedStreamableUrl = isStreamable
+    ? (videoUrl.includes('/e/') ? videoUrl : videoUrl.replace('streamable.com/', 'streamable.com/e/'))
+    : videoUrl;
+  const streamableSrc = isStreamable
+    ? (normalizedStreamableUrl.includes('?')
+        ? `${normalizedStreamableUrl}&autoplay=1&muted=1&loop=1&nocontrols=1`
+        : `${normalizedStreamableUrl}?autoplay=1&muted=1&loop=1&nocontrols=1`)
+    : '';
 
   return (
     <section className="relative bg-slate-950 text-white pt-8 pb-16 px-4 sm:px-6 lg:px-8 border-b border-slate-800/80">
       <div className="max-w-7xl mx-auto">
         
-        {/* Floating Quote (Clean Un-boxed Typography) */}
+        {/* Floating Quote */}
         <p className="text-cyan-400 text-sm sm:text-base font-medium italic tracking-wide mb-3">
           “The best time to start was yesterday. The second best time is today.”
         </p>
 
         {/* Main Headline */}
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-white leading-tight font-display">
+        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 text-white leading-tight">
           You Are the Software Engineer of Your Own Biology.
         </h1>
 
-        {/* Horizontal Scrollable Video-Tab Bar */}
+        {/* Scrollable Tab Navigation Bar */}
         <div className="flex overflow-x-auto gap-2 pb-3 mb-8 no-scrollbar border-b border-slate-800/80">
           {tabsData.map((tab) => (
             <button
@@ -196,15 +184,15 @@ export const InteractiveTabbedHero: React.FC = () => {
           ))}
         </div>
 
-        {/* Dynamic Content Grid */}
+        {/* Dynamic Tab Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
-          {/* Left Column: Copy & Direct Actions */}
+          {/* Left Column: Copy & Actions */}
           <div className="lg:col-span-6 space-y-5">
             <span className="inline-block text-xs font-bold tracking-widest text-cyan-400 uppercase bg-cyan-950/60 border border-cyan-800/50 px-3 py-1 rounded-md">
               {currentTab.badge}
             </span>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white leading-snug font-display">
+            <h2 className="text-2xl sm:text-3xl font-bold text-white leading-snug">
               {currentTab.title}
             </h2>
             <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -223,7 +211,7 @@ export const InteractiveTabbedHero: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-3 pt-4">
               <Link
                 to={currentTab.primaryCtaLink}
-                className="py-3.5 px-6 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-xl text-center text-sm transition-all shadow-lg shadow-cyan-500/20 active:scale-95 touch-manipulation"
+                className="py-3.5 px-6 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-xl text-center text-sm transition-all shadow-lg shadow-cyan-500/20"
               >
                 {currentTab.primaryCtaText}
               </Link>
@@ -231,16 +219,14 @@ export const InteractiveTabbedHero: React.FC = () => {
                 <a
                   href={currentTab.secondaryCtaLink}
                   download
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="py-3.5 px-6 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-medium rounded-xl text-center text-sm transition-all active:scale-95 touch-manipulation"
+                  className="py-3.5 px-6 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-medium rounded-xl text-center text-sm transition-all"
                 >
                   {currentTab.secondaryCtaText}
                 </a>
               ) : (
                 <Link
                   to={currentTab.secondaryCtaLink}
-                  className="py-3.5 px-6 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-medium rounded-xl text-center text-sm transition-all active:scale-95 touch-manipulation"
+                  className="py-3.5 px-6 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-medium rounded-xl text-center text-sm transition-all"
                 >
                   {currentTab.secondaryCtaText}
                 </Link>
@@ -248,17 +234,15 @@ export const InteractiveTabbedHero: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Media Frame (Cloudflare Video with Poster Fallback) */}
+          {/* Right Column: Video / Poster Frame */}
           <div className="lg:col-span-6 relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/80 p-1.5 shadow-2xl shadow-cyan-950/30">
-            {videoUrl && !videoError ? (
-              isEmbedVideo ? (
-                <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-black">
+            {videoUrl ? (
+              isStreamable ? (
+                <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-black">
                   <iframe
-                    key={videoUrl}
-                    src={getEmbedUrl(videoUrl)}
-                    className="w-full h-full object-cover aspect-video"
-                    frameBorder="0"
-                    allow="autoplay; fullscreen; picture-in-picture"
+                    src={streamableSrc}
+                    className="w-full h-full border-0 rounded-xl aspect-video"
+                    allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
                     allowFullScreen
                     title={currentTab.title}
                   />
@@ -272,10 +256,9 @@ export const InteractiveTabbedHero: React.FC = () => {
                   playsInline
                   preload="auto"
                   poster={currentTab.posterImage}
-                  onError={() => setVideoError(true)}
                   className="w-full h-auto object-cover max-h-[460px] rounded-xl"
                 >
-                  <source src={videoUrl} type="video/mp4" onError={() => setVideoError(true)} />
+                  <source src={videoUrl} type="video/mp4" />
                 </video>
               )
             ) : (
