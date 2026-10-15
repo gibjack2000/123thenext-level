@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import { CartProvider } from './contexts/CartContext';
 import { MarketProvider, useMarket } from './contexts/MarketContext';
 import Navbar from './components/Navbar';
+import { SplashOverlay } from './components/SplashOverlay';
 import SlideInNewsletter from './components/newsletter/SlideInNewsletter';
 import FloatingShopFAB from './components/FloatingShopFAB';
 
@@ -123,6 +124,9 @@ function App() {
         <MarketProvider>
           <ScrollToTop />
           <div className="min-h-screen bg-slate-950 flex flex-col">
+          {/* Non-destructive splash layer */}
+          <SplashOverlay />
+
           <Navbar />
 
           <main className="flex-grow">
