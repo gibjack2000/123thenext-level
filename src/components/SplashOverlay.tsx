@@ -141,48 +141,8 @@ export const SplashOverlay: React.FC = () => {
     return () => clearTimeout(strikeTimer);
   }, [currentIndex, isMounted, isDismissing, hasStarted, triggerLightningStrike, playSoundFile]);
 
-  // 30-second sequence timer (10 seconds per step, cycling through all 3 curated warnings)
-  useEffect(() => {
-    if (!isMounted || isDismissing || !hasStarted) return;
-
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => {
-        if (prev < PAIN_POINTS.length - 1) {
-          return prev + 1;
-        } else {
-          clearInterval(interval);
-          handleDismiss();
-          return prev;
-        }
-      });
-    }, 10000); // 10 seconds per frame = 30 seconds total length
-
-    return () => clearInterval(interval);
-  }, [isMounted, isDismissing, hasStarted]);
-
-  // Start Experience button click handler (launches dramatic soundtrack & thunder!)
-  const handleStartExperience = (e?: React.MouseEvent) => {
-    if (e) e.stopPropagation();
-    setHasStarted(true);
-
-    // 1. Launch continuous dramatic cinematic score in background (31s duration)
-    try {
-      const music = new Audio('/assets/audio/dramatic-soundtrack.wav');
-      music.volume = 0.82;
-      musicAudioRef.current = music;
-      if (!isMutedRef.current) {
-        music.play().catch(() => {});
-      }
-    } catch {
-      // Audio playback fallback
-    }
-
-    // 2. Fire initial lightning strike, thunderclap, and warning horn
-    triggerLightningStrike(1.0);
-    playSoundFile('/assets/audio/warning-horn.wav', 1.0);
-  };
-
-  const handleDismiss = () => {
+  // Dismiss handler
+  const handleDismiss = useCallback(() => {
     setIsDismissing(true);
 
     // Fade out and stop background dramatic music
@@ -213,6 +173,87 @@ export const SplashOverlay: React.FC = () => {
     setTimeout(() => {
       setIsMounted(false);
     }, 1000); // 1-second cloud-clearing dissolve transition
+  }, []);
+
+  // Step navigation controls
+  const handleNext = useCallback(() => {
+    if (currentIndex < PAIN_POINTS.length - 1) {
+      setCurrentIndex((prev) => prev + 1);
+    } else {
+      handleDismiss();
+    }
+  }, [currentIndex, handleDismiss]);
+
+  const handlePrev = useCallback(() => {
+    if (currentIndex > 0) {
+      setCurrentIndex((prev) => prev - 1);
+    }
+  }, [currentIndex]);
+
+  const handleSelectStep = useCallback((index: number) => {
+    if (index >= 0 && index < PAIN_POINTS.length) {
+      setCurrentIndex(index);
+    }
+  }, []);
+
+  // 10-second timer per step, resetting cleanly if user switches manually
+  useEffect(() => {
+    if (!isMounted || isDismissing || !hasStarted) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => {
+        if (prev < PAIN_POINTS.length - 1) {
+          return prev + 1;
+        } else {
+          clearInterval(interval);
+          handleDismiss();
+          return prev;
+        }
+      });
+    }, 10000); // 10 seconds per frame
+
+    return () => clearInterval(interval);
+  }, [isMounted, isDismissing, hasStarted, currentIndex, handleDismiss]);
+
+  // Touch swipe support for mobile navigation
+  const touchStartXRef = useRef<number | null>(null);
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartXRef.current = e.touches[0].clientX;
+  };
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartXRef.current === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diffX = touchStartXRef.current - touchEndX;
+    if (diffX > 45) {
+      // Swiped left -> next
+      handleNext();
+    } else if (diffX < -45) {
+      // Swiped right -> prev
+      handlePrev();
+    }
+    touchStartXRef.current = null;
+  };
+
+  // Start Experience button click handler (launches dramatic soundtrack & thunder!)
+  const handleStartExperience = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    setHasStarted(true);
+
+    // 1. Launch continuous dramatic cinematic score in background (31s duration)
+    try {
+      const music = new Audio('/assets/audio/dramatic-soundtrack.wav');
+      music.volume = 0.82;
+      musicAudioRef.current = music;
+      if (!isMutedRef.current) {
+        music.play().catch(() => {});
+      }
+    } catch {
+      // Audio playback fallback
+    }
+
+    // 2. Fire initial lightning strike, thunderclap, and warning horn
+    triggerLightningStrike(1.0);
+    playSoundFile('/assets/audio/warning-horn.wav', 1.0);
   };
 
   // Toggle Mute button handler
@@ -321,11 +362,19 @@ export const SplashOverlay: React.FC = () => {
 
       {/* Main Overlay Wrapper: Fully obscuring the website initially, then dissolving cleanly */}
       <div
-        className={`fixed inset-0 z-50 bg-slate-950 flex flex-col justify-between p-6 md:p-12 transition-all duration-1000 select-none overflow-hidden ${
+        onTouchStart={hasStarted ? handleTouchStart : undefined}
+        onTouchEnd={hasStarted ? handleTouchEnd : undefined}
+        className={`fixed inset-0 z-50 bg-slate-950 flex flex-col justify-between w-full h-[100dvh] min-h-[100dvh] overflow-x-hidden overflow-y-auto p-3.5 sm:p-6 md:p-12 transition-all duration-1000 select-none ${
           isDismissing 
             ? 'opacity-0 scale-110 blur-3xl pointer-events-none' 
             : 'opacity-100 scale-100'
         } ${isShaking ? 'animate-thunder-shake' : ''}`}
+        style={{
+          paddingTop: 'max(0.875rem, env(safe-area-inset-top, 0.875rem))',
+          paddingBottom: 'max(0.875rem, env(safe-area-inset-bottom, 0.875rem))',
+          paddingLeft: 'max(0.875rem, env(safe-area-inset-left, 0.875rem))',
+          paddingRight: 'max(0.875rem, env(safe-area-inset-right, 0.875rem))'
+        }}
       >
         {/* Animated Awakening Storm Background Layer */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -462,30 +511,32 @@ export const SplashOverlay: React.FC = () => {
         </div>
 
         {/* Top Header: Logo, Mute Button & Skip Button */}
-        <div className="relative z-10 max-w-6xl mx-auto w-full flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className={`w-2.5 h-2.5 rounded-full animate-ping shadow-[0_0_12px] ${
+        <div className="shrink-0 relative z-10 max-w-6xl mx-auto w-full flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <span className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full animate-ping shrink-0 shadow-[0_0_12px] ${
               hasStarted && currentIndex === 0 ? 'bg-rose-400 shadow-rose-400/80' : 'bg-cyan-400 shadow-cyan-400/80'
             }`} />
-            <span className="text-xs font-black tracking-widest text-slate-200 uppercase drop-shadow">
+            <span className="text-[11px] sm:text-xs font-black tracking-wider sm:tracking-widest text-slate-200 uppercase drop-shadow truncate">
               123<span className={hasStarted && currentIndex === 0 ? 'text-rose-400' : 'text-cyan-400'}>THENEXTLEVEL</span>
             </span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             {/* Dedicated Mute / Unmute Button */}
             <button
               type="button"
               onClick={toggleMute}
-              className={`px-3.5 py-1.5 rounded-full text-[11px] font-bold border transition-all flex items-center gap-2 shadow-xl backdrop-blur-md cursor-pointer ${
+              className={`px-2.5 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full text-[11px] font-bold border transition-all flex items-center gap-1.5 sm:gap-2 shadow-xl backdrop-blur-md cursor-pointer ${
                 isMuted
                   ? 'bg-rose-950/60 border-rose-500/60 text-rose-300 hover:bg-rose-900/60 shadow-rose-900/40'
                   : 'bg-slate-900/80 hover:bg-slate-800/90 border-slate-700/80 hover:border-cyan-400 text-slate-200 hover:text-white shadow-slate-950/60'
               }`}
               title={isMuted ? "Click to unmute sound" : "Click to mute sound"}
+              aria-label={isMuted ? "Unmute audio" : "Mute audio"}
             >
-              <span className="text-sm">{isMuted ? '🔇' : '🔊'}</span>
-              <span>{isMuted ? 'Unmute Sound' : 'Mute Sound'}</span>
+              <span className="text-xs sm:text-sm">{isMuted ? '🔇' : '🔊'}</span>
+              <span className="hidden xs:inline sm:inline">{isMuted ? 'Unmute' : 'Mute'}</span>
+              <span className="hidden md:inline"> Sound</span>
             </button>
 
             {/* Skip / Enter Portal Button */}
@@ -495,137 +546,190 @@ export const SplashOverlay: React.FC = () => {
                 e.stopPropagation();
                 handleDismiss();
               }}
-              className="px-4 py-2 rounded-full bg-slate-900/85 hover:bg-slate-800 border border-slate-700/80 hover:border-cyan-400 text-slate-200 hover:text-white text-xs font-bold transition-all shadow-2xl backdrop-blur-md flex items-center gap-2 group cursor-pointer"
+              className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-slate-900/85 hover:bg-slate-800 border border-slate-700/80 hover:border-cyan-400 text-slate-200 hover:text-white text-[11px] sm:text-xs font-bold transition-all shadow-2xl backdrop-blur-md flex items-center gap-1.5 sm:gap-2 group cursor-pointer"
             >
-              <span>Enter Portal ➔</span>
-              <span className="text-[10px] text-slate-400 group-hover:text-cyan-400">(Skip)</span>
+              <span className="hidden sm:inline">Enter Portal</span>
+              <span className="sm:hidden">Skip</span>
+              <span>➔</span>
+              <span className="hidden md:inline text-[10px] text-slate-400 group-hover:text-cyan-400">(Skip)</span>
             </button>
           </div>
         </div>
 
-        {/* Center Content: Start Gate OR 3-Step Sequence (10s each = 30s total) */}
-        {!hasStarted ? (
-          /* Initial Start Gate with Tongue-in-Cheek Message */
-          <div className="relative z-10 max-w-2xl mx-auto w-full my-auto text-center space-y-6 px-4">
-            
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/15 border border-cyan-400/40 text-cyan-300 text-xs font-black uppercase tracking-widest shadow-[0_0_25px_rgba(6,182,212,0.3)] backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-              <span>⚡ Sovereign Healthspan Diagnostics ⚡</span>
-            </div>
-
-            <div className="space-y-4">
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight drop-shadow-[0_4px_30px_rgba(0,0,0,0.9)]">
-                Press here to seriously improve your <span className="text-cyan-400 underline decoration-cyan-500/60 underline-offset-8">Health</span>
-              </h1>
+        {/* Center Content Wrapper */}
+        <div className="relative z-10 max-w-3xl mx-auto w-full my-auto py-3 sm:py-6 flex flex-col justify-center min-h-0">
+          {!hasStarted ? (
+            /* Initial Start Gate */
+            <div className="w-full text-center space-y-4 sm:space-y-6 px-2 sm:px-4">
               
-              <p className="text-base md:text-lg text-slate-300 max-w-xl mx-auto leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)] font-medium">
-                A 30-second cinematic briefing with acoustic thunder, dramatic orchestral score, high-stakes medical reality, and the sovereign protocols to rewrite your biological destiny.
-              </p>
-            </div>
-
-            {/* Primary START Button (Unlocks Audio on Click!) */}
-            <div className="pt-4 flex flex-col items-center gap-4">
-              <button
-                type="button"
-                onClick={handleStartExperience}
-                className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-cyan-500 bg-[length:200%_auto] hover:bg-right transition-all duration-500 text-white font-black text-base md:text-lg tracking-wider uppercase shadow-[0_0_40px_rgba(6,182,212,0.6)] hover:shadow-[0_0_60px_rgba(6,182,212,0.9)] transform hover:scale-105 active:scale-95 cursor-pointer"
-              >
-                <span className="text-xl group-hover:animate-bounce">⚡</span>
-                <span>BEGIN EMERGENCY PROTOCOL</span>
-                <span className="text-xl">➔</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={handleDismiss}
-                className="text-xs text-slate-400 hover:text-cyan-400 hover:underline cursor-pointer transition-colors pt-2"
-              >
-                Or skip directly to 123TheNextLevel website ➔
-              </button>
-            </div>
-          </div>
-        ) : (
-          /* Center Flashing Warning Sequence (3 Steps, 10s each = 30s total) */
-          <div className="relative z-10 max-w-3xl mx-auto w-full my-auto text-center space-y-5">
-            
-            {/* Progress Dots with Clearing Status */}
-            <div className="flex flex-col items-center gap-2 mb-1">
-              <div className="flex items-center justify-center gap-2">
-                {PAIN_POINTS.map((_, idx) => (
-                  <div
-                    key={idx}
-                    className={`h-1.5 rounded-full transition-all duration-500 ${
-                      idx === currentIndex 
-                        ? idx === 0 
-                          ? 'w-12 bg-rose-500 shadow-lg shadow-rose-500/80' 
-                          : 'w-12 bg-cyan-400 shadow-lg shadow-cyan-400/80' 
-                        : idx < currentIndex
-                          ? 'w-5 bg-cyan-800/60'
-                          : 'w-3 bg-slate-700/80'
-                    }`}
-                  />
-                ))}
+              <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-cyan-500/15 border border-cyan-400/40 text-cyan-300 text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest shadow-[0_0_25px_rgba(6,182,212,0.3)] backdrop-blur-md">
+                <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-cyan-400 animate-ping" />
+                <span>⚡ Sovereign Healthspan Diagnostics ⚡</span>
               </div>
-              <span className={`text-[10px] tracking-widest uppercase font-semibold ${
-                currentIndex === 0 ? 'text-rose-400/90' : 'text-cyan-400/80'
-              }`}>
-                Status: {current.stormPhase} (10s Reading Window)
-              </span>
-            </div>
 
-            {/* Glowing Warning Badge & Step Counter */}
-            <div className={`inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest backdrop-blur-md transition-all ${
-              currentIndex === 0
-                ? 'bg-rose-500/20 border border-rose-500/50 text-rose-300 shadow-[0_0_30px_rgba(244,63,94,0.35)] animate-pulse'
-                : 'bg-amber-500/15 border border-amber-500/35 text-amber-400 shadow-[0_0_25px_rgba(245,158,11,0.25)]'
-            }`}>
-              <span>{current.badge}</span>
-              <span className="text-slate-500">|</span>
-              <span className="text-slate-300">{current.number} / 03</span>
-            </div>
+              <div className="space-y-2.5 sm:space-y-4">
+                <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight drop-shadow-[0_4px_30px_rgba(0,0,0,0.9)]">
+                  Press here to seriously improve your <span className="text-cyan-400 underline decoration-cyan-500/60 underline-offset-4 sm:underline-offset-8">Health</span>
+                </h1>
+                
+                <p className="text-xs sm:text-base md:text-lg text-slate-300 max-w-xl mx-auto leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)] font-normal sm:font-medium px-2">
+                  A 30-second cinematic briefing with acoustic thunder, dramatic orchestral score, high-stakes medical reality, and the sovereign protocols to rewrite your biological destiny.
+                </p>
+              </div>
 
-            {/* Biometric EKG Heartbeat Pulse Waveform (Featured on Frame 01) */}
-            {currentIndex === 0 && (
-              <div className="flex flex-col items-center justify-center gap-1.5 py-1">
-                <svg className="w-56 h-7 text-rose-400 filter drop-shadow-[0_0_8px_rgba(244,63,94,0.6)]" viewBox="0 0 240 40" fill="none">
-                  <path
-                    className="animate-ecg"
-                    d="M 0,20 L 45,20 L 55,20 L 64,4 L 75,36 L 84,10 L 93,26 L 100,20 L 140,20 L 149,20 L 158,4 L 169,36 L 178,10 L 187,26 L 194,20 L 240,20"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                <span className="text-[10px] font-bold tracking-widest text-rose-400/80 uppercase">
-                  Biometric Telemetry: Urgent Intervention Window Active
+              {/* Primary START Button (Unlocks Audio on Click!) */}
+              <div className="pt-2 sm:pt-4 flex flex-col items-center gap-3">
+                <button
+                  type="button"
+                  onClick={handleStartExperience}
+                  className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 w-full xs:w-auto max-w-sm sm:max-w-none px-5 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-cyan-500 bg-[length:200%_auto] hover:bg-right transition-all duration-500 text-white font-black text-xs sm:text-base md:text-lg tracking-wider uppercase shadow-[0_0_40px_rgba(6,182,212,0.6)] hover:shadow-[0_0_60px_rgba(6,182,212,0.9)] transform hover:scale-105 active:scale-95 cursor-pointer text-center"
+                >
+                  <span className="text-base sm:text-xl group-hover:animate-bounce">⚡</span>
+                  <span className="truncate">BEGIN EMERGENCY PROTOCOL</span>
+                  <span className="text-base sm:text-xl">➔</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={handleDismiss}
+                  className="text-[11px] sm:text-xs text-slate-400 hover:text-cyan-400 hover:underline cursor-pointer transition-colors pt-1"
+                >
+                  Or skip directly to 123TheNextLevel website ➔
+                </button>
+              </div>
+            </div>
+          ) : (
+            /* Warning Sequence (3 Steps, 10s each = 30s total) */
+            <div className="w-full text-center space-y-3 sm:space-y-4 md:space-y-5 px-1 sm:px-4">
+              
+              {/* Progress Dots with Clearing Status */}
+              <div className="flex flex-col items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
+                <div className="flex items-center justify-center gap-1.5 sm:gap-2">
+                  {PAIN_POINTS.map((item, idx) => (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleSelectStep(idx);
+                      }}
+                      className="py-2 px-1 focus:outline-none cursor-pointer group"
+                      aria-label={`Jump to point ${item.number}`}
+                    >
+                      <div
+                        className={`h-1.5 rounded-full transition-all duration-500 ${
+                          idx === currentIndex 
+                            ? idx === 0 
+                              ? 'w-10 sm:w-12 bg-rose-500 shadow-lg shadow-rose-500/80' 
+                              : 'w-10 sm:w-12 bg-cyan-400 shadow-lg shadow-cyan-400/80' 
+                            : idx < currentIndex
+                              ? 'w-4 sm:w-5 bg-cyan-800/60 group-hover:bg-cyan-600'
+                              : 'w-2.5 sm:w-3 bg-slate-700/80 group-hover:bg-slate-500'
+                        }`}
+                      />
+                    </button>
+                  ))}
+                </div>
+                <span className={`text-[9px] sm:text-[10px] tracking-wider sm:tracking-widest uppercase font-semibold ${
+                  currentIndex === 0 ? 'text-rose-400/90' : 'text-cyan-400/80'
+                }`}>
+                  Status: {current.stormPhase}
                 </span>
               </div>
-            )}
 
-            {/* Flashing Headline & Detail with Cross-Fade */}
-            <div key={currentIndex} className="splash-cross-fade space-y-4 min-h-[170px] flex flex-col justify-center">
-              <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white leading-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)]">
-                {current.headline}
-              </h2>
-              <p className="text-base md:text-lg text-slate-200 max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)] font-medium">
-                {current.detail}
+              {/* Glowing Warning Badge & Step Counter */}
+              <div className={`inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest backdrop-blur-md transition-all ${
+                currentIndex === 0
+                  ? 'bg-rose-500/20 border border-rose-500/50 text-rose-300 shadow-[0_0_30px_rgba(244,63,94,0.35)] animate-pulse'
+                  : 'bg-amber-500/15 border border-amber-500/35 text-amber-400 shadow-[0_0_25px_rgba(245,158,11,0.25)]'
+              }`}>
+                <span className="truncate">{current.badge}</span>
+                <span className="text-slate-500">|</span>
+                <span className="text-slate-300">{current.number} / 03</span>
+              </div>
+
+              {/* Biometric EKG Heartbeat Pulse Waveform (Featured on Frame 01) */}
+              {currentIndex === 0 && (
+                <div className="flex flex-col items-center justify-center gap-1 py-0.5 sm:py-1">
+                  <svg className="w-40 sm:w-56 h-5 sm:h-7 text-rose-400 filter drop-shadow-[0_0_8px_rgba(244,63,94,0.6)]" viewBox="0 0 240 40" fill="none">
+                    <path
+                      className="animate-ecg"
+                      d="M 0,20 L 45,20 L 55,20 L 64,4 L 75,36 L 84,10 L 93,26 L 100,20 L 140,20 L 149,20 L 158,4 L 169,36 L 178,10 L 187,26 L 194,20 L 240,20"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <span className="text-[9px] sm:text-[10px] font-bold tracking-wider sm:tracking-widest text-rose-400/80 uppercase">
+                    Biometric Telemetry: Urgent Intervention Window Active
+                  </span>
+                </div>
+              )}
+
+              {/* Flashing Headline & Detail with Cross-Fade */}
+              <div key={currentIndex} className="splash-cross-fade space-y-2.5 sm:space-y-4 min-h-0 sm:min-h-[160px] flex flex-col justify-center">
+                <h2 className="text-lg xs:text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-white leading-snug sm:leading-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] px-2">
+                  {current.headline}
+                </h2>
+                <p className="text-xs sm:text-sm md:text-base lg:text-lg text-slate-200 max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)] font-normal sm:font-medium px-2">
+                  {current.detail}
+                </p>
+              </div>
+
+              {/* Bottom Quote & Subtext */}
+              <p className={`text-[10px] sm:text-xs font-bold drop-shadow uppercase tracking-wider sm:tracking-widest px-2 ${
+                currentIndex === 0 ? 'text-rose-400' : 'text-cyan-300'
+              }`}>
+                {currentIndex === 0 
+                  ? '⚡ You are not helpless. Reclaim command of your biology today.'
+                  : 'Biological aging increases silently every day. Proactive health starts now.'}
               </p>
-            </div>
 
-            <p className={`text-xs font-bold drop-shadow uppercase tracking-widest ${
-              currentIndex === 0 ? 'text-rose-400' : 'text-cyan-300'
-            }`}>
-              {currentIndex === 0 
-                ? '⚡ You are not helpless. Reclaim command of your biology today.'
-                : 'Biological aging increases silently every day. Proactive health starts now.'}
-            </p>
-          </div>
-        )}
+              {/* Step Navigation Controls for Mobile & Desktop */}
+              <div className="flex items-center justify-center gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handlePrev();
+                  }}
+                  disabled={currentIndex === 0}
+                  className={`px-3 py-1.5 rounded-full text-[11px] font-bold transition-all border flex items-center gap-1 ${
+                    currentIndex === 0
+                      ? 'opacity-30 border-slate-800 text-slate-600 cursor-not-allowed'
+                      : 'bg-slate-900/80 hover:bg-slate-800 border-slate-700 text-slate-300 hover:text-white cursor-pointer shadow-md'
+                  }`}
+                  aria-label="Previous warning"
+                >
+                  <span>←</span>
+                  <span>Back</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleNext();
+                  }}
+                  className={`px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-wider transition-all border shadow-lg cursor-pointer flex items-center gap-1.5 ${
+                    currentIndex === 0
+                      ? 'bg-rose-950/80 hover:bg-rose-900 border-rose-500/60 text-rose-200 hover:text-white'
+                      : 'bg-cyan-950/80 hover:bg-cyan-900 border-cyan-500/60 text-cyan-200 hover:text-white'
+                  }`}
+                  aria-label={currentIndex === PAIN_POINTS.length - 1 ? 'Enter website' : 'Next warning'}
+                >
+                  <span>{currentIndex === PAIN_POINTS.length - 1 ? 'Enter Portal' : 'Next Warning'}</span>
+                  <span>➔</span>
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
 
         {/* Footer & Secondary Skip Link */}
-        <div className="relative z-10 max-w-6xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-slate-700/60 pt-4 text-slate-300 text-[11px] backdrop-blur-sm">
-          <span>🔒 Sovereign Geroscience Diagnostics & Protocol Portal</span>
+        <div className="shrink-0 relative z-10 max-w-6xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-1.5 sm:gap-4 border-t border-slate-700/60 pt-2.5 sm:pt-4 text-slate-400 text-[10px] sm:text-[11px] backdrop-blur-sm text-center">
+          <span className="truncate">🔒 Sovereign Geroscience Diagnostics & Protocol Portal</span>
           <button
             type="button"
             onClick={(e) => {
@@ -634,7 +738,8 @@ export const SplashOverlay: React.FC = () => {
             }}
             className="text-cyan-400 hover:text-cyan-300 font-bold hover:underline cursor-pointer transition-colors"
           >
-            Click to clear storm & enter 123TheNextLevel immediately ➔
+            <span className="sm:hidden">Clear storm & enter site ➔</span>
+            <span className="hidden sm:inline">Click to clear storm & enter 123TheNextLevel immediately ➔</span>
           </button>
         </div>
       </div>
