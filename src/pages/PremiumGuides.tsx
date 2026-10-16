@@ -19,6 +19,16 @@ const GuideCoverImage: React.FC<{ primaryImage: string; fallbackImage?: string; 
   fallbackImage,
   altText
 }) => {
+  if (primaryImage.startsWith('http://') || primaryImage.startsWith('https://')) {
+    return (
+      <img
+        src={primaryImage}
+        alt={altText}
+        className="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500"
+      />
+    );
+  }
+
   const possiblePaths = [
     `/assets/images/shop/${primaryImage}`,
     `/assets/images/blog/${primaryImage}`,
@@ -69,8 +79,8 @@ export default function PremiumGuidesPage() {
       title: "Beginner Home Workout Plan",
       price: "£19.00",
       usPrice: "$24.00",
-      primaryImage: "performance_biodata_cover.png",
-      fallbackImage: "beginner_bodyweight_cover.png",
+      primaryImage: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop",
+      fallbackImage: "performance_biodata_cover.png",
       description: "A 4-week zero-equipment protocol to build foundational strength and mobility from home.",
       highlights: [
         "12-Week Progressive Bodyweight Schedule",
@@ -85,7 +95,8 @@ export default function PremiumGuidesPage() {
       title: "The Master Meal Planning Guide",
       price: "£24.00",
       usPrice: "$29.00",
-      primaryImage: "metabolic_nutrition_cover.png",
+      primaryImage: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800&auto=format&fit=crop",
+      fallbackImage: "metabolic_nutrition_cover.png",
       description: "A systematic approach to weekly meal prep, grocery shopping, and macro-balancing.",
       highlights: [
         "Glucose Spike Mitigation Recipes",
@@ -100,7 +111,8 @@ export default function PremiumGuidesPage() {
       title: "Cortisol & Stress Management",
       price: "£22.00",
       usPrice: "$28.00",
-      primaryImage: "autonomic_engineering_cover.png",
+      primaryImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=800&auto=format&fit=crop",
+      fallbackImage: "autonomic_engineering_cover.png",
       description: "Actionable protocols to lower cortisol, manage chronic stress, and restore nervous system balance.",
       highlights: [
         "10-Minute NSDR Audio & Written Scripts",
@@ -115,8 +127,8 @@ export default function PremiumGuidesPage() {
       title: "Cellular Reprogramming & Epigenetic Longevity",
       price: "£22.00",
       usPrice: "$28.00",
-      primaryImage: "healthspan_longevity_cover.png",
-      fallbackImage: "longevity_blueprint_cover.png",
+      primaryImage: "https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=800&auto=format&fit=crop",
+      fallbackImage: "healthspan_longevity_cover.png",
       description: "Learn how to activate sirtuins, induce cellular autophagy, and protect your DNA from environmental methylation decay.",
       highlights: [
         "Sirtuin & NAD+ Activation Protocols",
@@ -131,7 +143,8 @@ export default function PremiumGuidesPage() {
       title: "Women's Healthspan & Ovarian Longevity",
       price: "£22.00",
       usPrice: "$28.00",
-      primaryImage: "womens_health_cover.png",
+      primaryImage: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?q=80&w=800&auto=format&fit=crop",
+      fallbackImage: "womens_health_cover.png",
       description: "Muscle-centric medicine, endocrine baseline tracking, AMH profiling, and bone density preservation.",
       highlights: [
         "Endocrine Health & Hormonal Balance",
@@ -146,7 +159,8 @@ export default function PremiumGuidesPage() {
       title: "Socio-Biological Architecture & Connection Blueprint",
       price: "£19.00",
       usPrice: "$24.00",
-      primaryImage: "socio_architecture_cover.png",
+      primaryImage: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=800&auto=format&fit=crop",
+      fallbackImage: "socio_architecture_cover.png",
       description: "Micro-community vitals, neural coupling mechanics, and psychoneuroimmunology protocols to lower inflammation.",
       highlights: [
         "Micro-Community Health Formation",
