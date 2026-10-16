@@ -54,7 +54,7 @@ export const SplashOverlay: React.FC = () => {
   const [isShaking, setIsShaking] = useState(false);
   const [lightningPathIndex, setLightningPathIndex] = useState(0);
 
-  // Background Image Path Fallbacks for awakeningstorm.png
+  // Background Image Path Fallbacks for awakeningstorm.png (Desktop Landscape)
   const possiblePaths = [
     '/assets/images/shop/awakeningstorm.png',
     '/assets/images/awakeningstorm.png',
@@ -62,6 +62,15 @@ export const SplashOverlay: React.FC = () => {
     '/assets/images/blog/awakeningstorm.png'
   ];
   const [bgPathIndex, setBgPathIndex] = useState(0);
+
+  // Background Image Path Fallbacks for awakeningstorm-mobile.png (Mobile 9:16 Portrait)
+  const possibleMobilePaths = [
+    '/assets/awakeningstorm-mobile.png',
+    '/assets/images/awakeningstorm-mobile.png',
+    '/assets/images/shop/awakeningstorm-mobile.png',
+    '/assets/awakeningstorm-mobile.jpg'
+  ];
+  const [bgMobilePathIndex, setBgMobilePathIndex] = useState(0);
 
   // Active SFX audio instances for clean disposal
   const activeAudiosRef = useRef<HTMLAudioElement[]>([]);
@@ -337,9 +346,28 @@ export const SplashOverlay: React.FC = () => {
           100% { stroke-dashoffset: -400; opacity: 0.4; }
         }
 
+        /* Mobile-calibrated drift & scale to ensure nodes stay framed */
+        @keyframes stormDriftAndZoomMobile {
+          0% {
+            transform: scale(1.0) translate3d(0, 0, 0);
+          }
+          50% {
+            transform: scale(1.05) translate3d(-0.6%, -0.6%, 0);
+          }
+          100% {
+            transform: scale(1.0) translate3d(0, 0, 0);
+          }
+        }
+
         .animate-storm-drift {
           animation: stormDriftAndZoom 24s ease-in-out infinite alternate;
           will-change: transform;
+        }
+
+        @media (max-width: 767px) {
+          .animate-storm-drift {
+            animation: stormDriftAndZoomMobile 20s ease-in-out infinite alternate;
+          }
         }
 
         .animate-thunder-shake {
@@ -360,38 +388,39 @@ export const SplashOverlay: React.FC = () => {
         }
       `}</style>
 
-      {/* Main Overlay Wrapper: Fully obscuring the website initially, then dissolving cleanly */}
+      {/* Main Overlay Fixed Screen Container: Pins 100% of viewport without collapsing */}
       <div
-        onTouchStart={hasStarted ? handleTouchStart : undefined}
-        onTouchEnd={hasStarted ? handleTouchEnd : undefined}
-        className={`fixed inset-0 z-50 bg-slate-950 flex flex-col justify-between w-full h-[100dvh] min-h-[100dvh] overflow-x-hidden overflow-y-auto p-3.5 sm:p-6 md:p-12 transition-all duration-1000 select-none ${
+        className={`fixed inset-0 z-50 bg-slate-950 w-full w-screen h-full h-screen min-h-[100vh] min-h-[100dvh] transition-all duration-1000 select-none overflow-hidden ${
           isDismissing 
             ? 'opacity-0 scale-110 blur-3xl pointer-events-none' 
             : 'opacity-100 scale-100'
         } ${isShaking ? 'animate-thunder-shake' : ''}`}
-        style={{
-          paddingTop: 'max(0.875rem, env(safe-area-inset-top, 0.875rem))',
-          paddingBottom: 'max(0.875rem, env(safe-area-inset-bottom, 0.875rem))',
-          paddingLeft: 'max(0.875rem, env(safe-area-inset-left, 0.875rem))',
-          paddingRight: 'max(0.875rem, env(safe-area-inset-right, 0.875rem))'
-        }}
       >
-        {/* Animated Awakening Storm Background Layer */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {/* Base Awakening Storm Image */}
-          <img
-            src={possiblePaths[bgPathIndex]}
-            alt="Awakening Storm"
-            className="w-full h-full object-cover object-center animate-storm-drift transform-gpu transition-all duration-1000"
-            style={{
-              filter: `brightness(${0.82 + progressRatio * 0.48}) contrast(${1.25 - progressRatio * 0.25}) saturate(${1.0 + progressRatio * 0.3})`
-            }}
-            onError={() => {
-              if (bgPathIndex < possiblePaths.length - 1) {
-                setBgPathIndex((prev) => prev + 1);
-              }
-            }}
-          />
+        {/* Animated Awakening Storm Background Layer (Fixed full screen, responsive mobile 9:16 portrait + desktop 16:9 landscape) */}
+        <div className="fixed inset-0 w-full h-full pointer-events-none overflow-hidden z-0">
+          {/* Base Awakening Storm Image (Responsive: 9:16 portrait on mobile, 16:9 landscape on desktop) */}
+          <picture className="w-full h-full block">
+            <source
+              media="(max-width: 767px)"
+              srcSet={possibleMobilePaths[bgMobilePathIndex]}
+            />
+            <img
+              src={possiblePaths[bgPathIndex]}
+              alt="Awakening Storm"
+              className="w-full h-full object-cover object-center animate-storm-drift transform-gpu transition-all duration-1000"
+              style={{
+                filter: `brightness(${0.82 + progressRatio * 0.48}) contrast(${1.25 - progressRatio * 0.25}) saturate(${1.0 + progressRatio * 0.3})`
+              }}
+              onError={() => {
+                if (bgPathIndex < possiblePaths.length - 1) {
+                  setBgPathIndex((prev) => prev + 1);
+                }
+                if (bgMobilePathIndex < possibleMobilePaths.length - 1) {
+                  setBgMobilePathIndex((prev) => prev + 1);
+                }
+              }}
+            />
+          </picture>
 
           {/* Dynamic Cloud Darkness Wash: Heavy emergency tint at start, gradually clearing */}
           <div 
@@ -507,10 +536,22 @@ export const SplashOverlay: React.FC = () => {
           )}
 
           {/* Atmospheric Electric Cyan Energy Rim */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/80 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 sm:from-slate-950 via-transparent to-slate-950/65 sm:to-slate-950/80 pointer-events-none" />
         </div>
 
-        {/* Top Header: Logo, Mute Button & Skip Button */}
+        {/* Interactive Content Layer: Full height flex column with touch swipe & safe-area paddings */}
+        <div
+          onTouchStart={hasStarted ? handleTouchStart : undefined}
+          onTouchEnd={hasStarted ? handleTouchEnd : undefined}
+          className="relative z-10 w-full h-full flex flex-col justify-between overflow-x-hidden overflow-y-auto p-3.5 sm:p-6 md:p-12"
+          style={{
+            paddingTop: 'max(0.875rem, env(safe-area-inset-top, 0.875rem))',
+            paddingBottom: 'max(0.875rem, env(safe-area-inset-bottom, 0.875rem))',
+            paddingLeft: 'max(0.875rem, env(safe-area-inset-left, 0.875rem))',
+            paddingRight: 'max(0.875rem, env(safe-area-inset-right, 0.875rem))'
+          }}
+        >
+          {/* Top Header: Logo, Mute Button & Skip Button */}
         <div className="shrink-0 relative z-10 max-w-6xl mx-auto w-full flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
             <span className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full animate-ping shrink-0 shadow-[0_0_12px] ${
@@ -741,6 +782,7 @@ export const SplashOverlay: React.FC = () => {
             <span className="sm:hidden">Clear storm & enter site ➔</span>
             <span className="hidden sm:inline">Click to clear storm & enter 123TheNextLevel immediately ➔</span>
           </button>
+        </div>
         </div>
       </div>
     </>
