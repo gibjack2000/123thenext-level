@@ -386,6 +386,93 @@ export const SplashOverlay: React.FC = () => {
           stroke-dasharray: 400;
           animation: ecgPulse 2.4s ease-in-out infinite;
         }
+
+        /* Dynamic Urgency Quote Chromatic Shimmer */
+        @keyframes urgentQuoteCycle {
+          0%, 100% {
+            color: #ffffff;
+            text-shadow: 0 0 14px rgba(255, 255, 255, 0.95), 0 0 28px rgba(244, 63, 94, 0.6);
+          }
+          33% {
+            color: #fef08a;
+            text-shadow: 0 0 16px rgba(254, 240, 138, 0.95), 0 0 32px rgba(245, 158, 11, 0.7);
+          }
+          66% {
+            color: #a5f3fc;
+            text-shadow: 0 0 16px rgba(165, 243, 252, 0.95), 0 0 32px rgba(6, 182, 212, 0.7);
+          }
+        }
+
+        /* High-Urgency Emergency Strobe / Color Flash for 'Zero excuses. Zero delays. Make today Day One.' */
+        @keyframes urgentWarningFlash {
+          0%, 100% {
+            color: #ffffff;
+            text-shadow: 0 0 12px rgba(255, 255, 255, 1), 0 0 25px rgba(244, 63, 94, 0.95), 0 0 45px rgba(225, 29, 72, 0.75);
+          }
+          20% {
+            color: #ff3b5c;
+            text-shadow: 0 0 16px rgba(255, 59, 92, 1), 0 0 35px rgba(225, 29, 72, 0.95), 0 0 55px rgba(159, 18, 57, 0.85);
+          }
+          40% {
+            color: #fbbf24;
+            text-shadow: 0 0 16px rgba(251, 191, 36, 1), 0 0 35px rgba(245, 158, 11, 0.95), 0 0 55px rgba(217, 119, 6, 0.85);
+          }
+          60% {
+            color: #22d3ee;
+            text-shadow: 0 0 16px rgba(34, 211, 238, 1), 0 0 35px rgba(6, 182, 212, 0.95), 0 0 55px rgba(14, 165, 233, 0.85);
+          }
+          80% {
+            color: #f43f5e;
+            text-shadow: 0 0 16px rgba(244, 63, 94, 1), 0 0 35px rgba(225, 29, 72, 0.95), 0 0 55px rgba(190, 18, 60, 0.85);
+          }
+        }
+
+        /* Dynamic Border & Glow Shift for Emergency Badge */
+        @keyframes urgentBadgeBorder {
+          0%, 100% {
+            border-color: rgba(244, 63, 94, 0.7);
+            box-shadow: 0 0 25px rgba(244, 63, 94, 0.45), inset 0 0 14px rgba(244, 63, 94, 0.25);
+          }
+          33% {
+            border-color: rgba(251, 191, 36, 0.8);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.5), inset 0 0 14px rgba(251, 191, 36, 0.3);
+          }
+          66% {
+            border-color: rgba(34, 211, 238, 0.8);
+            box-shadow: 0 0 30px rgba(34, 211, 238, 0.5), inset 0 0 14px rgba(34, 211, 238, 0.3);
+          }
+        }
+
+        /* Cardiac Heartbeat Pulse Motion */
+        @keyframes cardiacPulse {
+          0%, 100% {
+            transform: scale(1);
+          }
+          14% {
+            transform: scale(1.035);
+          }
+          28% {
+            transform: scale(1);
+          }
+          42% {
+            transform: scale(1.02);
+          }
+          60% {
+            transform: scale(1);
+          }
+        }
+
+        .animate-urgent-quote {
+          animation: urgentQuoteCycle 4s ease-in-out infinite;
+        }
+
+        .animate-urgent-flash {
+          animation: urgentWarningFlash 2.4s ease-in-out infinite;
+        }
+
+        .animate-urgent-badge {
+          animation: urgentBadgeBorder 2.4s ease-in-out infinite, cardiacPulse 2.4s ease-in-out infinite;
+        }
       `}</style>
 
       {/* Main Overlay Fixed Screen Container: Pins 100% of viewport without collapsing */}
@@ -626,17 +713,25 @@ export const SplashOverlay: React.FC = () => {
                 <span>⚡ Sovereign Healthspan Diagnostics ⚡</span>
               </div>
 
-              <div className="space-y-2.5 sm:space-y-4">
-                <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight drop-shadow-[0_4px_30px_rgba(0,0,0,0.9)]">
+              <div className="space-y-3 sm:space-y-4 max-w-2xl mx-auto">
+                <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight drop-shadow-[0_4px_30px_rgba(0,0,0,0.95)]">
                   Press here to seriously improve your <span className="text-cyan-400 underline decoration-cyan-500/60 underline-offset-4 sm:underline-offset-8">Health</span>
                 </h1>
                 
-                <p className="text-xs sm:text-base md:text-lg text-slate-300 max-w-xl mx-auto leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)] font-normal sm:font-medium px-2">
-                  &ldquo;The best time to start was yesterday. The second best time is today.&rdquo;
-                  <span className="block mt-1 sm:mt-1.5 text-slate-200 font-medium">
-                    Zero excuses. Zero delays. Make today Day One.
-                  </span>
-                </p>
+                {/* High-Urgency Callout Section with Color-Flashing Alert Typography & Cardiac Pulse */}
+                <div className="pt-1 sm:pt-2 flex flex-col items-center gap-2.5 sm:gap-3.5">
+                  <p className="text-sm xs:text-base sm:text-lg md:text-xl font-bold tracking-tight text-white leading-relaxed drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] px-2 max-w-xl animate-urgent-quote">
+                    &ldquo;The best time to start was yesterday. The second best time is today.&rdquo;
+                  </p>
+                  
+                  {/* Flashing Emergency Telemetry Badge */}
+                  <div className="inline-flex items-center justify-center flex-wrap gap-1.5 sm:gap-2.5 px-3.5 sm:px-6 py-1.5 sm:py-2.5 rounded-2xl sm:rounded-full bg-slate-950/80 border border-rose-500/50 shadow-[0_0_30px_rgba(244,63,94,0.4)] backdrop-blur-md animate-urgent-badge">
+                    <span className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-rose-500 animate-ping shrink-0" />
+                    <span className="font-black text-xs sm:text-sm md:text-base tracking-wider sm:tracking-widest uppercase animate-urgent-flash">
+                      Zero excuses. Zero delays. Make today Day One.
+                    </span>
+                  </div>
+                </div>
               </div>
 
               {/* Primary START Button (Unlocks Audio on Click!) */}
