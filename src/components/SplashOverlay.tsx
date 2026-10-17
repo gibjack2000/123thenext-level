@@ -7,7 +7,7 @@ const PAIN_POINTS = [
     detail: "50% of incidental cardiovascular strain, lung nodules, and metabolic decline go completely undetected in reactive healthcare until emergency crisis. Your biological trajectory is not written in stone—daily cellular stimulus, targeted geroscience, and biomarker monitoring give you the sovereign power to halt degradation and rewrite your biological age today.",
     badge: "🚨 FINAL HEALTHSPAN WARNING",
     stormPhase: "Critical Biological Warning",
-    ambientLight: "rgba(15, 23, 42, 0.82)",
+    ambientLight: "rgba(30, 8, 15, 0.35)",
     isEmergency: true
   },
   {
@@ -16,7 +16,7 @@ const PAIN_POINTS = [
     detail: "Traditional medicine waits for irreversible organ damage before offering treatment. After age 30, muscle mass and mitochondrial efficiency decline up to 8% per decade without targeted mechanical stimulus. Sarcopenia is the silent precursor to metabolic dysfunction and lost autonomy. Proactive cellular maintenance and early diagnostics extinguish the fire before it starts.",
     badge: "📉 SICK-CARE VS CELLULAR POWER",
     stormPhase: "Heavy Thunder Rolls",
-    ambientLight: "rgba(2, 6, 23, 0.65)",
+    ambientLight: "rgba(20, 8, 15, 0.28)",
     isEmergency: false
   },
   {
@@ -25,7 +25,7 @@ const PAIN_POINTS = [
     detail: "90% of how quickly you age is dictated by daily cellular software signals—not static genetics. Your daily habits, nutrients, and environmental cues rewrite your DNA reader continuously. You can manage your cellular baseline and vital hardware today—or manage chronic illness and loss of independence tomorrow. The power to reverse your biological trajectory starts now.",
     badge: "⏳ THE TIME WINDOW",
     stormPhase: "Clear Dawn Light Breaking",
-    ambientLight: "rgba(2, 6, 23, 0.25)",
+    ambientLight: "rgba(2, 6, 23, 0.15)",
     isEmergency: false
   }
 ];
@@ -409,7 +409,7 @@ export const SplashOverlay: React.FC = () => {
               alt="Awakening Storm"
               className="w-full h-full object-cover object-center animate-storm-drift transform-gpu transition-all duration-1000"
               style={{
-                filter: `brightness(${0.82 + progressRatio * 0.48}) contrast(${1.25 - progressRatio * 0.25}) saturate(${1.0 + progressRatio * 0.3})`
+                filter: `brightness(${1.12 + progressRatio * 0.28}) contrast(${1.12 - progressRatio * 0.12}) saturate(${1.2 + progressRatio * 0.2})`
               }}
               onError={() => {
                 if (bgPathIndex < possiblePaths.length - 1) {
@@ -422,11 +422,29 @@ export const SplashOverlay: React.FC = () => {
             />
           </picture>
 
-          {/* Dynamic Cloud Darkness Wash: Heavy emergency tint at start, gradually clearing */}
+          {/* Cinematic Red / Crimson Hue Layers: Imbues the image with vivid red vitality without darkening */}
           <div 
-            className="absolute inset-0 transition-all duration-1000"
+            className="absolute inset-0 pointer-events-none mix-blend-color transition-opacity duration-1000"
             style={{
-              background: `radial-gradient(ellipse at center, ${hasStarted ? current.ambientLight : 'rgba(15, 23, 42, 0.85)'} 0%, rgba(2, 6, 23, ${0.88 - progressRatio * 0.40}) 100%)`
+              background: 'linear-gradient(135deg, rgba(244, 63, 94, 0.72) 0%, rgba(225, 29, 72, 0.65) 50%, rgba(190, 18, 60, 0.72) 100%)',
+              opacity: hasStarted ? Math.max(0.35, 0.85 - progressRatio * 0.5) : 0.85
+            }}
+          />
+          <div 
+            className="absolute inset-0 pointer-events-none mix-blend-screen transition-opacity duration-1000"
+            style={{
+              background: 'radial-gradient(ellipse at 50% 45%, rgba(244, 63, 94, 0.35) 0%, rgba(225, 29, 72, 0.2) 55%, transparent 80%)',
+              opacity: hasStarted ? Math.max(0.2, 0.6 - progressRatio * 0.4) : 0.6
+            }}
+          />
+
+          {/* Soft Atmospheric Vignette (keeps image bright and clearly visible) */}
+          <div 
+            className="absolute inset-0 transition-all duration-1000 pointer-events-none"
+            style={{
+              background: hasStarted
+                ? `radial-gradient(ellipse at center, ${current.ambientLight} 0%, rgba(2, 6, 23, ${0.68 - progressRatio * 0.35}) 100%)`
+                : 'radial-gradient(ellipse at center, rgba(30, 8, 15, 0.15) 0%, rgba(15, 5, 10, 0.38) 60%, rgba(2, 6, 23, 0.62) 100%)'
             }}
           />
 
@@ -535,8 +553,8 @@ export const SplashOverlay: React.FC = () => {
             />
           )}
 
-          {/* Atmospheric Electric Cyan Energy Rim */}
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 sm:from-slate-950 via-transparent to-slate-950/65 sm:to-slate-950/80 pointer-events-none" />
+          {/* Atmospheric Perimeter Shading (Subtle top & bottom framing, keeping center bright) */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-slate-950/40 pointer-events-none" />
         </div>
 
         {/* Interactive Content Layer: Full height flex column with touch swipe & safe-area paddings */}
