@@ -614,7 +614,10 @@ export const SplashOverlay: React.FC = () => {
                 </h1>
                 
                 <p className="text-xs sm:text-base md:text-lg text-slate-300 max-w-xl mx-auto leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)] font-normal sm:font-medium px-2">
-                  A 30-second cinematic briefing with acoustic thunder, dramatic orchestral score, high-stakes medical reality, and the sovereign protocols to rewrite your biological destiny.
+                  &ldquo;The best time to start was yesterday. The second best time is today.&rdquo;
+                  <span className="block mt-1 sm:mt-1.5 text-slate-200 font-medium">
+                    Zero excuses. Zero delays. Make today Day One.
+                  </span>
                 </p>
               </div>
 
@@ -626,7 +629,7 @@ export const SplashOverlay: React.FC = () => {
                   className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 w-full xs:w-auto max-w-sm sm:max-w-none px-5 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-cyan-500 bg-[length:200%_auto] hover:bg-right transition-all duration-500 text-white font-black text-xs sm:text-base md:text-lg tracking-wider uppercase shadow-[0_0_40px_rgba(6,182,212,0.6)] hover:shadow-[0_0_60px_rgba(6,182,212,0.9)] transform hover:scale-105 active:scale-95 cursor-pointer text-center"
                 >
                   <span className="text-base sm:text-xl group-hover:animate-bounce">⚡</span>
-                  <span className="truncate">BEGIN EMERGENCY PROTOCOL</span>
+                  <span className="truncate">Make Today Day 1</span>
                   <span className="text-base sm:text-xl">➔</span>
                 </button>
 
