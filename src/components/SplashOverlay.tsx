@@ -48,7 +48,7 @@ const PAIN_POINTS = [
   },
   {
     number: "06",
-    headline: "Marginal Gains for Your Health Journey",
+    headline: "Small Consistent Gains for Your Health Journey",
     detail: "Transformation happens through consistency. Our curated apothecary and gear are selected to remove friction from your daily routines—making small health wins effortless.",
     badge: "🌿 LOW-FRICTION TOOLS",
     stormPhase: "Clear Dawn Light Breaking",
@@ -246,7 +246,7 @@ export const SplashOverlay: React.FC = () => {
           return prev;
         }
       });
-    }, 3000); // 3 seconds per slide = 18s total narrative sequence
+    }, 8000); // 8 seconds per slide as requested
 
     return () => clearInterval(interval);
   }, [isMounted, isDismissing, hasStarted, currentIndex, handleDismiss]);
