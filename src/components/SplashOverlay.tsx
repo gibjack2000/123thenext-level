@@ -504,7 +504,7 @@ export const SplashOverlay: React.FC = () => {
 
       {/* Main Overlay Fixed Screen Container: Pins 100% of viewport without collapsing */}
       <div
-        className={`fixed inset-0 z-50 bg-slate-950 w-full w-screen h-full h-screen min-h-[100vh] min-h-[100dvh] transition-all duration-1000 select-none overflow-hidden ${
+        className={`fixed inset-0 z-[100] bg-slate-950 w-full w-screen h-full h-screen min-h-[100vh] min-h-[100dvh] transition-all duration-1000 select-none overflow-hidden ${
           isDismissing 
             ? 'opacity-0 scale-110 blur-3xl pointer-events-none' 
             : 'opacity-100 scale-100'
@@ -693,11 +693,12 @@ export const SplashOverlay: React.FC = () => {
               123<span className={hasStarted && currentIndex === 0 ? 'text-rose-400' : 'text-cyan-400'}>THENEXTLEVEL</span>
             </span>
 
-            {/* First-Frame Store Header Pill (Visible from Second 1) */}
-            <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-slate-950/80 border border-slate-700/80 text-[10px] sm:text-[11px] text-slate-200 backdrop-blur-md shadow-lg ml-2">
-              <span className="text-cyan-400 font-bold">🌿 Sovereign Apothecary</span>
-              <span className="text-slate-500">•</span>
-              <span className="text-slate-300">Curated tools for small daily wins</span>
+            {/* First-Frame Store Header Pill (Prominent & Visible across all viewports) */}
+            <div className="flex items-center gap-1.5 sm:gap-2 px-2.5 py-1 sm:px-3.5 sm:py-1 rounded-full bg-slate-900/90 border border-emerald-400/50 text-emerald-300 text-[10px] sm:text-xs font-bold backdrop-blur-md shadow-[0_0_20px_rgba(16,185,129,0.35)] ml-1 sm:ml-2">
+              <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-emerald-400 animate-ping shrink-0" />
+              <span className="font-black tracking-wide whitespace-nowrap">🌿 Sovereign Apothecary</span>
+              <span className="hidden sm:inline text-slate-500">•</span>
+              <span className="hidden sm:inline text-slate-300 font-normal">Curated tools for small daily wins</span>
             </div>
           </div>
 
@@ -868,6 +869,18 @@ export const SplashOverlay: React.FC = () => {
                 <p className="text-xs sm:text-sm md:text-base lg:text-lg text-slate-200 max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)] font-normal sm:font-medium px-2">
                   {current.detail}
                 </p>
+
+                {/* Climax Apothecary Spotlight on Slide 06 */}
+                {currentIndex === PAIN_POINTS.length - 1 && (
+                  <div className="pt-1 sm:pt-2 flex flex-col items-center gap-2">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/50 shadow-[0_0_25px_rgba(16,185,129,0.35)] backdrop-blur-md animate-pulse">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping shrink-0" />
+                      <span className="text-xs sm:text-sm font-black text-emerald-300 tracking-wide uppercase">
+                        🌿 Sovereign Apothecary • Curated Longevity Gear Active
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Bottom Quote & Subtext */}
@@ -922,21 +935,30 @@ export const SplashOverlay: React.FC = () => {
           )}
         </div>
 
-        {/* Combined Persistent Non-Pushy Footer Bar */}
-        <div className="shrink-0 relative z-10 max-w-6xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-800/80 pt-3 pb-1 px-3 sm:px-4 rounded-xl bg-slate-950/70 backdrop-blur-md text-[10px] sm:text-[11px] text-center sm:text-left shadow-lg">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 text-slate-200 min-w-0">
-            <span className="text-cyan-400 font-bold shrink-0">🌿 Sovereign Apothecary & Gear:</span>
-            <span className="text-slate-300 truncate">Simple, friction-reducing tools to support your daily habits and stack small health wins.</span>
+        {/* Prominent High-Visibility Sovereign Apothecary & Gear Showcase Footer Bar */}
+        <div className="shrink-0 relative z-10 max-w-6xl mx-auto w-full my-1 sm:my-2 p-3 sm:p-4 rounded-2xl bg-gradient-to-r from-emerald-950/80 via-slate-900/90 to-teal-950/80 border border-emerald-400/50 shadow-[0_0_35px_rgba(16,185,129,0.25)] backdrop-blur-xl flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left transition-all">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 min-w-0">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/25 border border-emerald-400/60 shadow-[0_0_15px_rgba(16,185,129,0.35)] shrink-0">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping shrink-0" />
+              <span className="text-emerald-300 font-black text-xs sm:text-sm tracking-wider uppercase">
+                🌿 Sovereign Apothecary &amp; Gear
+              </span>
+            </div>
+            <p className="text-slate-100 font-medium text-xs sm:text-sm leading-relaxed drop-shadow">
+              Simple, friction-reducing tools to support your daily habits and stack small health wins.
+            </p>
           </div>
+
           <button
             type="button"
             onClick={(e) => {
               e.stopPropagation();
               handleDismiss();
             }}
-            className="text-cyan-400 hover:text-cyan-300 font-bold hover:underline shrink-0 cursor-pointer transition-colors"
+            className="group inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 text-slate-950 font-black text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(16,185,129,0.5)] hover:shadow-[0_0_35px_rgba(16,185,129,0.8)] transform hover:scale-105 active:scale-95 transition-all cursor-pointer shrink-0"
           >
-            Click to reveal portal ➔
+            <span>Explore Apothecary</span>
+            <span className="text-sm group-hover:translate-x-1 transition-transform">➔</span>
           </button>
         </div>
         </div>
