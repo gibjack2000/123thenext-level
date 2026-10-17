@@ -3,27 +3,54 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 const PAIN_POINTS = [
   {
     number: "01",
-    headline: "A Final Warning About Your Health: You Have the Power to Change It",
-    detail: "50% of incidental cardiovascular strain, lung nodules, and metabolic decline go completely undetected in reactive healthcare until emergency crisis. Your biological trajectory is not written in stone—daily cellular stimulus, targeted geroscience, and biomarker monitoring give you the sovereign power to halt degradation and rewrite your biological age today.",
-    badge: "🚨 FINAL HEALTHSPAN WARNING",
+    headline: "Silent Physiological Deterioration",
+    detail: "50% of incidental lung nodules and cardiac strain go completely undetected in reactive healthcare until emergency crisis. Proactive cellular maintenance and early diagnostics give you the sovereign power to halt degradation.",
+    badge: "⚠️ SILENT CRISIS",
     stormPhase: "Critical Biological Warning",
     ambientLight: "rgba(30, 8, 15, 0.35)",
     isEmergency: true
   },
   {
     number: "02",
-    headline: "Accelerated Decay & The Broken 'Sick-Care' Trap",
-    detail: "Traditional medicine waits for irreversible organ damage before offering treatment. After age 30, muscle mass and mitochondrial efficiency decline up to 8% per decade without targeted mechanical stimulus. Sarcopenia is the silent precursor to metabolic dysfunction and lost autonomy. Proactive cellular maintenance and early diagnostics extinguish the fire before it starts.",
-    badge: "📉 SICK-CARE VS CELLULAR POWER",
+    headline: "Accelerated Sarcopenia & Frailty",
+    detail: "After age 30, muscle mass and mitochondrial efficiency decline up to 8% per decade without targeted mechanical stimulus. Sarcopenia is the silent precursor to metabolic dysfunction and lost autonomy.",
+    badge: "📉 MUSCLE LOSS RADAR",
     stormPhase: "Heavy Thunder Rolls",
-    ambientLight: "rgba(20, 8, 15, 0.28)",
+    ambientLight: "rgba(25, 8, 15, 0.30)",
     isEmergency: false
   },
   {
     number: "03",
-    headline: "The Biological Age Choice: Your Future Starts Now",
-    detail: "90% of how quickly you age is dictated by daily cellular software signals—not static genetics. Your daily habits, nutrients, and environmental cues rewrite your DNA reader continuously. You can manage your cellular baseline and vital hardware today—or manage chronic illness and loss of independence tomorrow. The power to reverse your biological trajectory starts now.",
+    headline: "The Broken 'Sick-Care' Framework",
+    detail: "Traditional medicine waits for irreversible organ damage before offering treatment. Proactive care stops the fire before it starts with targeted cellular maintenance and biomarkers.",
+    badge: "💸 REACTIVE COST",
+    stormPhase: "Electromagnetic Tension",
+    ambientLight: "rgba(20, 8, 15, 0.28)",
+    isEmergency: false
+  },
+  {
+    number: "04",
+    headline: "Epigenetic Software Corruption",
+    detail: "90% of how quickly you age is dictated by daily cellular software signals—not static genetics. Your habits rewrite your DNA reader daily.",
+    badge: "🧬 EPIGENETIC REALITY",
+    stormPhase: "System Recalibration",
+    ambientLight: "rgba(15, 10, 20, 0.25)",
+    isEmergency: false
+  },
+  {
+    number: "05",
+    headline: "The Biological Age Choice",
+    detail: "You can manage your cellular baseline and vital hardware today—or manage chronic illness and loss of independence tomorrow. The power to reverse your biological trajectory starts now.",
     badge: "⏳ THE TIME WINDOW",
+    stormPhase: "Dawn Horizon Emerging",
+    ambientLight: "rgba(10, 15, 23, 0.20)",
+    isEmergency: false
+  },
+  {
+    number: "06",
+    headline: "Marginal Gains for Your Health Journey",
+    detail: "Transformation happens through consistency. Our curated apothecary and gear are selected to remove friction from your daily routines—making small health wins effortless.",
+    badge: "🌿 LOW-FRICTION TOOLS",
     stormPhase: "Clear Dawn Light Breaking",
     ambientLight: "rgba(2, 6, 23, 0.15)",
     isEmergency: false
@@ -219,7 +246,7 @@ export const SplashOverlay: React.FC = () => {
           return prev;
         }
       });
-    }, 10000); // 10 seconds per frame
+    }, 3000); // 3 seconds per slide = 18s total narrative sequence
 
     return () => clearInterval(interval);
   }, [isMounted, isDismissing, hasStarted, currentIndex, handleDismiss]);
@@ -665,6 +692,13 @@ export const SplashOverlay: React.FC = () => {
             <span className="text-[11px] sm:text-xs font-black tracking-wider sm:tracking-widest text-slate-200 uppercase drop-shadow truncate">
               123<span className={hasStarted && currentIndex === 0 ? 'text-rose-400' : 'text-cyan-400'}>THENEXTLEVEL</span>
             </span>
+
+            {/* First-Frame Store Header Pill (Visible from Second 1) */}
+            <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-slate-950/80 border border-slate-700/80 text-[10px] sm:text-[11px] text-slate-200 backdrop-blur-md shadow-lg ml-2">
+              <span className="text-cyan-400 font-bold">🌿 Sovereign Apothecary</span>
+              <span className="text-slate-500">•</span>
+              <span className="text-slate-300">Curated tools for small daily wins</span>
+            </div>
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
@@ -798,11 +832,13 @@ export const SplashOverlay: React.FC = () => {
               <div className={`inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest backdrop-blur-md transition-all ${
                 currentIndex === 0
                   ? 'bg-rose-500/20 border border-rose-500/50 text-rose-300 shadow-[0_0_30px_rgba(244,63,94,0.35)] animate-pulse'
-                  : 'bg-amber-500/15 border border-amber-500/35 text-amber-400 shadow-[0_0_25px_rgba(245,158,11,0.25)]'
+                  : currentIndex === PAIN_POINTS.length - 1
+                    ? 'bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 shadow-[0_0_30px_rgba(16,185,129,0.35)]'
+                    : 'bg-amber-500/15 border border-amber-500/35 text-amber-400 shadow-[0_0_25px_rgba(245,158,11,0.25)]'
               }`}>
                 <span className="truncate">{current.badge}</span>
                 <span className="text-slate-500">|</span>
-                <span className="text-slate-300">{current.number} / 03</span>
+                <span className="text-slate-300">{current.number} / {String(PAIN_POINTS.length).padStart(2, '0')}</span>
               </div>
 
               {/* Biometric EKG Heartbeat Pulse Waveform (Featured on Frame 01) */}
@@ -836,11 +872,13 @@ export const SplashOverlay: React.FC = () => {
 
               {/* Bottom Quote & Subtext */}
               <p className={`text-[10px] sm:text-xs font-bold drop-shadow uppercase tracking-wider sm:tracking-widest px-2 ${
-                currentIndex === 0 ? 'text-rose-400' : 'text-cyan-300'
+                currentIndex === 0 ? 'text-rose-400' : currentIndex === PAIN_POINTS.length - 1 ? 'text-emerald-300' : 'text-cyan-300'
               }`}>
                 {currentIndex === 0 
                   ? '⚡ You are not helpless. Reclaim command of your biology today.'
-                  : 'Biological aging increases silently every day. Proactive health starts now.'}
+                  : currentIndex === PAIN_POINTS.length - 1
+                    ? '🌿 Small daily wins compound into sovereign healthspan longevity.'
+                    : 'Biological aging increases silently every day. Proactive health starts now.'}
               </p>
 
               {/* Step Navigation Controls for Mobile & Desktop */}
@@ -884,19 +922,21 @@ export const SplashOverlay: React.FC = () => {
           )}
         </div>
 
-        {/* Footer & Secondary Skip Link */}
-        <div className="shrink-0 relative z-10 max-w-6xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-1.5 sm:gap-4 border-t border-slate-700/60 pt-2.5 sm:pt-4 text-slate-400 text-[10px] sm:text-[11px] backdrop-blur-sm text-center">
-          <span className="truncate">🔒 Sovereign Geroscience Diagnostics & Protocol Portal</span>
+        {/* Combined Persistent Non-Pushy Footer Bar */}
+        <div className="shrink-0 relative z-10 max-w-6xl mx-auto w-full flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-slate-800/80 pt-3 pb-1 px-3 sm:px-4 rounded-xl bg-slate-950/70 backdrop-blur-md text-[10px] sm:text-[11px] text-center sm:text-left shadow-lg">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-2 text-slate-200 min-w-0">
+            <span className="text-cyan-400 font-bold shrink-0">🌿 Sovereign Apothecary & Gear:</span>
+            <span className="text-slate-300 truncate">Simple, friction-reducing tools to support your daily habits and stack small health wins.</span>
+          </div>
           <button
             type="button"
             onClick={(e) => {
               e.stopPropagation();
               handleDismiss();
             }}
-            className="text-cyan-400 hover:text-cyan-300 font-bold hover:underline cursor-pointer transition-colors"
+            className="text-cyan-400 hover:text-cyan-300 font-bold hover:underline shrink-0 cursor-pointer transition-colors"
           >
-            <span className="sm:hidden">Clear storm & enter site ➔</span>
-            <span className="hidden sm:inline">Click to clear storm & enter 123TheNextLevel immediately ➔</span>
+            Click to reveal portal ➔
           </button>
         </div>
         </div>
