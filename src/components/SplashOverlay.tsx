@@ -957,7 +957,7 @@ export const SplashOverlay: React.FC = () => {
             }}
             className="group inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 hover:from-emerald-300 hover:to-cyan-300 text-slate-950 font-black text-xs sm:text-sm tracking-wider uppercase shadow-[0_0_25px_rgba(16,185,129,0.5)] hover:shadow-[0_0_35px_rgba(16,185,129,0.8)] transform hover:scale-105 active:scale-95 transition-all cursor-pointer shrink-0"
           >
-            <span>Explore Apothecary</span>
+            <span>Shop Quick Wins</span>
             <span className="text-sm group-hover:translate-x-1 transition-transform">➔</span>
           </button>
         </div>
