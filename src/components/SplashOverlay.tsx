@@ -500,6 +500,84 @@ export const SplashOverlay: React.FC = () => {
         .animate-urgent-badge {
           animation: urgentBadgeBorder 2.4s ease-in-out infinite, cardiacPulse 2.4s ease-in-out infinite;
         }
+
+        /* Procedural Volumetric Smoky Cloud Keyframes */
+        @keyframes smokeRollFloor {
+          0% {
+            transform: translate3d(-3%, 2%, 0) scale(1.0);
+          }
+          50% {
+            transform: translate3d(3%, -2%, 0) scale(1.08);
+          }
+          100% {
+            transform: translate3d(-3%, 2%, 0) scale(1.0);
+          }
+        }
+
+        @keyframes smokeBillowLeft {
+          0% {
+            transform: translate3d(0, 0, 0) rotate(0deg) scale(1.0);
+          }
+          33% {
+            transform: translate3d(3%, -2%, 0) rotate(2deg) scale(1.07);
+          }
+          66% {
+            transform: translate3d(-2%, 2%, 0) rotate(-1.5deg) scale(0.96);
+          }
+          100% {
+            transform: translate3d(0, 0, 0) rotate(0deg) scale(1.0);
+          }
+        }
+
+        @keyframes smokeBillowRight {
+          0% {
+            transform: translate3d(0, 0, 0) rotate(0deg) scale(1.0);
+          }
+          33% {
+            transform: translate3d(-3%, 2%, 0) rotate(-2deg) scale(1.06);
+          }
+          66% {
+            transform: translate3d(2%, -3%, 0) rotate(1.5deg) scale(0.97);
+          }
+          100% {
+            transform: translate3d(0, 0, 0) rotate(0deg) scale(1.0);
+          }
+        }
+
+        @keyframes mistRisingStreamer {
+          0% {
+            transform: translate3d(-2%, 6%, 0) scale(0.95);
+            opacity: 0.15;
+          }
+          50% {
+            transform: translate3d(2%, -4%, 0) scale(1.1);
+            opacity: 0.45;
+          }
+          100% {
+            transform: translate3d(-2%, 6%, 0) scale(0.95);
+            opacity: 0.15;
+          }
+        }
+
+        .animate-smoke-floor {
+          animation: smokeRollFloor 22s ease-in-out infinite;
+          will-change: transform;
+        }
+
+        .animate-smoke-left {
+          animation: smokeBillowLeft 28s ease-in-out infinite;
+          will-change: transform;
+        }
+
+        .animate-smoke-right {
+          animation: smokeBillowRight 32s ease-in-out infinite;
+          will-change: transform;
+        }
+
+        .animate-mist-rising {
+          animation: mistRisingStreamer 18s ease-in-out infinite;
+          will-change: transform, opacity;
+        }
       `}</style>
 
       {/* Main Overlay Fixed Screen Container: Pins 100% of viewport without collapsing */}
@@ -535,6 +613,102 @@ export const SplashOverlay: React.FC = () => {
               }}
             />
           </picture>
+
+          {/* SVG Definitions for Procedural Atmospheric Cloud Turbulence & Warp */}
+          <svg className="absolute w-0 h-0 overflow-hidden pointer-events-none" aria-hidden="true">
+            <defs>
+              <filter id="cloudDisplacementFilter" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.012 0.016" numOctaves="3" seed="9" result="noise">
+                  <animate attributeName="baseFrequency" dur="24s" values="0.012 0.016; 0.018 0.022; 0.010 0.014; 0.012 0.016" repeatCount="indefinite" />
+                </feTurbulence>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="32" xChannelSelector="R" yChannelSelector="G" />
+              </filter>
+              <filter id="flankTurbulenceFilter" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="3" seed="15" result="noiseFlank">
+                  <animate attributeName="baseFrequency" dur="30s" values="0.009 0.013; 0.015 0.019; 0.008 0.011; 0.009 0.013" repeatCount="indefinite" />
+                </feTurbulence>
+                <feDisplacementMap in="SourceGraphic" in2="noiseFlank" scale="28" xChannelSelector="R" yChannelSelector="G" />
+              </filter>
+            </defs>
+          </svg>
+
+          {/* Animated Atmospheric Smoky Clouds & Mist Layers */}
+          <div className="absolute inset-0 pointer-events-none overflow-hidden">
+            {/* 1. Rolling Floor Cumulus Smoke & Electric Base Vapor */}
+            <div 
+              className={`absolute -bottom-[10%] -left-[15%] w-[130%] h-[55%] animate-smoke-floor transform-gpu transition-all duration-300 pointer-events-none ${
+                lightningFlashLevel > 0 ? 'brightness-175 opacity-90' : 'opacity-70'
+              }`}
+              style={{
+                filter: 'url(#cloudDisplacementFilter) blur(18px)',
+                background: `
+                  radial-gradient(ellipse at 50% 85%, rgba(6, 182, 212, 0.42) 0%, rgba(14, 165, 233, 0.18) 40%, transparent 72%),
+                  radial-gradient(circle at 30% 70%, rgba(251, 191, 36, 0.35) 0%, rgba(245, 158, 11, 0.12) 48%, transparent 70%),
+                  radial-gradient(circle at 72% 75%, rgba(56, 189, 248, 0.32) 0%, rgba(2, 6, 23, 0.6) 55%, transparent 78%),
+                  radial-gradient(ellipse at 50% 95%, rgba(2, 6, 23, 0.85) 0%, rgba(15, 23, 42, 0.5) 50%, transparent 80%)
+                `,
+                mixBlendMode: 'screen'
+              }}
+            />
+
+            {/* 2. Deep Floor Cloud Shadows (Creates thick volumetric darkness rolling between glowing crests) */}
+            <div 
+              className="absolute -bottom-[5%] -left-[10%] w-[120%] h-[45%] animate-smoke-floor transform-gpu pointer-events-none opacity-50"
+              style={{
+                filter: 'url(#cloudDisplacementFilter) blur(22px)',
+                background: `
+                  radial-gradient(ellipse at 40% 80%, rgba(2, 6, 23, 0.95) 0%, rgba(15, 23, 42, 0.55) 45%, transparent 75%),
+                  radial-gradient(ellipse at 65% 85%, rgba(10, 15, 30, 0.9) 0%, transparent 70%)
+                `,
+                mixBlendMode: 'multiply'
+              }}
+            />
+
+            {/* 3. Left Flank Billowing Storm Clouds (Gold Backlit & Thunder Deepening) */}
+            <div 
+              className={`absolute top-[18%] -left-[18%] w-[58%] h-[75%] animate-smoke-left transform-gpu transition-all duration-300 pointer-events-none ${
+                lightningFlashLevel > 0 ? 'brightness-160 opacity-85' : 'opacity-65'
+              }`}
+              style={{
+                filter: 'url(#flankTurbulenceFilter) blur(16px)',
+                background: `
+                  radial-gradient(ellipse at 35% 55%, rgba(251, 191, 36, 0.32) 0%, rgba(245, 158, 11, 0.15) 38%, transparent 72%),
+                  radial-gradient(ellipse at 20% 40%, rgba(6, 182, 212, 0.28) 0%, rgba(3, 105, 161, 0.1) 45%, transparent 68%),
+                  radial-gradient(circle at 45% 70%, rgba(254, 240, 138, 0.22) 0%, transparent 60%)
+                `,
+                mixBlendMode: 'screen'
+              }}
+            />
+
+            {/* 4. Right Flank Billowing Storm Clouds (Neon Cyan & Golden Lightning Fringe) */}
+            <div 
+              className={`absolute top-[18%] -right-[18%] w-[58%] h-[75%] animate-smoke-right transform-gpu transition-all duration-300 pointer-events-none ${
+                lightningFlashLevel > 0 ? 'brightness-160 opacity-85' : 'opacity-65'
+              }`}
+              style={{
+                filter: 'url(#flankTurbulenceFilter) blur(16px)',
+                background: `
+                  radial-gradient(ellipse at 65% 55%, rgba(251, 191, 36, 0.30) 0%, rgba(245, 158, 11, 0.14) 40%, transparent 72%),
+                  radial-gradient(ellipse at 80% 42%, rgba(56, 189, 248, 0.32) 0%, rgba(14, 165, 233, 0.12) 46%, transparent 70%),
+                  radial-gradient(circle at 55% 68%, rgba(6, 182, 212, 0.24) 0%, transparent 62%)
+                `,
+                mixBlendMode: 'screen'
+              }}
+            />
+
+            {/* 5. Rising Atmospheric Core Mist / Vapor Streamers (Rising gently up the body) */}
+            <div 
+              className="absolute bottom-[20%] left-[25%] w-[50%] h-[55%] animate-mist-rising transform-gpu pointer-events-none"
+              style={{
+                filter: 'blur(24px)',
+                background: `
+                  radial-gradient(ellipse at 50% 60%, rgba(165, 243, 252, 0.22) 0%, rgba(56, 189, 248, 0.10) 45%, transparent 75%),
+                  radial-gradient(ellipse at 50% 40%, rgba(254, 240, 138, 0.14) 0%, transparent 65%)
+                `,
+                mixBlendMode: 'color-dodge'
+              }}
+            />
+          </div>
 
           {/* Cinematic Red / Crimson Hue Layers: Imbues the image with vivid red vitality without darkening */}
           <div 
