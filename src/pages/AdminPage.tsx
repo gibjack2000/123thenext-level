@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { supabase, hasValidSupabaseConfig, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 import { affiliateLinks } from '../config/affiliateLinks';
 import { Save, AlertCircle, CheckCircle2, Sparkles, Database, Copy, ExternalLink, ChevronDown, ChevronUp, Shield, Cpu, Trash2, RefreshCw, Search, Tag, MapPin, Star, BookOpen, FileText, Pencil, Eye } from 'lucide-react';
@@ -996,12 +997,26 @@ create table if not exists premium_guides (
               <p className="text-xs text-slate-500 font-medium">V1.2 Production Control Center</p>
             </div>
           </div>
-          <button 
-            onClick={handleLogout}
-            className="px-4 py-2 text-slate-500 hover:text-red-600 font-bold uppercase tracking-widest text-[10px] transition-colors"
-          >
-            Terminal Logout
-          </button>
+          <div className="flex items-center gap-3">
+            <Link
+              to="/admin/affiliates"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-cyan-50 border border-cyan-300 text-cyan-800 hover:bg-cyan-600 hover:text-white font-black uppercase tracking-widest text-[10px] transition-all shadow-sm"
+            >
+              <span>🛡️ Affiliates</span>
+            </Link>
+            <Link
+              to="/admin/blogs"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 border border-slate-300 text-slate-700 hover:bg-slate-900 hover:text-white font-black uppercase tracking-widest text-[10px] transition-all"
+            >
+              <span>📝 Blog Studio</span>
+            </Link>
+            <button 
+              onClick={handleLogout}
+              className="px-4 py-2 text-slate-500 hover:text-red-600 font-bold uppercase tracking-widest text-[10px] transition-colors"
+            >
+              Terminal Logout
+            </button>
+          </div>
         </div>
       </header>
 
@@ -1031,6 +1046,14 @@ create table if not exists premium_guides (
         )}
 
         <div className="flex flex-wrap gap-3 mb-10">
+          <Link
+            to="/admin/affiliates"
+            className="px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all flex items-center gap-3 bg-cyan-500/10 text-cyan-800 border-2 border-cyan-500/40 hover:bg-cyan-500 hover:text-slate-950 shadow-md hover:-translate-y-0.5"
+          >
+            <Shield size={16} className="text-cyan-600" />
+            <span>🛡️ Affiliates</span>
+            <span className="text-[9px] bg-cyan-500 text-slate-950 px-1.5 py-0.5 rounded-full font-black">Live</span>
+          </Link>
           {[
             { id: 'products', label: 'Clinical Arsenal', icon: Database },
             { id: 'blog', label: 'Editorial Center', icon: BookOpen },

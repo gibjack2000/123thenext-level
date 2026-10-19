@@ -523,6 +523,12 @@ export default function BlogAdminPage() {
 
           <div className="flex items-center gap-3">
             <Link
+              to="/admin/affiliates"
+              className="px-3.5 py-2 rounded-xl bg-cyan-950/40 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500 hover:text-slate-950 text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-1.5"
+            >
+              <span>🛡️ Affiliates</span>
+            </Link>
+            <Link
               to="/updates"
               target="_blank"
               className="px-3.5 py-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white text-xs font-bold uppercase tracking-wider transition-colors flex items-center gap-1.5"

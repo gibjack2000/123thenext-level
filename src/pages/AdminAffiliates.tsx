@@ -17,6 +17,7 @@ import {
   Download
 } from 'lucide-react';
 import { supabase as importedSupabase, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
+import { AdminLayout } from '../components/AdminLayout';
 
 // Reliable Supabase client with environment and configured fallbacks
 const supabase = importedSupabase || createClient(
@@ -326,14 +327,15 @@ export const AdminAffiliates: React.FC = () => {
   const esCount = products.filter((p) => p.market_region === 'ES').length;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 p-4 sm:p-6 md:p-10 font-sans">
-      {/* Toast Notification */}
-      {toastMessage && (
-        <div className="fixed top-6 right-6 z-50 bg-slate-900 border border-cyan-500/60 text-cyan-300 px-5 py-3.5 rounded-xl shadow-2xl backdrop-blur-md flex items-center gap-3 animate-in fade-in slide-in-from-top-4 duration-300">
-          <ShieldCheck className="w-5 h-5 text-cyan-400 shrink-0" />
-          <span className="text-xs font-semibold">{toastMessage}</span>
-        </div>
-      )}
+    <AdminLayout>
+      <div className="min-h-screen bg-slate-950 text-slate-100 p-4 sm:p-6 md:p-10 font-sans">
+        {/* Toast Notification */}
+        {toastMessage && (
+          <div className="fixed top-6 right-6 z-50 bg-slate-900 border border-cyan-500/60 text-cyan-300 px-5 py-3.5 rounded-xl shadow-2xl backdrop-blur-md flex items-center gap-3 animate-in fade-in slide-in-from-top-4 duration-300">
+            <ShieldCheck className="w-5 h-5 text-cyan-400 shrink-0" />
+            <span className="text-xs font-semibold">{toastMessage}</span>
+          </div>
+        )}
 
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header Section */}
@@ -934,7 +936,8 @@ export const AdminAffiliates: React.FC = () => {
           </div>
         </div>
       )}
-    </div>
+      </div>
+    </AdminLayout>
   );
 };
 
