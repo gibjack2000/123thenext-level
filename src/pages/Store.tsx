@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { supabase } from '../lib/supabaseClient';
+import { createClient } from '@supabase/supabase-js';
+import { supabase as importedSupabase, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 import { useMarket, Market } from '../contexts/MarketContext';
+
+const supabase = importedSupabase || createClient(
+  import.meta.env.VITE_SUPABASE_URL || supabaseUrl || 'https://seoaictzhmqdwnkfymxt.supabase.co',
+  import.meta.env.VITE_SUPABASE_ANON_KEY || supabaseAnonKey || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlb2FpY3R6aG1xZHdua2Z5bXh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwNjI4ODIsImV4cCI6MjA4OTYzODg4Mn0.CTDyJuHKfujUudqcVHyJYJV6K0lMkA5vajiGTVXRzxI'
+);
 import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
 import { 
   Dumbbell, 
@@ -2327,14 +2333,14 @@ export function Store({ region }: StoreProps = {}) {
 
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [products, setProducts] = useState<any[]>(() => {
-    return storeCatalogCache[activeTab] || REGIONAL_MASTER_CATALOGS[activeTab] || [];
+    return storeCatalogCache[activeTab] || [];
   });
   const [categories, setCategories] = useState<string[]>(() => {
-    const initialList = storeCatalogCache[activeTab] || REGIONAL_MASTER_CATALOGS[activeTab] || [];
+    const initialList = storeCatalogCache[activeTab] || [];
     const unique = Array.from(new Set(initialList.map((p: any) => p.category).filter(Boolean)));
     return ['All', ...unique];
   });
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(() => !storeCatalogCache[activeTab] || storeCatalogCache[activeTab]?.length === 0);
 
   // Explicit handler when user clicks one of the country market tabs inside Store
   const handleTabChange = (tab: MarketTab) => {
@@ -2347,27 +2353,34 @@ export function Store({ region }: StoreProps = {}) {
   useEffect(() => {
     let isCancelled = false;
 
-    // Immediately display cached or fallback products so the view is always solid
-    const currentList = storeCatalogCache[activeTab] || REGIONAL_MASTER_CATALOGS[activeTab] || [];
-    setProducts(currentList);
-    const uniqueCats = Array.from(new Set(currentList.map((p: any) => p.category).filter(Boolean)));
-    setCategories(['All', ...uniqueCats]);
+    // If cached products exist, display them immediately to eliminate transition flash
+    const cachedList = storeCatalogCache[activeTab];
+    if (cachedList && cachedList.length > 0) {
+      setProducts(cachedList);
+      const uniqueCats = Array.from(new Set(cachedList.map((p: any) => p.category).filter(Boolean)));
+      setCategories(['All', ...uniqueCats]);
+      setLoading(false);
+    } else {
+      setProducts([]);
+      setLoading(true);
+    }
 
     async function fetchDynamicStore() {
-      if (!storeCatalogCache[activeTab]) {
-        setLoading(true);
-      }
       try {
         const { data, error } = await supabase
-          .from('amazon_affiliate_products')
+          .from('products')
           .select('*')
-          .eq('market', activeTab)
+          .eq('market_region', activeTab)
           .order('rating', { ascending: false });
 
         if (isCancelled) return;
 
-        if (error || !data || data.length === 0) {
-          throw error || new Error(`Database is empty for ${activeTab}`);
+        if (error) {
+          throw error;
+        }
+
+        if (!data || data.length === 0) {
+          throw new Error(`Database returned no products for region ${activeTab}`);
         }
 
         const healedData = data.map((p: any) => {
@@ -2383,8 +2396,8 @@ export function Store({ region }: StoreProps = {}) {
             healedDeal = healedDeal.replace('https://123thenextlevel.com', '');
           }
 
-          const currencySymbol = p.currency === 'GBP' ? '£' : p.currency === 'EUR' ? '€' : '$';
-          const priceFormatted = p.price_text || (p.price != null ? (p.currency === 'EUR' ? `${Number(p.price).toFixed(2).replace('.', ',')}€` : `${currencySymbol}${Number(p.price).toFixed(2)}`) : '');
+          const currencySymbol = activeTab === 'UK' ? '£' : activeTab === 'ES' ? '€' : '$';
+          const priceFormatted = p.price_text || (p.price != null ? `${currencySymbol}${Number(p.price).toFixed(2)}` : '');
 
           const categoryRaw = p.category || '';
           let catFormatted = categoryRaw;
@@ -2393,7 +2406,9 @@ export function Store({ region }: StoreProps = {}) {
           else if (categoryRaw === 'fitness_gear') catFormatted = 'Fitness Gear';
           else if (categoryRaw === 'performance_testing') catFormatted = 'Performance & Testing';
           else if (categoryRaw === 'supplements') catFormatted = 'Supplements';
-          else if (categoryRaw) catFormatted = categoryRaw.split('_').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+          else if (categoryRaw && categoryRaw.includes('_')) {
+            catFormatted = categoryRaw.split('_').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+          }
 
           return {
             ...p,
@@ -2401,7 +2416,7 @@ export function Store({ region }: StoreProps = {}) {
             deal_url: healedDeal,
             image_url: healedImg,
             price_text: priceFormatted,
-            category: catFormatted,
+            category: catFormatted || 'Tech Gadgets & Wearables',
             badge_text: p.badge_text || (activeTab === 'ES' ? 'Certificado UE' : activeTab === 'UK' ? 'UK Verified' : 'US Verified'),
             network: p.network || (healedDeal.includes('amazon') ? 'Amazon Associates' : 'Clinical Partner')
           };
@@ -2432,8 +2447,21 @@ export function Store({ region }: StoreProps = {}) {
 
     fetchDynamicStore();
 
+    // Enable real-time updates when records change in /admin/affiliates
+    const channel = supabase
+      .channel(`storefront-products-live-${activeTab}`)
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'products', filter: `market_region=eq.${activeTab}` },
+        () => {
+          fetchDynamicStore();
+        }
+      )
+      .subscribe();
+
     return () => {
       isCancelled = true;
+      supabase.removeChannel(channel);
     };
   }, [activeTab]);
 
@@ -2553,9 +2581,48 @@ export function Store({ region }: StoreProps = {}) {
       </div>
 
       {loading && products.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-24 space-y-3">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-cyan-500 border-t-transparent"></div>
-          <span className="text-xs text-slate-500 font-medium tracking-widest uppercase">Syncing Live {activeTab} Catalog...</span>
+        <div className="max-w-7xl mx-auto space-y-12 animate-pulse">
+          <div className="flex flex-col items-center justify-center py-6 space-y-2">
+            <div className="h-6 w-6 animate-spin rounded-full border-2 border-cyan-500 border-t-transparent" />
+            <span className="text-xs text-cyan-400 font-mono tracking-widest uppercase">
+              Fetching Live {activeTab} Supabase Catalog...
+            </span>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[...Array(6)].map((_, i) => (
+              <div
+                key={i}
+                className="rounded-2xl bg-slate-900/60 border border-slate-800/80 p-6 flex flex-col justify-between shadow-xl"
+              >
+                <div>
+                  <div className="relative w-full aspect-square rounded-2xl bg-slate-800/50 mb-4 animate-pulse flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-xl bg-slate-700/40" />
+                  </div>
+                  <div className="flex justify-between items-center mb-4">
+                    <div className="h-4 bg-slate-800 rounded w-28" />
+                    <div className="h-4 bg-slate-800 rounded w-12" />
+                  </div>
+                  <div className="h-5 bg-slate-800 rounded w-4/5 mb-2" />
+                  <div className="h-5 bg-slate-800/60 rounded w-2/3 mb-4" />
+                  <div className="space-y-2">
+                    <div className="h-3 bg-slate-800/40 rounded w-full" />
+                    <div className="h-3 bg-slate-800/40 rounded w-5/6" />
+                  </div>
+                </div>
+                <div className="mt-6 pt-4 border-t border-slate-900 space-y-3">
+                  <div className="flex justify-between items-center">
+                    <div className="h-3 bg-slate-800 rounded w-20" />
+                    <div className="h-4 bg-slate-800 rounded w-16" />
+                  </div>
+                  <div className="flex justify-between items-center bg-slate-900/40 p-3 rounded-xl border border-slate-850">
+                    <div className="h-6 bg-slate-800 rounded w-16" />
+                    <div className="h-8 bg-slate-800 rounded-lg w-28" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       ) : (
         <div className="max-w-7xl mx-auto space-y-16">

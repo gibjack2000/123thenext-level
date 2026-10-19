@@ -104,6 +104,9 @@ const QuizResults = lazy(() => import('./pages/QuizResults'));
 const AgeReversalShowcase = lazy(() => import('./pages/AgeReversalShowcase'));
 const HardwareStorePage = lazy(() => import('./pages/HardwareStorePage'));
 const Store = lazy(() => import('./pages/Store'));
+const StoreUS = lazy(() => import('./pages/StoreUS'));
+const StoreUK = lazy(() => import('./pages/StoreUK'));
+const StoreES = lazy(() => import('./pages/StoreES'));
 const DiagnosticGuide = lazy(() => import('./pages/DiagnosticGuide'));
 const Science = lazy(() => import('./pages/Science'));
 const Library = lazy(() => import('./pages/Library'));
@@ -231,13 +234,13 @@ function App() {
                 <Route path="/guides" element={<Navigate to="/premium-guides" replace />} />
 
                 {/* Sovereign Store Regional Routes */}
-                <Route path="/store-us" element={<Store region="us" />} />
-                <Route path="/us-store" element={<Store region="us" />} />
-                <Route path="/store-uk" element={<Store region="uk" />} />
-                <Route path="/uk-store" element={<Store region="uk" />} />
-                <Route path="/store-es" element={<Store region="es" />} />
-                <Route path="/es-store" element={<Store region="es" />} />
-                <Route path="/spain-store" element={<Store region="es" />} />
+                <Route path="/store-us" element={<StoreUS />} />
+                <Route path="/us-store" element={<StoreUS />} />
+                <Route path="/store-uk" element={<StoreUK />} />
+                <Route path="/uk-store" element={<StoreUK />} />
+                <Route path="/store-es" element={<StoreES />} />
+                <Route path="/es-store" element={<StoreES />} />
+                <Route path="/spain-store" element={<StoreES />} />
                 <Route path="/blog-post-autonomic-engineering" element={<Navigate to="/wellness" replace />} />
                 <Route path="/blog-post-metabolic-nutrition" element={<Navigate to="/nutrition" replace />} />
                 <Route path="/blog-post-womens-health" element={<Navigate to="/womens-health" replace />} />

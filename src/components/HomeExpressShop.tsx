@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { createClient } from '@supabase/supabase-js';
+import { supabase as importedSupabase, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 import { useMarket, Market } from '../contexts/MarketContext';
+
+const supabase = importedSupabase || createClient(
+  import.meta.env.VITE_SUPABASE_URL || supabaseUrl || 'https://seoaictzhmqdwnkfymxt.supabase.co',
+  import.meta.env.VITE_SUPABASE_ANON_KEY || supabaseAnonKey || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNlb2FpY3R6aG1xZHdua2Z5bXh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwNjI4ODIsImV4cCI6MjA4OTYzODg4Mn0.CTDyJuHKfujUudqcVHyJYJV6K0lMkA5vajiGTVXRzxI'
+);
 import { 
   Sparkles, 
   ExternalLink, 
@@ -1038,6 +1045,55 @@ export default function HomeExpressShop() {
   // Authoritative region derived directly from global market
   const selectedRegion: RegionKey = (['US', 'UK', 'ES'].includes(market) ? market : 'US') as RegionKey;
 
+  // Live overrides from Supabase products table
+  const [liveOverrides, setLiveOverrides] = useState<Record<string, { price?: string; url?: string; badge?: string; name?: string }>>({});
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    async function fetchLiveOverrides() {
+      try {
+        const { data, error } = await supabase
+          .from('products')
+          .select('id, name, price_text, deal_url, badge_text')
+          .eq('market_region', selectedRegion);
+
+        if (error || isCancelled || !data) return;
+
+        const map: Record<string, { price?: string; url?: string; badge?: string; name?: string }> = {};
+        for (const item of data) {
+          map[item.id] = {
+            price: item.price_text,
+            url: item.deal_url,
+            badge: item.badge_text,
+            name: item.name
+          };
+        }
+        setLiveOverrides(map);
+      } catch (err) {
+        console.warn('Live Express Shop sync warning:', err);
+      }
+    }
+
+    fetchLiveOverrides();
+
+    const channel = supabase
+      .channel(`express-shop-sync-${selectedRegion}`)
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'products', filter: `market_region=eq.${selectedRegion}` },
+        () => {
+          fetchLiveOverrides();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      isCancelled = true;
+      supabase.removeChannel(channel);
+    };
+  }, [selectedRegion]);
+
   // Filter products by active tab and search query
   const filteredProducts = EXPRESS_PRODUCTS.filter(product => {
     const matchesTab = product.category === activeTab;
@@ -1242,6 +1298,11 @@ export default function HomeExpressShop() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredProducts.map((product) => {
             const regionalData = product.regions[selectedRegion];
+            const override = liveOverrides[product.id];
+            const displayPrice = override?.price || regionalData.price;
+            const displayUrl = override?.url || regionalData.url;
+            const displayBadge = override?.badge || regionalData.badge;
+            const displayName = override?.name || product.name;
 
             return (
               <div
@@ -1253,7 +1314,7 @@ export default function HomeExpressShop() {
                   <div className="relative aspect-square w-full bg-slate-950 p-4 flex items-center justify-center overflow-hidden border-b border-slate-800/80">
                     <img
                       src={product.imageUrl}
-                      alt={product.name}
+                      alt={displayName}
                       onError={(e) => {
                         const target = e.currentTarget;
                         target.onerror = null;
@@ -1287,13 +1348,13 @@ export default function HomeExpressShop() {
                         <span className="text-slate-500 font-normal">({product.reviewsCount})</span>
                       </div>
                       <span className="text-[10px] font-bold text-slate-400 bg-slate-800/60 px-2 py-0.5 rounded border border-slate-700/50">
-                        {regionalData.badge}
+                        {displayBadge}
                       </span>
                     </div>
 
                     {/* Product Name */}
                     <h4 className="text-sm font-bold text-white line-clamp-2 leading-snug group-hover:text-cyan-400 transition-colors">
-                      {product.name}
+                      {displayName}
                     </h4>
 
                     {/* Short Clinical Benefit */}
@@ -1308,12 +1369,12 @@ export default function HomeExpressShop() {
                   <div className="flex items-baseline justify-between pt-3 border-t border-slate-800/80">
                     <span className="text-[10px] uppercase font-bold text-slate-500">Live Market Price:</span>
                     <span className="text-lg font-black text-white tracking-tight">
-                      {regionalData.price}
+                      {displayPrice}
                     </span>
                   </div>
 
                   <a
-                    href={regionalData.url}
+                    href={displayUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider bg-cyan-500 hover:bg-cyan-400 text-slate-950 transition-all duration-200 flex items-center justify-center gap-1.5 shadow-md shadow-cyan-500/10 hover:scale-[1.01] cursor-pointer"
