@@ -13,6 +13,7 @@ import Navbar from './components/Navbar';
 import { SplashOverlay } from './components/SplashOverlay';
 import SlideInNewsletter from './components/newsletter/SlideInNewsletter';
 import FloatingShopFAB from './components/FloatingShopFAB';
+import { AdminAffiliates } from './pages/AdminAffiliates';
 
 // Transparent redirect from generic /store to active regional storefront (/store-us, /store-uk, /store-es)
 const StoreRedirect: React.FC = () => {
@@ -196,6 +197,7 @@ function App() {
                 <Route path="/social-fitness/festivals" element={<FestivalizationWave />} />
                 <Route path="/social-fitness/recovery" element={<SocialRecovery />} />
                 <Route path="/admin" element={<AdminPage />} />
+                <Route path="/admin/affiliates" element={<AdminAffiliates />} />
                 <Route path="/admin/blogs" element={<BlogAdminPage />} />
                 <Route path="/superadmin" element={<SuperAdminPage />} />
                 <Route path="/automation-admin" element={<BlogAutomationAdmin />} />
