@@ -13,7 +13,8 @@ import {
   AlertCircle, 
   Save,
   ShieldCheck,
-  Tag
+  Tag,
+  Download
 } from 'lucide-react';
 import { supabase as importedSupabase, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 
@@ -239,6 +240,64 @@ export const AdminAffiliates: React.FC = () => {
     }
   };
 
+  // Fail-safe 1-Click CSV Backup & Exporter
+  const handleExportCSV = () => {
+    const targetProducts = selectedRegion === 'ALL'
+      ? products
+      : products.filter((p) => p.market_region === selectedRegion);
+
+    if (targetProducts.length === 0) {
+      showToast('⚠️ No products found for selected region to export');
+      return;
+    }
+
+    const headers = [
+      'id',
+      'name',
+      'category',
+      'market_region',
+      'price_text',
+      'deal_url',
+      'badge_text',
+      'rating',
+      'description',
+      'image_url',
+      'is_direct_affiliate'
+    ];
+    const csvRows = [headers.join(',')];
+
+    targetProducts.forEach((p) => {
+      const escape = (val: any) => `"${String(val ?? '').replace(/"/g, '""')}"`;
+      const row = [
+        escape(p.id),
+        escape(p.name),
+        escape(p.category),
+        escape(p.market_region || 'US'),
+        escape(p.price_text),
+        escape(p.deal_url),
+        escape(p.badge_text),
+        p.rating || 4.8,
+        escape(p.description),
+        escape(p.image_url),
+        p.is_direct_affiliate ? 'true' : 'false'
+      ];
+      csvRows.push(row.join(','));
+    });
+
+    const blob = new Blob([csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    const dateStr = new Date().toISOString().split('T')[0];
+    link.setAttribute('download', `123thenextlevel_${selectedRegion.toLowerCase()}_catalog_${dateStr}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+
+    showToast(`🎉 Backup saved! Exported ${targetProducts.length} ${selectedRegion} products to CSV.`);
+  };
+
   // Generate unique categories for filtering
   const allCategories = [
     'ALL',
@@ -285,16 +344,25 @@ export const AdminAffiliates: React.FC = () => {
                 <Globe className="w-6 h-6" />
               </span>
               <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                Sovereign Affiliate Manager
+                🛡️ Sovereign Affiliate Control Panel
               </h1>
             </div>
             <p className="text-xs sm:text-sm text-slate-400 mt-1.5">
-              Live Supabase database management portal for multi-market product links, regional routing, and affiliate tags.
+              Non-destructive, live Supabase management hub & multi-market catalog exporter.
             </p>
           </div>
 
           {/* Quick Actions & Region Selector */}
           <div className="flex flex-wrap items-center gap-3">
+            <button
+              onClick={handleExportCSV}
+              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs shadow-lg shadow-emerald-500/20 transition-all cursor-pointer"
+              title="Download offline CSV backup of current catalog view"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>📥 Backup / Export {selectedRegion === 'ALL' ? 'All' : selectedRegion} (CSV)</span>
+            </button>
+
             <button
               onClick={() => fetchProducts()}
               disabled={loading}
