@@ -130,6 +130,23 @@ export default function AdminPage() {
   const [blogCategoryFilter, setBlogCategoryFilter] = useState<string>('all');
   const [mappingProductId, setMappingProductId] = useState<string | null>(null);
 
+  // Robust currency parser supporting both US/UK ($129.95, £79.99) and EU (89,95€, 429,00€) formats
+  const parseDatabasePrice = (priceInput: any): number => {
+    if (typeof priceInput === 'number') return isNaN(priceInput) ? 0 : priceInput;
+    if (!priceInput) return 0;
+    let str = String(priceInput).trim();
+    
+    // European notation where comma is decimal separator: e.g. "89,95€", "429,00€", "149,00€", "79,00€ / mes"
+    if (/,\d{2}(?:[^\d]|$)/.test(str) || (str.includes(',') && !str.includes('.'))) {
+      str = str.replace(/\./g, '').replace(',', '.');
+    } else {
+      str = str.replace(/,/g, '');
+    }
+    
+    const match = str.match(/(\d+(?:\.\d+)?)/);
+    return match ? parseFloat(match[1]) : 0;
+  };
+
   const fetchProducts = useCallback(async () => {
     if (!hasValidSupabaseConfig || !supabase) return;
     
@@ -155,12 +172,17 @@ export default function AdminPage() {
       // Products from primary table
       if (productsData) {
         productsData.forEach((row: any) => {
-          const rawPrice = (row.price_text || '').replace(/[^0-9.]/g, '');
-          const numericPrice = parseFloat(rawPrice) || 0;
+          const numericPrice = parseDatabasePrice(row.price_text ?? row.price);
           const region = (row.market_region as 'US' | 'UK' | 'ES') || 'US';
           const currency = region === 'US' ? 'USD' : region === 'UK' ? 'GBP' : 'EUR';
 
           let healedImg = row.image_url || '';
+          if (healedImg.includes('core-500.png')) {
+            healedImg = 'https://www.123thenextlevel.com/Products/duronic520.jpg';
+          } else if (healedImg.includes('blood-panel.png')) {
+            healedImg = 'https://www.123thenextlevel.com/Products/ancientbrave.jpeg';
+          }
+
           if (healedImg.startsWith('/assets/') && !healedImg.startsWith('http')) {
             healedImg = `https://123thenextlevel.com${healedImg}`;
           } else if (healedImg.startsWith('/Products/') && !healedImg.startsWith('http')) {
@@ -179,6 +201,7 @@ export default function AdminPage() {
             short_benefit: row.badge_text || '',
             description: row.description || '',
             price: numericPrice,
+            price_text: row.price_text || '',
             currency,
             rating: typeof row.rating === 'number' ? row.rating : 4.9,
             featured: Boolean(row.is_direct_affiliate),

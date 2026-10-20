@@ -74,11 +74,17 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     return cartItems.some(item => item.id === id);
   };
 
-  // Helper to parse numeric values from price display strings (e.g. "£19.00" -> 19.0)
+  // Helper to parse numeric values from price display strings (e.g. "£19.00" -> 19.0, "89,95€" -> 89.95)
   const parsePrice = (priceStr: string) => {
-    const numericStr = priceStr.replace(/[^0-9.]/g, '');
-    const price = parseFloat(numericStr);
-    return isNaN(price) ? 0 : price;
+    if (!priceStr) return 0;
+    let str = String(priceStr).trim();
+    if (/,\d{2}(?:[^\d]|$)/.test(str) || (str.includes(',') && !str.includes('.'))) {
+      str = str.replace(/\./g, '').replace(',', '.');
+    } else {
+      str = str.replace(/,/g, '');
+    }
+    const match = str.match(/(\d+(?:\.\d+)?)/);
+    return match ? parseFloat(match[1]) : 0;
   };
 
   const cartSubtotal = cartItems.reduce((sum, item) => sum + parsePrice(item.priceDisplay), 0);

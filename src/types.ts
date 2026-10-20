@@ -9,6 +9,7 @@ export type Product = {
   short_benefit: string;
   description: string;
   price: number;
+  price_text?: string;
   currency: string;
   rating: number;
   featured: boolean;
