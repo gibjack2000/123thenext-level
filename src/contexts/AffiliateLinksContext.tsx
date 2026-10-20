@@ -122,10 +122,10 @@ export const AffiliateLinksProvider: React.FC<{ children: React.ReactNode }> = (
         const { data: directProducts } = await supabase
           .from('products')
           .select('*')
-          .in('id', ['sirtuin-stack-us', 'sirtuin-stack-uk', 'sirtuin-stack-es', 'amazon-supp-us-b0mitonad', 'timeline-mitopure-us']);
+          .in('id', ['sirtuin-stack-us', 'sirtuin-stack-uk', 'sirtuin-stack-es', 'timeline-mitopure-us']);
 
         if (directProducts && directProducts.length > 0) {
-          const sirtuinUs = directProducts.find(p => p.id === 'sirtuin-stack-us') || directProducts.find(p => p.id === 'amazon-supp-us-b0mitonad');
+          const sirtuinUs = directProducts.find(p => p.id === 'sirtuin-stack-us');
           if (sirtuinUs && sirtuinUs.deal_url) {
             const sirtuinInfo = {
               url: sirtuinUs.deal_url,

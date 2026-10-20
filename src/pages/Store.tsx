@@ -1173,16 +1173,16 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "image_url": "/Products/methylatedBcomplexus.webp"
     },
     {
-      "id": "sirtuin-stack-us",
-      "name": "Momentous Sirtuin Activation & Cell Recovery Stack (Mitochondrial NAD+ Precursor)",
+      "id": "amazon-supp-us-b07tk5k5tq",
+      "name": "RU NIAGEN Patented NAD Supplement for Brain Function, Anti Aging & Cell Regeneration, 300mg Niagen, 30 Servings | Supports Cellular Energy, Muscle | Nicotinamide Riboside (NR) Take 1 Daily | 1 Bottle",
       "category": "Supplements",
-      "rating": 4.95,
-      "description": "Synergistic Trans-Resveratrol, NMN & Nattokinase to activate cellular repair, genomic stability, and NAD+ longevity cofactors. NSF Certified for Sport.",
-      "price_text": "$89.95",
-      "deal_url": "https://livemomentous.com/modernwisdom?code=modernwisdom",
+      "rating": 4.4,
+      "description": "RU NIAGEN Patented NAD Supplement for Brain Function, Anti Aging & Cell Regeneration, 300mg Niagen, 30 Servings | Supports Cellular Energy, Muscle | Nicotinamide Riboside (NR) Take 1 Daily | 1 Bottle",
+      "price_text": "$49.00",
+      "deal_url": "https://www.amazon.com/dp/B07TK5K5TQ?tag=123znl08-20",
       "market_region": "US",
-      "badge_text": "NSF Certified for Sport",
-      "image_url": "/Products/quercitin.jpeg"
+      "badge_text": "FDA / GMP Verified",
+      "image_url": "/Products/nadplusus.jpg"
     },
     {
       "id": "amazon-fitness-us-rower",
