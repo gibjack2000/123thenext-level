@@ -1068,6 +1068,9 @@ export default function HomeExpressShop() {
             badge: item.badge_text,
             name: item.name
           };
+          // Strip regional suffix so sirtuin-stack-us maps to sirtuin-stack
+          const baseId = item.id.replace(new RegExp(`-${selectedRegion.toLowerCase()}$`, 'i'), '');
+          map[baseId] = map[item.id];
         }
         setLiveOverrides(map);
       } catch (err) {
@@ -1298,7 +1301,9 @@ export default function HomeExpressShop() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredProducts.map((product) => {
             const regionalData = product.regions[selectedRegion];
-            const override = liveOverrides[product.id];
+            const override = liveOverrides[product.id] || 
+                             liveOverrides[`${product.id}-${selectedRegion.toLowerCase()}`] ||
+                             liveOverrides[`${product.id}-us`];
             const displayPrice = override?.price || regionalData.price;
             const displayUrl = override?.url || regionalData.url;
             const displayBadge = override?.badge || regionalData.badge;
@@ -1373,15 +1378,27 @@ export default function HomeExpressShop() {
                     </span>
                   </div>
 
-                  <a
-                    href={displayUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider bg-cyan-500 hover:bg-cyan-400 text-slate-950 transition-all duration-200 flex items-center justify-center gap-1.5 shadow-md shadow-cyan-500/10 hover:scale-[1.01] cursor-pointer"
-                  >
-                    <span>{regionalData.ctaText}</span>
-                    <ExternalLink size={12} />
-                  </a>
+                  <div className="flex gap-2">
+                    <a
+                      href={displayUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 py-2.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider bg-cyan-500 hover:bg-cyan-400 text-slate-950 transition-all duration-200 flex items-center justify-center gap-1.5 shadow-md shadow-cyan-500/10 hover:scale-[1.01] cursor-pointer"
+                    >
+                      <span>{regionalData.ctaText}</span>
+                      <ExternalLink size={12} />
+                    </a>
+                    <a
+                      href={displayUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Test Destination Link"
+                      className="px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-cyan-300 hover:text-white transition-all text-xs font-bold flex items-center justify-center"
+                      aria-label="Test destination link in new window"
+                    >
+                      <span>↗</span>
+                    </a>
+                  </div>
                 </div>
 
               </div>

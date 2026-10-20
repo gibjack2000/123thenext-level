@@ -874,9 +874,9 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     },
     {
       "id": "sirtuin-stack-us",
-      "name": "Momentous Sirtuin Activation & Cell Recovery Stack",
+      "name": "Momentous Sirtuin Activation & Cell Recovery Stack (Mitochondrial NAD+ Precursor)",
       "category": "Supplements",
-      "rating": 4.9,
+      "rating": 4.95,
       "description": "Premium NSF Certified for Sport Trans-Resveratrol, NMN, and Nattokinase. Formulated to provide biological cofactors to activate Sirtuin pathways, stabilizing chromatin loops and repairing cellular DNA.",
       "price_text": "$89.95",
       "deal_url": "https://livemomentous.com/modernwisdom?code=modernwisdom",
@@ -1173,16 +1173,16 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "image_url": "/Products/methylatedBcomplexus.webp"
     },
     {
-      "id": "amazon-supp-us-b0mitonad",
-      "name": "Mitochondrial NAD+ Precursor",
+      "id": "sirtuin-stack-us",
+      "name": "Momentous Sirtuin Activation & Cell Recovery Stack (Mitochondrial NAD+ Precursor)",
       "category": "Supplements",
-      "rating": 5,
-      "description": "Advanced mitochondrial support with NAD+ precursors for cellular energy.",
-      "price_text": "$59.99",
-      "deal_url": "https://www.amazon.com/Amazon-Basics-Portablel-Smoothie-Portable/dp/B0DKV95176?ref_=ast_sto_dp",
+      "rating": 4.95,
+      "description": "Synergistic Trans-Resveratrol, NMN & Nattokinase to activate cellular repair, genomic stability, and NAD+ longevity cofactors. NSF Certified for Sport.",
+      "price_text": "$89.95",
+      "deal_url": "https://livemomentous.com/modernwisdom?code=modernwisdom",
       "market_region": "US",
-      "badge_text": "FDA / GMP Verified",
-      "image_url": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=80"
+      "badge_text": "NSF Certified for Sport",
+      "image_url": "/Products/quercitin.jpeg"
     },
     {
       "id": "amazon-fitness-us-rower",

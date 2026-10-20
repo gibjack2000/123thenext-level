@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { useT } from '../../translations';
 import { useAffiliateLinks } from '../../contexts/AffiliateLinksContext';
+import { affiliateLinks } from '../../config/affiliateLinks';
 
 const CLINICAL_ARSENAL = [
   {
@@ -170,7 +171,7 @@ export default function CognitiveMetabolic() {
               </p>
               
               <div className="space-y-4">
-                <a href={links.nad?.url || "https://amazon.com"} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-4 p-6 bg-white text-emerald-950 rounded-3xl group font-black uppercase tracking-tighter hover:bg-emerald-100 transition-all">
+                <a href={links.nad?.url || affiliateLinks.nad} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-4 p-6 bg-white text-emerald-950 rounded-3xl group font-black uppercase tracking-tighter hover:bg-emerald-100 transition-all">
                   Order Mitochondrial Suite <ExternalLink size={20} />
                 </a>
               </div>

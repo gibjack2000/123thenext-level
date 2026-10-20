@@ -39,12 +39,12 @@ export default function HealthPillar() {
       price: "$299+"
     },
     {
-      name: "Cellular Recharging Stack",
-      brand: "Thorne / Elysium",
-      desc: "NAD+ precursors to trigger SIRT1 activation and DNA repair.",
-      image: links.hp_nad_stack?.image || "/Products/thorne.jpg",
+      name: links.hp_nad_stack?.name || "Momentous Sirtuin Activation & Cell Recovery Stack (Mitochondrial NAD+ Precursor)",
+      brand: links.hp_nad_stack?.brand || "Momentous / NSF Certified",
+      desc: links.hp_nad_stack?.desc || "NAD+ precursors to trigger SIRT1 activation and DNA repair.",
+      image: links.hp_nad_stack?.image || "/Products/quercitin.jpeg",
       link: links.hp_nad_stack?.url || affiliateLinks.nad,
-      price: "$85+"
+      price: links.hp_nad_stack?.price || "$89.95"
     },
     {
       name: "Bio-Response Biomarkers",

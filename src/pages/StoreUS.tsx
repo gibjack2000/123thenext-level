@@ -11,7 +11,8 @@ import {
   Lock, 
   ExternalLink, 
   RefreshCw,
-  AlertCircle
+  AlertCircle,
+  Database
 } from 'lucide-react';
 import { supabase as importedSupabase, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
@@ -335,12 +336,22 @@ export const StoreUS: React.FC = () => {
         </div>
       ) : (
         <div className="max-w-7xl mx-auto space-y-16">
-          {/* TIER 1: CLINICAL DIAGNOSTICS & DIRECT PARTNERS */}
+          {/* TIER 1: CLINICAL ARSENAL & DIRECT PARTNERS */}
           {clinicalPartners.length > 0 && (
             <div className="space-y-6">
-              <div className="border-l-4 border-rose-500 pl-4">
-                <span className="text-xs text-rose-500 uppercase font-semibold tracking-widest">DIRECT ACCESS PARTNERS (US)</span>
-                <h2 className="text-2xl font-bold text-slate-100 mt-1">Clinical Diagnostics & Direct Offerings</h2>
+              <div className="border-l-4 border-rose-500 pl-4 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                <div>
+                  <span className="text-xs text-rose-500 uppercase font-semibold tracking-widest font-mono">
+                    CLINICAL ARSENAL US • DIRECT ACCESS PROTOCOLS
+                  </span>
+                  <h2 className="text-2xl sm:text-3xl font-bold text-slate-100 mt-1 font-display">
+                    Clinical Diagnostics &amp; Longevity Arsenal
+                  </h2>
+                </div>
+                <div className="text-xs font-mono text-cyan-400 bg-cyan-950/40 px-3 py-1.5 rounded-lg border border-cyan-800/30 self-start sm:self-auto flex items-center gap-1.5">
+                  <Database size={13} className="text-cyan-400" />
+                  <span>Single Source of Truth: <strong className="text-white">sirtuin-stack-us</strong></span>
+                </div>
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -389,17 +400,38 @@ export const StoreUS: React.FC = () => {
                           {product.badge_text || 'FDA / CLIA Verified'}
                         </span>
                       </div>
-                      <div className="flex justify-between items-center bg-slate-900/40 p-3 rounded-xl border border-slate-850">
+                      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-slate-900/40 p-3 rounded-xl border border-slate-850">
                         <span className="font-extrabold text-slate-100 text-lg">{product.price_text}</span>
-                        <a 
-                          href={product.deal_url} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="px-4 py-2 rounded-lg bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white text-xs font-bold shadow-lg transition-all duration-300 inline-flex items-center gap-1.5"
-                        >
-                          <span>Access Partner Portal</span>
-                          <ExternalLink size={12} />
-                        </a>
+                        <div className="flex items-center gap-2">
+                          <a 
+                            href={product.deal_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="flex-1 sm:flex-initial px-4 py-2 rounded-lg bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white text-xs font-bold shadow-lg transition-all duration-300 inline-flex items-center justify-center gap-1.5"
+                          >
+                            <span>Buy Now</span>
+                            <ExternalLink size={12} />
+                          </a>
+                          <a
+                            href={product.deal_url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            title="Test Destination Link"
+                            className="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-cyan-300 hover:text-white transition-all text-xs font-bold flex items-center justify-center gap-1"
+                          >
+                            <span>Test Link ↗</span>
+                          </a>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between text-[9px] font-mono text-slate-500 pt-1">
+                        <span className="flex items-center gap-1">
+                          <CheckCircle2 size={10} className="text-emerald-400" />
+                          <span>Supabase Live Record</span>
+                        </span>
+                        <span className="truncate max-w-[140px] text-slate-400">
+                          ID: {product.id}
+                        </span>
                       </div>
                     </div>
                   </div>

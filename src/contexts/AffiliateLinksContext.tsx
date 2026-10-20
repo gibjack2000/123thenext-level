@@ -117,6 +117,34 @@ export const AffiliateLinksProvider: React.FC<{ children: React.ReactNode }> = (
         }
       });
 
+      // Single Source of Truth: Fetch live clinical arsenal products from products table
+      try {
+        const { data: directProducts } = await supabase
+          .from('products')
+          .select('*')
+          .in('id', ['sirtuin-stack-us', 'sirtuin-stack-uk', 'sirtuin-stack-es', 'amazon-supp-us-b0mitonad', 'timeline-mitopure-us']);
+
+        if (directProducts && directProducts.length > 0) {
+          const sirtuinUs = directProducts.find(p => p.id === 'sirtuin-stack-us') || directProducts.find(p => p.id === 'amazon-supp-us-b0mitonad');
+          if (sirtuinUs && sirtuinUs.deal_url) {
+            const sirtuinInfo = {
+              url: sirtuinUs.deal_url,
+              image: sirtuinUs.image_url || '/Products/quercitin.jpeg',
+              name: sirtuinUs.name,
+              brand: 'Momentous / NSF Certified',
+              desc: sirtuinUs.description,
+              price: sirtuinUs.price_text,
+              badge: sirtuinUs.badge_text
+            };
+            newLinks.nad = sirtuinInfo;
+            newLinks.hp_nad_stack = sirtuinInfo;
+            newLinks['sirtuin-stack-us'] = sirtuinInfo;
+          }
+        }
+      } catch (prodErr) {
+        console.warn('AffiliateLinksContext: Error fetching live products:', prodErr);
+      }
+
       setLinks(newLinks);
     } catch (err) {
       console.error('Failed to fetch dynamic affiliate links:', err);
@@ -131,12 +159,17 @@ export const AffiliateLinksProvider: React.FC<{ children: React.ReactNode }> = (
 
     if (!supabase || !hasValidSupabaseConfig) return;
 
-    // Listen for mapping changes
+    // Listen for mapping and products changes
     const mappingChannel = supabase
       .channel('schema-db-changes')
       .on(
         'postgres_changes',
         { event: '*', schema: 'public', table: 'affiliate_link_mappings' },
+        () => fetchDynamicLinks()
+      )
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'products' },
         () => fetchDynamicLinks()
       )
       .subscribe();
