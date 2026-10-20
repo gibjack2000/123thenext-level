@@ -53,7 +53,7 @@ export const StoreES: React.FC = () => {
 
       if (data && data.length > 0) {
         const sanitized: ProductRecord[] = data.map((item: any) => {
-          let healedImg = item.image_url || '/Products/owala.jpg';
+          let healedImg = item.image_url || '/assets/images/shop/sirtuin-stack.png';
           if (healedImg.startsWith('/assets/') && !healedImg.startsWith('http')) {
             healedImg = `https://123thenextlevel.com${healedImg}`;
           } else if (healedImg.startsWith('/Products/') && !healedImg.startsWith('http')) {
@@ -340,7 +340,11 @@ export const StoreES: React.FC = () => {
                             onError={(e) => {
                               const target = e.currentTarget;
                               target.onerror = null;
-                              target.src = '/Products/owala.jpg';
+                              if (target.src.includes('123thenextlevel.com/')) {
+                                target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
+                                return;
+                              }
+                              target.src = '/assets/images/shop/sirtuin-stack.png';
                             }}
                           />
                         </div>
@@ -413,7 +417,11 @@ export const StoreES: React.FC = () => {
                             onError={(e) => {
                               const target = e.currentTarget;
                               target.onerror = null;
-                              target.src = '/Products/owala.jpg';
+                              if (target.src.includes('123thenextlevel.com/')) {
+                                target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
+                                return;
+                              }
+                              target.src = '/assets/images/shop/sirtuin-stack.png';
                             }}
                           />
                         </div>

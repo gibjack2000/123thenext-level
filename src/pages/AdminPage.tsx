@@ -119,6 +119,8 @@ export default function AdminPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [editingProductId, setEditingProductId] = useState<string | null>(null);
   const [productCategoryFilter, setProductCategoryFilter] = useState<string>('all');
+  const [productRegionFilter, setProductRegionFilter] = useState<string>('ALL');
+  const [productTierFilter, setProductTierFilter] = useState<'ALL' | 'DIRECT' | 'AMAZON'>('ALL');
 
   // Blog Management State
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
@@ -133,13 +135,70 @@ export default function AdminPage() {
     
     setFetchingProducts(true);
     try {
-      const { data, error } = await supabase
+      // 1. Authoritative Clinical Arsenal & Store Catalog from public.products
+      const { data: productsData, error: productsError } = await supabase
+        .from('products')
+        .select('*')
+        .order('is_direct_affiliate', { ascending: false });
+
+      // 2. Also fetch from legacy amazon_affiliate_products to ensure complete coverage
+      const { data: amazonData, error: amazonError } = await supabase
         .from('amazon_affiliate_products')
         .select('*')
         .order('last_updated', { ascending: false });
-        
-      if (error) throw error;
-      setProducts(data ? data.map(mapToProduct) : []);
+
+      if (productsError && amazonError) throw productsError || amazonError;
+
+      const unified: Product[] = [];
+      const seenIds = new Set<string>();
+
+      // Products from primary table
+      if (productsData) {
+        productsData.forEach((row: any) => {
+          const rawPrice = (row.price_text || '').replace(/[^0-9.]/g, '');
+          const numericPrice = parseFloat(rawPrice) || 0;
+          const region = (row.market_region as 'US' | 'UK' | 'ES') || 'US';
+          const currency = region === 'US' ? 'USD' : region === 'UK' ? 'GBP' : 'EUR';
+
+          let healedImg = row.image_url || '';
+          if (healedImg.startsWith('/assets/') && !healedImg.startsWith('http')) {
+            healedImg = `https://123thenextlevel.com${healedImg}`;
+          } else if (healedImg.startsWith('/Products/') && !healedImg.startsWith('http')) {
+            healedImg = `https://123thenextlevel.com${healedImg}`;
+          }
+
+          seenIds.add(String(row.id).toLowerCase());
+          unified.push({
+            id: row.id,
+            region,
+            category: row.category || 'Supplements',
+            product_name: row.name || '',
+            amazon_asin: row.id,
+            amazon_url: row.deal_url || '',
+            image_url: healedImg,
+            short_benefit: row.badge_text || '',
+            description: row.description || '',
+            price: numericPrice,
+            currency,
+            rating: typeof row.rating === 'number' ? row.rating : 4.9,
+            featured: Boolean(row.is_direct_affiliate),
+            tags: [row.category || '', row.badge_text || '', row.is_direct_affiliate ? 'Direct Partner' : 'Amazon Hub'].filter(Boolean),
+            last_checked_at: row.updated_at || ''
+          });
+        });
+      }
+
+      // Legacy Amazon products that aren't already represented
+      if (amazonData) {
+        amazonData.forEach((row: any) => {
+          const mapped = mapToProduct(row);
+          if (!seenIds.has(String(mapped.id).toLowerCase()) && !seenIds.has(String(mapped.amazon_asin).toLowerCase())) {
+            unified.push(mapped);
+          }
+        });
+      }
+
+      setProducts(unified);
     } catch (err) {
       console.error('Error fetching products:', err);
     } finally {
@@ -439,13 +498,25 @@ export default function AdminPage() {
       setProducts(prev => prev.filter(p => p.id !== id));
       return;
     }
-    if (!supabase || !window.confirm('Are you sure you want to delete this product?')) return;
+    if (!supabase || !window.confirm('Are you sure you want to delete this clinical asset?')) return;
     
     try {
       await supabase.from('affiliate_link_mappings').delete().eq('product_id', id);
-      const { error } = await supabase.from('amazon_affiliate_products').delete().eq('id', id);
-      if (error) throw error;
-      setProducts(prev => prev.filter(p => p.id !== id));
+
+      // Primary deletion from authoritative products table
+      const { error: productsError } = await supabase.from('products').delete().eq('id', id);
+      if (productsError) {
+        console.warn('Could not delete from products table:', productsError);
+      }
+
+      // Also clean up from legacy amazon_affiliate_products if numeric ID or matches ASIN
+      if (/^\d+$/.test(id)) {
+        await supabase.from('amazon_affiliate_products').delete().eq('id', parseInt(id, 10));
+      } else {
+        await supabase.from('amazon_affiliate_products').delete().eq('asin', id);
+      }
+
+      setProducts(prev => prev.filter(p => String(p.id) !== String(id)));
     } catch (err) {
       console.error('Error deleting product:', err);
       alert('Failed to delete product.');
@@ -604,16 +675,62 @@ export default function AdminPage() {
     }
 
     try {
-      const productData = {
+      const parsedPrice = parseFloat(formData.price || '0');
+      const currencySymbol = formData.currency === 'GBP' ? '£' : formData.currency === 'EUR' ? '€' : '$';
+      const formattedPriceText = `${currencySymbol}${parsedPrice.toFixed(2)}`;
+
+      // Determine product id: reuse existing id if editing, else generate clean slug
+      let targetId = editingProductId;
+      if (!targetId) {
+        const slug = formData.product_name
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/(^-|-$)/g, '');
+        targetId = `${slug}-${formData.region.toLowerCase()}`;
+      }
+
+      const isDirectPartner = Boolean(
+        formData.featured || 
+        formData.tags.toLowerCase().includes('direct') || 
+        (formData.amazon_url && !formData.amazon_url.toLowerCase().includes('amazon'))
+      );
+
+      // 1. Authoritative primary products table payload (Used by Store, Arsenal, Quiz)
+      const productsTablePayload = {
+        id: targetId,
+        name: formData.product_name,
+        category: formData.category,
+        rating: parseFloat(formData.rating) || 4.9,
+        description: formData.description,
+        price_text: formattedPriceText,
+        deal_url: formData.amazon_url,
+        market_region: formData.region,
+        badge_text: formData.short_benefit || (isDirectPartner ? 'Direct Partner Protocol' : 'Clinical Arsenal'),
+        image_url: formData.image_url,
+        is_direct_affiliate: isDirectPartner,
+        updated_at: new Date().toISOString()
+      };
+
+      const { error: productsError } = await supabase
+        .from('products')
+        .upsert(productsTablePayload, { onConflict: 'id' });
+
+      if (productsError) {
+        console.error('Error saving to products table:', productsError);
+        throw productsError;
+      }
+
+      // 2. Also keep legacy amazon_affiliate_products in sync if applicable
+      const amazonData = {
         market: formData.region,
         category: formData.category,
         title: formData.product_name,
-        asin: formData.amazon_asin,
+        asin: formData.amazon_asin || targetId,
         affiliate_link: formData.amazon_url,
         image_url: formData.image_url,
-        price: parseFloat(formData.price),
+        price: parsedPrice,
         currency: formData.currency,
-        rating: parseFloat(formData.rating),
+        rating: parseFloat(formData.rating) || 4.9,
         is_active: formData.featured,
         tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean),
         last_updated: new Date().toISOString(),
@@ -622,19 +739,15 @@ export default function AdminPage() {
         "Amazon tag": "123thenextlevel-20"
       };
 
-      if (editingProductId) {
-        const { error: supabaseError } = await supabase
+      if (editingProductId && /^\d+$/.test(editingProductId)) {
+        await supabase
           .from('amazon_affiliate_products')
-          .update(productData)
-          .eq('id', editingProductId);
-
-        if (supabaseError) throw supabaseError;
-      } else {
-        const { error: supabaseError } = await supabase
+          .update(amazonData)
+          .eq('id', parseInt(editingProductId, 10));
+      } else if (!editingProductId && formData.amazon_asin) {
+        await supabase
           .from('amazon_affiliate_products')
-          .insert([productData]);
-
-        if (supabaseError) throw supabaseError;
+          .insert([amazonData]);
       }
 
       setSuccess(true);
@@ -1195,25 +1308,105 @@ create table if not exists premium_guides (
             </form>
 
             <div className="bg-white border border-slate-200 rounded-[3rem] overflow-hidden shadow-sm">
-              <div className="p-10 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                <div>
-                  <h3 className="text-2xl font-display font-black uppercase tracking-tight text-slate-900">Clinical Repository</h3>
-                  <p className="text-sm text-slate-500 mt-1">Audit and manage your available affiliate hardware.</p>
-                </div>
-                <div className="flex gap-4">
-                  <div className="relative">
-                    <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-                    <input 
-                      type="text" 
-                      placeholder="Search Assets..." 
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      className="bg-slate-50 border border-slate-200 rounded-2xl py-3.5 pl-12 pr-4 text-sm font-bold focus:ring-4 focus:ring-blue-500/10 outline-none w-64"
-                    />
+              <div className="p-8 md:p-10 border-b border-slate-100 flex flex-col gap-6">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                  <div>
+                    <div className="flex items-center gap-3">
+                      <h3 className="text-2xl font-display font-black uppercase tracking-tight text-slate-900">Clinical Repository</h3>
+                      <span className="text-[10px] font-black uppercase tracking-widest bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full border border-indigo-200">
+                        {products.length} Assets Loaded
+                      </span>
+                    </div>
+                    <p className="text-sm text-slate-500 mt-1">
+                      Authoritative synchronization across Storefronts, Sovereign Clinical Arsenal, and Quiz engines.
+                    </p>
                   </div>
-                  <button onClick={fetchProducts} className="bg-slate-100 p-3.5 rounded-2xl text-slate-600 hover:bg-slate-200 transition-all">
-                    <RefreshCw size={20} className={fetchingProducts ? 'animate-spin' : ''} />
-                  </button>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <div className="relative">
+                      <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                      <input 
+                        type="text" 
+                        placeholder="Search Name, ID, ASIN, Category..." 
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="bg-slate-50 border border-slate-200 rounded-2xl py-3 pl-12 pr-4 text-sm font-bold focus:ring-4 focus:ring-indigo-500/10 outline-none w-72"
+                      />
+                    </div>
+                    <button 
+                      onClick={fetchProducts} 
+                      title="Sync live products from Supabase"
+                      className="bg-slate-100 p-3.5 rounded-2xl text-slate-600 hover:bg-slate-200 transition-all flex items-center gap-2 font-black text-xs uppercase tracking-wider"
+                    >
+                      <RefreshCw size={18} className={fetchingProducts ? 'animate-spin' : ''} />
+                      <span className="hidden sm:inline">Refresh</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Filter Controls: Market Regions & Tier Categorization */}
+                <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-slate-100">
+                  {/* Market Regions */}
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mr-1">Market:</span>
+                    {[
+                      { id: 'ALL', label: 'All Markets', count: products.length },
+                      { id: 'US', label: '🇺🇸 US', count: products.filter(p => p.region === 'US').length },
+                      { id: 'UK', label: '🇬🇧 UK', count: products.filter(p => p.region === 'UK').length },
+                      { id: 'ES', label: '🇪🇸 ES', count: products.filter(p => p.region === 'ES').length },
+                    ].map(tab => (
+                      <button
+                        key={tab.id}
+                        type="button"
+                        onClick={() => setProductRegionFilter(tab.id)}
+                        className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 ${
+                          productRegionFilter === tab.id
+                            ? 'bg-slate-900 text-white shadow-md'
+                            : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                        }`}
+                      >
+                        <span>{tab.label}</span>
+                        <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
+                          productRegionFilter === tab.id ? 'bg-slate-800 text-slate-200' : 'bg-white text-slate-500'
+                        }`}>{tab.count}</span>
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Tier / Partner Filter */}
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 mr-1">Tier:</span>
+                    {[
+                      { id: 'ALL', label: 'All Tiers', count: products.length },
+                      { 
+                        id: 'DIRECT', 
+                        label: '🛡️ Direct Partner', 
+                        count: products.filter(p => Boolean(p.featured || p.tags?.includes('Direct Partner') || (p.amazon_url && !p.amazon_url.toLowerCase().includes('amazon')))).length 
+                      },
+                      { 
+                        id: 'AMAZON', 
+                        label: '📦 Amazon Hub', 
+                        count: products.filter(p => !Boolean(p.featured || p.tags?.includes('Direct Partner') || (p.amazon_url && !p.amazon_url.toLowerCase().includes('amazon')))).length 
+                      },
+                    ].map(tier => (
+                      <button
+                        key={tier.id}
+                        type="button"
+                        onClick={() => setProductTierFilter(tier.id as any)}
+                        className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-1.5 ${
+                          productTierFilter === tier.id
+                            ? tier.id === 'DIRECT' 
+                              ? 'bg-emerald-600 text-white shadow-md' 
+                              : 'bg-indigo-600 text-white shadow-md'
+                            : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                        }`}
+                      >
+                        <span>{tier.label}</span>
+                        <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
+                          productTierFilter === tier.id ? 'bg-black/20 text-white' : 'bg-white text-slate-500'
+                        }`}>{tier.count}</span>
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
               
@@ -1221,52 +1414,133 @@ create table if not exists premium_guides (
                 <table className="w-full text-left border-collapse">
                   <thead>
                     <tr className="bg-slate-50/50">
-                      <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Asset</th>
-                      <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Market/Cat</th>
-                      <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Price</th>
-                      <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Commands</th>
+                      <th className="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">Asset & System ID</th>
+                      <th className="px-6 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">Market & Tier</th>
+                      <th className="px-6 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">Category</th>
+                      <th className="px-6 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">Price</th>
+                      <th className="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Commands</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-50">
-                    {products.filter(p => (p.product_name || '').toLowerCase().includes(searchQuery.toLowerCase())).map(product => (
-                      <tr key={product.id} className="group hover:bg-slate-50/80 transition-all">
-                        <td className="px-10 py-6">
-                          <div className="flex items-center gap-5">
-                            <div className="w-14 h-14 rounded-2xl bg-white border border-slate-100 overflow-hidden shadow-sm group-hover:scale-105 transition-transform">
-                              <img src={product.image_url} alt="" className="w-full h-full object-cover" />
-                            </div>
-                            <div>
-                              <div className="font-black text-slate-900">{product.product_name}</div>
-                              <div className="text-[10px] font-bold text-slate-400 uppercase mt-1">{product.amazon_asin}</div>
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-10 py-6">
-                          <div className="flex flex-col gap-1">
-                            <span className="text-xs font-bold text-slate-700 flex items-center gap-1">
-                              <MapPin size={10} className="text-indigo-500" /> {product.region}
-                            </span>
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">
-                              {product.category.replace(/_/g, ' ')}
-                            </span>
-                          </div>
-                        </td>
-                        <td className="px-10 py-6 font-black text-slate-900">{product.price.toFixed(2)} {product.currency}</td>
-                        <td className="px-10 py-6">
-                          <div className="flex items-center justify-end gap-2">
-                            <button onClick={() => handleEditProduct(product)} className="p-3 bg-white border border-slate-100 text-slate-400 hover:text-indigo-600 hover:border-indigo-100 rounded-xl transition-all shadow-sm">
-                              <Pencil size={18} />
-                            </button>
-                            <button onClick={() => handleDeleteProduct(String(product.id))} className="p-3 bg-white border border-slate-100 text-slate-400 hover:text-red-600 hover:border-red-100 rounded-xl transition-all shadow-sm">
-                              <Trash2 size={18} />
-                            </button>
-                            <a href={product.amazon_url} target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-900 text-white rounded-xl hover:bg-indigo-600 transition-all shadow-lg">
-                              <ExternalLink size={18} />
-                            </a>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
+                  <tbody className="divide-y divide-slate-100">
+                    {products
+                      .filter(p => {
+                        const q = searchQuery.toLowerCase();
+                        const matchesSearch = !searchQuery || 
+                          (p.product_name || '').toLowerCase().includes(q) ||
+                          (p.amazon_asin || '').toLowerCase().includes(q) ||
+                          String(p.id || '').toLowerCase().includes(q) ||
+                          (p.category || '').toLowerCase().includes(q);
+
+                        const matchesRegion = productRegionFilter === 'ALL' || p.region === productRegionFilter;
+
+                        const isDirect = Boolean(
+                          p.featured || 
+                          p.tags?.includes('Direct Partner') || 
+                          (p.amazon_url && !p.amazon_url.toLowerCase().includes('amazon'))
+                        );
+
+                        const matchesTier = productTierFilter === 'ALL' ||
+                          (productTierFilter === 'DIRECT' && isDirect) ||
+                          (productTierFilter === 'AMAZON' && !isDirect);
+
+                        return matchesSearch && matchesRegion && matchesTier;
+                      })
+                      .map(product => {
+                        const isDirect = Boolean(
+                          product.featured || 
+                          product.tags?.includes('Direct Partner') || 
+                          (product.amazon_url && !product.amazon_url.toLowerCase().includes('amazon'))
+                        );
+
+                        return (
+                          <tr key={product.id} className="group hover:bg-slate-50/80 transition-all">
+                            <td className="px-8 py-5">
+                              <div className="flex items-center gap-4">
+                                <div className="w-14 h-14 rounded-2xl bg-slate-100 border border-slate-200 overflow-hidden shadow-sm group-hover:scale-105 transition-transform shrink-0 flex items-center justify-center">
+                                  <img 
+                                    src={product.image_url} 
+                                    alt="" 
+                                    className="w-full h-full object-cover"
+                                    onError={(e) => {
+                                      const target = e.target as HTMLImageElement;
+                                      target.onerror = null;
+                                      target.src = '/assets/images/shop/sirtuin-stack.png';
+                                    }}
+                                  />
+                                </div>
+                                <div className="min-w-0 max-w-md">
+                                  <div className="font-black text-slate-900 leading-snug truncate" title={product.product_name}>
+                                    {product.product_name}
+                                  </div>
+                                  <div className="flex items-center gap-2 mt-1">
+                                    <span className="font-mono text-[10px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded border border-slate-200 font-bold">
+                                      ID: {product.id}
+                                    </span>
+                                    {product.short_benefit && (
+                                      <span className="text-[10px] text-slate-500 truncate italic">
+                                        • {product.short_benefit}
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            <td className="px-6 py-5">
+                              <div className="flex flex-col gap-1.5 items-start">
+                                <span className="text-xs font-black text-slate-800 flex items-center gap-1.5 bg-slate-100 px-2 py-0.5 rounded-lg border border-slate-200">
+                                  <MapPin size={11} className="text-indigo-600" />
+                                  {product.region === 'US' ? '🇺🇸 United States' : product.region === 'UK' ? '🇬🇧 United Kingdom' : '🇪🇸 Spain'}
+                                </span>
+                                {isDirect ? (
+                                  <span className="text-[10px] font-black uppercase tracking-wider bg-emerald-500/10 text-emerald-700 border border-emerald-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                                    <Shield size={10} className="text-emerald-600" /> Direct Partner
+                                  </span>
+                                ) : (
+                                  <span className="text-[10px] font-black uppercase tracking-wider bg-amber-500/10 text-amber-700 border border-amber-500/30 px-2 py-0.5 rounded-full">
+                                    📦 Amazon Hub
+                                  </span>
+                                )}
+                              </div>
+                            </td>
+                            <td className="px-6 py-5">
+                              <span className="text-xs font-bold text-slate-600 capitalize bg-slate-50 border border-slate-200 px-2.5 py-1 rounded-xl">
+                                {product.category.replace(/_/g, ' ')}
+                              </span>
+                            </td>
+                            <td className="px-6 py-5 font-black text-slate-900 whitespace-nowrap">
+                              {product.currency === 'GBP' ? '£' : product.currency === 'EUR' ? '€' : '$'}
+                              {product.price.toFixed(2)}
+                            </td>
+                            <td className="px-8 py-5">
+                              <div className="flex items-center justify-end gap-2">
+                                <button 
+                                  onClick={() => handleEditProduct(product)} 
+                                  title="Edit Clinical Asset"
+                                  className="p-2.5 bg-white border border-slate-200 text-slate-500 hover:text-indigo-600 hover:border-indigo-200 rounded-xl transition-all shadow-sm"
+                                >
+                                  <Pencil size={16} />
+                                </button>
+                                <button 
+                                  onClick={() => handleDeleteProduct(String(product.id))} 
+                                  title="Delete Asset"
+                                  className="p-2.5 bg-white border border-slate-200 text-slate-500 hover:text-red-600 hover:border-red-200 rounded-xl transition-all shadow-sm"
+                                >
+                                  <Trash2 size={16} />
+                                </button>
+                                <a 
+                                  href={product.amazon_url} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer" 
+                                  title="Open Target Affiliate Link"
+                                  className="p-2.5 bg-slate-900 text-white rounded-xl hover:bg-indigo-600 transition-all shadow-md flex items-center justify-center"
+                                >
+                                  <ExternalLink size={16} />
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
                   </tbody>
                 </table>
               </div>

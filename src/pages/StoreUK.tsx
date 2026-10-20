@@ -340,7 +340,11 @@ export const StoreUK: React.FC = () => {
                             onError={(e) => {
                               const target = e.currentTarget;
                               target.onerror = null;
-                              target.src = '/Products/oxford.jpeg';
+                              if (target.src.includes('123thenextlevel.com/')) {
+                                target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
+                                return;
+                              }
+                              target.src = '/assets/images/shop/sirtuin-stack.png';
                             }}
                           />
                         </div>
@@ -413,6 +417,10 @@ export const StoreUK: React.FC = () => {
                             onError={(e) => {
                               const target = e.currentTarget;
                               target.onerror = null;
+                              if (target.src.includes('123thenextlevel.com/')) {
+                                target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
+                                return;
+                              }
                               target.src = '/Products/oxford.jpeg';
                             }}
                           />
