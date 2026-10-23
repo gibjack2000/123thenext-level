@@ -3,9 +3,10 @@ import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 import { getProductById } from '../data/products.js';
+import { GUIDE_PRODUCTS, resolveGuideProduct } from '../data/guide-registry.js';
 import { db } from '../services/db.js';
 import { stripeService } from '../services/stripe.js';
-import { generatePresignedDownloadUrl, generateGuidePresignedUrl, isR2Configured, listVaultObjects } from '../services/r2.js';
+import { generatePresignedDownloadUrl, generateGuidePresignedUrl, isR2Configured, listVaultObjects, GUIDE_FILE_KEYS } from '../services/r2.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -115,7 +116,55 @@ async function createDownloadTokensForProduct(orderId, productId) {
  */
 router.post('/create-checkout-session', async (req, res) => {
   try {
-    const { items, customerEmail } = req.body;
+    const { guideId, items, customerEmail } = req.body || {};
+
+    // 1. Direct single guide purchase (e.g. from DigitalGuides / Library)
+    const targetGuide = guideId ? resolveGuideProduct(guideId) : (items && Array.isArray(items) && items.length === 1 ? resolveGuideProduct(items[0].id) : null);
+    if (targetGuide) {
+      const origin = req.headers.origin || process.env.VITE_APP_URL || 'http://localhost:3000';
+
+      const session = await stripeService.createCheckoutSession({
+        lineItems: [
+          {
+            price_data: {
+              currency: 'gbp',
+              product_data: {
+                name: targetGuide.title,
+                description: 'Instant PDF Digital Guide — 123TheNextLevel',
+              },
+              unit_amount: targetGuide.priceInCents,
+            },
+            quantity: 1,
+          },
+        ],
+        successUrl: `${origin}/library?success=true&session_id={CHECKOUT_SESSION_ID}&guideId=${targetGuide.id}`,
+        cancelUrl: `${origin}/library?canceled=true`,
+        customerEmail: customerEmail || undefined,
+        metadata: {
+          guideId: targetGuide.id,
+          r2FileKey: targetGuide.r2FileKey,
+        }
+      });
+
+      try {
+        const order = await db.createOrder({
+          stripe_session_id: session.id,
+          customer_email: customerEmail || '',
+          amount_total: targetGuide.priceInCents / 100,
+          currency: 'gbp',
+          payment_status: 'pending'
+        });
+        await db.createOrderItems([{
+          order_id: order.id,
+          product_id: targetGuide.id,
+          quantity: 1
+        }]);
+      } catch (dbErr) {
+        console.warn('Local DB order recording skipped:', dbErr.message);
+      }
+
+      return res.json({ url: session.url });
+    }
 
     if (!items || !Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ error: 'Cart is empty or invalid.' });
@@ -305,6 +354,7 @@ router.post('/stripe-webhook', async (req, res) => {
   try {
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object;
+      console.log(`🎉 Payment confirmed for guide: ${session.metadata?.guideId || 'order'}`);
 
       // 1. Retrieve full session with line items
       const fullSession = await stripeService.retrieveSession(session.id);
@@ -545,10 +595,38 @@ router.get('/r2/status', async (req, res) => {
  */
 router.post('/get-presigned-guide', async (req, res) => {
   try {
-    const { guideId } = req.body || {};
+    const { sessionId, session_id, guideId } = req.body || {};
+    const activeSessionId = sessionId || session_id;
+
+    // 1. Direct Stripe Payment Verification Flow (Secures paid-products-vault)
+    if (activeSessionId) {
+      const stripeSession = await stripeService.retrieveSession(activeSessionId);
+      if (!stripeSession || stripeSession.payment_status !== 'paid') {
+        return res.status(403).json({ error: 'Payment not completed' });
+      }
+
+      // Identify the target file key inside 'paid-products-vault'
+      const guide = resolveGuideProduct(guideId) || resolveGuideProduct(stripeSession.metadata?.guideId);
+      const r2FileKey = guide ? guide.r2FileKey : (stripeSession.metadata?.r2FileKey || (guideId ? GUIDE_FILE_KEYS[guideId] : null));
+
+      if (!r2FileKey) {
+        return res.status(404).json({ error: 'Guide file mapping missing' });
+      }
+
+      // Generate short-lived presigned URL (valid for 15 minutes / 900 seconds)
+      const downloadUrl = await generateGuidePresignedUrl(r2FileKey, 900);
+
+      return res.json({
+        verified: true,
+        downloadUrl,
+        guideId: guide?.id || guideId,
+        title: guide?.title || 'Digital Master Guide',
+        filename: r2FileKey
+      });
+    }
 
     if (!guideId) {
-      return res.status(400).json({ error: 'guideId is required in request body.' });
+      return res.status(400).json({ error: 'guideId or sessionId is required in request body.' });
     }
 
     // If guideId is a bundle, return presigned links for all constituent books

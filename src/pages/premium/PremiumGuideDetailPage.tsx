@@ -25,15 +25,8 @@ export default function PremiumGuideDetailPage() {
   const { addToCart, isInCart } = useCart();
   const [purchaseInfo, setPurchaseInfo] = useState<PurchaseInfo | null>(null);
   const [downloading, setDownloading] = useState(false);
-  const [showTestBypass, setShowTestBypass] = useState(true);
-
-  // Find the guide in our catalog
   const guide = guides.find(g => g.slug === slug);
 
-  useEffect(() => {
-    // Temporarily enabled unconditionally for testing live
-    setShowTestBypass(true);
-  }, []);
 
   useEffect(() => {
     if (!guide) return;
@@ -258,16 +251,6 @@ export default function PremiumGuideDetailPage() {
                         </>
                       )}
                     </button>
-                    {showTestBypass && (
-                      <button
-                        onClick={handleBypassTest}
-                        disabled={downloading}
-                        className="w-full py-4 bg-slate-800 hover:bg-slate-750 text-slate-300 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-colors flex items-center justify-center gap-2 border border-slate-700/60 shadow-md"
-                      >
-                        <Download size={12} />
-                        <span>Test Download (Bypass Stripe)</span>
-                      </button>
-                    )}
                     
                     <div className="flex items-center justify-center gap-2 text-[9px] text-slate-555 font-black uppercase tracking-wider">
                       <ShieldCheck size={12} className="text-blue-500" /> Secure Payment via Stripe

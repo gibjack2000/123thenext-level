@@ -1,5 +1,11 @@
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import Stripe from 'stripe';
+import { GUIDE_PRODUCTS, resolveGuideProduct } from '../data/guide-registry';
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+  apiVersion: '2023-10-16',
+});
 
 const s3Client = new S3Client({
   region: 'auto',
@@ -118,4 +124,57 @@ export async function getPresignedDownloadUrl(guideId: string): Promise<string> 
 
   // Generates 15-minute temporary presigned download link
   return await getSignedUrl(s3Client, command, { expiresIn: 900 });
+}
+
+export async function handleGetPresignedGuide(req: Request): Promise<Response> {
+  try {
+    const { sessionId, guideId } = await req.json();
+
+    if (!sessionId) {
+      return new Response(JSON.stringify({ error: 'Session ID required' }), {
+        status: 401,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    // 1. Verify payment status directly with Stripe
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+    if (session.payment_status !== 'paid') {
+      return new Response(JSON.stringify({ error: 'Payment not completed' }), {
+        status: 403,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    // 2. Identify the target file key inside 'paid-products-vault'
+    const guide = resolveGuideProduct(guideId) || resolveGuideProduct(session.metadata?.guideId || '');
+    const r2FileKey = guide ? guide.r2FileKey : session.metadata?.r2FileKey;
+
+    if (!r2FileKey) {
+      return new Response(JSON.stringify({ error: 'Guide file mapping missing' }), {
+        status: 404,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    // 3. Generate short-lived presigned URL (valid for 15 minutes / 900 seconds)
+    const command = new GetObjectCommand({
+      Bucket: process.env.R2_PAID_BUCKET_NAME || 'paid-products-vault',
+      Key: r2FileKey,
+    });
+
+    const downloadUrl = await getSignedUrl(s3Client, command, { expiresIn: 900 });
+
+    return new Response(JSON.stringify({ downloadUrl }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  } catch (error: any) {
+    console.error('[API get-presigned-guide] Error:', error.message);
+    return new Response(JSON.stringify({ error: 'Verification failed: ' + error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
+  }
 }

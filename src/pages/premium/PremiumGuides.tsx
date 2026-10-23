@@ -26,12 +26,6 @@ export default function PremiumGuides() {
   const [loading, setLoading] = useState(true);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [purchasedGuides, setPurchasedGuides] = useState<Record<string, { purchased: boolean; downloadUrl: string; expiresAt: string }>>({});
-  const [showTestBypass, setShowTestBypass] = useState(true);
-
-  useEffect(() => {
-    // Temporarily enabled unconditionally for testing live
-    setShowTestBypass(true);
-  }, []);
 
   useEffect(() => {
     try {
@@ -568,14 +562,6 @@ export default function PremiumGuides() {
                           </>
                         )}
                       </button>
-                      {showTestBypass && (
-                        <button 
-                          onClick={() => handleBypassTest(selectedGuide.id, selectedGuide.slug)}
-                          className="w-full sm:w-auto px-6 py-4 bg-slate-800 hover:bg-slate-750 text-slate-300 rounded-xl font-black uppercase tracking-widest text-[10px] transition-all flex items-center justify-center gap-2 border border-slate-700/60 shadow-md"
-                        >
-                          <Download size={14} /> Test Download
-                        </button>
-                      )}
                     </div>
                   )}
                 </div>
