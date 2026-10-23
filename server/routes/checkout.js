@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import { getProductById } from '../data/products.js';
 import { db } from '../services/db.js';
 import { stripeService } from '../services/stripe.js';
+import { generatePresignedDownloadUrl, generateGuidePresignedUrl, isR2Configured, listVaultObjects } from '../services/r2.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,6 +16,7 @@ const router = express.Router();
 const EXPIRY_HOURS = parseInt(process.env.DOWNLOAD_TOKEN_EXPIRY_HOURS || '72', 10);
 const MAX_USES = parseInt(process.env.DOWNLOAD_MAX_USES || '3', 10);
 const FILE_STORAGE_DIR = process.env.FILE_STORAGE_DIR || path.join(__dirname, '../../protected-files/pdfs');
+const R2_PRESIGNED_EXPIRY_SECONDS = parseInt(process.env.R2_PRESIGNED_EXPIRY_SECONDS || '3600', 10);
 
 // Helper to calculate token expiry
 function getExpiryDate() {
@@ -302,72 +304,186 @@ router.post('/stripe-webhook', async (req, res) => {
   }
 });
 
-/**
- * 4. GET /api/download/:token
- * Securely delivers the PDF file if token matches conditions
- */
-router.get('/download/:token', async (req, res) => {
+// Helper to handle secure download delivery
+async function handleDownloadDelivery(req, res, forceJson = false) {
   try {
     const { token } = req.params;
+    const format = forceJson ? 'json' : (req.query.format || (req.query.redirect === 'false' ? 'json' : null));
 
     if (!token) {
+      if (format === 'json') return res.status(400).json({ error: 'Token parameter is required.' });
       return res.status(400).send('Token parameter is required.');
     }
 
     // Retrieve token record
     const tokenRecord = await db.getDownloadToken(token);
     if (!tokenRecord) {
+      if (format === 'json') return res.status(404).json({ error: 'Invalid or expired download link.' });
       return res.status(404).send('Invalid or expired download link.');
     }
 
     // Check token expiration
     if (new Date() > new Date(tokenRecord.expires_at)) {
+      if (format === 'json') return res.status(410).json({ error: 'This download link has expired.' });
       return res.status(410).send('This download link has expired.');
     }
 
     // Check download limit
     if (tokenRecord.download_count >= tokenRecord.max_downloads) {
+      if (format === 'json') return res.status(429).json({ error: 'Maximum download limit reached for this link.' });
       return res.status(429).send('Maximum download limit reached for this link.');
     }
 
     // Verify order payment status
     const order = await db.getOrder(tokenRecord.order_id);
     if (!order || order.payment_status !== 'paid') {
+      if (format === 'json') return res.status(403).json({ error: 'Payment has not been confirmed for this order.' });
       return res.status(403).send('Payment has not been confirmed for this order.');
     }
 
     // Load product
     const product = getProductById(tokenRecord.product_id);
     if (!product) {
+      if (format === 'json') return res.status(404).json({ error: 'Product not found in current catalog.' });
       return res.status(404).send('Product not found in current catalog.');
     }
 
-    // Resolve file path securely and prevent directory traversal
-    const safeFileName = path.basename(product.filePath);
-    const resolvedPath = path.resolve(FILE_STORAGE_DIR, safeFileName);
+    // --- Preferred Delivery: Cloudflare R2 Presigned Download URL ---
+    if (isR2Configured() && product.r2Key) {
+      try {
+        const downloadFilename = product.downloadFilename || `${product.slug || product.id}.pdf`;
+        const presignedUrl = await generatePresignedDownloadUrl({
+          key: product.r2Key,
+          filename: downloadFilename,
+          expiresInSeconds: R2_PRESIGNED_EXPIRY_SECONDS,
+        });
 
-    // Secure boundary check
-    if (!resolvedPath.startsWith(path.resolve(FILE_STORAGE_DIR))) {
-      return res.status(403).send('Access Denied.');
+        // Increment download count before dispatching
+        await db.incrementDownloadCount(token);
+
+        console.log(`[R2 Download] Presigned URL generated for order=${order.id}, product=${product.id}, count=${tokenRecord.download_count + 1}/${tokenRecord.max_downloads}`);
+
+        if (format === 'json') {
+          return res.json({
+            success: true,
+            download_url: presignedUrl,
+            filename: downloadFilename,
+            expires_in_seconds: R2_PRESIGNED_EXPIRY_SECONDS,
+            remaining_downloads: Math.max(0, tokenRecord.max_downloads - (tokenRecord.download_count + 1)),
+          });
+        }
+
+        // Direct browser redirect to secure Cloudflare R2 presigned URL
+        return res.redirect(presignedUrl);
+      } catch (r2Error) {
+        console.error('[R2 Download Error] Failed to generate presigned URL, checking local fallback:', r2Error.message);
+      }
     }
 
-    // Check if file exists on disk
-    if (!fs.existsSync(resolvedPath)) {
-      console.error(`File missing in storage directory: ${resolvedPath}`);
-      return res.status(404).send('PDF file currently unavailable. Please contact support.');
+    // --- Fallback: Local protected filesystem delivery ---
+    if (product.filePath) {
+      const safeFileName = path.basename(product.filePath);
+      const resolvedPath = path.resolve(FILE_STORAGE_DIR, safeFileName);
+
+      // Secure boundary check
+      if (resolvedPath.startsWith(path.resolve(FILE_STORAGE_DIR)) && fs.existsSync(resolvedPath)) {
+        await db.incrementDownloadCount(token);
+
+        if (format === 'json') {
+          return res.json({
+            success: true,
+            download_url: `/api/download/${token}`,
+            filename: product.downloadFilename || safeFileName,
+            is_local: true,
+            remaining_downloads: Math.max(0, tokenRecord.max_downloads - (tokenRecord.download_count + 1)),
+          });
+        }
+
+        res.setHeader('Content-Type', 'application/pdf');
+        res.setHeader('Content-Disposition', `attachment; filename="${product.downloadFilename || safeFileName}"`);
+        return res.sendFile(resolvedPath);
+      }
     }
 
-    // Increment download count before sending file to avoid double-triggers
-    await db.incrementDownloadCount(token);
-
-    // Send PDF with correct attachment headers
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', `attachment; filename="${safeFileName}"`);
-    res.sendFile(resolvedPath);
+    console.error(`File missing both in R2 and local storage for product: ${product.id}`);
+    if (format === 'json') return res.status(404).json({ error: 'PDF file currently unavailable. Please contact support.' });
+    return res.status(404).send('PDF file currently unavailable. Please contact support.');
 
   } catch (error) {
     console.error('Download delivery error:', error);
+    if (forceJson || req.query.format === 'json') {
+      return res.status(500).json({ error: 'Failed to serve download file.' });
+    }
     res.status(500).send('Failed to serve download file.');
+  }
+}
+
+/**
+ * 4. GET /api/download/:token
+ * Securely delivers the PDF file if token matches conditions.
+ * Delivers via secure, temporary Cloudflare R2 presigned download URL,
+ * with graceful fallback to local storage.
+ */
+router.get('/download/:token', async (req, res) => {
+  return handleDownloadDelivery(req, res, false);
+});
+
+/**
+ * GET /api/presigned-url/:token
+ * Dedicated endpoint returning JSON with presigned download URL for programmatic consumers
+ */
+router.get('/presigned-url/:token', async (req, res) => {
+  return handleDownloadDelivery(req, res, true);
+});
+
+/**
+ * GET /api/r2/status
+ * Diagnostic endpoint to verify R2 bucket connectivity, health, and object list
+ */
+router.get('/r2/status', async (req, res) => {
+  try {
+    if (!isR2Configured()) {
+      return res.status(503).json({
+        configured: false,
+        error: 'Cloudflare R2 environment variables are incomplete or missing.',
+      });
+    }
+
+    const objects = await listVaultObjects();
+    res.json({
+      configured: true,
+      bucket: process.env.R2_PAID_BUCKET_NAME || 'paid-products-vault',
+      account_id: process.env.CLOUDFLARE_ACCOUNT_ID,
+      object_count: objects.length,
+      objects,
+    });
+  } catch (err) {
+    res.status(500).json({
+      configured: false,
+      error: err.message,
+    });
+  }
+});
+
+/**
+ * POST /api/get-presigned-guide
+ * Returns a short-lived presigned download URL directly from Cloudflare R2
+ * Body: { guideId: string }
+ * Response: { downloadUrl: string }
+ */
+router.post('/get-presigned-guide', async (req, res) => {
+  try {
+    const { guideId } = req.body || {};
+
+    if (!guideId) {
+      return res.status(400).json({ error: 'guideId is required in request body.' });
+    }
+
+    const downloadUrl = await generateGuidePresignedUrl(guideId);
+    return res.json({ downloadUrl });
+  } catch (error) {
+    console.error('[API /api/get-presigned-guide] Error:', error.message);
+    return res.status(500).json({ error: 'Failed to generate presigned download URL.' });
   }
 });
 
