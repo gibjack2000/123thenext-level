@@ -263,6 +263,7 @@ export default function CheckoutPage() {
   const item = PRODUCT_MAP[rawKey] || PRODUCT_MAP['all-six-master-guides'];
 
   const [isProcessing, setIsProcessing] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [downloadSuccess, setDownloadSuccess] = useState(false);
   const [downloadItems, setDownloadItems] = useState<PresignedDownloadItem[]>([]);
   const [zipDownloadUrl, setZipDownloadUrl] = useState<string | null>(null);
@@ -274,6 +275,7 @@ export default function CheckoutPage() {
 
   const handleStripeCheckout = async () => {
     setIsProcessing(true);
+    setCheckoutError(null);
     try {
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
@@ -281,85 +283,26 @@ export default function CheckoutPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          guideId: item.slug || item.id,
           items: [{ id: item.id }]
         }),
       });
 
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Failed to initiate secure checkout session');
+      }
+
       const data = await response.json();
       if (data.url) {
+        // Redirect directly to Stripe Checkout
         window.location.href = data.url;
       } else {
-        // Fallback for dev / offline testing
-        await handleBypassDownload();
+        throw new Error(data.error || 'No checkout URL returned from Stripe');
       }
-    } catch {
-      // Offline fallback
-      await handleBypassDownload();
-    } finally {
-      setIsProcessing(false);
-    }
-  };
-
-  const handleBypassDownload = async () => {
-    setIsProcessing(true);
-    try {
-      // 1. Try secure Cloudflare R2 presigned download endpoint
-      const guideKey = rawKey || item.slug || item.id;
-      const res = await handleSecureGuideDownload(guideKey);
-
-      if (res.success && res.data) {
-        if (res.data.zipUrl) {
-          setZipDownloadUrl(res.data.zipUrl);
-        }
-        if (res.data.downloads && res.data.downloads.length > 0) {
-          setDownloadItems(res.data.downloads);
-        } else if (res.data.downloadUrl) {
-          setDownloadItems([{
-            id: guideKey,
-            title: item.name,
-            filename: `${item.slug}.pdf`,
-            downloadUrl: res.data.downloadUrl
-          }]);
-        }
-        setDownloadSuccess(true);
-        return;
-      }
-
-      // 2. Fallback to order token bypass endpoint
-      const response = await fetch('/api/test-bypass-checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ productId: item.id })
-      });
-      const data = await response.json();
-
-      if (data.success && data.downloads && data.downloads.length > 0) {
-        setDownloadItems(data.downloads.map((d: any) => ({
-          id: d.id,
-          title: d.title,
-          filename: d.filename,
-          downloadUrl: d.download_link
-        })));
-        // Sequential trigger
-        data.downloads.forEach((d: any, idx: number) => {
-          setTimeout(() => {
-            triggerBrowserDownload(d.download_link, d.filename);
-          }, idx * 450);
-        });
-        setDownloadSuccess(true);
-      } else if (data.success && data.download_link) {
-        triggerBrowserDownload(data.download_link, 'beginner_home_workout-2026.pdf');
-        setDownloadItems([{
-          id: item.id,
-          title: item.name,
-          downloadUrl: data.download_link
-        }]);
-        setDownloadSuccess(true);
-      } else {
-        setDownloadSuccess(true);
-      }
-    } catch {
-      setDownloadSuccess(true);
+    } catch (err: any) {
+      console.error('Stripe checkout error:', err);
+      setCheckoutError(err.message || 'Unable to connect to Stripe checkout. Please try again.');
     } finally {
       setIsProcessing(false);
     }
@@ -531,6 +474,11 @@ export default function CheckoutPage() {
           </div>
         ) : (
           <div className="space-y-3 pt-2">
+            {checkoutError && (
+              <div className="p-3.5 rounded-xl bg-rose-950/80 border border-rose-500/40 text-rose-300 text-xs text-center font-medium">
+                ⚠️ {checkoutError}
+              </div>
+            )}
             <button
               onClick={handleStripeCheckout}
               disabled={isProcessing}
@@ -543,15 +491,6 @@ export default function CheckoutPage() {
                   <Lock size={16} /> Complete Payment ({item.price}) ➔
                 </>
               )}
-            </button>
-
-            <button
-              onClick={handleBypassDownload}
-              disabled={isProcessing}
-              className="w-full py-3 bg-slate-950 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold rounded-xl border border-slate-800 transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-            >
-              <Download size={14} className="text-cyan-400" />
-              {isProcessing ? 'Generating Secure Links...' : `Instant Preview / 1-Click Download (${item.guides ? `All ${item.guides.length} Master Books` : '1 PDF'})`}
             </button>
           </div>
         )}

@@ -175,15 +175,31 @@ router.post('/create-checkout-session', async (req, res) => {
 
     // Resolve Stripe prices using server-side catalog to prevent tampering
     for (const cartItem of items) {
-      const product = getProductById(cartItem.id);
+      const product = getProductById(cartItem.id) || resolveGuideProduct(cartItem.id);
       if (!product) {
         return res.status(400).json({ error: `Product ID '${cartItem.id}' not found in catalog.` });
       }
 
-      lineItems.push({
-        price: product.stripePriceId,
-        quantity: 1 // Quantity is always 1 for digital PDFs
-      });
+      // If a valid Stripe price ID exists, use it; otherwise use dynamic price_data
+      if (product.stripePriceId && product.stripePriceId.startsWith('price_') && !product.stripePriceId.includes('placeholder')) {
+        lineItems.push({
+          price: product.stripePriceId,
+          quantity: 1
+        });
+      } else {
+        const unitAmount = product.priceInCents || Math.round(product.price * 100);
+        lineItems.push({
+          price_data: {
+            currency: product.currency || 'gbp',
+            product_data: {
+              name: product.title,
+              description: 'Instant PDF Digital Guide — 123TheNextLevel',
+            },
+            unit_amount: unitAmount,
+          },
+          quantity: 1
+        });
+      }
 
       validatedItems.push({
         product_id: product.id,
@@ -681,67 +697,10 @@ router.post('/get-presigned-guide', async (req, res) => {
 
 /**
  * 5. POST /api/test-bypass-checkout
- * Test bypass endpoint to instantly generate download tokens without Stripe checkout
+ * Disabled to strictly enforce Stripe payment authorization
  */
 router.post('/test-bypass-checkout', async (req, res) => {
-  try {
-    const { productId } = req.body;
-    
-    // Support bundle expansion in bypass checkout
-    let targetIds = [productId];
-    if (productId === 'g-bundle-9' || productId === 'all-nine-master-guides' || productId === 'all-9-master-guides') {
-      targetIds = ['g-fit-1', 'g-fit-2', 'g-fit-3', 'g-nut-1', 'g-nut-2', 'g-nut-3', 'g-wel-1', 'g-wel-2', 'g-wel-3'];
-    } else if (productId === 'g-bundle-6' || productId === 'all-six-master-guides') {
-      targetIds = ['g-fit-1', 'g-nut-1', 'g-wel-1', 'g-epi-1', 'g-fit-2', 'g-fit-3'];
-    } else if (productId === 'g-bundle-1' || productId === 'all-three-master-guides') {
-      targetIds = ['g-fit-1', 'g-nut-1', 'g-wel-1'];
-    }
-
-    // 1. Create a paid order
-    const order = await db.createOrder({
-      stripe_session_id: `test_session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
-      customer_email: 'test-user@example.com',
-      amount_total: 0,
-      currency: 'gbp',
-      payment_status: 'paid'
-    });
-
-    // 2. Create order items and download tokens
-    const downloads = [];
-    for (const pid of targetIds) {
-      const prod = getProductById(pid);
-      if (prod) {
-        await db.createOrderItems([{
-          order_id: order.id,
-          product_id: prod.id,
-          quantity: 1
-        }]);
-
-        const tokenRecord = await db.createDownloadToken({
-          order_id: order.id,
-          product_id: prod.id,
-          expires_at: getExpiryDate(),
-          max_downloads: MAX_USES
-        });
-
-        downloads.push({
-          id: prod.id,
-          title: prod.title,
-          filename: prod.downloadFilename || prod.r2Key,
-          download_link: `/api/download/${tokenRecord.token}`
-        });
-      }
-    }
-
-    res.json({
-      success: true,
-      download_link: downloads[0]?.download_link || null,
-      downloads
-    });
-  } catch (error) {
-    console.error('Bypass test error:', error);
-    res.status(500).json({ error: 'Failed to bypass checkout.' });
-  }
+  return res.status(403).json({ error: 'Direct download bypass is disabled. Please complete checkout via Stripe.' });
 });
 
 export default router;
