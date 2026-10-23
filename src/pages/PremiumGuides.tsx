@@ -25,12 +25,13 @@ const GuideCoverImage: React.FC<{ primaryImage: string; fallbackImage?: string; 
     <img
       src={src}
       alt={altText}
+      loading="lazy"
       onError={() => {
         if (fallbackImage && src !== fallbackImage) {
           setSrc(fallbackImage);
         }
       }}
-      className="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500"
+      className="w-full h-full object-contain rounded-lg drop-shadow-md group-hover:scale-[1.02] transition-transform duration-500"
     />
   );
 };
@@ -217,7 +218,7 @@ export default function PremiumGuidesPage() {
               <div className="space-y-5">
                 
                 {/* 3D Cover Image with Universal Multi-Path Resolver */}
-                <div className="aspect-[4/5] w-full rounded-xl bg-slate-950 border border-slate-800 overflow-hidden relative shadow-lg">
+                <div className="aspect-[1/1.414] w-full rounded-xl bg-slate-950/90 border border-slate-800/80 overflow-hidden relative shadow-xl flex items-center justify-center p-2">
                   <GuideCoverImage 
                     primaryImage={guide.primaryImage} 
                     fallbackImage={guide.fallbackImage} 

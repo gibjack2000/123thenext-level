@@ -69,7 +69,7 @@ export const DigitalGuides: React.FC<DigitalGuidesProps> = ({
               <div className="space-y-5">
                 
                 {/* Visual Cover Box */}
-                <div className="relative aspect-[4/5] max-w-[260px] mx-auto w-full flex items-center justify-center rounded-2xl bg-slate-950 border border-slate-800/80 overflow-hidden shadow-2xl group-hover:scale-[1.02] transition-transform duration-500">
+                <div className="relative aspect-[1/1.414] max-w-[280px] mx-auto w-full flex items-center justify-center rounded-2xl bg-slate-950/90 border border-slate-800/80 overflow-hidden shadow-2xl p-2 group-hover:scale-[1.02] transition-transform duration-500">
                   <div className="absolute top-3 left-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-950/90 border border-slate-700/80 text-[10px] font-bold text-slate-300 backdrop-blur-md">
                     <Lock size={10} className="text-amber-400" />
                     <span>R2 Vault</span>
@@ -78,12 +78,13 @@ export const DigitalGuides: React.FC<DigitalGuidesProps> = ({
                   <img
                     src={guide.coverImage}
                     alt={guide.title}
+                    loading="lazy"
                     onError={(e) => {
                       // Fallback placeholder image if cover path fails
                       (e.currentTarget as HTMLImageElement).src =
                         'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=800&auto=format&fit=crop';
                     }}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-contain rounded-xl drop-shadow-md transition-transform duration-500"
                   />
                 </div>
 

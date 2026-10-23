@@ -53,7 +53,7 @@ export const GUIDE_PRODUCTS: Record<string, DigitalGuideProduct> = {
     r2FileKey: 'Daily_Mobility_and_Recovery-2026.pdf',
     pillar: 'Joint & Spine',
     description: 'A science-backed 15-minute blueprint for desk workers and athletes to restore joint kinematics and decompress the spine.',
-    coverImage: '/covers/mobility-recovery-cover.png',
+    coverImage: '/covers/daily-mobility-recovery-cover.png',
     highlights: [
       '15-Minute Daily Decompression Routine',
       'Thoracic & Hip Mobility Sequences',
@@ -101,7 +101,7 @@ export const GUIDE_PRODUCTS: Record<string, DigitalGuideProduct> = {
     r2FileKey: 'High_Protein_Recipe_Collection-2026.pdf',
     pillar: 'Diet',
     description: '45+ chef-crafted, high-protein meal and snack formulas designed to hit optimal leucine thresholds per serving.',
-    coverImage: '/covers/high-protein-recipes-cover.png',
+    coverImage: '/covers/high-protein-recipe-cover.png',
     highlights: [
       '30g+ Protein Per Serving Guarantee',
       'Leucine Threshold Optimizations',
@@ -133,7 +133,7 @@ export const GUIDE_PRODUCTS: Record<string, DigitalGuideProduct> = {
     r2FileKey: 'Deep_Sleep_Optimization-2026.pdf',
     pillar: 'Recovery',
     description: 'A 28-day actionable blueprint to maximize deep slow-wave sleep, optimize REM cycles, and eliminate nocturnal waking.',
-    coverImage: '/covers/sleep-optimization-cover.png',
+    coverImage: '/covers/deep-sleep-optimization-cover.png',
     highlights: [
       'Thermal & Melatonin Curve Timing',
       'Glymphatic Brain Waste Clearance System',
@@ -165,7 +165,7 @@ export const GUIDE_PRODUCTS: Record<string, DigitalGuideProduct> = {
     r2FileKey: 'the-next-level-lifespan.pdf',
     pillar: 'Longevity',
     description: 'Upgrade your cellular hardware today to run tomorrow’s age-reversal software: sirtuin activation, autophagy, and DNA protection.',
-    coverImage: '/covers/lifespan-blueprint-cover.png',
+    coverImage: '/covers/the-next-level-lifespan-cover.png',
     highlights: [
       'Epigenetic Age Reversal Strategies',
       'Autophagy Activation Schedules',
