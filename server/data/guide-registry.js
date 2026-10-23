@@ -7,8 +7,8 @@ export const GUIDE_PRODUCTS = {
     id: 'beginner-home-workout',
     productId: 'g-fit-1',
     title: 'Beginner Home Workout Plan',
-    priceInCents: 1900, // £19.00
-    priceFormatted: '£19.00',
+    priceInCents: 30, // 30p test price
+    priceFormatted: '£0.30',
     r2FileKey: 'beginner_home_workout-2026.pdf'
   },
   'hypertrophy-strength': {

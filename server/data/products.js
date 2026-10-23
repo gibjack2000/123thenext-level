@@ -7,7 +7,7 @@ export const products = [
     id: 'g-fit-1',
     slug: 'beginner-home-workout-plan',
     title: 'Beginner Home Workout Plan',
-    price: 19.00,
+    price: 0.30, // 30p test price
     currency: 'gbp',
     stripePriceId: process.env.STRIPE_PRICE_FIT1 || 'price_placeholder_fit1',
     r2Key: 'beginner_home_workout-2026.pdf',

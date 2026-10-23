@@ -46,7 +46,7 @@ export default function PremiumGuidesPage() {
       id: "workout-plan",
       pillar: "Fitness",
       title: "Beginner Home Workout Plan",
-      price: "£19.00",
+      price: "£0.30",
       usPrice: "$24.00",
       primaryImage: "/covers/beginner-home-workout-cover.png",
       fallbackImage: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop",
