@@ -1,9 +1,93 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { Lock, ShieldCheck, ArrowRight, Download, CheckCircle2, ShoppingBag } from 'lucide-react';
-import { handleSecureGuideDownload } from '../services/guideDownloadService';
+import { Lock, ShieldCheck, Download, CheckCircle2, FileText, RefreshCw, ExternalLink } from 'lucide-react';
+import { 
+  handleSecureGuideDownload, 
+  triggerBrowserDownload, 
+  PresignedDownloadItem 
+} from '../services/guideDownloadService';
 
-const PRODUCT_MAP: Record<string, { id: string; name: string; price: string; usPrice: string; slug: string; desc: string }> = {
+interface BundleGuideItem {
+  id: string;
+  title: string;
+  file: string;
+  pillar?: string;
+}
+
+interface ProductInfo {
+  id: string;
+  name: string;
+  price: string;
+  usPrice: string;
+  slug: string;
+  desc: string;
+  guides?: BundleGuideItem[];
+}
+
+const SIX_PILLAR_GUIDES: BundleGuideItem[] = [
+  { id: 'workout-plan', title: 'Beginner Home Workout Plan', file: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
+  { id: 'meal-planner', title: 'The Master Meal Planning Guide', file: 'The Master_Meal_Planning_Guide-2026.pdf', pillar: 'Nutrition' },
+  { id: 'stress-management', title: 'Cortisol & Stress Management', file: 'Cortisol_&_Stress_Management-2026.pdf', pillar: 'Wellness' },
+  { id: 'lifespan-blueprint', title: 'The Next Level Lifespan Blueprint', file: 'the-next-level-lifespan.pdf', pillar: 'Epigenetics / Longevity' },
+  { id: 'hypertrophy-strength', title: 'Hypertrophy & Strength Protocol', file: 'Hypertrophy-Strength-Protocol-2026.pdf', pillar: 'Muscle Architecture' },
+  { id: 'mobility-recovery', title: 'Daily Mobility & Recovery Routine', file: 'Daily_Mobility_and_Recovery-2026.pdf', pillar: 'Joint & Kinematics' }
+];
+
+const THREE_PILLAR_GUIDES: BundleGuideItem[] = [
+  { id: 'workout-plan', title: 'Beginner Home Workout Plan', file: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
+  { id: 'meal-planner', title: 'The Master Meal Planning Guide', file: 'The Master_Meal_Planning_Guide-2026.pdf', pillar: 'Nutrition' },
+  { id: 'stress-management', title: 'Cortisol & Stress Management', file: 'Cortisol_&_Stress_Management-2026.pdf', pillar: 'Wellness' }
+];
+
+const PRODUCT_MAP: Record<string, ProductInfo> = {
+  // --- BUNDLES ---
+  'all-six-master-guides': {
+    id: 'g-bundle-6',
+    name: 'Complete 6-Pillar Master Suite (All 6 Master Books)',
+    price: '£49.00',
+    usPrice: '$59.00',
+    slug: 'all-six-master-guides',
+    desc: 'Complete 6-book execution suite: Workout Plan + Meal Planner + Stress Management + Epigenetics Blueprint + Hypertrophy + Mobility Routine (Save over 55%).',
+    guides: SIX_PILLAR_GUIDES
+  },
+  'all-6-master-guides': {
+    id: 'g-bundle-6',
+    name: 'Complete 6-Pillar Master Suite (All 6 Master Books)',
+    price: '£49.00',
+    usPrice: '$59.00',
+    slug: 'all-six-master-guides',
+    desc: 'Complete 6-book execution suite: Workout Plan + Meal Planner + Stress Management + Epigenetics Blueprint + Hypertrophy + Mobility Routine (Save over 55%).',
+    guides: SIX_PILLAR_GUIDES
+  },
+  'g-bundle-6': {
+    id: 'g-bundle-6',
+    name: 'Complete 6-Pillar Master Suite (All 6 Master Books)',
+    price: '£49.00',
+    usPrice: '$59.00',
+    slug: 'all-six-master-guides',
+    desc: 'Complete 6-book execution suite: Workout Plan + Meal Planner + Stress Management + Epigenetics Blueprint + Hypertrophy + Mobility Routine (Save over 55%).',
+    guides: SIX_PILLAR_GUIDES
+  },
+  'all-three-master-guides': {
+    id: 'g-bundle-1',
+    name: 'All Three Digital Master Guides (Complete Bundle)',
+    price: '£29.00',
+    usPrice: '$39.00',
+    slug: '3-part-bundle',
+    desc: 'Complete 3-book execution suite: Workout Plan + Meal Planner + Stress Management (Save 55%).',
+    guides: THREE_PILLAR_GUIDES
+  },
+  'g-bundle-1': {
+    id: 'g-bundle-1',
+    name: 'All Three Digital Master Guides (Complete Bundle)',
+    price: '£29.00',
+    usPrice: '$39.00',
+    slug: '3-part-bundle',
+    desc: 'Complete 3-book execution suite: Workout Plan + Meal Planner + Stress Management (Save 55%).',
+    guides: THREE_PILLAR_GUIDES
+  },
+
+  // --- INDIVIDUAL GUIDES ---
   'workout-plan': {
     id: 'g-fit-1',
     name: 'Beginner Home Workout Plan',
@@ -121,7 +205,7 @@ const PRODUCT_MAP: Record<string, { id: string; name: string; price: string; usP
     name: 'Ovary-Span & Endocrine Performance Guide',
     price: '£22.00',
     usPrice: '$28.00',
-    slug: 'womens_health_cover',
+    slug: 'Daily_Mobility_and_Recovery-2026',
     desc: 'Hormone balancing, bone mineral density preservation, and ovary-span health.'
   },
   'socio-architecture-guide': {
@@ -129,26 +213,19 @@ const PRODUCT_MAP: Record<string, { id: string; name: string; price: string; usP
     name: 'Socio-Biological Architecture & Connection Blueprint',
     price: '£19.00',
     usPrice: '$24.00',
-    slug: 'socio_architecture_cover',
+    slug: 'Mindfulness_and_Habit_Reset_Workbook-2026',
     desc: 'Micro-community health formation, neural coupling, and environmental lifestyle design.'
-  },
-  'all-three-master-guides': {
-    id: 'g-bundle-1',
-    name: 'All Three Digital Master Guides (Complete Bundle)',
-    price: '£29.00',
-    usPrice: '$39.00',
-    slug: '3-part-bundle',
-    desc: 'Complete 3-book execution suite: Workout Plan + Meal Planner + Stress Management (Save 55%).'
   }
 };
 
 export default function CheckoutPage() {
   const [searchParams] = useSearchParams();
-  const productKey = searchParams.get('product') || searchParams.get('bundle') || 'all-three-master-guides';
-  const item = PRODUCT_MAP[productKey] || PRODUCT_MAP['all-three-master-guides'];
+  const rawKey = searchParams.get('product') || searchParams.get('bundle') || 'all-six-master-guides';
+  const item = PRODUCT_MAP[rawKey] || PRODUCT_MAP['all-six-master-guides'];
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [downloadSuccess, setDownloadSuccess] = useState(false);
+  const [downloadItems, setDownloadItems] = useState<PresignedDownloadItem[]>([]);
 
   useEffect(() => {
     document.title = `Checkout: ${item.name} | 123TheNextLevel`;
@@ -173,101 +250,221 @@ export default function CheckoutPage() {
         window.location.href = data.url;
       } else {
         // Fallback for dev / offline testing
-        handleBypassDownload();
+        await handleBypassDownload();
       }
-    } catch (e) {
+    } catch {
       // Offline fallback
-      handleBypassDownload();
+      await handleBypassDownload();
     } finally {
       setIsProcessing(false);
     }
   };
 
   const handleBypassDownload = async () => {
+    setIsProcessing(true);
     try {
-      // 1. Try secure Cloudflare R2 presigned download first
-      const guideKey = productKey || item.slug || item.id;
-      const r2Success = await handleSecureGuideDownload(guideKey);
-      if (r2Success) {
+      // 1. Try secure Cloudflare R2 presigned download endpoint
+      const guideKey = rawKey || item.slug || item.id;
+      const res = await handleSecureGuideDownload(guideKey);
+
+      if (res.success && res.data) {
+        if (res.data.downloads && res.data.downloads.length > 0) {
+          setDownloadItems(res.data.downloads);
+        } else if (res.data.downloadUrl) {
+          setDownloadItems([{
+            id: guideKey,
+            title: item.name,
+            filename: `${item.slug}.pdf`,
+            downloadUrl: res.data.downloadUrl
+          }]);
+        }
         setDownloadSuccess(true);
         return;
       }
 
-      // 2. Fallback to order token bypass
+      // 2. Fallback to order token bypass endpoint
       const response = await fetch('/api/test-bypass-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ productId: item.id })
       });
       const data = await response.json();
-      if (data.success && data.download_link) {
-        const link = document.createElement('a');
-        link.href = data.download_link;
-        link.setAttribute('download', 'beginner_home_workout-2026.pdf');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+
+      if (data.success && data.downloads && data.downloads.length > 0) {
+        setDownloadItems(data.downloads.map((d: any) => ({
+          id: d.id,
+          title: d.title,
+          filename: d.filename,
+          downloadUrl: d.download_link
+        })));
+        // Sequential trigger
+        data.downloads.forEach((d: any, idx: number) => {
+          setTimeout(() => {
+            triggerBrowserDownload(d.download_link, d.filename);
+          }, idx * 450);
+        });
+        setDownloadSuccess(true);
+      } else if (data.success && data.download_link) {
+        triggerBrowserDownload(data.download_link, 'beginner_home_workout-2026.pdf');
+        setDownloadItems([{
+          id: item.id,
+          title: item.name,
+          downloadUrl: data.download_link
+        }]);
         setDownloadSuccess(true);
       } else {
         setDownloadSuccess(true);
       }
     } catch {
       setDownloadSuccess(true);
+    } finally {
+      setIsProcessing(false);
     }
+  };
+
+  const handleDownloadAllAgain = () => {
+    if (downloadItems.length === 0) return;
+    downloadItems.forEach((item, index) => {
+      setTimeout(() => {
+        triggerBrowserDownload(item.downloadUrl, item.filename);
+      }, index * 450);
+    });
   };
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-center items-center px-4 py-16">
-      <div className="w-full max-w-lg bg-slate-900 border border-slate-800 rounded-3xl p-8 sm:p-10 shadow-2xl space-y-6">
+      <div className="w-full max-w-xl bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-10 shadow-2xl space-y-6">
         
         {/* Header */}
         <div className="text-center space-y-2">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-800/60 text-cyan-400 text-[11px] font-bold uppercase tracking-wider">
             <Lock size={12} /> Secure Digital Checkout
           </div>
-          <h1 className="text-2xl font-black text-white">Order Summary</h1>
+          <h1 className="text-2xl sm:text-3xl font-black text-white">Order Summary</h1>
         </div>
 
         {/* Product Card */}
-        <div className="p-5 bg-slate-950 border border-slate-800 rounded-2xl space-y-3">
-          <div className="flex justify-between items-start gap-3">
-            <div>
+        <div className="p-5 sm:p-6 bg-slate-950 border border-slate-800 rounded-2xl space-y-4">
+          <div className="flex justify-between items-start gap-4">
+            <div className="space-y-1">
               <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider block">
-                Digital PDF Guide
+                {item.guides ? '🔥 Complete Bundle Suite' : 'Digital PDF Guide'}
               </span>
-              <h2 className="text-base font-bold text-white leading-snug">{item.name}</h2>
+              <h2 className="text-lg font-black text-white leading-snug">{item.name}</h2>
             </div>
             <div className="text-right shrink-0">
-              <span className="text-xl font-black text-cyan-400">{item.price}</span>
+              <span className="text-2xl font-black text-cyan-400">{item.price}</span>
               <span className="text-[11px] text-slate-500 block">({item.usPrice})</span>
             </div>
           </div>
+          
           <p className="text-xs text-slate-400 leading-relaxed">{item.desc}</p>
+
+          {/* Included guides in this bundle */}
+          {item.guides && item.guides.length > 0 && (
+            <div className="pt-3 border-t border-slate-800 space-y-2">
+              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+                Included Execution Books ({item.guides.length}):
+              </span>
+              <div className="grid grid-cols-1 gap-2">
+                {item.guides.map((g, idx) => (
+                  <div 
+                    key={idx} 
+                    className="flex items-center justify-between text-xs text-slate-300 bg-slate-900/90 px-3.5 py-2 rounded-xl border border-slate-800"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-cyan-400 font-bold text-sm">⚡</span>
+                      <span className="font-semibold text-white">{g.title}</span>
+                    </div>
+                    {g.pillar && (
+                      <span className="text-[10px] font-mono text-cyan-400/80 bg-cyan-950/60 border border-cyan-800/40 px-2 py-0.5 rounded">
+                        {g.pillar}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* Benefits list */}
-        <div className="space-y-2 text-xs text-slate-300">
-          <div className="flex items-center gap-2">
-            <CheckCircle2 size={14} className="text-cyan-400 shrink-0" />
-            <span>Instant encrypted PDF download link delivered to your email</span>
+        {/* Value Proposition bullets */}
+        <div className="space-y-2.5 text-xs text-slate-300">
+          <div className="flex items-center gap-2.5">
+            <CheckCircle2 size={15} className="text-cyan-400 shrink-0" />
+            <span>Direct instant Cloudflare R2 presigned download links</span>
           </div>
-          <div className="flex items-center gap-2">
-            <CheckCircle2 size={14} className="text-cyan-400 shrink-0" />
+          <div className="flex items-center gap-2.5">
+            <CheckCircle2 size={15} className="text-cyan-400 shrink-0" />
             <span>Multi-device compatibility (iPad, iPhone, Android, Kindle & Desktop)</span>
           </div>
-          <div className="flex items-center gap-2">
-            <CheckCircle2 size={14} className="text-cyan-400 shrink-0" />
-            <span>Lifetime protocol updates included</span>
+          <div className="flex items-center gap-2.5">
+            <CheckCircle2 size={15} className="text-cyan-400 shrink-0" />
+            <span>Lifetime protocol updates & 2026 geroscience revisions included</span>
           </div>
         </div>
 
+        {/* SUCCESS / DOWNLOAD HUB STATE */}
         {downloadSuccess ? (
-          <div className="p-4 bg-emerald-950/60 border border-emerald-800/80 rounded-xl text-center space-y-2">
-            <p className="text-xs font-bold text-emerald-400">✅ Digital PDF Generation Triggered!</p>
-            <p className="text-[11px] text-slate-300">Your download has begun. Please check your browser's downloads folder.</p>
-            <Link to="/premium-guides" className="text-xs text-cyan-400 hover:underline inline-block pt-1">
-              ← Return to Premium Guides
-            </Link>
+          <div className="p-5 sm:p-6 bg-slate-950 border border-emerald-500/40 rounded-2xl space-y-4 shadow-xl">
+            <div className="text-center space-y-1">
+              <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center justify-center gap-1.5">
+                <CheckCircle2 size={16} /> All Files Generated Successfully!
+              </span>
+              <p className="text-xs text-slate-300">
+                Automatic browser downloads were triggered. If your browser blocked multi-file popups, test or download any book directly below:
+              </p>
+            </div>
+
+            {/* Individual Download Buttons Hub */}
+            <div className="space-y-2 pt-2">
+              {(downloadItems.length > 0 ? downloadItems : (item.guides || [])).map((doc: any, idx: number) => {
+                const downloadUrl = doc.downloadUrl || '#';
+                const filename = doc.filename || doc.file || `${doc.id}.pdf`;
+                const title = doc.title || doc.name || `Book #${idx + 1}`;
+
+                return (
+                  <div 
+                    key={idx}
+                    className="flex items-center justify-between gap-3 p-3 bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl transition-all"
+                  >
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <FileText size={16} className="text-cyan-400 shrink-0" />
+                      <div className="truncate">
+                        <span className="text-xs font-bold text-white block truncate">{title}</span>
+                        <span className="text-[10px] text-slate-500 font-mono block truncate">{filename}</span>
+                      </div>
+                    </div>
+
+                    <a
+                      href={downloadUrl}
+                      download={filename}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="shrink-0 px-3 py-1.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs rounded-lg transition-colors flex items-center gap-1 shadow-sm shadow-cyan-500/20"
+                    >
+                      <Download size={12} /> Download PDF
+                    </a>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Download All Again Action */}
+            {downloadItems.length > 1 && (
+              <button
+                onClick={handleDownloadAllAgain}
+                className="w-full py-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold text-xs rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <RefreshCw size={13} className="text-cyan-400" /> Re-trigger All {downloadItems.length} Downloads
+              </button>
+            )}
+
+            <div className="pt-2 text-center border-t border-slate-800/80">
+              <Link to="/premium-guides" className="text-xs text-cyan-400 hover:underline">
+                ← Return to Premium Guides
+              </Link>
+            </div>
           </div>
         ) : (
           <div className="space-y-3 pt-2">
@@ -287,9 +484,11 @@ export default function CheckoutPage() {
 
             <button
               onClick={handleBypassDownload}
-              className="w-full py-2.5 bg-slate-950 hover:bg-slate-800 text-slate-400 hover:text-slate-200 text-xs font-semibold rounded-xl border border-slate-800 transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+              disabled={isProcessing}
+              className="w-full py-3 bg-slate-950 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold rounded-xl border border-slate-800 transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
             >
-              <Download size={14} /> Instant Preview / Developer Download
+              <Download size={14} className="text-cyan-400" />
+              {isProcessing ? 'Generating Secure Links...' : `Instant Preview / Developer Test Download (${item.guides ? `All ${item.guides.length} PDFs` : '1 PDF'})`}
             </button>
           </div>
         )}

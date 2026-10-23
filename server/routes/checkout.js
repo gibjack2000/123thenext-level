@@ -25,22 +25,49 @@ function getExpiryDate() {
   return date.toISOString();
 }
 
+// Definition of bundle constituents for multi-book suites
+export const BUNDLE_CONSTITUENTS = {
+  'all-six-master-guides': [
+    { id: 'workout-plan', title: 'Beginner Home Workout Plan', key: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
+    { id: 'meal-planner', title: 'The Master Meal Planning Guide', key: 'The Master_Meal_Planning_Guide-2026.pdf', pillar: 'Nutrition' },
+    { id: 'stress-management', title: 'Cortisol & Stress Management', key: 'Cortisol_&_Stress_Management-2026.pdf', pillar: 'Wellness' },
+    { id: 'lifespan-blueprint', title: 'The Next Level Lifespan Blueprint', key: 'the-next-level-lifespan.pdf', pillar: 'Longevity / Epigenetics' },
+    { id: 'hypertrophy-strength', title: 'Hypertrophy & Strength Protocol', key: 'Hypertrophy-Strength-Protocol-2026.pdf', pillar: 'Muscle Health' },
+    { id: 'mobility-recovery', title: 'Daily Mobility & Recovery Routine', key: 'Daily_Mobility_and_Recovery-2026.pdf', pillar: 'Joint & Spine' }
+  ],
+  'g-bundle-6': [
+    { id: 'workout-plan', title: 'Beginner Home Workout Plan', key: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
+    { id: 'meal-planner', title: 'The Master Meal Planning Guide', key: 'The Master_Meal_Planning_Guide-2026.pdf', pillar: 'Nutrition' },
+    { id: 'stress-management', title: 'Cortisol & Stress Management', key: 'Cortisol_&_Stress_Management-2026.pdf', pillar: 'Wellness' },
+    { id: 'lifespan-blueprint', title: 'The Next Level Lifespan Blueprint', key: 'the-next-level-lifespan.pdf', pillar: 'Longevity / Epigenetics' },
+    { id: 'hypertrophy-strength', title: 'Hypertrophy & Strength Protocol', key: 'Hypertrophy-Strength-Protocol-2026.pdf', pillar: 'Muscle Health' },
+    { id: 'mobility-recovery', title: 'Daily Mobility & Recovery Routine', key: 'Daily_Mobility_and_Recovery-2026.pdf', pillar: 'Joint & Spine' }
+  ],
+  'all-three-master-guides': [
+    { id: 'workout-plan', title: 'Beginner Home Workout Plan', key: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
+    { id: 'meal-planner', title: 'The Master Meal Planning Guide', key: 'The Master_Meal_Planning_Guide-2026.pdf', pillar: 'Nutrition' },
+    { id: 'stress-management', title: 'Cortisol & Stress Management', key: 'Cortisol_&_Stress_Management-2026.pdf', pillar: 'Wellness' }
+  ],
+  'g-bundle-1': [
+    { id: 'workout-plan', title: 'Beginner Home Workout Plan', key: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
+    { id: 'meal-planner', title: 'The Master Meal Planning Guide', key: 'The Master_Meal_Planning_Guide-2026.pdf', pillar: 'Nutrition' },
+    { id: 'stress-management', title: 'Cortisol & Stress Management', key: 'Cortisol_&_Stress_Management-2026.pdf', pillar: 'Wellness' }
+  ]
+};
+
 // Helper to create download tokens for a product, expanding bundles if necessary
 async function createDownloadTokensForProduct(orderId, productId) {
-  if (productId === 'g-bundle-1') {
-    const constituentProductIds = ['g-fit-1', 'g-nut-1', 'g-wel-1'];
-    for (const pid of constituentProductIds) {
-      await db.createDownloadToken({
-        order_id: orderId,
-        product_id: pid,
-        expires_at: getExpiryDate(),
-        max_downloads: MAX_USES
-      });
-    }
-  } else {
+  let constituentProductIds = [productId];
+  if (productId === 'g-bundle-1' || productId === 'all-three-master-guides') {
+    constituentProductIds = ['g-fit-1', 'g-nut-1', 'g-wel-1'];
+  } else if (productId === 'g-bundle-6' || productId === 'all-six-master-guides') {
+    constituentProductIds = ['g-fit-1', 'g-nut-1', 'g-wel-1', 'g-epi-1', 'g-fit-2', 'g-fit-3'];
+  }
+
+  for (const pid of constituentProductIds) {
     await db.createDownloadToken({
       order_id: orderId,
-      product_id: productId,
+      product_id: pid,
       expires_at: getExpiryDate(),
       max_downloads: MAX_USES
     });
@@ -176,9 +203,12 @@ router.get('/order-summary', async (req, res) => {
     }
 
     for (const item of orderItems) {
-      const resolvedProductIds = item.product_id === 'g-bundle-1'
-        ? ['g-fit-1', 'g-nut-1', 'g-wel-1']
-        : [item.product_id];
+      let resolvedProductIds = [item.product_id];
+      if (item.product_id === 'g-bundle-1' || item.product_id === 'all-three-master-guides') {
+        resolvedProductIds = ['g-fit-1', 'g-nut-1', 'g-wel-1'];
+      } else if (item.product_id === 'g-bundle-6' || item.product_id === 'all-six-master-guides') {
+        resolvedProductIds = ['g-fit-1', 'g-nut-1', 'g-wel-1', 'g-epi-1', 'g-fit-2', 'g-fit-3'];
+      }
 
       for (const pid of resolvedProductIds) {
         const product = getProductById(pid);
@@ -484,8 +514,34 @@ router.post('/get-presigned-guide', async (req, res) => {
       return res.status(400).json({ error: 'guideId is required in request body.' });
     }
 
+    // If guideId is a bundle, return presigned links for all constituent books
+    if (BUNDLE_CONSTITUENTS[guideId]) {
+      const items = BUNDLE_CONSTITUENTS[guideId];
+      const downloads = await Promise.all(items.map(async (item) => {
+        const url = await generateGuidePresignedUrl(item.key);
+        return {
+          id: item.id,
+          title: item.title,
+          pillar: item.pillar,
+          filename: item.key,
+          downloadUrl: url
+        };
+      }));
+
+      return res.json({
+        isBundle: true,
+        bundleId: guideId,
+        downloadUrl: downloads[0]?.downloadUrl,
+        downloads
+      });
+    }
+
     const downloadUrl = await generateGuidePresignedUrl(guideId);
-    return res.json({ downloadUrl });
+    return res.json({
+      isBundle: false,
+      downloadUrl,
+      downloads: [{ id: guideId, downloadUrl }]
+    });
   } catch (error) {
     console.error('[API /api/get-presigned-guide] Error:', error.message);
     return res.status(500).json({ error: 'Failed to generate presigned download URL.' });
@@ -500,16 +556,12 @@ router.post('/test-bypass-checkout', async (req, res) => {
   try {
     const { productId } = req.body;
     
-    // Security check: temporarily disabled to allow testing free downloads on production website
-    // const isProd = process.env.NODE_ENV === 'production';
-    // const allowBypass = process.env.ALLOW_TEST_BYPASS === 'true';
-    // if (isProd && !allowBypass) {
-    //   return res.status(403).json({ error: 'Bypass checkout is disabled in production.' });
-    // }
-
-    const product = getProductById(productId);
-    if (!product) {
-      return res.status(404).json({ error: `Product ID '${productId}' not found in catalog.` });
+    // Support bundle expansion in bypass checkout
+    let targetIds = [productId];
+    if (productId === 'g-bundle-6' || productId === 'all-six-master-guides') {
+      targetIds = ['g-fit-1', 'g-nut-1', 'g-wel-1', 'g-epi-1', 'g-fit-2', 'g-fit-3'];
+    } else if (productId === 'g-bundle-1' || productId === 'all-three-master-guides') {
+      targetIds = ['g-fit-1', 'g-nut-1', 'g-wel-1'];
     }
 
     // 1. Create a paid order
@@ -521,25 +573,37 @@ router.post('/test-bypass-checkout', async (req, res) => {
       payment_status: 'paid'
     });
 
-    // 2. Create order item
-    await db.createOrderItems([{
-      order_id: order.id,
-      product_id: product.id,
-      quantity: 1
-    }]);
+    // 2. Create order items and download tokens
+    const downloads = [];
+    for (const pid of targetIds) {
+      const prod = getProductById(pid);
+      if (prod) {
+        await db.createOrderItems([{
+          order_id: order.id,
+          product_id: prod.id,
+          quantity: 1
+        }]);
 
-    // 3. Create download token
-    const tokenRecord = await db.createDownloadToken({
-      order_id: order.id,
-      product_id: product.id,
-      expires_at: getExpiryDate(),
-      max_downloads: MAX_USES
-    });
+        const tokenRecord = await db.createDownloadToken({
+          order_id: order.id,
+          product_id: prod.id,
+          expires_at: getExpiryDate(),
+          max_downloads: MAX_USES
+        });
+
+        downloads.push({
+          id: prod.id,
+          title: prod.title,
+          filename: prod.downloadFilename || prod.r2Key,
+          download_link: `/api/download/${tokenRecord.token}`
+        });
+      }
+    }
 
     res.json({
       success: true,
-      download_link: `/api/download/${tokenRecord.token}`,
-      expires_at: tokenRecord.expires_at
+      download_link: downloads[0]?.download_link || null,
+      downloads
     });
   } catch (error) {
     console.error('Bypass test error:', error);

@@ -112,12 +112,35 @@ export const products = [
     active: true
   },
   {
+    id: 'g-epi-1',
+    slug: 'the-next-level-lifespan',
+    title: 'The Next Level Lifespan Blueprint',
+    price: 22.00,
+    currency: 'gbp',
+    stripePriceId: process.env.STRIPE_PRICE_EPI1 || 'price_placeholder_epi1',
+    r2Key: 'the-next-level-lifespan.pdf',
+    filePath: 'the-next-level-lifespan.pdf',
+    downloadFilename: 'the-next-level-lifespan.pdf',
+    active: true
+  },
+  {
     id: 'g-bundle-1',
     slug: '3-part-bundle',
     title: '3-Part Digital Master Guides Bundle',
     price: 29.00,
     currency: 'gbp',
     stripePriceId: process.env.STRIPE_PRICE_BUNDLE1 || 'price_placeholder_bundle1',
+    r2Key: null,
+    filePath: '',
+    active: true
+  },
+  {
+    id: 'g-bundle-6',
+    slug: 'all-six-master-guides',
+    title: 'Complete 6-Pillar Master Suite (All 6 Master Books)',
+    price: 49.00,
+    currency: 'gbp',
+    stripePriceId: process.env.STRIPE_PRICE_BUNDLE6 || 'price_placeholder_bundle6',
     r2Key: null,
     filePath: '',
     active: true

@@ -275,7 +275,7 @@ export default function PremiumGuidesPage() {
               Get the Complete 6-Pillar Master Suite
             </h2>
             <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
-              Unlock all 6 specialized digital execution books (Workout Plan + Meal Planner + Stress Management + Epigenetics + Women's Health + Socio-Architecture) for one deeply discounted price.
+              Unlock all 6 specialized digital execution books (Workout Plan + Meal Planner + Stress Management + Epigenetics Blueprint + Hypertrophy Protocol + Mobility Routine) for one deeply discounted price.
             </p>
           </div>
 

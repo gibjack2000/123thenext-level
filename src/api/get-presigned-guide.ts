@@ -53,7 +53,21 @@ export const R2_GUIDE_FILE_KEYS: Record<string, string> = {
   'g-wel-1': 'Cortisol_&_Stress_Management-2026.pdf',
   'g-wel-2': 'Deep_Sleep_Optimization-2026.pdf',
   'g-wel-3': 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
-  'g-epi-1': 'the-next-level-lifespan.pdf'
+  'g-epi-1': 'the-next-level-lifespan.pdf',
+  'g-fem-1': 'Daily_Mobility_and_Recovery-2026.pdf',
+  'g-soc-1': 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
+  'g-bundle-1': 'beginner_home_workout-2026.pdf',
+  'g-bundle-6': 'beginner_home_workout-2026.pdf',
+
+  // Bundle aliases
+  'all-three-master-guides': 'beginner_home_workout-2026.pdf',
+  'all-six-master-guides': 'beginner_home_workout-2026.pdf',
+  '3-part-bundle': 'beginner_home_workout-2026.pdf',
+
+  // Pillar & topic aliases
+  'epigenetics-guide': 'the-next-level-lifespan.pdf',
+  'womens-health-guide': 'Daily_Mobility_and_Recovery-2026.pdf',
+  'socio-architecture-guide': 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf'
 };
 
 export async function getPresignedDownloadUrl(guideId: string): Promise<string> {
