@@ -951,7 +951,7 @@ export const SplashOverlay: React.FC = () => {
                   className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 w-full xs:w-auto max-w-sm sm:max-w-none px-5 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-cyan-500 bg-[length:200%_auto] hover:bg-right transition-all duration-500 text-white font-black text-xs sm:text-base md:text-lg tracking-wider uppercase shadow-[0_0_40px_rgba(6,182,212,0.6)] hover:shadow-[0_0_60px_rgba(6,182,212,0.9)] transform hover:scale-105 active:scale-95 cursor-pointer text-center"
                 >
                   <span className="text-base sm:text-xl group-hover:animate-bounce">⚡</span>
-                  <span className="truncate">Make Today Day 1</span>
+                  <span className="truncate">Click Here to Make Today Day 1</span>
                   <span className="text-base sm:text-xl">➔</span>
                 </button>
 
