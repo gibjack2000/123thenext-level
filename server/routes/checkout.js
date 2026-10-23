@@ -27,6 +27,39 @@ function getExpiryDate() {
 
 // Definition of bundle constituents for multi-book suites
 export const BUNDLE_CONSTITUENTS = {
+  'all-nine-master-guides': [
+    { id: 'workout-plan', title: 'Beginner Home Workout Plan', key: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
+    { id: 'hypertrophy-strength', title: 'Hypertrophy & Strength Protocol', key: 'Hypertrophy-Strength-Protocol-2026.pdf', pillar: 'Strength' },
+    { id: 'mobility-recovery', title: 'Daily Mobility & Recovery Routine', key: 'Daily_Mobility_and_Recovery-2026.pdf', pillar: 'Mobility' },
+    { id: 'meal-planner', title: 'The Master Meal Planning Guide', key: 'The Master_Meal_Planning_Guide-2026.pdf', pillar: 'Nutrition' },
+    { id: 'fat-loss-blueprint', title: 'The Fat Loss Nutrition Blueprint', key: 'Fat-Loss-Nutrition-Blueprint-2026.pdf', pillar: 'Metabolism' },
+    { id: 'high-protein-recipes', title: 'High-Protein Recipe Collection', key: 'High_Protein_Recipe_Collection-2026.pdf', pillar: 'Fuel' },
+    { id: 'stress-management', title: 'Cortisol & Stress Management', key: 'Cortisol_&_Stress_Management-2026.pdf', pillar: 'Wellness' },
+    { id: 'sleep-optimization', title: 'Deep Sleep Optimization Protocol', key: 'Deep_Sleep_Optimization-2026.pdf', pillar: 'Recovery' },
+    { id: 'habit-reset', title: 'Mindfulness & Habit Reset Workbook', key: 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf', pillar: 'Habits' }
+  ],
+  'all-9-master-guides': [
+    { id: 'workout-plan', title: 'Beginner Home Workout Plan', key: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
+    { id: 'hypertrophy-strength', title: 'Hypertrophy & Strength Protocol', key: 'Hypertrophy-Strength-Protocol-2026.pdf', pillar: 'Strength' },
+    { id: 'mobility-recovery', title: 'Daily Mobility & Recovery Routine', key: 'Daily_Mobility_and_Recovery-2026.pdf', pillar: 'Mobility' },
+    { id: 'meal-planner', title: 'The Master Meal Planning Guide', key: 'The Master_Meal_Planning_Guide-2026.pdf', pillar: 'Nutrition' },
+    { id: 'fat-loss-blueprint', title: 'The Fat Loss Nutrition Blueprint', key: 'Fat-Loss-Nutrition-Blueprint-2026.pdf', pillar: 'Metabolism' },
+    { id: 'high-protein-recipes', title: 'High-Protein Recipe Collection', key: 'High_Protein_Recipe_Collection-2026.pdf', pillar: 'Fuel' },
+    { id: 'stress-management', title: 'Cortisol & Stress Management', key: 'Cortisol_&_Stress_Management-2026.pdf', pillar: 'Wellness' },
+    { id: 'sleep-optimization', title: 'Deep Sleep Optimization Protocol', key: 'Deep_Sleep_Optimization-2026.pdf', pillar: 'Recovery' },
+    { id: 'habit-reset', title: 'Mindfulness & Habit Reset Workbook', key: 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf', pillar: 'Habits' }
+  ],
+  'g-bundle-9': [
+    { id: 'workout-plan', title: 'Beginner Home Workout Plan', key: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
+    { id: 'hypertrophy-strength', title: 'Hypertrophy & Strength Protocol', key: 'Hypertrophy-Strength-Protocol-2026.pdf', pillar: 'Strength' },
+    { id: 'mobility-recovery', title: 'Daily Mobility & Recovery Routine', key: 'Daily_Mobility_and_Recovery-2026.pdf', pillar: 'Mobility' },
+    { id: 'meal-planner', title: 'The Master Meal Planning Guide', key: 'The Master_Meal_Planning_Guide-2026.pdf', pillar: 'Nutrition' },
+    { id: 'fat-loss-blueprint', title: 'The Fat Loss Nutrition Blueprint', key: 'Fat-Loss-Nutrition-Blueprint-2026.pdf', pillar: 'Metabolism' },
+    { id: 'high-protein-recipes', title: 'High-Protein Recipe Collection', key: 'High_Protein_Recipe_Collection-2026.pdf', pillar: 'Fuel' },
+    { id: 'stress-management', title: 'Cortisol & Stress Management', key: 'Cortisol_&_Stress_Management-2026.pdf', pillar: 'Wellness' },
+    { id: 'sleep-optimization', title: 'Deep Sleep Optimization Protocol', key: 'Deep_Sleep_Optimization-2026.pdf', pillar: 'Recovery' },
+    { id: 'habit-reset', title: 'Mindfulness & Habit Reset Workbook', key: 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf', pillar: 'Habits' }
+  ],
   'all-six-master-guides': [
     { id: 'workout-plan', title: 'Beginner Home Workout Plan', key: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
     { id: 'meal-planner', title: 'The Master Meal Planning Guide', key: 'The Master_Meal_Planning_Guide-2026.pdf', pillar: 'Nutrition' },
@@ -58,10 +91,12 @@ export const BUNDLE_CONSTITUENTS = {
 // Helper to create download tokens for a product, expanding bundles if necessary
 async function createDownloadTokensForProduct(orderId, productId) {
   let constituentProductIds = [productId];
-  if (productId === 'g-bundle-1' || productId === 'all-three-master-guides') {
-    constituentProductIds = ['g-fit-1', 'g-nut-1', 'g-wel-1'];
+  if (productId === 'g-bundle-9' || productId === 'all-nine-master-guides' || productId === 'all-9-master-guides') {
+    constituentProductIds = ['g-fit-1', 'g-fit-2', 'g-fit-3', 'g-nut-1', 'g-nut-2', 'g-nut-3', 'g-wel-1', 'g-wel-2', 'g-wel-3'];
   } else if (productId === 'g-bundle-6' || productId === 'all-six-master-guides') {
     constituentProductIds = ['g-fit-1', 'g-nut-1', 'g-wel-1', 'g-epi-1', 'g-fit-2', 'g-fit-3'];
+  } else if (productId === 'g-bundle-1' || productId === 'all-three-master-guides') {
+    constituentProductIds = ['g-fit-1', 'g-nut-1', 'g-wel-1'];
   }
 
   for (const pid of constituentProductIds) {
@@ -204,10 +239,12 @@ router.get('/order-summary', async (req, res) => {
 
     for (const item of orderItems) {
       let resolvedProductIds = [item.product_id];
-      if (item.product_id === 'g-bundle-1' || item.product_id === 'all-three-master-guides') {
-        resolvedProductIds = ['g-fit-1', 'g-nut-1', 'g-wel-1'];
+      if (item.product_id === 'g-bundle-9' || item.product_id === 'all-nine-master-guides' || item.product_id === 'all-9-master-guides') {
+        resolvedProductIds = ['g-fit-1', 'g-fit-2', 'g-fit-3', 'g-nut-1', 'g-nut-2', 'g-nut-3', 'g-wel-1', 'g-wel-2', 'g-wel-3'];
       } else if (item.product_id === 'g-bundle-6' || item.product_id === 'all-six-master-guides') {
         resolvedProductIds = ['g-fit-1', 'g-nut-1', 'g-wel-1', 'g-epi-1', 'g-fit-2', 'g-fit-3'];
+      } else if (item.product_id === 'g-bundle-1' || item.product_id === 'all-three-master-guides') {
+        resolvedProductIds = ['g-fit-1', 'g-nut-1', 'g-wel-1'];
       }
 
       for (const pid of resolvedProductIds) {
@@ -529,7 +566,13 @@ router.post('/get-presigned-guide', async (req, res) => {
       }));
 
       let zipUrl = null;
-      if (guideId === 'all-six-master-guides' || guideId === 'g-bundle-6') {
+      if (guideId === 'all-nine-master-guides' || guideId === 'all-9-master-guides' || guideId === 'g-bundle-9') {
+        try {
+          zipUrl = await generateGuidePresignedUrl('Complete_9_Book_Master_Vault-2026.zip');
+        } catch (zErr) {
+          console.warn('Could not generate 9-book zip presigned url:', zErr.message);
+        }
+      } else if (guideId === 'all-six-master-guides' || guideId === 'g-bundle-6') {
         try {
           zipUrl = await generateGuidePresignedUrl('Complete_6_Pillar_Master_Suite-2026.zip');
         } catch (zErr) {
@@ -568,7 +611,9 @@ router.post('/test-bypass-checkout', async (req, res) => {
     
     // Support bundle expansion in bypass checkout
     let targetIds = [productId];
-    if (productId === 'g-bundle-6' || productId === 'all-six-master-guides') {
+    if (productId === 'g-bundle-9' || productId === 'all-nine-master-guides' || productId === 'all-9-master-guides') {
+      targetIds = ['g-fit-1', 'g-fit-2', 'g-fit-3', 'g-nut-1', 'g-nut-2', 'g-nut-3', 'g-wel-1', 'g-wel-2', 'g-wel-3'];
+    } else if (productId === 'g-bundle-6' || productId === 'all-six-master-guides') {
       targetIds = ['g-fit-1', 'g-nut-1', 'g-wel-1', 'g-epi-1', 'g-fit-2', 'g-fit-3'];
     } else if (productId === 'g-bundle-1' || productId === 'all-three-master-guides') {
       targetIds = ['g-fit-1', 'g-nut-1', 'g-wel-1'];

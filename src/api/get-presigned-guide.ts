@@ -85,7 +85,14 @@ export const R2_GUIDE_FILE_KEYS: Record<string, string> = {
   // 1-Click ZIP Bundle for 6-Pillar Master Suite
   'Complete_6_Pillar_Master_Suite-2026.zip': 'Complete_6_Pillar_Master_Suite-2026.zip',
   'all-six-master-guides-zip': 'Complete_6_Pillar_Master_Suite-2026.zip',
-  'g-bundle-6-zip': 'Complete_6_Pillar_Master_Suite-2026.zip'
+  'g-bundle-6-zip': 'Complete_6_Pillar_Master_Suite-2026.zip',
+
+  // 1-Click ZIP Bundle for 9-Book Master Longevity Vault
+  'Complete_9_Book_Master_Vault-2026.zip': 'Complete_9_Book_Master_Vault-2026.zip',
+  'all-nine-master-guides': 'Complete_9_Book_Master_Vault-2026.zip',
+  'all-9-master-guides': 'Complete_9_Book_Master_Vault-2026.zip',
+  'g-bundle-9': 'Complete_9_Book_Master_Vault-2026.zip',
+  'g-bundle-9-zip': 'Complete_9_Book_Master_Vault-2026.zip'
 };
 
 export async function getPresignedDownloadUrl(guideId: string): Promise<string> {

@@ -24,6 +24,18 @@ interface ProductInfo {
   guides?: BundleGuideItem[];
 }
 
+const NINE_BOOK_VAULT_GUIDES: BundleGuideItem[] = [
+  { id: 'workout-plan', title: 'Beginner Home Workout Plan', file: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
+  { id: 'hypertrophy-strength', title: 'Hypertrophy & Strength Protocol', file: 'Hypertrophy-Strength-Protocol-2026.pdf', pillar: 'Muscle Architecture' },
+  { id: 'mobility-recovery', title: 'Daily Mobility & Recovery Routine', file: 'Daily_Mobility_and_Recovery-2026.pdf', pillar: 'Joint & Kinematics' },
+  { id: 'meal-planner', title: 'The Master Meal Planning Guide', file: 'The Master_Meal_Planning_Guide-2026.pdf', pillar: 'Nutrition' },
+  { id: 'fat-loss-blueprint', title: 'The Fat Loss Nutrition Blueprint', file: 'Fat-Loss-Nutrition-Blueprint-2026.pdf', pillar: 'Metabolism' },
+  { id: 'high-protein-recipes', title: 'High-Protein Recipe Collection', file: 'High_Protein_Recipe_Collection-2026.pdf', pillar: 'Culinary Fuel' },
+  { id: 'stress-management', title: 'Cortisol & Stress Management', file: 'Cortisol_&_Stress_Management-2026.pdf', pillar: 'Stress & Autonomic' },
+  { id: 'sleep-optimization', title: 'Deep Sleep Optimization Protocol', file: 'Deep_Sleep_Optimization-2026.pdf', pillar: 'Sleep & Recovery' },
+  { id: 'habit-reset', title: 'Mindfulness & Habit Reset Workbook', file: 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf', pillar: 'Habits & Mind' }
+];
+
 const SIX_PILLAR_GUIDES: BundleGuideItem[] = [
   { id: 'workout-plan', title: 'Beginner Home Workout Plan', file: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
   { id: 'meal-planner', title: 'The Master Meal Planning Guide', file: 'The Master_Meal_Planning_Guide-2026.pdf', pillar: 'Nutrition' },
@@ -41,6 +53,33 @@ const THREE_PILLAR_GUIDES: BundleGuideItem[] = [
 
 const PRODUCT_MAP: Record<string, ProductInfo> = {
   // --- BUNDLES ---
+  'all-nine-master-guides': {
+    id: 'g-bundle-9',
+    name: 'Complete 9-Book Master Longevity Vault (All 9 Books)',
+    price: '£59.99',
+    usPrice: '$75.00',
+    slug: 'all-nine-master-guides',
+    desc: 'The complete 9-book master archive: Fitness Trio + Nutrition Trio + Restorative Wellness Trio in high-res PDF. Includes instant 1-Click ZIP Archive.',
+    guides: NINE_BOOK_VAULT_GUIDES
+  },
+  'all-9-master-guides': {
+    id: 'g-bundle-9',
+    name: 'Complete 9-Book Master Longevity Vault (All 9 Books)',
+    price: '£59.99',
+    usPrice: '$75.00',
+    slug: 'all-nine-master-guides',
+    desc: 'The complete 9-book master archive: Fitness Trio + Nutrition Trio + Restorative Wellness Trio in high-res PDF. Includes instant 1-Click ZIP Archive.',
+    guides: NINE_BOOK_VAULT_GUIDES
+  },
+  'g-bundle-9': {
+    id: 'g-bundle-9',
+    name: 'Complete 9-Book Master Longevity Vault (All 9 Books)',
+    price: '£59.99',
+    usPrice: '$75.00',
+    slug: 'all-nine-master-guides',
+    desc: 'The complete 9-book master archive: Fitness Trio + Nutrition Trio + Restorative Wellness Trio in high-res PDF. Includes instant 1-Click ZIP Archive.',
+    guides: NINE_BOOK_VAULT_GUIDES
+  },
   'all-six-master-guides': {
     id: 'g-bundle-6',
     name: 'Complete 6-Pillar Master Suite (All 6 Master Books)',
