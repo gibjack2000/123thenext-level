@@ -297,88 +297,152 @@ router.get('/order-summary', async (req, res) => {
       return res.status(400).json({ error: 'Missing session_id parameter.' });
     }
 
-    // Load local order
-    let order = await db.getOrderBySessionId(session_id);
-
-    // If order paid status is pending, check Stripe directly (fallback/sync check)
-    if (!order || order.payment_status === 'pending') {
-      try {
-        const stripeSession = await stripeService.retrieveSession(session_id);
-        
-        if (stripeSession && stripeSession.payment_status === 'paid') {
-          // Sync database status
-          order = await db.createOrder({
-            stripe_session_id: session_id,
-            stripe_payment_intent_id: typeof stripeSession.payment_intent === 'object' 
-              ? stripeSession.payment_intent?.id 
-              : stripeSession.payment_intent,
-            customer_email: stripeSession.customer_details?.email || order?.customer_email || '',
-            amount_total: stripeSession.amount_total ? stripeSession.amount_total / 100 : 0,
-            currency: stripeSession.currency || 'gbp',
-            payment_status: 'paid'
-          });
-
-          // Generate tokens if missing
-          const items = await db.getOrderItems(order.id);
-          for (const item of items) {
-            await createDownloadTokensForProduct(order.id, item.product_id);
-          }
-        }
-      } catch (stripeError) {
-        console.error('Error syncing session status from Stripe:', stripeError);
-      }
+    // Load local order if available
+    let order = null;
+    try {
+      order = await db.getOrderBySessionId(session_id);
+    } catch (dbErr) {
+      console.warn('DB getOrderBySessionId warning:', dbErr.message);
     }
 
-    if (!order) {
+    // Always retrieve session details directly from Stripe to ensure absolute payment truth
+    let stripeSession = null;
+    try {
+      stripeSession = await stripeService.retrieveSession(session_id);
+    } catch (stripeError) {
+      console.error('Error retrieving session status from Stripe:', stripeError.message);
+    }
+
+    const isPaid = (order && order.payment_status === 'paid') || (stripeSession && stripeSession.payment_status === 'paid');
+
+    if (!order && !stripeSession) {
       return res.status(404).json({ error: 'Order not found.' });
     }
 
-    const orderItems = await db.getOrderItems(order.id);
+    // Sync database status if paid
+    if (isPaid && (!order || order.payment_status !== 'paid')) {
+      try {
+        order = await db.createOrder({
+          stripe_session_id: session_id,
+          stripe_payment_intent_id: typeof stripeSession?.payment_intent === 'object' 
+            ? stripeSession.payment_intent?.id 
+            : stripeSession?.payment_intent,
+          customer_email: stripeSession?.customer_details?.email || order?.customer_email || '',
+          amount_total: stripeSession?.amount_total ? stripeSession.amount_total / 100 : (order?.amount_total || 0),
+          currency: stripeSession?.currency || order?.currency || 'gbp',
+          payment_status: 'paid'
+        });
+      } catch (syncErr) {
+        console.warn('DB order sync warning:', syncErr.message);
+      }
+    }
+
+    // Collect all purchased product IDs from both local DB items and Stripe session metadata
+    let rawProductIds = [];
+    if (order?.id) {
+      try {
+        const items = await db.getOrderItems(order.id);
+        for (const item of items) {
+          rawProductIds.push(item.product_id);
+        }
+      } catch (itemsErr) {
+        console.warn('DB getOrderItems warning:', itemsErr.message);
+      }
+    }
+
+    if (stripeSession?.metadata?.guideId) {
+      rawProductIds.push(stripeSession.metadata.guideId);
+    }
+    if (stripeSession?.metadata?.bundleId) {
+      rawProductIds.push(stripeSession.metadata.bundleId);
+    }
+    if (stripeSession?.client_reference_id) {
+      rawProductIds.push(stripeSession.client_reference_id);
+    }
+
+    // Deduplicate
+    rawProductIds = Array.from(new Set(rawProductIds.filter(Boolean)));
+
+    // Expand bundles into individual book IDs
+    let resolvedProductIds = [];
+    for (const pid of rawProductIds) {
+      if (pid === 'g-bundle-9' || pid === 'all-nine-master-guides' || pid === 'all-9-master-guides') {
+        resolvedProductIds.push('g-fit-1', 'g-fit-2', 'g-fit-3', 'g-nut-1', 'g-nut-2', 'g-nut-3', 'g-wel-1', 'g-wel-2', 'g-wel-3');
+      } else if (pid === 'g-bundle-6' || pid === 'all-six-master-guides') {
+        resolvedProductIds.push('g-fit-1', 'g-nut-1', 'g-wel-1', 'g-epi-1', 'g-fit-2', 'g-fit-3');
+      } else if (pid === 'g-bundle-1' || pid === 'all-three-master-guides') {
+        resolvedProductIds.push('g-fit-1', 'g-nut-1', 'g-wel-1');
+      } else {
+        resolvedProductIds.push(pid);
+      }
+    }
+    resolvedProductIds = Array.from(new Set(resolvedProductIds));
+
+    // Get tokens if paid
+    let tokens = [];
+    if (isPaid && order?.id) {
+      try {
+        tokens = await db.getDownloadTokensByOrder(order.id);
+        for (const pid of resolvedProductIds) {
+          if (!tokens.some(t => t.product_id === pid)) {
+            await createDownloadTokensForProduct(order.id, pid);
+          }
+        }
+        tokens = await db.getDownloadTokensByOrder(order.id);
+      } catch (tokErr) {
+        console.warn('DB token generation warning:', tokErr.message);
+      }
+    }
+
     const purchasedProducts = [];
     const downloadLinks = {};
 
-    // Get download tokens if paid
-    let tokens = [];
-    if (order.payment_status === 'paid') {
-      tokens = await db.getDownloadTokensByOrder(order.id);
-    }
+    for (const pid of resolvedProductIds) {
+      const product = getProductById(pid) || resolveGuideProduct(pid);
+      if (product) {
+        purchasedProducts.push({
+          id: product.id,
+          productId: product.productId || product.id,
+          title: product.title,
+          slug: product.slug || product.id
+        });
 
-    for (const item of orderItems) {
-      let resolvedProductIds = [item.product_id];
-      if (item.product_id === 'g-bundle-9' || item.product_id === 'all-nine-master-guides' || item.product_id === 'all-9-master-guides') {
-        resolvedProductIds = ['g-fit-1', 'g-fit-2', 'g-fit-3', 'g-nut-1', 'g-nut-2', 'g-nut-3', 'g-wel-1', 'g-wel-2', 'g-wel-3'];
-      } else if (item.product_id === 'g-bundle-6' || item.product_id === 'all-six-master-guides') {
-        resolvedProductIds = ['g-fit-1', 'g-nut-1', 'g-wel-1', 'g-epi-1', 'g-fit-2', 'g-fit-3'];
-      } else if (item.product_id === 'g-bundle-1' || item.product_id === 'all-three-master-guides') {
-        resolvedProductIds = ['g-fit-1', 'g-nut-1', 'g-wel-1'];
-      }
+        if (isPaid) {
+          let downloadUrl = null;
+          const fileKey = product.r2FileKey || product.r2Key;
 
-      for (const pid of resolvedProductIds) {
-        const product = getProductById(pid);
-        if (product) {
-          purchasedProducts.push({
-            id: product.id,
-            title: product.title,
-            slug: product.slug
-          });
+          // 1. Direct Cloudflare R2 Presigned Download Link (valid for 24 hours / 86400s)
+          if (isR2Configured() && fileKey) {
+            try {
+              downloadUrl = await generateGuidePresignedUrl(fileKey, 86400);
+            } catch (r2Err) {
+              console.warn(`R2 presigned link generation failed for ${fileKey}:`, r2Err.message);
+            }
+          }
 
-          // Map token download link if available
-          const tokenRecord = tokens.find(t => t.product_id === product.id);
-          if (tokenRecord) {
-            // Construct API download link
-            downloadLinks[product.id] = `/api/download/${tokenRecord.token}`;
+          // 2. Token fallback
+          if (!downloadUrl && tokens.length > 0) {
+            const tokenRecord = tokens.find(t => t.product_id === product.id || t.product_id === product.productId);
+            if (tokenRecord) {
+              downloadUrl = `/api/download/${tokenRecord.token}`;
+            }
+          }
+
+          downloadLinks[product.id] = downloadUrl;
+          if (product.productId) {
+            downloadLinks[product.productId] = downloadUrl;
           }
         }
       }
     }
 
     res.json({
-      payment_status: order.payment_status,
-      customer_email: order.customer_email,
+      payment_status: isPaid ? 'paid' : (order?.payment_status || stripeSession?.payment_status || 'unpaid'),
+      customer_email: order?.customer_email || stripeSession?.customer_details?.email || '',
       products: purchasedProducts,
       download_links: downloadLinks,
-      amount_total: order.amount_total,
-      currency: order.currency
+      amount_total: order?.amount_total || (stripeSession?.amount_total ? stripeSession.amount_total / 100 : 0),
+      currency: order?.currency || stripeSession?.currency || 'gbp'
     });
   } catch (error) {
     console.error('Order summary retrieval error:', error);
@@ -516,18 +580,19 @@ async function handleDownloadDelivery(req, res, forceJson = false) {
     }
 
     // Load product
-    const product = getProductById(tokenRecord.product_id);
+    const product = getProductById(tokenRecord.product_id) || resolveGuideProduct(tokenRecord.product_id);
     if (!product) {
       if (format === 'json') return res.status(404).json({ error: 'Product not found in current catalog.' });
       return res.status(404).send('Product not found in current catalog.');
     }
 
+    const fileKey = product.r2Key || product.r2FileKey;
     // --- Preferred Delivery: Cloudflare R2 Presigned Download URL ---
-    if (isR2Configured() && product.r2Key) {
+    if (isR2Configured() && fileKey) {
       try {
         const downloadFilename = product.downloadFilename || `${product.slug || product.id}.pdf`;
         const presignedUrl = await generatePresignedDownloadUrl({
-          key: product.r2Key,
+          key: fileKey,
           filename: downloadFilename,
           expiresInSeconds: R2_PRESIGNED_EXPIRY_SECONDS,
         });

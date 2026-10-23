@@ -61,6 +61,20 @@ export default function CheckoutSuccess() {
           setOrderSummary(data);
           clearCart(); // Clear the cart since purchase is completed
           
+          // Automatically trigger download for convenient instant delivery
+          if (data.products && data.products.length > 0) {
+            setTimeout(() => {
+              data.products.forEach((p: PurchasedProduct, idx: number) => {
+                const downloadUrl = data.download_links[p.id] || (p.productId && data.download_links[p.productId]);
+                if (downloadUrl) {
+                  setTimeout(() => {
+                    triggerDownload(downloadUrl, `${p.slug || p.id}.pdf`);
+                  }, idx * 600);
+                }
+              });
+            }, 1000);
+          }
+
           // Cache purchases in localStorage
           try {
             const savedPurchases = localStorage.getItem('purchased_guides');
@@ -69,13 +83,16 @@ export default function CheckoutSuccess() {
               purchases = JSON.parse(savedPurchases);
             }
             data.products.forEach((p: PurchasedProduct) => {
-              const downloadUrl = data.download_links[p.id];
+              const downloadUrl = data.download_links[p.id] || (p.productId && data.download_links[p.productId]);
               if (downloadUrl) {
                 purchases[p.id] = {
                   purchased: true,
                   downloadUrl: downloadUrl,
                   expiresAt: new Date(Date.now() + 72 * 60 * 60 * 1000).toISOString()
                 };
+                if (p.productId) {
+                  purchases[p.productId] = purchases[p.id];
+                }
               }
             });
             localStorage.setItem('purchased_guides', JSON.stringify(purchases));
@@ -187,7 +204,7 @@ export default function CheckoutSuccess() {
 
             <div className="space-y-4 mb-10">
               {orderSummary.products.map(product => {
-                const downloadUrl = orderSummary.download_links[product.id];
+                const downloadUrl = orderSummary.download_links[product.id] || (product.productId && orderSummary.download_links[product.productId]);
                 return (
                   <div 
                     key={product.id}
