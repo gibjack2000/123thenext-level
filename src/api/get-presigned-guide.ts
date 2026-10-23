@@ -3,10 +3,10 @@ import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
 const s3Client = new S3Client({
   region: 'auto',
-  endpoint: `https://${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+  endpoint: `https://${process.env.CLOUDFLARE_ACCOUNT_ID || '926138deb9acb5a8f59280cc710d0859'}.r2.cloudflarestorage.com`,
   credentials: {
-    accessKeyId: process.env.R2_ACCESS_KEY_ID!,
-    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY!
+    accessKeyId: process.env.R2_ACCESS_KEY_ID || '8d1bb4ee66d4dd2eb7c806dc608ba94c',
+    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY || '122f0127550a144bb82b1a3a708842412b6b09f44da90e794c78fc5118214ebf'
   }
 });
 
@@ -39,17 +39,10 @@ export const R2_GUIDE_FILE_KEYS: Record<string, string> = {
   'autonomic-guide': 'Cortisol_&_Stress_Management-2026.pdf'
 };
 
-export const R2_FRIENDLY_FILENAMES: Record<string, string> = {
-  'beginner_home_workout-2026.pdf': 'Beginner-Home-Workout-Plan-123TheNextLevel.pdf',
-  'The Master_Meal_Planning_Guide-2026.pdf': 'The-Master-Meal-Planning-Guide-123TheNextLevel.pdf',
-  'Cortisol_&_Stress_Management-2026.pdf': 'Cortisol-and-Stress-Management-123TheNextLevel.pdf',
-  'the-next-level-lifespan.pdf': 'The-Next-Level-Lifespan-Blueprint.pdf',
-};
-
 export async function getPresignedDownloadUrl(guideId: string): Promise<string> {
   // Match guideId to R2 key, defaulting to the exact guideId if not found
   const objectKey = R2_GUIDE_FILE_KEYS[guideId] || `${guideId}.pdf`;
-  const downloadFilename = R2_FRIENDLY_FILENAMES[objectKey] || objectKey;
+  const downloadFilename = objectKey;
 
   const command = new GetObjectCommand({
     Bucket: process.env.R2_PAID_BUCKET_NAME || 'paid-products-vault',

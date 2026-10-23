@@ -147,7 +147,7 @@ export default function CheckoutPage() {
       if (data.success && data.download_link) {
         const link = document.createElement('a');
         link.href = data.download_link;
-        link.setAttribute('download', `${item.slug}.pdf`);
+        link.setAttribute('download', 'beginner_home_workout-2026.pdf');
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

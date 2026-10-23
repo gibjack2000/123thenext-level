@@ -9,13 +9,9 @@ import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 let s3ClientInstance = null;
 
 export function getR2Client() {
-  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
-  const accessKeyId = process.env.R2_ACCESS_KEY_ID;
-  const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY;
-
-  if (!accountId || !accessKeyId || !secretAccessKey) {
-    return null;
-  }
+  const accountId = process.env.CLOUDFLARE_ACCOUNT_ID || "926138deb9acb5a8f59280cc710d0859";
+  const accessKeyId = process.env.R2_ACCESS_KEY_ID || "8d1bb4ee66d4dd2eb7c806dc608ba94c";
+  const secretAccessKey = process.env.R2_SECRET_ACCESS_KEY || "122f0127550a144bb82b1a3a708842412b6b09f44da90e794c78fc5118214ebf";
 
   if (!s3ClientInstance) {
     const endpoint = `https://${accountId}.r2.cloudflarestorage.com`;
@@ -33,12 +29,7 @@ export function getR2Client() {
 }
 
 export function isR2Configured() {
-  return Boolean(
-    process.env.CLOUDFLARE_ACCOUNT_ID &&
-    process.env.R2_ACCESS_KEY_ID &&
-    process.env.R2_SECRET_ACCESS_KEY &&
-    (process.env.R2_PAID_BUCKET_NAME || 'paid-products-vault')
-  );
+  return true;
 }
 
 export function getBucketName() {
@@ -97,19 +88,6 @@ export const R2_GUIDE_FILE_KEYS = {
 
 export const GUIDE_FILE_KEYS = R2_GUIDE_FILE_KEYS;
 
-export const R2_FRIENDLY_FILENAMES = {
-  'beginner_home_workout-2026.pdf': 'Beginner-Home-Workout-Plan-123TheNextLevel.pdf',
-  'The Master_Meal_Planning_Guide-2026.pdf': 'The-Master-Meal-Planning-Guide-123TheNextLevel.pdf',
-  'Cortisol_&_Stress_Management-2026.pdf': 'Cortisol-and-Stress-Management-123TheNextLevel.pdf',
-  'the-next-level-lifespan.pdf': 'The-Next-Level-Lifespan-Blueprint.pdf',
-  'Hypertrophy-Strength-Protocol-2026.pdf': 'Hypertrophy-Strength-Protocol-123TheNextLevel.pdf',
-  'Daily_Mobility_and_Recovery-2026.pdf': 'Daily-Mobility-and-Recovery-123TheNextLevel.pdf',
-  'Fat-Loss-Nutrition-Blueprint-2026.pdf': 'Fat-Loss-Nutrition-Blueprint-123TheNextLevel.pdf',
-  'High_Protein_Recipe_Collection-2026.pdf': 'High-Protein-Recipe-Collection-123TheNextLevel.pdf',
-  'Deep_Sleep_Optimization-2026.pdf': 'Deep-Sleep-Optimization-123TheNextLevel.pdf',
-  'Mindfulness_and_Habit_Reset_Workbook-2026.pdf': 'Mindfulness-and-Habit-Reset-Workbook-123TheNextLevel.pdf',
-};
-
 /**
  * Generate a short-lived link (valid for 15 minutes / 900 seconds)
  * Match guideId to R2 key, defaulting to the exact guideId if not found
@@ -123,10 +101,10 @@ export async function getPresignedDownloadUrl(guideId, expiresIn = 900) {
   const client = getR2Client();
 
   if (!client) {
-    throw new Error('Cloudflare R2 client is not configured. Check environment variables.');
+    throw new Error('Cloudflare R2 client is not configured.');
   }
 
-  const downloadFilename = R2_FRIENDLY_FILENAMES[objectKey] || objectKey;
+  const downloadFilename = objectKey;
 
   const command = new GetObjectCommand({
     Bucket: process.env.R2_PAID_BUCKET_NAME || 'paid-products-vault',

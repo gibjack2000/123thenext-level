@@ -12,7 +12,7 @@ export const products = [
     stripePriceId: process.env.STRIPE_PRICE_FIT1 || 'price_placeholder_fit1',
     r2Key: 'beginner_home_workout-2026.pdf',
     filePath: 'beginner_home_workout-2026.pdf',
-    downloadFilename: 'Beginner-Home-Workout-Plan-123TheNextLevel.pdf',
+    downloadFilename: 'beginner_home_workout-2026.pdf',
     active: true
   },
   {
@@ -24,7 +24,7 @@ export const products = [
     stripePriceId: process.env.STRIPE_PRICE_FIT2 || 'price_placeholder_fit2',
     r2Key: 'Hypertrophy-Strength-Protocol-2026.pdf',
     filePath: 'Hypertrophy-Strength-Protocol-2026.pdf',
-    downloadFilename: 'Hypertrophy-Strength-Protocol-123TheNextLevel.pdf',
+    downloadFilename: 'Hypertrophy-Strength-Protocol-2026.pdf',
     active: true
   },
   {
@@ -36,7 +36,7 @@ export const products = [
     stripePriceId: process.env.STRIPE_PRICE_FIT3 || 'price_placeholder_fit3',
     r2Key: 'Daily_Mobility_and_Recovery-2026.pdf',
     filePath: 'Daily_Mobility_and_Recovery-2026.pdf',
-    downloadFilename: 'Daily-Mobility-and-Recovery-123TheNextLevel.pdf',
+    downloadFilename: 'Daily_Mobility_and_Recovery-2026.pdf',
     active: true
   },
   {
@@ -48,7 +48,7 @@ export const products = [
     stripePriceId: process.env.STRIPE_PRICE_NUT1 || 'price_placeholder_nut1',
     r2Key: 'The Master_Meal_Planning_Guide-2026.pdf',
     filePath: 'The Master_Meal_Planning_Guide-2026.pdf',
-    downloadFilename: 'The-Master-Meal-Planning-Guide-123TheNextLevel.pdf',
+    downloadFilename: 'The Master_Meal_Planning_Guide-2026.pdf',
     active: true
   },
   {
@@ -60,7 +60,7 @@ export const products = [
     stripePriceId: process.env.STRIPE_PRICE_NUT2 || 'price_placeholder_nut2',
     r2Key: 'Fat-Loss-Nutrition-Blueprint-2026.pdf',
     filePath: 'Fat-Loss-Nutrition-Blueprint-2026.pdf',
-    downloadFilename: 'Fat-Loss-Nutrition-Blueprint-123TheNextLevel.pdf',
+    downloadFilename: 'Fat-Loss-Nutrition-Blueprint-2026.pdf',
     active: true
   },
   {
@@ -72,7 +72,7 @@ export const products = [
     stripePriceId: process.env.STRIPE_PRICE_NUT3 || 'price_placeholder_nut3',
     r2Key: 'High_Protein_Recipe_Collection-2026.pdf',
     filePath: 'High_Protein_Recipe_Collection-2026.pdf',
-    downloadFilename: 'High-Protein-Recipe-Collection-123TheNextLevel.pdf',
+    downloadFilename: 'High_Protein_Recipe_Collection-2026.pdf',
     active: true
   },
   {
@@ -84,7 +84,7 @@ export const products = [
     stripePriceId: process.env.STRIPE_PRICE_WEL1 || 'price_placeholder_wel1',
     r2Key: 'Cortisol_&_Stress_Management-2026.pdf',
     filePath: 'Cortisol_&_Stress_Management-2026.pdf',
-    downloadFilename: 'Cortisol-and-Stress-Management-123TheNextLevel.pdf',
+    downloadFilename: 'Cortisol_&_Stress_Management-2026.pdf',
     active: true
   },
   {
@@ -96,7 +96,7 @@ export const products = [
     stripePriceId: process.env.STRIPE_PRICE_WEL2 || 'price_placeholder_wel2',
     r2Key: 'Deep_Sleep_Optimization-2026.pdf',
     filePath: 'Deep_Sleep_Optimization-2026.pdf',
-    downloadFilename: 'Deep-Sleep-Optimization-123TheNextLevel.pdf',
+    downloadFilename: 'Deep_Sleep_Optimization-2026.pdf',
     active: true
   },
   {
@@ -108,7 +108,7 @@ export const products = [
     stripePriceId: process.env.STRIPE_PRICE_WEL3 || 'price_placeholder_wel3',
     r2Key: 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
     filePath: 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
-    downloadFilename: 'Mindfulness-and-Habit-Reset-Workbook-123TheNextLevel.pdf',
+    downloadFilename: 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
     active: true
   },
   {
