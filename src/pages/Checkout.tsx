@@ -4,61 +4,117 @@ import { Lock, ShieldCheck, ArrowRight, Download, CheckCircle2, ShoppingBag } fr
 import { handleSecureGuideDownload } from '../services/guideDownloadService';
 
 const PRODUCT_MAP: Record<string, { id: string; name: string; price: string; usPrice: string; slug: string; desc: string }> = {
-  'epigenetics-guide': {
-    id: 'g-epi-1',
-    name: 'Cellular Reprogramming & Epigenetic Longevity',
-    price: '£22.00',
-    usPrice: '$28.00',
-    slug: 'healthspan_longevity_cover',
-    desc: 'Activate sirtuins, induce cellular autophagy, and protect your DNA from environmental methylation decay.'
+  'workout-plan': {
+    id: 'g-fit-1',
+    name: 'Beginner Home Workout Plan',
+    price: '£19.00',
+    usPrice: '$24.00',
+    slug: 'beginner_home_workout-2026',
+    desc: '4-Week Bodyweight Foundation & Recovery Guide to preserve skeletal muscle mass and build foundational strength from home.'
   },
   'performance-guide': {
     id: 'g-fit-1',
-    name: 'Beginner Home Workout & VO2 Max Strength Plan',
+    name: 'Beginner Home Workout Plan',
     price: '£19.00',
     usPrice: '$24.00',
-    slug: 'beginner-home-workout-plan',
-    desc: '12-week progressive bodyweight and dumbbell routines to preserve skeletal muscle mass and build reserve.'
+    slug: 'beginner_home_workout-2026',
+    desc: '4-Week Bodyweight Foundation & Recovery Guide to preserve skeletal muscle mass and build foundational strength from home.'
   },
-  'workout-plan': {
-    id: 'g-fit-1',
-    name: 'Beginner Home Workout & VO2 Max Strength Plan',
-    price: '£19.00',
-    usPrice: '$24.00',
-    slug: 'beginner-home-workout-plan',
-    desc: '12-week progressive bodyweight and dumbbell routines to preserve skeletal muscle mass and build reserve.'
+  'hypertrophy-strength': {
+    id: 'g-fit-2',
+    name: 'Hypertrophy & Strength Protocol',
+    price: '£29.00',
+    usPrice: '$38.00',
+    slug: 'Hypertrophy-Strength-Protocol-2026',
+    desc: 'An evidence-based 8-week progressive overload system to break through plateaus and build dense skeletal muscle.'
   },
-  'nutrition-guide': {
-    id: 'g-nut-1',
-    name: 'The Master Metabolic Meal Planner & Grocery Guide',
-    price: '£24.00',
-    usPrice: '$29.00',
-    slug: 'healthy-meal-planning-guide',
-    desc: 'Flatten post-meal glucose curves, optimize gut microbiome diversity, and fuel cellular repair.'
+  'mobility-recovery': {
+    id: 'g-fit-3',
+    name: 'Daily Mobility & Recovery Routine',
+    price: '£15.00',
+    usPrice: '$19.00',
+    slug: 'Daily_Mobility_and_Recovery-2026',
+    desc: 'A science-backed 15-minute blueprint for desk workers and athletes to restore joint kinematics and decompress the spine.'
   },
   'meal-planner': {
     id: 'g-nut-1',
-    name: 'The Master Metabolic Meal Planner & Grocery Guide',
+    name: 'The Master Meal Planning Guide',
     price: '£24.00',
     usPrice: '$29.00',
-    slug: 'healthy-meal-planning-guide',
-    desc: 'Flatten post-meal glucose curves, optimize gut microbiome diversity, and fuel cellular repair.'
+    slug: 'The Master_Meal_Planning_Guide-2026',
+    desc: 'A systematic approach to weekly meal prep, grocery shopping, and macro-balancing that fits real life.'
   },
-  'autonomic-guide': {
-    id: 'g-wel-1',
-    name: 'Cortisol Down-Regulation & Vagal Tone Protocol',
-    price: '£22.00',
-    usPrice: '$28.00',
-    slug: 'stress-management-toolkit',
-    desc: 'Master autonomic resets: 10-minute NSDR scripts, vagal tone exercises, and circadian sleep alignment.'
+  'nutrition-guide': {
+    id: 'g-nut-1',
+    name: 'The Master Meal Planning Guide',
+    price: '£24.00',
+    usPrice: '$29.00',
+    slug: 'The Master_Meal_Planning_Guide-2026',
+    desc: 'A systematic approach to weekly meal prep, grocery shopping, and macro-balancing that fits real life.'
+  },
+  'fat-loss-blueprint': {
+    id: 'g-nut-2',
+    name: 'The Fat Loss Nutrition Blueprint',
+    price: '£29.00',
+    usPrice: '$38.00',
+    slug: 'Fat-Loss-Nutrition-Blueprint-2026',
+    desc: 'Your science-based path to sustainable fat loss without metabolic adaptation, muscle wasting, or starvation.'
+  },
+  'high-protein-recipes': {
+    id: 'g-nut-3',
+    name: 'High-Protein Recipe Collection',
+    price: '£19.00',
+    usPrice: '$24.00',
+    slug: 'High_Protein_Recipe_Collection-2026',
+    desc: 'Clinical & behavioural culinary systems for satiety, muscle preservation, and practical kitchen mastery.'
   },
   'stress-management': {
     id: 'g-wel-1',
-    name: 'Cortisol Down-Regulation & Vagal Tone Protocol',
+    name: 'Cortisol & Stress Management',
     price: '£22.00',
     usPrice: '$28.00',
-    slug: 'stress-management-toolkit',
-    desc: 'Master autonomic resets: 10-minute NSDR scripts, vagal tone exercises, and circadian sleep alignment.'
+    slug: 'Cortisol_&_Stress_Management-2026',
+    desc: 'Actionable protocols to lower cortisol, manage chronic stress, and restore nervous system balance.'
+  },
+  'autonomic-guide': {
+    id: 'g-wel-1',
+    name: 'Cortisol & Stress Management',
+    price: '£22.00',
+    usPrice: '$28.00',
+    slug: 'Cortisol_&_Stress_Management-2026',
+    desc: 'Actionable protocols to lower cortisol, manage chronic stress, and restore nervous system balance.'
+  },
+  'sleep-optimization': {
+    id: 'g-wel-2',
+    name: 'Deep Sleep Optimization Protocol',
+    price: '£25.00',
+    usPrice: '$32.00',
+    slug: 'Deep_Sleep_Optimization-2026',
+    desc: 'A 28-day actionable blueprint to maximize deep slow-wave sleep, optimize REM cycles, and fix nocturnal waking.'
+  },
+  'habit-reset': {
+    id: 'g-wel-3',
+    name: 'Mindfulness & Habit Reset Workbook',
+    price: '£18.00',
+    usPrice: '$24.00',
+    slug: 'Mindfulness_and_Habit_Reset_Workbook-2026',
+    desc: 'A structured 21-day interactive journal to dismantle compulsive loops and build automatic longevity habits.'
+  },
+  'lifespan-blueprint': {
+    id: 'g-epi-1',
+    name: 'The Next Level Lifespan Blueprint',
+    price: '£22.00',
+    usPrice: '$28.00',
+    slug: 'the-next-level-lifespan',
+    desc: 'Upgrade your cellular hardware today to run tomorrow’s age-reversal software: sirtuin activation, autophagy, and DNA protection.'
+  },
+  'epigenetics-guide': {
+    id: 'g-epi-1',
+    name: 'The Next Level Lifespan Blueprint',
+    price: '£22.00',
+    usPrice: '$28.00',
+    slug: 'the-next-level-lifespan',
+    desc: 'Upgrade your cellular hardware today to run tomorrow’s age-reversal software: sirtuin activation, autophagy, and DNA protection.'
   },
   'womens-health-guide': {
     id: 'g-fem-1',

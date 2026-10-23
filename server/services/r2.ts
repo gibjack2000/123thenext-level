@@ -37,6 +37,13 @@ export const R2_GUIDE_FILE_KEYS: Record<string, string> = {
   'nutrition-guide': 'The Master_Meal_Planning_Guide-2026.pdf',
   'stress-management': 'Cortisol_&_Stress_Management-2026.pdf',
   'autonomic-guide': 'Cortisol_&_Stress_Management-2026.pdf',
+  'hypertrophy-strength': 'Hypertrophy-Strength-Protocol-2026.pdf',
+  'mobility-recovery': 'Daily_Mobility_and_Recovery-2026.pdf',
+  'fat-loss-blueprint': 'Fat-Loss-Nutrition-Blueprint-2026.pdf',
+  'high-protein-recipes': 'High_Protein_Recipe_Collection-2026.pdf',
+  'sleep-optimization': 'Deep_Sleep_Optimization-2026.pdf',
+  'habit-reset': 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
+  'lifespan-blueprint': 'the-next-level-lifespan.pdf',
 
   // Catalog Product ID aliases
   'g-fit-1': 'beginner_home_workout-2026.pdf',
@@ -47,7 +54,8 @@ export const R2_GUIDE_FILE_KEYS: Record<string, string> = {
   'g-nut-3': 'High_Protein_Recipe_Collection-2026.pdf',
   'g-wel-1': 'Cortisol_&_Stress_Management-2026.pdf',
   'g-wel-2': 'Deep_Sleep_Optimization-2026.pdf',
-  'g-wel-3': 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf'
+  'g-wel-3': 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
+  'g-epi-1': 'the-next-level-lifespan.pdf',
 };
 
 export const GUIDE_FILE_KEYS = R2_GUIDE_FILE_KEYS;

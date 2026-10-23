@@ -19,46 +19,15 @@ const GuideCoverImage: React.FC<{ primaryImage: string; fallbackImage?: string; 
   fallbackImage,
   altText
 }) => {
-  if (primaryImage.startsWith('http://') || primaryImage.startsWith('https://')) {
-    return (
-      <img
-        src={primaryImage}
-        alt={altText}
-        className="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500"
-      />
-    );
-  }
-
-  const possiblePaths = [
-    `/assets/images/shop/${primaryImage}`,
-    `/assets/images/blog/${primaryImage}`,
-    `/covers/${primaryImage}`,
-    `/assets/images/${primaryImage}`,
-    `/assets/${primaryImage}`,
-    `/${primaryImage}`,
-    `/blog-covers/${primaryImage}`
-  ];
-
-  if (fallbackImage) {
-    possiblePaths.push(
-      `/assets/images/shop/${fallbackImage}`,
-      `/assets/images/blog/${fallbackImage}`,
-      `/covers/${fallbackImage}`,
-      `/assets/images/${fallbackImage}`,
-      `/assets/${fallbackImage}`,
-      `/${fallbackImage}`
-    );
-  }
-
-  const [currentPathIndex, setCurrentPathIndex] = useState(0);
+  const [src, setSrc] = useState(primaryImage);
 
   return (
     <img
-      src={possiblePaths[currentPathIndex]}
+      src={src}
       alt={altText}
       onError={() => {
-        if (currentPathIndex < possiblePaths.length - 1) {
-          setCurrentPathIndex(prev => prev + 1);
+        if (fallbackImage && src !== fallbackImage) {
+          setSrc(fallbackImage);
         }
       }}
       className="w-full h-full object-cover group-hover:scale-[1.03] transition duration-500"
@@ -79,15 +48,47 @@ export default function PremiumGuidesPage() {
       title: "Beginner Home Workout Plan",
       price: "£19.00",
       usPrice: "$24.00",
-      primaryImage: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop",
-      fallbackImage: "performance_biodata_cover.png",
+      primaryImage: "/covers/beginner-home-workout-cover.png",
+      fallbackImage: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop",
       description: "A 4-week zero-equipment protocol to build foundational strength and mobility from home.",
       highlights: [
-        "12-Week Progressive Bodyweight Schedule",
+        "4-Week Progressive Bodyweight Schedule",
         "VO2 Max Conditioning & Zone 2 Endurance",
         "Functional Joint Mobility & Muscle Preservation"
       ],
       checkoutUrl: "/checkout?product=workout-plan"
+    },
+    {
+      id: "hypertrophy-strength",
+      pillar: "Fitness",
+      title: "Hypertrophy & Strength Protocol",
+      price: "£29.00",
+      usPrice: "$38.00",
+      primaryImage: "/covers/hypertrophy-strength-cover.png",
+      fallbackImage: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800&auto=format&fit=crop",
+      description: "An evidence-based 8-week progressive overload system to break through plateaus and build dense skeletal muscle.",
+      highlights: [
+        "8-Week Periodized Hypertrophy Program",
+        "Plateau-Breaking Volume & Intensity Guide",
+        "Rep-in-Reserve (RIR) Progression Framework"
+      ],
+      checkoutUrl: "/checkout?product=hypertrophy-strength"
+    },
+    {
+      id: "mobility-recovery",
+      pillar: "Fitness",
+      title: "Daily Mobility & Recovery Routine",
+      price: "£15.00",
+      usPrice: "$19.00",
+      primaryImage: "/covers/daily-mobility-recovery-cover.png",
+      fallbackImage: "https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800&auto=format&fit=crop",
+      description: "A science-backed 15-minute blueprint for desk workers, athletes, and movers to restore joint kinematics and spine health.",
+      highlights: [
+        "15-Minute Daily Desk-Worker Flow",
+        "Thoracic & Hip Mobility Protocols",
+        "Active Recovery & Joint Longevity Sequence"
+      ],
+      checkoutUrl: "/checkout?product=mobility-recovery"
     },
     {
       id: "meal-planner",
@@ -95,9 +96,9 @@ export default function PremiumGuidesPage() {
       title: "The Master Meal Planning Guide",
       price: "£24.00",
       usPrice: "$29.00",
-      primaryImage: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800&auto=format&fit=crop",
-      fallbackImage: "metabolic_nutrition_cover.png",
-      description: "A systematic approach to weekly meal prep, grocery shopping, and macro-balancing.",
+      primaryImage: "/covers/master-meal-planning-cover.png",
+      fallbackImage: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800&auto=format&fit=crop",
+      description: "A systematic approach to weekly meal prep, grocery shopping, and macro-balancing that fits real, busy life.",
       highlights: [
         "Glucose Spike Mitigation Recipes",
         "Microbiome Diversity Grocery Checklist",
@@ -106,68 +107,100 @@ export default function PremiumGuidesPage() {
       checkoutUrl: "/checkout?product=meal-planner"
     },
     {
+      id: "fat-loss-blueprint",
+      pillar: "Nutrition",
+      title: "The Fat Loss Nutrition Blueprint",
+      price: "£29.00",
+      usPrice: "$38.00",
+      primaryImage: "/covers/fat-loss-nutrition-cover.png",
+      fallbackImage: "https://images.unsplash.com/photo-1547592180-85f173990554?q=80&w=800&auto=format&fit=crop",
+      description: "Your science-based path to sustainable body recomposition and fat loss without metabolic slowdown or muscle loss.",
+      highlights: [
+        "Metabolic Rate Preservation Protocols",
+        "Protein Satiety & Deficit Calculation",
+        "Diet Break & Maintenance Transition Plan"
+      ],
+      checkoutUrl: "/checkout?product=fat-loss-blueprint"
+    },
+    {
+      id: "high-protein-recipes",
+      pillar: "Nutrition",
+      title: "High-Protein Recipe Collection",
+      price: "£19.00",
+      usPrice: "$24.00",
+      primaryImage: "/covers/high-protein-recipe-cover.png",
+      fallbackImage: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop",
+      description: "Clinical & behavioural culinary systems for satiety, muscle preservation, and practical high-protein kitchen mastery.",
+      highlights: [
+        "30+ High-Protein Meal Formulations",
+        "Macro-Engineered Satiety Index Recipes",
+        "Batch-Cooking & Freezing Prep Framework"
+      ],
+      checkoutUrl: "/checkout?product=high-protein-recipes"
+    },
+    {
       id: "stress-management",
       pillar: "Wellness",
       title: "Cortisol & Stress Management",
       price: "£22.00",
       usPrice: "$28.00",
-      primaryImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=800&auto=format&fit=crop",
-      fallbackImage: "autonomic_engineering_cover.png",
-      description: "Actionable protocols to lower cortisol, manage chronic stress, and restore nervous system balance.",
+      primaryImage: "/covers/cortisol-stress-management-cover.png",
+      fallbackImage: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=800&auto=format&fit=crop",
+      description: "Actionable protocols to lower cortisol, manage chronic stress, and restore autonomic nervous system balance.",
       highlights: [
         "10-Minute NSDR Audio & Written Scripts",
         "Vagal Tone Exercises to Boost Nocturnal HRV",
-        "Circadian Light & Sleep Architecture Guide"
+        "Circadian Light & Adrenal Reset Guide"
       ],
       checkoutUrl: "/checkout?product=stress-management"
     },
     {
-      id: "epigenetics-guide",
-      pillar: "Epigenetics",
-      title: "Cellular Reprogramming & Epigenetic Longevity",
-      price: "£22.00",
-      usPrice: "$28.00",
-      primaryImage: "https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=800&auto=format&fit=crop",
-      fallbackImage: "healthspan_longevity_cover.png",
-      description: "Learn how to activate sirtuins, induce cellular autophagy, and protect your DNA from environmental methylation decay.",
+      id: "sleep-optimization",
+      pillar: "Wellness",
+      title: "Deep Sleep Optimization Protocol",
+      price: "£25.00",
+      usPrice: "$32.00",
+      primaryImage: "/covers/deep-sleep-optimization-cover.png",
+      fallbackImage: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?q=80&w=800&auto=format&fit=crop",
+      description: "A 28-day actionable blueprint to maximize deep slow-wave sleep, optimize REM cycles, and eliminate nocturnal waking.",
       highlights: [
-        "Sirtuin & NAD+ Activation Protocols",
-        "Autophagy Thresholds & Intermittent Fasting",
-        "Yamanaka Factor Science & Epigenetic Clocks"
+        "28-Day Actionable Sleep Architect Blueprint",
+        "Thermal & Adenosine Cycle Timing Guide",
+        "Nocturnal Awakening Rescue Protocol"
       ],
-      checkoutUrl: "/checkout?product=epigenetics-guide"
+      checkoutUrl: "/checkout?product=sleep-optimization"
     },
     {
-      id: "womens-health-guide",
-      pillar: "Women's Health",
-      title: "Women's Healthspan & Ovarian Longevity",
-      price: "£22.00",
-      usPrice: "$28.00",
-      primaryImage: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?q=80&w=800&auto=format&fit=crop",
-      fallbackImage: "womens_health_cover.png",
-      description: "Muscle-centric medicine, endocrine baseline tracking, AMH profiling, and bone density preservation.",
-      highlights: [
-        "Endocrine Health & Hormonal Balance",
-        "Strength-Over-Thinness Muscle Building",
-        "Ovarian Reserve & Biological Age Tracking"
-      ],
-      checkoutUrl: "/checkout?product=womens-health-guide"
-    },
-    {
-      id: "socio-architecture-guide",
-      pillar: "Socio-Architecture",
-      title: "Socio-Biological Architecture & Connection Blueprint",
-      price: "£19.00",
+      id: "habit-reset",
+      pillar: "Wellness",
+      title: "Mindfulness & Habit Reset Workbook",
+      price: "£18.00",
       usPrice: "$24.00",
-      primaryImage: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=800&auto=format&fit=crop",
-      fallbackImage: "socio_architecture_cover.png",
-      description: "Micro-community vitals, neural coupling mechanics, and psychoneuroimmunology protocols to lower inflammation.",
+      primaryImage: "/covers/mindfulness-habit-reset-cover.png",
+      fallbackImage: "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?q=80&w=800&auto=format&fit=crop",
+      description: "A structured 21-day interactive journal to dismantle compulsive dopamine loops and build automatic longevity habits.",
       highlights: [
-        "Micro-Community Health Formation",
-        "Neural Coupling & Stress Reduction",
-        "Environmental & Lifestyle Design"
+        "21-Day Guided Exercise Prompt Sheets",
+        "Dopamine Detox & Cue-Routine Audits",
+        "Friction-Based Habit Stacking Framework"
       ],
-      checkoutUrl: "/checkout?product=socio-architecture-guide"
+      checkoutUrl: "/checkout?product=habit-reset"
+    },
+    {
+      id: "lifespan-blueprint",
+      pillar: "Epigenetics",
+      title: "The Next Level Lifespan Blueprint",
+      price: "£22.00",
+      usPrice: "$28.00",
+      primaryImage: "/covers/the-next-level-lifespan-cover.png",
+      fallbackImage: "https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=800&auto=format&fit=crop",
+      description: "Upgrade your cellular hardware today to run tomorrow’s age-reversal software: sirtuin activation, autophagy, and DNA protection.",
+      highlights: [
+        "Sirtuin & NAD+ Replenishment Regimen",
+        "Autophagy Optimization & Fasting Thresholds",
+        "Epigenetic Age-Reversal Action Suite"
+      ],
+      checkoutUrl: "/checkout?product=lifespan-blueprint"
     }
   ];
 
