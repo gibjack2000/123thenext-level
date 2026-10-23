@@ -110,6 +110,42 @@ async function createDownloadTokensForProduct(orderId, productId) {
   }
 }
 
+function resolveValidBaseUrl(req) {
+  // Check req.headers.origin first if it is a valid http(s) URL
+  const origin = req && req.headers && req.headers.origin;
+  if (origin && typeof origin === 'string' && /^https?:\/\//i.test(origin.trim())) {
+    return origin.trim().replace(/\/+$/, '');
+  }
+
+  // Check req.headers.referer
+  const referer = req && req.headers && req.headers.referer;
+  if (referer && typeof referer === 'string') {
+    try {
+      const u = new URL(referer);
+      return u.origin;
+    } catch {}
+  }
+
+  // Check host header
+  const host = req && req.headers && (req.headers['x-forwarded-host'] || req.headers.host);
+  if (host && typeof host === 'string' && !host.includes('localhost') && !host.includes('127.0.0.1')) {
+    const proto = (req.headers['x-forwarded-proto'] || 'https').split(',')[0].trim();
+    return `${proto}://${host.split(',')[0].trim()}`.replace(/\/+$/, '');
+  }
+
+  // Check VITE_APP_URL env var if it starts with http(s)
+  const envUrl = process.env.VITE_APP_URL;
+  if (envUrl && typeof envUrl === 'string') {
+    const clean = envUrl.trim().replace(/^["']|["']$/g, '');
+    if (/^https?:\/\//i.test(clean)) {
+      return clean.replace(/\/+$/, '');
+    }
+  }
+
+  // Guaranteed valid production fallback
+  return 'https://123thenextlevel.com';
+}
+
 /**
  * 1. POST /api/create-checkout-session
  * Validates frontend cart items and returns a Stripe Checkout session URL
@@ -121,7 +157,7 @@ router.post('/create-checkout-session', async (req, res) => {
     // 1. Direct single guide purchase (e.g. from DigitalGuides / Library / Checkout)
     const targetGuide = guideId ? resolveGuideProduct(guideId) : (items && Array.isArray(items) && items.length === 1 ? resolveGuideProduct(items[0].id) : null);
     if (targetGuide) {
-      const origin = req.headers.origin || process.env.VITE_APP_URL || 'https://123thenextlevel.com';
+      const origin = resolveValidBaseUrl(req);
       const successUrl = (source === 'library')
         ? `${origin}/library?success=true&session_id={CHECKOUT_SESSION_ID}&guideId=${targetGuide.id}`
         : `${origin}/premium-guides/success?session_id={CHECKOUT_SESSION_ID}&guideId=${targetGuide.id}`;
@@ -205,7 +241,7 @@ router.post('/create-checkout-session', async (req, res) => {
       });
     }
 
-    const domainURL = req.headers.origin || process.env.VITE_APP_URL || 'https://123thenextlevel.com';
+    const domainURL = resolveValidBaseUrl(req);
 
     // Create session on Stripe
     const session = await stripeService.createCheckoutSession({
