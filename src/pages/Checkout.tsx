@@ -284,7 +284,8 @@ export default function CheckoutPage() {
         },
         body: JSON.stringify({
           guideId: item.slug || item.id,
-          items: [{ id: item.id }]
+          items: [{ id: item.id }],
+          source: 'checkout'
         }),
       });
 

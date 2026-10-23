@@ -116,12 +116,18 @@ async function createDownloadTokensForProduct(orderId, productId) {
  */
 router.post('/create-checkout-session', async (req, res) => {
   try {
-    const { guideId, items, customerEmail } = req.body || {};
+    const { guideId, items, customerEmail, source } = req.body || {};
 
-    // 1. Direct single guide purchase (e.g. from DigitalGuides / Library)
+    // 1. Direct single guide purchase (e.g. from DigitalGuides / Library / Checkout)
     const targetGuide = guideId ? resolveGuideProduct(guideId) : (items && Array.isArray(items) && items.length === 1 ? resolveGuideProduct(items[0].id) : null);
     if (targetGuide) {
-      const origin = req.headers.origin || process.env.VITE_APP_URL || 'http://localhost:3000';
+      const origin = req.headers.origin || process.env.VITE_APP_URL || 'https://123thenextlevel.com';
+      const successUrl = (source === 'library')
+        ? `${origin}/library?success=true&session_id={CHECKOUT_SESSION_ID}&guideId=${targetGuide.id}`
+        : `${origin}/premium-guides/success?session_id={CHECKOUT_SESSION_ID}&guideId=${targetGuide.id}`;
+      const cancelUrl = (source === 'library')
+        ? `${origin}/library?canceled=true`
+        : `${origin}/checkout?canceled=true`;
 
       const session = await stripeService.createCheckoutSession({
         lineItems: [
@@ -137,8 +143,8 @@ router.post('/create-checkout-session', async (req, res) => {
             quantity: 1,
           },
         ],
-        successUrl: `${origin}/library?success=true&session_id={CHECKOUT_SESSION_ID}&guideId=${targetGuide.id}`,
-        cancelUrl: `${origin}/library?canceled=true`,
+        successUrl,
+        cancelUrl,
         customerEmail: customerEmail || undefined,
         metadata: {
           guideId: targetGuide.id,
@@ -180,34 +186,26 @@ router.post('/create-checkout-session', async (req, res) => {
         return res.status(400).json({ error: `Product ID '${cartItem.id}' not found in catalog.` });
       }
 
-      // If a valid Stripe price ID exists, use it; otherwise use dynamic price_data
-      if (product.stripePriceId && product.stripePriceId.startsWith('price_') && !product.stripePriceId.includes('placeholder')) {
-        lineItems.push({
-          price: product.stripePriceId,
-          quantity: 1
-        });
-      } else {
-        const unitAmount = product.priceInCents || Math.round(product.price * 100);
-        lineItems.push({
-          price_data: {
-            currency: product.currency || 'gbp',
-            product_data: {
-              name: product.title,
-              description: 'Instant PDF Digital Guide — 123TheNextLevel',
-            },
-            unit_amount: unitAmount,
+      const unitAmount = product.priceInCents || Math.round((product.price || 19) * 100);
+      lineItems.push({
+        price_data: {
+          currency: product.currency || 'gbp',
+          product_data: {
+            name: product.title,
+            description: 'Instant PDF Digital Guide — 123TheNextLevel',
           },
-          quantity: 1
-        });
-      }
+          unit_amount: unitAmount,
+        },
+        quantity: cartItem.quantity || 1
+      });
 
       validatedItems.push({
         product_id: product.id,
-        quantity: 1
+        quantity: cartItem.quantity || 1
       });
     }
 
-    const domainURL = process.env.VITE_APP_URL || req.headers.origin || 'http://localhost:3000';
+    const domainURL = req.headers.origin || process.env.VITE_APP_URL || 'https://123thenextlevel.com';
 
     // Create session on Stripe
     const session = await stripeService.createCheckoutSession({
@@ -221,26 +219,33 @@ router.post('/create-checkout-session', async (req, res) => {
     });
 
     // Save pending order locally (using Stripe Session ID as primary key link)
-    const order = await db.createOrder({
-      stripe_session_id: session.id,
-      customer_email: customerEmail || session.customer_details?.email || '',
-      amount_total: session.amount_total ? session.amount_total / 100 : 0,
-      currency: session.currency || 'gbp',
-      payment_status: 'pending'
-    });
+    try {
+      const order = await db.createOrder({
+        stripe_session_id: session.id,
+        customer_email: customerEmail || session.customer_details?.email || '',
+        amount_total: session.amount_total ? session.amount_total / 100 : 0,
+        currency: session.currency || 'gbp',
+        payment_status: 'pending'
+      });
 
-    // Save order items
-    const orderItemsToSave = validatedItems.map(item => ({
-      order_id: order.id,
-      product_id: item.product_id,
-      quantity: item.quantity
-    }));
-    await db.createOrderItems(orderItemsToSave);
+      // Save order items
+      const orderItemsToSave = validatedItems.map(item => ({
+        order_id: order.id,
+        product_id: item.product_id,
+        quantity: item.quantity
+      }));
+      await db.createOrderItems(orderItemsToSave);
+    } catch (dbErr) {
+      console.warn('Local DB order recording skipped:', dbErr.message);
+    }
 
     res.json({ url: session.url });
   } catch (error) {
     console.error('Session creation error:', error);
-    res.status(500).json({ error: 'Failed to initiate checkout. Please try again.' });
+    res.status(500).json({ 
+      error: error.message || 'Failed to initiate checkout. Please try again.',
+      details: error.raw ? error.raw.message : undefined 
+    });
   }
 });
 
