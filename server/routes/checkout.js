@@ -528,10 +528,20 @@ router.post('/get-presigned-guide', async (req, res) => {
         };
       }));
 
+      let zipUrl = null;
+      if (guideId === 'all-six-master-guides' || guideId === 'g-bundle-6') {
+        try {
+          zipUrl = await generateGuidePresignedUrl('Complete_6_Pillar_Master_Suite-2026.zip');
+        } catch (zErr) {
+          console.warn('Could not generate zip presigned url:', zErr.message);
+        }
+      }
+
       return res.json({
         isBundle: true,
         bundleId: guideId,
-        downloadUrl: downloads[0]?.downloadUrl,
+        downloadUrl: zipUrl || downloads[0]?.downloadUrl,
+        zipUrl,
         downloads
       });
     }

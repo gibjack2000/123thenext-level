@@ -226,6 +226,7 @@ export default function CheckoutPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [downloadSuccess, setDownloadSuccess] = useState(false);
   const [downloadItems, setDownloadItems] = useState<PresignedDownloadItem[]>([]);
+  const [zipDownloadUrl, setZipDownloadUrl] = useState<string | null>(null);
 
   useEffect(() => {
     document.title = `Checkout: ${item.name} | 123TheNextLevel`;
@@ -268,6 +269,9 @@ export default function CheckoutPage() {
       const res = await handleSecureGuideDownload(guideKey);
 
       if (res.success && res.data) {
+        if (res.data.zipUrl) {
+          setZipDownloadUrl(res.data.zipUrl);
+        }
         if (res.data.downloads && res.data.downloads.length > 0) {
           setDownloadItems(res.data.downloads);
         } else if (res.data.downloadUrl) {
@@ -409,15 +413,45 @@ export default function CheckoutPage() {
           <div className="p-5 sm:p-6 bg-slate-950 border border-emerald-500/40 rounded-2xl space-y-4 shadow-xl">
             <div className="text-center space-y-1">
               <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center justify-center gap-1.5">
-                <CheckCircle2 size={16} /> All Files Generated Successfully!
+                <CheckCircle2 size={16} /> All Master Books Ready!
               </span>
               <p className="text-xs text-slate-300">
-                Automatic browser downloads were triggered. If your browser blocked multi-file popups, test or download any book directly below:
+                Choose to download everything in one click as a ZIP bundle, or download individual PDF books:
               </p>
             </div>
 
+            {/* 1-CLICK ZIP DOWNLOAD BUTTON (BEST EXPERIENCE) */}
+            {zipDownloadUrl && (
+              <div className="p-3 bg-gradient-to-r from-cyan-950/70 to-slate-900 border border-cyan-500/40 rounded-2xl space-y-2">
+                <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-widest block text-center">
+                  ⚡ Recommended (1 Click • Zero Popup Blockers)
+                </span>
+                <a
+                  href={zipDownloadUrl}
+                  download="Complete_6_Pillar_Master_Suite-2026.zip"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3.5 px-4 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-sm rounded-xl transition-all shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Download size={18} /> Download All 6 Master Books (ZIP Archive • 9.2 MB)
+                </a>
+              </div>
+            )}
+
             {/* Individual Download Buttons Hub */}
             <div className="space-y-2 pt-2">
+              <div className="flex items-center justify-between text-[11px] text-slate-400 font-semibold px-1">
+                <span>Or Download Individual PDF Guides:</span>
+                {downloadItems.length > 1 && (
+                  <button
+                    onClick={handleDownloadAllAgain}
+                    className="text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer"
+                  >
+                    <RefreshCw size={11} /> Auto-download all 6
+                  </button>
+                )}
+              </div>
+
               {(downloadItems.length > 0 ? downloadItems : (item.guides || [])).map((doc: any, idx: number) => {
                 const downloadUrl = doc.downloadUrl || '#';
                 const filename = doc.filename || doc.file || `${doc.id}.pdf`;
@@ -441,24 +475,14 @@ export default function CheckoutPage() {
                       download={filename}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="shrink-0 px-3 py-1.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs rounded-lg transition-colors flex items-center gap-1 shadow-sm shadow-cyan-500/20"
+                      className="shrink-0 px-3 py-1.5 bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs rounded-lg transition-colors flex items-center gap-1 border border-slate-700"
                     >
-                      <Download size={12} /> Download PDF
+                      <Download size={12} /> PDF
                     </a>
                   </div>
                 );
               })}
             </div>
-
-            {/* Download All Again Action */}
-            {downloadItems.length > 1 && (
-              <button
-                onClick={handleDownloadAllAgain}
-                className="w-full py-3 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold text-xs rounded-xl transition-colors flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <RefreshCw size={13} className="text-cyan-400" /> Re-trigger All {downloadItems.length} Downloads
-              </button>
-            )}
 
             <div className="pt-2 text-center border-t border-slate-800/80">
               <Link to="/premium-guides" className="text-xs text-cyan-400 hover:underline">
@@ -488,7 +512,7 @@ export default function CheckoutPage() {
               className="w-full py-3 bg-slate-950 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold rounded-xl border border-slate-800 transition-colors flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
             >
               <Download size={14} className="text-cyan-400" />
-              {isProcessing ? 'Generating Secure Links...' : `Instant Preview / Developer Test Download (${item.guides ? `All ${item.guides.length} PDFs` : '1 PDF'})`}
+              {isProcessing ? 'Generating Secure Links...' : `Instant Preview / 1-Click Download (${item.guides ? `All ${item.guides.length} Master Books` : '1 PDF'})`}
             </button>
           </div>
         )}

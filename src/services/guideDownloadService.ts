@@ -16,6 +16,7 @@ export interface PresignedGuideResponse {
   isBundle?: boolean;
   bundleId?: string;
   downloadUrl?: string;
+  zipUrl?: string;
   downloads?: PresignedDownloadItem[];
 }
 
@@ -34,6 +35,17 @@ export const triggerBrowserDownload = (url: string, filename?: string) => {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+};
+
+/**
+ * Sequentially triggers downloads for multiple items
+ */
+export const downloadAllItems = (items: PresignedDownloadItem[]) => {
+  items.forEach((item, index) => {
+    setTimeout(() => {
+      triggerBrowserDownload(item.downloadUrl, item.filename);
+    }, index * 450);
+  });
 };
 
 /**
@@ -60,14 +72,22 @@ export const fetchPresignedGuideData = async (guideId: string): Promise<Presigne
 
 /**
  * Initiates secure guide download(s) directly from Cloudflare R2.
- * For bundles (e.g. 6-pillar suite), staggers browser downloads with 450ms interval
- * and returns the list of downloadable items for on-screen user reassurance.
+ * For bundles (e.g. 6-pillar suite):
+ * - If a single ZIP bundle is available (data.zipUrl), triggers the 1-click ZIP download immediately.
+ * - Also provides sequential individual triggers.
  */
 export const handleSecureGuideDownload = async (
-  guideId: string
+  guideId: string,
+  options?: { preferZip?: boolean }
 ): Promise<{ success: boolean; data?: PresignedGuideResponse }> => {
   const data = await fetchPresignedGuideData(guideId);
   if (!data) return { success: false };
+
+  // 1-Click ZIP bundle takes precedence for clean, browser-unblocked single-click download
+  if (data.zipUrl && options?.preferZip !== false) {
+    triggerBrowserDownload(data.zipUrl, 'Complete_6_Pillar_Master_Suite-2026.zip');
+    return { success: true, data };
+  }
 
   const items = data.downloads && data.downloads.length > 0
     ? data.downloads
@@ -77,12 +97,8 @@ export const handleSecureGuideDownload = async (
 
   if (items.length === 0) return { success: false };
 
-  // Sequentially trigger downloads with 450ms spacing to prevent browser popup block
-  items.forEach((item, index) => {
-    setTimeout(() => {
-      triggerBrowserDownload(item.downloadUrl, item.filename);
-    }, index * 450);
-  });
+  // Sequentially trigger downloads with 450ms spacing
+  downloadAllItems(items);
 
   return { success: true, data };
 };

@@ -80,21 +80,32 @@ export const R2_GUIDE_FILE_KEYS: Record<string, string> = {
   'Fat-Loss-Nutrition-Blueprint-2026.pdf': 'Fat-Loss-Nutrition-Blueprint-2026.pdf',
   'High_Protein_Recipe_Collection-2026.pdf': 'High_Protein_Recipe_Collection-2026.pdf',
   'Deep_Sleep_Optimization-2026.pdf': 'Deep_Sleep_Optimization-2026.pdf',
-  'Mindfulness_and_Habit_Reset_Workbook-2026.pdf': 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf'
+  'Mindfulness_and_Habit_Reset_Workbook-2026.pdf': 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
+
+  // 1-Click ZIP Bundle for 6-Pillar Master Suite
+  'Complete_6_Pillar_Master_Suite-2026.zip': 'Complete_6_Pillar_Master_Suite-2026.zip',
+  'all-six-master-guides-zip': 'Complete_6_Pillar_Master_Suite-2026.zip',
+  'g-bundle-6-zip': 'Complete_6_Pillar_Master_Suite-2026.zip'
 };
 
 export async function getPresignedDownloadUrl(guideId: string): Promise<string> {
   // Match guideId to R2 key, defaulting to the exact guideId if not found
   let objectKey = R2_GUIDE_FILE_KEYS[guideId];
   if (!objectKey) {
-    objectKey = guideId.endsWith('.pdf') ? guideId : `${guideId}.pdf`;
+    if (guideId.endsWith('.zip') || guideId.endsWith('.pdf')) {
+      objectKey = guideId;
+    } else {
+      objectKey = `${guideId}.pdf`;
+    }
   }
   const downloadFilename = objectKey;
+  const isZip = objectKey.endsWith('.zip');
+  const contentType = isZip ? 'application/zip' : 'application/pdf';
 
   const command = new GetObjectCommand({
     Bucket: process.env.R2_PAID_BUCKET_NAME || 'paid-products-vault',
     Key: objectKey,
-    ResponseContentType: 'application/pdf',
+    ResponseContentType: contentType,
     ResponseContentDisposition: `attachment; filename="${downloadFilename}"`
   });
 
