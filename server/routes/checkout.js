@@ -381,8 +381,13 @@ async function handleDownloadDelivery(req, res, forceJson = false) {
     }
 
     // --- Fallback: Local protected filesystem delivery ---
-    if (product.filePath) {
-      const safeFileName = path.basename(product.filePath);
+    const candidates = [
+      product.filePath,
+      product.r2Key,
+    ].filter(Boolean);
+
+    for (const candidate of candidates) {
+      const safeFileName = path.basename(candidate);
       const resolvedPath = path.resolve(FILE_STORAGE_DIR, safeFileName);
 
       // Secure boundary check

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { Lock, ShieldCheck, ArrowRight, Download, CheckCircle2, ShoppingBag } from 'lucide-react';
+import { handleSecureGuideDownload } from '../services/guideDownloadService';
 
 const PRODUCT_MAP: Record<string, { id: string; name: string; price: string; usPrice: string; slug: string; desc: string }> = {
   'epigenetics-guide': {
@@ -128,6 +129,15 @@ export default function CheckoutPage() {
 
   const handleBypassDownload = async () => {
     try {
+      // 1. Try secure Cloudflare R2 presigned download first
+      const guideKey = productKey || item.slug || item.id;
+      const r2Success = await handleSecureGuideDownload(guideKey);
+      if (r2Success) {
+        setDownloadSuccess(true);
+        return;
+      }
+
+      // 2. Fallback to order token bypass
       const response = await fetch('/api/test-bypass-checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
