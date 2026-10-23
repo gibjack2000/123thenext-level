@@ -34,7 +34,7 @@ export default function LibraryPage() {
       description: "A ruthlessly honest, 5-page translator designed to decode our complex molecular science, explain why living longer is a curse if you are frail, and give you your immediate, zero-cost daily habits.",
       fileUrl: "/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf",
       fileName: "idiots-guide-to-the-next-level-lifespan.pdf",
-      coverImage: "/assets/images/shop/next_level_cover.png",
+      coverImage: "/covers/the-next-level-lifespan-cover.png",
       buttonText: "Download Free Guide (PDF)",
       buttonStyle: "bg-cyan-500 text-slate-950 hover:bg-cyan-400 shadow-cyan-500/15",
       highlights: ["Simple post-meal hacks", "Circadian breathing rules", "Epigenetics made simple"]

@@ -185,22 +185,6 @@ export default function PremiumGuidesPage() {
         "Friction-Based Habit Stacking Framework"
       ],
       checkoutUrl: "/checkout?product=habit-reset"
-    },
-    {
-      id: "lifespan-blueprint",
-      pillar: "Epigenetics",
-      title: "The Next Level Lifespan Blueprint",
-      price: "£22.00",
-      usPrice: "$28.00",
-      primaryImage: "/covers/the-next-level-lifespan-cover.png",
-      fallbackImage: "https://images.unsplash.com/photo-1576086213369-97a306d36557?q=80&w=800&auto=format&fit=crop",
-      description: "Upgrade your cellular hardware today to run tomorrow’s age-reversal software: sirtuin activation, autophagy, and DNA protection.",
-      highlights: [
-        "Sirtuin & NAD+ Replenishment Regimen",
-        "Autophagy Optimization & Fasting Thresholds",
-        "Epigenetic Age-Reversal Action Suite"
-      ],
-      checkoutUrl: "/checkout?product=lifespan-blueprint"
     }
   ];
 
