@@ -82,7 +82,7 @@ export const products = [
     price: 22.00,
     currency: 'gbp',
     stripePriceId: process.env.STRIPE_PRICE_WEL1 || 'price_placeholder_wel1',
-    r2Key: 'Cortisol_and_Stress_Management-2026.pdf',
+    r2Key: 'Cortisol_&_Stress_Management-2026.pdf',
     filePath: 'stress-management-toolkit.pdf',
     downloadFilename: 'Cortisol-and-Stress-Management-123TheNextLevel.pdf',
     active: true

@@ -45,47 +45,60 @@ export function getBucketName() {
   return process.env.R2_PAID_BUCKET_NAME || 'paid-products-vault';
 }
 
-// File Key Mapping inside 'paid-products-vault/'
-export const GUIDE_FILE_KEYS = {
-  // Direct requested keys
-  'beginner-home-workout': 'beginner-home-workout-guide.pdf',
-  'master-meal-planning': 'master-meal-planning-guide.pdf',
-  'cortisol-stress-management': 'cortisol-stress-management-protocol.pdf',
+// Updated Cloudflare R2 Object Key Mapping
+export const R2_GUIDE_FILE_KEYS = {
+  // 1. Beginner Home Workout Plan
+  'beginner-home-workout': 'beginner_home_workout-2026.pdf',
+  'beginner-home-workout-plan': 'beginner_home_workout-2026.pdf',
+  'beginner_home_workout': 'beginner_home_workout-2026.pdf',
+  
+  // 2. The Master Meal Planning Guide
+  'master-meal-planning': 'The Master_Meal_Planning_Guide-2026.pdf',
+  'master-meal-planning-guide': 'The Master_Meal_Planning_Guide-2026.pdf',
+  'The Master_Meal_Planning_Guide': 'The Master_Meal_Planning_Guide-2026.pdf',
+  
+  // 3. Cortisol & Stress Management Protocol
+  'cortisol-stress-management': 'Cortisol_&_Stress_Management-2026.pdf',
+  'cortisol-and-stress-management': 'Cortisol_&_Stress_Management-2026.pdf',
+  'Cortisol_&_Stress_Management': 'Cortisol_&_Stress_Management-2026.pdf',
+
+  // 4. Lifespan Blueprint (Primary Lead Magnet)
   'next-level-lifespan': 'the-next-level-lifespan.pdf',
 
-  // Catalog Product ID aliases
-  'g-fit-1': 'beginner-home-workout-guide.pdf',
+  // Product ID aliases
+  'g-fit-1': 'beginner_home_workout-2026.pdf',
   'g-fit-2': 'Hypertrophy-Strength-Protocol-2026.pdf',
   'g-fit-3': 'Daily_Mobility_and_Recovery-2026.pdf',
-  'g-nut-1': 'master-meal-planning-guide.pdf',
+  'g-nut-1': 'The Master_Meal_Planning_Guide-2026.pdf',
   'g-nut-2': 'Fat-Loss-Nutrition-Blueprint-2026.pdf',
   'g-nut-3': 'High_Protein_Recipe_Collection-2026.pdf',
-  'g-wel-1': 'cortisol-stress-management-protocol.pdf',
+  'g-wel-1': 'Cortisol_&_Stress_Management-2026.pdf',
   'g-wel-2': 'Deep_Sleep_Optimization-2026.pdf',
   'g-wel-3': 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
 
   // Slug aliases
-  'beginner-home-workout-plan': 'beginner-home-workout-guide.pdf',
   'strength-training-hypertrophy': 'Hypertrophy-Strength-Protocol-2026.pdf',
   'mobility-recovery-routine': 'Daily_Mobility_and_Recovery-2026.pdf',
-  'healthy-meal-planning-guide': 'master-meal-planning-guide.pdf',
+  'healthy-meal-planning-guide': 'The Master_Meal_Planning_Guide-2026.pdf',
   'fat-loss-nutrition-blueprint': 'Fat-Loss-Nutrition-Blueprint-2026.pdf',
   'high-protein-recipe-collection': 'High_Protein_Recipe_Collection-2026.pdf',
-  'stress-management-toolkit': 'cortisol-stress-management-protocol.pdf',
+  'stress-management-toolkit': 'Cortisol_&_Stress_Management-2026.pdf',
   'sleep-optimization-protocol': 'Deep_Sleep_Optimization-2026.pdf',
   'mindfulness-habit-reset': 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
 };
 
+export const GUIDE_FILE_KEYS = R2_GUIDE_FILE_KEYS;
+
 /**
- * Generate a short-lived link (valid for 15 minutes / 900 seconds by default)
- * for a guide by ID or slug.
+ * Generate a short-lived link (valid for 15 minutes / 900 seconds)
+ * Match guideId to R2 key, defaulting to the exact guideId if not found
  *
  * @param {string} guideId
  * @param {number} [expiresIn=900] - Expiration in seconds (default: 15 minutes)
  * @returns {Promise<string>}
  */
-export async function generateGuidePresignedUrl(guideId, expiresIn = 900) {
-  const fileKey = GUIDE_FILE_KEYS[guideId] || `${guideId}.pdf`;
+export async function getPresignedDownloadUrl(guideId, expiresIn = 900) {
+  const objectKey = R2_GUIDE_FILE_KEYS[guideId] || `${guideId}.pdf`;
   const client = getR2Client();
 
   if (!client) {
@@ -94,13 +107,14 @@ export async function generateGuidePresignedUrl(guideId, expiresIn = 900) {
 
   const command = new GetObjectCommand({
     Bucket: process.env.R2_PAID_BUCKET_NAME || 'paid-products-vault',
-    Key: fileKey,
+    Key: objectKey,
   });
 
-  // Generate a short-lived link (valid for 15 minutes / 900 seconds)
-  const presignedUrl = await getSignedUrl(client, command, { expiresIn });
-  return presignedUrl;
+  // Generates 15-minute temporary presigned download link
+  return await getSignedUrl(client, command, { expiresIn });
 }
+
+export const generateGuidePresignedUrl = getPresignedDownloadUrl;
 
 /**
  * Generate a secure, temporary presigned GET download URL for an R2 object with attachment headers.

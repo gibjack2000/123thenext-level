@@ -27,7 +27,7 @@ All premium digital PDF products are hosted securely in a **private Cloudflare R
 | `g-nut-1` | The Master Meal Planning Guide | `The Master_Meal_Planning_Guide-2026.pdf` | `The-Master-Meal-Planning-Guide-123TheNextLevel.pdf` | `protected-files/pdfs/fat_loss_blueprint.pdf` |
 | `g-nut-2` | Fat Loss Nutrition Blueprint | `Fat-Loss-Nutrition-Blueprint-2026.pdf` | `Fat-Loss-Nutrition-Blueprint-123TheNextLevel.pdf` | `protected-files/pdfs/fat-loss-nutrition-blueprint.pdf` |
 | `g-nut-3` | High-Protein Recipe Collection | `High_Protein_Recipe_Collection-2026.pdf` | `High-Protein-Recipe-Collection-123TheNextLevel.pdf` | `protected-files/pdfs/high_protein_recipes.pdf` |
-| `g-wel-1` | Cortisol & Stress Management | `Cortisol_and_Stress_Management-2026.pdf` | `Cortisol-and-Stress-Management-123TheNextLevel.pdf` | `protected-files/pdfs/stress-management-toolkit.pdf` |
+| `g-wel-1` | Cortisol & Stress Management | `Cortisol_&_Stress_Management-2026.pdf` | `Cortisol-and-Stress-Management-123TheNextLevel.pdf` | `protected-files/pdfs/stress-management-toolkit.pdf` |
 | `g-wel-2` | Deep Sleep Optimization | `Deep_Sleep_Optimization-2026.pdf` | `Deep-Sleep-Optimization-123TheNextLevel.pdf` | `protected-files/pdfs/sleep_optimization.pdf` |
 | `g-wel-3` | Mindfulness & Habit Reset | `Mindfulness_and_Habit_Reset_Workbook-2026.pdf` | `Mindfulness-and-Habit-Reset-Workbook-123TheNextLevel.pdf` | `protected-files/pdfs/habit_reset_workbook.pdf` |
 
