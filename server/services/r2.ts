@@ -70,13 +70,29 @@ export const R2_GUIDE_FILE_KEYS: Record<string, string> = {
   'epigenetics-guide': 'the-next-level-lifespan.pdf',
   'womens-health-guide': 'Daily_Mobility_and_Recovery-2026.pdf',
   'socio-architecture-guide': 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
+
+  // Direct filename self-mappings
+  'beginner_home_workout-2026.pdf': 'beginner_home_workout-2026.pdf',
+  'The Master_Meal_Planning_Guide-2026.pdf': 'The Master_Meal_Planning_Guide-2026.pdf',
+  'Cortisol_&_Stress_Management-2026.pdf': 'Cortisol_&_Stress_Management-2026.pdf',
+  'Cortisol_and_Stress_Management-2026.pdf': 'Cortisol_&_Stress_Management-2026.pdf',
+  'the-next-level-lifespan.pdf': 'the-next-level-lifespan.pdf',
+  'Hypertrophy-Strength-Protocol-2026.pdf': 'Hypertrophy-Strength-Protocol-2026.pdf',
+  'Daily_Mobility_and_Recovery-2026.pdf': 'Daily_Mobility_and_Recovery-2026.pdf',
+  'Fat-Loss-Nutrition-Blueprint-2026.pdf': 'Fat-Loss-Nutrition-Blueprint-2026.pdf',
+  'High_Protein_Recipe_Collection-2026.pdf': 'High_Protein_Recipe_Collection-2026.pdf',
+  'Deep_Sleep_Optimization-2026.pdf': 'Deep_Sleep_Optimization-2026.pdf',
+  'Mindfulness_and_Habit_Reset_Workbook-2026.pdf': 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
 };
 
 export const GUIDE_FILE_KEYS = R2_GUIDE_FILE_KEYS;
 
 export async function getPresignedDownloadUrl(guideId: string): Promise<string> {
   // Match guideId to R2 key, defaulting to the exact guideId if not found
-  const objectKey = R2_GUIDE_FILE_KEYS[guideId] || `${guideId}.pdf`;
+  let objectKey = R2_GUIDE_FILE_KEYS[guideId];
+  if (!objectKey) {
+    objectKey = guideId.endsWith('.pdf') ? guideId : `${guideId}.pdf`;
+  }
   const downloadFilename = objectKey;
 
   const command = new GetObjectCommand({

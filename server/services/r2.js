@@ -106,6 +106,19 @@ export const R2_GUIDE_FILE_KEYS = {
   'stress-management-toolkit': 'Cortisol_&_Stress_Management-2026.pdf',
   'sleep-optimization-protocol': 'Deep_Sleep_Optimization-2026.pdf',
   'mindfulness-habit-reset': 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
+
+  // Direct filename self-mappings
+  'beginner_home_workout-2026.pdf': 'beginner_home_workout-2026.pdf',
+  'The Master_Meal_Planning_Guide-2026.pdf': 'The Master_Meal_Planning_Guide-2026.pdf',
+  'Cortisol_&_Stress_Management-2026.pdf': 'Cortisol_&_Stress_Management-2026.pdf',
+  'Cortisol_and_Stress_Management-2026.pdf': 'Cortisol_&_Stress_Management-2026.pdf',
+  'the-next-level-lifespan.pdf': 'the-next-level-lifespan.pdf',
+  'Hypertrophy-Strength-Protocol-2026.pdf': 'Hypertrophy-Strength-Protocol-2026.pdf',
+  'Daily_Mobility_and_Recovery-2026.pdf': 'Daily_Mobility_and_Recovery-2026.pdf',
+  'Fat-Loss-Nutrition-Blueprint-2026.pdf': 'Fat-Loss-Nutrition-Blueprint-2026.pdf',
+  'High_Protein_Recipe_Collection-2026.pdf': 'High_Protein_Recipe_Collection-2026.pdf',
+  'Deep_Sleep_Optimization-2026.pdf': 'Deep_Sleep_Optimization-2026.pdf',
+  'Mindfulness_and_Habit_Reset_Workbook-2026.pdf': 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
 };
 
 export const GUIDE_FILE_KEYS = R2_GUIDE_FILE_KEYS;
@@ -119,7 +132,10 @@ export const GUIDE_FILE_KEYS = R2_GUIDE_FILE_KEYS;
  * @returns {Promise<string>}
  */
 export async function getPresignedDownloadUrl(guideId, expiresIn = 900) {
-  const objectKey = R2_GUIDE_FILE_KEYS[guideId] || `${guideId}.pdf`;
+  let objectKey = R2_GUIDE_FILE_KEYS[guideId];
+  if (!objectKey) {
+    objectKey = guideId.endsWith('.pdf') ? guideId : `${guideId}.pdf`;
+  }
   const client = getR2Client();
 
   if (!client) {

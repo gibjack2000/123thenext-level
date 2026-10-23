@@ -518,7 +518,7 @@ router.post('/get-presigned-guide', async (req, res) => {
     if (BUNDLE_CONSTITUENTS[guideId]) {
       const items = BUNDLE_CONSTITUENTS[guideId];
       const downloads = await Promise.all(items.map(async (item) => {
-        const url = await generateGuidePresignedUrl(item.key);
+        const url = await generateGuidePresignedUrl(item.id || item.key);
         return {
           id: item.id,
           title: item.title,
