@@ -20,6 +20,9 @@ export default function Header() {
 
       {/* Main Navigation Links */}
       <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
+        <Link to="/overview" className="min-h-[48px] flex items-center hover:text-cyan-400 transition-colors touch-manipulation">
+          🌐 The Big Picture
+        </Link>
         <Link to="/free-pdfs" className="min-h-[48px] flex items-center hover:text-cyan-400 transition-colors touch-manipulation">
           📁 Free PDFs
         </Link>

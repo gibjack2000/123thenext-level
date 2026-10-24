@@ -67,6 +67,13 @@ export const Navbar: React.FC = () => {
             Start Here
           </Link>
 
+          <Link 
+            to="/overview" 
+            className={`transition-colors ${location.pathname === '/overview' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+          >
+            The Big Picture
+          </Link>
+
           {/* COMPLETE 6-PILLAR DROPDOWN */}
           <div 
             className="relative"
@@ -245,6 +252,7 @@ export const Navbar: React.FC = () => {
       {isMobileMenuOpen && (
         <div className="lg:hidden bg-slate-950 border-b border-slate-800 px-4 pt-3 pb-6 space-y-2 text-sm animate-fade-in">
           <Link to="/" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🚀 Start Here</Link>
+          <Link to="/overview" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🌐 The Big Picture</Link>
           <Link to="/science" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧬 Epigenetics & Longevity</Link>
           <Link to="/guide" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🩸 Diagnostics & Telemetry</Link>
           <Link to="/wellness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧠 Autonomic & Wellness</Link>

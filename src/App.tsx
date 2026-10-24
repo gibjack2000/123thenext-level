@@ -111,6 +111,7 @@ const DiagnosticGuide = lazy(() => import('./pages/DiagnosticGuide'));
 const Science = lazy(() => import('./pages/Science'));
 const Library = lazy(() => import('./pages/Library'));
 const ClinicianCopilot = lazy(() => import('./pages/ClinicianCopilot'));
+const MasterOverview = lazy(() => import('./pages/MasterOverview'));
 
 
 // Loading spinner shown during page transitions
@@ -232,6 +233,9 @@ function App() {
                 <Route path="/free-documents" element={<Navigate to="/free-pdfs" replace />} />
                 <Route path="/quiz" element={<Navigate to="/health-quiz" replace />} />
                 <Route path="/quiz-results" element={<QuizResults />} />
+                <Route path="/overview" element={<MasterOverview />} />
+                <Route path="/the-big-picture" element={<Navigate to="/overview" replace />} />
+                <Route path="/big-picture" element={<Navigate to="/overview" replace />} />
                 <Route path="/clinician-copilot" element={<ClinicianCopilot />} />
                 <Route path="/clinician-copilot-workbook" element={<Navigate to="/clinician-copilot" replace />} />
                 <Route path="/gp-script" element={<Navigate to="/clinician-copilot" replace />} />
