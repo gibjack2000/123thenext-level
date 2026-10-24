@@ -20,6 +20,7 @@ import {
   ShieldCheck
 } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
+import DiagnosticPathwaySelector, { REGIONAL_PATHWAYS } from '../components/DiagnosticPathwaySelector';
 
 // Interfaces for structured interactive form state
 interface VitalsRow {
@@ -207,6 +208,13 @@ export default function ClinicianCopilot() {
   const [pathwaySteps, setPathwaySteps] = useState<PathwayStep[]>(initialPathwaySteps);
   const [examChecks, setExamChecks] = useState<boolean[]>(initialExamChecks);
   const [telemetryRows, setTelemetryRows] = useState<TelemetryRow[]>(initialTelemetryRows);
+  const [agreedPathway, setAgreedPathway] = useState<{
+    level1: boolean;
+    level2: boolean;
+  }>({
+    level1: false,
+    level2: false,
+  });
 
   // Field updaters
   const updateVitalsRow = (index: number, field: keyof VitalsRow, value: string) => {
@@ -277,6 +285,7 @@ export default function ClinicianCopilot() {
       setPathwaySteps(initialPathwaySteps);
       setExamChecks(initialExamChecks);
       setTelemetryRows(initialTelemetryRows);
+      setAgreedPathway({ level1: false, level2: false });
       setResetToast(true);
       setTimeout(() => setResetToast(false), 3500);
     }
@@ -569,155 +578,27 @@ export default function ClinicianCopilot() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 2D. MULTI-REGION DIAGNOSTIC GUIDANCE BOX (Localized Testing Across 3 Markets) */}
+      {/* 2D. MULTI-REGION DIAGNOSTIC GUIDANCE BOX (Choose Your Starting Point) */}
       {/* ========================================================================= */}
       <section className="no-print max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
         <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-cyan-950/40 border-2 border-cyan-500/30 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
           
-          <div className="relative z-10 space-y-6">
-            {/* Header & Regional Selector Tabs */}
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
-              <div className="space-y-1">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-[10px] font-mono uppercase tracking-wider font-bold">
-                  <Globe size={13} className="text-cyan-400" />
-                  <span>Multi-Region Diagnostic Ecosystem • 3 Core Markets</span>
-                </div>
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-display font-black text-white uppercase tracking-tight">
-                  Venous Blood Panels &amp; Diagnostic Options
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-light">
-                  Establish your clinical baseline with accredited clinical phlebotomy providers mapped across your region.
-                </p>
-              </div>
-
-              {/* 3 Core Market Region Selector */}
-              <div className="flex items-center bg-slate-900 border border-slate-800 rounded-2xl p-1 gap-1 shrink-0 self-start md:self-center">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setActiveMarketTab('US');
-                    setMarket('US');
-                  }}
-                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                    activeMarketTab === 'US'
-                      ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  <span>🇺🇸 United States</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setActiveMarketTab('UK');
-                    setMarket('UK');
-                  }}
-                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                    activeMarketTab === 'UK'
-                      ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  <span>🇬🇧 United Kingdom</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setActiveMarketTab('ES');
-                    setMarket('ES');
-                  }}
-                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                    activeMarketTab === 'ES'
-                      ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
-                      : 'text-slate-400 hover:text-white'
-                  }`}
-                >
-                  <span>🇪🇸 Spain / EU</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Active Market Diagnostic Content Grid */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between flex-wrap gap-2">
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl">{currentRegion.flag}</span>
-                  <div>
-                    <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                      <span>{currentRegion.regionName}</span>
-                      <span className="text-cyan-400 font-mono text-sm">({currentRegion.partnerName})</span>
-                    </h3>
-                    <p className="text-[11px] text-cyan-300 font-mono">{currentRegion.badge}</p>
-                  </div>
-                </div>
-
-                <a
-                  href={currentRegion.affiliateUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 hover:text-amber-300 underline underline-offset-4"
-                >
-                  <span>Visit {currentRegion.partnerName} Portal</span>
-                  <ExternalLink size={13} />
-                </a>
-              </div>
-
-              {/* 2 Testing Options: Option A (Full 56 Panel) vs Option B (Standalone Markers) */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-                {/* Option A */}
-                <div className="p-5 rounded-2xl bg-slate-900/90 border border-cyan-500/30 hover:border-cyan-500/60 transition-all flex flex-col justify-between space-y-4 shadow-xl">
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-widest bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/40">
-                        Level 2 Full Panel
-                      </span>
-                      <span className="text-sm font-black text-amber-400 font-mono">{currentRegion.optionA.price}</span>
-                    </div>
-                    <h4 className="text-base font-bold text-white">{currentRegion.optionA.name}</h4>
-                    <p className="text-xs text-slate-300 leading-relaxed font-light">
-                      {currentRegion.optionA.description}
-                    </p>
-                  </div>
-
-                  <a
-                    href={currentRegion.affiliateUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-2.5 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition shadow-md"
-                  >
-                    <span>{currentRegion.optionA.actionText}</span>
-                    <ExternalLink size={13} />
-                  </a>
-                </div>
-
-                {/* Option B */}
-                <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between space-y-4 shadow-xl">
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-slate-800 px-2 py-0.5 rounded border border-slate-700">
-                        Level 1 Core Tri-Markers
-                      </span>
-                      <span className="text-sm font-black text-slate-200 font-mono">{currentRegion.optionB.price}</span>
-                    </div>
-                    <h4 className="text-base font-bold text-white">{currentRegion.optionB.name}</h4>
-                    <p className="text-xs text-slate-300 leading-relaxed font-light">
-                      {currentRegion.optionB.description}
-                    </p>
-                  </div>
-
-                  <a
-                    href={currentRegion.affiliateUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition border border-slate-700"
-                  >
-                    <span>{currentRegion.optionB.actionText}</span>
-                    <ExternalLink size={13} />
-                  </a>
-                </div>
-              </div>
-            </div>
+          <div className="relative z-10">
+            <DiagnosticPathwaySelector
+              initialMarket={activeMarketTab}
+              showRegionTabs={true}
+              selectedPathway={agreedPathway.level2 ? 'level2' : agreedPathway.level1 ? 'level1' : null}
+              onSelectPathway={(pathway) => {
+                if (pathway === 'level1') {
+                  setAgreedPathway({ level1: true, level2: false });
+                  setRequisitions((prev) => ({ ...prev, apob: true, hba1c: true, hscrp: true }));
+                } else {
+                  setAgreedPathway({ level1: false, level2: true });
+                  setRequisitions((prev) => ({ ...prev, panel56: true }));
+                }
+              }}
+            />
           </div>
         </div>
       </section>
@@ -982,6 +863,59 @@ export default function ClinicianCopilot() {
             </div>
             <div className="font-black text-cyan-400 text-sm">123TheNextLevel</div>
           </header>
+
+          {/* Level 1 vs Level 2 Agreed Starting Point Pathway Checkboxes (Page 2) */}
+          <div className="mt-5 p-3.5 rounded-2xl bg-cyan-50/70 border border-cyan-300 space-y-2.5 print:bg-white print:border-slate-400 print:p-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-black uppercase tracking-wide text-slate-900 flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-cyan-600 print:hidden" />
+                <span>Mutually Agreed Diagnostic Starting Point</span>
+              </span>
+              <span className="text-[10px] font-mono text-cyan-800 bg-cyan-200/60 px-2 py-0.5 rounded font-bold uppercase print:text-black print:border print:border-slate-400">
+                Patient &amp; GP Decision
+              </span>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+              <label className="flex items-start gap-2.5 p-2 rounded-xl bg-white border border-cyan-200 hover:border-cyan-400 cursor-pointer transition print:border-slate-300 print:p-1">
+                <input
+                  type="checkbox"
+                  checked={agreedPathway.level1}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    setAgreedPathway({ ...agreedPathway, level1: checked });
+                    if (checked) {
+                      setRequisitions(prev => ({ ...prev, apob: true, hba1c: true, hscrp: true }));
+                    }
+                  }}
+                  className="mt-0.5 w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500 border-slate-300 accent-cyan-600 cursor-pointer"
+                />
+                <div>
+                  <strong className="text-slate-900 block text-xs">Level 1: Targeted Tri-Markers (ApoB, HbA1c, hs-CRP)</strong>
+                  <span className="text-[11px] text-slate-600 print:text-black">Lean baseline; review before expanding to Level 2.</span>
+                </div>
+              </label>
+
+              <label className="flex items-start gap-2.5 p-2 rounded-xl bg-white border border-cyan-200 hover:border-cyan-400 cursor-pointer transition print:border-slate-300 print:p-1">
+                <input
+                  type="checkbox"
+                  checked={agreedPathway.level2}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    setAgreedPathway({ ...agreedPathway, level2: checked });
+                    if (checked) {
+                      setRequisitions(prev => ({ ...prev, panel56: true }));
+                    }
+                  }}
+                  className="mt-0.5 w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500 border-slate-300 accent-cyan-600 cursor-pointer"
+                />
+                <div>
+                  <strong className="text-slate-900 block text-xs">Level 2: Full 56-Biomarker Master Panel</strong>
+                  <span className="text-[11px] text-slate-600 print:text-black">Total baseline clarity across all organ systems in one draw.</span>
+                </div>
+              </label>
+            </div>
+          </div>
 
           {/* Level 1 Tri-Marker Anchor */}
           <div className="mt-6 space-y-3">
@@ -1507,12 +1441,59 @@ export default function ClinicianCopilot() {
             </div>
           </div>
 
-          {/* 2A. Diagnostic Requisition Checklist: Checkboxes for Level 1 Tri-Markers and Level 2 Panel */}
+          {/* 2A. Diagnostic Requisition Checklist & Mutually Agreed Pathway */}
           <div className="mt-5 space-y-2">
-            <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider border-l-3 border-cyan-600 pl-2">
-              Block 3: Diagnostic Requisition Checklist for GP
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-cyan-50/50 p-3 rounded-xl border border-cyan-200">
+            <div className="flex items-center justify-between border-l-3 border-cyan-600 pl-2">
+              <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider">
+                Block 3: Diagnostic Requisition Checklist &amp; Agreed Pathway
+              </h3>
+              <span className="text-[10px] text-slate-500 font-mono print:text-black">
+                Mutual Patient &amp; GP Agreement
+              </span>
+            </div>
+
+            {/* Mutually Agreed Pathway Dual Checkboxes */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 p-2.5 rounded-xl bg-cyan-100/60 border border-cyan-300 text-xs font-medium print:bg-white print:border-slate-400">
+              <label className="flex items-center gap-2 cursor-pointer select-none bg-white p-2 rounded-lg border border-cyan-200 print:border-slate-300">
+                <input 
+                  type="checkbox" 
+                  checked={agreedPathway.level1}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    setAgreedPathway({ ...agreedPathway, level1: checked });
+                    if (checked) {
+                      setRequisitions(prev => ({ ...prev, apob: true, hba1c: true, hscrp: true }));
+                    }
+                  }}
+                  className="w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500 border-slate-300 accent-cyan-600 cursor-pointer" 
+                />
+                <div>
+                  <span className="font-black text-slate-900 block text-xs">✓ Level 1 Tri-Markers</span>
+                  <span className="text-[10px] text-slate-600 print:text-black font-normal">ApoB + HbA1c + hs-CRP Anchor Requisition</span>
+                </div>
+              </label>
+
+              <label className="flex items-center gap-2 cursor-pointer select-none bg-white p-2 rounded-lg border border-cyan-200 print:border-slate-300">
+                <input 
+                  type="checkbox" 
+                  checked={agreedPathway.level2}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    setAgreedPathway({ ...agreedPathway, level2: checked });
+                    if (checked) {
+                      setRequisitions(prev => ({ ...prev, panel56: true }));
+                    }
+                  }}
+                  className="w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500 border-slate-300 accent-cyan-600 cursor-pointer" 
+                />
+                <div>
+                  <span className="font-black text-slate-900 block text-xs">✓ Level 2 Full 56-Panel</span>
+                  <span className="text-[10px] text-slate-600 print:text-black font-normal">Comprehensive Cellular Map (Venous Phlebotomy)</span>
+                </div>
+              </label>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-cyan-50/50 p-3 rounded-xl border border-cyan-200 print:border-slate-300">
               <div className="space-y-2">
                 <label className="flex items-center gap-2 cursor-pointer select-none">
                   <input 

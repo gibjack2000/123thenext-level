@@ -16,6 +16,7 @@ import {
   Stethoscope,
   FileText
 } from 'lucide-react';
+import DiagnosticPathwaySelector from '../components/DiagnosticPathwaySelector';
 import { supabase as importedSupabase, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
 import { useMarket } from '../contexts/MarketContext';
@@ -337,7 +338,16 @@ export const StoreUS: React.FC = () => {
           </button>
         </div>
       ) : (
-        <div className="max-w-7xl mx-auto space-y-16">
+        <div className="max-w-7xl mx-auto space-y-12">
+          {/* Diagnostic Dual-Pathway Requisition Selector */}
+          <div className="relative overflow-hidden rounded-3xl bg-slate-900/60 border border-slate-800 p-6 sm:p-8 shadow-2xl backdrop-blur-md">
+            <DiagnosticPathwaySelector 
+              initialMarket="US" 
+              showRegionTabs={true}
+              showCopilotLink={true}
+            />
+          </div>
+
           {/* Clinician Co-Pilot Helper Banner above Clinical Lab Panels */}
           <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-cyan-950/40 to-slate-900 border border-cyan-500/30 p-6 sm:p-8 shadow-2xl backdrop-blur-md">
             <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
