@@ -20,6 +20,7 @@ import { supabase as importedSupabase, supabaseUrl, supabaseAnonKey } from '../l
 import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
 import { useMarket } from '../contexts/MarketContext';
 import { ProductRecord } from './StoreUS';
+import { STOREFRONT_CATEGORIES, normalizeStoreCategory } from './Store';
 
 // Reliable Supabase client initialization
 const supabase = importedSupabase || createClient(
@@ -71,7 +72,7 @@ export const StoreES: React.FC = () => {
           return {
             id: item.id,
             name: item.name || 'Protocolo Curado España',
-            category: item.category || 'Tech Gadgets & Wearables',
+            category: normalizeStoreCategory(item.category, item.name, healedDeal),
             rating: typeof item.rating === 'number' ? item.rating : 4.8,
             description: item.description || 'Equipos de telemetría biológica y longevidad verificados para España y la Unión Europea.',
             price_text: item.price_text || (item.price != null ? `${Number(item.price).toFixed(2).replace('.', ',')}€` : '0,00€'),
@@ -116,7 +117,7 @@ export const StoreES: React.FC = () => {
     };
   }, []);
 
-  const categories = ['All', ...Array.from(new Set(products.map(p => p.category).filter(Boolean)))];
+  const categories = STOREFRONT_CATEGORIES;
 
   const filteredProducts = products.filter(product => {
     const matchesCategory = activeCategory === 'All' || 

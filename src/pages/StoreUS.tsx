@@ -20,6 +20,7 @@ import DiagnosticPathwaySelector from '../components/DiagnosticPathwaySelector';
 import { supabase as importedSupabase, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
 import { useMarket } from '../contexts/MarketContext';
+import { STOREFRONT_CATEGORIES, normalizeStoreCategory } from './Store';
 
 // Reliable Supabase client initialization
 const supabase = importedSupabase || createClient(
@@ -89,7 +90,7 @@ export const StoreUS: React.FC = () => {
           return {
             id: item.id,
             name: item.name || 'Curated US Protocol',
-            category: item.category || 'Tech Gadgets & Wearables',
+            category: normalizeStoreCategory(item.category, item.name, healedDeal),
             rating: typeof item.rating === 'number' ? item.rating : 4.8,
             description: item.description || 'Clinically verified biological telemetry and longevity equipment.',
             price_text: item.price_text || (item.price != null ? `$${Number(item.price).toFixed(2)}` : '$0.00'),
@@ -135,8 +136,8 @@ export const StoreUS: React.FC = () => {
     };
   }, []);
 
-  // Compute categories dynamically from live database records
-  const categories = ['All', ...Array.from(new Set(products.map(p => p.category).filter(Boolean)))];
+  // Standardized human-first category pills
+  const categories = STOREFRONT_CATEGORIES;
 
   // Filter products by active category and search
   const filteredProducts = products.filter(product => {

@@ -20,6 +20,7 @@ import { supabase as importedSupabase, supabaseUrl, supabaseAnonKey } from '../l
 import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
 import { useMarket } from '../contexts/MarketContext';
 import { ProductRecord } from './StoreUS';
+import { STOREFRONT_CATEGORIES, normalizeStoreCategory } from './Store';
 
 // Reliable Supabase client initialization
 const supabase = importedSupabase || createClient(
@@ -71,7 +72,7 @@ export const StoreUK: React.FC = () => {
           return {
             id: item.id,
             name: item.name || 'Curated UK Protocol',
-            category: item.category || 'Tech Gadgets & Wearables',
+            category: normalizeStoreCategory(item.category, item.name, healedDeal),
             rating: typeof item.rating === 'number' ? item.rating : 4.8,
             description: item.description || 'Clinically verified biological telemetry and longevity equipment for the UK market.',
             price_text: item.price_text || (item.price != null ? `£${Number(item.price).toFixed(2)}` : '£0.00'),
@@ -116,7 +117,7 @@ export const StoreUK: React.FC = () => {
     };
   }, []);
 
-  const categories = ['All', ...Array.from(new Set(products.map(p => p.category).filter(Boolean)))];
+  const categories = STOREFRONT_CATEGORIES;
 
   const filteredProducts = products.filter(product => {
     const matchesCategory = activeCategory === 'All' || 

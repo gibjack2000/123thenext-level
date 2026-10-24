@@ -848,7 +848,7 @@ export default function StartHere() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
             
-            {/* Track 1: Daily Hardware */}
+            {/* Track 1: Performance & Movement */}
             <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-cyan-500/30 hover:border-cyan-500/60 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-xl hover:-translate-y-1 relative group">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -861,24 +861,24 @@ export default function StartHere() {
                 </div>
                 <div>
                   <h3 className="text-lg sm:text-xl font-display uppercase tracking-tight font-black text-white group-hover:text-cyan-300 transition-colors">
-                    Daily Hardware
+                    Performance &amp; Movement
                   </h3>
                   <p className="text-xs font-semibold text-cyan-400/90 mt-1">
-                    Home Workouts, Glycemic Weight Control &amp; Autonomic Resets
+                    Home Workouts, VO2 Max &amp; Muscle Mass
                   </p>
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed font-light">
-                  Build functional muscle density, condition Zone 2 mitochondrial capacity, and stabilize postprandial glucose excursions through structured daily routines.
+                  Build functional muscle density, condition Zone 2 mitochondrial capacity, and stabilize postprandial glucose excursions through structured home routines.
                 </p>
 
-                {/* Highlighted Autonomic & Meditation Focus */}
+                {/* Highlighted Mind & Stress Management Focus */}
                 <div className="p-4 rounded-xl bg-cyan-950/40 border border-cyan-800/40 space-y-2">
                   <div className="flex items-center gap-1.5 text-xs font-bold text-cyan-300">
                     <HeartPulse size={14} className="text-cyan-400 shrink-0" />
-                    <span>Meditation &amp; Autonomic Practice (Core Input)</span>
+                    <span>Mind &amp; Stress Management (Core Input)</span>
                   </div>
                   <p className="text-[11px] text-slate-350 leading-relaxed">
-                    Breathing mindfulness (cyclic physiological sighing, box breathing) and Non-Sleep Deep Rest (NSDR) are prioritized as essential physiological drivers directly measured to up-regulate parasympathetic vagal tone, accelerate nocturnal HRV rebound, and suppress chronic cortisol.
+                    Breathing resets (cyclic physiological sighing, box breathing) and Non-Sleep Deep Rest (NSDR) are prioritized as essential physiological drivers directly measured to up-regulate parasympathetic vagal tone, accelerate nocturnal HRV rebound, and suppress chronic cortisol.
                   </p>
                 </div>
               </div>
@@ -889,12 +889,12 @@ export default function StartHere() {
                   <ArrowRight size={13} />
                 </Link>
                 <Link to="/wellness" className="text-slate-400 hover:text-white font-medium">
-                  Autonomic Pillar →
+                  Mind &amp; Stress Pillar →
                 </Link>
               </div>
             </div>
 
-            {/* Track 2: Diagnostic Radar */}
+            {/* Track 2: Healthspan & Diagnostic Radar */}
             <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-amber-500/40 hover:border-amber-500/70 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-xl hover:-translate-y-1 relative group">
               <div className="absolute top-0 right-0 left-0 h-[2px] bg-gradient-to-r from-amber-500 via-orange-400 to-cyan-500 rounded-t-3xl opacity-80" />
               
@@ -909,10 +909,10 @@ export default function StartHere() {
                 </div>
                 <div>
                   <h3 className="text-lg sm:text-xl font-display uppercase tracking-tight font-black text-white group-hover:text-amber-300 transition-colors">
-                    Diagnostic Radar
+                    Healthspan &amp; Diagnostic Radar
                   </h3>
                   <p className="text-xs font-semibold text-amber-400/90 mt-1">
-                    The Forgotten Key — Clinician Co-Pilot &amp; GP Script
+                    Clinical Blood Panels &amp; Biological Age
                   </p>
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed font-light">
@@ -947,7 +947,7 @@ export default function StartHere() {
               </div>
             </div>
 
-            {/* Track 3: Targeted Nutrition */}
+            {/* Track 3: Metabolic Nutrition */}
             <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-emerald-500/30 hover:border-emerald-500/60 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-xl hover:-translate-y-1 relative group">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -960,10 +960,10 @@ export default function StartHere() {
                 </div>
                 <div>
                   <h3 className="text-lg sm:text-xl font-display uppercase tracking-tight font-black text-white group-hover:text-emerald-300 transition-colors">
-                    Targeted Nutrition
+                    Metabolic Nutrition
                   </h3>
                   <p className="text-xs font-semibold text-emerald-400/90 mt-1">
-                    Day 1 Universal Stack + Precision Biomarker Adjustments
+                    Clean Fuel, Energy &amp; Weight Control
                   </p>
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed font-light">

@@ -117,10 +117,10 @@ export const UnifiedExplainerSection: React.FC<UnifiedExplainerSectionProps> = (
                   </span>
                 </div>
                 <h4 className="text-lg font-bold text-white group-hover:text-cyan-300 transition-colors">
-                  Daily Biological Hardware
+                  Performance &amp; Movement
                 </h4>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Workouts, Glycemic Nutrition, Breathing Mindfulness &amp; Sleep Resets. Functional muscle preservation, Zone 2 endurance, and autonomic vagal tone calibration.
+                  Home Workouts, VO2 Max &amp; Muscle Mass. Functional joint strength, Zone 2 endurance, and daily breathing resets for nervous system recovery.
                 </p>
                 <ul className="space-y-1.5 text-xs text-slate-300 pt-2 border-t border-slate-800/60">
                   <li className="flex items-center gap-2">
@@ -129,27 +129,27 @@ export const UnifiedExplainerSection: React.FC<UnifiedExplainerSectionProps> = (
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle2 size={13} className="text-cyan-400 shrink-0" />
-                    <span>Post-meal glucose mitigation</span>
+                    <span>VO2 max conditioning &amp; Zone 2 cardio</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle2 size={13} className="text-cyan-400 shrink-0" />
-                    <span>NSDR &amp; nocturnal HRV rebound</span>
+                    <span>Breathing resets &amp; deep sleep</span>
                   </li>
                 </ul>
               </div>
 
               <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
                 <Link to="/fitness" className="text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1">
-                  <span>Physical Hardware</span>
+                  <span>Physical Protocols</span>
                   <ArrowRight size={13} />
                 </Link>
                 <Link to="/wellness" className="text-slate-400 hover:text-white font-medium">
-                  Autonomic Reset →
+                  Mind &amp; Stress →
                 </Link>
               </div>
             </div>
 
-            {/* Track 2: Diagnostic Radar (The Missing Key) */}
+            {/* Track 2: Healthspan & Diagnostic Radar (The Missing Key) */}
             <div className="p-6 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-amber-500/40 hover:border-amber-500/70 transition-all duration-300 flex flex-col justify-between space-y-5 shadow-lg group hover:-translate-y-1 relative">
               <div className="absolute top-0 right-0 left-0 h-[2px] bg-gradient-to-r from-amber-500 via-orange-400 to-cyan-500 rounded-t-2xl opacity-80" />
               
@@ -163,10 +163,10 @@ export const UnifiedExplainerSection: React.FC<UnifiedExplainerSectionProps> = (
                   </span>
                 </div>
                 <h4 className="text-lg font-bold text-white group-hover:text-amber-300 transition-colors">
-                  Diagnostic Radar
+                  Healthspan &amp; Diagnostic Radar
                 </h4>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Clinician Co-Pilot Workbook, Level 1 ApoB/HbA1c/hs-CRP &amp; Level 2 56-Biomarker Cellular Map. Turn subjective health guesses into objective clinical telemetry.
+                  Clinical Blood Panels &amp; Biological Age. Clinician Co-Pilot Workbook, Level 1 ApoB/HbA1c/hs-CRP &amp; Level 2 56-Biomarker Cellular Map.
                 </p>
                 <ul className="space-y-1.5 text-xs text-slate-300 pt-2 border-t border-slate-800/60">
                   <li className="flex items-center gap-2">
@@ -195,7 +195,7 @@ export const UnifiedExplainerSection: React.FC<UnifiedExplainerSectionProps> = (
               </div>
             </div>
 
-            {/* Track 3: Targeted Nutrients & Precision */}
+            {/* Track 3: Metabolic Nutrition */}
             <div className="p-6 rounded-2xl bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-emerald-500/30 hover:border-emerald-500/60 transition-all duration-300 flex flex-col justify-between space-y-5 shadow-lg group hover:-translate-y-1">
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
@@ -207,10 +207,10 @@ export const UnifiedExplainerSection: React.FC<UnifiedExplainerSectionProps> = (
                   </span>
                 </div>
                 <h4 className="text-lg font-bold text-white group-hover:text-emerald-300 transition-colors">
-                  Targeted Nutrients &amp; Precision
+                  Metabolic Nutrition
                 </h4>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Day 1 Universal Stack (D3+K2, Omega-3 EPA/DHA, Magnesium Glycinate/Malate) + Post-Lab Adjustments. Third-party verified supplements calibrated to your blood panel.
+                  Clean Fuel, Energy &amp; Weight Control. Day 1 Universal Stack (D3+K2, Omega-3 EPA/DHA, Magnesium Glycinate/Malate) + clean whole-food nutrition.
                 </p>
                 <ul className="space-y-1.5 text-xs text-slate-300 pt-2 border-t border-slate-800/60">
                   <li className="flex items-center gap-2">
@@ -219,7 +219,7 @@ export const UnifiedExplainerSection: React.FC<UnifiedExplainerSectionProps> = (
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle2 size={13} className="text-emerald-400 shrink-0" />
-                    <span>ApoB lipid &amp; vascular endothelia defense</span>
+                    <span>Clean fuel &amp; stable daily energy</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle2 size={13} className="text-emerald-400 shrink-0" />

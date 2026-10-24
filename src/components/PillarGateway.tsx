@@ -32,28 +32,13 @@ export const PillarGateway: React.FC = () => {
 
   const pillars = [
     {
-      to: "/health",
-      image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=1200",
-      icon: HeartPulse,
-      iconColor: "text-rose-400",
-      title: "Healthspan & Longevity",
-      bullets: ["Cellular Age Optimization", "Autophagy Induction", "NAD+ Modulation", "Systems Maintenance"],
-      description: "Master the science of cellular health and aging. Transition from reactive repair to proactive optimization using the 2026 Longevity Standards.",
-      hoverBorderColor: "hover:border-rose-500/50",
-      hoverShadowColor: "hover:shadow-rose-500/20",
-      subLink: {
-        text: "Discover the Anti-Aging Health Revolution & Molecular Science →",
-        to: "/science"
-      }
-    },
-    {
       to: "/fitness",
       image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&q=80&w=1200",
       icon: Dumbbell,
       iconColor: "text-blue-400",
-      title: "Performance & Bio-Data",
-      bullets: ["VO2 Max Optimization", "Real-time HRV Tracking", "Biomechanical Precision", "Longevity Strength"],
-      description: "Optimize human potential through data-driven training. Transition from general fitness to precision performance and recovery.",
+      title: "Performance & Movement",
+      bullets: ["Home Workouts & Resistance", "VO2 Max Conditioning", "Muscle Mass Preservation", "Mobility & Structural Health"],
+      description: "Build functional physical hardware. Master home workouts, elevate your VO2 Max, and preserve critical muscle mass to protect against age-related frailty.",
       hoverBorderColor: "hover:border-blue-500/50",
       hoverShadowColor: "hover:shadow-blue-500/20"
     },
@@ -63,8 +48,8 @@ export const PillarGateway: React.FC = () => {
       icon: Apple,
       iconColor: "text-emerald-400",
       title: "Metabolic Nutrition",
-      bullets: ["Glycemic Index Mastering", "Microbiome Diversification", "Mitochondrial Fueling", "Personalized Protocols"],
-      description: "Fuel your biological machinery with metabolic precision. Transition from generic dieting to optimized glycemic control and chronic disease prevention.",
+      bullets: ["Clean Fuel & Whole Foods", "Sustained Daily Energy", "Weight & Glycemic Control", "Metabolic Flexibility"],
+      description: "Fuel your body with metabolic precision. Optimize clean fuel, sustain steady daily energy, and maintain weight control without restrictive dieting.",
       hoverBorderColor: "hover:border-emerald-500/50",
       hoverShadowColor: "hover:shadow-emerald-500/20"
     },
@@ -73,33 +58,48 @@ export const PillarGateway: React.FC = () => {
       image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1200",
       icon: Sparkles,
       iconColor: "text-purple-400",
-      title: "Autonomic Engineering",
-      bullets: ["Vagal Tone Optimization", "Circadian Precision", "NSDR Neuro-Reset", "Neural State Regulation"],
-      description: "Master the biological rhythms that dictate cognitive and physical performance. High-precision neuro-recovery for systemic resilience.",
+      title: "Mind & Stress Management",
+      bullets: ["Breathing Resets & Breathwork", "Cortisol Down-Regulation", "Deep Sleep Architecture", "Autonomic Nervous System Recovery"],
+      description: "Restore autonomic balance and master stress. Use daily breathing resets, down-regulate chronic cortisol, and unlock deep, restorative sleep.",
       hoverBorderColor: "hover:border-purple-500/50",
       hoverShadowColor: "hover:shadow-purple-500/20"
-    },
-    {
-      to: "/womens-health",
-      image: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&q=80&w=1200",
-      icon: Microscope,
-      iconColor: "text-rose-400",
-      title: "Women's Health",
-      bullets: ["Ovary-Span Optimization", "Strength over Thinness", "Hormonal Bio-Data", "Cognitive Longevity"],
-      description: "Clinical precision for the female athlete. Transition from generic wellness to biology-specific high performance.",
-      hoverBorderColor: "hover:border-rose-500/50",
-      hoverShadowColor: "hover:shadow-rose-500/20"
     },
     {
       to: "/social-fitness",
       image: "/social-fitness-bg.png",
       icon: Users,
       iconColor: "text-orange-400",
-      title: "Socio-Biological Architecture",
-      bullets: ["Neural Coupling Dynamics", "Oxytocin Engineering", "Pickleball Ecosystems", "Micro-Community Vitals"],
-      description: "The clinical impact of collective connection. Re-architecting social interaction as a primary driver of human longevity.",
+      title: "Connection & Social Wellbeing",
+      bullets: ["Relationships & Bonding", "Purpose-Driven Living", "Micro-Community Support", "Oxytocin & Shared Vitality"],
+      description: "Cultivate human connection as an essential longevity driver. Foster deep relationships, clear life purpose, and supportive community networks.",
       hoverBorderColor: "hover:border-orange-500/50",
       hoverShadowColor: "hover:shadow-orange-500/20"
+    },
+    {
+      to: "/womens-health",
+      image: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&q=80&w=1200",
+      icon: Microscope,
+      iconColor: "text-rose-400",
+      title: "Women's Health & Hormones",
+      bullets: ["Hormonal Balance & Endocrine Health", "Long-Term Vitality & Ovary-Span", "Bone Density & Strength", "Cognitive Longevity"],
+      description: "Tailored longevity medicine for female biology. Support hormonal balance, protect ovarian vitality, and safeguard long-term health across every life stage.",
+      hoverBorderColor: "hover:border-rose-500/50",
+      hoverShadowColor: "hover:shadow-rose-500/20"
+    },
+    {
+      to: "/health",
+      image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=1200",
+      icon: HeartPulse,
+      iconColor: "text-rose-400",
+      title: "Healthspan & Diagnostic Radar",
+      bullets: ["Clinical Blood Panels (56 Biomarkers)", "Biological Age Clocks", "Early Warning Detection", "GP Consultation Co-Pilot"],
+      description: "Transition from guessing to knowing. Establish your baseline with clinical blood panels, track biological age, and turn your doctor into a longevity co-pilot.",
+      hoverBorderColor: "hover:border-rose-500/50",
+      hoverShadowColor: "hover:shadow-rose-500/20",
+      subLink: {
+        text: "Discover the Anti-Aging Health Revolution & Molecular Science →",
+        to: "/science"
+      }
     }
   ];
 
@@ -132,7 +132,7 @@ export const PillarGateway: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
           {pillars.map((pillar, idx) => {
-            if (pillar.title === "Autonomic Engineering") {
+            if (pillar.title === "Mind & Stress Management") {
               return (
                 <motion.div
                   key={pillar.title}
@@ -165,22 +165,22 @@ export const PillarGateway: React.FC = () => {
                       </div>
                       
                       <h3 className="text-3xl md:text-4xl font-display font-black uppercase tracking-tighter text-white mb-6 leading-[0.9] group-hover:text-cyan-400 transition-colors duration-300">
-                        Wellness & Autonomic Engineering
+                        Mind &amp; Stress Management
                       </h3>
                       
                       <p className="text-slate-300 mb-8 leading-relaxed font-medium text-lg lg:pr-4">
-                        Daily behavioral and mental choices are direct physiological inputs. Optimize your nervous system to lower chronic cortisol, rebuild autonomic resilience, and maximize Heart Rate Variability (HRV).
+                        Restore autonomic balance and master stress. Use daily breathing resets, down-regulate chronic cortisol, and unlock deep, restorative sleep.
                       </p>
                       
                       {/* Two-Column Grid */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 text-left">
-                        {/* Column A: Clinical Neuro-Metrics */}
+                        {/* Column A: Stress & Sleep Biomarkers */}
                         <div className="space-y-4">
                           <h4 className="text-cyan-400 font-display font-bold uppercase tracking-wider text-xs border-b border-white/10 pb-2">
-                            Clinical Neuro-Metrics
+                            Stress &amp; Sleep Biomarkers
                           </h4>
                           <ul className="space-y-3 text-slate-100 font-bold text-sm tracking-wide">
-                            {["Vagal Tone Optimization", "Circadian Sleep Precision", "NSDR Neuro-Resets"].map((item, index) => (
+                            {["Cortisol Down-Regulation", "Deep Sleep Architecture", "Nocturnal HRV Optimization"].map((item, index) => (
                               <li key={index} className="flex items-center gap-3">
                                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.8)]"></span>
                                 {item}
@@ -189,13 +189,13 @@ export const PillarGateway: React.FC = () => {
                           </ul>
                         </div>
 
-                        {/* Column B: Daily Life Practices */}
+                        {/* Column B: Daily Breathing Resets */}
                         <div className="space-y-4">
                           <h4 className="text-cyan-400 font-display font-bold uppercase tracking-wider text-xs border-b border-white/10 pb-2">
-                            Daily Life Practices
+                            Daily Breathing Resets
                           </h4>
                           <ul className="space-y-3 text-slate-100 font-bold text-sm tracking-wide">
-                            {["Breathing Mindfulness", "Universal Metta Love", "Precept-Based Harmlessness"].map((item, index) => (
+                            {["Breathing Resets & NSDR", "Vagal Tone Stimulation", "Mindfulness & Sleep Hygiene"].map((item, index) => (
                               <li key={index} className="flex items-center gap-3">
                                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,0.8)]"></span>
                                 {item}

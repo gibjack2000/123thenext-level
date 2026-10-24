@@ -2140,15 +2140,118 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
   ]
 };
 
+export const STOREFRONT_CATEGORIES = [
+  'All',
+  'Clinical Diagnostics',
+  'Supplements & Nutrition',
+  'Fitness & Movement',
+  'Kitchen & Meal Prep',
+  'Mind & Wellness'
+];
+
+export function normalizeStoreCategory(rawCategory: string | undefined, name?: string, dealUrl?: string): string {
+  const cat = (rawCategory || '').toLowerCase();
+  const title = (name || '').toLowerCase();
+  const deal = (dealUrl || '').toLowerCase();
+
+  if (cat === 'clinical diagnostics') return 'Clinical Diagnostics';
+  if (cat === 'supplements & nutrition') return 'Supplements & Nutrition';
+  if (cat === 'fitness & movement') return 'Fitness & Movement';
+  if (cat === 'kitchen & meal prep') return 'Kitchen & Meal Prep';
+  if (cat === 'mind & wellness') return 'Mind & Wellness';
+
+  // Supplements & Nutrition
+  if (
+    cat.includes('supplement') || 
+    cat.includes('nutri') || 
+    title.includes('supplement') || 
+    title.includes('creatine') || 
+    title.includes('resveratrol') || 
+    title.includes('nmn') || 
+    title.includes('omega') || 
+    title.includes('collagen') ||
+    title.includes('protein') ||
+    title.includes('quercetin') ||
+    title.includes('sirtuin')
+  ) {
+    return 'Supplements & Nutrition';
+  }
+
+  // Kitchen & Meal Prep
+  if (
+    cat.includes('kitchen') || 
+    cat.includes('meal') || 
+    cat.includes('home_kitchen') ||
+    title.includes('blender') || 
+    title.includes('cookware') || 
+    title.includes('air fryer') || 
+    title.includes('steamer') ||
+    title.includes('extractor') ||
+    title.includes('pan') ||
+    title.includes('knife')
+  ) {
+    return 'Kitchen & Meal Prep';
+  }
+
+  // Fitness & Movement
+  if (
+    cat.includes('fitness') || 
+    cat.includes('movement') || 
+    cat.includes('fitness_gear') ||
+    title.includes('rower') || 
+    title.includes('kettlebell') || 
+    title.includes('dumbbell') || 
+    title.includes('pull-up') || 
+    title.includes('workout') ||
+    title.includes('gym') ||
+    title.includes('resistance band')
+  ) {
+    return 'Fitness & Movement';
+  }
+
+  // Mind & Wellness
+  if (
+    cat.includes('health') || 
+    cat.includes('wellness') || 
+    cat.includes('mind') || 
+    title.includes('sauna') || 
+    title.includes('plunge') || 
+    title.includes('sleep') || 
+    title.includes('massage') || 
+    title.includes('meditation') || 
+    title.includes('cushion') ||
+    title.includes('headphone')
+  ) {
+    return 'Mind & Wellness';
+  }
+
+  // Clinical Diagnostics
+  return 'Clinical Diagnostics';
+}
+
 function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marketTab: MarketTab }) {
   const normKey = categoryKey.toLowerCase();
   
   const getBannerConfig = (cat: string, market: MarketTab) => {
-    if (cat.includes('supplement')) {
+    if (cat.includes('diagnostic') || cat.includes('testing') || cat.includes('performance') || cat.includes('wearable') || cat.includes('tech')) {
+      return {
+        title: market === 'ES' ? 'ES DIAGNÓSTICO CLÍNICO' : `${market} CLINICAL DIAGNOSTICS`,
+        subtitle: market === 'ES' 
+          ? 'Herramientas de diagnóstico de biomarcadores y sensores médicos validados' 
+          : 'Diagnostic tools, biomarker test kits, and medical-grade telemetry devices',
+        icon: Microscope,
+        iconColor: 'text-cyan-400',
+        iconBorder: 'border-cyan-500/30',
+        iconGlow: 'shadow-[0_0_25px_rgba(6,182,212,0.25)]',
+        radarColor: 'text-cyan-500/10'
+      };
+    }
+
+    if (cat.includes('supplement') || cat.includes('nutrition')) {
       if (market === 'UK') {
         return {
-          title: 'UK AMAZON SUPPLEMENTS',
-          subtitle: 'Curated British & European pharmaceutical-grade longevity supplements and bioactives',
+          title: 'UK SUPPLEMENTS & NUTRITION',
+          subtitle: 'Curated British & European pharmaceutical-grade longevity supplements and clean bioactives',
           icon: Pill,
           iconColor: 'text-emerald-400',
           iconBorder: 'border-emerald-500/30',
@@ -2157,7 +2260,7 @@ function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marke
         };
       } else if (market === 'ES') {
         return {
-          title: 'ES AMAZON SUPLEMENTOS',
+          title: 'ES SUPLEMENTOS Y NUTRICIÓN',
           subtitle: 'Vitaminas, bioactivos y suplementos de longevidad certificados de Amazon España',
           icon: Pill,
           iconColor: 'text-emerald-400',
@@ -2167,7 +2270,7 @@ function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marke
         };
       } else {
         return {
-          title: 'US AMAZON SUPPLEMENTS',
+          title: 'US SUPPLEMENTS & NUTRITION',
           subtitle: 'Curated US Amazon longevity vitamins, bioactives, and purity-tested nutraceuticals',
           icon: Pill,
           iconColor: 'text-emerald-400',
@@ -2178,27 +2281,13 @@ function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marke
       }
     }
     
-    if (cat.includes('fitness')) {
+    if (cat.includes('fitness') || cat.includes('movement')) {
       return {
-        title: market === 'ES' ? 'ES EQUIPAMIENTO FITNESS' : `${market} FITNESS GEAR`,
+        title: market === 'ES' ? 'ES FITNESS Y MOVIMIENTO' : `${market} FITNESS & MOVEMENT`,
         subtitle: market === 'ES' 
-          ? 'Material de entrenamiento y gimnasio en casa en España' 
-          : `Home gym essentials and workout equipment in the ${market === 'UK' ? 'United Kingdom' : 'United States'}`,
+          ? 'Material de entrenamiento en casa, fuerza y cardio Zone 2 en España' 
+          : `Home gym essentials, VO2 max conditioning, and functional strength gear in the ${market === 'UK' ? 'United Kingdom' : 'United States'}`,
         icon: Dumbbell,
-        iconColor: 'text-cyan-400',
-        iconBorder: 'border-cyan-500/30',
-        iconGlow: 'shadow-[0_0_25px_rgba(6,182,212,0.25)]',
-        radarColor: 'text-cyan-500/10'
-      };
-    }
-
-    if (cat.includes('kitchen')) {
-      return {
-        title: market === 'ES' ? 'ES HOGAR Y COCINA' : `${market} HOME & KITCHEN`,
-        subtitle: market === 'ES' 
-          ? 'Electrodomésticos, extractores y cocina saludable en España' 
-          : `Appliances, cookware, and longevity nutrient extractors in the ${market === 'UK' ? 'UK' : 'US'}`,
-        icon: ChefHat,
         iconColor: 'text-amber-400',
         iconBorder: 'border-amber-500/30',
         iconGlow: 'shadow-[0_0_25px_rgba(245,158,11,0.25)]',
@@ -2206,45 +2295,31 @@ function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marke
       };
     }
 
-    if (cat.includes('health') || cat.includes('wellness')) {
+    if (cat.includes('kitchen') || cat.includes('meal')) {
       return {
-        title: market === 'ES' ? 'ES SALUD Y BIENESTAR' : `${market} HEALTH & WELLNESS`,
+        title: market === 'ES' ? 'ES COCINA Y PREPARACIÓN' : `${market} KITCHEN & MEAL PREP`,
+        subtitle: market === 'ES' 
+          ? 'Electrodomésticos, extractores y cocina para nutrición metabólica en España' 
+          : `Appliances, cookware, and longevity nutrient extractors in the ${market === 'UK' ? 'UK' : 'US'}`,
+        icon: ChefHat,
+        iconColor: 'text-orange-400',
+        iconBorder: 'border-orange-500/30',
+        iconGlow: 'shadow-[0_0_25px_rgba(249,115,22,0.25)]',
+        radarColor: 'text-orange-500/10'
+      };
+    }
+
+    if (cat.includes('mind') || cat.includes('wellness') || cat.includes('health')) {
+      return {
+        title: market === 'ES' ? 'ES MENTE Y BIENESTAR' : `${market} MIND & WELLNESS`,
         subtitle: market === 'ES' 
           ? 'Mantas térmicas, inmersión en frío, presoterapia y equipos de relajación y sueño en España' 
           : `Cold plunge tubs, infrared saunas, percussive massage, and sleep optimization gear in the ${market === 'UK' ? 'UK' : 'US'}`,
         icon: HeartPulse,
-        iconColor: 'text-sky-400',
-        iconBorder: 'border-sky-500/30',
-        iconGlow: 'shadow-[0_0_25px_rgba(56,189,248,0.25)]',
-        radarColor: 'text-sky-500/10'
-      };
-    }
-
-    if (cat.includes('tech') || cat.includes('wearable')) {
-      return {
-        title: market === 'ES' ? 'ES DISPOSITIVOS Y WEARABLES' : `${market} TECH GADGETS & WEARABLES`,
-        subtitle: market === 'ES' 
-          ? 'Sensores biofísicos, wearables y monitorización del sueño' 
-          : 'Latest biophysical monitors, wearables, and sleep sensors',
-        icon: Smartphone,
         iconColor: 'text-indigo-400',
         iconBorder: 'border-indigo-500/30',
         iconGlow: 'shadow-[0_0_25px_rgba(99,102,241,0.25)]',
         radarColor: 'text-indigo-500/10'
-      };
-    }
-
-    if (cat.includes('performance') || cat.includes('testing')) {
-      return {
-        title: market === 'ES' ? 'ES PRUEBAS Y RENDIMIENTO' : `${market} PERFORMANCE & TESTING`,
-        subtitle: market === 'ES' 
-          ? 'Herramientas de diagnóstico y pruebas de biomarcadores' 
-          : 'Diagnostic tools, biomarker testing, and telemetry devices',
-        icon: Sparkles,
-        iconColor: 'text-rose-400',
-        iconBorder: 'border-rose-500/30',
-        iconGlow: 'shadow-[0_0_25px_rgba(244,63,94,0.25)]',
-        radarColor: 'text-rose-500/10'
       };
     }
 
@@ -2338,11 +2413,7 @@ export function Store({ region }: StoreProps = {}) {
   const [products, setProducts] = useState<any[]>(() => {
     return storeCatalogCache[activeTab] || [];
   });
-  const [categories, setCategories] = useState<string[]>(() => {
-    const initialList = storeCatalogCache[activeTab] || [];
-    const unique = Array.from(new Set(initialList.map((p: any) => p.category).filter(Boolean)));
-    return ['All', ...unique];
-  });
+  const [categories, setCategories] = useState<string[]>(STOREFRONT_CATEGORIES);
   const [loading, setLoading] = useState<boolean>(() => !storeCatalogCache[activeTab] || storeCatalogCache[activeTab]?.length === 0);
 
   // Explicit handler when user clicks one of the country market tabs inside Store
@@ -2360,8 +2431,7 @@ export function Store({ region }: StoreProps = {}) {
     const cachedList = storeCatalogCache[activeTab];
     if (cachedList && cachedList.length > 0) {
       setProducts(cachedList);
-      const uniqueCats = Array.from(new Set(cachedList.map((p: any) => p.category).filter(Boolean)));
-      setCategories(['All', ...uniqueCats]);
+      setCategories(STOREFRONT_CATEGORIES);
       setLoading(false);
     } else {
       setProducts([]);
@@ -2402,16 +2472,7 @@ export function Store({ region }: StoreProps = {}) {
           const currencySymbol = activeTab === 'UK' ? '£' : activeTab === 'ES' ? '€' : '$';
           const priceFormatted = p.price_text || (p.price != null ? `${currencySymbol}${Number(p.price).toFixed(2)}` : '');
 
-          const categoryRaw = p.category || '';
-          let catFormatted = categoryRaw;
-          if (categoryRaw === 'home_kitchen') catFormatted = 'Home & Kitchen';
-          else if (categoryRaw === 'tech_gadgets') catFormatted = 'Tech Gadgets & Wearables';
-          else if (categoryRaw === 'fitness_gear') catFormatted = 'Fitness Gear';
-          else if (categoryRaw === 'performance_testing') catFormatted = 'Performance & Testing';
-          else if (categoryRaw === 'supplements') catFormatted = 'Supplements';
-          else if (categoryRaw && categoryRaw.includes('_')) {
-            catFormatted = categoryRaw.split('_').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-          }
+          const catFormatted = normalizeStoreCategory(p.category, p.name || p.title, healedDeal);
 
           return {
             ...p,
@@ -2419,7 +2480,7 @@ export function Store({ region }: StoreProps = {}) {
             deal_url: healedDeal,
             image_url: healedImg,
             price_text: priceFormatted,
-            category: catFormatted || 'Tech Gadgets & Wearables',
+            category: catFormatted,
             badge_text: p.badge_text || (activeTab === 'ES' ? 'Certificado UE' : activeTab === 'UK' ? 'UK Verified' : 'US Verified'),
             network: p.network || (healedDeal.includes('amazon') ? 'Amazon Associates' : 'Clinical Partner')
           };
@@ -2429,18 +2490,16 @@ export function Store({ region }: StoreProps = {}) {
 
         storeCatalogCache[activeTab] = healedData;
         setProducts(healedData);
-
-        const rawCategories = healedData.map((p: any) => p.category).filter(Boolean);
-        const uniqueCategories = Array.from(new Set(rawCategories));
-        setCategories(['All', ...uniqueCategories]);
+        setCategories(STOREFRONT_CATEGORIES);
       } catch (err) {
         if (isCancelled) return;
         console.warn(`Supabase fetch failed for ${activeTab}. Falling back to regional offline registry:`, err);
-        const fallbackList = REGIONAL_MASTER_CATALOGS[activeTab] || [];
+        const fallbackList = (REGIONAL_MASTER_CATALOGS[activeTab] || []).map((p: any) => ({
+          ...p,
+          category: normalizeStoreCategory(p.category, p.name || p.title, p.deal_url)
+        }));
         setProducts(fallbackList);
-        const uniqueCategories = Array.from(new Set(fallbackList.map((p: any) => p.category).filter(Boolean)))
-          .map((cat: any) => cat.charAt(0).toUpperCase() + cat.slice(1));
-        setCategories(['All', ...uniqueCategories]);
+        setCategories(STOREFRONT_CATEGORIES);
       } finally {
         if (!isCancelled) {
           setLoading(false);

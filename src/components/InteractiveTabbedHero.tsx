@@ -94,15 +94,15 @@ export const tabsData: TabData[] = [
   {
     id: 'diagnostics',
     label: '🩸 Diagnostics',
-    badge: 'PRECISION BIOMARKERS',
-    title: 'From Guessing to Knowing',
-    description: 'Establish a scientific biological baseline using clinical-grade blood panels, continuous wearable telemetry, and rapid at-home fluid test strips.',
+    badge: 'HEALTHSPAN & DIAGNOSTIC RADAR',
+    title: 'Clinical Blood Panels & Biological Age',
+    description: 'Transition from guessing to knowing. Establish your baseline with clinical blood panels, track biological age, and turn your doctor into a longevity co-pilot.',
     bullets: [
-      'Lola Vital Check 56 (ApoB, HbA1c, hs-CRP)',
-      'Continuous Nocturnal HRV & Sleep Architecture',
+      'Clinical Blood Panels (56 Biomarkers)',
+      'Biological Age & Epigenetic Pace',
       'Collaborative GP Consultation Template included'
     ],
-    primaryCtaText: 'Explore Diagnostic Guide →',
+    primaryCtaText: 'Explore Diagnostic Radar →',
     primaryCtaLink: '/guide',
     secondaryCtaText: 'Clinician Co-Pilot Workbook →',
     secondaryCtaLink: '/clinician-copilot',
@@ -110,16 +110,16 @@ export const tabsData: TabData[] = [
   },
   {
     id: 'mental',
-    label: '🧠 Mental Health',
-    badge: 'AUTONOMIC ENGINEERING',
-    title: 'Mind-Body Vagal Tone Regulation',
-    description: 'True longevity balances physical output with nervous system resilience. Master breathing mindfulness, NSDR neuro-resets, and circadian sleep precision.',
+    label: '🧠 Mind & Stress',
+    badge: 'MIND & STRESS MANAGEMENT',
+    title: 'Breathing Resets, Cortisol & Deep Sleep',
+    description: 'Restore autonomic balance and master stress. Use daily breathing resets, down-regulate chronic cortisol, and unlock deep, restorative sleep.',
     bullets: [
-      'Vagal Tone & Parasympathetic Activation',
-      'Cortisol Down-Regulation & Stress Management',
+      'Breathing Resets & Breathwork',
+      'Cortisol Down-Regulation & Deep Sleep',
       '10-Minute NSDR Cognitive Reset Protocols'
     ],
-    primaryCtaText: 'Explore Wellness & Mental Pillar →',
+    primaryCtaText: 'Explore Mind & Stress Pillar →',
     primaryCtaLink: '/wellness',
     secondaryCtaText: 'Read Autonomic Guide →',
     secondaryCtaLink: '/blog-post-autonomic-engineering',
@@ -127,16 +127,16 @@ export const tabsData: TabData[] = [
   },
   {
     id: 'performance',
-    label: '⚡ Performance',
-    badge: 'PHYSICAL HARDWARE',
-    title: 'VO2 Max & Longevity Strength',
-    description: 'Optimize aerobic capacity and preserve functional muscle density—the primary biological buffer against age-related frailty.',
+    label: '⚡ Movement',
+    badge: 'PERFORMANCE & MOVEMENT',
+    title: 'Home Workouts, VO2 Max & Muscle Mass',
+    description: 'Build functional physical hardware. Master home workouts, elevate your VO2 Max, and preserve critical muscle mass to protect against age-related frailty.',
     bullets: [
+      'Home Workouts & Resistance Protocols',
       'VO2 Max Conditioning & Zone 2 Endurance',
-      'Functional Muscle Preservation & Mobility',
-      'Smart Body Scale Composition Tracking'
+      'Functional Muscle Mass Preservation'
     ],
-    primaryCtaText: 'Explore Performance & Bio-Data →',
+    primaryCtaText: 'Explore Performance & Movement →',
     primaryCtaLink: '/fitness',
     secondaryCtaText: 'View Workout Guide →',
     secondaryCtaLink: '/beginner_bodyweight_guide_revised-v3.pdf',
@@ -145,13 +145,13 @@ export const tabsData: TabData[] = [
   {
     id: 'nutrition',
     label: '🥗 Nutrition',
-    badge: 'METABOLIC FUEL',
-    title: 'Glycemic Stability & Gut Microbiome',
-    description: 'Prevent post-meal insulin spikes, preserve gut-lining integrity, and fuel cellular autophagy using NSF-certified nutraceuticals.',
+    badge: 'METABOLIC NUTRITION',
+    title: 'Clean Fuel, Energy & Weight Control',
+    description: 'Fuel your biological machinery with metabolic precision. Optimize clean fuel, sustain steady daily energy, and maintain weight control without restrictive dieting.',
     bullets: [
-      'Continuous Glucose Spike Mitigation',
-      'Microbiome Diversity & Systemic Immunity',
-      'Targeted NAD+ Precursors & Spermidine'
+      'Clean Fuel & Whole Foods Nutrition',
+      'Sustained Steady Energy & Glucose Stability',
+      'Targeted NAD+ Precursors & Weight Control'
     ],
     primaryCtaText: 'Explore Metabolic Nutrition →',
     primaryCtaLink: '/nutrition',

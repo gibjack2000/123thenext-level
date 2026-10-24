@@ -45,10 +45,10 @@ const PILLARS_DATA: PillarCardData[] = [
   {
     id: 'performance',
     number: 1,
-    name: 'Performance & Bio-Data',
-    theme: 'Physical Hardware: VO2 Max & Muscle Mass',
+    name: 'Performance & Movement',
+    theme: 'Focus: Home Workouts, VO2 Max & Muscle Mass',
     icon: '⚡',
-    shortDesc: 'Your physical frame is the biological chassis that buffers metabolic frailty. Prioritizing VO2 max conditioning and functional lean muscle density directly protects against all-cause mortality.',
+    shortDesc: 'Build functional physical hardware. Master progressive home workouts, elevate cardiorespiratory VO2 Max, and preserve critical muscle mass to protect against age-related frailty.',
     deepDive: {
       coreMetric: 'Peak VO2 Max (ml/kg/min) & Grip Strength Dyno',
       actionableHabit: '3x Weekly Zone 2 Cardio (45 mins) + 2x Compound Heavy Resistance Training',
@@ -61,9 +61,9 @@ const PILLARS_DATA: PillarCardData[] = [
     id: 'nutrition',
     number: 2,
     name: 'Metabolic Nutrition',
-    theme: 'Chemical Fuel: Glycemic Index & Autophagy',
+    theme: 'Focus: Clean Fuel, Energy & Weight Control',
     icon: '🥗',
-    shortDesc: 'Food is biochemical information. Mitigating post-meal insulin spikes, preserving gut endothelia integrity, and triggering cellular autophagy prevents subclinical inflammatory cascades.',
+    shortDesc: 'Fuel your biological machinery with clean energy. Optimize whole-food nutrition, sustain steady all-day energy, and achieve healthy weight control without restrictive dieting.',
     deepDive: {
       coreMetric: 'Continuous Glucose AUC & Fasting Insulin (µIU/mL)',
       actionableHabit: '10-minute post-prandial walks, fiber-first meal order, and 14-hour overnight fasts',
@@ -75,10 +75,10 @@ const PILLARS_DATA: PillarCardData[] = [
   {
     id: 'wellness',
     number: 3,
-    name: 'Autonomic Engineering',
-    theme: 'Electrical Calibration: Vagal Tone, Sleep & Cortisol',
+    name: 'Mind & Stress Management',
+    theme: 'Focus: Breathing Resets, Cortisol & Deep Sleep',
     icon: '🧠',
-    shortDesc: 'Longevity requires autonomic balance between the sympathetic accelerator and parasympathetic brake. Restoring nocturnal Heart Rate Variability (HRV) and deep slow-wave sleep repairs neural hardware.',
+    shortDesc: 'Restore autonomic calm and build stress resilience. Deploy structured breathing resets, suppress chronic cortisol, and maximize restorative deep sleep.',
     deepDive: {
       coreMetric: 'Overnight RMSSD HRV (ms) & Deep Sleep Architecture (%)',
       actionableHabit: '10-minute daily NSDR (Non-Sleep Deep Rest) & cyclic physiological sighing',
@@ -90,10 +90,10 @@ const PILLARS_DATA: PillarCardData[] = [
   {
     id: 'social',
     number: 4,
-    name: 'Socio-Biological Architecture',
-    theme: 'Emotional Coherence & Micro-Community',
+    name: 'Connection & Social Wellbeing',
+    theme: 'Focus: Relationships, Purpose & Community',
     icon: '🏛️',
-    shortDesc: 'Social isolation accelerates biological aging equivalent to smoking 15 cigarettes daily. Purpose-driven micro-communities and authentic emotional coherence directly down-regulate pro-inflammatory gene expression.',
+    shortDesc: 'Cultivate human connection as an essential longevity pillar. Nurture supportive relationships, intentional life purpose, and reciprocal community bonds.',
     deepDive: {
       coreMetric: 'Social Reciprocity Index & Cortisol Diurnal Slope',
       actionableHabit: 'Weekly collaborative group workouts & intentional reciprocal accountability circles',
@@ -105,10 +105,10 @@ const PILLARS_DATA: PillarCardData[] = [
   {
     id: 'womens-health',
     number: 5,
-    name: "Women's Health & Ovary-Span",
-    theme: 'Biological Calibration & Hormonal Balance',
+    name: "Women's Health & Hormones",
+    theme: 'Focus: Hormonal Balance & Long-Term Vitality',
     icon: '🌸',
-    shortDesc: 'Female biology requires specialized endocrine calibration. The ovaries age at twice the rate of somatic tissue; protecting estrogen-progesterone balance safeguards cognitive, cardiovascular, and bone density health.',
+    shortDesc: 'Evidence-based medicine calibrated to female biology. Balance reproductive hormones, safeguard ovarian reserve, and protect cardiovascular, cognitive, and bone vitality across all life stages.',
     deepDive: {
       coreMetric: 'Estradiol-to-Progesterone ratio & DEXA T-Score',
       actionableHabit: 'Cycle-synced resistance volume, creatine monohydrate, and bioidentical endocrine support',
@@ -120,10 +120,10 @@ const PILLARS_DATA: PillarCardData[] = [
   {
     id: 'science',
     number: 6,
-    name: 'Healthspan & Epigenetic Horizon',
-    theme: 'Diagnostic Radar: ApoB, HbA1c, hs-CRP & gDNA Clocks',
+    name: 'Healthspan & Diagnostic Radar',
+    theme: 'Focus: Clinical Blood Panels & Biological Age',
     icon: '🩸',
-    shortDesc: 'The foundation of knowing rather than guessing. Establishing hard clinical biomarker baselines and monitoring Horvath epigenetic clocks keeps cellular hardware pristine until future rejuvenation factors arrive.',
+    shortDesc: 'Replace guesswork with clinical clarity. Establish comprehensive laboratory blood panels, track Horvath and DunedinPACE biological age clocks, and detect early warning signals years in advance.',
     deepDive: {
       coreMetric: 'ApoB (<70 mg/dL), hs-CRP (<0.5 mg/L), DNA Methylation Pace',
       actionableHabit: 'Bi-annual comprehensive 56-biomarker blood draws & clinician co-pilot tracking',
@@ -240,7 +240,7 @@ export const MasterOverview: React.FC = () => {
                 <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5 text-xs">
                   <span className="text-[10px] font-mono text-cyan-400 uppercase font-bold block">Integrated Pillars:</span>
                   <p className="text-slate-350 text-[11px] leading-relaxed">
-                    Performance &amp; Bio-Data • Metabolic Nutrition • Autonomic Engineering • Socio-Biological Architecture
+                    Performance &amp; Movement • Metabolic Nutrition • Mind &amp; Stress Management • Connection &amp; Social Wellbeing
                   </p>
                 </div>
               </div>
@@ -266,16 +266,16 @@ export const MasterOverview: React.FC = () => {
                     Biology-Specific Calibration
                   </h3>
                   <p className="text-xs font-semibold text-rose-400/90 mt-1">
-                    Women's Health, Ovary-Span &amp; Endocrine Balance
+                    Women's Health &amp; Hormones • Balance &amp; Long-Term Vitality
                   </p>
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed font-light">
-                  Precision biological calibration tailored to sex-specific endocrine pathways. Protects ovarian longevity, maintains estrogen-progesterone neuroprotection, shields bone mineral density, and stabilizes metabolic rate through hormonal transitions.
+                  Precision biological calibration tailored to sex-specific endocrine pathways. Protects hormonal balance, maintains estrogen-progesterone neuroprotection, shields bone mineral density, and stabilizes metabolic rate through all life stages.
                 </p>
                 <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5 text-xs">
                   <span className="text-[10px] font-mono text-rose-400 uppercase font-bold block">Integrated Pillars:</span>
                   <p className="text-slate-350 text-[11px] leading-relaxed">
-                    Women's Health &amp; Ovary-Span • Endocrine Pacing • Bone Mineral DEXA Safeguards
+                    Women's Health &amp; Hormones • Hormonal Balance &amp; Long-Term Vitality
                   </p>
                 </div>
               </div>
@@ -301,7 +301,7 @@ export const MasterOverview: React.FC = () => {
                     Diagnostic Radar &amp; Epigenetics
                   </h3>
                   <p className="text-xs font-semibold text-amber-400/90 mt-1">
-                    Telemetry Verification &amp; Future Yamanaka Readiness
+                    Healthspan &amp; Diagnostic Radar • Clinical Blood Panels &amp; Biological Age
                   </p>
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed font-light">
@@ -310,7 +310,7 @@ export const MasterOverview: React.FC = () => {
                 <div className="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1.5 text-xs">
                   <span className="text-[10px] font-mono text-amber-400 uppercase font-bold block">Integrated Pillars:</span>
                   <p className="text-slate-350 text-[11px] leading-relaxed">
-                    Healthspan &amp; Longevity • Clinician Co-Pilot • DNA Methylation Clocks
+                    Healthspan &amp; Diagnostic Radar • Clinician Co-Pilot • Biological Age Clocks
                   </p>
                 </div>
               </div>
