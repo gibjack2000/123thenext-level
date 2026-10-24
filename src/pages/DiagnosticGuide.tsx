@@ -420,7 +420,7 @@ export const DiagnosticGuide: React.FC = () => {
               <span>CLINICAL CO-PILOT TOOLKIT</span>
             </div>
             <h3 className="text-2xl sm:text-3xl font-display font-black uppercase text-white">
-              The Clinician Co-Pilot &amp; GP Consultation Workbook
+              THE CLINICIAN CO-PILOT: FROM GUESSING TO KNOWING
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
               Bridge the gap between consumer health telemetry and clinical evaluation. This 4-page printable workbook organizes your blood draw metrics, resting telemetry, and specific proactive questions for your GP or primary care physician.

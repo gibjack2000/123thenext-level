@@ -105,20 +105,20 @@ export default function SuccessPage() {
                 </a>
               </div>
 
-              {/* Free Resource 2: GP Consultation Workbook */}
+              {/* Free Resource 2: The Clinician Co-Pilot */}
               <div className="p-5 rounded-2xl bg-slate-950 border border-slate-850 space-y-4 hover:border-amber-500/30 transition">
                 <div className="flex items-start gap-4">
                   <img 
                     src="/assets/images/shop/gp_consultation_cover.png" 
-                    alt="Clinical Baseline Workbook"
+                    alt="THE CLINICIAN CO-PILOT: FROM GUESSING TO KNOWING"
                     className="w-16 h-24 object-contain rounded-lg border border-slate-800 bg-slate-900 shrink-0 shadow-lg"
                   />
                   <div className="space-y-1 text-left">
                     <h3 className="text-base font-bold text-white leading-tight">
-                      Clinical Baseline &amp; GP Consultation Template
+                      THE CLINICIAN CO-PILOT: FROM GUESSING TO KNOWING
                     </h3>
                     <p className="text-xs text-slate-400 leading-relaxed">
-                      3-page clinician co-pilot template to evaluate blood draws (Lola Vital Check 56) and collaborate with your doctor.
+                      4-page clinician co-pilot template to evaluate blood draws (Lola Vital Check 56) and collaborate with your doctor.
                     </p>
                   </div>
                 </div>
@@ -129,7 +129,7 @@ export default function SuccessPage() {
                   className="w-full py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/30 flex items-center justify-center gap-2 transition cursor-pointer"
                 >
                   <Download size={14} />
-                  <span>Download GP Workbook (PDF)</span>
+                  <span>Download Clinician Co-Pilot (PDF)</span>
                 </a>
               </div>
 
