@@ -2,17 +2,30 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { HERO_VIDEOS } from '../config/heroVideos';
 
+export type BulletItem = string | {
+  title: string;
+  subtext?: string;
+};
+
+export interface TabCtaButton {
+  text: string;
+  link: string;
+  isDownload?: boolean;
+  variant?: 'primary' | 'secondary' | 'accent';
+}
+
 export interface TabData {
   id: string;
   label: string;
   badge: string;
   title: string;
   description: string;
-  bullets: string[];
-  primaryCtaText: string;
-  primaryCtaLink: string;
-  secondaryCtaText: string;
-  secondaryCtaLink: string;
+  bullets: BulletItem[];
+  primaryCtaText?: string;
+  primaryCtaLink?: string;
+  secondaryCtaText?: string;
+  secondaryCtaLink?: string;
+  ctaButtons?: TabCtaButton[];
   posterImage: string;
 }
 
@@ -22,16 +35,43 @@ export const tabsData: TabData[] = [
     label: '🚀 Start Here',
     badge: 'RECOMMENDED ONBOARDING LAUNCHPAD',
     title: 'Begin Your Longevity Journey Today',
-    description: 'Unsure where to start? Access our free diagnostic tools, lead magnets, e-books, and step-by-step blueprints designed to take you from guessing to total biological mastery.',
+    description: 'Unsure where to start? Access our free diagnostic tools, interactive workbooks, and step-by-step blueprints designed to take you from guessing to total biological mastery.',
     bullets: [
-      '🎯 5-Minute Wellness Quiz: Diagnose your baseline score across all 6 protocols',
-      '📘 Free Longevity Blueprint (PDF): 28-page geroscience guide & habit tracker',
-      '📚 Free E-Books & Guides: Biological Age Guide, Workout Plan & GP Template'
+      {
+        title: '🎯 5-Minute Wellness Quiz',
+        subtext: 'Diagnose your baseline score across all 6 core longevity protocols in under 5 minutes.'
+      },
+      {
+        title: '🩸 The Clinician Co-Pilot: From Guessing to Knowing',
+        subtext: 'Interactive 4-page diagnostic roadmap, Day 1 vitamin stack, 14-day vitals log & printable GP consultation template.'
+      },
+      {
+        title: '📘 Free Longevity Blueprint (PDF)',
+        subtext: 'Our open-access geroscience guide, biological age primer, and 4-week habit tracker.'
+      }
     ],
-    primaryCtaText: 'Take the 5-Minute Quiz →',
+    ctaButtons: [
+      {
+        text: '🎯 Take 5-Minute Quiz',
+        link: '/quiz',
+        variant: 'primary'
+      },
+      {
+        text: '🩺 Clinician Co-Pilot Workbook',
+        link: '/clinician-copilot',
+        variant: 'accent'
+      },
+      {
+        text: '📘 Free Longevity Blueprint (PDF)',
+        link: '/assets/docs/the-next-level-lifespan-v7.pdf',
+        isDownload: true,
+        variant: 'secondary'
+      }
+    ],
+    primaryCtaText: '🎯 Take 5-Minute Quiz',
     primaryCtaLink: '/quiz',
-    secondaryCtaText: 'Download Free Blueprint (PDF) →',
-    secondaryCtaLink: '/the-next-level-lifespan-v7.pdf',
+    secondaryCtaText: '🩺 Clinician Co-Pilot Workbook',
+    secondaryCtaLink: '/clinician-copilot',
     posterImage: '/longevity_blueprint_cover.png'
   },
   {
@@ -250,37 +290,96 @@ export const InteractiveTabbedHero: React.FC = () => {
               {currentTab.description}
             </p>
 
-            <ul className="space-y-2.5 pt-1">
-              {currentTab.bullets.map((bullet, idx) => (
-                <li key={idx} className="flex items-center text-xs sm:text-sm text-slate-300">
-                  <span className="text-cyan-400 mr-2.5 font-bold">✓</span>
-                  {bullet}
-                </li>
-              ))}
+            <ul className="space-y-3 pt-1">
+              {currentTab.bullets.map((bullet, idx) => {
+                if (typeof bullet === 'string') {
+                  return (
+                    <li key={idx} className="flex items-start text-xs sm:text-sm text-slate-300">
+                      <span className="text-cyan-400 mr-2.5 font-bold mt-0.5 flex-shrink-0">✓</span>
+                      <span className="leading-relaxed">{bullet}</span>
+                    </li>
+                  );
+                }
+                return (
+                  <li key={idx} className="flex items-start text-xs sm:text-sm text-slate-300 group">
+                    <span className="text-cyan-400 mr-2.5 font-bold mt-0.5 flex-shrink-0">✓</span>
+                    <div className="leading-snug">
+                      <strong className="text-white font-bold block sm:inline">{bullet.title}</strong>
+                      {bullet.subtext && (
+                        <span className="text-slate-400 text-xs block sm:inline sm:ml-1.5 leading-relaxed">
+                          {bullet.subtext}
+                        </span>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
             </ul>
 
-            <div className="flex flex-col sm:flex-row gap-3 pt-4">
-              <Link
-                to={currentTab.primaryCtaLink}
-                className="py-3.5 px-6 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-xl text-center text-sm transition-all shadow-lg shadow-cyan-500/20 active:scale-95"
-              >
-                {currentTab.primaryCtaText}
-              </Link>
-              {currentTab.secondaryCtaLink.endsWith('.pdf') ? (
-                <a
-                  href={currentTab.secondaryCtaLink}
-                  download
-                  className="py-3.5 px-6 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-medium rounded-xl text-center text-sm transition-all active:scale-95"
-                >
-                  {currentTab.secondaryCtaText}
-                </a>
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3 pt-4">
+              {currentTab.ctaButtons && currentTab.ctaButtons.length > 0 ? (
+                currentTab.ctaButtons.map((cta, idx) => {
+                  let btnStyle = 'bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-medium';
+                  if (cta.variant === 'primary') {
+                    btnStyle = 'bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold shadow-lg shadow-cyan-500/20';
+                  } else if (cta.variant === 'accent') {
+                    btnStyle = 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold shadow-lg shadow-emerald-500/20';
+                  }
+
+                  const commonClasses = `py-3 px-4 sm:px-5 rounded-xl text-center text-xs sm:text-sm transition-all active:scale-95 flex items-center justify-center gap-1.5 ${btnStyle}`;
+
+                  if (cta.isDownload || cta.link.endsWith('.pdf')) {
+                    return (
+                      <a
+                        key={idx}
+                        href={cta.link}
+                        download
+                        className={commonClasses}
+                      >
+                        {cta.text}
+                      </a>
+                    );
+                  }
+
+                  return (
+                    <Link
+                      key={idx}
+                      to={cta.link}
+                      className={commonClasses}
+                    >
+                      {cta.text}
+                    </Link>
+                  );
+                })
               ) : (
-                <Link
-                  to={currentTab.secondaryCtaLink}
-                  className="py-3.5 px-6 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-medium rounded-xl text-center text-sm transition-all active:scale-95"
-                >
-                  {currentTab.secondaryCtaText}
-                </Link>
+                <>
+                  {currentTab.primaryCtaText && currentTab.primaryCtaLink && (
+                    <Link
+                      to={currentTab.primaryCtaLink}
+                      className="py-3.5 px-6 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold rounded-xl text-center text-sm transition-all shadow-lg shadow-cyan-500/20 active:scale-95"
+                    >
+                      {currentTab.primaryCtaText}
+                    </Link>
+                  )}
+                  {currentTab.secondaryCtaText && currentTab.secondaryCtaLink && (
+                    currentTab.secondaryCtaLink.endsWith('.pdf') ? (
+                      <a
+                        href={currentTab.secondaryCtaLink}
+                        download
+                        className="py-3.5 px-6 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-medium rounded-xl text-center text-sm transition-all active:scale-95"
+                      >
+                        {currentTab.secondaryCtaText}
+                      </a>
+                    ) : (
+                      <Link
+                        to={currentTab.secondaryCtaLink}
+                        className="py-3.5 px-6 bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-medium rounded-xl text-center text-sm transition-all active:scale-95"
+                      >
+                        {currentTab.secondaryCtaText}
+                      </Link>
+                    )
+                  )}
+                </>
               )}
             </div>
           </div>
