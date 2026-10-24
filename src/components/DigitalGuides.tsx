@@ -14,7 +14,22 @@ export const DigitalGuides: React.FC<DigitalGuidesProps> = ({
   const [loadingGuideId, setLoadingGuideId] = useState<string | null>(null);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
-  const guidesList: DigitalGuideProduct[] = Object.values(GUIDE_PRODUCTS);
+  // Explicitly ensure ALL 9 Premium Master Guides are rendered in order
+  const NINE_MASTER_GUIDE_KEYS = [
+    'beginner-home-workout',
+    'hypertrophy-strength',
+    'mobility-recovery',
+    'master-meal-planning',
+    'fat-loss-nutrition',
+    'high-protein-recipes',
+    'cortisol-stress-management',
+    'sleep-optimization',
+    'mindfulness-habit-reset'
+  ];
+
+  const guidesList: DigitalGuideProduct[] = NINE_MASTER_GUIDE_KEYS
+    .map(key => GUIDE_PRODUCTS[key])
+    .filter((g): g is DigitalGuideProduct => Boolean(g));
 
   const handleBuyNow = async (guideId: string) => {
     try {

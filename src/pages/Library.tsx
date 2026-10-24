@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { CheckCircle2, Lock, ShieldCheck, Download, Sparkles, BookOpen } from 'lucide-react';
+import { useNavigate, useSearchParams, useLocation, Link } from 'react-router-dom';
+import { CheckCircle2, Lock, ShieldCheck, Download, Sparkles, BookOpen, ArrowDown, FileText, Check } from 'lucide-react';
 import { DigitalGuides } from '../components/DigitalGuides';
 
 interface PaidDownloadState {
@@ -12,25 +12,25 @@ interface PaidDownloadState {
 
 export default function LibraryPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchParams] = useSearchParams();
   const [freeDownloadTriggered, setFreeDownloadTriggered] = useState(false);
   const [paidDownload, setPaidDownload] = useState<PaidDownloadState>({ status: 'idle' });
+  const [downloadToast, setDownloadToast] = useState<string | null>(null);
 
   useEffect(() => {
-    document.title = "The Sovereign Library | 123TheNextLevel";
-    window.scrollTo(0, 0);
+    document.title = "Free PDFs & Master Guides Library | 123TheNextLevel";
 
-    // 1. Check for Free "Idiot's Guide" auto-download
+    // 1. Check for Free "Idiot's Guide" auto-download from onboarding lead capture
     const isFreeDownload = searchParams.get('download') === 'idiots-guide' || searchParams.get('download') === 'true';
     if (isFreeDownload && !freeDownloadTriggered) {
       setFreeDownloadTriggered(true);
       const timer = setTimeout(() => {
-        const link = document.createElement('a');
-        link.href = '/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf';
-        link.download = 'idiots-guide-to-the-next-level-lifespan.pdf';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        triggerDirectDownload(
+          '/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf',
+          'idiots-guide-to-the-next-level-lifespan.pdf',
+          "An Idiot's Guide to the Next Level Lifespan"
+        );
       }, 800);
       return () => clearTimeout(timer);
     }
@@ -87,39 +87,104 @@ export default function LibraryPage() {
 
       verifyAndDownload();
     }
-  }, [searchParams, freeDownloadTriggered, paidDownload.status]);
+
+    // 3. Anchor & Hash scrolling navigation
+    if (location.hash === '#premium-guides' || location.hash === '#premium') {
+      const el = document.getElementById('premium-guides');
+      if (el) {
+        setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 150);
+      }
+    } else if (location.hash === '#free-pdfs' || location.pathname === '/free-pdfs') {
+      const el = document.getElementById('free-pdfs');
+      if (el) {
+        setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 150);
+      }
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [searchParams, location, freeDownloadTriggered, paidDownload.status]);
+
+  const triggerDirectDownload = (fileUrl: string, fileName: string, title: string) => {
+    try {
+      const link = document.createElement('a');
+      link.href = fileUrl;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      setDownloadToast(title);
+      setTimeout(() => {
+        setDownloadToast(null);
+      }, 5000);
+    } catch (err) {
+      console.error('Download error:', err);
+      window.open(fileUrl, '_blank');
+    }
+  };
 
   const freeResources = [
     {
       id: "idiots-guide",
-      tag: "Everyday Translator (Free)",
+      tag: "Everyday Translator (100% Free • $0)",
       tagColor: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
+      priceBadge: "$0.00 FREE",
       title: "An Idiot's Guide to the Next Level Lifespan",
+      shortTitle: "An Idiot's Guide",
       description: "A ruthlessly honest, 5-page translator designed to decode our complex molecular science, explain why living longer is a curse if you are frail, and give you your immediate, zero-cost daily habits.",
       fileUrl: "/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf",
       fileName: "idiots-guide-to-the-next-level-lifespan.pdf",
       coverImage: "/covers/the-next-level-lifespan-cover.png",
-      buttonText: "Download Free Guide (PDF)",
-      buttonStyle: "bg-cyan-500 text-slate-950 hover:bg-cyan-400 shadow-cyan-500/15",
-      highlights: ["Simple post-meal hacks", "Circadian breathing rules", "Epigenetics made simple"]
+      buttonText: "Instant $0 Direct Download (PDF)",
+      buttonStyle: "bg-cyan-500 text-slate-950 hover:bg-cyan-400 shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.99]",
+      highlights: [
+        "Simple post-meal hacks & glucose stabilization",
+        "Circadian breathing rules & autonomic tone",
+        "Epigenetics & age-reversal made simple",
+        "Zero-cost immediate daily longevity habits checklist"
+      ]
     },
     {
       id: "clinical-workbook",
-      tag: "Clinician Co-Pilot Suite (Free)",
+      tag: "Clinician Co-Pilot Suite (100% Free • $0)",
       tagColor: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+      priceBadge: "$0.00 FREE",
       title: "The Clinical Baseline Workbook & GP Consultation Template",
+      shortTitle: "GP Consultation Workbook",
       description: "Cross the bridge from guessing to knowing with this 3-page clinician-ready consultation workbook. Includes our Lola Vital Check 56 biomarker breakdown, laboratory draw checklist, and a printable template to co-evaluate your telemetry with your doctor.",
       fileUrl: "/assets/docs/clinical-baseline-consultation-workbook.pdf",
       fileName: "clinical-baseline-consultation-workbook.pdf",
       coverImage: "/assets/images/shop/gp_consultation_cover.png",
-      buttonText: "Download GP Workbook (PDF)",
-      buttonStyle: "bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 hover:from-amber-400 hover:to-orange-400 shadow-amber-500/15",
-      highlights: ["Printable doctor note template", "Lola Vital Check 56 breakdown", "Actionable consultation questions"]
+      buttonText: "Instant $0 Direct Download (PDF)",
+      buttonStyle: "bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 hover:from-amber-400 hover:to-orange-400 shadow-amber-500/20 hover:scale-[1.01] active:scale-[0.99]",
+      highlights: [
+        "Printable doctor note & consultation template",
+        "Lola Vital Check 56 biomarker breakdown",
+        "Laboratory draw checklist & reference targets",
+        "Actionable clinician co-pilot discussion questions"
+      ]
     }
   ];
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans antialiased selection:bg-cyan-500/30">
+
+      {/* Instant Direct Download Toast */}
+      {downloadToast && (
+        <div className="fixed bottom-6 right-6 z-50 max-w-md bg-slate-900 border-2 border-emerald-500/80 p-4 rounded-2xl shadow-2xl shadow-emerald-500/20 animate-bounce flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center shrink-0">
+            <CheckCircle2 size={20} className="text-emerald-400" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-xs font-black text-emerald-300 uppercase tracking-wider">
+              ✓ Direct $0 Download Started!
+            </p>
+            <p className="text-xs text-slate-300 truncate">
+              {downloadToast} has been sent to your downloads folder.
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* 1. Payment Verification & Auto-Download Notification Bar */}
       {paidDownload.status === 'verifying' && (
@@ -168,7 +233,7 @@ export default function LibraryPage() {
         <div className="bg-gradient-to-r from-cyan-950 via-slate-900 to-cyan-950 border-b border-cyan-500/30 py-3.5 px-4 text-center">
           <p className="text-xs sm:text-sm font-bold text-cyan-300 flex items-center justify-center gap-2">
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
-            <span>✓ Access Granted — Your Idiot’s Guide is downloading. Access all clinical manuals below:</span>
+            <span>✓ Direct Access Granted — Your Idiot’s Guide is downloading now. Access all manuals below:</span>
           </p>
         </div>
       )}
@@ -184,46 +249,51 @@ export default function LibraryPage() {
             The Next Level Library
           </h1>
           <p className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Your open-access directory to cross the bridge from biological speculation to molecular certainty. Access free clinical co-pilot manuals or unlock actionable paid execution books stored in our private Cloudflare R2 vault.
+            Your open-access directory to cross the bridge from biological speculation to molecular certainty. Get our 2 complimentary open-access clinical documents with instant $0 direct download, or unlock all 9 specialized Master Guides stored in our private Cloudflare R2 vault.
           </p>
+
+          {/* Quick-Jump Section Navigator */}
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
+            <a
+              href="#free-pdfs"
+              className="px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500 hover:text-slate-950 transition-all shadow-md flex items-center gap-2 cursor-pointer"
+            >
+              <span>📁 2 Free Open-Access PDFs ($0)</span>
+              <ArrowDown size={14} />
+            </a>
+            <a
+              href="#premium-guides"
+              className="px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 border border-amber-500/30 hover:bg-amber-500 hover:text-slate-950 transition-all shadow-md flex items-center gap-2 cursor-pointer"
+            >
+              <span>⚡ 9 Premium Master Guides</span>
+              <ArrowDown size={14} />
+            </a>
+          </div>
         </div>
       </header>
 
-      {/* SECTION 1: PAID DIGITAL MASTER GUIDES (Locked behind Stripe & Cloudflare R2) */}
-      <section className="max-w-6xl mx-auto px-6 pt-16 pb-12">
+      {/* ============================================================== */}
+      {/* SECTION 1: 2 FREE OPEN-ACCESS CLINICAL DOCUMENTS ($0 DOWNLOAD) */}
+      {/* ============================================================== */}
+      <section id="free-pdfs" className="max-w-6xl mx-auto px-6 pt-16 pb-16 scroll-mt-24">
         <div className="space-y-4 text-center sm:text-left mb-10">
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-            <span className="inline-block text-[10px] font-black uppercase tracking-widest bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full">
-              ⚡ Actionable Master Execution Books
+            <span className="inline-block text-[10px] font-black uppercase tracking-widest bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 px-3 py-1 rounded-full">
+              🎁 100% Free Open-Access Documents
+            </span>
+            <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2.5 py-1 rounded-full">
+              <span>✓ Instant $0 Direct Download</span>
             </span>
             <span className="inline-flex items-center gap-1 text-[10px] font-bold text-slate-400 bg-slate-900 border border-slate-800 px-2.5 py-1 rounded-full">
-              <Lock size={10} className="text-amber-400" />
-              <span>Private R2 Storage</span>
+              <span>No Paywall • No Email Required</span>
             </span>
           </div>
+
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight">
-            Digital Master Guides Vault
+            Free Open-Access Clinical Documents
           </h2>
           <p className="text-xs sm:text-sm text-slate-400 max-w-2xl leading-relaxed">
-            Step-by-step PDF execution manuals locked behind Stripe checkout. Direct presigned delivery from Cloudflare R2 immediately upon purchase verification.
-          </p>
-        </div>
-
-        {/* Embedded DigitalGuides Component */}
-        <DigitalGuides />
-      </section>
-
-      {/* SECTION 2: FREE OPEN-ACCESS CLINICAL MANUALS */}
-      <section className="max-w-6xl mx-auto px-6 py-16 border-t border-slate-900">
-        <div className="space-y-3 text-center sm:text-left mb-10">
-          <span className="inline-block text-[10px] font-bold text-cyan-400 uppercase tracking-widest bg-cyan-500/10 border border-cyan-500/20 px-3 py-1 rounded-full">
-            📖 Open-Access Clinical Manuals
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-            Complimentary Translation &amp; Baseline Guides
-          </h2>
-          <p className="text-xs sm:text-sm text-slate-400 max-w-2xl leading-relaxed">
-            Essential reference documents provided with zero cost to help you navigate baseline biomarker testing and core lifestyle principles.
+            Download our two flagship foundational guides immediately at zero cost ($0). Click the direct download button on either manual to save the complete, unabridged PDF directly to your device.
           </p>
         </div>
 
@@ -231,27 +301,46 @@ export default function LibraryPage() {
           {freeResources.map((res) => (
             <div
               key={res.id}
-              className="group p-6 sm:p-8 rounded-3xl bg-slate-900 border border-slate-800 flex flex-col justify-between space-y-8 shadow-xl hover:border-slate-700/60 hover:shadow-2xl transition duration-300 relative overflow-hidden"
+              className="group p-6 sm:p-8 rounded-3xl bg-slate-900 border border-cyan-500/20 hover:border-cyan-500/50 flex flex-col justify-between space-y-8 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/5 transition duration-300 relative overflow-hidden"
             >
-              <div className="space-y-6">
+              {/* Subtle Ambient Corner Glow */}
+              <div className="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none" />
+
+              <div className="space-y-6 relative z-10">
 
                 {/* Book Cover Container */}
                 <div className="relative max-w-[280px] mx-auto w-full flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-500">
-                  <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-tr from-cyan-500/20 to-indigo-500/20 blur-lg opacity-40 group-hover:opacity-70 transition duration-500" />
+                  <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-tr from-cyan-500/25 to-indigo-500/25 blur-lg opacity-40 group-hover:opacity-75 transition duration-500" />
                   <img
                     src={res.coverImage}
                     alt={res.title}
                     className="relative w-full h-auto max-h-[380px] object-contain rounded-2xl border border-slate-800/90 shadow-2xl bg-slate-950"
                   />
+                  <div className="absolute top-3 left-3 z-10">
+                    <span className="px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-slate-950/90 border border-cyan-500/40 text-cyan-300 shadow-lg backdrop-blur-md">
+                      {res.priceBadge}
+                    </span>
+                  </div>
                 </div>
 
                 {/* Content Block */}
                 <div className="space-y-3 text-left">
-                  <span className={`inline-block text-[10px] font-bold px-2.5 py-0.5 rounded border uppercase tracking-wider ${res.tagColor}`}>
-                    {res.tag}
-                  </span>
-                  <h3 className="text-xl font-bold text-white tracking-tight">{res.title}</h3>
-                  <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-sans">{res.description}</p>
+                  <div className="flex items-center justify-between gap-2">
+                    <span className={`inline-block text-[10px] font-bold px-2.5 py-0.5 rounded border uppercase tracking-wider ${res.tagColor}`}>
+                      {res.tag}
+                    </span>
+                    <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/60 border border-emerald-800/40 px-2 py-0.5 rounded">
+                      $0.00
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl font-bold text-white tracking-tight leading-snug">
+                    {res.title}
+                  </h3>
+                  
+                  <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-sans">
+                    {res.description}
+                  </p>
                 </div>
 
                 {/* Key Checklist Highlights */}
@@ -269,21 +358,73 @@ export default function LibraryPage() {
 
               </div>
 
-              {/* Action Trigger */}
-              <div className="pt-4 border-t border-slate-800/80">
+              {/* Action Trigger: Instant $0 Direct Download */}
+              <div className="pt-4 border-t border-slate-800/80 relative z-10 space-y-2">
                 <a
                   href={res.fileUrl}
                   download={res.fileName}
-                  className={`w-full py-3.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center space-x-2 transition duration-200 shadow-md cursor-pointer ${res.buttonStyle}`}
+                  onClick={(e) => {
+                    // Trigger instant download with guaranteed programmatic backup
+                    triggerDirectDownload(res.fileUrl, res.fileName, res.title);
+                  }}
+                  className={`w-full py-4 px-5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2 transition duration-200 shadow-lg cursor-pointer ${res.buttonStyle}`}
                 >
+                  <Download size={16} />
                   <span>{res.buttonText}</span>
                   <span>➔</span>
                 </a>
+
+                <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400 font-mono text-center">
+                  <ShieldCheck size={12} className="text-emerald-400" />
+                  <span>Instant Direct PDF • Zero Cost ($0) • Unrestricted Open-Access</span>
+                </div>
               </div>
 
             </div>
           ))}
         </div>
+      </section>
+
+      {/* ============================================================== */}
+      {/* SECTION 2: ALL 9 PREMIUM MASTER GUIDES (100% INTACT)           */}
+      {/* ============================================================== */}
+      <section id="premium-guides" className="max-w-6xl mx-auto px-6 pt-16 pb-16 border-t border-slate-900 scroll-mt-24">
+        <div className="space-y-4 text-center sm:text-left mb-10">
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+            <span className="inline-block text-[10px] font-black uppercase tracking-widest bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full">
+              ⚡ Actionable Master Execution Books (All 9 Guides)
+            </span>
+            <span className="inline-flex items-center gap-1 text-[10px] font-bold text-slate-400 bg-slate-900 border border-slate-800 px-2.5 py-1 rounded-full">
+              <Lock size={10} className="text-amber-400" />
+              <span>Private R2 Storage Vault</span>
+            </span>
+            <span className="inline-flex items-center gap-1 text-[10px] font-bold text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-2.5 py-1 rounded-full">
+              <span>Stripe Checkout Verified</span>
+            </span>
+          </div>
+
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight">
+                Digital Master Guides Vault
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-400 max-w-2xl leading-relaxed pt-1">
+                All 9 comprehensive geroscience execution manuals locked behind Stripe checkout. Direct presigned delivery from Cloudflare R2 edge servers immediately upon purchase verification.
+              </p>
+            </div>
+            
+            <Link
+              to="/premium-guides"
+              className="text-xs font-bold text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1 shrink-0 self-start sm:self-auto"
+            >
+              <span>View Full Catalog Page</span>
+              <span>➔</span>
+            </Link>
+          </div>
+        </div>
+
+        {/* Embedded DigitalGuides Component Rendering ALL 9 Master Guides */}
+        <DigitalGuides showVaultBanner={true} />
       </section>
 
       {/* E-Commerce Sovereign Store Callout Banner */}

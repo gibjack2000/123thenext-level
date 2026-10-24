@@ -17,8 +17,11 @@ export default function Header() {
 
       {/* Main Navigation Links */}
       <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
-        <Link to="/library" className="min-h-[48px] flex items-center hover:text-cyan-400 transition-colors touch-manipulation">
-          📚 Library & Manuals
+        <Link to="/free-pdfs" className="min-h-[48px] flex items-center hover:text-cyan-400 transition-colors touch-manipulation">
+          📁 Free PDFs
+        </Link>
+        <Link to="/premium-guides" className="min-h-[48px] flex items-center hover:text-amber-400 text-amber-400/90 transition-colors touch-manipulation">
+          ⚡ Premium Guides
         </Link>
         <Link to="/quiz" className="min-h-[48px] flex items-center text-slate-350 hover:text-cyan-400 transition-colors touch-manipulation">
           ⚡ Free Wellness Quiz

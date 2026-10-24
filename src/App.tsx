@@ -224,8 +224,11 @@ function App() {
                 <Route path="/updates" element={<MagazineRack />} />
                 <Route path="/design-system" element={<DesignSystem />} />
                 <Route path="/blueprint-success" element={<Success />} />
-                <Route path="/success" element={<Success />} />
                 <Route path="/library" element={<Library />} />
+                <Route path="/free-pdfs" element={<Library />} />
+                <Route path="/free-pdf" element={<Navigate to="/free-pdfs" replace />} />
+                <Route path="/free-guides" element={<Navigate to="/free-pdfs" replace />} />
+                <Route path="/free-documents" element={<Navigate to="/free-pdfs" replace />} />
                 <Route path="/quiz" element={<Navigate to="/health-quiz" replace />} />
                 <Route path="/quiz-results" element={<QuizResults />} />
 

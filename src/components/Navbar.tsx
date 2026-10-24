@@ -141,8 +141,8 @@ export const Navbar: React.FC = () => {
           </div>
 
           <Link 
-            to="/library" 
-            className={`transition-colors ${location.pathname === '/library' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+            to="/free-pdfs" 
+            className={`transition-colors ${['/free-pdfs', '/library'].includes(location.pathname) ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
             📁 Free PDFs
           </Link>
@@ -243,9 +243,8 @@ export const Navbar: React.FC = () => {
           <Link to="/fitness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">⚡ Performance & Bio-Data</Link>
           <Link to="/nutrition" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🥗 Metabolic Nutrition</Link>
           <Link to="/blog-post-womens-health" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🌸 Women's Health</Link>
-          <Link to="/blog-post-socio-architecture" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🏛️ Socio-Architecture</Link>
-          <Link to="/library" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">📁 Free PDF Library</Link>
-          <Link to="/premium-guides" onClick={closeMobileMenu} className="block text-amber-400 font-bold py-1">⚡ Premium Paid Guides</Link>
+          <Link to="/free-pdfs" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">📁 Free PDFs ($0 Download)</Link>
+          <Link to="/premium-guides" onClick={closeMobileMenu} className="block text-amber-400 font-bold py-1">⚡ Premium Guides (9 Books)</Link>
           <Link to="/blog" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">📚 Blogs & Science Library</Link>
           <Link to={`/store-${selectedRegion}`} onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🛒 Sovereign Store</Link>
           

@@ -17,6 +17,7 @@ interface PurchasedProduct {
   id: string;
   title: string;
   slug: string;
+  productId?: string;
 }
 
 interface OrderSummary {
