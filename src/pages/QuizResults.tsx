@@ -384,6 +384,18 @@ export default function QuizResults() {
                 <p className="text-slate-350 text-xs sm:text-sm font-light leading-relaxed">
                   Raw assessment scores and wearable biometrics are not a clinical diagnosis. Don't speculate with unvetted supplements—take our structured 4-page <strong>Clinician Co-Pilot Workbook</strong> directly to your doctor. Includes our Level 1 Core Tri-Marker requisition (ApoB, HbA1c, hs-CRP), 14-day vital signs log, and word-for-word physician discussion scripts.
                 </p>
+
+                {/* Direct Action Helper Card */}
+                <div className="p-3.5 rounded-xl bg-slate-950/80 border border-cyan-500/40 text-xs sm:text-sm text-slate-300 flex items-start gap-2.5">
+                  <span className="text-cyan-400 font-bold text-sm shrink-0">💡</span>
+                  <div>
+                    <span className="font-bold text-white">Take your metrics to your doctor:</span> Open your interactive{' '}
+                    <Link to="/clinician-copilot" className="text-cyan-400 font-bold underline hover:text-cyan-300">
+                      Clinician Co-Pilot Workbook ➔
+                    </Link>{' '}
+                    to log your vitals and request your ApoB/HbA1c/hs-CRP baselines.
+                  </div>
+                </div>
               </div>
 
               <div className="shrink-0 flex flex-col sm:flex-row lg:flex-col gap-3">

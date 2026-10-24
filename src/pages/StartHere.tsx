@@ -821,6 +821,176 @@ export default function StartHere() {
           )}
         </AnimatePresence>
 
+        {/* ========================================================================= */}
+        {/* 3 PARALLEL TRACKS TO LONGEVITY (STRICT ADDITIVE SECTION)                  */}
+        {/* ========================================================================= */}
+        <section className="mt-20 pt-16 border-t border-slate-900 relative">
+          {/* Ambient background flares */}
+          <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-80 h-80 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
+          <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-80 h-80 bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
+
+          <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold shadow-sm">
+              <Sparkles size={12} className="text-cyan-400 animate-pulse" />
+              <span>3 PARALLEL TRACKS TO LONGEVITY</span>
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-tight text-white font-black">
+              The Three Parallel Tracks to Biological Sovereignty
+            </h2>
+            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto font-light">
+              True healthy life expectancy expansion is not linear. Maximum biological longevity requires running three parallel protocols simultaneously—daily physical hardware, continuous diagnostic radar, and targeted cellular nutrition.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+            
+            {/* Track 1: Daily Hardware */}
+            <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-cyan-500/30 hover:border-cyan-500/60 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-xl hover:-translate-y-1 relative group">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 group-hover:scale-110 transition-transform">
+                    <Activity size={22} />
+                  </span>
+                  <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-cyan-950/80 border border-cyan-800/50 text-cyan-300 font-bold">
+                    Track 1
+                  </span>
+                </div>
+                <div>
+                  <h3 className="text-lg sm:text-xl font-display uppercase tracking-tight font-black text-white group-hover:text-cyan-300 transition-colors">
+                    Daily Hardware
+                  </h3>
+                  <p className="text-xs font-semibold text-cyan-400/90 mt-1">
+                    Home Workouts, Glycemic Weight Control &amp; Autonomic Resets
+                  </p>
+                </div>
+                <p className="text-xs text-slate-300 leading-relaxed font-light">
+                  Build functional muscle density, condition Zone 2 mitochondrial capacity, and stabilize postprandial glucose excursions through structured daily routines.
+                </p>
+
+                {/* Highlighted Autonomic & Meditation Focus */}
+                <div className="p-4 rounded-xl bg-cyan-950/40 border border-cyan-800/40 space-y-2">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-cyan-300">
+                    <HeartPulse size={14} className="text-cyan-400 shrink-0" />
+                    <span>Meditation &amp; Autonomic Practice (Core Input)</span>
+                  </div>
+                  <p className="text-[11px] text-slate-350 leading-relaxed">
+                    Breathing mindfulness (cyclic physiological sighing, box breathing) and Non-Sleep Deep Rest (NSDR) are prioritized as essential physiological drivers directly measured to up-regulate parasympathetic vagal tone, accelerate nocturnal HRV rebound, and suppress chronic cortisol.
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-slate-800 flex items-center justify-between text-xs">
+                <Link to="/fitness" className="text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1">
+                  <span>Physical Protocols</span>
+                  <ArrowRight size={13} />
+                </Link>
+                <Link to="/wellness" className="text-slate-400 hover:text-white font-medium">
+                  Autonomic Pillar →
+                </Link>
+              </div>
+            </div>
+
+            {/* Track 2: Diagnostic Radar */}
+            <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-amber-500/40 hover:border-amber-500/70 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-xl hover:-translate-y-1 relative group">
+              <div className="absolute top-0 right-0 left-0 h-[2px] bg-gradient-to-r from-amber-500 via-orange-400 to-cyan-500 rounded-t-3xl opacity-80" />
+              
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 group-hover:scale-110 transition-transform">
+                    <FileText size={22} />
+                  </span>
+                  <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-amber-950/80 border border-amber-800/50 text-amber-300 font-bold">
+                    Track 2 • The Key
+                  </span>
+                </div>
+                <div>
+                  <h3 className="text-lg sm:text-xl font-display uppercase tracking-tight font-black text-white group-hover:text-amber-300 transition-colors">
+                    Diagnostic Radar
+                  </h3>
+                  <p className="text-xs font-semibold text-amber-400/90 mt-1">
+                    The Forgotten Key — Clinician Co-Pilot &amp; GP Script
+                  </p>
+                </div>
+                <p className="text-xs text-slate-300 leading-relaxed font-light">
+                  Eliminate biological speculation. Establish hard, objective laboratory baselines starting with our Level 1 Core Tri-Marker panel (ApoB, HbA1c, hs-CRP) or expanding into the Level 2 Full 56-Biomarker Cellular Map.
+                </p>
+
+                <div className="p-4 rounded-xl bg-amber-950/30 border border-amber-800/40 space-y-2">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-amber-300">
+                    <Shield size={14} className="text-amber-400 shrink-0" />
+                    <span>Collaborative Physician Directives</span>
+                  </div>
+                  <p className="text-[11px] text-slate-350 leading-relaxed">
+                    Deploy our 4-page interactive workbook and word-for-word physician scripts to turn your GP into a proactive longevity partner, logging 14-day vital telemetry before every consultation.
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-slate-800 flex flex-col gap-2">
+                <Link
+                  to="/clinician-copilot"
+                  className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-bold text-xs uppercase tracking-wider text-center transition-all shadow-md flex items-center justify-center gap-2"
+                >
+                  <span>Clinician Co-Pilot Workbook ➔</span>
+                </Link>
+                <a
+                  href="/assets/docs/clinical-baseline-consultation-workbook.pdf"
+                  download
+                  className="text-center text-[11px] text-slate-400 hover:text-white transition-colors py-1"
+                >
+                  Download Blank PDF ($0)
+                </a>
+              </div>
+            </div>
+
+            {/* Track 3: Targeted Nutrition */}
+            <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-emerald-500/30 hover:border-emerald-500/60 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-xl hover:-translate-y-1 relative group">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 group-hover:scale-110 transition-transform">
+                    <Award size={22} />
+                  </span>
+                  <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-950/80 border border-emerald-800/50 text-emerald-300 font-bold">
+                    Track 3
+                  </span>
+                </div>
+                <div>
+                  <h3 className="text-lg sm:text-xl font-display uppercase tracking-tight font-black text-white group-hover:text-emerald-300 transition-colors">
+                    Targeted Nutrition
+                  </h3>
+                  <p className="text-xs font-semibold text-emerald-400/90 mt-1">
+                    Day 1 Universal Stack + Precision Biomarker Adjustments
+                  </p>
+                </div>
+                <p className="text-xs text-slate-300 leading-relaxed font-light">
+                  Fuel cellular autophagy and protect vascular endothelia with clean, third-party NSF-certified nutraceuticals matched directly to your biological age and metabolic rate.
+                </p>
+
+                <div className="p-4 rounded-xl bg-emerald-950/30 border border-emerald-800/40 space-y-2">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-300">
+                    <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
+                    <span>Day 1 Universal Baseline Stack</span>
+                  </div>
+                  <p className="text-[11px] text-slate-350 leading-relaxed">
+                    Begin with the core foundation: Vitamin D3 + K2 (MK-7), pure molecularly distilled Omega-3 EPA/DHA, and bioavailable Magnesium Glycinate/Malate, adjusting dosages only when supported by follow-up blood panel results.
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-slate-800 flex items-center justify-between text-xs">
+                <Link to="/nutrition" className="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1">
+                  <span>Metabolic Nutrition</span>
+                  <ArrowRight size={13} />
+                </Link>
+                <Link to="/store" className="text-slate-400 hover:text-white font-medium">
+                  Procure Stack →
+                </Link>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
       </div>
     </div>
   );

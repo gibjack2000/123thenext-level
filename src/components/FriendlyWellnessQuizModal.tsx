@@ -592,6 +592,22 @@ export const FriendlyWellnessQuizModal: React.FC<FriendlyWellnessQuizModalProps>
                     </p>
                   </div>
 
+                  {/* Direct Action Helper Card */}
+                  <div className="p-3.5 rounded-xl bg-slate-950/80 border border-cyan-500/30 text-xs text-slate-300 flex items-start gap-2.5 text-left">
+                    <span className="text-cyan-400 font-bold text-sm shrink-0">💡</span>
+                    <div>
+                      <span className="font-bold text-white">Take your metrics to your doctor:</span> Open your interactive{' '}
+                      <button 
+                        type="button" 
+                        onClick={() => { onClose(); navigate('/clinician-copilot'); }} 
+                        className="text-cyan-400 font-bold underline hover:text-cyan-300 cursor-pointer"
+                      >
+                        Clinician Co-Pilot Workbook ➔
+                      </button>{' '}
+                      to log your vitals and request your ApoB/HbA1c/hs-CRP baselines.
+                    </div>
+                  </div>
+
                   {/* Focused Dual Call-to-Action */}
                   <div className="space-y-3 pt-2">
                     {/* Primary Button */}
