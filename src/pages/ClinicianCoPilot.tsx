@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
 import { 
   Download, 
   Printer, 
@@ -9,7 +11,9 @@ import {
   RotateCcw,
   HeartPulse, 
   Stethoscope,
-  ChevronRight
+  ChevronRight,
+  FileDown,
+  Loader2
 } from 'lucide-react';
 import { useMarket } from '../contexts/MarketContext';
 
@@ -123,6 +127,8 @@ export default function ClinicianCoPilot() {
   const { market } = useMarket();
   const [downloadSuccess, setDownloadSuccess] = useState(false);
   const [resetToast, setResetToast] = useState(false);
+  const [isExportingPdf, setIsExportingPdf] = useState(false);
+  const [pdfExportSuccess, setPdfExportSuccess] = useState(false);
 
   // Stateful client-side interactive form states
   const [patientData, setPatientData] = useState(initialPatientData);
@@ -205,6 +211,135 @@ export default function ClinicianCoPilot() {
       setTelemetryRows(initialTelemetryRows);
       setResetToast(true);
       setTimeout(() => setResetToast(false), 3500);
+    }
+  };
+
+  // Client-side high-resolution PDF generation with user entered values
+  const handleSaveAsPdf = async () => {
+    setIsExportingPdf(true);
+    try {
+      const pageElements = [1, 2, 3, 4]
+        .map((num) => document.getElementById(`copilot-page-${num}`))
+        .filter(Boolean) as HTMLElement[];
+
+      if (pageElements.length === 0) {
+        throw new Error('No printable pages found.');
+      }
+
+      // Initialize jsPDF A4 document (210mm x 297mm)
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4',
+        compress: true,
+      });
+
+      const pdfWidth = pdf.internal.pageSize.getWidth(); // 210mm
+      const pdfHeight = pdf.internal.pageSize.getHeight(); // 297mm
+
+      for (let i = 0; i < pageElements.length; i++) {
+        const pageEl = pageElements[i];
+
+        const canvas = await html2canvas(pageEl, {
+          scale: 2, // 2x high-resolution capture for ultra-crisp typography
+          useCORS: true,
+          logging: false,
+          backgroundColor: '#ffffff',
+          windowWidth: 1200, // Forces consistent desktop layout across devices
+          onclone: (clonedDoc) => {
+            const pageId = pageEl.id || `copilot-page-${i + 1}`;
+            const clonedPage = clonedDoc.getElementById(pageId) || clonedDoc.querySelectorAll<HTMLElement>('.print-page')[i];
+            if (!clonedPage) return;
+
+            // Strip outer shadows, rounded borders, and enforce clean A4 document style
+            clonedPage.style.borderRadius = '0px';
+            clonedPage.style.border = 'none';
+            clonedPage.style.boxShadow = 'none';
+            clonedPage.style.backgroundColor = '#ffffff';
+            clonedPage.style.color = '#000000';
+            clonedPage.style.margin = '0 auto';
+            clonedPage.style.boxSizing = 'border-box';
+            clonedPage.style.width = '840px';
+            clonedPage.style.maxWidth = '840px';
+            clonedPage.style.minWidth = '840px';
+            clonedPage.style.padding = '32px 36px';
+
+            // Sync all original user input values into cloned DOM
+            const origInputs = pageEl.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input, textarea');
+            const clonedInputs = clonedPage.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input, textarea');
+
+            clonedInputs.forEach((clonedNode, idx) => {
+              const orig = origInputs[idx];
+              if (!orig) return;
+
+              if (clonedNode instanceof HTMLInputElement && clonedNode.type === 'checkbox') {
+                const isChecked = (orig as HTMLInputElement).checked;
+                clonedNode.checked = isChecked;
+                if (isChecked) {
+                  clonedNode.setAttribute('checked', 'checked');
+                  clonedNode.style.accentColor = '#0891b2';
+                } else {
+                  clonedNode.removeAttribute('checked');
+                }
+              } else {
+                // Convert text input or textarea into clean span with exact text
+                const val = orig.value || '';
+                const span = clonedDoc.createElement('span');
+                span.textContent = val;
+                span.style.color = '#000000';
+                span.style.fontSize = window.getComputedStyle(orig).fontSize || '11px';
+                span.style.fontFamily = window.getComputedStyle(orig).fontFamily || 'inherit';
+                span.style.fontWeight = window.getComputedStyle(orig).fontWeight || 'bold';
+                span.style.textAlign = window.getComputedStyle(orig).textAlign || 'center';
+                span.style.display = 'inline-block';
+                span.style.width = '100%';
+                span.style.whiteSpace = 'pre-wrap';
+                span.style.wordBreak = 'break-word';
+                span.style.minHeight = '14px';
+
+                if (clonedNode.parentNode) {
+                  clonedNode.parentNode.replaceChild(span, clonedNode);
+                }
+              }
+            });
+          },
+        });
+
+        const imgData = canvas.toDataURL('image/jpeg', 0.96);
+
+        // Aspect-ratio preserving fitting on A4 page
+        const imgRatio = canvas.width / canvas.height;
+        const pageRatio = pdfWidth / pdfHeight;
+        let renderWidth = pdfWidth;
+        let renderHeight = pdfHeight;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        if (imgRatio > pageRatio) {
+          renderWidth = pdfWidth;
+          renderHeight = pdfWidth / imgRatio;
+          offsetY = (pdfHeight - renderHeight) / 2;
+        } else {
+          renderHeight = pdfHeight;
+          renderWidth = pdfHeight * imgRatio;
+          offsetX = (pdfWidth - renderWidth) / 2;
+        }
+
+        if (i > 0) {
+          pdf.addPage('a4', 'portrait');
+        }
+
+        pdf.addImage(imgData, 'JPEG', offsetX, offsetY, renderWidth, renderHeight, undefined, 'FAST');
+      }
+
+      pdf.save('my-clinician-copilot-record.pdf');
+      setPdfExportSuccess(true);
+      setTimeout(() => setPdfExportSuccess(false), 5000);
+    } catch (error) {
+      console.error('Failed to export PDF:', error);
+      alert('Could not generate direct PDF. Please use "Print Record" and select "Save as PDF" in your print dialog.');
+    } finally {
+      setIsExportingPdf(false);
     }
   };
 
@@ -299,36 +434,78 @@ export default function ClinicianCoPilot() {
             </h1>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
             <button
               onClick={handleReset}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-rose-500/60 hover:bg-rose-950/20 text-slate-300 hover:text-rose-300 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-sm"
+              disabled={isExportingPdf}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-rose-500/60 hover:bg-rose-950/20 text-slate-300 hover:text-rose-300 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
               title="Reset all form fields back to a blank template"
             >
               <RotateCcw size={14} />
-              <span>Reset / Clear Form</span>
+              <span>🔄 Reset Form</span>
             </button>
 
             <button
               onClick={handlePrint}
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 hover:text-cyan-200 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-md"
-              title="Print directly or save as completed PDF via your browser print dialog"
+              disabled={isExportingPdf}
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-500/50 hover:bg-slate-800 text-slate-200 hover:text-white text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+              title="Print directly or save as PDF via your browser print dialog"
             >
               <Printer size={15} />
-              <span>Print / Save Completed Record</span>
+              <span>🖨️ Print Record</span>
+            </button>
+
+            <button
+              onClick={handleSaveAsPdf}
+              disabled={isExportingPdf}
+              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:via-teal-300 hover:to-emerald-300 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-lg shadow-cyan-500/25 hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-75 disabled:cursor-wait"
+              title="Direct client-side PDF export containing your filled values"
+            >
+              {isExportingPdf ? (
+                <>
+                  <Loader2 size={15} className="animate-spin text-slate-950" />
+                  <span>Generating PDF...</span>
+                </>
+              ) : (
+                <>
+                  <FileDown size={15} />
+                  <span>📥 Save as PDF</span>
+                </>
+              )}
             </button>
 
             <a
               href="/assets/docs/clinical-baseline-consultation-workbook.pdf"
               download="clinical-baseline-consultation-workbook.pdf"
               onClick={handleDownload}
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-lg shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/40 text-amber-400 hover:text-amber-300 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-sm"
+              title="Download original blank template PDF ($0)"
             >
-              <Download size={15} />
-              <span>Download Blank PDF ($0)</span>
+              <Download size={14} />
+              <span>Blank ($0)</span>
             </a>
           </div>
         </div>
+
+        {/* Real-time PDF Export Loading Banner */}
+        {isExportingPdf && (
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
+            <div className="p-3 bg-slate-900/95 border border-cyan-500/50 rounded-xl flex items-center gap-2.5 text-xs text-cyan-300 animate-pulse shadow-lg">
+              <Loader2 size={16} className="animate-spin text-cyan-400 shrink-0" />
+              <span><strong>Rendering High-Resolution PDF...</strong> Capturing all 4 clinical pages with entered telemetry data. Please wait a few seconds.</span>
+            </div>
+          </div>
+        )}
+
+        {/* PDF Downloaded Success Toast */}
+        {pdfExportSuccess && (
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
+            <div className="p-3 bg-emerald-950/90 border border-emerald-500/60 rounded-xl flex items-center gap-2.5 text-xs text-emerald-200 animate-fadeIn shadow-lg shadow-emerald-500/10">
+              <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+              <span><strong>PDF Downloaded!</strong> Your completed record has been generated and saved to your device as <code>my-clinician-copilot-record.pdf</code>.</span>
+            </div>
+          </div>
+        )}
 
         {downloadSuccess && (
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
@@ -398,7 +575,7 @@ export default function ClinicianCoPilot() {
         {/* ========================================================================= */}
         {/* PAGE 1: Day 1 Foundational Nutrients & Baseline Vitals */}
         {/* ========================================================================= */}
-        <article className="print-page bg-white text-slate-900 rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-200 print:border-none print:shadow-none print:rounded-none">
+        <article id="copilot-page-1" className="print-page bg-white text-slate-900 rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-200 print:border-none print:shadow-none print:rounded-none">
           {/* Document Header */}
           <header className="bg-slate-900 text-white p-4 sm:p-5 rounded-2xl border-b-4 border-cyan-600 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
             <div>
@@ -628,7 +805,7 @@ export default function ClinicianCoPilot() {
         {/* ========================================================================= */}
         {/* PAGE 2: The Progressive Diagnostic Roadmap */}
         {/* ========================================================================= */}
-        <article className="print-page bg-white text-slate-900 rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-200 print:border-none print:shadow-none print:rounded-none">
+        <article id="copilot-page-2" className="print-page bg-white text-slate-900 rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-200 print:border-none print:shadow-none print:rounded-none">
           <header className="bg-slate-900 text-white p-4 sm:p-5 rounded-2xl border-b-4 border-cyan-600 flex justify-between items-center">
             <div>
               <h2 className="text-base sm:text-lg font-black tracking-wide uppercase">
@@ -805,7 +982,7 @@ export default function ClinicianCoPilot() {
         {/* ========================================================================= */}
         {/* PAGE 3: Annual GP Physical Exam & Continuous Bio-Telemetry */}
         {/* ========================================================================= */}
-        <article className="print-page bg-white text-slate-900 rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-200 print:border-none print:shadow-none print:rounded-none">
+        <article id="copilot-page-3" className="print-page bg-white text-slate-900 rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-200 print:border-none print:shadow-none print:rounded-none">
           <header className="bg-slate-900 text-white p-4 sm:p-5 rounded-2xl border-b-4 border-cyan-600 flex justify-between items-center">
             <div>
               <h2 className="text-base sm:text-lg font-black tracking-wide uppercase">
@@ -975,7 +1152,7 @@ export default function ClinicianCoPilot() {
         {/* ========================================================================= */}
         {/* PAGE 4: Patient-Held Clinical Record & Co-Evaluation Worksheet */}
         {/* ========================================================================= */}
-        <article className="print-page bg-white text-slate-900 rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-200 print:border-none print:shadow-none print:rounded-none">
+        <article id="copilot-page-4" className="print-page bg-white text-slate-900 rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-200 print:border-none print:shadow-none print:rounded-none">
           <header className="bg-slate-900 text-white p-4 sm:p-5 rounded-2xl border-b-4 border-cyan-600 flex justify-between items-center">
             <div>
               <h2 className="text-base sm:text-lg font-black tracking-wide uppercase">
