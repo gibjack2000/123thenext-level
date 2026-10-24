@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { 
-  Shield, HeartPulse, ChevronRight, ClipboardCheck, ArrowLeft
+  Shield, HeartPulse, ChevronRight, ClipboardCheck, ArrowLeft, Stethoscope, FileText
 } from 'lucide-react';
 import { ProductRecommendation, RECOMMENDATIONS_MAP } from '../data/productRecommendations';
 import { useMarket } from '../contexts/MarketContext';
@@ -358,6 +358,50 @@ export default function QuizResults() {
               <p className="text-slate-400 text-xs sm:text-sm font-light leading-relaxed">
                 Thank you for completing our diagnostic assessment. Your answers have established a clinical overview profile. We have compiled your target recommendations below to start optimizing your biophysical parameters immediately.
               </p>
+            </div>
+          </div>
+
+          {/* Clinician Co-Pilot CTA Block: Take Baselines to GP */}
+          <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-slate-900 via-cyan-950/40 to-slate-900 border border-cyan-500/30 text-left shadow-2xl relative overflow-hidden space-y-5">
+            <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+            
+            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+              <div className="space-y-3 max-w-2xl">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono font-bold uppercase tracking-wider bg-cyan-500/15 border border-cyan-500/30 text-cyan-300">
+                    <Stethoscope size={11} className="text-cyan-400" />
+                    Clinician Co-Pilot Protocol • 100% Free
+                  </span>
+                  <span className="inline-flex items-center px-2 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider bg-amber-500/10 border border-amber-500/20 text-amber-300">
+                    Baseline Score: {score}/100
+                  </span>
+                </div>
+
+                <h3 className="text-xl sm:text-2xl font-display uppercase tracking-tight text-white font-black leading-tight">
+                  Take Your Baseline Score to Your GP with Our Printable Consultation Workbook
+                </h3>
+
+                <p className="text-slate-350 text-xs sm:text-sm font-light leading-relaxed">
+                  Raw assessment scores and wearable biometrics are not a clinical diagnosis. Don't speculate with unvetted supplements—take our structured 4-page <strong>Clinician Co-Pilot Workbook</strong> directly to your doctor. Includes our Level 1 Core Tri-Marker requisition (ApoB, HbA1c, hs-CRP), 14-day vital signs log, and word-for-word physician discussion scripts.
+                </p>
+              </div>
+
+              <div className="shrink-0 flex flex-col sm:flex-row lg:flex-col gap-3">
+                <Link
+                  to="/clinician-copilot"
+                  className="inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:scale-[1.02] active:scale-[0.98] text-center"
+                >
+                  <FileText size={15} />
+                  <span>Open Clinician Co-Pilot &amp; Script →</span>
+                </Link>
+                <a
+                  href="/assets/docs/clinical-baseline-consultation-workbook.pdf"
+                  download="clinical-baseline-consultation-workbook.pdf"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700 hover:border-slate-600 text-slate-300 hover:text-white text-[11px] font-bold uppercase tracking-wider transition-all text-center"
+                >
+                  <span>Download Direct PDF ($0)</span>
+                </a>
+              </div>
             </div>
           </div>
 

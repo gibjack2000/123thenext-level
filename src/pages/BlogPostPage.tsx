@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Calendar, Tag as TagIcon, Share2, Star, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Calendar, Tag as TagIcon, Share2, Star, ExternalLink, Stethoscope, FileText } from 'lucide-react';
 import { motion } from 'motion/react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { BlogPost } from '../types';
@@ -357,6 +357,42 @@ export default function BlogPostPage() {
             ))}
           </div>
         )}
+
+        {/* Clinician Co-Pilot Bottom CTA Box for Pillar Articles */}
+        <div className="mt-14 p-7 sm:p-9 rounded-[2rem] bg-gradient-to-br from-slate-900 via-slate-950 to-indigo-950 border border-cyan-500/30 text-white shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="space-y-3 max-w-xl text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-[10px] font-mono uppercase tracking-wider font-bold">
+                <Stethoscope size={12} className="text-cyan-400" />
+                <span>Free Clinician Co-Pilot • Collaborative GP Protocol</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-display uppercase tracking-tight text-white font-black leading-tight">
+                Turn This Article's Protocols Into Safe Clinical Action
+              </h3>
+              <p className="text-slate-350 text-xs sm:text-sm font-light leading-relaxed">
+                Raw biohacks without baseline laboratory data carry real physiological risks. Download our 100% free 4-page <strong>Clinician Co-Pilot Workbook</strong>, featuring our 14-day vital signs log, Level 1 Core Tri-Marker requisition (ApoB, HbA1c, hs-CRP), and word-for-word physician discussion scripts.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row md:flex-col gap-3 shrink-0">
+              <Link
+                to="/clinician-copilot"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-lg shadow-cyan-500/20 hover:scale-[1.02] active:scale-[0.98] text-center"
+              >
+                <FileText size={14} />
+                <span>Open Clinician Co-Pilot →</span>
+              </Link>
+              <Link
+                to="/health-quiz"
+                className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 font-bold text-xs uppercase tracking-wider transition-all text-center"
+              >
+                <span>Take 5-Min Baseline Quiz</span>
+              </Link>
+            </div>
+          </div>
+        </div>
 
         <BlogNewsletterBanner currentCategory={post.category} />
       </article>

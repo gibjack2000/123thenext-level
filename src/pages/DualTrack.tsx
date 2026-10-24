@@ -517,14 +517,23 @@ export default function DualTrack() {
                       Download the official workbook to record and discuss your quarterly metrics with your GP.
                     </p>
                   </div>
-                  <a
-                    href="/assets/docs/clinical-baseline-consultation-template.pdf"
-                    download="clinical-baseline-consultation-template.pdf"
-                    className="inline-flex items-center gap-2.5 py-3.5 px-6 bg-gradient-to-r from-wellness-cyan to-indigo-600 hover:from-wellness-cyan-light hover:to-indigo-500 text-white border border-wellness-cyan/20 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-lg shadow-wellness-cyan/15 hover:scale-[1.02] active:scale-[0.98] cursor-pointer whitespace-nowrap"
-                  >
-                    <Download size={14} />
-                    <span>Download PDF</span>
-                  </a>
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <Link
+                      to="/clinician-copilot"
+                      className="inline-flex items-center gap-2 py-3.5 px-5 bg-wellness-cyan hover:bg-wellness-cyan-light text-slate-950 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-lg shadow-wellness-cyan/15 hover:scale-[1.02] active:scale-[0.98] cursor-pointer whitespace-nowrap"
+                    >
+                      <span>Interactive Co-Pilot</span>
+                      <span>➔</span>
+                    </Link>
+                    <a
+                      href="/assets/docs/clinical-baseline-consultation-workbook.pdf"
+                      download="clinical-baseline-consultation-workbook.pdf"
+                      className="inline-flex items-center gap-2 py-3.5 px-4 bg-slate-900 border border-slate-700 hover:border-slate-500 text-slate-200 hover:text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer whitespace-nowrap"
+                    >
+                      <Download size={14} />
+                      <span>PDF</span>
+                    </a>
+                  </div>
                 </div>
 
                 {/* Integration Steps */}

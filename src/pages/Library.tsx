@@ -151,7 +151,7 @@ export default function LibraryPage() {
       priceBadge: "$0.00 FREE",
       title: "The Clinical Baseline Workbook & GP Consultation Template",
       shortTitle: "GP Consultation Workbook",
-      description: "Cross the bridge from guessing to knowing with this 3-page clinician-ready consultation workbook. Includes our Lola Vital Check 56 biomarker breakdown, laboratory draw checklist, and a printable template to co-evaluate your telemetry with your doctor.",
+      description: "Cross the bridge from guessing to knowing with this 4-page clinician-ready consultation workbook. Includes our Lola Vital Check 56 biomarker breakdown, laboratory draw checklist, and a printable template to co-evaluate your telemetry with your doctor.",
       fileUrl: "/assets/docs/clinical-baseline-consultation-workbook.pdf",
       fileName: "clinical-baseline-consultation-workbook.pdf",
       coverImage: "/assets/images/shop/gp_consultation_cover.png",
@@ -373,6 +373,16 @@ export default function LibraryPage() {
                   <span>{res.buttonText}</span>
                   <span>➔</span>
                 </a>
+
+                {res.id === 'clinical-workbook' && (
+                  <Link
+                    to="/clinician-copilot"
+                    className="w-full py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition bg-cyan-950/60 hover:bg-cyan-900/60 border border-cyan-500/30 text-cyan-300"
+                  >
+                    <span>View Interactive Co-Pilot &amp; GP Script</span>
+                    <span>➔</span>
+                  </Link>
+                )}
 
                 <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400 font-mono text-center">
                   <ShieldCheck size={12} className="text-emerald-400" />

@@ -697,13 +697,20 @@ export default function StartHere() {
                   </p>
                 </div>
 
-                <div className="pt-2">
-                  <a
-                    href="/assets/docs/clinical-baseline-consultation-template.pdf"
-                    download="clinical-baseline-consultation-template.pdf"
+                <div className="pt-2 flex flex-wrap justify-center gap-3">
+                  <Link
+                    to="/clinician-copilot"
                     className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
                   >
-                    Download Consultation Template Workbook
+                    Open Clinician Co-Pilot Suite →
+                  </Link>
+                  <a
+                    href="/assets/docs/clinical-baseline-consultation-workbook.pdf"
+                    download="clinical-baseline-consultation-workbook.pdf"
+                    className="inline-flex justify-center items-center gap-2 px-6 py-4 bg-slate-900 border border-slate-700 hover:border-slate-500 text-slate-200 hover:text-white rounded-2xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+                  >
+                    <Download size={16} />
+                    <span>Download PDF</span>
                   </a>
                 </div>
               </div>

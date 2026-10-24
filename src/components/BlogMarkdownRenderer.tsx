@@ -137,16 +137,21 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
         const isQuiz = validUrl.includes('health-quiz') || validUrl.includes('/quiz');
         const isStore = validUrl.includes('/store');
         const isGuide = validUrl.includes('premium-guides') || validUrl.includes('/guides');
+        const isCopilot = validUrl.includes('clinician-copilot');
 
         const linkStyles = `inline-flex items-baseline gap-1 font-bold underline decoration-2 underline-offset-2 transition-all duration-200 cursor-pointer ${
           isDark
-            ? isQuiz
+            ? isCopilot
+              ? 'text-amber-400 decoration-amber-500/50 hover:text-amber-300 hover:decoration-amber-400'
+              : isQuiz
               ? 'text-emerald-400 decoration-emerald-500/50 hover:text-emerald-300 hover:decoration-emerald-400'
               : isGuide
               ? 'text-indigo-400 decoration-indigo-500/50 hover:text-indigo-300 hover:decoration-indigo-400'
               : isStore
               ? 'text-cyan-400 decoration-cyan-500/50 hover:text-cyan-300 hover:decoration-cyan-400'
               : 'text-blue-400 decoration-blue-500/50 hover:text-blue-300 hover:decoration-blue-400'
+            : isCopilot
+            ? 'text-amber-600 decoration-amber-500/40 hover:text-amber-700 hover:decoration-amber-600'
             : isQuiz
             ? 'text-emerald-600 decoration-emerald-500/40 hover:text-emerald-700 hover:decoration-emerald-600'
             : isGuide

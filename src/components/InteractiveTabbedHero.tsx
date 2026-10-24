@@ -64,8 +64,8 @@ export const tabsData: TabData[] = [
     ],
     primaryCtaText: 'Explore Diagnostic Guide →',
     primaryCtaLink: '/guide',
-    secondaryCtaText: 'Download GP Template (PDF) →',
-    secondaryCtaLink: '/clinical-baseline-consultation-template.pdf',
+    secondaryCtaText: 'Clinician Co-Pilot Workbook →',
+    secondaryCtaLink: '/clinician-copilot',
     posterImage: '/gp_consultation_cover.png'
   },
   {

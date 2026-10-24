@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 
 const TICKER_ITEMS = [
   {
-    badge: "🎁 100% Free Onboarding",
+    badge: "🎁 NEW CO-PILOT",
     badgeColor: "bg-cyan-500/15 text-cyan-400 border-cyan-500/30",
-    text: "Confused by longevity science? Read our 5-page translator & diagnose your score instantly.",
-    cta: "Access Free Toolkit ➔",
-    href: "/#onboarding-gateway",
-    isInternal: false
+    text: "🎁 NEW: Clinician Co-Pilot Workbook & GP Consultation Script — Take your baselines to your GP.",
+    cta: "Access Free Workbook ➔",
+    href: "/clinician-copilot",
+    isInternal: true
   },
   {
     badge: "⚡ 5-Min Diagnostic",

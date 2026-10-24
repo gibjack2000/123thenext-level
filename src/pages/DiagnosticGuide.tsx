@@ -89,16 +89,14 @@ export const DiagnosticGuide: React.FC = () => {
               </button>
             </div>
 
-            {/* Download Template Link */}
-            <a
-              href="/clinical-baseline-consultation-template.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-cyan-400 hover:text-cyan-300 font-bold text-xs uppercase tracking-wider transition-all shadow-sm"
+            {/* Clinician Co-Pilot Link */}
+            <Link
+              to="/clinician-copilot"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-cyan-950/60 hover:bg-cyan-900/60 border border-cyan-500/40 text-cyan-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all shadow-sm"
             >
-              <Download size={14} />
-              <span>Download GP Consultation Template (PDF)</span>
-            </a>
+              <FileText size={14} />
+              <span>Clinician Co-Pilot &amp; GP Script (PDF Included)</span>
+            </Link>
           </div>
         </div>
 
@@ -422,22 +420,27 @@ export const DiagnosticGuide: React.FC = () => {
               <span>CLINICAL CO-PILOT TOOLKIT</span>
             </div>
             <h3 className="text-2xl sm:text-3xl font-display font-black uppercase text-white">
-              Download the 3-Page GP Consultation Template
+              The Clinician Co-Pilot &amp; GP Consultation Workbook
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
-              Bridge the gap between consumer health telemetry and clinical evaluation. This printable workbook organizes your blood draw metrics, resting telemetry, and specific proactive questions for your GP or primary care physician.
+              Bridge the gap between consumer health telemetry and clinical evaluation. This 4-page printable workbook organizes your blood draw metrics, resting telemetry, and specific proactive questions for your GP or primary care physician.
             </p>
           </div>
 
           <div className="shrink-0 flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
-            <a
-              href="/clinical-baseline-consultation-template.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/clinician-copilot"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/25 active:scale-95 cursor-pointer"
             >
+              <span>Open Clinician Co-Pilot ➔</span>
+            </Link>
+            <a
+              href="/assets/docs/clinical-baseline-consultation-workbook.pdf"
+              download="clinical-baseline-consultation-workbook.pdf"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all"
+            >
               <Download size={16} />
-              <span>Download PDF Template</span>
+              <span>Download PDF</span>
             </a>
             <Link
               to="/store"

@@ -10,14 +10,15 @@ interface TickerItem {
 export const TickerTapeBanner: React.FC = () => {
   const line1Items: TickerItem[] = [
     { label: '⚡ GEROSCIENCE PIPELINE ONLINE', highlight: true },
+    { label: '🎁 NEW: Clinician Co-Pilot Workbook & GP Consultation Script', link: '/clinician-copilot', highlight: true },
     { label: '🧬 EPIGENETIC AGE & WHOLE-METHYLOME TESTING ACTIVE', highlight: false },
     { label: '🎯 5-MINUTE LONGEVITY BASELINE QUIZ', link: '/quiz' },
   ];
 
   const line2Items: TickerItem[] = [
+    { label: '🎁 NEW: Clinician Co-Pilot Workbook & GP Consultation Script', link: '/clinician-copilot', highlight: true },
     { label: '📘 FREE 28-PAGE LONGEVITY BLUEPRINT (PDF AVAILABLE)', link: '/the-next-level-lifespan-v7.pdf' },
     { label: '🩸 DIRECT CLINICAL LAB DRAWS: HEALTHLABS (US) • LOLA (UK) • MELIO (ES)', link: '/store-us' },
-    { label: '🩺 CLINICIAN CONSULTATION TEMPLATE INCLUDED', link: '/clinical-baseline-consultation-template.pdf' },
   ];
 
   const renderItem = (item: TickerItem, key: string) => {

@@ -384,13 +384,12 @@ export const DiagnosticRoadmap: React.FC = () => {
                 <span>Discover the Anti-Aging Health Revolution & Molecular Science →</span>
               </Link>
               
-              <a
-                href="/assets/docs/clinical-baseline-consultation-template.pdf"
-                download="clinical-baseline-consultation-template.pdf"
-                className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-slate-400 hover:text-cyan-400 transition-colors text-center cursor-pointer"
+              <Link
+                to="/clinician-copilot"
+                className="inline-flex items-center gap-2 text-[10px] sm:text-xs font-mono uppercase tracking-wider text-amber-400 hover:text-amber-300 transition-colors text-center cursor-pointer"
               >
-                📥 Or, Download the Printable GP Consultation Template (PDF) Directly
-              </a>
+                🎁 Or, Access the Free Clinician Co-Pilot Workbook &amp; GP Consultation Script →
+              </Link>
             </div>
           </div>
         </div>

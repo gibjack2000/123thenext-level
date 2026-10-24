@@ -110,6 +110,7 @@ const StoreES = lazy(() => import('./pages/StoreES'));
 const DiagnosticGuide = lazy(() => import('./pages/DiagnosticGuide'));
 const Science = lazy(() => import('./pages/Science'));
 const Library = lazy(() => import('./pages/Library'));
+const ClinicianCoPilot = lazy(() => import('./pages/ClinicianCoPilot'));
 
 
 // Loading spinner shown during page transitions
@@ -231,6 +232,9 @@ function App() {
                 <Route path="/free-documents" element={<Navigate to="/free-pdfs" replace />} />
                 <Route path="/quiz" element={<Navigate to="/health-quiz" replace />} />
                 <Route path="/quiz-results" element={<QuizResults />} />
+                <Route path="/clinician-copilot" element={<ClinicianCoPilot />} />
+                <Route path="/clinician-copilot-workbook" element={<Navigate to="/clinician-copilot" replace />} />
+                <Route path="/gp-script" element={<Navigate to="/clinician-copilot" replace />} />
 
                 {/* Diagnostics Route: Phase 1 Onboarding & Blood Panels */}
                 <Route path="/guide" element={<DiagnosticGuide />} />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 import { 
   Sparkles, 
@@ -11,7 +11,9 @@ import {
   Lock, 
   ExternalLink, 
   RefreshCw,
-  AlertCircle
+  AlertCircle,
+  Stethoscope,
+  FileText
 } from 'lucide-react';
 import { supabase as importedSupabase, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
@@ -315,6 +317,41 @@ export const StoreES: React.FC = () => {
         </div>
       ) : (
         <div className="max-w-7xl mx-auto space-y-16">
+          {/* Clinician Co-Pilot Helper Banner above Clinical Lab Panels */}
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-cyan-950/40 to-slate-900 border border-cyan-500/30 p-6 sm:p-8 shadow-2xl backdrop-blur-md">
+            <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+              <div className="space-y-2 max-w-3xl text-left">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-[10px] font-mono uppercase tracking-wider font-bold">
+                  <Stethoscope size={12} className="text-cyan-400" />
+                  <span>Guía de Consulta Médica • 100% Gratuita</span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-display uppercase tracking-tight text-white font-bold">
+                  ¿Planea un Análisis Clínico (Melio / Lola)? Consulte a su Médico de Cabecera
+                </h3>
+                <p className="text-slate-350 text-xs sm:text-sm font-light leading-relaxed">
+                  Antes de solicitar análisis de sangre privados o iniciar suplementación terapéutica, descargue nuestro <strong>Cuaderno Clínico Copiloto (Clinician Co-Pilot)</strong> gratuito de 4 páginas. Incluye un registro de constantes vitales de 14 días, la solicitud del Tri-Marcador Nivel 1 (ApoB, HbA1c, hs-CRP) y guiones de diálogo para evaluar sus resultados de forma colaborativa.
+                </p>
+              </div>
+              <div className="shrink-0 flex flex-col sm:flex-row lg:flex-col gap-2.5">
+                <Link
+                  to="/clinician-copilot"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-lg shadow-cyan-500/20 hover:scale-[1.02] active:scale-[0.98] text-center"
+                >
+                  <FileText size={14} />
+                  <span>Abrir Clinician Co-Pilot →</span>
+                </Link>
+                <a
+                  href="/assets/docs/clinical-baseline-consultation-workbook.pdf"
+                  download="clinical-baseline-consultation-workbook.pdf"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-slate-600 text-slate-300 hover:text-white text-[11px] font-bold uppercase tracking-wider transition-all text-center"
+                >
+                  <span>Descargar PDF Directo</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
           {/* TIER 1: CLINICAL DIAGNOSTICS & DIRECT PARTNERS */}
           {clinicalPartners.length > 0 && (
             <div className="space-y-6">
