@@ -141,10 +141,17 @@ export const Navbar: React.FC = () => {
           </div>
 
           <Link 
-            to="/free-pdfs" 
+            to="/library#free-pdfs" 
             className={`transition-colors ${['/free-pdfs', '/library'].includes(location.pathname) ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
             📁 Free PDFs
+          </Link>
+
+          <Link 
+            to="/clinician-copilot" 
+            className={`transition-colors ${location.pathname === '/clinician-copilot' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+          >
+            🩺 Clinician Co-Pilot
           </Link>
 
           <Link 
@@ -243,8 +250,9 @@ export const Navbar: React.FC = () => {
           <Link to="/fitness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">⚡ Performance & Bio-Data</Link>
           <Link to="/nutrition" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🥗 Metabolic Nutrition</Link>
           <Link to="/blog-post-womens-health" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🌸 Women's Health</Link>
-          <Link to="/free-pdfs" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">📁 Free PDFs ($0 Download)</Link>
-          <Link to="/premium-guides" onClick={closeMobileMenu} className="block text-amber-400 font-bold py-1">⚡ Premium Guides (9 Books)</Link>
+          <Link to="/library#free-pdfs" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">📁 Free PDFs ($0 Download)</Link>
+          <Link to="/clinician-copilot" onClick={closeMobileMenu} className="block text-amber-400 font-bold py-1">🩺 Clinician Co-Pilot</Link>
+          <Link to="/premium-guides" onClick={closeMobileMenu} className="block text-amber-400/90 font-bold py-1">⚡ Premium Guides (9 Books)</Link>
           <Link to="/blog" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">📚 Blogs & Science Library</Link>
           <Link to={`/store-${selectedRegion}`} onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🛒 Sovereign Store</Link>
           

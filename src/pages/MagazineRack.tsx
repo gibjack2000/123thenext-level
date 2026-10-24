@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Sparkles, BookOpen, Clock, Tag } from 'lucide-react';
+import { ArrowLeft, Sparkles, BookOpen, Clock, Tag, Stethoscope, FileText } from 'lucide-react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { BlogPost } from '../types';
 import { guides as fallbackGuides } from '../data/guides';
@@ -286,6 +286,42 @@ export default function MagazineRack() {
             })}
           </div>
         )}
+
+        {/* End-of-Articles Clinician Co-Pilot Baseline CTA Card */}
+        <div className="mt-20 p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-cyan-950/40 border border-cyan-500/30 text-white shadow-2xl relative overflow-hidden text-left">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="space-y-3 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-[10px] font-mono uppercase tracking-wider font-bold">
+                <Stethoscope size={12} className="text-cyan-400" />
+                <span>Free Clinician Co-Pilot • Diagnostic Baseline Protocol</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-display uppercase tracking-tight text-white font-black leading-tight">
+                Log Your Baselines on the Interactive Clinician Co-Pilot
+              </h3>
+              <p className="text-slate-350 text-xs sm:text-sm font-light leading-relaxed">
+                Before implementing high-dose protocols or buying unnecessary supplements, map your baseline data. Record your 14-day resting vitals, log your foundational supplements, and generate a printable record with word-for-word GP discussion scripts for your next consultation.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row md:flex-col gap-3 shrink-0">
+              <Link
+                to="/clinician-copilot"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-lg shadow-cyan-500/20 hover:scale-[1.02] active:scale-[0.98] text-center"
+              >
+                <FileText size={14} />
+                <span>Log Baselines on Clinician Co-Pilot →</span>
+              </Link>
+              <Link
+                to="/quiz"
+                className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-slate-200 font-bold text-xs uppercase tracking-wider transition-all text-center"
+              >
+                <span>Take 5-Min Wellness Quiz</span>
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

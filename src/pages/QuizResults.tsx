@@ -378,7 +378,7 @@ export default function QuizResults() {
                 </div>
 
                 <h3 className="text-xl sm:text-2xl font-display uppercase tracking-tight text-white font-black leading-tight">
-                  Take Your Baseline Score to Your GP with Our Printable Consultation Workbook
+                  Bring your metrics to your GP — Open your Interactive Clinician Co-Pilot Workbook
                 </h3>
 
                 <p className="text-slate-350 text-xs sm:text-sm font-light leading-relaxed">

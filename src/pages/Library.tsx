@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams, useLocation, Link } from 'react-router-dom';
-import { CheckCircle2, Lock, ShieldCheck, Download, Sparkles, BookOpen, ArrowDown, FileText, Check } from 'lucide-react';
+import { CheckCircle2, Lock, ShieldCheck, Download, Sparkles, BookOpen, ArrowDown, FileText, Check, ArrowRight } from 'lucide-react';
 import { DigitalGuides } from '../components/DigitalGuides';
+import { COMPLIMENTARY_FREE_GUIDES, PREMIUM_MASTER_GUIDES } from '../config/guides';
 
 interface PaidDownloadState {
   status: 'idle' | 'verifying' | 'verified' | 'error';
@@ -123,49 +124,6 @@ export default function LibraryPage() {
     }
   };
 
-  const freeResources = [
-    {
-      id: "idiots-guide",
-      tag: "Everyday Translator (100% Free • $0)",
-      tagColor: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
-      priceBadge: "$0.00 FREE",
-      title: "An Idiot's Guide to the Next Level Lifespan",
-      shortTitle: "An Idiot's Guide",
-      description: "A ruthlessly honest, 5-page translator designed to decode our complex molecular science, explain why living longer is a curse if you are frail, and give you your immediate, zero-cost daily habits.",
-      fileUrl: "/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf",
-      fileName: "idiots-guide-to-the-next-level-lifespan.pdf",
-      coverImage: "/covers/the-next-level-lifespan-cover.png",
-      buttonText: "Instant $0 Direct Download (PDF)",
-      buttonStyle: "bg-cyan-500 text-slate-950 hover:bg-cyan-400 shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.99]",
-      highlights: [
-        "Simple post-meal hacks & glucose stabilization",
-        "Circadian breathing rules & autonomic tone",
-        "Epigenetics & age-reversal made simple",
-        "Zero-cost immediate daily longevity habits checklist"
-      ]
-    },
-    {
-      id: "clinical-workbook",
-      tag: "Clinician Co-Pilot Suite (100% Free • $0)",
-      tagColor: "bg-amber-500/10 text-amber-400 border-amber-500/20",
-      priceBadge: "$0.00 FREE",
-      title: "THE CLINICIAN CO-PILOT: FROM GUESSING TO KNOWING",
-      shortTitle: "The Clinician Co-Pilot: From Guessing to Knowing",
-      description: "Cross the bridge from guessing to knowing with this 4-page clinician-ready consultation workbook. Includes our Lola Vital Check 56 biomarker breakdown, laboratory draw checklist, and a printable template to co-evaluate your telemetry with your doctor.",
-      fileUrl: "/assets/docs/clinical-baseline-consultation-workbook.pdf",
-      fileName: "clinical-baseline-consultation-workbook.pdf",
-      coverImage: "/assets/images/shop/gp_consultation_cover.png",
-      buttonText: "Instant $0 Direct Download (PDF)",
-      buttonStyle: "bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 hover:from-amber-400 hover:to-orange-400 shadow-amber-500/20 hover:scale-[1.01] active:scale-[0.99]",
-      highlights: [
-        "Printable doctor note & consultation template",
-        "Lola Vital Check 56 biomarker breakdown",
-        "Laboratory draw checklist & reference targets",
-        "Actionable clinician co-pilot discussion questions"
-      ]
-    }
-  ];
-
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans antialiased selection:bg-cyan-500/30">
 
@@ -258,14 +216,14 @@ export default function LibraryPage() {
               href="#free-pdfs"
               className="px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500 hover:text-slate-950 transition-all shadow-md flex items-center gap-2 cursor-pointer"
             >
-              <span>📁 2 Free Open-Access PDFs ($0)</span>
+              <span>📁 2 Free Open-Access PDFs ($0.00)</span>
               <ArrowDown size={14} />
             </a>
             <a
               href="#premium-guides"
               className="px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-amber-500/15 text-amber-400 border border-amber-500/30 hover:bg-amber-500 hover:text-slate-950 transition-all shadow-md flex items-center gap-2 cursor-pointer"
             >
-              <span>⚡ 9 Premium Master Guides</span>
+              <span>⚡ 9 Premium Master Guides (£29 / $29)</span>
               <ArrowDown size={14} />
             </a>
           </div>
@@ -273,143 +231,235 @@ export default function LibraryPage() {
       </header>
 
       {/* ============================================================== */}
-      {/* SECTION 1: 2 FREE OPEN-ACCESS CLINICAL DOCUMENTS ($0 DOWNLOAD) */}
+      {/* SECTION 1: COMPLIMENTARY TRANSLATION & BASELINE GUIDES ($0.00) */}
       {/* ============================================================== */}
       <section id="free-pdfs" className="max-w-6xl mx-auto px-6 pt-16 pb-16 scroll-mt-24">
         <div className="space-y-4 text-center sm:text-left mb-10">
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
             <span className="inline-block text-[10px] font-black uppercase tracking-widest bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 px-3 py-1 rounded-full">
-              🎁 100% Free Open-Access Documents
+              🎁 Section 1: Complimentary Translation &amp; Baseline Guides
             </span>
             <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-2.5 py-1 rounded-full">
-              <span>✓ Instant $0 Direct Download</span>
+              <span>100% Free PDFs — $0.00</span>
             </span>
             <span className="inline-flex items-center gap-1 text-[10px] font-bold text-slate-400 bg-slate-900 border border-slate-800 px-2.5 py-1 rounded-full">
-              <span>No Paywall • No Email Required</span>
+              <span>No Paywall • Direct Download</span>
             </span>
           </div>
 
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white tracking-tight">
-            Free Open-Access Clinical Documents
+            Complimentary Translation &amp; Baseline Guides (100% Free)
           </h2>
           <p className="text-xs sm:text-sm text-slate-400 max-w-2xl leading-relaxed">
-            Download our two flagship foundational guides immediately at zero cost ($0). Click the direct download button on either manual to save the complete, unabridged PDF directly to your device.
+            Download our two foundational clinical manuals immediately at zero cost ($0.00). Save the PDFs directly to your device or launch the interactive online workbook to co-evaluate your telemetry with your doctor.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 items-stretch">
-          {freeResources.map((res) => (
-            <div
-              key={res.id}
-              className="group p-6 sm:p-8 rounded-3xl bg-slate-900 border border-cyan-500/20 hover:border-cyan-500/50 flex flex-col justify-between space-y-8 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/5 transition duration-300 relative overflow-hidden"
-            >
-              {/* Subtle Ambient Corner Glow */}
-              <div className="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none" />
+          
+          {/* Card 1: An Idiot's Guide to the Next Level Lifespan */}
+          <div className="group p-6 sm:p-8 rounded-3xl bg-slate-900 border border-cyan-500/20 hover:border-cyan-500/50 flex flex-col justify-between space-y-8 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/5 transition duration-300 relative overflow-hidden">
+            <div className="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 rounded-full bg-cyan-500/10 blur-3xl pointer-events-none" />
 
-              <div className="space-y-6 relative z-10">
-
-                {/* Book Cover Container */}
-                <div className="relative max-w-[280px] mx-auto w-full flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-500">
-                  <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-tr from-cyan-500/25 to-indigo-500/25 blur-lg opacity-40 group-hover:opacity-75 transition duration-500" />
-                  <img
-                    src={res.coverImage}
-                    alt={res.title}
-                    className="relative w-full h-auto max-h-[380px] object-contain rounded-2xl border border-slate-800/90 shadow-2xl bg-slate-950"
-                  />
-                  <div className="absolute top-3 left-3 z-10">
-                    <span className="px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-slate-950/90 border border-cyan-500/40 text-cyan-300 shadow-lg backdrop-blur-md">
-                      {res.priceBadge}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content Block */}
-                <div className="space-y-3 text-left">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className={`inline-block text-[10px] font-bold px-2.5 py-0.5 rounded border uppercase tracking-wider ${res.tagColor}`}>
-                      {res.tag}
-                    </span>
-                    <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/60 border border-emerald-800/40 px-2 py-0.5 rounded">
-                      $0.00
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl font-bold text-white tracking-tight leading-snug">
-                    {res.title}
-                  </h3>
-                  
-                  <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-sans">
-                    {res.description}
-                  </p>
-                </div>
-
-                {/* Key Checklist Highlights */}
-                <div className="pt-3 border-t border-slate-800/80 space-y-2 text-left">
-                  <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">What's Inside:</p>
-                  <ul className="space-y-1.5 text-xs text-slate-300">
-                    {res.highlights.map((h, idx) => (
-                      <li key={idx} className="flex items-center space-x-2">
-                        <span className="text-cyan-400 font-bold">✓</span>
-                        <span>{h}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-              </div>
-
-              {/* Action Trigger: Instant $0 Direct Download */}
-              <div className="pt-4 border-t border-slate-800/80 relative z-10 space-y-2">
-                <a
-                  href={res.fileUrl}
-                  download={res.fileName}
-                  onClick={(e) => {
-                    // Trigger instant download with guaranteed programmatic backup
-                    triggerDirectDownload(res.fileUrl, res.fileName, res.title);
-                  }}
-                  className={`w-full py-4 px-5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2 transition duration-200 shadow-lg cursor-pointer ${res.buttonStyle}`}
-                >
-                  <Download size={16} />
-                  <span>{res.buttonText}</span>
-                  <span>➔</span>
-                </a>
-
-                {res.id === 'clinical-workbook' && (
-                  <Link
-                    to="/clinician-copilot"
-                    className="w-full py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition bg-cyan-950/60 hover:bg-cyan-900/60 border border-cyan-500/30 text-cyan-300"
-                  >
-                    <span>View Interactive Co-Pilot &amp; GP Script</span>
-                    <span>➔</span>
-                  </Link>
-                )}
-
-                <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400 font-mono text-center">
-                  <ShieldCheck size={12} className="text-emerald-400" />
-                  <span>Instant Direct PDF • Zero Cost ($0) • Unrestricted Open-Access</span>
+            <div className="space-y-6 relative z-10">
+              <div className="relative max-w-[280px] mx-auto w-full flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-500">
+                <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-tr from-cyan-500/25 to-indigo-500/25 blur-lg opacity-40 group-hover:opacity-75 transition duration-500" />
+                <img
+                  src="/covers/the-next-level-lifespan-cover.png"
+                  alt="An Idiot's Guide to the Next Level Lifespan"
+                  className="relative w-full h-auto max-h-[380px] object-contain rounded-2xl border border-slate-800/90 shadow-2xl bg-slate-950"
+                />
+                <div className="absolute top-3 left-3 z-10">
+                  <span className="px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-slate-950/90 border border-cyan-500/40 text-cyan-300 shadow-lg backdrop-blur-md">
+                    $0.00 FREE
+                  </span>
                 </div>
               </div>
 
+              <div className="space-y-3 text-left">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="inline-block text-[10px] font-bold px-2.5 py-0.5 rounded border uppercase tracking-wider bg-cyan-500/10 text-cyan-400 border-cyan-500/20">
+                    Everyday Translator (100% Free • $0)
+                  </span>
+                  <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/60 border border-emerald-800/40 px-2 py-0.5 rounded">
+                    $0.00
+                  </span>
+                </div>
+
+                <h3 className="text-xl font-bold text-white tracking-tight leading-snug">
+                  An Idiot's Guide to the Next Level Lifespan
+                </h3>
+                
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-sans">
+                  A ruthlessly honest, 5-page translator designed to decode our complex molecular science, explain why living longer is a curse if you are frail, and give you your immediate, zero-cost daily habits.
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-slate-800/80 space-y-2 text-left">
+                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">What's Inside:</p>
+                <ul className="space-y-1.5 text-xs text-slate-300">
+                  <li className="flex items-center space-x-2">
+                    <span className="text-cyan-400 font-bold">✓</span>
+                    <span>Simple post-meal hacks &amp; glucose stabilization</span>
+                  </li>
+                  <li className="flex items-center space-x-2">
+                    <span className="text-cyan-400 font-bold">✓</span>
+                    <span>Circadian breathing rules &amp; autonomic tone</span>
+                  </li>
+                  <li className="flex items-center space-x-2">
+                    <span className="text-cyan-400 font-bold">✓</span>
+                    <span>Epigenetics &amp; age-reversal made simple</span>
+                  </li>
+                  <li className="flex items-center space-x-2">
+                    <span className="text-cyan-400 font-bold">✓</span>
+                    <span>Zero-cost immediate daily longevity habits checklist</span>
+                  </li>
+                </ul>
+              </div>
             </div>
-          ))}
+
+            <div className="pt-4 border-t border-slate-800/80 relative z-10 space-y-2">
+              <a
+                href="/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf"
+                download="idiots-guide-to-the-next-level-lifespan.pdf"
+                onClick={() => {
+                  triggerDirectDownload(
+                    '/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf',
+                    'idiots-guide-to-the-next-level-lifespan.pdf',
+                    "An Idiot's Guide to the Next Level Lifespan"
+                  );
+                }}
+                className="w-full py-4 px-5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2 transition duration-200 shadow-lg cursor-pointer bg-cyan-500 text-slate-950 hover:bg-cyan-400 shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.99]"
+              >
+                <Download size={16} />
+                <span>Download Free Guide (PDF)</span>
+                <span>➔</span>
+              </a>
+
+              <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400 font-mono text-center">
+                <ShieldCheck size={12} className="text-emerald-400" />
+                <span>Instant Direct PDF • Zero Cost ($0.00) • Unrestricted Open-Access</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 2: The Clinician Co-Pilot: From Guessing to Knowing */}
+          <div className="group p-6 sm:p-8 rounded-3xl bg-slate-900 border border-amber-500/30 hover:border-amber-500/60 flex flex-col justify-between space-y-8 shadow-xl hover:shadow-2xl hover:shadow-amber-500/5 transition duration-300 relative overflow-hidden">
+            <div className="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 rounded-full bg-amber-500/10 blur-3xl pointer-events-none" />
+
+            <div className="space-y-6 relative z-10">
+              <div className="relative max-w-[280px] mx-auto w-full flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-500">
+                <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-tr from-amber-500/25 to-orange-500/25 blur-lg opacity-40 group-hover:opacity-75 transition duration-500" />
+                <img
+                  src="/assets/images/shop/gp_consultation_cover.png"
+                  alt="The Clinician Co-Pilot: From Guessing to Knowing"
+                  className="relative w-full h-auto max-h-[380px] object-contain rounded-2xl border border-slate-800/90 shadow-2xl bg-slate-950"
+                />
+                <div className="absolute top-3 left-3 z-10">
+                  <span className="px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-slate-950/90 border border-amber-500/40 text-amber-300 shadow-lg backdrop-blur-md">
+                    $0.00 FREE
+                  </span>
+                </div>
+              </div>
+
+              <div className="space-y-3 text-left">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="inline-block text-[10px] font-bold px-2.5 py-0.5 rounded border uppercase tracking-wider bg-amber-500/10 text-amber-400 border-amber-500/20">
+                    Clinician Co-Pilot Suite (100% Free • $0)
+                  </span>
+                  <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/60 border border-emerald-800/40 px-2 py-0.5 rounded">
+                    $0.00
+                  </span>
+                </div>
+
+                <h3 className="text-xl font-bold text-white tracking-tight leading-snug">
+                  The Clinician Co-Pilot: From Guessing to Knowing
+                </h3>
+
+                <p className="text-xs font-semibold text-amber-400/90 tracking-wide">
+                  A Progressive Diagnostic Roadmap &amp; Printable GP Consultation Workbook
+                </p>
+                
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-sans">
+                  Cross the bridge from guessing to knowing with this 4-page clinician-ready consultation workbook. Includes our Lola Vital Check 56 biomarker breakdown, laboratory draw checklist, and a printable template to co-evaluate your telemetry with your doctor.
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-slate-800/80 space-y-2 text-left">
+                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">What's Inside:</p>
+                <ul className="space-y-1.5 text-xs text-slate-300">
+                  <li className="flex items-center space-x-2">
+                    <span className="text-amber-400 font-bold">✓</span>
+                    <span>Printable doctor note &amp; consultation template</span>
+                  </li>
+                  <li className="flex items-center space-x-2">
+                    <span className="text-amber-400 font-bold">✓</span>
+                    <span>Lola Vital Check 56 biomarker breakdown</span>
+                  </li>
+                  <li className="flex items-center space-x-2">
+                    <span className="text-amber-400 font-bold">✓</span>
+                    <span>Laboratory draw checklist &amp; reference targets</span>
+                  </li>
+                  <li className="flex items-center space-x-2">
+                    <span className="text-amber-400 font-bold">✓</span>
+                    <span>Actionable clinician co-pilot discussion questions</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Dual CTAs for Card 2 */}
+            <div className="pt-4 border-t border-slate-800/80 relative z-10 space-y-2.5">
+              {/* Primary Button */}
+              <a
+                href="/assets/docs/clinical-baseline-consultation-workbook.pdf"
+                download="clinical-baseline-consultation-workbook.pdf"
+                onClick={() => {
+                  triggerDirectDownload(
+                    '/assets/docs/clinical-baseline-consultation-workbook.pdf',
+                    'clinical-baseline-consultation-workbook.pdf',
+                    "The Clinician Co-Pilot Workbook"
+                  );
+                }}
+                className="w-full py-4 px-5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2 transition duration-200 shadow-lg cursor-pointer bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 hover:from-amber-400 hover:to-orange-400 shadow-amber-500/20 hover:scale-[1.01] active:scale-[0.99]"
+              >
+                <Download size={16} />
+                <span>📥 Download Free PDF</span>
+              </a>
+
+              {/* Secondary Button */}
+              <Link
+                to="/clinician-copilot"
+                className="w-full py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition bg-cyan-950/60 hover:bg-cyan-900/70 border border-cyan-500/30 text-cyan-300 hover:text-white"
+              >
+                <span>✏️ Interactive Online Workbook ➔</span>
+              </Link>
+
+              <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400 font-mono text-center">
+                <ShieldCheck size={12} className="text-emerald-400" />
+                <span>Instant Direct PDF • Zero Cost ($0.00) • Unrestricted Open-Access</span>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
       {/* ============================================================== */}
-      {/* SECTION 2: ALL 9 PREMIUM MASTER GUIDES (100% INTACT)           */}
+      {/* SECTION 2: ALL 9 PREMIUM MASTER GUIDES (PAID MASTER SERIES)    */}
       {/* ============================================================== */}
       <section id="premium-guides" className="max-w-6xl mx-auto px-6 pt-16 pb-16 border-t border-slate-900 scroll-mt-24">
         <div className="space-y-4 text-center sm:text-left mb-10">
           <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
             <span className="inline-block text-[10px] font-black uppercase tracking-widest bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1 rounded-full">
-              ⚡ Actionable Master Execution Books (All 9 Guides)
+              ⚡ Section 2: Premium Digital Master Guides (All 9 Guides Intact)
+            </span>
+            <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-300 bg-amber-950/60 border border-amber-800/60 px-2.5 py-1 rounded-full">
+              <span>Paid Master Series — £29 / $29</span>
             </span>
             <span className="inline-flex items-center gap-1 text-[10px] font-bold text-slate-400 bg-slate-900 border border-slate-800 px-2.5 py-1 rounded-full">
               <Lock size={10} className="text-amber-400" />
               <span>Private R2 Storage Vault</span>
-            </span>
-            <span className="inline-flex items-center gap-1 text-[10px] font-bold text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-2.5 py-1 rounded-full">
-              <span>Stripe Checkout Verified</span>
             </span>
           </div>
 
@@ -433,7 +483,7 @@ export default function LibraryPage() {
           </div>
         </div>
 
-        {/* Embedded DigitalGuides Component Rendering ALL 9 Master Guides */}
+        {/* Embedded DigitalGuides Component Rendering ALL 9 Master Guides Intact */}
         <DigitalGuides showVaultBanner={true} />
       </section>
 

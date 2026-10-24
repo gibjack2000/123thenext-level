@@ -13,9 +13,13 @@ import {
   Stethoscope,
   ChevronRight,
   FileDown,
-  Loader2
+  Loader2,
+  ExternalLink,
+  Globe,
+  Activity,
+  ShieldCheck
 } from 'lucide-react';
-import { useMarket } from '../contexts/MarketContext';
+import { useMarket, Market } from '../contexts/MarketContext';
 
 // Interfaces for structured interactive form state
 interface VitalsRow {
@@ -93,7 +97,7 @@ const initialSupplements: SupplementItem[] = [
   { name: 'Vitamin D3 + K2 (MK-7)', checked: true, dose: '' },
   { name: 'Omega-3 EPA/DHA', checked: true, dose: '' },
   { name: 'Magnesium glycinate / malate', checked: true, dose: '' },
-  { name: 'Micronutrient matrix', checked: true, dose: '' },
+  { name: 'Multivitamin / Greens / Micronutrient matrix', checked: true, dose: '' },
 ];
 
 const initialRequisitions = {
@@ -123,8 +127,72 @@ const initialTelemetryRows: TelemetryRow[] = [
   { name: 'Peak post-meal glucose (mmol/L)', week1: '', week2: '', trend: '' },
 ];
 
-export default function ClinicianCoPilot() {
-  const { market } = useMarket();
+// Multi-Region Diagnostic URLs & Affiliate Data
+const DIAGNOSTIC_REGIONS = {
+  US: {
+    regionName: 'United States',
+    flag: '🇺🇸',
+    partnerName: 'HealthLabs',
+    badge: 'CLIA Certified & CAP Accredited (Quest / Labcorp)',
+    affiliateUrl: 'https://www.healthlabs.com/?affiliate=123znl', // [PLACEHOLDER_HEALTHLABS_AFFILIATE_URL]
+    optionA: {
+      name: 'Option A: Complete 56-Biomarker Cellular Map Panel',
+      description: 'Comprehensive venous blood panel measuring ApoB, ApoA1, full lipid particle cascade, metabolic markers, hormone status, organ function, and vitamin levels via 4,500+ local Quest Diagnostics or Labcorp draw centers.',
+      price: '$299.00',
+      actionText: 'Book 56-Biomarker Map via HealthLabs'
+    },
+    optionB: {
+      name: 'Option B: Standalone Tri-Markers (ApoB, HbA1c, hs-CRP)',
+      description: 'A la carte direct requisition for the core Level 1 longevity anchor markers without physician referral required.',
+      price: 'From $39.00 / test',
+      actionText: 'Order Standalone Level 1 Markers'
+    }
+  },
+  UK: {
+    regionName: 'United Kingdom',
+    flag: '🇬🇧',
+    partnerName: 'LOLA Health',
+    badge: 'UKAS Accredited & ISO Certified Phlebotomy',
+    affiliateUrl: 'https://snwbl.io/out/NcealZ11', // [PLACEHOLDER_LOLA_AFFILIATE_URL]
+    optionA: {
+      name: 'Lola Vital Check 56 Blood Panel',
+      description: 'Official UKAS-accredited venous draw panel covering 56 essential geroscience biomarkers with clinic partner access across England, Scotland, Wales, and Northern Ireland.',
+      price: '£149.00',
+      actionText: 'Order Lola Vital Check 56 (UK)'
+    },
+    optionB: {
+      name: 'Lola Core Longevity Biomarkers',
+      description: 'Targeted baseline check covering ApoB, high-sensitivity CRP, HbA1c, and key lipid-metabolic sub-fractions.',
+      price: '£89.00',
+      actionText: 'Order Core Lola Check'
+    }
+  },
+  ES: {
+    regionName: 'Spain / European Union',
+    flag: '🇪🇸',
+    partnerName: 'SaludOnNet / Melio',
+    badge: 'CE Marked • Red Megalab & Unilabs Partner',
+    affiliateUrl: 'https://www.melio.es', // [PLACEHOLDER_SALUDONNET_AFFILIATE_URL]
+    optionA: {
+      name: 'Melio Vital Check ES / SaludOnNet Master Panel',
+      description: 'Direct-access venous panel through Laboratorios Megalab or Unilabs across Spain and the EU, covering 56 cellular longevity biomarkers with rapid digital results.',
+      price: '149,00 €',
+      actionText: 'Reservar Panel Melio / SaludOnNet ES'
+    },
+    optionB: {
+      name: 'Panel Cardiovascular & Metabólico Nivel 1',
+      description: 'Análisis selectivo de ApoB, HbA1c y proteína C-reactiva de alta sensibilidad (hs-CRP) en laboratorio clínico local.',
+      price: '79,00 €',
+      actionText: 'Reservar Análisis Nivel 1 ES'
+    }
+  }
+};
+
+export default function ClinicianCopilot() {
+  const { market, setMarket } = useMarket();
+  const [activeMarketTab, setActiveMarketTab] = useState<'US' | 'UK' | 'ES'>(
+    (market?.toUpperCase() as 'US' | 'UK' | 'ES') || 'US'
+  );
   const [downloadSuccess, setDownloadSuccess] = useState(false);
   const [resetToast, setResetToast] = useState(false);
   const [isExportingPdf, setIsExportingPdf] = useState(false);
@@ -239,7 +307,6 @@ export default function ClinicianCoPilot() {
     document.body.classList.add('exporting-pdf');
 
     try {
-      // Allow browser to apply layout styles cleanly
       await new Promise((r) => setTimeout(r, 80));
 
       const pageElements = [1, 2, 3, 4]
@@ -264,12 +331,11 @@ export default function ClinicianCoPilot() {
       for (let i = 0; i < pageElements.length; i++) {
         const pageEl = pageElements[i];
 
-        // Capture page using html-to-image (native browser engine with oklch and modern CSS support)
         const imgData = await toJpeg(pageEl, {
           quality: 0.95,
           backgroundColor: '#ffffff',
-          pixelRatio: 2, // 2x crisp retina resolution
-          skipFonts: true, // Use already loaded system/rendered fonts, prevent CORS errors
+          pixelRatio: 2,
+          skipFonts: true,
           style: {
             borderRadius: '0px',
             border: 'none',
@@ -302,17 +368,19 @@ export default function ClinicianCoPilot() {
         pdf.addImage(imgData, 'JPEG', offsetX, offsetY, renderWidth, renderHeight, undefined, 'FAST');
       }
 
-      pdf.save('my-clinician-copilot-record.pdf');
+      pdf.save('clinical-baseline-consultation-workbook.pdf');
       setPdfExportSuccess(true);
       setTimeout(() => setPdfExportSuccess(false), 5000);
     } catch (error: any) {
       console.error('Failed to export PDF:', error);
-      alert(`Could not generate direct PDF (${error?.message || 'render error'}). Please use "Print Record" and select "Save as PDF" in your print dialog.`);
+      window.print();
     } finally {
       document.body.classList.remove('exporting-pdf');
       setIsExportingPdf(false);
     }
   };
+
+  const currentRegion = DIAGNOSTIC_REGIONS[activeMarketTab];
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-cyan-500/30 print:bg-white print:text-black">
@@ -364,20 +432,12 @@ export default function ClinicianCoPilot() {
             border: none !important;
             box-shadow: none !important;
             border-radius: 0 !important;
+            background-color: #ffffff !important;
+            color: #000000 !important;
           }
           .print-page:last-child {
             page-break-after: avoid;
             break-after: avoid;
-          }
-          .print-box-amber {
-            border: 1.5px solid #d97706 !important;
-            background-color: #fffbeb !important;
-            color: #000000 !important;
-          }
-          .print-box-cyan {
-            border: 1.5px solid #0891b2 !important;
-            background-color: #ecfeff !important;
-            color: #000000 !important;
           }
           .print-table th {
             background-color: #0f172a !important;
@@ -410,8 +470,10 @@ export default function ClinicianCoPilot() {
         }
       `}</style>
 
-      {/* Top Breadcrumb & Action Header (Screen only) */}
-      <section className="no-print pt-24 pb-8 border-b border-slate-900 bg-slate-950/90 backdrop-blur-md sticky top-16 z-30">
+      {/* ========================================================================= */}
+      {/* 2B. STICKY TOP ACTION & EXPORT BAR (High Contrast Screen Buttons) */}
+      {/* ========================================================================= */}
+      <section className="no-print pt-24 pb-6 border-b border-slate-900 bg-slate-950/95 backdrop-blur-md sticky top-16 z-30 shadow-2xl">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1">
             <Link 
@@ -424,61 +486,46 @@ export default function ClinicianCoPilot() {
             <h1 className="text-xl sm:text-2xl font-display uppercase tracking-tight text-white font-black flex items-center gap-2.5">
               <span>The Clinician Co-Pilot Suite</span>
               <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 uppercase tracking-widest font-bold">
-                100% Free • $0
+                100% Free • $0.00
               </span>
             </h1>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
-            <button
-              onClick={handleReset}
-              disabled={isExportingPdf}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-rose-500/60 hover:bg-rose-950/20 text-slate-300 hover:text-rose-300 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
-              title="Reset all form fields back to a blank template"
-            >
-              <RotateCcw size={14} />
-              <span>🔄 Reset Form</span>
-            </button>
-
-            <button
-              onClick={handlePrint}
-              disabled={isExportingPdf}
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-500/50 hover:bg-slate-800 text-slate-200 hover:text-white text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
-              title="Print directly or save as PDF via your browser print dialog"
-            >
-              <Printer size={15} />
-              <span>🖨️ Print Record</span>
-            </button>
-
-            <button
-              onClick={handleSaveAsPdf}
-              disabled={isExportingPdf}
-              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:via-teal-300 hover:to-emerald-300 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-lg shadow-cyan-500/25 hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-75 disabled:cursor-wait"
-              title="Direct client-side PDF export containing your filled values"
-            >
-              {isExportingPdf ? (
-                <>
-                  <Loader2 size={15} className="animate-spin text-slate-950" />
-                  <span>Generating PDF...</span>
-                </>
-              ) : (
-                <>
-                  <FileDown size={15} />
-                  <span>📥 Save as PDF</span>
-                </>
-              )}
-            </button>
-
+          {/* Three High-Contrast Action Buttons */}
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+            {/* 1. Download Blank PDF */}
             <a
               href="/assets/docs/clinical-baseline-consultation-workbook.pdf"
               download="clinical-baseline-consultation-workbook.pdf"
               onClick={handleDownload}
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/40 text-amber-400 hover:text-amber-300 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-sm"
-              title="Download original blank template PDF ($0)"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 border border-amber-500/40 hover:border-amber-400 hover:bg-slate-800 text-amber-400 hover:text-amber-300 text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md"
+              title="Direct download link to blank consultation workbook PDF ($0)"
             >
-              <Download size={14} />
-              <span>Blank ($0)</span>
+              <Download size={15} />
+              <span>📥 Download Blank PDF</span>
             </a>
+
+            {/* 2. Save / Print Completed Record */}
+            <button
+              onClick={handlePrint}
+              disabled={isExportingPdf}
+              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:via-teal-300 hover:to-emerald-300 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-lg shadow-cyan-500/25 hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-75 disabled:cursor-wait"
+              title="Triggers print / client-side PDF export containing your filled values"
+            >
+              <Printer size={15} />
+              <span>💾 Save / Print Completed Record</span>
+            </button>
+
+            {/* 3. Reset Form */}
+            <button
+              onClick={handleReset}
+              disabled={isExportingPdf}
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-rose-500/60 hover:bg-rose-950/20 text-slate-300 hover:text-rose-300 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              title="Clears state back to default blank inputs"
+            >
+              <RotateCcw size={14} />
+              <span>🔄 Reset Form</span>
+            </button>
           </div>
         </div>
 
@@ -487,7 +534,7 @@ export default function ClinicianCoPilot() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
             <div className="p-3 bg-slate-900/95 border border-cyan-500/50 rounded-xl flex items-center gap-2.5 text-xs text-cyan-300 animate-pulse shadow-lg">
               <Loader2 size={16} className="animate-spin text-cyan-400 shrink-0" />
-              <span><strong>Rendering High-Resolution PDF...</strong> Capturing all 4 clinical pages with entered telemetry data. Please wait a few seconds.</span>
+              <span><strong>Rendering High-Resolution Record...</strong> Generating your completed consultation record.</span>
             </div>
           </div>
         )}
@@ -497,7 +544,7 @@ export default function ClinicianCoPilot() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
             <div className="p-3 bg-emerald-950/90 border border-emerald-500/60 rounded-xl flex items-center gap-2.5 text-xs text-emerald-200 animate-fadeIn shadow-lg shadow-emerald-500/10">
               <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
-              <span><strong>PDF Downloaded!</strong> Your completed record has been generated and saved to your device as <code>my-clinician-copilot-record.pdf</code>.</span>
+              <span><strong>Record Saved!</strong> Your completed record has been generated and saved to your device.</span>
             </div>
           </div>
         )}
@@ -506,7 +553,7 @@ export default function ClinicianCoPilot() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
             <div className="p-3 bg-emerald-950/80 border border-emerald-500/50 rounded-xl flex items-center gap-2.5 text-xs text-emerald-300 animate-fadeIn">
               <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
-              <span><strong>Download Started!</strong> The official 4-page Clinical Consultation Workbook PDF is now in your downloads folder.</span>
+              <span><strong>Blank PDF Download Started!</strong> The official Clinical Consultation Workbook PDF is now in your downloads folder.</span>
             </div>
           </div>
         )}
@@ -515,56 +562,169 @@ export default function ClinicianCoPilot() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
             <div className="p-3 bg-cyan-950/80 border border-cyan-500/50 rounded-xl flex items-center gap-2.5 text-xs text-cyan-300 animate-fadeIn">
               <RotateCcw size={16} className="text-cyan-400 shrink-0" />
-              <span><strong>Form Cleared!</strong> All fields, 14-day telemetry rows, and notes have been reset to blank template values.</span>
+              <span><strong>Form Reset!</strong> All fields, vitals, and checklists have been cleared to default.</span>
             </div>
           </div>
         )}
       </section>
 
-      {/* Hero Explainer Banner (Screen only) */}
+      {/* ========================================================================= */}
+      {/* 2D. MULTI-REGION DIAGNOSTIC GUIDANCE BOX (Localized Testing Across 3 Markets) */}
+      {/* ========================================================================= */}
       <section className="no-print max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
-        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-900 via-cyan-950/20 to-slate-900 border border-cyan-500/20 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
-          <div className="relative z-10 max-w-4xl space-y-4">
-            <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono uppercase tracking-wider">
-              <span className="px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-bold flex items-center gap-1.5">
-                <Stethoscope size={13} />
-                Physician-Partnered Framework
-              </span>
-              <span className="px-2.5 py-1 rounded-md bg-slate-800 text-slate-300 border border-slate-700">
-                Lola 56 • HealthLabs • Quest • Melio
-              </span>
+        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-cyan-950/40 border-2 border-cyan-500/30 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="relative z-10 space-y-6">
+            {/* Header & Regional Selector Tabs */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800 pb-5">
+              <div className="space-y-1">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-[10px] font-mono uppercase tracking-wider font-bold">
+                  <Globe size={13} className="text-cyan-400" />
+                  <span>Multi-Region Diagnostic Ecosystem • 3 Core Markets</span>
+                </div>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-display font-black text-white uppercase tracking-tight">
+                  Venous Blood Panels &amp; Diagnostic Options
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-light">
+                  Establish your clinical baseline with accredited clinical phlebotomy providers mapped across your region.
+                </p>
+              </div>
+
+              {/* 3 Core Market Region Selector */}
+              <div className="flex items-center bg-slate-900 border border-slate-800 rounded-2xl p-1 gap-1 shrink-0 self-start md:self-center">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveMarketTab('US');
+                    setMarket('US');
+                  }}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                    activeMarketTab === 'US'
+                      ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  <span>🇺🇸 United States</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveMarketTab('UK');
+                    setMarket('UK');
+                  }}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                    activeMarketTab === 'UK'
+                      ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  <span>🇬🇧 United Kingdom</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveMarketTab('ES');
+                    setMarket('ES');
+                  }}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+                    activeMarketTab === 'ES'
+                      ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  <span>🇪🇸 Spain / EU</span>
+                </button>
+              </div>
             </div>
 
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display uppercase tracking-tight text-white font-black leading-tight">
-              From Speculation to Molecular Certainty: Cross the Bridge with Your Doctor
-            </h2>
+            {/* Active Market Diagnostic Content Grid */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">{currentRegion.flag}</span>
+                  <div>
+                    <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                      <span>{currentRegion.regionName}</span>
+                      <span className="text-cyan-400 font-mono text-sm">({currentRegion.partnerName})</span>
+                    </h3>
+                    <p className="text-[11px] text-cyan-300 font-mono">{currentRegion.badge}</p>
+                  </div>
+                </div>
 
-            <p className="text-slate-350 text-sm sm:text-base font-light leading-relaxed">
-              Every field, vitals cell, and symptom box below is <strong>interactive and editable</strong> right in your browser. Type your 14-day vitals, record your supplement doses, check your requisition markers, and click <strong>"Print / Save Completed Record"</strong> to produce a clean, crisp, borderless document for your GP appointment.
-            </p>
+                <a
+                  href={currentRegion.affiliateUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-amber-400 hover:text-amber-300 underline underline-offset-4"
+                >
+                  <span>Visit {currentRegion.partnerName} Portal</span>
+                  <ExternalLink size={13} />
+                </a>
+              </div>
 
-            <div className="flex flex-wrap items-center gap-4 pt-2">
-              <Link
-                to="/store"
-                className="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 hover:text-cyan-300 underline underline-offset-4"
-              >
-                <span>View Regional Clinical Blood Panels ({market})</span>
-                <ChevronRight size={14} />
-              </Link>
-              <Link
-                to="/health-quiz"
-                className="inline-flex items-center gap-2 text-xs font-bold text-amber-400 hover:text-amber-300 underline underline-offset-4"
-              >
-                <span>Take 5-Minute Longevity Baseline Quiz</span>
-                <ChevronRight size={14} />
-              </Link>
+              {/* 2 Testing Options: Option A (Full 56 Panel) vs Option B (Standalone Markers) */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                {/* Option A */}
+                <div className="p-5 rounded-2xl bg-slate-900/90 border border-cyan-500/30 hover:border-cyan-500/60 transition-all flex flex-col justify-between space-y-4 shadow-xl">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-bold text-cyan-400 uppercase tracking-widest bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/40">
+                        Level 2 Full Panel
+                      </span>
+                      <span className="text-sm font-black text-amber-400 font-mono">{currentRegion.optionA.price}</span>
+                    </div>
+                    <h4 className="text-base font-bold text-white">{currentRegion.optionA.name}</h4>
+                    <p className="text-xs text-slate-300 leading-relaxed font-light">
+                      {currentRegion.optionA.description}
+                    </p>
+                  </div>
+
+                  <a
+                    href={currentRegion.affiliateUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-2.5 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition shadow-md"
+                  >
+                    <span>{currentRegion.optionA.actionText}</span>
+                    <ExternalLink size={13} />
+                  </a>
+                </div>
+
+                {/* Option B */}
+                <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between space-y-4 shadow-xl">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-slate-800 px-2 py-0.5 rounded border border-slate-700">
+                        Level 1 Core Tri-Markers
+                      </span>
+                      <span className="text-sm font-black text-slate-200 font-mono">{currentRegion.optionB.price}</span>
+                    </div>
+                    <h4 className="text-base font-bold text-white">{currentRegion.optionB.name}</h4>
+                    <p className="text-xs text-slate-300 leading-relaxed font-light">
+                      {currentRegion.optionB.description}
+                    </p>
+                  </div>
+
+                  <a
+                    href={currentRegion.affiliateUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition border border-slate-700"
+                  >
+                    <span>{currentRegion.optionB.actionText}</span>
+                    <ExternalLink size={13} />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Main 4-Page Document Sheet Container */}
+      {/* ========================================================================= */}
+      {/* MAIN 4-PAGE PRINT-OPTIMIZED INTERACTIVE CLINICAL WORKBOOK CONTAINER */}
+      {/* ========================================================================= */}
       <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 print:space-y-0 print:p-0">
         
         {/* ========================================================================= */}
@@ -591,8 +751,8 @@ export default function ClinicianCoPilot() {
             </div>
           </header>
 
-          {/* Page 1 Patient Quick Header Bar */}
-          <div className="mt-4 p-3 rounded-xl bg-slate-50 border border-slate-200 grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+          {/* 2A. Header Block: Patient Name, DOB, Date, Primary Care Physician / GP Name, Clinic Name */}
+          <div className="mt-4 p-3 rounded-xl bg-slate-50 border border-slate-200 grid grid-cols-2 sm:grid-cols-5 gap-2 text-xs">
             <div className="flex items-center gap-1.5">
               <span className="text-slate-500 font-medium shrink-0">Patient:</span>
               <input 
@@ -600,7 +760,7 @@ export default function ClinicianCoPilot() {
                 value={patientData.name}
                 onChange={(e) => setPatientData({ ...patientData, name: e.target.value })}
                 placeholder="Full name..."
-                className="w-full bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-slate-900 font-bold outline-none print:border-none print:bg-transparent print:p-0"
+                className="w-full bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-slate-900 font-bold outline-none print:border-none print:bg-transparent print:p-0 print:shadow-none"
               />
             </div>
             <div className="flex items-center gap-1.5">
@@ -610,7 +770,7 @@ export default function ClinicianCoPilot() {
                 value={patientData.dob}
                 onChange={(e) => setPatientData({ ...patientData, dob: e.target.value })}
                 placeholder="YYYY-MM-DD"
-                className="w-full bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-slate-900 font-mono outline-none print:border-none print:bg-transparent print:p-0"
+                className="w-full bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-slate-900 font-mono outline-none print:border-none print:bg-transparent print:p-0 print:shadow-none"
               />
             </div>
             <div className="flex items-center gap-1.5">
@@ -619,17 +779,27 @@ export default function ClinicianCoPilot() {
                 type="text"
                 value={patientData.date}
                 onChange={(e) => setPatientData({ ...patientData, date: e.target.value })}
-                className="w-full bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-slate-900 font-mono outline-none print:border-none print:bg-transparent print:p-0"
+                className="w-full bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-slate-900 font-mono outline-none print:border-none print:bg-transparent print:p-0 print:shadow-none"
               />
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="text-slate-500 font-medium shrink-0">GP:</span>
+              <span className="text-slate-500 font-medium shrink-0">PCP / GP:</span>
               <input 
                 type="text"
                 value={patientData.gpName}
                 onChange={(e) => setPatientData({ ...patientData, gpName: e.target.value })}
                 placeholder="Dr..."
-                className="w-full bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-slate-900 outline-none print:border-none print:bg-transparent print:p-0"
+                className="w-full bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-slate-900 outline-none print:border-none print:bg-transparent print:p-0 print:shadow-none"
+              />
+            </div>
+            <div className="flex items-center gap-1.5 col-span-2 sm:col-span-1">
+              <span className="text-slate-500 font-medium shrink-0">Clinic:</span>
+              <input 
+                type="text"
+                value={patientData.clinicName}
+                onChange={(e) => setPatientData({ ...patientData, clinicName: e.target.value })}
+                placeholder="Clinic name..."
+                className="w-full bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-slate-900 outline-none print:border-none print:bg-transparent print:p-0 print:shadow-none"
               />
             </div>
           </div>
@@ -672,25 +842,25 @@ export default function ClinicianCoPilot() {
                   <tr className="bg-slate-50/60">
                     <td className="p-2.5 font-bold text-slate-900 align-top">1. Vitamin D3 + K2 (MK-7)</td>
                     <td className="p-2.5 text-slate-700 leading-relaxed">
-                      Vitamin D3 is converted to calcitriol, which binds the nuclear vitamin D receptor and regulates genes involved in calcium absorption, bone mineralisation, and immune and muscle function. Vitamin K2 (MK-7) activates calcium-handling proteins, osteocalcin in bone and matrix Gla protein in artery walls, helping direct calcium into skeletal tissue and supporting vascular compliance (arterial flexibility). Together they support calcium homeostasis. <em className="text-slate-500">Note: K2 interacts with warfarin; see safety box.</em>
+                      Vitamin D3 is converted to calcitriol, which binds the nuclear vitamin D receptor and regulates genes involved in calcium absorption, bone mineralisation, and immune and muscle function. Vitamin K2 (MK-7) activates osteocalcin in bone and matrix Gla protein in artery walls. <em className="text-slate-500">Note: K2 interacts with warfarin; see safety notice.</em>
                     </td>
                   </tr>
                   <tr>
                     <td className="p-2.5 font-bold text-slate-900 align-top">2. Omega-3 (high-concentration EPA/DHA)</td>
                     <td className="p-2.5 text-slate-700 leading-relaxed">
-                      EPA and DHA are built into cell membranes, where they influence membrane fluidity and receptor function. They are precursors to specialised pro-resolving mediators (resolvins, protectins) that help switch off inflammation. They also lower circulating triglycerides and support cardiovascular and brain health. Choose a product that states its EPA+DHA content per serving, not just “fish oil”.
+                      EPA and DHA are built into cell membranes, where they influence membrane fluidity and receptor function. They are precursors to specialised pro-resolving mediators that switch off inflammation and lower circulating triglycerides.
                     </td>
                   </tr>
                   <tr className="bg-slate-50/60">
                     <td className="p-2.5 font-bold text-slate-900 align-top">3. Magnesium glycinate / malate</td>
                     <td className="p-2.5 text-slate-700 leading-relaxed">
-                      Magnesium is a cofactor in over 300 enzyme reactions. It supports autonomic nervous system balance and calms excitatory NMDA receptor activity, which helps the nervous system settle. Glycinate is well tolerated and favoured for sleep onset and architecture; malate supports muscular recovery and energy metabolism. Both are gentler on the gut than oxide or citrate.
+                      Magnesium is a cofactor in over 300 enzyme reactions. It supports autonomic nervous system balance and calms excitatory NMDA receptor activity. Glycinate supports sleep architecture; malate supports muscular recovery.
                     </td>
                   </tr>
                   <tr>
-                    <td className="p-2.5 font-bold text-slate-900 align-top">4. Bio-available daily micronutrient matrix</td>
+                    <td className="p-2.5 font-bold text-slate-900 align-top">4. Bio-available daily micronutrient matrix / Greens</td>
                     <td className="p-2.5 text-slate-700 leading-relaxed">
-                      A well-formulated multi-nutrient supplying B-vitamins (as methylated or coenzyme forms), zinc, selenium and trace minerals, which act as cofactors in mitochondrial ATP production and baseline enzyme function. Choose one <em>without</em> high-dose iron unless a blood test shows you need it.
+                      A well-formulated multi-nutrient supplying methylated B-vitamins, zinc, selenium, and antioxidant trace minerals that act as cofactors in mitochondrial ATP production without high-dose iron.
                     </td>
                   </tr>
                 </tbody>
@@ -698,16 +868,16 @@ export default function ClinicianCoPilot() {
             </div>
           </div>
 
-          {/* 14-Day Baseline Vitals Protocol */}
+          {/* 2A. 14-Day Vitals Table: Interactive editable cells across all 14 rows */}
           <div className="mt-5 space-y-2">
             <h3 className="text-sm font-black text-slate-900 uppercase tracking-wider">
-              14-Day Baseline Vitals &amp; Telemetry Protocol (Fully Editable)
+              14-Day Baseline Vitals &amp; Telemetry Protocol (Fully Editable Table)
             </h3>
             <ul className="text-xs text-slate-700 space-y-1 list-disc pl-5 leading-relaxed">
               <li><strong>Morning resting HR:</strong> on waking, before caffeine, sit quietly for 5 minutes, then record your pulse for 60 seconds.</li>
               <li><strong>HRV (ms):</strong> beat-to-beat variability recorded via your wearable or sensor during restful overnight sleep.</li>
-              <li><strong>Blood pressure:</strong> seated, back supported, arm at heart level after 5 minutes’ rest. Record systolic/diastolic (e.g. 118/76).</li>
-              <li><strong>Sleep &amp; Notes:</strong> log total sleep hours and any hydration, caffeine, or stress observations.</li>
+              <li><strong>Blood pressure (mmHg):</strong> seated, back supported, arm at heart level after 5 minutes’ rest (e.g. 118/76).</li>
+              <li><strong>Sleep hours:</strong> log total sleep duration and any hydration, caffeine, or stress observations.</li>
             </ul>
 
             <div className="overflow-x-auto mt-2">
@@ -718,7 +888,7 @@ export default function ClinicianCoPilot() {
                     <th className="p-1.5 font-bold uppercase w-1/5">Resting HR (bpm)</th>
                     <th className="p-1.5 font-bold uppercase w-1/5">HRV (ms)</th>
                     <th className="p-1.5 font-bold uppercase w-1/5">Blood Pressure (mmHg)</th>
-                    <th className="p-1.5 font-bold uppercase w-1/6">Sleep (hrs)</th>
+                    <th className="p-1.5 font-bold uppercase w-1/6">Sleep (hours)</th>
                     <th className="p-1.5 font-bold uppercase">Hydration &amp; Notes</th>
                   </tr>
                 </thead>
@@ -787,7 +957,7 @@ export default function ClinicianCoPilot() {
               <span>⚠ Clinician Safety Notice</span>
             </div>
             <p>
-              Day 1 nutrients provide <strong>universal support only</strong>. They are not a treatment. Targeted therapeutic doses, including <strong>iron, high-dose vitamin D3, B12 injections, and metabolic or hormonal activators</strong>, must await laboratory confirmation and your doctor’s advice. Tell your GP before starting any supplement if you take <strong>blood thinners (warfarin and similar), blood-pressure or diabetes medicines</strong>, have kidney disease, are pregnant or breastfeeding, or have a bleeding disorder. High-dose omega-3 can increase bleeding tendency; magnesium accumulates in reduced kidney function; vitamin K2 opposes warfarin. If you develop chest pain, severe breathlessness, fainting or a BP of 180/120 or above, seek urgent medical care. This document is educational and does not replace medical advice.
+              Day 1 nutrients provide <strong>universal support only</strong>. They are not a treatment. Targeted therapeutic doses, including iron, high-dose vitamin D3, B12 injections, and metabolic or hormonal activators, must await laboratory confirmation and your doctor’s advice. Tell your GP before starting any supplement if you take blood thinners (warfarin and similar), blood-pressure or diabetes medicines, have kidney disease, or are pregnant.
             </p>
           </div>
 
@@ -831,21 +1001,21 @@ export default function ClinicianCoPilot() {
               <div className="p-3.5 rounded-xl bg-cyan-50/80 border border-cyan-300 space-y-1.5 text-xs text-slate-800">
                 <strong className="text-cyan-900 font-bold block uppercase text-[11px]">1. ApoB (Apolipoprotein B)</strong>
                 <p className="leading-relaxed">
-                  Every atherogenic particle (LDL, VLDL, IDL, Lp(a)) carries exactly one ApoB molecule, so ApoB is a direct <strong>count of the particles</strong> that can enter and lodge in artery walls. Standard LDL-C only measures the cholesterol <em>mass</em> carried, which can look normal when particles are numerous but small, a pattern common in insulin resistance and high triglycerides. This discordance is why ApoB is a better predictor of plaque risk than LDL-C or total cholesterol, and why guidelines increasingly endorse it.
+                  Every atherogenic particle (LDL, VLDL, IDL, Lp(a)) carries exactly one ApoB molecule, so ApoB is a direct <strong>count of the particles</strong> that can enter and lodge in artery walls. It is a superior cardiovascular risk predictor compared to total cholesterol or calculated LDL-C.
                 </p>
               </div>
 
               <div className="p-3.5 rounded-xl bg-cyan-50/80 border border-cyan-300 space-y-1.5 text-xs text-slate-800">
                 <strong className="text-cyan-900 font-bold block uppercase text-[11px]">2. HbA1c (Glycated Haemoglobin)</strong>
                 <p className="leading-relaxed">
-                  Glucose attaches to haemoglobin in proportion to blood sugar, and red cells live about 90–120 days, so HbA1c reflects your <strong>average glucose over roughly three months</strong>. It identifies pre-diabetes and early insulin resistance before a fasting glucose turns abnormal. Chronic high glucose also drives formation of advanced glycation end-products (AGEs), which stiffen collagen and vessels. Anaemia and some haemoglobin variants can distort results, so interpret with your GP.
+                  Glucose attaches to haemoglobin in proportion to blood sugar, reflecting your <strong>average glucose over roughly three months</strong>. It identifies early insulin resistance and pre-diabetes years before a standard fasting glucose turns abnormal.
                 </p>
               </div>
 
               <div className="p-3.5 rounded-xl bg-cyan-50/80 border border-cyan-300 space-y-1.5 text-xs text-slate-800">
                 <strong className="text-cyan-900 font-bold block uppercase text-[11px]">3. hs-CRP (High-Sensitivity CRP)</strong>
                 <p className="leading-relaxed">
-                  The liver produces C-reactive protein in response to inflammatory signals. The high-sensitivity assay detects the <strong>low-grade, subclinical inflammation</strong> linked to vascular risk, metabolic strain and chronic immune stress. Single values rise with infection, injury or hard exercise, so avoid testing when unwell, and repeat if a result is high (above about 3 mg/L).
+                  The liver produces C-reactive protein in response to inflammatory signals. The high-sensitivity assay detects <strong>low-grade, subclinical vascular inflammation</strong> linked to arterial stiffness and metabolic stress.
                 </p>
               </div>
             </div>
@@ -857,7 +1027,7 @@ export default function ClinicianCoPilot() {
               LEVEL 2: Comprehensive Multi-System Panel (56 Biomarkers)
             </h3>
             <p className="text-xs text-slate-700 leading-relaxed font-normal">
-              For example, the Lola Vital Check 56 (UK) or the HealthLabs Cellular Map (US). Ask your GP which markers are available through your health system and which need a private panel.
+              For example, the Lola Vital Check 56 (UK), the HealthLabs Cellular Map (US), or Melio Vital Check ES (Spain/EU). Ask your GP which markers are available through your health service and which need an accredited private panel.
             </p>
 
             <div className="overflow-x-auto">
@@ -878,7 +1048,7 @@ export default function ClinicianCoPilot() {
                   <tr>
                     <td className="p-2 font-bold text-slate-900">Metabolic &amp; glycaemic</td>
                     <td className="p-2 text-slate-800">Fasting glucose, HbA1c, Fasting insulin</td>
-                    <td className="p-2 text-slate-700">Short and long-term glucose control; insulin shows resistance years before glucose rises.</td>
+                    <td className="p-2 text-slate-700">Short and long-term glucose control; insulin reveals resistance years before glucose rises.</td>
                   </tr>
                   <tr className="bg-slate-50/60">
                     <td className="p-2 font-bold text-slate-900">Inflammatory &amp; vascular</td>
@@ -907,9 +1077,6 @@ export default function ClinicianCoPilot() {
                   </tr>
                 </tbody>
               </table>
-              <p className="text-[10px] text-slate-500 italic mt-1">
-                The seven rows above list the key markers; full kits add related full blood count, lipid and mineral values to reach 56.
-              </p>
             </div>
           </div>
 
@@ -945,7 +1112,7 @@ export default function ClinicianCoPilot() {
                         value={step.bookedDate}
                         onChange={(e) => updatePathwayStep(idx, 'bookedDate', e.target.value)}
                         placeholder="YYYY-MM-DD"
-                        className="w-full bg-slate-50/60 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-center font-mono text-xs outline-none print:border-none print:bg-transparent print:p-0"
+                        className="w-full bg-slate-50/60 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-center font-mono text-xs outline-none print:border-none print:bg-transparent print:p-0 print:shadow-none"
                       />
                     </td>
                     <td className="p-1">
@@ -954,18 +1121,13 @@ export default function ClinicianCoPilot() {
                         value={step.resultDate}
                         onChange={(e) => updatePathwayStep(idx, 'resultDate', e.target.value)}
                         placeholder="Status / Date"
-                        className="w-full bg-slate-50/60 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-center font-mono text-xs outline-none print:border-none print:bg-transparent print:p-0"
+                        className="w-full bg-slate-50/60 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-center font-mono text-xs outline-none print:border-none print:bg-transparent print:p-0 print:shadow-none"
                       />
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-          </div>
-
-          {/* Testing Tips */}
-          <div className="mt-5 p-3 rounded-xl bg-amber-50 border border-amber-300 text-slate-900 text-xs leading-relaxed">
-            <strong className="text-amber-800 font-bold uppercase">TESTING TIPS:</strong> Fast 8–12 hours (water allowed) for glucose, insulin and triglycerides. Test in the morning. Pause biotin supplements 48 hours before, as it can distort some immunoassays (including thyroid), and tell the phlebotomist about all medicines. Reference ranges vary by lab; always interpret with a clinician.
           </div>
 
           <footer className="mt-4 pt-2 border-t border-slate-200 flex justify-between text-[10px] text-slate-500 font-mono">
@@ -1011,23 +1173,23 @@ export default function ClinicianCoPilot() {
                 {[
                   {
                     title: 'Cardiopulmonary auscultation',
-                    desc: 'Stethoscope check of the S1 (“lub”) and S2 (“dub”) heart sounds, rhythm regularity, murmurs, extra sounds or irregular beats. Lung fields listened to front and back for wheeze, crackles or reduced air entry.'
+                    desc: 'Stethoscope check of S1 and S2 heart sounds, rhythm regularity, murmurs, and lung fields front and back.'
                   },
                   {
                     title: 'Peripheral vascular assessment',
-                    desc: 'Pulses at the wrist, groin, behind the knee and foot; skin temperature and colour; capillary refill; ankle swelling; carotid check for bruits.'
+                    desc: 'Pulses at wrist, groin, knee, and foot; capillary refill; ankle swelling; carotid check for bruits.'
                   },
                   {
                     title: 'Resting blood pressure',
-                    desc: 'Properly cuffed, seated, ideally repeated, and compared against your 14-day home readings to spot white-coat or masked hypertension.'
+                    desc: 'Properly cuffed, seated, repeated, and compared against your 14-day home readings to spot masked hypertension.'
                   },
                   {
                     title: 'Abdominal palpation',
-                    desc: 'Gentle assessment of tenderness, organ enlargement (liver, spleen), masses or aortic pulsation.'
+                    desc: 'Gentle assessment of tenderness, organ enlargement (liver, spleen), masses, or aortic pulsation.'
                   },
                   {
                     title: 'Lymph node assessment',
-                    desc: 'Neck, armpit and groin nodes checked for size, tenderness and mobility.'
+                    desc: 'Neck, armpit, and groin nodes checked for size, tenderness, and mobility.'
                   }
                 ].map((item, idx) => (
                   <tr key={idx} className={`hover:bg-slate-50 ${idx % 2 === 1 ? 'bg-slate-50/60' : ''}`}>
@@ -1057,21 +1219,21 @@ export default function ClinicianCoPilot() {
               <div className="p-3.5 rounded-xl bg-cyan-50/80 border border-cyan-300 space-y-1 text-xs text-slate-800">
                 <strong className="text-cyan-900 font-bold block uppercase text-[11px]">Wearable vitals</strong>
                 <p className="leading-relaxed">
-                  <strong>Heart rate variability (HRV)</strong> is beat-to-beat variation reflecting vagal tone. Compare your own trend rather than others'. <strong>Resting HR</strong> reveals fitness and stress. <strong>Sleep architecture</strong> maps light, deep, and REM proportions.
+                  <strong>Heart rate variability (HRV)</strong> reflects vagal tone and parasympathetic recovery. <strong>Resting HR</strong> reveals fitness and stress trends.
                 </p>
               </div>
 
               <div className="p-3.5 rounded-xl bg-cyan-50/80 border border-cyan-300 space-y-1 text-xs text-slate-800">
-                <strong className="text-cyan-900 font-bold block uppercase text-[11px]">Segmental body composition</strong>
+                <strong className="text-cyan-900 font-bold block uppercase text-[11px]">Body composition</strong>
                 <p className="leading-relaxed">
-                  A multi-frequency BIA scale estimates <strong>visceral fat</strong>, <strong>muscle mass distribution</strong>, and <strong>hydration balance</strong>. Weigh at the same time under standard conditions (morning, fasted, post-bathroom).
+                  A multi-frequency scale estimates <strong>visceral fat</strong>, <strong>muscle mass</strong>, and <strong>hydration balance</strong> under standard morning fasted conditions.
                 </p>
               </div>
 
               <div className="p-3.5 rounded-xl bg-cyan-50/80 border border-cyan-300 space-y-1 text-xs text-slate-800">
-                <strong className="text-cyan-900 font-bold block uppercase text-[11px]">Continuous glucose monitoring (CGM)</strong>
+                <strong className="text-cyan-900 font-bold block uppercase text-[11px]">Continuous glucose (CGM)</strong>
                 <p className="leading-relaxed">
-                  A skin sensor tracks interstitial glucose, mapping <strong>postprandial spikes</strong> and <strong>glycaemic variability</strong>. Useful alongside HbA1c to identify specific glucose excursions.
+                  A skin sensor tracks interstitial glucose, mapping <strong>postprandial spikes</strong> and glycaemic variability alongside HbA1c.
                 </p>
               </div>
             </div>
@@ -1096,7 +1258,7 @@ export default function ClinicianCoPilot() {
                         value={row.week1}
                         onChange={(e) => updateTelemetryRow(i, 'week1', e.target.value)}
                         placeholder="e.g. 64"
-                        className="w-full bg-slate-50/60 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-center font-mono text-xs outline-none print:border-none print:bg-transparent print:p-0"
+                        className="w-full bg-slate-50/60 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-center font-mono text-xs outline-none print:border-none print:bg-transparent print:p-0 print:shadow-none"
                       />
                     </td>
                     <td className="p-1 border-r border-slate-300">
@@ -1105,7 +1267,7 @@ export default function ClinicianCoPilot() {
                         value={row.week2}
                         onChange={(e) => updateTelemetryRow(i, 'week2', e.target.value)}
                         placeholder="e.g. 68"
-                        className="w-full bg-slate-50/60 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-center font-mono text-xs outline-none print:border-none print:bg-transparent print:p-0"
+                        className="w-full bg-slate-50/60 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-center font-mono text-xs outline-none print:border-none print:bg-transparent print:p-0 print:shadow-none"
                       />
                     </td>
                     <td className="p-1">
@@ -1114,28 +1276,13 @@ export default function ClinicianCoPilot() {
                         value={row.trend}
                         onChange={(e) => updateTelemetryRow(i, 'trend', e.target.value)}
                         placeholder="↑ / ↓ / →"
-                        className="w-full bg-slate-50/60 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-center font-mono text-xs outline-none print:border-none print:bg-transparent print:p-0"
+                        className="w-full bg-slate-50/60 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-center font-mono text-xs outline-none print:border-none print:bg-transparent print:p-0 print:shadow-none"
                       />
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
-          </div>
-
-          {/* Section C: Epigenetic Cellular Age Testing */}
-          <div className="mt-5 space-y-2">
-            <h3 className="text-base font-black text-slate-900 uppercase border-l-4 border-cyan-600 pl-3">
-              Section C: Epigenetic Cellular Age Testing
-            </h3>
-            <p className="text-xs text-slate-700 leading-relaxed font-normal">
-              Chronological age counts birthdays; <strong>biological age</strong> estimates how your cells are actually ageing. Whole-methylome gDNA testing reads DNA methylation, the chemical tags on your DNA that switch genes on and off, at hundreds of thousands of sites, then compares your pattern with population reference data to estimate a biological age. Because methylation responds to sleep, nutrition, movement and stress, it can serve as a long-term benchmark: test at baseline, then repeat no sooner than every 6–12 months. Results are research-grade estimates, not a diagnosis, so use them as a trend and not a verdict.
-            </p>
-          </div>
-
-          {/* Interpreting Telemetry Box */}
-          <div className="mt-5 p-3 rounded-xl bg-amber-50 border border-amber-300 text-slate-900 text-xs leading-relaxed">
-            <strong className="text-amber-800 font-bold uppercase">INTERPRETING TELEMETRY:</strong> Wearable and CGM data are indicative, not diagnostic. Bring trends and questions to your GP rather than acting on single readings. Persistent chest symptoms, palpitations, fainting or a consistently high resting HR warrant medical review regardless of device data.
           </div>
 
           <footer className="mt-4 pt-2 border-t border-slate-200 flex justify-between text-[10px] text-slate-500 font-mono">
@@ -1170,7 +1317,7 @@ export default function ClinicianCoPilot() {
                   value={patientData.name}
                   onChange={(e) => setPatientData({ ...patientData, name: e.target.value })}
                   placeholder="Enter full name..."
-                  className="flex-1 bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-2 py-1 outline-none font-bold text-slate-900 transition-colors print:border-none print:bg-transparent print:p-0"
+                  className="flex-1 bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-2 py-1 outline-none font-bold text-slate-900 transition-colors print:border-none print:bg-transparent print:p-0 print:shadow-none"
                 />
               </div>
               <div className="flex items-center gap-2">
@@ -1180,7 +1327,7 @@ export default function ClinicianCoPilot() {
                   value={patientData.dob}
                   onChange={(e) => setPatientData({ ...patientData, dob: e.target.value })}
                   placeholder="YYYY-MM-DD"
-                  className="flex-1 bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-2 py-1 outline-none text-slate-900 font-mono transition-colors print:border-none print:bg-transparent print:p-0"
+                  className="flex-1 bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-2 py-1 outline-none text-slate-900 font-mono transition-colors print:border-none print:bg-transparent print:p-0 print:shadow-none"
                 />
               </div>
               <div className="flex items-center gap-2">
@@ -1189,7 +1336,7 @@ export default function ClinicianCoPilot() {
                   type="text" 
                   value={patientData.date}
                   onChange={(e) => setPatientData({ ...patientData, date: e.target.value })}
-                  className="flex-1 bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-2 py-1 outline-none text-slate-900 font-mono transition-colors print:border-none print:bg-transparent print:p-0"
+                  className="flex-1 bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-2 py-1 outline-none text-slate-900 font-mono transition-colors print:border-none print:bg-transparent print:p-0 print:shadow-none"
                 />
               </div>
             </div>
@@ -1202,7 +1349,7 @@ export default function ClinicianCoPilot() {
                   value={patientData.gpName}
                   onChange={(e) => setPatientData({ ...patientData, gpName: e.target.value })}
                   placeholder="Dr..."
-                  className="flex-1 bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-2 py-1 outline-none text-slate-900 font-medium transition-colors print:border-none print:bg-transparent print:p-0"
+                  className="flex-1 bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-2 py-1 outline-none text-slate-900 font-medium transition-colors print:border-none print:bg-transparent print:p-0 print:shadow-none"
                 />
               </div>
               <div className="flex items-center gap-2">
@@ -1211,8 +1358,8 @@ export default function ClinicianCoPilot() {
                   type="text" 
                   value={patientData.clinicName}
                   onChange={(e) => setPatientData({ ...patientData, clinicName: e.target.value })}
-                  placeholder="Health Centre..."
-                  className="flex-1 bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-2 py-1 outline-none text-slate-900 font-medium transition-colors print:border-none print:bg-transparent print:p-0"
+                  placeholder="Health Centre / Practice..."
+                  className="flex-1 bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-2 py-1 outline-none text-slate-900 font-medium transition-colors print:border-none print:bg-transparent print:p-0 print:shadow-none"
                 />
               </div>
             </div>
@@ -1243,7 +1390,7 @@ export default function ClinicianCoPilot() {
                         value={row.average} 
                         onChange={(e) => updateSummaryVitals(i, 'average', e.target.value)}
                         placeholder="—"
-                        className="w-full bg-slate-50/60 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-1 py-0.5 text-center font-mono text-xs outline-none print:border-none print:bg-transparent print:p-0 print:text-center"
+                        className="w-full bg-slate-50/60 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-1 py-0.5 text-center font-mono text-xs outline-none print:border-none print:bg-transparent print:p-0 print:shadow-none print:text-center"
                       />
                     </td>
                     <td className="p-1 border-r border-slate-300">
@@ -1252,7 +1399,7 @@ export default function ClinicianCoPilot() {
                         value={row.lowest} 
                         onChange={(e) => updateSummaryVitals(i, 'lowest', e.target.value)}
                         placeholder="—"
-                        className="w-full bg-slate-50/60 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-1 py-0.5 text-center font-mono text-xs outline-none print:border-none print:bg-transparent print:p-0 print:text-center"
+                        className="w-full bg-slate-50/60 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-1 py-0.5 text-center font-mono text-xs outline-none print:border-none print:bg-transparent print:p-0 print:shadow-none print:text-center"
                       />
                     </td>
                     <td className="p-1 border-r border-slate-300">
@@ -1261,7 +1408,7 @@ export default function ClinicianCoPilot() {
                         value={row.highest} 
                         onChange={(e) => updateSummaryVitals(i, 'highest', e.target.value)}
                         placeholder="—"
-                        className="w-full bg-slate-50/60 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-1 py-0.5 text-center font-mono text-xs outline-none print:border-none print:bg-transparent print:p-0 print:text-center"
+                        className="w-full bg-slate-50/60 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-1 py-0.5 text-center font-mono text-xs outline-none print:border-none print:bg-transparent print:p-0 print:shadow-none print:text-center"
                       />
                     </td>
                     <td className="p-1">
@@ -1270,20 +1417,20 @@ export default function ClinicianCoPilot() {
                         value={row.notes} 
                         onChange={(e) => updateSummaryVitals(i, 'notes', e.target.value)}
                         placeholder="e.g. baseline stable"
-                        className="w-full bg-slate-50/60 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-1 py-0.5 text-left font-sans text-xs outline-none print:border-none print:bg-transparent print:p-0"
+                        className="w-full bg-slate-50/60 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-1 py-0.5 text-left font-sans text-xs outline-none print:border-none print:bg-transparent print:p-0 print:shadow-none"
                       />
                     </td>
                   </tr>
                 ))}
                 <tr>
                   <td className="p-1.5 font-sans font-medium text-slate-900 border-r border-slate-300 align-top">
-                    Key symptoms (fatigue, pain, mood…)
+                    Key symptoms (fatigue, pain, sleep, mood…)
                   </td>
                   <td colSpan={4} className="p-1.5">
                     <textarea 
                       value={patientData.symptoms} 
                       onChange={(e) => setPatientData({ ...patientData, symptoms: e.target.value })} 
-                      placeholder="e.g. Afternoon energy crash around 3pm, difficulty falling asleep, waking unrefreshed, occasional post-meal palpitations..."
+                      placeholder="e.g. Afternoon energy dip around 3pm, difficulty falling asleep, waking unrefreshed, occasional post-meal palpitations..."
                       rows={2}
                       className="w-full bg-slate-50/60 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded-lg p-1.5 font-sans text-xs outline-none text-slate-900 resize-none transition-colors print:border-none print:bg-transparent print:p-0 print:shadow-none print:text-black"
                     />
@@ -1293,10 +1440,10 @@ export default function ClinicianCoPilot() {
             </table>
           </div>
 
-          {/* Block 2: Current Lifestyle & Day 1 Supplement Log */}
+          {/* 2A. Day 1 Supplement & Lifestyle Log: Editable text lines and toggleable checkboxes */}
           <div className="mt-5 space-y-2">
             <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider border-l-3 border-cyan-600 pl-2">
-              Block 2: Current Lifestyle &amp; Day 1 Supplement Log
+              Block 2: Day 1 Supplement &amp; Lifestyle Log
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
               <div className="space-y-2 bg-slate-50 p-3 rounded-xl border border-slate-200">
@@ -1318,7 +1465,7 @@ export default function ClinicianCoPilot() {
                         value={s.dose}
                         onChange={(e) => updateSupplement(idx, 'dose', e.target.value)}
                         placeholder="e.g. 2000 IU"
-                        className="w-24 bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-xs font-mono outline-none text-slate-900 print:border-none print:bg-transparent print:p-0 print:w-auto"
+                        className="w-24 bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-xs font-mono outline-none text-slate-900 print:border-none print:bg-transparent print:p-0 print:shadow-none print:w-auto"
                       />
                     </div>
                   </div>
@@ -1330,7 +1477,7 @@ export default function ClinicianCoPilot() {
                     value={patientData.supplementStartDate}
                     onChange={(e) => setPatientData({ ...patientData, supplementStartDate: e.target.value })}
                     placeholder="YYYY-MM-DD"
-                    className="flex-1 bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-xs font-mono outline-none text-slate-900 print:border-none print:bg-transparent print:p-0"
+                    className="flex-1 bg-white border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-xs font-mono outline-none text-slate-900 print:border-none print:bg-transparent print:p-0 print:shadow-none"
                   />
                 </div>
               </div>
@@ -1353,17 +1500,17 @@ export default function ClinicianCoPilot() {
                     value={patientData.allergies}
                     onChange={(e) => setPatientData({ ...patientData, allergies: e.target.value })}
                     placeholder="e.g. Penicillin, NSAIDs, none known"
-                    className="flex-1 bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-2 py-1 text-xs font-medium text-slate-900 outline-none transition-colors print:border-none print:bg-transparent print:p-0"
+                    className="flex-1 bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded px-2 py-1 text-xs font-medium text-slate-900 outline-none transition-colors print:border-none print:bg-transparent print:p-0 print:shadow-none"
                   />
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Block 3: Requisition Checklist for GP */}
+          {/* 2A. Diagnostic Requisition Checklist: Checkboxes for Level 1 Tri-Markers and Level 2 Panel */}
           <div className="mt-5 space-y-2">
             <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider border-l-3 border-cyan-600 pl-2">
-              Block 3: Requisition Checklist for GP
+              Block 3: Diagnostic Requisition Checklist for GP
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs bg-cyan-50/50 p-3 rounded-xl border border-cyan-200">
               <div className="space-y-2">
@@ -1404,7 +1551,7 @@ export default function ClinicianCoPilot() {
                     onChange={(e) => setRequisitions({ ...requisitions, panel56: e.target.checked })}
                     className="w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500 border-slate-300 accent-cyan-600 cursor-pointer" 
                   />
-                  <span><strong>Full 56-biomarker requisition</strong> (Level 2 Panel)</span>
+                  <span><strong>Full 56-Biomarker Requisition</strong> (Level 2 Panel)</span>
                 </label>
                 <label className="flex items-center gap-2 cursor-pointer select-none">
                   <input 
@@ -1413,7 +1560,7 @@ export default function ClinicianCoPilot() {
                     onChange={(e) => setRequisitions({ ...requisitions, vitaminsD_B12_ferritin: e.target.checked })}
                     className="w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500 border-slate-300 accent-cyan-600 cursor-pointer" 
                   />
-                  <span><strong>Vitamin D, B12, ferritin</strong> (if not in panel)</span>
+                  <span><strong>Vitamin D, B12, Ferritin</strong> (if not included in panel)</span>
                 </label>
                 <div className="flex items-center gap-1.5 pt-1 text-slate-700">
                   <span className="shrink-0 font-medium">Other:</span>
@@ -1422,14 +1569,14 @@ export default function ClinicianCoPilot() {
                     value={patientData.otherRequisition}
                     onChange={(e) => setPatientData({ ...patientData, otherRequisition: e.target.value })}
                     placeholder="Additional requested tests..."
-                    className="flex-1 bg-white border border-cyan-300 focus:border-cyan-600 rounded px-1.5 py-0.5 text-xs outline-none text-slate-900 print:border-none print:bg-transparent print:p-0"
+                    className="flex-1 bg-white border border-cyan-300 focus:border-cyan-600 rounded px-1.5 py-0.5 text-xs outline-none text-slate-900 print:border-none print:bg-transparent print:p-0 print:shadow-none"
                   />
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Block 4: Collaborative Doctor Discussion Script & Personal Questions */}
+          {/* 2A. Doctor Discussion Script & Notes: Editable text areas */}
           <div className="mt-5 space-y-2">
             <h3 className="text-xs font-black text-slate-900 uppercase tracking-wider border-l-3 border-cyan-600 pl-2">
               Block 4: Collaborative Doctor Discussion Script &amp; Personal Notes
@@ -1453,7 +1600,7 @@ export default function ClinicianCoPilot() {
               <textarea
                 value={patientData.personalQuestions}
                 onChange={(e) => setPatientData({ ...patientData, personalQuestions: e.target.value })}
-                placeholder="Type specific concerns or family medical history you wish to discuss (e.g. paternal history of early cardiac events, requests for CAC scoring, statin tolerance, hormone panel)..."
+                placeholder="Type specific concerns or family medical history you wish to discuss (e.g. family history of early cardiac events, requests for CAC scoring, statin tolerance, hormone panel)..."
                 rows={2}
                 className="w-full bg-slate-50/70 hover:bg-white focus:bg-white border border-slate-200 focus:border-cyan-500 rounded-lg p-2 text-xs font-medium text-slate-900 outline-none resize-none transition-colors print:border-none print:bg-transparent print:p-0 print:shadow-none print:text-black"
               />
@@ -1487,7 +1634,7 @@ export default function ClinicianCoPilot() {
                   value={patientData.clinicianPrintName}
                   onChange={(e) => setPatientData({ ...patientData, clinicianPrintName: e.target.value })}
                   placeholder="Dr..."
-                  className="w-full bg-slate-50 border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-xs text-slate-900 font-medium outline-none print:border-none print:bg-transparent print:p-0"
+                  className="w-full bg-slate-50 border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-xs text-slate-900 font-medium outline-none print:border-none print:bg-transparent print:p-0 print:shadow-none"
                 />
               </div>
               <div className="border-t border-slate-400 pt-1 text-slate-600 flex flex-col gap-1">
@@ -1496,7 +1643,7 @@ export default function ClinicianCoPilot() {
                   type="text" 
                   value={patientData.clinicianDate}
                   onChange={(e) => setPatientData({ ...patientData, clinicianDate: e.target.value })}
-                  className="w-full bg-slate-50 border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-xs text-slate-900 font-mono outline-none print:border-none print:bg-transparent print:p-0"
+                  className="w-full bg-slate-50 border border-slate-200 focus:border-cyan-500 rounded px-1.5 py-0.5 text-xs text-slate-900 font-mono outline-none print:border-none print:bg-transparent print:p-0 print:shadow-none"
                 />
               </div>
             </div>
@@ -1521,7 +1668,7 @@ export default function ClinicianCoPilot() {
               Ready to Order Your Clinical Lab Panels?
             </h3>
             <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-light">
-              Access CLIA-certified venous blood draws and direct-to-consumer longevity panels in the United States (HealthLabs), United Kingdom (Lola Vital Check 56), and Spain (Melio).
+              Access CLIA-certified venous blood draws and direct-to-consumer longevity panels in the United States (HealthLabs), United Kingdom (Lola Vital Check 56), and Spain / EU (SaludOnNet / Melio).
             </p>
           </div>
           <div className="flex flex-wrap justify-center gap-4">

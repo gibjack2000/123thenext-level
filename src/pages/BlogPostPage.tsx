@@ -369,10 +369,10 @@ export default function BlogPostPage() {
                 <span>Free Clinician Co-Pilot • Collaborative GP Protocol</span>
               </div>
               <h3 className="text-xl sm:text-2xl font-display uppercase tracking-tight text-white font-black leading-tight">
-                Turn This Article's Protocols Into Safe Clinical Action
+                Log Your Baselines on the Interactive Clinician Co-Pilot
               </h3>
               <p className="text-slate-350 text-xs sm:text-sm font-light leading-relaxed">
-                Raw biohacks without baseline laboratory data carry real physiological risks. Download our 100% free 4-page <strong>Clinician Co-Pilot Workbook</strong>, featuring our 14-day vital signs log, Level 1 Core Tri-Marker requisition (ApoB, HbA1c, hs-CRP), and word-for-word physician discussion scripts.
+                Raw biohacks without baseline laboratory data carry real physiological risks. Track your 14-day resting vitals, record your supplement doses, and check your Level 1 Tri-Marker requisition (ApoB, HbA1c, hs-CRP) on our free interactive <strong>Clinician Co-Pilot Workbook</strong> before bringing the data to your GP.
               </p>
             </div>
 
@@ -382,7 +382,7 @@ export default function BlogPostPage() {
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-lg shadow-cyan-500/20 hover:scale-[1.02] active:scale-[0.98] text-center"
               >
                 <FileText size={14} />
-                <span>Open Clinician Co-Pilot →</span>
+                <span>Log Baselines on Clinician Co-Pilot →</span>
               </Link>
               <Link
                 to="/health-quiz"
