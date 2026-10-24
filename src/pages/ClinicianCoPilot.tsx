@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import html2canvas from 'html2canvas';
+import { toJpeg } from 'html-to-image';
 import { jsPDF } from 'jspdf';
 import { 
   Download, 
@@ -217,7 +217,31 @@ export default function ClinicianCoPilot() {
   // Client-side high-resolution PDF generation with user entered values
   const handleSaveAsPdf = async () => {
     setIsExportingPdf(true);
+    
+    // 1. Ensure live DOM input values, textareas, and checkboxes are synchronized
+    document.querySelectorAll<HTMLInputElement>('input[type="checkbox"]').forEach((cb) => {
+      if (cb.checked) {
+        cb.setAttribute('checked', 'checked');
+      } else {
+        cb.removeAttribute('checked');
+      }
+    });
+
+    document.querySelectorAll<HTMLInputElement>('input[type="text"]').forEach((inp) => {
+      inp.setAttribute('value', inp.value);
+    });
+
+    document.querySelectorAll<HTMLTextAreaElement>('textarea').forEach((ta) => {
+      ta.innerHTML = ta.value;
+    });
+
+    // 2. Add class to strip borders, outlines, backgrounds and ghost placeholders
+    document.body.classList.add('exporting-pdf');
+
     try {
+      // Allow browser to apply layout styles cleanly
+      await new Promise((r) => setTimeout(r, 80));
+
       const pageElements = [1, 2, 3, 4]
         .map((num) => document.getElementById(`copilot-page-${num}`))
         .filter(Boolean) as HTMLElement[];
@@ -234,81 +258,27 @@ export default function ClinicianCoPilot() {
         compress: true,
       });
 
-      const pdfWidth = pdf.internal.pageSize.getWidth(); // 210mm
-      const pdfHeight = pdf.internal.pageSize.getHeight(); // 297mm
+      const pdfWidth = 210;
+      const pdfHeight = 297;
 
       for (let i = 0; i < pageElements.length; i++) {
         const pageEl = pageElements[i];
 
-        const canvas = await html2canvas(pageEl, {
-          scale: 2, // 2x high-resolution capture for ultra-crisp typography
-          useCORS: true,
-          logging: false,
+        // Capture page using html-to-image (native browser engine with oklch and modern CSS support)
+        const imgData = await toJpeg(pageEl, {
+          quality: 0.95,
           backgroundColor: '#ffffff',
-          windowWidth: 1200, // Forces consistent desktop layout across devices
-          onclone: (clonedDoc) => {
-            const pageId = pageEl.id || `copilot-page-${i + 1}`;
-            const clonedPage = clonedDoc.getElementById(pageId) || clonedDoc.querySelectorAll<HTMLElement>('.print-page')[i];
-            if (!clonedPage) return;
-
-            // Strip outer shadows, rounded borders, and enforce clean A4 document style
-            clonedPage.style.borderRadius = '0px';
-            clonedPage.style.border = 'none';
-            clonedPage.style.boxShadow = 'none';
-            clonedPage.style.backgroundColor = '#ffffff';
-            clonedPage.style.color = '#000000';
-            clonedPage.style.margin = '0 auto';
-            clonedPage.style.boxSizing = 'border-box';
-            clonedPage.style.width = '840px';
-            clonedPage.style.maxWidth = '840px';
-            clonedPage.style.minWidth = '840px';
-            clonedPage.style.padding = '32px 36px';
-
-            // Sync all original user input values into cloned DOM
-            const origInputs = pageEl.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input, textarea');
-            const clonedInputs = clonedPage.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input, textarea');
-
-            clonedInputs.forEach((clonedNode, idx) => {
-              const orig = origInputs[idx];
-              if (!orig) return;
-
-              if (clonedNode instanceof HTMLInputElement && clonedNode.type === 'checkbox') {
-                const isChecked = (orig as HTMLInputElement).checked;
-                clonedNode.checked = isChecked;
-                if (isChecked) {
-                  clonedNode.setAttribute('checked', 'checked');
-                  clonedNode.style.accentColor = '#0891b2';
-                } else {
-                  clonedNode.removeAttribute('checked');
-                }
-              } else {
-                // Convert text input or textarea into clean span with exact text
-                const val = orig.value || '';
-                const span = clonedDoc.createElement('span');
-                span.textContent = val;
-                span.style.color = '#000000';
-                span.style.fontSize = window.getComputedStyle(orig).fontSize || '11px';
-                span.style.fontFamily = window.getComputedStyle(orig).fontFamily || 'inherit';
-                span.style.fontWeight = window.getComputedStyle(orig).fontWeight || 'bold';
-                span.style.textAlign = window.getComputedStyle(orig).textAlign || 'center';
-                span.style.display = 'inline-block';
-                span.style.width = '100%';
-                span.style.whiteSpace = 'pre-wrap';
-                span.style.wordBreak = 'break-word';
-                span.style.minHeight = '14px';
-
-                if (clonedNode.parentNode) {
-                  clonedNode.parentNode.replaceChild(span, clonedNode);
-                }
-              }
-            });
+          pixelRatio: 2, // 2x crisp retina resolution
+          skipFonts: true, // Use already loaded system/rendered fonts, prevent CORS errors
+          style: {
+            borderRadius: '0px',
+            border: 'none',
+            boxShadow: 'none',
+            margin: '0',
           },
         });
 
-        const imgData = canvas.toDataURL('image/jpeg', 0.96);
-
-        // Aspect-ratio preserving fitting on A4 page
-        const imgRatio = canvas.width / canvas.height;
+        const imgRatio = pageEl.offsetWidth / (pageEl.offsetHeight || 1);
         const pageRatio = pdfWidth / pdfHeight;
         let renderWidth = pdfWidth;
         let renderHeight = pdfHeight;
@@ -335,18 +305,43 @@ export default function ClinicianCoPilot() {
       pdf.save('my-clinician-copilot-record.pdf');
       setPdfExportSuccess(true);
       setTimeout(() => setPdfExportSuccess(false), 5000);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to export PDF:', error);
-      alert('Could not generate direct PDF. Please use "Print Record" and select "Save as PDF" in your print dialog.');
+      alert(`Could not generate direct PDF (${error?.message || 'render error'}). Please use "Print Record" and select "Save as PDF" in your print dialog.`);
     } finally {
+      document.body.classList.remove('exporting-pdf');
       setIsExportingPdf(false);
     }
   };
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-cyan-500/30 print:bg-white print:text-black">
-      {/* Print Specific CSS Overrides */}
+      {/* Print & PDF Export Specific CSS Overrides */}
       <style>{`
+        /* PDF Export In-Flight Overrides */
+        body.exporting-pdf input,
+        body.exporting-pdf textarea {
+          border: none !important;
+          background: transparent !important;
+          box-shadow: none !important;
+          outline: none !important;
+          color: #000000 !important;
+          padding: 0 !important;
+          resize: none !important;
+        }
+        body.exporting-pdf input::placeholder,
+        body.exporting-pdf textarea::placeholder {
+          color: transparent !important;
+          opacity: 0 !important;
+        }
+        body.exporting-pdf .print-page {
+          border-radius: 0px !important;
+          border: none !important;
+          box-shadow: none !important;
+          background-color: #ffffff !important;
+          color: #000000 !important;
+        }
+
         @media print {
           @page {
             size: A4;
