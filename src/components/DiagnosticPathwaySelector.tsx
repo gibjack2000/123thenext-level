@@ -88,22 +88,19 @@ export const REGIONAL_PATHWAYS: Record<Market, RegionalPathwayData> = {
 };
 
 export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps> = ({
-  initialMarket,
   showRegionTabs = true,
   selectedPathway: controlledPathway,
   onSelectPathway,
   className = '',
   showCopilotLink = false,
 }) => {
-  const { market: contextMarket, setMarket } = useMarket();
-  const [internalMarket, setInternalMarket] = useState<Market>(
-    initialMarket || (contextMarket as Market) || 'US'
-  );
+  const { market, setMarket } = useMarket();
   const [internalSelectedPathway, setInternalSelectedPathway] = useState<'level1' | 'level2' | null>(
     controlledPathway || null
   );
 
-  const activeMarket: Market = initialMarket || (contextMarket as Market) || internalMarket || 'US';
+  // Directly subscribe to central MarketContext state
+  const activeMarket: Market = (market?.toUpperCase() as Market) || 'US';
   const regionData = REGIONAL_PATHWAYS[activeMarket] || REGIONAL_PATHWAYS.US;
 
   const currentSelected = controlledPathway !== undefined ? controlledPathway : internalSelectedPathway;
@@ -134,7 +131,7 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
           </p>
         </div>
 
-        {/* Region Switcher Tabs */}
+        {/* Region Switcher Tabs with explicit onClick state changes & high-contrast active styling */}
         {showRegionTabs && (
           <div className="flex items-center bg-slate-900/90 border border-slate-800 rounded-2xl p-1 gap-1 shrink-0 self-start md:self-center">
             {(['US', 'UK', 'ES'] as Market[]).map((m) => {
@@ -144,15 +141,13 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
                 <button
                   key={m}
                   type="button"
-                  onClick={() => {
-                    setInternalMarket(m);
-                    setMarket(m);
-                  }}
+                  onClick={() => setMarket(m)}
                   className={`px-3 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
                     isActive
-                      ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
-                      : 'text-slate-400 hover:text-slate-200'
+                      ? 'bg-cyan-500 text-slate-950 font-bold shadow-md'
+                      : 'text-slate-400 hover:text-white'
                   }`}
+                  aria-pressed={isActive}
                 >
                   <span>{label}</span>
                 </button>

@@ -22,17 +22,15 @@ export const Navbar: React.FC = () => {
   }, [market]);
 
   const handleRegionChange = (region: 'us' | 'uk' | 'es') => {
+    const marketUpper = region.toUpperCase() as Market;
     setSelectedRegion(region);
-    setMarket(region.toUpperCase() as Market);
+    setMarket(marketUpper);
     setIsMobileMenuOpen(false);
 
-    // If on diagnostic guide, stay in-place while clinical panels switch
-    if (location.pathname === '/guide' || location.pathname.startsWith('/dual-track')) {
-      return;
+    // Only redirect to /store-[region] if already on a storefront page
+    if (location.pathname.startsWith('/store')) {
+      navigate(`/store-${region}`);
     }
-
-    // Everywhere else (Homepage, Store, etc.), navigate directly to regional storefront
-    navigate(`/store-${region}`);
   };
 
   const closeMobileMenu = () => {
@@ -169,7 +167,7 @@ export const Navbar: React.FC = () => {
           </Link>
 
           <Link 
-            to={`/store-${selectedRegion}`} 
+            to={`/store-${market?.toLowerCase() || selectedRegion}`} 
             className={`transition-colors ${location.pathname.startsWith('/store') ? 'text-cyan-400 font-bold font-black' : 'text-slate-300 hover:text-white'}`}
           >
             🛒 Store
@@ -183,12 +181,13 @@ export const Navbar: React.FC = () => {
               type="button"
               onClick={() => handleRegionChange('us')}
               className={`px-2.5 py-1 rounded-full font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                selectedRegion === 'us' 
-                  ? 'bg-cyan-500 text-slate-950 shadow-sm scale-105' 
+                market === 'US' 
+                  ? 'bg-cyan-500 text-slate-950 font-bold shadow-md scale-105' 
                   : 'text-slate-400 hover:text-white'
               }`}
               title="United States Market (US)"
               aria-label="Switch to United States Market"
+              aria-pressed={market === 'US'}
             >
               <FlagUS className="w-4 h-3 pointer-events-none" /> <span className="pointer-events-none">US</span>
             </button>
@@ -196,12 +195,13 @@ export const Navbar: React.FC = () => {
               type="button"
               onClick={() => handleRegionChange('uk')}
               className={`px-2.5 py-1 rounded-full font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                selectedRegion === 'uk' 
-                  ? 'bg-cyan-500 text-slate-950 shadow-sm scale-105' 
+                market === 'UK' 
+                  ? 'bg-cyan-500 text-slate-950 font-bold shadow-md scale-105' 
                   : 'text-slate-400 hover:text-white'
               }`}
               title="United Kingdom Market (UK)"
               aria-label="Switch to United Kingdom Market"
+              aria-pressed={market === 'UK'}
             >
               <FlagUK className="w-4 h-3 pointer-events-none" /> <span className="pointer-events-none">UK</span>
             </button>
@@ -209,12 +209,13 @@ export const Navbar: React.FC = () => {
               type="button"
               onClick={() => handleRegionChange('es')}
               className={`px-2.5 py-1 rounded-full font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                selectedRegion === 'es' 
-                  ? 'bg-cyan-500 text-slate-950 shadow-sm scale-105' 
+                market === 'ES' 
+                  ? 'bg-cyan-500 text-slate-950 font-bold shadow-md scale-105' 
                   : 'text-slate-400 hover:text-white'
               }`}
               title="Spain / EU Market (ES)"
               aria-label="Switch to Spain / EU Market"
+              aria-pressed={market === 'ES'}
             >
               <FlagES className="w-4 h-3 pointer-events-none" /> <span className="pointer-events-none">ES</span>
             </button>
@@ -254,7 +255,7 @@ export const Navbar: React.FC = () => {
           <Link to="/clinician-copilot" onClick={closeMobileMenu} className="block text-amber-400 font-bold py-1">🩺 Clinician Co-Pilot</Link>
           <Link to="/premium-guides" onClick={closeMobileMenu} className="block text-amber-400/90 font-bold py-1">⚡ Premium Guides (9 Books)</Link>
           <Link to="/blog" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">📚 Blogs & Science Library</Link>
-          <Link to={`/store-${selectedRegion}`} onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🛒 Sovereign Store</Link>
+          <Link to={`/store-${market?.toLowerCase() || selectedRegion}`} onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🛒 Sovereign Store</Link>
           
           <div className="pt-2">
             <Link
@@ -273,21 +274,21 @@ export const Navbar: React.FC = () => {
               <button 
                 type="button"
                 onClick={() => handleRegionChange('us')} 
-                className={`px-2.5 py-1 rounded-md flex items-center gap-1.5 cursor-pointer ${selectedRegion === 'us' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40' : 'text-slate-400'}`}
+                className={`px-2.5 py-1 rounded-md flex items-center gap-1.5 cursor-pointer ${market === 'US' ? 'bg-cyan-500 text-slate-950 font-bold shadow-md' : 'text-slate-400'}`}
               >
                 <FlagUS className="w-4 h-3 pointer-events-none" /> <span className="pointer-events-none">US</span>
               </button>
               <button 
                 type="button"
                 onClick={() => handleRegionChange('uk')} 
-                className={`px-2.5 py-1 rounded-md flex items-center gap-1.5 cursor-pointer ${selectedRegion === 'uk' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40' : 'text-slate-400'}`}
+                className={`px-2.5 py-1 rounded-md flex items-center gap-1.5 cursor-pointer ${market === 'UK' ? 'bg-cyan-500 text-slate-950 font-bold shadow-md' : 'text-slate-400'}`}
               >
                 <FlagUK className="w-4 h-3 pointer-events-none" /> <span className="pointer-events-none">UK</span>
               </button>
               <button 
                 type="button"
                 onClick={() => handleRegionChange('es')} 
-                className={`px-2.5 py-1 rounded-md flex items-center gap-1.5 cursor-pointer ${selectedRegion === 'es' ? 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/40' : 'text-slate-400'}`}
+                className={`px-2.5 py-1 rounded-md flex items-center gap-1.5 cursor-pointer ${market === 'ES' ? 'bg-cyan-500 text-slate-950 font-bold shadow-md' : 'text-slate-400'}`}
               >
                 <FlagES className="w-4 h-3 pointer-events-none" /> <span className="pointer-events-none">ES</span>
               </button>

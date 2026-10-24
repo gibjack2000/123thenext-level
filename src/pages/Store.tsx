@@ -2632,7 +2632,6 @@ export function Store({ region }: StoreProps = {}) {
           {/* Diagnostic Dual-Pathway Requisition Selector */}
           <div className="relative overflow-hidden rounded-3xl bg-slate-900/60 border border-slate-800 p-6 sm:p-8 shadow-2xl backdrop-blur-md">
             <DiagnosticPathwaySelector 
-              initialMarket={activeTab as Market} 
               showRegionTabs={true}
               showCopilotLink={true}
             />

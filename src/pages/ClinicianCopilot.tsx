@@ -191,9 +191,6 @@ const DIAGNOSTIC_REGIONS = {
 
 export default function ClinicianCopilot() {
   const { market, setMarket } = useMarket();
-  const [activeMarketTab, setActiveMarketTab] = useState<'US' | 'UK' | 'ES'>(
-    (market?.toUpperCase() as 'US' | 'UK' | 'ES') || 'US'
-  );
   const [downloadSuccess, setDownloadSuccess] = useState(false);
   const [resetToast, setResetToast] = useState(false);
   const [isExportingPdf, setIsExportingPdf] = useState(false);
@@ -388,8 +385,6 @@ export default function ClinicianCopilot() {
       setIsExportingPdf(false);
     }
   };
-
-  const currentRegion = DIAGNOSTIC_REGIONS[activeMarketTab];
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-cyan-500/30 print:bg-white print:text-black">
@@ -586,7 +581,6 @@ export default function ClinicianCopilot() {
           
           <div className="relative z-10">
             <DiagnosticPathwaySelector
-              initialMarket={activeMarketTab}
               showRegionTabs={true}
               selectedPathway={agreedPathway.level2 ? 'level2' : agreedPathway.level1 ? 'level1' : null}
               onSelectPathway={(pathway) => {

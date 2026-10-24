@@ -110,6 +110,8 @@ export default function MarketSelector({ currentCategory, className = "", size =
       navigate(`/store-${rId}`);
     } else if (location.pathname.startsWith('/start-here')) {
       navigate(`/start-here?country=${marketUpper}`);
+    } else if (location.pathname === '/clinician-copilot' || location.pathname.startsWith('/library') || location.pathname.startsWith('/blog/') || location.pathname.startsWith('/premium-guides/') || location.pathname === '/health-quiz') {
+      // Remain on current view while regional diagnostics and products auto-switch in place
     } else if (pathRegion) {
       if (parts[0] === 'region') {
         navigate(`/region/${rId}`);
@@ -119,10 +121,8 @@ export default function MarketSelector({ currentCategory, className = "", size =
       }
     } else if (currentCategory) {
       navigate(`/${rId}/${currentCategory}`);
-    } else if (location.pathname.startsWith('/blog/') || location.pathname.startsWith('/premium-guides/') || location.pathname === '/health-quiz') {
-      // On blog articles and quizzes, remain on article while regional product pricing auto-updates
     } else {
-      // On Homepage (/) and all general views, immediately direct user to that regional storefront
+      // On Homepage (/) and general browsing
       navigate(`/store-${rId}`);
     }
   };
@@ -138,7 +138,7 @@ export default function MarketSelector({ currentCategory, className = "", size =
       )}
       <div className={`flex items-center gap-1 sm:gap-1.5 bg-slate-950/90 p-1 rounded-xl border border-slate-800/90 shadow-inner shrink-0 ${isLarge ? 'w-full justify-center' : ''}`}>
         {REGIONS.map((r) => {
-          const isActive = activeRegionId === r.id;
+          const isActive = (market?.toLowerCase() || activeRegionId) === r.id;
           const FlagComp = r.FlagComponent;
           
           return (
@@ -152,7 +152,7 @@ export default function MarketSelector({ currentCategory, className = "", size =
                   : 'min-h-[44px] min-w-[44px] px-2.5 sm:px-3 py-2 text-xs sm:text-xs'
               } ${
                 isActive 
-                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/50 shadow-[0_0_8px_rgba(6,182,212,0.3)]' 
+                  ? 'bg-cyan-500 text-slate-950 font-bold shadow-md scale-105' 
                   : 'bg-slate-900/40 text-slate-400 hover:text-slate-200 border border-transparent hover:border-slate-700 hover:bg-slate-800/60'
               }`}
               title={r.name}
@@ -162,7 +162,7 @@ export default function MarketSelector({ currentCategory, className = "", size =
               <FlagComp className={isLarge ? "w-5 h-3.5 sm:w-6 sm:h-4" : "w-4 h-3 sm:w-4.5 sm:h-3.5"} />
               <span className="tracking-tight">{r.label}</span>
               {isActive && (
-                <div className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-cyan-400 rounded-full shadow-[0_0_4px_#22d3ee]"></div>
+                <div className="absolute -bottom-0.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-slate-950 rounded-full"></div>
               )}
             </button>
           );
@@ -171,5 +171,3 @@ export default function MarketSelector({ currentCategory, className = "", size =
     </div>
   );
 }
-
-
