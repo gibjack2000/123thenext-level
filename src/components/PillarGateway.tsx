@@ -87,15 +87,17 @@ export const PillarGateway: React.FC = () => {
       hoverShadowColor: "hover:shadow-rose-500/20"
     },
     {
-      to: "/health",
+      to: "/clinician-copilot",
       image: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&q=80&w=1200",
       icon: HeartPulse,
       iconColor: "text-rose-400",
       title: "Healthspan & Diagnostic Radar",
-      bullets: ["Clinical Blood Panels (56 Biomarkers)", "Biological Age Clocks", "Early Warning Detection", "GP Consultation Co-Pilot"],
-      description: "Transition from guessing to knowing. Establish your baseline with clinical blood panels, track biological age, and turn your doctor into a longevity co-pilot.",
+      subtitle: "Clinician Co-Pilot Workbook & GP Consultation Partnership",
+      bullets: ["Clinical Blood Panels (ApoB, HbA1c, hs-CRP)", "14-Day Baseline Vitals Log", "GP Consultation Partnership", "Free 4-Page Co-Pilot Workbook"],
+      description: "Use our free Clinician Co-Pilot Workbook to log your 14-day vitals, select your regional blood panels (ApoB, HbA1c, hs-CRP), and co-evaluate your results with your GP.",
       hoverBorderColor: "hover:border-rose-500/50",
       hoverShadowColor: "hover:shadow-rose-500/20",
+      primaryCtaText: "Open Clinician Co-Pilot ➔",
       subLink: {
         text: "Discover the Anti-Aging Health Revolution & Molecular Science →",
         to: "/science"

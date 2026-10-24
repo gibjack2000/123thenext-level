@@ -377,11 +377,11 @@ export default function LibraryPage() {
                 </h3>
 
                 <p className="text-xs font-semibold text-amber-400/90 tracking-wide">
-                  A Progressive Diagnostic Roadmap &amp; Printable GP Consultation Workbook
+                  Clinician Co-Pilot Workbook &amp; GP Consultation Partnership
                 </p>
                 
                 <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-sans">
-                  Cross the bridge from guessing to knowing with this 4-page clinician-ready consultation workbook. Includes our Lola Vital Check 56 biomarker breakdown, laboratory draw checklist, and a printable template to co-evaluate your telemetry with your doctor.
+                  Use our free Clinician Co-Pilot Workbook to log your 14-day vitals, select your regional blood panels (ApoB, HbA1c, hs-CRP), and co-evaluate your results with your GP.
                 </p>
               </div>
 
@@ -390,19 +390,19 @@ export default function LibraryPage() {
                 <ul className="space-y-1.5 text-xs text-slate-300">
                   <li className="flex items-center space-x-2">
                     <span className="text-amber-400 font-bold">✓</span>
-                    <span>Printable doctor note &amp; consultation template</span>
+                    <span>14-day baseline vital telemetry tracking log</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <span className="text-amber-400 font-bold">✓</span>
-                    <span>Lola Vital Check 56 biomarker breakdown</span>
+                    <span>Regional blood panel checklist (ApoB, HbA1c, hs-CRP)</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <span className="text-amber-400 font-bold">✓</span>
-                    <span>Laboratory draw checklist &amp; reference targets</span>
+                    <span>Direct GP consultation partnership discussion script</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <span className="text-amber-400 font-bold">✓</span>
-                    <span>Actionable clinician co-pilot discussion questions</span>
+                    <span>Printable 4-page clinical workbook &amp; digital inputs</span>
                   </li>
                 </ul>
               </div>
@@ -411,6 +411,14 @@ export default function LibraryPage() {
             {/* Dual CTAs for Card 2 */}
             <div className="pt-4 border-t border-slate-800/80 relative z-10 space-y-2.5">
               {/* Primary Button */}
+              <Link
+                to="/clinician-copilot"
+                className="w-full py-4 px-5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2 transition duration-200 shadow-lg cursor-pointer bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 hover:from-amber-400 hover:to-orange-400 shadow-amber-500/20 hover:scale-[1.01] active:scale-[0.99]"
+              >
+                <span>Open Clinician Co-Pilot ➔</span>
+              </Link>
+
+              {/* Secondary Button */}
               <a
                 href="/assets/docs/clinical-baseline-consultation-workbook.pdf"
                 download="clinical-baseline-consultation-workbook.pdf"
@@ -421,19 +429,11 @@ export default function LibraryPage() {
                     "The Clinician Co-Pilot Workbook"
                   );
                 }}
-                className="w-full py-4 px-5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2 transition duration-200 shadow-lg cursor-pointer bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 hover:from-amber-400 hover:to-orange-400 shadow-amber-500/20 hover:scale-[1.01] active:scale-[0.99]"
-              >
-                <Download size={16} />
-                <span>📥 Download Free PDF</span>
-              </a>
-
-              {/* Secondary Button */}
-              <Link
-                to="/clinician-copilot"
                 className="w-full py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition bg-cyan-950/60 hover:bg-cyan-900/70 border border-cyan-500/30 text-cyan-300 hover:text-white"
               >
-                <span>✏️ Interactive Online Workbook ➔</span>
-              </Link>
+                <Download size={14} />
+                <span>📥 Download Blank PDF ($0)</span>
+              </a>
 
               <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400 font-mono text-center">
                 <ShieldCheck size={12} className="text-emerald-400" />

@@ -19,21 +19,27 @@ export default function Header() {
       </div>
 
       {/* Main Navigation Links */}
-      <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-400">
+      <nav className="hidden md:flex items-center space-x-6 text-sm font-medium text-slate-400">
         <Link to="/overview" className="min-h-[48px] flex items-center hover:text-cyan-400 transition-colors touch-manipulation">
           🌐 The Big Picture
         </Link>
-        <Link to="/free-pdfs" className="min-h-[48px] flex items-center hover:text-cyan-400 transition-colors touch-manipulation">
-          📁 Free PDFs
+        <Link to="/start-here" className="min-h-[48px] flex items-center hover:text-cyan-400 transition-colors touch-manipulation">
+          🚀 Start Here
         </Link>
         <Link to="/clinician-copilot" className="min-h-[48px] flex items-center hover:text-cyan-400 transition-colors touch-manipulation">
           🩺 Clinician Co-Pilot
+        </Link>
+        <Link to="/library" className="min-h-[48px] flex items-center hover:text-cyan-400 transition-colors touch-manipulation">
+          📁 Library
+        </Link>
+        <Link to="/free-pdfs" className="min-h-[48px] flex items-center hover:text-cyan-400 transition-colors touch-manipulation">
+          📄 Free PDFs
         </Link>
         <Link to="/premium-guides" className="min-h-[48px] flex items-center hover:text-amber-400 text-amber-400/90 transition-colors touch-manipulation">
           ⚡ Premium Guides
         </Link>
         <Link to="/quiz" className="min-h-[48px] flex items-center text-slate-350 hover:text-cyan-400 transition-colors touch-manipulation">
-          ⚡ Free Wellness Quiz
+          ⚡ 5-Min Quiz
         </Link>
         <Link 
           to="/store" 
@@ -102,7 +108,7 @@ export default function Header() {
           to="/quiz" 
           className="min-h-[40px] px-4 py-2 rounded-full text-xs font-extrabold tracking-wide uppercase bg-cyan-500 text-slate-950 hover:bg-cyan-400 shadow-lg shadow-cyan-500/10 transition inline-flex items-center touch-manipulation"
         >
-          Start Free Quiz
+          5-Min Quiz
         </Link>
       </div>
 

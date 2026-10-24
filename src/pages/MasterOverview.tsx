@@ -121,15 +121,15 @@ const PILLARS_DATA: PillarCardData[] = [
     id: 'science',
     number: 6,
     name: 'Healthspan & Diagnostic Radar',
-    theme: 'Focus: Clinical Blood Panels & Biological Age',
+    theme: 'Clinician Co-Pilot Workbook & GP Consultation Partnership',
     icon: '🩸',
-    shortDesc: 'Replace guesswork with clinical clarity. Establish comprehensive laboratory blood panels, track Horvath and DunedinPACE biological age clocks, and detect early warning signals years in advance.',
+    shortDesc: 'Use our free Clinician Co-Pilot Workbook to log your 14-day vitals, select your regional blood panels (ApoB, HbA1c, hs-CRP), and co-evaluate your results with your GP.',
     deepDive: {
       coreMetric: 'ApoB (<70 mg/dL), hs-CRP (<0.5 mg/L), DNA Methylation Pace',
-      actionableHabit: 'Bi-annual comprehensive 56-biomarker blood draws & clinician co-pilot tracking',
+      actionableHabit: '14-Day Vitals Log, Clinician Co-Pilot Workbook & Bi-annual blood draws',
       clinicalTarget: 'DunedinPACE biological decay rate <0.80 years aged per calendar year'
     },
-    link: '/science',
+    link: '/clinician-copilot',
     tagColor: 'text-amber-400 bg-amber-950/60 border-amber-800/60'
   }
 ];
@@ -414,7 +414,7 @@ export const MasterOverview: React.FC = () => {
                       to={pillar.link}
                       className="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1"
                     >
-                      <span>Pillar Deep Dive</span>
+                      <span>{pillar.link === '/clinician-copilot' ? 'Open Clinician Co-Pilot' : 'Pillar Deep Dive'}</span>
                       <ArrowRight size={13} />
                     </Link>
                   </div>

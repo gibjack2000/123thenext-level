@@ -367,7 +367,7 @@ export const StoreUK: React.FC = () => {
             <div className="space-y-6">
               <div className="border-l-4 border-rose-500 pl-4">
                 <span className="text-xs text-rose-500 uppercase font-semibold tracking-widest">DIRECT ACCESS PARTNERS (UK)</span>
-                <h2 className="text-2xl font-bold text-slate-100 mt-1">Clinical Diagnostics & Direct Offerings</h2>
+                <h2 className="text-2xl font-bold text-slate-100 mt-1">Clinical Diagnostics & Co-Pilot Offerings</h2>
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -9,10 +9,12 @@ interface PillarCardProps {
   icon: LucideIcon;
   iconColor: string;
   title: string;
+  subtitle?: string;
   bullets: string[];
   description: string;
   hoverBorderColor: string;
   hoverShadowColor: string;
+  primaryCtaText?: string;
   subLink?: {
     text: string;
     to: string;
@@ -25,10 +27,12 @@ export default function PillarCard({
   icon: Icon,
   iconColor,
   title,
+  subtitle,
   bullets,
   description,
   hoverBorderColor,
   hoverShadowColor,
+  primaryCtaText,
   subLink,
 }: PillarCardProps) {
   const t = useT();
@@ -67,9 +71,15 @@ export default function PillarCard({
           <Icon size={28} />
         </div>
         
-        <h3 className="text-3xl md:text-4xl font-display font-black uppercase tracking-tighter text-white mb-6 leading-[0.9] group-hover:text-blue-400 transition-colors duration-300">
+        <h3 className="text-3xl md:text-4xl font-display font-black uppercase tracking-tighter text-white mb-3 leading-[0.9] group-hover:text-blue-400 transition-colors duration-300">
           {title}
         </h3>
+
+        {subtitle && (
+          <p className="text-cyan-400 font-semibold text-xs sm:text-sm uppercase tracking-wide mb-6">
+            {subtitle}
+          </p>
+        )}
         
         <ul className="space-y-4 mb-8 text-slate-100 font-bold text-sm tracking-wide">
           {bullets.map((bullet, index) => (
@@ -99,8 +109,8 @@ export default function PillarCard({
         )}
         
         <div className="mt-auto text-white font-black uppercase tracking-widest text-xs flex items-center group-hover:translate-x-2 transition-transform duration-300 underline-offset-8 decoration-2 hover:underline">
-          <Link to={to} className="inline-flex items-center">
-            {t('pillar_learn_more')} <ArrowRight size={16} className="ml-2 text-blue-500" />
+          <Link to={to} className="inline-flex items-center text-cyan-400 group-hover:text-cyan-300">
+            {primaryCtaText || t('pillar_learn_more')} {!primaryCtaText && <ArrowRight size={16} className="ml-2 text-blue-500" />}
           </Link>
         </div>
       </div>

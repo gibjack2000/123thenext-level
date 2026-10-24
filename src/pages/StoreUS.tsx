@@ -392,7 +392,7 @@ export const StoreUS: React.FC = () => {
                     CLINICAL ARSENAL US • DIRECT ACCESS PROTOCOLS
                   </span>
                   <h2 className="text-2xl sm:text-3xl font-bold text-slate-100 mt-1 font-display">
-                    Clinical Diagnostics &amp; Longevity Arsenal
+                    Clinical Diagnostics &amp; Co-Pilot Arsenal
                   </h2>
                 </div>
                 <div className="text-xs font-mono text-cyan-400 bg-cyan-950/40 px-3 py-1.5 rounded-lg border border-cyan-800/30 self-start sm:self-auto flex items-center gap-1.5">

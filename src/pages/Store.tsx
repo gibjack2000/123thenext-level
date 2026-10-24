@@ -2142,7 +2142,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
 
 export const STOREFRONT_CATEGORIES = [
   'All',
-  'Clinical Diagnostics',
+  'Clinical Diagnostics & Co-Pilot',
   'Supplements & Nutrition',
   'Fitness & Movement',
   'Kitchen & Meal Prep',
@@ -2154,7 +2154,7 @@ export function normalizeStoreCategory(rawCategory: string | undefined, name?: s
   const title = (name || '').toLowerCase();
   const deal = (dealUrl || '').toLowerCase();
 
-  if (cat === 'clinical diagnostics') return 'Clinical Diagnostics';
+  if (cat === 'clinical diagnostics & co-pilot' || cat === 'clinical diagnostics' || cat === 'co-pilot') return 'Clinical Diagnostics & Co-Pilot';
   if (cat === 'supplements & nutrition') return 'Supplements & Nutrition';
   if (cat === 'fitness & movement') return 'Fitness & Movement';
   if (cat === 'kitchen & meal prep') return 'Kitchen & Meal Prep';
@@ -2225,20 +2225,20 @@ export function normalizeStoreCategory(rawCategory: string | undefined, name?: s
     return 'Mind & Wellness';
   }
 
-  // Clinical Diagnostics
-  return 'Clinical Diagnostics';
+  // Clinical Diagnostics & Co-Pilot
+  return 'Clinical Diagnostics & Co-Pilot';
 }
 
 function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marketTab: MarketTab }) {
   const normKey = categoryKey.toLowerCase();
   
   const getBannerConfig = (cat: string, market: MarketTab) => {
-    if (cat.includes('diagnostic') || cat.includes('testing') || cat.includes('performance') || cat.includes('wearable') || cat.includes('tech')) {
+    if (cat.includes('diagnostic') || cat.includes('co-pilot') || cat.includes('copilot') || cat.includes('testing') || cat.includes('performance') || cat.includes('wearable') || cat.includes('tech')) {
       return {
-        title: market === 'ES' ? 'ES DIAGNÓSTICO CLÍNICO' : `${market} CLINICAL DIAGNOSTICS`,
+        title: market === 'ES' ? 'ES DIAGNÓSTICO CLÍNICO & CO-PILOT' : `${market} CLINICAL DIAGNOSTICS & CO-PILOT`,
         subtitle: market === 'ES' 
-          ? 'Herramientas de diagnóstico de biomarcadores y sensores médicos validados' 
-          : 'Diagnostic tools, biomarker test kits, and medical-grade telemetry devices',
+          ? 'Herramientas de diagnóstico de biomarcadores, cuaderno Co-Pilot y sensores médicos validados' 
+          : 'Diagnostic tools, Clinician Co-Pilot workbook, biomarker test kits, and medical-grade telemetry devices',
         icon: Microscope,
         iconColor: 'text-cyan-400',
         iconBorder: 'border-cyan-500/30',
@@ -2736,7 +2736,7 @@ export function Store({ region }: StoreProps = {}) {
             <div className="space-y-6">
               <div className="border-l-4 border-rose-500 pl-4">
                 <span className="text-xs text-rose-500 uppercase font-semibold tracking-widest">DIRECT ACCESS PARTNERS ({activeTab})</span>
-                <h2 className="text-2xl font-bold text-slate-100 mt-1">Clinical Diagnostics & Direct Offerings</h2>
+                <h2 className="text-2xl font-bold text-slate-100 mt-1">Clinical Diagnostics & Co-Pilot Offerings</h2>
               </div>
               
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

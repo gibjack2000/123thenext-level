@@ -95,17 +95,17 @@ export const tabsData: TabData[] = [
     id: 'diagnostics',
     label: '🩸 Diagnostics',
     badge: 'HEALTHSPAN & DIAGNOSTIC RADAR',
-    title: 'Clinical Blood Panels & Biological Age',
-    description: 'Transition from guessing to knowing. Establish your baseline with clinical blood panels, track biological age, and turn your doctor into a longevity co-pilot.',
+    title: 'Healthspan & Diagnostic Radar',
+    description: 'Use our free Clinician Co-Pilot Workbook to log your 14-day vitals, select your regional blood panels (ApoB, HbA1c, hs-CRP), and co-evaluate your results with your GP.',
     bullets: [
-      'Clinical Blood Panels (56 Biomarkers)',
-      'Biological Age & Epigenetic Pace',
-      'Collaborative GP Consultation Template included'
+      'Clinical Blood Panels (ApoB, HbA1c, hs-CRP)',
+      '14-Day Vitals Log & Telemetry Tracking',
+      'Free 4-Page Clinician Co-Pilot Consultation Workbook'
     ],
-    primaryCtaText: 'Explore Diagnostic Radar →',
-    primaryCtaLink: '/guide',
-    secondaryCtaText: 'Clinician Co-Pilot Workbook →',
-    secondaryCtaLink: '/clinician-copilot',
+    primaryCtaText: 'Open Clinician Co-Pilot ➔',
+    primaryCtaLink: '/clinician-copilot',
+    secondaryCtaText: 'Explore Diagnostic Radar →',
+    secondaryCtaLink: '/guide',
     posterImage: '/gp_consultation_cover.png'
   },
   {

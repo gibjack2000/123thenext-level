@@ -912,11 +912,11 @@ export default function StartHere() {
                     Healthspan &amp; Diagnostic Radar
                   </h3>
                   <p className="text-xs font-semibold text-amber-400/90 mt-1">
-                    Clinical Blood Panels &amp; Biological Age
+                    Clinician Co-Pilot Workbook &amp; GP Consultation Partnership
                   </p>
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed font-light">
-                  Eliminate biological speculation. Establish hard, objective laboratory baselines starting with our Level 1 Core Tri-Marker panel (ApoB, HbA1c, hs-CRP) or expanding into the Level 2 Full 56-Biomarker Cellular Map.
+                  Use our free Clinician Co-Pilot Workbook to log your 14-day vitals, select your regional blood panels (ApoB, HbA1c, hs-CRP), and co-evaluate your results with your GP.
                 </p>
 
                 <div className="p-4 rounded-xl bg-amber-950/30 border border-amber-800/40 space-y-2">
@@ -935,7 +935,7 @@ export default function StartHere() {
                   to="/clinician-copilot"
                   className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-bold text-xs uppercase tracking-wider text-center transition-all shadow-md flex items-center justify-center gap-2"
                 >
-                  <span>Clinician Co-Pilot Workbook ➔</span>
+                  <span>Open Clinician Co-Pilot ➔</span>
                 </Link>
                 <a
                   href="/assets/docs/clinical-baseline-consultation-workbook.pdf"

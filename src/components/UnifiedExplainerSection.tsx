@@ -165,8 +165,11 @@ export const UnifiedExplainerSection: React.FC<UnifiedExplainerSectionProps> = (
                 <h4 className="text-lg font-bold text-white group-hover:text-amber-300 transition-colors">
                   Healthspan &amp; Diagnostic Radar
                 </h4>
+                <p className="text-xs font-semibold text-amber-400/90">
+                  Clinician Co-Pilot Workbook &amp; GP Consultation Partnership
+                </p>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Clinical Blood Panels &amp; Biological Age. Clinician Co-Pilot Workbook, Level 1 ApoB/HbA1c/hs-CRP &amp; Level 2 56-Biomarker Cellular Map.
+                  Use our free Clinician Co-Pilot Workbook to log your 14-day vitals, select your regional blood panels (ApoB, HbA1c, hs-CRP), and co-evaluate your results with your GP.
                 </p>
                 <ul className="space-y-1.5 text-xs text-slate-300 pt-2 border-t border-slate-800/60">
                   <li className="flex items-center gap-2">
@@ -186,7 +189,7 @@ export const UnifiedExplainerSection: React.FC<UnifiedExplainerSectionProps> = (
 
               <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
                 <Link to="/clinician-copilot" className="text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1">
-                  <span>Open Co-Pilot App</span>
+                  <span>Open Clinician Co-Pilot ➔</span>
                   <ArrowRight size={13} />
                 </Link>
                 <Link to="/guide" className="text-slate-400 hover:text-white font-medium">
