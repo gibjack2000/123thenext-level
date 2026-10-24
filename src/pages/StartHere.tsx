@@ -7,6 +7,7 @@ import {
   CheckCircle2, AlertTriangle, Compass, FileText,
   ChevronDown, ChevronUp, Download, Eye, Award, Sparkles
 } from 'lucide-react';
+import { UnifiedExplainerSection } from '../components/UnifiedExplainerSection';
 
 export default function StartHere() {
   const navigate = useNavigate();
@@ -76,6 +77,9 @@ export default function StartHere() {
             Your onboarding path to human longevity. Balance clinical baseline telemetry with actionable daily habits to rewrite your biological decay rate.
           </p>
         </div>
+
+        {/* 4-Stage High-Converting Funnel: Unified Longevity Engine Explainer */}
+        <UnifiedExplainerSection className="mb-14" />
 
         {/* Glowing Callout Banner: Sovereign Storefront Integration */}
         <div className="mb-14 p-6 sm:p-8 rounded-2xl bg-slate-900 border border-cyan-500/30 shadow-[0_0_30px_rgba(6,182,212,0.12)] backdrop-blur-xl relative overflow-hidden group text-left">

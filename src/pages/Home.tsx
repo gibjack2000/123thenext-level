@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { InteractiveTabbedHero } from '../components/InteractiveTabbedHero';
 import { DiagnosticRoadmap } from '../components/DiagnosticRoadmap';
+import { UnifiedExplainerSection } from '../components/UnifiedExplainerSection';
 import { PillarGateway } from '../components/PillarGateway';
 import { SovereignStoreShowcase } from '../components/SovereignStoreShowcase';
 import { EpigeneticsSection } from '../components/EpigeneticsSection';
@@ -31,6 +32,9 @@ export const Home: React.FC = () => {
 
       {/* LAYER 2: Practical Diagnostic Suite & Mind-Body Companion Spotlight */}
       <DiagnosticRoadmap />
+
+      {/* LAYER 2.5: Unified Explainer 4-Stage High-Converting Funnel */}
+      <UnifiedExplainerSection />
 
       {/* LAYER 3: 6-Pillar Gateway Matrix */}
       <PillarGateway />
