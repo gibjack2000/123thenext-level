@@ -216,162 +216,186 @@ export const MasterOverview: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-left">
             
             {/* Tier 1 */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-cyan-500/30 hover:border-cyan-400/70 transition-all duration-500 flex flex-col justify-between space-y-6 shadow-2xl relative group overflow-hidden hover:shadow-[0_0_40px_rgba(6,182,212,0.22)] hover:-translate-y-1">
-              {/* Thematic Background Image with Ambient Glow */}
-              <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+            <div className="rounded-3xl bg-slate-900/80 border border-cyan-500/30 hover:border-cyan-400/80 transition-all duration-500 flex flex-col justify-between shadow-2xl relative group overflow-hidden hover:shadow-[0_0_40px_rgba(6,182,212,0.25)] hover:-translate-y-1">
+              {/* Dedicated Visual Artwork Window */}
+              <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-950 border-b border-slate-800/60">
                 <img
                   src="/assets/tier1_hardware_bg.jpg"
                   alt="Daily Biological Hardware"
-                  className="w-full h-full object-cover object-top opacity-25 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700 ease-out filter contrast-125 saturate-110"
+                  className="w-full h-full object-cover object-top group-hover:scale-108 transition-all duration-700 ease-out filter contrast-110 brightness-95"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/85 to-slate-950/40" />
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-500/15 via-transparent to-transparent opacity-70 group-hover:opacity-100 transition-opacity" />
-              </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
 
-              {/* Glowing Top Accent Line */}
-              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-75 group-hover:opacity-100 group-hover:h-[3px] transition-all" />
-
-              <div className="relative z-10 space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="p-3 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 shadow-[0_0_15px_rgba(6,182,212,0.25)] group-hover:scale-110 group-hover:bg-cyan-500/25 transition-all">
-                    <Activity size={24} />
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-cyan-950/90 border border-cyan-750/70 text-cyan-300 font-bold shadow-sm">
+                {/* Top Tier Badge Overlay */}
+                <div className="absolute top-4 right-4 z-10">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md border border-cyan-500/50 text-cyan-300 font-bold shadow-lg">
                     <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
                     Tier 1 • Foundation
                   </span>
                 </div>
-                <div>
-                  <h3 className="text-xl font-display uppercase tracking-tight font-black text-white group-hover:text-cyan-300 transition-colors">
-                    Daily Biological Hardware
-                  </h3>
-                  <p className="text-xs font-semibold text-cyan-400/90 mt-1">
-                    Your body’s foundation for a longer life
-                  </p>
-                </div>
-                <p className="text-xs text-slate-300 leading-relaxed font-light">
-                  Build the machine that carries you for decades: strong lungs, lean muscle, steady blood sugar, a calm nervous system, and relationships that keep you going.
-                </p>
-                <div className="p-3.5 rounded-xl bg-slate-950/80 backdrop-blur-md border border-slate-800/90 group-hover:border-cyan-500/40 transition-colors space-y-1.5 text-xs shadow-inner">
-                  <span className="text-[10px] font-mono text-cyan-400 uppercase font-bold tracking-wider flex items-center gap-1.5">
-                    <span className="w-1 h-1 rounded-full bg-cyan-400" />
-                    Integrated Pillars:
-                  </span>
-                  <p className="text-slate-300 text-[11px] leading-relaxed">
-                    Movement &amp; Performance • Metabolic Nutrition • Mind &amp; Stress • Connection &amp; Social Wellbeing
-                  </p>
-                </div>
-              </div>
-              <Link to="/fitness" className="relative z-10 text-xs text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-2 group/btn pt-2">
-                <span>Explore Hardware Protocols</span>
-                <ArrowRight size={14} className="group-hover/btn:translate-x-1.5 transition-transform" />
-              </Link>
-            </div>
 
-            {/* Tier 2 */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-rose-500/30 hover:border-rose-400/70 transition-all duration-500 flex flex-col justify-between space-y-6 shadow-2xl relative group overflow-hidden hover:shadow-[0_0_40px_rgba(244,63,94,0.22)] hover:-translate-y-1">
-              {/* Thematic Background Image with Ambient Glow */}
-              <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-                <img
-                  src="/assets/tier2_endocrine_bg.jpg"
-                  alt="Biology-Specific Calibration"
-                  className="w-full h-full object-cover object-center opacity-25 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700 ease-out filter contrast-125 saturate-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/85 to-slate-950/40" />
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-rose-500/15 via-transparent to-transparent opacity-70 group-hover:opacity-100 transition-opacity" />
+                {/* Floating Icon Badge */}
+                <div className="absolute bottom-3 left-6 z-10">
+                  <span className="p-3 rounded-2xl bg-slate-950/90 backdrop-blur-md border border-cyan-500/40 text-cyan-300 shadow-[0_0_20px_rgba(6,182,212,0.35)] flex items-center justify-center group-hover:scale-110 group-hover:border-cyan-400 transition-all">
+                    <Activity size={22} />
+                  </span>
+                </div>
               </div>
 
               {/* Glowing Top Accent Line */}
-              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-rose-400 to-transparent opacity-75 group-hover:opacity-100 group-hover:h-[3px] transition-all" />
+              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-80 group-hover:opacity-100 group-hover:h-[3px] transition-all" />
 
-              <div className="relative z-10 space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="p-3 rounded-2xl bg-rose-500/15 border border-rose-500/30 text-rose-300 shadow-[0_0_15px_rgba(244,63,94,0.25)] group-hover:scale-110 group-hover:bg-rose-500/25 transition-all">
-                    <HeartPulse size={24} />
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-rose-950/90 border border-rose-750/70 text-rose-300 font-bold shadow-sm">
+              {/* Card Body Content */}
+              <div className="p-6 sm:p-7 pt-3 flex flex-col justify-between flex-1 space-y-5">
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-xl font-display uppercase tracking-tight font-black text-white group-hover:text-cyan-300 transition-colors">
+                      Daily Biological Hardware
+                    </h3>
+                    <p className="text-xs font-semibold text-cyan-400/90 mt-1">
+                      Your body’s foundation for a longer life
+                    </p>
+                  </div>
+                  <p className="text-xs text-slate-300 leading-relaxed font-light">
+                    Build the machine that carries you for decades: strong lungs, lean muscle, steady blood sugar, a calm nervous system, and relationships that keep you going.
+                  </p>
+                  <div className="p-3.5 rounded-xl bg-slate-950/80 backdrop-blur-md border border-slate-800/90 group-hover:border-cyan-500/40 transition-colors space-y-1.5 text-xs shadow-inner">
+                    <span className="text-[10px] font-mono text-cyan-400 uppercase font-bold tracking-wider flex items-center gap-1.5">
+                      <span className="w-1 h-1 rounded-full bg-cyan-400" />
+                      Integrated Pillars:
+                    </span>
+                    <p className="text-slate-300 text-[11px] leading-relaxed">
+                      Movement &amp; Performance • Metabolic Nutrition • Mind &amp; Stress • Connection &amp; Social Wellbeing
+                    </p>
+                  </div>
+                </div>
+                <Link to="/fitness" className="text-xs text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-2 group/btn pt-2">
+                  <span>Explore Hardware Protocols</span>
+                  <ArrowRight size={14} className="group-hover/btn:translate-x-1.5 transition-transform" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Tier 2 */}
+            <div className="rounded-3xl bg-slate-900/80 border border-rose-500/30 hover:border-rose-400/80 transition-all duration-500 flex flex-col justify-between shadow-2xl relative group overflow-hidden hover:shadow-[0_0_40px_rgba(244,63,94,0.25)] hover:-translate-y-1">
+              {/* Dedicated Visual Artwork Window */}
+              <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-950 border-b border-slate-800/60">
+                <img
+                  src="/assets/tier2_endocrine_bg.jpg"
+                  alt="Biology-Specific Calibration"
+                  className="w-full h-full object-cover object-center group-hover:scale-108 transition-all duration-700 ease-out filter contrast-110 brightness-95"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
+
+                {/* Top Tier Badge Overlay */}
+                <div className="absolute top-4 right-4 z-10">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md border border-rose-500/50 text-rose-300 font-bold shadow-lg">
                     <span className="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse" />
                     Tier 2 • Calibration
                   </span>
                 </div>
-                <div>
-                  <h3 className="text-xl font-display uppercase tracking-tight font-black text-white group-hover:text-rose-300 transition-colors">
-                    Biology-Specific Calibration
-                  </h3>
-                  <p className="text-xs font-semibold text-rose-400/90 mt-1">
-                    Women’s Health, Hormones &amp; Long-Term Vitality
-                  </p>
-                </div>
-                <p className="text-xs text-slate-300 leading-relaxed font-light">
-                  Your biology isn’t one-size-fits-all. Support the hormonal pathways that protect your brain, bones, and metabolism at every stage of life.
-                </p>
-                <div className="p-3.5 rounded-xl bg-slate-950/80 backdrop-blur-md border border-slate-800/90 group-hover:border-rose-500/40 transition-colors space-y-1.5 text-xs shadow-inner">
-                  <span className="text-[10px] font-mono text-rose-400 uppercase font-bold tracking-wider flex items-center gap-1.5">
-                    <span className="w-1 h-1 rounded-full bg-rose-400" />
-                    Integrated Pillars:
-                  </span>
-                  <p className="text-slate-350 text-[11px] leading-relaxed">
-                    Women’s Health &amp; Hormones • Hormonal Balance &amp; Long-Term Vitality
-                  </p>
-                </div>
-              </div>
-              <Link to="/blog-post-womens-health" className="relative z-10 text-xs text-rose-400 hover:text-rose-300 font-bold flex items-center gap-2 group/btn pt-2">
-                <span>Explore Endocrine Science</span>
-                <ArrowRight size={14} className="group-hover/btn:translate-x-1.5 transition-transform" />
-              </Link>
-            </div>
 
-            {/* Tier 3 */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/90 border border-amber-500/30 hover:border-amber-400/70 transition-all duration-500 flex flex-col justify-between space-y-6 shadow-2xl relative group overflow-hidden hover:shadow-[0_0_40px_rgba(245,158,11,0.22)] hover:-translate-y-1">
-              {/* Thematic Background Image with Ambient Glow */}
-              <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-                <img
-                  src="/assets/tier3_radar_bg.jpg"
-                  alt="Diagnostic Radar & Epigenetics"
-                  className="w-full h-full object-cover object-center opacity-25 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700 ease-out filter contrast-125 saturate-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/85 to-slate-950/40" />
-                <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-400/15 via-transparent to-transparent opacity-70 group-hover:opacity-100 transition-opacity" />
+                {/* Floating Icon Badge */}
+                <div className="absolute bottom-3 left-6 z-10">
+                  <span className="p-3 rounded-2xl bg-slate-950/90 backdrop-blur-md border border-rose-500/40 text-rose-300 shadow-[0_0_20px_rgba(244,63,94,0.35)] flex items-center justify-center group-hover:scale-110 group-hover:border-rose-400 transition-all">
+                    <HeartPulse size={22} />
+                  </span>
+                </div>
               </div>
 
               {/* Glowing Top Accent Line */}
-              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-75 group-hover:opacity-100 group-hover:h-[3px] transition-all" />
+              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-rose-400 to-transparent opacity-80 group-hover:opacity-100 group-hover:h-[3px] transition-all" />
 
-              <div className="relative z-10 space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="p-3 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-300 shadow-[0_0_15px_rgba(245,158,11,0.25)] group-hover:scale-110 group-hover:bg-amber-500/25 transition-all">
-                    <Dna size={24} />
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-amber-950/90 border border-amber-750/70 text-amber-300 font-bold shadow-sm">
+              {/* Card Body Content */}
+              <div className="p-6 sm:p-7 pt-3 flex flex-col justify-between flex-1 space-y-5">
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-xl font-display uppercase tracking-tight font-black text-white group-hover:text-rose-300 transition-colors">
+                      Biology-Specific Calibration
+                    </h3>
+                    <p className="text-xs font-semibold text-rose-400/90 mt-1">
+                      Women’s Health, Hormones &amp; Long-Term Vitality
+                    </p>
+                  </div>
+                  <p className="text-xs text-slate-300 leading-relaxed font-light">
+                    Your biology isn’t one-size-fits-all. Support the hormonal pathways that protect your brain, bones, and metabolism at every stage of life.
+                  </p>
+                  <div className="p-3.5 rounded-xl bg-slate-950/80 backdrop-blur-md border border-slate-800/90 group-hover:border-rose-500/40 transition-colors space-y-1.5 text-xs shadow-inner">
+                    <span className="text-[10px] font-mono text-rose-400 uppercase font-bold tracking-wider flex items-center gap-1.5">
+                      <span className="w-1 h-1 rounded-full bg-rose-400" />
+                      Integrated Pillars:
+                    </span>
+                    <p className="text-slate-350 text-[11px] leading-relaxed">
+                      Women’s Health &amp; Hormones • Hormonal Balance &amp; Long-Term Vitality
+                    </p>
+                  </div>
+                </div>
+                <Link to="/blog-post-womens-health" className="text-xs text-rose-400 hover:text-rose-300 font-bold flex items-center gap-2 group/btn pt-2">
+                  <span>Explore Endocrine Science</span>
+                  <ArrowRight size={14} className="group-hover/btn:translate-x-1.5 transition-transform" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Tier 3 */}
+            <div className="rounded-3xl bg-slate-900/80 border border-amber-500/30 hover:border-amber-400/80 transition-all duration-500 flex flex-col justify-between shadow-2xl relative group overflow-hidden hover:shadow-[0_0_40px_rgba(245,158,11,0.25)] hover:-translate-y-1">
+              {/* Dedicated Visual Artwork Window */}
+              <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-950 border-b border-slate-800/60">
+                <img
+                  src="/assets/tier3_radar_bg.jpg"
+                  alt="Diagnostic Radar & Epigenetics"
+                  className="w-full h-full object-cover object-center group-hover:scale-108 transition-all duration-700 ease-out filter contrast-110 brightness-95"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
+
+                {/* Top Tier Badge Overlay */}
+                <div className="absolute top-4 right-4 z-10">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md border border-amber-500/50 text-amber-300 font-bold shadow-lg">
                     <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
                     Tier 3 • The Horizon
                   </span>
                 </div>
-                <div>
-                  <h3 className="text-xl font-display uppercase tracking-tight font-black text-white group-hover:text-amber-300 transition-colors">
-                    Diagnostic Radar &amp; Epigenetics
-                  </h3>
-                  <p className="text-xs font-semibold text-amber-400/90 mt-1">
-                    Know Your Numbers. Know Your Biological Age.
-                  </p>
-                </div>
-                <p className="text-xs text-slate-300 leading-relaxed font-light">
-                  Stop guessing, start tracking. Follow the key markers (ApoB, HbA1c, hs-CRP), run full blood panels, and measure your biological age, so your body is ready for tomorrow’s breakthroughs.
-                </p>
-                <div className="p-3.5 rounded-xl bg-slate-950/80 backdrop-blur-md border border-slate-800/90 group-hover:border-amber-500/40 transition-colors space-y-1.5 text-xs shadow-inner">
-                  <span className="text-[10px] font-mono text-amber-400 uppercase font-bold tracking-wider flex items-center gap-1.5">
-                    <span className="w-1 h-1 rounded-full bg-amber-400" />
-                    Integrated Pillars:
+
+                {/* Floating Icon Badge */}
+                <div className="absolute bottom-3 left-6 z-10">
+                  <span className="p-3 rounded-2xl bg-slate-950/90 backdrop-blur-md border border-amber-500/40 text-amber-300 shadow-[0_0_20px_rgba(245,158,11,0.35)] flex items-center justify-center group-hover:scale-110 group-hover:border-amber-400 transition-all">
+                    <Dna size={22} />
                   </span>
-                  <p className="text-slate-350 text-[11px] leading-relaxed">
-                    Healthspan &amp; Diagnostic Radar • Clinician Co-Pilot • Biological Age Clocks
-                  </p>
                 </div>
               </div>
-              <Link to="/science" className="relative z-10 text-xs text-amber-400 hover:text-amber-300 font-bold flex items-center gap-2 group/btn pt-2">
-                <span>Explore Epigenetic Engine</span>
-                <ArrowRight size={14} className="group-hover/btn:translate-x-1.5 transition-transform" />
-              </Link>
+
+              {/* Glowing Top Accent Line */}
+              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-80 group-hover:opacity-100 group-hover:h-[3px] transition-all" />
+
+              {/* Card Body Content */}
+              <div className="p-6 sm:p-7 pt-3 flex flex-col justify-between flex-1 space-y-5">
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-xl font-display uppercase tracking-tight font-black text-white group-hover:text-amber-300 transition-colors">
+                      Diagnostic Radar &amp; Epigenetics
+                    </h3>
+                    <p className="text-xs font-semibold text-amber-400/90 mt-1">
+                      Know Your Numbers. Know Your Biological Age.
+                    </p>
+                  </div>
+                  <p className="text-xs text-slate-300 leading-relaxed font-light">
+                    Stop guessing, start tracking. Follow the key markers (ApoB, HbA1c, hs-CRP), run full blood panels, and measure your biological age, so your body is ready for tomorrow’s breakthroughs.
+                  </p>
+                  <div className="p-3.5 rounded-xl bg-slate-950/80 backdrop-blur-md border border-slate-800/90 group-hover:border-amber-500/40 transition-colors space-y-1.5 text-xs shadow-inner">
+                    <span className="text-[10px] font-mono text-amber-400 uppercase font-bold tracking-wider flex items-center gap-1.5">
+                      <span className="w-1 h-1 rounded-full bg-amber-400" />
+                      Integrated Pillars:
+                    </span>
+                    <p className="text-slate-350 text-[11px] leading-relaxed">
+                      Healthspan &amp; Diagnostic Radar • Clinician Co-Pilot • Biological Age Clocks
+                    </p>
+                  </div>
+                </div>
+                <Link to="/science" className="text-xs text-amber-400 hover:text-amber-300 font-bold flex items-center gap-2 group/btn pt-2">
+                  <span>Explore Epigenetic Engine</span>
+                  <ArrowRight size={14} className="group-hover/btn:translate-x-1.5 transition-transform" />
+                </Link>
+              </div>
             </div>
 
           </div>
