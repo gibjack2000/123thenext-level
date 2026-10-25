@@ -31,6 +31,13 @@ interface PillarCardData {
   name: string;
   theme: string;
   icon: string;
+  image: string;
+  accentBorder: string;
+  accentGlow: string;
+  topLine: string;
+  pulseColor: string;
+  badgeBorder: string;
+  hoverText: string;
   shortDesc: string;
   deepDive: {
     coreMetric: string;
@@ -48,6 +55,13 @@ const PILLARS_DATA: PillarCardData[] = [
     name: 'Performance & Movement',
     theme: 'Focus: Home Workouts, VO2 Max & Muscle Mass',
     icon: '⚡',
+    image: '/assets/tier1_hardware_bg.jpg',
+    accentBorder: 'hover:border-cyan-400/80',
+    accentGlow: 'hover:shadow-[0_0_35px_rgba(6,182,212,0.22)]',
+    topLine: 'via-cyan-400',
+    pulseColor: 'bg-cyan-400',
+    badgeBorder: 'border-cyan-500/40 text-cyan-300',
+    hoverText: 'group-hover:text-cyan-300',
     shortDesc: 'Build functional physical hardware. Master progressive home workouts, elevate cardiorespiratory VO2 Max, and preserve critical muscle mass to protect against age-related frailty.',
     deepDive: {
       coreMetric: 'Peak VO2 Max (ml/kg/min) & Grip Strength Dyno',
@@ -63,6 +77,13 @@ const PILLARS_DATA: PillarCardData[] = [
     name: 'Metabolic Nutrition',
     theme: 'Focus: Clean Fuel, Energy & Weight Control',
     icon: '🥗',
+    image: '/assets/pillar2_nutrition_bg.jpg',
+    accentBorder: 'hover:border-emerald-400/80',
+    accentGlow: 'hover:shadow-[0_0_35px_rgba(16,185,129,0.22)]',
+    topLine: 'via-emerald-400',
+    pulseColor: 'bg-emerald-400',
+    badgeBorder: 'border-emerald-500/40 text-emerald-300',
+    hoverText: 'group-hover:text-emerald-300',
     shortDesc: 'Fuel your biological machinery with clean energy. Optimize whole-food nutrition, sustain steady all-day energy, and achieve healthy weight control without restrictive dieting.',
     deepDive: {
       coreMetric: 'Continuous Glucose AUC & Fasting Insulin (µIU/mL)',
@@ -78,6 +99,13 @@ const PILLARS_DATA: PillarCardData[] = [
     name: 'Mind & Stress Management',
     theme: 'Focus: Breathing Resets, Cortisol & Deep Sleep',
     icon: '🧠',
+    image: '/assets/pillar3_mind_bg.jpg',
+    accentBorder: 'hover:border-indigo-400/80',
+    accentGlow: 'hover:shadow-[0_0_35px_rgba(99,102,241,0.22)]',
+    topLine: 'via-indigo-400',
+    pulseColor: 'bg-indigo-400',
+    badgeBorder: 'border-indigo-500/40 text-indigo-300',
+    hoverText: 'group-hover:text-indigo-300',
     shortDesc: 'Restore autonomic calm and build stress resilience. Deploy structured breathing resets, suppress chronic cortisol, and maximize restorative deep sleep.',
     deepDive: {
       coreMetric: 'Overnight RMSSD HRV (ms) & Deep Sleep Architecture (%)',
@@ -93,6 +121,13 @@ const PILLARS_DATA: PillarCardData[] = [
     name: 'Connection & Social Wellbeing',
     theme: 'Focus: Relationships, Purpose & Community',
     icon: '🏛️',
+    image: '/assets/pillar4_social_bg.jpg',
+    accentBorder: 'hover:border-blue-400/80',
+    accentGlow: 'hover:shadow-[0_0_35px_rgba(59,130,246,0.22)]',
+    topLine: 'via-blue-400',
+    pulseColor: 'bg-blue-400',
+    badgeBorder: 'border-blue-500/40 text-blue-300',
+    hoverText: 'group-hover:text-blue-300',
     shortDesc: 'Cultivate human connection as an essential longevity pillar. Nurture supportive relationships, intentional life purpose, and reciprocal community bonds.',
     deepDive: {
       coreMetric: 'Social Reciprocity Index & Cortisol Diurnal Slope',
@@ -108,6 +143,13 @@ const PILLARS_DATA: PillarCardData[] = [
     name: "Women's Health & Hormones",
     theme: 'Focus: Hormonal Balance & Long-Term Vitality',
     icon: '🌸',
+    image: '/assets/tier2_endocrine_bg.jpg',
+    accentBorder: 'hover:border-rose-400/80',
+    accentGlow: 'hover:shadow-[0_0_35px_rgba(244,63,94,0.22)]',
+    topLine: 'via-rose-400',
+    pulseColor: 'bg-rose-400',
+    badgeBorder: 'border-rose-500/40 text-rose-300',
+    hoverText: 'group-hover:text-rose-300',
     shortDesc: 'Evidence-based medicine calibrated to female biology. Balance reproductive hormones, safeguard ovarian reserve, and protect cardiovascular, cognitive, and bone vitality across all life stages.',
     deepDive: {
       coreMetric: 'Estradiol-to-Progesterone ratio & DEXA T-Score',
@@ -123,6 +165,13 @@ const PILLARS_DATA: PillarCardData[] = [
     name: 'Healthspan & Diagnostic Radar',
     theme: 'Clinician Co-Pilot Workbook & GP Consultation Partnership',
     icon: '🩸',
+    image: '/assets/tier3_radar_bg.jpg',
+    accentBorder: 'hover:border-amber-400/80',
+    accentGlow: 'hover:shadow-[0_0_35px_rgba(245,158,11,0.22)]',
+    topLine: 'via-amber-400',
+    pulseColor: 'bg-amber-400',
+    badgeBorder: 'border-amber-500/40 text-amber-300',
+    hoverText: 'group-hover:text-amber-300',
     shortDesc: 'Use our free Clinician Co-Pilot Workbook to log your 14-day vitals, select your regional blood panels (ApoB, HbA1c, hs-CRP), and co-evaluate your results with your GP.',
     deepDive: {
       coreMetric: 'ApoB (<70 mg/dL), hs-CRP (<0.5 mg/L), DNA Methylation Pace',
@@ -424,77 +473,99 @@ export const MasterOverview: React.FC = () => {
               return (
                 <div 
                   key={pillar.id}
-                  className={`p-6 rounded-3xl bg-slate-900/90 border transition-all duration-300 flex flex-col justify-between space-y-5 shadow-xl ${
+                  className={`rounded-3xl bg-slate-900/80 border transition-all duration-500 flex flex-col justify-between shadow-2xl relative group overflow-hidden hover:-translate-y-1 ${pillar.accentBorder} ${pillar.accentGlow} ${
                     isExpanded 
-                      ? 'border-cyan-500/70 shadow-[0_0_30px_rgba(6,182,212,0.15)] ring-1 ring-cyan-500/30' 
-                      : 'border-slate-800 hover:border-slate-700'
+                      ? 'border-cyan-500/70 shadow-[0_0_30px_rgba(6,182,212,0.18)] ring-1 ring-cyan-500/30' 
+                      : 'border-slate-800'
                   }`}
                 >
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <span className="text-2xl p-2 rounded-xl bg-slate-950 border border-slate-800">
-                        {pillar.icon}
-                      </span>
-                      <span className={`text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full border font-bold ${pillar.tagColor}`}>
+                  {/* Dedicated Visual Artwork Window */}
+                  <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-slate-950 border-b border-slate-800/60">
+                    <img
+                      src={pillar.image}
+                      alt={pillar.name}
+                      className="w-full h-full object-cover object-center group-hover:scale-108 transition-all duration-700 ease-out filter contrast-110 brightness-95"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent" />
+
+                    {/* Top Pillar Badge Overlay */}
+                    <div className="absolute top-3.5 right-3.5 z-10">
+                      <span className={`inline-flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-slate-950/85 backdrop-blur-md border ${pillar.badgeBorder} font-bold shadow-lg`}>
+                        <span className={`w-1.5 h-1.5 rounded-full ${pillar.pulseColor} animate-pulse`} />
                         Pillar {pillar.number}
                       </span>
                     </div>
 
-                    <div>
-                      <h3 className="text-lg font-bold text-white">
-                        {pillar.name}
-                      </h3>
-                      <p className="text-xs font-semibold text-slate-400 mt-0.5">
-                        {pillar.theme}
-                      </p>
+                    {/* Floating Icon Badge */}
+                    <div className="absolute bottom-2.5 left-5 z-10">
+                      <span className="text-xl p-2 rounded-xl bg-slate-950/90 backdrop-blur-md border border-slate-700/60 shadow-lg group-hover:scale-110 transition-transform flex items-center justify-center">
+                        {pillar.icon}
+                      </span>
                     </div>
-
-                    <p className="text-xs text-slate-300 leading-relaxed font-light">
-                      {pillar.shortDesc}
-                    </p>
-
-                    {/* Expandable Deep Dive Area */}
-                    {isExpanded && (
-                      <div className="pt-3 border-t border-slate-800 space-y-2.5 text-xs text-slate-300 animate-fadeIn">
-                        <div>
-                          <span className="text-[10px] font-mono text-cyan-400 uppercase font-bold block">
-                            Key Biomarker / Metric:
-                          </span>
-                          <span className="text-white text-xs">{pillar.deepDive.coreMetric}</span>
-                        </div>
-                        <div>
-                          <span className="text-[10px] font-mono text-emerald-400 uppercase font-bold block">
-                            Daily Action Habit:
-                          </span>
-                          <span className="text-slate-350 text-xs">{pillar.deepDive.actionableHabit}</span>
-                        </div>
-                        <div>
-                          <span className="text-[10px] font-mono text-amber-400 uppercase font-bold block">
-                            Clinical Target:
-                          </span>
-                          <span className="text-slate-350 text-xs">{pillar.deepDive.clinicalTarget}</span>
-                        </div>
-                      </div>
-                    )}
                   </div>
 
-                  <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between">
-                    <button
-                      type="button"
-                      onClick={() => toggleExpand(pillar.id)}
-                      className="text-xs font-mono text-slate-400 hover:text-cyan-300 transition-colors flex items-center gap-1 cursor-pointer"
-                    >
-                      <span>{isExpanded ? 'Less Detail' : 'View Clinical Metrics'}</span>
-                      {isExpanded ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
-                    </button>
+                  {/* Glowing Top Accent Line */}
+                  <div className={`absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent ${pillar.topLine} to-transparent opacity-80 group-hover:opacity-100 group-hover:h-[3px] transition-all`} />
 
-                    <Link
-                      to={pillar.link}
-                      className="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1"
-                    >
-                      <span>{pillar.link === '/clinician-copilot' ? 'Open Clinician Co-Pilot' : 'Pillar Deep Dive'}</span>
-                      <ArrowRight size={13} />
-                    </Link>
+                  {/* Card Body Content */}
+                  <div className="p-6 pt-3 flex flex-col justify-between flex-1 space-y-4">
+                    <div className="space-y-3">
+                      <div>
+                        <h3 className={`text-lg font-bold text-white transition-colors ${pillar.hoverText}`}>
+                          {pillar.name}
+                        </h3>
+                        <p className="text-xs font-semibold text-slate-400 mt-0.5">
+                          {pillar.theme}
+                        </p>
+                      </div>
+
+                      <p className="text-xs text-slate-300 leading-relaxed font-light">
+                        {pillar.shortDesc}
+                      </p>
+
+                      {/* Expandable Deep Dive Area */}
+                      {isExpanded && (
+                        <div className="pt-3 border-t border-slate-800 space-y-2.5 text-xs text-slate-300 animate-fadeIn">
+                          <div>
+                            <span className="text-[10px] font-mono text-cyan-400 uppercase font-bold block">
+                              Key Biomarker / Metric:
+                            </span>
+                            <span className="text-white text-xs">{pillar.deepDive.coreMetric}</span>
+                          </div>
+                          <div>
+                            <span className="text-[10px] font-mono text-emerald-400 uppercase font-bold block">
+                              Daily Action Habit:
+                            </span>
+                            <span className="text-slate-350 text-xs">{pillar.deepDive.actionableHabit}</span>
+                          </div>
+                          <div>
+                            <span className="text-[10px] font-mono text-amber-400 uppercase font-bold block">
+                              Clinical Target:
+                            </span>
+                            <span className="text-slate-350 text-xs">{pillar.deepDive.clinicalTarget}</span>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                      <button
+                        type="button"
+                        onClick={() => toggleExpand(pillar.id)}
+                        className="text-xs font-mono text-slate-400 hover:text-cyan-300 transition-colors flex items-center gap-1 cursor-pointer"
+                      >
+                        <span>{isExpanded ? 'Less Detail' : 'View Clinical Metrics'}</span>
+                        {isExpanded ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
+                      </button>
+
+                      <Link
+                        to={pillar.link}
+                        className="text-xs font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 group/btn"
+                      >
+                        <span>{pillar.link === '/clinician-copilot' ? 'Open Clinician Co-Pilot' : 'Pillar Deep Dive'}</span>
+                        <ArrowRight size={13} className="group-hover/btn:translate-x-1 transition-transform" />
+                      </Link>
+                    </div>
                   </div>
                 </div>
               );
