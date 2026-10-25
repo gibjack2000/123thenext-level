@@ -619,10 +619,12 @@ export default function ClinicianCopilot() {
                 100% FREE OPEN-ACCESS PDF
               </span>
             </div>
-            <div className="text-left sm:text-right shrink-0">
-              <div className="font-black text-cyan-400 text-sm tracking-tight">123TheNextLevel</div>
-              <div className="text-[10px] text-slate-400 font-mono">123TheNextLevel.com</div>
-              <div className="text-[10px] text-cyan-300 font-semibold">🎁 Clinician Co-Pilot Suite</div>
+            <div className="flex items-center sm:justify-end gap-2 shrink-0">
+              <img src="/assets/logo-icon.png" alt="123TheNextLevel Logo" className="w-8 h-8 object-contain" />
+              <div className="text-left sm:text-right">
+                <div className="font-black text-cyan-400 text-sm tracking-tight">123TheNextLevel</div>
+                <div className="text-[10px] text-slate-400 font-mono">123TheNextLevel.com</div>
+              </div>
             </div>
           </header>
 
@@ -855,7 +857,10 @@ export default function ClinicianCopilot() {
                 Level 1 vs. Level 2 Testing Framework
               </p>
             </div>
-            <div className="font-black text-cyan-400 text-sm">123TheNextLevel</div>
+            <div className="flex items-center gap-2">
+              <img src="/assets/logo-icon.png" alt="123TheNextLevel Logo" className="w-6 h-6 object-contain" />
+              <span className="font-black text-cyan-400 text-sm">123TheNextLevel</span>
+            </div>
           </header>
 
           {/* Level 1 vs Level 2 Agreed Starting Point Pathway Checkboxes (Page 2) */}
@@ -1077,7 +1082,10 @@ export default function ClinicianCopilot() {
                 In-Person Physical Diagnostics &amp; Hardware Telemetry
               </p>
             </div>
-            <div className="font-black text-cyan-400 text-sm">123TheNextLevel</div>
+            <div className="flex items-center gap-2">
+              <img src="/assets/logo-icon.png" alt="123TheNextLevel Logo" className="w-6 h-6 object-contain" />
+              <span className="font-black text-cyan-400 text-sm">123TheNextLevel</span>
+            </div>
           </header>
 
           {/* Section A: Physical Exam Protocol */}
@@ -1232,7 +1240,10 @@ export default function ClinicianCopilot() {
                 Printable GP Consultation Template &amp; Doctor Script
               </p>
             </div>
-            <div className="font-black text-cyan-400 text-sm">123TheNextLevel</div>
+            <div className="flex items-center gap-2">
+              <img src="/assets/logo-icon.png" alt="123TheNextLevel Logo" className="w-6 h-6 object-contain" />
+              <span className="font-black text-cyan-400 text-sm">123TheNextLevel</span>
+            </div>
           </header>
 
           {/* Patient / GP Demographic Fields */}

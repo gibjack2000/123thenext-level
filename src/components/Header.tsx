@@ -11,11 +11,13 @@ export default function Header() {
     <header className="max-w-7xl mx-auto px-6 py-6 flex flex-wrap justify-between items-center gap-4 border-b border-slate-900">
       
       {/* Brand Logo & Name */}
-      <div className="flex items-center space-x-3 cursor-pointer" onClick={() => navigate('/')}>
-        <div className="h-9 w-9 rounded-lg bg-gradient-to-tr from-cyan-500 to-indigo-500 flex items-center justify-center font-bold text-slate-950 text-lg tracking-tighter">
-          123
-        </div>
-        <span className="font-semibold text-base tracking-tight text-slate-200">123TheNextLevel</span>
+      <div className="flex items-center space-x-3 cursor-pointer group" onClick={() => navigate('/')}>
+        <img 
+          src="/assets/logo-icon.png" 
+          alt="123TheNextLevel Logo" 
+          className="h-9 w-9 object-contain drop-shadow group-hover:scale-105 transition-transform duration-300 shrink-0" 
+        />
+        <span className="font-semibold text-base tracking-tight text-slate-200 group-hover:text-cyan-400 transition-colors">123TheNextLevel</span>
       </div>
 
       {/* Main Navigation Links */}

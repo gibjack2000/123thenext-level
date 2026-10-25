@@ -48,7 +48,12 @@ export const Navbar: React.FC = () => {
         
         {/* Logo & Mission Badge */}
         <div className="flex items-center gap-3">
-          <Link to="/" className="flex items-center gap-2 group" onClick={closeMobileMenu}>
+          <Link to="/" className="flex items-center gap-2.5 group" onClick={closeMobileMenu}>
+            <img 
+              src="/assets/logo-icon.png" 
+              alt="123TheNextLevel Logo" 
+              className="w-8 h-8 sm:w-9 sm:h-9 object-contain drop-shadow group-hover:scale-105 transition-transform duration-300 shrink-0" 
+            />
             <span className="text-xl font-black tracking-tight text-white group-hover:text-cyan-400 transition-colors">
               123<span className="text-cyan-400">TheNextLevel</span>
             </span>

@@ -859,10 +859,12 @@ export const SplashOverlay: React.FC = () => {
         >
           {/* Top Header: Logo, Mute Button & Skip Button */}
         <div className="shrink-0 relative z-10 max-w-6xl mx-auto w-full flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-            <span className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full animate-ping shrink-0 shadow-[0_0_12px] ${
-              hasStarted && currentIndex === 0 ? 'bg-rose-400 shadow-rose-400/80' : 'bg-cyan-400 shadow-cyan-400/80'
-            }`} />
+          <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+            <img 
+              src="/assets/logo-icon.png" 
+              alt="123TheNextLevel Logo" 
+              className="w-5 h-5 sm:w-6 sm:h-6 object-contain drop-shadow shrink-0" 
+            />
             <span className="text-[11px] sm:text-xs font-black tracking-wider sm:tracking-widest text-slate-200 uppercase drop-shadow truncate">
               123<span className={hasStarted && currentIndex === 0 ? 'text-rose-400' : 'text-cyan-400'}>THENEXTLEVEL</span>
             </span>

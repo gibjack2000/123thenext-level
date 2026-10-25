@@ -110,11 +110,13 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center group">
-              <div className="bg-gradient-to-br from-blue-500 to-indigo-600 p-2 rounded-xl text-white mr-3 shadow-lg shadow-blue-900/20 group-hover:scale-105 transition-transform duration-300">
-                <HomeIcon size={20} strokeWidth={2.5} />
-              </div>
-              <span className="font-display font-semibold uppercase tracking-[0.02em] text-xl text-white group-hover:text-blue-400 transition-colors duration-300">
-                123TheNext Level
+              <img 
+                src="/assets/logo-icon.png" 
+                alt="123TheNextLevel Logo" 
+                className="w-10 h-10 object-contain mr-3 drop-shadow group-hover:scale-105 transition-transform duration-300 shrink-0" 
+              />
+              <span className="font-display font-black tracking-tight text-xl text-white group-hover:text-cyan-400 transition-colors duration-300">
+                123<span className="text-cyan-400">TheNextLevel</span>
               </span>
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed max-w-xs font-medium">
