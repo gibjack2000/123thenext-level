@@ -17,7 +17,8 @@ import {
   ExternalLink,
   Globe,
   Activity,
-  ShieldCheck
+  ShieldCheck,
+  FileText
 } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
 import DiagnosticPathwaySelector, { REGIONAL_PATHWAYS } from '../components/DiagnosticPathwaySelector';
@@ -542,40 +543,42 @@ export default function ClinicianCopilot() {
             </h1>
           </div>
 
-          {/* Three High-Contrast Action Buttons */}
+          {/* High-Contrast Action Buttons */}
           <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-            {/* 1. Download Blank PDF */}
+            {/* 1. Download Printable GP Consultation Template (PDF V2) */}
             <a
-              href="/assets/docs/clinical-baseline-consultation-workbook.pdf"
-              download="clinical-baseline-consultation-workbook.pdf"
+              href="/assets/docs/clinical-baseline-consultation-template-v2.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              download="clinical-baseline-consultation-template-v2.pdf"
               onClick={handleDownload}
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-900 border border-amber-500/40 hover:border-amber-400 hover:bg-slate-800 text-amber-400 hover:text-amber-300 text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-md"
-              title="Direct download link to blank consultation workbook PDF ($0)"
+              className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-slate-950 text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-lg shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+              title="Direct link to download printable GP consultation template V2 PDF"
             >
-              <Download size={15} />
-              <span>📥 Download Blank PDF</span>
+              <FileText size={15} />
+              <span>📄 Download Printable GP Consultation Template (PDF V2)</span>
             </a>
 
             {/* 2. Save / Print Completed Record */}
             <button
               onClick={handlePrint}
               disabled={isExportingPdf}
-              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:via-teal-300 hover:to-emerald-300 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-lg shadow-cyan-500/25 hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-75 disabled:cursor-wait"
+              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:via-teal-300 hover:to-emerald-300 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-lg shadow-cyan-500/25 hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-75 disabled:cursor-wait"
               title="Triggers print / client-side PDF export containing your filled values"
             >
               <Printer size={15} />
-              <span>💾 Save / Print Completed Record</span>
+              <span>💾 Save / Print Record</span>
             </button>
 
             {/* 3. Reset Form */}
             <button
               onClick={handleReset}
               disabled={isExportingPdf}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-rose-500/60 hover:bg-rose-950/20 text-slate-300 hover:text-rose-300 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-rose-500/60 hover:bg-rose-950/20 text-slate-300 hover:text-rose-300 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
               title="Clears state back to default blank inputs"
             >
               <RotateCcw size={14} />
-              <span>🔄 Reset Form</span>
+              <span>🔄 Reset</span>
             </button>
           </div>
         </div>
@@ -604,7 +607,7 @@ export default function ClinicianCopilot() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
             <div className="p-3 bg-emerald-950/80 border border-emerald-500/50 rounded-xl flex items-center gap-2.5 text-xs text-emerald-300 animate-fadeIn">
               <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
-              <span><strong>Blank PDF Download Started!</strong> The official Clinical Consultation Workbook PDF is now in your downloads folder.</span>
+              <span><strong>PDF Download Started!</strong> The official GP Consultation Template V2 PDF is downloading to your device.</span>
             </div>
           </div>
         )}
@@ -617,6 +620,135 @@ export default function ClinicianCopilot() {
             </div>
           </div>
         )}
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 2C. PDF CARD PREVIEW SECTION: IN-CLINIC READINESS (GP LEAVE-BEHIND V2)   */}
+      {/* ========================================================================= */}
+      <section className="no-print max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
+        <div className="relative rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-amber-500/30 shadow-2xl overflow-hidden">
+          {/* Subtle amber ambient glow */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
+            {/* Left Content Column */}
+            <div className="space-y-4 max-w-2xl">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400 font-bold bg-amber-950/80 px-2.5 py-1 rounded-md border border-amber-800/60">
+                  OFFICIAL CLINICAL TEMPLATE V2
+                </span>
+                <span className="text-[10px] font-mono text-cyan-300 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800/40">
+                  2-Page Standard Leave-Behind
+                </span>
+                <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/40">
+                  Free Open-Access
+                </span>
+              </div>
+
+              <div>
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-display font-black text-white tracking-tight">
+                  In-Clinic Readiness: Printable GP Leave-Behind
+                </h2>
+                <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+                  Take this pre-formatted 2-page clinical summary to your General Practitioner consultation. Includes fillable sections for 14-day vitals logs, family risk factors, and recommended diagnostic requisitions.
+                </p>
+              </div>
+
+              {/* Feature Highlights Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs">
+                <div className="flex items-start gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-300">
+                  <CheckCircle2 size={14} className="text-amber-400 shrink-0 mt-0.5" />
+                  <span><strong>14-Day Vitals Log:</strong> Pre-structured tables for resting HR, BP, and sleep telemetry.</span>
+                </div>
+                <div className="flex items-start gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-300">
+                  <CheckCircle2 size={14} className="text-amber-400 shrink-0 mt-0.5" />
+                  <span><strong>Family Risk Profile:</strong> Early cardiovascular, glycemic &amp; renal history checklist.</span>
+                </div>
+                <div className="flex items-start gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-300">
+                  <CheckCircle2 size={14} className="text-cyan-400 shrink-0 mt-0.5" />
+                  <span><strong>Tiered Requisitions:</strong> ApoB, HbA1c, hs-CRP &amp; Urine Microvascular ACR.</span>
+                </div>
+                <div className="flex items-start gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-300">
+                  <CheckCircle2 size={14} className="text-cyan-400 shrink-0 mt-0.5" />
+                  <span><strong>Doctor Collaboration Script:</strong> Non-adversarial, evidence-based dialogue prompts.</span>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="pt-2 flex flex-wrap items-center gap-3">
+                <a
+                  href="/assets/docs/clinical-baseline-consultation-template-v2.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download="clinical-baseline-consultation-template-v2.pdf"
+                  onClick={handleDownload}
+                  className="px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-lg shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98] inline-flex items-center gap-2 cursor-pointer"
+                >
+                  <Download size={15} />
+                  <span>Download PDF V2</span>
+                </a>
+                <a
+                  href="/assets/docs/clinical-baseline-consultation-template-v2.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-slate-600 text-slate-200 text-xs font-bold transition-all inline-flex items-center gap-1.5"
+                >
+                  <span>Preview in Browser</span>
+                  <ExternalLink size={13} />
+                </a>
+              </div>
+            </div>
+
+            {/* Right Card Mockup Preview Column */}
+            <div className="w-full lg:w-72 shrink-0">
+              <div className="relative mx-auto max-w-[260px] p-4 rounded-2xl bg-slate-950 border border-amber-500/40 shadow-xl group hover:border-amber-400 transition-all">
+                {/* Visual Paper Sheet Mockup */}
+                <div className="aspect-[1/1.414] rounded-lg bg-white p-3 shadow-inner flex flex-col justify-between text-slate-800 text-[8px] leading-tight select-none pointer-events-none">
+                  <div className="space-y-1.5">
+                    <div className="flex items-center justify-between border-b border-slate-200 pb-1">
+                      <div className="flex items-center gap-1 font-bold text-[9px] text-cyan-900">
+                        <Stethoscope size={10} className="text-cyan-600" />
+                        <span>GP CONSULTATION V2</span>
+                      </div>
+                      <span className="text-[7px] text-amber-600 font-mono font-bold">PAGE 1 &amp; 2</span>
+                    </div>
+                    {/* Simulated Document Grid Lines */}
+                    <div className="h-1.5 bg-slate-200 rounded w-3/4"></div>
+                    <div className="h-1 bg-slate-100 rounded w-full"></div>
+                    <div className="space-y-1 pt-1">
+                      <div className="p-1 rounded bg-slate-50 border border-slate-200 flex items-center justify-between text-[7px]">
+                        <span className="font-semibold text-slate-700">14-Day Vitals Telemetry</span>
+                        <span className="text-cyan-600 font-mono font-bold">BP / HR / Sleep</span>
+                      </div>
+                      <div className="p-1 rounded bg-slate-50 border border-slate-200 flex items-center justify-between text-[7px]">
+                        <span className="font-semibold text-slate-700">Family Risk &amp; Symptoms</span>
+                        <span className="text-amber-600 font-mono font-bold">Cardiovascular</span>
+                      </div>
+                      <div className="p-1 rounded bg-slate-50 border border-slate-200 flex items-center justify-between text-[7px]">
+                        <span className="font-semibold text-slate-700">Diagnostic Requisitions</span>
+                        <span className="text-cyan-600 font-mono font-bold">ApoB / ACR / CRP</span>
+                      </div>
+                      <div className="p-1 rounded bg-slate-50 border border-slate-200 flex items-center justify-between text-[7px]">
+                        <span className="font-semibold text-slate-700">Clinical Discussion Plan</span>
+                        <span className="text-emerald-600 font-mono font-bold">Collaborative</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="border-t border-slate-200 pt-1 flex items-center justify-between text-[7px] text-slate-500 font-mono">
+                    <span>123TheNextLevel</span>
+                    <span>clinical-template-v2.pdf</span>
+                  </div>
+                </div>
+
+                <div className="mt-3 text-center">
+                  <span className="text-[10px] font-mono text-amber-300 font-semibold block">
+                    Pre-formatted • Ready to print or fill
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* ========================================================================= */}
