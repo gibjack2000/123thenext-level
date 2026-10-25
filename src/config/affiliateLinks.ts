@@ -161,32 +161,32 @@ export const sovereignHealthStack: SovereignProduct[] = [
   },
   {
     id: "reagent-strips",
-    name: "ALLTEST 10-Parameter Rapid Urinary Reagent Strips",
+    name: "Direct 10-Parameter Rapid Fluid Telemetry Strips",
     category: "Rapid Fluid Telemetry",
     isDirectAffiliate: false,
-    rating: 4.85,
-    description: "10-parameter rapid dip-and-read urinary reagent strips for weekly tracking of pH, specific gravity, ketones, glucose, and leukocyte activity.",
+    rating: 4.90,
+    description: "Direct medical-grade 10-parameter urinalysis strips for weekly tracking of microvascular health, proteinuria, pH, ketones, glucose, and renal function.",
     image_url: "/assets/images/shop/reagent-strips.png",
     us: {
-      url: "https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20",
-      ctaText: "Order Rapid Fluid Telemetry on Amazon US 🇺🇸",
-      badge: "CE Medical Marked",
-      network: "Amazon Associates",
-      priceText: "$14.99"
+      url: "https://diagnoxhealth.com/products/urinalysis-test",
+      ctaText: "Order Diagnox Urinox-10 Strips US 🇺🇸",
+      badge: "FDA Cleared | 10-Parameter Clinical Grade",
+      network: "Diagnox Health Direct",
+      priceText: "$16.99"
     },
     uk: {
-      url: "https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123znl0f3-21",
-      ctaText: "Order Rapid Fluid Telemetry on Amazon UK 🇬🇧",
-      badge: "CE Medical Marked",
-      network: "Amazon Associates",
+      url: "https://referrals.lolahealth.com/NextLevel15",
+      ctaText: "Order ALLTEST Dipsticks UK 🇬🇧",
+      badge: "CE Medical Marked | UKAS Aligned",
+      network: "LOLA Health Direct",
       priceText: "£12.99"
     },
     es: {
-      url: "https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21",
-      ctaText: "Pedir Tiras Reactivas en Amazon ES 🇪🇸",
-      badge: "CE Medical Marked",
-      network: "Amazon Associates",
-      priceText: "14,99€"
+      url: "[PASTE_YOUR_SALUDONNET_AWIN_LINK]",
+      ctaText: "Pedir Tiras Urinarias ALLTEST ES 🇪🇸",
+      badge: "Marcado CE Médico | Red Eurofins / Unilabs",
+      network: "SaludOnNet / Eurofins Direct",
+      priceText: "14,50€"
     }
   },
   {

@@ -21,10 +21,54 @@ import {
   Compass, 
   ShieldAlert, 
   ExternalLink,
-  Droplets 
+  Droplets,
+  AlertCircle 
 } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
 import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
+
+const FLUID_TELEMETRY_DATA: Record<Market, {
+  name: string;
+  directUrl: string;
+  badge: string;
+  description: string;
+  price: string;
+}> = {
+  US: {
+    name: 'Diagnox Urinox-10 Medical-Grade Urinalysis Strips',
+    directUrl: 'https://diagnoxhealth.com/products/urinalysis-test',
+    badge: 'FDA Cleared | 10-Parameter Clinical Grade',
+    description: 'FDA-cleared 10-parameter rapid urinalysis reagent strips for weekly tracking of microvascular health, proteinuria, pH, ketones, glucose, and renal function.',
+    price: '$16.99 (100 Strips)'
+  },
+  UK: {
+    name: 'ALLTEST 10-Parameter Clinical Urinalysis Dipsticks UK',
+    directUrl: 'https://referrals.lolahealth.com/NextLevel15',
+    badge: 'CE Medical Marked | UKAS Aligned',
+    description: 'CE Medical Marked 10-parameter urinalysis dipsticks monitoring kidney filtration integrity, microalbuminuria, acid-base balance, and systemic hydration.',
+    price: '£12.99 (100 Strips)'
+  },
+  ES: {
+    name: 'ALLTEST Tiras Reactivas de Orina 10 Parámetros ES',
+    directUrl: '[PASTE_YOUR_SALUDONNET_AWIN_LINK]',
+    badge: 'Marcado CE Médico | Red Eurofins / Unilabs',
+    description: 'Tiras reactivas clínicas de 10 parámetros para el seguimiento semanal de función renal, pH, cetonas, glucosa y microalbuminuria en España.',
+    price: '14,50 € (100 Tiras)'
+  }
+};
+
+const FLUID_BIOMARKERS = [
+  'Leukocytes',
+  'Nitrite',
+  'Urobilinogen',
+  'Protein',
+  'pH',
+  'Blood',
+  'Specific Gravity',
+  'Ketones',
+  'Bilirubin',
+  'Glucose'
+] as const;
 
 interface PillarCardData {
   id: string;
@@ -668,6 +712,10 @@ export const MasterOverview: React.FC = () => {
                     <Droplets size={13} className="text-cyan-400 shrink-0 mt-0.5" />
                     <span><strong>HealthLabs Comprehensive Urinalysis &amp; Microalbumin Panel:</strong> 14-parameter Quest/Labcorp clinical urine analysis screening microvascular health, ACR, pH, ketones, and renal filtration.</span>
                   </li>
+                  <li className="flex items-start gap-1.5">
+                    <Droplets size={13} className="text-cyan-400 shrink-0 mt-0.5" />
+                    <span><strong>Direct 10-Parameter Telemetry:</strong> Diagnox Urinox-10 Medical-Grade Urinalysis Strips (FDA Cleared | 10-Parameter Clinical Grade)</span>
+                  </li>
                 </ul>
               </div>
               <div className="space-y-2 pt-2">
@@ -687,6 +735,15 @@ export const MasterOverview: React.FC = () => {
                   className="w-full py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs font-bold text-center transition flex items-center justify-center gap-1.5"
                 >
                   <span>Order HealthLabs Urinalysis Panel ➔</span>
+                  <ExternalLink size={12} />
+                </a>
+                <a
+                  href="https://diagnoxhealth.com/products/urinalysis-test"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2 px-3 rounded-xl bg-cyan-950 hover:bg-cyan-900 text-cyan-300 border border-cyan-800 text-xs font-bold text-center transition flex items-center justify-center gap-1.5"
+                >
+                  <span>Order Diagnox Urinox-10 Strips ➔</span>
                   <ExternalLink size={12} />
                 </a>
               </div>
@@ -727,6 +784,10 @@ export const MasterOverview: React.FC = () => {
                     <Droplets size={13} className="text-cyan-400 shrink-0 mt-0.5" />
                     <span><strong>Lola Urinalysis &amp; Microvascular ACR Panel:</strong> UKAS-certified urine panel measuring Albumin-to-Creatinine ratio (ACR), proteinuria, and kidney metabolic safety.</span>
                   </li>
+                  <li className="flex items-start gap-1.5">
+                    <Droplets size={13} className="text-cyan-400 shrink-0 mt-0.5" />
+                    <span><strong>Direct 10-Parameter Telemetry:</strong> ALLTEST 10-Parameter Clinical Urinalysis Dipsticks UK (CE Medical Marked | UKAS Aligned)</span>
+                  </li>
                 </ul>
               </div>
               <div className="space-y-2 pt-2">
@@ -746,6 +807,15 @@ export const MasterOverview: React.FC = () => {
                   className="w-full py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs font-bold text-center transition flex items-center justify-center gap-1.5"
                 >
                   <span>Order Lola Urinalysis Panel ➔</span>
+                  <ExternalLink size={12} />
+                </a>
+                <a
+                  href="https://referrals.lolahealth.com/NextLevel15"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2 px-3 rounded-xl bg-cyan-950 hover:bg-cyan-900 text-cyan-300 border border-cyan-800 text-xs font-bold text-center transition flex items-center justify-center gap-1.5"
+                >
+                  <span>Order ALLTEST Dipsticks UK ➔</span>
                   <ExternalLink size={12} />
                 </a>
               </div>
@@ -786,6 +856,10 @@ export const MasterOverview: React.FC = () => {
                     <Droplets size={13} className="text-cyan-400 shrink-0 mt-0.5" />
                     <span><strong>SaludOnNet / Eurofins Análisis Completo de Orina con Sedimento:</strong> CE Marked &amp; ISO 15189 certified clinical urine sediment panel across 160+ Eurofins Megalab centers in Spain.</span>
                   </li>
+                  <li className="flex items-start gap-1.5">
+                    <Droplets size={13} className="text-cyan-400 shrink-0 mt-0.5" />
+                    <span><strong>Telemetría 10 Parámetros:</strong> ALLTEST Tiras Reactivas de Orina 10 Parámetros ES (Marcado CE Médico | Red Eurofins / Unilabs)</span>
+                  </li>
                 </ul>
               </div>
               <div className="space-y-2 pt-2">
@@ -807,38 +881,110 @@ export const MasterOverview: React.FC = () => {
                   <span>Pedir Análisis Orina Eurofins ➔</span>
                   <ExternalLink size={12} />
                 </a>
+                <a
+                  href="[PASTE_YOUR_SALUDONNET_AWIN_LINK]"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2 px-3 rounded-xl bg-cyan-950 hover:bg-cyan-900 text-cyan-300 border border-cyan-800 text-xs font-bold text-center transition flex items-center justify-center gap-1.5"
+                >
+                  <span>Pedir Tiras Urinarias ALLTEST ES ➔</span>
+                  <ExternalLink size={12} />
+                </a>
               </div>
             </div>
 
           </div>
 
-          {/* At-Home Fluid Telemetry Integration Box */}
-          <div className="relative z-10 p-5 rounded-2xl bg-slate-950/80 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
-                <Droplets size={20} />
-              </div>
-              <div className="space-y-0.5 text-left">
-                <div className="flex items-center gap-2">
-                  <span className="text-white font-bold text-sm">ALLTEST 10-Parameter Rapid Urinary Reagent Strips</span>
-                  <span className="text-[10px] text-cyan-400 font-mono font-bold bg-cyan-950 px-2 py-0.5 rounded border border-cyan-800">
-                    CE Medical Marked
+          {/* Direct 10-Parameter Rapid Fluid Telemetry under Phase 1 Baseline Diagnostics */}
+          {(() => {
+            const activeMarket = (market?.toUpperCase() as Market) || 'US';
+            const telemetry = FLUID_TELEMETRY_DATA[activeMarket] || FLUID_TELEMETRY_DATA.US;
+            return (
+              <div className="relative z-10 p-6 sm:p-7 rounded-3xl bg-slate-950/90 border border-cyan-500/30 shadow-2xl space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800/80 pb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
+                      <Droplets size={20} />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold bg-cyan-950 px-2.5 py-0.5 rounded border border-cyan-800">
+                          Phase 1 Baseline Diagnostics
+                        </span>
+                        <span className="text-[10px] text-slate-400 font-mono">
+                          Direct 10-Parameter Rapid Fluid Telemetry ({activeMarket})
+                        </span>
+                        <span className="text-[10px] text-emerald-400 font-mono font-bold bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/60">
+                          {telemetry.badge}
+                        </span>
+                      </div>
+                      <h4 className="text-base sm:text-lg font-display font-black text-white tracking-tight mt-1">
+                        {telemetry.name}
+                      </h4>
+                    </div>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-cyan-300 self-start sm:self-center bg-slate-900 px-3 py-1 rounded-full border border-slate-800">
+                    {telemetry.price}
                   </span>
-                  <span className="text-[10px] text-slate-400 font-mono">Rapid Fluid Telemetry</span>
                 </div>
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  10-parameter rapid dip-and-read urinary reagent strips for weekly tracking of pH, specific gravity, ketones, glucose, and leukocyte activity.
+
+                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-4xl">
+                  {telemetry.description}
                 </p>
+
+                {/* 10-Biomarker Checklist Chip Grid */}
+                <div className="space-y-2 pt-1 border-t border-slate-800/80">
+                  <div className="flex items-center justify-between text-[10px] font-mono uppercase text-slate-400 font-bold">
+                    <span>10-Biomarker Checklist Chip Grid</span>
+                    <span className="text-cyan-400 font-mono">10 Biomarkers Monitored</span>
+                  </div>
+                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+                    {FLUID_BIOMARKERS.map((marker) => (
+                      <span
+                        key={marker}
+                        className="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-cyan-300 text-[11px] font-mono flex items-center gap-1.5 font-medium"
+                      >
+                        <CheckCircle2 size={12} className="text-emerald-400 shrink-0" />
+                        <span className="truncate">{marker}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Clinical Usage Protocol Note */}
+                <div className="p-3 rounded-xl bg-cyan-950/40 border border-cyan-800/50 text-xs text-cyan-200/90 flex items-start gap-2.5">
+                  <AlertCircle size={15} className="text-cyan-400 shrink-0 mt-0.5" />
+                  <p className="leading-relaxed">
+                    <strong>Clinical Usage Protocol:</strong> Dip and read in 60 seconds once per week to monitor systemic hydration, metabolic spillovers, and acid-base shifts between quarterly blood draws.
+                  </p>
+                </div>
+
+                {/* CTA Action Bar */}
+                <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+                  <span className="text-xs text-slate-400 font-mono">
+                    Weekly at-home urinalysis tracking integrated alongside quarterly accredited venous blood panels.
+                  </span>
+                  <div className="flex items-center gap-2.5 w-full sm:w-auto">
+                    <a
+                      href={telemetry.directUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex-1 sm:flex-none px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-md flex items-center justify-center gap-1.5"
+                    >
+                      <span>Order Direct Fluid Telemetry Strips ({activeMarket}) ➔</span>
+                      <ExternalLink size={13} />
+                    </a>
+                    <Link
+                      to="/store"
+                      className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition border border-slate-700"
+                    >
+                      Store Catalog
+                    </Link>
+                  </div>
+                </div>
               </div>
-            </div>
-            <Link
-              to="/store"
-              className="shrink-0 px-4 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-1.5"
-            >
-              <span>View in Sovereign Store</span>
-              <ArrowRight size={13} />
-            </Link>
-          </div>
+            );
+          })()}
         </section>
 
         {/* ========================================================================= */}

@@ -65,44 +65,44 @@ export const hardwareListings: LocalizedListing[] = [
     suiteTitle: 'SUITE A: DAILY CHEMICAL & METABOLIC REAGENTS',
     itemNumber: '01',
     categoryLabel: 'Rapid Fluid Telemetry',
-    networkTag: 'CE Medical Marked • Rapid Diagnostics',
-    title: 'ALLTEST 10-Parameter Rapid Urinary Reagent Strips',
+    networkTag: 'FDA Cleared / CE Marked • 10 Parameters',
+    title: 'Direct 10-Parameter Rapid Fluid Telemetry Strips',
     concept: 'At-Home Rapid Fluid Telemetry.',
-    clinicalPurpose: '10-parameter rapid dip-and-read urinary reagent strips for weekly tracking of pH, specific gravity, ketones, glucose, and leukocyte activity. Delivers peace of mind with zero digital screen-time in under 60 seconds.',
+    clinicalPurpose: 'Direct medical-grade 10-parameter urinalysis strips (Leukocytes, Nitrite, Urobilinogen, Protein, pH, Blood, Specific Gravity, Ketones, Bilirubin, Glucose) alongside quarterly blood panels. Dip and read in 60 seconds once per week to monitor systemic hydration, metabolic spillovers, and acid-base shifts between quarterly blood draws.',
     keyBenefits: [
-      '10-Parameter Renal & Metabolic Spectrum',
+      '10-Biomarker Spectrum (Leukocytes to Glucose)',
       'Zero Screen-Time / Digital Noise Freedom',
       'Instant 60-Second Colorimetric Validation',
-      'Catch Hydration & Acid-Base Drift at Dawn'
+      'Monitor Hydration & Acid-Base Drift Weekly'
     ],
-    specs: '100 Medical-Grade Reagent Strips • Desiccant Bottle Storage • 24-Month Stability',
-    ctaText: 'Explore Reagent Specs on Amazon US 🇺🇸',
+    specs: '100 Medical-Grade Reagent Strips • Desiccant Bottle Storage • Clinical Usage Protocol',
+    ctaText: 'Order Direct Fluid Telemetry Strips ➔',
     icon: Droplets,
     accentColor: 'cyan',
     countryDetails: {
       US: {
-        badge: 'CE Medical Marked',
-        logistics: 'US Prime 1-Day Delivery via Amazon US',
+        badge: 'FDA Cleared | 10-Parameter Clinical Grade',
+        logistics: 'Diagnox Urinox-10 Medical-Grade Urinalysis Strips',
         affiliateKey: 'hp_urinalysis_strips',
-        fallbackUrl: 'https://www.amazon.com/dp/B0855CY29W',
-        priceEstimate: '$14.99 (100 Tests)',
-        ctaText: 'Explore Reagent Specs on Amazon US 🇺🇸'
+        fallbackUrl: 'https://diagnoxhealth.com/products/urinalysis-test',
+        priceEstimate: '$16.99 (100 Strips)',
+        ctaText: 'Order Diagnox Urinox-10 US 🇺🇸'
       },
       UK: {
-        badge: 'CE Medical Marked',
-        logistics: 'Fulfilled locally via Amazon UK Prime',
+        badge: 'CE Medical Marked | UKAS Aligned',
+        logistics: 'ALLTEST 10-Parameter Clinical Urinalysis Dipsticks UK',
         affiliateKey: 'hp_urinalysis_strips_uk',
-        fallbackUrl: 'https://www.amazon.co.uk/dp/B0855CY29W',
-        priceEstimate: '£12.99 (100 Tests)',
-        ctaText: 'Explore Reagent Specs on Amazon UK 🇬🇧'
+        fallbackUrl: 'https://referrals.lolahealth.com/NextLevel15',
+        priceEstimate: '£12.99 (100 Strips)',
+        ctaText: 'Order ALLTEST Dipsticks UK 🇬🇧'
       },
       ES: {
-        badge: 'CE Medical Marked',
-        logistics: 'Distribución local Amazon España / Almacén UE',
+        badge: 'Marcado CE Médico | Red Eurofins / Unilabs',
+        logistics: 'ALLTEST Tiras Reactivas de Orina 10 Parámetros ES',
         affiliateKey: 'hp_urinalysis_strips_es',
-        fallbackUrl: 'https://www.amazon.es/dp/B0855CY29W',
+        fallbackUrl: '[PASTE_YOUR_SALUDONNET_AWIN_LINK]',
         priceEstimate: '14,50 € (100 Tiras)',
-        ctaText: 'Explore Reagent Specs on Amazon ES 🇪🇸'
+        ctaText: 'Pedir Tiras Urinarias ALLTEST ES 🇪🇸'
       }
     }
   },

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink, CheckCircle2, ShieldCheck, Stethoscope, ArrowRight, Droplets } from 'lucide-react';
+import { ExternalLink, CheckCircle2, ShieldCheck, Stethoscope, ArrowRight, Droplets, AlertCircle } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
 
 export interface DiagnosticPathwaySelectorProps {
@@ -38,7 +38,27 @@ export interface RegionalPathwayData {
     price: string;
     requisitionUrl: string;
   };
+  fluidTelemetry: {
+    name: string;
+    directUrl: string;
+    badge: string;
+    description: string;
+    price: string;
+  };
 }
+
+export const FLUID_TELEMETRY_BIOMARKERS = [
+  'Leukocytes',
+  'Nitrite',
+  'Urobilinogen',
+  'Protein',
+  'pH',
+  'Blood',
+  'Specific Gravity',
+  'Ketones',
+  'Bilirubin',
+  'Glucose'
+] as const;
 
 export const REGIONAL_PATHWAYS: Record<Market, RegionalPathwayData> = {
   US: {
@@ -67,6 +87,13 @@ export const REGIONAL_PATHWAYS: Record<Market, RegionalPathwayData> = {
       price: '$69.00',
       requisitionUrl: 'PASTE_YOUR_HEALTHLABS_CJ_URINALYSIS_LINK',
     },
+    fluidTelemetry: {
+      name: 'Diagnox Urinox-10 Medical-Grade Urinalysis Strips',
+      directUrl: 'https://diagnoxhealth.com/products/urinalysis-test',
+      badge: 'FDA Cleared | 10-Parameter Clinical Grade',
+      description: 'FDA-cleared 10-parameter rapid urinalysis reagent strips for weekly tracking of microvascular health, proteinuria, pH, ketones, glucose, and renal function.',
+      price: '$16.99 (100 Strips)',
+    },
   },
   UK: {
     regionName: 'United Kingdom',
@@ -94,6 +121,13 @@ export const REGIONAL_PATHWAYS: Record<Market, RegionalPathwayData> = {
       price: '£49.00',
       requisitionUrl: 'https://referrals.lolahealth.com/NextLevel15',
     },
+    fluidTelemetry: {
+      name: 'ALLTEST 10-Parameter Clinical Urinalysis Dipsticks UK',
+      directUrl: 'https://referrals.lolahealth.com/NextLevel15',
+      badge: 'CE Medical Marked | UKAS Aligned',
+      description: 'CE Medical Marked 10-parameter urinalysis dipsticks monitoring kidney filtration integrity, microalbuminuria, acid-base balance, and systemic hydration.',
+      price: '£12.99 (100 Strips)',
+    },
   },
   ES: {
     regionName: 'Spain / European Union',
@@ -120,6 +154,13 @@ export const REGIONAL_PATHWAYS: Record<Market, RegionalPathwayData> = {
       details: 'CE Marked & ISO 15189 certified clinical urine sediment panel across 160+ Eurofins Megalab centers in Spain.',
       price: '39,00 €',
       requisitionUrl: 'PASTE_YOUR_SALUDONNET_AWIN_LINK',
+    },
+    fluidTelemetry: {
+      name: 'ALLTEST Tiras Reactivas de Orina 10 Parámetros ES',
+      directUrl: '[PASTE_YOUR_SALUDONNET_AWIN_LINK]',
+      badge: 'Marcado CE Médico | Red Eurofins / Unilabs',
+      description: 'Tiras reactivas clínicas de 10 parámetros para el seguimiento semanal de función renal, pH, cetonas, glucosa y microalbuminuria en España.',
+      price: '14,50 € (100 Tiras)',
     },
   },
 };
@@ -224,7 +265,7 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
             {/* Card Header & Level Tag */}
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-400 bg-cyan-950/70 border border-cyan-800/50 px-2.5 py-1 rounded-lg">
-                Option 1: Targeted Tri-Marker Baseline (Level 1)
+                Option 1: Phase 1 Baseline Diagnostics &amp; Targeted Tri-Markers (Level 1)
               </span>
               <span className="text-sm font-mono font-bold text-slate-300">
                 {regionData.level1.price}
@@ -392,7 +433,7 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
       </div>
 
       {/* ========================================================================= */}
-      {/* SECTION: INTEGRATED CLINICAL URINALYSIS & AT-HOME FLUID TELEMETRY          */}
+      {/* SECTION: PHASE 1 BASELINE DIAGNOSTICS & FLUID TELEMETRY                     */}
       {/* ========================================================================= */}
       <div className="rounded-3xl p-6 sm:p-7 bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-cyan-950/30 border border-cyan-500/30 shadow-xl space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800/80 pb-4">
@@ -401,29 +442,31 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
               <Droplets size={18} />
             </div>
             <div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/50">
-                  {regionData.flag} Fluid Telemetry Integration
+                  {regionData.flag} Phase 1 Baseline Diagnostics
                 </span>
-                <span className="text-[10px] text-slate-400 font-mono">{regionData.urinalysis.badge}</span>
+                <span className="text-[10px] text-cyan-300 font-mono bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
+                  Direct 10-Parameter Rapid Fluid Telemetry
+                </span>
               </div>
               <h4 className="text-base sm:text-lg font-display font-black text-white tracking-tight mt-0.5">
-                Clinical Urine Analysis &amp; Microvascular ACR Requisition
+                Clinical Urine Analysis &amp; Rapid Fluid Telemetry Requisitions
               </h4>
             </div>
           </div>
           <span className="text-xs font-mono font-bold text-cyan-300 self-start sm:self-center bg-slate-950 px-3 py-1 rounded-full border border-slate-800">
-            {regionData.urinalysis.price}
+            {regionData.fluidTelemetry.price}
           </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
-          {/* Clinical Lab Panel */}
+          {/* Clinical Lab Urinalysis Requisition */}
           <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-3 flex flex-col justify-between">
             <div className="space-y-2">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-2">
                 <span className="font-bold text-white text-sm">{regionData.urinalysis.name}</span>
-                <span className="text-[10px] text-emerald-400 font-mono font-bold">Clinical Lab Draw</span>
+                <span className="text-[10px] text-emerald-400 font-mono font-bold shrink-0">Clinical Lab Draw</span>
               </div>
               <p className="text-slate-300 text-xs leading-relaxed">
                 {regionData.urinalysis.details}
@@ -440,37 +483,63 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
               href={regionData.urinalysis.requisitionUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 w-full py-2.5 px-4 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 border border-cyan-500/40 font-bold text-xs flex items-center justify-center gap-1.5 transition-all"
+              className="mt-3 w-full py-2.5 px-4 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 border border-cyan-500/40 font-bold text-xs flex items-center justify-center gap-1.5 transition-all"
             >
-              <span>Order Clinical Urine Requisition ({activeMarket}) ➔</span>
+              <span>Order Clinical Urinalysis Requisition ({activeMarket}) ➔</span>
               <ExternalLink size={13} />
             </a>
           </div>
 
-          {/* At-Home Fluid Telemetry Tool */}
-          <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-3 flex flex-col justify-between">
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="font-bold text-white text-sm">ALLTEST 10-Parameter Rapid Urinary Reagent Strips</span>
-                <span className="text-[10px] text-cyan-400 font-mono font-bold bg-cyan-950 px-2 py-0.5 rounded border border-cyan-800">CE Medical Marked</span>
+          {/* Direct 10-Parameter Rapid Fluid Telemetry Tool */}
+          <div className="p-4 rounded-2xl bg-slate-950/70 border border-cyan-500/30 space-y-3 flex flex-col justify-between">
+            <div className="space-y-2.5">
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-bold text-white text-sm">{regionData.fluidTelemetry.name}</span>
+                <span className="text-[10px] text-cyan-400 font-mono font-bold bg-cyan-950 px-2 py-0.5 rounded border border-cyan-800 shrink-0">
+                  {regionData.fluidTelemetry.badge}
+                </span>
               </div>
               <p className="text-slate-300 text-xs leading-relaxed">
-                10-parameter rapid dip-and-read urinary reagent strips for weekly tracking of pH, specific gravity, ketones, glucose, and leukocyte activity.
+                {regionData.fluidTelemetry.description}
               </p>
-              <div className="flex flex-wrap gap-1.5 pt-1">
-                {['Weekly Home Tracking', 'Zero Screen-Time', '60-Sec Result', 'pH & Ketones', 'CE Certified'].map((tag) => (
-                  <span key={tag} className="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-300 text-[10px] font-mono">
-                    {tag}
-                  </span>
-                ))}
+
+              {/* 10-Biomarker Checklist Chip Grid */}
+              <div className="pt-2 border-t border-slate-800/80 space-y-1.5">
+                <div className="flex items-center justify-between text-[10px] font-mono uppercase text-slate-400 font-bold">
+                  <span>10-Biomarker Checklist Chip Grid</span>
+                  <span className="text-cyan-400">10 Parameters</span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-1.5 pt-0.5">
+                  {FLUID_TELEMETRY_BIOMARKERS.map((biomarker) => (
+                    <span
+                      key={biomarker}
+                      className="px-2 py-1 rounded-md bg-slate-900 border border-slate-800 text-cyan-300 text-[10px] font-mono flex items-center gap-1 font-medium"
+                    >
+                      <CheckCircle2 size={10} className="text-emerald-400 shrink-0" />
+                      <span className="truncate">{biomarker}</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Clinical Protocol Note */}
+              <div className="p-2.5 rounded-xl bg-cyan-950/40 border border-cyan-800/50 text-[11px] text-cyan-200/90 flex items-start gap-2">
+                <AlertCircle size={14} className="text-cyan-400 shrink-0 mt-0.5" />
+                <p className="leading-relaxed">
+                  <strong>Clinical Protocol:</strong> Dip and read in 60 seconds once per week to monitor systemic hydration, metabolic spillovers, and acid-base shifts between quarterly blood draws.
+                </p>
               </div>
             </div>
-            <Link
-              to={`/store-${activeMarket.toLowerCase()}`}
-              className="mt-2 w-full py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 transition-all"
+
+            <a
+              href={regionData.fluidTelemetry.directUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-cyan-500/20 via-cyan-500/30 to-teal-500/20 hover:from-cyan-500 hover:to-teal-400 text-cyan-300 hover:text-slate-950 border border-cyan-500/40 font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-md group cursor-pointer"
             >
-              <span>Get ALLTEST Strips on Sovereign Store ➔</span>
-            </Link>
+              <span>Order Direct Fluid Telemetry ({activeMarket}) ➔</span>
+              <ExternalLink size={13} className="group-hover:translate-x-0.5 transition-transform" />
+            </a>
           </div>
         </div>
       </div>

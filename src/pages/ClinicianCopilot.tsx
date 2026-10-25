@@ -108,6 +108,7 @@ const initialRequisitions = {
   panel56: false,
   vitaminsD_B12_ferritin: false,
   urinalysis_acr: false,
+  rapid_fluid_telemetry: false,
   other: false,
 };
 
@@ -155,6 +156,14 @@ const DIAGNOSTIC_REGIONS = {
       price: '$69.00',
       actionText: 'Order HealthLabs Urinalysis & ACR Panel',
       url: 'PASTE_YOUR_HEALTHLABS_CJ_URINALYSIS_LINK'
+    },
+    fluidTelemetry: {
+      name: 'Diagnox Urinox-10 Medical-Grade Urinalysis Strips',
+      description: 'FDA-cleared 10-parameter rapid urinalysis reagent strips for weekly tracking of microvascular health, proteinuria, pH, ketones, glucose, and renal function.',
+      price: '$16.99',
+      badge: 'FDA Cleared | 10-Parameter Clinical Grade',
+      actionText: 'Order Diagnox Urinox-10 Strips',
+      url: 'https://diagnoxhealth.com/products/urinalysis-test'
     }
   },
   UK: {
@@ -180,6 +189,14 @@ const DIAGNOSTIC_REGIONS = {
       description: 'UKAS-certified urine panel measuring Albumin-to-Creatinine ratio (ACR), proteinuria, and kidney metabolic safety.',
       price: '£49.00',
       actionText: 'Order Lola Urinalysis & ACR Panel',
+      url: 'https://referrals.lolahealth.com/NextLevel15'
+    },
+    fluidTelemetry: {
+      name: 'ALLTEST 10-Parameter Clinical Urinalysis Dipsticks UK',
+      description: 'CE Medical Marked 10-parameter urinalysis dipsticks monitoring kidney filtration integrity, microalbuminuria, acid-base balance, and systemic hydration.',
+      price: '£12.99',
+      badge: 'CE Medical Marked | UKAS Aligned',
+      actionText: 'Order ALLTEST Dipsticks UK',
       url: 'https://referrals.lolahealth.com/NextLevel15'
     }
   },
@@ -207,6 +224,14 @@ const DIAGNOSTIC_REGIONS = {
       price: '39,00 €',
       actionText: 'Pedir Análisis Orina Eurofins',
       url: 'PASTE_YOUR_SALUDONNET_AWIN_LINK'
+    },
+    fluidTelemetry: {
+      name: 'ALLTEST Tiras Reactivas de Orina 10 Parámetros ES',
+      description: 'Tiras reactivas clínicas de 10 parámetros para el seguimiento semanal de función renal, pH, cetonas, glucosa y microalbuminuria en España.',
+      price: '14,50 €',
+      badge: 'Marcado CE Médico | Red Eurofins / Unilabs',
+      actionText: 'Pedir Tiras Urinarias ALLTEST ES',
+      url: '[PASTE_YOUR_SALUDONNET_AWIN_LINK]'
     }
   }
 };
@@ -1578,6 +1603,15 @@ export default function ClinicianCopilot() {
                 <label className="flex items-center gap-2 cursor-pointer select-none">
                   <input 
                     type="checkbox" 
+                    checked={requisitions.rapid_fluid_telemetry}
+                    onChange={(e) => setRequisitions({ ...requisitions, rapid_fluid_telemetry: e.target.checked })}
+                    className="w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500 border-slate-300 accent-cyan-600 cursor-pointer" 
+                  />
+                  <span><strong>Direct 10-Parameter Rapid Fluid Telemetry</strong> (Weekly at-home urinalysis strips)</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer select-none">
+                  <input 
+                    type="checkbox" 
                     checked={requisitions.vitaminsD_B12_ferritin}
                     onChange={(e) => setRequisitions({ ...requisitions, vitaminsD_B12_ferritin: e.target.checked })}
                     className="w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500 border-slate-300 accent-cyan-600 cursor-pointer" 
@@ -1595,6 +1629,25 @@ export default function ClinicianCopilot() {
                   />
                 </div>
               </div>
+            </div>
+
+            {/* 10-Biomarker Rapid Fluid Telemetry Chip Grid & Clinical Protocol */}
+            <div className="mt-3 p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+              <div className="flex items-center justify-between text-[10px] font-mono uppercase text-slate-600 font-bold">
+                <span>10-Biomarker Rapid Fluid Telemetry Grid:</span>
+                <span className="text-cyan-700 font-semibold">Weekly Dip &amp; Read Telemetry</span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-5 gap-1 text-[10px] font-mono">
+                {['Leukocytes', 'Nitrite', 'Urobilinogen', 'Protein', 'pH', 'Blood', 'Specific Gravity', 'Ketones', 'Bilirubin', 'Glucose'].map((marker) => (
+                  <span key={marker} className="px-1.5 py-0.5 rounded bg-white border border-slate-200 text-slate-700 flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 shrink-0"></span>
+                    <span className="truncate">{marker}</span>
+                  </span>
+                ))}
+              </div>
+              <p className="text-[10px] text-slate-600 italic leading-normal pt-0.5">
+                <strong>Protocol Note:</strong> Dip and read in 60 seconds once per week to monitor systemic hydration, metabolic spillovers, and acid-base shifts between quarterly blood draws.
+              </p>
             </div>
           </div>
 

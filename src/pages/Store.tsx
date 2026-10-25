@@ -35,14 +35,14 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
   "UK": [
     {
       "id": "reagent-strips-uk",
-      "name": "ALLTEST 10-Parameter Rapid Urinary Reagent Strips",
+      "name": "ALLTEST 10-Parameter Clinical Urinalysis Dipsticks UK",
       "category": "Rapid Fluid Telemetry",
-      "rating": 4.85,
-      "description": "10-parameter rapid dip-and-read urinary reagent strips for weekly tracking of pH, specific gravity, ketones, glucose, and leukocyte activity.",
+      "rating": 4.88,
+      "description": "CE Medical Marked 10-parameter urinalysis dipsticks monitoring kidney filtration integrity, microalbuminuria, acid-base balance, and systemic hydration.",
       "price_text": "£12.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123znl0f3-21",
+      "deal_url": "https://referrals.lolahealth.com/NextLevel15",
       "market_region": "UK",
-      "badge_text": "CE Medical Marked",
+      "badge_text": "CE Medical Marked | UKAS Aligned",
       "image_url": "/Products/oxford.jpeg"
     },
     {
@@ -877,14 +877,14 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     },
     {
       "id": "reagent-strips-us",
-      "name": "ALLTEST 10-Parameter Rapid Urinary Reagent Strips",
+      "name": "Diagnox Urinox-10 Medical-Grade Urinalysis Strips",
       "category": "Rapid Fluid Telemetry",
-      "rating": 4.85,
-      "description": "10-parameter rapid dip-and-read urinary reagent strips for weekly tracking of pH, specific gravity, ketones, glucose, and leukocyte activity.",
-      "price_text": "$14.99",
-      "deal_url": "https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20",
+      "rating": 4.90,
+      "description": "FDA-cleared 10-parameter rapid urinalysis reagent strips for weekly tracking of microvascular health, proteinuria, pH, ketones, glucose, and renal function.",
+      "price_text": "$16.99",
+      "deal_url": "https://diagnoxhealth.com/products/urinalysis-test",
       "market_region": "US",
-      "badge_text": "CE Medical Marked",
+      "badge_text": "FDA Cleared | 10-Parameter Clinical Grade",
       "image_url": "/Products/oxford.jpeg"
     },
     {
@@ -1527,14 +1527,14 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     },
     {
       "id": "reagent-strips-es",
-      "name": "ALLTEST 10-Parameter Rapid Urinary Reagent Strips",
+      "name": "ALLTEST Tiras Reactivas de Orina 10 Parámetros ES",
       "category": "Rapid Fluid Telemetry",
       "rating": 4.85,
-      "description": "10-parameter rapid dip-and-read urinary reagent strips for weekly tracking of pH, specific gravity, ketones, glucose, and leukocyte activity.",
-      "price_text": "14,99€",
-      "deal_url": "https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21",
+      "description": "Tiras reactivas clínicas de 10 parámetros para el seguimiento semanal de función renal, pH, cetonas, glucosa y microalbuminuria en España.",
+      "price_text": "14,50€",
+      "deal_url": "[PASTE_YOUR_SALUDONNET_AWIN_LINK]",
       "market_region": "ES",
-      "badge_text": "CE Medical Marked",
+      "badge_text": "Marcado CE Médico | Red Eurofins / Unilabs",
       "image_url": "/Products/oxford.jpeg"
     },
     {
