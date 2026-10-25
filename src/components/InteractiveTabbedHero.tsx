@@ -89,7 +89,7 @@ export const tabsData: TabData[] = [
     primaryCtaLink: '/science',
     secondaryCtaText: 'Take 5-Minute Quiz →',
     secondaryCtaLink: '/quiz',
-    posterImage: '/hero_epigenetic_dashboard.png'
+    posterImage: '/assets/epigenetic_vitality_hero_v2.jpg'
   },
   {
     id: 'diagnostics',
