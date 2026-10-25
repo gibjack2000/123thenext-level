@@ -27,6 +27,7 @@ import {
   FileText
 } from 'lucide-react';
 import DiagnosticPathwaySelector from '../components/DiagnosticPathwaySelector';
+import DualTrackSelector from '../components/DualTrackSelector';
 
 type MarketTab = 'US' | 'UK' | 'ES';
 
@@ -2724,6 +2725,9 @@ export function Store({ region }: StoreProps = {}) {
         </div>
       ) : (
         <div className="max-w-7xl mx-auto space-y-12">
+          {/* Dual-Track Performance Framework Selector */}
+          <DualTrackSelector className="shadow-2xl" />
+
           {/* Diagnostic Dual-Pathway Requisition Selector */}
           <div className="relative overflow-hidden rounded-3xl bg-slate-900/60 border border-slate-800 p-6 sm:p-8 shadow-2xl backdrop-blur-md">
             <DiagnosticPathwaySelector 

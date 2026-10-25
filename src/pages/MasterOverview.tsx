@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
 import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
+import DualTrackSelector from '../components/DualTrackSelector';
 
 const FLUID_TELEMETRY_DATA: Record<Market, {
   name: string;
@@ -617,6 +618,11 @@ export const MasterOverview: React.FC = () => {
             })}
           </div>
         </section>
+
+        {/* ========================================================================= */}
+        {/* DUAL-TRACK PERFORMANCE FRAMEWORK: LAB BASELINE & MICRO-TELEMETRY          */}
+        {/* ========================================================================= */}
+        <DualTrackSelector className="shadow-2xl" />
 
         {/* ========================================================================= */}
         {/* SECTION D: MULTI-MARKET DIAGNOSTIC GUIDANCE                               */}

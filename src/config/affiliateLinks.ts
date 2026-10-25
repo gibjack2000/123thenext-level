@@ -1,5 +1,5 @@
 export type MarketRegion = 'US' | 'UK' | 'ES';
-export type ProductCategory = 'Tech Gadgets & Wearables' | 'Performance & Testing' | 'Supplements' | 'Lifestyle & Performance Gear';
+export type ProductCategory = 'Tech Gadgets & Wearables' | 'Performance & Testing' | 'Supplements' | 'Lifestyle & Performance Gear' | 'Rapid Fluid Telemetry';
 
 export interface ProductMarketConfig {
   url: string;
@@ -12,7 +12,7 @@ export interface ProductMarketConfig {
 export interface SovereignProduct {
   id: string;
   name: string;
-  category: "Tech Gadgets & Wearables" | "Performance & Testing" | "Supplements" | "Lifestyle & Performance Gear";
+  category: ProductCategory;
   isDirectAffiliate: boolean;
   rating: number;
   description: string;
