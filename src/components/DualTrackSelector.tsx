@@ -11,7 +11,10 @@ import {
   Download, 
   Stethoscope, 
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  FlaskConical,
+  Zap,
+  Info
 } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
 import { FlagUS, FlagUK, FlagES } from './MarketSelector';
@@ -20,6 +23,7 @@ export interface DualTrackSelectorProps {
   className?: string;
   initialMarket?: Market;
   syncGlobalMarket?: boolean;
+  showEducationalCard?: boolean;
 }
 
 interface RegionalTrackData {
@@ -106,7 +110,7 @@ export const REGIONAL_DUAL_TRACK_DATA: Record<Market, RegionalTrackData> = {
     tabLabel: 'United Kingdom',
     flagIcon: <FlagUK className="w-5 h-3.5" />,
     track1: {
-      title: 'LOLA Health Vital Check 56 & Renal ACR',
+      title: 'LOLA Health Vital Check 56 & Renal ACR Panel',
       network: 'UKAS Pathology & Partner Phlebotomy Network',
       badge: 'UKAS Accredited & ISO 15189',
       description: 'Nationwide British clinical venous phlebotomy panel measuring 56 vital biomarkers plus microvascular renal ACR telemetry with verified lab reports.',
@@ -143,7 +147,7 @@ export const REGIONAL_DUAL_TRACK_DATA: Record<Market, RegionalTrackData> = {
     tabLabel: 'Spain / EU',
     flagIcon: <FlagES className="w-5 h-3.5" />,
     track1: {
-      title: 'SaludOnNet / Eurofins Chequeo Completo de Salud',
+      title: 'SaludOnNet / Eurofins Chequeo Completo con Orina',
       network: 'Eurofins Megalab & Red Unilabs España',
       badge: 'Marcado CE & ISO 15189',
       description: 'Chequeo biológico clínico completo con analítica de sangre venosa y análisis completo de orina con sedimento en más de 160 laboratorios autorizados.',
@@ -181,6 +185,7 @@ export const DualTrackSelector: React.FC<DualTrackSelectorProps> = ({
   className = '',
   initialMarket,
   syncGlobalMarket = true,
+  showEducationalCard = true,
 }) => {
   const { market: globalMarket, setMarket: setGlobalMarket } = useMarket();
   const [selectedMarket, setSelectedMarket] = useState<Market>(
@@ -247,7 +252,78 @@ export const DualTrackSelector: React.FC<DualTrackSelectorProps> = ({
         </div>
       </div>
 
-      {/* 2-Column Responsive Card Grid */}
+      {/* ========================================================================= */}
+      {/* EXPLICIT EDUCATIONAL CARD: THE DUAL-TRACK & DUAL-URINALYSIS ENGINE       */}
+      {/* ========================================================================= */}
+      {showEducationalCard && (
+        <div className="relative z-10 mt-8 p-6 sm:p-7 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900/90 to-cyan-950/30 border border-cyan-500/30 shadow-xl space-y-5">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold bg-cyan-950/80 px-2.5 py-0.5 rounded border border-cyan-800/60">
+              <FlaskConical size={12} className="text-cyan-400" />
+              <span>Diagnostic Telemetry Decoupling</span>
+            </div>
+            <h4 className="text-lg sm:text-xl font-display font-black text-white tracking-tight uppercase">
+              The Dual-Track Diagnostic Engine: Why Two Testing Speeds Exist
+            </h4>
+            <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed max-w-4xl">
+              Quarterly clinical labs evaluate deep structural organ safety, while weekly home test strips verify how your daily habits are performing right now. Neither replaces the other.
+            </p>
+          </div>
+
+          {/* 2-Column Urinalysis Breakdown */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+            
+            {/* Left Column: Type 1 Quarterly Laboratory Urinalysis */}
+            <div className="p-4 sm:p-5 rounded-xl bg-slate-950/80 border border-cyan-500/30 space-y-2.5">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-300 font-bold bg-cyan-950 px-2 py-0.5 rounded border border-cyan-800">
+                  Type 1: Lab-Based
+                </span>
+                <span className="text-[10px] font-mono text-cyan-400 font-semibold flex items-center gap-1">
+                  <Calendar size={11} />
+                  Every 90 Days
+                </span>
+              </div>
+              <h5 className="text-sm font-display font-bold text-white tracking-tight">
+                Type 1: Quarterly Laboratory Urinalysis (Lab-Based)
+              </h5>
+              <p className="text-xs text-slate-300 leading-relaxed font-light">
+                <strong>Purpose:</strong> Evaluates Urine Albumin-to-Creatinine Ratio (ACR), microalbuminuria, and renal sediment at an accredited pathology clinic every 90 days.
+              </p>
+              <div className="pt-1 flex items-center gap-1.5 text-[11px] text-cyan-300/90 font-mono">
+                <ShieldCheck size={12} className="text-cyan-400 shrink-0" />
+                <span>Deep structural microvascular &amp; renal filtration validation</span>
+              </div>
+            </div>
+
+            {/* Right Column: Type 2 Weekly At-Home Rapid Dipsticks */}
+            <div className="p-4 sm:p-5 rounded-xl bg-slate-950/80 border border-emerald-500/30 space-y-2.5">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-300 font-bold bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">
+                  Type 2: Self-Assessed
+                </span>
+                <span className="text-[10px] font-mono text-emerald-400 font-semibold flex items-center gap-1">
+                  <Clock size={11} />
+                  Every 7 Days (60s)
+                </span>
+              </div>
+              <h5 className="text-sm font-display font-bold text-white tracking-tight">
+                Type 2: Weekly At-Home Rapid Dipsticks (Self-Assessed)
+              </h5>
+              <p className="text-xs text-slate-300 leading-relaxed font-light">
+                <strong>Purpose:</strong> 60-second bathroom test strips used every 7 days to monitor real-time hydration (specific gravity), pH balance, ketones, and glucose spillovers.
+              </p>
+              <div className="pt-1 flex items-center gap-1.5 text-[11px] text-emerald-300/90 font-mono">
+                <Zap size={12} className="text-emerald-400 shrink-0" />
+                <span>Zero-friction feedback loop responding directly to daily habits</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* 2-Column Responsive Card Grid (The Regional Product Pairs) */}
       <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 pt-8">
         
         {/* ========================================================================= */}
@@ -321,7 +397,7 @@ export const DualTrackSelector: React.FC<DualTrackSelectorProps> = ({
             {/* Mandatory PDF Consultation Template V2 Button */}
             <a
               href={currentData.track1.pdfUrl}
-              download
+              download="clinical-baseline-consultation-template-v2.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-850 text-cyan-300 hover:text-white border border-cyan-500/30 hover:border-cyan-400 text-xs font-bold text-center transition-all duration-200 flex items-center justify-center gap-2 shadow-sm"
@@ -445,7 +521,7 @@ export const DualTrackSelector: React.FC<DualTrackSelectorProps> = ({
         </div>
         <a
           href="/assets/docs/clinical-baseline-consultation-template-v2.pdf"
-          download
+          download="clinical-baseline-consultation-template-v2.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="text-cyan-400 hover:text-cyan-300 font-mono text-[11px] font-bold flex items-center gap-1 shrink-0 transition"

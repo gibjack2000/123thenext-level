@@ -8,10 +8,11 @@ import {
   ChevronDown, ChevronUp, Download, Eye, Award, Sparkles
 } from 'lucide-react';
 import { UnifiedExplainerSection } from '../components/UnifiedExplainerSection';
+import DualTrackSelector from '../components/DualTrackSelector';
 
 export default function StartHere() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'phase1' | 'phase2' | 'clinician'>('phase1');
+  const [activeTab, setActiveTab] = useState<'step1' | 'step2' | 'step3' | 'phase1' | 'phase2' | 'clinician'>('step1');
   const [activeScript, setActiveScript] = useState<number | null>(null);
   const [showVideoAlert, setShowVideoAlert] = useState<string | null>(null);
 
@@ -109,47 +110,20 @@ export default function StartHere() {
           </div>
         </div>
 
-        {/* Elegant Centered 3-Tab Navigation Group */}
+        {/* Elegant Centered 3-Tab Navigation Group: The 3-Step Start Now Roadmap */}
         <div className="flex justify-center mb-16 relative z-10">
           <div className="inline-flex p-2 bg-[#060a12]/95 backdrop-blur-xl border border-slate-800/90 rounded-2xl gap-2 overflow-x-auto scrollbar-none max-w-full shadow-2xl relative">
-            <button
-              onClick={() => setActiveTab('phase1')}
-              className={`relative px-5 sm:px-6 py-3.5 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2.5 z-10 select-none group outline-none overflow-hidden ${
-                activeTab === 'phase1'
-                  ? 'text-cyan-300 shadow-[0_0_25px_rgba(6,182,212,0.3)]'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
-              }`}
-            >
-              {activeTab === 'phase1' && (
-                <motion.div
-                  layoutId="activeTabPill"
-                  className="absolute inset-0 bg-gradient-to-r from-cyan-950/90 via-slate-900 to-sky-950/80 border border-cyan-400/70 rounded-xl overflow-hidden -z-10"
-                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                >
-                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.3),transparent_70%)] pointer-events-none" />
-                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400" />
-                </motion.div>
-              )}
-              <Activity 
-                size={15} 
-                className={`transition-all duration-300 ${
-                  activeTab === 'phase1' 
-                    ? 'text-cyan-300 scale-110 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]' 
-                    : 'text-slate-500 group-hover:text-slate-300 group-hover:scale-110'
-                }`} 
-              />
-              <span>Phase 1: Diagnostic Baseline</span>
-            </button>
             
+            {/* STEP 1: Establish Zero-Cost Daily Micro-Habits */}
             <button
-              onClick={() => setActiveTab('phase2')}
-              className={`relative px-5 sm:px-6 py-3.5 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2.5 z-10 select-none group outline-none overflow-hidden ${
-                activeTab === 'phase2'
+              onClick={() => setActiveTab('step1')}
+              className={`relative px-4 sm:px-6 py-3.5 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2.5 z-10 select-none group outline-none overflow-hidden ${
+                activeTab === 'step1' || activeTab === 'phase2'
                   ? 'text-emerald-300 shadow-[0_0_25px_rgba(16,185,129,0.3)]'
                   : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
               }`}
             >
-              {activeTab === 'phase2' && (
+              {(activeTab === 'step1' || activeTab === 'phase2') && (
                 <motion.div
                   layoutId="activeTabPill"
                   className="absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-slate-900 to-teal-950/80 border border-emerald-400/70 rounded-xl overflow-hidden -z-10"
@@ -162,23 +136,54 @@ export default function StartHere() {
               <RefreshCw 
                 size={15} 
                 className={`transition-all duration-500 ${
-                  activeTab === 'phase2' 
+                  activeTab === 'step1' || activeTab === 'phase2'
                     ? 'text-emerald-300 scale-110 rotate-180 drop-shadow-[0_0_8px_rgba(16,185,129,0.8)]' 
                     : 'text-slate-500 group-hover:text-slate-300 group-hover:scale-110'
                 }`} 
               />
-              <span>Phase 2: Daily Small Wins</span>
+              <span>Step 1: Daily Micro-Habits</span>
             </button>
             
+            {/* STEP 2: Engage Dual-Track Diagnostics */}
             <button
-              onClick={() => setActiveTab('clinician')}
-              className={`relative px-5 sm:px-6 py-3.5 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2.5 z-10 select-none group outline-none overflow-hidden ${
-                activeTab === 'clinician'
+              onClick={() => setActiveTab('step2')}
+              className={`relative px-4 sm:px-6 py-3.5 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2.5 z-10 select-none group outline-none overflow-hidden ${
+                activeTab === 'step2' || activeTab === 'phase1'
+                  ? 'text-cyan-300 shadow-[0_0_25px_rgba(6,182,212,0.3)]'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
+              }`}
+            >
+              {(activeTab === 'step2' || activeTab === 'phase1') && (
+                <motion.div
+                  layoutId="activeTabPill"
+                  className="absolute inset-0 bg-gradient-to-r from-cyan-950/90 via-slate-900 to-sky-950/80 border border-cyan-400/70 rounded-xl overflow-hidden -z-10"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                >
+                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.3),transparent_70%)] pointer-events-none" />
+                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400" />
+                </motion.div>
+              )}
+              <Activity 
+                size={15} 
+                className={`transition-all duration-300 ${
+                  activeTab === 'step2' || activeTab === 'phase1'
+                    ? 'text-cyan-300 scale-110 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]' 
+                    : 'text-slate-500 group-hover:text-slate-300 group-hover:scale-110'
+                }`} 
+              />
+              <span>Step 2: Dual-Track Diagnostics</span>
+            </button>
+            
+            {/* STEP 3: Optimize the 6 Pillars */}
+            <button
+              onClick={() => setActiveTab('step3')}
+              className={`relative px-4 sm:px-6 py-3.5 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2.5 z-10 select-none group outline-none overflow-hidden ${
+                activeTab === 'step3' || activeTab === 'clinician'
                   ? 'text-indigo-300 shadow-[0_0_25px_rgba(99,102,241,0.3)]'
                   : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
               }`}
             >
-              {activeTab === 'clinician' && (
+              {(activeTab === 'step3' || activeTab === 'clinician') && (
                 <motion.div
                   layoutId="activeTabPill"
                   className="absolute inset-0 bg-gradient-to-r from-indigo-950/90 via-slate-900 to-purple-950/80 border border-indigo-400/70 rounded-xl overflow-hidden -z-10"
@@ -191,12 +196,12 @@ export default function StartHere() {
               <Shield 
                 size={15} 
                 className={`transition-all duration-300 ${
-                  activeTab === 'clinician' 
+                  activeTab === 'step3' || activeTab === 'clinician'
                     ? 'text-indigo-300 scale-110 drop-shadow-[0_0_8px_rgba(99,102,241,0.8)]' 
                     : 'text-slate-500 group-hover:text-slate-300 group-hover:scale-110'
                 }`} 
               />
-              <span>Clinician Partnership Hub</span>
+              <span>Step 3: Optimize the 6 Pillars</span>
             </button>
           </div>
         </div>
@@ -204,10 +209,10 @@ export default function StartHere() {
         {/* Tab Content Display Area */}
         <AnimatePresence mode="wait">
           
-          {/* TAB A: DIAGNOSTIC BASELINE (PHASE 1) */}
-          {activeTab === 'phase1' && (
+          {/* TAB A: STEP 2 • ENGAGE DUAL-TRACK DIAGNOSTICS */}
+          {(activeTab === 'step2' || activeTab === 'phase1') && (
             <motion.div
-              key="phase1"
+              key="step2"
               initial="hidden"
               animate="visible"
               exit="exit"
@@ -219,11 +224,14 @@ export default function StartHere() {
                 {/* Left Column: Text & Paradigm Info */}
                 <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
                   <div className="space-y-4 text-left">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold">
+                      Step 2 of 3-Step Roadmap • Dual-Track Engine
+                    </span>
                     <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
-                      Phase 1: Establish Your Diagnostic Baseline
+                      Step 2: Engage Dual-Track Diagnostics
                     </h2>
                     <p className="text-slate-300 text-sm md:text-base leading-relaxed font-light font-light">
-                      True preventive medicine is an information-gathering game. Continuous biometric telemetry and epigenetic testing establish an &apos;Early Warning Radar&apos;—diagnosing subclinical physiological shifts early, before they become physical issues, to directly improve long-term longevity and daily quality of life.
+                      True preventive medicine is an information-gathering game. Continuous biometric telemetry, rapid in-home urine test strips, and quarterly accredited venous blood panels establish an &apos;Early Warning Radar&apos;—diagnosing subclinical physiological shifts early before they develop into chronic diseases.
                     </p>
                   </div>
 
@@ -274,6 +282,9 @@ export default function StartHere() {
                   </div>
                 </div>
               </div>
+
+              {/* Step 2 Engine: DualTrackSelector Component */}
+              <DualTrackSelector className="shadow-2xl my-8" />
 
               {/* Biomarker Diagnostics Glossary (Interactive Cards) */}
               <div className="space-y-6">
@@ -389,10 +400,10 @@ export default function StartHere() {
             </motion.div>
           )}
 
-          {/* TAB B: DAILY SMALL WINS (PHASE 2) */}
-          {activeTab === 'phase2' && (
+          {/* TAB B: STEP 1 • ZERO-COST DAILY MICRO-HABITS */}
+          {(activeTab === 'step1' || activeTab === 'phase2') && (
             <motion.div
-              key="phase2"
+              key="step1"
               initial="hidden"
               animate="visible"
               exit="exit"
@@ -404,14 +415,14 @@ export default function StartHere() {
                 {/* Left Column: Heading & Content */}
                 <div className="lg:col-span-7 flex flex-col justify-between space-y-6 text-left">
                   <div className="space-y-4">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-amber-500/10 border border-amber-500/30 text-amber-400 font-bold">
-                      Phase 2 • Autonomic Optimization
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold">
+                      Step 1 of 3-Step Roadmap • Foundational Micro-Habits
                     </span>
                     <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
-                      Phase 2: Daily Biophysical Inputs • Protecting Your Daily Quality of Life
+                      Step 1: Establish Zero-Cost Daily Micro-Habits
                     </h2>
                     <p className="text-slate-350 text-sm md:text-base leading-relaxed font-light">
-                      Daily behavioral choices are direct software updates for your cells. We combine frictionless, zero-cost behavioral habits with highly accessible, low-cost environmental accelerators to optimize your sleep, strength, and metabolic nutrition from Day 1.
+                      Daily behavioral choices are direct software updates for your cells. Before purchasing diagnostic blood panels, master your frictionless zero-cost habits: 10-minute post-meal walks, autonomic breathing resets for sleep, and glycemic snacking shifts.
                     </p>
                   </div>
 
@@ -661,10 +672,10 @@ export default function StartHere() {
             </motion.div>
           )}
 
-          {/* TAB C: CLINICIAN PARTNERSHIP HUB */}
-          {activeTab === 'clinician' && (
+          {/* TAB C: STEP 3 • OPTIMIZE THE 6 PILLARS */}
+          {(activeTab === 'step3' || activeTab === 'clinician') && (
             <motion.div
-              key="clinician"
+              key="step3"
               initial="hidden"
               animate="visible"
               exit="exit"
@@ -674,13 +685,13 @@ export default function StartHere() {
               {/* Tab Header Positioning */}
               <div className="text-left space-y-4 max-w-4xl">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 font-bold">
-                  Shared Decision Making
+                  Step 3 of 3-Step Roadmap • Shared Decision Making
                 </span>
                 <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
-                  Clinician Integration Hub • Safe, Collaborative Care
+                  Step 3: Optimize the 6 Pillars Based on Hard Diagnostic Proof
                 </h2>
                 <p className="text-slate-350 text-sm md:text-base leading-relaxed font-light">
-                  Raw biometric data is not a diagnosis. We make clinician partnership a mandatory operational protocol. Our printable workbook and GP discussion scripts are designed to help you and your doctor co-evaluate your data safely.
+                  Raw biometric data is not a diagnosis. We make clinician partnership a mandatory operational protocol. Take your 2-page GP Consultation Template (PDF V2) to your doctor to review your 14-day vitals log and calibrate the 6 longevity pillars with absolute clinical certainty.
                 </p>
               </div>
 
@@ -694,10 +705,10 @@ export default function StartHere() {
                 
                 <div className="space-y-2">
                   <h3 className="text-lg font-display uppercase tracking-tight text-white font-black">
-                    📥 Download Printable GP-Ready Consultation Template (PDF)
+                    📥 Download Printable GP Consultation Template (PDF V2)
                   </h3>
                   <p className="text-slate-400 text-xs max-w-xl mx-auto leading-relaxed font-light">
-                    Our structured, patient-held workbook features dedicated logging grids for personal health history, wearable metric baselines (resting HR, HRV, sleep duration), and lab biomarker results.
+                    Our structured, patient-held 2-page leave-behind features dedicated logging grids for personal health history, 14-day wearable metric baselines (resting HR, HRV, BP), and physician requisitions.
                   </p>
                 </div>
 
@@ -709,12 +720,14 @@ export default function StartHere() {
                     Open Clinician Co-Pilot Suite →
                   </Link>
                   <a
-                    href="/assets/docs/clinical-baseline-consultation-workbook.pdf"
-                    download="clinical-baseline-consultation-workbook.pdf"
-                    className="inline-flex justify-center items-center gap-2 px-6 py-4 bg-slate-900 border border-slate-700 hover:border-slate-500 text-slate-200 hover:text-white rounded-2xl text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+                    href="/assets/docs/clinical-baseline-consultation-template-v2.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download="clinical-baseline-consultation-template-v2.pdf"
+                    className="inline-flex justify-center items-center gap-2 px-6 py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-2xl text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-lg shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
                   >
                     <Download size={16} />
-                    <span>Download PDF</span>
+                    <span>Download PDF V2</span>
                   </a>
                 </div>
               </div>

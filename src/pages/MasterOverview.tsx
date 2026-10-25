@@ -620,8 +620,14 @@ export const MasterOverview: React.FC = () => {
         </section>
 
         {/* ========================================================================= */}
-        {/* DUAL-TRACK PERFORMANCE FRAMEWORK: LAB BASELINE & MICRO-TELEMETRY          */}
+        {/* PHASE 2 OF THE 3-STEP START NOW ROADMAP: DUAL-TRACK DIAGNOSTICS           */}
         {/* ========================================================================= */}
+        <div className="text-center space-y-2 mb-2">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-widest bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 font-bold shadow-sm">
+            <Sparkles size={11} className="text-cyan-400" />
+            <span>PHASE 2 OF THE 3-STEP START NOW ROADMAP • DUAL-TRACK DIAGNOSTICS</span>
+          </span>
+        </div>
         <DualTrackSelector className="shadow-2xl" />
 
         {/* ========================================================================= */}

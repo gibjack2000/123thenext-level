@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
 import DiagnosticPathwaySelector, { REGIONAL_PATHWAYS } from '../components/DiagnosticPathwaySelector';
+import DualTrackSelector from '../components/DualTrackSelector';
 
 // Interfaces for structured interactive form state
 interface VitalsRow {
@@ -623,138 +624,158 @@ export default function ClinicianCopilot() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 2C. PDF CARD PREVIEW SECTION: IN-CLINIC READINESS (GP LEAVE-BEHIND V2)   */}
+      {/* 2C. THE 2-DOCUMENT CLINICAL SYSTEM ARCHITECTURE                           */}
       {/* ========================================================================= */}
       <section className="no-print max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
-        <div className="relative rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-amber-500/30 shadow-2xl overflow-hidden">
-          {/* Subtle amber ambient glow */}
-          <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="space-y-6">
+          {/* Architecture Header */}
+          <div className="text-center max-w-3xl mx-auto space-y-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 font-bold">
+              <Stethoscope size={12} className="text-cyan-400" />
+              <span>THE 2-DOCUMENT CLINICAL SYSTEM ARCHITECTURE</span>
+            </span>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white tracking-tight uppercase">
+              Separating Patient Education from Doctor Execution
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
+              Standard 10-minute GP appointments fail when patients bring 40-page generic wellness binders. Our 2-document clinical architecture solves this by strictly separating comprehensive patient self-education from concise physician execution.
+            </p>
+          </div>
 
-          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
-            {/* Left Content Column */}
-            <div className="space-y-4 max-w-2xl">
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-amber-400 font-bold bg-amber-950/80 px-2.5 py-1 rounded-md border border-amber-800/60">
-                  OFFICIAL CLINICAL TEMPLATE V2
-                </span>
-                <span className="text-[10px] font-mono text-cyan-300 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800/40">
-                  2-Page Standard Leave-Behind
-                </span>
-                <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/40">
-                  Free Open-Access
-                </span>
+          {/* 2 Modular Document Architecture Cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+            
+            {/* DOCUMENT 1: Patient Diagnostic & Onboarding Blueprint */}
+            <div className="rounded-3xl p-6 sm:p-7 bg-slate-900/90 border border-cyan-500/30 flex flex-col justify-between space-y-6 shadow-xl relative overflow-hidden group hover:border-cyan-500/60 transition-all">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-300 font-bold bg-cyan-950/80 px-2.5 py-1 rounded-md border border-cyan-800/60">
+                    DOCUMENT 1 • WEB GUIDE / PATIENT PDF
+                  </span>
+                  <span className="text-[10px] font-mono text-cyan-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
+                    Role: Patient Education
+                  </span>
+                </div>
+
+                <div>
+                  <h3 className="text-lg sm:text-xl font-display font-black text-white tracking-tight">
+                    The Patient Diagnostic &amp; Onboarding Blueprint
+                  </h3>
+                  <p className="mt-1.5 text-xs text-slate-300 leading-relaxed font-light">
+                    Your complete patient-facing intelligence manual. Contains deep biomarker science (ApoB, HbA1c, hs-CRP), urinalysis distinctions (Lab ACR vs. At-home dipsticks), and word-for-word GP discussion scripts.
+                  </p>
+                </div>
+
+                <div className="space-y-2 pt-2 border-t border-slate-800 text-xs">
+                  <div className="flex items-start gap-2 text-slate-300">
+                    <CheckCircle2 size={13} className="text-cyan-400 shrink-0 mt-0.5" />
+                    <span><strong>Biomarker Science:</strong> Explains ApoB particle atherogenicity, glycemic variability, and vascular inflammation.</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-slate-300">
+                    <CheckCircle2 size={13} className="text-cyan-400 shrink-0 mt-0.5" />
+                    <span><strong>Urinalysis Distinctions:</strong> Clarifies how weekly 60s dipsticks sync with quarterly pathology ACR labs.</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-slate-300">
+                    <CheckCircle2 size={13} className="text-cyan-400 shrink-0 mt-0.5" />
+                    <span><strong>GP Dialogue Scripts:</strong> Non-confrontational scripts designed to partner with your doctor as co-pilot.</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-slate-300">
+                    <CheckCircle2 size={13} className="text-cyan-400 shrink-0 mt-0.5" />
+                    <span><strong>Location:</strong> Embedded directly below in the interactive 4-page workbook.</span>
+                  </div>
+                </div>
               </div>
 
-              <div>
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-display font-black text-white tracking-tight">
-                  In-Clinic Readiness: Printable GP Leave-Behind
-                </h2>
-                <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
-                  Take this pre-formatted 2-page clinical summary to your General Practitioner consultation. Includes fillable sections for 14-day vitals logs, family risk factors, and recommended diagnostic requisitions.
-                </p>
+              <div className="pt-4 border-t border-slate-800">
+                <a
+                  href="#copilot-page-1"
+                  className="w-full py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 hover:text-white border border-slate-700 text-xs font-bold text-center transition flex items-center justify-center gap-2"
+                >
+                  <span>Explore Interactive Patient Blueprint Below ↓</span>
+                </a>
+              </div>
+            </div>
+
+            {/* DOCUMENT 2: GP Consultation Template V2 */}
+            <div className="rounded-3xl p-6 sm:p-7 bg-gradient-to-br from-slate-900 via-slate-950 to-amber-950/20 border-2 border-amber-500/50 flex flex-col justify-between space-y-6 shadow-2xl relative overflow-hidden group hover:border-amber-400 transition-all">
+              <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+
+              <div className="space-y-4 relative z-10">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-amber-300 font-bold bg-amber-950/80 px-2.5 py-1 rounded-md border border-amber-800/60">
+                    DOCUMENT 2 • PRINTABLE 2-PAGE PDF
+                  </span>
+                  <span className="text-[10px] font-mono text-emerald-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800 font-bold">
+                    Role: Doctor Execution
+                  </span>
+                </div>
+
+                <div>
+                  <h3 className="text-lg sm:text-xl font-display font-black text-white tracking-tight">
+                    The GP Consultation Template V2
+                  </h3>
+                  <p className="mt-1.5 text-xs text-slate-300 leading-relaxed font-light">
+                    The ultra-concise 2-page physical leave-behind built specifically for General Practitioners during tight 10-minute consultations. Zero fluff, 100% actionable clinical telemetry.
+                  </p>
+                </div>
+
+                <div className="space-y-2 pt-2 border-t border-slate-800 text-xs">
+                  <div className="flex items-start gap-2 text-slate-300">
+                    <CheckCircle2 size={13} className="text-amber-400 shrink-0 mt-0.5" />
+                    <span><strong>Patient Risk Profile:</strong> Pre-filled personal and first-degree family cardiovascular/renal history.</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-slate-300">
+                    <CheckCircle2 size={13} className="text-amber-400 shrink-0 mt-0.5" />
+                    <span><strong>14-Day Vitals Telemetry:</strong> Pre-calculated averages for resting HR, HRV, blood pressure, and sleep duration.</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-slate-300">
+                    <CheckCircle2 size={13} className="text-amber-400 shrink-0 mt-0.5" />
+                    <span><strong>Regional Lab Requisitions:</strong> Checkable boxes for Quest/Labcorp, UKAS, or Eurofins Megalab panels.</span>
+                  </div>
+                  <div className="flex items-start gap-2 text-slate-300">
+                    <CheckCircle2 size={13} className="text-emerald-400 shrink-0 mt-0.5" />
+                    <span><strong>Directives Box:</strong> Dedicated &quot;Clinician Collaborative Care Directives&quot; section for doctor sign-off.</span>
+                  </div>
+                </div>
               </div>
 
-              {/* Feature Highlights Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs">
-                <div className="flex items-start gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-300">
-                  <CheckCircle2 size={14} className="text-amber-400 shrink-0 mt-0.5" />
-                  <span><strong>14-Day Vitals Log:</strong> Pre-structured tables for resting HR, BP, and sleep telemetry.</span>
-                </div>
-                <div className="flex items-start gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-300">
-                  <CheckCircle2 size={14} className="text-amber-400 shrink-0 mt-0.5" />
-                  <span><strong>Family Risk Profile:</strong> Early cardiovascular, glycemic &amp; renal history checklist.</span>
-                </div>
-                <div className="flex items-start gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-300">
-                  <CheckCircle2 size={14} className="text-cyan-400 shrink-0 mt-0.5" />
-                  <span><strong>Tiered Requisitions:</strong> ApoB, HbA1c, hs-CRP &amp; Urine Microvascular ACR.</span>
-                </div>
-                <div className="flex items-start gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-slate-300">
-                  <CheckCircle2 size={14} className="text-cyan-400 shrink-0 mt-0.5" />
-                  <span><strong>Doctor Collaboration Script:</strong> Non-adversarial, evidence-based dialogue prompts.</span>
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="pt-2 flex flex-wrap items-center gap-3">
+              {/* Action Buttons for Document 2 */}
+              <div className="pt-4 border-t border-slate-800 space-y-2.5 relative z-10">
                 <a
                   href="/assets/docs/clinical-baseline-consultation-template-v2.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   download="clinical-baseline-consultation-template-v2.pdf"
                   onClick={handleDownload}
-                  className="px-5 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-lg shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98] inline-flex items-center gap-2 cursor-pointer"
+                  className="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-lg shadow-amber-500/20 hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <Download size={15} />
-                  <span>Download PDF V2</span>
+                  <FileText size={15} />
+                  <span>📄 Download Printable GP Consultation Template (PDF V2)</span>
                 </a>
                 <a
                   href="/assets/docs/clinical-baseline-consultation-template-v2.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-slate-600 text-slate-200 text-xs font-bold transition-all inline-flex items-center gap-1.5"
+                  className="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold text-center transition flex items-center justify-center gap-1.5"
                 >
-                  <span>Preview in Browser</span>
-                  <ExternalLink size={13} />
+                  <span>Preview PDF V2 in New Browser Tab</span>
+                  <ExternalLink size={12} />
                 </a>
               </div>
             </div>
 
-            {/* Right Card Mockup Preview Column */}
-            <div className="w-full lg:w-72 shrink-0">
-              <div className="relative mx-auto max-w-[260px] p-4 rounded-2xl bg-slate-950 border border-amber-500/40 shadow-xl group hover:border-amber-400 transition-all">
-                {/* Visual Paper Sheet Mockup */}
-                <div className="aspect-[1/1.414] rounded-lg bg-white p-3 shadow-inner flex flex-col justify-between text-slate-800 text-[8px] leading-tight select-none pointer-events-none">
-                  <div className="space-y-1.5">
-                    <div className="flex items-center justify-between border-b border-slate-200 pb-1">
-                      <div className="flex items-center gap-1 font-bold text-[9px] text-cyan-900">
-                        <Stethoscope size={10} className="text-cyan-600" />
-                        <span>GP CONSULTATION V2</span>
-                      </div>
-                      <span className="text-[7px] text-amber-600 font-mono font-bold">PAGE 1 &amp; 2</span>
-                    </div>
-                    {/* Simulated Document Grid Lines */}
-                    <div className="h-1.5 bg-slate-200 rounded w-3/4"></div>
-                    <div className="h-1 bg-slate-100 rounded w-full"></div>
-                    <div className="space-y-1 pt-1">
-                      <div className="p-1 rounded bg-slate-50 border border-slate-200 flex items-center justify-between text-[7px]">
-                        <span className="font-semibold text-slate-700">14-Day Vitals Telemetry</span>
-                        <span className="text-cyan-600 font-mono font-bold">BP / HR / Sleep</span>
-                      </div>
-                      <div className="p-1 rounded bg-slate-50 border border-slate-200 flex items-center justify-between text-[7px]">
-                        <span className="font-semibold text-slate-700">Family Risk &amp; Symptoms</span>
-                        <span className="text-amber-600 font-mono font-bold">Cardiovascular</span>
-                      </div>
-                      <div className="p-1 rounded bg-slate-50 border border-slate-200 flex items-center justify-between text-[7px]">
-                        <span className="font-semibold text-slate-700">Diagnostic Requisitions</span>
-                        <span className="text-cyan-600 font-mono font-bold">ApoB / ACR / CRP</span>
-                      </div>
-                      <div className="p-1 rounded bg-slate-50 border border-slate-200 flex items-center justify-between text-[7px]">
-                        <span className="font-semibold text-slate-700">Clinical Discussion Plan</span>
-                        <span className="text-emerald-600 font-mono font-bold">Collaborative</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="border-t border-slate-200 pt-1 flex items-center justify-between text-[7px] text-slate-500 font-mono">
-                    <span>123TheNextLevel</span>
-                    <span>clinical-template-v2.pdf</span>
-                  </div>
-                </div>
-
-                <div className="mt-3 text-center">
-                  <span className="text-[10px] font-mono text-amber-300 font-semibold block">
-                    Pre-formatted • Ready to print or fill
-                  </span>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
 
       {/* ========================================================================= */}
-      {/* 2D. MULTI-REGION DIAGNOSTIC GUIDANCE BOX (Choose Your Starting Point) */}
+      {/* 2D. MULTI-REGION DUAL-TRACK DIAGNOSTIC RADAR & REQUISITION SELECTOR       */}
       {/* ========================================================================= */}
-      <section className="no-print max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+      <section className="no-print max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4 space-y-8">
+        {/* Dual-Track Performance Framework Engine */}
+        <DualTrackSelector className="shadow-2xl" />
+
+        {/* Existing Diagnostic Pathway Selector */}
         <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-cyan-950/40 border-2 border-cyan-500/30 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
           
