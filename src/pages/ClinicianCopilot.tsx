@@ -107,13 +107,14 @@ const initialRequisitions = {
   hscrp: false,
   panel56: false,
   vitaminsD_B12_ferritin: false,
+  urinalysis_acr: false,
   other: false,
 };
 
 const initialPathwaySteps: PathwayStep[] = [
   { step: 'Level 1: ApoB, HbA1c, hs-CRP', checked: false, bookedDate: '', resultDate: '' },
-  { step: 'Review results with GP; decide on Level 2', checked: false, bookedDate: '', resultDate: '' },
-  { step: 'Level 2: Full 56-biomarker panel', checked: false, bookedDate: '', resultDate: '' },
+  { step: 'Review results with GP; decide on Level 2 & Urinalysis', checked: false, bookedDate: '', resultDate: '' },
+  { step: 'Level 2: Full 56-biomarker panel + Urine ACR', checked: false, bookedDate: '', resultDate: '' },
   { step: 'Targeted protocol agreed with GP', checked: false, bookedDate: '', resultDate: '' },
 ];
 
@@ -135,7 +136,7 @@ const DIAGNOSTIC_REGIONS = {
     flag: '🇺🇸',
     partnerName: 'HealthLabs',
     badge: 'CLIA Certified & CAP Accredited (Quest / Labcorp)',
-    affiliateUrl: 'https://www.healthlabs.com/?affiliate=123znl', // [PLACEHOLDER_HEALTHLABS_AFFILIATE_URL]
+    affiliateUrl: 'https://www.healthlabs.com/?affiliate=123znl',
     optionA: {
       name: 'Option A: Complete 56-Biomarker Cellular Map Panel',
       description: 'Comprehensive venous blood panel measuring ApoB, ApoA1, full lipid particle cascade, metabolic markers, hormone status, organ function, and vitamin levels via 4,500+ local Quest Diagnostics or Labcorp draw centers.',
@@ -147,6 +148,13 @@ const DIAGNOSTIC_REGIONS = {
       description: 'A la carte direct requisition for the core Level 1 longevity anchor markers without physician referral required.',
       price: 'From $39.00 / test',
       actionText: 'Order Standalone Level 1 Markers'
+    },
+    urinalysis: {
+      name: 'HealthLabs Comprehensive Urinalysis & Microalbumin Panel',
+      description: '14-parameter Quest/Labcorp clinical urine analysis screening microvascular health, ACR, pH, ketones, and renal filtration.',
+      price: '$69.00',
+      actionText: 'Order HealthLabs Urinalysis & ACR Panel',
+      url: 'PASTE_YOUR_HEALTHLABS_CJ_URINALYSIS_LINK'
     }
   },
   UK: {
@@ -154,7 +162,7 @@ const DIAGNOSTIC_REGIONS = {
     flag: '🇬🇧',
     partnerName: 'LOLA Health',
     badge: 'UKAS Accredited & ISO Certified Phlebotomy',
-    affiliateUrl: 'https://snwbl.io/out/NcealZ11', // [PLACEHOLDER_LOLA_AFFILIATE_URL]
+    affiliateUrl: 'https://snwbl.io/out/NcealZ11',
     optionA: {
       name: 'Lola Vital Check 56 Blood Panel',
       description: 'Official UKAS-accredited venous draw panel covering 56 essential geroscience biomarkers with clinic partner access across England, Scotland, Wales, and Northern Ireland.',
@@ -166,14 +174,21 @@ const DIAGNOSTIC_REGIONS = {
       description: 'Targeted baseline check covering ApoB, high-sensitivity CRP, HbA1c, and key lipid-metabolic sub-fractions.',
       price: '£89.00',
       actionText: 'Order Core Lola Check'
+    },
+    urinalysis: {
+      name: 'Lola Urinalysis & Microvascular ACR Panel',
+      description: 'UKAS-certified urine panel measuring Albumin-to-Creatinine ratio (ACR), proteinuria, and kidney metabolic safety.',
+      price: '£49.00',
+      actionText: 'Order Lola Urinalysis & ACR Panel',
+      url: 'https://referrals.lolahealth.com/NextLevel15'
     }
   },
   ES: {
     regionName: 'Spain / European Union',
     flag: '🇪🇸',
-    partnerName: 'SaludOnNet / Melio',
+    partnerName: 'SaludOnNet / Eurofins',
     badge: 'CE Marked • Red Megalab & Unilabs Partner',
-    affiliateUrl: 'https://www.melio.es', // [PLACEHOLDER_SALUDONNET_AFFILIATE_URL]
+    affiliateUrl: 'https://www.melio.es',
     optionA: {
       name: 'Melio Vital Check ES / SaludOnNet Master Panel',
       description: 'Direct-access venous panel through Laboratorios Megalab or Unilabs across Spain and the EU, covering 56 cellular longevity biomarkers with rapid digital results.',
@@ -185,6 +200,13 @@ const DIAGNOSTIC_REGIONS = {
       description: 'Análisis selectivo de ApoB, HbA1c y proteína C-reactiva de alta sensibilidad (hs-CRP) en laboratorio clínico local.',
       price: '79,00 €',
       actionText: 'Reservar Análisis Nivel 1 ES'
+    },
+    urinalysis: {
+      name: 'SaludOnNet / Eurofins Análisis Completo de Orina con Sedimento',
+      description: 'CE Marked & ISO 15189 certified clinical urine sediment panel across 160+ Eurofins Megalab centers in Spain.',
+      price: '39,00 €',
+      actionText: 'Pedir Análisis Orina Eurofins',
+      url: 'PASTE_YOUR_SALUDONNET_AWIN_LINK'
     }
   }
 };
@@ -1008,6 +1030,11 @@ export default function ClinicianCopilot() {
                     <td className="p-2 text-slate-800">Vitamin D3 (25-OH), B12, Serum iron, Ferritin, Folate</td>
                     <td className="p-2 text-slate-700">Confirms whether the Day 1 stack is needed, and whether iron or B12 dosing is justified.</td>
                   </tr>
+                  <tr>
+                    <td className="p-2 font-bold text-slate-900">Urinalysis &amp; fluid telemetry</td>
+                    <td className="p-2 text-slate-800">Microalbumin, Creatinine, ACR Ratio, Proteinuria, pH, Ketones</td>
+                    <td className="p-2 text-slate-700">Detects early microvascular damage, renal filtration integrity, acid-base balance, and metabolic ketone shifts.</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -1542,6 +1569,15 @@ export default function ClinicianCopilot() {
                 <label className="flex items-center gap-2 cursor-pointer select-none">
                   <input 
                     type="checkbox" 
+                    checked={requisitions.urinalysis_acr}
+                    onChange={(e) => setRequisitions({ ...requisitions, urinalysis_acr: e.target.checked })}
+                    className="w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500 border-slate-300 accent-cyan-600 cursor-pointer" 
+                  />
+                  <span><strong>Clinical Urinalysis &amp; ACR</strong> (Microalbumin / Renal Filtration)</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer select-none">
+                  <input 
+                    type="checkbox" 
                     checked={requisitions.vitaminsD_B12_ferritin}
                     onChange={(e) => setRequisitions({ ...requisitions, vitaminsD_B12_ferritin: e.target.checked })}
                     className="w-4 h-4 rounded text-cyan-600 focus:ring-cyan-500 border-slate-300 accent-cyan-600 cursor-pointer" 
@@ -1572,7 +1608,7 @@ export default function ClinicianCopilot() {
                 <strong className="text-cyan-900">1. Open with partnership.</strong> “I’ve been tracking my blood pressure, heart rate and sleep for two weeks, and I’d like to understand my baseline. Could we look at this data together?”
               </p>
               <p>
-                <strong className="text-cyan-900">2. Ask for the evidence-based tests.</strong> “I’ve read that ApoB, HbA1c and hs-CRP give a clearer picture of cardiovascular and metabolic risk than a standard cholesterol check. Would these be appropriate for me, and if not, what would you recommend instead?”
+                <strong className="text-cyan-900">2. Ask for the evidence-based tests.</strong> “I’ve read that ApoB, HbA1c, hs-CRP, and microvascular urinalysis (ACR) give a clearer picture of cardiovascular, metabolic, and renal risk than standard spot-checks. Would these be appropriate for me, and if not, what would you recommend instead?”
               </p>
               <p>
                 <strong className="text-cyan-900">3. Agree the plan.</strong> “Whatever you decide, could you explain what would change your advice, how often we should retest, and whether my supplements are safe alongside my medicines?”
@@ -1654,7 +1690,7 @@ export default function ClinicianCopilot() {
               Ready to Order Your Clinical Lab Panels?
             </h3>
             <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-light">
-              Access CLIA-certified venous blood draws and direct-to-consumer longevity panels in the United States (HealthLabs), United Kingdom (Lola Vital Check 56), and Spain / EU (SaludOnNet / Melio).
+              Access CLIA-certified venous blood draws and clinical urinalysis requisitions in the United States (HealthLabs), United Kingdom (LOLA Health), and Spain / EU (SaludOnNet / Eurofins).
             </p>
           </div>
           <div className="flex flex-wrap justify-center gap-4">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { ExternalLink, CheckCircle2, ShieldCheck, Stethoscope, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ExternalLink, CheckCircle2, ShieldCheck, Stethoscope, ArrowRight, Droplets } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
 
 export interface DiagnosticPathwaySelectorProps {
@@ -28,6 +29,15 @@ export interface RegionalPathwayData {
     price: string;
     requisitionUrl: string;
   };
+  urinalysis: {
+    name: string;
+    partnerName: string;
+    badge: string;
+    description: string;
+    details: string;
+    price: string;
+    requisitionUrl: string;
+  };
 }
 
 export const REGIONAL_PATHWAYS: Record<Market, RegionalPathwayData> = {
@@ -48,6 +58,15 @@ export const REGIONAL_PATHWAYS: Record<Market, RegionalPathwayData> = {
       price: '$299.00',
       requisitionUrl: 'https://www.healthlabs.com/?affiliate=123znl',
     },
+    urinalysis: {
+      name: 'HealthLabs Comprehensive Urinalysis & Microalbumin Panel',
+      partnerName: 'HealthLabs (Quest / Labcorp)',
+      badge: 'CLIA / CAP Clinical Urine Panel',
+      description: 'Doctor-free comprehensive urine analysis for microalbumin-to-creatinine ratio (ACR), proteinuria, and renal filtration efficiency.',
+      details: '14-parameter Quest/Labcorp clinical urine analysis screening microvascular health, ACR, pH, ketones, and renal filtration.',
+      price: '$69.00',
+      requisitionUrl: 'PASTE_YOUR_HEALTHLABS_CJ_URINALYSIS_LINK',
+    },
   },
   UK: {
     regionName: 'United Kingdom',
@@ -66,11 +85,20 @@ export const REGIONAL_PATHWAYS: Record<Market, RegionalPathwayData> = {
       price: '£149.00',
       requisitionUrl: 'https://snwbl.io/out/NcealZ11',
     },
+    urinalysis: {
+      name: 'Lola Urinalysis & Microvascular ACR Panel',
+      partnerName: 'LOLA Health',
+      badge: 'UKAS Certified Fluid Telemetry',
+      description: 'Home sample kit and partner clinic assessment tracking albumin-to-creatinine ratio and renal metabolic performance.',
+      details: 'UKAS-certified urine panel measuring Albumin-to-Creatinine ratio (ACR), proteinuria, and kidney metabolic safety.',
+      price: '£49.00',
+      requisitionUrl: 'https://referrals.lolahealth.com/NextLevel15',
+    },
   },
   ES: {
     regionName: 'Spain / European Union',
     flag: '🇪🇸',
-    partnerName: 'SaludOnNet / Melio',
+    partnerName: 'SaludOnNet / Eurofins',
     badge: 'CE Marked • Red Megalab & Unilabs Partner Network',
     level1: {
       partnerName: 'Panel Cardiovascular & Metabólico Nivel 1',
@@ -83,6 +111,15 @@ export const REGIONAL_PATHWAYS: Record<Market, RegionalPathwayData> = {
       description: 'Panel venoso integral de 56 biomarcadores celulares con informe médico digital y revisión de rango óptimo de longevidad.',
       price: '149,00 €',
       requisitionUrl: 'https://www.melio.es',
+    },
+    urinalysis: {
+      name: 'SaludOnNet / Eurofins Análisis Completo de Orina con Sedimento',
+      partnerName: 'SaludOnNet / Eurofins Megalab',
+      badge: 'Marcado CE & ISO 15189',
+      description: 'Panel clínico completo de orina con sedimento y ratio albúmina/creatinina en más de 160 laboratorios autorizados.',
+      details: 'CE Marked & ISO 15189 certified clinical urine sediment panel across 160+ Eurofins Megalab centers in Spain.',
+      price: '39,00 €',
+      requisitionUrl: 'PASTE_YOUR_SALUDONNET_AWIN_LINK',
     },
   },
 };
@@ -352,6 +389,90 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
           </div>
         </div>
 
+      </div>
+
+      {/* ========================================================================= */}
+      {/* SECTION: INTEGRATED CLINICAL URINALYSIS & AT-HOME FLUID TELEMETRY          */}
+      {/* ========================================================================= */}
+      <div className="rounded-3xl p-6 sm:p-7 bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-cyan-950/30 border border-cyan-500/30 shadow-xl space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800/80 pb-4">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
+              <Droplets size={18} />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/50">
+                  {regionData.flag} Fluid Telemetry Integration
+                </span>
+                <span className="text-[10px] text-slate-400 font-mono">{regionData.urinalysis.badge}</span>
+              </div>
+              <h4 className="text-base sm:text-lg font-display font-black text-white tracking-tight mt-0.5">
+                Clinical Urine Analysis &amp; Microvascular ACR Requisition
+              </h4>
+            </div>
+          </div>
+          <span className="text-xs font-mono font-bold text-cyan-300 self-start sm:self-center bg-slate-950 px-3 py-1 rounded-full border border-slate-800">
+            {regionData.urinalysis.price}
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
+          {/* Clinical Lab Panel */}
+          <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-3 flex flex-col justify-between">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-white text-sm">{regionData.urinalysis.name}</span>
+                <span className="text-[10px] text-emerald-400 font-mono font-bold">Clinical Lab Draw</span>
+              </div>
+              <p className="text-slate-300 text-xs leading-relaxed">
+                {regionData.urinalysis.details}
+              </p>
+              <div className="flex flex-wrap gap-1.5 pt-1">
+                {['Microalbumin (ACR)', 'Proteinuria', 'Urine pH', 'Specific Gravity', 'Renal Filtration'].map((tag) => (
+                  <span key={tag} className="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-cyan-300 text-[10px] font-mono">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <a
+              href={regionData.urinalysis.requisitionUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 w-full py-2.5 px-4 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 border border-cyan-500/40 font-bold text-xs flex items-center justify-center gap-1.5 transition-all"
+            >
+              <span>Order Clinical Urine Requisition ({activeMarket}) ➔</span>
+              <ExternalLink size={13} />
+            </a>
+          </div>
+
+          {/* At-Home Fluid Telemetry Tool */}
+          <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-3 flex flex-col justify-between">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-white text-sm">ALLTEST 10-Parameter Rapid Urinary Reagent Strips</span>
+                <span className="text-[10px] text-cyan-400 font-mono font-bold bg-cyan-950 px-2 py-0.5 rounded border border-cyan-800">CE Medical Marked</span>
+              </div>
+              <p className="text-slate-300 text-xs leading-relaxed">
+                10-parameter rapid dip-and-read urinary reagent strips for weekly tracking of pH, specific gravity, ketones, glucose, and leukocyte activity.
+              </p>
+              <div className="flex flex-wrap gap-1.5 pt-1">
+                {['Weekly Home Tracking', 'Zero Screen-Time', '60-Sec Result', 'pH & Ketones', 'CE Certified'].map((tag) => (
+                  <span key={tag} className="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-300 text-[10px] font-mono">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <Link
+              to={`/store-${activeMarket.toLowerCase()}`}
+              className="mt-2 w-full py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white border border-slate-700 font-bold text-xs flex items-center justify-center gap-1.5 transition-all"
+            >
+              <span>Get ALLTEST Strips on Sovereign Store ➔</span>
+            </Link>
+          </div>
+        </div>
       </div>
 
       {/* Optional Workbook Cross-Link */}

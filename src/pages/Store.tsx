@@ -35,15 +35,27 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
   "UK": [
     {
       "id": "reagent-strips-uk",
-      "name": "ALLTEST 10-Parameter Urinary Reagent Strips",
-      "category": "Performance & Testing",
+      "name": "ALLTEST 10-Parameter Rapid Urinary Reagent Strips",
+      "category": "Rapid Fluid Telemetry",
       "rating": 4.85,
-      "description": "A visual, dip-and-read chemical test tracking 10 critical parameters (Glucose, Ketones, Specific Gravity, Blood, pH, Protein, Nitrite, Bilirubin, Urobilinogen, Leucocytes) in under 2 minutes. Zero digital screen-time.",
+      "description": "10-parameter rapid dip-and-read urinary reagent strips for weekly tracking of pH, specific gravity, ketones, glucose, and leukocyte activity.",
       "price_text": "£12.99",
       "deal_url": "https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123znl0f3-21",
       "market_region": "UK",
-      "badge_text": "MHRA Registered",
+      "badge_text": "CE Medical Marked",
       "image_url": "/Products/oxford.jpeg"
+    },
+    {
+      "id": "urinalysis-uk",
+      "name": "Lola Urinalysis & Microvascular ACR Panel",
+      "category": "Clinical Diagnostics & Co-Pilot",
+      "rating": 4.90,
+      "description": "UKAS-certified urine panel measuring Albumin-to-Creatinine ratio (ACR), proteinuria, and kidney metabolic safety.",
+      "price_text": "£49.00",
+      "deal_url": "https://referrals.lolahealth.com/NextLevel15",
+      "market_region": "UK",
+      "badge_text": "UKAS Certified Fluid Telemetry",
+      "image_url": "/Products/bloodtest.jpg"
     },
     {
       "id": "sleep-analyzer-uk",
@@ -865,15 +877,27 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     },
     {
       "id": "reagent-strips-us",
-      "name": "ALLTEST 10-Parameter Urinary Reagent Strips",
-      "category": "Performance & Testing",
+      "name": "ALLTEST 10-Parameter Rapid Urinary Reagent Strips",
+      "category": "Rapid Fluid Telemetry",
       "rating": 4.85,
-      "description": "A visual, dip-and-read chemical test tracking 10 critical parameters (Glucose, Ketones, Specific Gravity, Blood, pH, Protein, Nitrite, Bilirubin, Urobilinogen, Leucocytes) in under 2 minutes. Zero digital screen-time.",
+      "description": "10-parameter rapid dip-and-read urinary reagent strips for weekly tracking of pH, specific gravity, ketones, glucose, and leukocyte activity.",
       "price_text": "$14.99",
       "deal_url": "https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20",
       "market_region": "US",
-      "badge_text": "FDA Cleared & CLIA Waived",
+      "badge_text": "CE Medical Marked",
       "image_url": "/Products/oxford.jpeg"
+    },
+    {
+      "id": "urinalysis-us",
+      "name": "HealthLabs Comprehensive Urinalysis & Microalbumin Panel",
+      "category": "Clinical Diagnostics & Co-Pilot",
+      "rating": 4.92,
+      "description": "14-parameter Quest/Labcorp clinical urine analysis screening microvascular health, ACR, pH, ketones, and renal filtration.",
+      "price_text": "$69.00",
+      "deal_url": "PASTE_YOUR_HEALTHLABS_CJ_URINALYSIS_LINK",
+      "market_region": "US",
+      "badge_text": "CLIA / CAP Accredited",
+      "image_url": "/Products/bloodtest.jpg"
     },
     {
       "id": "sirtuin-stack-us",
@@ -1503,15 +1527,27 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     },
     {
       "id": "reagent-strips-es",
-      "name": "ALLTEST Tiras de Reactivos Urinarios de 10 Parámetros",
-      "category": "Performance & Testing",
+      "name": "ALLTEST 10-Parameter Rapid Urinary Reagent Strips",
+      "category": "Rapid Fluid Telemetry",
       "rating": 4.85,
-      "description": "Prueba química visual de inmersión y lectura que rastrea 10 parámetros críticos en menos de 2 minutos. Cero tiempo de pantalla digital.",
+      "description": "10-parameter rapid dip-and-read urinary reagent strips for weekly tracking of pH, specific gravity, ketones, glucose, and leukocyte activity.",
       "price_text": "14,99€",
       "deal_url": "https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21",
       "market_region": "ES",
-      "badge_text": "CE 0123 Medical Marked",
+      "badge_text": "CE Medical Marked",
       "image_url": "/Products/oxford.jpeg"
+    },
+    {
+      "id": "urinalysis-es",
+      "name": "SaludOnNet / Eurofins Análisis Completo de Orina con Sedimento",
+      "category": "Clinical Diagnostics & Co-Pilot",
+      "rating": 4.90,
+      "description": "CE Marked & ISO 15189 certified clinical urine sediment panel across 160+ Eurofins Megalab centers in Spain.",
+      "price_text": "39,00€",
+      "deal_url": "PASTE_YOUR_SALUDONNET_AWIN_LINK",
+      "market_region": "ES",
+      "badge_text": "Marcado CE & ISO 15189",
+      "image_url": "/Products/bloodtest.jpg"
     },
     {
       "id": "amazon-supp-es-b08tcg2rh7",
@@ -2154,7 +2190,7 @@ export function normalizeStoreCategory(rawCategory: string | undefined, name?: s
   const title = (name || '').toLowerCase();
   const deal = (dealUrl || '').toLowerCase();
 
-  if (cat === 'clinical diagnostics & co-pilot' || cat === 'clinical diagnostics' || cat === 'co-pilot') return 'Clinical Diagnostics & Co-Pilot';
+  if (cat === 'clinical diagnostics & co-pilot' || cat === 'clinical diagnostics' || cat === 'co-pilot' || cat === 'rapid fluid telemetry' || cat.includes('fluid') || cat.includes('telemetry') || cat.includes('reagent')) return 'Clinical Diagnostics & Co-Pilot';
   if (cat === 'supplements & nutrition') return 'Supplements & Nutrition';
   if (cat === 'fitness & movement') return 'Fitness & Movement';
   if (cat === 'kitchen & meal prep') return 'Kitchen & Meal Prep';

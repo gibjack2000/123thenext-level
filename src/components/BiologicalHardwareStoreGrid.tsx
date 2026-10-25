@@ -64,11 +64,11 @@ export const hardwareListings: LocalizedListing[] = [
     suiteKey: 'suite-a',
     suiteTitle: 'SUITE A: DAILY CHEMICAL & METABOLIC REAGENTS',
     itemNumber: '01',
-    categoryLabel: 'Amazon Essential Link',
-    networkTag: 'Amazon Associates Verified',
-    title: 'Your Simple 2-Minute Morning Balance Check',
-    concept: 'Zero Screen-Time Daily Reagent.',
-    clinicalPurpose: 'A plain paper, dip-and-read visual chemical test tracking 10 critical parameters (Glucose, Ketones, Specific Gravity, Blood, pH, Protein, Nitrite, Bilirubin, Urobilinogen, and Leucocytes) in under 2 minutes. Requires zero digital setup, app sync, screen time, or Bluetooth pairing. Instantly flags early kidney stress, metabolic ketones, and hydration imbalances, delivering peace of mind without the digital noise.',
+    categoryLabel: 'Rapid Fluid Telemetry',
+    networkTag: 'CE Medical Marked • Rapid Diagnostics',
+    title: 'ALLTEST 10-Parameter Rapid Urinary Reagent Strips',
+    concept: 'At-Home Rapid Fluid Telemetry.',
+    clinicalPurpose: '10-parameter rapid dip-and-read urinary reagent strips for weekly tracking of pH, specific gravity, ketones, glucose, and leukocyte activity. Delivers peace of mind with zero digital screen-time in under 60 seconds.',
     keyBenefits: [
       '10-Parameter Renal & Metabolic Spectrum',
       'Zero Screen-Time / Digital Noise Freedom',
@@ -81,7 +81,7 @@ export const hardwareListings: LocalizedListing[] = [
     accentColor: 'cyan',
     countryDetails: {
       US: {
-        badge: 'FDA Cleared & CLIA Waived',
+        badge: 'CE Medical Marked',
         logistics: 'US Prime 1-Day Delivery via Amazon US',
         affiliateKey: 'hp_urinalysis_strips',
         fallbackUrl: 'https://www.amazon.com/dp/B0855CY29W',
@@ -89,7 +89,7 @@ export const hardwareListings: LocalizedListing[] = [
         ctaText: 'Explore Reagent Specs on Amazon US 🇺🇸'
       },
       UK: {
-        badge: 'MHRA Registered & UKCA Compliant',
+        badge: 'CE Medical Marked',
         logistics: 'Fulfilled locally via Amazon UK Prime',
         affiliateKey: 'hp_urinalysis_strips_uk',
         fallbackUrl: 'https://www.amazon.co.uk/dp/B0855CY29W',
@@ -97,7 +97,7 @@ export const hardwareListings: LocalizedListing[] = [
         ctaText: 'Explore Reagent Specs on Amazon UK 🇬🇧'
       },
       ES: {
-        badge: 'CE 0123 Marked & ISO 13485',
+        badge: 'CE Medical Marked',
         logistics: 'Distribución local Amazon España / Almacén UE',
         affiliateKey: 'hp_urinalysis_strips_es',
         fallbackUrl: 'https://www.amazon.es/dp/B0855CY29W',
@@ -449,15 +449,15 @@ export const hardwareListings: LocalizedListing[] = [
   },
 
   // ============================================================
-  // SUITE E: CLINICAL DIRECT-TO-CONSUMER BLOOD BASELINES
+  // SUITE E: CLINICAL DIRECT-TO-CONSUMER BLOOD & URINE BASELINES
   // ============================================================
   {
     id: 'blood-panels',
     suiteKey: 'suite-e',
-    suiteTitle: 'SUITE E: CLINICAL DIRECT-TO-CONSUMER BLOOD BASELINES',
+    suiteTitle: 'SUITE E: CLINICAL VENOUS BLOOD DRAWS & URINALYSIS BASELINES',
     itemNumber: '09',
     categoryLabel: 'DTC Multi-Omic Panels',
-    networkTag: 'CJ Affiliate • HealthLabs & Melio Network',
+    networkTag: 'CJ Affiliate • HealthLabs, LOLA & Melio Network',
     title: 'Your Personalized Cellular Biomarker Map',
     concept: 'Deep Software "Scratch" Diagnostic.',
     clinicalPurpose: 'Direct-to-consumer longevity blood panels analyzing 56 essential biomarkers—including ApoB (arterial plaque risk), HbA1c (glycemic history), and hs-CRP (chronic inflammation). Securely purchase on our site, visit your local clinic for a quick draw, and receive results privately online.',
@@ -476,25 +476,72 @@ export const hardwareListings: LocalizedListing[] = [
         badge: 'CLIA & CAP Certified (Quest & Labcorp)',
         logistics: 'Partnered with Quest & Labcorp via HealthLabs on CJ Affiliate',
         affiliateKey: 'hp_healthlabs_panel',
-        fallbackUrl: 'https://www.healthlabs.com/',
-        priceEstimate: '$249.00 (Full Panel)',
+        fallbackUrl: 'https://www.healthlabs.com/?affiliate=123znl',
+        priceEstimate: '$299.00 (Full Panel)',
         ctaText: 'Map Your Biomarker Baseline via HealthLabs US 🇺🇸'
       },
       UK: {
         badge: 'UKAS Accredited Private Lab Network',
-        logistics: 'Connected to local private clinics & home phlebotomy',
+        logistics: 'Connected to local private clinics & home phlebotomy via LOLA Health',
         affiliateKey: 'hp_blood_panel_uk',
-        fallbackUrl: 'https://healf.com/',
-        priceEstimate: '£199.00 (Full Panel)',
-        ctaText: 'Map Your Biomarker Baseline via UK Labs 🇬🇧'
+        fallbackUrl: 'https://snwbl.io/out/NcealZ11',
+        priceEstimate: '£149.00 (Full Panel)',
+        ctaText: 'Map Your Biomarker Baseline via LOLA Health UK 🇬🇧'
       },
       ES: {
         badge: 'Laboratorios Acreditados ISO 15189',
         logistics: 'Partnered with Unilabs & Laboratorios Megalab via Melio',
         affiliateKey: 'hp_blood_panel_es',
         fallbackUrl: 'https://www.melio.es/',
-        priceEstimate: '189,00 € (Panel Completo)',
+        priceEstimate: '149,00 € (Panel Completo)',
         ctaText: 'Map Your Biomarker Baseline via Melio ES 🇪🇸'
+      }
+    }
+  },
+  {
+    id: 'urinalysis-panels',
+    suiteKey: 'suite-e',
+    suiteTitle: 'SUITE E: CLINICAL VENOUS BLOOD DRAWS & URINALYSIS BASELINES',
+    itemNumber: '10',
+    categoryLabel: 'Clinical Fluid Telemetry',
+    networkTag: 'HealthLabs • LOLA Health • SaludOnNet / Eurofins',
+    title: 'Clinical Urinalysis & Microvascular ACR Panel',
+    concept: 'Endothelial & Renal Filtration Telemetry.',
+    clinicalPurpose: 'Laboratory-grade urinalysis screening Albumin-to-Creatinine ratio (ACR), proteinuria, specific gravity, pH, and cellular sediment to detect early microvascular strain and metabolic kidney safety.',
+    keyBenefits: [
+      'Microvascular Albumin-to-Creatinine Ratio (ACR)',
+      'Clinical Proteinuria & Glomerular Health',
+      'Metabolic Acid Load & Urinary pH Diagnostics',
+      'Confidential Accredited Lab Analysis'
+    ],
+    specs: 'CLIA / UKAS / ISO 15189 Certified • Digital Telehealth Turnaround • Physician-Reviewed',
+    ctaText: 'Order Clinical Urinalysis Requisition ➔',
+    icon: Droplets,
+    accentColor: 'cyan',
+    countryDetails: {
+      US: {
+        badge: 'CLIA Certified & CAP Accredited (Quest / Labcorp)',
+        logistics: 'HealthLabs Comprehensive Urinalysis & Microalbumin Panel (14-parameter Quest/Labcorp screening)',
+        affiliateKey: 'hp_urinalysis_us',
+        fallbackUrl: 'PASTE_YOUR_HEALTHLABS_CJ_URINALYSIS_LINK',
+        priceEstimate: '$69.00',
+        ctaText: 'Order HealthLabs Urinalysis US 🇺🇸'
+      },
+      UK: {
+        badge: 'UKAS Certified Fluid Telemetry',
+        logistics: 'Lola Urinalysis & Microvascular ACR Panel with home kit & nationwide partner clinics',
+        affiliateKey: 'hp_urinalysis_uk',
+        fallbackUrl: 'https://referrals.lolahealth.com/NextLevel15',
+        priceEstimate: '£49.00',
+        ctaText: 'Order Lola Urinalysis UK 🇬🇧'
+      },
+      ES: {
+        badge: 'Marcado CE & ISO 15189 Acreditado',
+        logistics: 'SaludOnNet / Eurofins Análisis Completo de Orina con Sedimento en 160+ centros Megalab',
+        affiliateKey: 'hp_urinalysis_es',
+        fallbackUrl: 'PASTE_YOUR_SALUDONNET_AWIN_LINK',
+        priceEstimate: '39,00 €',
+        ctaText: 'Pedir Análisis Orina Eurofins ES 🇪🇸'
       }
     }
   }

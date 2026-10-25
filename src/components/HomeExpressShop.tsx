@@ -857,34 +857,34 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
   },
   {
     id: "reagent-strips",
-    name: "ALLTEST 10-Parameter Urinary Biomarker Reagent Strips",
+    name: "ALLTEST 10-Parameter Rapid Urinary Reagent Strips",
     category: "wellness",
-    categoryLabel: "Autonomic Reset & Wellness Gear",
-    tag: "Immediate Chemical Panel",
+    categoryLabel: "Rapid Fluid Telemetry",
+    tag: "CE Medical Marked",
     rating: 4.85,
     reviewsCount: "11k+",
-    shortBenefit: "Zero-screen dip-and-read chemical diagnostic testing 10 parameters (Ketones, Protein, pH, Specific Gravity, Leucocytes) in 2 min.",
-    description: "Rapid physiological feedback reagent kit tracking hydration efficiency, kidney filtration, and metabolic acid-base equilibrium.",
+    shortBenefit: "10-parameter rapid dip-and-read urinary reagent strips for weekly tracking of pH, specific gravity, ketones, glucose, and leukocyte activity.",
+    description: "10-parameter rapid dip-and-read urinary reagent strips for weekly tracking of pH, specific gravity, ketones, glucose, and leukocyte activity.",
     imageUrl: "/Products/oxford.jpeg",
     isDirectAffiliate: false,
     regions: {
       US: {
         price: "$14.99",
-        badge: "FDA Cleared & CLIA Waived",
+        badge: "CE Medical Marked",
         url: "https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
       UK: {
         price: "£12.99",
-        badge: "MHRA Registered Test",
+        badge: "CE Medical Marked",
         url: "https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123znl0f3-21",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
       ES: {
         price: "14,99€",
-        badge: "Marcado Médico CE 0123",
+        badge: "CE Medical Marked",
         url: "https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"

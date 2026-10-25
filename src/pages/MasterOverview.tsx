@@ -20,7 +20,8 @@ import {
   Zap, 
   Compass, 
   ShieldAlert, 
-  ExternalLink 
+  ExternalLink,
+  Droplets 
 } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
 import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
@@ -428,7 +429,7 @@ export const MasterOverview: React.FC = () => {
                     </p>
                   </div>
                   <p className="text-xs text-slate-300 leading-relaxed font-light">
-                    Stop guessing, start tracking. Follow the key markers (ApoB, HbA1c, hs-CRP), run full blood panels, and measure your biological age, so your body is ready for tomorrow’s breakthroughs.
+                    Stop guessing, start tracking. Follow the key markers (ApoB, HbA1c, hs-CRP), run full blood panels and clinical urinalysis (ACR), and measure your biological age, so your body is ready for tomorrow’s breakthroughs.
                   </p>
                   <div className="p-3.5 rounded-xl bg-slate-950/80 backdrop-blur-md border border-slate-800/90 group-hover:border-amber-500/40 transition-colors space-y-1.5 text-xs shadow-inner">
                     <span className="text-[10px] font-mono text-amber-400 uppercase font-bold tracking-wider flex items-center gap-1.5">
@@ -436,7 +437,7 @@ export const MasterOverview: React.FC = () => {
                       Integrated Pillars:
                     </span>
                     <p className="text-slate-350 text-[11px] leading-relaxed">
-                      Healthspan &amp; Diagnostic Radar • Clinician Co-Pilot • Biological Age Clocks
+                      Healthspan &amp; Diagnostic Radar • Clinician Co-Pilot (Blood &amp; Urine Telemetry) • Biological Age Clocks
                     </p>
                   </div>
                 </div>
@@ -583,13 +584,13 @@ export const MasterOverview: React.FC = () => {
             <div className="space-y-2 max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-800/50 text-cyan-300 text-[10px] font-mono font-bold uppercase tracking-wider">
                 <Stethoscope size={13} className="text-cyan-400" />
-                <span>LOCALIZED CLINICAL PHLEBOTOMY RADAR</span>
+                <span>LOCALIZED CLINICAL PHLEBOTOMY &amp; URINALYSIS RADAR</span>
               </div>
               <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
-                Direct-Access Diagnostic Blood Panels
+                Direct-Access Diagnostic Blood Panels &amp; Urinalysis
               </h2>
               <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
-                Skip gatekeeping and long appointment queues. Procure physician-reviewed blood baselines through accredited phlebotomy networks localized for your country.
+                Skip gatekeeping and long appointment queues. Procure physician-reviewed venous blood baselines and clinical urine microalbumin/ACR requisitions through accredited phlebotomy networks localized for your country.
               </p>
             </div>
 
@@ -652,28 +653,43 @@ export const MasterOverview: React.FC = () => {
                 </div>
                 <h4 className="text-base font-bold text-white">HealthLabs Direct Lab Access</h4>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Doctor-free blood orders drawn at over 4,500 Quest Diagnostics and Labcorp locations across the US.
+                  Doctor-free blood and urine orders drawn at over 4,500 Quest Diagnostics and Labcorp locations across the US.
                 </p>
-                <ul className="text-xs text-slate-300 space-y-1 pt-1">
-                  <li className="flex items-center gap-1.5">
-                    <CheckCircle2 size={12} className="text-cyan-400" />
-                    <span>Comprehensive Cellular Biomarker Map</span>
+                <ul className="text-xs text-slate-300 space-y-2 pt-1">
+                  <li className="flex items-start gap-1.5">
+                    <CheckCircle2 size={13} className="text-cyan-400 shrink-0 mt-0.5" />
+                    <span><strong>Biomarker Map:</strong> 56-Biomarker Master Phlebotomy Draw</span>
                   </li>
-                  <li className="flex items-center gap-1.5">
-                    <CheckCircle2 size={12} className="text-cyan-400" />
-                    <span>Standalone ApoB, HbA1c &amp; hs-CRP Requisitions</span>
+                  <li className="flex items-start gap-1.5">
+                    <CheckCircle2 size={13} className="text-cyan-400 shrink-0 mt-0.5" />
+                    <span><strong>Standalone Tri-Markers:</strong> ApoB, HbA1c &amp; hs-CRP</span>
+                  </li>
+                  <li className="flex items-start gap-1.5">
+                    <Droplets size={13} className="text-cyan-400 shrink-0 mt-0.5" />
+                    <span><strong>HealthLabs Comprehensive Urinalysis &amp; Microalbumin Panel:</strong> 14-parameter Quest/Labcorp clinical urine analysis screening microvascular health, ACR, pH, ketones, and renal filtration.</span>
                   </li>
                 </ul>
               </div>
-              <a
-                href="https://www.healthlabs.com/?affiliate=123znl"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-2.5 px-3 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 border border-cyan-500/40 text-xs font-bold text-center transition flex items-center justify-center gap-1.5"
-              >
-                <span>View US Requisitions</span>
-                <ExternalLink size={13} />
-              </a>
+              <div className="space-y-2 pt-2">
+                <a
+                  href="https://www.healthlabs.com/?affiliate=123znl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2 px-3 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 border border-cyan-500/40 text-xs font-bold text-center transition flex items-center justify-center gap-1.5"
+                >
+                  <span>Order US Blood Panels</span>
+                  <ExternalLink size={12} />
+                </a>
+                <a
+                  href="PASTE_YOUR_HEALTHLABS_CJ_URINALYSIS_LINK"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs font-bold text-center transition flex items-center justify-center gap-1.5"
+                >
+                  <span>Order HealthLabs Urinalysis Panel ➔</span>
+                  <ExternalLink size={12} />
+                </a>
+              </div>
             </div>
 
             {/* UK Card */}
@@ -694,30 +710,45 @@ export const MasterOverview: React.FC = () => {
                     </span>
                   )}
                 </div>
-                <h4 className="text-base font-bold text-white">LOLA Health Vital Check 56</h4>
+                <h4 className="text-base font-bold text-white">LOLA Health Vital Check &amp; Urinalysis</h4>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Nationwide home phlebotomy visits and partner clinic network covering all 56 essential longevity biomarkers.
+                  Nationwide home phlebotomy visits and partner clinic network covering all 56 essential longevity biomarkers plus urine ACR.
                 </p>
-                <ul className="text-xs text-slate-300 space-y-1 pt-1">
-                  <li className="flex items-center gap-1.5">
-                    <CheckCircle2 size={12} className="text-cyan-400" />
-                    <span>Lola Vital Check 56 Biomarker Master Panel</span>
+                <ul className="text-xs text-slate-300 space-y-2 pt-1">
+                  <li className="flex items-start gap-1.5">
+                    <CheckCircle2 size={13} className="text-cyan-400 shrink-0 mt-0.5" />
+                    <span><strong>Lola Vital Check 56:</strong> Master Venous Longevity Panel</span>
                   </li>
-                  <li className="flex items-center gap-1.5">
-                    <CheckCircle2 size={12} className="text-cyan-400" />
-                    <span>Home Phlebotomy &amp; Clinical Analysis</span>
+                  <li className="flex items-start gap-1.5">
+                    <CheckCircle2 size={13} className="text-cyan-400 shrink-0 mt-0.5" />
+                    <span><strong>Home Phlebotomy:</strong> Professional clinic &amp; home draw</span>
+                  </li>
+                  <li className="flex items-start gap-1.5">
+                    <Droplets size={13} className="text-cyan-400 shrink-0 mt-0.5" />
+                    <span><strong>Lola Urinalysis &amp; Microvascular ACR Panel:</strong> UKAS-certified urine panel measuring Albumin-to-Creatinine ratio (ACR), proteinuria, and kidney metabolic safety.</span>
                   </li>
                 </ul>
               </div>
-              <a
-                href="https://snwbl.io/out/NcealZ11"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-2.5 px-3 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 border border-cyan-500/40 text-xs font-bold text-center transition flex items-center justify-center gap-1.5"
-              >
-                <span>View UK Panels</span>
-                <ExternalLink size={13} />
-              </a>
+              <div className="space-y-2 pt-2">
+                <a
+                  href="https://snwbl.io/out/NcealZ11"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2 px-3 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 border border-cyan-500/40 text-xs font-bold text-center transition flex items-center justify-center gap-1.5"
+                >
+                  <span>Order UK Blood Panels</span>
+                  <ExternalLink size={12} />
+                </a>
+                <a
+                  href="https://referrals.lolahealth.com/NextLevel15"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs font-bold text-center transition flex items-center justify-center gap-1.5"
+                >
+                  <span>Order Lola Urinalysis Panel ➔</span>
+                  <ExternalLink size={12} />
+                </a>
+              </div>
             </div>
 
             {/* Spain Card */}
@@ -738,32 +769,75 @@ export const MasterOverview: React.FC = () => {
                     </span>
                   )}
                 </div>
-                <h4 className="text-base font-bold text-white">Melio / SaludOnNet España</h4>
+                <h4 className="text-base font-bold text-white">SaludOnNet / Eurofins &amp; Melio España</h4>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Megalab and Unilabs network across Madrid, Barcelona, Valencia, and nationwide clinical centers.
+                  Eurofins Megalab and Unilabs network across Madrid, Barcelona, Valencia, and 160+ nationwide clinical centers.
                 </p>
-                <ul className="text-xs text-slate-300 space-y-1 pt-1">
-                  <li className="flex items-center gap-1.5">
-                    <CheckCircle2 size={12} className="text-cyan-400" />
-                    <span>Melio Vital Check ES Complete Longevity Draw</span>
+                <ul className="text-xs text-slate-300 space-y-2 pt-1">
+                  <li className="flex items-start gap-1.5">
+                    <CheckCircle2 size={13} className="text-cyan-400 shrink-0 mt-0.5" />
+                    <span><strong>Melio Vital Check ES:</strong> Panel Venoso Integral 56 Marcadores</span>
                   </li>
-                  <li className="flex items-center gap-1.5">
-                    <CheckCircle2 size={12} className="text-cyan-400" />
-                    <span>SaludOnNet Direct Diagnostic Requisitions</span>
+                  <li className="flex items-start gap-1.5">
+                    <CheckCircle2 size={13} className="text-cyan-400 shrink-0 mt-0.5" />
+                    <span><strong>Red Megalab / Unilabs:</strong> Extracción clínica sin esperas</span>
+                  </li>
+                  <li className="flex items-start gap-1.5">
+                    <Droplets size={13} className="text-cyan-400 shrink-0 mt-0.5" />
+                    <span><strong>SaludOnNet / Eurofins Análisis Completo de Orina con Sedimento:</strong> CE Marked &amp; ISO 15189 certified clinical urine sediment panel across 160+ Eurofins Megalab centers in Spain.</span>
                   </li>
                 </ul>
               </div>
-              <a
-                href="https://www.melio.es"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-2.5 px-3 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 border border-cyan-500/40 text-xs font-bold text-center transition flex items-center justify-center gap-1.5"
-              >
-                <span>View Spain Requisitions</span>
-                <ExternalLink size={13} />
-              </a>
+              <div className="space-y-2 pt-2">
+                <a
+                  href="https://www.melio.es"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2 px-3 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 border border-cyan-500/40 text-xs font-bold text-center transition flex items-center justify-center gap-1.5"
+                >
+                  <span>Order Spain Blood Panels</span>
+                  <ExternalLink size={12} />
+                </a>
+                <a
+                  href="PASTE_YOUR_SALUDONNET_AWIN_LINK"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 text-xs font-bold text-center transition flex items-center justify-center gap-1.5"
+                >
+                  <span>Pedir Análisis Orina Eurofins ➔</span>
+                  <ExternalLink size={12} />
+                </a>
+              </div>
             </div>
 
+          </div>
+
+          {/* At-Home Fluid Telemetry Integration Box */}
+          <div className="relative z-10 p-5 rounded-2xl bg-slate-950/80 border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
+                <Droplets size={20} />
+              </div>
+              <div className="space-y-0.5 text-left">
+                <div className="flex items-center gap-2">
+                  <span className="text-white font-bold text-sm">ALLTEST 10-Parameter Rapid Urinary Reagent Strips</span>
+                  <span className="text-[10px] text-cyan-400 font-mono font-bold bg-cyan-950 px-2 py-0.5 rounded border border-cyan-800">
+                    CE Medical Marked
+                  </span>
+                  <span className="text-[10px] text-slate-400 font-mono">Rapid Fluid Telemetry</span>
+                </div>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  10-parameter rapid dip-and-read urinary reagent strips for weekly tracking of pH, specific gravity, ketones, glucose, and leukocyte activity.
+                </p>
+              </div>
+            </div>
+            <Link
+              to="/store"
+              className="shrink-0 px-4 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-md flex items-center gap-1.5"
+            >
+              <span>View in Sovereign Store</span>
+              <ArrowRight size={13} />
+            </Link>
           </div>
         </section>
 

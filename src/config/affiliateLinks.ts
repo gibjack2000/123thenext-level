@@ -161,30 +161,30 @@ export const sovereignHealthStack: SovereignProduct[] = [
   },
   {
     id: "reagent-strips",
-    name: "ALLTEST 10-Parameter Urinary Reagent Strips",
-    category: "Performance & Testing",
+    name: "ALLTEST 10-Parameter Rapid Urinary Reagent Strips",
+    category: "Rapid Fluid Telemetry",
     isDirectAffiliate: false,
     rating: 4.85,
-    description: "A visual, dip-and-read chemical test tracking 10 critical parameters in under 2 minutes. Zero digital screen-time.",
+    description: "10-parameter rapid dip-and-read urinary reagent strips for weekly tracking of pH, specific gravity, ketones, glucose, and leukocyte activity.",
     image_url: "/assets/images/shop/reagent-strips.png",
     us: {
       url: "https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20",
-      ctaText: "Explore Reagents on Amazon US 🇺🇸",
-      badge: "FDA Cleared & CLIA Waived",
+      ctaText: "Order Rapid Fluid Telemetry on Amazon US 🇺🇸",
+      badge: "CE Medical Marked",
       network: "Amazon Associates",
       priceText: "$14.99"
     },
     uk: {
       url: "https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123znl0f3-21",
-      ctaText: "Explore Reagents on Amazon UK 🇬🇧",
-      badge: "MHRA Registered",
+      ctaText: "Order Rapid Fluid Telemetry on Amazon UK 🇬🇧",
+      badge: "CE Medical Marked",
       network: "Amazon Associates",
       priceText: "£12.99"
     },
     es: {
       url: "https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21",
-      ctaText: "Explore Reagents on Amazon ES 🇪🇸",
-      badge: "CE 0123 Medical Marked",
+      ctaText: "Pedir Tiras Reactivas en Amazon ES 🇪🇸",
+      badge: "CE Medical Marked",
       network: "Amazon Associates",
       priceText: "14,99€"
     }
