@@ -1,0 +1,622 @@
+/* ==============================================================================
+   123THENEXTLEVEL | LONGEVITY • PERFORMANCE • WELLNESS
+   DARK & LUXURIOUS BACKGROUND DESIGN SYSTEM (backgrounds-luxe.css)
+   
+   Scope: Exclusively scoped under `html.theme-luxe`
+   On/Off Switch: Adding/removing 'theme-luxe' class on <html> instantly toggles this entire system.
+   Accessibility: Compliant with WCAG AA/AAA contrast ratios (Primary text >= 15:1).
+   Performance: Pure CSS, GPU-safe transforms/opacity, zero layout shifts (CLS safe).
+   ============================================================================== */
+
+/* ------------------------------------------------------------------------------
+   1. DESIGN TOKENS & SYSTEM VARIABLES
+   ------------------------------------------------------------------------------ */
+html.theme-luxe {
+  /* Surface Tones: Curated Obsidian Charcoal & Midnight Geroscience (No flat #000) */
+  --luxe-bg-base: #080b0f;
+  --luxe-bg-base-radial: radial-gradient(circle at 50% -10%, #111722 0%, #080b0f 75%);
+  --luxe-bg-alt: #0d1219;
+  --luxe-bg-alt-radial: radial-gradient(circle at 50% 110%, #151c27 0%, #0d1219 75%);
+  
+  /* Glassmorphic Surfaces (Double-Bezel & Machinery Depth) */
+  --luxe-bg-surface: rgba(13, 18, 26, 0.75);
+  --luxe-bg-surface-elevated: rgba(18, 25, 36, 0.88);
+  --luxe-bg-surface-hover: rgba(24, 34, 49, 0.95);
+  --luxe-bg-surface-active: rgba(28, 40, 58, 0.98);
+
+  /* Accents: Refined Champagne Bronze / Warm Amber Gold & Secondary Clinical Cyan */
+  --luxe-accent-gold: #d4af37;
+  --luxe-accent-gold-muted: #c5a059;
+  --luxe-accent-bronze: #b38743;
+  --luxe-accent-glow: rgba(197, 160, 89, 0.08);
+  --luxe-accent-glow-subtle: rgba(197, 160, 89, 0.04);
+  --luxe-glow-cyan: rgba(6, 182, 212, 0.07);
+
+  /* Unified Media Overlay (65-72% Dark Tinted Veil) */
+  --luxe-overlay: rgba(8, 11, 15, 0.70);
+  --luxe-overlay-heavy: rgba(6, 8, 12, 0.85);
+
+  /* Hairlines, Rims & Dividers */
+  --luxe-hairline: rgba(255, 255, 255, 0.07);
+  --luxe-hairline-elevated: rgba(255, 255, 255, 0.12);
+  --luxe-hairline-gold: rgba(197, 160, 89, 0.24);
+  --luxe-divider-gradient: linear-gradient(90deg, transparent, rgba(197, 160, 89, 0.22) 20%, rgba(255, 255, 255, 0.08) 50%, rgba(197, 160, 89, 0.22) 80%, transparent);
+
+  /* Typography & High-Contrast Readability (WCAG AAA Primary, AA Secondary) */
+  --luxe-text-primary: #f8fafc;
+  --luxe-text-secondary: #94a3b8;
+  --luxe-text-tertiary: #64748b;
+  --luxe-text-gold: #dfc27e;
+  --luxe-text-gold-light: #f3e5ab;
+
+  /* Elevation Shadows & Ambient Highlights */
+  --luxe-shadow-card: 0 16px 40px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --luxe-shadow-hover: 0 24px 50px -10px rgba(0, 0, 0, 0.85), 0 0 30px rgba(197, 160, 89, 0.12), inset 0 1px 0 rgba(197, 160, 89, 0.3);
+  --luxe-shadow-glow-cyan: 0 0 35px -8px rgba(6, 182, 212, 0.18);
+  --luxe-shadow-glow-gold: 0 0 35px -8px rgba(197, 160, 89, 0.18);
+}
+
+/* ------------------------------------------------------------------------------
+   2. GLOBAL TEXTURE & AMBIENT DEPTH LAYERS
+   ------------------------------------------------------------------------------ */
+
+/* Depth Technique 1: Monochromatic Subtle Film-Grain Texture (< 3% Opacity) */
+html.theme-luxe::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 45;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px 180px;
+}
+
+/* Depth Technique 2: Restrained Ambient Light Vignette & Slow Glow Drift (28s loop) */
+html.theme-luxe::after {
+  content: "";
+  position: fixed;
+  top: -15%;
+  left: 15%;
+  width: 70vw;
+  height: 65vh;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(197, 160, 89, 0.035) 0%, rgba(6, 182, 212, 0.025) 40%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+  filter: blur(140px);
+  animation: luxeAmbientDrift 28s ease-in-out infinite alternate;
+}
+
+@keyframes luxeAmbientDrift {
+  0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.7; }
+  50% { transform: translate3d(-6%, 10%, 0) scale(1.08); opacity: 1; }
+  100% { transform: translate3d(8%, -6%, 0) scale(0.95); opacity: 0.8; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-luxe::after {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* ------------------------------------------------------------------------------
+   3. ROOT CONTAINERS & BODY CANVAS
+   ------------------------------------------------------------------------------ */
+html.theme-luxe body {
+  background-color: var(--luxe-bg-base);
+  background-image: var(--luxe-bg-base-radial);
+  color: var(--luxe-text-primary);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+html.theme-luxe #root > div.min-h-screen {
+  background-color: var(--luxe-bg-base) !important;
+}
+
+/* Global utility overrides for raw flat slate-950 and black elements */
+html.theme-luxe .bg-slate-950,
+html.theme-luxe .bg-\[\#020617\],
+html.theme-luxe .bg-\[\#090c10\],
+html.theme-luxe .bg-black {
+  background-color: var(--luxe-bg-base) !important;
+}
+
+/* ------------------------------------------------------------------------------
+   4. HEADER, NAVBAR & TICKER TAPE
+   ------------------------------------------------------------------------------ */
+html.theme-luxe header {
+  background: rgba(8, 11, 15, 0.88) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid var(--luxe-hairline) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+html.theme-luxe header .max-w-7xl {
+  border-bottom: none !important;
+}
+
+/* Ticker tape: Seamless velvet bar with champagne hairline */
+html.theme-luxe .TickerTapeBanner,
+html.theme-luxe header > div:first-child {
+  background: rgba(6, 9, 13, 0.95) !important;
+  border-bottom: 1px solid var(--luxe-hairline) !important;
+}
+
+/* Logo icon soft gold backplate aura */
+html.theme-luxe header img[alt*="123TheNextLevel"] {
+  filter: drop-shadow(0 2px 8px rgba(197, 160, 89, 0.25));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+html.theme-luxe header img[alt*="123TheNextLevel"]:hover {
+  filter: drop-shadow(0 3px 12px rgba(197, 160, 89, 0.45));
+}
+
+/* Geroscience portal badge */
+html.theme-luxe header span.text-cyan-400 {
+  background: rgba(197, 160, 89, 0.08) !important;
+  border-color: rgba(197, 160, 89, 0.25) !important;
+  color: var(--luxe-text-gold) !important;
+}
+
+/* ------------------------------------------------------------------------------
+   5. SECTION RHYTHM & LUXURY ALTERNATING BACKGROUNDS
+   ------------------------------------------------------------------------------ */
+
+/* HERO SECTION (Layer 1 - InteractiveTabbedHero) */
+html.theme-luxe section.relative.bg-slate-950:first-of-type,
+html.theme-luxe .InteractiveTabbedHero,
+html.theme-luxe main > section:first-of-type {
+  background: var(--luxe-bg-base) !important;
+  background-image: radial-gradient(circle at 50% 0%, rgba(197, 160, 89, 0.05) 0%, rgba(8, 11, 15, 0.98) 75%) !important;
+  border-bottom: 1px solid var(--luxe-hairline) !important;
+  position: relative;
+}
+
+html.theme-luxe section.relative.bg-slate-950:first-of-type::after,
+html.theme-luxe main > section:first-of-type::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--luxe-divider-gradient);
+}
+
+/* Tab Bar inside Hero */
+html.theme-luxe .InteractiveTabbedHero button,
+html.theme-luxe button[class*="rounded-full"][class*="whitespace-nowrap"] {
+  border: 1px solid var(--luxe-hairline);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html.theme-luxe button[class*="bg-slate-900"] {
+  background: rgba(13, 18, 26, 0.8) !important;
+  color: var(--luxe-text-secondary) !important;
+}
+
+html.theme-luxe button[class*="bg-slate-900"]:hover {
+  background: rgba(20, 28, 40, 0.95) !important;
+  color: var(--luxe-text-primary) !important;
+  border-color: rgba(197, 160, 89, 0.3);
+}
+
+/* Active tab highlight */
+html.theme-luxe button[class*="bg-cyan-500"] {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%) !important;
+  box-shadow: 0 8px 25px -4px rgba(6, 182, 212, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Hero Media Vessel & Video Card */
+html.theme-luxe .aspect-video,
+html.theme-luxe div[class*="aspect-video"] {
+  border: 1px solid var(--luxe-hairline-elevated) !important;
+  box-shadow: var(--luxe-shadow-card) !important;
+  border-radius: 1.25rem !important;
+}
+
+/* ------------------------------------------------------------------------------
+   SECTION LAYER 2: DIAGNOSTIC ROADMAP & SYSTEM COMPARISON (DiagnosticRoadmap)
+   Tone: --luxe-bg-alt (Lighter obsidian charcoal tier)
+   ------------------------------------------------------------------------------ */
+html.theme-luxe #mindset-trigger,
+html.theme-luxe section[class*="border-cyan-500\/10"]:nth-of-type(1),
+html.theme-luxe .DiagnosticRoadmap {
+  background: var(--luxe-bg-alt) !important;
+  background-image: var(--luxe-bg-alt-radial) !important;
+  border-top: 1px solid var(--luxe-hairline) !important;
+  border-bottom: 1px solid var(--luxe-hairline) !important;
+  position: relative;
+}
+
+/* Comparison Cards inside Roadmap: Transform to Machined Dual-Depth Architecture */
+html.theme-luxe #mindset-trigger .grid > div[class*="rounded-3xl"] {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--luxe-shadow-card);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Proactive System Card */
+html.theme-luxe #mindset-trigger div[class*="from-\[\#0a1a24\]"],
+html.theme-luxe #mindset-trigger div[class*="border-cyan-500\/40"] {
+  background: linear-gradient(180deg, rgba(10, 24, 36, 0.85) 0%, rgba(8, 14, 20, 0.95) 100%) !important;
+  border: 1px solid rgba(6, 182, 212, 0.25) !important;
+}
+
+html.theme-luxe #mindset-trigger div[class*="from-\[\#0a1a24\]"]:hover {
+  border-color: rgba(6, 182, 212, 0.5) !important;
+  box-shadow: var(--luxe-shadow-hover), var(--luxe-shadow-glow-cyan) !important;
+}
+
+/* Dual-Track Performance Teaser Card */
+html.theme-luxe #strategy div[class*="bg-slate-950"][class*="rounded-3xl"] {
+  background: rgba(12, 17, 24, 0.9) !important;
+  border: 1px solid var(--luxe-hairline-elevated) !important;
+  box-shadow: var(--luxe-shadow-card) !important;
+}
+
+/* ------------------------------------------------------------------------------
+   SECTION LAYER 2.5: UNIFIED EXPLAINER 4-STAGE FUNNEL (UnifiedExplainerSection)
+   Tone: --luxe-bg-base (Deep near-black)
+   ------------------------------------------------------------------------------ */
+html.theme-luxe #unified-longevity-engine,
+html.theme-luxe .UnifiedExplainerSection {
+  background: var(--luxe-bg-base) !important;
+  background-image: radial-gradient(ellipse at 50% 20%, rgba(197, 160, 89, 0.04) 0%, rgba(8, 11, 15, 0.98) 70%) !important;
+  border: 1px solid var(--luxe-hairline-elevated) !important;
+  box-shadow: var(--luxe-shadow-card) !important;
+}
+
+/* Stage Cards inside Explainer */
+html.theme-luxe #unified-longevity-engine div[class*="rounded-2xl"][class*="bg-gradient-to-b"] {
+  background: rgba(14, 20, 30, 0.8) !important;
+  border: 1px solid var(--luxe-hairline) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+/* ------------------------------------------------------------------------------
+   SECTION LAYER 3: PILLAR GATEWAY MATRIX (PillarGateway)
+   Tone: --luxe-bg-alt (Lighter obsidian charcoal tier)
+   ------------------------------------------------------------------------------ */
+html.theme-luxe .PillarGateway,
+html.theme-luxe section:has(#six-core-optimization) {
+  background: var(--luxe-bg-alt) !important;
+  background-image: var(--luxe-bg-alt-radial) !important;
+  border-top: 1px solid var(--luxe-hairline) !important;
+  border-bottom: 1px solid var(--luxe-hairline) !important;
+}
+
+/* Pillar Card Overlays: High-End Curated Photo Veil */
+html.theme-luxe .PillarGateway a[class*="rounded-3xl"],
+html.theme-luxe a[href*="/neurowellness"][class*="rounded-3xl"] {
+  background: rgba(10, 15, 22, 0.85) !important;
+  border: 1px solid var(--luxe-hairline) !important;
+  box-shadow: var(--luxe-shadow-card) !important;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html.theme-luxe .PillarGateway a[class*="rounded-3xl"]:hover,
+html.theme-luxe a[href*="/neurowellness"][class*="rounded-3xl"]:hover {
+  border-color: rgba(197, 160, 89, 0.4) !important;
+  box-shadow: var(--luxe-shadow-hover) !important;
+  transform: translateY(-4px) scale(1.01) !important;
+}
+
+/* Image overlay tint in pillar cards: 65% dark veil keeps text legible */
+html.theme-luxe .PillarGateway a div[class*="bg-gradient-to-br"] {
+  background: linear-gradient(145deg, rgba(8, 11, 15, 0.85) 0%, rgba(13, 18, 26, 0.65) 50%, rgba(8, 11, 15, 0.9) 100%) !important;
+}
+
+/* Icon floating capsule */
+html.theme-luxe .PillarGateway div[class*="w-14 h-14"][class*="rounded-2xl"] {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(14px) !important;
+}
+
+/* ------------------------------------------------------------------------------
+   SECTION LAYER 4: SOVEREIGN STORE SHOWCASE (SovereignStoreShowcase)
+   Tone: --luxe-bg-base (Deep near-black)
+   ------------------------------------------------------------------------------ */
+html.theme-luxe .SovereignStoreShowcase,
+html.theme-luxe section:has(#shop) {
+  background: var(--luxe-bg-base) !important;
+  border-top: 1px solid var(--luxe-hairline) !important;
+}
+
+/* Photo background banner (#shop): Responsive overlay with mobile scroll fallback */
+html.theme-luxe #shop {
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+@media (max-width: 1024px) {
+  html.theme-luxe #shop {
+    background-attachment: scroll !important; /* Prevents stutter and zoom issues on mobile */
+  }
+}
+
+html.theme-luxe #shop > div.absolute.inset-0 {
+  background: var(--luxe-overlay) !important;
+}
+
+/* Region Cards (US / UK / ES Marketplace) */
+html.theme-luxe #shop a[class*="min-h-\[240px\]"] {
+  border: 1px solid var(--luxe-hairline-elevated) !important;
+  background: rgba(10, 15, 22, 0.75) !important;
+  box-shadow: var(--luxe-shadow-card) !important;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html.theme-luxe #shop a[class*="min-h-\[240px\]"]:hover {
+  border-color: rgba(197, 160, 89, 0.4) !important;
+  box-shadow: var(--luxe-shadow-hover) !important;
+}
+
+/* CRITICAL INCONSISTENCY FIX: Transform Stark White Product Cards into Dark Glass Vessels */
+html.theme-luxe div[class*="inline-block"][class*="bg-white"],
+html.theme-luxe .SovereignStoreShowcase .bg-white {
+  background: var(--luxe-bg-surface-elevated) !important;
+  border: 1px solid var(--luxe-hairline-elevated) !important;
+  box-shadow: var(--luxe-shadow-card) !important;
+  color: var(--luxe-text-primary) !important;
+}
+
+html.theme-luxe div[class*="inline-block"][class*="bg-white"]:hover,
+html.theme-luxe .SovereignStoreShowcase .bg-white:hover {
+  border-color: rgba(197, 160, 89, 0.35) !important;
+  box-shadow: var(--luxe-shadow-hover) !important;
+}
+
+/* Fix product text inside former white cards */
+html.theme-luxe .SovereignStoreShowcase .bg-white h3,
+html.theme-luxe div[class*="inline-block"][class*="bg-white"] h3 {
+  color: var(--luxe-text-primary) !important;
+}
+
+html.theme-luxe .SovereignStoreShowcase .bg-white p,
+html.theme-luxe div[class*="inline-block"][class*="bg-white"] span[class*="text-slate-500"] {
+  color: var(--luxe-text-secondary) !important;
+}
+
+/* Product image tray inside cards */
+html.theme-luxe div[class*="aspect-square"][class*="bg-slate-50"] {
+  background: rgba(255, 255, 255, 0.035) !important;
+  border: 1px solid var(--luxe-hairline) !important;
+}
+
+/* CTA inside product cards */
+html.theme-luxe div[class*="inline-block"] a[class*="bg-blue-600"] {
+  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3) !important;
+}
+
+/* ------------------------------------------------------------------------------
+   SECTION LAYER 5: EPIGENETICS & RESEARCH HORIZON (EpigeneticsSection)
+   Tone: --luxe-bg-alt (Lighter obsidian charcoal tier)
+   ------------------------------------------------------------------------------ */
+html.theme-luxe .EpigeneticsSection,
+html.theme-luxe section:has(#canvas-container),
+html.theme-luxe section:has(.from-\[\#241708\]) {
+  background: var(--luxe-bg-alt) !important;
+  background-image: var(--luxe-bg-alt-radial) !important;
+  border-top: 1px solid var(--luxe-hairline) !important;
+  border-bottom: 1px solid var(--luxe-hairline) !important;
+}
+
+/* Horizon Teaser Banner */
+html.theme-luxe div[class*="from-\[\#241708\]"] {
+  background: linear-gradient(135deg, rgba(28, 18, 10, 0.85) 0%, rgba(13, 18, 28, 0.9) 50%, rgba(7, 25, 34, 0.85) 100%) !important;
+  border: 1px solid rgba(197, 160, 89, 0.3) !important;
+  box-shadow: var(--luxe-shadow-card), var(--luxe-shadow-glow-gold) !important;
+}
+
+/* ------------------------------------------------------------------------------
+   SECTION LAYER 6: BOTTOM PRODUCT TICKER TAPE (BottomProductTicker)
+   Tone: --luxe-bg-base (Deep near-black)
+   ------------------------------------------------------------------------------ */
+html.theme-luxe .BottomProductTicker,
+html.theme-luxe section:has(.animate-product-marquee) {
+  background: var(--luxe-bg-base) !important;
+  border-top: 1px solid var(--luxe-hairline) !important;
+  border-bottom: 1px solid var(--luxe-hairline) !important;
+  position: relative;
+}
+
+/* Mask gradients at the edge of the ticker */
+html.theme-luxe section:has(.animate-product-marquee) div[class*="from-slate-950"] {
+  background: linear-gradient(90deg, var(--luxe-bg-base) 0%, transparent 100%) !important;
+}
+
+html.theme-luxe section:has(.animate-product-marquee) div[class*="to-slate-950"] {
+  background: linear-gradient(270deg, var(--luxe-bg-base) 0%, transparent 100%) !important;
+}
+
+/* Product chips inside ticker */
+html.theme-luxe a[class*="bg-slate-900\/90"] {
+  background: rgba(13, 18, 26, 0.8) !important;
+  border: 1px solid var(--luxe-hairline) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+html.theme-luxe a[class*="bg-slate-900\/90"]:hover {
+  background: rgba(20, 28, 40, 0.95) !important;
+  border-color: rgba(197, 160, 89, 0.4) !important;
+  box-shadow: 0 8px 25px -4px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* ------------------------------------------------------------------------------
+   SECTION LAYER 7: GROUNDED VELVET FOOTER (Footer)
+   Tone: Deepest Velvet Grounding Tone (#05070a)
+   ------------------------------------------------------------------------------ */
+html.theme-luxe footer {
+  background: #05070a !important;
+  background-image: radial-gradient(circle at 50% 0%, #0c1017 0%, #05070a 80%) !important;
+  border-top: 1px solid var(--luxe-hairline) !important;
+  color: var(--luxe-text-secondary) !important;
+  position: relative;
+}
+
+html.theme-luxe footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--luxe-divider-gradient);
+}
+
+/* Newsletter Input Form */
+html.theme-luxe footer input[type="email"] {
+  background: rgba(10, 14, 20, 0.8) !important;
+  border: 1px solid var(--luxe-hairline-elevated) !important;
+  color: var(--luxe-text-primary) !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.theme-luxe footer input[type="email"]:focus {
+  border-color: var(--luxe-accent-gold-muted) !important;
+  box-shadow: 0 0 15px rgba(197, 160, 89, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Subscribe button */
+html.theme-luxe footer button[type="submit"] {
+  background: linear-gradient(135deg, rgba(26, 36, 52, 0.9) 0%, rgba(16, 22, 32, 0.95) 100%) !important;
+  border: 1px solid var(--luxe-hairline-gold) !important;
+  color: var(--luxe-text-primary) !important;
+  transition: all 0.25s ease !important;
+}
+
+html.theme-luxe footer button[type="submit"]:hover {
+  background: linear-gradient(135deg, rgba(197, 160, 89, 0.25) 0%, rgba(26, 36, 52, 0.95) 100%) !important;
+  border-color: var(--luxe-accent-gold) !important;
+  box-shadow: 0 4px 20px rgba(197, 160, 89, 0.2) !important;
+}
+
+/* ------------------------------------------------------------------------------
+   6. INNER PAGES UNIFICATION (Store US/UK/ES, Diagnostics, Clinician Copilot)
+   ------------------------------------------------------------------------------ */
+
+/* Storefronts (/store-us, /store-uk, /store-es) */
+html.theme-luxe div[class*="min-h-screen"][class*="pt-28"] {
+  background-color: var(--luxe-bg-base) !important;
+  background-image: radial-gradient(circle at 50% 10%, #111722 0%, #080b0f 80%) !important;
+}
+
+/* Category Filter Pills */
+html.theme-luxe button[class*="rounded-xl"][class*="text-xs"],
+html.theme-luxe button[class*="rounded-full"][class*="font-mono"] {
+  backdrop-filter: blur(8px);
+}
+
+/* Partner and Arsenal Product Cards */
+html.theme-luxe .group[class*="rounded-2xl"][class*="bg-gradient-to-b"] {
+  background: var(--luxe-bg-surface-elevated) !important;
+  border: 1px solid var(--luxe-hairline) !important;
+  box-shadow: var(--luxe-shadow-card) !important;
+}
+
+html.theme-luxe .group[class*="rounded-2xl"][class*="bg-gradient-to-b"]:hover {
+  border-color: rgba(197, 160, 89, 0.35) !important;
+  box-shadow: var(--luxe-shadow-hover) !important;
+}
+
+/* Clinician Co-Pilot Helper Banner */
+html.theme-luxe div[class*="rounded-3xl"][class*="from-slate-900"][class*="via-cyan-950"] {
+  background: linear-gradient(135deg, rgba(13, 20, 28, 0.9) 0%, rgba(10, 25, 36, 0.85) 50%, rgba(13, 20, 28, 0.9) 100%) !important;
+  border: 1px solid var(--luxe-hairline-elevated) !important;
+  box-shadow: var(--luxe-shadow-card) !important;
+}
+
+/* Clinician Co-Pilot Workbook Container (/clinician-copilot) */
+html.theme-luxe .ClinicianCopilot,
+html.theme-luxe div:has(> #clinician-workbook) {
+  background-color: var(--luxe-bg-base) !important;
+}
+
+html.theme-luxe #clinician-workbook div[class*="bg-slate-900"] {
+  background: var(--luxe-bg-surface) !important;
+  border: 1px solid var(--luxe-hairline) !important;
+  box-shadow: var(--luxe-shadow-card) !important;
+}
+
+/* Diagnostics Suite (/diagnostics, /guide) */
+html.theme-luxe .DiagnosticsSuite,
+html.theme-luxe div[class*="DiagnosticsSuite"] {
+  background-color: var(--luxe-bg-base) !important;
+}
+
+html.theme-luxe .DiagnosticsSuite div[class*="bg-slate-900"] {
+  background: var(--luxe-bg-surface) !important;
+  border: 1px solid var(--luxe-hairline) !important;
+  box-shadow: var(--luxe-shadow-card) !important;
+}
+
+/* Pillar Inner Pages (/fitness, /nutrition, /wellness, /womens-health, /social-fitness, /health) */
+html.theme-luxe div[class*="min-h-screen"][class*="selection:bg-"] {
+  background-color: var(--luxe-bg-base) !important;
+  background-image: var(--luxe-bg-base-radial) !important;
+}
+
+/* White cards on Pillar pages transformed into obsidian glass */
+html.theme-luxe div[class*="bg-white"][class*="rounded-"][class*="text-slate-900"] {
+  background: var(--luxe-bg-surface-elevated) !important;
+  color: var(--luxe-text-primary) !important;
+  border: 1px solid var(--luxe-hairline-elevated) !important;
+  box-shadow: var(--luxe-shadow-card) !important;
+}
+
+html.theme-luxe div[class*="bg-white"][class*="rounded-"][class*="text-slate-900"] h2,
+html.theme-luxe div[class*="bg-white"][class*="rounded-"][class*="text-slate-900"] h3,
+html.theme-luxe div[class*="bg-white"][class*="rounded-"][class*="text-slate-900"] h4 {
+  color: var(--luxe-text-primary) !important;
+}
+
+html.theme-luxe div[class*="bg-white"][class*="rounded-"][class*="text-slate-900"] p,
+html.theme-luxe div[class*="bg-white"][class*="rounded-"][class*="text-slate-900"] li {
+  color: var(--luxe-text-secondary) !important;
+}
+
+/* ------------------------------------------------------------------------------
+   7. FLOATING ACTION ELEMENTS (Express Shop FAB & Newsletters)
+   ------------------------------------------------------------------------------ */
+html.theme-luxe .FloatingShopFAB,
+html.theme-luxe div[class*="FloatingShopFAB"] button,
+html.theme-luxe div[class*="fixed"][class*="bottom-"][class*="right-"] button {
+  backdrop-filter: blur(16px) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(197, 160, 89, 0.25) !important;
+  border: 1px solid rgba(197, 160, 89, 0.35) !important;
+}
+
+/* ------------------------------------------------------------------------------
+   8. RESPONSIVE REFINEMENTS & MOBILE VIEWPORTS (375px, 768px, 1440px)
+   ------------------------------------------------------------------------------ */
+@media (max-width: 768px) {
+  html.theme-luxe::after {
+    width: 90vw;
+    height: 50vh;
+    filter: blur(90px);
+  }
+
+  html.theme-luxe #mindset-trigger .grid {
+    gap: 1.25rem !important;
+  }
+
+  html.theme-luxe .PillarGateway {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+  }
+}
