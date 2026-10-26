@@ -98,7 +98,7 @@ export default function StartHere() {
             </a>
             <span className="text-slate-600">→</span>
             <a href="#step-4" className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-cyan-500/50 text-slate-300 hover:text-cyan-400 transition-all">
-              Step 4: 6 Pillars
+              Step 4: Pillars &amp; Reading Hub
             </a>
           </div>
         </div>
@@ -345,7 +345,28 @@ export default function StartHere() {
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-800">
+              <div className="pt-3 border-t border-slate-800 space-y-2.5">
+                {/* Recommended Reading */}
+                <Link
+                  to="/store"
+                  className="group flex items-center justify-between p-3 rounded-2xl bg-cyan-950/40 border border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-900/40 transition-all text-xs"
+                >
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="w-7 h-7 rounded-lg bg-cyan-500/20 text-cyan-300 flex items-center justify-center shrink-0">
+                      <BookOpen size={14} />
+                    </div>
+                    <div className="truncate">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold block">
+                        Recommended Reading
+                      </span>
+                      <span className="text-white font-bold group-hover:text-cyan-200 transition-colors truncate block">
+                        Master Meal Planning Guide
+                      </span>
+                    </div>
+                  </div>
+                  <ArrowRight size={13} className="text-cyan-400 group-hover:translate-x-1 transition-transform shrink-0 ml-2" />
+                </Link>
+
                 <Link
                   to="/nutrition"
                   className="w-full inline-flex items-center justify-between py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all"
@@ -412,7 +433,28 @@ export default function StartHere() {
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-800">
+              <div className="pt-3 border-t border-slate-800 space-y-2.5">
+                {/* Recommended Reading */}
+                <Link
+                  to="/store"
+                  className="group flex items-center justify-between p-3 rounded-2xl bg-teal-950/40 border border-teal-500/30 hover:border-teal-400 hover:bg-teal-900/40 transition-all text-xs"
+                >
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="w-7 h-7 rounded-lg bg-teal-500/20 text-teal-300 flex items-center justify-center shrink-0">
+                      <BookOpen size={14} />
+                    </div>
+                    <div className="truncate">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-teal-400 font-bold block">
+                        Recommended Reading
+                      </span>
+                      <span className="text-white font-bold group-hover:text-teal-200 transition-colors truncate block">
+                        Beginner Home Workout Plan
+                      </span>
+                    </div>
+                  </div>
+                  <ArrowRight size={13} className="text-teal-400 group-hover:translate-x-1 transition-transform shrink-0 ml-2" />
+                </Link>
+
                 <Link
                   to="/fitness"
                   className="w-full inline-flex items-center justify-between py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-teal-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all"
@@ -479,7 +521,28 @@ export default function StartHere() {
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-800">
+              <div className="pt-3 border-t border-slate-800 space-y-2.5">
+                {/* Recommended Reading */}
+                <Link
+                  to="/store"
+                  className="group flex items-center justify-between p-3 rounded-2xl bg-purple-950/40 border border-purple-500/30 hover:border-purple-400 hover:bg-purple-900/40 transition-all text-xs"
+                >
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="w-7 h-7 rounded-lg bg-purple-500/20 text-purple-300 flex items-center justify-center shrink-0">
+                      <BookOpen size={14} />
+                    </div>
+                    <div className="truncate">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-purple-400 font-bold block">
+                        Recommended Reading
+                      </span>
+                      <span className="text-white font-bold group-hover:text-purple-200 transition-colors truncate block">
+                        Cortisol &amp; Stress Management Protocol
+                      </span>
+                    </div>
+                  </div>
+                  <ArrowRight size={13} className="text-purple-400 group-hover:translate-x-1 transition-transform shrink-0 ml-2" />
+                </Link>
+
                 <Link
                   to="/neurowellness"
                   className="w-full inline-flex items-center justify-between py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all"
@@ -732,26 +795,178 @@ export default function StartHere() {
         </section>
 
         {/* ========================================================================= */}
-        {/* STEP 4: Pillar Optimization                                               */}
+        {/* STEP 4: Pillar Optimization & Recommended Reading Hub                     */}
         {/* ========================================================================= */}
-        <section id="step-4" className="scroll-mt-28 space-y-6">
+        <section id="step-4" className="scroll-mt-28 space-y-8">
           <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
             <span className="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/30 text-pink-400 font-mono font-bold flex items-center justify-center text-sm">
               04
             </span>
             <div>
-              <span className="text-[11px] font-mono uppercase text-pink-400 tracking-widest font-bold">SYSTEMIC EXPANSION</span>
+              <span className="text-[11px] font-mono uppercase text-pink-400 tracking-widest font-bold">SYSTEMIC EXPANSION &amp; EXECUTION MANUALS</span>
               <h2 className="text-2xl sm:text-3xl font-display font-black uppercase text-white">
-                Step 4: Pillar Optimization (The 6 Core Hubs)
+                Step 4: Pillar Optimization &amp; Recommended Reading Hub
               </h2>
             </div>
           </div>
 
           <p className="text-sm text-slate-300 max-w-3xl font-light">
-            Once baseline telemetry and medical collaboration are activated, systematically optimize each domain across our 6 specialized geroscience hubs:
+            Once baseline telemetry and clinical collaboration are activated, systematically scale your biological hardware. Accelerate each domain with our curated Premium Master Guides and explore our 6 core longevity pillars below:
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {/* CURATED 3-CARD RECOMMENDED READING GRID */}
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <BookOpen size={16} className="text-amber-400" />
+                <h3 className="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold">
+                  Curated Recommended Reading • Premium Master Guides
+                </h3>
+              </div>
+              <Link
+                to="/store"
+                className="text-xs text-slate-400 hover:text-white font-mono flex items-center gap-1 transition-colors"
+              >
+                <span>Browse All Guides in Store</span>
+                <ChevronRight size={13} />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              
+              {/* GUIDE 1: Beginner Home Workout Plan */}
+              <div className="rounded-3xl bg-slate-900/70 border border-slate-800 hover:border-cyan-500/40 transition-all overflow-hidden flex flex-col justify-between group shadow-lg shadow-black/40">
+                <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
+                  <img
+                    src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop"
+                    alt="Beginner Home Workout Plan"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+                  <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] font-mono uppercase bg-cyan-950/90 border border-cyan-800 text-cyan-300 font-bold backdrop-blur-sm">
+                    Pillar 1 • Movement
+                  </span>
+                </div>
+
+                <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                  <div className="space-y-2">
+                    <h4 className="text-base font-display font-black uppercase text-white group-hover:text-cyan-400 transition-colors">
+                      Beginner Home Workout Plan
+                    </h4>
+                    <p className="text-xs text-slate-400 leading-relaxed font-light">
+                      4-week zero-equipment protocol focusing on functional bodyweight movement, core stabilization, and progressive overload to counter sarcopenia.
+                    </p>
+                  </div>
+
+                  <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
+                    <span className="text-xs font-mono text-cyan-300 font-bold">
+                      Digital Master PDF
+                    </span>
+                    <Link
+                      to="/store"
+                      className="inline-flex items-center gap-1.5 py-2 px-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all"
+                    >
+                      <span>Read Guide</span>
+                      <ArrowRight size={13} />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* GUIDE 2: The Master Meal Planning Guide */}
+              <div className="rounded-3xl bg-slate-900/70 border border-slate-800 hover:border-teal-500/40 transition-all overflow-hidden flex flex-col justify-between group shadow-lg shadow-black/40">
+                <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
+                  <img
+                    src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800&auto=format&fit=crop"
+                    alt="The Master Meal Planning Guide"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+                  <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] font-mono uppercase bg-teal-950/90 border border-teal-800 text-teal-300 font-bold backdrop-blur-sm">
+                    Pillar 2 • Nutrition
+                  </span>
+                </div>
+
+                <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                  <div className="space-y-2">
+                    <h4 className="text-base font-display font-black uppercase text-white group-hover:text-teal-400 transition-colors">
+                      The Master Meal Planning Guide
+                    </h4>
+                    <p className="text-xs text-slate-400 leading-relaxed font-light">
+                      Systematic framework for batch-cooking macronutrients, stabilizing post-meal blood glucose, and grocery shopping with zero stress.
+                    </p>
+                  </div>
+
+                  <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
+                    <span className="text-xs font-mono text-teal-300 font-bold">
+                      Digital Master PDF
+                    </span>
+                    <Link
+                      to="/store"
+                      className="inline-flex items-center gap-1.5 py-2 px-3.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all"
+                    >
+                      <span>Read Guide</span>
+                      <ArrowRight size={13} />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* GUIDE 3: Cortisol & Stress Management Protocol */}
+              <div className="rounded-3xl bg-slate-900/70 border border-slate-800 hover:border-purple-500/40 transition-all overflow-hidden flex flex-col justify-between group shadow-lg shadow-black/40">
+                <div className="relative aspect-[16/10] overflow-hidden bg-slate-950">
+                  <img
+                    src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?q=80&w=800&auto=format&fit=crop"
+                    alt="Cortisol & Stress Management Protocol"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+                  <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[10px] font-mono uppercase bg-purple-950/90 border border-purple-800 text-purple-300 font-bold backdrop-blur-sm">
+                    Pillar 3 • Neurowellness
+                  </span>
+                </div>
+
+                <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
+                  <div className="space-y-2">
+                    <h4 className="text-base font-display font-black uppercase text-white group-hover:text-purple-400 transition-colors">
+                      Cortisol &amp; Stress Management
+                    </h4>
+                    <p className="text-xs text-slate-400 leading-relaxed font-light">
+                      Science-backed somatic protocols, acute physiological sighs, and non-invasive vagus nerve resets to protect nocturnal HRV and lower inflammation.
+                    </p>
+                  </div>
+
+                  <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
+                    <span className="text-xs font-mono text-purple-300 font-bold">
+                      Digital Master PDF
+                    </span>
+                    <Link
+                      to="/store"
+                      className="inline-flex items-center gap-1.5 py-2 px-3.5 rounded-xl bg-purple-500 hover:bg-purple-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all"
+                    >
+                      <span>Read Guide</span>
+                      <ArrowRight size={13} />
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          {/* 6 CORE PILLAR HUBS SUBHEADER & GRID */}
+          <div className="space-y-4 pt-4">
+            <div className="flex items-center gap-2">
+              <Layers size={16} className="text-pink-400" />
+              <h3 className="text-xs font-mono uppercase tracking-widest text-pink-400 font-bold">
+                The 6 Core Geroscience Pillar Hubs
+              </h3>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             
             {/* PILLAR 1: Fitness */}
             <Link
@@ -873,6 +1088,7 @@ export default function StartHere() {
               </div>
             </Link>
 
+            </div>
           </div>
         </section>
 

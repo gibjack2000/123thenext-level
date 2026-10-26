@@ -7,6 +7,7 @@ import { GUIDE_PRODUCTS, resolveGuideProduct } from '../data/guide-registry.js';
 import { db } from '../services/db.js';
 import { stripeService } from '../services/stripe.js';
 import { generatePresignedDownloadUrl, generateGuidePresignedUrl, isR2Configured, listVaultObjects, GUIDE_FILE_KEYS } from '../services/r2.js';
+import { syncPaidCustomerToMailerLite } from '../services/mailerlite.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -436,6 +437,23 @@ router.get('/order-summary', async (req, res) => {
       }
     }
 
+    // Secondary redundant sync to MailerLite (in case webhook hasn't fired yet)
+    if (isPaid) {
+      const emailToSync = order?.customer_email || stripeSession?.customer_details?.email;
+      const nameToSync = stripeSession?.customer_details?.name || '';
+      const displayTitle = purchasedProducts[0]?.title || 'Digital Longevity Guide';
+      const baseUrl = resolveValidBaseUrl(req);
+      syncPaidCustomerToMailerLite({
+        email: emailToSync,
+        name: nameToSync,
+        productTitle: displayTitle,
+        sessionId: session_id,
+        amount: order?.amount_total || (stripeSession?.amount_total ? stripeSession.amount_total / 100 : 0),
+        currency: order?.currency || stripeSession?.currency || 'GBP',
+        origin: baseUrl
+      }).catch(err => console.warn('Non-blocking order-summary MailerLite sync warning:', err.message));
+    }
+
     res.json({
       payment_status: isPaid ? 'paid' : (order?.payment_status || stripeSession?.payment_status || 'unpaid'),
       customer_email: order?.customer_email || stripeSession?.customer_details?.email || '',
@@ -527,6 +545,35 @@ router.post('/stripe-webhook', async (req, res) => {
       }
 
       console.log(`Successfully fulfilled order ${order.id} for session ${session.id}`);
+
+      // 4. Trigger MailerLite Thank You & Guide Delivery Automation
+      try {
+        const customerEmail = session.customer_details?.email || fullSession.customer_details?.email || order?.customer_email;
+        const customerName = session.customer_details?.name || fullSession.customer_details?.name || '';
+        
+        let displayTitle = session.metadata?.guideId;
+        if (session.metadata?.guideId) {
+          const resolved = resolveGuideProduct(session.metadata.guideId);
+          if (resolved) displayTitle = resolved.title;
+        } else if (orderItems.length > 0) {
+          const firstProd = getProductById(orderItems[0].product_id) || resolveGuideProduct(orderItems[0].product_id);
+          displayTitle = firstProd ? firstProd.title : orderItems[0].product_id;
+          if (orderItems.length > 1) displayTitle += ` (+${orderItems.length - 1} more)`;
+        }
+
+        const baseUrl = resolveValidBaseUrl(req);
+        syncPaidCustomerToMailerLite({
+          email: customerEmail,
+          name: customerName,
+          productTitle: displayTitle || 'Digital Longevity Guide',
+          sessionId: session.id,
+          amount: session.amount_total ? session.amount_total / 100 : (order?.amount_total || 0),
+          currency: session.currency || order?.currency || 'GBP',
+          origin: baseUrl
+        }).catch(mlErr => console.warn('Non-blocking MailerLite sync warning in webhook:', mlErr.message));
+      } catch (mlSyncErr) {
+        console.warn('MailerLite sync block error:', mlSyncErr.message);
+      }
     } 
     
     else if (event.type === 'checkout.session.expired') {
