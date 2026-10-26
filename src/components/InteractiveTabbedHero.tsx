@@ -226,6 +226,10 @@ export const InteractiveTabbedHero: React.FC = () => {
     setIsMuted(nextMuted);
     if (videoRef.current) {
       videoRef.current.muted = nextMuted;
+      if (!nextMuted && videoRef.current.paused) {
+        setIsPlaying(true);
+        videoRef.current.play().catch(() => {});
+      }
     }
   };
 
@@ -238,6 +242,7 @@ export const InteractiveTabbedHero: React.FC = () => {
   };
 
   const isStreamable = Boolean(videoUrl && videoUrl.includes('streamable.com'));
+  const isCloudinaryEmbed = Boolean(videoUrl && videoUrl.includes('player.cloudinary.com'));
   const streamableBaseUrl = isStreamable
     ? (videoUrl.includes('/e/')
         ? videoUrl.split('?')[0]
@@ -392,11 +397,15 @@ export const InteractiveTabbedHero: React.FC = () => {
             className="lg:col-span-6 relative rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/80 p-1.5 shadow-2xl shadow-cyan-950/30 group cursor-pointer"
           >
             {videoUrl && !videoError ? (
-              isStreamable ? (
-                /* Streamable Hover Player */
+              isStreamable || isCloudinaryEmbed ? (
+                /* Embed Player (Streamable or Cloudinary Player) */
                 <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-black">
                   <iframe
-                    src={`${streamableBaseUrl}?autoplay=${isPlaying ? 1 : 0}&muted=${isMuted ? 1 : 0}&loop=1`}
+                    src={
+                      isCloudinaryEmbed
+                        ? `${videoUrl}&autoplay=${isPlaying ? 'true' : 'false'}&muted=${isMuted ? 'true' : 'false'}`
+                        : `${streamableBaseUrl}?autoplay=${isPlaying ? 1 : 0}&muted=${isMuted ? 1 : 0}&loop=1`
+                    }
                     className="w-full h-full border-0 rounded-xl pointer-events-none"
                     allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
                     allowFullScreen
@@ -426,6 +435,7 @@ export const InteractiveTabbedHero: React.FC = () => {
                   <video
                     ref={videoRef}
                     key={videoUrl}
+                    src={videoUrl}
                     loop
                     playsInline
                     muted={isMuted}
@@ -449,7 +459,7 @@ export const InteractiveTabbedHero: React.FC = () => {
                   {!isPlaying && (
                     <div className="absolute inset-0 bg-slate-950/30 backdrop-blur-[2px] flex items-center justify-center">
                       <span className="bg-cyan-500/90 text-slate-950 text-xs font-bold px-4 py-2 rounded-full shadow-lg">
-                        ▶ Hover or Tap to Play
+                        ▶ Hover or Tap to Play with Sound
                       </span>
                     </div>
                   )}
