@@ -245,7 +245,7 @@ export const InteractiveTabbedHero: React.FC = () => {
     : '';
 
   return (
-    <section className="relative bg-slate-950 text-white pt-8 pb-16 px-4 sm:px-6 lg:px-8 border-b border-slate-800/80">
+    <section id="hero-gateway" className="relative bg-slate-950 text-white pt-8 pb-16 px-4 sm:px-6 lg:px-8 border-b border-slate-800/80">
       <div className="max-w-7xl mx-auto">
         
         {/* Floating Quote */}

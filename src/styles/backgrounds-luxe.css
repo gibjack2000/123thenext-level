@@ -14,33 +14,33 @@
 html.theme-luxe {
   /* Surface Tones: Curated Obsidian Charcoal & Midnight Geroscience (No flat #000) */
   --luxe-bg-base: #070a0e;
-  --luxe-bg-base-radial: radial-gradient(ellipse at 50% -15%, #162030 0%, #0b1118 45%, #070a0e 85%);
-  --luxe-bg-alt: #0c121a;
-  --luxe-bg-alt-radial: radial-gradient(ellipse at 50% 115%, #182333 0%, #0c121a 80%);
+  --luxe-bg-base-radial: radial-gradient(ellipse 90% 65% at 50% 0%, rgba(223, 183, 74, 0.35) 0%, rgba(180, 135, 67, 0.18) 28%, rgba(20, 32, 50, 0.94) 55%, #070a0e 85%);
+  --luxe-bg-alt: #0c121b;
+  --luxe-bg-alt-radial: radial-gradient(ellipse 85% 65% at 50% 50%, rgba(223, 183, 74, 0.18) 0%, rgba(18, 27, 42, 0.94) 50%, #080c12 90%);
   
-  /* Glassmorphic Surfaces (Double-Bezel & Machinery Depth) */
-  --luxe-bg-surface: rgba(13, 19, 28, 0.78);
-  --luxe-bg-surface-elevated: rgba(18, 26, 38, 0.90);
-  --luxe-bg-surface-hover: rgba(25, 36, 52, 0.96);
-  --luxe-bg-surface-active: rgba(30, 44, 64, 0.98);
+  /* Glassmorphic Surfaces (Double-Bezel & Private Wellness Club Depth) */
+  --luxe-bg-surface: rgba(14, 21, 32, 0.88);
+  --luxe-bg-surface-elevated: rgba(18, 28, 44, 0.95);
+  --luxe-bg-surface-hover: rgba(28, 42, 64, 0.98);
+  --luxe-bg-surface-active: rgba(34, 50, 76, 0.99);
 
   /* Accents: Refined Champagne Bronze / Warm Amber Gold & Secondary Clinical Cyan */
   --luxe-accent-gold: #dfb74a;
   --luxe-accent-gold-muted: #c9a456;
   --luxe-accent-bronze: #b38743;
-  --luxe-accent-glow: rgba(223, 183, 74, 0.12);
-  --luxe-accent-glow-subtle: rgba(223, 183, 74, 0.06);
-  --luxe-glow-cyan: rgba(6, 182, 212, 0.09);
+  --luxe-accent-glow: rgba(223, 183, 74, 0.28);
+  --luxe-accent-glow-subtle: rgba(223, 183, 74, 0.14);
+  --luxe-glow-cyan: rgba(6, 182, 212, 0.18);
 
-  /* Unified Media Overlay (65-72% Dark Tinted Veil) */
-  --luxe-overlay: rgba(7, 10, 14, 0.72);
-  --luxe-overlay-heavy: rgba(5, 8, 12, 0.88);
+  /* Unified Media Overlay (65-75% Dark Tinted Veil for background photos/videos) */
+  --luxe-overlay: rgba(7, 10, 14, 0.76);
+  --luxe-overlay-heavy: rgba(5, 8, 12, 0.92);
 
   /* Hairlines, Rims & Dividers */
-  --luxe-hairline: rgba(255, 255, 255, 0.08);
-  --luxe-hairline-elevated: rgba(255, 255, 255, 0.14);
-  --luxe-hairline-gold: rgba(223, 183, 74, 0.28);
-  --luxe-divider-gradient: linear-gradient(90deg, transparent, rgba(223, 183, 74, 0.32) 20%, rgba(255, 255, 255, 0.12) 50%, rgba(223, 183, 74, 0.32) 80%, transparent);
+  --luxe-hairline: rgba(255, 255, 255, 0.12);
+  --luxe-hairline-elevated: rgba(255, 255, 255, 0.20);
+  --luxe-hairline-gold: rgba(223, 183, 74, 0.45);
+  --luxe-divider-gradient: linear-gradient(90deg, transparent, rgba(223, 183, 74, 0.65) 20%, rgba(255, 255, 255, 0.3) 50%, rgba(223, 183, 74, 0.65) 80%, transparent);
 
   /* Typography & High-Contrast Readability (WCAG AAA Primary, AA Secondary) */
   --luxe-text-primary: #f8fafc;
@@ -50,58 +50,29 @@ html.theme-luxe {
   --luxe-text-gold-light: #f6ebb8;
 
   /* Elevation Shadows & Ambient Highlights */
-  --luxe-shadow-card: 0 16px 40px -12px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  --luxe-shadow-hover: 0 24px 50px -10px rgba(0, 0, 0, 0.9), 0 0 30px rgba(223, 183, 74, 0.16), inset 0 1px 0 rgba(223, 183, 74, 0.35);
-  --luxe-shadow-glow-cyan: 0 0 35px -8px rgba(6, 182, 212, 0.22);
-  --luxe-shadow-glow-gold: 0 0 35px -8px rgba(223, 183, 74, 0.22);
+  --luxe-shadow-card: 0 16px 40px -12px rgba(0, 0, 0, 0.88), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  --luxe-shadow-hover: 0 24px 50px -10px rgba(0, 0, 0, 0.96), 0 0 35px rgba(223, 183, 74, 0.3), inset 0 1px 0 rgba(223, 183, 74, 0.5);
+  --luxe-shadow-glow-cyan: 0 0 35px -8px rgba(6, 182, 212, 0.32);
+  --luxe-shadow-glow-gold: 0 0 35px -8px rgba(223, 183, 74, 0.38);
 }
 
 /* ------------------------------------------------------------------------------
-   2. GLOBAL TEXTURE & AMBIENT DEPTH LAYERS
+   2. GLOBAL TEXTURE & TACTILE DEPTH LAYERS
    ------------------------------------------------------------------------------ */
 
-/* Depth Technique 1: Monochromatic Subtle Film-Grain Texture (< 3% Opacity) */
+/* Tactile Depth 1: Monochromatic Subtle Film-Grain Texture (Floating Overlay) */
 html.theme-luxe::before {
   content: "";
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 45;
+  z-index: 9990;
   pointer-events: none;
-  opacity: 0.028;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 180px 180px;
-}
-
-/* Depth Technique 2: Restrained Ambient Light Vignette & Slow Glow Drift (28s loop) */
-html.theme-luxe::after {
-  content: "";
-  position: fixed;
-  top: -15%;
-  left: 15%;
-  width: 70vw;
-  height: 65vh;
-  border-radius: 50%;
-  background: radial-gradient(circle at 50% 50%, rgba(223, 183, 74, 0.05) 0%, rgba(6, 182, 212, 0.035) 40%, transparent 70%);
-  pointer-events: none;
-  z-index: 1;
-  filter: blur(140px);
-  animation: luxeAmbientDrift 28s ease-in-out infinite alternate;
-}
-
-@keyframes luxeAmbientDrift {
-  0% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.7; }
-  50% { transform: translate3d(-6%, 10%, 0) scale(1.08); opacity: 1; }
-  100% { transform: translate3d(8%, -6%, 0) scale(0.95); opacity: 0.8; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html.theme-luxe::after {
-    animation: none;
-    transform: none;
-  }
 }
 
 /* ------------------------------------------------------------------------------
@@ -115,27 +86,20 @@ html.theme-luxe body {
   -webkit-font-smoothing: antialiased;
 }
 
-html.theme-luxe #root > div.min-h-screen {
-  background-color: var(--luxe-bg-base) !important;
-}
-
-/* Global utility overrides for raw flat slate-950 and black elements */
-html.theme-luxe .bg-slate-950,
-html.theme-luxe .bg-\[\#020617\],
-html.theme-luxe .bg-\[\#090c10\],
-html.theme-luxe .bg-black {
-  background-color: var(--luxe-bg-base) !important;
+html.theme-luxe #root > div.min-h-screen,
+html.theme-luxe #home-canvas {
+  background-color: transparent !important;
 }
 
 /* ------------------------------------------------------------------------------
    4. HEADER, NAVBAR & TICKER TAPE
    ------------------------------------------------------------------------------ */
 html.theme-luxe header {
-  background: rgba(8, 11, 15, 0.88) !important;
+  background: rgba(7, 10, 15, 0.94) !important;
   backdrop-filter: blur(20px) !important;
   -webkit-backdrop-filter: blur(20px) !important;
-  border-bottom: 1px solid var(--luxe-hairline) !important;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid var(--luxe-hairline-gold) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.65);
 }
 
 html.theme-luxe header .max-w-7xl {
@@ -145,24 +109,24 @@ html.theme-luxe header .max-w-7xl {
 /* Ticker tape: Seamless velvet bar with champagne hairline */
 html.theme-luxe .TickerTapeBanner,
 html.theme-luxe header > div:first-child {
-  background: rgba(6, 9, 13, 0.95) !important;
+  background: rgba(5, 8, 12, 0.98) !important;
   border-bottom: 1px solid var(--luxe-hairline) !important;
 }
 
 /* Logo icon soft gold backplate aura */
 html.theme-luxe header img[alt*="123TheNextLevel"] {
-  filter: drop-shadow(0 2px 8px rgba(197, 160, 89, 0.25));
+  filter: drop-shadow(0 2px 10px rgba(223, 183, 74, 0.45));
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 html.theme-luxe header img[alt*="123TheNextLevel"]:hover {
-  filter: drop-shadow(0 3px 12px rgba(197, 160, 89, 0.45));
+  filter: drop-shadow(0 3px 18px rgba(223, 183, 74, 0.7));
 }
 
 /* Geroscience portal badge */
 html.theme-luxe header span.text-cyan-400 {
-  background: rgba(197, 160, 89, 0.08) !important;
-  border-color: rgba(197, 160, 89, 0.25) !important;
+  background: rgba(223, 183, 74, 0.15) !important;
+  border-color: rgba(223, 183, 74, 0.4) !important;
   color: var(--luxe-text-gold) !important;
 }
 
@@ -170,74 +134,105 @@ html.theme-luxe header span.text-cyan-400 {
    5. SECTION RHYTHM & LUXURY ALTERNATING BACKGROUNDS
    ------------------------------------------------------------------------------ */
 
-/* HERO SECTION (Layer 1 - InteractiveTabbedHero) */
-html.theme-luxe section.relative.bg-slate-950:first-of-type,
-html.theme-luxe .InteractiveTabbedHero,
-html.theme-luxe main > section:first-of-type {
-  background: var(--luxe-bg-base) !important;
-  background-image: radial-gradient(ellipse at 50% -5%, rgba(223, 183, 74, 0.09) 0%, rgba(17, 24, 34, 0.85) 45%, rgba(7, 10, 14, 0.99) 80%) !important;
-  border-bottom: 1px solid var(--luxe-hairline) !important;
+/* HERO SECTION (Layer 1 - InteractiveTabbedHero: #hero-gateway)
+   Rhythm: Rich celestial obsidian canopy with champagne gold luminescence */
+html.theme-luxe #hero-gateway,
+html.theme-luxe main section:first-of-type,
+html.theme-luxe section:has(#start-here),
+html.theme-luxe section:has(a[href*="/quiz"]) {
+  background-color: #070a0e !important;
+  background-image: radial-gradient(ellipse 90% 65% at 50% 0%, rgba(223, 183, 74, 0.35) 0%, rgba(180, 135, 67, 0.18) 28%, rgba(20, 32, 50, 0.94) 55%, #070a0e 85%) !important;
+  border-bottom: 1px solid rgba(223, 183, 74, 0.5) !important;
   position: relative;
 }
 
-html.theme-luxe section.relative.bg-slate-950:first-of-type::after,
-html.theme-luxe main > section:first-of-type::after {
+html.theme-luxe #hero-gateway::after,
+html.theme-luxe main section:first-of-type::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 1px;
+  height: 2px;
   background: var(--luxe-divider-gradient);
 }
 
+/* Hero philosophical quote */
+html.theme-luxe #hero-gateway p[class*="text-cyan-400"] {
+  color: var(--luxe-text-gold) !important;
+  font-weight: 600;
+  text-shadow: 0 0 15px rgba(223, 183, 74, 0.4);
+}
+
 /* Tab Bar inside Hero */
-html.theme-luxe .InteractiveTabbedHero button,
-html.theme-luxe button[class*="rounded-full"][class*="whitespace-nowrap"] {
-  border: 1px solid var(--luxe-hairline);
+html.theme-luxe #hero-gateway button[class*="rounded-full"][class*="whitespace-nowrap"],
+html.theme-luxe main section:first-of-type button[class*="rounded-full"][class*="whitespace-nowrap"] {
+  border: 1px solid var(--luxe-hairline-gold) !important;
+  background: rgba(14, 21, 32, 0.9) !important;
+  color: var(--luxe-text-secondary) !important;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-html.theme-luxe button[class*="bg-slate-900"] {
-  background: rgba(13, 18, 26, 0.8) !important;
-  color: var(--luxe-text-secondary) !important;
-}
-
-html.theme-luxe button[class*="bg-slate-900"]:hover {
-  background: rgba(20, 28, 40, 0.95) !important;
+html.theme-luxe #hero-gateway button[class*="rounded-full"]:hover,
+html.theme-luxe main section:first-of-type button[class*="rounded-full"]:hover {
+  background: rgba(26, 38, 58, 0.98) !important;
   color: var(--luxe-text-primary) !important;
-  border-color: rgba(197, 160, 89, 0.3);
+  border-color: rgba(223, 183, 74, 0.7) !important;
+  box-shadow: 0 4px 20px rgba(223, 183, 74, 0.25) !important;
 }
 
-/* Active tab highlight */
-html.theme-luxe button[class*="bg-cyan-500"] {
-  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%) !important;
-  box-shadow: 0 8px 25px -4px rgba(6, 182, 212, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+/* Active tab highlight: Warm champagne gold prestige capsule (high specificity) */
+html.theme-luxe #hero-gateway button[class*="rounded-full"][class*="bg-cyan-500"],
+html.theme-luxe main section:first-of-type button[class*="rounded-full"][class*="bg-cyan-500"] {
+  background: linear-gradient(135deg, #dfb74a 0%, #c9a456 100%) !important;
+  color: #070a0e !important;
+  font-weight: 800 !important;
+  border-color: #dfb74a !important;
+  box-shadow: 0 6px 24px rgba(223, 183, 74, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Primary CTA inside Hero: Gold prestige button */
+html.theme-luxe #hero-gateway a[class*="bg-cyan-500"],
+html.theme-luxe main section:first-of-type a[class*="bg-cyan-500"] {
+  background: linear-gradient(135deg, #dfb74a 0%, #b38743 100%) !important;
+  color: #070a0e !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 20px rgba(223, 183, 74, 0.45) !important;
+}
+
+/* Secondary CTA inside Hero: Machined obsidian with gold border */
+html.theme-luxe #hero-gateway a[class*="bg-emerald-500"],
+html.theme-luxe main section:first-of-type a[class*="bg-emerald-500"] {
+  background: linear-gradient(135deg, rgba(18, 28, 44, 0.95) 0%, rgba(10, 16, 26, 0.98) 100%) !important;
+  border: 1px solid rgba(223, 183, 74, 0.5) !important;
+  color: var(--luxe-text-gold) !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6) !important;
 }
 
 /* Hero Media Vessel & Video Card */
-html.theme-luxe .aspect-video,
-html.theme-luxe div[class*="aspect-video"] {
-  border: 1px solid var(--luxe-hairline-elevated) !important;
-  box-shadow: var(--luxe-shadow-card) !important;
+html.theme-luxe #hero-gateway div[class*="aspect-video"],
+html.theme-luxe main section:first-of-type div[class*="aspect-video"] {
+  border: 1px solid rgba(223, 183, 74, 0.45) !important;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9), 0 0 35px rgba(223, 183, 74, 0.22) !important;
   border-radius: 1.25rem !important;
 }
 
 /* ------------------------------------------------------------------------------
-   SECTION LAYER 2: DIAGNOSTIC ROADMAP & SYSTEM COMPARISON (DiagnosticRoadmap)
-   Tone: --luxe-bg-alt (Lighter obsidian charcoal tier)
+   SECTION LAYER 2: DIAGNOSTIC ROADMAP (#diagnostic-roadmap)
+   Rhythm: Angled obsidian-cyan transition with warm gold accents
    ------------------------------------------------------------------------------ */
-html.theme-luxe #mindset-trigger,
-html.theme-luxe section[class*="border-cyan-500\/10"]:nth-of-type(1),
-html.theme-luxe .DiagnosticRoadmap {
-  background: var(--luxe-bg-alt) !important;
-  background-image: var(--luxe-bg-alt-radial) !important;
-  border-top: 1px solid var(--luxe-hairline) !important;
-  border-bottom: 1px solid var(--luxe-hairline) !important;
+html.theme-luxe #diagnostic-roadmap,
+html.theme-luxe section:has(#mindset-trigger),
+html.theme-luxe #mindset-trigger {
+  background-color: #080c12 !important;
+  background-image: radial-gradient(ellipse 80% 60% at 50% 25%, rgba(6, 182, 212, 0.16) 0%, rgba(223, 183, 74, 0.12) 35%, #080c12 75%) !important;
+  border-top: 1px solid rgba(223, 183, 74, 0.4) !important;
+  border-bottom: 1px solid rgba(223, 183, 74, 0.25) !important;
   position: relative;
 }
 
 /* Comparison Cards inside Roadmap: Transform to Machined Dual-Depth Architecture */
+html.theme-luxe #diagnostic-roadmap .grid > div[class*="rounded-3xl"],
 html.theme-luxe #mindset-trigger .grid > div[class*="rounded-3xl"] {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -246,94 +241,150 @@ html.theme-luxe #mindset-trigger .grid > div[class*="rounded-3xl"] {
 }
 
 /* Proactive System Card */
-html.theme-luxe #mindset-trigger div[class*="from-\[\#0a1a24\]"],
-html.theme-luxe #mindset-trigger div[class*="border-cyan-500\/40"] {
-  background: linear-gradient(180deg, rgba(10, 24, 36, 0.85) 0%, rgba(8, 14, 20, 0.95) 100%) !important;
-  border: 1px solid rgba(6, 182, 212, 0.25) !important;
+html.theme-luxe #diagnostic-roadmap div[class*="from-\[\#0a1a24\]"],
+html.theme-luxe #diagnostic-roadmap div[class*="border-cyan-500\/40"] {
+  background: linear-gradient(180deg, rgba(14, 28, 44, 0.92) 0%, rgba(8, 16, 26, 0.97) 100%) !important;
+  border: 1px solid rgba(6, 182, 212, 0.45) !important;
 }
 
-html.theme-luxe #mindset-trigger div[class*="from-\[\#0a1a24\]"]:hover {
-  border-color: rgba(6, 182, 212, 0.5) !important;
+html.theme-luxe #diagnostic-roadmap div[class*="from-\[\#0a1a24\]"]:hover {
+  border-color: rgba(223, 183, 74, 0.75) !important;
   box-shadow: var(--luxe-shadow-hover), var(--luxe-shadow-glow-cyan) !important;
 }
 
 /* Dual-Track Performance Teaser Card */
 html.theme-luxe #strategy div[class*="bg-slate-950"][class*="rounded-3xl"] {
-  background: rgba(12, 17, 24, 0.9) !important;
-  border: 1px solid var(--luxe-hairline-elevated) !important;
+  background: rgba(14, 21, 32, 0.95) !important;
+  border: 1px solid var(--luxe-hairline-gold) !important;
   box-shadow: var(--luxe-shadow-card) !important;
 }
 
 /* ------------------------------------------------------------------------------
-   SECTION LAYER 2.5: UNIFIED EXPLAINER 4-STAGE FUNNEL (UnifiedExplainerSection)
-   Tone: --luxe-bg-base (Deep near-black)
+   SECTION LAYER 2.5: UNIFIED EXPLAINER 4-STAGE FUNNEL (#unified-longevity-engine)
+   Rhythm: Elevated island sanctuary with champagne rim
    ------------------------------------------------------------------------------ */
-html.theme-luxe #unified-longevity-engine,
-html.theme-luxe .UnifiedExplainerSection {
-  background: var(--luxe-bg-base) !important;
-  background-image: radial-gradient(ellipse at 50% 20%, rgba(197, 160, 89, 0.04) 0%, rgba(8, 11, 15, 0.98) 70%) !important;
-  border: 1px solid var(--luxe-hairline-elevated) !important;
-  box-shadow: var(--luxe-shadow-card) !important;
+html.theme-luxe #unified-longevity-engine {
+  background: linear-gradient(165deg, rgba(18, 27, 42, 0.96) 0%, rgba(9, 13, 20, 0.99) 100%) !important;
+  border: 1px solid rgba(223, 183, 74, 0.5) !important;
+  box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.9), 0 0 40px rgba(223, 183, 74, 0.25) !important;
 }
 
 /* Stage Cards inside Explainer */
 html.theme-luxe #unified-longevity-engine div[class*="rounded-2xl"][class*="bg-gradient-to-b"] {
-  background: rgba(14, 20, 30, 0.8) !important;
-  border: 1px solid var(--luxe-hairline) !important;
+  background: rgba(15, 23, 35, 0.92) !important;
+  border: 1px solid var(--luxe-hairline-gold) !important;
   backdrop-filter: blur(12px) !important;
 }
 
 /* ------------------------------------------------------------------------------
-   SECTION LAYER 3: PILLAR GATEWAY MATRIX (PillarGateway)
-   Tone: --luxe-bg-alt (Lighter obsidian charcoal tier)
+   SECTION LAYER 3: PILLAR GATEWAY MATRIX (#pillars)
+   Rhythm: Private wellness club lounge with dark-tinted photography veil
    ------------------------------------------------------------------------------ */
-html.theme-luxe .PillarGateway,
-html.theme-luxe section:has(#six-core-optimization) {
-  background: var(--luxe-bg-alt) !important;
-  background-image: var(--luxe-bg-alt-radial) !important;
-  border-top: 1px solid var(--luxe-hairline) !important;
-  border-bottom: 1px solid var(--luxe-hairline) !important;
+html.theme-luxe #pillars {
+  background-color: #070a0e !important;
+  border-top: 1px solid rgba(223, 183, 74, 0.4) !important;
+  border-bottom: 1px solid rgba(223, 183, 74, 0.4) !important;
+  position: relative;
 }
 
-/* Pillar Card Overlays: High-End Curated Photo Veil */
-html.theme-luxe .PillarGateway a[class*="rounded-3xl"],
-html.theme-luxe a[href*="/neurowellness"][class*="rounded-3xl"] {
-  background: rgba(10, 15, 22, 0.85) !important;
-  border: 1px solid var(--luxe-hairline) !important;
-  box-shadow: var(--luxe-shadow-card) !important;
+/* High-End Curated Photo Veil (75% dark tint maintains effortless text readability) */
+html.theme-luxe #pillars div.bg-gradient-to-b {
+  background: linear-gradient(180deg, #070a0e 0%, rgba(14, 21, 32, 0.85) 30%, rgba(14, 21, 32, 0.85) 70%, #070a0e 100%) !important;
+}
+
+/* Pillar Cards: Frosted obsidian vessels with champagne gold rims */
+html.theme-luxe #pillars a[class*="rounded-3xl"] {
+  background: rgba(14, 21, 32, 0.92) !important;
+  border: 1px solid rgba(223, 183, 74, 0.4) !important;
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.85), 0 0 20px rgba(223, 183, 74, 0.12) !important;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-html.theme-luxe .PillarGateway a[class*="rounded-3xl"]:hover,
-html.theme-luxe a[href*="/neurowellness"][class*="rounded-3xl"]:hover {
-  border-color: rgba(197, 160, 89, 0.4) !important;
-  box-shadow: var(--luxe-shadow-hover) !important;
-  transform: translateY(-4px) scale(1.01) !important;
+html.theme-luxe #pillars a[class*="rounded-3xl"]:hover {
+  border-color: rgba(223, 183, 74, 0.8) !important;
+  box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.95), 0 0 35px rgba(223, 183, 74, 0.35) !important;
+  transform: translateY(-6px) scale(1.01) !important;
 }
 
-/* Image overlay tint in pillar cards: 65% dark veil keeps text legible */
-html.theme-luxe .PillarGateway a div[class*="bg-gradient-to-br"] {
-  background: linear-gradient(145deg, rgba(8, 11, 15, 0.85) 0%, rgba(13, 18, 26, 0.65) 50%, rgba(8, 11, 15, 0.9) 100%) !important;
+/* Card inner image veil */
+html.theme-luxe #pillars a div[class*="bg-gradient-to-br"] {
+  background: linear-gradient(145deg, rgba(8, 12, 18, 0.92) 0%, rgba(16, 24, 36, 0.65) 50%, rgba(8, 12, 18, 0.95) 100%) !important;
 }
 
-/* Icon floating capsule */
-html.theme-luxe .PillarGateway div[class*="w-14 h-14"][class*="rounded-2xl"] {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+/* Floating icon capsule */
+html.theme-luxe #pillars div[class*="w-14 h-14"][class*="rounded-2xl"] {
+  background: rgba(223, 183, 74, 0.18) !important;
+  border: 1px solid rgba(223, 183, 74, 0.45) !important;
   backdrop-filter: blur(14px) !important;
 }
 
 /* ------------------------------------------------------------------------------
-   SECTION LAYER 4: SOVEREIGN STORE SHOWCASE (SovereignStoreShowcase)
-   Tone: --luxe-bg-base (Deep near-black)
+   SECTION LAYER 4: SOVEREIGN STORE SHOWCASE & EXPRESS SHOP (#express-shop, #shop)
+   Rhythm: Curated luxury apothecary & high-performance gear showcase
    ------------------------------------------------------------------------------ */
-html.theme-luxe .SovereignStoreShowcase,
-html.theme-luxe section:has(#shop) {
-  background: var(--luxe-bg-base) !important;
-  border-top: 1px solid var(--luxe-hairline) !important;
+html.theme-luxe #store-showcase,
+html.theme-luxe section:has(#express-shop),
+html.theme-luxe #express-shop {
+  background-color: #080c12 !important;
+  background-image: radial-gradient(ellipse 85% 65% at 50% 15%, rgba(223, 183, 74, 0.22) 0%, rgba(18, 27, 42, 0.94) 45%, #070a0e 85%) !important;
+  border-top: 1px solid rgba(223, 183, 74, 0.4) !important;
+  position: relative;
 }
 
-/* Photo background banner (#shop): Responsive overlay with mobile scroll fallback */
+/* Express Shop Category Selector Pills */
+html.theme-luxe #express-shop div.flex.items-center.bg-slate-950,
+html.theme-luxe #express-shop div[class*="bg-slate-950"][class*="border-slate-800"] {
+  background: rgba(15, 23, 35, 0.95) !important;
+  border: 1px solid rgba(223, 183, 74, 0.4) !important;
+}
+
+html.theme-luxe #express-shop button[class*="bg-cyan-500"] {
+  background: linear-gradient(135deg, #dfb74a 0%, #b38743 100%) !important;
+  color: #070a0e !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 18px rgba(223, 183, 74, 0.45) !important;
+}
+
+/* Express Shop Product Cards: Machined Frosted Obsidian */
+html.theme-luxe #express-shop .group[class*="rounded-2xl"] {
+  background: rgba(14, 21, 32, 0.92) !important;
+  border: 1px solid rgba(223, 183, 74, 0.3) !important;
+  box-shadow: 0 16px 35px -10px rgba(0, 0, 0, 0.88) !important;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html.theme-luxe #express-shop .group[class*="rounded-2xl"]:hover {
+  border-color: rgba(223, 183, 74, 0.75) !important;
+  box-shadow: 0 24px 50px -10px rgba(0, 0, 0, 0.96), 0 0 35px rgba(223, 183, 74, 0.3) !important;
+  transform: translateY(-4px) !important;
+}
+
+/* Product image tray inside Express Shop */
+html.theme-luxe #express-shop div[class*="aspect-square"][class*="bg-slate-950"] {
+  background: rgba(8, 12, 18, 0.96) !important;
+  border-bottom: 1px solid rgba(223, 183, 74, 0.25) !important;
+}
+
+/* Product price gold accent */
+html.theme-luxe #express-shop span[class*="text-cyan-400"][class*="font-mono"] {
+  color: var(--luxe-text-gold) !important;
+  font-weight: 800 !important;
+  text-shadow: 0 0 14px rgba(223, 183, 74, 0.4);
+}
+
+/* Search Input */
+html.theme-luxe #express-shop input[type="text"] {
+  background: rgba(12, 18, 26, 0.94) !important;
+  border: 1px solid rgba(223, 183, 74, 0.4) !important;
+  color: var(--luxe-text-primary) !important;
+}
+
+html.theme-luxe #express-shop input[type="text"]:focus {
+  border-color: var(--luxe-accent-gold) !important;
+  box-shadow: 0 0 20px rgba(223, 183, 74, 0.35) !important;
+}
+
+/* Photo background banner (#shop) */
 html.theme-luxe #shop {
   background-attachment: fixed;
   background-size: cover;
@@ -343,7 +394,7 @@ html.theme-luxe #shop {
 
 @media (max-width: 1024px) {
   html.theme-luxe #shop {
-    background-attachment: scroll !important; /* Prevents stutter and zoom issues on mobile */
+    background-attachment: scroll !important;
   }
 }
 
@@ -353,33 +404,32 @@ html.theme-luxe #shop > div.absolute.inset-0 {
 
 /* Region Cards (US / UK / ES Marketplace) */
 html.theme-luxe #shop a[class*="min-h-\[240px\]"] {
-  border: 1px solid var(--luxe-hairline-elevated) !important;
-  background: rgba(10, 15, 22, 0.75) !important;
+  border: 1px solid var(--luxe-hairline-gold) !important;
+  background: rgba(14, 21, 32, 0.9) !important;
   box-shadow: var(--luxe-shadow-card) !important;
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 html.theme-luxe #shop a[class*="min-h-\[240px\]"]:hover {
-  border-color: rgba(197, 160, 89, 0.4) !important;
+  border-color: rgba(223, 183, 74, 0.75) !important;
   box-shadow: var(--luxe-shadow-hover) !important;
 }
 
-/* CRITICAL INCONSISTENCY FIX: Transform Stark White Product Cards into Dark Glass Vessels */
+/* Former white cards converted to dark glass */
 html.theme-luxe div[class*="inline-block"][class*="bg-white"],
 html.theme-luxe .SovereignStoreShowcase .bg-white {
   background: var(--luxe-bg-surface-elevated) !important;
-  border: 1px solid var(--luxe-hairline-elevated) !important;
+  border: 1px solid var(--luxe-hairline-gold) !important;
   box-shadow: var(--luxe-shadow-card) !important;
   color: var(--luxe-text-primary) !important;
 }
 
 html.theme-luxe div[class*="inline-block"][class*="bg-white"]:hover,
 html.theme-luxe .SovereignStoreShowcase .bg-white:hover {
-  border-color: rgba(197, 160, 89, 0.35) !important;
+  border-color: rgba(223, 183, 74, 0.65) !important;
   box-shadow: var(--luxe-shadow-hover) !important;
 }
 
-/* Fix product text inside former white cards */
 html.theme-luxe .SovereignStoreShowcase .bg-white h3,
 html.theme-luxe div[class*="inline-block"][class*="bg-white"] h3 {
   color: var(--luxe-text-primary) !important;
@@ -390,81 +440,76 @@ html.theme-luxe div[class*="inline-block"][class*="bg-white"] span[class*="text-
   color: var(--luxe-text-secondary) !important;
 }
 
-/* Product image tray inside cards */
 html.theme-luxe div[class*="aspect-square"][class*="bg-slate-50"] {
-  background: rgba(255, 255, 255, 0.035) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
   border: 1px solid var(--luxe-hairline) !important;
 }
 
-/* CTA inside product cards */
-html.theme-luxe div[class*="inline-block"] a[class*="bg-blue-600"] {
-  background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%) !important;
-  color: #ffffff !important;
-  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3) !important;
-}
-
 /* ------------------------------------------------------------------------------
-   SECTION LAYER 5: EPIGENETICS & RESEARCH HORIZON (EpigeneticsSection)
-   Tone: --luxe-bg-alt (Lighter obsidian charcoal tier)
+   SECTION LAYER 5: EPIGENETICS & RESEARCH HORIZON (#epigenetics-section)
+   Rhythm: Dual-tone celestial horizon (Amber Gold & Cyber Cyan)
    ------------------------------------------------------------------------------ */
-html.theme-luxe .EpigeneticsSection,
+html.theme-luxe #epigenetics-section,
 html.theme-luxe section:has(#canvas-container),
 html.theme-luxe section:has(.from-\[\#241708\]) {
-  background: var(--luxe-bg-alt) !important;
-  background-image: var(--luxe-bg-alt-radial) !important;
-  border-top: 1px solid var(--luxe-hairline) !important;
-  border-bottom: 1px solid var(--luxe-hairline) !important;
+  background-color: #080c12 !important;
+  background-image: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(223, 183, 74, 0.18) 0%, rgba(6, 182, 212, 0.12) 40%, #070a0e 80%) !important;
+  border-top: 1px solid rgba(223, 183, 74, 0.4) !important;
+  border-bottom: 1px solid rgba(223, 183, 74, 0.4) !important;
+  position: relative;
 }
 
 /* Horizon Teaser Banner */
 html.theme-luxe div[class*="from-\[\#241708\]"] {
-  background: linear-gradient(135deg, rgba(28, 18, 10, 0.85) 0%, rgba(13, 18, 28, 0.9) 50%, rgba(7, 25, 34, 0.85) 100%) !important;
-  border: 1px solid rgba(197, 160, 89, 0.3) !important;
+  background: linear-gradient(135deg, rgba(34, 24, 10, 0.92) 0%, rgba(18, 26, 40, 0.95) 50%, rgba(8, 32, 44, 0.92) 100%) !important;
+  border: 1px solid rgba(223, 183, 74, 0.55) !important;
   box-shadow: var(--luxe-shadow-card), var(--luxe-shadow-glow-gold) !important;
 }
 
 /* ------------------------------------------------------------------------------
-   SECTION LAYER 6: BOTTOM PRODUCT TICKER TAPE (BottomProductTicker)
-   Tone: --luxe-bg-base (Deep near-black)
+   SECTION LAYER 6: BOTTOM PRODUCT TICKER TAPE (#product-ticker)
+   Rhythm: Seamless velvet grounding bar with gold divider rims
    ------------------------------------------------------------------------------ */
-html.theme-luxe .BottomProductTicker,
+html.theme-luxe #product-ticker,
 html.theme-luxe section:has(.animate-product-marquee) {
-  background: var(--luxe-bg-base) !important;
-  border-top: 1px solid var(--luxe-hairline) !important;
-  border-bottom: 1px solid var(--luxe-hairline) !important;
+  background-color: #05080c !important;
+  border-top: 1px solid rgba(223, 183, 74, 0.4) !important;
+  border-bottom: 1px solid rgba(223, 183, 74, 0.4) !important;
   position: relative;
 }
 
 /* Mask gradients at the edge of the ticker */
+html.theme-luxe #product-ticker div[class*="from-slate-950"],
 html.theme-luxe section:has(.animate-product-marquee) div[class*="from-slate-950"] {
-  background: linear-gradient(90deg, var(--luxe-bg-base) 0%, transparent 100%) !important;
+  background: linear-gradient(90deg, #05080c 0%, transparent 100%) !important;
 }
 
+html.theme-luxe #product-ticker div[class*="to-slate-950"],
 html.theme-luxe section:has(.animate-product-marquee) div[class*="to-slate-950"] {
-  background: linear-gradient(270deg, var(--luxe-bg-base) 0%, transparent 100%) !important;
+  background: linear-gradient(270deg, #05080c 0%, transparent 100%) !important;
 }
 
 /* Product chips inside ticker */
 html.theme-luxe a[class*="bg-slate-900\/90"] {
-  background: rgba(13, 18, 26, 0.8) !important;
-  border: 1px solid var(--luxe-hairline) !important;
+  background: rgba(15, 22, 34, 0.9) !important;
+  border: 1px solid rgba(223, 183, 74, 0.35) !important;
   backdrop-filter: blur(8px) !important;
 }
 
 html.theme-luxe a[class*="bg-slate-900\/90"]:hover {
-  background: rgba(20, 28, 40, 0.95) !important;
-  border-color: rgba(197, 160, 89, 0.4) !important;
-  box-shadow: 0 8px 25px -4px rgba(0, 0, 0, 0.6) !important;
+  background: rgba(26, 38, 56, 0.98) !important;
+  border-color: rgba(223, 183, 74, 0.75) !important;
+  box-shadow: 0 8px 25px -4px rgba(0, 0, 0, 0.8), 0 0 25px rgba(223, 183, 74, 0.3) !important;
 }
 
 /* ------------------------------------------------------------------------------
    SECTION LAYER 7: GROUNDED VELVET FOOTER (Footer)
-   Tone: Deepest Velvet Grounding Tone (#05070a)
+   Rhythm: Deepest Prestige Grounding Tone (#040608) with upper gold horizon
    ------------------------------------------------------------------------------ */
 html.theme-luxe footer {
-  background: #05070a !important;
-  background-image: radial-gradient(circle at 50% 0%, #0c1017 0%, #05070a 80%) !important;
-  border-top: 1px solid var(--luxe-hairline) !important;
+  background-color: #040608 !important;
+  background-image: radial-gradient(ellipse at 50% 0%, rgba(223, 183, 74, 0.25) 0%, #040608 75%) !important;
+  border-top: 1px solid rgba(223, 183, 74, 0.5) !important;
   color: var(--luxe-text-secondary) !important;
   position: relative;
 }
@@ -475,35 +520,35 @@ html.theme-luxe footer::before {
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
+  height: 2px;
   background: var(--luxe-divider-gradient);
 }
 
 /* Newsletter Input Form */
 html.theme-luxe footer input[type="email"] {
-  background: rgba(10, 14, 20, 0.8) !important;
-  border: 1px solid var(--luxe-hairline-elevated) !important;
+  background: rgba(12, 16, 26, 0.94) !important;
+  border: 1px solid rgba(223, 183, 74, 0.45) !important;
   color: var(--luxe-text-primary) !important;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6) !important;
 }
 
 html.theme-luxe footer input[type="email"]:focus {
-  border-color: var(--luxe-accent-gold-muted) !important;
-  box-shadow: 0 0 15px rgba(197, 160, 89, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+  border-color: var(--luxe-accent-gold) !important;
+  box-shadow: 0 0 22px rgba(223, 183, 74, 0.4), inset 0 2px 4px rgba(0, 0, 0, 0.6) !important;
 }
 
 /* Subscribe button */
 html.theme-luxe footer button[type="submit"] {
-  background: linear-gradient(135deg, rgba(26, 36, 52, 0.9) 0%, rgba(16, 22, 32, 0.95) 100%) !important;
+  background: linear-gradient(135deg, rgba(223, 183, 74, 0.35) 0%, rgba(28, 40, 58, 0.95) 100%) !important;
   border: 1px solid var(--luxe-hairline-gold) !important;
   color: var(--luxe-text-primary) !important;
   transition: all 0.25s ease !important;
 }
 
 html.theme-luxe footer button[type="submit"]:hover {
-  background: linear-gradient(135deg, rgba(197, 160, 89, 0.25) 0%, rgba(26, 36, 52, 0.95) 100%) !important;
+  background: linear-gradient(135deg, rgba(223, 183, 74, 0.55) 0%, rgba(34, 50, 74, 0.98) 100%) !important;
   border-color: var(--luxe-accent-gold) !important;
-  box-shadow: 0 4px 20px rgba(197, 160, 89, 0.2) !important;
+  box-shadow: 0 4px 28px rgba(223, 183, 74, 0.4) !important;
 }
 
 /* ------------------------------------------------------------------------------
@@ -513,7 +558,7 @@ html.theme-luxe footer button[type="submit"]:hover {
 /* Storefronts (/store-us, /store-uk, /store-es) */
 html.theme-luxe div[class*="min-h-screen"][class*="pt-28"] {
   background-color: var(--luxe-bg-base) !important;
-  background-image: radial-gradient(circle at 50% 10%, #111722 0%, #080b0f 80%) !important;
+  background-image: radial-gradient(ellipse 90% 70% at 50% 5%, rgba(223, 183, 74, 0.24) 0%, rgba(18, 27, 42, 0.94) 45%, #070a0e 85%) !important;
 }
 
 /* Category Filter Pills */
@@ -525,19 +570,19 @@ html.theme-luxe button[class*="rounded-full"][class*="font-mono"] {
 /* Partner and Arsenal Product Cards */
 html.theme-luxe .group[class*="rounded-2xl"][class*="bg-gradient-to-b"] {
   background: var(--luxe-bg-surface-elevated) !important;
-  border: 1px solid var(--luxe-hairline) !important;
+  border: 1px solid var(--luxe-hairline-gold) !important;
   box-shadow: var(--luxe-shadow-card) !important;
 }
 
 html.theme-luxe .group[class*="rounded-2xl"][class*="bg-gradient-to-b"]:hover {
-  border-color: rgba(197, 160, 89, 0.35) !important;
+  border-color: rgba(223, 183, 74, 0.65) !important;
   box-shadow: var(--luxe-shadow-hover) !important;
 }
 
 /* Clinician Co-Pilot Helper Banner */
 html.theme-luxe div[class*="rounded-3xl"][class*="from-slate-900"][class*="via-cyan-950"] {
-  background: linear-gradient(135deg, rgba(13, 20, 28, 0.9) 0%, rgba(10, 25, 36, 0.85) 50%, rgba(13, 20, 28, 0.9) 100%) !important;
-  border: 1px solid var(--luxe-hairline-elevated) !important;
+  background: linear-gradient(135deg, rgba(16, 24, 36, 0.95) 0%, rgba(12, 32, 46, 0.92) 50%, rgba(16, 24, 36, 0.95) 100%) !important;
+  border: 1px solid rgba(223, 183, 74, 0.45) !important;
   box-shadow: var(--luxe-shadow-card) !important;
 }
 
@@ -549,7 +594,7 @@ html.theme-luxe div:has(> #clinician-workbook) {
 
 html.theme-luxe #clinician-workbook div[class*="bg-slate-900"] {
   background: var(--luxe-bg-surface) !important;
-  border: 1px solid var(--luxe-hairline) !important;
+  border: 1px solid var(--luxe-hairline-gold) !important;
   box-shadow: var(--luxe-shadow-card) !important;
 }
 
@@ -561,7 +606,7 @@ html.theme-luxe div[class*="DiagnosticsSuite"] {
 
 html.theme-luxe .DiagnosticsSuite div[class*="bg-slate-900"] {
   background: var(--luxe-bg-surface) !important;
-  border: 1px solid var(--luxe-hairline) !important;
+  border: 1px solid var(--luxe-hairline-gold) !important;
   box-shadow: var(--luxe-shadow-card) !important;
 }
 
@@ -575,7 +620,7 @@ html.theme-luxe div[class*="min-h-screen"][class*="selection:bg-"] {
 html.theme-luxe div[class*="bg-white"][class*="rounded-"][class*="text-slate-900"] {
   background: var(--luxe-bg-surface-elevated) !important;
   color: var(--luxe-text-primary) !important;
-  border: 1px solid var(--luxe-hairline-elevated) !important;
+  border: 1px solid var(--luxe-hairline-gold) !important;
   box-shadow: var(--luxe-shadow-card) !important;
 }
 
@@ -597,25 +642,19 @@ html.theme-luxe .FloatingShopFAB,
 html.theme-luxe div[class*="FloatingShopFAB"] button,
 html.theme-luxe div[class*="fixed"][class*="bottom-"][class*="right-"] button {
   backdrop-filter: blur(16px) !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(197, 160, 89, 0.25) !important;
-  border: 1px solid rgba(197, 160, 89, 0.35) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75), 0 0 25px rgba(223, 183, 74, 0.45) !important;
+  border: 1px solid rgba(223, 183, 74, 0.5) !important;
 }
 
 /* ------------------------------------------------------------------------------
    8. RESPONSIVE REFINEMENTS & MOBILE VIEWPORTS (375px, 768px, 1440px)
    ------------------------------------------------------------------------------ */
 @media (max-width: 768px) {
-  html.theme-luxe::after {
-    width: 90vw;
-    height: 50vh;
-    filter: blur(90px);
-  }
-
   html.theme-luxe #mindset-trigger .grid {
     gap: 1.25rem !important;
   }
 
-  html.theme-luxe .PillarGateway {
+  html.theme-luxe #pillars {
     padding-top: 4rem !important;
     padding-bottom: 4rem !important;
   }

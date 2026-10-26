@@ -25,7 +25,7 @@ export const Home: React.FC = () => {
   }, [location]);
 
   return (
-    <main className="bg-slate-950 min-h-screen text-slate-100">
+    <main id="home-canvas" className="bg-slate-950 min-h-screen text-slate-100">
       
       {/* LAYER 1: New 7-Tab Hero Gateway (Streamable Video Active) */}
       <InteractiveTabbedHero />

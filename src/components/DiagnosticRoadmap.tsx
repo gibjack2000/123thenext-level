@@ -13,7 +13,7 @@ export const DiagnosticRoadmap: React.FC = () => {
   }, []);
 
   return (
-    <section className="relative z-10 bg-slate-950 py-16 md:py-24 border-t border-cyan-500/10">
+    <section id="diagnostic-roadmap" className="relative z-10 bg-slate-950 py-16 md:py-24 border-t border-cyan-500/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* ========================================================================= */}

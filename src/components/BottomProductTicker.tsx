@@ -117,7 +117,7 @@ export const BottomProductTicker: React.FC = () => {
   );
 
   return (
-    <section className="w-full bg-slate-950 border-t border-b border-slate-800/80 py-6 overflow-hidden select-none relative z-10">
+    <section id="product-ticker" className="w-full bg-slate-950 border-t border-b border-slate-800/80 py-6 overflow-hidden select-none relative z-10">
       
       {/* Header Label */}
       <div className="max-w-7xl mx-auto px-4 mb-4 flex items-center justify-between">
