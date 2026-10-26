@@ -108,10 +108,12 @@ const StoreUS = lazy(() => import('./pages/StoreUS'));
 const StoreUK = lazy(() => import('./pages/StoreUK'));
 const StoreES = lazy(() => import('./pages/StoreES'));
 const DiagnosticGuide = lazy(() => import('./pages/DiagnosticGuide'));
+const DiagnosticsSuite = lazy(() => import('./pages/DiagnosticsSuite'));
 const Science = lazy(() => import('./pages/Science'));
 const Library = lazy(() => import('./pages/Library'));
 const ClinicianCopilot = lazy(() => import('./pages/ClinicianCopilot'));
 const MasterOverview = lazy(() => import('./pages/MasterOverview'));
+const Start_Now_Old = lazy(() => import('./pages/Start_Now_Old'));
 
 
 // Loading spinner shown during page transitions
@@ -142,6 +144,8 @@ function App() {
                 <Route path="/dual-track" element={<DualTrack />} />
                 <Route path="/dual-track/:tab" element={<DualTrack />} />
                 <Route path="/start-here" element={<StartHere />} />
+                <Route path="/start-now-old" element={<Start_Now_Old />} />
+                <Route path="/start-now" element={<Navigate to="/start-now-old" replace />} />
                 <Route path="/health-quiz" element={<HealthQuiz />} />
                 <Route path="/health" element={<HealthPillar />} />
                 <Route path="/health/preventive" element={<PreventiveHealth />} />
@@ -241,6 +245,7 @@ function App() {
                 <Route path="/gp-script" element={<Navigate to="/clinician-copilot" replace />} />
 
                 {/* Diagnostics Route: Phase 1 Onboarding & Blood Panels */}
+                <Route path="/diagnostics" element={<DiagnosticsSuite />} />
                 <Route path="/guide" element={<DiagnosticGuide />} />
                 <Route path="/guides" element={<Navigate to="/premium-guides" replace />} />
 

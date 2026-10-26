@@ -1,1012 +1,910 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion } from 'motion/react';
 import { 
-  Shield, Lock, Play, Activity, ExternalLink, 
-  ArrowRight, Star, HeartPulse, RefreshCw, Info,
-  CheckCircle2, AlertTriangle, Compass, FileText,
-  ChevronDown, ChevronUp, Download, Eye, Award, Sparkles
+  Compass, 
+  HelpCircle, 
+  Download, 
+  FileText, 
+  ArrowRight, 
+  CheckCircle2, 
+  AlertTriangle, 
+  Zap, 
+  Dna, 
+  Activity, 
+  Stethoscope, 
+  ShieldCheck, 
+  Heart, 
+  ExternalLink, 
+  Sparkles, 
+  Flame, 
+  Droplet, 
+  Scale, 
+  Layers, 
+  Eye, 
+  BookOpen,
+  ChevronRight,
+  TrendingUp,
+  Clock,
+  Printer
 } from 'lucide-react';
-import { UnifiedExplainerSection } from '../components/UnifiedExplainerSection';
-import DualTrackSelector from '../components/DualTrackSelector';
+import { useMarket, Market } from '../contexts/MarketContext';
+import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
 
 export default function StartHere() {
+  const { market, setMarket } = useMarket();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'step1' | 'step2' | 'step3' | 'phase1' | 'phase2' | 'clinician'>('step1');
-  const [activeScript, setActiveScript] = useState<number | null>(null);
-  const [showVideoAlert, setShowVideoAlert] = useState<string | null>(null);
 
-  // Animation variants for tab content transition
-  const tabContentVariants: any = {
-    hidden: { opacity: 0, y: 15 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } },
-    exit: { opacity: 0, y: -15, transition: { duration: 0.2 } }
+  // Region selection state for Step 0 Quiz dual-hook
+  const [selectedRegion, setSelectedRegion] = useState<'US' | 'UK' | 'ES'>(
+    (market as 'US' | 'UK' | 'ES') || 'US'
+  );
+
+  const handleRegionSelect = (reg: 'US' | 'UK' | 'ES') => {
+    setSelectedRegion(reg);
+    setMarket(reg as Market);
   };
 
-  const toggleScript = (idx: number) => {
-    setActiveScript(activeScript === idx ? null : idx);
-  };
-
-  const handleVideoPlaceholderClick = (briefingTitle: string) => {
-    setShowVideoAlert(briefingTitle);
-    setTimeout(() => {
-      setShowVideoAlert(null);
-    }, 4000);
+  const handleStartQuiz = () => {
+    // Navigate to quiz with pre-selected market
+    navigate(`/health-quiz?region=${selectedRegion.toLowerCase()}`);
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-200 selection:bg-cyan-500/30 font-sans pt-28 pb-20 relative overflow-hidden">
-      {/* Background grid-lines styling */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-35 pointer-events-none z-0"></div>
-      
-      {/* Radial ambient glow */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
-      <div className="absolute bottom-0 right-10 w-[300px] h-[300px] bg-indigo-500/5 rounded-full blur-[100px] pointer-events-none z-0"></div>
+    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-cyan-500/30 pt-28 pb-24 relative overflow-hidden">
+      {/* Background ambient lighting */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-30 pointer-events-none z-0" />
+      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none z-0" />
+      <div className="absolute top-[40%] right-[-10%] w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[160px] pointer-events-none z-0" />
 
-      {/* Floating Notification for Briefing Playback */}
-      <AnimatePresence>
-        {showVideoAlert && (
-          <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            className="fixed bottom-6 right-6 z-50 max-w-sm p-4 bg-slate-900 border border-cyan-500/30 text-white rounded-2xl shadow-2xl flex items-start gap-3 backdrop-blur-md"
-          >
-            <Info className="text-cyan-400 shrink-0 mt-0.5" size={18} />
-            <div className="text-left space-y-1">
-              <h4 className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold">Briefing Pending</h4>
-              <p className="text-[11px] text-slate-350 leading-relaxed font-light">
-                The spoken briefing <strong>&quot;{showVideoAlert}&quot;</strong> is currently in clinical production and will be deployed shortly.
-              </p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-20">
         
-        {/* Workspace Title Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-bold mb-4 shadow-[0_0_15px_rgba(6,182,212,0.05)]">
-            <Activity size={12} className="animate-pulse" />
-            Client Starting Line
-          </span>
-          <h1 className="text-4xl sm:text-5xl font-display uppercase tracking-tight text-white font-black leading-none mb-3">
-            The Dual-Track Blueprint
-          </h1>
-          <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed font-light">
-            Your onboarding path to human longevity. Balance clinical baseline telemetry with actionable daily habits to rewrite your biological decay rate.
-          </p>
-        </div>
-
-        {/* 4-Stage High-Converting Funnel: Unified Longevity Engine Explainer */}
-        <UnifiedExplainerSection className="mb-14" />
-
-        {/* Glowing Callout Banner: Sovereign Storefront Integration */}
-        <div className="mb-14 p-6 sm:p-8 rounded-2xl bg-slate-900 border border-cyan-500/30 shadow-[0_0_30px_rgba(6,182,212,0.12)] backdrop-blur-xl relative overflow-hidden group text-left">
-          <div className="absolute top-0 right-0 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none -mr-16 -mt-16 group-hover:bg-cyan-500/15 transition-colors" />
-          <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-            <div className="space-y-2 max-w-3xl">
-              <div className="inline-flex items-center gap-1.5 text-cyan-400 font-mono text-[11px] font-bold tracking-wider uppercase">
-                <Sparkles size={14} className="text-cyan-400 animate-pulse" />
-                <span>Localized Biological Hardware & Diagnostics</span>
-              </div>
-              <h2 className="text-xl sm:text-2xl font-display uppercase tracking-tight text-white font-black">
-                Ready to transition from guessing to knowing?
-              </h2>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
-                Explore our country-localized Sovereign Storefront to review FDA, MHRA, and CE compliant home testing reagents, medical-grade telemetry, and comprehensive cellular blood baselines tailored specifically for the US, UK, and Spanish markets.
-              </p>
-            </div>
-            <div className="flex-shrink-0">
-              <button
-                type="button"
-                onClick={() => navigate('/store')}
-                className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-400 via-sky-400 to-indigo-500 hover:from-cyan-300 hover:to-indigo-400 text-slate-950 font-black text-xs font-mono uppercase tracking-wider shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:shadow-[0_0_25px_rgba(6,182,212,0.6)] transition-all transform hover:scale-[1.02] active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2"
-              >
-                <span>Explore Sovereign Storefront →</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Elegant Centered 3-Tab Navigation Group: The 3-Step Start Now Roadmap */}
-        <div className="flex justify-center mb-16 relative z-10">
-          <div className="inline-flex p-2 bg-[#060a12]/95 backdrop-blur-xl border border-slate-800/90 rounded-2xl gap-2 overflow-x-auto scrollbar-none max-w-full shadow-2xl relative">
-            
-            {/* STEP 1: Establish Zero-Cost Daily Micro-Habits */}
-            <button
-              onClick={() => setActiveTab('step1')}
-              className={`relative px-4 sm:px-6 py-3.5 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2.5 z-10 select-none group outline-none overflow-hidden ${
-                activeTab === 'step1' || activeTab === 'phase2'
-                  ? 'text-emerald-300 shadow-[0_0_25px_rgba(16,185,129,0.3)]'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
-              }`}
-            >
-              {(activeTab === 'step1' || activeTab === 'phase2') && (
-                <motion.div
-                  layoutId="activeTabPill"
-                  className="absolute inset-0 bg-gradient-to-r from-emerald-950/90 via-slate-900 to-teal-950/80 border border-emerald-400/70 rounded-xl overflow-hidden -z-10"
-                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                >
-                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(16,185,129,0.3),transparent_70%)] pointer-events-none" />
-                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400" />
-                </motion.div>
-              )}
-              <RefreshCw 
-                size={15} 
-                className={`transition-all duration-500 ${
-                  activeTab === 'step1' || activeTab === 'phase2'
-                    ? 'text-emerald-300 scale-110 rotate-180 drop-shadow-[0_0_8px_rgba(16,185,129,0.8)]' 
-                    : 'text-slate-500 group-hover:text-slate-300 group-hover:scale-110'
-                }`} 
-              />
-              <span>Step 1: Daily Micro-Habits</span>
-            </button>
-            
-            {/* STEP 2: Engage Dual-Track Diagnostics */}
-            <button
-              onClick={() => setActiveTab('step2')}
-              className={`relative px-4 sm:px-6 py-3.5 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2.5 z-10 select-none group outline-none overflow-hidden ${
-                activeTab === 'step2' || activeTab === 'phase1'
-                  ? 'text-cyan-300 shadow-[0_0_25px_rgba(6,182,212,0.3)]'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
-              }`}
-            >
-              {(activeTab === 'step2' || activeTab === 'phase1') && (
-                <motion.div
-                  layoutId="activeTabPill"
-                  className="absolute inset-0 bg-gradient-to-r from-cyan-950/90 via-slate-900 to-sky-950/80 border border-cyan-400/70 rounded-xl overflow-hidden -z-10"
-                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                >
-                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(6,182,212,0.3),transparent_70%)] pointer-events-none" />
-                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-400" />
-                </motion.div>
-              )}
-              <Activity 
-                size={15} 
-                className={`transition-all duration-300 ${
-                  activeTab === 'step2' || activeTab === 'phase1'
-                    ? 'text-cyan-300 scale-110 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]' 
-                    : 'text-slate-500 group-hover:text-slate-300 group-hover:scale-110'
-                }`} 
-              />
-              <span>Step 2: Dual-Track Diagnostics</span>
-            </button>
-            
-            {/* STEP 3: Optimize the 6 Pillars */}
-            <button
-              onClick={() => setActiveTab('step3')}
-              className={`relative px-4 sm:px-6 py-3.5 rounded-xl font-display uppercase tracking-wider text-[10px] sm:text-xs font-black transition-all duration-300 whitespace-nowrap cursor-pointer flex items-center gap-2.5 z-10 select-none group outline-none overflow-hidden ${
-                activeTab === 'step3' || activeTab === 'clinician'
-                  ? 'text-indigo-300 shadow-[0_0_25px_rgba(99,102,241,0.3)]'
-                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
-              }`}
-            >
-              {(activeTab === 'step3' || activeTab === 'clinician') && (
-                <motion.div
-                  layoutId="activeTabPill"
-                  className="absolute inset-0 bg-gradient-to-r from-indigo-950/90 via-slate-900 to-purple-950/80 border border-indigo-400/70 rounded-xl overflow-hidden -z-10"
-                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                >
-                  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(99,102,241,0.3),transparent_70%)] pointer-events-none" />
-                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400" />
-                </motion.div>
-              )}
-              <Shield 
-                size={15} 
-                className={`transition-all duration-300 ${
-                  activeTab === 'step3' || activeTab === 'clinician'
-                    ? 'text-indigo-300 scale-110 drop-shadow-[0_0_8px_rgba(99,102,241,0.8)]' 
-                    : 'text-slate-500 group-hover:text-slate-300 group-hover:scale-110'
-                }`} 
-              />
-              <span>Step 3: Optimize the 6 Pillars</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Tab Content Display Area */}
-        <AnimatePresence mode="wait">
-          
-          {/* TAB A: STEP 2 • ENGAGE DUAL-TRACK DIAGNOSTICS */}
-          {(activeTab === 'step2' || activeTab === 'phase1') && (
-            <motion.div
-              key="step2"
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              variants={tabContentVariants}
-              className="space-y-12"
-            >
-              {/* Early Warning Radar Clinical Paradigm + Video Placeholder Grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-                {/* Left Column: Text & Paradigm Info */}
-                <div className="lg:col-span-7 flex flex-col justify-between space-y-6">
-                  <div className="space-y-4 text-left">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold">
-                      Step 2 of 3-Step Roadmap • Dual-Track Engine
-                    </span>
-                    <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
-                      Step 2: Engage Dual-Track Diagnostics
-                    </h2>
-                    <p className="text-slate-300 text-sm md:text-base leading-relaxed font-light font-light">
-                      True preventive medicine is an information-gathering game. Continuous biometric telemetry, rapid in-home urine test strips, and quarterly accredited venous blood panels establish an &apos;Early Warning Radar&apos;—diagnosing subclinical physiological shifts early before they develop into chronic diseases.
-                    </p>
-                  </div>
-
-                  {/* Privacy Callout Card */}
-                  <div className="p-5 border border-cyan-500/20 bg-slate-900/40 backdrop-blur-md rounded-2xl flex items-start gap-4 shadow-lg shadow-cyan-950/10">
-                    <div className="p-2.5 bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded-xl mt-0.5">
-                      <Lock size={16} />
-                    </div>
-                    <div className="space-y-1 text-left">
-                      <h4 className="text-xs font-mono uppercase tracking-wider text-white font-bold">
-                        Absolute Data Privacy
-                      </h4>
-                      <p className="text-xs text-slate-300 leading-relaxed font-light">
-                        We never collect, process, or ask you to upload your sensitive medical reports. Your clinical baselines remain entirely patient-held, private, and under your 100% control.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right Column: Video Playback Placeholder */}
-                <div className="lg:col-span-5 flex items-stretch">
-                  <div className="w-full flex flex-col justify-between p-6 sm:p-8 rounded-3xl bg-slate-900/30 border border-cyan-500/10 backdrop-blur-md shadow-2xl relative overflow-hidden group">
-                    <div className="space-y-4 relative z-10 text-left">
-                      <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-cyan-400 block">
-                        [ Streaming Protocol ]
-                      </span>
-                      <h3 className="text-lg font-display uppercase tracking-tight text-white font-black">
-                        Building the Optimized Human (Upcoming Briefing)
-                      </h3>
-                    </div>
-
-                    {/* Central Glowing Electric-Cyan Play Button Trigger */}
-                    <div className="my-8 flex items-center justify-center relative z-10">
-                      <div className="absolute w-20 h-20 rounded-full bg-cyan-500/10 animate-ping"></div>
-                      <div 
-                        onClick={() => handleVideoPlaceholderClick("Building the Optimized Human")}
-                        className="w-16 h-16 rounded-full bg-gradient-to-tr from-cyan-500 to-indigo-600 text-slate-950 flex items-center justify-center shadow-2xl group-hover:scale-105 active:scale-95 transition-all duration-300 border border-cyan-400/30 cursor-pointer"
-                      >
-                        <Play size={24} className="ml-1 text-white fill-white drop-shadow-[0_2px_8px_rgba(6,182,212,0.4)]" />
-                      </div>
-                    </div>
-
-                    <div className="space-y-2 relative z-10 text-left">
-                      <p className="text-[11px] text-slate-400 leading-relaxed font-light">
-                        <strong>60s Spoken Clinical Briefing •</strong> Learn how to calculate epigenetic decay velocity, analyze subclinical blood markers, and set up continuous sleep telemetry to co-process with your local GP.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Step 2 Engine: DualTrackSelector Component */}
-              <DualTrackSelector className="shadow-2xl my-8" />
-
-              {/* Biomarker Diagnostics Glossary (Interactive Cards) */}
-              <div className="space-y-6">
-                <div className="border-b border-slate-900 pb-4 text-left">
-                  <h3 className="text-lg font-display uppercase tracking-wider text-white font-bold flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-cyan-500"></span>
-                    Biomarker Diagnostics Glossary
-                  </h3>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-                  {/* Card 1: Epigenetic Testing */}
-                  <div className="flex flex-col justify-between p-6 rounded-2xl bg-slate-900/30 border border-slate-900 hover:border-cyan-500/20 transition-all duration-300 text-left shadow-xl space-y-6">
-                    <div className="space-y-3.5">
-                      <span className="px-2.5 py-1 rounded-md text-[9px] font-mono uppercase bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-bold">
-                        Epigenetic age velocity
-                      </span>
-                      <h4 className="text-base font-display uppercase tracking-tight text-white font-bold">
-                        Epigenetic Cellular Age Testing
-                      </h4>
-                      <p className="text-xs text-slate-300 leading-relaxed font-light">
-                        Chronological age is just a calendar metric. Measuring genomic methylation calculates true biological age velocity versus calendar age to determine rate of decay.
-                      </p>
-                    </div>
-                    
-                    <div className="pt-2">
-                      <button
-                        type="button"
-                        onClick={() => navigate('/store')}
-                        className="inline-flex justify-center items-center w-full py-3 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 hover:text-cyan-300 rounded-xl text-xs font-black uppercase tracking-wider transition-all border border-cyan-500/30 shadow-[0_0_15px_rgba(6,182,212,0.15)] text-center cursor-pointer"
-                      >
-                        Order Home Epigenetic Testing Kit →
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Card 2: Lola Blood Panel */}
-                  <div className="flex flex-col justify-between p-6 rounded-2xl bg-slate-900/30 border border-slate-900 hover:border-cyan-500/20 transition-all duration-300 text-left shadow-xl space-y-6">
-                    <div className="space-y-3.5">
-                      <span className="px-2.5 py-1 rounded-md text-[9px] font-mono uppercase bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-bold">
-                        Clinical Bio-Markers
-                      </span>
-                      <h4 className="text-base font-display uppercase tracking-tight text-white font-bold">
-                        The Lola Vital Check 56 & Peak Insights 70
-                      </h4>
-                      <p className="text-xs text-slate-300 leading-relaxed font-light">
-                        Traditional medicine waits for symptoms. We track early warning indicators: ApoB (atherogenic plaque risk), HbA1c (90-day glycemic average), and hs-CRP (systemic inflammation tracking) to prevent cardiovascular issues before they emerge.
-                      </p>
-                    </div>
-                    
-                    <div className="pt-2">
-                      <button
-                        type="button"
-                        onClick={() => navigate('/store')}
-                        className="inline-flex justify-center items-center w-full py-3 bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-xl text-xs font-black uppercase tracking-wider transition-all text-center cursor-pointer shadow-[0_0_15px_rgba(6,182,212,0.2)]"
-                      >
-                        Secure Partner Lab Clinical Draw (£237) →
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Card 3: Continuous Telemetry & Wearables */}
-                  <div className="flex flex-col justify-between p-6 rounded-2xl bg-slate-900/30 border border-slate-900 hover:border-cyan-500/20 transition-all duration-300 text-left shadow-xl space-y-6">
-                    <div className="space-y-3.5">
-                      <span className="px-2.5 py-1 rounded-md text-[9px] font-mono uppercase bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">
-                        Continuous Logging
-                      </span>
-                      <h4 className="text-base font-display uppercase tracking-tight text-white font-bold">
-                        Continuous Telemetry & Wearables
-                      </h4>
-                      <p className="text-xs text-slate-300 leading-relaxed font-light">
-                        Continuous logging teaches machine learning algorithms your unique biometric baselines—allowing early detection of autonomic shifts (resting HR, overnight Heart Rate Variability, deep sleep cycles).
-                      </p>
-                    </div>
-
-                    {/* Vetted Affiliate Products List */}
-                    <div className="space-y-3 pt-2">
-                      <div className="p-3 bg-slate-950 rounded-xl border border-slate-900 text-xs flex flex-col justify-between h-auto gap-2">
-                        <div className="flex items-center justify-between">
-                          <span className="font-semibold text-white text-[11px] truncate">Apple Watch Series 10 [GPS 46mm]</span>
-                          <span className="text-amber-400 text-[10px] flex items-center gap-0.5 shrink-0"><Star size={10} className="fill-amber-400" /> 4.7</span>
-                        </div>
-                        <p className="text-[10px] text-slate-400 leading-normal font-light">The gold standard for continuous heart rate and nocturnal Heart Rate Variability (HRV) telemetry.</p>
-                        <a
-                          href="https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl0e-20"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[10px] font-mono uppercase text-cyan-400 hover:text-cyan-300 flex items-center gap-1 mt-1 transition-colors"
-                        >
-                          Shop Amazon Affiliate Link →
-                        </a>
-                      </div>
-
-                      <div className="p-3 bg-slate-950 rounded-xl border border-slate-900 text-xs flex flex-col justify-between h-auto gap-2">
-                        <div className="flex items-center justify-between">
-                          <span className="font-semibold text-white text-[11px] truncate">Ovarian Test UK [Biology-Specific Screening]</span>
-                          <span className="text-amber-400 text-[10px] flex items-center gap-0.5 shrink-0"><Star size={10} className="fill-amber-400" /> 5.0</span>
-                        </div>
-                        <p className="text-[10px] text-slate-400 leading-normal font-light">Focused endocrine screening for female performance and reproductive longevity.</p>
-                        <a
-                          href="https://www.amazon.com/SUPFINE-Compatible-Protection-Translucent-Anti-Fingerprint/dp/B0G3NVZLVJ?ref=dlx_deals_dg_dcl_B0G3NVZLVJ_dt_sl14_b7_pi&pf_rd_r=PJF6ECN5EE7CRH82WJRJ&pf_rd_p=1e04acd0-30fe-482c-b054-5487f3e9a5b7&th=1"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[10px] font-mono uppercase text-cyan-400 hover:text-cyan-300 flex items-center gap-1 mt-1 transition-colors"
-                        >
-                          Shop Amazon Affiliate Link →
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          )}
-
-          {/* TAB B: STEP 1 • ZERO-COST DAILY MICRO-HABITS */}
-          {(activeTab === 'step1' || activeTab === 'phase2') && (
-            <motion.div
-              key="step1"
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              variants={tabContentVariants}
-              className="space-y-12"
-            >
-              {/* Tab Header Positioning + Video 3 Split Layout */}
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-                {/* Left Column: Heading & Content */}
-                <div className="lg:col-span-7 flex flex-col justify-between space-y-6 text-left">
-                  <div className="space-y-4">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold">
-                      Step 1 of 3-Step Roadmap • Foundational Micro-Habits
-                    </span>
-                    <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
-                      Step 1: Establish Zero-Cost Daily Micro-Habits
-                    </h2>
-                    <p className="text-slate-350 text-sm md:text-base leading-relaxed font-light">
-                      Daily behavioral choices are direct software updates for your cells. Before purchasing diagnostic blood panels, master your frictionless zero-cost habits: 10-minute post-meal walks, autonomic breathing resets for sleep, and glycemic snacking shifts.
-                    </p>
-                  </div>
-
-                  {/* Vetted Brand Banner */}
-                  <div className="p-4 border border-cyan-500/10 bg-slate-900/20 backdrop-blur-md rounded-2xl flex items-center gap-3">
-                    <Award size={16} className="text-cyan-400 flex-shrink-0" />
-                    <p className="text-[11px] text-slate-400 leading-normal font-light">
-                      Every tool, guide, and biochemical accelerator listed below has been rigorously vetted for biological activity and vascular safety parameters.
-                    </p>
-                  </div>
-                </div>
-
-                {/* Right Column: Video 3 Placeholder */}
-                <div className="lg:col-span-5 flex items-stretch">
-                  <div className="w-full flex flex-col justify-between p-6 sm:p-8 rounded-3xl bg-slate-900/30 border border-cyan-500/10 backdrop-blur-md shadow-2xl relative overflow-hidden group">
-                    <div className="space-y-4 relative z-10 text-left">
-                      <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-cyan-400 block">
-                        [ Performance Briefing ]
-                      </span>
-                      <h3 className="text-lg font-display uppercase tracking-tight text-white font-black">
-                        Start Here, Start Now (Coaching Briefing)
-                      </h3>
-                    </div>
-
-                    {/* Central Play Button */}
-                    <div className="my-8 flex items-center justify-center relative z-10">
-                      <div className="absolute w-20 h-20 rounded-full bg-cyan-500/10 animate-ping"></div>
-                      <div 
-                        onClick={() => handleVideoPlaceholderClick("Start Here, Start Now")}
-                        className="w-16 h-16 rounded-full bg-gradient-to-tr from-cyan-500 to-indigo-600 text-slate-950 flex items-center justify-center shadow-2xl group-hover:scale-105 active:scale-95 transition-all duration-300 border border-cyan-400/30 cursor-pointer"
-                      >
-                        <Play size={24} className="ml-1 text-white fill-white drop-shadow-[0_2px_8px_rgba(6,182,212,0.4)]" />
-                      </div>
-                    </div>
-
-                    <div className="space-y-2 relative z-10 text-left">
-                      <p className="text-[11px] text-slate-400 leading-relaxed font-light font-light">
-                        <strong>Upcoming 65-second coaching session</strong> detailing how to execute your frictionless biophysical habits on Day 1, and how to accelerate your sleep, strength, and metabolic nutrition using our vetted daily vitamin, collagen, and low-cost toolkits.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* 3-Column Onboarding Cards Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
-                
-                {/* CARD 1: Mobility & Strength */}
-                <div className="flex flex-col justify-between p-6 rounded-2xl bg-slate-900/30 border border-slate-900 hover:border-cyan-500/20 transition-all duration-300 text-left shadow-xl space-y-6">
-                  <div className="space-y-4">
-                    <span className="px-2.5 py-1 rounded-md text-[9px] font-mono uppercase bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-bold">
-                      Movement & Strength
-                    </span>
-                    <h3 className="text-base font-display uppercase tracking-tight text-white font-bold">
-                      10-Minute Mobility Walks
-                    </h3>
-                    <div className="space-y-2 text-xs leading-relaxed text-slate-350">
-                      <p className="font-semibold text-slate-200">Daily Win:</p>
-                      <p className="font-light">Post-meal walking to clear systemic cortisol and flatten blood sugar spikes.</p>
-                    </div>
-                    
-                    <div className="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-2 text-[11px] leading-relaxed">
-                      <span className="font-semibold text-white block">Direct Digital Product:</span>
-                      <p className="text-slate-400 font-light">
-                        Deploy our Beginner Home Workout Plan (£19.00) — a 4-week zero-equipment routine to build baseline structural joint and lean mass health.
-                      </p>
-                      <Link 
-                        to="/premium-guides"
-                        className="inline-flex items-center gap-1 text-[10px] text-cyan-400 hover:underline uppercase font-mono tracking-wider pt-1"
-                      >
-                        Acquire Guide <ArrowRight size={10} />
-                      </Link>
-                    </div>
-                  </div>
-
-                  <div className="pt-2 border-t border-slate-900">
-                    <div className="space-y-2">
-                      <span className="text-[9px] font-mono uppercase tracking-wider text-slate-400 block">Vetted Affiliate Tool</span>
-                      <p className="text-[10px] text-slate-300 leading-normal font-light">
-                        <strong>Amazon Basics Cast Iron Kettlebell:</strong> The ultimate, low-cost home strength extension.
-                      </p>
-                      <a
-                        href="https://www.amazon.co.uk/dp/B076QJY2FN?tag=123znl0f3-21"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-[10px] font-mono text-cyan-400 hover:text-cyan-300 tracking-wider uppercase pt-1"
-                      >
-                        Shop Amazon Affiliate Link →
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
-                {/* CARD 2: Recovery & Sleep */}
-                <div className="flex flex-col justify-between p-6 rounded-2xl bg-slate-900/30 border border-slate-900 hover:border-cyan-500/20 transition-all duration-300 text-left shadow-xl space-y-6">
-                  <div className="space-y-4">
-                    <span className="px-2.5 py-1 rounded-md text-[9px] font-mono uppercase bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 font-bold">
-                      Nervous System & Recovery
-                    </span>
-                    <h3 className="text-base font-display uppercase tracking-tight text-white font-bold">
-                      Breathing Mindfulness & Sleep Resets
-                    </h3>
-                    <div className="space-y-2 text-xs leading-relaxed text-slate-350">
-                      <p className="font-semibold text-slate-200">Daily Win:</p>
-                      <p className="font-light">Activating deep autonomic resets to stimulate the vagus nerve, manage nightly cortisol, and elevate overnight Heart Rate Variability (HRV).</p>
-                    </div>
-
-                    <div className="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-2 text-[11px] leading-relaxed">
-                      <span className="font-semibold text-white block">Direct Digital Product:</span>
-                      <p className="text-slate-400 font-light">
-                        Master your circadian sleep architecture with our Cortisol & Stress Management Guide (£22.00).
-                      </p>
-                      <Link 
-                        to="/premium-guides"
-                        className="inline-flex items-center gap-1 text-[10px] text-cyan-400 hover:underline uppercase font-mono tracking-wider pt-1"
-                      >
-                        Acquire Guide <ArrowRight size={10} />
-                      </Link>
-                    </div>
-                  </div>
-
-                  <div className="pt-2 border-t border-slate-900 space-y-3">
-                    <span className="text-[9px] font-mono uppercase tracking-wider text-slate-400 block">Low-Cost Affiliate Tools</span>
-                    
-                    <div className="space-y-2.5 text-[10px]">
-                      <div className="space-y-1">
-                        <p className="text-slate-300 leading-normal font-light">
-                          <strong>Sony WH-CH720N Noise-Canceling Headphones:</strong> Block out environmental sensory pollution for resets.
-                        </p>
-                        <a
-                          href="https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[9px] font-mono text-cyan-400 hover:text-cyan-300 uppercase tracking-wider block"
-                        >
-                          Shop on Amazon →
-                        </a>
-                      </div>
-
-                      <div className="space-y-1">
-                        <p className="text-slate-300 leading-normal font-light">
-                          <strong>basaho Classic Zafu Meditation Cushion:</strong> Ergonomic support for structural mindfulness resets.
-                        </p>
-                        <a
-                          href="https://www.amazon.co.uk/dp/B01B81R34U?tag=123znl0a-21&"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[9px] font-mono text-cyan-400 hover:text-cyan-300 uppercase tracking-wider block"
-                        >
-                          Shop on Amazon →
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* CARD 3: Glycemic Snacking & Metabolic Nutrition */}
-                <div className="flex flex-col justify-between p-6 rounded-2xl bg-slate-900/30 border border-slate-900 hover:border-cyan-500/20 transition-all duration-300 text-left shadow-xl space-y-6">
-                  <div className="space-y-4">
-                    <span className="px-2.5 py-1 rounded-md text-[9px] font-mono uppercase bg-amber-500/10 text-amber-400 border border-amber-500/20 font-bold">
-                      Nutrition & Food Prep
-                    </span>
-                    <h3 className="text-base font-display uppercase tracking-tight text-white font-bold">
-                      Glycemic Snacking & Metabolism
-                    </h3>
-                    <div className="space-y-2 text-xs leading-relaxed text-slate-350">
-                      <p className="font-semibold text-slate-200">Daily Win:</p>
-                      <p className="font-light">Strategic, low-glycemic dietary choices to stabilize cellular energy and protect insulin sensitivity.</p>
-                    </div>
-
-                    <div className="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-2 text-[11px] leading-relaxed">
-                      <span className="font-semibold text-white block">Direct Digital Product:</span>
-                      <p className="text-slate-400 font-light">
-                        Structure your weekly grocery and macro workflows with The Master Meal Planning Guide (£24.00).
-                      </p>
-                      <Link 
-                        to="/premium-guides"
-                        className="inline-flex items-center gap-1 text-[10px] text-cyan-400 hover:underline uppercase font-mono tracking-wider pt-1"
-                      >
-                        Acquire Guide <ArrowRight size={10} />
-                      </Link>
-                    </div>
-                  </div>
-
-                  <div className="pt-2 border-t border-slate-900 space-y-3">
-                    <span className="text-[9px] font-mono uppercase tracking-wider text-slate-400 block">Vetted Kitchen & Accelerator Tools</span>
-                    
-                    <div className="space-y-2 text-[10px]">
-                      {/* Kitchen Gadgets */}
-                      <div className="p-2 bg-slate-950 rounded-lg border border-slate-900 space-y-1">
-                        <span className="text-white font-semibold">Ninja Foodi Dual Zone Air Fryer</span>
-                        <p className="text-slate-400 text-[9px] leading-normal font-light">The gold standard for preparing low-oil, metabolic family meals.</p>
-                        <a
-                          href="/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[9px] font-mono text-cyan-400 hover:text-cyan-300 uppercase block tracking-wider pt-0.5"
-                        >
-                          Shop on Amazon →
-                        </a>
-                      </div>
-
-                      <div className="p-2 bg-slate-950 rounded-lg border border-slate-900 space-y-1">
-                        <span className="text-white font-semibold">Moulinex Easy Fry & Grill (4.2L)</span>
-                        <p className="text-slate-400 text-[9px] leading-normal font-light">Compact kitchen tool for single-person glycemic meal prep.</p>
-                        <a
-                          href="https://www.amazon.co.uk/dp/B09FQBKFQ6?tag=123znl08a-21"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[9px] font-mono text-cyan-400 hover:text-cyan-300 uppercase block tracking-wider pt-0.5"
-                        >
-                          Shop on Amazon →
-                        </a>
-                      </div>
-
-                      {/* Biochemical Accelerators */}
-                      <div className="p-2 bg-slate-950 rounded-lg border border-slate-900 space-y-1">
-                        <span className="text-white font-semibold">Zebora Marine Collagen</span>
-                        <p className="text-slate-400 text-[9px] leading-normal font-light">Vetted supplement for gut-mitochondrial axis.</p>
-                        <a
-                          href="https://www.amazon.com/dp/B07Z8G2G2M?tag=123znl0e-20"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[9px] font-mono text-cyan-400 hover:text-cyan-300 uppercase block tracking-wider pt-0.5"
-                        >
-                          Shop Affiliate Link →
-                        </a>
-                      </div>
-
-                      <div className="p-2 bg-slate-950 rounded-lg border border-slate-900 space-y-1">
-                        <span className="text-white font-semibold">Owala Insulated Water Bottle</span>
-                        <p className="text-slate-400 text-[9px] leading-normal font-light">Maintain cellular hydration during eating windows.</p>
-                        <a
-                          href="https://www.amazon.com/dp/B085DV8C54?tag=123znl0e-20"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[9px] font-mono text-cyan-400 hover:text-cyan-300 uppercase block tracking-wider pt-0.5"
-                        >
-                          Shop Affiliate Link →
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </motion.div>
-          )}
-
-          {/* TAB C: STEP 3 • OPTIMIZE THE 6 PILLARS */}
-          {(activeTab === 'step3' || activeTab === 'clinician') && (
-            <motion.div
-              key="step3"
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              variants={tabContentVariants}
-              className="space-y-12"
-            >
-              {/* Tab Header Positioning */}
-              <div className="text-left space-y-4 max-w-4xl">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-mono uppercase tracking-wider bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 font-bold">
-                  Step 3 of 3-Step Roadmap • Shared Decision Making
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-display uppercase tracking-tight text-white font-black">
-                  Step 3: Optimize the 6 Pillars Based on Hard Diagnostic Proof
-                </h2>
-                <p className="text-slate-350 text-sm md:text-base leading-relaxed font-light">
-                  Raw biometric data is not a diagnosis. We make clinician partnership a mandatory operational protocol. Take your 2-page GP Consultation Template (PDF V2) to your doctor to review your 14-day vitals log and calibrate the 6 longevity pillars with absolute clinical certainty.
-                </p>
-              </div>
-
-              {/* Primary Action Callout Card (Center-Aligned) */}
-              <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/40 border border-cyan-500/10 backdrop-blur-md text-center max-w-3xl mx-auto space-y-6 shadow-2xl relative overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/5 to-transparent pointer-events-none"></div>
-                
-                <div className="mx-auto w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center shadow-lg">
-                  <Download size={24} />
-                </div>
-                
-                <div className="space-y-2">
-                  <h3 className="text-lg font-display uppercase tracking-tight text-white font-black">
-                    📥 Download Printable GP Consultation Template (PDF V2)
-                  </h3>
-                  <p className="text-slate-400 text-xs max-w-xl mx-auto leading-relaxed font-light">
-                    Our structured, patient-held 2-page leave-behind features dedicated logging grids for personal health history, 14-day wearable metric baselines (resting HR, HRV, BP), and physician requisitions.
-                  </p>
-                </div>
-
-                <div className="pt-2 flex flex-wrap justify-center gap-3">
-                  <Link
-                    to="/clinician-copilot"
-                    className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-[0_0_20px_rgba(6,182,212,0.3)] hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
-                  >
-                    Open Clinician Co-Pilot Suite →
-                  </Link>
-                  <a
-                    href="/assets/docs/clinical-baseline-consultation-template-v2.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    download="clinical-baseline-consultation-template-v2.pdf"
-                    className="inline-flex justify-center items-center gap-2 px-6 py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-2xl text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-lg shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
-                  >
-                    <Download size={16} />
-                    <span>Download PDF V2</span>
-                  </a>
-                </div>
-              </div>
-
-              {/* GP Integration Steps (3-Column Layout) */}
-              <div className="space-y-6">
-                <div className="border-b border-slate-900 pb-3 text-left">
-                  <h3 className="text-sm font-mono uppercase tracking-wider text-slate-400 font-bold">
-                    Protocol Workflow
-                  </h3>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-                  <div className="p-6 bg-slate-900/30 border border-slate-900 rounded-2xl space-y-3">
-                    <span className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold">Step 1</span>
-                    <h4 className="text-base font-display uppercase tracking-tight text-white font-bold">1. Download & Print</h4>
-                    <p className="text-xs text-slate-400 leading-relaxed font-light">
-                      Print the baseline workbook template before your clinical appointment so you have a physical copy to reference.
-                    </p>
-                  </div>
-
-                  <div className="p-6 bg-slate-900/30 border border-slate-900 rounded-2xl space-y-3">
-                    <span className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold">Step 2</span>
-                    <h4 className="text-base font-display uppercase tracking-tight text-white font-bold">2. Log Wearable Metrics</h4>
-                    <p className="text-xs text-slate-400 leading-relaxed font-light">
-                      Log 7 days of resting vital signs (HRV, deep sleep cycles, resting HR) from your smartwatch or scale onto the grid sheets.
-                    </p>
-                  </div>
-
-                  <div className="p-6 bg-slate-900/30 border border-slate-900 rounded-2xl space-y-3">
-                    <span className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold">Step 3</span>
-                    <h4 className="text-base font-display uppercase tracking-tight text-white font-bold">3. Schedule Consultation</h4>
-                    <p className="text-xs text-slate-400 leading-relaxed font-light">
-                      Book an appointment with your general practitioner to co-evaluate and validate your diagnostic data collaboratively.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Clinician Discussion Scripts (Interactive Accordion) */}
-              <div className="space-y-6">
-                <div className="border-b border-slate-900 pb-3 text-left">
-                  <h3 className="text-sm font-mono uppercase tracking-wider text-slate-400 font-bold flex items-center gap-2">
-                    <Compass size={14} className="text-indigo-400" />
-                    Clinician Discussion Scripts
-                  </h3>
-                </div>
-
-                <div className="max-w-4xl mx-auto space-y-3.5 text-left">
-                  {/* Script 1 Accordion */}
-                  <div className="border border-slate-900 rounded-2xl bg-slate-900/20 overflow-hidden transition-all duration-300">
-                    <button
-                      onClick={() => toggleScript(1)}
-                      className="w-full p-5 flex items-center justify-between hover:bg-slate-900/40 text-left transition-colors cursor-pointer"
-                    >
-                      <span className="text-xs sm:text-sm font-display uppercase tracking-wider text-white font-bold">
-                        Script A: How to Introduce Your Baseline
-                      </span>
-                      {activeScript === 1 ? <ChevronUp size={16} className="text-cyan-400" /> : <ChevronDown size={16} className="text-slate-400" />}
-                    </button>
-                    
-                    <AnimatePresence initial={false}>
-                      {activeScript === 1 && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.25 }}
-                        >
-                          <div className="p-5 bg-slate-950/80 border-t border-slate-900 text-xs sm:text-sm leading-relaxed text-slate-300 font-light italic font-serif">
-                            &ldquo;Doctor, I am tracking my lifestyle biometrics proactively to prevent chronic disease. I have logged my baseline wearable telemetry and would like to coordinate a Lola Vital Check 56 panel to establish my metabolic and vascular indicators.&rdquo;
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  {/* Script 2 Accordion */}
-                  <div className="border border-slate-900 rounded-2xl bg-slate-900/20 overflow-hidden transition-all duration-300">
-                    <button
-                      onClick={() => toggleScript(2)}
-                      className="w-full p-5 flex items-center justify-between hover:bg-slate-900/40 text-left transition-colors cursor-pointer"
-                    >
-                      <span className="text-xs sm:text-sm font-display uppercase tracking-wider text-white font-bold">
-                        Script B: On Data Sovereignty & Collaboration
-                      </span>
-                      {activeScript === 2 ? <ChevronUp size={16} className="text-cyan-400" /> : <ChevronDown size={16} className="text-slate-400" />}
-                    </button>
-                    
-                    <AnimatePresence initial={false}>
-                      {activeScript === 2 && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: 'auto', opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.25 }}
-                        >
-                          <div className="p-5 bg-slate-950/80 border-t border-slate-900 text-xs sm:text-sm leading-relaxed text-slate-300 font-light italic font-serif">
-                            &ldquo;I maintain full ownership of my clinical results. I would like us to use this patient-held template as a collaborative care directive to track my healthy life expectancy over time.&rdquo;
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
         {/* ========================================================================= */}
-        {/* 3 PARALLEL TRACKS TO LONGEVITY (STRICT ADDITIVE SECTION)                  */}
+        {/* PAGE HERO HEADER                                                          */}
         {/* ========================================================================= */}
-        <section className="mt-20 pt-16 border-t border-slate-900 relative">
-          {/* Ambient background flares */}
-          <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-80 h-80 bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
-          <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-80 h-80 bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="text-center max-w-4xl mx-auto space-y-6 pt-4">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/70 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-bold uppercase tracking-widest shadow-[0_0_25px_rgba(6,182,212,0.15)]">
+            <Compass size={14} className="animate-spin text-cyan-400" style={{ animationDuration: '10s' }} />
+            <span>5-STEP ONBOARDING ROADMAP</span>
+          </div>
 
-          <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full text-[10px] font-mono uppercase tracking-[0.2em] bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold shadow-sm">
-              <Sparkles size={12} className="text-cyan-400 animate-pulse" />
-              <span>3 PARALLEL TRACKS TO LONGEVITY</span>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-black uppercase tracking-tight text-white leading-tight">
+            From Zero-Cost Habits to{' '}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-indigo-400">
+              Precision Geroscience
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display uppercase tracking-tight text-white font-black">
-              The Three Parallel Tracks to Biological Sovereignty
-            </h2>
-            <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto font-light">
-              True healthy life expectancy expansion is not linear. Maximum biological longevity requires running three parallel protocols simultaneously—daily physical hardware, continuous diagnostic radar, and targeted cellular nutrition.
-            </p>
+          </h1>
+
+          <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-light max-w-2xl mx-auto">
+            Longevity isn’t a mystery; it’s an operational protocol. Follow this sequential, 5-step roadmap to eliminate guesswork, establish home and clinical telemetry, and align with your physician.
+          </p>
+
+          {/* Quick Step Anchor Pills */}
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-2 text-xs font-mono">
+            <a href="#step-0" className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-cyan-500/50 text-slate-300 hover:text-cyan-400 transition-all">
+              Step 0: Dual-Hook
+            </a>
+            <span className="text-slate-600">→</span>
+            <a href="#step-1" className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-cyan-500/50 text-slate-300 hover:text-cyan-400 transition-all">
+              Step 1: Day 1 Action
+            </a>
+            <span className="text-slate-600">→</span>
+            <a href="#step-2" className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-cyan-500/50 text-slate-300 hover:text-cyan-400 transition-all">
+              Step 2: Diagnostic Radar
+            </a>
+            <span className="text-slate-600">→</span>
+            <a href="#step-3" className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-cyan-500/50 text-slate-300 hover:text-cyan-400 transition-all">
+              Step 3: Clinician Co-Pilot
+            </a>
+            <span className="text-slate-600">→</span>
+            <a href="#step-4" className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-cyan-500/50 text-slate-300 hover:text-cyan-400 transition-all">
+              Step 4: 6 Pillars
+            </a>
+          </div>
+        </div>
+
+        {/* ========================================================================= */}
+        {/* STEP 0: Zero-Cost Onboarding Dual-Hook                                    */}
+        {/* ========================================================================= */}
+        <section id="step-0" className="scroll-mt-28 space-y-6">
+          <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
+            <span className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono font-bold flex items-center justify-center text-sm">
+              00
+            </span>
+            <div>
+              <span className="text-[11px] font-mono uppercase text-cyan-400 tracking-widest font-bold">START AT ZERO COST</span>
+              <h2 className="text-2xl sm:text-3xl font-display font-black uppercase text-white">
+                Step 0: The Dual-Hook Onboarding
+              </h2>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
-            {/* Track 1: Performance & Movement */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-cyan-500/30 hover:border-cyan-500/60 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-xl hover:-translate-y-1 relative group">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 group-hover:scale-110 transition-transform">
-                    <Activity size={22} />
-                  </span>
-                  <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-cyan-950/80 border border-cyan-800/50 text-cyan-300 font-bold">
-                    Track 1
-                  </span>
-                </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl font-display uppercase tracking-tight font-black text-white group-hover:text-cyan-300 transition-colors">
-                    Performance &amp; Movement
-                  </h3>
-                  <p className="text-xs font-semibold text-cyan-400/90 mt-1">
-                    Home Workouts, VO2 Max &amp; Muscle Mass
-                  </p>
-                </div>
-                <p className="text-xs text-slate-300 leading-relaxed font-light">
-                  Build functional muscle density, condition Zone 2 mitochondrial capacity, and stabilize postprandial glucose excursions through structured home routines.
-                </p>
-
-                {/* Highlighted Mind & Stress Management Focus */}
-                <div className="p-4 rounded-xl bg-cyan-950/40 border border-cyan-800/40 space-y-2">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-cyan-300">
-                    <HeartPulse size={14} className="text-cyan-400 shrink-0" />
-                    <span>Mind &amp; Stress Management (Core Input)</span>
-                  </div>
-                  <p className="text-[11px] text-slate-350 leading-relaxed">
-                    Breathing resets (cyclic physiological sighing, box breathing) and Non-Sleep Deep Rest (NSDR) are prioritized as essential physiological drivers directly measured to up-regulate parasympathetic vagal tone, accelerate nocturnal HRV rebound, and suppress chronic cortisol.
-                  </p>
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-slate-800 flex items-center justify-between text-xs">
-                <Link to="/fitness" className="text-cyan-400 hover:text-cyan-300 font-bold flex items-center gap-1">
-                  <span>Physical Protocols</span>
-                  <ArrowRight size={13} />
-                </Link>
-                <Link to="/wellness" className="text-slate-400 hover:text-white font-medium">
-                  Mind &amp; Stress Pillar →
-                </Link>
-              </div>
-            </div>
-
-            {/* Track 2: Healthspan & Diagnostic Radar */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-amber-500/40 hover:border-amber-500/70 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-xl hover:-translate-y-1 relative group">
-              <div className="absolute top-0 right-0 left-0 h-[2px] bg-gradient-to-r from-amber-500 via-orange-400 to-cyan-500 rounded-t-3xl opacity-80" />
+            {/* OPTION A: 5-Minute Longevity Baseline Quiz */}
+            <div className="p-7 sm:p-8 rounded-3xl bg-slate-900/70 border border-slate-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between space-y-6 relative overflow-hidden group shadow-xl">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full blur-2xl group-hover:bg-cyan-500/10 transition-all pointer-events-none" />
               
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 group-hover:scale-110 transition-transform">
-                    <FileText size={22} />
+                  <span className="px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-cyan-950 border border-cyan-800 text-cyan-400 font-bold">
+                    OPTION A • INTERACTIVE
                   </span>
-                  <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-amber-950/80 border border-amber-800/50 text-amber-300 font-bold">
-                    Track 2 • The Key
-                  </span>
+                  <span className="text-xs font-mono text-slate-400">Time: ~5 mins</span>
                 </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl font-display uppercase tracking-tight font-black text-white group-hover:text-amber-300 transition-colors">
-                    Healthspan &amp; Diagnostic Radar
-                  </h3>
-                  <p className="text-xs font-semibold text-amber-400/90 mt-1">
-                    Clinician Co-Pilot Workbook &amp; GP Consultation Partnership
-                  </p>
-                </div>
-                <p className="text-xs text-slate-300 leading-relaxed font-light">
-                  Use our free Clinician Co-Pilot Workbook to log your 14-day vitals, select your regional blood panels (ApoB, HbA1c, hs-CRP), and co-evaluate your results with your GP.
-                </p>
 
-                <div className="p-4 rounded-xl bg-amber-950/30 border border-amber-800/40 space-y-2">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-amber-300">
-                    <Shield size={14} className="text-amber-400 shrink-0" />
-                    <span>Collaborative Physician Directives</span>
-                  </div>
-                  <p className="text-[11px] text-slate-350 leading-relaxed">
-                    Deploy our 4-page interactive workbook and word-for-word physician scripts to turn your GP into a proactive longevity partner, logging 14-day vital telemetry before every consultation.
+                <div className="space-y-2">
+                  <h3 className="text-xl sm:text-2xl font-display font-black uppercase text-white flex items-center gap-2">
+                    <span>🎯 Take the 5-Minute Longevity Baseline Quiz</span>
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+                    Establish your personalized biological score across cardiovascular risk, metabolic control, sleep architecture, and autonomic recovery. Receive immediate regional recommendations.
                   </p>
+                </div>
+
+                {/* Regional Pre-Selection Selector */}
+                <div className="space-y-2 pt-2 border-t border-slate-800/80">
+                  <label className="text-[11px] font-mono uppercase text-slate-400 block font-semibold">
+                    1. Select Your Healthcare Region:
+                  </label>
+                  <div className="grid grid-cols-3 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => handleRegionSelect('US')}
+                      className={`p-2 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                        selectedRegion === 'US'
+                          ? 'bg-cyan-500 text-slate-950 border-cyan-400 shadow-md shadow-cyan-500/20'
+                          : 'bg-slate-800/60 border-slate-700/80 text-slate-300 hover:text-white hover:bg-slate-800'
+                      }`}
+                    >
+                      <FlagUS className="w-4 h-3 pointer-events-none" />
+                      <span>US</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleRegionSelect('UK')}
+                      className={`p-2 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                        selectedRegion === 'UK'
+                          ? 'bg-cyan-500 text-slate-950 border-cyan-400 shadow-md shadow-cyan-500/20'
+                          : 'bg-slate-800/60 border-slate-700/80 text-slate-300 hover:text-white hover:bg-slate-800'
+                      }`}
+                    >
+                      <FlagUK className="w-4 h-3 pointer-events-none" />
+                      <span>UK</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleRegionSelect('ES')}
+                      className={`p-2 rounded-xl border text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                        selectedRegion === 'ES'
+                          ? 'bg-cyan-500 text-slate-950 border-cyan-400 shadow-md shadow-cyan-500/20'
+                          : 'bg-slate-800/60 border-slate-700/80 text-slate-300 hover:text-white hover:bg-slate-800'
+                      }`}
+                    >
+                      <FlagES className="w-4 h-3 pointer-events-none" />
+                      <span>ES / EU</span>
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-slate-800 flex flex-col gap-2">
-                <Link
-                  to="/clinician-copilot"
-                  className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-bold text-xs uppercase tracking-wider text-center transition-all shadow-md flex items-center justify-center gap-2"
+              <div>
+                <button
+                  type="button"
+                  onClick={handleStartQuiz}
+                  className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.98] cursor-pointer"
                 >
-                  <span>Open Clinician Co-Pilot ➔</span>
-                </Link>
-                <a
-                  href="/assets/docs/clinical-baseline-consultation-workbook.pdf"
-                  download
-                  className="text-center text-[11px] text-slate-400 hover:text-white transition-colors py-1"
-                >
-                  Download Blank PDF ($0)
-                </a>
+                  <span>Start Baseline Quiz ({selectedRegion})</span>
+                  <ArrowRight size={15} />
+                </button>
+                <div className="text-center mt-2">
+                  <span className="text-[10px] text-slate-400">100% Free • No registration required</span>
+                </div>
               </div>
             </div>
 
-            {/* Track 3: Metabolic Nutrition */}
-            <div className="p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-emerald-500/30 hover:border-emerald-500/60 transition-all duration-300 flex flex-col justify-between space-y-6 shadow-xl hover:-translate-y-1 relative group">
+            {/* OPTION B: Free Guide PDF Download */}
+            <div className="p-7 sm:p-8 rounded-3xl bg-slate-900/70 border border-slate-800 hover:border-emerald-500/40 transition-all flex flex-col justify-between space-y-6 relative overflow-hidden group shadow-xl">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/10 transition-all pointer-events-none" />
+
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 group-hover:scale-110 transition-transform">
-                    <Award size={22} />
+                  <span className="px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-950 border border-emerald-800 text-emerald-400 font-bold">
+                    OPTION B • FOUNDATION MANUAL
                   </span>
-                  <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-950/80 border border-emerald-800/50 text-emerald-300 font-bold">
-                    Track 3
-                  </span>
+                  <span className="text-xs font-mono text-slate-400">Format: 42-Page PDF</span>
                 </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl font-display uppercase tracking-tight font-black text-white group-hover:text-emerald-300 transition-colors">
-                    Metabolic Nutrition
-                  </h3>
-                  <p className="text-xs font-semibold text-emerald-400/90 mt-1">
-                    Clean Fuel, Energy &amp; Weight Control
-                  </p>
-                </div>
-                <p className="text-xs text-slate-300 leading-relaxed font-light">
-                  Fuel cellular autophagy and protect vascular endothelia with clean, third-party NSF-certified nutraceuticals matched directly to your biological age and metabolic rate.
-                </p>
 
-                <div className="p-4 rounded-xl bg-emerald-950/30 border border-emerald-800/40 space-y-2">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-emerald-300">
-                    <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
-                    <span>Day 1 Universal Baseline Stack</span>
-                  </div>
-                  <p className="text-[11px] text-slate-350 leading-relaxed">
-                    Begin with the core foundation: Vitamin D3 + K2 (MK-7), pure molecularly distilled Omega-3 EPA/DHA, and bioavailable Magnesium Glycinate/Malate, adjusting dosages only when supported by follow-up blood panel results.
+                <div className="space-y-2">
+                  <h3 className="text-xl sm:text-2xl font-display font-black uppercase text-white flex items-center gap-2">
+                    <span>📖 Download 'An Idiot's Guide to the Next Level Lifespan'</span>
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+                    The zero-fluff starter handbook translating cellular aging, Yamanaka rejuvenation biology, metabolic timing, and continuous fluid telemetry into everyday plain English.
                   </p>
+                </div>
+
+                <div className="space-y-2 pt-2 border-t border-slate-800/80 text-xs text-slate-300">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
+                    <span>Hardware vs. Software longevity biology explained simply</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
+                    <span>The 3 crucial blood markers your GP likely skipped (ApoB, HbA1c, hs-CRP)</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={14} className="text-emerald-400 shrink-0" />
+                    <span>Immediate Day 1 nutrition, walk, and vagus nerve protocols</span>
+                  </div>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-slate-800 flex items-center justify-between text-xs">
-                <Link to="/nutrition" className="text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1">
-                  <span>Metabolic Nutrition</span>
-                  <ArrowRight size={13} />
+              <div>
+                <a
+                  href="/assets/docs/Finalthe-next-level-lifespan.pdf"
+                  download="Finalthe-next-level-lifespan.pdf"
+                  className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-emerald-500/20 hover:scale-[1.01] active:scale-[0.98] cursor-pointer"
+                >
+                  <Download size={15} />
+                  <span>Download Free Guide (PDF)</span>
+                </a>
+                <div className="text-center mt-2 flex items-center justify-center gap-3 text-[10px] text-slate-400">
+                  <a 
+                    href="/assets/docs/Finalthe-next-level-lifespan.pdf" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="hover:text-emerald-300 underline flex items-center gap-1"
+                  >
+                    <Eye size={11} /> Read in Browser
+                  </a>
+                  <span>•</span>
+                  <span>Instant $0 Direct Access</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* STEP 1: The Day 1 Action Plan (3 Core Protocols)                          */}
+        {/* ========================================================================= */}
+        <section id="step-1" className="scroll-mt-28 space-y-6">
+          <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
+            <span className="w-8 h-8 rounded-lg bg-teal-500/10 border border-teal-500/30 text-teal-400 font-mono font-bold flex items-center justify-center text-sm">
+              01
+            </span>
+            <div>
+              <span className="text-[11px] font-mono uppercase text-teal-400 tracking-widest font-bold">IMMEDIATE LIFESTYLE FOUNDATION</span>
+              <h2 className="text-2xl sm:text-3xl font-display font-black uppercase text-white">
+                Step 1: The Day 1 Action Plan
+              </h2>
+            </div>
+          </div>
+
+          <p className="text-sm text-slate-300 max-w-3xl font-light">
+            Before ordering blood panels or wearing sensors, activate these three zero-cost foundational habits today. Each intervention delivers an immediate acute benefit alongside a 30-year epigenetic compounding return.
+          </p>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            {/* CARD 1: Diet & Metabolic Nutrition */}
+            <div className="p-6 sm:p-7 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between space-y-5">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center">
+                    <Droplet size={20} />
+                  </div>
+                  <span className="text-[10px] font-mono text-cyan-400 uppercase font-bold tracking-wider">Metabolism</span>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-display font-black uppercase text-white">
+                    🥗 Diet &amp; Metabolic Nutrition
+                  </h3>
+                  <div className="mt-2 p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-200">
+                    <strong className="text-cyan-300 block font-mono text-[11px] uppercase">Essential Action:</strong>
+                    Low-glycemic snacking, 8–10 glasses water, 0.6–0.8g/lb protein timing.
+                  </div>
+                </div>
+
+                <div className="space-y-3 pt-2 text-xs">
+                  {/* Danger of Inaction */}
+                  <div className="p-3 rounded-xl bg-rose-950/30 border border-rose-800/40 text-rose-200">
+                    <div className="flex items-center gap-1.5 font-bold text-rose-400 text-[11px] uppercase tracking-wider mb-1">
+                      <AlertTriangle size={13} className="shrink-0" />
+                      <span>🛑 Danger of Inaction</span>
+                    </div>
+                    <p className="leading-relaxed font-light">
+                      &quot;Uncontrolled post-meal glucose spikes cause chronic insulin surges and endothelial vessel damage.&quot;
+                    </p>
+                  </div>
+
+                  {/* Short-Term Payback */}
+                  <div className="p-3 rounded-xl bg-teal-950/30 border border-teal-800/40 text-teal-200">
+                    <div className="flex items-center gap-1.5 font-bold text-teal-400 text-[11px] uppercase tracking-wider mb-1">
+                      <Zap size={13} className="shrink-0" />
+                      <span>⚡ Short-Term Payback</span>
+                    </div>
+                    <p className="leading-relaxed font-light">
+                      &quot;Eliminates afternoon energy crashes, brain fog, and insulin fatigue.&quot;
+                    </p>
+                  </div>
+
+                  {/* Long-Term Epigenetic Payback */}
+                  <div className="p-3 rounded-xl bg-indigo-950/30 border border-indigo-800/40 text-indigo-200">
+                    <div className="flex items-center gap-1.5 font-bold text-indigo-400 text-[11px] uppercase tracking-wider mb-1">
+                      <Dna size={13} className="shrink-0" />
+                      <span>🧬 Long-Term Epigenetic Payback</span>
+                    </div>
+                    <p className="leading-relaxed font-light">
+                      &quot;Protects vascular linings and preserves 30-year insulin sensitivity.&quot;
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-800">
+                <Link
+                  to="/nutrition"
+                  className="w-full inline-flex items-center justify-between py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all"
+                >
+                  <span>🥗 View Full Metabolic Nutrition Protocol</span>
+                  <ArrowRight size={14} />
                 </Link>
-                <Link to="/store" className="text-slate-400 hover:text-white font-medium">
-                  Procure Stack →
+              </div>
+            </div>
+
+            {/* CARD 2: Exercise & Post-Meal Mobility */}
+            <div className="p-6 sm:p-7 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-teal-500/40 transition-all flex flex-col justify-between space-y-5">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/30 text-teal-400 flex items-center justify-center">
+                    <Activity size={20} />
+                  </div>
+                  <span className="text-[10px] font-mono text-teal-400 uppercase font-bold tracking-wider">Mobility</span>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-display font-black uppercase text-white">
+                    🚶 Exercise &amp; Post-Meal Mobility
+                  </h3>
+                  <div className="mt-2 p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-200">
+                    <strong className="text-teal-300 block font-mono text-[11px] uppercase">Essential Action:</strong>
+                    10-minute post-meal walks, beginner bodyweight foundation (box squats, hip hinges, RPE 5–7).
+                  </div>
+                </div>
+
+                <div className="space-y-3 pt-2 text-xs">
+                  {/* Danger of Inaction */}
+                  <div className="p-3 rounded-xl bg-rose-950/30 border border-rose-800/40 text-rose-200">
+                    <div className="flex items-center gap-1.5 font-bold text-rose-400 text-[11px] uppercase tracking-wider mb-1">
+                      <AlertTriangle size={13} className="shrink-0" />
+                      <span>🛑 Danger of Inaction</span>
+                    </div>
+                    <p className="leading-relaxed font-light">
+                      &quot;Sedentary post-meal sitting leaves blood sugar elevated, straining the pancreas and starving joint cartilage.&quot;
+                    </p>
+                  </div>
+
+                  {/* Short-Term Payback */}
+                  <div className="p-3 rounded-xl bg-teal-950/30 border border-teal-800/40 text-teal-200">
+                    <div className="flex items-center gap-1.5 font-bold text-teal-400 text-[11px] uppercase tracking-wider mb-1">
+                      <Zap size={13} className="shrink-0" />
+                      <span>⚡ Short-Term Payback</span>
+                    </div>
+                    <p className="leading-relaxed font-light">
+                      &quot;Activates GLUT4 muscle receptors to clear up to 30% of glucose directly without heavy insulin demand.&quot;
+                    </p>
+                  </div>
+
+                  {/* Long-Term Epigenetic Payback */}
+                  <div className="p-3 rounded-xl bg-indigo-950/30 border border-indigo-800/40 text-indigo-200">
+                    <div className="flex items-center gap-1.5 font-bold text-indigo-400 text-[11px] uppercase tracking-wider mb-1">
+                      <Dna size={13} className="shrink-0" />
+                      <span>🧬 Long-Term Epigenetic Payback</span>
+                    </div>
+                    <p className="leading-relaxed font-light">
+                      &quot;Drives mitochondrial biogenesis and protects against sarcopenia and physical frailty.&quot;
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-800">
+                <Link
+                  to="/fitness"
+                  className="w-full inline-flex items-center justify-between py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-teal-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all"
+                >
+                  <span>🚶 View Full Movement &amp; Fitness Protocol</span>
+                  <ArrowRight size={14} />
+                </Link>
+              </div>
+            </div>
+
+            {/* CARD 3: Meditation & Autonomic Resets */}
+            <div className="p-6 sm:p-7 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-purple-500/40 transition-all flex flex-col justify-between space-y-5">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-400 flex items-center justify-center">
+                    <Heart size={20} />
+                  </div>
+                  <span className="text-[10px] font-mono text-purple-400 uppercase font-bold tracking-wider">Autonomics</span>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-display font-black uppercase text-white">
+                    🫁 Meditation &amp; Autonomic Resets
+                  </h3>
+                  <div className="mt-2 p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-200">
+                    <strong className="text-purple-300 block font-mono text-[11px] uppercase">Essential Action:</strong>
+                    10-minute vagus nerve breathing or NSDR neuro-resets.
+                  </div>
+                </div>
+
+                <div className="space-y-3 pt-2 text-xs">
+                  {/* Danger of Inaction */}
+                  <div className="p-3 rounded-xl bg-rose-950/30 border border-rose-800/40 text-rose-200">
+                    <div className="flex items-center gap-1.5 font-bold text-rose-400 text-[11px] uppercase tracking-wider mb-1">
+                      <AlertTriangle size={13} className="shrink-0" />
+                      <span>🛑 Danger of Inaction</span>
+                    </div>
+                    <p className="leading-relaxed font-light">
+                      &quot;Unmanaged daily stress keeps cortisol chronically elevated, suppressing nocturnal HRV and sleep quality.&quot;
+                    </p>
+                  </div>
+
+                  {/* Short-Term Payback */}
+                  <div className="p-3 rounded-xl bg-teal-950/30 border border-teal-800/40 text-teal-200">
+                    <div className="flex items-center gap-1.5 font-bold text-teal-400 text-[11px] uppercase tracking-wider mb-1">
+                      <Zap size={13} className="shrink-0" />
+                      <span>⚡ Short-Term Payback</span>
+                    </div>
+                    <p className="leading-relaxed font-light">
+                      &quot;Rapidly down-regulates acute cortisol, shifting the autonomic nervous system into rest-and-repair.&quot;
+                    </p>
+                  </div>
+
+                  {/* Long-Term Epigenetic Payback */}
+                  <div className="p-3 rounded-xl bg-indigo-950/30 border border-indigo-800/40 text-indigo-200">
+                    <div className="flex items-center gap-1.5 font-bold text-indigo-400 text-[11px] uppercase tracking-wider mb-1">
+                      <Dna size={13} className="shrink-0" />
+                      <span>🧬 Long-Term Epigenetic Payback</span>
+                    </div>
+                    <p className="leading-relaxed font-light">
+                      &quot;Blunts systemic micro-inflammation (lowering hs-CRP) and protects telomere integrity.&quot;
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-800">
+                <Link
+                  to="/neurowellness"
+                  className="w-full inline-flex items-center justify-between py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all"
+                >
+                  <span>🫁 View Full Neurowellness Protocol</span>
+                  <ArrowRight size={14} />
                 </Link>
               </div>
             </div>
 
           </div>
         </section>
+
+        {/* ========================================================================= */}
+        {/* STEP 2: The Diagnostic Radar (Analytics & Telemetry Overview)              */}
+        {/* ========================================================================= */}
+        <section id="step-2" className="scroll-mt-28 space-y-6">
+          <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
+            <span className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 font-mono font-bold flex items-center justify-center text-sm">
+              02
+            </span>
+            <div>
+              <span className="text-[11px] font-mono uppercase text-indigo-400 tracking-widest font-bold">BIOMARKER RADAR</span>
+              <h2 className="text-2xl sm:text-3xl font-display font-black uppercase text-white">
+                Step 2: The Diagnostic Radar (Analytics &amp; Telemetry)
+              </h2>
+            </div>
+          </div>
+
+          <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900/90 to-indigo-950/30 border border-indigo-500/30 shadow-2xl relative overflow-hidden space-y-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+              
+              <div className="space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/80 border border-indigo-500/30 text-indigo-300 text-xs font-mono font-bold uppercase tracking-wider">
+                  <Activity size={13} className="text-indigo-400" />
+                  <span>Continuous Dual-Track Verification</span>
+                </div>
+
+                <h3 className="text-2xl sm:text-3xl font-display font-black uppercase text-white leading-tight">
+                  Stop Flying Blind: Move from Annual Snapshots to Telemetry
+                </h3>
+
+                {/* Danger of Inaction Callout */}
+                <div className="p-4 rounded-2xl bg-rose-950/40 border border-rose-800/50 text-rose-200 text-xs leading-relaxed">
+                  <div className="font-bold text-rose-400 uppercase tracking-wider text-[11px] flex items-center gap-1.5 mb-1">
+                    <AlertTriangle size={14} className="shrink-0" />
+                    <span>🛑 Danger of Inaction:</span>
+                  </div>
+                  &quot;One annual doctor visit leaves you blind 364 days a year while silent cardiovascular plaque and renal decay accumulate.&quot;
+                </div>
+
+                {/* Proactive Telemetry Payback Callout */}
+                <div className="p-4 rounded-2xl bg-emerald-950/40 border border-emerald-800/50 text-emerald-200 text-xs leading-relaxed">
+                  <div className="font-bold text-emerald-400 uppercase tracking-wider text-[11px] flex items-center gap-1.5 mb-1">
+                    <Sparkles size={14} className="shrink-0" />
+                    <span>⚡ Proactive Telemetry Payback:</span>
+                  </div>
+                  &quot;Weekly 10-parameter home urine strips verify daily habits, while quarterly lab blood draws catch subclinical risks up to a decade before symptoms appear.&quot;
+                </div>
+              </div>
+
+              {/* Visual Architecture Box */}
+              <div className="p-6 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-4">
+                <h4 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold border-b border-slate-800 pb-2">
+                  The Dual-Track Diagnostic Radar Matrix
+                </h4>
+
+                <div className="space-y-3 text-xs">
+                  <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-start gap-3">
+                    <span className="w-7 h-7 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 shrink-0 font-mono font-bold flex items-center justify-center text-xs">
+                      W
+                    </span>
+                    <div>
+                      <strong className="text-white block font-semibold">Weekly Home Fluid Telemetry (60s)</strong>
+                      <p className="text-slate-400 text-[11px] mt-0.5">
+                        10-parameter medical test strips (Diagnox / ALLTEST): pH, hydration/SG, ketones, microalbumin, nitrites.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-start gap-3">
+                    <span className="w-7 h-7 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 shrink-0 font-mono font-bold flex items-center justify-center text-xs">
+                      Q
+                    </span>
+                    <div>
+                      <strong className="text-white block font-semibold">Quarterly Phlebotomy Venous Draw (90d)</strong>
+                      <p className="text-slate-400 text-[11px] mt-0.5">
+                        ApoB (atherogenic particle count), HbA1c (glycated hemoglobin), hs-CRP (micro-inflammation), and Urine ACR.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <Link
+                    to="/diagnostics"
+                    className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-indigo-500 hover:from-cyan-400 hover:via-teal-300 hover:to-indigo-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-xl shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.98] cursor-pointer"
+                  >
+                    <span>🔬 Explore Full Testing &amp; Diagnostics Suite →</span>
+                  </Link>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* STEP 3: THE CLINICIAN CO-PILOT: FROM GUESSING TO KNOWING                  */}
+        {/* ========================================================================= */}
+        <section id="step-3" className="scroll-mt-28 space-y-6">
+          <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
+            <span className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono font-bold flex items-center justify-center text-sm">
+              03
+            </span>
+            <div>
+              <span className="text-[11px] font-mono uppercase text-amber-400 tracking-widest font-bold">PHYSICIAN PARTNERSHIP</span>
+              <h2 className="text-2xl sm:text-3xl font-display font-black uppercase text-white">
+                Step 3: The Clinician Co-Pilot: From Guessing to Knowing
+              </h2>
+            </div>
+          </div>
+
+          <p className="text-sm text-slate-300 max-w-3xl font-light">
+            Bring structured, verifiable data into your doctor’s office. Rather than entering a 10-minute consultation unprepared, leverage 3 synchronized assets to turn your GP into a longevity partner.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            {/* PATH 1: READ */}
+            <div className="p-6 sm:p-7 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between space-y-5">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase bg-cyan-950 border border-cyan-800 text-cyan-400 font-bold">
+                    PATHWAY 1 • READ
+                  </span>
+                  <BookOpen size={18} className="text-cyan-400" />
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-display font-black uppercase text-white">
+                    1. Educational Workbook
+                  </h3>
+                  <p className="text-xs text-slate-300 mt-2 leading-relaxed font-light">
+                    Deep dive into biomarker reference ranges, the geroscience philosophy, and the script questions designed for evidence-based primary care discussions.
+                  </p>
+                </div>
+
+                <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 text-[11px] text-slate-400 space-y-1">
+                  <div className="font-semibold text-slate-200">Asset: the-next-level-lifespan.pdf</div>
+                  <div>Format: High-Res Master PDF</div>
+                </div>
+              </div>
+
+              <div>
+                <a
+                  href="/assets/docs/the-next-level-lifespan.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-400 hover:text-white font-bold text-xs uppercase tracking-wider transition-all"
+                >
+                  <Eye size={14} />
+                  <span>Read Workbook (PDF)</span>
+                </a>
+              </div>
+            </div>
+
+            {/* PATH 2: LOG */}
+            <div className="p-6 sm:p-7 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-amber-500/40 transition-all flex flex-col justify-between space-y-5 ring-1 ring-amber-500/20">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase bg-amber-950 border border-amber-800 text-amber-400 font-bold">
+                    PATHWAY 2 • LOG
+                  </span>
+                  <Activity size={18} className="text-amber-400" />
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-display font-black uppercase text-white">
+                    2. Interactive Web Form
+                  </h3>
+                  <p className="text-xs text-slate-300 mt-2 leading-relaxed font-light">
+                    100% Guest-Mode client-side telemetry logger. Input blood results, weekly dipstick averages, resting vitals, and physician directives with local auto-save.
+                  </p>
+                </div>
+
+                <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 text-[11px] text-slate-400 space-y-1">
+                  <div className="font-semibold text-emerald-300 flex items-center gap-1">
+                    <ShieldCheck size={12} /> 100% LocalStorage Privacy
+                  </div>
+                  <div>Zero database storage • Guest Mode</div>
+                </div>
+              </div>
+
+              <div>
+                <Link
+                  to="/clinician-copilot"
+                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-md shadow-amber-500/20"
+                >
+                  <FileText size={14} />
+                  <span>Open Interactive Logger →</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* PATH 3: EXPORT / PRINT */}
+            <div className="p-6 sm:p-7 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-teal-500/40 transition-all flex flex-col justify-between space-y-5">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase bg-teal-950 border border-teal-800 text-teal-400 font-bold">
+                    PATHWAY 3 • EXPORT / PRINT
+                  </span>
+                  <Printer size={18} className="text-teal-400" />
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-display font-black uppercase text-white">
+                    3. GP Consultation Template V2
+                  </h3>
+                  <p className="text-xs text-slate-300 mt-2 leading-relaxed font-light">
+                    The 2-page clinical artifact. Compile your logged data into a pre-filled vector PDF in your browser, or download the blank template to write on with a pen.
+                  </p>
+                </div>
+
+                <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 text-[11px] text-slate-400 space-y-1">
+                  <div className="font-semibold text-slate-200">Asset: clinical-baseline-consultation-template-v2.pdf</div>
+                  <div>Dual Mode: Pre-filled export or blank printout</div>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Link
+                  to="/clinician-copilot"
+                  className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-sm"
+                >
+                  <Download size={13} />
+                  <span>Export Pre-Filled (via Form)</span>
+                </Link>
+                <a
+                  href="/assets/docs/clinical-baseline-consultation-template-v2.pdf"
+                  download="clinical-baseline-consultation-template-v2.pdf"
+                  className="w-full inline-flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white font-medium text-[11px] uppercase tracking-wider transition-all"
+                >
+                  <span>✏️ Download Blank Template (PDF)</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* STEP 4: Pillar Optimization                                               */}
+        {/* ========================================================================= */}
+        <section id="step-4" className="scroll-mt-28 space-y-6">
+          <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
+            <span className="w-8 h-8 rounded-lg bg-pink-500/10 border border-pink-500/30 text-pink-400 font-mono font-bold flex items-center justify-center text-sm">
+              04
+            </span>
+            <div>
+              <span className="text-[11px] font-mono uppercase text-pink-400 tracking-widest font-bold">SYSTEMIC EXPANSION</span>
+              <h2 className="text-2xl sm:text-3xl font-display font-black uppercase text-white">
+                Step 4: Pillar Optimization (The 6 Core Hubs)
+              </h2>
+            </div>
+          </div>
+
+          <p className="text-sm text-slate-300 max-w-3xl font-light">
+            Once baseline telemetry and medical collaboration are activated, systematically optimize each domain across our 6 specialized geroscience hubs:
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            
+            {/* PILLAR 1: Fitness */}
+            <Link
+              to="/fitness"
+              className="p-6 rounded-3xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-900/80 transition-all flex flex-col justify-between space-y-4 group"
+            >
+              <div className="space-y-2">
+                <div className="text-2xl">⚡</div>
+                <h3 className="text-base font-display font-black uppercase text-white group-hover:text-cyan-400 transition-colors">
+                  Pillar 1: Movement &amp; Bio-Data
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Zone 2 mitochondrial density, hypertrophic resistance training, wearable biosensing, and cold/heat thermogenesis.
+                </p>
+              </div>
+              <div className="text-xs text-cyan-400 font-bold flex items-center gap-1">
+                <span>Explore Fitness Pillar</span>
+                <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+
+            {/* PILLAR 2: Nutrition */}
+            <Link
+              to="/nutrition"
+              className="p-6 rounded-3xl bg-slate-900/50 border border-slate-800 hover:border-teal-500/50 hover:bg-slate-900/80 transition-all flex flex-col justify-between space-y-4 group"
+            >
+              <div className="space-y-2">
+                <div className="text-2xl">🥗</div>
+                <h3 className="text-base font-display font-black uppercase text-white group-hover:text-teal-400 transition-colors">
+                  Pillar 2: Metabolic Nutrition
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Continuous glucose monitoring, glycemic stability, micronutrient density, and muscle-sparing fasting protocols.
+                </p>
+              </div>
+              <div className="text-xs text-teal-400 font-bold flex items-center gap-1">
+                <span>Explore Nutrition Pillar</span>
+                <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+
+            {/* PILLAR 3: Neurowellness */}
+            <Link
+              to="/neurowellness"
+              className="p-6 rounded-3xl bg-slate-900/50 border border-slate-800 hover:border-purple-500/50 hover:bg-slate-900/80 transition-all flex flex-col justify-between space-y-4 group"
+            >
+              <div className="space-y-2">
+                <div className="text-2xl">🧠</div>
+                <h3 className="text-base font-display font-black uppercase text-white group-hover:text-purple-400 transition-colors">
+                  Pillar 3: Neurowellness &amp; Autonomics
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Non-invasive vagus nerve stimulation (VNS), deep sleep architecture, somatic breathwork, and neuro-resilience.
+                </p>
+              </div>
+              <div className="text-xs text-purple-400 font-bold flex items-center gap-1">
+                <span>Explore Neurowellness Pillar</span>
+                <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+
+            {/* PILLAR 4: Women's Health */}
+            <Link
+              to="/womens-health"
+              className="p-6 rounded-3xl bg-slate-900/50 border border-slate-800 hover:border-pink-500/50 hover:bg-slate-900/80 transition-all flex flex-col justify-between space-y-4 group"
+            >
+              <div className="space-y-2">
+                <div className="text-2xl">🌸</div>
+                <h3 className="text-base font-display font-black uppercase text-white group-hover:text-pink-400 transition-colors">
+                  Pillar 4: Women's Longevity
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Ovarian healthspan preservation, peri-menopause metabolic shifts, bone mineral density, and hormone balance.
+                </p>
+              </div>
+              <div className="text-xs text-pink-400 font-bold flex items-center gap-1">
+                <span>Explore Women's Health</span>
+                <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+
+            {/* PILLAR 5: Social Fitness */}
+            <Link
+              to="/social-fitness"
+              className="p-6 rounded-3xl bg-slate-900/50 border border-slate-800 hover:border-amber-500/50 hover:bg-slate-900/80 transition-all flex flex-col justify-between space-y-4 group"
+            >
+              <div className="space-y-2">
+                <div className="text-2xl">🏛️</div>
+                <h3 className="text-base font-display font-black uppercase text-white group-hover:text-amber-400 transition-colors">
+                  Pillar 5: Socio-Biological Architecture
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Community wellness dynamics, pickleball ecosystems, cortisol-buffering social circles, and longevity tribes.
+                </p>
+              </div>
+              <div className="text-xs text-amber-400 font-bold flex items-center gap-1">
+                <span>Explore Social Fitness</span>
+                <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+
+            {/* PILLAR 6: Sovereign Store */}
+            <Link
+              to="/store"
+              className="p-6 rounded-3xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-900/80 transition-all flex flex-col justify-between space-y-4 group"
+            >
+              <div className="space-y-2">
+                <div className="text-2xl">🛒</div>
+                <h3 className="text-base font-display font-black uppercase text-white group-hover:text-cyan-400 transition-colors">
+                  Pillar 6: Sovereign Longevity Store
+                </h3>
+                <p className="text-xs text-slate-400 leading-relaxed">
+                  Curated regional medical gear: Quest, LOLA, Eurofins blood panels, 10-parameter dipsticks, and digital stethoscopes.
+                </p>
+              </div>
+              <div className="text-xs text-cyan-400 font-bold flex items-center gap-1">
+                <span>Visit Sovereign Store</span>
+                <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+              </div>
+            </Link>
+
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* BOTTOM SUMMARY FOOTER BANNER                                              */}
+        {/* ========================================================================= */}
+        <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-slate-900 via-cyan-950/40 to-slate-900 border border-cyan-500/30 text-center space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950 border border-cyan-500/40 text-cyan-400 text-xs font-mono font-bold uppercase tracking-wider">
+            <CheckCircle2 size={14} />
+            <span>PROTOCOL STATUS: ZERO GUESSWORK</span>
+          </div>
+          <h3 className="text-2xl sm:text-3xl font-display font-black uppercase text-white">
+            Ready to Take Your Diagnostic Telemetry to the Next Level?
+          </h3>
+          <p className="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+            Begin with Step 0 above. Complete the 5-Minute Quiz or download the free Foundation Manual. Establish your numbers, log them into the Clinician Co-Pilot, and step into proactive longevity medicine.
+          </p>
+          <div className="pt-2 flex flex-wrap justify-center gap-4">
+            <Link
+              to="/diagnostics"
+              className="py-3 px-6 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/20 active:scale-95"
+            >
+              Order Clinical Diagnostics Suite →
+            </Link>
+            <Link
+              to="/clinician-copilot"
+              className="py-3 px-6 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs uppercase tracking-wider transition-all border border-slate-700"
+            >
+              Launch Clinician Co-Pilot Form →
+            </Link>
+          </div>
+        </div>
 
       </div>
     </div>

@@ -272,12 +272,15 @@ const DIAGNOSTIC_REGIONS = {
   }
 };
 
+const STORAGE_KEY = 'nextlevel_clinician_copilot_guest_data_v2';
+
 export default function ClinicianCopilot() {
   const { market, setMarket } = useMarket();
   const [downloadSuccess, setDownloadSuccess] = useState(false);
   const [resetToast, setResetToast] = useState(false);
   const [isExportingPdf, setIsExportingPdf] = useState(false);
   const [pdfExportSuccess, setPdfExportSuccess] = useState(false);
+  const [lastSavedTime, setLastSavedTime] = useState<string | null>(null);
 
   // Regional Pathway Selection (US, UK, ES)
   const [selectedPathway, setSelectedPathway] = useState<'US' | 'UK' | 'ES'>('US');
@@ -312,6 +315,67 @@ export default function ClinicianCopilot() {
     level1: true,
     level2: false,
   });
+
+  // 100% GUEST MODE: Load saved localStorage telemetry on component mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed.patientData) setPatientData(parsed.patientData);
+        if (parsed.familyHistory) setFamilyHistory(parsed.familyHistory);
+        if (parsed.lifestyle) setLifestyle(parsed.lifestyle);
+        if (parsed.summaryVitals) setSummaryVitals(parsed.summaryVitals);
+        if (parsed.supplements) setSupplements(parsed.supplements);
+        if (parsed.phlebotomyMethod) setPhlebotomyMethod(parsed.phlebotomyMethod);
+        if (parsed.bloodResults) setBloodResults(parsed.bloodResults);
+        if (parsed.urinalysisData) setUrinalysisData(parsed.urinalysisData);
+        if (parsed.requisitions) setRequisitions(parsed.requisitions);
+        if (parsed.agreedDirectives) setAgreedDirectives(parsed.agreedDirectives);
+        if (parsed.retestTimeline) setRetestTimeline(parsed.retestTimeline);
+        if (parsed.nextAppointmentDate !== undefined) setNextAppointmentDate(parsed.nextAppointmentDate);
+        if (parsed.selectedPathway) setSelectedPathway(parsed.selectedPathway);
+        if (parsed.patientConfirmed !== undefined) setPatientConfirmed(parsed.patientConfirmed);
+        if (parsed.updatedAt) {
+          const date = new Date(parsed.updatedAt);
+          setLastSavedTime(date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+        }
+      }
+    } catch (err) {
+      console.warn('Could not load guest form data from localStorage:', err);
+    }
+  }, []);
+
+  // 100% GUEST MODE: Auto-save all interactive form state locally to browser localStorage
+  useEffect(() => {
+    try {
+      const bundle = {
+        patientData,
+        familyHistory,
+        lifestyle,
+        summaryVitals,
+        supplements,
+        phlebotomyMethod,
+        bloodResults,
+        urinalysisData,
+        requisitions,
+        agreedDirectives,
+        retestTimeline,
+        nextAppointmentDate,
+        selectedPathway,
+        patientConfirmed,
+        updatedAt: new Date().toISOString()
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(bundle));
+      setLastSavedTime(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+    } catch (err) {
+      console.warn('Could not auto-save guest form data to localStorage:', err);
+    }
+  }, [
+    patientData, familyHistory, lifestyle, summaryVitals, supplements,
+    phlebotomyMethod, bloodResults, urinalysisData, requisitions,
+    agreedDirectives, retestTimeline, nextAppointmentDate, selectedPathway, patientConfirmed
+  ]);
 
   // Updaters
   const updateSummaryVitals = (index: number, field: keyof SummaryVitalsRow, value: string) => {
@@ -364,8 +428,14 @@ export default function ClinicianCopilot() {
     setTimeout(() => setDownloadSuccess(false), 4000);
   };
 
-  const handleReset = () => {
-    if (window.confirm("Are you sure you want to reset all form fields? All entered vitals, notes, and checkboxes will be cleared back to the blank template.")) {
+  // Clear all local form data and wipe localStorage
+  const handleClearLocalData = () => {
+    if (window.confirm("🗑️ Purge Local Form Data?\n\nAre you sure you want to clear your local form data? All entered vitals, blood numbers, urine logs, and clinician notes will be permanently removed from this device.")) {
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch (err) {
+        console.warn('Could not purge localStorage:', err);
+      }
       setPatientData(initialPatientData);
       setFamilyHistory(initialFamilyHistory);
       setLifestyle(initialLifestyle);
@@ -383,6 +453,7 @@ export default function ClinicianCopilot() {
       setExamChecks(initialExamChecks);
       setTelemetryRows(initialTelemetryRows);
       setAgreedPathway({ level1: true, level2: false });
+      setLastSavedTime(null);
       setResetToast(true);
       setTimeout(() => setResetToast(false), 3500);
     }
@@ -540,10 +611,10 @@ export default function ClinicianCopilot() {
       `}</style>
 
       {/* ========================================================================= */}
-      {/* TOP STICKY BAR: 3 REQUIRED CTAs                                           */}
-      {/* 1. "📄 Export My Completed GP Template (PDF)"                             */}
-      {/* 2. "✏️ Download Blank Template to Fill by Hand (PDF)"                     */}
-      {/* 3. "📘 Read Educational Workbook (PDF)"                                   */}
+      {/* TOP STICKY BAR: DUAL PDF EXPORT & 100% GUEST MODE CTAs                     */}
+      {/* 1. "📄 Export Pre-Filled GP Template (PDF)"                                */}
+      {/* 2. "✏️ Download Blank Printable Template (PDF)"                            */}
+      {/* 3. "🗑️ Clear Local Form Data"                                             */}
       {/* ========================================================================= */}
       <section className="no-print pt-24 pb-6 border-b border-slate-900 bg-slate-950/95 backdrop-blur-md sticky top-16 z-30 shadow-2xl">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -555,28 +626,34 @@ export default function ClinicianCopilot() {
               <ArrowLeft size={13} className="mr-1.5" />
               Back to Home
             </Link>
-            <h1 className="text-xl sm:text-2xl font-display uppercase tracking-tight text-white font-black flex items-center gap-2.5">
+            <h1 className="text-xl sm:text-2xl font-display uppercase tracking-tight text-white font-black flex items-center gap-2.5 flex-wrap">
               <span>The Clinician Co-Pilot Suite</span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 uppercase tracking-widest font-bold">
-                100% Free • $0.00
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 uppercase tracking-widest font-bold flex items-center gap-1">
+                <ShieldCheck size={12} />
+                100% Guest Mode • Zero Server Writes
               </span>
+              {lastSavedTime && (
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700 font-medium">
+                  Auto-saved locally at {lastSavedTime}
+                </span>
+              )}
             </h1>
           </div>
 
-          {/* 3 Explicit Action Buttons (Top) */}
+          {/* Explicit Action Buttons (Top) */}
           <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-            {/* CTA 1: Export Completed GP Template (PDF) */}
+            {/* Dual PDF Export CTA 1: Pre-Filled GP Template (PDF) */}
             <button
               onClick={handleExportCompletedPdf}
               disabled={isExportingPdf}
               className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:via-teal-300 hover:to-emerald-300 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-lg shadow-cyan-500/25 hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-75 disabled:cursor-wait"
-              title="Populates and exports your completed 2-page GP template as a digital PDF"
+              title="Compiles your localStorage inputs into a completed vector PDF"
             >
               <FileDown size={15} />
-              <span>📄 Export My Completed GP Template (PDF)</span>
+              <span>📄 Export Pre-Filled GP Template (PDF)</span>
             </button>
 
-            {/* CTA 2: Download Blank Template to Fill by Hand (PDF) */}
+            {/* Dual PDF Export CTA 2: Download Blank Printable Template (PDF) */}
             <a
               href="/assets/docs/clinical-baseline-consultation-template-v2.pdf"
               target="_blank"
@@ -584,34 +661,33 @@ export default function ClinicianCopilot() {
               download="clinical-baseline-consultation-template-v2.pdf"
               onClick={handleDownloadBlank}
               className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-slate-950 text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-lg shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
-              title="Downloads the clean 2-page blank PDF with underlines and checkboxes for pen-and-paper writing"
+              title="Downloads the clean 2-page blank PDF for hand completion with a pen"
             >
               <FileText size={15} />
-              <span>✏️ Download Blank Template to Fill by Hand (PDF)</span>
+              <span>✏️ Download Blank Printable Template (PDF)</span>
             </a>
 
-            {/* CTA 3: Read Educational Workbook (PDF) */}
+            {/* Read Workbook PDF */}
             <a
               href="/assets/docs/the-next-level-lifespan.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-500/60 hover:bg-cyan-950/20 text-slate-200 hover:text-cyan-300 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-sm"
-              title="Opens the comprehensive 6-page Lifespan Educational Workbook PDF in a new tab"
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-500/60 hover:bg-cyan-950/20 text-slate-200 hover:text-cyan-300 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-sm"
+              title="Opens the Lifespan Educational Workbook PDF in a new tab"
             >
               <BookOpen size={14} className="text-cyan-400" />
-              <span>📘 Read Educational Workbook (PDF)</span>
-              <ExternalLink size={12} className="opacity-70 ml-0.5" />
+              <span className="hidden xl:inline">Workbook</span>
             </a>
 
-            {/* Form Reset Button */}
+            {/* Clear Local Form Data Button */}
             <button
-              onClick={handleReset}
+              onClick={handleClearLocalData}
               disabled={isExportingPdf}
-              className="inline-flex items-center gap-1 px-2.5 py-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-rose-500/60 hover:bg-rose-950/20 text-slate-400 hover:text-rose-300 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
-              title="Clears all entered values back to blank defaults"
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl bg-rose-950/40 border border-rose-800/60 hover:bg-rose-900/60 text-rose-300 hover:text-white text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
+              title="Instantly purges all localStorage form data on this device"
             >
               <RotateCcw size={13} />
-              <span className="hidden sm:inline">Reset</span>
+              <span>🗑️ Clear Local Form Data</span>
             </button>
           </div>
         </div>
@@ -621,7 +697,7 @@ export default function ClinicianCopilot() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
             <div className="p-3 bg-slate-900/95 border border-cyan-500/50 rounded-xl flex items-center gap-2.5 text-xs text-cyan-300 animate-pulse shadow-lg">
               <Loader2 size={16} className="animate-spin text-cyan-400 shrink-0" />
-              <span><strong>Generating Completed GP Template...</strong> Populating your entered telemetry and clinical notes into a vector PDF.</span>
+              <span><strong>Generating Pre-Filled GP Template...</strong> Compiling your localStorage telemetry into a print-ready vector PDF.</span>
             </div>
           </div>
         )}
@@ -631,7 +707,7 @@ export default function ClinicianCopilot() {
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
             <div className="p-3 bg-emerald-950/90 border border-emerald-500/60 rounded-xl flex items-center gap-2.5 text-xs text-emerald-200 animate-fadeIn shadow-lg shadow-emerald-500/10">
               <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
-              <span><strong>Export Complete!</strong> Your completed 2-page GP Consultation Template has been generated and downloaded as <code>clinical-baseline-consultation-template-v2-completed.pdf</code>.</span>
+              <span><strong>Export Complete!</strong> Your pre-filled GP Consultation Template has been compiled and saved as <code>clinical-baseline-consultation-template-v2-completed.pdf</code>.</span>
             </div>
           </div>
         )}
@@ -647,9 +723,9 @@ export default function ClinicianCopilot() {
 
         {resetToast && (
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
-            <div className="p-3 bg-cyan-950/80 border border-cyan-500/50 rounded-xl flex items-center gap-2.5 text-xs text-cyan-300 animate-fadeIn">
-              <RotateCcw size={16} className="text-cyan-400 shrink-0" />
-              <span><strong>Form Reset!</strong> All fields, vitals, and checklists have been reset back to default.</span>
+            <div className="p-3 bg-rose-950/80 border border-rose-500/50 rounded-xl flex items-center gap-2.5 text-xs text-rose-200 animate-fadeIn">
+              <RotateCcw size={16} className="text-rose-400 shrink-0" />
+              <span><strong>Local Guest Data Purged!</strong> Browser localStorage has been completely cleared and form restored to blank state.</span>
             </div>
           </div>
         )}
@@ -1346,116 +1422,16 @@ export default function ClinicianCopilot() {
           <div className="mt-5 space-y-4">
             <div className="bg-slate-900 text-white px-3 py-1.5 rounded-lg flex items-center justify-between">
               <span className="font-black text-xs uppercase tracking-wider">
-                SECTION 4: DUAL URINALYSIS TELEMETRY (QUARTERLY LAB &amp; WEEKLY HOME STRIPS)
+                SECTION 4: DUAL URINALYSIS TELEMETRY (WEEKLY HOME STRIPS &amp; QUARTERLY LAB)
               </span>
               <span className="text-[10px] text-cyan-300 font-mono">Renal Microvascular Integrity</span>
             </div>
 
-            {/* Type 1: Quarterly Laboratory Urinalysis */}
+            {/* Form Entry A: Weekly At-Home 10-Parameter Dipstick Log */}
             <div className="space-y-1.5">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-bold text-slate-900">
-                  Type 1: Quarterly Laboratory Urinalysis (Lab-Based • Accredited Clinic Every 90 Days)
-                </span>
-                <span className="text-[10px] text-slate-500 font-mono">Quest / Labcorp / UKAS / Eurofins Megalab</span>
-              </div>
-
-              <table className="w-full text-left border-collapse text-xs border border-slate-300">
-                <thead>
-                  <tr className="bg-slate-800 text-white">
-                    <th className="p-2 font-bold uppercase w-2/5">Laboratory Marker</th>
-                    <th className="p-2 font-bold uppercase w-1/4">Clinical Reference Benchmark</th>
-                    <th className="p-2 font-bold uppercase w-1/6">Pathology Result</th>
-                    <th className="p-2 font-bold uppercase">Clinical Remarks</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-300">
-                  <tr className="hover:bg-slate-50">
-                    <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
-                      <strong>Urine Albumin-to-Creatinine Ratio (ACR)</strong>
-                    </td>
-                    <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
-                      &lt; 30 mg/g (&lt; 3 mg/mmol)
-                    </td>
-                    <td className="p-1 border-r border-slate-300">
-                      <input 
-                        type="text"
-                        value={urinalysisData.labAcr.result}
-                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labAcr: { ...urinalysisData.labAcr, result: e.target.value } })}
-                        placeholder="e.g. 1.2 mg/mmol"
-                        className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
-                      />
-                    </td>
-                    <td className="p-1">
-                      <input 
-                        type="text"
-                        value={urinalysisData.labAcr.remarks}
-                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labAcr: { ...urinalysisData.labAcr, remarks: e.target.value } })}
-                        className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
-                      />
-                    </td>
-                  </tr>
-
-                  <tr className="hover:bg-slate-50">
-                    <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
-                      <strong>Microalbuminuria &amp; Total Proteinuria</strong>
-                    </td>
-                    <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
-                      Negative / &lt; 20 mg/L
-                    </td>
-                    <td className="p-1 border-r border-slate-300">
-                      <input 
-                        type="text"
-                        value={urinalysisData.labMicroalbumin.result}
-                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labMicroalbumin: { ...urinalysisData.labMicroalbumin, result: e.target.value } })}
-                        placeholder="e.g. Negative"
-                        className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
-                      />
-                    </td>
-                    <td className="p-1">
-                      <input 
-                        type="text"
-                        value={urinalysisData.labMicroalbumin.remarks}
-                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labMicroalbumin: { ...urinalysisData.labMicroalbumin, remarks: e.target.value } })}
-                        className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
-                      />
-                    </td>
-                  </tr>
-
-                  <tr className="hover:bg-slate-50">
-                    <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
-                      <strong>Microscopic Urine Sediment Analysis</strong>
-                    </td>
-                    <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
-                      No cellular casts, RBCs or crystals
-                    </td>
-                    <td className="p-1 border-r border-slate-300">
-                      <input 
-                        type="text"
-                        value={urinalysisData.labSediment.result}
-                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labSediment: { ...urinalysisData.labSediment, result: e.target.value } })}
-                        placeholder="e.g. Clear / Negative"
-                        className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
-                      />
-                    </td>
-                    <td className="p-1">
-                      <input 
-                        type="text"
-                        value={urinalysisData.labSediment.remarks}
-                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labSediment: { ...urinalysisData.labSediment, remarks: e.target.value } })}
-                        className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            {/* Type 2: Weekly At-Home 10-Parameter Dipstick Summary */}
-            <div className="space-y-1.5">
-              <div className="flex items-center justify-between text-xs">
-                <span className="font-bold text-slate-900">
-                  Type 2: Weekly At-Home 10-Parameter Dipstick Summary (Self-Assessed • Every 7 Days)
+                  Form Entry A: Weekly At-Home 10-Parameter Dipstick Log (pH, Hydration, Ketones)
                 </span>
                 <span className="text-[10px] text-slate-500 font-mono">Diagnox Urinox-10 / ALLTEST Clinical Dipsticks</span>
               </div>
@@ -1550,20 +1526,20 @@ export default function ClinicianCopilot() {
 
                   <tr className="hover:bg-slate-50">
                     <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
-                      <strong>7 Microvascular Indicators</strong> (Protein, Blood, Nitrite, Leuko, Bilirubin, Urobil, Glucose)
+                      <strong>Other 7 Parameters Status</strong> (Leuk, Nit, Prot, Blood, Gluc, Urob, Bili)
                     </td>
                     <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
-                      All Negative / Normal
+                      All 7 Parameters Negative / Normal
                     </td>
-                    <td className="p-1 border-r border-slate-300">
-                      <label className="flex items-center gap-1.5 p-1 cursor-pointer select-none">
+                    <td className="p-2 border-r border-slate-300">
+                      <label className="flex items-center gap-2 cursor-pointer select-none">
                         <input 
-                          type="checkbox" 
+                          type="checkbox"
                           checked={urinalysisData.home7Clear}
                           onChange={(e) => setUrinalysisData({ ...urinalysisData, home7Clear: e.target.checked })}
                           className="w-4 h-4 text-cyan-600 accent-cyan-600"
                         />
-                        <span className="font-bold text-slate-900">All 7 Clear</span>
+                        <span className="text-[11px] font-bold text-slate-800">Clear / Normal</span>
                       </label>
                     </td>
                     <td className="p-1">
@@ -1571,6 +1547,106 @@ export default function ClinicianCopilot() {
                         type="text"
                         value={urinalysisData.home7Notes}
                         onChange={(e) => setUrinalysisData({ ...urinalysisData, home7Notes: e.target.value })}
+                        className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
+                      />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            {/* Form Entry B: Quarterly Laboratory Urinalysis */}
+            <div className="space-y-1.5 pt-2">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-bold text-slate-900">
+                  Form Entry B: Quarterly Laboratory Urinalysis (ACR, Microalbumin, Sediment)
+                </span>
+                <span className="text-[10px] text-slate-500 font-mono">Quest / Labcorp / UKAS / Eurofins Megalab</span>
+              </div>
+
+              <table className="w-full text-left border-collapse text-xs border border-slate-300">
+                <thead>
+                  <tr className="bg-slate-800 text-white">
+                    <th className="p-2 font-bold uppercase w-2/5">Laboratory Marker</th>
+                    <th className="p-2 font-bold uppercase w-1/4">Clinical Reference Benchmark</th>
+                    <th className="p-2 font-bold uppercase w-1/6">Pathology Result</th>
+                    <th className="p-2 font-bold uppercase">Clinical Remarks</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-300">
+                  <tr className="hover:bg-slate-50">
+                    <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
+                      <strong>Urine Albumin-to-Creatinine Ratio (ACR)</strong>
+                    </td>
+                    <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
+                      &lt; 30 mg/g (&lt; 3 mg/mmol)
+                    </td>
+                    <td className="p-1 border-r border-slate-300">
+                      <input 
+                        type="text"
+                        value={urinalysisData.labAcr.result}
+                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labAcr: { ...urinalysisData.labAcr, result: e.target.value } })}
+                        placeholder="e.g. 1.2 mg/mmol"
+                        className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
+                      />
+                    </td>
+                    <td className="p-1">
+                      <input 
+                        type="text"
+                        value={urinalysisData.labAcr.remarks}
+                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labAcr: { ...urinalysisData.labAcr, remarks: e.target.value } })}
+                        className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
+                      />
+                    </td>
+                  </tr>
+
+                  <tr className="hover:bg-slate-50">
+                    <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
+                      <strong>Microalbuminuria &amp; Total Proteinuria</strong>
+                    </td>
+                    <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
+                      Negative / &lt; 20 mg/L
+                    </td>
+                    <td className="p-1 border-r border-slate-300">
+                      <input 
+                        type="text"
+                        value={urinalysisData.labMicroalbumin.result}
+                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labMicroalbumin: { ...urinalysisData.labMicroalbumin, result: e.target.value } })}
+                        placeholder="e.g. Negative"
+                        className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
+                      />
+                    </td>
+                    <td className="p-1">
+                      <input 
+                        type="text"
+                        value={urinalysisData.labMicroalbumin.remarks}
+                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labMicroalbumin: { ...urinalysisData.labMicroalbumin, remarks: e.target.value } })}
+                        className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
+                      />
+                    </td>
+                  </tr>
+
+                  <tr className="hover:bg-slate-50">
+                    <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
+                      <strong>Microscopic Urine Sediment Analysis</strong>
+                    </td>
+                    <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
+                      No cellular casts, RBCs or crystals
+                    </td>
+                    <td className="p-1 border-r border-slate-300">
+                      <input 
+                        type="text"
+                        value={urinalysisData.labSediment.result}
+                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labSediment: { ...urinalysisData.labSediment, result: e.target.value } })}
+                        placeholder="e.g. Clear / Negative"
+                        className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
+                      />
+                    </td>
+                    <td className="p-1">
+                      <input 
+                        type="text"
+                        value={urinalysisData.labSediment.remarks}
+                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labSediment: { ...urinalysisData.labSediment, remarks: e.target.value } })}
                         className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
                       />
                     </td>
@@ -1783,19 +1859,19 @@ export default function ClinicianCopilot() {
             </p>
           </div>
 
-          {/* 3 Explicit Action Buttons (Bottom) */}
+          {/* 4 Explicit Action Buttons (Bottom) */}
           <div className="flex flex-wrap justify-center items-center gap-3 pt-2">
-            {/* CTA 1 */}
+            {/* CTA 1: Pre-Filled GP Template */}
             <button
               onClick={handleExportCompletedPdf}
               disabled={isExportingPdf}
               className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:via-teal-300 hover:to-emerald-300 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-xl shadow-cyan-500/25 hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-75"
             >
               <FileDown size={16} />
-              <span>📄 Export My Completed GP Template (PDF)</span>
+              <span>📄 Export Pre-Filled GP Template (PDF)</span>
             </button>
 
-            {/* CTA 2 */}
+            {/* CTA 2: Download Blank Printable Template */}
             <a
               href="/assets/docs/clinical-baseline-consultation-template-v2.pdf"
               target="_blank"
@@ -1805,10 +1881,10 @@ export default function ClinicianCopilot() {
               className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-slate-950 text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-xl shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
             >
               <FileText size={16} />
-              <span>✏️ Download Blank Template to Fill by Hand (PDF)</span>
+              <span>✏️ Download Blank Printable Template (PDF)</span>
             </a>
 
-            {/* CTA 3 */}
+            {/* CTA 3: Read Educational Workbook */}
             <a
               href="/assets/docs/the-next-level-lifespan.pdf"
               target="_blank"
@@ -1819,6 +1895,16 @@ export default function ClinicianCopilot() {
               <span>📘 Read Educational Workbook (PDF)</span>
               <ExternalLink size={12} className="opacity-70" />
             </a>
+
+            {/* CTA 4: Clear Local Form Data */}
+            <button
+              onClick={handleClearLocalData}
+              disabled={isExportingPdf}
+              className="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl bg-rose-950/40 border border-rose-800/60 hover:bg-rose-900/60 text-rose-300 hover:text-white text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-md"
+            >
+              <RotateCcw size={14} />
+              <span>🗑️ Clear Local Form Data</span>
+            </button>
           </div>
 
           <div className="pt-6 border-t border-slate-800 flex flex-wrap justify-center gap-4 text-xs">

@@ -69,6 +69,13 @@ export const Navbar: React.FC = () => {
             to="/" 
             className={`transition-colors ${location.pathname === '/' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
+            Home
+          </Link>
+
+          <Link 
+            to="/start-here" 
+            className={`transition-colors ${location.pathname === '/start-here' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+          >
             Start Here
           </Link>
 
@@ -105,7 +112,7 @@ export const Navbar: React.FC = () => {
                   🧬 Pillar 1: Epigenetics & Longevity
                 </Link>
                 <Link
-                  to="/guide"
+                  to="/diagnostics"
                   onClick={() => setIsPillarsOpen(false)}
                   className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
                 >
@@ -263,14 +270,15 @@ export const Navbar: React.FC = () => {
       {/* Mobile Drawer */}
       {isMobileMenuOpen && (
         <div className="lg:hidden bg-slate-950 border-b border-slate-800 px-4 pt-3 pb-6 space-y-2 text-sm animate-fade-in">
-          <Link to="/start-here" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🚀 Start Here</Link>
-          <Link to="/overview" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🌐 The Big Picture</Link>
+          <Link to="/" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🏠 Home</Link>
+          <Link to="/start-here" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🚀 Start Here</Link>
+          <Link to="/overview" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🌐 The Big Picture</Link>
           <Link to="/clinician-copilot" onClick={closeMobileMenu} className="block text-amber-400 font-bold py-1">🩺 Clinician Co-Pilot</Link>
           <Link to="/library" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">📁 Library</Link>
           <Link to="/library#free-pdfs" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">📄 Free PDFs ($0 Download)</Link>
           <Link to="/premium-guides" onClick={closeMobileMenu} className="block text-amber-400/90 font-bold py-1">⚡ Premium Guides (9 Books)</Link>
           <Link to="/science" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧬 Epigenetics & Longevity</Link>
-          <Link to="/guide" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🩸 Diagnostics & Telemetry</Link>
+          <Link to="/diagnostics" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🩸 Diagnostics & Telemetry</Link>
           <Link to="/wellness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧠 Autonomic & Wellness</Link>
           <Link to="/fitness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">⚡ Performance & Bio-Data</Link>
           <Link to="/nutrition" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🥗 Metabolic Nutrition</Link>
