@@ -13,47 +13,47 @@
    ------------------------------------------------------------------------------ */
 html.theme-luxe {
   /* Surface Tones: Curated Obsidian Charcoal & Midnight Geroscience (No flat #000) */
-  --luxe-bg-base: #080b0f;
-  --luxe-bg-base-radial: radial-gradient(circle at 50% -10%, #111722 0%, #080b0f 75%);
-  --luxe-bg-alt: #0d1219;
-  --luxe-bg-alt-radial: radial-gradient(circle at 50% 110%, #151c27 0%, #0d1219 75%);
+  --luxe-bg-base: #070a0e;
+  --luxe-bg-base-radial: radial-gradient(ellipse at 50% -15%, #162030 0%, #0b1118 45%, #070a0e 85%);
+  --luxe-bg-alt: #0c121a;
+  --luxe-bg-alt-radial: radial-gradient(ellipse at 50% 115%, #182333 0%, #0c121a 80%);
   
   /* Glassmorphic Surfaces (Double-Bezel & Machinery Depth) */
-  --luxe-bg-surface: rgba(13, 18, 26, 0.75);
-  --luxe-bg-surface-elevated: rgba(18, 25, 36, 0.88);
-  --luxe-bg-surface-hover: rgba(24, 34, 49, 0.95);
-  --luxe-bg-surface-active: rgba(28, 40, 58, 0.98);
+  --luxe-bg-surface: rgba(13, 19, 28, 0.78);
+  --luxe-bg-surface-elevated: rgba(18, 26, 38, 0.90);
+  --luxe-bg-surface-hover: rgba(25, 36, 52, 0.96);
+  --luxe-bg-surface-active: rgba(30, 44, 64, 0.98);
 
   /* Accents: Refined Champagne Bronze / Warm Amber Gold & Secondary Clinical Cyan */
-  --luxe-accent-gold: #d4af37;
-  --luxe-accent-gold-muted: #c5a059;
+  --luxe-accent-gold: #dfb74a;
+  --luxe-accent-gold-muted: #c9a456;
   --luxe-accent-bronze: #b38743;
-  --luxe-accent-glow: rgba(197, 160, 89, 0.08);
-  --luxe-accent-glow-subtle: rgba(197, 160, 89, 0.04);
-  --luxe-glow-cyan: rgba(6, 182, 212, 0.07);
+  --luxe-accent-glow: rgba(223, 183, 74, 0.12);
+  --luxe-accent-glow-subtle: rgba(223, 183, 74, 0.06);
+  --luxe-glow-cyan: rgba(6, 182, 212, 0.09);
 
   /* Unified Media Overlay (65-72% Dark Tinted Veil) */
-  --luxe-overlay: rgba(8, 11, 15, 0.70);
-  --luxe-overlay-heavy: rgba(6, 8, 12, 0.85);
+  --luxe-overlay: rgba(7, 10, 14, 0.72);
+  --luxe-overlay-heavy: rgba(5, 8, 12, 0.88);
 
   /* Hairlines, Rims & Dividers */
-  --luxe-hairline: rgba(255, 255, 255, 0.07);
-  --luxe-hairline-elevated: rgba(255, 255, 255, 0.12);
-  --luxe-hairline-gold: rgba(197, 160, 89, 0.24);
-  --luxe-divider-gradient: linear-gradient(90deg, transparent, rgba(197, 160, 89, 0.22) 20%, rgba(255, 255, 255, 0.08) 50%, rgba(197, 160, 89, 0.22) 80%, transparent);
+  --luxe-hairline: rgba(255, 255, 255, 0.08);
+  --luxe-hairline-elevated: rgba(255, 255, 255, 0.14);
+  --luxe-hairline-gold: rgba(223, 183, 74, 0.28);
+  --luxe-divider-gradient: linear-gradient(90deg, transparent, rgba(223, 183, 74, 0.32) 20%, rgba(255, 255, 255, 0.12) 50%, rgba(223, 183, 74, 0.32) 80%, transparent);
 
   /* Typography & High-Contrast Readability (WCAG AAA Primary, AA Secondary) */
   --luxe-text-primary: #f8fafc;
   --luxe-text-secondary: #94a3b8;
   --luxe-text-tertiary: #64748b;
-  --luxe-text-gold: #dfc27e;
-  --luxe-text-gold-light: #f3e5ab;
+  --luxe-text-gold: #e2c47c;
+  --luxe-text-gold-light: #f6ebb8;
 
   /* Elevation Shadows & Ambient Highlights */
-  --luxe-shadow-card: 0 16px 40px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  --luxe-shadow-hover: 0 24px 50px -10px rgba(0, 0, 0, 0.85), 0 0 30px rgba(197, 160, 89, 0.12), inset 0 1px 0 rgba(197, 160, 89, 0.3);
-  --luxe-shadow-glow-cyan: 0 0 35px -8px rgba(6, 182, 212, 0.18);
-  --luxe-shadow-glow-gold: 0 0 35px -8px rgba(197, 160, 89, 0.18);
+  --luxe-shadow-card: 0 16px 40px -12px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  --luxe-shadow-hover: 0 24px 50px -10px rgba(0, 0, 0, 0.9), 0 0 30px rgba(223, 183, 74, 0.16), inset 0 1px 0 rgba(223, 183, 74, 0.35);
+  --luxe-shadow-glow-cyan: 0 0 35px -8px rgba(6, 182, 212, 0.22);
+  --luxe-shadow-glow-gold: 0 0 35px -8px rgba(223, 183, 74, 0.22);
 }
 
 /* ------------------------------------------------------------------------------
@@ -84,7 +84,7 @@ html.theme-luxe::after {
   width: 70vw;
   height: 65vh;
   border-radius: 50%;
-  background: radial-gradient(circle at 50% 50%, rgba(197, 160, 89, 0.035) 0%, rgba(6, 182, 212, 0.025) 40%, transparent 70%);
+  background: radial-gradient(circle at 50% 50%, rgba(223, 183, 74, 0.05) 0%, rgba(6, 182, 212, 0.035) 40%, transparent 70%);
   pointer-events: none;
   z-index: 1;
   filter: blur(140px);
@@ -175,7 +175,7 @@ html.theme-luxe section.relative.bg-slate-950:first-of-type,
 html.theme-luxe .InteractiveTabbedHero,
 html.theme-luxe main > section:first-of-type {
   background: var(--luxe-bg-base) !important;
-  background-image: radial-gradient(circle at 50% 0%, rgba(197, 160, 89, 0.05) 0%, rgba(8, 11, 15, 0.98) 75%) !important;
+  background-image: radial-gradient(ellipse at 50% -5%, rgba(223, 183, 74, 0.09) 0%, rgba(17, 24, 34, 0.85) 45%, rgba(7, 10, 14, 0.99) 80%) !important;
   border-bottom: 1px solid var(--luxe-hairline) !important;
   position: relative;
 }
