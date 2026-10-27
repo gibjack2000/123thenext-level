@@ -143,3 +143,160 @@ ON CONFLICT (slug) DO UPDATE SET
   file_name = EXCLUDED.file_name,
   tags = EXCLUDED.tags,
   included = EXCLUDED.included;
+
+-- ============================================================================
+-- 4. Upsert Bundle SKUs into Products & Premium Guides
+-- ============================================================================
+INSERT INTO public.products (
+  id,
+  name,
+  category,
+  rating,
+  description,
+  price_text,
+  deal_url,
+  market_region,
+  badge_text,
+  image_url
+) VALUES 
+  -- Pick Any 3 Bundle (UK / US / ES)
+  (
+    'bundle-pick-3-uk',
+    'Pick Any 3 Master Guides (Custom Trio Bundle)',
+    'Protocol Bundles',
+    4.99,
+    'Choose any 3 of our 10 Premium Master Guides to build your tailored longevity and healthspan protocol.',
+    '£29.99',
+    '/checkout?bundle=bundle-pick-3',
+    'UK',
+    'CUSTOM TRIO BUNDLE',
+    '/assets/images/metabolic_nutrition_cover_New.png'
+  ),
+  (
+    'bundle-pick-3-us',
+    'Pick Any 3 Master Guides (Custom Trio Bundle)',
+    'Protocol Bundles',
+    4.99,
+    'Choose any 3 of our 10 Premium Master Guides to build your tailored longevity and healthspan protocol.',
+    '$29.99',
+    '/checkout?bundle=bundle-pick-3',
+    'US',
+    'CUSTOM TRIO BUNDLE',
+    '/assets/images/metabolic_nutrition_cover_New.png'
+  ),
+  (
+    'bundle-pick-3-es',
+    'Pick Any 3 Master Guides (Custom Trio Bundle)',
+    'Protocol Bundles',
+    4.99,
+    'Elige 3 de nuestras 10 Guías Maestras Premium para construir tu protocolo personalizado de longevidad.',
+    '29,99€',
+    '/checkout?bundle=bundle-pick-3',
+    'ES',
+    'PACK TRÍO PERSONALIZADO',
+    '/assets/images/metabolic_nutrition_cover_New.png'
+  ),
+  -- Complete 10-Guide Master Vault (UK / US / ES)
+  (
+    'bundle-complete-vault-10-uk',
+    'Complete 10-Guide Master Vault',
+    'Protocol Bundles',
+    5.00,
+    'Instant access to all 10 Premium Master Guides — covering body composition, metabolic nutrition, autonomic engineering, women''s health, home fitness, and clinical telemetry.',
+    '£59.99',
+    '/checkout?bundle=bundle-complete-vault-10',
+    'UK',
+    'COMPLETE VAULT ACCESS (SAVE 70%)',
+    '/assets/images/metabolic_nutrition_cover_New.png'
+  ),
+  (
+    'bundle-complete-vault-10-us',
+    'Complete 10-Guide Master Vault',
+    'Protocol Bundles',
+    5.00,
+    'Instant access to all 10 Premium Master Guides — covering body composition, metabolic nutrition, autonomic engineering, women''s health, home fitness, and clinical telemetry.',
+    '$59.99',
+    '/checkout?bundle=bundle-complete-vault-10',
+    'US',
+    'COMPLETE VAULT ACCESS (SAVE 70%)',
+    '/assets/images/metabolic_nutrition_cover_New.png'
+  ),
+  (
+    'bundle-complete-vault-10-es',
+    'Complete 10-Guide Master Vault',
+    'Protocol Bundles',
+    5.00,
+    'Acceso instantáneo a las 10 Guías Maestras Premium con descarga ZIP en 1 clic.',
+    '59,99€',
+    '/checkout?bundle=bundle-complete-vault-10',
+    'ES',
+    'ACCESO A LA BÓVEDA COMPLETA',
+    '/assets/images/metabolic_nutrition_cover_New.png'
+  )
+ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  category = EXCLUDED.category,
+  rating = EXCLUDED.rating,
+  description = EXCLUDED.description,
+  price_text = EXCLUDED.price_text,
+  deal_url = EXCLUDED.deal_url,
+  badge_text = EXCLUDED.badge_text,
+  image_url = EXCLUDED.image_url,
+  updated_at = NOW();
+
+INSERT INTO public.premium_guides (
+  slug,
+  title,
+  category,
+  short_description,
+  long_description,
+  price_display,
+  stripe_price_id,
+  image,
+  file_name,
+  featured,
+  tags,
+  included,
+  audience,
+  disclaimer
+) VALUES 
+  (
+    'bundle-pick-3',
+    'Pick Any 3 Master Guides (Custom Trio Bundle)',
+    'Bundle',
+    'Choose any 3 of our 10 Premium Master Guides to build your tailored longevity and healthspan protocol.',
+    'Build your tailored 3-guide longevity blueprint. Saves over 50% compared to purchasing single master books. Choose any 3 titles across body composition, strength, mobility, nutrition, and autonomic sleep protocols.',
+    '£29.99 / $29.99 / €29.99',
+    'price_bundle_pick_3',
+    '/assets/images/metabolic_nutrition_cover_New.png',
+    'bundle-pick-3.zip',
+    TRUE,
+    ARRAY['Bundle', 'Trio', 'Custom Protocol', 'Longevity', 'Best Value'],
+    ARRAY['Choose any 3 of 10 Premium Master Guides', 'High-res PDF instant downloads', 'Full lifetime protocol revisions included'],
+    'Individuals seeking a customized protocol focusing on their exact biological priorities.',
+    'Educational protocol materials only. Consult a physician before intensive diet or fitness changes.'
+  ),
+  (
+    'bundle-complete-vault-10',
+    'Complete 10-Guide Master Vault',
+    'Bundle',
+    'Instant access to all 10 Premium Master Guides — covering body composition, metabolic nutrition, autonomic engineering, women''s health, home fitness, and clinical telemetry.',
+    'The complete geroscience and clinical execution vault. Contains all 10 Master Execution Books in high-res PDF with 1-click ZIP archive access.',
+    '£59.99 / $59.99 / €59.99',
+    'price_bundle_complete_vault_10',
+    '/assets/images/metabolic_nutrition_cover_New.png',
+    'all-ten-master-guides.zip',
+    TRUE,
+    ARRAY['Complete Vault', 'All 10 Books', 'Master Suite', 'Geroscience Archive'],
+    ARRAY['All 10 Master Execution Books', '1-Click Complete ZIP Archive', 'Lifetime access to all future editions'],
+    'Individuals and practitioners wanting the entire geroscience library and clinic-ready protocols.',
+    'Educational protocol materials only. Consult a physician before intensive diet or fitness changes.'
+  )
+ON CONFLICT (slug) DO UPDATE SET
+  title = EXCLUDED.title,
+  short_description = EXCLUDED.short_description,
+  price_display = EXCLUDED.price_display,
+  image = EXCLUDED.image,
+  file_name = EXCLUDED.file_name,
+  tags = EXCLUDED.tags,
+  included = EXCLUDED.included;

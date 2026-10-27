@@ -98,7 +98,19 @@ export const R2_GUIDE_FILE_KEYS: Record<string, string> = {
   'all-nine-master-guides': 'Complete_9_Book_Master_Vault-2026.zip',
   'all-9-master-guides': 'Complete_9_Book_Master_Vault-2026.zip',
   'g-bundle-9': 'Complete_9_Book_Master_Vault-2026.zip',
-  'g-bundle-9-zip': 'Complete_9_Book_Master_Vault-2026.zip'
+  'g-bundle-9-zip': 'Complete_9_Book_Master_Vault-2026.zip',
+
+  // 1-Click ZIP Bundle for Complete 10-Guide Master Vault
+  'Complete_10_Book_Master_Vault-2026.zip': 'all-ten-master-guides.zip',
+  'all-ten-master-guides': 'all-ten-master-guides.zip',
+  'all-10-master-guides': 'all-ten-master-guides.zip',
+  'bundle-complete-vault-10': 'all-ten-master-guides.zip',
+  'g-bundle-10': 'all-ten-master-guides.zip',
+  'bundle-pick-3': 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf',
+
+  // Metabolic Master Guide
+  'metabolic-master-guide': 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf',
+  'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf': 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf'
 };
 
 export async function getPresignedDownloadUrl(guideId: string): Promise<string> {

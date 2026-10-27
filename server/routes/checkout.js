@@ -51,6 +51,30 @@ export const BUNDLE_CONSTITUENTS = {
     { id: 'sleep-optimization', title: 'Deep Sleep Optimization Protocol', key: 'Deep_Sleep_Optimization-2026.pdf', pillar: 'Recovery' },
     { id: 'habit-reset', title: 'Mindfulness & Habit Reset Workbook', key: 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf', pillar: 'Habits' }
   ],
+  'bundle-complete-vault-10': [
+    { id: 'metabolic-master-guide', title: 'The 12-Week Metabolic Re-Engineering Protocol', key: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf', pillar: 'Metabolic & Visceral' },
+    { id: 'workout-plan', title: 'Beginner Home Workout Plan', key: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
+    { id: 'hypertrophy-strength', title: 'Hypertrophy & Strength Protocol', key: 'Hypertrophy-Strength-Protocol-2026.pdf', pillar: 'Strength' },
+    { id: 'mobility-recovery', title: 'Daily Mobility & Recovery Routine', key: 'Daily_Mobility_and_Recovery-2026.pdf', pillar: 'Mobility' },
+    { id: 'meal-planner', title: 'The Master Meal Planning Guide', key: 'The Master_Meal_Planning_Guide-2026.pdf', pillar: 'Nutrition' },
+    { id: 'fat-loss-blueprint', title: 'The Fat Loss Nutrition Blueprint', key: 'Fat-Loss-Nutrition-Blueprint-2026.pdf', pillar: 'Metabolism' },
+    { id: 'high-protein-recipes', title: 'High-Protein Recipe Collection', key: 'High_Protein_Recipe_Collection-2026.pdf', pillar: 'Fuel' },
+    { id: 'stress-management', title: 'Cortisol & Stress Management', key: 'Cortisol_&_Stress_Management-2026.pdf', pillar: 'Wellness' },
+    { id: 'sleep-optimization', title: 'Deep Sleep Optimization Protocol', key: 'Deep_Sleep_Optimization-2026.pdf', pillar: 'Recovery' },
+    { id: 'habit-reset', title: 'Mindfulness & Habit Reset Workbook', key: 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf', pillar: 'Habits' }
+  ],
+  'all-ten-master-guides': [
+    { id: 'metabolic-master-guide', title: 'The 12-Week Metabolic Re-Engineering Protocol', key: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf', pillar: 'Metabolic & Visceral' },
+    { id: 'workout-plan', title: 'Beginner Home Workout Plan', key: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
+    { id: 'hypertrophy-strength', title: 'Hypertrophy & Strength Protocol', key: 'Hypertrophy-Strength-Protocol-2026.pdf', pillar: 'Strength' },
+    { id: 'mobility-recovery', title: 'Daily Mobility & Recovery Routine', key: 'Daily_Mobility_and_Recovery-2026.pdf', pillar: 'Mobility' },
+    { id: 'meal-planner', title: 'The Master Meal Planning Guide', key: 'The Master_Meal_Planning_Guide-2026.pdf', pillar: 'Nutrition' },
+    { id: 'fat-loss-blueprint', title: 'The Fat Loss Nutrition Blueprint', key: 'Fat-Loss-Nutrition-Blueprint-2026.pdf', pillar: 'Metabolism' },
+    { id: 'high-protein-recipes', title: 'High-Protein Recipe Collection', key: 'High_Protein_Recipe_Collection-2026.pdf', pillar: 'Fuel' },
+    { id: 'stress-management', title: 'Cortisol & Stress Management', key: 'Cortisol_&_Stress_Management-2026.pdf', pillar: 'Wellness' },
+    { id: 'sleep-optimization', title: 'Deep Sleep Optimization Protocol', key: 'Deep_Sleep_Optimization-2026.pdf', pillar: 'Recovery' },
+    { id: 'habit-reset', title: 'Mindfulness & Habit Reset Workbook', key: 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf', pillar: 'Habits' }
+  ],
   'g-bundle-9': [
     { id: 'workout-plan', title: 'Beginner Home Workout Plan', key: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
     { id: 'hypertrophy-strength', title: 'Hypertrophy & Strength Protocol', key: 'Hypertrophy-Strength-Protocol-2026.pdf', pillar: 'Strength' },
@@ -91,9 +115,13 @@ export const BUNDLE_CONSTITUENTS = {
 };
 
 // Helper to create download tokens for a product, expanding bundles if necessary
-async function createDownloadTokensForProduct(orderId, productId) {
+async function createDownloadTokensForProduct(orderId, productId, selectedGuides = []) {
   let constituentProductIds = [productId];
-  if (productId === 'g-bundle-9' || productId === 'all-nine-master-guides' || productId === 'all-9-master-guides') {
+  if (productId === 'bundle-complete-vault-10' || productId === 'all-ten-master-guides' || productId === 'all-10-master-guides' || productId === 'g-bundle-10') {
+    constituentProductIds = ['g-met-1', 'g-fit-1', 'g-fit-2', 'g-fit-3', 'g-nut-1', 'g-nut-2', 'g-nut-3', 'g-wel-1', 'g-wel-2', 'g-wel-3'];
+  } else if (productId === 'bundle-pick-3' && Array.isArray(selectedGuides) && selectedGuides.length > 0) {
+    constituentProductIds = selectedGuides;
+  } else if (productId === 'g-bundle-9' || productId === 'all-nine-master-guides' || productId === 'all-9-master-guides') {
     constituentProductIds = ['g-fit-1', 'g-fit-2', 'g-fit-3', 'g-nut-1', 'g-nut-2', 'g-nut-3', 'g-wel-1', 'g-wel-2', 'g-wel-3'];
   } else if (productId === 'g-bundle-6' || productId === 'all-six-master-guides') {
     constituentProductIds = ['g-fit-1', 'g-nut-1', 'g-wel-1', 'g-epi-1', 'g-fit-2', 'g-fit-3'];
@@ -185,7 +213,9 @@ router.post('/create-checkout-session', async (req, res) => {
         customerEmail: customerEmail || undefined,
         metadata: {
           guideId: targetGuide.id,
+          bundleId: targetGuide.pillar === 'Bundle' ? targetGuide.id : undefined,
           r2FileKey: targetGuide.r2FileKey,
+          selectedGuides: Array.isArray(req.body?.selectedGuides) ? req.body.selectedGuides.join(',') : (req.body?.selectedGuides || undefined)
         }
       });
 
@@ -367,7 +397,16 @@ router.get('/order-summary', async (req, res) => {
     // Expand bundles into individual book IDs
     let resolvedProductIds = [];
     for (const pid of rawProductIds) {
-      if (pid === 'g-bundle-9' || pid === 'all-nine-master-guides' || pid === 'all-9-master-guides') {
+      if (pid === 'bundle-complete-vault-10' || pid === 'all-ten-master-guides' || pid === 'all-10-master-guides' || pid === 'g-bundle-10') {
+        resolvedProductIds.push('g-met-1', 'g-fit-1', 'g-fit-2', 'g-fit-3', 'g-nut-1', 'g-nut-2', 'g-nut-3', 'g-wel-1', 'g-wel-2', 'g-wel-3');
+      } else if (pid === 'bundle-pick-3') {
+        const customGuides = stripeSession?.metadata?.selectedGuides ? stripeSession.metadata.selectedGuides.split(',').filter(Boolean) : [];
+        if (customGuides.length > 0) {
+          resolvedProductIds.push(...customGuides);
+        } else {
+          resolvedProductIds.push('g-met-1', 'g-fit-2', 'g-wel-2');
+        }
+      } else if (pid === 'g-bundle-9' || pid === 'all-nine-master-guides' || pid === 'all-9-master-guides') {
         resolvedProductIds.push('g-fit-1', 'g-fit-2', 'g-fit-3', 'g-nut-1', 'g-nut-2', 'g-nut-3', 'g-wel-1', 'g-wel-2', 'g-wel-3');
       } else if (pid === 'g-bundle-6' || pid === 'all-six-master-guides') {
         resolvedProductIds.push('g-fit-1', 'g-nut-1', 'g-wel-1', 'g-epi-1', 'g-fit-2', 'g-fit-3');

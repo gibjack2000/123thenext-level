@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Lock, ShieldCheck, Download, Sparkles, CheckCircle2, ArrowRight, BookOpen, X, Activity, FileText } from 'lucide-react';
 import { GUIDE_PRODUCTS, DigitalGuideProduct } from '../data/guide-registry';
+import BundleOffers from './BundleOffers';
 
 interface DigitalGuidesProps {
   className?: string;
@@ -377,35 +378,10 @@ export const DigitalGuides: React.FC<DigitalGuidesProps> = ({
         </div>
       )}
 
-      {/* Complete 9-Book Master Longevity Vault Promo */}
+      {/* Master Protocol Bundles (Pick 3 for £29.99 or Complete 10 Vault for £59.99) */}
       {showVaultBanner && (
-        <div className="mt-12 p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-slate-900 via-amber-950/40 to-slate-900 border-2 border-amber-500/40 shadow-2xl relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8 text-left">
-          <div className="space-y-3 max-w-2xl relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[10px] font-black uppercase tracking-widest">
-              <span>👑 Complete Master Vault (Save Over 70%)</span>
-            </div>
-            <h3 className="text-2xl sm:text-3xl font-black text-white">
-              Want All 9 Digital Master Execution Books?
-            </h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              Unlock the entire library: 3 Fitness Blueprints + 3 Nutrition Manuals + 3 Autonomic Wellness Systems in high-res PDF. Includes instant 1-Click ZIP Archive (`Complete_9_Book_Master_Vault-2026.zip`).
-            </p>
-          </div>
-
-          <div className="relative z-10 shrink-0 w-full sm:w-auto flex flex-col items-center lg:items-end gap-3">
-            <div className="text-center lg:text-right">
-              <span className="text-xs text-slate-500 line-through block">Combined Value: £200.00</span>
-              <span className="text-3xl sm:text-4xl font-black text-amber-400">£59.99</span>
-              <span className="text-[11px] text-slate-400 block">$75.00 / 69,00€</span>
-            </div>
-            <a
-              href="/checkout?bundle=all-nine-master-guides"
-              className="w-full sm:w-auto py-3.5 px-8 rounded-xl text-xs font-black uppercase tracking-wider bg-amber-500 hover:bg-amber-400 text-slate-950 transition-all shadow-xl shadow-amber-500/25 flex items-center justify-center gap-2"
-            >
-              <span>Get All 9 Books (£59.99)</span>
-              <span>➔</span>
-            </a>
-          </div>
+        <div className="mt-14">
+          <BundleOffers source="library" />
         </div>
       )}
     </section>

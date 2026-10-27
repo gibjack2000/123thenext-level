@@ -99,6 +99,22 @@ export const GUIDE_PRODUCTS = {
     priceFormatted: '£59.99',
     r2FileKey: 'all-nine-master-guides.zip'
   },
+  'bundle-pick-3': {
+    id: 'bundle-pick-3',
+    productId: 'bundle-pick-3',
+    title: 'Pick Any 3 Master Guides (Custom Trio Bundle)',
+    priceInCents: 2999, // £29.99 / $29.99 / €29.99
+    priceFormatted: '£29.99',
+    r2FileKey: 'bundle-pick-3.zip'
+  },
+  'bundle-complete-vault-10': {
+    id: 'bundle-complete-vault-10',
+    productId: 'bundle-complete-vault-10',
+    title: 'Complete 10-Guide Master Vault',
+    priceInCents: 5999, // £59.99 / $59.99 / €59.99
+    priceFormatted: '£59.99',
+    r2FileKey: 'all-ten-master-guides.zip'
+  },
   'metabolic-master-guide': {
     id: 'metabolic-master-guide',
     productId: 'g-met-1',
@@ -192,6 +208,14 @@ export const GUIDE_ALIASES = {
   'all-6-master-guides': 'g-bundle-6',
   'all-nine-master-guides': 'g-bundle-9',
   'all-9-master-guides': 'g-bundle-9',
+  'bundle-pick-3': 'bundle-pick-3',
+  'custom-trio-bundle': 'bundle-pick-3',
+  'pick-any-3': 'bundle-pick-3',
+  'bundle-complete-vault-10': 'bundle-complete-vault-10',
+  'complete-vault-10': 'bundle-complete-vault-10',
+  'all-ten-master-guides': 'bundle-complete-vault-10',
+  'all-10-master-guides': 'bundle-complete-vault-10',
+  'g-bundle-10': 'bundle-complete-vault-10',
 
   // Metabolic Master Guide & Visceral Fat Protocol
   'metabolic-master-guide': 'metabolic-master-guide',

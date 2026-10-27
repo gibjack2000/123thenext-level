@@ -24,6 +24,37 @@ interface ProductInfo {
   guides?: BundleGuideItem[];
 }
 
+const TEN_BOOK_VAULT_GUIDES: BundleGuideItem[] = [
+  { id: 'metabolic-master-guide', title: 'The 12-Week Metabolic Re-Engineering Protocol', file: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf', pillar: 'Metabolic & Visceral' },
+  { id: 'workout-plan', title: 'Beginner Home Workout Plan', file: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
+  { id: 'hypertrophy-strength', title: 'Hypertrophy & Strength Protocol', file: 'Hypertrophy-Strength-Protocol-2026.pdf', pillar: 'Muscle Architecture' },
+  { id: 'mobility-recovery', title: 'Daily Mobility & Recovery Routine', file: 'Daily_Mobility_and_Recovery-2026.pdf', pillar: 'Joint & Kinematics' },
+  { id: 'meal-planner', title: 'The Master Meal Planning Guide', file: 'The Master_Meal_Planning_Guide-2026.pdf', pillar: 'Nutrition' },
+  { id: 'fat-loss-blueprint', title: 'The Fat Loss Nutrition Blueprint', file: 'Fat-Loss-Nutrition-Blueprint-2026.pdf', pillar: 'Metabolism' },
+  { id: 'high-protein-recipes', title: 'High-Protein Recipe Collection', file: 'High_Protein_Recipe_Collection-2026.pdf', pillar: 'Culinary Fuel' },
+  { id: 'stress-management', title: 'Cortisol & Stress Management', file: 'Cortisol_&_Stress_Management-2026.pdf', pillar: 'Stress & Autonomic' },
+  { id: 'sleep-optimization', title: 'Deep Sleep Optimization Protocol', file: 'Deep_Sleep_Optimization-2026.pdf', pillar: 'Sleep & Recovery' },
+  { id: 'habit-reset', title: 'Mindfulness & Habit Reset Workbook', file: 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf', pillar: 'Habits & Mind' }
+];
+
+const GUIDE_MAP_BY_ID: Record<string, BundleGuideItem> = {
+  'metabolic-master-guide': { id: 'metabolic-master-guide', title: 'The 12-Week Metabolic Re-Engineering Protocol', file: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf', pillar: 'Metabolic & Visceral' },
+  'beginner-home-workout': { id: 'beginner-home-workout', title: 'Beginner Home Workout Plan', file: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
+  'workout-plan': { id: 'workout-plan', title: 'Beginner Home Workout Plan', file: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
+  'hypertrophy-strength': { id: 'hypertrophy-strength', title: 'Hypertrophy & Strength Protocol', file: 'Hypertrophy-Strength-Protocol-2026.pdf', pillar: 'Muscle Architecture' },
+  'mobility-recovery': { id: 'mobility-recovery', title: 'Daily Mobility & Recovery Routine', file: 'Daily_Mobility_and_Recovery-2026.pdf', pillar: 'Joint & Kinematics' },
+  'master-meal-planning': { id: 'master-meal-planning', title: 'The Master Meal Planning Guide', file: 'The Master_Meal_Planning_Guide-2026.pdf', pillar: 'Nutrition' },
+  'meal-planner': { id: 'meal-planner', title: 'The Master Meal Planning Guide', file: 'The Master_Meal_Planning_Guide-2026.pdf', pillar: 'Nutrition' },
+  'fat-loss-nutrition': { id: 'fat-loss-nutrition', title: 'Fat Loss Nutrition Blueprint', file: 'Fat-Loss-Nutrition-Blueprint-2026.pdf', pillar: 'Metabolism' },
+  'fat-loss-blueprint': { id: 'fat-loss-blueprint', title: 'The Fat Loss Nutrition Blueprint', file: 'Fat-Loss-Nutrition-Blueprint-2026.pdf', pillar: 'Metabolism' },
+  'high-protein-recipes': { id: 'high-protein-recipes', title: 'High-Protein Recipe Collection', file: 'High_Protein_Recipe_Collection-2026.pdf', pillar: 'Culinary Fuel' },
+  'cortisol-stress-management': { id: 'cortisol-stress-management', title: 'Cortisol & Stress Management', file: 'Cortisol_&_Stress_Management-2026.pdf', pillar: 'Stress & Autonomic' },
+  'stress-management': { id: 'stress-management', title: 'Cortisol & Stress Management', file: 'Cortisol_&_Stress_Management-2026.pdf', pillar: 'Stress & Autonomic' },
+  'sleep-optimization': { id: 'sleep-optimization', title: 'Deep Sleep Optimization Protocol', file: 'Deep_Sleep_Optimization-2026.pdf', pillar: 'Sleep & Recovery' },
+  'mindfulness-habit-reset': { id: 'mindfulness-habit-reset', title: 'Mindfulness & Habit Reset Workbook', file: 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf', pillar: 'Habits & Mind' },
+  'habit-reset': { id: 'habit-reset', title: 'Mindfulness & Habit Reset Workbook', file: 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf', pillar: 'Habits & Mind' }
+};
+
 const NINE_BOOK_VAULT_GUIDES: BundleGuideItem[] = [
   { id: 'workout-plan', title: 'Beginner Home Workout Plan', file: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
   { id: 'hypertrophy-strength', title: 'Hypertrophy & Strength Protocol', file: 'Hypertrophy-Strength-Protocol-2026.pdf', pillar: 'Muscle Architecture' },
@@ -53,6 +84,68 @@ const THREE_PILLAR_GUIDES: BundleGuideItem[] = [
 
 const PRODUCT_MAP: Record<string, ProductInfo> = {
   // --- BUNDLES ---
+  'bundle-complete-vault-10': {
+    id: 'bundle-complete-vault-10',
+    name: 'Complete 10-Guide Master Vault (All 10 Books)',
+    price: '£59.99',
+    usPrice: '$59.99 • €59.99',
+    slug: 'bundle-complete-vault-10',
+    desc: 'Instant access to all 10 Premium Master Guides — covering body composition, metabolic nutrition, autonomic engineering, women\'s health, home fitness, and clinical telemetry. Includes 1-Click ZIP Archive.',
+    guides: TEN_BOOK_VAULT_GUIDES
+  },
+  'all-ten-master-guides': {
+    id: 'bundle-complete-vault-10',
+    name: 'Complete 10-Guide Master Vault (All 10 Books)',
+    price: '£59.99',
+    usPrice: '$59.99 • €59.99',
+    slug: 'bundle-complete-vault-10',
+    desc: 'Instant access to all 10 Premium Master Guides — covering body composition, metabolic nutrition, autonomic engineering, women\'s health, home fitness, and clinical telemetry. Includes 1-Click ZIP Archive.',
+    guides: TEN_BOOK_VAULT_GUIDES
+  },
+  'all-10-master-guides': {
+    id: 'bundle-complete-vault-10',
+    name: 'Complete 10-Guide Master Vault (All 10 Books)',
+    price: '£59.99',
+    usPrice: '$59.99 • €59.99',
+    slug: 'bundle-complete-vault-10',
+    desc: 'Instant access to all 10 Premium Master Guides — covering body composition, metabolic nutrition, autonomic engineering, women\'s health, home fitness, and clinical telemetry. Includes 1-Click ZIP Archive.',
+    guides: TEN_BOOK_VAULT_GUIDES
+  },
+  'g-bundle-10': {
+    id: 'bundle-complete-vault-10',
+    name: 'Complete 10-Guide Master Vault (All 10 Books)',
+    price: '£59.99',
+    usPrice: '$59.99 • €59.99',
+    slug: 'bundle-complete-vault-10',
+    desc: 'Instant access to all 10 Premium Master Guides — covering body composition, metabolic nutrition, autonomic engineering, women\'s health, home fitness, and clinical telemetry. Includes 1-Click ZIP Archive.',
+    guides: TEN_BOOK_VAULT_GUIDES
+  },
+  'bundle-pick-3': {
+    id: 'bundle-pick-3',
+    name: 'Pick Any 3 Master Guides (Custom Trio Bundle)',
+    price: '£29.99',
+    usPrice: '$29.99 • €29.99',
+    slug: 'bundle-pick-3',
+    desc: 'Choose any 3 of our 10 Premium Master Guides to build your tailored longevity and healthspan protocol.',
+    guides: [
+      TEN_BOOK_VAULT_GUIDES[0],
+      TEN_BOOK_VAULT_GUIDES[2],
+      TEN_BOOK_VAULT_GUIDES[8]
+    ]
+  },
+  'custom-trio-bundle': {
+    id: 'bundle-pick-3',
+    name: 'Pick Any 3 Master Guides (Custom Trio Bundle)',
+    price: '£29.99',
+    usPrice: '$29.99 • €29.99',
+    slug: 'bundle-pick-3',
+    desc: 'Choose any 3 of our 10 Premium Master Guides to build your tailored longevity and healthspan protocol.',
+    guides: [
+      TEN_BOOK_VAULT_GUIDES[0],
+      TEN_BOOK_VAULT_GUIDES[2],
+      TEN_BOOK_VAULT_GUIDES[8]
+    ]
+  },
   'all-nine-master-guides': {
     id: 'g-bundle-9',
     name: 'Complete 9-Book Master Longevity Vault (All 9 Books)',
@@ -283,8 +376,21 @@ const PRODUCT_MAP: Record<string, ProductInfo> = {
 
 export default function CheckoutPage() {
   const [searchParams] = useSearchParams();
-  const rawKey = searchParams.get('product') || searchParams.get('bundle') || 'all-six-master-guides';
-  const item = PRODUCT_MAP[rawKey] || PRODUCT_MAP['all-six-master-guides'];
+  const rawKey = searchParams.get('product') || searchParams.get('bundle') || 'bundle-complete-vault-10';
+  const guidesParam = searchParams.get('guides');
+  const baseItem = PRODUCT_MAP[rawKey] || PRODUCT_MAP['bundle-complete-vault-10'];
+
+  const item: ProductInfo = React.useMemo(() => {
+    if ((rawKey === 'bundle-pick-3' || rawKey === 'custom-trio-bundle') && guidesParam) {
+      const selectedKeys = guidesParam.split(',').map(s => s.trim()).filter(Boolean);
+      const resolvedGuides: BundleGuideItem[] = selectedKeys.map(k => GUIDE_MAP_BY_ID[k] || { id: k, title: k, file: `${k}.pdf`, pillar: 'Custom Protocol' });
+      return {
+        ...baseItem,
+        guides: resolvedGuides.length > 0 ? resolvedGuides : baseItem.guides
+      };
+    }
+    return baseItem;
+  }, [rawKey, guidesParam, baseItem]);
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
@@ -301,6 +407,10 @@ export default function CheckoutPage() {
     setIsProcessing(true);
     setCheckoutError(null);
     try {
+      const selectedGuideIds = (item.guides && item.guides.length > 0)
+        ? item.guides.map(g => g.id)
+        : undefined;
+
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: {
@@ -308,6 +418,7 @@ export default function CheckoutPage() {
         },
         body: JSON.stringify({
           guideId: item.slug || item.id,
+          selectedGuides: selectedGuideIds,
           items: [{ id: item.id }],
           source: 'checkout'
         }),

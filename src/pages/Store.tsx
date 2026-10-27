@@ -28,6 +28,7 @@ import {
 } from 'lucide-react';
 import DiagnosticPathwaySelector from '../components/DiagnosticPathwaySelector';
 import DualTrackSelector from '../components/DualTrackSelector';
+import BundleOffers from '../components/BundleOffers';
 
 type MarketTab = 'US' | 'UK' | 'ES';
 
@@ -2986,6 +2987,11 @@ export function Store({ region }: StoreProps = {}) {
 
             </div>
           )}
+
+          {/* Master Protocol Bundles Showcase (Pick 3 for £29.99 or Complete 10 Vault for £59.99) */}
+          <div className="pt-8 pb-4">
+            <BundleOffers source="store" />
+          </div>
 
           {/* Localized Disclaimers */}
           <div className="text-center max-w-3xl mx-auto pt-12 border-t border-slate-900 space-y-2 text-[10px] text-slate-500 leading-relaxed">

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { BookOpen, X, CheckCircle2, ShieldCheck, Download, ArrowRight, Activity, FileText } from 'lucide-react';
+import BundleOffers from '../components/BundleOffers';
 
 interface MasterGuide {
   id: string;
@@ -343,86 +344,7 @@ export default function PremiumGuidesPage() {
         </div>
 
         {/* BUNDLES SHOWCASE */}
-        <div className="space-y-8">
-          
-          {/* CROWN JEWEL: 9-BOOK MASTER VAULT (£59.99) */}
-          <div className="p-8 md:p-12 rounded-3xl bg-gradient-to-r from-slate-900 via-amber-950/40 to-slate-900 border-2 border-amber-500/50 shadow-2xl relative overflow-hidden flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div className="space-y-4 text-left max-w-2xl">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-xs font-black text-amber-300 uppercase tracking-widest bg-amber-500/20 border border-amber-500/40 px-3.5 py-1 rounded-full inline-block">
-                  👑 THE ULTIMATE ALL-9 MASTER VAULT (SAVE 70%)
-                </span>
-                <span className="text-xs font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-800/60 px-3 py-1 rounded-full inline-block">
-                  ⚡ 1-Click ZIP Included
-                </span>
-              </div>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-black text-white leading-tight">
-                Get All 9 Digital Master Books
-              </h2>
-              <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
-                The exhaustive geroscience execution archive. Includes all 9 specialized blueprints:
-                <strong> 3 Fitness Protocols</strong> (Beginner Home Workout + Hypertrophy & Strength + Daily Mobility) + 
-                <strong> 3 Nutrition Blueprints</strong> (Master Meal Planning + Fat Loss Blueprint + High-Protein Recipes) + 
-                <strong> 3 Wellness Systems</strong> (Cortisol & Stress + Deep Sleep Optimization + Mindfulness & Habit Reset).
-              </p>
-              <div className="flex flex-wrap gap-2 pt-2">
-                <span className="text-[11px] bg-slate-800/80 border border-slate-700 text-slate-300 px-2.5 py-1 rounded-lg">
-                  📁 Complete_9_Book_Master_Vault-2026.zip (13 MB)
-                </span>
-                <span className="text-[11px] bg-slate-800/80 border border-slate-700 text-slate-300 px-2.5 py-1 rounded-lg">
-                  📖 9 High-Res PDFs
-                </span>
-                <span className="text-[11px] bg-slate-800/80 border border-slate-700 text-slate-300 px-2.5 py-1 rounded-lg">
-                  🔄 Lifetime Access & Updates
-                </span>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-center lg:items-end gap-4 shrink-0 w-full sm:w-auto">
-              <div className="text-center lg:text-right">
-                <span className="text-xs text-slate-500 line-through block">Combined Value: £200.00</span>
-                <span className="text-4xl md:text-5xl font-black text-amber-400">£59.99</span>
-                <span className="text-xs text-slate-400 block pt-1">$75.00 / 69,00€</span>
-              </div>
-              <a
-                href="/checkout?bundle=all-nine-master-guides"
-                className="w-full sm:w-auto py-4 px-8 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-sm rounded-xl shadow-xl shadow-amber-500/25 transition-all text-center"
-              >
-                Unlock All 9 Master Books (£59.99) ➔
-              </a>
-            </div>
-          </div>
-
-          {/* 6-PILLAR SUITE (£49.00) */}
-          <div className="p-8 md:p-10 rounded-3xl bg-slate-900/80 border border-cyan-500/30 shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="space-y-2 text-left max-w-2xl">
-              <span className="text-xs font-bold text-cyan-400 uppercase tracking-widest bg-cyan-950/60 border border-cyan-800/60 px-3 py-1 rounded-md inline-block">
-                ⚡ 6-PILLAR FOUNDATION SUITE (SAVE OVER 55%)
-              </span>
-              <h3 className="text-xl md:text-2xl font-black text-white">
-                Looking for the Core 6-Pillar Suite?
-              </h3>
-              <p className="text-xs md:text-sm text-slate-400 leading-relaxed">
-                Unlock 6 core digital books (Workout Plan + Meal Planner + Stress Management + Lifespan Blueprint + Hypertrophy + Mobility Routine) with 1-Click ZIP download.
-              </p>
-            </div>
-
-            <div className="flex flex-col items-center md:items-end gap-3 shrink-0">
-              <div className="text-center md:text-right">
-                <span className="text-xs text-slate-500 line-through block">Regular Price: £128.00</span>
-                <span className="text-3xl font-black text-cyan-400">£49.00</span>
-                <span className="text-xs text-slate-500 block">$59.00 / 55,00€</span>
-              </div>
-              <a
-                href="/checkout?bundle=all-six-master-guides"
-                className="py-3.5 px-6 bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs rounded-xl border border-cyan-500/40 transition-all text-center"
-              >
-                Get Core 6 Master Books (£49.00) ➔
-              </a>
-            </div>
-          </div>
-
-        </div>
+        <BundleOffers source="guides" />
 
       </main>
 

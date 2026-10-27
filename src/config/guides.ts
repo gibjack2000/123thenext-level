@@ -338,10 +338,73 @@ export const PREMIUM_MASTER_GUIDES: PremiumMasterGuide[] = [
   }
 ];
 
+// ============================================================================
+// SECTION 3: Premium Master Protocol Bundles (Curated Multi-Book Vaults)
+// ============================================================================
+export interface BundleOfferConfig {
+  id: string;
+  name: string;
+  badge: string;
+  priceDisplay: string;
+  priceInCents: number;
+  prices: {
+    GBP: string;
+    USD: string;
+    EUR: string;
+  };
+  description: string;
+  highlights: string[];
+  checkoutUrl: string;
+}
+
+export const BUNDLE_OFFERS: Record<string, BundleOfferConfig> = {
+  'bundle-pick-3': {
+    id: 'bundle-pick-3',
+    name: 'Pick Any 3 Master Guides',
+    badge: 'Custom Trio Bundle',
+    priceDisplay: '£29.99 / $29.99 / €29.99',
+    priceInCents: 2999,
+    prices: {
+      GBP: '£29.99',
+      USD: '$29.99',
+      EUR: '29,99€'
+    },
+    description: 'Choose any 3 of our 10 Premium Master Guides to build your tailored longevity and healthspan protocol.',
+    highlights: [
+      'Choose any 3 of our 10 Premium Master Guides',
+      'Over 50% savings vs individual pricing',
+      'Interactive custom protocol selection',
+      'Instant PDF downloads & lifetime access'
+    ],
+    checkoutUrl: '/checkout?bundle=bundle-pick-3'
+  },
+  'bundle-complete-vault-10': {
+    id: 'bundle-complete-vault-10',
+    name: 'Complete 10-Guide Master Vault',
+    badge: 'Complete Vault Access',
+    priceDisplay: '£59.99 / $59.99 / €59.99',
+    priceInCents: 5999,
+    prices: {
+      GBP: '£59.99',
+      USD: '$59.99',
+      EUR: '59,99€'
+    },
+    description: 'Instant access to all 10 Premium Master Guides — covering body composition, metabolic nutrition, autonomic engineering, women\'s health, home fitness, and clinical telemetry.',
+    highlights: [
+      'All 10 Premium Master Execution Books included',
+      'Best Value — Maximum Savings (Over 70% Off)',
+      'Includes 12-Week Metabolic & Visceral Fat Protocol',
+      '1-Click Instant Unlock & ZIP Archive access'
+    ],
+    checkoutUrl: '/checkout?bundle=bundle-complete-vault-10'
+  }
+};
+
 // Compatibility exports
 export const guides = PREMIUM_MASTER_GUIDES;
 export default {
   COMPLIMENTARY_FREE_GUIDES,
   PREMIUM_MASTER_GUIDES,
+  BUNDLE_OFFERS,
   guides
 };
