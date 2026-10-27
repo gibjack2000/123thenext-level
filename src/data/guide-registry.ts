@@ -197,14 +197,13 @@ export const GUIDE_PRODUCTS: Record<string, DigitalGuideProduct> = {
     priceInCents: 1900, // £19.00
     priceFormatted: '£19.00',
     r2FileKey: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf',
-    pillar: 'Metabolism',
-    description: 'Stop Guessing Your Weight. Re-Engineer Your Internal Biology in 12 Weeks. A phased clinical protocol integrating bioimpedance scales, continuous autonomic wearables, and quarterly venous blood tests.',
-    coverImage: '/covers/metabolic-master-guide-cover.png',
+    pillar: 'Metabolic Health & Body Composition',
+    description: 'A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.',
+    coverImage: '/assets/images/metabolic_nutrition_cover.png',
     highlights: [
-      '12-Week Phased Metabolic Reset Roadmap',
-      'Bioimpedance & Visceral Fat Rating (1–12) Targeting',
-      'Printable 14-Day Hardware Telemetry Worksheets',
-      'Sunday Urinalysis & Day 90 Blood Draw Cadence'
+      'Visceral Fat Rating & Smart Scale Calibration',
+      'Targeted Protein & Resistance Workout Schedules',
+      '14-Day Telemetry Logging & GP Leave-Behind Export'
     ]
   }
 };

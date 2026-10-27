@@ -35,6 +35,18 @@ type MarketTab = 'US' | 'UK' | 'ES';
 const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
   "UK": [
     {
+      "id": "metabolic-master-guide-uk",
+      "name": "The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol",
+      "category": "Clinical Diagnostics & Co-Pilot",
+      "rating": 4.98,
+      "description": "A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.",
+      "price_text": "£19.00",
+      "deal_url": "/checkout?product=metabolic-master-guide",
+      "market_region": "UK",
+      "badge_text": "PREMIUM MASTER GUIDE",
+      "image_url": "/assets/images/metabolic_nutrition_cover.png"
+    },
+    {
       "id": "reagent-strips-uk",
       "name": "ALLTEST 10-Parameter Clinical Urinalysis Dipsticks UK",
       "category": "Rapid Fluid Telemetry",
@@ -853,6 +865,18 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
   ],
   "US": [
     {
+      "id": "metabolic-master-guide-us",
+      "name": "The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol",
+      "category": "Clinical Diagnostics & Co-Pilot",
+      "rating": 4.98,
+      "description": "A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.",
+      "price_text": "$25.00",
+      "deal_url": "/checkout?product=metabolic-master-guide",
+      "market_region": "US",
+      "badge_text": "PREMIUM MASTER GUIDE",
+      "image_url": "/assets/images/metabolic_nutrition_cover.png"
+    },
+    {
       "id": "sleep-analyzer-us",
       "name": "Withings Sleep Analyzer Under-Mattress Pad",
       "category": "Tech Gadgets & Wearables",
@@ -1430,6 +1454,18 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     }
   ],
   "ES": [
+    {
+      "id": "metabolic-master-guide-es",
+      "name": "The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol",
+      "category": "Clinical Diagnostics & Co-Pilot",
+      "rating": 4.98,
+      "description": "A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.",
+      "price_text": "22,00€",
+      "deal_url": "/checkout?product=metabolic-master-guide",
+      "market_region": "ES",
+      "badge_text": "PREMIUM MASTER GUIDE",
+      "image_url": "/assets/images/metabolic_nutrition_cover.png"
+    },
     {
       "id": "sirtuin-stack-es",
       "name": "Paquete de Activación de Sirtuina y Recuperación Celular Momentous",

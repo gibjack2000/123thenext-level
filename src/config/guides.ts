@@ -26,7 +26,7 @@ export interface PremiumMasterGuide {
   id: string;
   slug: string;
   title: string;
-  category: 'Fitness' | 'Nutrition' | 'Wellness';
+  category: 'Fitness' | 'Nutrition' | 'Wellness' | 'Metabolic Health & Body Composition';
   shortDescription: string;
   longDescription: string;
   priceDisplay: string;
@@ -92,10 +92,34 @@ export const COMPLIMENTARY_FREE_GUIDES: ComplimentaryGuide[] = [
 ];
 
 // ============================================================================
-// SECTION 2: Premium Digital Master Guides (Paid Master Series — £29 / $29)
-// All 9 existing Premium Guides intact with checkout integration links
+// SECTION 2: Premium Digital Master Guides (Paid Master Series)
+// Master Guides intact with checkout integration links
 // ============================================================================
 export const PREMIUM_MASTER_GUIDES: PremiumMasterGuide[] = [
+  {
+    id: 'g-met-1',
+    slug: 'metabolic-master-guide',
+    title: 'The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol',
+    category: 'Metabolic Health & Body Composition',
+    shortDescription: 'A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.',
+    longDescription: 'A comprehensive, phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass through calibrated bioimpedance telemetry, progressive overload, and clinician leave-behind protocols.',
+    priceDisplay: '£19.00 / $25.00 / €22.00',
+    priceInCents: 1900,
+    stripePriceId: 'price_metabolic_master_guide',
+    checkoutUrl: '/checkout?guide=metabolic-master-guide',
+    image: '/assets/images/metabolic_nutrition_cover.png',
+    fileName: 'metabolic-master-guide.pdf',
+    featured: true,
+    tags: ['Metabolic Health', 'Visceral Fat', 'Bioimpedance', 'Body Composition', 'Wearables'],
+    included: [
+      'Visceral Fat Rating & Smart Scale Calibration',
+      'Targeted Protein & Resistance Workout Schedules',
+      '14-Day Telemetry Logging & GP Leave-Behind Export',
+      'Sunday Urinalysis & Day 90 Blood Draw Cadence Matrix'
+    ],
+    audience: 'Individuals targeting stubborn visceral organ adiposity, insulin resistance, or optimizing lean muscle mass.',
+    disclaimer: 'This is an educational guide and does not substitute clinical medical advice or individualized diagnostic care.'
+  },
   {
     id: 'g-fit-1',
     slug: 'beginner-home-workout-plan',

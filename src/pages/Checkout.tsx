@@ -239,6 +239,22 @@ const PRODUCT_MAP: Record<string, ProductInfo> = {
     slug: 'the-next-level-lifespan',
     desc: 'Upgrade your cellular hardware today to run tomorrow’s age-reversal software: sirtuin activation, autophagy, and DNA protection.'
   },
+  'metabolic-master-guide': {
+    id: 'g-met-1',
+    name: 'The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol',
+    price: '£19.00',
+    usPrice: '$25.00',
+    slug: 'metabolic-master-guide',
+    desc: 'A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.'
+  },
+  'visceral-fat-protocol': {
+    id: 'g-met-1',
+    name: 'The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol',
+    price: '£19.00',
+    usPrice: '$25.00',
+    slug: 'metabolic-master-guide',
+    desc: 'A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.'
+  },
   'epigenetics-guide': {
     id: 'g-epi-1',
     name: 'The Next Level Lifespan Blueprint',

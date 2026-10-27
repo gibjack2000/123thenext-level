@@ -99,5 +99,16 @@ VALUES
  ARRAY['Habits', 'Mindfulness', 'Psychology', 'Workbook'], 
  ARRAY['21 days of journal prompts', 'Habit loop identification exercises', 'Dopamine detox strategies', 'Identity-based goal setting frameworks'], 
  'Anyone feeling "stuck" in a rut looking to rebuild their daily routines from the ground up.', 
- 'For educational self-improvement only. Not a clinical psychological intervention.')
+ 'For educational self-improvement only. Not a clinical psychological intervention.'),
+
+('metabolic-master-guide', 'The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol', 'Nutrition', 
+ 'A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.', 
+ 'Stop Guessing Your Weight. Re-Engineer Your Internal Biology in 12 Weeks. A phased protocol integrating fasting bioimpedance scales, continuous autonomic wearables, weekly urine chemistry, and quarterly clinical phlebotomy to strip deep visceral organ fat.', 
+ '£19.00', 'price_metabolic_master_guide', 
+ '/assets/images/metabolic_nutrition_cover.png', 
+ 'metabolic-master-guide.pdf', true, 
+ ARRAY['Visceral Fat', 'Bioimpedance', 'Metabolism', 'Wearables', '12-Week Protocol', 'Body Composition'], 
+ ARRAY['Visceral Fat Rating & Smart Scale Calibration', 'Targeted Protein & Resistance Workout Schedules', '14-Day Telemetry Logging & GP Leave-Behind Export', 'Sunday Urinalysis & Day 90 Blood Draw Cadence Matrix'], 
+ 'Individuals looking to eliminate hidden visceral organ adiposity, optimize muscle-to-fat ratio, and systematically lower ApoB and HbA1c.', 
+ 'This guide is for informational and educational purposes only and does not constitute medical advice. Consult with a qualified physician before starting any intensive nutritional or exercise intervention.')
 ON CONFLICT (slug) DO UPDATE SET price_display = EXCLUDED.price_display;

@@ -56,7 +56,7 @@ export default function MetabolicMasterGuidePage() {
     title: 'The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol',
     priceDisplay: priceFormatted,
     stripePriceId: 'price_metabolic_master_guide',
-    image: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=800&auto=format&fit=crop',
+    image: '/assets/images/metabolic_nutrition_cover.png',
     category: 'Nutrition'
   };
 
@@ -227,11 +227,11 @@ export default function MetabolicMasterGuidePage() {
             <div className="p-8 rounded-3xl bg-gradient-to-b from-slate-900 via-slate-900/80 to-slate-950 border border-slate-800 shadow-2xl relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-40 h-40 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 shadow-inner">
+              <div className="relative aspect-[3/4] max-w-sm mx-auto rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 shadow-inner flex items-center justify-center p-2">
                 <img
-                  src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=800&auto=format&fit=crop"
+                  src="/assets/images/metabolic_nutrition_cover.png"
                   alt="Metabolic Master Guide Cover"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700"
                   loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />

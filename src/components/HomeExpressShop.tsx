@@ -640,6 +640,42 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     }
   },
   {
+    id: "metabolic-master-guide",
+    name: "The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol",
+    category: "wellness",
+    categoryLabel: "Autonomic Reset & Wellness Gear",
+    tag: "PREMIUM MASTER GUIDE",
+    rating: 4.98,
+    reviewsCount: "1.2k+",
+    shortBenefit: "A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.",
+    description: "A phased biometric blueprint integrating bioimpedance scales, continuous wearables, and clinical phlebotomy to strip deep visceral organ fat.",
+    imageUrl: "/assets/images/metabolic_nutrition_cover.png",
+    isDirectAffiliate: true,
+    regions: {
+      US: {
+        price: "$25.00",
+        badge: "PREMIUM GUIDE | Instant PDF",
+        url: "/checkout?product=metabolic-master-guide",
+        ctaText: "Get Master Guide ($25) 🇺🇸",
+        network: "Digital Download"
+      },
+      UK: {
+        price: "£19.00",
+        badge: "PREMIUM GUIDE | Instant PDF",
+        url: "/checkout?product=metabolic-master-guide",
+        ctaText: "Get Master Guide (£19) 🇬🇧",
+        network: "Digital Download"
+      },
+      ES: {
+        price: "22,00€",
+        badge: "GUÍA PREMIUM | PDF Instantáneo",
+        url: "/checkout?product=metabolic-master-guide",
+        ctaText: "Obtener Guía (22€) 🇪🇸",
+        network: "Digital Download"
+      }
+    }
+  },
+  {
     id: "cgm",
     name: "Continuous Glucose Monitor (Abbott Lingo / Dexcom ONE+)",
     category: "wellness",
