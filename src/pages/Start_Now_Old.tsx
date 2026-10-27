@@ -490,7 +490,7 @@ export default function Start_Now_Old() {
                         Deploy our Beginner Home Workout Plan (£19.00) — a 4-week zero-equipment routine to build baseline structural joint and lean mass health.
                       </p>
                       <Link 
-                        to="/premium-guides"
+                        to="/premium-guides/beginner-home-workout-plan"
                         className="inline-flex items-center gap-1 text-[10px] text-cyan-400 hover:underline uppercase font-mono tracking-wider pt-1"
                       >
                         Acquire Guide <ArrowRight size={10} />
@@ -536,7 +536,7 @@ export default function Start_Now_Old() {
                         Master your circadian sleep architecture with our Cortisol & Stress Management Guide (£22.00).
                       </p>
                       <Link 
-                        to="/premium-guides"
+                        to="/premium-guides/stress-management-toolkit"
                         className="inline-flex items-center gap-1 text-[10px] text-cyan-400 hover:underline uppercase font-mono tracking-wider pt-1"
                       >
                         Acquire Guide <ArrowRight size={10} />
@@ -599,7 +599,7 @@ export default function Start_Now_Old() {
                         Structure your weekly grocery and macro workflows with The Master Meal Planning Guide (£24.00).
                       </p>
                       <Link 
-                        to="/premium-guides"
+                        to="/premium-guides/healthy-meal-planning-guide"
                         className="inline-flex items-center gap-1 text-[10px] text-cyan-400 hover:underline uppercase font-mono tracking-wider pt-1"
                       >
                         Acquire Guide <ArrowRight size={10} />

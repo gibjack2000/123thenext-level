@@ -376,7 +376,7 @@ export default function DualTrack() {
                       {/* Direct Product */}
                       <div className="p-2.5 rounded-lg bg-slate-900/40 border border-slate-850 hover:border-wellness-cyan/15 transition-all">
                         <p className="text-slate-grey-400 font-light leading-relaxed">
-                          Upgrade your functional strength progress with the <Link to="/premium-guides" className="text-wellness-cyan font-bold hover:underline">Beginner Home Workout Plan (£19.00)</Link>—our 4-week zero-equipment protocol to build foundational joint stability.
+                          Upgrade your functional strength progress with the <Link to="/premium-guides/beginner-home-workout-plan" className="text-wellness-cyan font-bold hover:underline">Beginner Home Workout Plan (£19.00)</Link>—our 4-week zero-equipment protocol to build foundational joint stability.
                         </p>
                       </div>
 
@@ -414,7 +414,7 @@ export default function DualTrack() {
                       {/* Direct Product */}
                       <div className="p-2.5 rounded-lg bg-slate-900/40 border border-slate-850 hover:border-wellness-cyan/15 transition-all">
                         <p className="text-slate-grey-400 font-light leading-relaxed">
-                          Build the ultimate bedtime routine and master your circadian sleep architecture with our <Link to="/premium-guides" className="text-wellness-cyan font-bold hover:underline">Cortisol & Stress Management Guide (£22.00)</Link>.
+                          Build the ultimate bedtime routine and master your circadian sleep architecture with our <Link to="/premium-guides/stress-management-toolkit" className="text-wellness-cyan font-bold hover:underline">Cortisol & Stress Management Guide (£22.00)</Link>.
                         </p>
                       </div>
 
@@ -452,7 +452,7 @@ export default function DualTrack() {
                       {/* Direct Product */}
                       <div className="p-2.5 rounded-lg bg-slate-900/40 border border-slate-850 hover:border-wellness-cyan/15 transition-all">
                         <p className="text-slate-grey-400 font-light leading-relaxed">
-                          Recommend <Link to="/premium-guides" className="text-wellness-cyan font-bold hover:underline">The Master Meal Planning Guide (£24.00)</Link> for structuring weekly grocery and macro workflows.
+                          Recommend <Link to="/premium-guides/healthy-meal-planning-guide" className="text-wellness-cyan font-bold hover:underline">The Master Meal Planning Guide (£24.00)</Link> for structuring weekly grocery and macro workflows.
                         </p>
                       </div>
 

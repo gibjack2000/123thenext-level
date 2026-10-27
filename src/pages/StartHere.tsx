@@ -348,7 +348,7 @@ export default function StartHere() {
               <div className="pt-3 border-t border-slate-800 space-y-2.5">
                 {/* Recommended Reading */}
                 <Link
-                  to="/store"
+                  to="/premium-guides/healthy-meal-planning-guide"
                   className="group flex items-center justify-between p-3 rounded-2xl bg-cyan-950/40 border border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-900/40 transition-all text-xs"
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
@@ -436,7 +436,7 @@ export default function StartHere() {
               <div className="pt-3 border-t border-slate-800 space-y-2.5">
                 {/* Recommended Reading */}
                 <Link
-                  to="/store"
+                  to="/premium-guides/beginner-home-workout-plan"
                   className="group flex items-center justify-between p-3 rounded-2xl bg-teal-950/40 border border-teal-500/30 hover:border-teal-400 hover:bg-teal-900/40 transition-all text-xs"
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
@@ -524,7 +524,7 @@ export default function StartHere() {
               <div className="pt-3 border-t border-slate-800 space-y-2.5">
                 {/* Recommended Reading */}
                 <Link
-                  to="/store"
+                  to="/premium-guides/stress-management-toolkit"
                   className="group flex items-center justify-between p-3 rounded-2xl bg-purple-950/40 border border-purple-500/30 hover:border-purple-400 hover:bg-purple-900/40 transition-all text-xs"
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
@@ -824,10 +824,10 @@ export default function StartHere() {
                 </h3>
               </div>
               <Link
-                to="/store"
+                to="/premium-guides"
                 className="text-xs text-slate-400 hover:text-white font-mono flex items-center gap-1 transition-colors"
               >
-                <span>Browse All Guides in Store</span>
+                <span>Browse All Guides</span>
                 <ChevronRight size={13} />
               </Link>
             </div>
@@ -864,7 +864,7 @@ export default function StartHere() {
                       Digital Master PDF
                     </span>
                     <Link
-                      to="/store"
+                      to="/premium-guides/beginner-home-workout-plan"
                       className="inline-flex items-center gap-1.5 py-2 px-3.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all"
                     >
                       <span>Read Guide</span>
@@ -904,7 +904,7 @@ export default function StartHere() {
                       Digital Master PDF
                     </span>
                     <Link
-                      to="/store"
+                      to="/premium-guides/healthy-meal-planning-guide"
                       className="inline-flex items-center gap-1.5 py-2 px-3.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all"
                     >
                       <span>Read Guide</span>
@@ -944,7 +944,7 @@ export default function StartHere() {
                       Digital Master PDF
                     </span>
                     <Link
-                      to="/store"
+                      to="/premium-guides/stress-management-toolkit"
                       className="inline-flex items-center gap-1.5 py-2 px-3.5 rounded-xl bg-purple-500 hover:bg-purple-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all"
                     >
                       <span>Read Guide</span>

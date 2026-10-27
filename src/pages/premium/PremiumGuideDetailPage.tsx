@@ -25,7 +25,36 @@ export default function PremiumGuideDetailPage() {
   const { addToCart, isInCart } = useCart();
   const [purchaseInfo, setPurchaseInfo] = useState<PurchaseInfo | null>(null);
   const [downloading, setDownloading] = useState(false);
-  const guide = guides.find(g => g.slug === slug);
+  const slugAliases: Record<string, string> = {
+    // Fitness
+    'beginner-home-workout': 'beginner-home-workout-plan',
+    'workout-plan': 'beginner-home-workout-plan',
+    'hypertrophy-strength': 'strength-training-hypertrophy',
+    'hypertrophy-protocol': 'strength-training-hypertrophy',
+    'daily-mobility-recovery': 'mobility-recovery-routine',
+    'mobility-recovery': 'mobility-recovery-routine',
+
+    // Nutrition
+    'master-meal-planning': 'healthy-meal-planning-guide',
+    'master-meal-planning-guide': 'healthy-meal-planning-guide',
+    'meal-planner': 'healthy-meal-planning-guide',
+    'fat-loss-blueprint': 'fat-loss-nutrition-blueprint',
+    'fat-loss-nutrition': 'fat-loss-nutrition-blueprint',
+    'high-protein-recipes': 'high-protein-recipe-collection',
+
+    // Wellness
+    'cortisol-stress-management': 'stress-management-toolkit',
+    'cortisol-stress-management-protocol': 'stress-management-toolkit',
+    'stress-management': 'stress-management-toolkit',
+    'deep-sleep-optimization': 'sleep-optimization-protocol',
+    'sleep-optimization': 'sleep-optimization-protocol',
+    'mindfulness-habit-reset-workbook': 'mindfulness-habit-reset',
+    'habit-reset-workbook': 'mindfulness-habit-reset',
+  };
+
+  const normalizedSlug = slug ? slug.toLowerCase().trim() : '';
+  const resolvedSlug = slugAliases[normalizedSlug] || normalizedSlug;
+  const guide = guides.find(g => g.slug === resolvedSlug || g.id === normalizedSlug || g.slug === normalizedSlug);
 
 
   useEffect(() => {
