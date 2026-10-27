@@ -204,7 +204,7 @@ export const PREMIUM_MASTER_GUIDES: PremiumMasterGuide[] = [
     stripePriceId: 'price_placeholder_nut1',
     checkoutUrl: '/checkout?guide=healthy-meal-planning-guide', // [PLACEHOLDER_PREMIUM_GUIDE_CHECKOUT_URL_4]
     image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800&auto=format&fit=crop',
-    fileName: 'fat_loss_blueprint.pdf',
+    fileName: 'the_master_meal_planning_guide.pdf',
     featured: true,
     tags: ['Meal Prep', 'Efficiency', 'Macros', 'Whole Foods'],
     included: [

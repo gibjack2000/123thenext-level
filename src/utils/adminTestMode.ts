@@ -11,58 +11,93 @@ export const GUIDE_PDF_MAP: Record<string, string> = {
   'g-met-1': '/assets/docs/metabolic-master-guide.pdf',
   'visceral-fat-protocol': '/assets/docs/metabolic-master-guide.pdf',
   '12-Week_Metabolic_Re-Engineering_Protocol.pdf': '/assets/docs/12-Week_Metabolic_Re-Engineering_Protocol.pdf',
+  'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf': '/assets/docs/The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf',
 
   // 2. Beginner Home Workout
   'beginner-home-workout': '/assets/docs/beginner_home_workout-2026.pdf',
+  'beginner-home-workout-plan': '/assets/docs/beginner_home_workout-2026.pdf',
   'workout-plan': '/assets/docs/beginner_home_workout-2026.pdf',
   'g-fit-1': '/assets/docs/beginner_home_workout-2026.pdf',
+  'beginner_home_workout-2026.pdf': '/assets/docs/beginner_home_workout-2026.pdf',
+  'beginner_home_workout_v1.pdf': '/assets/docs/beginner_home_workout_v1.pdf',
 
   // 3. Hypertrophy & Strength
   'hypertrophy-strength': '/assets/docs/Hypertrophy-Strength-Protocol-2026.pdf',
+  'strength-training-hypertrophy': '/assets/docs/Hypertrophy-Strength-Protocol-2026.pdf',
   'g-fit-2': '/assets/docs/Hypertrophy-Strength-Protocol-2026.pdf',
+  'Hypertrophy-Strength-Protocol-2026.pdf': '/assets/docs/Hypertrophy-Strength-Protocol-2026.pdf',
+  'hypertrophy_protocol_v1.pdf': '/assets/docs/hypertrophy_protocol_v1.pdf',
 
   // 4. Mobility & Recovery
   'mobility-recovery': '/assets/docs/Daily_Mobility_and_Recovery-2026.pdf',
+  'mobility-recovery-routine': '/assets/docs/Daily_Mobility_and_Recovery-2026.pdf',
   'g-fit-3': '/assets/docs/Daily_Mobility_and_Recovery-2026.pdf',
+  'Daily_Mobility_and_Recovery-2026.pdf': '/assets/docs/Daily_Mobility_and_Recovery-2026.pdf',
+  'daily_mobility_v1.pdf': '/assets/docs/daily_mobility_v1.pdf',
 
   // 5. Master Meal Planning
   'master-meal-planning': '/assets/docs/The_Master_Meal_Planning_Guide-2026.pdf',
+  'healthy-meal-planning-guide': '/assets/docs/The_Master_Meal_Planning_Guide-2026.pdf',
   'meal-planner': '/assets/docs/The_Master_Meal_Planning_Guide-2026.pdf',
   'g-nut-1': '/assets/docs/The_Master_Meal_Planning_Guide-2026.pdf',
+  'The Master_Meal_Planning_Guide-2026.pdf': '/assets/docs/The_Master_Meal_Planning_Guide-2026.pdf',
+  'the_master_meal_planning_guide.pdf': '/assets/docs/the_master_meal_planning_guide.pdf',
 
   // 6. Fat Loss Nutrition
   'fat-loss-nutrition': '/assets/docs/Fat-Loss-Nutrition-Blueprint-2026.pdf',
+  'fat-loss-nutrition-blueprint': '/assets/docs/Fat-Loss-Nutrition-Blueprint-2026.pdf',
   'fat-loss-blueprint': '/assets/docs/Fat-Loss-Nutrition-Blueprint-2026.pdf',
   'g-nut-2': '/assets/docs/Fat-Loss-Nutrition-Blueprint-2026.pdf',
+  'Fat-Loss-Nutrition-Blueprint-2026.pdf': '/assets/docs/Fat-Loss-Nutrition-Blueprint-2026.pdf',
+  'fat-loss-nutrition-blueprint.pdf': '/assets/docs/fat-loss-nutrition-blueprint.pdf',
+  'fat_loss_blueprint.pdf': '/assets/docs/fat_loss_blueprint.pdf',
 
   // 7. High-Protein Recipes
   'high-protein-recipes': '/assets/docs/High_Protein_Recipe_Collection-2026.pdf',
+  'high-protein-recipe-collection': '/assets/docs/High_Protein_Recipe_Collection-2026.pdf',
   'g-nut-3': '/assets/docs/High_Protein_Recipe_Collection-2026.pdf',
+  'High_Protein_Recipe_Collection-2026.pdf': '/assets/docs/High_Protein_Recipe_Collection-2026.pdf',
+  'high_protein_recipes.pdf': '/assets/docs/high_protein_recipes.pdf',
 
   // 8. Cortisol & Stress Management
   'cortisol-stress-management': '/assets/docs/Cortisol_&_Stress_Management-2026.pdf',
+  'stress-management-toolkit': '/assets/docs/Cortisol_&_Stress_Management-2026.pdf',
   'stress-management': '/assets/docs/Cortisol_&_Stress_Management-2026.pdf',
   'g-wel-1': '/assets/docs/Cortisol_&_Stress_Management-2026.pdf',
+  'Cortisol_&_Stress_Management-2026.pdf': '/assets/docs/Cortisol_&_Stress_Management-2026.pdf',
+  'stress-management-toolkit.pdf': '/assets/docs/stress-management-toolkit.pdf',
 
   // 9. Deep Sleep Optimization
   'sleep-optimization': '/assets/docs/Deep_Sleep_Optimization-2026.pdf',
+  'sleep-optimization-protocol': '/assets/docs/Deep_Sleep_Optimization-2026.pdf',
   'g-wel-2': '/assets/docs/Deep_Sleep_Optimization-2026.pdf',
+  'Deep_Sleep_Optimization-2026.pdf': '/assets/docs/Deep_Sleep_Optimization-2026.pdf',
+  'sleep_optimization.pdf': '/assets/docs/sleep_optimization.pdf',
 
   // 10. Mindfulness & Habit Reset
   'mindfulness-habit-reset': '/assets/docs/Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
   'habit-reset': '/assets/docs/Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
   'g-wel-3': '/assets/docs/Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
+  'Mindfulness_and_Habit_Reset_Workbook-2026.pdf': '/assets/docs/Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
+  'habit_reset_workbook.pdf': '/assets/docs/habit_reset_workbook.pdf',
 
   // Lifespan Blueprint
   'the-next-level-lifespan': '/assets/docs/the-next-level-lifespan.pdf',
   'g-epi-1': '/assets/docs/the-next-level-lifespan.pdf',
+  'the-next-level-lifespan.pdf': '/assets/docs/the-next-level-lifespan.pdf',
 
   // Diagnostic guide
   'phase1-diagnostic-guide': '/assets/docs/phase1-diagnostic-guide.pdf',
 
-  // Bundles
-  'bundle-pick-3': '/assets/docs/metabolic-master-guide.pdf',
-  'bundle-complete-vault-10': '/assets/docs/metabolic-master-guide.pdf'
+  // Bundles & ZIP Archives
+  'bundle-pick-3': '/assets/docs/Complete_6_Pillar_Master_Suite-2026.zip',
+  'bundle-complete-vault-10': '/assets/docs/all-ten-master-guides.zip',
+  'g-bundle-6': '/assets/docs/all-six-master-guides.zip',
+  'g-bundle-9': '/assets/docs/all-nine-master-guides.zip',
+  'g-bundle-10': '/assets/docs/all-ten-master-guides.zip',
+  'all-six-master-guides': '/assets/docs/all-six-master-guides.zip',
+  'all-nine-master-guides': '/assets/docs/all-nine-master-guides.zip',
+  'all-ten-master-guides': '/assets/docs/all-ten-master-guides.zip'
 };
 
 /**

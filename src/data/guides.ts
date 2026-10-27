@@ -93,7 +93,7 @@ export const guides: Guide[] = [
     priceDisplay: '£24.00',
     stripePriceId: 'price_placeholder_nut1',
     image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800&auto=format&fit=crop',
-    fileName: 'fat_loss_blueprint.pdf',
+    fileName: 'the_master_meal_planning_guide.pdf',
     featured: true,
     tags: ['Meal Prep', 'Efficiency', 'Macros', 'Whole Foods'],
     included: [
