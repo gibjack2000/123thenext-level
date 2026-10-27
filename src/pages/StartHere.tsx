@@ -30,6 +30,7 @@ import {
 } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
 import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
+import BloodPanelComparisonTable from '../components/BloodPanelComparisonTable';
 
 export default function StartHere() {
   const { market, setMarket } = useMarket();
@@ -39,6 +40,9 @@ export default function StartHere() {
   const [selectedRegion, setSelectedRegion] = useState<'US' | 'UK' | 'ES'>(
     (market as 'US' | 'UK' | 'ES') || 'US'
   );
+
+  // Channel 1 Blood Tier selector (Basic vs Complete)
+  const [channel1Tier, setChannel1Tier] = useState<'basic' | 'complete'>('complete');
 
   const handleRegionSelect = (reg: 'US' | 'UK' | 'ES') => {
     setSelectedRegion(reg);
@@ -757,7 +761,7 @@ export default function StartHere() {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               
-              {/* CHANNEL 1: Venous Blood Draws */}
+              {/* CHANNEL 1: Venous Blood Draws (Dual Option Interactive) */}
               <div className="p-6 sm:p-7 rounded-3xl backdrop-blur-md bg-gradient-to-br from-rose-950/60 via-slate-900/90 to-red-950/40 border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] transition-all duration-300 flex flex-col justify-between space-y-5 relative overflow-hidden group shadow-2xl">
                 {/* Content-Specific Ambient Glows: Ruby Crimson & Deep Rose */}
                 <div className="absolute -top-10 -left-10 w-44 h-44 bg-[#e11d48] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
@@ -786,29 +790,93 @@ export default function StartHere() {
                     <Stethoscope size={18} className="text-cyan-400" />
                   </div>
 
-                  <div>
-                    <h3 className="text-lg font-display font-black uppercase text-white">
-                      Venous Blood Draws &amp; Tri-Markers
-                    </h3>
-                    <p className="text-xs text-slate-400 mt-1">
-                      Gold-standard phlebotomy (Quest / LOLA Health / Eurofins Megalab).
-                    </p>
+                  {/* Dual Blood Draw Tier Toggle */}
+                  <div className="flex items-center bg-slate-950/80 p-1 rounded-xl border border-slate-800 gap-1">
+                    <button
+                      type="button"
+                      onClick={() => setChannel1Tier('basic')}
+                      className={`flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold transition-all cursor-pointer ${
+                        channel1Tier === 'basic'
+                          ? 'bg-emerald-600 text-white shadow-sm'
+                          : 'text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      Choice 1: Basic
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setChannel1Tier('complete')}
+                      className={`flex-1 py-1.5 px-2 rounded-lg text-[11px] font-bold transition-all cursor-pointer ${
+                        channel1Tier === 'complete'
+                          ? 'bg-cyan-600 text-white shadow-sm'
+                          : 'text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      Choice 2: Complete 56
+                    </button>
                   </div>
 
-                  <p className="text-xs text-slate-300 font-light leading-relaxed">
-                    Quantifies ApoB atherogenic particles, HbA1c glycated protein velocity, and hs-CRP endothelial micro-inflammation with accredited clinical laboratory accuracy.
-                  </p>
+                  {channel1Tier === 'basic' ? (
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-950 border border-emerald-800 text-emerald-400 font-bold">
+                          Essential Starter
+                        </span>
+                        <span className="text-base font-display font-black text-white">
+                          {selectedRegion === 'US' ? '$89.00' : selectedRegion === 'UK' ? '£69.00' : '59,00 €'}
+                        </span>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-display font-black uppercase text-white">
+                          Essential Baseline Blood Panel
+                        </h3>
+                        <p className="text-xs text-slate-300 mt-1 leading-relaxed font-light">
+                          Budget-conscious spot-check establishing core lipid fractions, fasting glucose velocity, HbA1c, and basic kidney/liver filtration.
+                        </p>
+                      </div>
 
-                  <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-300 space-y-1 font-mono">
-                    <div>• Cadence: Every 90 Days (Quarterly)</div>
-                    <div>• Accuracy: Medical Laboratory Standard</div>
-                  </div>
+                      <div className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-300 space-y-1 font-mono">
+                        <div>• Cadence: Every 90 Days</div>
+                        <div>• Fulfillment: {selectedRegion === 'US' ? 'HealthLabs (Quest / Labcorp)' : selectedRegion === 'UK' ? 'LOLA Health Essential' : 'SaludOnNet / Melio ES'}</div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-cyan-950 border border-cyan-800 text-cyan-400 font-bold">
+                          Clinical Gold Standard
+                        </span>
+                        <span className="text-base font-display font-black text-cyan-300">
+                          {selectedRegion === 'US' ? '$299.00' : selectedRegion === 'UK' ? '£149.00' : '149,00 €'}
+                        </span>
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-display font-black uppercase text-white">
+                          Comprehensive Cellular Biomarker Map
+                        </h3>
+                        <p className="text-xs text-slate-300 mt-1 leading-relaxed font-light">
+                          Full 56-biomarker deep dive covering ApoB plaque risk, hs-CRP inflammation, thyroid, hormones, and micronutrients.
+                        </p>
+                      </div>
+
+                      <div className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-300 space-y-1 font-mono">
+                        <div>• Cadence: Every 90 Days (Gold Standard)</div>
+                        <div>• Fulfillment: {selectedRegion === 'US' ? 'HealthLabs Comprehensive 56' : selectedRegion === 'UK' ? 'LOLA Vital Check 56' : 'Melio ES / SaludOnNet 56'}</div>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
-                <div className="pt-3 border-t border-slate-800 relative z-10">
+                <div className="pt-3 border-t border-slate-800 relative z-10 flex flex-col gap-2">
                   <a
                     href={
-                      selectedRegion === 'US'
+                      channel1Tier === 'basic'
+                        ? selectedRegion === 'US'
+                          ? 'https://www.healthlabs.com/?affiliate=123znl'
+                          : selectedRegion === 'UK'
+                          ? 'https://referrals.lolahealth.com/NextLevel15'
+                          : 'https://www.melio.es'
+                        : selectedRegion === 'US'
                         ? 'https://www.healthlabs.com/?affiliate=123znl'
                         : selectedRegion === 'UK'
                         ? 'https://referrals.lolahealth.com/NextLevel15'
@@ -816,10 +884,22 @@ export default function StartHere() {
                     }
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all"
+                    className={`w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer ${
+                      channel1Tier === 'basic'
+                        ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/20'
+                        : 'bg-gradient-to-r from-cyan-500 to-teal-400 hover:from-cyan-400 hover:to-teal-300 text-slate-950 shadow-cyan-500/20'
+                    }`}
                   >
-                    <span>Order Blood Panel ({selectedRegion})</span>
+                    <span>
+                      Order {channel1Tier === 'basic' ? 'Essential Starter' : 'Gold Standard 56'} ({selectedRegion})
+                    </span>
                     <ExternalLink size={13} />
+                  </a>
+                  <a
+                    href="#step-2-comparison"
+                    className="text-center text-[10px] text-cyan-400 hover:text-cyan-300 underline font-mono"
+                  >
+                    Compare Basic vs. Complete Table ↓
                   </a>
                 </div>
               </div>
@@ -1017,6 +1097,33 @@ export default function StartHere() {
                 </div>
               </div>
 
+            </div>
+
+            {/* Step 2 Dedicated Dual Blood Draw Architecture & Comparison Table */}
+            <div id="step-2-comparison" className="scroll-mt-28 pt-8 border-t border-slate-800 space-y-5">
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-3">
+                <div className="space-y-1">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-cyan-400 font-bold">
+                    STEP 2 ARCHITECTURE: CHOOSE YOUR DIAGNOSTICS
+                  </span>
+                  <h3 className="text-2xl sm:text-3xl font-display font-black uppercase text-white">
+                    Two Distinct Blood Draw Options: Basic vs. Complete Panel
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-300 max-w-2xl font-light">
+                    Select between the budget-conscious Essential Baseline Blood Panel (Essential Starter) or the comprehensive 56-Biomarker Cellular Map (Clinical Gold Standard).
+                  </p>
+                </div>
+                <div className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300">
+                  <span className="text-emerald-400 font-bold">Active Region:</span>
+                  <span>{selectedRegion === 'US' ? '🇺🇸 United States' : selectedRegion === 'UK' ? '🇬🇧 United Kingdom' : '🇪🇸 Spain / EU'}</span>
+                </div>
+              </div>
+
+              <BloodPanelComparisonTable 
+                showCards={true}
+                defaultExpanded={true}
+                selectedRegion={selectedRegion as Market}
+              />
             </div>
           </div>
         </section>

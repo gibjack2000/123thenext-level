@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ExternalLink, CheckCircle2, ShieldCheck, Stethoscope, ArrowRight, Droplets, AlertCircle } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
+import BloodPanelComparisonTable from './BloodPanelComparisonTable';
 
 export interface DiagnosticPathwaySelectorProps {
   initialMarket?: Market;
@@ -252,22 +253,22 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-1">
         
         {/* ========================================================================= */}
-        {/* CARD A: Option 1: Targeted Tri-Marker Baseline (Level 1) */}
+        {/* CARD A: Choice 1: Essential Baseline Blood Panel (Basic Tier)            */}
         {/* ========================================================================= */}
         <div
           className={`relative rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 bg-gradient-to-b from-slate-900/90 to-slate-950 border ${
             currentSelected === 'level1'
-              ? 'border-cyan-400 shadow-xl shadow-cyan-500/10 ring-2 ring-cyan-500/20'
+              ? 'border-emerald-400 shadow-xl shadow-emerald-500/10 ring-2 ring-emerald-500/20'
               : 'border-slate-800 hover:border-slate-700 shadow-lg'
           }`}
         >
           <div className="space-y-4">
             {/* Card Header & Level Tag */}
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-400 bg-cyan-950/70 border border-cyan-800/50 px-2.5 py-1 rounded-lg">
-                Option 1: Phase 1 Baseline Diagnostics &amp; Targeted Tri-Markers (Level 1)
+              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950/70 border border-emerald-800/50 px-2.5 py-1 rounded-lg">
+                Choice 1: Essential Baseline Blood Panel • Essential Starter
               </span>
-              <span className="text-sm font-mono font-bold text-slate-300">
+              <span className="text-sm font-mono font-bold text-white">
                 {regionData.level1.price}
               </span>
             </div>
@@ -275,27 +276,30 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
             {/* Headline & Core Narrative */}
             <div>
               <h3 className="text-xl sm:text-2xl font-display font-black text-white tracking-tight">
-                Focus on the Non-Negotiable Core
+                Essential Baseline Blood Panel
               </h3>
               <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
-                Ideal if you want a lean, cost-effective baseline. Test your core vascular, glycemic, and inflammatory risk first, then discuss with your GP whether expanding to Level 2 is needed.
+                <strong className="text-emerald-300 font-medium">Target Audience:</strong> Budget-conscious users or first-time baseline spot-checks. Establishes objective reference points for core lipid fractions, glycemic regulation, and kidney/liver filtration.
               </p>
             </div>
 
             {/* Biomarker Pill Tags */}
             <div className="space-y-2 pt-1 border-t border-slate-800/80">
               <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-semibold">
-                Core Biomarkers Included:
+                Key Biomarkers Covered:
               </span>
-              <div className="flex flex-wrap gap-2">
-                <span className="px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-cyan-300 font-mono text-xs font-bold">
-                  ApoB
+              <div className="flex flex-wrap gap-1.5">
+                <span className="px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-emerald-300 font-mono text-xs font-bold">
+                  Core Lipid Profile (Chol/HDL/LDL)
                 </span>
-                <span className="px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-cyan-300 font-mono text-xs font-bold">
-                  HbA1c
+                <span className="px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-emerald-300 font-mono text-xs font-bold">
+                  Fasting Blood Glucose
                 </span>
-                <span className="px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-cyan-300 font-mono text-xs font-bold">
-                  hs-CRP
+                <span className="px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-emerald-300 font-mono text-xs font-bold">
+                  HbA1c (90-Day Glycemic Trend)
+                </span>
+                <span className="px-2.5 py-1 rounded-md bg-slate-800 border border-slate-700 text-emerald-300 font-mono text-xs font-bold">
+                  Basic Kidney &amp; Liver (ALT/eGFR)
                 </span>
               </div>
             </div>
@@ -319,14 +323,14 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => handleSelect('level1', regionData.level1.requisitionUrl)}
-              className="w-full py-3.5 px-5 rounded-2xl bg-slate-800 hover:bg-slate-700 border border-slate-700 hover:border-cyan-500/50 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-200 shadow-md group cursor-pointer"
+              className="w-full py-3.5 px-5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-200 shadow-md group cursor-pointer"
             >
-              <span>Select Level 1 Requisition ➔</span>
-              <ExternalLink size={14} className="text-cyan-400 group-hover:translate-x-0.5 transition-transform" />
+              <span>Select Essential Starter Requisition ➔</span>
+              <ExternalLink size={14} className="text-white group-hover:translate-x-0.5 transition-transform" />
             </a>
             {currentSelected === 'level1' && (
-              <div className="flex items-center justify-center gap-1.5 text-center text-[11px] text-cyan-300 font-medium">
-                <CheckCircle2 size={13} className="text-cyan-400" />
+              <div className="flex items-center justify-center gap-1.5 text-center text-[11px] text-emerald-300 font-medium">
+                <CheckCircle2 size={13} className="text-emerald-400" />
                 <span>Selected as agreed consultation pathway</span>
               </div>
             )}
@@ -334,7 +338,7 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
         </div>
 
         {/* ========================================================================= */}
-        {/* CARD B: Option 2: Complete 56-Biomarker Master Panel (Level 2) */}
+        {/* CARD B: Choice 2: Comprehensive Cellular Biomarker Map (Complete Tier)   */}
         {/* ========================================================================= */}
         <div
           className={`relative rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 bg-gradient-to-b from-slate-900/90 to-slate-950 border ${
@@ -347,9 +351,9 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
             {/* Card Header & Level Tag */}
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-400 bg-cyan-950/70 border border-cyan-800/50 px-2.5 py-1 rounded-lg">
-                Option 2: Complete 56-Biomarker Master Panel (Level 2)
+                Choice 2: Comprehensive Cellular Biomarker Map • Clinical Gold Standard
               </span>
-              <span className="text-sm font-mono font-bold text-amber-400">
+              <span className="text-sm font-mono font-bold text-cyan-300">
                 {regionData.level2.price}
               </span>
             </div>
@@ -357,42 +361,39 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
             {/* Headline & Core Narrative */}
             <div>
               <h3 className="text-xl sm:text-2xl font-display font-black text-white tracking-tight">
-                Total Baseline Clarity in One Draw
+                Comprehensive Cellular Biomarker Map
               </h3>
               <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
-                Ideal if you prefer comprehensive visibility upfront. Captures your entire cellular map in a single appointment, eliminating the need for progressive follow-up draws.
+                <strong className="text-cyan-300 font-medium">Target Audience:</strong> Deep-dive longevity optimization, cardiovascular risk mapping, and metabolic re-engineering. Full 56-biomarker multi-omic panel covering plaque particles, inflammation, hormones, and micronutrients in a single draw.
               </p>
             </div>
 
             {/* Biomarker Pill Tags */}
             <div className="space-y-2 pt-1 border-t border-slate-800/80">
               <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-semibold">
-                Comprehensive Systems Included:
+                Comprehensive 56-Biomarker Systems Included:
               </span>
               <div className="flex flex-wrap gap-1.5">
                 <span className="px-2 py-0.5 rounded-md bg-slate-800 border border-slate-700 text-cyan-300 font-mono text-[11px] font-bold">
-                  ApoB
+                  ApoB Plaque Risk
                 </span>
                 <span className="px-2 py-0.5 rounded-md bg-slate-800 border border-slate-700 text-cyan-300 font-mono text-[11px] font-bold">
-                  HbA1c
+                  hs-CRP Inflammation
                 </span>
                 <span className="px-2 py-0.5 rounded-md bg-slate-800 border border-slate-700 text-cyan-300 font-mono text-[11px] font-bold">
-                  hs-CRP
+                  HbA1c &amp; Glycemic
                 </span>
                 <span className="px-2 py-0.5 rounded-md bg-slate-800/70 border border-slate-750 text-slate-300 font-mono text-[11px]">
-                  Full Lipid Sub-Fractions
+                  Full Lipid Subfractions
                 </span>
                 <span className="px-2 py-0.5 rounded-md bg-slate-800/70 border border-slate-750 text-slate-300 font-mono text-[11px]">
-                  Hormonal &amp; Endocrine
+                  Hormones (Test/DHEA)
                 </span>
                 <span className="px-2 py-0.5 rounded-md bg-slate-800/70 border border-slate-750 text-slate-300 font-mono text-[11px]">
-                  Thyroid Cascade
+                  Thyroid Panel (TSH/T3/T4)
                 </span>
                 <span className="px-2 py-0.5 rounded-md bg-slate-800/70 border border-slate-750 text-slate-300 font-mono text-[11px]">
-                  Organ Function
-                </span>
-                <span className="px-2 py-0.5 rounded-md bg-slate-800/70 border border-slate-750 text-slate-300 font-mono text-[11px]">
-                  Micronutrient Matrix
+                  Micronutrients (Vit D/B12/Ferritin)
                 </span>
               </div>
             </div>
@@ -418,7 +419,7 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
               onClick={() => handleSelect('level2', regionData.level2.requisitionUrl)}
               className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:via-teal-300 hover:to-emerald-300 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-cyan-500/20 group cursor-pointer"
             >
-              <span>Select Level 2 Master Panel ➔</span>
+              <span>Select Clinical Gold Standard Map ➔</span>
               <ExternalLink size={14} className="text-slate-950 group-hover:translate-x-0.5 transition-transform" />
             </a>
             {currentSelected === 'level2' && (
@@ -431,6 +432,13 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
         </div>
 
       </div>
+
+      {/* Basic vs. Complete Comparison Table Accordion */}
+      <BloodPanelComparisonTable 
+        showCards={false} 
+        defaultExpanded={false} 
+        selectedRegion={activeMarket}
+      />
 
       {/* ========================================================================= */}
       {/* SECTION: PHASE 1 BASELINE DIAGNOSTICS & FLUID TELEMETRY                     */}

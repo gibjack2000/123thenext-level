@@ -121,10 +121,18 @@ const initialLifestyle = {
 };
 
 const initialBloodResults = {
-  apob: { result: '', action: 'Target < 70 mg/dL' },
-  hba1c: { result: '', action: 'Target < 5.4%' },
-  hscrp: { result: '', action: 'Target < 0.5 mg/L' },
-  panel56: { result: '', action: 'Full cellular profile' },
+  // Choice 1: Essential Baseline Blood Panel (Basic Tier)
+  lipidProfile: { result: '', action: 'Target Chol <200, LDL <100, Trig <100' },
+  fastingGlucose: { result: '', action: 'Target < 85-90 mg/dL (< 5.0 mmol/L)' },
+  hba1c: { result: '', action: 'Target < 5.4% (< 36 mmol/mol)' },
+  liverKidney: { result: '', action: 'Target ALT <30 U/L, eGFR >90 mL/min' },
+
+  // Choice 2: Comprehensive Cellular Biomarker Map (Complete 56-Biomarker Tier)
+  apob: { result: '', action: 'Target < 70 - 80 mg/dL (< 0.7 - 0.8 g/L)' },
+  hscrp: { result: '', action: 'Target < 0.5 - 1.0 mg/L (Ultra-low risk)' },
+  thyroidHormones: { result: '', action: 'TSH 1.0-2.0, Free T4, Endocrine Balance' },
+  micronutrients: { result: '', action: 'Vit D >50 ng/mL, B12 >500 pg/mL, Ferritin 50-150' },
+  panel56: { result: '', action: 'Comprehensive 56-Biomarker Map Completed' },
 };
 
 const initialUrinalysisData = {
@@ -182,16 +190,18 @@ const DIAGNOSTIC_REGIONS = {
     badge: 'CLIA Certified & CAP Accredited (Quest / Labcorp)',
     affiliateUrl: 'https://www.healthlabs.com/?affiliate=123znl',
     optionA: {
-      name: 'Option A: Complete 56-Biomarker Cellular Map Panel',
-      description: 'Comprehensive venous blood panel measuring ApoB, ApoA1, full lipid particle cascade, metabolic markers, hormone status, organ function, and vitamin levels via 4,500+ local Quest Diagnostics or Labcorp draw centers.',
+      name: 'Choice 2: Comprehensive Cellular Biomarker Map (56 Biomarkers)',
+      badge: 'Clinical Gold Standard',
+      description: 'Comprehensive 56-biomarker venous blood panel measuring ApoB, hs-CRP, full lipid cascade, hormone cascade, thyroid panel, and micronutrients via Quest / Labcorp.',
       price: '$299.00',
       actionText: 'Book 56-Biomarker Map via HealthLabs'
     },
     optionB: {
-      name: 'Option B: Standalone Tri-Markers (ApoB, HbA1c, hs-CRP)',
-      description: 'A la carte direct requisition for the core Level 1 longevity anchor markers without physician referral required.',
+      name: 'Choice 1: Essential Baseline Blood Panel',
+      badge: 'Essential Starter',
+      description: 'Core baseline metabolic & lipid profile measuring Total Cholesterol, HDL, LDL, Triglycerides, Fasting Glucose, HbA1c, and basic kidney/liver markers.',
       price: 'From $39.00 / test',
-      actionText: 'Order Standalone Level 1 Markers'
+      actionText: 'Order Essential Starter Panel'
     },
     urinalysis: {
       name: 'HealthLabs Comprehensive Urinalysis & Microalbumin Panel',
@@ -216,16 +226,18 @@ const DIAGNOSTIC_REGIONS = {
     badge: 'UKAS Accredited & ISO Certified Phlebotomy',
     affiliateUrl: 'https://referrals.lolahealth.com/NextLevel15',
     optionA: {
-      name: 'Lola Vital Check 56 Blood Panel',
-      description: 'Official UKAS-accredited venous draw panel covering 56 essential geroscience biomarkers with clinic partner access across England, Scotland, Wales, and Northern Ireland.',
+      name: 'Choice 2: Comprehensive Cellular Biomarker Map (LOLA 56)',
+      badge: 'Clinical Gold Standard',
+      description: 'Official UKAS-accredited venous draw panel covering 56 essential geroscience biomarkers: ApoB, hs-CRP, full hormone profile, thyroid panel, and micronutrients.',
       price: '£149.00',
       actionText: 'Order Lola Vital Check 56 (UK)'
     },
     optionB: {
-      name: 'Lola Core Longevity Biomarkers',
-      description: 'Targeted baseline check covering ApoB, high-sensitivity CRP, HbA1c, and key lipid-metabolic sub-fractions.',
+      name: 'Choice 1: Essential Baseline Blood Panel (LOLA Health)',
+      badge: 'Essential Starter',
+      description: 'UKAS-accredited core baseline check covering lipid profile, fasting blood glucose, HbA1c, and basic metabolic liver/kidney markers.',
       price: '£89.00',
-      actionText: 'Order Core Lola Check'
+      actionText: 'Order Lola Essential Panel'
     },
     urinalysis: {
       name: 'Lola Urinalysis & Microvascular ACR Panel',
@@ -250,14 +262,16 @@ const DIAGNOSTIC_REGIONS = {
     badge: 'CE Marked • Red Megalab & Unilabs Partner',
     affiliateUrl: 'https://www.melio.es',
     optionA: {
-      name: 'Melio Vital Check ES / SaludOnNet Master Panel',
-      description: 'Direct-access venous panel through Laboratorios Megalab or Unilabs across Spain and the EU, covering 56 cellular longevity biomarkers with rapid digital results.',
+      name: 'Choice 2: Comprehensive Cellular Biomarker Map (Melio / SaludOnNet 56)',
+      badge: 'Clinical Gold Standard',
+      description: 'Panel venoso integral de 56 biomarcadores celulares (ApoB, hs-CRP, tiroides, cascada hormonal, micronutrientes) en laboratorios Megalab / Unilabs.',
       price: '149,00 €',
       actionText: 'Reservar Panel Melio / SaludOnNet ES'
     },
     optionB: {
-      name: 'Panel Cardiovascular & Metabólico Nivel 1',
-      description: 'Análisis selectivo de ApoB, HbA1c y proteína C-reactiva de alta sensibilidad (hs-CRP) en laboratorio clínico local.',
+      name: 'Choice 1: Essential Baseline Blood Panel (SaludOnNet / Melio ES)',
+      badge: 'Essential Starter',
+      description: 'Panel metabólico y lipídico esencial (colesterol total, HDL, LDL, triglicéridos, glucosa en ayunas, HbA1c y función renal/hepática básica).',
       price: '79,00 €',
       actionText: 'Reservar Análisis Nivel 1 ES'
     },
@@ -301,6 +315,7 @@ export default function ClinicianCopilot() {
   const [supplements, setSupplements] = useState<SupplementItem[]>(initialSupplements);
   const [phlebotomyMethod, setPhlebotomyMethod] = useState<'clinic' | 'mobile'>('clinic');
   const [bloodResults, setBloodResults] = useState(initialBloodResults);
+  const [bloodPanelTierFilter, setBloodPanelTierFilter] = useState<'all' | 'basic' | 'complete'>('all');
   const [urinalysisData, setUrinalysisData] = useState(initialUrinalysisData);
   const [requisitions, setRequisitions] = useState(initialRequisitions);
   const [agreedDirectives, setAgreedDirectives] = useState({
@@ -532,9 +547,14 @@ export default function ClinicianCopilot() {
         },
         phlebotomyMethod: phlebotomyMethod,
         bloodResults: {
-          apob: bloodResults.apob,
+          fastingGlucose: bloodResults.fastingGlucose,
+          lipidProfile: bloodResults.lipidProfile,
+          liverKidney: bloodResults.liverKidney,
           hba1c: bloodResults.hba1c,
+          apob: bloodResults.apob,
           hscrp: bloodResults.hscrp,
+          thyroidHormones: bloodResults.thyroidHormones,
+          micronutrients: bloodResults.micronutrients,
           panel56: bloodResults.panel56,
         },
         urinalysis: {
@@ -1433,6 +1453,46 @@ export default function ClinicianCopilot() {
               </label>
             </div>
 
+            {/* Interactive Tier Filter Controls (Screen-Only) */}
+            <div className="no-print flex flex-wrap items-center justify-between gap-2 bg-slate-100 p-2 rounded-lg border border-slate-300">
+              <span className="text-[11px] font-bold text-slate-700">Filter Diagnostic Tiers:</span>
+              <div className="flex items-center gap-1.5">
+                <button
+                  type="button"
+                  onClick={() => setBloodPanelTierFilter('all')}
+                  className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all cursor-pointer ${
+                    bloodPanelTierFilter === 'all'
+                      ? 'bg-slate-900 text-white shadow-sm'
+                      : 'bg-white text-slate-700 border border-slate-300 hover:bg-slate-50'
+                  }`}
+                >
+                  All Biomarkers (9)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setBloodPanelTierFilter('basic')}
+                  className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all cursor-pointer ${
+                    bloodPanelTierFilter === 'basic'
+                      ? 'bg-emerald-600 text-white shadow-sm'
+                      : 'bg-white text-emerald-800 border border-emerald-300 hover:bg-emerald-50'
+                  }`}
+                >
+                  Choice 1: Essential Starter (4)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setBloodPanelTierFilter('complete')}
+                  className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all cursor-pointer ${
+                    bloodPanelTierFilter === 'complete'
+                      ? 'bg-cyan-700 text-white shadow-sm'
+                      : 'bg-white text-cyan-900 border border-cyan-300 hover:bg-cyan-50'
+                  }`}
+                >
+                  Choice 2: Clinical Gold Standard (5)
+                </button>
+              </div>
+            </div>
+
             {/* Blood Panel Results Table */}
             <table className="w-full text-left border-collapse text-xs border border-slate-300">
               <thead>
@@ -1444,109 +1504,267 @@ export default function ClinicianCopilot() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-300">
-                <tr className="hover:bg-slate-50">
-                  <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
-                    <strong>Apolipoprotein B (ApoB)</strong> - Total atherogenic particle count
-                  </td>
-                  <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
-                    &lt; 70 - 80 mg/dL (&lt; 0.7 - 0.8 g/L)
-                  </td>
-                  <td className="p-1 border-r border-slate-300">
-                    <input 
-                      type="text"
-                      value={bloodResults.apob.result}
-                      onChange={(e) => setBloodResults({ ...bloodResults, apob: { ...bloodResults.apob, result: e.target.value } })}
-                      placeholder="e.g. 68 mg/dL"
-                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
-                    />
-                  </td>
-                  <td className="p-1">
-                    <input 
-                      type="text"
-                      value={bloodResults.apob.action}
-                      onChange={(e) => setBloodResults({ ...bloodResults, apob: { ...bloodResults.apob, action: e.target.value } })}
-                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
-                    />
-                  </td>
-                </tr>
+                {/* CHOICE 1: ESSENTIAL BASELINE BLOOD PANEL (BASIC TIER) */}
+                {(bloodPanelTierFilter === 'all' || bloodPanelTierFilter === 'basic') && (
+                  <>
+                    <tr className="bg-emerald-50/80 border-t-2 border-emerald-400">
+                      <td colSpan={4} className="p-1.5 px-2 text-[11px] font-bold text-emerald-950 uppercase tracking-wide flex items-center justify-between">
+                        <span>CHOICE 1: Essential Baseline Blood Panel (Basic Tier)</span>
+                        <span className="bg-emerald-600 text-white text-[9px] px-2 py-0.5 rounded font-mono font-bold">
+                          Essential Starter
+                        </span>
+                      </td>
+                    </tr>
 
-                <tr className="hover:bg-slate-50">
-                  <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
-                    <strong>Glycated Hemoglobin (HbA1c)</strong> - 90-day glycemic exposure
-                  </td>
-                  <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
-                    &lt; 5.4 - 5.6% (&lt; 36 mmol/mol)
-                  </td>
-                  <td className="p-1 border-r border-slate-300">
-                    <input 
-                      type="text"
-                      value={bloodResults.hba1c.result}
-                      onChange={(e) => setBloodResults({ ...bloodResults, hba1c: { ...bloodResults.hba1c, result: e.target.value } })}
-                      placeholder="e.g. 5.2%"
-                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
-                    />
-                  </td>
-                  <td className="p-1">
-                    <input 
-                      type="text"
-                      value={bloodResults.hba1c.action}
-                      onChange={(e) => setBloodResults({ ...bloodResults, hba1c: { ...bloodResults.hba1c, action: e.target.value } })}
-                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
-                    />
-                  </td>
-                </tr>
+                    <tr className="hover:bg-slate-50">
+                      <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
+                        <strong>Core Lipid Profile</strong> - Total Chol, HDL, LDL, Triglycerides
+                      </td>
+                      <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
+                        Chol &lt; 200, LDL &lt; 100, Trig &lt; 100 mg/dL
+                      </td>
+                      <td className="p-1 border-r border-slate-300">
+                        <input 
+                          type="text"
+                          value={bloodResults.lipidProfile.result}
+                          onChange={(e) => setBloodResults({ ...bloodResults, lipidProfile: { ...bloodResults.lipidProfile, result: e.target.value } })}
+                          placeholder="e.g. Total 185, LDL 92"
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
+                        />
+                      </td>
+                      <td className="p-1">
+                        <input 
+                          type="text"
+                          value={bloodResults.lipidProfile.action}
+                          onChange={(e) => setBloodResults({ ...bloodResults, lipidProfile: { ...bloodResults.lipidProfile, action: e.target.value } })}
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
+                        />
+                      </td>
+                    </tr>
 
-                <tr className="hover:bg-slate-50">
-                  <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
-                    <strong>High-Sensitivity CRP (hs-CRP)</strong> - Systemic vascular inflammation
-                  </td>
-                  <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
-                    &lt; 0.5 - 1.0 mg/L (Ultra-low risk)
-                  </td>
-                  <td className="p-1 border-r border-slate-300">
-                    <input 
-                      type="text"
-                      value={bloodResults.hscrp.result}
-                      onChange={(e) => setBloodResults({ ...bloodResults, hscrp: { ...bloodResults.hscrp, result: e.target.value } })}
-                      placeholder="e.g. 0.4 mg/L"
-                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
-                    />
-                  </td>
-                  <td className="p-1">
-                    <input 
-                      type="text"
-                      value={bloodResults.hscrp.action}
-                      onChange={(e) => setBloodResults({ ...bloodResults, hscrp: { ...bloodResults.hscrp, action: e.target.value } })}
-                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
-                    />
-                  </td>
-                </tr>
+                    <tr className="hover:bg-slate-50">
+                      <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
+                        <strong>Fasting Blood Glucose</strong> - Acute glycemic regulation
+                      </td>
+                      <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
+                        &lt; 85 - 90 mg/dL (&lt; 4.7 - 5.0 mmol/L)
+                      </td>
+                      <td className="p-1 border-r border-slate-300">
+                        <input 
+                          type="text"
+                          value={bloodResults.fastingGlucose.result}
+                          onChange={(e) => setBloodResults({ ...bloodResults, fastingGlucose: { ...bloodResults.fastingGlucose, result: e.target.value } })}
+                          placeholder="e.g. 84 mg/dL"
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
+                        />
+                      </td>
+                      <td className="p-1">
+                        <input 
+                          type="text"
+                          value={bloodResults.fastingGlucose.action}
+                          onChange={(e) => setBloodResults({ ...bloodResults, fastingGlucose: { ...bloodResults.fastingGlucose, action: e.target.value } })}
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
+                        />
+                      </td>
+                    </tr>
 
-                <tr className="hover:bg-slate-50">
-                  <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
-                    <strong>Full 56-Biomarker Master Panel</strong> - Multi-organ cellular map
-                  </td>
-                  <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
-                    Quest / LOLA 56 / Melio Master
-                  </td>
-                  <td className="p-1 border-r border-slate-300">
-                    <input 
-                      type="text"
-                      value={bloodResults.panel56.result}
-                      onChange={(e) => setBloodResults({ ...bloodResults, panel56: { ...bloodResults.panel56, result: e.target.value } })}
-                      placeholder="e.g. Completed / Normal"
-                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
-                    />
-                  </td>
-                  <td className="p-1">
-                    <input 
-                      type="text"
-                      value={bloodResults.panel56.action}
-                      onChange={(e) => setBloodResults({ ...bloodResults, panel56: { ...bloodResults.panel56, action: e.target.value } })}
-                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
-                    />
-                  </td>
-                </tr>
+                    <tr className="hover:bg-slate-50">
+                      <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
+                        <strong>Glycated Hemoglobin (HbA1c)</strong> - 90-day glycemic exposure
+                      </td>
+                      <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
+                        &lt; 5.4 - 5.6% (&lt; 36 mmol/mol)
+                      </td>
+                      <td className="p-1 border-r border-slate-300">
+                        <input 
+                          type="text"
+                          value={bloodResults.hba1c.result}
+                          onChange={(e) => setBloodResults({ ...bloodResults, hba1c: { ...bloodResults.hba1c, result: e.target.value } })}
+                          placeholder="e.g. 5.2%"
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
+                        />
+                      </td>
+                      <td className="p-1">
+                        <input 
+                          type="text"
+                          value={bloodResults.hba1c.action}
+                          onChange={(e) => setBloodResults({ ...bloodResults, hba1c: { ...bloodResults.hba1c, action: e.target.value } })}
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
+                        />
+                      </td>
+                    </tr>
+
+                    <tr className="hover:bg-slate-50">
+                      <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
+                        <strong>Basic Kidney &amp; Liver Markers</strong> - ALT, AST, eGFR, Creatinine
+                      </td>
+                      <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
+                        ALT &lt; 30 U/L, eGFR &gt; 90 mL/min
+                      </td>
+                      <td className="p-1 border-r border-slate-300">
+                        <input 
+                          type="text"
+                          value={bloodResults.liverKidney.result}
+                          onChange={(e) => setBloodResults({ ...bloodResults, liverKidney: { ...bloodResults.liverKidney, result: e.target.value } })}
+                          placeholder="e.g. eGFR 102, ALT 22"
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
+                        />
+                      </td>
+                      <td className="p-1">
+                        <input 
+                          type="text"
+                          value={bloodResults.liverKidney.action}
+                          onChange={(e) => setBloodResults({ ...bloodResults, liverKidney: { ...bloodResults.liverKidney, action: e.target.value } })}
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
+                        />
+                      </td>
+                    </tr>
+                  </>
+                )}
+
+                {/* CHOICE 2: COMPREHENSIVE CELLULAR BIOMARKER MAP (COMPLETE TIER) */}
+                {(bloodPanelTierFilter === 'all' || bloodPanelTierFilter === 'complete') && (
+                  <>
+                    <tr className="bg-cyan-50/80 border-t-2 border-cyan-400">
+                      <td colSpan={4} className="p-1.5 px-2 text-[11px] font-bold text-cyan-950 uppercase tracking-wide flex items-center justify-between">
+                        <span>CHOICE 2: Comprehensive Cellular Biomarker Map (56-Biomarker Complete Tier)</span>
+                        <span className="bg-cyan-600 text-white text-[9px] px-2 py-0.5 rounded font-mono font-bold">
+                          Clinical Gold Standard
+                        </span>
+                      </td>
+                    </tr>
+
+                    <tr className="hover:bg-slate-50">
+                      <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
+                        <strong>Apolipoprotein B (ApoB)</strong> - Total atherogenic particle count
+                      </td>
+                      <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
+                        &lt; 70 - 80 mg/dL (&lt; 0.7 - 0.8 g/L)
+                      </td>
+                      <td className="p-1 border-r border-slate-300">
+                        <input 
+                          type="text"
+                          value={bloodResults.apob.result}
+                          onChange={(e) => setBloodResults({ ...bloodResults, apob: { ...bloodResults.apob, result: e.target.value } })}
+                          placeholder="e.g. 68 mg/dL"
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
+                        />
+                      </td>
+                      <td className="p-1">
+                        <input 
+                          type="text"
+                          value={bloodResults.apob.action}
+                          onChange={(e) => setBloodResults({ ...bloodResults, apob: { ...bloodResults.apob, action: e.target.value } })}
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
+                        />
+                      </td>
+                    </tr>
+
+                    <tr className="hover:bg-slate-50">
+                      <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
+                        <strong>High-Sensitivity CRP (hs-CRP)</strong> - Systemic vascular inflammation
+                      </td>
+                      <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
+                        &lt; 0.5 - 1.0 mg/L (Ultra-low risk)
+                      </td>
+                      <td className="p-1 border-r border-slate-300">
+                        <input 
+                          type="text"
+                          value={bloodResults.hscrp.result}
+                          onChange={(e) => setBloodResults({ ...bloodResults, hscrp: { ...bloodResults.hscrp, result: e.target.value } })}
+                          placeholder="e.g. 0.4 mg/L"
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
+                        />
+                      </td>
+                      <td className="p-1">
+                        <input 
+                          type="text"
+                          value={bloodResults.hscrp.action}
+                          onChange={(e) => setBloodResults({ ...bloodResults, hscrp: { ...bloodResults.hscrp, action: e.target.value } })}
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
+                        />
+                      </td>
+                    </tr>
+
+                    <tr className="hover:bg-slate-50">
+                      <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
+                        <strong>Thyroid &amp; Hormones</strong> - TSH, Free T3/T4, Endocrine cascade
+                      </td>
+                      <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
+                        TSH 1.0 - 2.0 mIU/L, Optimal Free T4
+                      </td>
+                      <td className="p-1 border-r border-slate-300">
+                        <input 
+                          type="text"
+                          value={bloodResults.thyroidHormones.result}
+                          onChange={(e) => setBloodResults({ ...bloodResults, thyroidHormones: { ...bloodResults.thyroidHormones, result: e.target.value } })}
+                          placeholder="e.g. TSH 1.4 mIU/L"
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
+                        />
+                      </td>
+                      <td className="p-1">
+                        <input 
+                          type="text"
+                          value={bloodResults.thyroidHormones.action}
+                          onChange={(e) => setBloodResults({ ...bloodResults, thyroidHormones: { ...bloodResults.thyroidHormones, action: e.target.value } })}
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
+                        />
+                      </td>
+                    </tr>
+
+                    <tr className="hover:bg-slate-50">
+                      <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
+                        <strong>Micronutrient Reserve</strong> - Vitamin D, B12, Serum Ferritin
+                      </td>
+                      <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
+                        Vit D &gt; 50 ng/mL, B12 &gt; 500 pg/mL
+                      </td>
+                      <td className="p-1 border-r border-slate-300">
+                        <input 
+                          type="text"
+                          value={bloodResults.micronutrients.result}
+                          onChange={(e) => setBloodResults({ ...bloodResults, micronutrients: { ...bloodResults.micronutrients, result: e.target.value } })}
+                          placeholder="e.g. Vit D 58, B12 680"
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
+                        />
+                      </td>
+                      <td className="p-1">
+                        <input 
+                          type="text"
+                          value={bloodResults.micronutrients.action}
+                          onChange={(e) => setBloodResults({ ...bloodResults, micronutrients: { ...bloodResults.micronutrients, action: e.target.value } })}
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
+                        />
+                      </td>
+                    </tr>
+
+                    <tr className="hover:bg-slate-50">
+                      <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
+                        <strong>Full 56-Biomarker Master Panel</strong> - Multi-organ cellular map
+                      </td>
+                      <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
+                        Quest / LOLA 56 / Melio Master
+                      </td>
+                      <td className="p-1 border-r border-slate-300">
+                        <input 
+                          type="text"
+                          value={bloodResults.panel56.result}
+                          onChange={(e) => setBloodResults({ ...bloodResults, panel56: { ...bloodResults.panel56, result: e.target.value } })}
+                          placeholder="e.g. Completed / Normal"
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
+                        />
+                      </td>
+                      <td className="p-1">
+                        <input 
+                          type="text"
+                          value={bloodResults.panel56.action}
+                          onChange={(e) => setBloodResults({ ...bloodResults, panel56: { ...bloodResults.panel56, action: e.target.value } })}
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
+                        />
+                      </td>
+                    </tr>
+                  </>
+                )}
               </tbody>
             </table>
           </div>

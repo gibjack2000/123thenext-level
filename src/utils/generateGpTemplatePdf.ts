@@ -42,12 +42,20 @@ export interface GpTemplateData {
     skeletalMuscleMass?: string;
   };
 
-  // Section 3: Blood Panel Results
+  // Section 3: Blood Panel Results (Essential Basic & Comprehensive 56-Biomarker)
   phlebotomyMethod?: 'clinic' | 'mobile' | '';
   bloodResults?: {
-    apob?: { result?: string; action?: string };
+    // Choice 1: Essential Baseline Panel
+    fastingGlucose?: { result?: string; action?: string };
+    lipidProfile?: { result?: string; action?: string };
+    liverKidney?: { result?: string; action?: string };
     hba1c?: { result?: string; action?: string };
+
+    // Choice 2: Comprehensive 56-Biomarker Cellular Map
+    apob?: { result?: string; action?: string };
     hscrp?: { result?: string; action?: string };
+    thyroidHormones?: { result?: string; action?: string };
+    micronutrients?: { result?: string; action?: string };
     panel56?: { result?: string; action?: string };
   };
 
@@ -515,12 +523,18 @@ export function buildGpConsultationTemplatePdf(data: GpTemplateData = {}): jsPDF
   doc.text('Patient Lab Result', margin + 115, y + 3.5);
   doc.text('Requisition Action', margin + 150, y + 3.5);
 
-  const bloodRows = [
+  const bloodRows: Array<{ name: string; target: string; val?: { result?: string; action?: string }; defaultAction: string }> = [
     {
-      name: 'Apolipoprotein B (ApoB) - Total atherogenic particle number',
-      target: '< 70 - 80 mg/dL (< 0.7 - 0.8 g/L)',
-      val: data.bloodResults?.apob,
-      defaultAction: '[ ] Re-test in 90d  [ ] Normal'
+      name: 'Core Lipid Profile (Total Chol / HDL / LDL / Triglycerides)',
+      target: '< 100 mg/dL LDL | Trig < 100 mg/dL',
+      val: data.bloodResults?.lipidProfile,
+      defaultAction: '[ ] Basic Panel Normal'
+    },
+    {
+      name: 'Fasting Blood Glucose - Glycemic baseline',
+      target: '< 85 - 90 mg/dL (< 4.7 - 5.0 mmol/L)',
+      val: data.bloodResults?.fastingGlucose,
+      defaultAction: '[ ] Within Range  [ ] Monitor'
     },
     {
       name: 'Glycated Hemoglobin (HbA1c) - 90-day glycemic exposure',
@@ -529,50 +543,64 @@ export function buildGpConsultationTemplatePdf(data: GpTemplateData = {}): jsPDF
       defaultAction: '[ ] Re-test in 90d  [ ] Normal'
     },
     {
+      name: 'Apolipoprotein B (ApoB) - Total atherogenic particle count',
+      target: '< 70 - 80 mg/dL (< 0.7 - 0.8 g/L)',
+      val: data.bloodResults?.apob,
+      defaultAction: '[ ] Optimal  [ ] Retest 90d'
+    },
+    {
       name: 'High-Sensitivity CRP (hs-CRP) - Systemic vascular inflammation',
       target: '< 0.5 - 1.0 mg/L (Ultra-low risk)',
       val: data.bloodResults?.hscrp,
-      defaultAction: '[ ] Re-test in 90d  [ ] Normal'
+      defaultAction: '[ ] Minimal Risk  [ ] Retest'
     },
     {
-      name: 'Full 56-Biomarker Master Panel - Lipids, thyroid, hormones, liver/kidney',
-      target: 'Quest / LOLA 56 / Melio Master',
-      val: data.bloodResults?.panel56,
-      defaultAction: '[ ] Full Panel Ordered'
+      name: data.bloodResults?.liverKidney?.result && !data.bloodResults?.panel56?.result
+        ? 'Basic Metabolic Panel (Liver ALT / eGFR / Creatinine)'
+        : 'Comprehensive 56-Biomarker Master Panel (Full Multi-Omic Map)',
+      target: data.bloodResults?.liverKidney?.result && !data.bloodResults?.panel56?.result
+        ? 'ALT < 30 U/L | eGFR > 90 mL/min'
+        : 'Quest / LOLA 56 / Melio Master',
+      val: data.bloodResults?.liverKidney?.result && !data.bloodResults?.panel56?.result
+        ? data.bloodResults?.liverKidney
+        : data.bloodResults?.panel56,
+      defaultAction: data.bloodResults?.liverKidney?.result && !data.bloodResults?.panel56?.result
+        ? '[ ] Renal & Hepatic Clear'
+        : '[ ] Full Panel Ordered'
     }
   ];
 
   bloodRows.forEach((row) => {
-    y += 5.5;
+    y += 5.0;
     doc.setDrawColor(...lineGray);
-    doc.rect(margin, y, contentWidth, 5.5);
+    doc.rect(margin, y, contentWidth, 5.0);
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(6.8);
+    doc.setFontSize(6.5);
     doc.setTextColor(...textDark);
-    doc.text(row.name, margin + 2, y + 3.8);
+    doc.text(row.name, margin + 2, y + 3.4);
 
     doc.setFont('helvetica', 'bold');
-    doc.text(row.target, margin + 70, y + 3.8);
+    doc.text(row.target, margin + 70, y + 3.4);
 
     // Patient Lab Result
-    doc.line(margin + 117, y + 4, margin + 144, y + 4);
+    doc.line(margin + 117, y + 3.7, margin + 144, y + 3.7);
     if (row.val?.result) {
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...valueColor);
-      doc.text(row.val.result, margin + 118, y + 3.6);
+      doc.text(row.val.result, margin + 118, y + 3.3);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...textDark);
     }
 
-    doc.setFontSize(6.5);
+    doc.setFontSize(6.3);
     if (row.val?.action) {
       doc.setFont('helvetica', 'bold');
       doc.setTextColor(...valueColor);
-      doc.text(row.val.action, margin + 148, y + 3.8);
+      doc.text(row.val.action, margin + 148, y + 3.4);
       doc.setFont('helvetica', 'normal');
       doc.setTextColor(...textDark);
     } else {
-      doc.text(row.defaultAction, margin + 148, y + 3.8);
+      doc.text(row.defaultAction, margin + 148, y + 3.4);
     }
   });
 

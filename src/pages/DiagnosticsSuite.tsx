@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
 import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
+import BloodPanelComparisonTable from '../components/BloodPanelComparisonTable';
 
 // Biomarker Science Guide data
 interface BiomarkerDetail {
@@ -206,38 +207,56 @@ export default function DiagnosticsSuite() {
             <div>
               <span className="text-xs font-mono uppercase text-cyan-400 tracking-widest font-bold">SECTION 1: CLINICAL PHLEBOTOMY ARCHITECTURE</span>
               <h2 className="text-2xl sm:text-3xl font-display font-black uppercase text-white mt-1">
-                🩸 Two Blood Draw Choices: In-Person Clinic vs At-Home Phlebotomy
+                🩸 Two Distinct Blood Draw Options: Essential Starter vs. Clinical Gold Standard
               </h2>
             </div>
             <p className="text-xs text-slate-400 max-w-md">
-              We exclusively specify clinical <strong>venous draws</strong> over finger-prick lancets to eliminate interstitial fluid dilution and erythrocyte hemolysis.
+              We exclusively specify clinical <strong>venous draws</strong> over finger-prick lancets to eliminate interstitial fluid dilution and erythrocyte hemolysis. Choose between a lean baseline or the full 56-biomarker cellular map.
             </p>
           </div>
 
-          {/* Phlebotomy Method Selector Tabs */}
-          <div className="flex border-b border-slate-800 gap-2">
-            <button
-              onClick={() => setSelectedBloodChoice('clinic')}
-              className={`pb-3 px-4 font-bold text-xs uppercase tracking-wider border-b-2 transition-all flex items-center gap-2 cursor-pointer ${
-                selectedBloodChoice === 'clinic'
-                  ? 'border-cyan-400 text-cyan-400'
-                  : 'border-transparent text-slate-400 hover:text-white'
-              }`}
-            >
-              <Building2 size={15} />
-              <span>Choice 1: In-Person Walk-In Clinic Draw (Most Economical)</span>
-            </button>
-            <button
-              onClick={() => setSelectedBloodChoice('mobile')}
-              className={`pb-3 px-4 font-bold text-xs uppercase tracking-wider border-b-2 transition-all flex items-center gap-2 cursor-pointer ${
-                selectedBloodChoice === 'mobile'
-                  ? 'border-cyan-400 text-cyan-400'
-                  : 'border-transparent text-slate-400 hover:text-white'
-              }`}
-            >
-              <HomeIcon size={15} />
-              <span>Choice 2: At-Home / Mobile Phlebotomist Visit (Maximum Convenience)</span>
-            </button>
+          {/* Dual Blood Draw Tier Architecture Cards & Comparison Table */}
+          <BloodPanelComparisonTable 
+            showCards={true}
+            defaultExpanded={true}
+            selectedRegion={activeRegion}
+          />
+
+          {/* Phlebotomy Method Selector Tabs (Clinic vs Mobile) */}
+          <div className="pt-8 border-t border-slate-800 space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <span className="text-xs font-mono uppercase text-slate-400 font-bold">
+                Phlebotomy Collection Method • Clinic Walk-In vs. Mobile Nurse Visit
+              </span>
+              <span className="text-xs font-mono text-cyan-400">
+                Active Provider Network: {activeRegion === 'US' ? '🇺🇸 Quest / Labcorp' : activeRegion === 'UK' ? '🇬🇧 LOLA Health' : '🇪🇸 Eurofins Megalab'}
+              </span>
+            </div>
+
+            <div className="flex border-b border-slate-800 gap-2">
+              <button
+                onClick={() => setSelectedBloodChoice('clinic')}
+                className={`pb-3 px-4 font-bold text-xs uppercase tracking-wider border-b-2 transition-all flex items-center gap-2 cursor-pointer ${
+                  selectedBloodChoice === 'clinic'
+                    ? 'border-cyan-400 text-cyan-400'
+                    : 'border-transparent text-slate-400 hover:text-white'
+                }`}
+              >
+                <Building2 size={15} />
+                <span>Walk-In Clinic Draw (Most Economical)</span>
+              </button>
+              <button
+                onClick={() => setSelectedBloodChoice('mobile')}
+                className={`pb-3 px-4 font-bold text-xs uppercase tracking-wider border-b-2 transition-all flex items-center gap-2 cursor-pointer ${
+                  selectedBloodChoice === 'mobile'
+                    ? 'border-cyan-400 text-cyan-400'
+                    : 'border-transparent text-slate-400 hover:text-white'
+                }`}
+              >
+                <HomeIcon size={15} />
+                <span>At-Home / Mobile Phlebotomist Visit (Maximum Convenience)</span>
+              </button>
+            </div>
           </div>
 
           {/* Regional Cards based on Choice */}
