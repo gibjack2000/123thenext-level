@@ -69,14 +69,14 @@ export default function StartHere() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-display font-black uppercase tracking-tight text-white leading-tight">
-            From Zero-Cost Habits to{' '}
+            Five Steps. Zero Guesswork.{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-indigo-400">
-              Precision Geroscience
+              Real Results You Can Measure.
             </span>
           </h1>
 
           <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-light max-w-2xl mx-auto">
-            Longevity isn’t a mystery; it’s an operational protocol. Follow this sequential, 5-step roadmap to eliminate guesswork, establish home and clinical telemetry, and align with your physician.
+            Begin with free daily habits. Build up to home tracking and clinical testing. Finish with a plan your doctor can act on. Your roadmap starts here.
           </p>
 
           {/* Quick Step Anchor Pills */}
