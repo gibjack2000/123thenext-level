@@ -28,6 +28,7 @@ import {
 import { useMarket, Market } from '../contexts/MarketContext';
 import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
 import BloodPanelComparisonTable from '../components/BloodPanelComparisonTable';
+import Step2DiagnosticChannels from '../components/Step2DiagnosticChannels';
 
 // Biomarker Science Guide data
 interface BiomarkerDetail {
@@ -200,14 +201,14 @@ export default function DiagnosticsSuite() {
         </div>
 
         {/* ========================================================================= */}
-        {/* 2. SECTION A: 🩸 2 BLOOD DRAW CHOICES                                     */}
+        {/* 2. SECTION A: 🩸 STEP 2: CHOOSE YOUR DIAGNOSTICS                          */}
         {/* ========================================================================= */}
         <section className="space-y-6">
           <div className="border-b border-slate-800 pb-4 flex flex-col md:flex-row md:items-end justify-between gap-3">
             <div>
-              <span className="text-xs font-mono uppercase text-cyan-400 tracking-widest font-bold">SECTION 1: CLINICAL PHLEBOTOMY ARCHITECTURE</span>
+              <span className="text-xs font-mono uppercase text-cyan-400 tracking-widest font-bold">SECTION 1: CLINICAL PHLEBOTOMY &amp; DIAGNOSTIC ARCHITECTURE</span>
               <h2 className="text-2xl sm:text-3xl font-display font-black uppercase text-white mt-1">
-                🩸 Two Distinct Blood Draw Options: Essential Starter vs. Clinical Gold Standard
+                Step 2: Choose Your Diagnostics • 3 Integrated Channels
               </h2>
             </div>
             <p className="text-xs text-slate-400 max-w-md">
@@ -215,12 +216,20 @@ export default function DiagnosticsSuite() {
             </p>
           </div>
 
-          {/* Dual Blood Draw Tier Architecture Cards & Comparison Table */}
-          <BloodPanelComparisonTable 
-            showCards={true}
-            defaultExpanded={true}
+          {/* 3-Channel Diagnostic Architecture */}
+          <Step2DiagnosticChannels 
             selectedRegion={activeRegion}
+            showComparisonLink={true}
           />
+
+          {/* Dual Blood Draw Tier Comparison Table */}
+          <div id="step-2-comparison" className="pt-2">
+            <BloodPanelComparisonTable 
+              showCards={false}
+              defaultExpanded={false}
+              selectedRegion={activeRegion}
+            />
+          </div>
 
           {/* Phlebotomy Method Selector Tabs (Clinic vs Mobile) */}
           <div className="pt-8 border-t border-slate-800 space-y-4">
@@ -333,7 +342,7 @@ export default function DiagnosticsSuite() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase bg-cyan-950 border border-cyan-800 text-cyan-400 font-bold">
-                    🇬🇧 United Kingdom • Choice 2: Comprehensive Cellular Biomarker Map
+                    🇬🇧 United Kingdom • Phlebotomy Fulfillment
                   </span>
                   <span className="text-xl font-display font-black text-white">
                     {selectedBloodChoice === 'clinic' ? '£149.00' : '£237.00'}
@@ -343,7 +352,7 @@ export default function DiagnosticsSuite() {
                 <div>
                   <h3 className="text-xl font-display font-black uppercase text-white">
                     {selectedBloodChoice === 'clinic'
-                      ? 'LOLA Vital Check 56'
+                      ? 'LOLA Vital Check 56 (In-Clinic Draw)'
                       : 'LOLA Mobile Phlebotomist / Medichecks Home Nurse Visit'}
                   </h3>
                   <p className="text-xs text-slate-400 mt-1">
@@ -388,7 +397,7 @@ export default function DiagnosticsSuite() {
                   rel="noopener noreferrer"
                   className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-cyan-500/20 active:scale-95 cursor-pointer"
                 >
-                  <span>Order LOLA Vital Check 56 (£149) ➔</span>
+                  <span>Select Vital Check 56 ➔</span>
                   <ExternalLink size={14} />
                 </a>
               </div>

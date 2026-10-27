@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink, CheckCircle2, ShieldCheck, Stethoscope, ArrowRight, Droplets, AlertCircle } from 'lucide-react';
+import { ExternalLink, CheckCircle2, ShieldCheck, Stethoscope, ArrowRight, Droplets, AlertCircle, Scale, Watch } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
 import BloodPanelComparisonTable from './BloodPanelComparisonTable';
 
@@ -49,6 +49,20 @@ export interface RegionalPathwayData {
     badge: string;
     description: string;
     price: string;
+  };
+  hardware?: {
+    scales: {
+      title: string;
+      summary: string;
+      productName: string;
+      url: string;
+    };
+    wearables: {
+      title: string;
+      summary: string;
+      productName: string;
+      url: string;
+    };
   };
 }
 
@@ -99,6 +113,20 @@ export const REGIONAL_PATHWAYS: Record<Market, RegionalPathwayData> = {
       description: 'FDA-cleared 10-parameter rapid urinalysis reagent strips for weekly tracking of microvascular health, proteinuria, pH, ketones, glucose, and renal function.',
       price: '$16.99 (100 Strips)',
     },
+    hardware: {
+      scales: {
+        title: 'Smart Scales',
+        summary: 'Bioimpedance scales for Visceral Fat Rating (1–12) & Skeletal Muscle Mass %.',
+        productName: 'Withings Body Scan / Comp',
+        url: 'https://www.amazon.com/dp/B0B9849CD1?tag=123znl0e-20',
+      },
+      wearables: {
+        title: 'Wearables',
+        summary: 'Smartwatches / Rings for Nocturnal HRV, Resting HR & Sleep Efficiency.',
+        productName: 'Oura Ring Gen4 / Apple Watch',
+        url: 'https://www.amazon.com/dp/B0DJBH1625?tag=123znl0e-20',
+      },
+    },
   },
   UK: {
     regionName: 'United Kingdom',
@@ -107,22 +135,22 @@ export const REGIONAL_PATHWAYS: Record<Market, RegionalPathwayData> = {
     badge: 'UKAS Accredited & ISO Certified Phlebotomy Network',
     level1: {
       partnerName: 'LOLA Essential Check',
-      description: 'Core lipids, HbA1c, glucose, kidney & liver.',
+      description: 'Core lipid profile, fasting glucose, HbA1c, kidney & liver function.',
       price: '£89.00',
       requisitionUrl: 'https://referrals.lolahealth.com/NextLevel15',
-      actionText: 'Order LOLA Essential Check (£89) ➔',
-      helperText: "When you arrive on LOLA Health, select: 'LOLA Essential Check' (Core lipids, HbA1c, glucose, kidney & liver).",
+      actionText: 'Select Essential Check ➔',
+      helperText: "When you arrive on LOLA Health, select: 'LOLA Essential Check'.",
     },
     level2: {
       partnerName: 'LOLA Vital Check 56',
-      description: 'Full 56-biomarker panel: ApoB, hs-CRP, Vitamin D, Thyroid & Hormones.',
+      description: 'Complete 56-biomarker panel (ApoB, hs-CRP, Thyroid, Vitamin D & Hormones).',
       price: '£149.00',
       requisitionUrl: 'https://referrals.lolahealth.com/NextLevel15',
-      actionText: 'Order LOLA Vital Check 56 (£149) ➔',
-      helperText: "When you arrive on LOLA Health, select: 'LOLA Vital Check 56' (Full 56-biomarker panel: ApoB, hs-CRP, Vitamin D, Thyroid & Hormones).",
+      actionText: 'Select Vital Check 56 ➔',
+      helperText: "When you arrive on LOLA Health, select: 'LOLA Vital Check 56'.",
     },
     urinalysis: {
-      name: 'Lola Urinalysis & Microvascular ACR Panel',
+      name: 'Clinical Lab ACR (Microalbumin)',
       partnerName: 'LOLA Health',
       badge: 'UKAS Certified Fluid Telemetry',
       description: 'Home sample kit and partner clinic assessment tracking albumin-to-creatinine ratio and renal metabolic performance.',
@@ -131,11 +159,25 @@ export const REGIONAL_PATHWAYS: Record<Market, RegionalPathwayData> = {
       requisitionUrl: 'https://referrals.lolahealth.com/NextLevel15',
     },
     fluidTelemetry: {
-      name: 'ALLTEST 10-Parameter Clinical Urinalysis Dipsticks UK',
+      name: 'At-Home 10-Parameter Dipsticks',
       directUrl: 'https://referrals.lolahealth.com/NextLevel15',
       badge: 'CE Medical Marked | UKAS Aligned',
-      description: 'CE Medical Marked 10-parameter urinalysis dipsticks monitoring kidney filtration integrity, microalbuminuria, acid-base balance, and systemic hydration.',
+      description: '60-second Sunday bathroom test for pH, hydration, and ketones.',
       price: '£12.99 (100 Strips)',
+    },
+    hardware: {
+      scales: {
+        title: 'Smart Scales',
+        summary: 'Bioimpedance scales for Visceral Fat Rating (1–12) & Skeletal Muscle Mass %.',
+        productName: 'Withings Body Scan / Comp',
+        url: 'https://www.amazon.co.uk/dp/B0B9849CD1?tag=123znl0f3-21',
+      },
+      wearables: {
+        title: 'Wearables',
+        summary: 'Smartwatches / Rings for Nocturnal HRV, Resting HR & Sleep Efficiency.',
+        productName: 'Oura Ring Gen4 / Apple Watch',
+        url: 'https://www.amazon.co.uk/dp/B0DJBH1625?tag=123znl0f3-21',
+      },
     },
   },
   ES: {
@@ -156,7 +198,7 @@ export const REGIONAL_PATHWAYS: Record<Market, RegionalPathwayData> = {
       requisitionUrl: 'https://www.melio.es',
     },
     urinalysis: {
-      name: 'SaludOnNet / Eurofins Análisis Completo de Orina con Sedimento',
+      name: 'Clinical Lab ACR (Microalbumin)',
       partnerName: 'SaludOnNet / Eurofins Megalab',
       badge: 'Marcado CE & ISO 15189',
       description: 'Panel clínico completo de orina con sedimento y ratio albúmina/creatinina en más de 160 laboratorios autorizados.',
@@ -165,11 +207,25 @@ export const REGIONAL_PATHWAYS: Record<Market, RegionalPathwayData> = {
       requisitionUrl: 'PASTE_YOUR_SALUDONNET_AWIN_LINK',
     },
     fluidTelemetry: {
-      name: 'ALLTEST Tiras Reactivas de Orina 10 Parámetros ES',
+      name: 'At-Home 10-Parameter Dipsticks',
       directUrl: '[PASTE_YOUR_SALUDONNET_AWIN_LINK]',
       badge: 'Marcado CE Médico | Red Eurofins / Unilabs',
-      description: 'Tiras reactivas clínicas de 10 parámetros para el seguimiento semanal de función renal, pH, cetonas, glucosa y microalbuminuria en España.',
+      description: '60-second Sunday bathroom test for pH, hydration, and ketones.',
       price: '14,50 € (100 Tiras)',
+    },
+    hardware: {
+      scales: {
+        title: 'Smart Scales',
+        summary: 'Bioimpedance scales for Visceral Fat Rating (1–12) & Skeletal Muscle Mass %.',
+        productName: 'Withings Body Scan / Comp',
+        url: 'https://www.amazon.es/dp/B0B9849CD1?tag=123znl08a-21',
+      },
+      wearables: {
+        title: 'Wearables',
+        summary: 'Smartwatches / Rings for Nocturnal HRV, Resting HR & Sleep Efficiency.',
+        productName: 'Oura Ring Gen4 / Apple Watch',
+        url: 'https://www.amazon.es/dp/B0DJBH1625?tag=123znl08a-21',
+      },
     },
   },
 };
@@ -206,15 +262,15 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
       {/* Selector Header & Low-Pressure Framing */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-800/80 pb-5">
         <div className="space-y-1.5 text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[10px] font-mono uppercase tracking-wider font-bold">
-            <Stethoscope size={12} className="text-cyan-400" />
-            <span>Choose Your Starting Point • Low-Pressure Clinical Pathway</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-[10px] font-mono uppercase tracking-wider font-bold">
+            <Stethoscope size={12} className="text-rose-400" />
+            <span>CHANNEL 1: 🩸 BLOOD DIAGNOSTICS (Select ONE Option)</span>
           </div>
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-display font-black text-white uppercase tracking-tight">
             Diagnostic Requisition Selector
           </h2>
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-light max-w-2xl">
-            Select the baseline depth that aligns with your clinical goals and budget. Both options provide objective telemetry to review collaboratively with your GP.
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light max-w-2xl">
+            Choose your preferred baseline depth. Both options link via your 15% discount.
           </p>
         </div>
 
@@ -257,11 +313,16 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
         </div>
       </div>
 
-      {/* Two Side-by-Side Option Cards with Clean Neutral Framing */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-1">
+      {/* Two Side-by-Side Option Cards with Clean Neutral Framing and OR Divider */}
+      <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-6 pt-1">
+        
+        {/* Desktop Central OR Divider */}
+        <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-slate-950 border-2 border-slate-700 text-slate-300 font-mono font-bold text-xs items-center justify-center shadow-2xl">
+          OR
+        </div>
         
         {/* ========================================================================= */}
-        {/* CARD A: Choice 1: Essential Baseline Blood Panel (Basic Tier)            */}
+        {/* CARD A: Option A: LOLA Essential Check (Basic Tier)                      */}
         {/* ========================================================================= */}
         <div
           className={`relative rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 bg-gradient-to-b from-slate-900/90 to-slate-950 border ${
@@ -274,7 +335,7 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
             {/* Card Header & Level Tag */}
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950/70 border border-emerald-800/50 px-2.5 py-1 rounded-lg">
-                {activeMarket === 'UK' ? 'Essential Baseline Blood Panel (UK 🇬🇧)' : 'Choice 1: Essential Baseline Blood Panel • Essential Starter'}
+                {activeMarket === 'UK' ? 'OPTION A: Basic Tier' : 'Option A: Basic Tier'}
               </span>
               <span className="text-sm font-mono font-bold text-white">
                 {regionData.level1.price}
@@ -284,11 +345,14 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
             {/* Headline & Core Narrative */}
             <div>
               <h3 className="text-xl sm:text-2xl font-display font-black text-white tracking-tight">
-                {activeMarket === 'UK' ? regionData.level1.partnerName : 'Essential Baseline Blood Panel'}
+                {regionData.level1.partnerName}
               </h3>
               <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
-                <strong className="text-emerald-300 font-medium">Target Audience:</strong> Budget-conscious users or first-time baseline spot-checks. Establishes objective reference points for core lipid fractions, glycemic regulation, and kidney/liver filtration.
+                <strong className="text-white font-medium">Summary:</strong> {regionData.level1.description}
               </p>
+              <div className="mt-2 text-xs text-slate-400 font-light border-t border-slate-800/80 pt-2">
+                <strong className="text-emerald-300 font-medium">Best for:</strong> First-time baseline or routine spot-checks.
+              </div>
             </div>
 
             {/* Biomarker Pill Tags */}
@@ -325,15 +389,10 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
               </div>
             )}
 
-            {/* Partner Details */}
-            <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-850 text-xs text-slate-400 space-y-1 font-mono">
-              <div className="text-slate-300 font-bold flex items-center justify-between">
-                <span>Partner: {regionData.level1.partnerName}</span>
-                <span className="text-emerald-400 text-[10px]">Direct Requisition</span>
-              </div>
-              <p className="text-[11px] font-sans text-slate-400 leading-normal">
-                {regionData.level1.description}
-              </p>
+            {/* Fulfillment Details (Clean, Non-repetitive) */}
+            <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-850 text-xs text-slate-400 flex items-center justify-between font-mono">
+              <span className="text-slate-300 font-bold">Fulfillment: {regionData.partnerName}</span>
+              <span className="text-emerald-400 text-[10px]">Direct Requisition</span>
             </div>
           </div>
 
@@ -346,7 +405,7 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
               onClick={() => handleSelect('level1', regionData.level1.requisitionUrl)}
               className="w-full py-3.5 px-5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-200 shadow-md group cursor-pointer"
             >
-              <span>{regionData.level1.actionText || 'Select Essential Starter Requisition ➔'}</span>
+              <span>{regionData.level1.actionText || 'Select Essential Check ➔'}</span>
               <ExternalLink size={14} className="text-white group-hover:translate-x-0.5 transition-transform" />
             </a>
             {currentSelected === 'level1' && (
@@ -359,7 +418,7 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
         </div>
 
         {/* ========================================================================= */}
-        {/* CARD B: Choice 2: Comprehensive Cellular Biomarker Map (Complete Tier)   */}
+        {/* CARD B: Option B: LOLA Vital Check 56 (Comprehensive Tier)                */}
         {/* ========================================================================= */}
         <div
           className={`relative rounded-3xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 bg-gradient-to-b from-slate-900/90 to-slate-950 border ${
@@ -372,7 +431,7 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
             {/* Card Header & Level Tag */}
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-400 bg-cyan-950/70 border border-cyan-800/50 px-2.5 py-1 rounded-lg">
-                {activeMarket === 'UK' ? 'Comprehensive Cellular Biomarker Map (UK 🇬🇧)' : 'Choice 2: Comprehensive Cellular Biomarker Map • Clinical Gold Standard'}
+                {activeMarket === 'UK' ? 'OPTION B: Comprehensive Tier' : 'Option B: Comprehensive Tier'}
               </span>
               <span className="text-sm font-mono font-bold text-cyan-300">
                 {regionData.level2.price}
@@ -382,11 +441,14 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
             {/* Headline & Core Narrative */}
             <div>
               <h3 className="text-xl sm:text-2xl font-display font-black text-white tracking-tight">
-                {activeMarket === 'UK' ? regionData.level2.partnerName : 'Comprehensive Cellular Biomarker Map'}
+                {regionData.level2.partnerName}
               </h3>
               <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
-                <strong className="text-cyan-300 font-medium">Target Audience:</strong> Deep-dive longevity optimization, cardiovascular risk mapping, and metabolic re-engineering. Full 56-biomarker multi-omic panel covering plaque particles, inflammation, hormones, and micronutrients in a single draw.
+                <strong className="text-white font-medium">Summary:</strong> {regionData.level2.description}
               </p>
+              <div className="mt-2 text-xs text-slate-400 font-light border-t border-slate-800/80 pt-2">
+                <strong className="text-cyan-300 font-medium">Best for:</strong> Deep cellular longevity mapping &amp; cardiovascular risk re-engineering.
+              </div>
             </div>
 
             {/* Biomarker Pill Tags */}
@@ -432,15 +494,10 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
               </div>
             )}
 
-            {/* Partner Details */}
-            <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-850 text-xs text-slate-400 space-y-1 font-mono">
-              <div className="text-slate-300 font-bold flex items-center justify-between">
-                <span>Partner: {regionData.level2.partnerName}</span>
-                <span className="text-cyan-400 text-[10px]">Venous Phlebotomy</span>
-              </div>
-              <p className="text-[11px] font-sans text-slate-400 leading-normal">
-                {regionData.level2.description}
-              </p>
+            {/* Fulfillment Details (Clean, Non-repetitive) */}
+            <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-850 text-xs text-slate-400 flex items-center justify-between font-mono">
+              <span className="text-slate-300 font-bold">Fulfillment: {regionData.partnerName}</span>
+              <span className="text-cyan-400 text-[10px]">Venous Phlebotomy</span>
             </div>
           </div>
 
@@ -453,7 +510,7 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
               onClick={() => handleSelect('level2', regionData.level2.requisitionUrl)}
               className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:via-teal-300 hover:to-emerald-300 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-cyan-500/20 group cursor-pointer"
             >
-              <span>{regionData.level2.actionText || 'Select Clinical Gold Standard Map ➔'}</span>
+              <span>{regionData.level2.actionText || 'Select Vital Check 56 ➔'}</span>
               <ExternalLink size={14} className="text-slate-950 group-hover:translate-x-0.5 transition-transform" />
             </a>
             {currentSelected === 'level2' && (
@@ -475,43 +532,99 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
       />
 
       {/* ========================================================================= */}
-      {/* SECTION: PHASE 1 BASELINE DIAGNOSTICS & FLUID TELEMETRY                     */}
+      {/* CHANNEL 2: 🧪 URINALYSIS DIAGNOSTICS (Weekly vs. Quarterly)               */}
       {/* ========================================================================= */}
-      <div className="rounded-3xl p-6 sm:p-7 bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-cyan-950/30 border border-cyan-500/30 shadow-xl space-y-5">
+      <div className="rounded-3xl p-6 sm:p-7 bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-teal-950/30 border border-teal-500/30 shadow-xl space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800/80 pb-4">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0">
+            <div className="w-9 h-9 rounded-xl bg-teal-500/10 border border-teal-500/20 text-teal-400 flex items-center justify-center shrink-0">
               <Droplets size={18} />
             </div>
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/50">
-                  {regionData.flag} Phase 1 Baseline Diagnostics
+                <span className="text-[10px] font-mono uppercase tracking-wider text-teal-300 font-bold bg-teal-950/80 px-2 py-0.5 rounded border border-teal-800/50">
+                  CHANNEL 2: 🧪 URINALYSIS DIAGNOSTICS
                 </span>
-                <span className="text-[10px] text-cyan-300 font-mono bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
-                  Direct 10-Parameter Rapid Fluid Telemetry
+                <span className="text-[10px] text-slate-400 font-mono bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
+                  Weekly vs. Quarterly
                 </span>
               </div>
               <h4 className="text-base sm:text-lg font-display font-black text-white tracking-tight mt-0.5">
-                Clinical Urine Analysis &amp; Rapid Fluid Telemetry Requisitions
+                Continuous Metabolic Fluid Tracking &amp; Renal Telemetry
               </h4>
+              <p className="text-xs text-slate-300 font-light mt-0.5">
+                Continuous metabolic fluid tracking to catch silent shifts early.
+              </p>
             </div>
           </div>
-          <span className="text-xs font-mono font-bold text-cyan-300 self-start sm:self-center bg-slate-950 px-3 py-1 rounded-full border border-slate-800">
-            {regionData.fluidTelemetry.price}
-          </span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
-          {/* Clinical Lab Urinalysis Requisition */}
+          {/* WEEKLY OPTION: At-Home 10-Parameter Dipsticks */}
+          <div className="p-4 rounded-2xl bg-slate-950/70 border border-teal-500/30 space-y-3 flex flex-col justify-between">
+            <div className="space-y-2.5">
+              <div className="flex items-center justify-between gap-2">
+                <div>
+                  <span className="text-[10px] font-mono uppercase text-teal-400 font-bold block">
+                    Weekly Option
+                  </span>
+                  <span className="font-bold text-white text-sm">At-Home 10-Parameter Dipsticks</span>
+                </div>
+                <span className="text-xs font-mono font-bold text-white bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
+                  {regionData.fluidTelemetry.price}
+                </span>
+              </div>
+              <p className="text-slate-300 text-xs leading-relaxed">
+                60-second Sunday bathroom test for pH, hydration, and ketones.
+              </p>
+
+              {/* 10-Biomarker Checklist Chip Grid */}
+              <div className="pt-2 border-t border-slate-800/80 space-y-1.5">
+                <div className="flex items-center justify-between text-[10px] font-mono uppercase text-slate-400 font-bold">
+                  <span>10-Biomarker Checklist</span>
+                  <span className="text-teal-400">10 Parameters</span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-1.5 pt-0.5">
+                  {FLUID_TELEMETRY_BIOMARKERS.map((biomarker) => (
+                    <span
+                      key={biomarker}
+                      className="px-2 py-1 rounded-md bg-slate-900 border border-slate-800 text-teal-300 text-[10px] font-mono flex items-center gap-1 font-medium"
+                    >
+                      <CheckCircle2 size={10} className="text-emerald-400 shrink-0" />
+                      <span className="truncate">{biomarker}</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <a
+              href={regionData.fluidTelemetry.directUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 w-full py-2.5 px-4 rounded-xl bg-teal-600 hover:bg-teal-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-md group cursor-pointer"
+            >
+              <span>Order At-Home 10-Parameter Dipsticks ({activeMarket}) ➔</span>
+              <ExternalLink size={13} className="group-hover:translate-x-0.5 transition-transform" />
+            </a>
+          </div>
+
+          {/* QUARTERLY OPTION: Clinical Lab ACR (Microalbumin) */}
           <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-3 flex flex-col justify-between">
             <div className="space-y-2">
               <div className="flex items-center justify-between gap-2">
-                <span className="font-bold text-white text-sm">{regionData.urinalysis.name}</span>
-                <span className="text-[10px] text-emerald-400 font-mono font-bold shrink-0">Clinical Lab Draw</span>
+                <div>
+                  <span className="text-[10px] font-mono uppercase text-cyan-400 font-bold block">
+                    Quarterly Option
+                  </span>
+                  <span className="font-bold text-white text-sm">Clinical Lab ACR (Microalbumin)</span>
+                </div>
+                <span className="text-xs font-mono font-bold text-white bg-slate-900 px-2.5 py-1 rounded-lg border border-slate-800">
+                  {regionData.urinalysis.price}
+                </span>
               </div>
               <p className="text-slate-300 text-xs leading-relaxed">
-                {regionData.urinalysis.details}
+                Diagnostic laboratory urine test paired with your quarterly blood draw.
               </p>
               <div className="flex flex-wrap gap-1.5 pt-1">
                 {['Microalbumin (ACR)', 'Proteinuria', 'Urine pH', 'Specific Gravity', 'Renal Filtration'].map((tag) => (
@@ -527,60 +640,95 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
               rel="noopener noreferrer"
               className="mt-3 w-full py-2.5 px-4 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 border border-cyan-500/40 font-bold text-xs flex items-center justify-center gap-1.5 transition-all"
             >
-              <span>Order Clinical Urinalysis Requisition ({activeMarket}) ➔</span>
+              <span>Order Clinical Lab ACR ({activeMarket}) ➔</span>
+              <ExternalLink size={13} />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* CHANNEL 3: ⌚ HARDWARE & WEARABLE TELEMETRY (Paid Optional Tier)           */}
+      {/* ========================================================================= */}
+      <div className="rounded-3xl p-6 sm:p-7 bg-gradient-to-br from-slate-900/90 via-slate-900/70 to-purple-950/30 border border-purple-500/30 shadow-xl space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800/80 pb-4">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
+              <Scale size={18} />
+            </div>
+            <div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-amber-300 font-bold bg-amber-950/80 px-2 py-0.5 rounded border border-amber-800/50">
+                  CHANNEL 3: ⌚ HARDWARE &amp; WEARABLE TELEMETRY
+                </span>
+                <span className="text-[10px] text-slate-400 font-mono bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
+                  Paid Optional Tier
+                </span>
+              </div>
+              <h4 className="text-base sm:text-lg font-display font-black text-white tracking-tight mt-0.5">
+                Autonomic Recovery &amp; Visceral Fat Telemetry
+              </h4>
+              <p className="text-xs text-slate-300 font-light mt-0.5">
+                24/7 autonomic recovery, body composition, and visceral fat telemetry.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
+          {/* Smart Scales */}
+          <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-3 flex flex-col justify-between">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between gap-2">
+                <span className="font-bold text-white text-sm flex items-center gap-1.5">
+                  <Scale size={14} className="text-amber-400" />
+                  <span>SMART SCALES</span>
+                </span>
+                <span className="text-[10px] text-amber-400 font-mono font-bold shrink-0">Bioimpedance</span>
+              </div>
+              <p className="text-slate-300 text-xs leading-relaxed">
+                Bioimpedance scales for Visceral Fat Rating (1–12) &amp; Skeletal Muscle Mass %.
+              </p>
+              <div className="text-[11px] font-mono text-slate-400 pt-1">
+                Recommended: <span className="text-white font-semibold">{regionData.hardware?.scales.productName || 'Withings Body Scan / Comp'}</span>
+              </div>
+            </div>
+            <a
+              href={regionData.hardware?.scales.url || 'https://www.withings.com'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 w-full py-2.5 px-4 rounded-xl bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-slate-950 border border-amber-500/40 font-bold text-xs flex items-center justify-center gap-1.5 transition-all"
+            >
+              <span>View Smart Scales ({activeMarket}) ➔</span>
               <ExternalLink size={13} />
             </a>
           </div>
 
-          {/* Direct 10-Parameter Rapid Fluid Telemetry Tool */}
-          <div className="p-4 rounded-2xl bg-slate-950/70 border border-cyan-500/30 space-y-3 flex flex-col justify-between">
-            <div className="space-y-2.5">
+          {/* Wearables */}
+          <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800 space-y-3 flex flex-col justify-between">
+            <div className="space-y-2">
               <div className="flex items-center justify-between gap-2">
-                <span className="font-bold text-white text-sm">{regionData.fluidTelemetry.name}</span>
-                <span className="text-[10px] text-cyan-400 font-mono font-bold bg-cyan-950 px-2 py-0.5 rounded border border-cyan-800 shrink-0">
-                  {regionData.fluidTelemetry.badge}
+                <span className="font-bold text-white text-sm flex items-center gap-1.5">
+                  <Watch size={14} className="text-purple-400" />
+                  <span>WEARABLES</span>
                 </span>
+                <span className="text-[10px] text-purple-400 font-mono font-bold shrink-0">Continuous Sensor</span>
               </div>
               <p className="text-slate-300 text-xs leading-relaxed">
-                {regionData.fluidTelemetry.description}
+                Smartwatches / Rings for Nocturnal HRV, Resting HR &amp; Sleep Efficiency.
               </p>
-
-              {/* 10-Biomarker Checklist Chip Grid */}
-              <div className="pt-2 border-t border-slate-800/80 space-y-1.5">
-                <div className="flex items-center justify-between text-[10px] font-mono uppercase text-slate-400 font-bold">
-                  <span>10-Biomarker Checklist Chip Grid</span>
-                  <span className="text-cyan-400">10 Parameters</span>
-                </div>
-                <div className="grid grid-cols-2 sm:grid-cols-5 gap-1.5 pt-0.5">
-                  {FLUID_TELEMETRY_BIOMARKERS.map((biomarker) => (
-                    <span
-                      key={biomarker}
-                      className="px-2 py-1 rounded-md bg-slate-900 border border-slate-800 text-cyan-300 text-[10px] font-mono flex items-center gap-1 font-medium"
-                    >
-                      <CheckCircle2 size={10} className="text-emerald-400 shrink-0" />
-                      <span className="truncate">{biomarker}</span>
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Clinical Protocol Note */}
-              <div className="p-2.5 rounded-xl bg-cyan-950/40 border border-cyan-800/50 text-[11px] text-cyan-200/90 flex items-start gap-2">
-                <AlertCircle size={14} className="text-cyan-400 shrink-0 mt-0.5" />
-                <p className="leading-relaxed">
-                  <strong>Clinical Protocol:</strong> Dip and read in 60 seconds once per week to monitor systemic hydration, metabolic spillovers, and acid-base shifts between quarterly blood draws.
-                </p>
+              <div className="text-[11px] font-mono text-slate-400 pt-1">
+                Recommended: <span className="text-white font-semibold">{regionData.hardware?.wearables.productName || 'Oura Ring Gen4 / Apple Watch'}</span>
               </div>
             </div>
-
             <a
-              href={regionData.fluidTelemetry.directUrl}
+              href={regionData.hardware?.wearables.url || 'https://ouraring.com'}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-cyan-500/20 via-cyan-500/30 to-teal-500/20 hover:from-cyan-500 hover:to-teal-400 text-cyan-300 hover:text-slate-950 border border-cyan-500/40 font-bold text-xs flex items-center justify-center gap-1.5 transition-all shadow-md group cursor-pointer"
+              className="mt-3 w-full py-2.5 px-4 rounded-xl bg-purple-500/20 hover:bg-purple-500 text-purple-300 hover:text-slate-950 border border-purple-500/40 font-bold text-xs flex items-center justify-center gap-1.5 transition-all"
             >
-              <span>Order Direct Fluid Telemetry ({activeMarket}) ➔</span>
-              <ExternalLink size={13} className="group-hover:translate-x-0.5 transition-transform" />
+              <span>View Wearables ({activeMarket}) ➔</span>
+              <ExternalLink size={13} />
             </a>
           </div>
         </div>

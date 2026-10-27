@@ -147,22 +147,22 @@ export const REGIONAL_BLOOD_TIERS = {
     network: 'UKAS-Accredited Clinic & Phlebotomy Partner Network',
     basic: {
       name: 'LOLA Essential Check',
-      tierTitle: 'Choice 1: Essential Baseline Blood Panel (UK 🇬🇧)',
-      badge: 'Essential Starter',
-      targetAudience: 'Budget-conscious users or first-time baseline spot-checks',
+      tierTitle: 'Option A: Basic Tier',
+      badge: 'Basic Tier',
+      targetAudience: 'First-time baseline or routine spot-checks',
       price: '£89.00',
-      actionText: 'Order LOLA Essential Check (£89)',
+      actionText: 'Select Essential Check',
       helperText: "When you arrive on LOLA Health, select: 'LOLA Essential Check' (Core lipids, HbA1c, glucose, kidney & liver).",
       url: 'https://referrals.lolahealth.com/NextLevel15',
       partner: 'LOLA Health UK'
     },
     complete: {
       name: 'LOLA Vital Check 56',
-      tierTitle: 'Choice 2: Comprehensive Cellular Biomarker Map (UK 🇬🇧)',
-      badge: 'Clinical Gold Standard',
-      targetAudience: 'Deep-dive longevity optimization, cardiovascular risk mapping, and metabolic re-engineering',
+      tierTitle: 'Option B: Comprehensive Tier',
+      badge: 'Comprehensive Tier',
+      targetAudience: 'Deep cellular longevity mapping & cardiovascular risk re-engineering',
       price: '£149.00',
-      actionText: 'Order LOLA Vital Check 56 (£149)',
+      actionText: 'Select Vital Check 56',
       helperText: "When you arrive on LOLA Health, select: 'LOLA Vital Check 56' (Full 56-biomarker panel: ApoB, hs-CRP, Vitamin D, Thyroid & Hormones).",
       url: 'https://referrals.lolahealth.com/NextLevel15',
       partner: 'LOLA Health UK'
@@ -212,9 +212,13 @@ export const BloodPanelComparisonTable: React.FC<BloodPanelComparisonTableProps>
 
   return (
     <div className={`w-full space-y-6 ${className}`}>
-      {/* Side-by-Side Dual Option Cards */}
+      {/* Side-by-Side Dual Option Cards with Clear OR Divider */}
       {showCards && (
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+      <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
+        {/* Desktop Central OR Divider Badge */}
+        <div className="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-slate-950 border-2 border-slate-700 text-slate-300 font-mono font-bold text-xs items-center justify-center shadow-2xl">
+          OR
+        </div>
         
         {/* CHOICE 1: ESSENTIAL BASELINE BLOOD PANEL */}
         <div className="rounded-3xl p-6 sm:p-7 bg-slate-900/90 border-2 border-emerald-500/40 flex flex-col justify-between space-y-6 shadow-xl relative overflow-hidden group hover:border-emerald-400 transition-all duration-300">
