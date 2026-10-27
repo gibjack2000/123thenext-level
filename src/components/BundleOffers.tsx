@@ -13,6 +13,7 @@ import {
   Check,
   AlertCircle
 } from 'lucide-react';
+import { usePaywallBypass, downloadMultipleGuides } from '../utils/adminTestMode';
 
 export interface BundleMasterGuide {
   id: string;
@@ -156,6 +157,7 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
     'sleep-optimization'
   ]);
   const [pickerWarning, setPickerWarning] = useState<string | null>(null);
+  const { isBypassActive } = usePaywallBypass();
 
   const toggleGuideSelection = (id: string) => {
     setPickerWarning(null);
@@ -302,10 +304,14 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
             <button
               type="button"
               onClick={() => setIsPickerOpen(true)}
-              className="w-full py-4 px-6 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 transition-all shadow-xl shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer"
+              className={`w-full py-4 px-6 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all shadow-xl hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer ${
+                isBypassActive
+                  ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 shadow-emerald-500/25'
+                  : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 shadow-cyan-500/20'
+              }`}
             >
               <Layers size={16} />
-              <span>Select Your 3 Guides (£29.99) ➔</span>
+              <span>{isBypassActive ? 'Select & Test Download 3 Guides (Free Bypass) ➔' : 'Select Your 3 Guides (£29.99) ➔'}</span>
             </button>
           </div>
         </div>
@@ -409,14 +415,27 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
 
           {/* Primary CTA */}
           <div className="pt-6 relative z-10">
-            <button
-              type="button"
-              onClick={handleCompleteVaultCheckout}
-              className="w-full py-4 px-6 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 transition-all shadow-xl shadow-amber-500/25 hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <Download size={16} />
-              <span>Unlock All 10 Guides (£59.99 / $59.99 / €59.99) ➔</span>
-            </button>
+            {isBypassActive ? (
+              <button
+                type="button"
+                onClick={() => {
+                  downloadMultipleGuides(ALL_10_MASTER_GUIDES.map(g => g.id));
+                }}
+                className="w-full py-4 px-6 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 transition-all shadow-xl shadow-emerald-500/30 hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <Download size={16} />
+                <span>Test Download Complete 10 Vault (Free Bypass)</span>
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={handleCompleteVaultCheckout}
+                className="w-full py-4 px-6 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 transition-all shadow-xl shadow-amber-500/25 hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <Download size={16} />
+                <span>Unlock All 10 Guides (£59.99 / $59.99 / €59.99) ➔</span>
+              </button>
+            )}
           </div>
         </div>
 
@@ -567,19 +586,38 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
                   Cancel
                 </button>
 
-                <button
-                  type="button"
-                  disabled={!isCompleteTrio}
-                  onClick={handleProceedPick3Checkout}
-                  className={`w-full sm:w-auto px-7 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xl ${
-                    isCompleteTrio
-                      ? 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 shadow-cyan-500/25 hover:scale-[1.02] active:scale-[0.98]'
-                      : 'bg-slate-800 text-slate-500 border border-slate-700 cursor-not-allowed'
-                  }`}
-                >
-                  <span>Proceed to Checkout (£29.99 / $29.99 / €29.99)</span>
-                  <ArrowRight size={14} />
-                </button>
+                {isBypassActive ? (
+                  <button
+                    type="button"
+                    disabled={!isCompleteTrio}
+                    onClick={() => {
+                      downloadMultipleGuides(selectedGuideIds);
+                      setIsPickerOpen(false);
+                    }}
+                    className={`w-full sm:w-auto px-7 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xl ${
+                      isCompleteTrio
+                        ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 shadow-emerald-500/25 hover:scale-[1.02] active:scale-[0.98]'
+                        : 'bg-slate-800 text-slate-500 border border-slate-700 cursor-not-allowed'
+                    }`}
+                  >
+                    <Download size={15} />
+                    <span>Test Download Selected 3 (Free Bypass)</span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    disabled={!isCompleteTrio}
+                    onClick={handleProceedPick3Checkout}
+                    className={`w-full sm:w-auto px-7 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xl ${
+                      isCompleteTrio
+                        ? 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 shadow-cyan-500/25 hover:scale-[1.02] active:scale-[0.98]'
+                        : 'bg-slate-800 text-slate-500 border border-slate-700 cursor-not-allowed'
+                    }`}
+                  >
+                    <span>Proceed to Checkout (£29.99 / $29.99 / €29.99)</span>
+                    <ArrowRight size={14} />
+                  </button>
+                )}
               </div>
             </div>
 

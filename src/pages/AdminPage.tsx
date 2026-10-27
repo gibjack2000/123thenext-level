@@ -5,6 +5,7 @@ import { affiliateLinks } from '../config/affiliateLinks';
 import { Save, AlertCircle, CheckCircle2, Sparkles, Database, Copy, ExternalLink, ChevronDown, ChevronUp, Shield, Cpu, Trash2, RefreshCw, Search, Tag, MapPin, Star, BookOpen, FileText, Pencil, Eye } from 'lucide-react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Product, BlogPost, PremiumGuide, mapToProduct } from '../types';
+import { usePaywallBypass } from '../utils/adminTestMode';
 
 const REGIONS = ['US', 'UK', 'ES'];
 const PRODUCT_CATEGORIES = ['fitness_gear', 'home_kitchen', 'tech_gadgets', 'supplements', 'performance_testing', 'health_wellness'];
@@ -66,6 +67,7 @@ export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passwordInput, setPasswordInput] = useState('');
   const [loginError, setLoginError] = useState('');
+  const { isBypassActive, setBypassActive } = usePaywallBypass();
 
   useEffect(() => {
     const auth = sessionStorage.getItem('admin_session_authenticated');
@@ -1181,6 +1183,92 @@ create table if not exists premium_guides (
           </div>
         )}
 
+        {/* ========================================================================= */}
+        {/* ADMIN DASHBOARD CONTROL: PAYWALL BYPASS / TEST MODE                      */}
+        {/* ========================================================================= */}
+        <div className="mb-8 p-6 sm:p-7 rounded-3xl bg-slate-900 border-2 border-slate-800 shadow-2xl relative overflow-hidden">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="space-y-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${
+                  isBypassActive 
+                    ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 animate-pulse' 
+                    : 'bg-slate-800 text-slate-400 border border-slate-700'
+                }`}>
+                  {isBypassActive ? '● Test Mode Active (Bypass ON)' : '○ Test Mode Disabled (Live Checkout)'}
+                </span>
+                <span className="text-[10px] font-mono text-cyan-400 bg-cyan-950/60 border border-cyan-800/40 px-2 py-0.5 rounded-md">
+                  Scope: /store • /guides • /library
+                </span>
+                <span className="text-[10px] font-mono text-slate-400 bg-slate-800 px-2 py-0.5 rounded-md">
+                  Admin Restricted
+                </span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+                Master Paywall Bypass Control
+              </h3>
+              <p className="text-xs text-slate-400 max-w-2xl leading-relaxed">
+                When enabled, all 10 individual Master Guide product cards, the &ldquo;Pick Any 3&rdquo; modal, and the &ldquo;Complete 10-Guide Vault&rdquo; across <code className="text-cyan-300 bg-slate-800 px-1 py-0.5 rounded">/store</code>, <code className="text-cyan-300 bg-slate-800 px-1 py-0.5 rounded">/guides</code>, and <code className="text-cyan-300 bg-slate-800 px-1 py-0.5 rounded">/library</code> display a prominent <strong>&ldquo;Test Download (Free Bypass)&rdquo;</strong> button linking directly to the associated PDF documents. Standard checkout resumes when disabled.
+              </p>
+            </div>
+
+            {/* Toggle Switch & Fast Nav Actions */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 bg-slate-950/80 p-4 sm:p-5 rounded-2xl border border-slate-800 shrink-0">
+              <label className="flex items-center gap-3.5 cursor-pointer select-none">
+                <div className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={isBypassActive}
+                    onChange={(e) => setBypassActive(e.target.checked)}
+                    className="sr-only peer"
+                    id="admin-paywall-bypass-toggle"
+                  />
+                  <div className="w-14 h-8 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-emerald-500"></div>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-xs font-black uppercase tracking-wider text-white">
+                    Enable Paywall Bypass (Test Mode)
+                  </span>
+                  <span className={`text-[10px] font-mono font-bold ${isBypassActive ? 'text-emerald-400' : 'text-slate-500'}`}>
+                    {isBypassActive ? 'STATE: TRUE / ACTIVE' : 'STATE: FALSE / OFF (Default)'}
+                  </span>
+                </div>
+              </label>
+
+              {/* Quick links to test */}
+              <div className="flex items-center gap-2 border-t sm:border-t-0 sm:border-l border-slate-800 pt-3 sm:pt-0 sm:pl-4">
+                <Link
+                  to="/premium-guides"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider bg-slate-850 hover:bg-slate-750 text-slate-300 hover:text-white border border-slate-700/80 transition flex items-center gap-1.5"
+                >
+                  <span>/guides</span>
+                  <ExternalLink size={11} className="text-cyan-400" />
+                </Link>
+                <Link
+                  to="/library"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider bg-slate-850 hover:bg-slate-750 text-slate-300 hover:text-white border border-slate-700/80 transition flex items-center gap-1.5"
+                >
+                  <span>/library</span>
+                  <ExternalLink size={11} className="text-cyan-400" />
+                </Link>
+                <Link
+                  to="/store"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-2 rounded-xl text-[10px] font-bold uppercase tracking-wider bg-slate-850 hover:bg-slate-750 text-slate-300 hover:text-white border border-slate-700/80 transition flex items-center gap-1.5"
+                >
+                  <span>/store</span>
+                  <ExternalLink size={11} className="text-cyan-400" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="flex flex-wrap gap-3 mb-10">
           <Link
             to="/admin/affiliates"
@@ -1954,6 +2042,36 @@ create table if not exists premium_guides (
           </div>
         ) : activeTab === 'guides' ? (
           <div className="space-y-8">
+            {/* Paywall Bypass Banner in Guides Tab */}
+            <div className="bg-slate-900 border-2 border-slate-800 rounded-[2.5rem] p-6 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2">
+                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${
+                    isBypassActive ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 animate-pulse' : 'bg-slate-800 text-slate-400 border border-slate-700'
+                  }`}>
+                    {isBypassActive ? '● Test Bypass ON' : '○ Test Bypass OFF'}
+                  </span>
+                  <span className="text-xs font-black text-white">Enable Paywall Bypass (Test Mode)</span>
+                </div>
+                <p className="text-xs text-slate-400">
+                  Allows direct free downloads of all 10 Master Guides &amp; bundles across /store, /guides, and /library.
+                </p>
+              </div>
+              <label className="flex items-center gap-3 cursor-pointer select-none shrink-0">
+                <div className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={isBypassActive}
+                    onChange={(e) => setBypassActive(e.target.checked)}
+                    className="sr-only peer"
+                  />
+                  <div className="w-14 h-8 bg-slate-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-emerald-500"></div>
+                </div>
+                <span className={`text-xs font-bold uppercase tracking-wider ${isBypassActive ? 'text-emerald-400' : 'text-slate-400'}`}>
+                  {isBypassActive ? 'Active' : 'Disabled'}
+                </span>
+              </label>
+            </div>
             <form onSubmit={handleGuideSubmit} className="bg-white border border-slate-200 rounded-[3rem] p-10 shadow-sm space-y-8">
               <div className="flex items-center gap-4 mb-4">
                 <div className="bg-indigo-600 p-3 rounded-2xl text-white shadow-lg shadow-indigo-500/20">

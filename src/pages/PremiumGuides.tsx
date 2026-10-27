@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { BookOpen, X, CheckCircle2, ShieldCheck, Download, ArrowRight, Activity, FileText } from 'lucide-react';
+import { BookOpen, X, CheckCircle2, ShieldCheck, Download, ArrowRight, Activity, FileText, Sparkles } from 'lucide-react';
 import BundleOffers from '../components/BundleOffers';
+import { usePaywallBypass, getGuidePdfDownloadUrl } from '../utils/adminTestMode';
 
 interface MasterGuide {
   id: string;
@@ -47,6 +48,7 @@ const GuideCoverImage: React.FC<{ primaryImage: string; fallbackImage?: string; 
 
 export default function PremiumGuidesPage() {
   const [selectedTocGuide, setSelectedTocGuide] = useState<MasterGuide | null>(null);
+  const { isBypassActive } = usePaywallBypass();
 
   useEffect(() => {
     document.title = "Premium Master Guides | 123TheNextLevel";
@@ -272,6 +274,25 @@ export default function PremiumGuidesPage() {
 
       {/* 6-Card Grid */}
       <main className="max-w-7xl mx-auto px-6 py-16 space-y-16">
+        {isBypassActive && (
+          <div className="p-4 sm:p-5 rounded-2xl bg-emerald-950/80 border-2 border-emerald-500/50 text-emerald-200 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl shadow-emerald-950/40 animate-in fade-in">
+            <div className="flex items-center gap-3">
+              <span className="w-3 h-3 rounded-full bg-emerald-400 animate-ping shrink-0" />
+              <div>
+                <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-white block">
+                  ⚙️ Admin Test Mode: Paywall Bypass Active
+                </span>
+                <span className="text-xs text-emerald-300/90 font-medium">
+                  Direct &ldquo;Test Download (Free Bypass)&rdquo; buttons are enabled across all 10 Master Guides &amp; bundles.
+                </span>
+              </div>
+            </div>
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-900/60 border border-emerald-700/60 text-emerald-200 px-3 py-1 rounded-full whitespace-nowrap">
+              Admin Restricted Session
+            </span>
+          </div>
+        )}
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {masterGuides.map((guide) => (
             <div 
@@ -323,12 +344,25 @@ export default function PremiumGuidesPage() {
               </div>
 
               <div className="pt-4 border-t border-slate-800 space-y-2.5">
-                <a
-                  href={guide.checkoutUrl}
-                  className="w-full py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider text-center block bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 hover:from-cyan-400 hover:to-blue-500 transition-all shadow-lg shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.99]"
-                >
-                  {guide.id === 'metabolic-master-guide' ? `Get Master Guide (${guide.price}) ➔` : `Buy Digital Master Book (${guide.price}) ➔`}
-                </a>
+                {isBypassActive ? (
+                  <a
+                    href={getGuidePdfDownloadUrl(guide.id)}
+                    download
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider text-center flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 hover:from-emerald-400 hover:to-teal-400 transition-all shadow-lg shadow-emerald-500/25 hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
+                  >
+                    <Download size={14} className="text-slate-950" />
+                    <span>Test Download (Free Bypass)</span>
+                  </a>
+                ) : (
+                  <a
+                    href={guide.checkoutUrl}
+                    className="w-full py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider text-center block bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 hover:from-cyan-400 hover:to-blue-500 transition-all shadow-lg shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.99]"
+                  >
+                    {guide.id === 'metabolic-master-guide' ? `Get Master Guide (${guide.price}) ➔` : `Buy Digital Master Book (${guide.price}) ➔`}
+                  </a>
+                )}
 
                 <button
                   type="button"
@@ -515,13 +549,26 @@ export default function PremiumGuidesPage() {
                 Close Preview
               </button>
 
-              <a
-                href={selectedTocGuide.checkoutUrl}
-                className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 transition-all shadow-xl shadow-amber-500/20 flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <span>Get Master Guide ({selectedTocGuide.price})</span>
-                <ArrowRight size={14} />
-              </a>
+              {isBypassActive ? (
+                <a
+                  href={getGuidePdfDownloadUrl(selectedTocGuide.id)}
+                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 transition-all shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Download size={15} />
+                  <span>Test Download (Free Bypass)</span>
+                </a>
+              ) : (
+                <a
+                  href={selectedTocGuide.checkoutUrl}
+                  className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 transition-all shadow-xl shadow-amber-500/20 flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <span>Get Master Guide ({selectedTocGuide.price})</span>
+                  <ArrowRight size={14} />
+                </a>
+              )}
             </div>
 
           </div>

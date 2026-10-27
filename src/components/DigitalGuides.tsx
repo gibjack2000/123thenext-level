@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Lock, ShieldCheck, Download, Sparkles, CheckCircle2, ArrowRight, BookOpen, X, Activity, FileText } from 'lucide-react';
 import { GUIDE_PRODUCTS, DigitalGuideProduct } from '../data/guide-registry';
 import BundleOffers from './BundleOffers';
+import { usePaywallBypass, getGuidePdfDownloadUrl } from '../utils/adminTestMode';
 
 interface DigitalGuidesProps {
   className?: string;
@@ -15,6 +16,7 @@ export const DigitalGuides: React.FC<DigitalGuidesProps> = ({
   const [loadingGuideId, setLoadingGuideId] = useState<string | null>(null);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [selectedTocGuide, setSelectedTocGuide] = useState<DigitalGuideProduct | null>(null);
+  const { isBypassActive } = usePaywallBypass();
 
   // Explicitly ensure ALL Master Guides are rendered in order (including the new Metabolic Master Protocol)
   const MASTER_GUIDE_KEYS = [
@@ -71,6 +73,25 @@ export const DigitalGuides: React.FC<DigitalGuidesProps> = ({
       {checkoutError && (
         <div className="mb-6 p-4 rounded-2xl bg-rose-950/80 border border-rose-500/40 text-rose-200 text-xs sm:text-sm text-center">
           ⚠️ {checkoutError}
+        </div>
+      )}
+
+      {isBypassActive && (
+        <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-emerald-950/80 border-2 border-emerald-500/50 text-emerald-200 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl shadow-emerald-950/40 animate-in fade-in">
+          <div className="flex items-center gap-3">
+            <span className="w-3 h-3 rounded-full bg-emerald-400 animate-ping shrink-0" />
+            <div>
+              <span className="text-xs sm:text-sm font-black uppercase tracking-wider text-white block">
+                ⚙️ Admin Test Mode: Paywall Bypass Active
+              </span>
+              <span className="text-xs text-emerald-300/90 font-medium">
+                Direct &ldquo;Test Download (Free Bypass)&rdquo; buttons are enabled across all 10 Master Guides &amp; bundles.
+              </span>
+            </div>
+          </div>
+          <span className="text-[10px] font-mono font-bold uppercase tracking-wider bg-emerald-900/60 border border-emerald-700/60 text-emerald-200 px-3 py-1 rounded-full whitespace-nowrap">
+            Admin Restricted Session
+          </span>
         </div>
       )}
 
@@ -153,25 +174,38 @@ export const DigitalGuides: React.FC<DigitalGuidesProps> = ({
 
               {/* Dynamic Purchase Trigger & Table of Contents Action Buttons */}
               <div className="pt-4 border-t border-slate-800/80 space-y-2.5">
-                <button
-                  type="button"
-                  onClick={() => handleBuyNow(guide.id)}
-                  disabled={isLoading}
-                  className="w-full py-3.5 px-5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 shadow-lg shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-wait"
-                >
-                  {isLoading ? (
-                    <>
-                      <span className="w-4 h-4 border-2 border-slate-950/30 border-t-slate-950 rounded-full animate-spin" />
-                      <span>Opening Secure Checkout...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Lock size={14} className="text-slate-900" />
-                      <span>{guide.id === 'metabolic-master-guide' ? `Get Master Guide (${guide.priceFormatted})` : `Buy Now — ${guide.priceFormatted}`}</span>
-                      <ArrowRight size={14} />
-                    </>
-                  )}
-                </button>
+                {isBypassActive ? (
+                  <a
+                    href={getGuidePdfDownloadUrl(guide.id)}
+                    download
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3.5 px-5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 shadow-lg shadow-emerald-500/25 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 cursor-pointer"
+                  >
+                    <Download size={15} className="text-slate-950" />
+                    <span>Test Download (Free Bypass)</span>
+                  </a>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => handleBuyNow(guide.id)}
+                    disabled={isLoading}
+                    className="w-full py-3.5 px-5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 shadow-lg shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-wait"
+                  >
+                    {isLoading ? (
+                      <>
+                        <span className="w-4 h-4 border-2 border-slate-950/30 border-t-slate-950 rounded-full animate-spin" />
+                        <span>Opening Secure Checkout...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Lock size={14} className="text-slate-900" />
+                        <span>{guide.id === 'metabolic-master-guide' ? `Get Master Guide (${guide.priceFormatted})` : `Buy Now — ${guide.priceFormatted}`}</span>
+                        <ArrowRight size={14} />
+                      </>
+                    )}
+                  </button>
+                )}
 
                 <button
                   type="button"
@@ -360,18 +394,31 @@ export const DigitalGuides: React.FC<DigitalGuidesProps> = ({
                 Close Preview
               </button>
 
-              <button
-                type="button"
-                onClick={() => {
-                  const gId = selectedTocGuide.id;
-                  setSelectedTocGuide(null);
-                  handleBuyNow(gId);
-                }}
-                className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 transition-all shadow-xl shadow-amber-500/20 flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <span>Get Master Guide ({selectedTocGuide.priceFormatted})</span>
-                <ArrowRight size={14} />
-              </button>
+              {isBypassActive ? (
+                <a
+                  href={getGuidePdfDownloadUrl(selectedTocGuide.id)}
+                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 transition-all shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Download size={15} />
+                  <span>Test Download (Free Bypass)</span>
+                </a>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    const gId = selectedTocGuide.id;
+                    setSelectedTocGuide(null);
+                    handleBuyNow(gId);
+                  }}
+                  className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 transition-all shadow-xl shadow-amber-500/20 flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <span>Get Master Guide ({selectedTocGuide.priceFormatted})</span>
+                  <ArrowRight size={14} />
+                </button>
+              )}
             </div>
 
           </div>

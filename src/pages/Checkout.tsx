@@ -6,6 +6,7 @@ import {
   triggerBrowserDownload, 
   PresignedDownloadItem 
 } from '../services/guideDownloadService';
+import { usePaywallBypass, getGuidePdfDownloadUrl, downloadMultipleGuides } from '../utils/adminTestMode';
 
 interface BundleGuideItem {
   id: string;
@@ -397,6 +398,7 @@ export default function CheckoutPage() {
   const [downloadSuccess, setDownloadSuccess] = useState(false);
   const [downloadItems, setDownloadItems] = useState<PresignedDownloadItem[]>([]);
   const [zipDownloadUrl, setZipDownloadUrl] = useState<string | null>(null);
+  const { isBypassActive } = usePaywallBypass();
 
   useEffect(() => {
     document.title = `Checkout: ${item.name} | 123TheNextLevel`;
@@ -615,19 +617,36 @@ export default function CheckoutPage() {
                 ⚠️ {checkoutError}
               </div>
             )}
-            <button
-              onClick={handleStripeCheckout}
-              disabled={isProcessing}
-              className="w-full py-4 bg-cyan-500 hover:bg-cyan-400 active:scale-[0.99] text-slate-950 font-bold text-sm rounded-xl transition-all shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
-            >
-              {isProcessing ? (
-                <>Connecting to Stripe...</>
-              ) : (
-                <>
-                  <Lock size={16} /> Complete Payment ({item.price}) ➔
-                </>
-              )}
-            </button>
+            {isBypassActive ? (
+              <button
+                type="button"
+                onClick={() => {
+                  if (item.guides && item.guides.length > 0) {
+                    downloadMultipleGuides(item.guides.map(g => g.id));
+                  } else {
+                    downloadMultipleGuides([item.id || item.slug]);
+                  }
+                }}
+                className="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 active:scale-[0.99] text-slate-950 font-black text-sm rounded-xl transition-all shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <Download size={18} />
+                <span>Test Download (Free Bypass)</span>
+              </button>
+            ) : (
+              <button
+                onClick={handleStripeCheckout}
+                disabled={isProcessing}
+                className="w-full py-4 bg-cyan-500 hover:bg-cyan-400 active:scale-[0.99] text-slate-950 font-bold text-sm rounded-xl transition-all shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+              >
+                {isProcessing ? (
+                  <>Connecting to Stripe...</>
+                ) : (
+                  <>
+                    <Lock size={16} /> Complete Payment ({item.price}) ➔
+                  </>
+                )}
+              </button>
+            )}
           </div>
         )}
 

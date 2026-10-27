@@ -29,6 +29,8 @@ import {
 import DiagnosticPathwaySelector from '../components/DiagnosticPathwaySelector';
 import DualTrackSelector from '../components/DualTrackSelector';
 import BundleOffers from '../components/BundleOffers';
+import { DigitalGuides } from '../components/DigitalGuides';
+import { usePaywallBypass, getGuidePdfDownloadUrl } from '../utils/adminTestMode';
 
 type MarketTab = 'US' | 'UK' | 'ES';
 
@@ -2489,6 +2491,7 @@ export function Store({ region }: StoreProps = {}) {
   });
   const [categories, setCategories] = useState<string[]>(STOREFRONT_CATEGORIES);
   const [loading, setLoading] = useState<boolean>(() => !storeCatalogCache[activeTab] || storeCatalogCache[activeTab]?.length === 0);
+  const { isBypassActive } = usePaywallBypass();
 
   // Explicit handler when user clicks one of the country market tabs inside Store
   const handleTabChange = (tab: MarketTab) => {
@@ -2920,9 +2923,21 @@ export function Store({ region }: StoreProps = {}) {
                               </div>
                               <div className="flex justify-between items-center bg-slate-900/20 p-3 rounded-xl border border-slate-900">
                                 <span className="font-extrabold text-slate-100 text-lg">{product.price_text}</span>
-                                <a href={product.deal_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400 text-xs font-bold transition-all duration-300">
-                                  Buy on Amazon {getFlagEmoji(activeTab)}
-                                </a>
+                                {isBypassActive && (product.deal_url?.includes('/checkout') || product.id?.includes('guide') || product.id?.includes('metabolic')) ? (
+                                  <a
+                                    href={getGuidePdfDownloadUrl(product.id)}
+                                    download
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-md shadow-emerald-500/20"
+                                  >
+                                    Test Download (Free Bypass)
+                                  </a>
+                                ) : (
+                                  <a href={product.deal_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400 text-xs font-bold transition-all duration-300">
+                                    {product.deal_url?.includes('/checkout') ? 'Get Master Guide ➔' : `Buy on Amazon ${getFlagEmoji(activeTab)}`}
+                                  </a>
+                                )}
                               </div>
                             </div>
                           </div>
@@ -2974,9 +2989,21 @@ export function Store({ region }: StoreProps = {}) {
                           </div>
                           <div className="flex justify-between items-center bg-slate-900/20 p-3 rounded-xl border border-slate-900">
                             <span className="font-extrabold text-slate-100 text-lg">{product.price_text}</span>
-                            <a href={product.deal_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400 text-xs font-bold transition-all duration-300">
-                              Buy on Amazon {getFlagEmoji(activeTab)}
-                            </a>
+                            {isBypassActive && (product.deal_url?.includes('/checkout') || product.id?.includes('guide') || product.id?.includes('metabolic')) ? (
+                              <a
+                                href={getGuidePdfDownloadUrl(product.id)}
+                                download
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-md shadow-emerald-500/20"
+                              >
+                                Test Download (Free Bypass)
+                              </a>
+                            ) : (
+                              <a href={product.deal_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400 text-xs font-bold transition-all duration-300">
+                                {product.deal_url?.includes('/checkout') ? 'Get Master Guide ➔' : `Buy on Amazon ${getFlagEmoji(activeTab)}`}
+                              </a>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -2987,6 +3014,22 @@ export function Store({ region }: StoreProps = {}) {
 
             </div>
           )}
+
+          {/* 10 Digital Master Guides & Books Catalog */}
+          <div className="pt-12 pb-4">
+            <div className="text-center space-y-3 max-w-3xl mx-auto mb-10">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                Direct Protocol Manuals
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white">
+                Digital Master Guides &amp; Longevity Books
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                Evidence-based execution blueprints for metabolic health, body composition, sleep architecture, and autonomic engineering.
+              </p>
+            </div>
+            <DigitalGuides showVaultBanner={false} />
+          </div>
 
           {/* Master Protocol Bundles Showcase (Pick 3 for £29.99 or Complete 10 Vault for £59.99) */}
           <div className="pt-8 pb-4">

@@ -18,9 +18,10 @@ import {
 } from 'lucide-react';
 import DiagnosticPathwaySelector from '../components/DiagnosticPathwaySelector';
 import { supabase as importedSupabase, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
-import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
 import { useMarket } from '../contexts/MarketContext';
 import { STOREFRONT_CATEGORIES, normalizeStoreCategory } from './Store';
+import { DigitalGuides } from '../components/DigitalGuides';
+import BundleOffers from '../components/BundleOffers';
 
 // Reliable Supabase client initialization
 const supabase = importedSupabase || createClient(
@@ -567,6 +568,27 @@ export const StoreUS: React.FC = () => {
               </div>
             </div>
           )}
+
+          {/* 10 Digital Master Guides & Books Catalog */}
+          <div className="pt-12 pb-4">
+            <div className="text-center space-y-3 max-w-3xl mx-auto mb-10">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                Direct Protocol Manuals
+              </span>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white">
+                Digital Master Guides &amp; Longevity Books
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                Evidence-based execution blueprints for metabolic health, body composition, sleep architecture, and autonomic engineering.
+              </p>
+            </div>
+            <DigitalGuides showVaultBanner={false} />
+          </div>
+
+          {/* Master Protocol Bundles Showcase (Pick 3 for £29.99 or Complete 10 Vault for £59.99) */}
+          <div className="pt-8 pb-4">
+            <BundleOffers source="store" />
+          </div>
 
           {/* Disclaimers & Sovereign Compliance */}
           <div className="text-center max-w-3xl mx-auto pt-12 border-t border-slate-900 space-y-2 text-[10px] text-slate-500 leading-relaxed">

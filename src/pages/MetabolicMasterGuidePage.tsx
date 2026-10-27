@@ -29,12 +29,14 @@ import {
 import { useMarket, Market } from '../contexts/MarketContext';
 import { useCart } from '../contexts/CartContext';
 import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
+import { usePaywallBypass } from '../utils/adminTestMode';
 
 export default function MetabolicMasterGuidePage() {
   const { market, setMarket } = useMarket();
   const { addToCart, isInCart, openCart, cartCount, cartSubtotal, currencySymbol } = useCart();
   const [activeCurrency, setActiveCurrency] = useState<'GBP' | 'USD' | 'EUR'>('GBP');
   const [downloading, setDownloading] = useState(false);
+  const { isBypassActive } = usePaywallBypass();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -187,7 +189,18 @@ export default function MetabolicMasterGuidePage() {
                 </span>
               </div>
 
-              {isInCart('metabolic-master-guide') ? (
+              {isBypassActive ? (
+                <a
+                  href="/assets/docs/metabolic-master-guide.pdf"
+                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-4 rounded-2xl font-black uppercase tracking-wider text-xs sm:text-sm transition-all flex items-center justify-center gap-2.5 shadow-xl shadow-emerald-500/25 bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 cursor-pointer active:scale-98"
+                >
+                  <Download size={17} />
+                  <span>Test Download (Free Bypass)</span>
+                </a>
+              ) : isInCart('metabolic-master-guide') ? (
                 <div className="space-y-3">
                   <button
                     type="button"
@@ -450,14 +463,27 @@ export default function MetabolicMasterGuidePage() {
           </p>
 
           <div className="pt-2 max-w-md mx-auto">
-            <button
-              type="button"
-              onClick={handleAddToCart}
-              className="w-full py-4 px-8 rounded-2xl font-black uppercase tracking-wider text-sm transition-all shadow-xl shadow-cyan-500/25 bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:to-emerald-300 text-slate-950 cursor-pointer active:scale-98 flex items-center justify-center gap-2"
-            >
-              <Download size={18} />
-              <span>Download 12-Week Protocol ({priceFormatted})</span>
-            </button>
+            {isBypassActive ? (
+              <a
+                href="/assets/docs/metabolic-master-guide.pdf"
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-4 px-8 rounded-2xl font-black uppercase tracking-wider text-sm transition-all shadow-xl shadow-emerald-500/25 bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 cursor-pointer active:scale-98 flex items-center justify-center gap-2"
+              >
+                <Download size={18} />
+                <span>Test Download (Free Bypass)</span>
+              </a>
+            ) : (
+              <button
+                type="button"
+                onClick={handleAddToCart}
+                className="w-full py-4 px-8 rounded-2xl font-black uppercase tracking-wider text-sm transition-all shadow-xl shadow-cyan-500/25 bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:to-emerald-300 text-slate-950 cursor-pointer active:scale-98 flex items-center justify-center gap-2"
+              >
+                <Download size={18} />
+                <span>Download 12-Week Protocol ({priceFormatted})</span>
+              </button>
+            )}
             <div className="mt-3 flex items-center justify-center gap-3 text-[11px] font-mono text-slate-400">
               <span>Instant PDF Access</span>
               <span>•</span>

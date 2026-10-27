@@ -13,6 +13,7 @@ import {
   Sparkles,
   AlertCircle
 } from 'lucide-react';
+import { usePaywallBypass, getGuidePdfDownloadUrl } from '../../utils/adminTestMode';
 
 interface PurchaseInfo {
   purchased: boolean;
@@ -26,6 +27,7 @@ export default function PremiumGuideDetailPage() {
   const [purchaseInfo, setPurchaseInfo] = useState<PurchaseInfo | null>(null);
   const [downloading, setDownloading] = useState(false);
   const [directCheckoutLoading, setDirectCheckoutLoading] = useState(false);
+  const { isBypassActive } = usePaywallBypass();
   const slugAliases: Record<string, string> = {
     // Fitness
     'beginner-home-workout': 'beginner-home-workout-plan',
@@ -274,6 +276,24 @@ export default function PremiumGuideDetailPage() {
                     </div>
 
                     <div className="space-y-3">
+                      {isBypassActive && (
+                        <div className="p-3 bg-emerald-950/60 border border-emerald-550/40 rounded-2xl space-y-2">
+                          <span className="text-[10px] font-black uppercase tracking-wider text-emerald-400 block text-center">
+                            ⚙️ Admin Test Mode Active
+                          </span>
+                          <a
+                            href={getGuidePdfDownloadUrl(guide.slug || guide.id)}
+                            download
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="w-full py-4 rounded-xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2.5 shadow-xl shadow-emerald-500/25 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 cursor-pointer"
+                          >
+                            <Download size={16} />
+                            <span>Test Download (Free Bypass)</span>
+                          </a>
+                        </div>
+                      )}
+
                       {isInCart(guide.id) ? (
                         <div className="space-y-3">
                           <button
