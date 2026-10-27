@@ -214,5 +214,29 @@ export const guides: Guide[] = [
     ],
     audience: 'Anyone feeling "stuck" in a rut looking to rebuild their daily routines from the ground up.',
     disclaimer: 'For educational self-improvement only. Not a clinical psychological intervention.'
+  },
+  {
+    id: 'g-met-1',
+    slug: 'metabolic-master-guide',
+    title: 'The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol',
+    category: 'Nutrition',
+    shortDescription: 'A clinical 12-week blueprint to eliminate visceral fat, optimize skeletal muscle mass, and recalibrate metabolic biomarkers.',
+    longDescription: 'Stop Guessing Your Weight. Re-Engineer Your Internal Biology in 12 Weeks. A phased protocol integrating fasting bioimpedance scales, continuous autonomic wearables, weekly urine chemistry, and quarterly clinical phlebotomy to strip deep visceral organ fat.',
+    priceDisplay: '£19.00',
+    stripePriceId: 'price_metabolic_master_guide',
+    image: 'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=800&auto=format&fit=crop',
+    fileName: 'The_12_Week_Metabolic_ReEngineering_Protocol.pdf',
+    featured: true,
+    tags: ['Visceral Fat', 'Bioimpedance', 'Metabolism', 'Wearables', '12-Week Protocol'],
+    included: [
+      '12-Week Phased Metabolic Reset Roadmap (Weeks 1–4, 5–8, 9–12)',
+      'Bioimpedance Calibration & Visceral Fat Rating (1–12) Targeting',
+      'Printable 14-Day Hardware & Wearable Telemetry Logging Worksheets',
+      'Sunday Urinalysis & Day 90 Blood Draw Cadence Matrix',
+      'Clinician Co-Pilot GP Consultation Briefing Template'
+    ],
+    audience: 'Individuals looking to eliminate hidden visceral organ adiposity, optimize muscle-to-fat ratio, and systematically lower ApoB and HbA1c.',
+    disclaimer: 'This guide is for informational and educational purposes only and does not constitute medical advice. Consult with a qualified physician before starting any intensive nutritional or exercise intervention.'
   }
 ];
+

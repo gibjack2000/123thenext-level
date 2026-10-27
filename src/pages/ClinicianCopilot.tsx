@@ -149,6 +149,12 @@ const initialRequisitions = {
   other: false,
 };
 
+const initialBodyComposition = {
+  visceralFatRating: '',
+  bodyFatPct: '',
+  skeletalMuscleMass: '',
+};
+
 const initialPathwaySteps: PathwayStep[] = [
   { step: 'Level 1: ApoB, HbA1c, hs-CRP', checked: false, bookedDate: '', resultDate: '' },
   { step: 'Review results with GP; decide on Level 2 & Urinalysis', checked: false, bookedDate: '', resultDate: '' },
@@ -291,6 +297,7 @@ export default function ClinicianCopilot() {
   const [familyHistory, setFamilyHistory] = useState(initialFamilyHistory);
   const [lifestyle, setLifestyle] = useState(initialLifestyle);
   const [summaryVitals, setSummaryVitals] = useState<SummaryVitalsRow[]>(initialSummaryVitals);
+  const [bodyComposition, setBodyComposition] = useState(initialBodyComposition);
   const [supplements, setSupplements] = useState<SupplementItem[]>(initialSupplements);
   const [phlebotomyMethod, setPhlebotomyMethod] = useState<'clinic' | 'mobile'>('clinic');
   const [bloodResults, setBloodResults] = useState(initialBloodResults);
@@ -327,6 +334,7 @@ export default function ClinicianCopilot() {
         if (parsed.familyHistory) setFamilyHistory(parsed.familyHistory);
         if (parsed.lifestyle) setLifestyle(parsed.lifestyle);
         if (parsed.summaryVitals) setSummaryVitals(parsed.summaryVitals);
+        if (parsed.bodyComposition) setBodyComposition(parsed.bodyComposition);
         if (parsed.supplements) setSupplements(parsed.supplements);
         if (parsed.phlebotomyMethod) setPhlebotomyMethod(parsed.phlebotomyMethod);
         if (parsed.bloodResults) setBloodResults(parsed.bloodResults);
@@ -355,6 +363,7 @@ export default function ClinicianCopilot() {
         familyHistory,
         lifestyle,
         summaryVitals,
+        bodyComposition,
         supplements,
         phlebotomyMethod,
         bloodResults,
@@ -373,7 +382,7 @@ export default function ClinicianCopilot() {
       console.warn('Could not auto-save guest form data to localStorage:', err);
     }
   }, [
-    patientData, familyHistory, lifestyle, summaryVitals, supplements,
+    patientData, familyHistory, lifestyle, summaryVitals, bodyComposition, supplements,
     phlebotomyMethod, bloodResults, urinalysisData, requisitions,
     agreedDirectives, retestTimeline, nextAppointmentDate, selectedPathway, patientConfirmed
   ]);
@@ -441,6 +450,7 @@ export default function ClinicianCopilot() {
       setFamilyHistory(initialFamilyHistory);
       setLifestyle(initialLifestyle);
       setSummaryVitals(initialSummaryVitals);
+      setBodyComposition(initialBodyComposition);
       setSupplements(initialSupplements);
       setBloodResults(initialBloodResults);
       setUrinalysisData(initialUrinalysisData);
@@ -514,6 +524,11 @@ export default function ClinicianCopilot() {
             highest: summaryVitals[3]?.highest || '',
             trend: summaryVitals[3]?.notes || '',
           },
+        },
+        bodyComposition: {
+          visceralFatRating: bodyComposition.visceralFatRating,
+          bodyFatPct: bodyComposition.bodyFatPct,
+          skeletalMuscleMass: bodyComposition.skeletalMuscleMass,
         },
         phlebotomyMethod: phlebotomyMethod,
         bloodResults: {
@@ -1168,14 +1183,111 @@ export default function ClinicianCopilot() {
           </div>
 
           {/* ----------------------------------------------------------------- */}
-          {/* SECTION 2: 14-Day Wearable Telemetry Log                          */}
+          {/* SECTION 2: 14-Day Wearable & Body Composition Telemetry Log       */}
           {/* ----------------------------------------------------------------- */}
-          <div className="mt-6 space-y-2.5">
+          <div className="mt-6 space-y-4">
             <div className="bg-slate-900 text-white px-3 py-1.5 rounded-lg flex items-center justify-between">
               <span className="font-black text-xs uppercase tracking-wider">
-                SECTION 2: 14-DAY WEARABLE TELEMETRY LOG (HOME BIOSENSORS)
+                SECTION 2: 14-DAY WEARABLE &amp; BODY COMPOSITION TELEMETRY (HOME BIOSENSORS)
               </span>
-              <span className="text-[10px] text-cyan-300 font-mono">14-Night Rolling Averages</span>
+              <span className="text-[10px] text-cyan-300 font-mono">14-Night Rolling Averages &amp; BIA</span>
+            </div>
+
+            {/* Dedicated Body Composition & Hardware Telemetry Quick Controls */}
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-800 font-mono flex items-center gap-1.5">
+                  <Activity size={14} className="text-cyan-600" />
+                  <span>Body Composition &amp; Hardware Telemetry Controls</span>
+                </span>
+                <span className="text-[11px] text-slate-500 font-mono">
+                  Syncs directly with Section 2 Consultation Vector PDF
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+                {/* 1. Visceral Fat Rating Dropdown */}
+                <div className="space-y-1">
+                  <label className="font-bold text-slate-700 block text-[11px]">
+                    Visceral Fat Level (1–12):
+                  </label>
+                  <select
+                    value={bodyComposition.visceralFatRating}
+                    onChange={(e) => setBodyComposition({ ...bodyComposition, visceralFatRating: e.target.value })}
+                    className="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-slate-900 font-medium outline-none focus:border-cyan-500"
+                  >
+                    <option value="">— Select Level —</option>
+                    <option value="1">Level 1 (Optimal Youth)</option>
+                    <option value="2">Level 2 (Optimal Youth)</option>
+                    <option value="3">Level 3 (Optimal Youth)</option>
+                    <option value="4">Level 4 (Optimal Youth)</option>
+                    <option value="5">Level 5 (Early Warning)</option>
+                    <option value="6">Level 6 (Early Warning)</option>
+                    <option value="7">Level 7 (Early Warning)</option>
+                    <option value="8">Level 8 (Early Warning)</option>
+                    <option value="9">Level 9 (High Endocrine Risk)</option>
+                    <option value="10">Level 10 (High Endocrine Risk)</option>
+                    <option value="11">Level 11 (High Endocrine Risk)</option>
+                    <option value="12">Level 12 (High Endocrine Risk)</option>
+                  </select>
+                </div>
+
+                {/* 2. Body Fat % */}
+                <div className="space-y-1">
+                  <label className="font-bold text-slate-700 block text-[11px]">
+                    Body Fat Percentage (%):
+                  </label>
+                  <input
+                    type="text"
+                    value={bodyComposition.bodyFatPct}
+                    onChange={(e) => setBodyComposition({ ...bodyComposition, bodyFatPct: e.target.value })}
+                    placeholder="e.g. 17.5"
+                    className="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-slate-900 font-mono outline-none focus:border-cyan-500"
+                  />
+                </div>
+
+                {/* 3. Skeletal Muscle Mass % */}
+                <div className="space-y-1">
+                  <label className="font-bold text-slate-700 block text-[11px]">
+                    Skeletal Muscle Mass (%):
+                  </label>
+                  <input
+                    type="text"
+                    value={bodyComposition.skeletalMuscleMass}
+                    onChange={(e) => setBodyComposition({ ...bodyComposition, skeletalMuscleMass: e.target.value })}
+                    placeholder="e.g. 36.8"
+                    className="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-slate-900 font-mono outline-none focus:border-cyan-500"
+                  />
+                </div>
+
+                {/* 4. 14-Day Resting HR Average */}
+                <div className="space-y-1">
+                  <label className="font-bold text-slate-700 block text-[11px]">
+                    14-Day Resting HR (bpm):
+                  </label>
+                  <input
+                    type="text"
+                    value={summaryVitals[0]?.average || ''}
+                    onChange={(e) => updateSummaryVitals(0, 'average', e.target.value)}
+                    placeholder="e.g. 54"
+                    className="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-slate-900 font-mono outline-none focus:border-cyan-500"
+                  />
+                </div>
+
+                {/* 5. 14-Day Nocturnal HRV Average */}
+                <div className="space-y-1">
+                  <label className="font-bold text-slate-700 block text-[11px]">
+                    14-Day Nocturnal HRV (ms):
+                  </label>
+                  <input
+                    type="text"
+                    value={summaryVitals[1]?.average || ''}
+                    onChange={(e) => updateSummaryVitals(1, 'average', e.target.value)}
+                    placeholder="e.g. 68"
+                    className="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 text-slate-900 font-mono outline-none focus:border-cyan-500"
+                  />
+                </div>
+              </div>
             </div>
 
             <table className="w-full text-left border-collapse text-xs border border-slate-300">
@@ -1232,6 +1344,55 @@ export default function ClinicianCopilot() {
                     </td>
                   </tr>
                 ))}
+
+                {/* Bioimpedance Rows */}
+                <tr className="h-8 hover:bg-slate-50">
+                  <td className="p-2 font-sans font-medium text-slate-900 border-r border-slate-300">
+                    Visceral Fat Rating <span className="text-slate-500 text-[10px]">(Level 1–12)</span>
+                  </td>
+                  <td className="p-1 border-r border-slate-300 text-center font-mono font-bold text-slate-800">
+                    {bodyComposition.visceralFatRating ? `Rating ${bodyComposition.visceralFatRating}` : '—'}
+                  </td>
+                  <td className="p-1 border-r border-slate-300 text-center text-slate-400">—</td>
+                  <td className="p-1 border-r border-slate-300 text-center text-slate-400">—</td>
+                  <td className="p-1 text-[11px] font-sans text-slate-700">
+                    {bodyComposition.visceralFatRating
+                      ? Number(bodyComposition.visceralFatRating) <= 4
+                        ? 'Optimal (Level 1–4)'
+                        : Number(bodyComposition.visceralFatRating) <= 8
+                        ? 'Warning (Level 5–8)'
+                        : 'High Risk (Level 9–12)'
+                      : 'Target: Level 1–4'}
+                  </td>
+                </tr>
+
+                <tr className="h-8 hover:bg-slate-50">
+                  <td className="p-2 font-sans font-medium text-slate-900 border-r border-slate-300">
+                    Body Fat Percentage <span className="text-slate-500 text-[10px]">(%)</span>
+                  </td>
+                  <td className="p-1 border-r border-slate-300 text-center font-mono font-bold text-slate-800">
+                    {bodyComposition.bodyFatPct ? `${bodyComposition.bodyFatPct}%` : '—'}
+                  </td>
+                  <td className="p-1 border-r border-slate-300 text-center text-slate-400">—</td>
+                  <td className="p-1 border-r border-slate-300 text-center text-slate-400">—</td>
+                  <td className="p-1 text-[11px] font-sans text-slate-700">
+                    Target: M 10–20% • F 18–28%
+                  </td>
+                </tr>
+
+                <tr className="h-8 hover:bg-slate-50">
+                  <td className="p-2 font-sans font-medium text-slate-900 border-r border-slate-300">
+                    Skeletal Muscle Mass <span className="text-slate-500 text-[10px]">(%)</span>
+                  </td>
+                  <td className="p-1 border-r border-slate-300 text-center font-mono font-bold text-slate-800">
+                    {bodyComposition.skeletalMuscleMass ? `${bodyComposition.skeletalMuscleMass}%` : '—'}
+                  </td>
+                  <td className="p-1 border-r border-slate-300 text-center text-slate-400">—</td>
+                  <td className="p-1 border-r border-slate-300 text-center text-slate-400">—</td>
+                  <td className="p-1 text-[11px] font-sans text-slate-700">
+                    Sarcopenia Guard: M &gt;33% • F &gt;28%
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>

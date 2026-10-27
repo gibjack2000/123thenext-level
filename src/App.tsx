@@ -115,6 +115,8 @@ const Library = lazy(() => import('./pages/Library'));
 const ClinicianCopilot = lazy(() => import('./pages/ClinicianCopilot'));
 const MasterOverview = lazy(() => import('./pages/MasterOverview'));
 const Start_Now_Old = lazy(() => import('./pages/Start_Now_Old'));
+const BodyCompositionArticle = lazy(() => import('./pages/BodyCompositionArticle'));
+const MetabolicMasterGuidePage = lazy(() => import('./pages/MetabolicMasterGuidePage'));
 
 
 // Loading spinner shown during page transitions
@@ -232,6 +234,8 @@ function App() {
                 <Route path="/design-system" element={<DesignSystem />} />
                 <Route path="/blueprint-success" element={<Success />} />
                 <Route path="/library" element={<Library />} />
+                <Route path="/library/body-composition" element={<BodyCompositionArticle />} />
+                <Route path="/body-composition" element={<Navigate to="/library/body-composition" replace />} />
                 <Route path="/free-pdfs" element={<Library />} />
                 <Route path="/free-pdf" element={<Navigate to="/free-pdfs" replace />} />
                 <Route path="/free-guides" element={<Navigate to="/free-pdfs" replace />} />
@@ -249,6 +253,11 @@ function App() {
                 <Route path="/diagnostics" element={<DiagnosticsSuite />} />
                 <Route path="/guide" element={<DiagnosticGuide />} />
                 <Route path="/guides" element={<Navigate to="/premium-guides" replace />} />
+
+                {/* Digital Master Guides Dedicated Funnel */}
+                <Route path="/store/metabolic-master-guide" element={<MetabolicMasterGuidePage />} />
+                <Route path="/store/visceral-fat-protocol" element={<Navigate to="/store/metabolic-master-guide" replace />} />
+                <Route path="/store/the-12-week-metabolic-re-engineering-protocol" element={<Navigate to="/store/metabolic-master-guide" replace />} />
 
                 {/* Sovereign Store Regional Routes */}
                 <Route path="/store-us" element={<StoreUS />} />

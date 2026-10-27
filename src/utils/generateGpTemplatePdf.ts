@@ -29,12 +29,17 @@ export interface GpTemplateData {
   };
   patientGoals?: string;
 
-  // Section 2: 14-Day Wearable Telemetry Log
+  // Section 2: 14-Day Wearable & Body Composition Telemetry Log
   telemetry?: {
     rhr?: { avg?: string; lowest?: string; highest?: string; trend?: string };
     hrv?: { avg?: string; lowest?: string; highest?: string; trend?: string };
     bp?: { avg?: string; lowest?: string; highest?: string; trend?: string };
     sleep?: { avg?: string; lowest?: string; highest?: string; trend?: string };
+  };
+  bodyComposition?: {
+    visceralFatRating?: string;
+    bodyFatPct?: string;
+    skeletalMuscleMass?: string;
   };
 
   // Section 3: Blood Panel Results
@@ -333,7 +338,7 @@ export function buildGpConsultationTemplatePdf(data: GpTemplateData = {}): jsPDF
   doc.setTextColor(255, 255, 255);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(8);
-  doc.text('SECTION 2: 14-DAY WEARABLE TELEMETRY LOG (HOME BIOSENSORS)', margin + 3, y + 4);
+  doc.text('SECTION 2: 14-DAY WEARABLE & BODY COMPOSITION TELEMETRY (HOME BIOSENSORS)', margin + 3, y + 4);
 
   y += 7.5;
   doc.setFont('helvetica', 'italic');
@@ -380,6 +385,41 @@ export function buildGpConsultationTemplatePdf(data: GpTemplateData = {}): jsPDF
       val: data.telemetry?.sleep,
       defaultTrend: 'Deep + REM Avg: _______ min'
     },
+    {
+      name: 'Visceral Fat Rating (Bioimpedance)',
+      unit: 'Level 1–12',
+      val: {
+        avg: data.bodyComposition?.visceralFatRating ? `Rating ${data.bodyComposition.visceralFatRating}` : '',
+        lowest: '',
+        highest: '',
+        trend: data.bodyComposition?.visceralFatRating
+          ? (Number(data.bodyComposition.visceralFatRating) <= 4 ? 'Optimal (1–4)' : Number(data.bodyComposition.visceralFatRating) <= 8 ? 'Warning (5–8)' : 'High Risk (9–12)')
+          : '[ ] 1-4 Optimal  [ ] 5-8 Warning  [ ] 9-12 Risk'
+      },
+      defaultTrend: '[ ] 1-4 Optimal  [ ] 5-8 Warning  [ ] 9-12 Risk'
+    },
+    {
+      name: 'Body Fat Percentage (%)',
+      unit: '% Total Mass',
+      val: {
+        avg: data.bodyComposition?.bodyFatPct ? `${data.bodyComposition.bodyFatPct}%` : '',
+        lowest: '',
+        highest: '',
+        trend: data.bodyComposition?.bodyFatPct ? 'BIA Smart Scale Verified' : 'Standard: M 10-20% | F 18-28%'
+      },
+      defaultTrend: 'Target: Male 10-20% | Female 18-28%'
+    },
+    {
+      name: 'Skeletal Muscle Mass (%)',
+      unit: '% Total Mass',
+      val: {
+        avg: data.bodyComposition?.skeletalMuscleMass ? `${data.bodyComposition.skeletalMuscleMass}%` : '',
+        lowest: '',
+        highest: '',
+        trend: data.bodyComposition?.skeletalMuscleMass ? 'Sarcopenia Guard Active' : 'Target: Male >33% | Female >28%'
+      },
+      defaultTrend: 'Target: Male >33% | Female >28%'
+    }
   ];
 
   telemetryRows.forEach((row) => {

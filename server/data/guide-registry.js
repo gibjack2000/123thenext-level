@@ -98,6 +98,14 @@ export const GUIDE_PRODUCTS = {
     priceInCents: 5999, // £59.99
     priceFormatted: '£59.99',
     r2FileKey: 'all-nine-master-guides.zip'
+  },
+  'metabolic-master-guide': {
+    id: 'metabolic-master-guide',
+    productId: 'g-met-1',
+    title: 'The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol',
+    priceInCents: 1900, // £19.00
+    priceFormatted: '£19.00',
+    r2FileKey: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf'
   }
 };
 
@@ -184,6 +192,16 @@ export const GUIDE_ALIASES = {
   'all-6-master-guides': 'g-bundle-6',
   'all-nine-master-guides': 'g-bundle-9',
   'all-9-master-guides': 'g-bundle-9',
+
+  // Metabolic Master Guide & Visceral Fat Protocol
+  'metabolic-master-guide': 'metabolic-master-guide',
+  'visceral-fat-protocol': 'metabolic-master-guide',
+  '12-week-protocol': 'metabolic-master-guide',
+  'metabolic-protocol': 'metabolic-master-guide',
+  'the-12-week-metabolic-re-engineering-protocol': 'metabolic-master-guide',
+  'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf': 'metabolic-master-guide',
+  'The_12_Week_Metabolic_ReEngineering_Protocol.pdf': 'metabolic-master-guide',
+  'g-met-1': 'metabolic-master-guide',
 };
 
 export function resolveGuideProduct(guideId) {

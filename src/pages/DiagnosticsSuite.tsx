@@ -22,7 +22,8 @@ import {
   Building2,
   Home as HomeIcon,
   HelpCircle,
-  Info
+  Info,
+  Scale
 } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
 import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
@@ -591,11 +592,211 @@ export default function DiagnosticsSuite() {
         </section>
 
         {/* ========================================================================= */}
-        {/* 4. SECTION C: 🔬 BIOMARKER SCIENCE GUIDE                                   */}
+        {/* SECTION 3: 24/7 BODY COMPOSITION, WEARABLES & VISCERAL FAT TELEMETRY       */}
         {/* ========================================================================= */}
         <section className="space-y-6">
           <div className="border-b border-slate-800 pb-4">
-            <span className="text-xs font-mono uppercase text-indigo-400 tracking-widest font-bold">SECTION 3: EVIDENCE-BASED REFERENCE MANUAL</span>
+            <span className="text-xs font-mono uppercase text-amber-400 tracking-widest font-bold">
+              SECTION 3: CONTINUOUS HARDWARE &amp; BIOIMPEDANCE BASELINES
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-display font-black uppercase text-white mt-1">
+              ⚖️ 24/7 Body Composition, Wearables &amp; Visceral Fat Telemetry
+            </h2>
+            <p className="text-xs text-slate-400 mt-1 max-w-3xl">
+              Continuous Hardware &amp; Bioimpedance Baselines (Paid Optional Tier). Detect hidden organ adiposity, prevent age-related sarcopenia, and track 14-day rolling autonomic recovery.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            {/* 1. Premium Bioimpedance Scale */}
+            <div className="p-7 rounded-3xl bg-slate-900/70 border border-slate-800 hover:border-amber-500/40 transition-all flex flex-col justify-between space-y-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-amber-950 border border-amber-800 text-amber-300 font-bold">
+                    PREMIUM BIOIMPEDANCE
+                  </span>
+                  <span className="text-xs font-mono text-slate-400">Segmental 8-Lead</span>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-display font-black uppercase text-white">
+                    Withings Body Scan / Body Comp
+                  </h3>
+                  <p className="text-xs text-slate-300 mt-2 leading-relaxed font-light">
+                    Gold-standard 8-electrode bioelectrical impedance with handlebar. Directly isolates Visceral Fat Rating (1–12), segment-by-segment skeletal muscle mass %, and pulse wave arterial stiffness.
+                  </p>
+                </div>
+
+                <div className="space-y-2 p-3.5 rounded-2xl bg-slate-950 border border-slate-800 text-xs">
+                  <div className="flex justify-between items-center text-slate-300">
+                    <span className="font-semibold">Key Telemetry:</span>
+                    <span className="font-mono text-amber-400">Visceral Fat Level (1–12)</span>
+                  </div>
+                  <div className="flex justify-between items-center text-slate-400">
+                    <span>Clinical Metrics:</span>
+                    <span className="font-mono text-slate-300">Muscle % • Arterial Age</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-slate-800">
+                <a
+                  href={
+                    activeRegion === 'US'
+                      ? 'https://www.amazon.com/dp/B0B9849CD1?tag=123znl0e-20'
+                      : activeRegion === 'UK'
+                      ? 'https://www.amazon.co.uk/dp/B0B9849CD1?tag=123znl0f3-21'
+                      : 'https://www.amazon.es/dp/B0B9849CD1?tag=123znl08a-21'
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all"
+                >
+                  <span>Examine Scale ({activeRegion})</span>
+                  <ExternalLink size={13} />
+                </a>
+              </div>
+            </div>
+
+            {/* 2. Accessible Bioimpedance Scale */}
+            <div className="p-7 rounded-3xl bg-slate-900/70 border border-slate-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between space-y-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-cyan-950 border border-cyan-800 text-cyan-300 font-bold">
+                    ACCESSIBLE SMART SCALE
+                  </span>
+                  <span className="text-xs font-mono text-slate-400">4-Electrode BIA</span>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-display font-black uppercase text-white">
+                    Renpho / Etekcity Bluetooth Smart Scale
+                  </h3>
+                  <p className="text-xs text-slate-300 mt-2 leading-relaxed font-light">
+                    High-accuracy home bioimpedance platform tracking body fat %, skeletal muscle mass, subcutaneous fat, and visceral fat grade with seamless cloud sync to Apple Health and Google Fit.
+                  </p>
+                </div>
+
+                <div className="space-y-2 p-3.5 rounded-2xl bg-slate-950 border border-slate-800 text-xs">
+                  <div className="flex justify-between items-center text-slate-300">
+                    <span className="font-semibold">Key Telemetry:</span>
+                    <span className="font-mono text-cyan-400">Body Fat % • Muscle Mass</span>
+                  </div>
+                  <div className="flex justify-between items-center text-slate-400">
+                    <span>Integration:</span>
+                    <span className="font-mono text-slate-300">Instant App Sync</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-slate-800">
+                <a
+                  href={
+                    activeRegion === 'US'
+                      ? 'https://www.amazon.com/dp/B01N1UX8RW?tag=123znl0e-20'
+                      : activeRegion === 'UK'
+                      ? 'https://www.amazon.co.uk/dp/B0F18PQH6N?tag=123znl0f3-21'
+                      : 'https://www.amazon.es/dp/B01N1UX8RW?tag=123znl08a-21'
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all"
+                >
+                  <span>Examine Scale ({activeRegion})</span>
+                  <ExternalLink size={13} />
+                </a>
+              </div>
+            </div>
+
+            {/* 3. Continuous Autonomic Wearables */}
+            <div className="p-7 rounded-3xl bg-slate-900/70 border border-slate-800 hover:border-teal-500/40 transition-all flex flex-col justify-between space-y-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-teal-950 border border-teal-800 text-teal-300 font-bold">
+                    AUTONOMIC WEARABLES
+                  </span>
+                  <span className="text-xs font-mono text-slate-400">24/7 Biosensors</span>
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-display font-black uppercase text-white">
+                    Oura Ring Gen4 / Apple Watch
+                  </h3>
+                  <p className="text-xs text-slate-300 mt-2 leading-relaxed font-light">
+                    Continuous nocturnal photoplethysmography providing medical-grade 14-day rolling baselines for Nocturnal HRV (rMSSD), Resting Heart Rate (RHR), and deep slow-wave sleep efficiency.
+                  </p>
+                </div>
+
+                <div className="space-y-2 p-3.5 rounded-2xl bg-slate-950 border border-slate-800 text-xs">
+                  <div className="flex justify-between items-center text-slate-300">
+                    <span className="font-semibold">Key Telemetry:</span>
+                    <span className="font-mono text-teal-400">Nocturnal HRV • Resting HR</span>
+                  </div>
+                  <div className="flex justify-between items-center text-slate-400">
+                    <span>Clinical Value:</span>
+                    <span className="font-mono text-slate-300">Autonomic Tone Index</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t border-slate-800">
+                <a
+                  href={
+                    activeRegion === 'US'
+                      ? 'https://www.amazon.com/dp/B0DJBH1625?tag=123znl0e-20'
+                      : activeRegion === 'UK'
+                      ? 'https://www.amazon.co.uk/dp/B0DJBH1625?tag=123znl0f3-21'
+                      : 'https://www.amazon.es/dp/B0DJBH1625?tag=123znl08a-21'
+                  }
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-teal-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all"
+                >
+                  <span>Examine Wearable ({activeRegion})</span>
+                  <ExternalLink size={13} />
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Section 3 Dual CTAs */}
+          <div className="p-6 rounded-2xl bg-slate-900/90 border border-amber-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="space-y-1">
+              <h4 className="text-sm font-display font-black uppercase text-white">
+                Learn the Science &amp; Download the Phased Protocol
+              </h4>
+              <p className="text-xs text-slate-400">
+                Understand the TOFI trap or get the full 12-week body re-engineering schedule.
+              </p>
+            </div>
+
+            <div className="flex items-center gap-3 w-full sm:w-auto">
+              <Link
+                to="/library/body-composition"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all"
+              >
+                <span>Read Free Body Comp Guide</span>
+                <ArrowRight size={13} />
+              </Link>
+              <Link
+                to="/store/metabolic-master-guide"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 py-3 px-5 rounded-xl bg-gradient-to-r from-amber-500 to-teal-400 hover:from-amber-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-md shadow-amber-500/20 whitespace-nowrap"
+              >
+                <span>Get 12-Week Protocol (£19)</span>
+                <ArrowRight size={13} />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ========================================================================= */}
+        {/* 4. SECTION D: 🔬 BIOMARKER SCIENCE GUIDE                                   */}
+        {/* ========================================================================= */}
+        <section className="space-y-6">
+          <div className="border-b border-slate-800 pb-4">
+            <span className="text-xs font-mono uppercase text-indigo-400 tracking-widest font-bold">SECTION 4: EVIDENCE-BASED REFERENCE MANUAL</span>
             <h2 className="text-2xl sm:text-3xl font-display font-black uppercase text-white mt-1">
               🔬 Biomarker Science Guide: Target Ranges &amp; Clinical Rationale
             </h2>

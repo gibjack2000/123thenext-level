@@ -189,6 +189,23 @@ export const GUIDE_PRODUCTS: Record<string, DigitalGuideProduct> = {
     priceFormatted: '£59.99',
     r2FileKey: 'all-nine-master-guides.zip',
     pillar: 'Bundle'
+  },
+  'metabolic-master-guide': {
+    id: 'metabolic-master-guide',
+    productId: 'g-met-1',
+    title: 'The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol',
+    priceInCents: 1900, // £19.00
+    priceFormatted: '£19.00',
+    r2FileKey: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf',
+    pillar: 'Metabolism',
+    description: 'Stop Guessing Your Weight. Re-Engineer Your Internal Biology in 12 Weeks. A phased clinical protocol integrating bioimpedance scales, continuous autonomic wearables, and quarterly venous blood tests.',
+    coverImage: '/covers/metabolic-master-guide-cover.png',
+    highlights: [
+      '12-Week Phased Metabolic Reset Roadmap',
+      'Bioimpedance & Visceral Fat Rating (1–12) Targeting',
+      'Printable 14-Day Hardware Telemetry Worksheets',
+      'Sunday Urinalysis & Day 90 Blood Draw Cadence'
+    ]
   }
 };
 
@@ -276,6 +293,16 @@ export const GUIDE_ALIASES: Record<string, string> = {
   'all-6-master-guides': 'g-bundle-6',
   'all-nine-master-guides': 'g-bundle-9',
   'all-9-master-guides': 'g-bundle-9',
+
+  // Metabolic Master Guide & Visceral Fat Protocol
+  'metabolic-master-guide': 'metabolic-master-guide',
+  'visceral-fat-protocol': 'metabolic-master-guide',
+  '12-week-protocol': 'metabolic-master-guide',
+  'metabolic-protocol': 'metabolic-master-guide',
+  'the-12-week-metabolic-re-engineering-protocol': 'metabolic-master-guide',
+  'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf': 'metabolic-master-guide',
+  'The_12_Week_Metabolic_ReEngineering_Protocol.pdf': 'metabolic-master-guide',
+  'g-met-1': 'metabolic-master-guide',
 };
 
 export function resolveGuideProduct(guideId: string): DigitalGuideProduct | undefined {

@@ -613,10 +613,22 @@ export default function StartHere() {
                 <div className="space-y-3 text-xs">
                   <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-start gap-3">
                     <span className="w-7 h-7 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 shrink-0 font-mono font-bold flex items-center justify-center text-xs">
-                      W
+                      1
                     </span>
                     <div>
-                      <strong className="text-white block font-semibold">Weekly Home Fluid Telemetry (60s)</strong>
+                      <strong className="text-white block font-semibold">Channel 1: Phlebotomy Venous Blood Draws (90d)</strong>
+                      <p className="text-slate-400 text-[11px] mt-0.5">
+                        ApoB (atherogenic particle count), HbA1c (glycated hemoglobin), hs-CRP (micro-inflammation), and Urine ACR.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-start gap-3">
+                    <span className="w-7 h-7 rounded-lg bg-teal-500/10 border border-teal-500/30 text-teal-400 shrink-0 font-mono font-bold flex items-center justify-center text-xs">
+                      2
+                    </span>
+                    <div>
+                      <strong className="text-white block font-semibold">Channel 2: Urinalysis &amp; Fluid Telemetry (Weekly)</strong>
                       <p className="text-slate-400 text-[11px] mt-0.5">
                         10-parameter medical test strips (Diagnox / ALLTEST): pH, hydration/SG, ketones, microalbumin, nitrites.
                       </p>
@@ -624,13 +636,13 @@ export default function StartHere() {
                   </div>
 
                   <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-start gap-3">
-                    <span className="w-7 h-7 rounded-lg bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 shrink-0 font-mono font-bold flex items-center justify-center text-xs">
-                      Q
+                    <span className="w-7 h-7 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 shrink-0 font-mono font-bold flex items-center justify-center text-xs">
+                      3
                     </span>
                     <div>
-                      <strong className="text-white block font-semibold">Quarterly Phlebotomy Venous Draw (90d)</strong>
+                      <strong className="text-white block font-semibold">Channel 3: 24/7 Body Comp &amp; Biosensors (Continuous)</strong>
                       <p className="text-slate-400 text-[11px] mt-0.5">
-                        ApoB (atherogenic particle count), HbA1c (glycated hemoglobin), hs-CRP (micro-inflammation), and Urine ACR.
+                        Bioimpedance scale (visceral fat 1–12, muscle %) + nocturnal wearables (HRV, resting HR).
                       </p>
                     </div>
                   </div>
@@ -642,6 +654,226 @@ export default function StartHere() {
                     className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-indigo-500 hover:from-cyan-400 hover:via-teal-300 hover:to-indigo-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-xl shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.98] cursor-pointer"
                   >
                     <span>🔬 Explore Full Testing &amp; Diagnostics Suite →</span>
+                  </Link>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          {/* Dedicated 3-Channel Diagnostic Architecture Cards */}
+          <div className="space-y-4 pt-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold">
+                Choose Your Diagnostics • 3 Integrated Clinical Channels
+              </span>
+              <span className="text-xs font-mono text-cyan-400">Region: {selectedRegion}</span>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              
+              {/* CHANNEL 1: Venous Blood Draws */}
+              <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between space-y-5">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase bg-cyan-950 border border-cyan-800 text-cyan-400 font-bold">
+                      CHANNEL 1 • QUARTERLY
+                    </span>
+                    <Stethoscope size={18} className="text-cyan-400" />
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-display font-black uppercase text-white">
+                      Venous Blood Draws &amp; Tri-Markers
+                    </h3>
+                    <p className="text-xs text-slate-400 mt-1">
+                      Gold-standard phlebotomy (Quest / LOLA Health / Eurofins Megalab).
+                    </p>
+                  </div>
+
+                  <p className="text-xs text-slate-300 font-light leading-relaxed">
+                    Quantifies ApoB atherogenic particles, HbA1c glycated protein velocity, and hs-CRP endothelial micro-inflammation with accredited clinical laboratory accuracy.
+                  </p>
+
+                  <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-300 space-y-1 font-mono">
+                    <div>• Cadence: Every 90 Days (Quarterly)</div>
+                    <div>• Accuracy: Medical Laboratory Standard</div>
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-slate-800">
+                  <a
+                    href={
+                      selectedRegion === 'US'
+                        ? 'https://www.healthlabs.com/?affiliate=123znl'
+                        : selectedRegion === 'UK'
+                        ? 'https://snwbl.io/out/NcealZ11'
+                        : 'https://www.melio.es'
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all"
+                  >
+                    <span>Order Blood Panel ({selectedRegion})</span>
+                    <ExternalLink size={13} />
+                  </a>
+                </div>
+              </div>
+
+              {/* CHANNEL 2: Urinalysis & Renal Telemetry */}
+              <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-teal-500/40 transition-all flex flex-col justify-between space-y-5">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase bg-teal-950 border border-teal-800 text-teal-400 font-bold">
+                      CHANNEL 2 • WEEKLY
+                    </span>
+                    <Droplet size={18} className="text-teal-400" />
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-display font-black uppercase text-white">
+                      Urinalysis &amp; Renal Microvascular Telemetry
+                    </h3>
+                    <p className="text-xs text-slate-400 mt-1">
+                      Rapid 60-second home reagent strips (Diagnox / ALLTEST) + Lab ACR.
+                    </p>
+                  </div>
+
+                  <p className="text-xs text-slate-300 font-light leading-relaxed">
+                    Measures urine pH, specific gravity (hydration), acetoacetate ketones, and microalbumin. Flags early glomerular filter leakage up to a decade before blood creatinine rises.
+                  </p>
+
+                  <div className="p-3 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-300 space-y-1 font-mono">
+                    <div>• Cadence: Weekly (Sunday Mornings)</div>
+                    <div>• Speed: 60 Seconds Flat</div>
+                  </div>
+                </div>
+
+                <div className="pt-3 border-t border-slate-800">
+                  <a
+                    href={
+                      selectedRegion === 'US'
+                        ? 'https://diagnoxhealth.com/products/urinalysis-test'
+                        : selectedRegion === 'UK'
+                        ? 'https://referrals.lolahealth.com/NextLevel15'
+                        : 'https://www.saludonnet.com'
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-teal-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all"
+                  >
+                    <span>Order Reagent Strips ({selectedRegion})</span>
+                    <ExternalLink size={13} />
+                  </a>
+                </div>
+              </div>
+
+              {/* CHANNEL 3: 24/7 Body Composition, Wearables & Visceral Fat Telemetry */}
+              <div className="p-6 rounded-3xl bg-slate-900/90 border border-amber-500/40 hover:border-amber-400 transition-all flex flex-col justify-between space-y-5 ring-1 ring-amber-500/20 shadow-xl">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase bg-amber-950 border border-amber-800 text-amber-400 font-bold">
+                      CHANNEL 3 • CONTINUOUS HARDWARE
+                    </span>
+                    <Scale size={18} className="text-amber-400" />
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-display font-black uppercase text-white">
+                      24/7 Body Composition, Wearables &amp; Visceral Fat Telemetry
+                    </h3>
+                    <p className="text-xs text-amber-400/90 font-mono mt-1 font-medium">
+                      Continuous Hardware &amp; Bioimpedance Baselines (Paid Optional Tier)
+                    </p>
+                  </div>
+
+                  <p className="text-xs text-slate-300 font-light leading-relaxed">
+                    Eliminate the TOFI trap (Thin Outside, Fat Inside). Track visceral organ adiposity (Rating 1–12), skeletal muscle mass %, and nocturnal autonomic recovery.
+                  </p>
+
+                  {/* Featured Hardware Links with Regional Routing */}
+                  <div className="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs space-y-2">
+                    <div className="text-[10px] font-mono uppercase text-slate-400 font-bold">
+                      Featured Hardware ({selectedRegion}):
+                    </div>
+                    
+                    {/* 1. Premium Scale */}
+                    <div className="flex items-center justify-between text-slate-300 hover:text-white">
+                      <span className="truncate pr-2">1. Withings Body Scan / Comp (Visceral Fat 1–12)</span>
+                      <a
+                        href={
+                          selectedRegion === 'US'
+                            ? 'https://www.amazon.com/dp/B0B9849CD1?tag=123znl0e-20'
+                            : selectedRegion === 'UK'
+                            ? 'https://www.amazon.co.uk/dp/B0B9849CD1?tag=123znl0f3-21'
+                            : 'https://www.amazon.es/dp/B0B9849CD1?tag=123znl08a-21'
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-cyan-400 hover:text-cyan-300 shrink-0 font-mono text-[11px] flex items-center gap-0.5"
+                      >
+                        <span>View</span>
+                        <ExternalLink size={10} />
+                      </a>
+                    </div>
+
+                    {/* 2. Accessible Scale */}
+                    <div className="flex items-center justify-between text-slate-300 hover:text-white">
+                      <span className="truncate pr-2">2. Renpho / Etekcity Bluetooth Scale</span>
+                      <a
+                        href={
+                          selectedRegion === 'US'
+                            ? 'https://www.amazon.com/dp/B01N1UX8RW?tag=123znl0e-20'
+                            : selectedRegion === 'UK'
+                            ? 'https://www.amazon.co.uk/dp/B0F18PQH6N?tag=123znl0f3-21'
+                            : 'https://www.amazon.es/dp/B01N1UX8RW?tag=123znl08a-21'
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-cyan-400 hover:text-cyan-300 shrink-0 font-mono text-[11px] flex items-center gap-0.5"
+                      >
+                        <span>View</span>
+                        <ExternalLink size={10} />
+                      </a>
+                    </div>
+
+                    {/* 3. Continuous Wearable */}
+                    <div className="flex items-center justify-between text-slate-300 hover:text-white">
+                      <span className="truncate pr-2">3. Oura Ring Gen4 / Apple Watch (HRV, RHR)</span>
+                      <a
+                        href={
+                          selectedRegion === 'US'
+                            ? 'https://www.amazon.com/dp/B0DJBH1625?tag=123znl0e-20'
+                            : selectedRegion === 'UK'
+                            ? 'https://www.amazon.co.uk/dp/B0DJBH1625?tag=123znl0f3-21'
+                            : 'https://www.amazon.es/dp/B0DJBH1625?tag=123znl08a-21'
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-cyan-400 hover:text-cyan-300 shrink-0 font-mono text-[11px] flex items-center gap-0.5"
+                      >
+                        <span>View</span>
+                        <ExternalLink size={10} />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Card CTAs */}
+                <div className="pt-3 border-t border-slate-800 space-y-2">
+                  <Link
+                    to="/library/body-composition"
+                    className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all"
+                  >
+                    <span>Read Free Body Comp Guide</span>
+                    <ArrowRight size={13} />
+                  </Link>
+                  <Link
+                    to="/store/metabolic-master-guide"
+                    className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-teal-400 hover:from-amber-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-md shadow-amber-500/20"
+                  >
+                    <span>Get 12-Week Protocol (£19)</span>
+                    <ArrowRight size={13} />
                   </Link>
                 </div>
               </div>
