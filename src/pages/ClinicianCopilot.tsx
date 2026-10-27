@@ -24,6 +24,7 @@ import {
 import { useMarket, Market } from '../contexts/MarketContext';
 import DiagnosticPathwaySelector, { REGIONAL_PATHWAYS } from '../components/DiagnosticPathwaySelector';
 import DualTrackSelector from '../components/DualTrackSelector';
+import Step3GuidingBanner from '../components/Step3GuidingBanner';
 import { buildGpConsultationTemplatePdf, GpTemplateData } from '../utils/generateGpTemplatePdf';
 
 // Interfaces for structured interactive form state
@@ -315,7 +316,7 @@ export default function ClinicianCopilot() {
   const [supplements, setSupplements] = useState<SupplementItem[]>(initialSupplements);
   const [phlebotomyMethod, setPhlebotomyMethod] = useState<'clinic' | 'mobile'>('clinic');
   const [bloodResults, setBloodResults] = useState(initialBloodResults);
-  const [bloodPanelTierFilter, setBloodPanelTierFilter] = useState<'all' | 'basic' | 'complete'>('all');
+  const [bloodPanelTierFilter, setBloodPanelTierFilter] = useState<'basic' | 'complete' | 'all'>('basic');
   const [urinalysisData, setUrinalysisData] = useState(initialUrinalysisData);
   const [requisitions, setRequisitions] = useState(initialRequisitions);
   const [agreedDirectives, setAgreedDirectives] = useState({
@@ -353,6 +354,7 @@ export default function ClinicianCopilot() {
         if (parsed.supplements) setSupplements(parsed.supplements);
         if (parsed.phlebotomyMethod) setPhlebotomyMethod(parsed.phlebotomyMethod);
         if (parsed.bloodResults) setBloodResults(parsed.bloodResults);
+        if (parsed.bloodPanelTierFilter) setBloodPanelTierFilter(parsed.bloodPanelTierFilter);
         if (parsed.urinalysisData) setUrinalysisData(parsed.urinalysisData);
         if (parsed.requisitions) setRequisitions(parsed.requisitions);
         if (parsed.agreedDirectives) setAgreedDirectives(parsed.agreedDirectives);
@@ -382,6 +384,7 @@ export default function ClinicianCopilot() {
         supplements,
         phlebotomyMethod,
         bloodResults,
+        bloodPanelTierFilter,
         urinalysisData,
         requisitions,
         agreedDirectives,
@@ -398,7 +401,7 @@ export default function ClinicianCopilot() {
     }
   }, [
     patientData, familyHistory, lifestyle, summaryVitals, bodyComposition, supplements,
-    phlebotomyMethod, bloodResults, urinalysisData, requisitions,
+    phlebotomyMethod, bloodResults, bloodPanelTierFilter, urinalysisData, requisitions,
     agreedDirectives, retestTimeline, nextAppointmentDate, selectedPathway, patientConfirmed
   ]);
 
@@ -479,6 +482,7 @@ export default function ClinicianCopilot() {
       setExamChecks(initialExamChecks);
       setTelemetryRows(initialTelemetryRows);
       setAgreedPathway({ level1: true, level2: false });
+      setBloodPanelTierFilter('basic');
       setLastSavedTime(null);
       setResetToast(true);
       setTimeout(() => setResetToast(false), 3500);
@@ -935,7 +939,19 @@ export default function ClinicianCopilot() {
       {/* ========================================================================= */}
       {/* THE 2-PAGE GP CONSULTATION TEMPLATE V2 (EXACT 5-SECTION MATCHING SCHEMA)  */}
       {/* ========================================================================= */}
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+      <section id="interactive-form" className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        
+        {/* COMPREHENSIVE GUIDING INTRO BANNER (STEP 3 HEADER) */}
+        <Step3GuidingBanner 
+          className="no-print" 
+          onExportPdf={handleExportCompletedPdf}
+          isExportingPdf={isExportingPdf}
+          onScrollToForm={() => {
+            const el = document.getElementById('gp-template-page-1');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }}
+        />
+
         <div className="no-print bg-slate-900 border border-cyan-500/30 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2">
             <Edit3 size={16} className="text-cyan-400 shrink-0" />
@@ -1070,6 +1086,115 @@ export default function ClinicianCopilot() {
                 />
                 <span className="font-semibold text-slate-800">🇪🇸 Spain / EU (Eurofins Megalab)</span>
               </label>
+            </div>
+          </div>
+
+          {/* ----------------------------------------------------------------- */}
+          {/* PROMINENT BLOOD PANEL SELECTOR AT TOP OF ONLINE FORM               */}
+          {/* ----------------------------------------------------------------- */}
+          <div className="no-print mt-4 p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border-2 border-cyan-500/50 shadow-xl space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-bold flex items-center justify-center text-base">
+                  🩸
+                </div>
+                <div>
+                  <h3 className="text-sm sm:text-base font-display font-black uppercase text-white tracking-wide">
+                    Which blood panel did you take?
+                  </h3>
+                  <p className="text-[11px] text-slate-400">
+                    Select your diagnostic option to dynamically expand and filter your Section 3 input fields
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-1.5 self-start sm:self-center">
+                <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                  Status: {bloodPanelTierFilter === 'basic' ? 'Choice A Active' : bloodPanelTierFilter === 'complete' ? 'Choice B Active' : 'All Fields Visible'}
+                </span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+              {/* Choice A Card */}
+              <div
+                onClick={() => setBloodPanelTierFilter('basic')}
+                className={`p-3.5 sm:p-4 rounded-xl border-2 transition-all cursor-pointer flex items-start gap-3 select-none ${
+                  bloodPanelTierFilter === 'basic'
+                    ? 'bg-emerald-950/60 border-emerald-400 shadow-lg shadow-emerald-500/10 ring-1 ring-emerald-400/40'
+                    : 'bg-slate-950/70 border-slate-800 hover:border-emerald-500/40 hover:bg-slate-900'
+                }`}
+              >
+                <input
+                  type="radio"
+                  id="blood-choice-a"
+                  name="bloodPanelSelectorTop"
+                  checked={bloodPanelTierFilter === 'basic'}
+                  onChange={() => setBloodPanelTierFilter('basic')}
+                  className="mt-1 w-4 h-4 text-emerald-500 accent-emerald-500 shrink-0 cursor-pointer"
+                />
+                <label htmlFor="blood-choice-a" className="space-y-1.5 cursor-pointer flex-1">
+                  <div className="flex items-center justify-between gap-2 flex-wrap">
+                    <span className="font-display font-black text-xs sm:text-sm text-white uppercase tracking-tight">
+                      Choice A: LOLA Essential Check
+                    </span>
+                    <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                      Core 4 Markers
+                    </span>
+                  </div>
+                  <div className="text-[11px] text-emerald-300 font-semibold font-mono">
+                    (Core Lipids, HbA1c, Glucose, Kidney &amp; Liver)
+                  </div>
+                  <p className="text-[11px] text-slate-400 leading-relaxed font-light">
+                    Targeted baseline check. Focuses on the core metabolic, glycemic, and organ safety panel.
+                  </p>
+                </label>
+              </div>
+
+              {/* Choice B Card */}
+              <div
+                onClick={() => setBloodPanelTierFilter('complete')}
+                className={`p-3.5 sm:p-4 rounded-xl border-2 transition-all cursor-pointer flex items-start gap-3 select-none ${
+                  bloodPanelTierFilter === 'complete'
+                    ? 'bg-cyan-950/60 border-cyan-400 shadow-lg shadow-cyan-500/10 ring-1 ring-cyan-400/40'
+                    : 'bg-slate-950/70 border-slate-800 hover:border-cyan-500/40 hover:bg-slate-900'
+                }`}
+              >
+                <input
+                  type="radio"
+                  id="blood-choice-b"
+                  name="bloodPanelSelectorTop"
+                  checked={bloodPanelTierFilter === 'complete'}
+                  onChange={() => setBloodPanelTierFilter('complete')}
+                  className="mt-1 w-4 h-4 text-cyan-500 accent-cyan-500 shrink-0 cursor-pointer"
+                />
+                <label htmlFor="blood-choice-b" className="space-y-1.5 cursor-pointer flex-1">
+                  <div className="flex items-center justify-between gap-2 flex-wrap">
+                    <span className="font-display font-black text-xs sm:text-sm text-white uppercase tracking-tight">
+                      Choice B: LOLA Vital Check 56
+                    </span>
+                    <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+                      Full 56-Biomarker Panel
+                    </span>
+                  </div>
+                  <div className="text-[11px] text-cyan-300 font-semibold font-mono">
+                    (Full 56-Biomarker Cellular Map + Core Lipids)
+                  </div>
+                  <p className="text-[11px] text-slate-400 leading-relaxed font-light">
+                    Full cellular mapping. Dynamically expands fields for ApoB, hs-CRP, Thyroid cascade, Micronutrients &amp; Core Lipids.
+                  </p>
+                </label>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between pt-1 border-t border-slate-800/80 text-[10px] text-slate-400 font-mono">
+              <span>💡 Toggle to automatically expand or focus Section 3 pathology rows below</span>
+              <button
+                type="button"
+                onClick={() => setBloodPanelTierFilter(bloodPanelTierFilter === 'all' ? 'basic' : 'all')}
+                className="text-cyan-400 hover:text-cyan-300 underline cursor-pointer"
+              >
+                {bloodPanelTierFilter === 'all' ? 'Show Filtered View' : 'Show All Biomarkers (9)'}
+              </button>
             </div>
           </div>
 
@@ -1454,41 +1579,50 @@ export default function ClinicianCopilot() {
             </div>
 
             {/* Interactive Tier Filter Controls (Screen-Only) */}
-            <div className="no-print flex flex-wrap items-center justify-between gap-2 bg-slate-100 p-2 rounded-lg border border-slate-300">
-              <span className="text-[11px] font-bold text-slate-700">Filter Diagnostic Tiers:</span>
-              <div className="flex items-center gap-1.5">
+            <div className="no-print flex flex-wrap items-center justify-between gap-2 bg-slate-100 p-2.5 rounded-xl border border-slate-300">
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-bold text-slate-800">
+                  Active Panel Filter:
+                </span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded font-bold bg-slate-200 text-slate-700">
+                  {bloodPanelTierFilter === 'basic' ? 'Choice A: LOLA Essential Check' : bloodPanelTierFilter === 'complete' ? 'Choice B: LOLA Vital Check 56' : 'All Biomarkers (9)'}
+                </span>
+              </div>
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <button
+                  type="button"
+                  onClick={() => setBloodPanelTierFilter('basic')}
+                  className={`px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    bloodPanelTierFilter === 'basic'
+                      ? 'bg-emerald-600 text-white shadow-sm ring-2 ring-emerald-400/40'
+                      : 'bg-white text-emerald-800 border border-emerald-300 hover:bg-emerald-50'
+                  }`}
+                >
+                  <span className="w-2 h-2 rounded-full bg-emerald-300" />
+                  <span>Choice A: LOLA Essential Check (4 Core)</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setBloodPanelTierFilter('complete')}
+                  className={`px-3 py-1.5 rounded-lg text-[11px] font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                    bloodPanelTierFilter === 'complete'
+                      ? 'bg-cyan-700 text-white shadow-sm ring-2 ring-cyan-400/40'
+                      : 'bg-white text-cyan-900 border border-cyan-300 hover:bg-cyan-50'
+                  }`}
+                >
+                  <span className="w-2 h-2 rounded-full bg-cyan-300" />
+                  <span>Choice B: LOLA Vital Check 56 (Full Panel)</span>
+                </button>
                 <button
                   type="button"
                   onClick={() => setBloodPanelTierFilter('all')}
-                  className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all cursor-pointer ${
+                  className={`px-2.5 py-1.5 rounded-lg text-[11px] font-bold transition-all cursor-pointer ${
                     bloodPanelTierFilter === 'all'
                       ? 'bg-slate-900 text-white shadow-sm'
                       : 'bg-white text-slate-700 border border-slate-300 hover:bg-slate-50'
                   }`}
                 >
-                  All Biomarkers (9)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setBloodPanelTierFilter('basic')}
-                  className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all cursor-pointer ${
-                    bloodPanelTierFilter === 'basic'
-                      ? 'bg-emerald-600 text-white shadow-sm'
-                      : 'bg-white text-emerald-800 border border-emerald-300 hover:bg-emerald-50'
-                  }`}
-                >
-                  Choice 1: Essential Starter (4)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setBloodPanelTierFilter('complete')}
-                  className={`px-2.5 py-1 rounded text-[11px] font-bold transition-all cursor-pointer ${
-                    bloodPanelTierFilter === 'complete'
-                      ? 'bg-cyan-700 text-white shadow-sm'
-                      : 'bg-white text-cyan-900 border border-cyan-300 hover:bg-cyan-50'
-                  }`}
-                >
-                  Choice 2: Clinical Gold Standard (5)
+                  All (9)
                 </button>
               </div>
             </div>
@@ -1504,14 +1638,14 @@ export default function ClinicianCopilot() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-300">
-                {/* CHOICE 1: ESSENTIAL BASELINE BLOOD PANEL (BASIC TIER) */}
-                {(bloodPanelTierFilter === 'all' || bloodPanelTierFilter === 'basic') && (
+                {/* CHOICE A: ESSENTIAL BASELINE BLOOD PANEL (CORE TIER) */}
+                {(bloodPanelTierFilter === 'all' || bloodPanelTierFilter === 'basic' || bloodPanelTierFilter === 'complete') && (
                   <>
                     <tr className="bg-emerald-50/80 border-t-2 border-emerald-400">
                       <td colSpan={4} className="p-1.5 px-2 text-[11px] font-bold text-emerald-950 uppercase tracking-wide flex items-center justify-between">
-                        <span>CHOICE 1: Essential Baseline Blood Panel (Basic Tier)</span>
+                        <span>CHOICE A: LOLA Essential Check (Core Baseline 4-Biomarker Tier)</span>
                         <span className="bg-emerald-600 text-white text-[9px] px-2 py-0.5 rounded font-mono font-bold">
-                          Essential Starter
+                          Core Baseline
                         </span>
                       </td>
                     </tr>
@@ -1622,14 +1756,30 @@ export default function ClinicianCopilot() {
                   </>
                 )}
 
-                {/* CHOICE 2: COMPREHENSIVE CELLULAR BIOMARKER MAP (COMPLETE TIER) */}
+                {/* DYNAMIC COLLAPSED NOTICE WHEN CHOICE A IS ACTIVE */}
+                {bloodPanelTierFilter === 'basic' && (
+                  <tr className="bg-slate-50 border-t border-dashed border-slate-300 no-print">
+                    <td colSpan={4} className="p-3 text-center text-slate-500 text-[11px] font-sans">
+                      <span className="font-medium text-slate-600">Choice B (LOLA Vital Check 56) fields collapsed.</span>
+                      <button
+                        type="button"
+                        onClick={() => setBloodPanelTierFilter('complete')}
+                        className="text-cyan-700 hover:text-cyan-900 font-bold underline ml-2 cursor-pointer"
+                      >
+                        Expand Full 56-Biomarker Inputs (ApoB, hs-CRP, Thyroid, Micronutrients) ➔
+                      </button>
+                    </td>
+                  </tr>
+                )}
+
+                {/* CHOICE B: COMPREHENSIVE CELLULAR BIOMARKER MAP (COMPLETE TIER) */}
                 {(bloodPanelTierFilter === 'all' || bloodPanelTierFilter === 'complete') && (
                   <>
                     <tr className="bg-cyan-50/80 border-t-2 border-cyan-400">
                       <td colSpan={4} className="p-1.5 px-2 text-[11px] font-bold text-cyan-950 uppercase tracking-wide flex items-center justify-between">
-                        <span>CHOICE 2: Comprehensive Cellular Biomarker Map (56-Biomarker Complete Tier)</span>
+                        <span>CHOICE B: LOLA Vital Check 56 (Full 56-Biomarker Cellular Map Tier)</span>
                         <span className="bg-cyan-600 text-white text-[9px] px-2 py-0.5 rounded font-mono font-bold">
-                          Clinical Gold Standard
+                          Full 56-Biomarker Map
                         </span>
                       </td>
                     </tr>

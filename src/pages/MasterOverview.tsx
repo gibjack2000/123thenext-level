@@ -27,6 +27,7 @@ import {
 import { useMarket, Market } from '../contexts/MarketContext';
 import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
 import DualTrackSelector from '../components/DualTrackSelector';
+import Step3GuidingBanner from '../components/Step3GuidingBanner';
 
 const FLUID_TELEMETRY_DATA: Record<Market, {
   name: string;
@@ -1069,6 +1070,11 @@ export const MasterOverview: React.FC = () => {
             );
           })()}
         </section>
+
+        {/* ========================================================================= */}
+        {/* STEP 3 GUIDING INTRO BANNER: FROM GUESSING TO KNOWING                     */}
+        {/* ========================================================================= */}
+        <Step3GuidingBanner className="my-10 text-left" />
 
         {/* ========================================================================= */}
         {/* SECTION E: FRICTIONLESS NEXT-STEP ACTIONS                                  */}
