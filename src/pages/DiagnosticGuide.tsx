@@ -167,7 +167,7 @@ export const DiagnosticGuide: React.FC = () => {
 
               <div className="pt-4 border-t border-slate-800/80">
                 <a
-                  href="https://snwbl.io/out/NcealZ11"
+                  href="https://referrals.lolahealth.com/NextLevel15"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-cyan-500/20 active:scale-95 cursor-pointer"

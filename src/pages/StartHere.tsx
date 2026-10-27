@@ -811,7 +811,7 @@ export default function StartHere() {
                       selectedRegion === 'US'
                         ? 'https://www.healthlabs.com/?affiliate=123znl'
                         : selectedRegion === 'UK'
-                        ? 'https://snwbl.io/out/NcealZ11'
+                        ? 'https://referrals.lolahealth.com/NextLevel15'
                         : 'https://www.melio.es'
                     }
                     target="_blank"

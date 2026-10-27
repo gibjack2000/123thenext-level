@@ -23,7 +23,7 @@ INSERT INTO public.products (
 
 -- Blood Panels
 ('blood-panel-us', 'Personalized Cellular Biomarker Map (56 Biomarkers)', 'Performance & Testing', 4.95, 'Direct-to-consumer longevity blood panels mapping 56 essential biomarkers via local Quest or Labcorp centers.', '$299.00', 'https://www.healthlabs.com/?affiliate=123znl', 'US', 'CLIA Certified & CAP Accredited', '/assets/images/shop/blood-panel.png', TRUE, 'blood_panel_slot'),
-('blood-panel-uk', 'Personalized Cellular Biomarker Map (56 Biomarkers)', 'Performance & Testing', 4.95, 'Direct-to-consumer longevity blood panels mapping 56 essential biomarkers via partner UK lab centers.', '£149.00', 'https://snwbl.io/out/NcealZ11', 'UK', 'UKAS Accredited & ISO Certified', '/assets/images/shop/blood-panel.png', TRUE, 'blood_panel_slot'),
+('blood-panel-uk', 'Personalized Cellular Biomarker Map (56 Biomarkers)', 'Performance & Testing', 4.95, 'Direct-to-consumer longevity blood panels mapping 56 essential biomarkers via partner UK lab centers.', '£149.00', 'https://referrals.lolahealth.com/NextLevel15', 'UK', 'UKAS Accredited & ISO Certified', '/assets/images/shop/blood-panel.png', TRUE, 'blood_panel_slot'),
 ('blood-panel-es', 'Personalized Cellular Biomarker Map (56 Biomarkers)', 'Performance & Testing', 4.95, 'Direct-to-consumer longevity blood panels mapping 56 essential biomarkers via partner ES lab centers.', '149,00€', 'https://www.melio.es', 'ES', 'CE Marked & Megalab Certified Partner', '/assets/images/shop/blood-panel.png', TRUE, 'blood_panel_slot'),
 
 -- CGM

@@ -214,7 +214,7 @@ const DIAGNOSTIC_REGIONS = {
     flag: '🇬🇧',
     partnerName: 'LOLA Health',
     badge: 'UKAS Accredited & ISO Certified Phlebotomy',
-    affiliateUrl: 'https://snwbl.io/out/NcealZ11',
+    affiliateUrl: 'https://referrals.lolahealth.com/NextLevel15',
     optionA: {
       name: 'Lola Vital Check 56 Blood Panel',
       description: 'Official UKAS-accredited venous draw panel covering 56 essential geroscience biomarkers with clinic partner access across England, Scotland, Wales, and Northern Ireland.',

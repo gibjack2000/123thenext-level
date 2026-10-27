@@ -55,7 +55,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
       priceText: "$299.00"
     },
     uk: {
-      url: "https://snwbl.io/out/NcealZ11",
+      url: "https://referrals.lolahealth.com/NextLevel15",
       ctaText: "Map Your Biomarkers on LOLA Health UK 🇬🇧",
       badge: "UKAS Accredited & ISO Certified",
       network: "LOLA Health Partner",
@@ -537,6 +537,8 @@ export const affiliateLinks: Record<string, any> = {
   lola_core_health: 'https://referrals.lolahealth.com/NextLevel15',
   lola_vital_check: 'https://referrals.lolahealth.com/NextLevel15',
   lola_peak_insights: 'https://referrals.lolahealth.com/NextLevel15',
+  lola_health: 'https://referrals.lolahealth.com/NextLevel15',
+  hp_blood_panel_uk: 'https://referrals.lolahealth.com/NextLevel15',
   hp_biological_age: 'https://amazon.com/dp/B0CXM1X8PQ',
   hp_nad_stack: 'https://livemomentous.com/modernwisdom?code=modernwisdom',
   hp_bio_response: 'https://amazon.com/dp/B0CXM1X8PQ',
@@ -548,3 +550,7 @@ export const affiliateLinks: Record<string, any> = {
   hp_nad_complete: 'https://renuebyscience.com/',
   hp_coq10: 'https://www.amazon.com/dp/B0019GW3Y8',
 };
+
+export const LOLA_HEALTH_AFFILIATE_URL = 'https://referrals.lolahealth.com/NextLevel15';
+export const UK_BLOOD_TEST_AFFILIATE_URL = 'https://referrals.lolahealth.com/NextLevel15';
+

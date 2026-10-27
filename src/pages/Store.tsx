@@ -164,7 +164,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.98,
       "description": "Advanced, direct-to-consumer multi-omic longevity blood panel analyzing 56 primary biomarkers including ApoB, hs-CRP, and HbA1c to eliminate clinical guessing. Clinician-partnered secure digital reporting.",
       "price_text": "£149.00",
-      "deal_url": "https://snwbl.io/out/NcealZ11",
+      "deal_url": "https://referrals.lolahealth.com/NextLevel15",
       "market_region": "UK",
       "badge_text": "UKAS Accredited & ISO 9001 Certified",
       "image_url": "/Products/ancientbrave.jpeg"

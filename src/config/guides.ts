@@ -19,8 +19,12 @@ export interface ComplimentaryGuide {
   primaryCtaText: string;
   secondaryCtaText?: string;
   secondaryCtaLink?: string;
+  affiliateUrl?: string;
   highlights: string[];
 }
+
+export const UK_BLOOD_TEST_AFFILIATE_URL = 'https://referrals.lolahealth.com/NextLevel15';
+export const LOLA_HEALTH_AFFILIATE_URL = 'https://referrals.lolahealth.com/NextLevel15';
 
 export interface PremiumMasterGuide {
   id: string;
@@ -82,6 +86,7 @@ export const COMPLIMENTARY_FREE_GUIDES: ComplimentaryGuide[] = [
     primaryCtaText: '📥 Download Free PDF',
     secondaryCtaText: '✏️ Interactive Online Workbook ➔',
     secondaryCtaLink: '/clinician-copilot',
+    affiliateUrl: 'https://referrals.lolahealth.com/NextLevel15',
     highlights: [
       'Printable doctor note & consultation template',
       'Lola Vital Check 56 biomarker breakdown',

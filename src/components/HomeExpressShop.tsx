@@ -626,7 +626,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       UK: {
         price: "£149.00",
         badge: "UKAS Accredited & ISO Certified",
-        url: "https://snwbl.io/out/NcealZ11",
+        url: "https://referrals.lolahealth.com/NextLevel15",
         ctaText: "Order on LOLA Health UK 🇬🇧",
         network: "LOLA Partner"
       },

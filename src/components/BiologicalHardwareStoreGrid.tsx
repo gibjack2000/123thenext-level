@@ -484,7 +484,7 @@ export const hardwareListings: LocalizedListing[] = [
         badge: 'UKAS Accredited Private Lab Network',
         logistics: 'Connected to local private clinics & home phlebotomy via LOLA Health',
         affiliateKey: 'hp_blood_panel_uk',
-        fallbackUrl: 'https://snwbl.io/out/NcealZ11',
+        fallbackUrl: 'https://referrals.lolahealth.com/NextLevel15',
         priceEstimate: '£149.00 (Full Panel)',
         ctaText: 'Map Your Biomarker Baseline via LOLA Health UK 🇬🇧'
       },

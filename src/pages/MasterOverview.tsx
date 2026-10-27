@@ -875,7 +875,7 @@ export const MasterOverview: React.FC = () => {
               </div>
               <div className="space-y-2 pt-2">
                 <a
-                  href="https://snwbl.io/out/NcealZ11"
+                  href="https://referrals.lolahealth.com/NextLevel15"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full py-2 px-3 rounded-xl bg-cyan-500/20 hover:bg-cyan-500 text-cyan-300 hover:text-slate-950 border border-cyan-500/40 text-xs font-bold text-center transition flex items-center justify-center gap-1.5"

@@ -104,13 +104,13 @@ export const REGIONAL_PATHWAYS: Record<Market, RegionalPathwayData> = {
       partnerName: 'Lola Core Longevity Tri-Markers',
       description: 'Targeted UKAS-accredited baseline draw focused on ApoB, high-sensitivity CRP, and HbA1c across partner clinics nationwide.',
       price: '£89.00',
-      requisitionUrl: 'https://snwbl.io/out/NcealZ11',
+      requisitionUrl: 'https://referrals.lolahealth.com/NextLevel15',
     },
     level2: {
       partnerName: 'Lola Vital Check 56',
       description: 'Official 56-biomarker diagnostic blood panel mapping cardiovascular, metabolic, hormonal, and micronutrient cellular status.',
       price: '£149.00',
-      requisitionUrl: 'https://snwbl.io/out/NcealZ11',
+      requisitionUrl: 'https://referrals.lolahealth.com/NextLevel15',
     },
     urinalysis: {
       name: 'Lola Urinalysis & Microvascular ACR Panel',
