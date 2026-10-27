@@ -25,6 +25,10 @@ const GuideCoverImage: React.FC<{ primaryImage: string; fallbackImage?: string; 
 }) => {
   const [src, setSrc] = useState(primaryImage);
 
+  useEffect(() => {
+    setSrc(primaryImage);
+  }, [primaryImage]);
+
   return (
     <img
       src={src}
@@ -55,8 +59,8 @@ export default function PremiumGuidesPage() {
       title: "12-Week Metabolic & Visceral Fat Protocol",
       price: "£19.00",
       usPrice: "$25.00 • €22.00",
-      primaryImage: "/assets/images/metabolic_nutrition_cover.png",
-      fallbackImage: "/covers/metabolic-master-guide-cover.png",
+      primaryImage: "/assets/images/metabolic_nutrition_cover_New.png",
+      fallbackImage: "/covers/metabolic_nutrition_cover_New.png",
       description: "A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.",
       badge: "PREMIUM GUIDE",
       highlights: [

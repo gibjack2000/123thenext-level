@@ -50,7 +50,7 @@ INSERT INTO public.products (
   '/checkout?product=metabolic-master-guide',
   'UK',
   'PREMIUM MASTER GUIDE',
-  '/assets/images/metabolic_nutrition_cover.png',
+  '/assets/images/metabolic_nutrition_cover_New.png',
   TRUE,
   TRUE,
   'primary_guide_slot'
@@ -66,7 +66,7 @@ INSERT INTO public.products (
   '/checkout?product=metabolic-master-guide',
   'US',
   'PREMIUM MASTER GUIDE',
-  '/assets/images/metabolic_nutrition_cover.png',
+  '/assets/images/metabolic_nutrition_cover_New.png',
   TRUE,
   TRUE,
   'primary_guide_slot'
@@ -82,7 +82,7 @@ INSERT INTO public.products (
   '/checkout?product=metabolic-master-guide',
   'ES',
   'PREMIUM MASTER GUIDE',
-  '/assets/images/metabolic_nutrition_cover.png',
+  '/assets/images/metabolic_nutrition_cover_New.png',
   TRUE,
   TRUE,
   'primary_guide_slot'
@@ -122,7 +122,7 @@ INSERT INTO public.premium_guides (
   'Stop Guessing Your Weight. Re-Engineer Your Internal Biology in 12 Weeks. A phased protocol integrating fasting bioimpedance scales, continuous autonomic wearables, weekly urine chemistry, and quarterly clinical phlebotomy to strip deep visceral organ fat.',
   '£19.00 / $25.00 / €22.00',
   'price_metabolic_master_guide',
-  '/assets/images/metabolic_nutrition_cover.png',
+  '/assets/images/metabolic_nutrition_cover_New.png',
   'metabolic-master-guide.pdf',
   TRUE,
   ARRAY['Visceral Fat', 'Bioimpedance', 'Metabolism', 'Wearables', '12-Week Protocol', 'Body Composition'],

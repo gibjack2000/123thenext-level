@@ -649,7 +649,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "1.2k+",
     shortBenefit: "A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.",
     description: "A phased biometric blueprint integrating bioimpedance scales, continuous wearables, and clinical phlebotomy to strip deep visceral organ fat.",
-    imageUrl: "/assets/images/metabolic_nutrition_cover.png",
+    imageUrl: "/assets/images/metabolic_nutrition_cover_New.png",
     isDirectAffiliate: true,
     regions: {
       US: {

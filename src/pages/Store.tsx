@@ -44,7 +44,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "/checkout?product=metabolic-master-guide",
       "market_region": "UK",
       "badge_text": "PREMIUM MASTER GUIDE",
-      "image_url": "/assets/images/metabolic_nutrition_cover.png"
+      "image_url": "/assets/images/metabolic_nutrition_cover_New.png"
     },
     {
       "id": "reagent-strips-uk",
@@ -874,7 +874,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "/checkout?product=metabolic-master-guide",
       "market_region": "US",
       "badge_text": "PREMIUM MASTER GUIDE",
-      "image_url": "/assets/images/metabolic_nutrition_cover.png"
+      "image_url": "/assets/images/metabolic_nutrition_cover_New.png"
     },
     {
       "id": "sleep-analyzer-us",
@@ -1464,7 +1464,7 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "/checkout?product=metabolic-master-guide",
       "market_region": "ES",
       "badge_text": "PREMIUM MASTER GUIDE",
-      "image_url": "/assets/images/metabolic_nutrition_cover.png"
+      "image_url": "/assets/images/metabolic_nutrition_cover_New.png"
     },
     {
       "id": "sirtuin-stack-es",

@@ -105,7 +105,7 @@ VALUES
  'A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.', 
  'Stop Guessing Your Weight. Re-Engineer Your Internal Biology in 12 Weeks. A phased protocol integrating fasting bioimpedance scales, continuous autonomic wearables, weekly urine chemistry, and quarterly clinical phlebotomy to strip deep visceral organ fat.', 
  '£19.00', 'price_metabolic_master_guide', 
- '/assets/images/metabolic_nutrition_cover.png', 
+ '/assets/images/metabolic_nutrition_cover_New.png', 
  'metabolic-master-guide.pdf', true, 
  ARRAY['Visceral Fat', 'Bioimpedance', 'Metabolism', 'Wearables', '12-Week Protocol', 'Body Composition'], 
  ARRAY['Visceral Fat Rating & Smart Scale Calibration', 'Targeted Protein & Resistance Workout Schedules', '14-Day Telemetry Logging & GP Leave-Behind Export', 'Sunday Urinalysis & Day 90 Blood Draw Cadence Matrix'], 

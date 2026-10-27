@@ -107,7 +107,7 @@ export const PREMIUM_MASTER_GUIDES: PremiumMasterGuide[] = [
     priceInCents: 1900,
     stripePriceId: 'price_metabolic_master_guide',
     checkoutUrl: '/checkout?guide=metabolic-master-guide',
-    image: '/assets/images/metabolic_nutrition_cover.png',
+    image: '/assets/images/metabolic_nutrition_cover_New.png',
     fileName: 'metabolic-master-guide.pdf',
     featured: true,
     tags: ['Metabolic Health', 'Visceral Fat', 'Bioimpedance', 'Body Composition', 'Wearables'],

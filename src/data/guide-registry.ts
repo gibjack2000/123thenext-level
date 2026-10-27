@@ -199,7 +199,7 @@ export const GUIDE_PRODUCTS: Record<string, DigitalGuideProduct> = {
     r2FileKey: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf',
     pillar: 'Metabolic Health & Body Composition',
     description: 'A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.',
-    coverImage: '/assets/images/metabolic_nutrition_cover.png',
+    coverImage: '/assets/images/metabolic_nutrition_cover_New.png',
     highlights: [
       'Visceral Fat Rating & Smart Scale Calibration',
       'Targeted Protein & Resistance Workout Schedules',

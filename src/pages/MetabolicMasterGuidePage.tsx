@@ -56,7 +56,7 @@ export default function MetabolicMasterGuidePage() {
     title: 'The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol',
     priceDisplay: priceFormatted,
     stripePriceId: 'price_metabolic_master_guide',
-    image: '/assets/images/metabolic_nutrition_cover.png',
+    image: '/assets/images/metabolic_nutrition_cover_New.png',
     category: 'Nutrition'
   };
 
@@ -229,7 +229,7 @@ export default function MetabolicMasterGuidePage() {
 
               <div className="relative aspect-[3/4] max-w-sm mx-auto rounded-2xl overflow-hidden bg-slate-950 border border-slate-800 shadow-inner flex items-center justify-center p-2">
                 <img
-                  src="/assets/images/metabolic_nutrition_cover.png"
+                  src="/assets/images/metabolic_nutrition_cover_New.png"
                   alt="Metabolic Master Guide Cover"
                   className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700"
                   loading="lazy"

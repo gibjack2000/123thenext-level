@@ -224,7 +224,7 @@ export const guides: Guide[] = [
     longDescription: 'Stop Guessing Your Weight. Re-Engineer Your Internal Biology in 12 Weeks. A phased protocol integrating fasting bioimpedance scales, continuous autonomic wearables, weekly urine chemistry, and quarterly clinical phlebotomy to strip deep visceral organ fat.',
     priceDisplay: '£19.00 / $25.00 / €22.00',
     stripePriceId: 'price_metabolic_master_guide',
-    image: '/assets/images/metabolic_nutrition_cover.png',
+    image: '/assets/images/metabolic_nutrition_cover_New.png',
     fileName: 'metabolic-master-guide.pdf',
     featured: true,
     tags: ['Visceral Fat', 'Bioimpedance', 'Metabolism', 'Wearables', '12-Week Protocol'],
