@@ -799,32 +799,32 @@ export default function ClinicianCopilot() {
                   <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-300 font-bold bg-cyan-950/80 px-2.5 py-1 rounded-md border border-cyan-800/60">
                     DOCUMENT 1 • EDUCATIONAL WORKBOOK (PDF)
                   </span>
-                  <span className="text-[10px] font-mono text-cyan-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800">
-                    Role: Patient Education
+                  <span className="text-[10px] font-mono text-cyan-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800 font-bold">
+                    Revised Edition • 2026
                   </span>
                 </div>
 
                 <div>
                   <h3 className="text-lg sm:text-xl font-display font-black text-white tracking-tight">
-                    The Next-Level Lifespan Blueprint Workbook
+                    The Next Level Lifespan Educational Workbook
                   </h3>
                   <p className="mt-1.5 text-xs text-slate-300 leading-relaxed font-light">
-                    Your complete patient-facing intelligence manual by J.C. Storganau. Covers epigenetic science, the 3-stage lifespan progression, and why hardware optimization comes before longevity software.
+                    Clinical Biomarker Interpretation Guide &amp; Patient-Clinician Co-Pilot Protocol. Connects your 3 diagnostic channels (blood biochemistry, renal urinalysis, daily biosensors) with clinical target ranges and physician partnership toolkits.
                   </p>
                 </div>
 
                 <div className="space-y-2 pt-2 border-t border-slate-800 text-xs">
                   <div className="flex items-start gap-2 text-slate-300">
                     <CheckCircle2 size={13} className="text-cyan-400 shrink-0 mt-0.5" />
-                    <span><strong>Epigenetic Longevity:</strong> Why epigenetics means living longer isn&apos;t the point — living meaningfully is.</span>
+                    <span><strong>Clinical vs Optimal Targets:</strong> Interpretation guides for Choice A (Essential Baseline) and Choice B (LOLA Vital Check 56) with longevity target ranges.</span>
                   </div>
                   <div className="flex items-start gap-2 text-slate-300">
                     <CheckCircle2 size={13} className="text-cyan-400 shrink-0 mt-0.5" />
-                    <span><strong>Day 1 Interventions:</strong> 10-minute post-meal walks, metabolic fasting, and autonomic resets.</span>
+                    <span><strong>Renal Defence &amp; Vitals:</strong> Point-of-care 10-parameter dipsticks, clinical lab uACR, smart-scale BIA metrics, and continuous HRV/sleep telemetry.</span>
                   </div>
                   <div className="flex items-start gap-2 text-slate-300">
                     <CheckCircle2 size={13} className="text-cyan-400 shrink-0 mt-0.5" />
-                    <span><strong>3-Month Dynamic Roadmap:</strong> Structured timeline from baseline panels to active biometric telemetry.</span>
+                    <span><strong>Day-1 Habits &amp; GP Toolkit:</strong> GLUT4 post-meal walks, vagal resets, 3-month diagnostic progression matrix, and questions to bring to your doctor.</span>
                   </div>
                 </div>
               </div>
