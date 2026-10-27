@@ -320,11 +320,11 @@ export default function LibraryPage() {
 
             <div className="pt-4 border-t border-slate-800/80 relative z-10 space-y-2">
               <a
-                href="/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf"
+                href="/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf?v=2026-revised"
                 download="idiots-guide-to-the-next-level-lifespan.pdf"
                 onClick={() => {
                   triggerDirectDownload(
-                    '/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf',
+                    '/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf?v=2026-revised',
                     'idiots-guide-to-the-next-level-lifespan.pdf',
                     "An Idiot's Guide to the Next Level Lifespan"
                   );

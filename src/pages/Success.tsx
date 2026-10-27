@@ -23,7 +23,7 @@ export default function SuccessPage() {
     // Auto-trigger the download of our exact non-colliding PDF filename
     const downloadTimer = setTimeout(() => {
       const link = document.createElement('a');
-      link.href = '/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf';
+      link.href = '/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf?v=2026-revised';
       link.download = 'idiots-guide-to-the-next-level-lifespan.pdf';
       document.body.appendChild(link);
       link.click();
@@ -96,7 +96,7 @@ export default function SuccessPage() {
                 </div>
 
                 <a 
-                  href="/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf"
+                  href="/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf?v=2026-revised"
                   download="idiots-guide-to-the-next-level-lifespan.pdf"
                   className="w-full py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider bg-cyan-500 hover:bg-cyan-400 text-slate-950 flex items-center justify-center gap-2 transition shadow-md shadow-cyan-500/10 cursor-pointer"
                 >

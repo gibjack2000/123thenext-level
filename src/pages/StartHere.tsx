@@ -287,8 +287,8 @@ export default function StartHere() {
 
               <div className="relative z-10">
                 <a
-                  href="/assets/docs/Finalthe-next-level-lifespan.pdf"
-                  download="Finalthe-next-level-lifespan.pdf"
+                  href="/assets/docs/the-next-level-lifespan-2026.pdf?v=2026-revised"
+                  download="the-next-level-lifespan-2026.pdf"
                   className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-emerald-500/20 hover:scale-[1.01] active:scale-[0.98] cursor-pointer"
                 >
                   <Download size={15} />
@@ -296,7 +296,7 @@ export default function StartHere() {
                 </a>
                 <div className="text-center mt-2 flex items-center justify-center gap-3 text-[10px] text-slate-400">
                   <a 
-                    href="/assets/docs/Finalthe-next-level-lifespan.pdf" 
+                    href="/assets/docs/the-next-level-lifespan-2026.pdf?v=2026-revised" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="hover:text-emerald-300 underline flex items-center gap-1"

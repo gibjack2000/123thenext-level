@@ -709,7 +709,7 @@ export default function ClinicianCopilot() {
 
             {/* Read Workbook PDF */}
             <a
-              href="/assets/docs/the-next-level-lifespan.pdf"
+              href="/assets/docs/the-next-level-lifespan-2026.pdf?v=2026-revised"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-500/60 hover:bg-cyan-950/20 text-slate-200 hover:text-cyan-300 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-sm"
@@ -831,7 +831,7 @@ export default function ClinicianCopilot() {
 
               <div className="pt-4 border-t border-slate-800">
                 <a
-                  href="/assets/docs/the-next-level-lifespan.pdf"
+                  href="/assets/docs/the-next-level-lifespan-2026.pdf?v=2026-revised"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 hover:text-white border border-slate-700 text-xs font-bold text-center transition flex items-center justify-center gap-2"
@@ -2416,7 +2416,7 @@ export default function ClinicianCopilot() {
 
             {/* CTA 3: Read Educational Workbook */}
             <a
-              href="/assets/docs/the-next-level-lifespan.pdf"
+              href="/assets/docs/the-next-level-lifespan-2026.pdf?v=2026-revised"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 hover:text-white border border-slate-700 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-md"

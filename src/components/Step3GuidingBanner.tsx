@@ -107,14 +107,14 @@ export const Step3GuidingBanner: React.FC<Step3GuidingBannerProps> = ({
             </div>
 
             <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800 text-[11px] text-slate-400 space-y-1">
-              <div className="font-semibold text-slate-200">Asset: the-next-level-lifespan.pdf</div>
-              <div>Reference target ranges for Choice A &amp; Choice B</div>
+              <div className="font-semibold text-slate-200">Asset: the-next-level-lifespan-2026.pdf</div>
+              <div>Reference target ranges for Choice A &amp; Choice B (Revised 2026)</div>
             </div>
           </div>
 
           <div className="relative z-10">
             <a
-              href="/assets/docs/the-next-level-lifespan.pdf"
+              href="/assets/docs/the-next-level-lifespan-2026.pdf?v=2026-revised"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-400 hover:text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md group-hover:bg-cyan-500 group-hover:text-slate-950"

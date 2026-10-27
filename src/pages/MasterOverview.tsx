@@ -1115,8 +1115,8 @@ export const MasterOverview: React.FC = () => {
 
             {/* Button 3 */}
             <a
-              href="/assets/docs/the-next-level-lifespan-v7.pdf"
-              download
+              href="/assets/docs/the-next-level-lifespan-2026.pdf?v=2026-revised"
+              download="the-next-level-lifespan-2026.pdf"
               className="w-full sm:w-auto py-4 px-6 bg-slate-950 hover:bg-slate-800 text-slate-200 border border-slate-700 hover:border-slate-600 font-semibold rounded-xl text-center text-xs sm:text-sm transition-all shadow-md active:scale-95 flex items-center justify-center gap-2"
             >
               <Download size={14} className="text-cyan-400" />
