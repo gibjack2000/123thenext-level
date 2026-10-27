@@ -122,10 +122,31 @@ export default function StartHere() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             {/* OPTION A: 5-Minute Longevity Baseline Quiz */}
-            <div className="p-7 sm:p-8 rounded-3xl bg-slate-900/70 border border-slate-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between space-y-6 relative overflow-hidden group shadow-xl">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/5 rounded-full blur-2xl group-hover:bg-cyan-500/10 transition-all pointer-events-none" />
+            <div className="p-7 sm:p-8 rounded-3xl backdrop-blur-md bg-gradient-to-br from-indigo-950/60 via-slate-900/90 to-purple-950/50 border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] transition-all duration-300 flex flex-col justify-between space-y-6 relative overflow-hidden group shadow-2xl">
+              {/* Content-Specific Ambient Glows: Deep Electric Cyan & Violet */}
+              <div className="absolute -top-12 -left-12 w-48 h-48 bg-[#06b6d4] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-[#8b5cf6] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+
+              {/* Background Overlay: Subtle digital grid / DNA helix vector watermark */}
+              <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <pattern id="step0-grid-a" width="32" height="32" patternUnits="userSpaceOnUse">
+                    <path d="M 32 0 L 0 0 0 32" fill="none" stroke="currentColor" strokeWidth="0.75" className="text-cyan-400" />
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#step0-grid-a)" />
+                <g className="text-cyan-400" stroke="currentColor" strokeWidth="1.5" fill="none">
+                  <path d="M 0,40 Q 60,10 120,40 T 240,40 T 360,40 T 480,40 T 600,40" opacity="0.8" />
+                  <path d="M 0,40 Q 60,70 120,40 T 240,40 T 360,40 T 480,40 T 600,40" opacity="0.8" />
+                  <line x1="60" y1="25" x2="60" y2="55" strokeWidth="1" strokeDasharray="2,2" />
+                  <line x1="180" y1="25" x2="180" y2="55" strokeWidth="1" strokeDasharray="2,2" />
+                  <line x1="300" y1="25" x2="300" y2="55" strokeWidth="1" strokeDasharray="2,2" />
+                  <line x1="420" y1="25" x2="420" y2="55" strokeWidth="1" strokeDasharray="2,2" />
+                  <line x1="540" y1="25" x2="540" y2="55" strokeWidth="1" strokeDasharray="2,2" />
+                </g>
+              </svg>
               
-              <div className="space-y-4">
+              <div className="space-y-4 relative z-10">
                 <div className="flex items-center justify-between">
                   <span className="px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-cyan-950 border border-cyan-800 text-cyan-400 font-bold">
                     OPTION A • INTERACTIVE
@@ -188,7 +209,7 @@ export default function StartHere() {
                 </div>
               </div>
 
-              <div>
+              <div className="relative z-10">
                 <button
                   type="button"
                   onClick={handleStartQuiz}
@@ -204,10 +225,28 @@ export default function StartHere() {
             </div>
 
             {/* OPTION B: Free Guide PDF Download */}
-            <div className="p-7 sm:p-8 rounded-3xl bg-slate-900/70 border border-slate-800 hover:border-emerald-500/40 transition-all flex flex-col justify-between space-y-6 relative overflow-hidden group shadow-xl">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl group-hover:bg-emerald-500/10 transition-all pointer-events-none" />
+            <div className="p-7 sm:p-8 rounded-3xl backdrop-blur-md bg-gradient-to-br from-indigo-950/40 via-slate-900/90 to-emerald-950/40 border border-slate-800 hover:border-emerald-500/50 hover:shadow-[0_0_25px_rgba(16,185,129,0.15)] transition-all duration-300 flex flex-col justify-between space-y-6 relative overflow-hidden group shadow-2xl">
+              {/* Content-Specific Ambient Glows: Electric Violet & Emerald */}
+              <div className="absolute -top-12 -left-12 w-48 h-48 bg-[#8b5cf6] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-[#10b981] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
 
-              <div className="space-y-4">
+              {/* Background Overlay: Blueprint grid & handbook vector watermark */}
+              <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <pattern id="step0-grid-b" width="32" height="32" patternUnits="userSpaceOnUse">
+                    <path d="M 32 0 L 0 0 0 32" fill="none" stroke="currentColor" strokeWidth="0.75" className="text-emerald-400" />
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#step0-grid-b)" />
+                <g className="text-emerald-400" stroke="currentColor" strokeWidth="1.5" fill="none">
+                  <rect x="40" y="30" width="120" height="160" rx="4" />
+                  <line x1="60" y1="60" x2="140" y2="60" />
+                  <line x1="60" y1="85" x2="140" y2="85" />
+                  <line x1="60" y1="110" x2="120" y2="110" />
+                </g>
+              </svg>
+
+              <div className="space-y-4 relative z-10">
                 <div className="flex items-center justify-between">
                   <span className="px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-emerald-950 border border-emerald-800 text-emerald-400 font-bold">
                     OPTION B • FOUNDATION MANUAL
@@ -240,7 +279,7 @@ export default function StartHere() {
                 </div>
               </div>
 
-              <div>
+              <div className="relative z-10">
                 <a
                   href="/assets/docs/Finalthe-next-level-lifespan.pdf"
                   download="Finalthe-next-level-lifespan.pdf"
@@ -290,8 +329,19 @@ export default function StartHere() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             
             {/* CARD 1: Diet & Metabolic Nutrition */}
-            <div className="p-6 sm:p-7 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between space-y-5">
-              <div className="space-y-4">
+            <div className="p-6 sm:p-7 rounded-3xl backdrop-blur-md bg-gradient-to-br from-emerald-950/60 via-slate-900/90 to-teal-950/50 border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] transition-all duration-300 flex flex-col justify-between space-y-5 relative overflow-hidden group shadow-2xl">
+              {/* Content-Specific Ambient Glows: Warm Emerald & Solar Amber */}
+              <div className="absolute -top-10 -left-10 w-44 h-44 bg-[#10b981] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-[#f59e0b] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+
+              {/* Background Overlay: Soft organic pulse waves / breath wave vector graphics */}
+              <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 400 300">
+                <path d="M0,150 C80,110 120,190 200,150 C280,110 320,190 400,150 L400,300 L0,300 Z" fill="currentColor" className="text-emerald-400" />
+                <path d="M0,130 C70,160 140,100 200,130 C270,160 330,100 400,130" fill="none" stroke="currentColor" strokeWidth="2" className="text-teal-400" />
+                <path d="M0,170 C90,140 130,200 200,170 C270,140 310,200 400,170" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-amber-400" />
+              </svg>
+
+              <div className="space-y-4 relative z-10">
                 <div className="flex items-center justify-between">
                   <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center">
                     <Droplet size={20} />
@@ -345,7 +395,7 @@ export default function StartHere() {
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-800 space-y-2.5">
+              <div className="pt-3 border-t border-slate-800 space-y-2.5 relative z-10">
                 {/* Recommended Reading */}
                 <Link
                   to="/premium-guides/healthy-meal-planning-guide"
@@ -378,8 +428,19 @@ export default function StartHere() {
             </div>
 
             {/* CARD 2: Exercise & Post-Meal Mobility */}
-            <div className="p-6 sm:p-7 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-teal-500/40 transition-all flex flex-col justify-between space-y-5">
-              <div className="space-y-4">
+            <div className="p-6 sm:p-7 rounded-3xl backdrop-blur-md bg-gradient-to-br from-emerald-950/60 via-slate-900/90 to-teal-950/50 border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] transition-all duration-300 flex flex-col justify-between space-y-5 relative overflow-hidden group shadow-2xl">
+              {/* Content-Specific Ambient Glows: Warm Emerald & Solar Amber */}
+              <div className="absolute -top-10 -left-10 w-44 h-44 bg-[#10b981] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-[#f59e0b] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+
+              {/* Background Overlay: Soft organic pulse waves / breath wave vector graphics */}
+              <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 400 300">
+                <path d="M0,150 C80,110 120,190 200,150 C280,110 320,190 400,150 L400,300 L0,300 Z" fill="currentColor" className="text-emerald-400" />
+                <path d="M0,130 C70,160 140,100 200,130 C270,160 330,100 400,130" fill="none" stroke="currentColor" strokeWidth="2" className="text-teal-400" />
+                <path d="M0,170 C90,140 130,200 200,170 C270,140 310,200 400,170" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-amber-400" />
+              </svg>
+
+              <div className="space-y-4 relative z-10">
                 <div className="flex items-center justify-between">
                   <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/30 text-teal-400 flex items-center justify-center">
                     <Activity size={20} />
@@ -433,7 +494,7 @@ export default function StartHere() {
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-800 space-y-2.5">
+              <div className="pt-3 border-t border-slate-800 space-y-2.5 relative z-10">
                 {/* Recommended Reading */}
                 <Link
                   to="/premium-guides/beginner-home-workout-plan"
@@ -466,8 +527,19 @@ export default function StartHere() {
             </div>
 
             {/* CARD 3: Meditation & Autonomic Resets */}
-            <div className="p-6 sm:p-7 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-purple-500/40 transition-all flex flex-col justify-between space-y-5">
-              <div className="space-y-4">
+            <div className="p-6 sm:p-7 rounded-3xl backdrop-blur-md bg-gradient-to-br from-emerald-950/60 via-slate-900/90 to-teal-950/50 border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] transition-all duration-300 flex flex-col justify-between space-y-5 relative overflow-hidden group shadow-2xl">
+              {/* Content-Specific Ambient Glows: Warm Emerald & Solar Amber */}
+              <div className="absolute -top-10 -left-10 w-44 h-44 bg-[#10b981] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-[#f59e0b] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+
+              {/* Background Overlay: Soft organic pulse waves / breath wave vector graphics */}
+              <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 400 300">
+                <path d="M0,150 C80,110 120,190 200,150 C280,110 320,190 400,150 L400,300 L0,300 Z" fill="currentColor" className="text-emerald-400" />
+                <path d="M0,130 C70,160 140,100 200,130 C270,160 330,100 400,130" fill="none" stroke="currentColor" strokeWidth="2" className="text-teal-400" />
+                <path d="M0,170 C90,140 130,200 200,170 C270,140 310,200 400,170" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-amber-400" />
+              </svg>
+
+              <div className="space-y-4 relative z-10">
                 <div className="flex items-center justify-between">
                   <div className="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-400 flex items-center justify-center">
                     <Heart size={20} />
@@ -521,7 +593,7 @@ export default function StartHere() {
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-slate-800 space-y-2.5">
+              <div className="pt-3 border-t border-slate-800 space-y-2.5 relative z-10">
                 {/* Recommended Reading */}
                 <Link
                   to="/premium-guides/stress-management-toolkit"
@@ -572,8 +644,21 @@ export default function StartHere() {
             </div>
           </div>
 
-          <div className="p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-900/90 to-indigo-950/30 border border-indigo-500/30 shadow-2xl relative overflow-hidden space-y-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div className="p-8 sm:p-10 rounded-3xl backdrop-blur-md bg-gradient-to-br from-slate-900 via-slate-900/95 to-indigo-950/40 border border-indigo-500/30 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] transition-all duration-300 shadow-2xl relative overflow-hidden space-y-8">
+            {/* Ambient Radial Glows: Sapphire Blue & Electric Indigo */}
+            <div className="absolute -top-16 -left-16 w-64 h-64 bg-[#0284c7] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+            <div className="absolute -bottom-16 -right-16 w-64 h-64 bg-[#6366f1] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+
+            {/* Background Overlay: Concentric diagnostic radar watermark */}
+            <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50%" cy="50%" r="80" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="4,4" className="text-indigo-400" />
+              <circle cx="50%" cy="50%" r="160" fill="none" stroke="currentColor" strokeWidth="1" className="text-indigo-400" />
+              <circle cx="50%" cy="50%" r="240" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="6,6" className="text-cyan-400" />
+              <line x1="0" y1="50%" x2="100%" y2="50%" stroke="currentColor" strokeWidth="0.75" className="text-indigo-400" />
+              <line x1="50%" y1="0" x2="50%" y2="100%" stroke="currentColor" strokeWidth="0.75" className="text-indigo-400" />
+            </svg>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center relative z-10">
               
               <div className="space-y-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/80 border border-indigo-500/30 text-indigo-300 text-xs font-mono font-bold uppercase tracking-wider">
@@ -673,8 +758,27 @@ export default function StartHere() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               
               {/* CHANNEL 1: Venous Blood Draws */}
-              <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between space-y-5">
-                <div className="space-y-4">
+              <div className="p-6 sm:p-7 rounded-3xl backdrop-blur-md bg-gradient-to-br from-rose-950/60 via-slate-900/90 to-red-950/40 border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] transition-all duration-300 flex flex-col justify-between space-y-5 relative overflow-hidden group shadow-2xl">
+                {/* Content-Specific Ambient Glows: Ruby Crimson & Deep Rose */}
+                <div className="absolute -top-10 -left-10 w-44 h-44 bg-[#e11d48] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+                <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-rose-700 rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+
+                {/* Background Overlay: Subtle vascular branch / arterial pulse network SVG watermark */}
+                <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 300">
+                  <g fill="none" stroke="currentColor" strokeWidth="1.5" className="text-rose-400">
+                    <path d="M150,0 Q140,80 150,150 T150,300" strokeWidth="2.5" />
+                    <path d="M150,90 Q90,120 40,110" />
+                    <path d="M150,130 Q210,160 270,140" />
+                    <path d="M150,190 Q80,220 20,240" />
+                    <path d="M150,220 Q220,250 280,270" />
+                    <circle cx="40" cy="110" r="3" fill="currentColor" />
+                    <circle cx="270" cy="140" r="3" fill="currentColor" />
+                    <circle cx="20" cy="240" r="3" fill="currentColor" />
+                    <circle cx="280" cy="270" r="3" fill="currentColor" />
+                  </g>
+                </svg>
+
+                <div className="space-y-4 relative z-10">
                   <div className="flex items-center justify-between">
                     <span className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase bg-cyan-950 border border-cyan-800 text-cyan-400 font-bold">
                       CHANNEL 1 • QUARTERLY
@@ -701,7 +805,7 @@ export default function StartHere() {
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-slate-800">
+                <div className="pt-3 border-t border-slate-800 relative z-10">
                   <a
                     href={
                       selectedRegion === 'US'
@@ -721,8 +825,23 @@ export default function StartHere() {
               </div>
 
               {/* CHANNEL 2: Urinalysis & Renal Telemetry */}
-              <div className="p-6 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-teal-500/40 transition-all flex flex-col justify-between space-y-5">
-                <div className="space-y-4">
+              <div className="p-6 sm:p-7 rounded-3xl backdrop-blur-md bg-gradient-to-br from-cyan-950/60 via-slate-900/90 to-blue-950/50 border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] transition-all duration-300 flex flex-col justify-between space-y-5 relative overflow-hidden group shadow-2xl">
+                {/* Content-Specific Ambient Glows: Sapphire Blue & Aqua */}
+                <div className="absolute -top-10 -left-10 w-44 h-44 bg-[#0284c7] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+                <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-cyan-400 rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+
+                {/* Background Overlay: Hydrodynamic ripple / telemetry fluid wave SVG watermark */}
+                <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 300">
+                  <g fill="none" stroke="currentColor" strokeWidth="1.5" className="text-cyan-400">
+                    <circle cx="150" cy="150" r="30" strokeDasharray="3,3" />
+                    <circle cx="150" cy="150" r="60" />
+                    <circle cx="150" cy="150" r="95" strokeDasharray="5,5" />
+                    <circle cx="150" cy="150" r="130" />
+                    <path d="M150,135 C146,143 140,150 140,156 C140,161.5 144.5,166 150,166 C155.5,166 160,161.5 160,156 C160,150 154,143 150,135 Z" fill="currentColor" opacity="0.6" />
+                  </g>
+                </svg>
+
+                <div className="space-y-4 relative z-10">
                   <div className="flex items-center justify-between">
                     <span className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase bg-teal-950 border border-teal-800 text-teal-400 font-bold">
                       CHANNEL 2 • WEEKLY
@@ -749,7 +868,7 @@ export default function StartHere() {
                   </div>
                 </div>
 
-                <div className="pt-3 border-t border-slate-800">
+                <div className="pt-3 border-t border-slate-800 relative z-10">
                   <a
                     href={
                       selectedRegion === 'US'
@@ -769,8 +888,28 @@ export default function StartHere() {
               </div>
 
               {/* CHANNEL 3: 24/7 Body Composition, Wearables & Visceral Fat Telemetry */}
-              <div className="p-6 rounded-3xl bg-slate-900/90 border border-amber-500/40 hover:border-amber-400 transition-all flex flex-col justify-between space-y-5 ring-1 ring-amber-500/20 shadow-xl">
-                <div className="space-y-4">
+              <div className="p-6 sm:p-7 rounded-3xl backdrop-blur-md bg-gradient-to-br from-violet-950/60 via-slate-900/90 to-fuchsia-950/40 border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] transition-all duration-300 flex flex-col justify-between space-y-5 relative overflow-hidden group shadow-2xl">
+                {/* Content-Specific Ambient Glows: Neon Violet & Pulse Magenta */}
+                <div className="absolute -top-10 -left-10 w-44 h-44 bg-[#a855f7] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+                <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-fuchsia-500 rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+
+                {/* Background Overlay: Cybernetic hardware & sensor telemetry circuit watermark */}
+                <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 300">
+                  <g fill="none" stroke="currentColor" strokeWidth="1.2" className="text-violet-400">
+                    <path d="M30,30 L90,30 L120,60 L240,60" />
+                    <path d="M60,150 L120,150 L150,180 L270,180" />
+                    <path d="M40,260 L140,260 L170,230 L260,230" />
+                    <circle cx="30" cy="30" r="4" fill="currentColor" />
+                    <circle cx="240" cy="60" r="3" fill="currentColor" />
+                    <circle cx="60" cy="150" r="3" fill="currentColor" />
+                    <circle cx="270" cy="180" r="4" fill="currentColor" />
+                    <circle cx="40" cy="260" r="4" fill="currentColor" />
+                    <circle cx="260" cy="230" r="3" fill="currentColor" />
+                    <path d="M150,100 A50,50 0 0,1 200,150" strokeDasharray="3,3" />
+                  </g>
+                </svg>
+
+                <div className="space-y-4 relative z-10">
                   <div className="flex items-center justify-between">
                     <span className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase bg-amber-950 border border-amber-800 text-amber-400 font-bold">
                       CHANNEL 3 • CONTINUOUS HARDWARE
@@ -860,7 +999,7 @@ export default function StartHere() {
                 </div>
 
                 {/* Card CTAs */}
-                <div className="pt-3 border-t border-slate-800 space-y-2">
+                <div className="pt-3 border-t border-slate-800 space-y-2 relative z-10">
                   <Link
                     to="/library/body-composition"
                     className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all"
@@ -905,8 +1044,31 @@ export default function StartHere() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
             {/* PATH 1: READ */}
-            <div className="p-6 sm:p-7 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-cyan-500/40 transition-all flex flex-col justify-between space-y-5">
-              <div className="space-y-4">
+            <div className="p-6 sm:p-7 rounded-3xl backdrop-blur-md bg-gradient-to-br from-slate-900 via-sky-950/50 to-slate-950 border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] transition-all duration-300 flex flex-col justify-between space-y-5 relative overflow-hidden group shadow-2xl">
+              {/* Content-Specific Ambient Glows: High-Trust Medical Cyan & Slate */}
+              <div className="absolute -top-10 -left-10 w-44 h-44 bg-[#0ea5e9] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-sky-700 rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+
+              {/* Background Overlay: Faint 2-page document layout / clinical seal watermark */}
+              <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 300">
+                <g fill="none" stroke="currentColor" strokeWidth="1.5" className="text-sky-400">
+                  <rect x="50" y="40" width="90" height="130" rx="4" />
+                  <line x1="65" y1="65" x2="125" y2="65" strokeWidth="2" />
+                  <line x1="65" y1="85" x2="125" y2="85" />
+                  <line x1="65" y1="105" x2="115" y2="105" />
+                  <line x1="65" y1="125" x2="125" y2="125" />
+                  <rect x="160" y="40" width="90" height="130" rx="4" />
+                  <line x1="175" y1="65" x2="235" y2="65" strokeWidth="2" />
+                  <line x1="175" y1="85" x2="235" y2="85" />
+                  <line x1="175" y1="105" x2="225" y2="105" />
+                  <line x1="175" y1="125" x2="235" y2="125" />
+                  <circle cx="150" cy="225" r="32" strokeDasharray="3,3" />
+                  <circle cx="150" cy="225" r="25" />
+                  <path d="M150,212 L150,238 M137,225 L163,225" strokeWidth="2.5" />
+                </g>
+              </svg>
+
+              <div className="space-y-4 relative z-10">
                 <div className="flex items-center justify-between">
                   <span className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase bg-cyan-950 border border-cyan-800 text-cyan-400 font-bold">
                     PATHWAY 1 • READ
@@ -929,7 +1091,7 @@ export default function StartHere() {
                 </div>
               </div>
 
-              <div>
+              <div className="relative z-10">
                 <a
                   href="/assets/docs/the-next-level-lifespan.pdf"
                   target="_blank"
@@ -943,8 +1105,31 @@ export default function StartHere() {
             </div>
 
             {/* PATH 2: LOG */}
-            <div className="p-6 sm:p-7 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-amber-500/40 transition-all flex flex-col justify-between space-y-5 ring-1 ring-amber-500/20">
-              <div className="space-y-4">
+            <div className="p-6 sm:p-7 rounded-3xl backdrop-blur-md bg-gradient-to-br from-slate-900 via-sky-950/50 to-slate-950 border border-slate-800 hover:border-amber-500/50 hover:shadow-[0_0_25px_rgba(245,158,11,0.15)] transition-all duration-300 flex flex-col justify-between space-y-5 relative overflow-hidden group shadow-2xl ring-1 ring-amber-500/20">
+              {/* Content-Specific Ambient Glows: High-Trust Medical Cyan & Solar Amber */}
+              <div className="absolute -top-10 -left-10 w-44 h-44 bg-[#0ea5e9] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-[#f59e0b] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+
+              {/* Background Overlay: Faint 2-page document layout / clinical seal watermark */}
+              <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 300">
+                <g fill="none" stroke="currentColor" strokeWidth="1.5" className="text-amber-400">
+                  <rect x="50" y="40" width="90" height="130" rx="4" />
+                  <line x1="65" y1="65" x2="125" y2="65" strokeWidth="2" />
+                  <line x1="65" y1="85" x2="125" y2="85" />
+                  <line x1="65" y1="105" x2="115" y2="105" />
+                  <line x1="65" y1="125" x2="125" y2="125" />
+                  <rect x="160" y="40" width="90" height="130" rx="4" />
+                  <line x1="175" y1="65" x2="235" y2="65" strokeWidth="2" />
+                  <line x1="175" y1="85" x2="235" y2="85" />
+                  <line x1="175" y1="105" x2="225" y2="105" />
+                  <line x1="175" y1="125" x2="235" y2="125" />
+                  <circle cx="150" cy="225" r="32" strokeDasharray="3,3" />
+                  <circle cx="150" cy="225" r="25" />
+                  <path d="M150,212 L150,238 M137,225 L163,225" strokeWidth="2.5" />
+                </g>
+              </svg>
+
+              <div className="space-y-4 relative z-10">
                 <div className="flex items-center justify-between">
                   <span className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase bg-amber-950 border border-amber-800 text-amber-400 font-bold">
                     PATHWAY 2 • LOG
@@ -969,7 +1154,7 @@ export default function StartHere() {
                 </div>
               </div>
 
-              <div>
+              <div className="relative z-10">
                 <Link
                   to="/clinician-copilot"
                   className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-md shadow-amber-500/20"
@@ -981,8 +1166,31 @@ export default function StartHere() {
             </div>
 
             {/* PATH 3: EXPORT / PRINT */}
-            <div className="p-6 sm:p-7 rounded-3xl bg-slate-900/60 border border-slate-800 hover:border-teal-500/40 transition-all flex flex-col justify-between space-y-5">
-              <div className="space-y-4">
+            <div className="p-6 sm:p-7 rounded-3xl backdrop-blur-md bg-gradient-to-br from-slate-900 via-sky-950/50 to-slate-950 border border-slate-800 hover:border-teal-500/50 hover:shadow-[0_0_25px_rgba(20,184,166,0.15)] transition-all duration-300 flex flex-col justify-between space-y-5 relative overflow-hidden group shadow-2xl">
+              {/* Content-Specific Ambient Glows: High-Trust Medical Cyan & Teal */}
+              <div className="absolute -top-10 -left-10 w-44 h-44 bg-[#0ea5e9] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-[#14b8a6] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+
+              {/* Background Overlay: Faint 2-page document layout / clinical seal watermark */}
+              <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 300">
+                <g fill="none" stroke="currentColor" strokeWidth="1.5" className="text-teal-400">
+                  <rect x="50" y="40" width="90" height="130" rx="4" />
+                  <line x1="65" y1="65" x2="125" y2="65" strokeWidth="2" />
+                  <line x1="65" y1="85" x2="125" y2="85" />
+                  <line x1="65" y1="105" x2="115" y2="105" />
+                  <line x1="65" y1="125" x2="125" y2="125" />
+                  <rect x="160" y="40" width="90" height="130" rx="4" />
+                  <line x1="175" y1="65" x2="235" y2="65" strokeWidth="2" />
+                  <line x1="175" y1="85" x2="235" y2="85" />
+                  <line x1="175" y1="105" x2="225" y2="105" />
+                  <line x1="175" y1="125" x2="235" y2="125" />
+                  <circle cx="150" cy="225" r="32" strokeDasharray="3,3" />
+                  <circle cx="150" cy="225" r="25" />
+                  <path d="M150,212 L150,238 M137,225 L163,225" strokeWidth="2.5" />
+                </g>
+              </svg>
+
+              <div className="space-y-4 relative z-10">
                 <div className="flex items-center justify-between">
                   <span className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase bg-teal-950 border border-teal-800 text-teal-400 font-bold">
                     PATHWAY 3 • EXPORT / PRINT
@@ -1005,7 +1213,7 @@ export default function StartHere() {
                 </div>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 relative z-10">
                 <Link
                   to="/clinician-copilot"
                   className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-sm"
@@ -1203,9 +1411,34 @@ export default function StartHere() {
             {/* PILLAR 1: Fitness */}
             <Link
               to="/fitness"
-              className="p-6 rounded-3xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-900/80 transition-all flex flex-col justify-between space-y-4 group"
+              className="p-6 rounded-3xl backdrop-blur-md bg-gradient-to-br from-amber-950/40 via-slate-900/90 to-emerald-950/40 border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] transition-all duration-300 flex flex-col justify-between space-y-4 group relative overflow-hidden shadow-2xl"
             >
-              <div className="space-y-2">
+              {/* Content-Specific Ambient Glows: Multi-Spectrum Gold, Teal & Rose */}
+              <div className="absolute -top-10 -left-10 w-36 h-36 bg-[#f59e0b] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute top-1/2 -right-10 w-32 h-32 bg-[#14b8a6] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute -bottom-10 left-1/3 w-32 h-32 bg-[#f43f5e] rounded-full filter blur-2xl opacity-15 pointer-events-none" />
+
+              {/* Background Overlay: Subtle 6-node hex grid connecting the 6 longevity pillars */}
+              <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 240">
+                <g fill="none" stroke="currentColor" strokeWidth="1.2" className="text-amber-400">
+                  <polygon points="150,30 230,75 230,165 150,210 70,165 70,75" strokeDasharray="4,4" />
+                  <line x1="150" y1="120" x2="150" y2="30" />
+                  <line x1="150" y1="120" x2="230" y2="75" />
+                  <line x1="150" y1="120" x2="230" y2="165" />
+                  <line x1="150" y1="120" x2="150" y2="210" />
+                  <line x1="150" y1="120" x2="70" y2="165" />
+                  <line x1="150" y1="120" x2="70" y2="75" />
+                  <circle cx="150" cy="30" r="5" fill="#f59e0b" />
+                  <circle cx="230" cy="75" r="5" fill="#14b8a6" />
+                  <circle cx="230" cy="165" r="5" fill="#8b5cf6" />
+                  <circle cx="150" cy="210" r="5" fill="#f43f5e" />
+                  <circle cx="70" cy="165" r="5" fill="#06b6d4" />
+                  <circle cx="70" cy="75" r="5" fill="#3b82f6" />
+                  <circle cx="150" cy="120" r="3" fill="currentColor" />
+                </g>
+              </svg>
+
+              <div className="space-y-2 relative z-10">
                 <div className="text-2xl">⚡</div>
                 <h3 className="text-base font-display font-black uppercase text-white group-hover:text-cyan-400 transition-colors">
                   Pillar 1: Movement &amp; Bio-Data
@@ -1214,7 +1447,7 @@ export default function StartHere() {
                   Zone 2 mitochondrial density, hypertrophic resistance training, wearable biosensing, and cold/heat thermogenesis.
                 </p>
               </div>
-              <div className="text-xs text-cyan-400 font-bold flex items-center gap-1">
+              <div className="text-xs text-cyan-400 font-bold flex items-center gap-1 relative z-10">
                 <span>Explore Fitness Pillar</span>
                 <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </div>
@@ -1223,9 +1456,34 @@ export default function StartHere() {
             {/* PILLAR 2: Nutrition */}
             <Link
               to="/nutrition"
-              className="p-6 rounded-3xl bg-slate-900/50 border border-slate-800 hover:border-teal-500/50 hover:bg-slate-900/80 transition-all flex flex-col justify-between space-y-4 group"
+              className="p-6 rounded-3xl backdrop-blur-md bg-gradient-to-br from-amber-950/40 via-slate-900/90 to-emerald-950/40 border border-slate-800 hover:border-teal-500/50 hover:shadow-[0_0_25px_rgba(20,184,166,0.15)] transition-all duration-300 flex flex-col justify-between space-y-4 group relative overflow-hidden shadow-2xl"
             >
-              <div className="space-y-2">
+              {/* Content-Specific Ambient Glows: Multi-Spectrum Gold, Teal & Rose */}
+              <div className="absolute -top-10 -left-10 w-36 h-36 bg-[#f59e0b] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute top-1/2 -right-10 w-32 h-32 bg-[#14b8a6] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute -bottom-10 left-1/3 w-32 h-32 bg-[#f43f5e] rounded-full filter blur-2xl opacity-15 pointer-events-none" />
+
+              {/* Background Overlay: Subtle 6-node hex grid */}
+              <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 240">
+                <g fill="none" stroke="currentColor" strokeWidth="1.2" className="text-teal-400">
+                  <polygon points="150,30 230,75 230,165 150,210 70,165 70,75" strokeDasharray="4,4" />
+                  <line x1="150" y1="120" x2="150" y2="30" />
+                  <line x1="150" y1="120" x2="230" y2="75" />
+                  <line x1="150" y1="120" x2="230" y2="165" />
+                  <line x1="150" y1="120" x2="150" y2="210" />
+                  <line x1="150" y1="120" x2="70" y2="165" />
+                  <line x1="150" y1="120" x2="70" y2="75" />
+                  <circle cx="150" cy="30" r="5" fill="#f59e0b" />
+                  <circle cx="230" cy="75" r="5" fill="#14b8a6" />
+                  <circle cx="230" cy="165" r="5" fill="#8b5cf6" />
+                  <circle cx="150" cy="210" r="5" fill="#f43f5e" />
+                  <circle cx="70" cy="165" r="5" fill="#06b6d4" />
+                  <circle cx="70" cy="75" r="5" fill="#3b82f6" />
+                  <circle cx="150" cy="120" r="3" fill="currentColor" />
+                </g>
+              </svg>
+
+              <div className="space-y-2 relative z-10">
                 <div className="text-2xl">🥗</div>
                 <h3 className="text-base font-display font-black uppercase text-white group-hover:text-teal-400 transition-colors">
                   Pillar 2: Metabolic Nutrition
@@ -1234,7 +1492,7 @@ export default function StartHere() {
                   Continuous glucose monitoring, glycemic stability, micronutrient density, and muscle-sparing fasting protocols.
                 </p>
               </div>
-              <div className="text-xs text-teal-400 font-bold flex items-center gap-1">
+              <div className="text-xs text-teal-400 font-bold flex items-center gap-1 relative z-10">
                 <span>Explore Nutrition Pillar</span>
                 <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </div>
@@ -1243,9 +1501,34 @@ export default function StartHere() {
             {/* PILLAR 3: Neurowellness */}
             <Link
               to="/neurowellness"
-              className="p-6 rounded-3xl bg-slate-900/50 border border-slate-800 hover:border-purple-500/50 hover:bg-slate-900/80 transition-all flex flex-col justify-between space-y-4 group"
+              className="p-6 rounded-3xl backdrop-blur-md bg-gradient-to-br from-amber-950/40 via-slate-900/90 to-emerald-950/40 border border-slate-800 hover:border-purple-500/50 hover:shadow-[0_0_25px_rgba(168,85,247,0.15)] transition-all duration-300 flex flex-col justify-between space-y-4 group relative overflow-hidden shadow-2xl"
             >
-              <div className="space-y-2">
+              {/* Content-Specific Ambient Glows: Multi-Spectrum Gold, Teal & Rose */}
+              <div className="absolute -top-10 -left-10 w-36 h-36 bg-[#f59e0b] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute top-1/2 -right-10 w-32 h-32 bg-[#14b8a6] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute -bottom-10 left-1/3 w-32 h-32 bg-[#8b5cf6] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+
+              {/* Background Overlay: Subtle 6-node hex grid */}
+              <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 240">
+                <g fill="none" stroke="currentColor" strokeWidth="1.2" className="text-purple-400">
+                  <polygon points="150,30 230,75 230,165 150,210 70,165 70,75" strokeDasharray="4,4" />
+                  <line x1="150" y1="120" x2="150" y2="30" />
+                  <line x1="150" y1="120" x2="230" y2="75" />
+                  <line x1="150" y1="120" x2="230" y2="165" />
+                  <line x1="150" y1="120" x2="150" y2="210" />
+                  <line x1="150" y1="120" x2="70" y2="165" />
+                  <line x1="150" y1="120" x2="70" y2="75" />
+                  <circle cx="150" cy="30" r="5" fill="#f59e0b" />
+                  <circle cx="230" cy="75" r="5" fill="#14b8a6" />
+                  <circle cx="230" cy="165" r="5" fill="#8b5cf6" />
+                  <circle cx="150" cy="210" r="5" fill="#f43f5e" />
+                  <circle cx="70" cy="165" r="5" fill="#06b6d4" />
+                  <circle cx="70" cy="75" r="5" fill="#3b82f6" />
+                  <circle cx="150" cy="120" r="3" fill="currentColor" />
+                </g>
+              </svg>
+
+              <div className="space-y-2 relative z-10">
                 <div className="text-2xl">🧠</div>
                 <h3 className="text-base font-display font-black uppercase text-white group-hover:text-purple-400 transition-colors">
                   Pillar 3: Neurowellness &amp; Autonomics
@@ -1254,7 +1537,7 @@ export default function StartHere() {
                   Non-invasive vagus nerve stimulation (VNS), deep sleep architecture, somatic breathwork, and neuro-resilience.
                 </p>
               </div>
-              <div className="text-xs text-purple-400 font-bold flex items-center gap-1">
+              <div className="text-xs text-purple-400 font-bold flex items-center gap-1 relative z-10">
                 <span>Explore Neurowellness Pillar</span>
                 <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </div>
@@ -1263,9 +1546,34 @@ export default function StartHere() {
             {/* PILLAR 4: Women's Health */}
             <Link
               to="/womens-health"
-              className="p-6 rounded-3xl bg-slate-900/50 border border-slate-800 hover:border-pink-500/50 hover:bg-slate-900/80 transition-all flex flex-col justify-between space-y-4 group"
+              className="p-6 rounded-3xl backdrop-blur-md bg-gradient-to-br from-amber-950/40 via-slate-900/90 to-emerald-950/40 border border-slate-800 hover:border-pink-500/50 hover:shadow-[0_0_25px_rgba(244,63,94,0.15)] transition-all duration-300 flex flex-col justify-between space-y-4 group relative overflow-hidden shadow-2xl"
             >
-              <div className="space-y-2">
+              {/* Content-Specific Ambient Glows: Multi-Spectrum Gold, Teal & Rose */}
+              <div className="absolute -top-10 -left-10 w-36 h-36 bg-[#f59e0b] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute top-1/2 -right-10 w-32 h-32 bg-[#14b8a6] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute -bottom-10 left-1/3 w-32 h-32 bg-[#f43f5e] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+
+              {/* Background Overlay: Subtle 6-node hex grid */}
+              <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 240">
+                <g fill="none" stroke="currentColor" strokeWidth="1.2" className="text-pink-400">
+                  <polygon points="150,30 230,75 230,165 150,210 70,165 70,75" strokeDasharray="4,4" />
+                  <line x1="150" y1="120" x2="150" y2="30" />
+                  <line x1="150" y1="120" x2="230" y2="75" />
+                  <line x1="150" y1="120" x2="230" y2="165" />
+                  <line x1="150" y1="120" x2="150" y2="210" />
+                  <line x1="150" y1="120" x2="70" y2="165" />
+                  <line x1="150" y1="120" x2="70" y2="75" />
+                  <circle cx="150" cy="30" r="5" fill="#f59e0b" />
+                  <circle cx="230" cy="75" r="5" fill="#14b8a6" />
+                  <circle cx="230" cy="165" r="5" fill="#8b5cf6" />
+                  <circle cx="150" cy="210" r="5" fill="#f43f5e" />
+                  <circle cx="70" cy="165" r="5" fill="#06b6d4" />
+                  <circle cx="70" cy="75" r="5" fill="#3b82f6" />
+                  <circle cx="150" cy="120" r="3" fill="currentColor" />
+                </g>
+              </svg>
+
+              <div className="space-y-2 relative z-10">
                 <div className="text-2xl">🌸</div>
                 <h3 className="text-base font-display font-black uppercase text-white group-hover:text-pink-400 transition-colors">
                   Pillar 4: Women's Longevity
@@ -1274,7 +1582,7 @@ export default function StartHere() {
                   Ovarian healthspan preservation, peri-menopause metabolic shifts, bone mineral density, and hormone balance.
                 </p>
               </div>
-              <div className="text-xs text-pink-400 font-bold flex items-center gap-1">
+              <div className="text-xs text-pink-400 font-bold flex items-center gap-1 relative z-10">
                 <span>Explore Women's Health</span>
                 <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </div>
@@ -1283,9 +1591,34 @@ export default function StartHere() {
             {/* PILLAR 5: Social Fitness */}
             <Link
               to="/social-fitness"
-              className="p-6 rounded-3xl bg-slate-900/50 border border-slate-800 hover:border-amber-500/50 hover:bg-slate-900/80 transition-all flex flex-col justify-between space-y-4 group"
+              className="p-6 rounded-3xl backdrop-blur-md bg-gradient-to-br from-amber-950/40 via-slate-900/90 to-emerald-950/40 border border-slate-800 hover:border-amber-500/50 hover:shadow-[0_0_25px_rgba(245,158,11,0.15)] transition-all duration-300 flex flex-col justify-between space-y-4 group relative overflow-hidden shadow-2xl"
             >
-              <div className="space-y-2">
+              {/* Content-Specific Ambient Glows: Multi-Spectrum Gold, Teal & Rose */}
+              <div className="absolute -top-10 -left-10 w-36 h-36 bg-[#f59e0b] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute top-1/2 -right-10 w-32 h-32 bg-[#14b8a6] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute -bottom-10 left-1/3 w-32 h-32 bg-[#f43f5e] rounded-full filter blur-2xl opacity-15 pointer-events-none" />
+
+              {/* Background Overlay: Subtle 6-node hex grid */}
+              <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 240">
+                <g fill="none" stroke="currentColor" strokeWidth="1.2" className="text-amber-400">
+                  <polygon points="150,30 230,75 230,165 150,210 70,165 70,75" strokeDasharray="4,4" />
+                  <line x1="150" y1="120" x2="150" y2="30" />
+                  <line x1="150" y1="120" x2="230" y2="75" />
+                  <line x1="150" y1="120" x2="230" y2="165" />
+                  <line x1="150" y1="120" x2="150" y2="210" />
+                  <line x1="150" y1="120" x2="70" y2="165" />
+                  <line x1="150" y1="120" x2="70" y2="75" />
+                  <circle cx="150" cy="30" r="5" fill="#f59e0b" />
+                  <circle cx="230" cy="75" r="5" fill="#14b8a6" />
+                  <circle cx="230" cy="165" r="5" fill="#8b5cf6" />
+                  <circle cx="150" cy="210" r="5" fill="#f43f5e" />
+                  <circle cx="70" cy="165" r="5" fill="#06b6d4" />
+                  <circle cx="70" cy="75" r="5" fill="#3b82f6" />
+                  <circle cx="150" cy="120" r="3" fill="currentColor" />
+                </g>
+              </svg>
+
+              <div className="space-y-2 relative z-10">
                 <div className="text-2xl">🏛️</div>
                 <h3 className="text-base font-display font-black uppercase text-white group-hover:text-amber-400 transition-colors">
                   Pillar 5: Socio-Biological Architecture
@@ -1294,7 +1627,7 @@ export default function StartHere() {
                   Community wellness dynamics, pickleball ecosystems, cortisol-buffering social circles, and longevity tribes.
                 </p>
               </div>
-              <div className="text-xs text-amber-400 font-bold flex items-center gap-1">
+              <div className="text-xs text-amber-400 font-bold flex items-center gap-1 relative z-10">
                 <span>Explore Social Fitness</span>
                 <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </div>
@@ -1303,9 +1636,34 @@ export default function StartHere() {
             {/* PILLAR 6: Sovereign Store */}
             <Link
               to="/store"
-              className="p-6 rounded-3xl bg-slate-900/50 border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-900/80 transition-all flex flex-col justify-between space-y-4 group"
+              className="p-6 rounded-3xl backdrop-blur-md bg-gradient-to-br from-amber-950/40 via-slate-900/90 to-emerald-950/40 border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] transition-all duration-300 flex flex-col justify-between space-y-4 group relative overflow-hidden shadow-2xl"
             >
-              <div className="space-y-2">
+              {/* Content-Specific Ambient Glows: Multi-Spectrum Gold, Teal & Rose */}
+              <div className="absolute -top-10 -left-10 w-36 h-36 bg-[#f59e0b] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute top-1/2 -right-10 w-32 h-32 bg-[#14b8a6] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute -bottom-10 left-1/3 w-32 h-32 bg-[#06b6d4] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+
+              {/* Background Overlay: Subtle 6-node hex grid */}
+              <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 240">
+                <g fill="none" stroke="currentColor" strokeWidth="1.2" className="text-cyan-400">
+                  <polygon points="150,30 230,75 230,165 150,210 70,165 70,75" strokeDasharray="4,4" />
+                  <line x1="150" y1="120" x2="150" y2="30" />
+                  <line x1="150" y1="120" x2="230" y2="75" />
+                  <line x1="150" y1="120" x2="230" y2="165" />
+                  <line x1="150" y1="120" x2="150" y2="210" />
+                  <line x1="150" y1="120" x2="70" y2="165" />
+                  <line x1="150" y1="120" x2="70" y2="75" />
+                  <circle cx="150" cy="30" r="5" fill="#f59e0b" />
+                  <circle cx="230" cy="75" r="5" fill="#14b8a6" />
+                  <circle cx="230" cy="165" r="5" fill="#8b5cf6" />
+                  <circle cx="150" cy="210" r="5" fill="#f43f5e" />
+                  <circle cx="70" cy="165" r="5" fill="#06b6d4" />
+                  <circle cx="70" cy="75" r="5" fill="#3b82f6" />
+                  <circle cx="150" cy="120" r="3" fill="currentColor" />
+                </g>
+              </svg>
+
+              <div className="space-y-2 relative z-10">
                 <div className="text-2xl">🛒</div>
                 <h3 className="text-base font-display font-black uppercase text-white group-hover:text-cyan-400 transition-colors">
                   Pillar 6: Sovereign Longevity Store
@@ -1314,7 +1672,7 @@ export default function StartHere() {
                   Curated regional medical gear: Quest, LOLA, Eurofins blood panels, 10-parameter dipsticks, and digital stethoscopes.
                 </p>
               </div>
-              <div className="text-xs text-cyan-400 font-bold flex items-center gap-1">
+              <div className="text-xs text-cyan-400 font-bold flex items-center gap-1 relative z-10">
                 <span>Visit Sovereign Store</span>
                 <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
               </div>

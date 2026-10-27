@@ -311,9 +311,20 @@ export const MasterOverview: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 text-left">
             
             {/* Tier 1 */}
-            <div className="rounded-3xl bg-slate-900/80 border border-cyan-500/30 hover:border-cyan-400/80 transition-all duration-500 flex flex-col justify-between shadow-2xl relative group overflow-hidden hover:shadow-[0_0_40px_rgba(6,182,212,0.25)] hover:-translate-y-1">
+            <div className="rounded-3xl backdrop-blur-md bg-gradient-to-br from-emerald-950/60 via-slate-900/90 to-teal-950/50 border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] transition-all duration-300 flex flex-col justify-between shadow-2xl relative group overflow-hidden hover:-translate-y-1">
+              {/* Content-Specific Ambient Glows: Warm Emerald & Solar Amber */}
+              <div className="absolute -top-10 -left-10 w-44 h-44 bg-[#10b981] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-[#f59e0b] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+
+              {/* Background Overlay: Soft organic pulse waves / breath wave vector graphics */}
+              <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 400 300">
+                <path d="M0,150 C80,110 120,190 200,150 C280,110 320,190 400,150 L400,300 L0,300 Z" fill="currentColor" className="text-emerald-400" />
+                <path d="M0,130 C70,160 140,100 200,130 C270,160 330,100 400,130" fill="none" stroke="currentColor" strokeWidth="2" className="text-teal-400" />
+                <path d="M0,170 C90,140 130,200 200,170 C270,140 310,200 400,170" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-amber-400" />
+              </svg>
+
               {/* Dedicated Visual Artwork Window */}
-              <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-950 border-b border-slate-800/60">
+              <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-950 border-b border-slate-800/60 z-10">
                 <img
                   src="/assets/tier1_hardware_bg.jpg"
                   alt="Daily Biological Hardware"
@@ -338,10 +349,10 @@ export const MasterOverview: React.FC = () => {
               </div>
 
               {/* Glowing Top Accent Line */}
-              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-80 group-hover:opacity-100 group-hover:h-[3px] transition-all" />
+              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-80 group-hover:opacity-100 group-hover:h-[3px] transition-all z-10" />
 
               {/* Card Body Content */}
-              <div className="p-6 sm:p-7 pt-3 flex flex-col justify-between flex-1 space-y-5">
+              <div className="p-6 sm:p-7 pt-3 flex flex-col justify-between flex-1 space-y-5 relative z-10">
                 <div className="space-y-4">
                   <div>
                     <h3 className="text-xl font-display uppercase tracking-tight font-black text-white group-hover:text-cyan-300 transition-colors">
@@ -372,9 +383,28 @@ export const MasterOverview: React.FC = () => {
             </div>
 
             {/* Tier 2 */}
-            <div className="rounded-3xl bg-slate-900/80 border border-rose-500/30 hover:border-rose-400/80 transition-all duration-500 flex flex-col justify-between shadow-2xl relative group overflow-hidden hover:shadow-[0_0_40px_rgba(244,63,94,0.25)] hover:-translate-y-1">
+            <div className="rounded-3xl backdrop-blur-md bg-gradient-to-br from-rose-950/60 via-slate-900/90 to-red-950/40 border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] transition-all duration-300 flex flex-col justify-between shadow-2xl relative group overflow-hidden hover:-translate-y-1">
+              {/* Content-Specific Ambient Glows: Ruby Crimson & Deep Rose */}
+              <div className="absolute -top-10 -left-10 w-44 h-44 bg-[#e11d48] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-rose-700 rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+
+              {/* Background Overlay: Subtle vascular branch / arterial pulse network SVG watermark */}
+              <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 300">
+                <g fill="none" stroke="currentColor" strokeWidth="1.5" className="text-rose-400">
+                  <path d="M150,0 Q140,80 150,150 T150,300" strokeWidth="2.5" />
+                  <path d="M150,90 Q90,120 40,110" />
+                  <path d="M150,130 Q210,160 270,140" />
+                  <path d="M150,190 Q80,220 20,240" />
+                  <path d="M150,220 Q220,250 280,270" />
+                  <circle cx="40" cy="110" r="3" fill="currentColor" />
+                  <circle cx="270" cy="140" r="3" fill="currentColor" />
+                  <circle cx="20" cy="240" r="3" fill="currentColor" />
+                  <circle cx="280" cy="270" r="3" fill="currentColor" />
+                </g>
+              </svg>
+
               {/* Dedicated Visual Artwork Window */}
-              <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-950 border-b border-slate-800/60">
+              <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-950 border-b border-slate-800/60 z-10">
                 <img
                   src="/assets/tier2_endocrine_bg.jpg"
                   alt="Biology-Specific Calibration"
@@ -399,10 +429,10 @@ export const MasterOverview: React.FC = () => {
               </div>
 
               {/* Glowing Top Accent Line */}
-              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-rose-400 to-transparent opacity-80 group-hover:opacity-100 group-hover:h-[3px] transition-all" />
+              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-rose-400 to-transparent opacity-80 group-hover:opacity-100 group-hover:h-[3px] transition-all z-10" />
 
               {/* Card Body Content */}
-              <div className="p-6 sm:p-7 pt-3 flex flex-col justify-between flex-1 space-y-5">
+              <div className="p-6 sm:p-7 pt-3 flex flex-col justify-between flex-1 space-y-5 relative z-10">
                 <div className="space-y-4">
                   <div>
                     <h3 className="text-xl font-display uppercase tracking-tight font-black text-white group-hover:text-rose-300 transition-colors">
@@ -433,9 +463,25 @@ export const MasterOverview: React.FC = () => {
             </div>
 
             {/* Tier 3 */}
-            <div className="rounded-3xl bg-slate-900/80 border border-amber-500/30 hover:border-amber-400/80 transition-all duration-500 flex flex-col justify-between shadow-2xl relative group overflow-hidden hover:shadow-[0_0_40px_rgba(245,158,11,0.25)] hover:-translate-y-1">
+            <div className="rounded-3xl backdrop-blur-md bg-gradient-to-br from-indigo-950/60 via-slate-900/90 to-purple-950/50 border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] transition-all duration-300 flex flex-col justify-between shadow-2xl relative group overflow-hidden hover:-translate-y-1">
+              {/* Content-Specific Ambient Glows: Deep Electric Cyan & Violet */}
+              <div className="absolute -top-10 -left-10 w-44 h-44 bg-[#06b6d4] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+              <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-[#8b5cf6] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+
+              {/* Background Overlay: Subtle digital grid / DNA helix vector watermark */}
+              <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
+                <g className="text-cyan-400" stroke="currentColor" strokeWidth="1.5" fill="none">
+                  <path d="M 0,40 Q 60,10 120,40 T 240,40 T 360,40 T 480,40" opacity="0.8" />
+                  <path d="M 0,40 Q 60,70 120,40 T 240,40 T 360,40 T 480,40" opacity="0.8" />
+                  <line x1="60" y1="25" x2="60" y2="55" strokeWidth="1" strokeDasharray="2,2" />
+                  <line x1="180" y1="25" x2="180" y2="55" strokeWidth="1" strokeDasharray="2,2" />
+                  <line x1="300" y1="25" x2="300" y2="55" strokeWidth="1" strokeDasharray="2,2" />
+                  <line x1="420" y1="25" x2="420" y2="55" strokeWidth="1" strokeDasharray="2,2" />
+                </g>
+              </svg>
+
               {/* Dedicated Visual Artwork Window */}
-              <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-950 border-b border-slate-800/60">
+              <div className="relative h-48 sm:h-52 w-full overflow-hidden bg-slate-950 border-b border-slate-800/60 z-10">
                 <img
                   src="/assets/tier3_radar_bg.jpg"
                   alt="Diagnostic Radar & Epigenetics"
@@ -460,10 +506,10 @@ export const MasterOverview: React.FC = () => {
               </div>
 
               {/* Glowing Top Accent Line */}
-              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-80 group-hover:opacity-100 group-hover:h-[3px] transition-all" />
+              <div className="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-80 group-hover:opacity-100 group-hover:h-[3px] transition-all z-10" />
 
               {/* Card Body Content */}
-              <div className="p-6 sm:p-7 pt-3 flex flex-col justify-between flex-1 space-y-5">
+              <div className="p-6 sm:p-7 pt-3 flex flex-col justify-between flex-1 space-y-5 relative z-10">
                 <div className="space-y-4">
                   <div>
                     <h3 className="text-xl font-display uppercase tracking-tight font-black text-white group-hover:text-amber-300 transition-colors">
@@ -519,14 +565,39 @@ export const MasterOverview: React.FC = () => {
               return (
                 <div 
                   key={pillar.id}
-                  className={`rounded-3xl bg-slate-900/80 border transition-all duration-500 flex flex-col justify-between shadow-2xl relative group overflow-hidden hover:-translate-y-1 ${pillar.accentBorder} ${pillar.accentGlow} ${
+                  className={`rounded-3xl backdrop-blur-md bg-gradient-to-br from-amber-950/40 via-slate-900/90 to-emerald-950/40 border transition-all duration-300 flex flex-col justify-between shadow-2xl relative group overflow-hidden hover:-translate-y-1 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] ${pillar.accentBorder} ${pillar.accentGlow} ${
                     isExpanded 
                       ? 'border-cyan-500/70 shadow-[0_0_30px_rgba(6,182,212,0.18)] ring-1 ring-cyan-500/30' 
                       : 'border-slate-800'
                   }`}
                 >
+                  {/* Content-Specific Ambient Glows: Multi-Spectrum Gold, Teal & Rose aura mesh */}
+                  <div className="absolute -top-10 -left-10 w-36 h-36 bg-[#f59e0b] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+                  <div className="absolute top-1/2 -right-10 w-32 h-32 bg-[#14b8a6] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+                  <div className="absolute -bottom-10 left-1/3 w-32 h-32 bg-[#f43f5e] rounded-full filter blur-2xl opacity-15 pointer-events-none" />
+
+                  {/* Background Overlay: Subtle 6-node hex grid connecting the 6 longevity pillars */}
+                  <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 240">
+                    <g fill="none" stroke="currentColor" strokeWidth="1.2" className="text-amber-400">
+                      <polygon points="150,30 230,75 230,165 150,210 70,165 70,75" strokeDasharray="4,4" />
+                      <line x1="150" y1="120" x2="150" y2="30" />
+                      <line x1="150" y1="120" x2="230" y2="75" />
+                      <line x1="150" y1="120" x2="230" y2="165" />
+                      <line x1="150" y1="120" x2="150" y2="210" />
+                      <line x1="150" y1="120" x2="70" y2="165" />
+                      <line x1="150" y1="120" x2="70" y2="75" />
+                      <circle cx="150" cy="30" r="5" fill="#f59e0b" />
+                      <circle cx="230" cy="75" r="5" fill="#14b8a6" />
+                      <circle cx="230" cy="165" r="5" fill="#8b5cf6" />
+                      <circle cx="150" cy="210" r="5" fill="#f43f5e" />
+                      <circle cx="70" cy="165" r="5" fill="#06b6d4" />
+                      <circle cx="70" cy="75" r="5" fill="#3b82f6" />
+                      <circle cx="150" cy="120" r="3" fill="currentColor" />
+                    </g>
+                  </svg>
+
                   {/* Dedicated Visual Artwork Window */}
-                  <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-slate-950 border-b border-slate-800/60">
+                  <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-slate-950 border-b border-slate-800/60 z-10">
                     <img
                       src={pillar.image}
                       alt={pillar.name}
@@ -551,10 +622,10 @@ export const MasterOverview: React.FC = () => {
                   </div>
 
                   {/* Glowing Top Accent Line */}
-                  <div className={`absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent ${pillar.topLine} to-transparent opacity-80 group-hover:opacity-100 group-hover:h-[3px] transition-all`} />
+                  <div className={`absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent ${pillar.topLine} to-transparent opacity-80 group-hover:opacity-100 group-hover:h-[3px] transition-all z-10`} />
 
                   {/* Card Body Content */}
-                  <div className="p-6 pt-3 flex flex-col justify-between flex-1 space-y-4">
+                  <div className="p-6 pt-3 flex flex-col justify-between flex-1 space-y-4 relative z-10">
                     <div className="space-y-3">
                       <div>
                         <h3 className={`text-lg font-bold text-white transition-colors ${pillar.hoverText}`}>
@@ -1002,8 +1073,10 @@ export const MasterOverview: React.FC = () => {
         {/* ========================================================================= */}
         {/* SECTION E: FRICTIONLESS NEXT-STEP ACTIONS                                  */}
         {/* ========================================================================= */}
-        <section className="p-8 sm:p-12 rounded-3xl bg-slate-900 border border-slate-800 text-center space-y-8 shadow-2xl relative overflow-hidden">
-          <div className="space-y-3 max-w-2xl mx-auto">
+        <section className="p-8 sm:p-12 rounded-3xl backdrop-blur-md bg-gradient-to-br from-slate-900 via-slate-900/90 to-cyan-950/40 border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] transition-all duration-300 text-center space-y-8 shadow-2xl relative overflow-hidden">
+          <div className="absolute -top-16 -left-16 w-64 h-64 bg-cyan-500/15 rounded-full filter blur-2xl pointer-events-none" />
+          <div className="absolute -bottom-16 -right-16 w-64 h-64 bg-emerald-500/15 rounded-full filter blur-2xl pointer-events-none" />
+          <div className="space-y-3 max-w-2xl mx-auto relative z-10">
             <span className="inline-block text-[10px] font-mono uppercase tracking-widest text-emerald-400 font-bold bg-emerald-950/60 border border-emerald-800/60 px-3 py-1 rounded-full">
               NEXT-STEP TRAJECTORY
             </span>

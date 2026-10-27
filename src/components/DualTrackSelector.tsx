@@ -274,48 +274,54 @@ export const DualTrackSelector: React.FC<DualTrackSelectorProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
             
             {/* Left Column: Type 1 Quarterly Laboratory Urinalysis */}
-            <div className="p-4 sm:p-5 rounded-xl bg-slate-950/80 border border-cyan-500/30 space-y-2.5">
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-300 font-bold bg-cyan-950 px-2 py-0.5 rounded border border-cyan-800">
-                  Type 1: Lab-Based
-                </span>
-                <span className="text-[10px] font-mono text-cyan-400 font-semibold flex items-center gap-1">
-                  <Calendar size={11} />
-                  Every 90 Days
-                </span>
-              </div>
-              <h5 className="text-sm font-display font-bold text-white tracking-tight">
-                Type 1: Quarterly Laboratory Urinalysis (Lab-Based)
-              </h5>
-              <p className="text-xs text-slate-300 leading-relaxed font-light">
-                <strong>Purpose:</strong> Evaluates Urine Albumin-to-Creatinine Ratio (ACR), microalbuminuria, and renal sediment at an accredited pathology clinic every 90 days.
-              </p>
-              <div className="pt-1 flex items-center gap-1.5 text-[11px] text-cyan-300/90 font-mono">
-                <ShieldCheck size={12} className="text-cyan-400 shrink-0" />
-                <span>Deep structural microvascular &amp; renal filtration validation</span>
+            <div className="p-4 sm:p-5 rounded-2xl backdrop-blur-md bg-slate-900/80 border border-cyan-500/30 hover:border-cyan-500/50 hover:shadow-[0_0_20px_rgba(6,182,212,0.12)] transition-all duration-300 space-y-2.5 relative overflow-hidden group">
+              <div className="absolute -top-8 -right-8 w-24 h-24 bg-cyan-500/10 rounded-full blur-xl pointer-events-none" />
+              <div className="relative z-10 space-y-2.5">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-300 font-bold bg-cyan-950 px-2 py-0.5 rounded border border-cyan-800">
+                    Type 1: Lab-Based
+                  </span>
+                  <span className="text-[10px] font-mono text-cyan-400 font-semibold flex items-center gap-1">
+                    <Calendar size={11} />
+                    Every 90 Days
+                  </span>
+                </div>
+                <h5 className="text-sm font-display font-bold text-white tracking-tight">
+                  Type 1: Quarterly Laboratory Urinalysis (Lab-Based)
+                </h5>
+                <p className="text-xs text-slate-300 leading-relaxed font-light">
+                  <strong>Purpose:</strong> Evaluates Urine Albumin-to-Creatinine Ratio (ACR), microalbuminuria, and renal sediment at an accredited pathology clinic every 90 days.
+                </p>
+                <div className="pt-1 flex items-center gap-1.5 text-[11px] text-cyan-300/90 font-mono">
+                  <ShieldCheck size={12} className="text-cyan-400 shrink-0" />
+                  <span>Deep structural microvascular &amp; renal filtration validation</span>
+                </div>
               </div>
             </div>
 
             {/* Right Column: Type 2 Weekly At-Home Rapid Dipsticks */}
-            <div className="p-4 sm:p-5 rounded-xl bg-slate-950/80 border border-emerald-500/30 space-y-2.5">
-              <div className="flex items-center justify-between gap-2">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-300 font-bold bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">
-                  Type 2: Self-Assessed
-                </span>
-                <span className="text-[10px] font-mono text-emerald-400 font-semibold flex items-center gap-1">
-                  <Clock size={11} />
-                  Every 7 Days (60s)
-                </span>
-              </div>
-              <h5 className="text-sm font-display font-bold text-white tracking-tight">
-                Type 2: Weekly At-Home Rapid Dipsticks (Self-Assessed)
-              </h5>
-              <p className="text-xs text-slate-300 leading-relaxed font-light">
-                <strong>Purpose:</strong> 60-second bathroom test strips used every 7 days to monitor real-time hydration (specific gravity), pH balance, ketones, and glucose spillovers.
-              </p>
-              <div className="pt-1 flex items-center gap-1.5 text-[11px] text-emerald-300/90 font-mono">
-                <Zap size={12} className="text-emerald-400 shrink-0" />
-                <span>Zero-friction feedback loop responding directly to daily habits</span>
+            <div className="p-4 sm:p-5 rounded-2xl backdrop-blur-md bg-slate-900/80 border border-emerald-500/30 hover:border-emerald-500/50 hover:shadow-[0_0_20px_rgba(16,185,129,0.12)] transition-all duration-300 space-y-2.5 relative overflow-hidden group">
+              <div className="absolute -top-8 -right-8 w-24 h-24 bg-emerald-500/10 rounded-full blur-xl pointer-events-none" />
+              <div className="relative z-10 space-y-2.5">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-300 font-bold bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">
+                    Type 2: Self-Assessed
+                  </span>
+                  <span className="text-[10px] font-mono text-emerald-400 font-semibold flex items-center gap-1">
+                    <Clock size={11} />
+                    Every 7 Days (60s)
+                  </span>
+                </div>
+                <h5 className="text-sm font-display font-bold text-white tracking-tight">
+                  Type 2: Weekly At-Home Rapid Dipsticks (Self-Assessed)
+                </h5>
+                <p className="text-xs text-slate-300 leading-relaxed font-light">
+                  <strong>Purpose:</strong> 60-second bathroom test strips used every 7 days to monitor real-time hydration (specific gravity), pH balance, ketones, and glucose spillovers.
+                </p>
+                <div className="pt-1 flex items-center gap-1.5 text-[11px] text-emerald-300/90 font-mono">
+                  <Zap size={12} className="text-emerald-400 shrink-0" />
+                  <span>Zero-friction feedback loop responding directly to daily habits</span>
+                </div>
               </div>
             </div>
 
@@ -329,9 +335,27 @@ export const DualTrackSelector: React.FC<DualTrackSelectorProps> = ({
         {/* ========================================================================= */}
         {/* TRACK 1: QUARTERLY BIOLOGICAL BASELINE (LAB-BASED)                       */}
         {/* ========================================================================= */}
-        <div className="flex flex-col justify-between rounded-3xl bg-gradient-to-b from-slate-900/90 to-slate-950 border border-cyan-500/30 p-6 sm:p-7 shadow-xl shadow-cyan-950/20 relative group hover:border-cyan-500/50 transition-all duration-300">
+        <div className="flex flex-col justify-between rounded-3xl backdrop-blur-md bg-gradient-to-br from-rose-950/60 via-slate-900/90 to-red-950/40 border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] transition-all duration-300 p-6 sm:p-7 shadow-2xl relative overflow-hidden group">
+          {/* Content-Specific Ambient Glows: Ruby Crimson & Deep Rose */}
+          <div className="absolute -top-10 -left-10 w-44 h-44 bg-[#e11d48] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+          <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-rose-700 rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+
+          {/* Background Overlay: Subtle vascular branch / arterial pulse network SVG watermark */}
+          <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 300">
+            <g fill="none" stroke="currentColor" strokeWidth="1.5" className="text-rose-400">
+              <path d="M150,0 Q140,80 150,150 T150,300" strokeWidth="2.5" />
+              <path d="M150,90 Q90,120 40,110" />
+              <path d="M150,130 Q210,160 270,140" />
+              <path d="M150,190 Q80,220 20,240" />
+              <path d="M150,220 Q220,250 280,270" />
+              <circle cx="40" cy="110" r="3" fill="currentColor" />
+              <circle cx="270" cy="140" r="3" fill="currentColor" />
+              <circle cx="20" cy="240" r="3" fill="currentColor" />
+              <circle cx="280" cy="270" r="3" fill="currentColor" />
+            </g>
+          </svg>
           
-          <div className="space-y-5">
+          <div className="space-y-5 relative z-10">
             {/* Badges Bar */}
             <div className="flex flex-wrap items-center justify-between gap-2.5">
               <span className="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider text-cyan-300 font-bold bg-cyan-950/80 px-3 py-1 rounded-full border border-cyan-500/40 shadow-sm">
@@ -382,7 +406,7 @@ export const DualTrackSelector: React.FC<DualTrackSelectorProps> = ({
           </div>
 
           {/* Action CTAs: Direct Requisition + Download PDF V2 */}
-          <div className="space-y-3 pt-6 mt-6 border-t border-slate-800/80">
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-800/80 relative z-10">
             {/* Primary Order Button */}
             <a
               href={currentData.track1.affiliateUrl}
@@ -416,9 +440,23 @@ export const DualTrackSelector: React.FC<DualTrackSelectorProps> = ({
         {/* ========================================================================= */}
         {/* TRACK 2: WEEKLY MICRO-TELEMETRY (AT-HOME SELF-TEST)                      */}
         {/* ========================================================================= */}
-        <div className="flex flex-col justify-between rounded-3xl bg-gradient-to-b from-slate-900/90 to-slate-950 border border-emerald-500/30 p-6 sm:p-7 shadow-xl shadow-emerald-950/20 relative group hover:border-emerald-500/50 transition-all duration-300">
+        <div className="flex flex-col justify-between rounded-3xl backdrop-blur-md bg-gradient-to-br from-cyan-950/60 via-slate-900/90 to-blue-950/50 border border-slate-800 hover:border-cyan-500/50 hover:shadow-[0_0_25px_rgba(6,182,212,0.15)] transition-all duration-300 p-6 sm:p-7 shadow-2xl relative overflow-hidden group">
+          {/* Content-Specific Ambient Glows: Sapphire Blue & Aqua */}
+          <div className="absolute -top-10 -left-10 w-44 h-44 bg-[#0284c7] rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+          <div className="absolute -bottom-10 -right-10 w-44 h-44 bg-cyan-400 rounded-full filter blur-2xl opacity-20 pointer-events-none" />
+
+          {/* Background Overlay: Hydrodynamic ripple / cellular fluid wave SVG watermark */}
+          <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 300 300">
+            <g fill="none" stroke="currentColor" strokeWidth="1.5" className="text-cyan-400">
+              <circle cx="150" cy="150" r="30" strokeDasharray="3,3" />
+              <circle cx="150" cy="150" r="60" />
+              <circle cx="150" cy="150" r="95" strokeDasharray="5,5" />
+              <circle cx="150" cy="150" r="130" />
+              <path d="M150,135 C146,143 140,150 140,156 C140,161.5 144.5,166 150,166 C155.5,166 160,161.5 160,156 C160,150 154,143 150,135 Z" fill="currentColor" opacity="0.6" />
+            </g>
+          </svg>
           
-          <div className="space-y-5">
+          <div className="space-y-5 relative z-10">
             {/* Badges Bar */}
             <div className="flex flex-wrap items-center justify-between gap-2.5">
               <span className="inline-flex items-center gap-1.5 text-[11px] font-mono uppercase tracking-wider text-emerald-300 font-bold bg-emerald-950/80 px-3 py-1 rounded-full border border-emerald-500/40 shadow-sm">
@@ -489,7 +527,7 @@ export const DualTrackSelector: React.FC<DualTrackSelectorProps> = ({
           </div>
 
           {/* Action CTAs: Direct Product Order */}
-          <div className="space-y-3 pt-6 mt-6 border-t border-slate-800/80">
+          <div className="space-y-3 pt-6 mt-6 border-t border-slate-800/80 relative z-10">
             {/* Primary Order Button */}
             <a
               href={currentData.track2.affiliateUrl}
