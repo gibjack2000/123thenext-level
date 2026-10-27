@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import DiagnosticPathwaySelector from '../components/DiagnosticPathwaySelector';
 import { supabase as importedSupabase, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
+import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
 import { useMarket } from '../contexts/MarketContext';
 import { STOREFRONT_CATEGORIES, normalizeStoreCategory } from './Store';
 import { DigitalGuides } from '../components/DigitalGuides';
