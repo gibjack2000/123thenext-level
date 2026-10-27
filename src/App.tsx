@@ -13,6 +13,7 @@ import Navbar from './components/Navbar';
 import { SplashOverlay } from './components/SplashOverlay';
 import SlideInNewsletter from './components/newsletter/SlideInNewsletter';
 import FloatingShopFAB from './components/FloatingShopFAB';
+import CartDrawer from './components/CartDrawer';
 import { AdminAffiliates } from './pages/AdminAffiliates';
 
 // Transparent redirect from generic /store to active regional storefront (/store-us, /store-uk, /store-es)
@@ -272,6 +273,7 @@ function App() {
           <Footer />
           <SlideInNewsletter />
           <FloatingShopFAB />
+          <CartDrawer />
         </div>
         </MarketProvider>
       </BrowserRouter>

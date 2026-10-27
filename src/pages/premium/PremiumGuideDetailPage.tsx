@@ -22,9 +22,10 @@ interface PurchaseInfo {
 
 export default function PremiumGuideDetailPage() {
   const { slug } = useParams<{ slug: string }>();
-  const { addToCart, isInCart } = useCart();
+  const { addToCart, isInCart, openCart, cartCount, cartSubtotal, currencySymbol } = useCart();
   const [purchaseInfo, setPurchaseInfo] = useState<PurchaseInfo | null>(null);
   const [downloading, setDownloading] = useState(false);
+  const [directCheckoutLoading, setDirectCheckoutLoading] = useState(false);
   const slugAliases: Record<string, string> = {
     // Fitness
     'beginner-home-workout': 'beginner-home-workout-plan',
@@ -178,9 +179,22 @@ export default function PremiumGuideDetailPage() {
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Navigation */}
-        <Link to="/premium-guides" className="inline-flex items-center gap-2 text-slate-400 hover:text-white font-black uppercase tracking-widest text-xs mb-8 transition-colors">
-          <ArrowLeft size={16} /> Back to Premium Guides
-        </Link>
+        <div className="flex items-center justify-between gap-4 mb-8">
+          <Link to="/premium-guides" className="inline-flex items-center gap-2 text-slate-400 hover:text-white font-black uppercase tracking-widest text-xs transition-colors">
+            <ArrowLeft size={16} /> Back to Premium Guides
+          </Link>
+
+          {cartCount > 0 && (
+            <button
+              type="button"
+              onClick={openCart}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 hover:bg-slate-850 border border-slate-700/80 text-cyan-400 rounded-xl text-xs font-bold transition-all shadow-md cursor-pointer group"
+            >
+              <ShoppingCart size={14} className="group-hover:scale-110 transition-transform" />
+              <span>View Cart ({cartCount}) • {currencySymbol}{cartSubtotal.toFixed(2)}</span>
+            </button>
+          )}
+        </div>
 
         {/* Content Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
@@ -259,27 +273,75 @@ export default function PremiumGuideDetailPage() {
                       </span>
                     </div>
 
-                    <button
-                      onClick={() => addToCart(guide)}
-                      disabled={isInCart(guide.id)}
-                      className={`w-full py-4 rounded-2xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2.5 shadow-lg ${
-                        isInCart(guide.id)
-                          ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 cursor-default'
-                          : 'bg-blue-600 hover:bg-blue-500 text-white shadow-blue-600/15'
-                      }`}
-                    >
+                    <div className="space-y-3">
                       {isInCart(guide.id) ? (
-                        <>
-                          <CheckCircle2 size={14} />
-                          <span>Already in Cart</span>
-                        </>
+                        <div className="space-y-3">
+                          <button
+                            type="button"
+                            onClick={openCart}
+                            className="w-full py-4 rounded-2xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2.5 shadow-lg shadow-emerald-500/25 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 cursor-pointer active:scale-98"
+                          >
+                            <ShoppingCart size={16} />
+                            <span>View Cart &amp; Checkout ({currencySymbol}{cartSubtotal.toFixed(2)}) ➔</span>
+                          </button>
+                          <p className="text-[11px] text-center text-emerald-400 font-semibold leading-relaxed">
+                            ✓ Added to your cart. Click above to complete checkout.
+                          </p>
+                        </div>
                       ) : (
-                        <>
-                          <ShoppingCart size={14} />
-                          <span>Add to Cart</span>
-                        </>
+                        <div className="space-y-2.5">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              addToCart(guide);
+                              openCart();
+                            }}
+                            className="w-full py-4 rounded-2xl font-black uppercase tracking-widest text-xs transition-all flex items-center justify-center gap-2.5 shadow-lg shadow-blue-600/25 bg-blue-600 hover:bg-blue-500 text-white cursor-pointer active:scale-98"
+                          >
+                            <ShoppingCart size={16} />
+                            <span>Add to Cart ({guide.priceDisplay})</span>
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={async () => {
+                              setDirectCheckoutLoading(true);
+                              try {
+                                const response = await fetch('/api/create-checkout-session', {
+                                  method: 'POST',
+                                  headers: { 'Content-Type': 'application/json' },
+                                  body: JSON.stringify({
+                                    guideId: guide.id,
+                                    items: [{ id: guide.id, title: guide.title, priceDisplay: guide.priceDisplay }]
+                                  }),
+                                });
+                                const data = await response.json();
+                                if (data.url) {
+                                  window.location.href = data.url;
+                                } else {
+                                  addToCart(guide);
+                                  openCart();
+                                }
+                              } catch {
+                                addToCart(guide);
+                                openCart();
+                              } finally {
+                                setDirectCheckoutLoading(false);
+                              }
+                            }}
+                            disabled={directCheckoutLoading}
+                            className="w-full py-3 rounded-xl border border-slate-750 hover:border-slate-650 bg-slate-850/80 hover:bg-slate-800 text-slate-300 hover:text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98"
+                          >
+                            {directCheckoutLoading ? (
+                              <div className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            ) : (
+                              <Lock size={12} className="text-amber-400" />
+                            )}
+                            <span>Instant 1-Click Buy ({guide.priceDisplay})</span>
+                          </button>
+                        </div>
                       )}
-                    </button>
+                    </div>
                     
                     <div className="flex items-center justify-center gap-2 text-[9px] text-slate-555 font-black uppercase tracking-wider">
                       <ShieldCheck size={12} className="text-blue-500" /> Secure Payment via Stripe

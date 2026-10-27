@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { ShoppingCart } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
+import { useCart } from '../contexts/CartContext';
 import { TickerTapeBanner } from './TickerTapeBanner';
 import { FlagUS, FlagUK, FlagES } from './MarketSelector';
 
 export const Navbar: React.FC = () => {
   const { market, setMarket } = useMarket();
+  const { cartCount, openCart } = useCart();
   const [selectedRegion, setSelectedRegion] = useState<'us' | 'uk' | 'es'>(
     (market?.toLowerCase() as 'us' | 'uk' | 'es') || 'us'
   );
@@ -253,23 +256,71 @@ export const Navbar: React.FC = () => {
           >
             5-Min Quiz ➔
           </Link>
+
+          {/* Cart Trigger Button */}
+          <button
+            type="button"
+            onClick={openCart}
+            aria-label="View Shopping Cart"
+            className="relative px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-850 text-slate-300 hover:text-white transition-all flex items-center gap-1.5 cursor-pointer shadow-sm group"
+          >
+            <ShoppingCart size={15} className="text-cyan-400 group-hover:scale-110 transition-transform" />
+            <span className="text-xs font-bold uppercase tracking-wider hidden xl:inline">Cart</span>
+            {cartCount > 0 && (
+              <span className="flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-black bg-emerald-400 text-slate-950 rounded-full shadow animate-pulse">
+                {cartCount}
+              </span>
+            )}
+          </button>
         </div>
 
-        {/* Mobile Toggle */}
-        <button
-          type="button"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="lg:hidden p-2 text-slate-400 hover:text-white focus:outline-none cursor-pointer"
-          aria-label="Toggle Navigation Menu"
-        >
-          <span className="text-xl">{isMobileMenuOpen ? '✕' : '☰'}</span>
-        </button>
+        {/* Mobile Header Right */}
+        <div className="flex items-center gap-1 lg:hidden">
+          <button
+            type="button"
+            onClick={openCart}
+            aria-label="View Shopping Cart"
+            className="relative p-2 text-slate-300 hover:text-white cursor-pointer"
+          >
+            <ShoppingCart size={19} className="text-cyan-400" />
+            {cartCount > 0 && (
+              <span className="absolute top-1 right-1 flex items-center justify-center min-w-[17px] h-[17px] px-1 text-[10px] font-black bg-emerald-400 text-slate-950 rounded-full shadow">
+                {cartCount}
+              </span>
+            )}
+          </button>
+
+          {/* Mobile Toggle */}
+          <button
+            type="button"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="p-2 text-slate-400 hover:text-white focus:outline-none cursor-pointer"
+            aria-label="Toggle Navigation Menu"
+          >
+            <span className="text-xl">{isMobileMenuOpen ? '✕' : '☰'}</span>
+          </button>
+        </div>
 
       </div>
 
       {/* Mobile Drawer */}
       {isMobileMenuOpen && (
         <div className="lg:hidden bg-slate-950 border-b border-slate-800 px-4 pt-3 pb-6 space-y-2 text-sm animate-fade-in">
+          {cartCount > 0 && (
+            <button
+              type="button"
+              onClick={() => {
+                closeMobileMenu();
+                openCart();
+              }}
+              className="w-full flex items-center justify-between p-2.5 rounded-lg bg-cyan-950/60 border border-cyan-800/80 text-cyan-300 font-bold text-xs uppercase tracking-wider mb-2 cursor-pointer"
+            >
+              <span className="flex items-center gap-2">🛒 View Cart</span>
+              <span className="px-2 py-0.5 rounded-full text-xs font-black bg-emerald-400 text-slate-950">
+                {cartCount} {cartCount === 1 ? 'item' : 'items'}
+              </span>
+            </button>
+          )}
           <Link to="/" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🏠 Home</Link>
           <Link to="/start-here" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🚀 Start Here</Link>
           <Link to="/overview" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🌐 The Big Picture</Link>
