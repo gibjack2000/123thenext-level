@@ -32,34 +32,101 @@ export const Step3GuidingBanner: React.FC<Step3GuidingBannerProps> = ({
       id={id} 
       className={`scroll-mt-28 space-y-6 ${className}`}
     >
-      {/* SECTION HEADER & STEP BADGE */}
-      <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
-        <span className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono font-bold flex items-center justify-center text-sm shrink-0">
-          03
-        </span>
-        <div>
-          <span className="text-[11px] font-mono uppercase text-amber-400 tracking-widest font-bold flex items-center gap-1.5">
-            <Stethoscope size={13} />
-            <span>PHYSICIAN PARTNERSHIP</span>
+      {/* ========================================================================= */}
+      {/* 1. STEP 3 HEADER & INTRO EXPLANATION BANNER                               */}
+      {/* ========================================================================= */}
+      <div className="bg-slate-900/90 border border-sky-500/30 rounded-xl p-6 mb-8 shadow-2xl space-y-6 relative overflow-hidden backdrop-blur-md">
+        {/* Subtle background glow */}
+        <div className="absolute -top-16 -right-16 w-60 h-60 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-16 -left-16 w-60 h-60 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+
+        {/* SECTION TITLE & BADGE */}
+        <div className="flex items-center gap-3 border-b border-slate-800 pb-4 relative z-10">
+          <span className="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-400 font-mono font-bold flex items-center justify-center text-sm shrink-0">
+            03
           </span>
-          <h2 className="text-2xl sm:text-3xl font-display font-black uppercase text-white tracking-tight">
-            Step 3: The Clinician Co-Pilot — From Guessing to Knowing
-          </h2>
+          <div>
+            <span className="text-[11px] font-mono uppercase text-sky-400 tracking-widest font-bold flex items-center gap-1.5">
+              <Stethoscope size={13} />
+              <span>PHYSICIAN PARTNERSHIP</span>
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-display font-black uppercase text-white tracking-tight">
+              Step 3: The Clinician Co-Pilot — From Guessing to Knowing
+            </h2>
+          </div>
         </div>
-      </div>
 
-      {/* COMPREHENSIVE GUIDING INTRO BANNER COPY */}
-      <div className="p-6 sm:p-7 rounded-3xl backdrop-blur-md bg-gradient-to-br from-slate-900 via-slate-900/90 to-amber-950/30 border border-amber-500/30 shadow-2xl space-y-3 relative overflow-hidden">
-        <div className="absolute -top-12 -right-12 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+        {/* BLOOD CHOICE CLARIFICATION BOX */}
+        <div className="p-4 sm:p-5 rounded-xl bg-slate-950/80 border border-sky-500/30 space-y-3 relative z-10">
+          <div className="flex items-center gap-2 text-sky-300 font-bold text-sm sm:text-base font-display tracking-wide">
+            <span className="text-base sm:text-lg">💡</span>
+            <span>Understanding Your Blood Test Options First</span>
+          </div>
 
-        <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-normal relative z-10">
-          Raw biometric data isn&apos;t a diagnosis—it becomes actionable when translated into a structured clinical summary for your doctor.
-        </p>
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+            We recommend choosing one of two clinical blood panels depending on how deep you want to go before logging your data:
+          </p>
 
-        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light relative z-10">
-          Whether you selected <strong className="text-emerald-400 font-bold">Blood Test Choice A (LOLA Essential Check)</strong> for a targeted baseline or <strong className="text-cyan-400 font-bold">Blood Test Choice B (LOLA Vital Check 56)</strong> for full cellular mapping—paired with your weekly home urine dipsticks or quarterly lab ACR—combine your numbers with your 14-day smart scale and wearable telemetry in 3 simple steps:
-        </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+            {/* Choice A Card */}
+            <div className="p-3.5 rounded-lg bg-emerald-950/30 border border-emerald-500/30 space-y-1.5">
+              <div className="text-xs sm:text-sm font-bold text-emerald-400 flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 shrink-0" />
+                <span>Choice A: Essential Baseline Check</span>
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed font-light">
+                A targeted entry-level panel covering core lipids, fasting glucose, HbA1c (90-day sugar trend), and basic organ function.
+              </p>
+            </div>
+
+            {/* Choice B Card */}
+            <div className="p-3.5 rounded-lg bg-cyan-950/30 border border-cyan-500/30 space-y-1.5">
+              <div className="text-xs sm:text-sm font-bold text-cyan-400 flex items-center gap-1.5">
+                <span className="w-2 h-2 rounded-full bg-cyan-400 shrink-0" />
+                <span>Choice B: Comprehensive Cellular Map (Vital Check 56)</span>
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed font-light">
+                Our deep-dive gold standard covering 56 biomarkers, including ApoB (vascular plaque risk), hs-CRP (inflammation), thyroid, hormones, and micronutrients.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* 3-STEP WORKFLOW SUMMARY */}
+        <div className="space-y-3 pt-2 relative z-10 border-t border-slate-800">
+          <h3 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-200">
+            How to Prepare Your GP Brief in 3 Steps:
+          </h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="p-3.5 rounded-lg bg-slate-950/60 border border-slate-800 text-xs text-slate-300 space-y-1.5">
+              <div className="font-bold text-sky-400 flex items-center gap-1.5">
+                <span>1. 📖 Read &amp; Learn:</span>
+              </div>
+              <p className="text-[11px] text-slate-300 leading-relaxed font-light">
+                Use <em>The Next Level Lifespan Educational Workbook (PDF)</em> to decode target ranges.
+              </p>
+            </div>
+
+            <div className="p-3.5 rounded-lg bg-slate-950/60 border border-slate-800 text-xs text-slate-300 space-y-1.5">
+              <div className="font-bold text-amber-400 flex items-center gap-1.5">
+                <span>2. 💻 Log Your Panel:</span>
+              </div>
+              <p className="text-[11px] text-slate-300 leading-relaxed font-light">
+                Open the online form (<code className="text-amber-300 text-[10px] bg-slate-900 px-1 py-0.5 rounded">/clinician-copilot</code>), select Choice A (Essential) or Choice B (Vital 56), and enter your lab numbers alongside your weekly home urine test and smart scale telemetry.
+              </p>
+            </div>
+
+            <div className="p-3.5 rounded-lg bg-slate-950/60 border border-slate-800 text-xs text-slate-300 space-y-1.5">
+              <div className="font-bold text-teal-400 flex items-center gap-1.5">
+                <span>3. 📄 Export for Your GP:</span>
+              </div>
+              <p className="text-[11px] text-slate-300 leading-relaxed font-light">
+                Click to generate your pre-filled 2-Page GP Consultation Brief (or download a blank template) for your doctor appointment.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* 3-STEP QUICK-GUIDE CARDS */}
