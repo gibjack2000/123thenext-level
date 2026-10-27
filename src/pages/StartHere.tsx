@@ -820,31 +820,40 @@ export default function StartHere() {
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
                         <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-emerald-950 border border-emerald-800 text-emerald-400 font-bold">
-                          Essential Starter
+                          {selectedRegion === 'UK' ? 'Choice 1: Essential Baseline Blood Panel (UK 🇬🇧)' : 'Essential Starter'}
                         </span>
                         <span className="text-base font-display font-black text-white">
-                          {selectedRegion === 'US' ? '$89.00' : selectedRegion === 'UK' ? '£69.00' : '59,00 €'}
+                          {selectedRegion === 'US' ? '$89.00' : selectedRegion === 'UK' ? '£89.00' : '59,00 €'}
                         </span>
                       </div>
                       <div>
                         <h3 className="text-lg font-display font-black uppercase text-white">
-                          Essential Baseline Blood Panel
+                          {selectedRegion === 'UK' ? 'LOLA Essential Check' : 'Essential Baseline Blood Panel'}
                         </h3>
                         <p className="text-xs text-slate-300 mt-1 leading-relaxed font-light">
                           Budget-conscious spot-check establishing core lipid fractions, fasting glucose velocity, HbA1c, and basic kidney/liver filtration.
                         </p>
                       </div>
 
+                      {selectedRegion === 'UK' && (
+                        <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200 leading-snug space-y-1">
+                          <span className="font-bold text-amber-300 block text-[11px] uppercase tracking-wider">
+                            Action Required on LOLA Health:
+                          </span>
+                          <p>When you arrive on LOLA Health, select: 'LOLA Essential Check' (Core lipids, HbA1c, glucose, kidney &amp; liver).</p>
+                        </div>
+                      )}
+
                       <div className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-300 space-y-1 font-mono">
                         <div>• Cadence: Every 90 Days</div>
-                        <div>• Fulfillment: {selectedRegion === 'US' ? 'HealthLabs (Quest / Labcorp)' : selectedRegion === 'UK' ? 'LOLA Health Essential' : 'SaludOnNet / Melio ES'}</div>
+                        <div>• Fulfillment: {selectedRegion === 'US' ? 'HealthLabs (Quest / Labcorp)' : selectedRegion === 'UK' ? 'LOLA Health (LOLA Essential Check)' : 'SaludOnNet / Melio ES'}</div>
                       </div>
                     </div>
                   ) : (
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
                         <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-cyan-950 border border-cyan-800 text-cyan-400 font-bold">
-                          Clinical Gold Standard
+                          {selectedRegion === 'UK' ? 'Choice 2: Comprehensive Cellular Biomarker Map (UK 🇬🇧)' : 'Clinical Gold Standard'}
                         </span>
                         <span className="text-base font-display font-black text-cyan-300">
                           {selectedRegion === 'US' ? '$299.00' : selectedRegion === 'UK' ? '£149.00' : '149,00 €'}
@@ -852,16 +861,25 @@ export default function StartHere() {
                       </div>
                       <div>
                         <h3 className="text-lg font-display font-black uppercase text-white">
-                          Comprehensive Cellular Biomarker Map
+                          {selectedRegion === 'UK' ? 'LOLA Vital Check 56' : 'Comprehensive Cellular Biomarker Map'}
                         </h3>
                         <p className="text-xs text-slate-300 mt-1 leading-relaxed font-light">
                           Full 56-biomarker deep dive covering ApoB plaque risk, hs-CRP inflammation, thyroid, hormones, and micronutrients.
                         </p>
                       </div>
 
+                      {selectedRegion === 'UK' && (
+                        <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs text-cyan-200 leading-snug space-y-1">
+                          <span className="font-bold text-cyan-300 block text-[11px] uppercase tracking-wider">
+                            Action Required on LOLA Health:
+                          </span>
+                          <p>When you arrive on LOLA Health, select: 'LOLA Vital Check 56' (Full 56-biomarker panel: ApoB, hs-CRP, Vitamin D, Thyroid &amp; Hormones).</p>
+                        </div>
+                      )}
+
                       <div className="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800 text-xs text-slate-300 space-y-1 font-mono">
                         <div>• Cadence: Every 90 Days (Gold Standard)</div>
-                        <div>• Fulfillment: {selectedRegion === 'US' ? 'HealthLabs Comprehensive 56' : selectedRegion === 'UK' ? 'LOLA Vital Check 56' : 'Melio ES / SaludOnNet 56'}</div>
+                        <div>• Fulfillment: {selectedRegion === 'US' ? 'HealthLabs Comprehensive 56' : selectedRegion === 'UK' ? 'LOLA Health (LOLA Vital Check 56)' : 'Melio ES / SaludOnNet 56'}</div>
                       </div>
                     </div>
                   )}
@@ -891,7 +909,11 @@ export default function StartHere() {
                     }`}
                   >
                     <span>
-                      Order {channel1Tier === 'basic' ? 'Essential Starter' : 'Gold Standard 56'} ({selectedRegion})
+                      {selectedRegion === 'UK'
+                        ? channel1Tier === 'basic'
+                          ? 'Order LOLA Essential Check (£89) ➔'
+                          : 'Order LOLA Vital Check 56 (£149) ➔'
+                        : `Order ${channel1Tier === 'basic' ? 'Essential Starter' : 'Gold Standard 56'} (${selectedRegion}) ➔`}
                     </span>
                     <ExternalLink size={13} />
                   </a>

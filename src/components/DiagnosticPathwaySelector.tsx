@@ -23,12 +23,16 @@ export interface RegionalPathwayData {
     description: string;
     price: string;
     requisitionUrl: string;
+    actionText?: string;
+    helperText?: string;
   };
   level2: {
     partnerName: string;
     description: string;
     price: string;
     requisitionUrl: string;
+    actionText?: string;
+    helperText?: string;
   };
   urinalysis: {
     name: string;
@@ -102,16 +106,20 @@ export const REGIONAL_PATHWAYS: Record<Market, RegionalPathwayData> = {
     partnerName: 'LOLA Health',
     badge: 'UKAS Accredited & ISO Certified Phlebotomy Network',
     level1: {
-      partnerName: 'Lola Core Longevity Tri-Markers',
-      description: 'Targeted UKAS-accredited baseline draw focused on ApoB, high-sensitivity CRP, and HbA1c across partner clinics nationwide.',
+      partnerName: 'LOLA Essential Check',
+      description: 'Core lipids, HbA1c, glucose, kidney & liver.',
       price: '£89.00',
       requisitionUrl: 'https://referrals.lolahealth.com/NextLevel15',
+      actionText: 'Order LOLA Essential Check (£89) ➔',
+      helperText: "When you arrive on LOLA Health, select: 'LOLA Essential Check' (Core lipids, HbA1c, glucose, kidney & liver).",
     },
     level2: {
-      partnerName: 'Lola Vital Check 56',
-      description: 'Official 56-biomarker diagnostic blood panel mapping cardiovascular, metabolic, hormonal, and micronutrient cellular status.',
+      partnerName: 'LOLA Vital Check 56',
+      description: 'Full 56-biomarker panel: ApoB, hs-CRP, Vitamin D, Thyroid & Hormones.',
       price: '£149.00',
       requisitionUrl: 'https://referrals.lolahealth.com/NextLevel15',
+      actionText: 'Order LOLA Vital Check 56 (£149) ➔',
+      helperText: "When you arrive on LOLA Health, select: 'LOLA Vital Check 56' (Full 56-biomarker panel: ApoB, hs-CRP, Vitamin D, Thyroid & Hormones).",
     },
     urinalysis: {
       name: 'Lola Urinalysis & Microvascular ACR Panel',
@@ -266,7 +274,7 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
             {/* Card Header & Level Tag */}
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-400 bg-emerald-950/70 border border-emerald-800/50 px-2.5 py-1 rounded-lg">
-                Choice 1: Essential Baseline Blood Panel • Essential Starter
+                {activeMarket === 'UK' ? 'Essential Baseline Blood Panel (UK 🇬🇧)' : 'Choice 1: Essential Baseline Blood Panel • Essential Starter'}
               </span>
               <span className="text-sm font-mono font-bold text-white">
                 {regionData.level1.price}
@@ -276,7 +284,7 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
             {/* Headline & Core Narrative */}
             <div>
               <h3 className="text-xl sm:text-2xl font-display font-black text-white tracking-tight">
-                Essential Baseline Blood Panel
+                {activeMarket === 'UK' ? regionData.level1.partnerName : 'Essential Baseline Blood Panel'}
               </h3>
               <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
                 <strong className="text-emerald-300 font-medium">Target Audience:</strong> Budget-conscious users or first-time baseline spot-checks. Establishes objective reference points for core lipid fractions, glycemic regulation, and kidney/liver filtration.
@@ -304,6 +312,19 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
               </div>
             </div>
 
+            {/* Explicit Helper Microcopy when present */}
+            {regionData.level1.helperText && (
+              <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200 flex items-start gap-2.5">
+                <AlertCircle size={15} className="text-amber-400 shrink-0 mt-0.5" />
+                <div className="leading-snug">
+                  <span className="font-bold text-amber-300 block text-[11px] uppercase tracking-wider mb-0.5">
+                    Action Required on LOLA Health:
+                  </span>
+                  <span>{regionData.level1.helperText}</span>
+                </div>
+              </div>
+            )}
+
             {/* Partner Details */}
             <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-850 text-xs text-slate-400 space-y-1 font-mono">
               <div className="text-slate-300 font-bold flex items-center justify-between">
@@ -325,7 +346,7 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
               onClick={() => handleSelect('level1', regionData.level1.requisitionUrl)}
               className="w-full py-3.5 px-5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-200 shadow-md group cursor-pointer"
             >
-              <span>Select Essential Starter Requisition ➔</span>
+              <span>{regionData.level1.actionText || 'Select Essential Starter Requisition ➔'}</span>
               <ExternalLink size={14} className="text-white group-hover:translate-x-0.5 transition-transform" />
             </a>
             {currentSelected === 'level1' && (
@@ -351,7 +372,7 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
             {/* Card Header & Level Tag */}
             <div className="flex items-center justify-between">
               <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-400 bg-cyan-950/70 border border-cyan-800/50 px-2.5 py-1 rounded-lg">
-                Choice 2: Comprehensive Cellular Biomarker Map • Clinical Gold Standard
+                {activeMarket === 'UK' ? 'Comprehensive Cellular Biomarker Map (UK 🇬🇧)' : 'Choice 2: Comprehensive Cellular Biomarker Map • Clinical Gold Standard'}
               </span>
               <span className="text-sm font-mono font-bold text-cyan-300">
                 {regionData.level2.price}
@@ -361,7 +382,7 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
             {/* Headline & Core Narrative */}
             <div>
               <h3 className="text-xl sm:text-2xl font-display font-black text-white tracking-tight">
-                Comprehensive Cellular Biomarker Map
+                {activeMarket === 'UK' ? regionData.level2.partnerName : 'Comprehensive Cellular Biomarker Map'}
               </h3>
               <p className="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
                 <strong className="text-cyan-300 font-medium">Target Audience:</strong> Deep-dive longevity optimization, cardiovascular risk mapping, and metabolic re-engineering. Full 56-biomarker multi-omic panel covering plaque particles, inflammation, hormones, and micronutrients in a single draw.
@@ -398,6 +419,19 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
               </div>
             </div>
 
+            {/* Explicit Helper Microcopy when present */}
+            {regionData.level2.helperText && (
+              <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs text-cyan-200 flex items-start gap-2.5">
+                <AlertCircle size={15} className="text-cyan-400 shrink-0 mt-0.5" />
+                <div className="leading-snug">
+                  <span className="font-bold text-cyan-300 block text-[11px] uppercase tracking-wider mb-0.5">
+                    Action Required on LOLA Health:
+                  </span>
+                  <span>{regionData.level2.helperText}</span>
+                </div>
+              </div>
+            )}
+
             {/* Partner Details */}
             <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-850 text-xs text-slate-400 space-y-1 font-mono">
               <div className="text-slate-300 font-bold flex items-center justify-between">
@@ -419,7 +453,7 @@ export const DiagnosticPathwaySelector: React.FC<DiagnosticPathwaySelectorProps>
               onClick={() => handleSelect('level2', regionData.level2.requisitionUrl)}
               className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:via-teal-300 hover:to-emerald-300 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-cyan-500/20 group cursor-pointer"
             >
-              <span>Select Clinical Gold Standard Map ➔</span>
+              <span>{regionData.level2.actionText || 'Select Clinical Gold Standard Map ➔'}</span>
               <ExternalLink size={14} className="text-slate-950 group-hover:translate-x-0.5 transition-transform" />
             </a>
             {currentSelected === 'level2' && (

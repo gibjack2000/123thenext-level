@@ -333,7 +333,7 @@ export default function DiagnosticsSuite() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase bg-cyan-950 border border-cyan-800 text-cyan-400 font-bold">
-                    🇬🇧 United Kingdom
+                    🇬🇧 United Kingdom • Choice 2: Comprehensive Cellular Biomarker Map
                   </span>
                   <span className="text-xl font-display font-black text-white">
                     {selectedBloodChoice === 'clinic' ? '£149.00' : '£237.00'}
@@ -343,7 +343,7 @@ export default function DiagnosticsSuite() {
                 <div>
                   <h3 className="text-xl font-display font-black uppercase text-white">
                     {selectedBloodChoice === 'clinic'
-                      ? 'LOLA Health Vital Check 56 (Partner Clinic)'
+                      ? 'LOLA Vital Check 56'
                       : 'LOLA Mobile Phlebotomist / Medichecks Home Nurse Visit'}
                   </h3>
                   <p className="text-xs text-slate-400 mt-1">
@@ -351,6 +351,14 @@ export default function DiagnosticsSuite() {
                       ? 'Walk into partner clinics across London, Manchester, Birmingham, Edinburgh, and Belfast.'
                       : 'A GMC-registered nurse visits your private residence for gold-standard venous tube collection.'}
                   </p>
+                </div>
+
+                {/* Explicit helper instruction */}
+                <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs text-cyan-200 leading-snug space-y-1">
+                  <span className="font-bold text-cyan-300 block text-[11px] uppercase tracking-wider">
+                    Action Required on LOLA Health:
+                  </span>
+                  <p>When you arrive on LOLA Health, select: 'LOLA Vital Check 56' (Full 56-biomarker panel: ApoB, hs-CRP, Vitamin D, Thyroid &amp; Hormones).</p>
                 </div>
 
                 <div className="space-y-2 text-xs text-slate-300 border-t border-slate-800 pt-4">
@@ -380,7 +388,7 @@ export default function DiagnosticsSuite() {
                   rel="noopener noreferrer"
                   className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-cyan-500/20 active:scale-95 cursor-pointer"
                 >
-                  <span>Book Lola Vital Check (UK)</span>
+                  <span>Order LOLA Vital Check 56 (£149) ➔</span>
                   <ExternalLink size={14} />
                 </a>
               </div>

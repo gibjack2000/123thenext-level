@@ -110,13 +110,13 @@ export const REGIONAL_DUAL_TRACK_DATA: Record<Market, RegionalTrackData> = {
     tabLabel: 'United Kingdom',
     flagIcon: <FlagUK className="w-5 h-3.5" />,
     track1: {
-      title: 'LOLA Health Vital Check 56 & Renal ACR Panel',
+      title: 'LOLA Vital Check 56 & Renal ACR Panel',
       network: 'UKAS Pathology & Partner Phlebotomy Network',
       badge: 'UKAS Accredited & ISO 15189',
-      description: 'Nationwide British clinical venous phlebotomy panel measuring 56 vital biomarkers plus microvascular renal ACR telemetry with verified lab reports.',
+      description: "Nationwide British clinical venous phlebotomy panel measuring 56 vital biomarkers plus microvascular renal ACR telemetry with verified lab reports. When you arrive on LOLA Health, select: 'LOLA Vital Check 56' (Full 56-biomarker panel: ApoB, hs-CRP, Vitamin D, Thyroid & Hormones).",
       cadence: 'Quarterly (Every 90 Days)',
       affiliateUrl: 'https://referrals.lolahealth.com/NextLevel15',
-      actionLabel: 'Order Lola Vital Check 56 & ACR',
+      actionLabel: 'Order LOLA Vital Check 56 (£149) ➔',
       pdfLabel: '📄 Download GP Consultation Template (PDF V2)',
       pdfUrl: '/assets/docs/clinical-baseline-consultation-template-v2.pdf',
       highlights: [

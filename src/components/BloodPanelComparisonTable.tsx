@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ExternalLink, CheckCircle2, ShieldCheck, Stethoscope, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
+import { ExternalLink, CheckCircle2, ShieldCheck, Stethoscope, ChevronDown, ChevronUp, Sparkles, Info } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
 
 export interface BloodPanelComparisonTableProps {
@@ -126,7 +126,8 @@ export const REGIONAL_BLOOD_TIERS = {
       price: '$89.00',
       actionText: 'Order HealthLabs Essential Panel',
       url: 'https://www.healthlabs.com/?affiliate=123znl',
-      partner: 'HealthLabs (Quest / Labcorp)'
+      partner: 'HealthLabs (Quest / Labcorp)',
+      helperText: undefined as string | undefined
     },
     complete: {
       name: 'Comprehensive Cellular Biomarker Map',
@@ -136,7 +137,8 @@ export const REGIONAL_BLOOD_TIERS = {
       price: '$299.00',
       actionText: 'Book HealthLabs 56-Biomarker Map',
       url: 'https://www.healthlabs.com/?affiliate=123znl',
-      partner: 'HealthLabs (Quest / Labcorp)'
+      partner: 'HealthLabs (Quest / Labcorp)',
+      helperText: undefined as string | undefined
     }
   },
   UK: {
@@ -144,22 +146,24 @@ export const REGIONAL_BLOOD_TIERS = {
     flag: '🇬🇧',
     network: 'UKAS-Accredited Clinic & Phlebotomy Partner Network',
     basic: {
-      name: 'LOLA Health Essential Blood Panel',
-      tierTitle: 'Choice 1: Essential Baseline Blood Panel',
+      name: 'LOLA Essential Check',
+      tierTitle: 'Choice 1: Essential Baseline Blood Panel (UK 🇬🇧)',
       badge: 'Essential Starter',
       targetAudience: 'Budget-conscious users or first-time baseline spot-checks',
-      price: '£69.00',
-      actionText: 'Order LOLA Health Essential Panel',
+      price: '£89.00',
+      actionText: 'Order LOLA Essential Check (£89)',
+      helperText: "When you arrive on LOLA Health, select: 'LOLA Essential Check' (Core lipids, HbA1c, glucose, kidney & liver).",
       url: 'https://referrals.lolahealth.com/NextLevel15',
       partner: 'LOLA Health UK'
     },
     complete: {
-      name: 'LOLA Vital Check 56 Cellular Map',
-      tierTitle: 'Choice 2: Comprehensive Cellular Biomarker Map (56 Biomarkers)',
+      name: 'LOLA Vital Check 56',
+      tierTitle: 'Choice 2: Comprehensive Cellular Biomarker Map (UK 🇬🇧)',
       badge: 'Clinical Gold Standard',
       targetAudience: 'Deep-dive longevity optimization, cardiovascular risk mapping, and metabolic re-engineering',
       price: '£149.00',
-      actionText: 'Order LOLA Vital Check 56 (UK)',
+      actionText: 'Order LOLA Vital Check 56 (£149)',
+      helperText: "When you arrive on LOLA Health, select: 'LOLA Vital Check 56' (Full 56-biomarker panel: ApoB, hs-CRP, Vitamin D, Thyroid & Hormones).",
       url: 'https://referrals.lolahealth.com/NextLevel15',
       partner: 'LOLA Health UK'
     }
@@ -176,7 +180,8 @@ export const REGIONAL_BLOOD_TIERS = {
       price: '59,00 €',
       actionText: 'Reservar Panel Básico ES',
       url: 'https://www.melio.es',
-      partner: 'SaludOnNet / Melio ES'
+      partner: 'SaludOnNet / Melio ES',
+      helperText: undefined as string | undefined
     },
     complete: {
       name: 'Melio Vital Check ES / SaludOnNet Master 56',
@@ -186,7 +191,8 @@ export const REGIONAL_BLOOD_TIERS = {
       price: '149,00 €',
       actionText: 'Reservar Panel Melio / SaludOnNet 56',
       url: 'https://www.melio.es',
-      partner: 'SaludOnNet / Eurofins Megalab'
+      partner: 'SaludOnNet / Eurofins Megalab',
+      helperText: undefined as string | undefined
     }
   }
 };
@@ -226,8 +232,8 @@ export const BloodPanelComparisonTable: React.FC<BloodPanelComparisonTableProps>
             </div>
 
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block font-semibold">
-                CHOICE 1 • BASIC TIER
+              <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-400 block font-semibold">
+                {regionConfig.basic.tierTitle}
               </span>
               <h3 className="text-xl sm:text-2xl font-display font-black text-white tracking-tight mt-0.5">
                 {regionConfig.basic.name}
@@ -260,6 +266,19 @@ export const BloodPanelComparisonTable: React.FC<BloodPanelComparisonTableProps>
                 </div>
               </div>
             </div>
+
+            {/* Explicit Helper Microcopy when present */}
+            {regionConfig.basic.helperText && (
+              <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-amber-200 flex items-start gap-2.5">
+                <Info size={15} className="text-amber-400 shrink-0 mt-0.5" />
+                <div className="leading-snug">
+                  <span className="font-bold text-amber-300 block text-[11px] uppercase tracking-wider mb-0.5">
+                    Action Required on LOLA Health:
+                  </span>
+                  <span>{regionConfig.basic.helperText}</span>
+                </div>
+              </div>
+            )}
 
             <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-slate-400 space-y-1 font-mono">
               <div className="text-slate-300 font-bold flex items-center justify-between">
@@ -306,7 +325,7 @@ export const BloodPanelComparisonTable: React.FC<BloodPanelComparisonTableProps>
 
             <div>
               <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-400 block font-semibold">
-                CHOICE 2 • COMPLETE 56-BIOMARKER TIER
+                {regionConfig.complete.tierTitle}
               </span>
               <h3 className="text-xl sm:text-2xl font-display font-black text-white tracking-tight mt-0.5">
                 {regionConfig.complete.name}
@@ -347,6 +366,19 @@ export const BloodPanelComparisonTable: React.FC<BloodPanelComparisonTableProps>
                 </div>
               </div>
             </div>
+
+            {/* Explicit Helper Microcopy when present */}
+            {regionConfig.complete.helperText && (
+              <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs text-cyan-200 flex items-start gap-2.5">
+                <Info size={15} className="text-cyan-400 shrink-0 mt-0.5" />
+                <div className="leading-snug">
+                  <span className="font-bold text-cyan-300 block text-[11px] uppercase tracking-wider mb-0.5">
+                    Action Required on LOLA Health:
+                  </span>
+                  <span>{regionConfig.complete.helperText}</span>
+                </div>
+              </div>
+            )}
 
             <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-slate-400 space-y-1 font-mono">
               <div className="text-slate-300 font-bold flex items-center justify-between">

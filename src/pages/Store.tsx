@@ -159,10 +159,10 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     },
     {
       "id": "blood-panel-uk",
-      "name": "Lola Vital Check 56 (Baseline Longevity Blood Map)",
+      "name": "LOLA Vital Check 56 (UK 🇬🇧)",
       "category": "Performance & Testing",
       "rating": 4.98,
-      "description": "Advanced, direct-to-consumer multi-omic longevity blood panel analyzing 56 primary biomarkers including ApoB, hs-CRP, and HbA1c to eliminate clinical guessing. Clinician-partnered secure digital reporting.",
+      "description": "When you arrive on LOLA Health, select: 'LOLA Vital Check 56' (Full 56-biomarker panel: ApoB, hs-CRP, Vitamin D, Thyroid & Hormones). Official UKAS-accredited venous draw panel mapping 56 biomarkers.",
       "price_text": "£149.00",
       "deal_url": "https://referrals.lolahealth.com/NextLevel15",
       "market_region": "UK",
