@@ -1,6 +1,6 @@
 /* ORIGINAL: import React, { useState } from 'react'; */
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { 
   Download, 
   Printer, 
@@ -298,6 +298,17 @@ const STORAGE_KEY = 'nextlevel_clinician_copilot_guest_data_v2';
 
 export default function ClinicianCopilot() {
   const { market, setMarket } = useMarket();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const targetId = location.hash.replace('#', '');
+      setTimeout(() => {
+        const el = document.getElementById(targetId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  }, [location.hash]);
   const [downloadSuccess, setDownloadSuccess] = useState(false);
   const [resetToast, setResetToast] = useState(false);
   const [isExportingPdf, setIsExportingPdf] = useState(false);

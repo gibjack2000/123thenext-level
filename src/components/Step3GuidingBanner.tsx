@@ -24,6 +24,18 @@ export const Step3GuidingBanner: React.FC<Step3GuidingBannerProps> = ({
   const location = useLocation();
   const isStandaloneCopilot = location.pathname === '/clinician-copilot';
 
+  const handleOpenInteractiveForm = (e: React.MouseEvent) => {
+    if (isStandaloneCopilot || onScrollToForm) {
+      e.preventDefault();
+      if (onScrollToForm) {
+        onScrollToForm();
+      } else {
+        const el = document.getElementById('gp-template-page-1');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
     <div 
       id={id} 
@@ -143,7 +155,15 @@ export const Step3GuidingBanner: React.FC<Step3GuidingBannerProps> = ({
 
               <ul className="space-y-2.5 text-xs text-slate-300 leading-relaxed">
                 <li>
-                  • Open the interactive form at <Link to="/clinician-copilot" className="text-amber-300 hover:text-amber-200 font-mono underline">/clinician-copilot</Link>.
+                  • Open the interactive form at{' '}
+                  <Link
+                    to="/clinician-copilot#gp-template-page-1"
+                    onClick={handleOpenInteractiveForm}
+                    className="text-amber-300 hover:text-amber-200 font-mono font-bold underline cursor-pointer"
+                  >
+                    /clinician-copilot
+                  </Link>
+                  .
                 </li>
                 <li>
                   • Toggle your blood test tier (<strong className="text-emerald-400">Choice A</strong> vs. <strong className="text-cyan-400">Choice B</strong>) so the form displays only your relevant biomarker fields.
@@ -154,8 +174,17 @@ export const Step3GuidingBanner: React.FC<Step3GuidingBannerProps> = ({
               </ul>
             </div>
 
-            <div className="pt-3 border-t border-slate-800/80 text-[11px] text-slate-400 font-mono">
-              🔒 100% Guest Mode • Saved locally in your browser
+            <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
+              <span className="text-[10px] text-slate-400 font-mono">
+                🔒 100% Guest Mode
+              </span>
+              <Link
+                to="/clinician-copilot#gp-template-page-1"
+                onClick={handleOpenInteractiveForm}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-[10px] font-bold transition cursor-pointer"
+              >
+                <span>{isStandaloneCopilot ? 'Jump to Form ↓' : 'Open Form ➔'}</span>
+              </Link>
             </div>
           </div>
 
@@ -171,13 +200,32 @@ export const Step3GuidingBanner: React.FC<Step3GuidingBannerProps> = ({
 
               <ul className="space-y-2.5 text-xs text-slate-300 leading-relaxed">
                 <li>
-                  • Click to generate your pre-filled <strong className="text-white">2-Page GP Consultation Brief</strong> (<code className="text-teal-300 text-[11px] bg-slate-900 px-1 py-0.5 rounded">clinical-baseline-consultation-template-v2.pdf</code>).
+                  • Click to generate your pre-filled <strong className="text-white">2-Page GP Consultation Brief</strong> (
+                  <a
+                    href="/assets/docs/clinical-baseline-consultation-template-v2.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download="clinical-baseline-consultation-template-v2.pdf"
+                    className="text-teal-300 hover:text-teal-200 text-[11px] bg-slate-900 px-1 py-0.5 rounded font-mono underline"
+                  >
+                    clinical-baseline-consultation-template-v2.pdf
+                  </a>
+                  ).
                 </li>
                 <li>
                   • Alternatively, download a blank PDF template to complete by hand before your doctor appointment.
                 </li>
                 <li>
-                  • Reference <em>The Next Level Lifespan Educational Workbook (PDF)</em> at home to decode optimal longevity ranges.
+                  • Reference{' '}
+                  <a
+                    href="/assets/docs/the-next-level-lifespan-2026.pdf?v=2026-revised"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cyan-300 hover:text-cyan-200 italic underline"
+                  >
+                    The Next Level Lifespan Educational Workbook (PDF)
+                  </a>{' '}
+                  at home to decode optimal longevity ranges.
                 </li>
               </ul>
             </div>
@@ -206,7 +254,8 @@ export const Step3GuidingBanner: React.FC<Step3GuidingBannerProps> = ({
           </button>
         ) : (
           <Link
-            to="/clinician-copilot"
+            to="/clinician-copilot#gp-template-page-1"
+            onClick={handleOpenInteractiveForm}
             className="w-full inline-flex items-center justify-center gap-2 py-4 px-5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider transition-all shadow-lg shadow-amber-500/20 hover:scale-[1.01] active:scale-[0.99]"
           >
             <FileText size={16} />
