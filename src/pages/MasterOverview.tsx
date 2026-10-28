@@ -1074,7 +1074,7 @@ export const MasterOverview: React.FC = () => {
         {/* ========================================================================= */}
         {/* STEP 3 GUIDING INTRO BANNER: FROM GUESSING TO KNOWING                     */}
         {/* ========================================================================= */}
-        <Step3GuidingBanner className="my-10 text-left" />
+        <Step3GuidingBanner id="step-3" className="my-10 text-left" />
 
         {/* ========================================================================= */}
         {/* SECTION E: FRICTIONLESS NEXT-STEP ACTIONS                                  */}

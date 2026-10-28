@@ -772,177 +772,13 @@ export default function ClinicianCopilot() {
       </section>
 
       {/* ========================================================================= */}
-      {/* 2-DOCUMENT CLINICAL SYSTEM ARCHITECTURE OVERVIEW                          */}
-      {/* ========================================================================= */}
-      <section className="no-print max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-2">
-        <div className="space-y-6">
-          <div className="text-center max-w-3xl mx-auto space-y-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 font-bold">
-              <Stethoscope size={12} className="text-cyan-400" />
-              <span>THE 2-DOCUMENT CLINICAL SYSTEM ARCHITECTURE</span>
-            </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black text-white tracking-tight uppercase">
-              Separating Patient Education from Doctor Execution
-            </h2>
-            <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
-              Standard 10-minute GP appointments fail when patients bring 40-page generic wellness binders. Our 2-document clinical architecture solves this by strictly separating comprehensive patient self-education from concise physician execution.
-            </p>
-          </div>
-
-          {/* 2 Architecture Cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-stretch">
-            
-            {/* DOCUMENT 1: Patient Diagnostic & Onboarding Blueprint */}
-            <div className="rounded-3xl p-6 sm:p-7 bg-slate-900/90 border border-cyan-500/30 flex flex-col justify-between space-y-6 shadow-xl relative overflow-hidden group hover:border-cyan-500/60 transition-all">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between gap-2 flex-wrap">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-300 font-bold bg-cyan-950/80 px-2.5 py-1 rounded-md border border-cyan-800/60">
-                    DOCUMENT 1 • EDUCATIONAL WORKBOOK (PDF)
-                  </span>
-                  <span className="text-[10px] font-mono text-cyan-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800 font-bold">
-                    Revised Edition • 2026
-                  </span>
-                </div>
-
-                <div>
-                  <h3 className="text-lg sm:text-xl font-display font-black text-white tracking-tight">
-                    The Next Level Lifespan Educational Workbook
-                  </h3>
-                  <p className="mt-1.5 text-xs text-slate-300 leading-relaxed font-light">
-                    Clinical Biomarker Interpretation Guide &amp; Patient-Clinician Co-Pilot Protocol. Connects your 3 diagnostic channels (blood biochemistry, renal urinalysis, daily biosensors) with clinical target ranges and physician partnership toolkits.
-                  </p>
-                </div>
-
-                <div className="space-y-2 pt-2 border-t border-slate-800 text-xs">
-                  <div className="flex items-start gap-2 text-slate-300">
-                    <CheckCircle2 size={13} className="text-cyan-400 shrink-0 mt-0.5" />
-                    <span><strong>Clinical vs Optimal Targets:</strong> Interpretation guides for Choice A (Essential Baseline) and Choice B (LOLA Vital Check 56) with longevity target ranges.</span>
-                  </div>
-                  <div className="flex items-start gap-2 text-slate-300">
-                    <CheckCircle2 size={13} className="text-cyan-400 shrink-0 mt-0.5" />
-                    <span><strong>Renal Defence &amp; Vitals:</strong> Point-of-care 10-parameter dipsticks, clinical lab uACR, smart-scale BIA metrics, and continuous HRV/sleep telemetry.</span>
-                  </div>
-                  <div className="flex items-start gap-2 text-slate-300">
-                    <CheckCircle2 size={13} className="text-cyan-400 shrink-0 mt-0.5" />
-                    <span><strong>Day-1 Habits &amp; GP Toolkit:</strong> GLUT4 post-meal walks, vagal resets, 3-month diagnostic progression matrix, and questions to bring to your doctor.</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-slate-800">
-                <a
-                  href="/assets/docs/the-next-level-lifespan-2026.pdf?v=2026-revised"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 hover:text-white border border-slate-700 text-xs font-bold text-center transition flex items-center justify-center gap-2"
-                >
-                  <BookOpen size={14} />
-                  <span>📘 Read Educational Workbook (PDF)</span>
-                  <ExternalLink size={12} />
-                </a>
-              </div>
-            </div>
-
-            {/* DOCUMENT 2: GP Consultation Template V2 */}
-            <div className="rounded-3xl p-6 sm:p-7 bg-gradient-to-br from-slate-900 via-slate-950 to-amber-950/20 border-2 border-amber-500/50 flex flex-col justify-between space-y-6 shadow-2xl relative overflow-hidden group hover:border-amber-400 transition-all">
-              <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
-
-              <div className="space-y-4 relative z-10">
-                <div className="flex items-center justify-between gap-2 flex-wrap">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-amber-300 font-bold bg-amber-950/80 px-2.5 py-1 rounded-md border border-amber-800/60">
-                    DOCUMENT 2 • DUAL-MODE 2-PAGE TEMPLATE
-                  </span>
-                  <span className="text-[10px] font-mono text-emerald-400 bg-slate-950 px-2 py-0.5 rounded border border-slate-800 font-bold">
-                    Role: Doctor Execution
-                  </span>
-                </div>
-
-                <div>
-                  <h3 className="text-lg sm:text-xl font-display font-black text-white tracking-tight">
-                    The GP Consultation Template V2 (Dual-Mode)
-                  </h3>
-                  <p className="mt-1.5 text-xs text-slate-300 leading-relaxed font-light">
-                    The ultra-concise 2-page leave-behind matching the exact 5-section schema below. Available in Mode A (auto-filled digital export) and Mode B (blank printable template for hand completion).
-                  </p>
-                </div>
-
-                <div className="space-y-2 pt-2 border-t border-slate-800 text-xs">
-                  <div className="flex items-start gap-2 text-slate-300">
-                    <CheckCircle2 size={13} className="text-amber-400 shrink-0 mt-0.5" />
-                    <span><strong>Mode A (Auto-Filled Digital Export):</strong> Exports your live web form inputs directly into a finished PDF.</span>
-                  </div>
-                  <div className="flex items-start gap-2 text-slate-300">
-                    <CheckCircle2 size={13} className="text-amber-400 shrink-0 mt-0.5" />
-                    <span><strong>Mode B (Blank Printable Template):</strong> Clean underlines and checkboxes for pen-and-paper writing.</span>
-                  </div>
-                  <div className="flex items-start gap-2 text-slate-300">
-                    <CheckCircle2 size={13} className="text-amber-400 shrink-0 mt-0.5" />
-                    <span><strong>5 Matching Sections:</strong> Header, Risk Profile, Telemetry, Blood Panel, and Dual Urinalysis.</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Action Buttons for Document 2 */}
-              <div className="pt-4 border-t border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-2 relative z-10">
-                <button
-                  onClick={handleExportCompletedPdf}
-                  className="py-3 px-3 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-400 hover:from-cyan-400 hover:to-emerald-300 text-slate-950 font-black text-xs uppercase tracking-wider transition flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
-                >
-                  <FileDown size={14} />
-                  <span>📄 Export Completed PDF</span>
-                </button>
-                <a
-                  href="/assets/docs/clinical-baseline-consultation-template-v2.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  download="clinical-baseline-consultation-template-v2.pdf"
-                  onClick={handleDownloadBlank}
-                  className="py-3 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-xs uppercase tracking-wider transition flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
-                >
-                  <FileText size={14} />
-                  <span>✏️ Download Blank PDF</span>
-                </a>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* MULTI-REGION DUAL-TRACK DIAGNOSTIC RADAR & REQUISITION SELECTOR           */}
-      {/* ========================================================================= */}
-      <section className="no-print max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4 space-y-8">
-        <DualTrackSelector className="shadow-2xl" />
-
-        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-cyan-950/40 border-2 border-cyan-500/30 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-          
-          <div className="relative z-10">
-            <DiagnosticPathwaySelector
-              showRegionTabs={true}
-              selectedPathway={agreedPathway.level2 ? 'level2' : agreedPathway.level1 ? 'level1' : null}
-              onSelectPathway={(pathway) => {
-                if (pathway === 'level1') {
-                  setAgreedPathway({ level1: true, level2: false });
-                  setRequisitions((prev) => ({ ...prev, apob: true, hba1c: true, hscrp: true }));
-                } else {
-                  setAgreedPathway({ level1: false, level2: true });
-                  setRequisitions((prev) => ({ ...prev, panel56: true }));
-                }
-              }}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* THE 2-PAGE GP CONSULTATION TEMPLATE V2 (EXACT 5-SECTION MATCHING SCHEMA)  */}
+      {/* STEP 3 TOP PLACEMENT: HEADER, GUIDING EXPLANATION, BUTTONS & FORM         */}
       {/* ========================================================================= */}
       <section id="interactive-form" className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         
-        {/* COMPREHENSIVE GUIDING INTRO BANNER (STEP 3 HEADER) */}
+        {/* 1. SECTION HEADER, 2. GUIDING EXPLANATION BANNER, 3. ACTION BUTTONS */}
         <Step3GuidingBanner 
+          id="step-3"
           className="no-print" 
           onExportPdf={handleExportCompletedPdf}
           isExportingPdf={isExportingPdf}
@@ -968,6 +804,7 @@ export default function ClinicianCopilot() {
             </button>
           </div>
         </div>
+
 
         {/* --------------------------------------------------------------------- */}
         {/* TEMPLATE PAGE 1: Header, Section 1, Section 2, Section 3              */}
@@ -2366,6 +2203,33 @@ export default function ClinicianCopilot() {
             <span>Page 2 of 2</span>
           </footer>
         </article>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* MULTI-REGION DUAL-TRACK DIAGNOSTIC RADAR & REQUISITION SELECTOR           */}
+      {/* ========================================================================= */}
+      <section className="no-print max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-8 space-y-8">
+        <DualTrackSelector className="shadow-2xl" />
+
+        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-cyan-950/40 border-2 border-cyan-500/30 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="relative z-10">
+            <DiagnosticPathwaySelector
+              showRegionTabs={true}
+              selectedPathway={agreedPathway.level2 ? 'level2' : agreedPathway.level1 ? 'level1' : null}
+              onSelectPathway={(pathway) => {
+                if (pathway === 'level1') {
+                  setAgreedPathway({ level1: true, level2: false });
+                  setRequisitions((prev) => ({ ...prev, apob: true, hba1c: true, hscrp: true }));
+                } else {
+                  setAgreedPathway({ level1: false, level2: true });
+                  setRequisitions((prev) => ({ ...prev, panel56: true }));
+                }
+              }}
+            />
+          </div>
+        </div>
       </section>
 
       {/* ========================================================================= */}
