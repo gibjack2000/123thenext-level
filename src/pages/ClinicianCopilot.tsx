@@ -651,13 +651,13 @@ export default function ClinicianCopilot() {
       `}</style>
 
       {/* ========================================================================= */}
-      {/* TOP STICKY BAR: DUAL PDF EXPORT & 100% GUEST MODE CTAs                     */}
+      {/* TOP BAR: DUAL PDF EXPORT & 100% GUEST MODE CTAs                            */}
       {/* 1. "📄 Export Pre-Filled GP Template (PDF)"                                */}
       {/* 2. "✏️ Download Blank Printable Template (PDF)"                            */}
       {/* 3. "🗑️ Clear Local Form Data"                                             */}
       {/* ========================================================================= */}
-      <section className="no-print pt-24 pb-6 border-b border-slate-900 bg-slate-950/95 backdrop-blur-md sticky top-16 z-30 shadow-2xl">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <section className="no-print py-6 border-b border-slate-900 bg-slate-950/95 backdrop-blur-md shadow-2xl">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="space-y-1">
             <Link 
               to="/" 
@@ -734,7 +734,7 @@ export default function ClinicianCopilot() {
 
         {/* Real-time PDF Export Loading Banner */}
         {isExportingPdf && (
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
             <div className="p-3 bg-slate-900/95 border border-cyan-500/50 rounded-xl flex items-center gap-2.5 text-xs text-cyan-300 animate-pulse shadow-lg">
               <Loader2 size={16} className="animate-spin text-cyan-400 shrink-0" />
               <span><strong>Generating Pre-Filled GP Template...</strong> Compiling your localStorage telemetry into a print-ready vector PDF.</span>
@@ -744,7 +744,7 @@ export default function ClinicianCopilot() {
 
         {/* PDF Downloaded Success Toast */}
         {pdfExportSuccess && (
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
             <div className="p-3 bg-emerald-950/90 border border-emerald-500/60 rounded-xl flex items-center gap-2.5 text-xs text-emerald-200 animate-fadeIn shadow-lg shadow-emerald-500/10">
               <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
               <span><strong>Export Complete!</strong> Your pre-filled GP Consultation Template has been compiled and saved as <code>clinical-baseline-consultation-template-v2-completed.pdf</code>.</span>
@@ -753,7 +753,7 @@ export default function ClinicianCopilot() {
         )}
 
         {downloadSuccess && (
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
             <div className="p-3 bg-amber-950/80 border border-amber-500/50 rounded-xl flex items-center gap-2.5 text-xs text-amber-200 animate-fadeIn">
               <CheckCircle2 size={16} className="text-amber-400 shrink-0" />
               <span><strong>Blank Template Download Started!</strong> <code>clinical-baseline-consultation-template-v2.pdf</code> is ready for pen-and-paper writing.</span>
@@ -762,7 +762,7 @@ export default function ClinicianCopilot() {
         )}
 
         {resetToast && (
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
             <div className="p-3 bg-rose-950/80 border border-rose-500/50 rounded-xl flex items-center gap-2.5 text-xs text-rose-200 animate-fadeIn">
               <RotateCcw size={16} className="text-rose-400 shrink-0" />
               <span><strong>Local Guest Data Purged!</strong> Browser localStorage has been completely cleared and form restored to blank state.</span>

@@ -22,7 +22,7 @@ export const Step3GuidingBanner: React.FC<Step3GuidingBannerProps> = ({
   onScrollToForm,
 }) => {
   return (
-    <section 
+    <div 
       id={id} 
       className={`scroll-mt-28 space-y-6 ${className}`}
     >
@@ -153,7 +153,7 @@ export const Step3GuidingBanner: React.FC<Step3GuidingBannerProps> = ({
           <ExternalLink size={13} />
         </a>
       </div>
-    </section>
+    </div>
   );
 };
 
