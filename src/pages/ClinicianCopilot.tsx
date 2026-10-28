@@ -879,17 +879,17 @@ export default function ClinicianCopilot() {
                 <label htmlFor="blood-choice-a" className="space-y-1.5 cursor-pointer flex-1">
                   <div className="flex items-center justify-between gap-2 flex-wrap">
                     <span className="font-display font-black text-xs sm:text-sm text-white uppercase tracking-tight">
-                      Choice A: Essential Baseline Panel
+                      Choice A: LOLA Essential Check (Essential Baseline)
                     </span>
                     <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
                       Core 4 Markers
                     </span>
                   </div>
                   <div className="text-[11px] text-emerald-300 font-semibold font-mono">
-                    (Core Lipids, Fasting Glucose, HbA1c &amp; Organ Safety)
+                    (Core Lipids, Fasting Glucose, HbA1c &amp; Organ Safety + Lab Urine ACR)
                   </div>
                   <p className="text-[11px] text-slate-400 leading-relaxed font-light">
-                    Targeted entry-level panel covering core lipids, fasting glucose, HbA1c (90-day sugar trend), and basic organ function.
+                    Targeted entry-level baseline covering core lipids, fasting glucose, HbA1c, and basic organ function—paired with Urine ACR at the same lab visit.
                   </p>
                 </label>
               </div>
@@ -914,17 +914,17 @@ export default function ClinicianCopilot() {
                 <label htmlFor="blood-choice-b" className="space-y-1.5 cursor-pointer flex-1">
                   <div className="flex items-center justify-between gap-2 flex-wrap">
                     <span className="font-display font-black text-xs sm:text-sm text-white uppercase tracking-tight">
-                      Choice B: Comprehensive Vital Check 56 Panel
+                      Choice B: LOLA Vital Check 56 (Full Cellular Map)
                     </span>
                     <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
                       Full 56 Biomarkers
                     </span>
                   </div>
                   <div className="text-[11px] text-cyan-300 font-semibold font-mono">
-                    (ApoB, hs-CRP, Thyroid, Hormones, Micronutrients &amp; Core Lipids)
+                    (ApoB, hs-CRP, Thyroid, Hormones, Micronutrients + Lab Urine ACR)
                   </div>
                   <p className="text-[11px] text-slate-400 leading-relaxed font-light">
-                    Our deep-dive gold standard covering 56 biomarkers, including ApoB (vascular plaque risk), hs-CRP (inflammation), thyroid, hormones, and micronutrients.
+                    Full 56-biomarker cellular map covering ApoB, hs-CRP, thyroid, hormones, and micronutrients—paired with Urine ACR at the same lab visit.
                   </p>
                 </label>
               </div>
@@ -1380,14 +1380,50 @@ export default function ClinicianCopilot() {
           </div>
 
           {/* ----------------------------------------------------------------- */}
-          {/* SECTION 3: Blood Panel Results                                    */}
+          {/* SECTION 3: Lab Visit Results (Blood + Urine ACR)                  */}
           {/* ----------------------------------------------------------------- */}
           <div className="mt-6 space-y-2.5">
             <div className="bg-slate-900 text-white px-3 py-1.5 rounded-lg flex items-center justify-between">
               <span className="font-black text-xs uppercase tracking-wider">
-                SECTION 3: VENOUS BLOOD PANEL RESULTS (CORE TRI-MARKERS &amp; EXTENDED)
+                SECTION 3: LAB VISIT RESULTS (BLOOD + URINE ACR)
               </span>
-              <span className="text-[10px] text-cyan-300 font-mono">Venous Pathology</span>
+              <span className="text-[10px] text-cyan-300 font-mono">Synchronized Blood &amp; Renal Pathology</span>
+            </div>
+
+            {/* Regional Affiliate Links & Lab Urinalysis Coordination Reminder (Screen-Only) */}
+            <div className="no-print p-3 rounded-xl bg-sky-950/10 border border-sky-600/30 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
+              <div className="text-slate-700 leading-relaxed">
+                <strong className="text-slate-900">🩸 Synchronized Lab Visit:</strong> Request your clinical <strong>Urine ACR (Microalbumin)</strong> test during the exact same lab visit as your blood draw.
+              </div>
+              <div className="flex items-center gap-1.5 flex-wrap shrink-0">
+                <a
+                  href="https://referrals.lolahealth.com/NextLevel15"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-emerald-700 hover:bg-emerald-600 text-white text-[10px] font-bold transition shadow-xs"
+                >
+                  <span>🇬🇧 UK: LOLA Health</span>
+                  <ExternalLink size={10} />
+                </a>
+                <a
+                  href="https://www.healthlabs.com/?affiliate=123znl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-cyan-700 hover:bg-cyan-600 text-white text-[10px] font-bold transition shadow-xs"
+                >
+                  <span>🇺🇸 US: HealthLabs</span>
+                  <ExternalLink size={10} />
+                </a>
+                <a
+                  href="https://www.melio.es"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-amber-600 hover:bg-amber-500 text-white text-[10px] font-bold transition shadow-xs"
+                >
+                  <span>🇪🇸 ES: SaludOnNet / Melio</span>
+                  <ExternalLink size={10} />
+                </a>
+              </div>
             </div>
 
             {/* Phlebotomy Method */}
@@ -1752,6 +1788,94 @@ export default function ClinicianCopilot() {
                     </tr>
                   </>
                 )}
+
+                {/* SYNCHRONIZED LABORATORY URINALYSIS (COLLECTED AT SAME LAB VISIT AS BLOOD DRAW) */}
+                <tr className="bg-sky-50/90 border-t-2 border-sky-400">
+                  <td colSpan={4} className="p-1.5 px-2 text-[11px] font-bold text-sky-950 uppercase tracking-wide flex items-center justify-between">
+                    <span>SYNCHRONIZED LAB URINALYSIS: Urine ACR &amp; Renal Panel (Collected at Same Lab Visit)</span>
+                    <span className="bg-sky-600 text-white text-[9px] px-2 py-0.5 rounded font-mono font-bold">
+                      Same-Visit Urine Sample
+                    </span>
+                  </td>
+                </tr>
+
+                <tr className="hover:bg-slate-50">
+                  <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
+                    <strong>Urine Albumin-to-Creatinine Ratio (ACR)</strong> - Early microvascular &amp; glomerular filter check
+                  </td>
+                  <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
+                    &lt; 30 mg/g (&lt; 3 mg/mmol)
+                  </td>
+                  <td className="p-1 border-r border-slate-300">
+                    <input 
+                      type="text"
+                      value={urinalysisData.labAcr.result}
+                      onChange={(e) => setUrinalysisData({ ...urinalysisData, labAcr: { ...urinalysisData.labAcr, result: e.target.value } })}
+                      placeholder="e.g. 1.2 mg/mmol"
+                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
+                    />
+                  </td>
+                  <td className="p-1">
+                    <input 
+                      type="text"
+                      value={urinalysisData.labAcr.remarks}
+                      onChange={(e) => setUrinalysisData({ ...urinalysisData, labAcr: { ...urinalysisData.labAcr, remarks: e.target.value } })}
+                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
+                    />
+                  </td>
+                </tr>
+
+                <tr className="hover:bg-slate-50">
+                  <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
+                    <strong>Microalbuminuria &amp; Total Proteinuria</strong> - Renal endothelial integrity
+                  </td>
+                  <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
+                    Negative / &lt; 20 mg/L
+                  </td>
+                  <td className="p-1 border-r border-slate-300">
+                    <input 
+                      type="text"
+                      value={urinalysisData.labMicroalbumin.result}
+                      onChange={(e) => setUrinalysisData({ ...urinalysisData, labMicroalbumin: { ...urinalysisData.labMicroalbumin, result: e.target.value } })}
+                      placeholder="e.g. Negative"
+                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
+                    />
+                  </td>
+                  <td className="p-1">
+                    <input 
+                      type="text"
+                      value={urinalysisData.labMicroalbumin.remarks}
+                      onChange={(e) => setUrinalysisData({ ...urinalysisData, labMicroalbumin: { ...urinalysisData.labMicroalbumin, remarks: e.target.value } })}
+                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
+                    />
+                  </td>
+                </tr>
+
+                <tr className="hover:bg-slate-50">
+                  <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
+                    <strong>Microscopic Urine Sediment Analysis</strong> - Cellular casts, RBCs &amp; crystals
+                  </td>
+                  <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
+                    No cellular casts, RBCs or crystals
+                  </td>
+                  <td className="p-1 border-r border-slate-300">
+                    <input 
+                      type="text"
+                      value={urinalysisData.labSediment.result}
+                      onChange={(e) => setUrinalysisData({ ...urinalysisData, labSediment: { ...urinalysisData.labSediment, result: e.target.value } })}
+                      placeholder="e.g. Clear / Negative"
+                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
+                    />
+                  </td>
+                  <td className="p-1">
+                    <input 
+                      type="text"
+                      value={urinalysisData.labSediment.remarks}
+                      onChange={(e) => setUrinalysisData({ ...urinalysisData, labSediment: { ...urinalysisData.labSediment, remarks: e.target.value } })}
+                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
+                    />
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -1784,21 +1908,21 @@ export default function ClinicianCopilot() {
           </header>
 
           {/* ----------------------------------------------------------------- */}
-          {/* SECTION 4: Dual Urinalysis Log                                    */}
+          {/* SECTION 4: Weekly Home Dipstick Telemetry                         */}
           {/* ----------------------------------------------------------------- */}
           <div className="mt-5 space-y-4">
             <div className="bg-slate-900 text-white px-3 py-1.5 rounded-lg flex items-center justify-between">
               <span className="font-black text-xs uppercase tracking-wider">
-                SECTION 4: DUAL URINALYSIS TELEMETRY (WEEKLY HOME STRIPS &amp; QUARTERLY LAB)
+                SECTION 4: WEEKLY AT-HOME 10-PARAMETER DIPSTICK TELEMETRY (HYDRATION &amp; PH)
               </span>
-              <span className="text-[10px] text-cyan-300 font-mono">Renal Microvascular Integrity</span>
+              <span className="text-[10px] text-cyan-300 font-mono">Weekly Home Strip Log</span>
             </div>
 
             {/* Form Entry A: Weekly At-Home 10-Parameter Dipstick Log */}
             <div className="space-y-1.5">
               <div className="flex items-center justify-between text-xs">
                 <span className="font-bold text-slate-900">
-                  Form Entry A: Weekly At-Home 10-Parameter Dipstick Log (pH, Hydration, Ketones)
+                  Weekly Sunday 60-Second 10-Parameter Dipstick Log (pH, Specific Gravity, Ketones)
                 </span>
                 <span className="text-[10px] text-slate-500 font-mono">Diagnox Urinox-10 / ALLTEST Clinical Dipsticks</span>
               </div>
@@ -1914,106 +2038,6 @@ export default function ClinicianCopilot() {
                         type="text"
                         value={urinalysisData.home7Notes}
                         onChange={(e) => setUrinalysisData({ ...urinalysisData, home7Notes: e.target.value })}
-                        className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
-                      />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            {/* Form Entry B: Quarterly Laboratory Urinalysis */}
-            <div className="space-y-1.5 pt-2">
-              <div className="flex items-center justify-between text-xs">
-                <span className="font-bold text-slate-900">
-                  Form Entry B: Quarterly Laboratory Urinalysis (ACR, Microalbumin, Sediment)
-                </span>
-                <span className="text-[10px] text-slate-500 font-mono">Quest / Labcorp / UKAS / Eurofins Megalab</span>
-              </div>
-
-              <table className="w-full text-left border-collapse text-xs border border-slate-300">
-                <thead>
-                  <tr className="bg-slate-800 text-white">
-                    <th className="p-2 font-bold uppercase w-2/5">Laboratory Marker</th>
-                    <th className="p-2 font-bold uppercase w-1/4">Clinical Reference Benchmark</th>
-                    <th className="p-2 font-bold uppercase w-1/6">Pathology Result</th>
-                    <th className="p-2 font-bold uppercase">Clinical Remarks</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-300">
-                  <tr className="hover:bg-slate-50">
-                    <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
-                      <strong>Urine Albumin-to-Creatinine Ratio (ACR)</strong>
-                    </td>
-                    <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
-                      &lt; 30 mg/g (&lt; 3 mg/mmol)
-                    </td>
-                    <td className="p-1 border-r border-slate-300">
-                      <input 
-                        type="text"
-                        value={urinalysisData.labAcr.result}
-                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labAcr: { ...urinalysisData.labAcr, result: e.target.value } })}
-                        placeholder="e.g. 1.2 mg/mmol"
-                        className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
-                      />
-                    </td>
-                    <td className="p-1">
-                      <input 
-                        type="text"
-                        value={urinalysisData.labAcr.remarks}
-                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labAcr: { ...urinalysisData.labAcr, remarks: e.target.value } })}
-                        className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
-                      />
-                    </td>
-                  </tr>
-
-                  <tr className="hover:bg-slate-50">
-                    <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
-                      <strong>Microalbuminuria &amp; Total Proteinuria</strong>
-                    </td>
-                    <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
-                      Negative / &lt; 20 mg/L
-                    </td>
-                    <td className="p-1 border-r border-slate-300">
-                      <input 
-                        type="text"
-                        value={urinalysisData.labMicroalbumin.result}
-                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labMicroalbumin: { ...urinalysisData.labMicroalbumin, result: e.target.value } })}
-                        placeholder="e.g. Negative"
-                        className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
-                      />
-                    </td>
-                    <td className="p-1">
-                      <input 
-                        type="text"
-                        value={urinalysisData.labMicroalbumin.remarks}
-                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labMicroalbumin: { ...urinalysisData.labMicroalbumin, remarks: e.target.value } })}
-                        className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
-                      />
-                    </td>
-                  </tr>
-
-                  <tr className="hover:bg-slate-50">
-                    <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
-                      <strong>Microscopic Urine Sediment Analysis</strong>
-                    </td>
-                    <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
-                      No cellular casts, RBCs or crystals
-                    </td>
-                    <td className="p-1 border-r border-slate-300">
-                      <input 
-                        type="text"
-                        value={urinalysisData.labSediment.result}
-                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labSediment: { ...urinalysisData.labSediment, result: e.target.value } })}
-                        placeholder="e.g. Clear / Negative"
-                        className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
-                      />
-                    </td>
-                    <td className="p-1">
-                      <input 
-                        type="text"
-                        value={urinalysisData.labSediment.remarks}
-                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labSediment: { ...urinalysisData.labSediment, remarks: e.target.value } })}
                         className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
                       />
                     </td>
