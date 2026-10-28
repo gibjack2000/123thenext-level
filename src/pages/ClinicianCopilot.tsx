@@ -139,10 +139,12 @@ const initialBloodResults = {
 const initialUrinalysisData = {
   labAcr: { result: '', remarks: '< 30 mg/g (< 3 mg/mmol)' },
   labMicroalbumin: { result: '', remarks: 'Negative / < 20 mg/L' },
+  labCreatinine: { result: '', remarks: 'Normal Creatinine' },
   labSediment: { result: '', remarks: 'Clear / No casts' },
   homePh: { result: '', remarks: 'Optimal 6.0 - 7.5' },
   homeSg: { result: '', remarks: 'Optimal 1.010 - 1.020' },
   homeKetones: { result: '', remarks: 'Negative / Trace' },
+  homeProtein: { result: '', remarks: 'Negative / Normal' },
   home7Clear: true,
   home7Notes: 'All 7 Parameters Clear',
 };
@@ -328,6 +330,7 @@ export default function ClinicianCopilot() {
   const [phlebotomyMethod, setPhlebotomyMethod] = useState<'clinic' | 'mobile'>('clinic');
   const [bloodResults, setBloodResults] = useState(initialBloodResults);
   const [bloodPanelTierFilter, setBloodPanelTierFilter] = useState<'basic' | 'complete' | 'all'>('basic');
+  const [urineDiagnosticOption, setUrineDiagnosticOption] = useState<'lab_acr' | 'weekly_dipstick' | 'both' | 'none'>('both');
   const [urinalysisData, setUrinalysisData] = useState(initialUrinalysisData);
   const [requisitions, setRequisitions] = useState(initialRequisitions);
   const [agreedDirectives, setAgreedDirectives] = useState({
@@ -364,9 +367,10 @@ export default function ClinicianCopilot() {
         if (parsed.bodyComposition) setBodyComposition(parsed.bodyComposition);
         if (parsed.supplements) setSupplements(parsed.supplements);
         if (parsed.phlebotomyMethod) setPhlebotomyMethod(parsed.phlebotomyMethod);
-        if (parsed.bloodResults) setBloodResults(parsed.bloodResults);
+        if (parsed.bloodResults) setBloodResults({ ...initialBloodResults, ...parsed.bloodResults });
         if (parsed.bloodPanelTierFilter) setBloodPanelTierFilter(parsed.bloodPanelTierFilter);
-        if (parsed.urinalysisData) setUrinalysisData(parsed.urinalysisData);
+        if (parsed.urineDiagnosticOption) setUrineDiagnosticOption(parsed.urineDiagnosticOption);
+        if (parsed.urinalysisData) setUrinalysisData({ ...initialUrinalysisData, ...parsed.urinalysisData });
         if (parsed.requisitions) setRequisitions(parsed.requisitions);
         if (parsed.agreedDirectives) setAgreedDirectives(parsed.agreedDirectives);
         if (parsed.retestTimeline) setRetestTimeline(parsed.retestTimeline);
@@ -396,6 +400,7 @@ export default function ClinicianCopilot() {
         phlebotomyMethod,
         bloodResults,
         bloodPanelTierFilter,
+        urineDiagnosticOption,
         urinalysisData,
         requisitions,
         agreedDirectives,
@@ -412,7 +417,7 @@ export default function ClinicianCopilot() {
     }
   }, [
     patientData, familyHistory, lifestyle, summaryVitals, bodyComposition, supplements,
-    phlebotomyMethod, bloodResults, bloodPanelTierFilter, urinalysisData, requisitions,
+    phlebotomyMethod, bloodResults, bloodPanelTierFilter, urineDiagnosticOption, urinalysisData, requisitions,
     agreedDirectives, retestTimeline, nextAppointmentDate, selectedPathway, patientConfirmed
   ]);
 
@@ -494,6 +499,7 @@ export default function ClinicianCopilot() {
       setTelemetryRows(initialTelemetryRows);
       setAgreedPathway({ level1: true, level2: false });
       setBloodPanelTierFilter('basic');
+      setUrineDiagnosticOption('both');
       setLastSavedTime(null);
       setResetToast(true);
       setTimeout(() => setResetToast(false), 3500);
@@ -575,10 +581,12 @@ export default function ClinicianCopilot() {
         urinalysis: {
           labAcr: urinalysisData.labAcr,
           labMicroalbumin: urinalysisData.labMicroalbumin,
+          labCreatinine: urinalysisData.labCreatinine,
           labSediment: urinalysisData.labSediment,
           homePh: urinalysisData.homePh,
           homeSg: urinalysisData.homeSg,
           homeKetones: urinalysisData.homeKetones,
+          homeProtein: urinalysisData.homeProtein,
           home7Clear: urinalysisData.home7Clear,
           home7Notes: urinalysisData.home7Notes,
         },
@@ -845,112 +853,482 @@ export default function ClinicianCopilot() {
           </header>
 
           {/* ----------------------------------------------------------------- */}
-          {/* FIRST QUESTION: BLOOD PANEL SELECTION (PROMINENT FIRST QUESTION)   */}
+          {/* 4-QUESTION INTERACTIVE SEQUENCE (Q1 -> Q2 -> Q3 -> Q4)             */}
           {/* ----------------------------------------------------------------- */}
-          <div className="no-print mt-4 p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border-2 border-sky-500/50 shadow-xl space-y-3">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-400 font-bold flex items-center justify-center text-sm font-mono">
-                  Q1
+          <div className="no-print mt-4 space-y-4">
+
+            {/* =============================================================== */}
+            {/* QUESTION 1: WHICH BLOOD PANEL DID YOU COMPLETE?                 */}
+            {/* =============================================================== */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border-2 border-sky-500/50 shadow-xl space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-400 font-bold flex items-center justify-center text-sm font-mono">
+                    Q1
+                  </div>
+                  <div>
+                    <h3 className="text-sm sm:text-base font-display font-black uppercase text-white tracking-wide">
+                      Question 1: Which blood panel did you complete?
+                    </h3>
+                    <p className="text-[11px] text-slate-400">
+                      Select your blood draw option to dynamically toggle and focus your biomarker fields
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5 self-start sm:self-center">
+                  <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded font-bold bg-slate-800 text-sky-300 border border-sky-500/30">
+                    {bloodPanelTierFilter === 'basic' ? 'Choice A: LOLA Essential Active' : bloodPanelTierFilter === 'complete' ? 'Choice B: LOLA Vital 56 Active' : 'All Fields Visible'}
+                  </span>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+                {/* Choice A Card */}
+                <div
+                  onClick={() => setBloodPanelTierFilter('basic')}
+                  className={`p-3.5 sm:p-4 rounded-xl border-2 transition-all cursor-pointer flex items-start gap-3 select-none ${
+                    bloodPanelTierFilter === 'basic'
+                      ? 'bg-emerald-950/60 border-emerald-400 shadow-lg shadow-emerald-500/10 ring-1 ring-emerald-400/40'
+                      : 'bg-slate-950/70 border-slate-800 hover:border-emerald-500/40 hover:bg-slate-900'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    id="blood-choice-a"
+                    name="bloodPanelSelectorTop"
+                    checked={bloodPanelTierFilter === 'basic'}
+                    onChange={() => setBloodPanelTierFilter('basic')}
+                    className="mt-1 w-4 h-4 text-emerald-500 accent-emerald-500 shrink-0 cursor-pointer"
+                  />
+                  <label htmlFor="blood-choice-a" className="space-y-1.5 cursor-pointer flex-1">
+                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                      <span className="font-display font-black text-xs sm:text-sm text-white uppercase tracking-tight">
+                        Choice A: LOLA Essential Check (Core Lipids, HbA1c, Fasting Glucose)
+                      </span>
+                      <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                        Core Baseline
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-400 leading-relaxed font-light">
+                      Targeted entry-level panel covering core lipids, HbA1c (90-day sugar trend), fasting glucose, and basic organ function.
+                    </p>
+                  </label>
+                </div>
+
+                {/* Choice B Card */}
+                <div
+                  onClick={() => setBloodPanelTierFilter('complete')}
+                  className={`p-3.5 sm:p-4 rounded-xl border-2 transition-all cursor-pointer flex items-start gap-3 select-none ${
+                    bloodPanelTierFilter === 'complete'
+                      ? 'bg-cyan-950/60 border-cyan-400 shadow-lg shadow-cyan-500/10 ring-1 ring-cyan-400/40'
+                      : 'bg-slate-950/70 border-slate-800 hover:border-cyan-500/40 hover:bg-slate-900'
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    id="blood-choice-b"
+                    name="bloodPanelSelectorTop"
+                    checked={bloodPanelTierFilter === 'complete'}
+                    onChange={() => setBloodPanelTierFilter('complete')}
+                    className="mt-1 w-4 h-4 text-cyan-500 accent-cyan-500 shrink-0 cursor-pointer"
+                  />
+                  <label htmlFor="blood-choice-b" className="space-y-1.5 cursor-pointer flex-1">
+                    <div className="flex items-center justify-between gap-2 flex-wrap">
+                      <span className="font-display font-black text-xs sm:text-sm text-white uppercase tracking-tight">
+                        Choice B: LOLA Vital Check 56 (Full 56-Biomarker Panel)
+                      </span>
+                      <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+                        Full 56 Biomarkers
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-slate-400 leading-relaxed font-light">
+                      Our deep-dive gold standard covering 56 biomarkers, including ApoB, hs-CRP, thyroid, hormones, and micronutrients.
+                    </p>
+                  </label>
+                </div>
+              </div>
+
+              {/* Dynamic Blood Inputs Expansion inside Q1 */}
+              <div className="pt-2 border-t border-slate-800 space-y-2.5">
+                <div className="text-[11px] font-mono uppercase tracking-wider text-sky-300 font-bold">
+                  {bloodPanelTierFilter === 'basic'
+                    ? '🩸 Enter Choice A (LOLA Essential Check) Blood Numbers:'
+                    : '🩸 Enter Choice B (LOLA Vital Check 56) Blood Numbers:'}
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 text-xs">
+                  <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
+                    <label className="block text-[10px] font-mono uppercase text-slate-400 font-bold">Core Lipids (Chol/LDL/Trig)</label>
+                    <input
+                      type="text"
+                      value={bloodResults.lipidProfile.result}
+                      onChange={(e) => setBloodResults({ ...bloodResults, lipidProfile: { ...bloodResults.lipidProfile, result: e.target.value } })}
+                      placeholder="e.g. Chol 185, LDL 92"
+                      className="w-full bg-slate-900 border border-slate-700 focus:border-emerald-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                    />
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
+                    <label className="block text-[10px] font-mono uppercase text-slate-400 font-bold">HbA1c (% or mmol/mol)</label>
+                    <input
+                      type="text"
+                      value={bloodResults.hba1c.result}
+                      onChange={(e) => setBloodResults({ ...bloodResults, hba1c: { ...bloodResults.hba1c, result: e.target.value } })}
+                      placeholder="e.g. 5.2% (33 mmol/mol)"
+                      className="w-full bg-slate-900 border border-slate-700 focus:border-emerald-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                    />
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
+                    <label className="block text-[10px] font-mono uppercase text-slate-400 font-bold">Fasting Glucose</label>
+                    <input
+                      type="text"
+                      value={bloodResults.fastingGlucose.result}
+                      onChange={(e) => setBloodResults({ ...bloodResults, fastingGlucose: { ...bloodResults.fastingGlucose, result: e.target.value } })}
+                      placeholder="e.g. 84 mg/dL (4.7 mmol/L)"
+                      className="w-full bg-slate-900 border border-slate-700 focus:border-emerald-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                    />
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
+                    <label className="block text-[10px] font-mono uppercase text-slate-400 font-bold">Kidney &amp; Liver (eGFR/ALT)</label>
+                    <input
+                      type="text"
+                      value={bloodResults.liverKidney.result}
+                      onChange={(e) => setBloodResults({ ...bloodResults, liverKidney: { ...bloodResults.liverKidney, result: e.target.value } })}
+                      placeholder="e.g. eGFR >90, ALT 21"
+                      className="w-full bg-slate-900 border border-slate-700 focus:border-emerald-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                    />
+                  </div>
+                </div>
+
+                {(bloodPanelTierFilter === 'complete' || bloodPanelTierFilter === 'all') && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 text-xs pt-1">
+                    <div className="p-2.5 rounded-xl bg-cyan-950/30 border border-cyan-500/30 space-y-1">
+                      <label className="block text-[10px] font-mono uppercase text-cyan-300 font-bold">ApoB (mg/dL or g/L)</label>
+                      <input
+                        type="text"
+                        value={bloodResults.apob.result}
+                        onChange={(e) => setBloodResults({ ...bloodResults, apob: { ...bloodResults.apob, result: e.target.value } })}
+                        placeholder="e.g. 68 mg/dL (0.68 g/L)"
+                        className="w-full bg-slate-900 border border-cyan-500/40 focus:border-cyan-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                      />
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-cyan-950/30 border border-cyan-500/30 space-y-1">
+                      <label className="block text-[10px] font-mono uppercase text-cyan-300 font-bold">hs-CRP (mg/L)</label>
+                      <input
+                        type="text"
+                        value={bloodResults.hscrp.result}
+                        onChange={(e) => setBloodResults({ ...bloodResults, hscrp: { ...bloodResults.hscrp, result: e.target.value } })}
+                        placeholder="e.g. 0.4 mg/L"
+                        className="w-full bg-slate-900 border border-cyan-500/40 focus:border-cyan-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                      />
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-cyan-950/30 border border-cyan-500/30 space-y-1">
+                      <label className="block text-[10px] font-mono uppercase text-cyan-300 font-bold">Thyroid &amp; Hormones (TSH/T4)</label>
+                      <input
+                        type="text"
+                        value={bloodResults.thyroidHormones.result}
+                        onChange={(e) => setBloodResults({ ...bloodResults, thyroidHormones: { ...bloodResults.thyroidHormones, result: e.target.value } })}
+                        placeholder="e.g. TSH 1.4 mIU/L"
+                        className="w-full bg-slate-900 border border-cyan-500/40 focus:border-cyan-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                      />
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-cyan-950/30 border border-cyan-500/30 space-y-1">
+                      <label className="block text-[10px] font-mono uppercase text-cyan-300 font-bold">Vit D, B12 &amp; Ferritin</label>
+                      <input
+                        type="text"
+                        value={bloodResults.micronutrients.result}
+                        onChange={(e) => setBloodResults({ ...bloodResults, micronutrients: { ...bloodResults.micronutrients, result: e.target.value } })}
+                        placeholder="e.g. Vit D 58, B12 680"
+                        className="w-full bg-slate-900 border border-cyan-500/40 focus:border-cyan-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* =============================================================== */}
+            {/* QUESTION 2: WHICH URINE DIAGNOSTICS DID YOU COMPLETE?           */}
+            {/* =============================================================== */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border-2 border-teal-500/50 shadow-xl space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-teal-500/10 border border-teal-500/30 text-teal-400 font-bold flex items-center justify-center text-sm font-mono">
+                    Q2
+                  </div>
+                  <div>
+                    <h3 className="text-sm sm:text-base font-display font-black uppercase text-white tracking-wide">
+                      Question 2: Which urine diagnostics did you complete?
+                    </h3>
+                    <p className="text-[11px] text-slate-400">
+                      Select your completed urine test(s) to dynamically expand lab ACR and/or weekly home dipstick fields
+                    </p>
+                  </div>
+                </div>
+                <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded font-bold bg-slate-800 text-teal-300 border border-teal-500/30 self-start sm:self-center">
+                  {urineDiagnosticOption === 'both'
+                    ? 'Lab ACR + Weekly Dipsticks Active'
+                    : urineDiagnosticOption === 'lab_acr'
+                      ? 'Synchronized Lab ACR Active'
+                      : urineDiagnosticOption === 'weekly_dipstick'
+                        ? 'Weekly Home Dipsticks Active'
+                        : 'No Urine Inputs Selected'}
+                </span>
+              </div>
+
+              {/* 4 Urine Options */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                {[
+                  {
+                    id: 'lab_acr' as const,
+                    label: 'Synchronized Lab Urine ACR (Completed during your blood draw appointment)',
+                  },
+                  {
+                    id: 'weekly_dipstick' as const,
+                    label: 'Weekly 10-Parameter Home Dipstick (60-second Sunday bathroom test)',
+                  },
+                  {
+                    id: 'both' as const,
+                    label: 'Both (Synchronized Lab ACR + Weekly Dipsticks)',
+                  },
+                  {
+                    id: 'none' as const,
+                    label: 'None / Not completed yet',
+                  },
+                ].map((opt) => (
+                  <div
+                    key={opt.id}
+                    onClick={() => setUrineDiagnosticOption(opt.id)}
+                    className={`p-3 rounded-xl border-2 transition-all cursor-pointer flex items-center gap-2.5 select-none ${
+                      urineDiagnosticOption === opt.id
+                        ? 'bg-teal-950/60 border-teal-400 shadow-md ring-1 ring-teal-400/30'
+                        : 'bg-slate-950/70 border-slate-800 hover:border-teal-500/40 hover:bg-slate-900'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="urineDiagnosticSelector"
+                      checked={urineDiagnosticOption === opt.id}
+                      onChange={() => setUrineDiagnosticOption(opt.id)}
+                      className="w-4 h-4 text-teal-400 accent-teal-400 shrink-0 cursor-pointer"
+                    />
+                    <span className="text-xs font-bold text-white leading-snug">
+                      {opt.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Dynamic Expansion: Synchronized Lab ACR Fields */}
+              {(urineDiagnosticOption === 'lab_acr' || urineDiagnosticOption === 'both') && (
+                <div className="pt-3 border-t border-slate-800 space-y-2">
+                  <div className="text-[11px] font-mono uppercase tracking-wider text-sky-300 font-bold">
+                    🧪 Synchronized Lab Urine ACR Fields (Completed During Blood Draw Visit):
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+                    <div className="p-2.5 rounded-xl bg-slate-950/80 border border-sky-500/30 space-y-1">
+                      <label className="block text-[10px] font-mono uppercase text-sky-300 font-bold">
+                        Microalbumin (mg/L)
+                      </label>
+                      <input
+                        type="text"
+                        value={urinalysisData.labMicroalbumin.result}
+                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labMicroalbumin: { ...urinalysisData.labMicroalbumin, result: e.target.value } })}
+                        placeholder="e.g. < 20 mg/L (Negative)"
+                        className="w-full bg-slate-900 border border-slate-700 focus:border-sky-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                      />
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-slate-950/80 border border-sky-500/30 space-y-1">
+                      <label className="block text-[10px] font-mono uppercase text-sky-300 font-bold">
+                        Creatinine (mmol/L)
+                      </label>
+                      <input
+                        type="text"
+                        value={urinalysisData.labCreatinine.result}
+                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labCreatinine: { ...urinalysisData.labCreatinine, result: e.target.value } })}
+                        placeholder="e.g. 8.5 mmol/L"
+                        className="w-full bg-slate-900 border border-slate-700 focus:border-sky-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                      />
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-slate-950/80 border border-sky-500/30 space-y-1">
+                      <label className="block text-[10px] font-mono uppercase text-sky-300 font-bold">
+                        Albumin-to-Creatinine Ratio (ACR)
+                      </label>
+                      <input
+                        type="text"
+                        value={urinalysisData.labAcr.result}
+                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labAcr: { ...urinalysisData.labAcr, result: e.target.value } })}
+                        placeholder="e.g. 1.2 mg/mmol (< 3.0)"
+                        className="w-full bg-slate-900 border border-slate-700 focus:border-sky-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Dynamic Expansion: Weekly 10-Parameter Dipstick Fields */}
+              {(urineDiagnosticOption === 'weekly_dipstick' || urineDiagnosticOption === 'both') && (
+                <div className="pt-3 border-t border-slate-800 space-y-2">
+                  <div className="text-[11px] font-mono uppercase tracking-wider text-teal-300 font-bold">
+                    💧 Weekly 10-Parameter Home Dipstick Fields (60-Second Sunday Test):
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 text-xs">
+                    <div className="p-2.5 rounded-xl bg-slate-950/80 border border-teal-500/30 space-y-1">
+                      <label className="block text-[10px] font-mono uppercase text-teal-300 font-bold">
+                        pH (Target 6.0–7.5)
+                      </label>
+                      <input
+                        type="text"
+                        value={urinalysisData.homePh.result}
+                        onChange={(e) => setUrinalysisData({ ...urinalysisData, homePh: { ...urinalysisData.homePh, result: e.target.value } })}
+                        placeholder="e.g. 6.8"
+                        className="w-full bg-slate-900 border border-slate-700 focus:border-teal-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                      />
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-slate-950/80 border border-teal-500/30 space-y-1">
+                      <label className="block text-[10px] font-mono uppercase text-teal-300 font-bold">
+                        Specific Gravity (1.010–1.020)
+                      </label>
+                      <input
+                        type="text"
+                        value={urinalysisData.homeSg.result}
+                        onChange={(e) => setUrinalysisData({ ...urinalysisData, homeSg: { ...urinalysisData.homeSg, result: e.target.value } })}
+                        placeholder="e.g. 1.015"
+                        className="w-full bg-slate-900 border border-slate-700 focus:border-teal-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                      />
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-slate-950/80 border border-teal-500/30 space-y-1">
+                      <label className="block text-[10px] font-mono uppercase text-teal-300 font-bold">
+                        Ketones
+                      </label>
+                      <input
+                        type="text"
+                        value={urinalysisData.homeKetones.result}
+                        onChange={(e) => setUrinalysisData({ ...urinalysisData, homeKetones: { ...urinalysisData.homeKetones, result: e.target.value } })}
+                        placeholder="e.g. Negative / Trace"
+                        className="w-full bg-slate-900 border border-slate-700 focus:border-teal-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                      />
+                    </div>
+                    <div className="p-2.5 rounded-xl bg-slate-950/80 border border-teal-500/30 space-y-1">
+                      <label className="block text-[10px] font-mono uppercase text-teal-300 font-bold">
+                        Protein
+                      </label>
+                      <input
+                        type="text"
+                        value={urinalysisData.homeProtein.result}
+                        onChange={(e) => setUrinalysisData({ ...urinalysisData, homeProtein: { ...urinalysisData.homeProtein, result: e.target.value } })}
+                        placeholder="e.g. Negative"
+                        className="w-full bg-slate-900 border border-slate-700 focus:border-teal-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* =============================================================== */}
+            {/* QUESTION 3: 14-DAY HARDWARE & WEARABLE TELEMETRY                */}
+            {/* =============================================================== */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border-2 border-amber-500/50 shadow-xl space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 font-bold flex items-center justify-center text-sm font-mono">
+                    Q3
+                  </div>
+                  <div>
+                    <h3 className="text-sm sm:text-base font-display font-black uppercase text-white tracking-wide">
+                      Question 3: 14-Day Hardware &amp; Wearable Telemetry
+                    </h3>
+                    <p className="text-[11px] text-slate-400">
+                      Enter your smart scale body composition and wearable autonomic recovery averages
+                    </p>
+                  </div>
+                </div>
+                <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded font-bold bg-slate-800 text-amber-300 border border-amber-500/30 self-start sm:self-center">
+                  Smart Scale + Wearable Sync
+                </span>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 pt-1 text-xs">
+                <div className="p-2.5 rounded-xl bg-slate-950/80 border border-amber-500/30 space-y-1">
+                  <label className="block text-[10px] font-mono uppercase text-amber-300 font-bold">
+                    Visceral Fat Rating (1–12)
+                  </label>
+                  <input
+                    type="text"
+                    value={bodyComposition.visceralFatRating}
+                    onChange={(e) => setBodyComposition({ ...bodyComposition, visceralFatRating: e.target.value })}
+                    placeholder="e.g. 5 (Target ≤ 9)"
+                    className="w-full bg-slate-900 border border-slate-700 focus:border-amber-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                  />
+                </div>
+                <div className="p-2.5 rounded-xl bg-slate-950/80 border border-amber-500/30 space-y-1">
+                  <label className="block text-[10px] font-mono uppercase text-amber-300 font-bold">
+                    Skeletal Muscle Mass %
+                  </label>
+                  <input
+                    type="text"
+                    value={bodyComposition.skeletalMuscleMass}
+                    onChange={(e) => setBodyComposition({ ...bodyComposition, skeletalMuscleMass: e.target.value })}
+                    placeholder="e.g. 41.5%"
+                    className="w-full bg-slate-900 border border-slate-700 focus:border-amber-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                  />
+                </div>
+                <div className="p-2.5 rounded-xl bg-slate-950/80 border border-amber-500/30 space-y-1">
+                  <label className="block text-[10px] font-mono uppercase text-amber-300 font-bold">
+                    Nocturnal HRV (ms)
+                  </label>
+                  <input
+                    type="text"
+                    value={summaryVitals[1]?.average || ''}
+                    onChange={(e) => updateSummaryVitals(1, 'average', e.target.value)}
+                    placeholder="e.g. 58 ms"
+                    className="w-full bg-slate-900 border border-slate-700 focus:border-amber-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                  />
+                </div>
+                <div className="p-2.5 rounded-xl bg-slate-950/80 border border-amber-500/30 space-y-1">
+                  <label className="block text-[10px] font-mono uppercase text-amber-300 font-bold">
+                    Resting Heart Rate (bpm)
+                  </label>
+                  <input
+                    type="text"
+                    value={summaryVitals[0]?.average || ''}
+                    onChange={(e) => updateSummaryVitals(0, 'average', e.target.value)}
+                    placeholder="e.g. 54 bpm"
+                    className="w-full bg-slate-900 border border-slate-700 focus:border-amber-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* =============================================================== */}
+            {/* QUESTION 4: GENERATE GP BRIEF                                   */}
+            {/* =============================================================== */}
+            <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-slate-900 via-cyan-950/60 to-slate-900 border-2 border-cyan-400/60 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 font-bold flex items-center justify-center text-sm font-mono shrink-0">
+                  Q4
                 </div>
                 <div>
                   <h3 className="text-sm sm:text-base font-display font-black uppercase text-white tracking-wide">
-                    Question 1: Which clinical blood panel did you take?
+                    Question 4: Generate GP Brief
                   </h3>
-                  <p className="text-[11px] text-slate-400">
-                    Select your diagnostic option to dynamically toggle and focus your input fields
+                  <p className="text-[11px] text-slate-300">
+                    Map all entered blood, urine, and 14-day hardware telemetry directly into your 2-Page GP Consultation Brief PDF (<code className="text-cyan-300">clinical-baseline-consultation-template-v2.pdf</code>)
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-1.5 self-start sm:self-center">
-                <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded font-bold bg-slate-800 text-sky-300 border border-sky-500/30">
-                  {bloodPanelTierFilter === 'basic' ? 'Choice A: Essential Baseline Active' : bloodPanelTierFilter === 'complete' ? 'Choice B: Vital 56 Active' : 'All Fields Visible'}
-                </span>
+              <div className="flex flex-wrap items-center gap-2.5 shrink-0">
+                <button
+                  type="button"
+                  onClick={handleExportCompletedPdf}
+                  disabled={isExportingPdf}
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:via-teal-300 hover:to-emerald-300 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/25 cursor-pointer disabled:opacity-75"
+                >
+                  <FileDown size={16} />
+                  <span>📄 Generate 2-Page GP Consultation Brief (PDF)</span>
+                </button>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
-              {/* Choice A Card */}
-              <div
-                onClick={() => setBloodPanelTierFilter('basic')}
-                className={`p-3.5 sm:p-4 rounded-xl border-2 transition-all cursor-pointer flex items-start gap-3 select-none ${
-                  bloodPanelTierFilter === 'basic'
-                    ? 'bg-emerald-950/60 border-emerald-400 shadow-lg shadow-emerald-500/10 ring-1 ring-emerald-400/40'
-                    : 'bg-slate-950/70 border-slate-800 hover:border-emerald-500/40 hover:bg-slate-900'
-                }`}
-              >
-                <input
-                  type="radio"
-                  id="blood-choice-a"
-                  name="bloodPanelSelectorTop"
-                  checked={bloodPanelTierFilter === 'basic'}
-                  onChange={() => setBloodPanelTierFilter('basic')}
-                  className="mt-1 w-4 h-4 text-emerald-500 accent-emerald-500 shrink-0 cursor-pointer"
-                />
-                <label htmlFor="blood-choice-a" className="space-y-1.5 cursor-pointer flex-1">
-                  <div className="flex items-center justify-between gap-2 flex-wrap">
-                    <span className="font-display font-black text-xs sm:text-sm text-white uppercase tracking-tight">
-                      Choice A: LOLA Essential Check (Essential Baseline)
-                    </span>
-                    <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
-                      Core 4 Markers
-                    </span>
-                  </div>
-                  <div className="text-[11px] text-emerald-300 font-semibold font-mono">
-                    (Core Lipids, Fasting Glucose, HbA1c &amp; Organ Safety + Lab Urine ACR)
-                  </div>
-                  <p className="text-[11px] text-slate-400 leading-relaxed font-light">
-                    Targeted entry-level baseline covering core lipids, fasting glucose, HbA1c, and basic organ function—paired with Urine ACR at the same lab visit.
-                  </p>
-                </label>
-              </div>
-
-              {/* Choice B Card */}
-              <div
-                onClick={() => setBloodPanelTierFilter('complete')}
-                className={`p-3.5 sm:p-4 rounded-xl border-2 transition-all cursor-pointer flex items-start gap-3 select-none ${
-                  bloodPanelTierFilter === 'complete'
-                    ? 'bg-cyan-950/60 border-cyan-400 shadow-lg shadow-cyan-500/10 ring-1 ring-cyan-400/40'
-                    : 'bg-slate-950/70 border-slate-800 hover:border-cyan-500/40 hover:bg-slate-900'
-                }`}
-              >
-                <input
-                  type="radio"
-                  id="blood-choice-b"
-                  name="bloodPanelSelectorTop"
-                  checked={bloodPanelTierFilter === 'complete'}
-                  onChange={() => setBloodPanelTierFilter('complete')}
-                  className="mt-1 w-4 h-4 text-cyan-500 accent-cyan-500 shrink-0 cursor-pointer"
-                />
-                <label htmlFor="blood-choice-b" className="space-y-1.5 cursor-pointer flex-1">
-                  <div className="flex items-center justify-between gap-2 flex-wrap">
-                    <span className="font-display font-black text-xs sm:text-sm text-white uppercase tracking-tight">
-                      Choice B: LOLA Vital Check 56 (Full Cellular Map)
-                    </span>
-                    <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
-                      Full 56 Biomarkers
-                    </span>
-                  </div>
-                  <div className="text-[11px] text-cyan-300 font-semibold font-mono">
-                    (ApoB, hs-CRP, Thyroid, Hormones, Micronutrients + Lab Urine ACR)
-                  </div>
-                  <p className="text-[11px] text-slate-400 leading-relaxed font-light">
-                    Full 56-biomarker cellular map covering ApoB, hs-CRP, thyroid, hormones, and micronutrients—paired with Urine ACR at the same lab visit.
-                  </p>
-                </label>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between pt-1 border-t border-slate-800/80 text-[10px] text-slate-400 font-mono">
-              <span>💡 When Choice A is selected, Section 3 dynamically hides Choice B fields to eliminate confusion</span>
-              <button
-                type="button"
-                onClick={() => setBloodPanelTierFilter(bloodPanelTierFilter === 'all' ? 'basic' : 'all')}
-                className="text-cyan-400 hover:text-cyan-300 underline cursor-pointer"
-              >
-                {bloodPanelTierFilter === 'all' ? 'Show Filtered View' : 'Show All Biomarkers (9)'}
-              </button>
-            </div>
           </div>
 
           {/* Demographic Header Fields */}
@@ -1801,92 +2179,96 @@ export default function ClinicianCopilot() {
                 )}
 
                 {/* SYNCHRONIZED LABORATORY URINALYSIS (COLLECTED AT SAME LAB VISIT AS BLOOD DRAW) */}
-                <tr className="bg-sky-50/90 border-t-2 border-sky-400">
-                  <td colSpan={4} className="p-1.5 px-2 text-[11px] font-bold text-sky-950 uppercase tracking-wide flex items-center justify-between">
-                    <span>SYNCHRONIZED LAB URINALYSIS: Urine ACR &amp; Renal Panel (Collected at Same Lab Visit)</span>
-                    <span className="bg-sky-600 text-white text-[9px] px-2 py-0.5 rounded font-mono font-bold">
-                      Same-Visit Urine Sample
-                    </span>
-                  </td>
-                </tr>
+                {(urineDiagnosticOption === 'lab_acr' || urineDiagnosticOption === 'both') && (
+                  <>
+                    <tr className="bg-sky-50/90 border-t-2 border-sky-400">
+                      <td colSpan={4} className="p-1.5 px-2 text-[11px] font-bold text-sky-950 uppercase tracking-wide flex items-center justify-between">
+                        <span>SYNCHRONIZED LAB URINALYSIS: Urine ACR, Microalbumin &amp; Creatinine (Collected at Same Lab Visit)</span>
+                        <span className="bg-sky-600 text-white text-[9px] px-2 py-0.5 rounded font-mono font-bold">
+                          Same-Visit Urine Sample
+                        </span>
+                      </td>
+                    </tr>
 
-                <tr className="hover:bg-slate-50">
-                  <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
-                    <strong>Urine Albumin-to-Creatinine Ratio (ACR)</strong> - Early microvascular &amp; glomerular filter check
-                  </td>
-                  <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
-                    &lt; 30 mg/g (&lt; 3 mg/mmol)
-                  </td>
-                  <td className="p-1 border-r border-slate-300">
-                    <input 
-                      type="text"
-                      value={urinalysisData.labAcr.result}
-                      onChange={(e) => setUrinalysisData({ ...urinalysisData, labAcr: { ...urinalysisData.labAcr, result: e.target.value } })}
-                      placeholder="e.g. 1.2 mg/mmol"
-                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
-                    />
-                  </td>
-                  <td className="p-1">
-                    <input 
-                      type="text"
-                      value={urinalysisData.labAcr.remarks}
-                      onChange={(e) => setUrinalysisData({ ...urinalysisData, labAcr: { ...urinalysisData.labAcr, remarks: e.target.value } })}
-                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
-                    />
-                  </td>
-                </tr>
+                    <tr className="hover:bg-slate-50">
+                      <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
+                        <strong>Microalbumin (mg/L)</strong> - Renal endothelial barrier integrity
+                      </td>
+                      <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
+                        Negative / &lt; 20 mg/L
+                      </td>
+                      <td className="p-1 border-r border-slate-300">
+                        <input 
+                          type="text"
+                          value={urinalysisData.labMicroalbumin.result}
+                          onChange={(e) => setUrinalysisData({ ...urinalysisData, labMicroalbumin: { ...urinalysisData.labMicroalbumin, result: e.target.value } })}
+                          placeholder="e.g. Negative / < 20 mg/L"
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
+                        />
+                      </td>
+                      <td className="p-1">
+                        <input 
+                          type="text"
+                          value={urinalysisData.labMicroalbumin.remarks}
+                          onChange={(e) => setUrinalysisData({ ...urinalysisData, labMicroalbumin: { ...urinalysisData.labMicroalbumin, remarks: e.target.value } })}
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
+                        />
+                      </td>
+                    </tr>
 
-                <tr className="hover:bg-slate-50">
-                  <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
-                    <strong>Microalbuminuria &amp; Total Proteinuria</strong> - Renal endothelial integrity
-                  </td>
-                  <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
-                    Negative / &lt; 20 mg/L
-                  </td>
-                  <td className="p-1 border-r border-slate-300">
-                    <input 
-                      type="text"
-                      value={urinalysisData.labMicroalbumin.result}
-                      onChange={(e) => setUrinalysisData({ ...urinalysisData, labMicroalbumin: { ...urinalysisData.labMicroalbumin, result: e.target.value } })}
-                      placeholder="e.g. Negative"
-                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
-                    />
-                  </td>
-                  <td className="p-1">
-                    <input 
-                      type="text"
-                      value={urinalysisData.labMicroalbumin.remarks}
-                      onChange={(e) => setUrinalysisData({ ...urinalysisData, labMicroalbumin: { ...urinalysisData.labMicroalbumin, remarks: e.target.value } })}
-                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
-                    />
-                  </td>
-                </tr>
+                    <tr className="hover:bg-slate-50">
+                      <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
+                        <strong>Creatinine (mmol/L)</strong> - Urinary concentration &amp; filtration reference
+                      </td>
+                      <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
+                        Normal Creatinine / Clear Sediment
+                      </td>
+                      <td className="p-1 border-r border-slate-300">
+                        <input 
+                          type="text"
+                          value={urinalysisData.labCreatinine.result}
+                          onChange={(e) => setUrinalysisData({ ...urinalysisData, labCreatinine: { ...urinalysisData.labCreatinine, result: e.target.value } })}
+                          placeholder="e.g. 8.5 mmol/L"
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
+                        />
+                      </td>
+                      <td className="p-1">
+                        <input 
+                          type="text"
+                          value={urinalysisData.labCreatinine.remarks}
+                          onChange={(e) => setUrinalysisData({ ...urinalysisData, labCreatinine: { ...urinalysisData.labCreatinine, remarks: e.target.value } })}
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
+                        />
+                      </td>
+                    </tr>
 
-                <tr className="hover:bg-slate-50">
-                  <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
-                    <strong>Microscopic Urine Sediment Analysis</strong> - Cellular casts, RBCs &amp; crystals
-                  </td>
-                  <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
-                    No cellular casts, RBCs or crystals
-                  </td>
-                  <td className="p-1 border-r border-slate-300">
-                    <input 
-                      type="text"
-                      value={urinalysisData.labSediment.result}
-                      onChange={(e) => setUrinalysisData({ ...urinalysisData, labSediment: { ...urinalysisData.labSediment, result: e.target.value } })}
-                      placeholder="e.g. Clear / Negative"
-                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
-                    />
-                  </td>
-                  <td className="p-1">
-                    <input 
-                      type="text"
-                      value={urinalysisData.labSediment.remarks}
-                      onChange={(e) => setUrinalysisData({ ...urinalysisData, labSediment: { ...urinalysisData.labSediment, remarks: e.target.value } })}
-                      className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
-                    />
-                  </td>
-                </tr>
+                    <tr className="hover:bg-slate-50">
+                      <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
+                        <strong>Albumin-to-Creatinine Ratio (ACR)</strong> - Early microvascular &amp; glomerular filter check
+                      </td>
+                      <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
+                        &lt; 30 mg/g (&lt; 3 mg/mmol)
+                      </td>
+                      <td className="p-1 border-r border-slate-300">
+                        <input 
+                          type="text"
+                          value={urinalysisData.labAcr.result}
+                          onChange={(e) => setUrinalysisData({ ...urinalysisData, labAcr: { ...urinalysisData.labAcr, result: e.target.value } })}
+                          placeholder="e.g. 1.2 mg/mmol"
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
+                        />
+                      </td>
+                      <td className="p-1">
+                        <input 
+                          type="text"
+                          value={urinalysisData.labAcr.remarks}
+                          onChange={(e) => setUrinalysisData({ ...urinalysisData, labAcr: { ...urinalysisData.labAcr, remarks: e.target.value } })}
+                          className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
+                        />
+                      </td>
+                    </tr>
+                  </>
+                )}
               </tbody>
             </table>
           </div>
@@ -2028,27 +2410,25 @@ export default function ClinicianCopilot() {
 
                   <tr className="hover:bg-slate-50">
                     <td className="p-2 text-slate-900 font-medium border-r border-slate-300">
-                      <strong>Other 7 Parameters Status</strong> (Leuk, Nit, Prot, Blood, Gluc, Urob, Bili)
+                      <strong>Protein &amp; Microvascular Dipstick Status</strong> (Prot, Leuk, Nit, Blood, Gluc, Urob, Bili)
                     </td>
                     <td className="p-2 font-bold text-cyan-800 border-r border-slate-300">
-                      All 7 Parameters Negative / Normal
+                      Negative / Normal
                     </td>
-                    <td className="p-2 border-r border-slate-300">
-                      <label className="flex items-center gap-2 cursor-pointer select-none">
-                        <input 
-                          type="checkbox"
-                          checked={urinalysisData.home7Clear}
-                          onChange={(e) => setUrinalysisData({ ...urinalysisData, home7Clear: e.target.checked })}
-                          className="w-4 h-4 text-cyan-600 accent-cyan-600"
-                        />
-                        <span className="text-[11px] font-bold text-slate-800">Clear / Normal</span>
-                      </label>
+                    <td className="p-1 border-r border-slate-300">
+                      <input 
+                        type="text"
+                        value={urinalysisData.homeProtein.result}
+                        onChange={(e) => setUrinalysisData({ ...urinalysisData, homeProtein: { ...urinalysisData.homeProtein, result: e.target.value } })}
+                        placeholder="e.g. Negative"
+                        className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 font-mono text-xs outline-none"
+                      />
                     </td>
                     <td className="p-1">
                       <input 
                         type="text"
-                        value={urinalysisData.home7Notes}
-                        onChange={(e) => setUrinalysisData({ ...urinalysisData, home7Notes: e.target.value })}
+                        value={urinalysisData.homeProtein.remarks}
+                        onChange={(e) => setUrinalysisData({ ...urinalysisData, homeProtein: { ...urinalysisData.homeProtein, remarks: e.target.value } })}
                         className="w-full bg-slate-50 hover:bg-white focus:bg-white border border-slate-200 rounded px-1.5 py-0.5 text-xs outline-none"
                       />
                     </td>

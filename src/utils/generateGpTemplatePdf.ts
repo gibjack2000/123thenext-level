@@ -63,10 +63,12 @@ export interface GpTemplateData {
   urinalysis?: {
     labAcr?: { result?: string; remarks?: string };
     labMicroalbumin?: { result?: string; remarks?: string };
+    labCreatinine?: { result?: string; remarks?: string };
     labSediment?: { result?: string; remarks?: string };
     homePh?: { result?: string; remarks?: string };
     homeSg?: { result?: string; remarks?: string };
     homeKetones?: { result?: string; remarks?: string };
+    homeProtein?: { result?: string; remarks?: string };
     home7Clear?: boolean;
     home7Notes?: string;
   };
@@ -680,15 +682,17 @@ export function buildGpConsultationTemplatePdf(data: GpTemplateData = {}): jsPDF
       defaultRemarks: '[ ] Normal  [ ] Microalbuminuria (30-300)'
     },
     {
-      name: 'Microalbuminuria & Total Proteinuria',
+      name: 'Microalbumin (mg/L) & Total Proteinuria',
       benchmark: 'Negative / < 20 mg/L',
       val: data.urinalysis?.labMicroalbumin,
       defaultRemarks: '[ ] Preserved Renal Endothelial Barrier'
     },
     {
-      name: 'Microscopic Urine Sediment Analysis',
-      benchmark: 'No cellular casts, RBCs or crystals',
-      val: data.urinalysis?.labSediment,
+      name: 'Urine Creatinine (mmol/L) & Sediment Analysis',
+      benchmark: 'Normal Creatinine / Clear Sediment',
+      val: data.urinalysis?.labCreatinine?.result
+        ? data.urinalysis.labCreatinine
+        : data.urinalysis?.labSediment,
       defaultRemarks: '[ ] Clear Renal Filtration'
     }
   ];
@@ -769,13 +773,17 @@ export function buildGpConsultationTemplatePdf(data: GpTemplateData = {}): jsPDF
       defaultHabit: 'Carbohydrate restriction, fasting window'
     },
     {
-      name: '7 Microvascular Indicators (Protein, Blood, Nitrite, Leuko, Bilirubin, Urobil, Glucose)',
-      target: 'All Negative / Normal',
+      name: 'Urine Protein & 7 Microvascular Dipstick Indicators',
+      target: 'Negative / Normal',
       val: {
-        result: data.urinalysis?.home7Clear ? 'All 7 Clear (Normal)' : data.urinalysis?.home7Notes || '',
-        remarks: data.urinalysis?.home7Clear ? '✓ All Clear' : data.urinalysis?.home7Notes || ''
+        result: data.urinalysis?.homeProtein?.result
+          ? `Protein: ${data.urinalysis.homeProtein.result}`
+          : data.urinalysis?.home7Clear
+            ? 'All 7 Clear (Normal)'
+            : data.urinalysis?.home7Notes || '',
+        remarks: data.urinalysis?.homeProtein?.remarks || (data.urinalysis?.home7Clear ? '✓ All Clear' : data.urinalysis?.home7Notes || '')
       },
-      defaultHabit: '[ ] All 7 Clear  [ ] Anomaly Flagged'
+      defaultHabit: '[ ] Negative / All Clear  [ ] Anomaly Flagged'
     }
   ];
 
