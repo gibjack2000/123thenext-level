@@ -31,6 +31,13 @@ const ADMIN_NAV_ITEMS: NavItem[] = [
     badgeColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30'
   },
   {
+    label: '🏪 Store Suppliers',
+    path: '/admin/store',
+    icon: Database,
+    badge: 'Multi-Supplier',
+    badgeColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+  },
+  {
     label: '⚙️ Clinical Catalog',
     path: '/admin',
     icon: Database,

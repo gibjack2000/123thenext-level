@@ -31,7 +31,9 @@ import {
   formatDiagnosticPrice,
   ensureCoreRegionalCatalog,
   getCategoryDisplayLabel,
-  MultiSupplierOptionsBar
+  MultiSupplierOptionsBar,
+  DynamicSupplierCtaSection,
+  getActiveSuppliers
 } from './Store';
 import { DigitalGuides } from '../components/DigitalGuides';
 import BundleOffers from '../components/BundleOffers';
@@ -139,8 +141,16 @@ export const StoreES: React.FC = () => {
       )
       .subscribe();
 
+    const handleSuppliersChanged = () => {
+      fetchESProducts();
+    };
+    window.addEventListener('product_suppliers_changed', handleSuppliersChanged);
+    window.addEventListener('storage', handleSuppliersChanged);
+
     return () => {
       supabase.removeChannel(channel);
+      window.removeEventListener('product_suppliers_changed', handleSuppliersChanged);
+      window.removeEventListener('storage', handleSuppliersChanged);
     };
   }, []);
 
@@ -153,7 +163,7 @@ export const StoreES: React.FC = () => {
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.category.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
+    return matchesCategory && matchesSearch && getActiveSuppliers(product, 'ES').length > 0;
   });
 
   const clinicalPartners = filteredProducts.filter(p => p.is_direct_affiliate);
@@ -453,26 +463,12 @@ export const StoreES: React.FC = () => {
                             {isDiag ? getDiagnosticCountryBadge('ES', product) : (product.badge_text || 'Certificado UE')}
                           </span>
                         </div>
-                        <div className="flex justify-between items-center gap-3 bg-slate-900/40 p-3 rounded-xl border border-slate-850">
-                          <div className="flex flex-col shrink-0">
-                            <span className="font-extrabold text-slate-100 text-lg leading-tight">{displayPrice}</span>
-                            {isDiag && (
-                              <span className="text-[10px] text-emerald-400/90 font-medium mt-0.5">
-                                Precios actualizados en el portal
-                              </span>
-                            )}
-                          </div>
-                          <a 
-                            href={product.deal_url} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            className="px-4 py-2 rounded-lg bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white text-xs font-bold shadow-lg transition-all duration-300 inline-flex items-center gap-1.5 text-center"
-                          >
-                            <span>{isDiag ? getCleanDiagnosticCta(product, 'ES') : 'Acceder al Portal'}</span>
-                            <ExternalLink size={12} />
-                          </a>
-                        </div>
-                        <MultiSupplierOptionsBar product={product} market="ES" />
+                        <DynamicSupplierCtaSection
+                          product={product}
+                          market="ES"
+                          isDiag={isDiag}
+                          displayPrice={displayPrice}
+                        />
                       </div>
                     </div>
                   );
@@ -552,19 +548,12 @@ export const StoreES: React.FC = () => {
                             {isDiag ? getDiagnosticCountryBadge('ES', product) : (product.badge_text || 'Certificado UE')}
                           </span>
                         </div>
-                        <div className="flex justify-between items-center gap-3 bg-slate-900/20 p-3 rounded-xl border border-slate-900">
-                          <span className="font-extrabold text-slate-100 text-lg shrink-0">{product.price_text}</span>
-                          <a 
-                            href={product.deal_url} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            className="px-4 py-2 rounded-lg bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400 text-xs font-bold transition-all duration-300 inline-flex items-center gap-1.5 text-center"
-                          >
-                            <span>{isDiag ? getCleanDiagnosticCta(product, 'ES') : 'Comprar en Amazon 🇪🇸'}</span>
-                            <ExternalLink size={12} />
-                          </a>
-                        </div>
-                        <MultiSupplierOptionsBar product={product} market="ES" />
+                        <DynamicSupplierCtaSection
+                          product={product}
+                          market="ES"
+                          isDiag={isDiag}
+                          displayPrice={product.price_text}
+                        />
                       </div>
                     </div>
                   );

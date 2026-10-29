@@ -11,12 +11,17 @@ export type StoreCategory =
 export type ProductCategory = StoreCategory;
 
 export interface SupplierOption {
-  supplierName: "Amazon" | "iHerb" | "Life Extension" | "Withings" | "HealthLabs" | "LOLA Health" | "Melio";
+  id?: string;
+  productId?: string;
+  marketRegion?: MarketRegion;
+  supplierName: "Amazon" | "iHerb" | "Life Extension" | "Withings" | "HealthLabs" | "LOLA Health" | "Melio" | string;
   url: string;
   ctaText: string;
   priceText: string;
   badgeText: string;
   isPrimary: boolean;
+  isActive?: boolean;
+  is_active?: boolean;
   perksNote?: string; // e.g., "Prime 2-Day" or "Rewards + 5% Off"
 }
 
@@ -1090,16 +1095,16 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
   if (matchedStackItem) {
     const stackOptions = matchedStackItem[mKey] || [];
     if (stackOptions.length > 0) {
-      return stackOptions.map((opt, idx) =>
-        idx === 0
-          ? {
-              ...opt,
-              url: dealUrl || opt.url,
-              priceText: priceText || opt.priceText,
-              badgeText: badgeText || opt.badgeText
-            }
-          : opt
-      );
+      return stackOptions.map((opt, idx) => ({
+        ...opt,
+        id: opt.id || `${id || matchedStackItem.id}-${market.toLowerCase()}-${opt.supplierName.toLowerCase().replace(/[^a-z0-9]/g, '-')}`,
+        productId: id || matchedStackItem.id,
+        marketRegion: market,
+        isActive: opt.isActive ?? opt.is_active ?? true,
+        url: idx === 0 ? (dealUrl || opt.url) : opt.url,
+        priceText: idx === 0 ? (priceText || opt.priceText) : opt.priceText,
+        badgeText: idx === 0 ? (badgeText || opt.badgeText) : opt.badgeText
+      }));
     }
   }
 
@@ -1145,12 +1150,16 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
 
   const options: SupplierOption[] = [
     {
+      id: `${id || 'prod'}-${market.toLowerCase()}-${primarySupplier.toLowerCase().replace(/[^a-z0-9]/g, '-')}`,
+      productId: id,
+      marketRegion: market,
       supplierName: primarySupplier,
       url: dealUrl || '#',
       ctaText: primaryCta,
       priceText: priceText || (market === 'UK' ? '£24.99' : market === 'ES' ? '24,99€' : '$29.99'),
       badgeText,
       isPrimary: true,
+      isActive: true,
       perksNote: primaryPerks
     }
   ];
@@ -1174,23 +1183,31 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
 
     if (primarySupplier !== 'iHerb') {
       options.push({
+        id: `${id || 'prod'}-${market.toLowerCase()}-iherb`,
+        productId: id,
+        marketRegion: market,
         supplierName: 'iHerb',
         url: `${iherbDomain}/search?kw=${cleanKeywords}`,
         ctaText: market === 'ES' ? 'Ver en iHerb' : 'Compare on iHerb',
         priceText: priceText,
         badgeText: 'Third-Party Tested',
         isPrimary: false,
+        isActive: true,
         perksNote: 'Rewards + 5% Off'
       });
     }
     if (primarySupplier !== 'Life Extension') {
       options.push({
+        id: `${id || 'prod'}-${market.toLowerCase()}-life-extension`,
+        productId: id,
+        marketRegion: market,
         supplierName: 'Life Extension',
         url: `${leDomain}/search#q=${cleanKeywords}`,
         ctaText: market === 'ES' ? 'Life Extension UE' : 'Life Extension',
         priceText: priceText,
         badgeText: 'COA Lab Verified',
         isPrimary: false,
+        isActive: true,
         perksNote: 'Clinical Potency'
       });
     }
@@ -1200,12 +1217,16 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
   if (lowerTitle.includes('withings') && primarySupplier === 'Amazon') {
     const withingsLocale = market === 'UK' ? 'uk/en' : market === 'ES' ? 'es/es' : 'us/en';
     options.push({
+      id: `${id || 'prod'}-${market.toLowerCase()}-withings`,
+      productId: id,
+      marketRegion: market,
       supplierName: 'Withings',
       url: `https://www.withings.com/${withingsLocale}`,
       ctaText: market === 'ES' ? 'Withings Oficial' : 'Withings Direct',
       priceText: priceText,
       badgeText: 'Official Store',
       isPrimary: false,
+      isActive: true,
       perksNote: '2-Yr Warranty'
     });
   }

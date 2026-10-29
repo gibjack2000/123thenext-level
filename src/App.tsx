@@ -92,6 +92,7 @@ const BlogPostPage = lazy(() => import('./pages/BlogPostPage'));
 const BlogCategoryPage = lazy(() => import('./pages/BlogCategoryPage'));
 const BlogAutomationAdmin = lazy(() => import('./pages/BlogAutomationAdmin'));
 const BlogAdminPage = lazy(() => import('./pages/BlogAdminPage'));
+const AdminStore = lazy(() => import('./pages/admin/AdminStore'));
 const PremiumGuidesPage = lazy(() => import('./pages/PremiumGuides'));
 const CheckoutPage = lazy(() => import('./pages/Checkout'));
 const CheckoutSuccess = lazy(() => import('./pages/premium/CheckoutSuccess'));
@@ -210,6 +211,7 @@ function App() {
                 <Route path="/social-fitness/recovery" element={<SocialRecovery />} />
                 <Route path="/admin" element={<AdminPage />} />
                 <Route path="/admin/affiliates" element={<AdminAffiliates />} />
+                <Route path="/admin/store" element={<AdminStore />} />
                 <Route path="/admin/blogs" element={<BlogAdminPage />} />
                 <Route path="/superadmin" element={<SuperAdminPage />} />
                 <Route path="/automation-admin" element={<BlogAutomationAdmin />} />

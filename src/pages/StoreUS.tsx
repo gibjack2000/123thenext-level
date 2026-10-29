@@ -31,7 +31,9 @@ import {
   formatDiagnosticPrice,
   ensureCoreRegionalCatalog,
   getCategoryDisplayLabel,
-  MultiSupplierOptionsBar
+  MultiSupplierOptionsBar,
+  DynamicSupplierCtaSection,
+  getActiveSuppliers
 } from './Store';
 import { DigitalGuides } from '../components/DigitalGuides';
 import BundleOffers from '../components/BundleOffers';
@@ -146,7 +148,7 @@ export const StoreUS: React.FC = () => {
   useEffect(() => {
     fetchUSProducts();
 
-    // Real-time synchronization: automatically re-fetch when products are updated in /admin/affiliates
+    // Real-time synchronization: automatically re-fetch when products are updated in /admin/affiliates or /admin/store
     const channel = supabase
       .channel('products-us-realtime')
       .on(
@@ -158,15 +160,23 @@ export const StoreUS: React.FC = () => {
       )
       .subscribe();
 
+    const handleSuppliersChanged = () => {
+      fetchUSProducts();
+    };
+    window.addEventListener('product_suppliers_changed', handleSuppliersChanged);
+    window.addEventListener('storage', handleSuppliersChanged);
+
     return () => {
       supabase.removeChannel(channel);
+      window.removeEventListener('product_suppliers_changed', handleSuppliersChanged);
+      window.removeEventListener('storage', handleSuppliersChanged);
     };
   }, []);
 
   // Standardized human-first category pills
   const categories = STOREFRONT_CATEGORIES;
 
-  // Filter products by active category and search
+  // Filter products by active category, search, and ensure 1+ active suppliers
   const filteredProducts = products.filter(product => {
     const matchesCategory = activeCategory === 'All' || 
       product.category.toLowerCase() === activeCategory.toLowerCase();
@@ -174,7 +184,7 @@ export const StoreUS: React.FC = () => {
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.category.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
+    return matchesCategory && matchesSearch && getActiveSuppliers(product, 'US').length > 0;
   });
 
   const clinicalPartners = filteredProducts.filter(p => p.is_direct_affiliate);
@@ -484,29 +494,12 @@ export const StoreUS: React.FC = () => {
                             {isDiag ? getDiagnosticCountryBadge('US', product) : (product.badge_text || 'FDA / CLIA Verified')}
                           </span>
                         </div>
-                        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-slate-900/40 p-3 rounded-xl border border-slate-850">
-                          <div className="flex flex-col shrink-0">
-                            <span className="font-extrabold text-slate-100 text-lg leading-tight">{displayPrice}</span>
-                            {isDiag && (
-                              <span className="text-[10px] text-emerald-400/90 font-medium mt-0.5">
-                                Live pricing on partner site
-                              </span>
-                            )}
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <a 
-                              href={product.deal_url} 
-                              target="_blank" 
-                              rel="noopener noreferrer" 
-                              className="flex-1 sm:flex-initial px-4 py-2 rounded-lg bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white text-xs font-bold shadow-lg transition-all duration-300 inline-flex items-center justify-center gap-1.5 text-center"
-                            >
-                              <span>{isDiag ? getCleanDiagnosticCta(product, 'US') : 'Buy Now'}</span>
-                              <ExternalLink size={12} />
-                            </a>
-                          </div>
-                        </div>
-
-                        <MultiSupplierOptionsBar product={product} market="US" />
+                        <DynamicSupplierCtaSection
+                          product={product}
+                          market="US"
+                          isDiag={isDiag}
+                          displayPrice={displayPrice}
+                        />
 
                         <div className="flex items-center justify-between text-[9px] font-mono text-slate-500 pt-1">
                           <span className="flex items-center gap-1">
@@ -596,19 +589,12 @@ export const StoreUS: React.FC = () => {
                             {isDiag ? getDiagnosticCountryBadge('US', product) : (product.badge_text || 'US Verified')}
                           </span>
                         </div>
-                        <div className="flex justify-between items-center gap-3 bg-slate-900/20 p-3 rounded-xl border border-slate-900">
-                          <span className="font-extrabold text-slate-100 text-lg shrink-0">{product.price_text}</span>
-                          <a 
-                            href={product.deal_url} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
-                            className="px-4 py-2 rounded-lg bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400 text-xs font-bold transition-all duration-300 inline-flex items-center gap-1.5 text-center"
-                          >
-                            <span>{isDiag ? getCleanDiagnosticCta(product, 'US') : 'Buy on Amazon 🇺🇸'}</span>
-                            <ExternalLink size={12} />
-                          </a>
-                        </div>
-                        <MultiSupplierOptionsBar product={product} market="US" />
+                        <DynamicSupplierCtaSection
+                          product={product}
+                          market="US"
+                          isDiag={isDiag}
+                          displayPrice={product.price_text}
+                        />
                       </div>
                     </div>
                   );

@@ -2887,6 +2887,132 @@ export function getCategoryDisplayLabel(category: string): string {
   return category;
 }
 
+export function getActiveSuppliers(product: any, market: MarketTab): SupplierOption[] {
+  let suppliers: SupplierOption[] = resolveProductSuppliers(product, market);
+  try {
+    const deletedIds = new Set<string>(JSON.parse(localStorage.getItem(`sovereign_deleted_suppliers_${market}`) || '[]'));
+    const toggledStates: Record<string, boolean> = JSON.parse(localStorage.getItem(`sovereign_toggled_suppliers_${market}`) || '{}');
+
+    suppliers = suppliers.filter(s => {
+      const sId = s.id || `${product.id}-${market.toLowerCase()}-${s.supplierName.toLowerCase()}`;
+      if (deletedIds.has(sId)) return false;
+      const isToggled = toggledStates[sId];
+      if (isToggled !== undefined) return isToggled;
+      return s.isActive !== false && s.is_active !== false;
+    });
+  } catch {
+    suppliers = suppliers.filter(s => s.isActive !== false && s.is_active !== false);
+  }
+  return suppliers;
+}
+
+export function DynamicSupplierCtaSection({
+  product,
+  market,
+  isDiag,
+  displayPrice,
+  isBypassActive
+}: {
+  product: any;
+  market: MarketTab;
+  isDiag: boolean;
+  displayPrice: string;
+  isBypassActive?: boolean;
+}) {
+  const activeSuppliers = getActiveSuppliers(product, market);
+  if (activeSuppliers.length === 0) return null;
+
+  const primary = activeSuppliers.find(s => s.isPrimary) || activeSuppliers[0];
+  const secondary = activeSuppliers.filter(s => s !== primary);
+  const flagEmoji = market === 'US' ? '🇺🇸' : market === 'UK' ? '🇬🇧' : '🇪🇸';
+
+  const defaultCtaText = isDiag 
+    ? getCleanDiagnosticCta(product, market) 
+    : (product.deal_url?.includes('/checkout') ? 'Get Master Guide ➔' : (primary.ctaText || `Buy on Amazon ${flagEmoji}`));
+
+  const primaryUrl = primary.url || product.deal_url || '#';
+  const priceToShow = primary.priceText || displayPrice || product.price_text;
+
+  return (
+    <div className="flex flex-col space-y-2.5">
+      {/* Primary CTA Box */}
+      <div className={`flex justify-between items-center gap-3 p-3 rounded-xl border ${
+        isDiag ? 'bg-slate-900/40 border-slate-850' : 'bg-slate-900/20 border-slate-900'
+      }`}>
+        <div className="flex flex-col shrink-0">
+          <span className="font-extrabold text-slate-100 text-lg leading-tight">{priceToShow}</span>
+          {isDiag && (
+            <span className="text-[10px] text-emerald-400/90 font-medium mt-0.5">
+              {isLolaProduct(product, market)
+                ? 'Live pricing on LOLA Health'
+                : market === 'ES'
+                ? 'Precios en vivo en el portal'
+                : 'Live pricing on partner site'}
+            </span>
+          )}
+          {!isDiag && primary.perksNote && (
+            <span className="text-[10px] text-emerald-400 font-semibold mt-0.5">
+              ✨ {primary.perksNote}
+            </span>
+          )}
+        </div>
+
+        {isBypassActive && (product.deal_url?.includes('/checkout') || product.id?.includes('guide') || product.id?.includes('metabolic')) ? (
+          <a
+            href={getGuidePdfDownloadUrl(product.id)}
+            download
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-md shadow-emerald-500/20"
+          >
+            Test Download (Free Bypass)
+          </a>
+        ) : (
+          <a
+            href={primaryUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`px-4 py-2 rounded-lg text-xs font-bold transition-all duration-300 text-center shadow-lg ${
+              isDiag 
+                ? 'bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white shadow-rose-500/20'
+                : 'bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400'
+            }`}
+          >
+            {primary.ctaText || defaultCtaText}
+          </a>
+        )}
+      </div>
+
+      {/* Secondary CTAs (rendered ONLY when 2+ active suppliers exist; automatically collapsed to 0 when 1 supplier remains) */}
+      {secondary.length > 0 && (
+        <div className="pt-2 border-t border-slate-900/80 space-y-1.5">
+          <span className="block text-[10px] font-mono uppercase tracking-wider text-slate-400">
+            Compare Alternate Suppliers ({market}):
+          </span>
+          <div className="flex flex-wrap gap-1.5">
+            {secondary.map((opt, idx) => (
+              <a
+                key={`${opt.supplierName}-${idx}`}
+                href={opt.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/40 text-[11px] font-semibold text-slate-200 hover:text-cyan-300 transition-all"
+              >
+                <span>{opt.supplierName}</span>
+                {opt.priceText && <span className="text-[10px] text-slate-400 font-mono">({opt.priceText})</span>}
+                {opt.perksNote && (
+                  <span className="text-[10px] text-amber-400 font-normal">({opt.perksNote})</span>
+                )}
+                <ExternalLink size={10} className="text-slate-400" />
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function MultiSupplierOptionsBar({
   product,
   market
@@ -2894,9 +3020,11 @@ export function MultiSupplierOptionsBar({
   product: any;
   market: MarketTab;
 }) {
-  const suppliers: SupplierOption[] = resolveProductSuppliers(product, market);
+  const suppliers: SupplierOption[] = getActiveSuppliers(product, market);
   const primary = suppliers.find(s => s.isPrimary) || suppliers[0];
   const secondary = suppliers.filter(s => s !== primary);
+
+  if (secondary.length === 0) return null;
 
   return (
     <div className="space-y-2.5">
@@ -3194,7 +3322,7 @@ export function Store({ region }: StoreProps = {}) {
 
     fetchDynamicStore();
 
-    // Enable real-time updates when records change in /admin/affiliates
+    // Enable real-time updates when records change in /admin/affiliates or /admin/store
     const channel = supabase
       .channel(`storefront-products-live-${activeTab}`)
       .on(
@@ -3206,16 +3334,25 @@ export function Store({ region }: StoreProps = {}) {
       )
       .subscribe();
 
+    const handleSuppliersChanged = () => {
+      fetchDynamicStore();
+    };
+    window.addEventListener('product_suppliers_changed', handleSuppliersChanged);
+    window.addEventListener('storage', handleSuppliersChanged);
+
     return () => {
       isCancelled = true;
       supabase.removeChannel(channel);
+      window.removeEventListener('product_suppliers_changed', handleSuppliersChanged);
+      window.removeEventListener('storage', handleSuppliersChanged);
     };
   }, [activeTab]);
 
-  // Handle case-insensitive filtering
-  const filteredProducts = activeCategory === 'All'
+  // Handle case-insensitive filtering & dynamically filter out products with 0 active suppliers
+  const filteredProducts = (activeCategory === 'All'
     ? products
-    : products.filter(p => p.category && p.category.toLowerCase() === activeCategory.toLowerCase());
+    : products.filter(p => p.category && p.category.toLowerCase() === activeCategory.toLowerCase())
+  ).filter(p => getActiveSuppliers(p, activeTab).length > 0);
 
   // Split into Tier 1 (Clinical Direct) and Tier 2 (Amazon Hub)
   const clinicalPartners = filteredProducts.filter(p => 
@@ -3478,25 +3615,13 @@ export function Store({ region }: StoreProps = {}) {
                             {isDiag ? getDiagnosticCountryBadge(activeTab, product) : (product.badge_text || 'Verified')}
                           </span>
                         </div>
-                        <div className="flex justify-between items-center gap-3 bg-slate-900/40 p-3 rounded-xl border border-slate-850">
-                          <div className="flex flex-col shrink-0">
-                            <span className="font-extrabold text-slate-100 text-lg leading-tight">{displayPrice}</span>
-                            {isDiag && (
-                              <span className="text-[10px] text-emerald-400/90 font-medium mt-0.5">
-                                {isLolaProduct(product, activeTab)
-                                  ? 'Live pricing on LOLA Health'
-                                  : activeTab === 'ES'
-                                  ? 'Precios en vivo en el portal'
-                                  : 'Live pricing on partner site'}
-                              </span>
-                            )}
-                          </div>
-                          <a href={product.deal_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white text-xs font-bold shadow-lg transition-all duration-300 text-center">
-                            {isDiag ? getCleanDiagnosticCta(product, activeTab) : (product.deal_url?.includes('/checkout') ? 'Get Master Guide ➔' : 'Access Partner Portal')}
-                          </a>
-                        </div>
-                        {/* LEVEL 3: Multi-Supplier Comparison Options */}
-                        <MultiSupplierOptionsBar product={product} market={activeTab} />
+                        <DynamicSupplierCtaSection
+                          product={product}
+                          market={activeTab}
+                          isDiag={isDiag}
+                          displayPrice={displayPrice}
+                          isBypassActive={isBypassActive}
+                        />
                       </div>
                     </div>
                   );
@@ -3578,26 +3703,13 @@ export function Store({ region }: StoreProps = {}) {
                                     {isDiag ? getDiagnosticCountryBadge(activeTab, product) : (product.network || 'Amazon Associates')}
                                   </span>
                                 </div>
-                                <div className="flex justify-between items-center gap-3 bg-slate-900/20 p-3 rounded-xl border border-slate-900">
-                                  <span className="font-extrabold text-slate-100 text-lg shrink-0">{product.price_text}</span>
-                                  {isBypassActive && (product.deal_url?.includes('/checkout') || product.id?.includes('guide') || product.id?.includes('metabolic')) ? (
-                                    <a
-                                      href={getGuidePdfDownloadUrl(product.id)}
-                                      download
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-md shadow-emerald-500/20"
-                                    >
-                                      Test Download (Free Bypass)
-                                    </a>
-                                  ) : (
-                                    <a href={product.deal_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400 text-xs font-bold transition-all duration-300 text-center">
-                                      {isDiag ? getCleanDiagnosticCta(product, activeTab) : (product.deal_url?.includes('/checkout') ? 'Get Master Guide ➔' : `Buy on Amazon ${getFlagEmoji(activeTab)}`)}
-                                    </a>
-                                  )}
-                                </div>
-                                {/* LEVEL 3: Multi-Supplier Comparison Options */}
-                                <MultiSupplierOptionsBar product={product} market={activeTab} />
+                                <DynamicSupplierCtaSection
+                                  product={product}
+                                  market={activeTab}
+                                  isDiag={isDiag}
+                                  displayPrice={product.price_text}
+                                  isBypassActive={isBypassActive}
+                                />
                               </div>
                             </div>
                           );
@@ -3672,26 +3784,13 @@ export function Store({ region }: StoreProps = {}) {
                                 {isDiag ? getDiagnosticCountryBadge(activeTab, product) : (product.network || 'Amazon Associates')}
                               </span>
                             </div>
-                            <div className="flex justify-between items-center gap-3 bg-slate-900/20 p-3 rounded-xl border border-slate-900">
-                              <span className="font-extrabold text-slate-100 text-lg shrink-0">{product.price_text}</span>
-                              {isBypassActive && (product.deal_url?.includes('/checkout') || product.id?.includes('guide') || product.id?.includes('metabolic')) ? (
-                                <a
-                                  href={getGuidePdfDownloadUrl(product.id)}
-                                  download
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-md shadow-emerald-500/20"
-                                >
-                                  Test Download (Free Bypass)
-                                </a>
-                              ) : (
-                                <a href={product.deal_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400 text-xs font-bold transition-all duration-300 text-center">
-                                  {isDiag ? getCleanDiagnosticCta(product, activeTab) : (product.deal_url?.includes('/checkout') ? 'Get Master Guide ➔' : `Buy on Amazon ${getFlagEmoji(activeTab)}`)}
-                                </a>
-                              )}
-                            </div>
-                            {/* LEVEL 3: Multi-Supplier Comparison Options */}
-                            <MultiSupplierOptionsBar product={product} market={activeTab} />
+                            <DynamicSupplierCtaSection
+                              product={product}
+                              market={activeTab}
+                              isDiag={isDiag}
+                              displayPrice={product.price_text}
+                              isBypassActive={isBypassActive}
+                            />
                           </div>
                         </div>
                       );
