@@ -180,9 +180,9 @@ export default function AdminPage() {
 
           let healedImg = row.image_url || '';
           if (healedImg.includes('core-500.png')) {
-            healedImg = 'https://www.123thenextlevel.com/Products/duronic520.jpg';
+            healedImg = '/Products/clinical-ai-stethoscope.jpg';
           } else if (healedImg.includes('blood-panel.png')) {
-            healedImg = 'https://www.123thenextlevel.com/Products/ancientbrave.jpeg';
+            healedImg = region === 'UK' ? '/Products/lola-blood-panel.jpg' : '/Products/clinical-blood-panel.jpg';
           }
 
           if (healedImg.startsWith('/assets/') && !healedImg.startsWith('http')) {

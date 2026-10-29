@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 import { supabase as importedSupabase, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 import { useMarket, Market } from '../contexts/MarketContext';
+import { resolveDiagnosticImage } from '../pages/Store';
 
 const supabase = importedSupabase || createClient(
   import.meta.env.VITE_SUPABASE_URL || supabaseUrl || 'https://seoaictzhmqdwnkfymxt.supabase.co',
@@ -1344,6 +1345,11 @@ export default function HomeExpressShop() {
             const displayUrl = override?.url || regionalData.url;
             const displayBadge = override?.badge || regionalData.badge;
             const displayName = override?.name || product.name;
+            const displayImg = resolveDiagnosticImage(
+              { id: product.id, name: displayName, deal_url: displayUrl, market_region: selectedRegion, image_url: product.imageUrl },
+              product.imageUrl,
+              selectedRegion
+            );
 
             return (
               <div
@@ -1354,12 +1360,12 @@ export default function HomeExpressShop() {
                 <div>
                   <div className="relative aspect-square w-full bg-slate-950 p-4 flex items-center justify-center overflow-hidden border-b border-slate-800/80">
                     <img
-                      src={product.imageUrl}
+                      src={displayImg}
                       alt={displayName}
                       onError={(e) => {
                         const target = e.currentTarget;
                         target.onerror = null;
-                        target.src = '/Products/owala.jpg';
+                        target.src = '/Products/ancientbrave.jpeg';
                       }}
                       className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-500"
                     />

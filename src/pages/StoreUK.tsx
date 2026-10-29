@@ -23,6 +23,8 @@ import {
   STOREFRONT_CATEGORIES,
   normalizeStoreCategory,
   isDiagnosticProduct,
+  isLolaProduct,
+  isBundledDiagnosticImage,
   getDiagnosticCountryBadge,
   getCleanDiagnosticCta,
   getDiagnosticPricingBadge,
@@ -77,13 +79,13 @@ export const StoreUK: React.FC = () => {
           const isDiag = catFormatted === '🩸 Clinical Diagnostics & Lab Testing';
 
           let healedImg = resolveDiagnosticImage(
-            { ...item, category: catFormatted, deal_url: healedDeal },
-            item.image_url || '/Products/oxford.jpeg'
+            { ...item, market_region: 'UK', category: catFormatted, deal_url: healedDeal },
+            item.image_url || '/Products/oxford.jpeg',
+            'UK'
           );
           if (
             !healedImg.startsWith('http') &&
-            !healedImg.includes('lola-') &&
-            !healedImg.includes('bloodtest')
+            !isBundledDiagnosticImage(healedImg)
           ) {
             if (healedImg.startsWith('/assets/') || healedImg.startsWith('/Products/')) {
               healedImg = `https://123thenextlevel.com${healedImg}`;
@@ -91,7 +93,7 @@ export const StoreUK: React.FC = () => {
           }
 
           const rawPrice = item.price_text || (item.price != null ? `£${Number(item.price).toFixed(2)}` : '£0.00');
-          const priceFormatted = formatDiagnosticPrice(rawPrice, { ...item, category: catFormatted, deal_url: healedDeal }, 'UK');
+          const priceFormatted = formatDiagnosticPrice(rawPrice, { ...item, market_region: 'UK', category: catFormatted, deal_url: healedDeal }, 'UK');
 
           return {
             id: item.id,
@@ -102,7 +104,7 @@ export const StoreUK: React.FC = () => {
             price_text: priceFormatted,
             deal_url: healedDeal,
             market_region: 'UK',
-            badge_text: isDiag ? getDiagnosticCountryBadge('UK') : (item.badge_text || 'MHRA / UK Verified'),
+            badge_text: isDiag ? getDiagnosticCountryBadge('UK', item) : (item.badge_text || 'MHRA / UK Verified'),
             image_url: healedImg,
             is_direct_affiliate: item.is_direct_affiliate || (!healedDeal.toLowerCase().includes('amazon')),
             hub_placement_slot: item.hub_placement_slot,
@@ -389,7 +391,7 @@ export const StoreUK: React.FC = () => {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {clinicalPartners.map(product => {
                   const isDiag = isDiagnosticProduct(product);
-                  const displayImg = isDiag ? resolveDiagnosticImage(product, product.image_url) : product.image_url;
+                  const displayImg = resolveDiagnosticImage(product, product.image_url, 'UK');
                   const displayPrice = isDiag ? formatDiagnosticPrice(product.price_text, product, 'UK') : product.price_text;
                   return (
                     <div 
@@ -411,7 +413,9 @@ export const StoreUK: React.FC = () => {
                                   target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
                                   return;
                                 }
-                                target.src = isDiag ? '/Products/lola-blood-panel.jpg' : '/Products/oxford.jpeg';
+                                target.src = isDiag
+                                  ? (isLolaProduct(product, 'UK') ? '/Products/lola-blood-panel.jpg' : '/Products/clinical-blood-panel.jpg')
+                                  : '/Products/oxford.jpeg';
                               }}
                             />
                           </div>
@@ -428,7 +432,7 @@ export const StoreUK: React.FC = () => {
                         {isDiag && (
                           <div className="flex flex-wrap items-center gap-1.5 mb-3">
                             <span className="text-[11px] font-bold text-sky-300 bg-sky-950/60 border border-sky-500/40 px-2.5 py-1 rounded-md">
-                              {getDiagnosticCountryBadge('UK')}
+                              {getDiagnosticCountryBadge('UK', product)}
                             </span>
                             <span className="text-[11px] font-bold text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-md">
                               {getDiagnosticPricingBadge(product, 'UK')}
@@ -447,7 +451,7 @@ export const StoreUK: React.FC = () => {
                         <div className="flex justify-between items-center">
                           <span className="text-xs text-slate-500 font-semibold">Verification</span>
                           <span className="text-[10px] text-cyan-400 font-bold px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-800/20">
-                            {isDiag ? getDiagnosticCountryBadge('UK') : (product.badge_text || 'MHRA / UKCA')}
+                            {isDiag ? getDiagnosticCountryBadge('UK', product) : (product.badge_text || 'MHRA / UKCA')}
                           </span>
                         </div>
                         <div className="flex justify-between items-center gap-3 bg-slate-900/40 p-3 rounded-xl border border-slate-850">
@@ -455,7 +459,7 @@ export const StoreUK: React.FC = () => {
                             <span className="font-extrabold text-slate-100 text-lg leading-tight">{displayPrice}</span>
                             {isDiag && (
                               <span className="text-[10px] text-emerald-400/90 font-medium mt-0.5">
-                                Live pricing on LOLA Health
+                                {isLolaProduct(product, 'UK') ? 'Live pricing on LOLA Health' : 'Live pricing on partner site'}
                               </span>
                             )}
                           </div>
@@ -488,16 +492,17 @@ export const StoreUK: React.FC = () => {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {amazonProducts.map(product => {
                   const isDiag = isDiagnosticProduct(product);
+                  const displayImg = resolveDiagnosticImage(product, product.image_url, 'UK');
                   return (
                     <div 
                       key={product.id} 
                       className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-850 hover:border-cyan-500/20 p-6 flex flex-col justify-between shadow-xl transition-all duration-300"
                     >
                       <div>
-                        {product.image_url && (
+                        {displayImg && (
                           <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-850/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
                             <img 
-                              src={product.image_url} 
+                              src={displayImg} 
                               alt={product.name} 
                               className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                               referrerPolicy="no-referrer"
@@ -525,7 +530,7 @@ export const StoreUK: React.FC = () => {
                         {isDiag && (
                           <div className="flex flex-wrap items-center gap-1.5 mb-3">
                             <span className="text-[11px] font-bold text-sky-300 bg-sky-950/60 border border-sky-500/40 px-2.5 py-1 rounded-md">
-                              {getDiagnosticCountryBadge('UK')}
+                              {getDiagnosticCountryBadge('UK', product)}
                             </span>
                             <span className="text-[11px] font-bold text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-md">
                               {getDiagnosticPricingBadge(product, 'UK')}
@@ -544,7 +549,7 @@ export const StoreUK: React.FC = () => {
                         <div className="flex justify-between items-center">
                           <span className="text-xs text-slate-500 font-semibold">Compliance Badge</span>
                           <span className="text-[10px] text-slate-400 font-semibold px-2 py-0.5 rounded bg-slate-905 border border-slate-800">
-                            {isDiag ? getDiagnosticCountryBadge('UK') : (product.badge_text || 'UK Verified')}
+                            {isDiag ? getDiagnosticCountryBadge('UK', product) : (product.badge_text || 'UK Verified')}
                           </span>
                         </div>
                         <div className="flex justify-between items-center gap-3 bg-slate-900/20 p-3 rounded-xl border border-slate-900">

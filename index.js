@@ -44,7 +44,7 @@ try {
     for (const file of files) {
       const srcFile = path.join(sourceProductsPath, file);
       const destFile = path.join(publicHtmlProductsPath, file);
-      if (fs.statSync(srcFile).isFile() && !fs.existsSync(destFile)) {
+      if (fs.statSync(srcFile).isFile()) {
         fs.copyFileSync(srcFile, destFile);
         copiedCount++;
       }

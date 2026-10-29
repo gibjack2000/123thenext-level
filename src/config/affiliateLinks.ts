@@ -54,7 +54,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     isDirectAffiliate: true,
     rating: 4.92,
     description: "Core cardiovascular and metabolic blood panel measuring Cholesterol, HDL, LDL, Triglycerides, Fasting Glucose, HbA1c, and basic kidney/liver filtration.",
-    image_url: "/Products/lola-blood-panel.jpg",
+    image_url: "/Products/clinical-blood-panel.jpg",
     us: {
       url: "https://www.healthlabs.com/?affiliate=123znl",
       ctaText: "Order Baseline Bloods (HealthLabs US 🇺🇸)",
@@ -84,7 +84,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     isDirectAffiliate: true,
     rating: 4.95,
     description: "Direct-to-consumer longevity blood panels mapping 56 essential biomarkers including ApoB, hs-CRP, Vitamin D, Thyroid, and Hormones. Local Quest/Labcorp draw in the US, private clinical setups in UK and ES.",
-    image_url: "/Products/lola-blood-panel.jpg",
+    image_url: "/Products/clinical-blood-panel.jpg",
     us: {
       url: "https://www.healthlabs.com/?affiliate=123znl",
       ctaText: "Order 56-Biomarker Panel (HealthLabs US 🇺🇸)",
@@ -114,7 +114,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     isDirectAffiliate: true,
     rating: 4.91,
     description: "Synchronized clinical urinalysis measuring Albumin-to-Creatinine Ratio (ACR), Microalbumin, and Creatinine to evaluate renal filtration alongside your blood draw.",
-    image_url: "/Products/lola-urine-acr.jpg",
+    image_url: "/Products/clinical-urine-acr.jpg",
     us: {
       url: "https://www.healthlabs.com/?affiliate=123znl",
       ctaText: "Order Lab Urine ACR (HealthLabs US 🇺🇸)",
@@ -144,27 +144,27 @@ export const sovereignHealthStack: SovereignProduct[] = [
     isDirectAffiliate: true,
     rating: 4.80,
     description: "Real-time interstitial glucose tracking mapping energy peaks and valleys. Instantly syncs blood sugar fluctuations to target metabolic health.",
-    image_url: "/assets/images/shop/cgm.png",
+    image_url: "/Products/clinical-cgm-sensor.jpg",
     us: {
       url: "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl0e-20",
       ctaText: "Order CGM Sensor (Lingo US 🇺🇸)",
-      badge: "🇺🇸 US (HealthLabs/Quest)",
+      badge: "🇺🇸 US (Abbott Lingo / FDA)",
       network: "Amazon Associates",
-      priceText: "$89.00/mo"
+      priceText: "From $89.00/mo"
     },
     uk: {
       url: "https://hellolingo.co.uk",
       ctaText: "Order CGM Sensor (Lingo UK 🇬🇧)",
-      badge: "🇬🇧 UK (LOLA/UKAS)",
+      badge: "🇬🇧 UK (Abbott Lingo / MHRA)",
       network: "Lingo UK Direct",
-      priceText: "£79.00/mo"
+      priceText: "From £79.00/mo"
     },
     es: {
       url: "https://www.dexcom.com/es-ES",
       ctaText: "Order CGM Sensor (Dexcom ES 🇪🇸)",
-      badge: "🇪🇸 ES (Melio/Megalab)",
+      badge: "🇪🇸 ES (Dexcom ONE+ / CE)",
       network: "Dexcom ES Portal",
-      priceText: "79,00€/mo"
+      priceText: "Desde 79,00€/mo"
     }
   },
   {
@@ -174,25 +174,25 @@ export const sovereignHealthStack: SovereignProduct[] = [
     isDirectAffiliate: true,
     rating: 4.95,
     description: "FDA-cleared electronic stethoscope with 3-lead ECG. Uses clinical AI to detect murmurs, arrhythmias, and cardiac strain signs in 15 seconds.",
-    image_url: "/assets/images/shop/core-500.png",
+    image_url: "/Products/clinical-ai-stethoscope.jpg",
     us: {
       url: "https://www.ekohealth.com/products/core-500-digital-stethoscope",
       ctaText: "Order AI Stethoscope (Eko US 🇺🇸)",
-      badge: "🇺🇸 US (HealthLabs/Quest)",
+      badge: "🇺🇸 US (Eko Health / FDA)",
       network: "Eko Health Direct",
       priceText: "$429.00"
     },
     uk: {
       url: "https://www.ekohealth.com/products/core-500-digital-stethoscope",
       ctaText: "Order AI Stethoscope (Eko UK 🇬🇧)",
-      badge: "🇬🇧 UK (LOLA/UKAS)",
+      badge: "🇬🇧 UK (Eko Health / MHRA)",
       network: "Eko Health Direct",
       priceText: "£379.00"
     },
     es: {
       url: "https://www.doccheck.com/es/",
       ctaText: "Order AI Stethoscope (DocCheck ES 🇪🇸)",
-      badge: "🇪🇸 ES (Melio/Megalab)",
+      badge: "🇪🇸 ES (Eko Health / CE)",
       network: "DocCheck EU Partner",
       priceText: "429,00€"
     }
@@ -234,25 +234,25 @@ export const sovereignHealthStack: SovereignProduct[] = [
     isDirectAffiliate: false,
     rating: 4.90,
     description: "Direct medical-grade 10-parameter urinalysis strips for weekly tracking of microvascular health, proteinuria, pH, ketones, glucose, and renal function.",
-    image_url: "/Products/lola-urine-acr.jpg",
+    image_url: "/Products/aymed.webp",
     us: {
       url: "https://diagnoxhealth.com/products/urinalysis-test",
       ctaText: "Order Home Dipstick Kit (Diagnox US 🇺🇸)",
-      badge: "🇺🇸 US (HealthLabs/Quest)",
+      badge: "🇺🇸 US (Diagnox / FDA Cleared)",
       network: "Diagnox Health Direct",
       priceText: "From $16.99"
     },
     uk: {
       url: "https://referrals.lolahealth.com/NextLevel15",
       ctaText: "Order Home Dipstick Kit (LOLA UK 🇬🇧)",
-      badge: "🇬🇧 UK (LOLA/UKAS)",
+      badge: "🇬🇧 UK (ALLTEST / CE Marked)",
       network: "LOLA Health Direct",
       priceText: "From £12.99"
     },
     es: {
       url: "https://www.melio.es",
       ctaText: "Order Home Dipstick Kit (ALLTEST ES 🇪🇸)",
-      badge: "🇪🇸 ES (Melio/Megalab)",
+      badge: "🇪🇸 ES (ALLTEST / Marcado CE)",
       network: "SaludOnNet / Eurofins Direct",
       priceText: "Desde 14,50€"
     }
@@ -264,7 +264,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     isDirectAffiliate: true,
     rating: 4.93,
     description: "DunedinPACE epigenetic clock and DNA methylation pace-of-aging test kit to quantify your biological age trajectory vs chronological age.",
-    image_url: "/Products/lola-epigenetic-kit.jpg",
+    image_url: "/Products/clinical-epigenetic-kit.jpg",
     us: {
       url: "https://www.healthlabs.com/?affiliate=123znl",
       ctaText: "Order Epigenetic Kit (HealthLabs US 🇺🇸)",
