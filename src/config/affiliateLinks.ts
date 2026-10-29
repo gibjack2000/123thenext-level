@@ -1147,17 +1147,29 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
     priceText = '£29.00';
   } else if (
     market === 'US' && (
-      id.includes('blood-panel') ||
       id.includes('essential-blood') ||
       lowerDeal.includes('itemqd100025') ||
+      (lowerTitle.includes('basic') && (lowerTitle.includes('blood') || lowerTitle.includes('aging') || lowerTitle.includes('panel')))
+    )
+  ) {
+    // Temporary US Blood Test Links: Basic Option (#QD100025)
+    primarySupplier = 'Life Extension';
+    primaryPerks = 'Item #QD100025 • Entry-Level Baseline';
+    primaryCta = 'Order Basic Panel ($155 🇺🇸)';
+    dealUrl = US_BLOOD_TEST_BASIC_URL;
+    priceText = '$155.00';
+    badgeText = US_BLOOD_TEST_BASIC_BADGE;
+  } else if (
+    market === 'US' && (
+      id.includes('blood-panel') ||
       lowerDeal.includes('itemqd100026') ||
       lowerDeal.includes('healthy-aging-panel') ||
-      ((lowerTitle.includes('blood') || lowerTitle.includes('cellular') || lowerTitle.includes('biomarker')) &&
+      ((lowerTitle.includes('blood') || lowerTitle.includes('cellular') || lowerTitle.includes('biomarker') || lowerTitle.includes('comprehensive')) &&
        !id.includes('pressure') && !lowerTitle.includes('pressure') &&
        !id.includes('ovarian') && !lowerTitle.includes('ovarian'))
     )
   ) {
-    // Temporary US Blood Test Links: Default to Comprehensive (#QD100026)
+    // Temporary US Blood Test Links: Comprehensive (#QD100026)
     primarySupplier = 'Life Extension';
     primaryPerks = 'Item #QD100026 • Quest Diagnostics Requisition';
     primaryCta = 'Order Comprehensive Panel (Life Extension US 🇺🇸)';
@@ -1210,32 +1222,47 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
     }
   ];
 
-  // Add Basic Option ($155) for US Blood Tests
-  if (
-    market === 'US' && (
+  // Add alternate tier option for US Blood Tests
+  if (market === 'US') {
+    const isBasicCard = id.includes('essential-blood') || lowerDeal.includes('itemqd100025') || (lowerTitle.includes('basic') && lowerTitle.includes('panel'));
+    const isCompCard = !isBasicCard && (
       id.includes('blood-panel') ||
-      id.includes('essential-blood') ||
-      lowerDeal.includes('itemqd100025') ||
       lowerDeal.includes('itemqd100026') ||
       lowerDeal.includes('healthy-aging-panel') ||
       ((lowerTitle.includes('blood') || lowerTitle.includes('cellular') || lowerTitle.includes('biomarker')) &&
        !id.includes('pressure') && !lowerTitle.includes('pressure') &&
        !id.includes('ovarian') && !lowerTitle.includes('ovarian'))
-    )
-  ) {
-    options.push({
-      id: `${id || 'prod'}-us-life-extension-basic`,
-      productId: id,
-      marketRegion: 'US',
-      supplierName: 'Life Extension',
-      url: US_BLOOD_TEST_BASIC_URL,
-      ctaText: 'Order Basic Panel ($155)',
-      priceText: '$155.00',
-      badgeText: US_BLOOD_TEST_BASIC_BADGE,
-      isPrimary: false,
-      isActive: true,
-      perksNote: 'Item #QD100025 • Entry Baseline'
-    });
+    );
+
+    if (isCompCard) {
+      options.push({
+        id: `${id || 'prod'}-us-life-extension-basic`,
+        productId: id,
+        marketRegion: 'US',
+        supplierName: 'Life Extension (Basic $155)',
+        url: US_BLOOD_TEST_BASIC_URL,
+        ctaText: 'Order Basic Panel ($155)',
+        priceText: '$155.00',
+        badgeText: US_BLOOD_TEST_BASIC_BADGE,
+        isPrimary: false,
+        isActive: true,
+        perksNote: 'Item #QD100025 • Entry Baseline'
+      });
+    } else if (isBasicCard) {
+      options.push({
+        id: `${id || 'prod'}-us-life-extension-comp`,
+        productId: id,
+        marketRegion: 'US',
+        supplierName: 'Life Extension (Comprehensive)',
+        url: US_BLOOD_TEST_COMPREHENSIVE_URL,
+        ctaText: 'Order Comprehensive Panel ($299)',
+        priceText: 'From $299.00',
+        badgeText: US_BLOOD_TEST_COMPREHENSIVE_BADGE,
+        isPrimary: false,
+        isActive: true,
+        perksNote: 'Item #QD100026 • 56-Biomarker Map'
+      });
+    }
   }
 
   // Add multi-supplier options for Supplements & Nutraceuticals (excluding digital guides)

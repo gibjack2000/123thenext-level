@@ -190,14 +190,9 @@ export const StoreUS: React.FC = () => {
   });
 
   const isDiagCategoryActive = activeCategory.toLowerCase().includes('diagnostic');
-  const rawClinicalPartners = filteredProducts.filter(p => 
+  const clinicalPartners = filteredProducts.filter(p => 
     p.category === 'Clinical Diagnostics & Labs' || isDiagnosticProduct(p)
   );
-  // Unify US blood testing under the flagship card with interactive tier toggle
-  const hasBloodPanel = rawClinicalPartners.some(p => String(p.id).toLowerCase() === 'blood-panel-us');
-  const clinicalPartners = hasBloodPanel
-    ? rawClinicalPartners.filter(p => String(p.id).toLowerCase() !== 'essential-blood-panel-us')
-    : rawClinicalPartners;
   const amazonProducts = filteredProducts.filter(p => !clinicalPartners.includes(p));
 
   return (

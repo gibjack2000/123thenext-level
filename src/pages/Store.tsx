@@ -1063,11 +1063,11 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     },
     {
       "id": "blood-panel-us",
-      "name": "Healthy Aging Panel: Comprehensive & Basic Baseline (US 🇺🇸)",
+      "name": "Healthy Aging Panel (Comprehensive) [#QD100026]",
       "category": "Clinical Diagnostics & Labs",
       "rating": 4.95,
-      "description": "Direct-to-consumer longevity blood panels via Quest Diagnostics requisition. Toggle between the Comprehensive 56-Biomarker Map (#QD100026) or the Entry-Level Baseline (#QD100025).",
-      "price_text": "$299.00",
+      "description": "Direct-to-consumer longevity blood panels via Quest Diagnostics requisition mapping 56 essential biomarkers including ApoB, hs-CRP, and metabolic health.",
+      "price_text": "From $299.00",
       "deal_url": "https://www.lifeextension.com/lab-testing/itemqd100026/healthy-aging-panel-comprehensive-blood-test",
       "market_region": "US",
       "badge_text": "💊 Comprehensive Metabolic & Inflammatory Map",
@@ -2800,6 +2800,13 @@ export function formatDiagnosticPrice(priceText: string, product: any, market: M
     deal.includes('healthlabs') ||
     deal.includes('melio');
 
+  if (isUSBloodTest(product, market)) {
+    if (id.includes('essential') || deal.includes('itemqd100025') || title.includes('basic')) {
+      return '$155.00';
+    }
+    return raw.toLowerCase().startsWith('from ') ? raw : `From ${raw}`;
+  }
+
   if (isLabOrTestKit) {
     return market === 'ES' ? `Desde ${raw}` : `From ${raw}`;
   }
@@ -2830,7 +2837,11 @@ export function getDiagnosticCountryBadge(market: MarketTab, product?: any): str
 
   if (isUSBloodTest(product, market)) {
     const id = String(product?.id || '').toLowerCase();
-    if (id.includes('essential')) return '💊 Entry-Level Metabolic Baseline ($155)';
+    const deal = String(product?.deal_url || '').toLowerCase();
+    const title = String(product?.name || '').toLowerCase();
+    if (id.includes('essential') || deal.includes('itemqd100025') || title.includes('basic')) {
+      return '💊 Entry-Level Metabolic Baseline ($155)';
+    }
     return '💊 Comprehensive Metabolic & Inflammatory Map';
   }
 
@@ -2845,7 +2856,10 @@ export function getCleanDiagnosticCta(product: any, market: MarketTab): string {
 
   // Temporary US Blood Tests (Life Extension Direct)
   if (isUSBloodTest(product, market)) {
-    if (id.includes('essential')) return 'Order Basic Panel (Life Extension $155 🇺🇸)';
+    const deal = (product?.deal_url || '').toLowerCase();
+    if (id.includes('essential') || deal.includes('itemqd100025') || title.includes('basic')) {
+      return 'Order Basic Panel ($155 🇺🇸)';
+    }
     return 'Order Comprehensive Panel (Life Extension US 🇺🇸)';
   }
 
@@ -2997,7 +3011,14 @@ export function DynamicSupplierCtaSection({
   displayPrice: string;
   isBypassActive?: boolean;
 }) {
-  const [selectedBloodTier, setSelectedBloodTier] = useState<'comprehensive' | 'basic'>('comprehensive');
+  const isEssentialOrBasic = 
+    String(product?.id || '').toLowerCase().includes('essential') ||
+    String(product?.name || '').toLowerCase().includes('basic') ||
+    String(product?.deal_url || '').toLowerCase().includes('itemqd100025');
+
+  const [selectedBloodTier, setSelectedBloodTier] = useState<'comprehensive' | 'basic'>(
+    isEssentialOrBasic ? 'basic' : 'comprehensive'
+  );
   const isUSBlood = isUSBloodTest(product, market);
   const activeSuppliers = getActiveSuppliers(product, market);
   if (activeSuppliers.length === 0) return null;
@@ -3498,15 +3519,9 @@ export function Store({ region }: StoreProps = {}) {
 
   // Split into Tier 1 (Clinical Direct) and Tier 2 (Amazon Hub)
   // Only genuine Clinical Diagnostics & Labs products belong in Tier 1
-  const rawClinicalPartners = filteredProducts.filter(p => 
+  const clinicalPartners = filteredProducts.filter(p => 
     p.category === 'Clinical Diagnostics & Labs' || isDiagnosticProduct(p)
   );
-
-  // In US view, unify blood testing under the flagship card with interactive tier selector
-  const hasBloodPanel = activeTab === 'US' && rawClinicalPartners.some(p => String(p.id).toLowerCase() === 'blood-panel-us');
-  const clinicalPartners = hasBloodPanel
-    ? rawClinicalPartners.filter(p => String(p.id).toLowerCase() !== 'essential-blood-panel-us')
-    : rawClinicalPartners;
 
   const amazonHubProducts = filteredProducts.filter(p => 
     !clinicalPartners.includes(p)
