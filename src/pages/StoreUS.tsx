@@ -29,7 +29,9 @@ import {
   getDiagnosticPricingBadge,
   resolveDiagnosticImage,
   formatDiagnosticPrice,
-  ensureCoreRegionalCatalog
+  ensureCoreRegionalCatalog,
+  getCategoryDisplayLabel,
+  MultiSupplierOptionsBar
 } from './Store';
 import { DigitalGuides } from '../components/DigitalGuides';
 import BundleOffers from '../components/BundleOffers';
@@ -93,7 +95,7 @@ export const StoreUS: React.FC = () => {
           }
 
           const catFormatted = normalizeStoreCategory(item.category, item.name, healedDeal);
-          const isDiag = catFormatted === '🩸 Clinical Diagnostics & Lab Testing';
+          const isDiag = isDiagnosticProduct({ ...item, category: catFormatted, deal_url: healedDeal });
 
           let healedImg = resolveDiagnosticImage(
             { ...item, market_region: 'US', category: catFormatted, deal_url: healedDeal },
@@ -284,13 +286,13 @@ export const StoreUS: React.FC = () => {
           <button
             key={category}
             onClick={() => setActiveCategory(category)}
-            className={`px-4 py-2 rounded-full text-xs font-bold border transition-all duration-300 ${
+            className={`px-4 py-2.5 rounded-full text-xs font-bold border transition-all duration-300 cursor-pointer ${
               activeCategory.toLowerCase() === category.toLowerCase()
-                ? 'bg-cyan-950 text-cyan-400 border-cyan-500/40 shadow-[0_0_15px_rgba(6,182,212,0.2)]'
-                : 'bg-slate-900/40 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
+                ? 'bg-cyan-950 text-cyan-300 border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.2)]'
+                : 'bg-slate-900/50 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
             }`}
           >
-            {category}
+            {getCategoryDisplayLabel(category)}
           </button>
         ))}
       </div>
@@ -409,7 +411,7 @@ export const StoreUS: React.FC = () => {
                     DIRECT ACCESS PROTOCOLS (US)
                   </span>
                   <h2 className="text-2xl sm:text-3xl font-bold text-slate-100 mt-1 font-display">
-                    🩸 Clinical Diagnostics &amp; Lab Testing
+                    🩸 Clinical Diagnostics &amp; Labs
                   </h2>
                 </div>
                 <div className="text-xs font-mono text-cyan-400 bg-cyan-950/40 px-3 py-1.5 rounded-lg border border-cyan-800/30 self-start sm:self-auto flex items-center gap-1.5">
@@ -503,6 +505,8 @@ export const StoreUS: React.FC = () => {
                             </a>
                           </div>
                         </div>
+
+                        <MultiSupplierOptionsBar product={product} market="US" />
 
                         <div className="flex items-center justify-between text-[9px] font-mono text-slate-500 pt-1">
                           <span className="flex items-center gap-1">
@@ -604,6 +608,7 @@ export const StoreUS: React.FC = () => {
                             <ExternalLink size={12} />
                           </a>
                         </div>
+                        <MultiSupplierOptionsBar product={product} market="US" />
                       </div>
                     </div>
                   );

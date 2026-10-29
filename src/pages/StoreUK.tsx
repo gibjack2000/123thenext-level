@@ -30,7 +30,9 @@ import {
   getDiagnosticPricingBadge,
   resolveDiagnosticImage,
   formatDiagnosticPrice,
-  ensureCoreRegionalCatalog
+  ensureCoreRegionalCatalog,
+  getCategoryDisplayLabel,
+  MultiSupplierOptionsBar
 } from './Store';
 import { DigitalGuides } from '../components/DigitalGuides';
 import BundleOffers from '../components/BundleOffers';
@@ -76,7 +78,7 @@ export const StoreUK: React.FC = () => {
           }
 
           const catFormatted = normalizeStoreCategory(item.category, item.name, healedDeal);
-          const isDiag = catFormatted === '🩸 Clinical Diagnostics & Lab Testing';
+          const isDiag = isDiagnosticProduct({ ...item, category: catFormatted, deal_url: healedDeal });
 
           let healedImg = resolveDiagnosticImage(
             { ...item, market_region: 'UK', category: catFormatted, deal_url: healedDeal },
@@ -264,13 +266,13 @@ export const StoreUK: React.FC = () => {
           <button
             key={category}
             onClick={() => setActiveCategory(category)}
-            className={`px-4 py-2 rounded-full text-xs font-bold border transition-all duration-300 ${
+            className={`px-4 py-2.5 rounded-full text-xs font-bold border transition-all duration-300 cursor-pointer ${
               activeCategory.toLowerCase() === category.toLowerCase()
-                ? 'bg-cyan-950 text-cyan-400 border-cyan-500/40 shadow-[0_0_15px_rgba(6,182,212,0.2)]'
-                : 'bg-slate-900/40 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
+                ? 'bg-cyan-950 text-cyan-300 border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.2)]'
+                : 'bg-slate-900/50 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
             }`}
           >
-            {category}
+            {getCategoryDisplayLabel(category)}
           </button>
         ))}
       </div>
@@ -385,7 +387,7 @@ export const StoreUK: React.FC = () => {
             <div className="space-y-6">
               <div className="border-l-4 border-rose-500 pl-4">
                 <span className="text-xs text-rose-500 uppercase font-semibold tracking-widest">DIRECT ACCESS PARTNERS (UK)</span>
-                <h2 className="text-2xl font-bold text-slate-100 mt-1">🩸 Clinical Diagnostics &amp; Lab Testing</h2>
+                <h2 className="text-2xl font-bold text-slate-100 mt-1">🩸 Clinical Diagnostics &amp; Labs</h2>
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -473,6 +475,7 @@ export const StoreUK: React.FC = () => {
                             <ExternalLink size={12} />
                           </a>
                         </div>
+                        <MultiSupplierOptionsBar product={product} market="UK" />
                       </div>
                     </div>
                   );
@@ -564,6 +567,7 @@ export const StoreUK: React.FC = () => {
                             <ExternalLink size={12} />
                           </a>
                         </div>
+                        <MultiSupplierOptionsBar product={product} market="UK" />
                       </div>
                     </div>
                   );

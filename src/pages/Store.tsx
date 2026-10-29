@@ -24,12 +24,19 @@ import {
   Microscope,
   Lock,
   Stethoscope,
-  FileText
+  FileText,
+  ExternalLink
 } from 'lucide-react';
 import DualTrackSelector from '../components/DualTrackSelector';
 import BundleOffers from '../components/BundleOffers';
 import { DigitalGuides } from '../components/DigitalGuides';
 import { usePaywallBypass, getGuidePdfDownloadUrl } from '../utils/adminTestMode';
+import {
+  StoreCategory,
+  SupplierOption,
+  STORE_CATEGORIES,
+  resolveProductSuppliers
+} from '../config/affiliateLinks';
 
 import lolaBloodPanelImg from '../assets/products/lola-blood-panel.jpg';
 import lolaUrineAcrImg from '../assets/products/lola-urine-acr.jpg';
@@ -52,7 +59,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "essential-blood-panel-uk",
       "name": "Choice A: LOLA Essential Baseline Blood Check (UK 🇬🇧)",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.95,
       "description": "Targeted UKAS-accredited baseline blood panel measuring Core Lipids (Cholesterol, HDL, LDL, Triglycerides), HbA1c, Fasting Glucose, and basic kidney/liver filtration.",
       "price_text": "From £69.00",
@@ -64,7 +71,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "epigenetic-test-uk",
       "name": "Biological Age & Epigenetic Methylation Kit (UK 🇬🇧)",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.93,
       "description": "Epigenetic DNA methylation clock measuring biological pace of aging vs chronological age.",
       "price_text": "From £249.00",
@@ -76,7 +83,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "metabolic-master-guide-uk",
       "name": "The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol",
-      "category": "🌿 Supplements & Master Guides",
+      "category": "Supplements & Nutraceuticals",
       "rating": 4.98,
       "description": "A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.",
       "price_text": "£19.00",
@@ -88,7 +95,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "reagent-strips-uk",
       "name": "ALLTEST 10-Parameter Clinical Urinalysis Dipsticks UK",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.88,
       "description": "CE Medical Marked 10-parameter urinalysis dipsticks monitoring kidney filtration integrity, microalbuminuria, acid-base balance, and systemic hydration.",
       "price_text": "From £12.99",
@@ -100,7 +107,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "urinalysis-uk",
       "name": "LOLA Urinalysis & Microvascular ACR Panel (UK 🇬🇧)",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.90,
       "description": "UKAS-certified urine panel measuring Albumin-to-Creatinine ratio (ACR), proteinuria, and kidney metabolic safety.",
       "price_text": "From £49.00",
@@ -112,7 +119,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "sleep-analyzer-uk",
       "name": "Withings Medically Validated Sleep Analyzer",
-      "category": "⌚ Smart Hardware & Wearables",
+      "category": "Smart Hardware & Wearables",
       "rating": 4.82,
       "description": "A contact-free ballistocardiography mat placed under the mattress. Logs sleeping heart rate, sleep cycles, snoring, and medically validated Sleep Apnea episodes silently overnight.",
       "price_text": "£119.99",
@@ -124,7 +131,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "stethoscope-uk",
       "name": "Eko CORE 500™ Digital AI Stethoscope",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.95,
       "description": "FDA-cleared electronic stethoscope with 3-lead ECG. Uses clinical AI to detect murmurs, arrhythmias, and cardiac strain signs in 15 seconds, streaming waveforms safely to your clinician.",
       "price_text": "£379.00",
@@ -136,7 +143,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "blood-pressure-cuff-uk",
       "name": "Withings BPM Connect Wi-Fi Cuff",
-      "category": "⌚ Smart Hardware & Wearables",
+      "category": "Smart Hardware & Wearables",
       "rating": 4.8,
       "description": "Smart Wi-Fi blood pressure cuff. Automatically logs systolic, diastolic, and pulse trends, classifying cardiovascular data against JNC-8 guidelines without spot-check anxiety.",
       "price_text": "£89.99",
@@ -148,7 +155,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "sirtuin-stack-uk",
       "name": "Momentous Sirtuin Activation & Cell Recovery Stack",
-      "category": "🌿 Supplements & Master Guides",
+      "category": "Supplements & Nutraceuticals",
       "rating": 4.9,
       "description": "Premium NSF Certified for Sport Trans-Resveratrol, NMN, and Nattokinase. Formulated to provide biological cofactors to activate Sirtuin pathways, stabilizing chromatin loops and repairing cellular DNA.",
       "price_text": "£79.99",
@@ -160,7 +167,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "cgm-uk",
       "name": "Continuous Glucose Monitor (Abbott Lingo UK)",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.75,
       "description": "Real-time interstitial glucose tracking mapping energy peaks and valleys. Instantly syncs blood sugar fluctuations to target metabolic health, post-meal walks, and prevent insulin resistance.",
       "price_text": "From £79.00 / month",
@@ -172,7 +179,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "segmental-scale-uk",
       "name": "Withings Body Scan Segmental Composition Scale",
-      "category": "⌚ Smart Hardware & Wearables",
+      "category": "Smart Hardware & Wearables",
       "rating": 4.88,
       "description": "CE Medical-marked 8-electrode bioelectrical impedance scale. Segmentally maps skeletal muscle mass, fat percentage by limb, and visceral fat index surrounding organs to target training.",
       "price_text": "£349.99",
@@ -196,7 +203,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "blood-panel-uk",
       "name": "Choice B: LOLA Vital Check 56 (UK 🇬🇧)",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.98,
       "description": "When you arrive on LOLA Health, select: 'LOLA Vital Check 56' (Full 56-biomarker panel: ApoB, hs-CRP, Vitamin D, Thyroid & Hormones). Official UKAS-accredited venous draw panel mapping 56 biomarkers.",
       "price_text": "From £149.00",
@@ -906,7 +913,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "essential-blood-panel-us",
       "name": "Choice A: HealthLabs Essential Baseline Blood Check (US 🇺🇸)",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.95,
       "description": "CLIA/CAP-certified baseline blood panel via Quest/Labcorp measuring Core Lipids (Cholesterol, HDL, LDL, Triglycerides), HbA1c, Fasting Glucose, and basic kidney/liver filtration.",
       "price_text": "From $99.00",
@@ -918,7 +925,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "epigenetic-test-us",
       "name": "Biological Age & Epigenetic Methylation Kit (US 🇺🇸)",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.93,
       "description": "Epigenetic DNA methylation clock measuring biological pace of aging vs chronological age.",
       "price_text": "From $299.00",
@@ -930,7 +937,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "metabolic-master-guide-us",
       "name": "The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol",
-      "category": "🌿 Supplements & Master Guides",
+      "category": "Supplements & Nutraceuticals",
       "rating": 4.98,
       "description": "A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.",
       "price_text": "$25.00",
@@ -942,7 +949,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "sleep-analyzer-us",
       "name": "Withings Sleep Analyzer Under-Mattress Pad",
-      "category": "⌚ Smart Hardware & Wearables",
+      "category": "Smart Hardware & Wearables",
       "rating": 4.82,
       "description": "A contact-free ballistocardiography mat placed under the mattress. Logs sleeping heart rate, sleep cycles, snoring, and passive breathing disturbances, transferring data silently upon waking.",
       "price_text": "$129.95",
@@ -954,7 +961,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "segmental-scale-us",
       "name": "Withings Body Scan Segmental Composition Scale",
-      "category": "⌚ Smart Hardware & Wearables",
+      "category": "Smart Hardware & Wearables",
       "rating": 4.88,
       "description": "FDA-cleared 8-electrode bioelectrical impedance scale. Segmentally maps skeletal muscle mass, fat percentage by limb, and visceral fat index surrounding organs to target training.",
       "price_text": "$399.95",
@@ -966,7 +973,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "reagent-strips-us",
       "name": "Diagnox Urinox-10 Medical-Grade Urinalysis Strips",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.90,
       "description": "FDA-cleared 10-parameter rapid urinalysis reagent strips for weekly tracking of microvascular health, proteinuria, pH, ketones, glucose, and renal function.",
       "price_text": "From $16.99",
@@ -978,7 +985,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "urinalysis-us",
       "name": "HealthLabs Comprehensive Urinalysis & Microalbumin Panel",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.92,
       "description": "14-parameter Quest/Labcorp clinical urine analysis screening microvascular health, ACR, pH, ketones, and renal filtration.",
       "price_text": "From $69.00",
@@ -990,7 +997,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "sirtuin-stack-us",
       "name": "Momentous Sirtuin Activation & Cell Recovery Stack (Mitochondrial NAD+ Precursor)",
-      "category": "🌿 Supplements & Master Guides",
+      "category": "Supplements & Nutraceuticals",
       "rating": 4.95,
       "description": "Premium NSF Certified for Sport Trans-Resveratrol, NMN, and Nattokinase. Formulated to provide biological cofactors to activate Sirtuin pathways, stabilizing chromatin loops and repairing cellular DNA.",
       "price_text": "$89.95",
@@ -1002,7 +1009,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "stethoscope-us",
       "name": "Eko CORE 500™ Digital AI Stethoscope",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.95,
       "description": "FDA-cleared electronic stethoscope with 3-lead ECG. Uses clinical AI to detect murmurs, arrhythmias, and cardiac strain signs in 15 seconds, streaming waveforms safely to your clinician.",
       "price_text": "$429.00",
@@ -1014,7 +1021,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "blood-pressure-cuff-us",
       "name": "Withings BPM Connect Wi-Fi Cuff",
-      "category": "⌚ Smart Hardware & Wearables",
+      "category": "Smart Hardware & Wearables",
       "rating": 4.8,
       "description": "Smart Wi-Fi blood pressure cuff. Automatically logs systolic, diastolic, and pulse trends, classifying cardiovascular data against JNC-8 guidelines without spot-check anxiety.",
       "price_text": "$99.95",
@@ -1026,7 +1033,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "wearable-tracker-us",
       "name": "Apple Watch Series 10 (GPS 46mm)",
-      "category": "⌚ Smart Hardware & Wearables",
+      "category": "Smart Hardware & Wearables",
       "rating": 4.8,
       "description": "Advanced multispectral wearable capturing sleep architecture, resting heart rate, sleep apnea flags, and sleeping Heart Rate Variability (HRV) for passive autonomic monitoring.",
       "price_text": "$399.00",
@@ -1038,7 +1045,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "blood-panel-us",
       "name": "Choice B: Personalized Cellular Biomarker Map (56 Biomarkers)",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.92,
       "description": "Direct-to-consumer longevity blood panels mapping 56 essential biomarkers—including ApoB (cardiovascular plaque risk), HbA1c, and hs-CRP. Draws are completed at local Quest or Labcorp patient centers.",
       "price_text": "From $299.00",
@@ -1050,7 +1057,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "cgm-us",
       "name": "Continuous Glucose Monitor (Abbott Lingo / Dexcom Stelo)",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.75,
       "description": "Real-time interstitial glucose tracking mapping energy peaks and valleys. Instantly syncs blood sugar fluctuations to target metabolic health, post-meal walks, and prevent insulin resistance.",
       "price_text": "From $89.00 / month",
@@ -1520,7 +1527,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "essential-blood-panel-es",
       "name": "Choice A: Melio Essential Baseline Blood Check (ES 🇪🇸)",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.94,
       "description": "Panel de sangre de referencia en centros Megalab/Unilabs midiendo perfil lipídico completo, HbA1c, glucosa en ayunas y filtración renal/hepática.",
       "price_text": "Desde 69,00€",
@@ -1532,7 +1539,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "epigenetic-test-es",
       "name": "Kit de Edad Biológica y Metilación Epigenética (ES 🇪🇸)",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.93,
       "description": "Reloj epigenético de metilación del ADN para cuantificar el ritmo de envejecimiento biológico frente a la edad cronológica.",
       "price_text": "Desde 249,00€",
@@ -1544,7 +1551,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "metabolic-master-guide-es",
       "name": "The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol",
-      "category": "🌿 Supplements & Master Guides",
+      "category": "Supplements & Nutraceuticals",
       "rating": 4.98,
       "description": "A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.",
       "price_text": "22,00€",
@@ -1556,7 +1563,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "sirtuin-stack-es",
       "name": "Paquete de Activación de Sirtuina y Recuperación Celular Momentous",
-      "category": "🌿 Supplements & Master Guides",
+      "category": "Supplements & Nutraceuticals",
       "rating": 4.9,
       "description": "Trans-Resveratrol, NMN y Natokinasa de alta calidad con certificación NSF para el deporte. Proporciona cofactores para activar las vías de sirtuinas.",
       "price_text": "89,95€",
@@ -1568,7 +1575,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "blood-pressure-cuff-es",
       "name": "Withings BPM Connect Tensiómetro Inteligente",
-      "category": "⌚ Smart Hardware & Wearables",
+      "category": "Smart Hardware & Wearables",
       "rating": 4.8,
       "description": "Tensiómetro inteligente Wi-Fi. Registra automáticamente las tendencias cardiovasculares en su panel de control privado.",
       "price_text": "99,95€",
@@ -1580,7 +1587,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "segmental-scale-es",
       "name": "Báscula de Composición Segmentaria Withings Body Scan",
-      "category": "⌚ Smart Hardware & Wearables",
+      "category": "Smart Hardware & Wearables",
       "rating": 4.88,
       "description": "Báscula médica de impedancia con 8 electrodos. Mapea la masa muscular y el índice de grasa visceral para guiar los ciclos metabólicos.",
       "price_text": "399,95€",
@@ -1592,7 +1599,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "blood-panel-es",
       "name": "Choice B: Mapa de Biomarcadores Celulares Melio (56 Biomarcadores)",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.92,
       "description": "Análisis de sangre integral directo al consumidor que cubre 56 biomarcadores metabólicos y cardiovasculares. Extracción privada en centros colaboradores Megalab o Unilabs de España.",
       "price_text": "Desde 149,00€",
@@ -1604,7 +1611,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "wearable-tracker-es",
       "name": "Apple Watch Series 10 (GPS 46mm)",
-      "category": "⌚ Smart Hardware & Wearables",
+      "category": "Smart Hardware & Wearables",
       "rating": 4.8,
       "description": "Reloj inteligente avanzado con sensores multiespectrales para monitorizar la variabilidad de la frecuencia cardíaca nocturna (HRV).",
       "price_text": "399,00€",
@@ -1616,7 +1623,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "cgm-es",
       "name": "Monitor Continuo de Glucosa (Dexcom ONE+ / Abbott Libre)",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.75,
       "description": "Monitoreo de glucosa en tiempo real que mapea picos de energía. Sincroniza datos para optimizar la nutrición metabólica.",
       "price_text": "Desde 79,00€ / mes",
@@ -1628,7 +1635,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "stethoscope-es",
       "name": "Estetoscopio Digital con IA Eko CORE 500™",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.95,
       "description": "Estetoscopio electrónico con ECG de 3 derivaciones. Utiliza IA clínica para evaluar soplos cardíacos y arritmias en 15 segundos.",
       "price_text": "429,00€",
@@ -1640,7 +1647,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "sleep-analyzer-es",
       "name": "Withings Analizador de Sueño de Contacto Cero",
-      "category": "⌚ Smart Hardware & Wearables",
+      "category": "Smart Hardware & Wearables",
       "rating": 4.82,
       "description": "Alfombrilla neumática bajo el colchón. Registra el ritmo cardíaco nocturno y detecta la apnea obstructiva del sueño con validación médica CE.",
       "price_text": "129,95€",
@@ -1652,7 +1659,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "reagent-strips-es",
       "name": "ALLTEST Tiras Reactivas de Orina 10 Parámetros ES",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.85,
       "description": "Tiras reactivas clínicas de 10 parámetros para el seguimiento semanal de función renal, pH, cetonas, glucosa y microalbuminuria en España.",
       "price_text": "Desde 14,50€",
@@ -1664,7 +1671,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "urinalysis-es",
       "name": "SaludOnNet / Eurofins Análisis Completo de Orina con Sedimento",
-      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "category": "Clinical Diagnostics & Labs",
       "rating": 4.90,
       "description": "CE Marked & ISO 15189 certified clinical urine sediment panel across 160+ Eurofins Megalab centers in Spain.",
       "price_text": "Desde 39,00€",
@@ -2300,65 +2307,25 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
   ]
 };
 
-export const STOREFRONT_CATEGORIES = [
+export const STOREFRONT_CATEGORIES: string[] = [
   'All',
-  '🩸 Clinical Diagnostics & Lab Testing',
-  '⌚ Smart Hardware & Wearables',
-  '🌿 Supplements & Master Guides'
+  ...STORE_CATEGORIES
 ];
 
-export function normalizeStoreCategory(rawCategory: string | undefined, name?: string, dealUrl?: string): string {
-  const cat = (rawCategory || '').toLowerCase();
+export function normalizeStoreCategory(rawCategory: string | undefined, name?: string, dealUrl?: string): StoreCategory {
+  const cat = (rawCategory || '').toLowerCase().trim();
   const title = (name || '').toLowerCase();
   const deal = (dealUrl || '').toLowerCase();
 
-  // Direct match for the 3 clean categories
-  if (cat === '🩸 clinical diagnostics & lab testing') return '🩸 Clinical Diagnostics & Lab Testing';
-  if (cat === '⌚ smart hardware & wearables') return '⌚ Smart Hardware & Wearables';
-  if (cat === '🌿 supplements & master guides') return '🌿 Supplements & Master Guides';
+  // Direct match for the 5 unified StoreCategory values
+  if (cat === 'clinical diagnostics & labs') return 'Clinical Diagnostics & Labs';
+  if (cat === 'smart hardware & wearables') return 'Smart Hardware & Wearables';
+  if (cat === 'exercise & fitness gear') return 'Exercise & Fitness Gear';
+  if (cat === 'supplements & nutraceuticals') return 'Supplements & Nutraceuticals';
+  if (cat === 'kitchen & culinary bio-hacks') return 'Kitchen & Culinary Bio-Hacks';
 
-  // TAB 3: "🌿 Supplements & Master Guides"
-  // Sirtuin Stacks, Collagen, Downloadable Digital PDF Guides, and Supplements
-  if (
-    deal.includes('/checkout') ||
-    title.includes('master guide') ||
-    title.includes('12-week metabolic') ||
-    cat.includes('supplement') ||
-    cat.includes('nutri') ||
-    title.includes('sirtuin') ||
-    title.includes('sirtuina') ||
-    title.includes('collagen') ||
-    title.includes('colágeno') ||
-    title.includes('supplement') ||
-    title.includes('creatine') ||
-    title.includes('creatina') ||
-    title.includes('resveratrol') ||
-    title.includes('nmn') ||
-    title.includes('nad') ||
-    title.includes('niagen') ||
-    title.includes('omega') ||
-    title.includes('protein') ||
-    title.includes('quercetin') ||
-    title.includes('spermidine') ||
-    title.includes('magnesium') ||
-    title.includes('magnesio') ||
-    title.includes('vitamin') ||
-    title.includes('probiotic') ||
-    title.includes('enzyme') ||
-    title.includes('glycine') ||
-    title.includes('ashwagandha') ||
-    title.includes('coq10') ||
-    title.includes('electrolyte') ||
-    title.includes('inulin') ||
-    title.includes('centrum') ||
-    title.includes('wellman') ||
-    title.includes('wellwoman')
-  ) {
-    return '🌿 Supplements & Master Guides';
-  }
-
-  // TAB 1: "🩸 Clinical Diagnostics & Lab Testing"
-  // Choice A Essential Bloods, Choice B Vital Check 56, Lab Urine ACR, Home Dipstick Kits, Epigenetics, CGMs, and AI Stethoscope
+  // 1. "Clinical Diagnostics & Labs"
+  // Choice A Essential Bloods, Choice B Vital Check 56, Lab Urine ACR, Home Dipstick Kits, Epigenetics, CGMs, AI Stethoscope, Ovarian Test
   if (
     title.includes('blood') ||
     title.includes('vital check') ||
@@ -2394,14 +2361,135 @@ export function normalizeStoreCategory(rawCategory: string | undefined, name?: s
     title.includes('eko core') ||
     title.includes('ovarian') ||
     title.includes('hormone test') ||
+    cat.includes('diagnostic') ||
     cat.includes('rapid fluid telemetry')
   ) {
-    return '🩸 Clinical Diagnostics & Lab Testing';
+    return 'Clinical Diagnostics & Labs';
   }
 
-  // TAB 2: "⌚ Smart Hardware & Wearables"
-  // Withings Smart Scales, BPM Cuffs, Sleep Mats, Smartwatches, and performance hardware
-  return '⌚ Smart Hardware & Wearables';
+  // 2. "Kitchen & Culinary Bio-Hacks"
+  // Blenders, Air Fryers, Reverse Osmosis Water Filters, Vacuum Sealers, Coffee Machines, Rice Cookers, Egg Poachers, Insulated Bottles
+  if (
+    cat.includes('kitchen') ||
+    cat.includes('culinary') ||
+    title.includes('blender') ||
+    title.includes('batidora') ||
+    title.includes('nutribullet') ||
+    title.includes('breville') ||
+    title.includes('ninja blast') ||
+    title.includes('ninja express') ||
+    title.includes('ninja foodi') ||
+    title.includes('ninja air fryer') ||
+    title.includes('ninja kitchen') ||
+    title.includes('air fryer') ||
+    title.includes('easy fry') ||
+    title.includes('cuisinart') ||
+    title.includes('moulinex') ||
+    title.includes('russell hobbs') ||
+    title.includes('tassimo') ||
+    title.includes('coffee') ||
+    title.includes('chopper') ||
+    title.includes('reverse osmosis') ||
+    title.includes('bluevua') ||
+    title.includes('vacuum sealer') ||
+    title.includes('vakumar') ||
+    title.includes('food storage') ||
+    title.includes('rice cooker') ||
+    title.includes('egg poacher') ||
+    title.includes('kitchencraft') ||
+    title.includes('owala') ||
+    title.includes('water bottle') ||
+    title.includes('freesip')
+  ) {
+    return 'Kitchen & Culinary Bio-Hacks';
+  }
+
+  // 3. "Supplements & Nutraceuticals"
+  // Sirtuin Stacks, Collagen, NAD+, Omega-3, Creatine, Magnesium, Spermidine, Quercetin, Ashwagandha, Lion's Mane, CoQ10, Probiotics, Master Guides
+  if (
+    deal.includes('/checkout') ||
+    title.includes('master guide') ||
+    title.includes('12-week metabolic') ||
+    cat.includes('supplement') ||
+    cat.includes('nutri') ||
+    title.includes('sirtuin') ||
+    title.includes('sirtuina') ||
+    title.includes('collagen') ||
+    title.includes('colágeno') ||
+    title.includes('supplement') ||
+    title.includes('creatine') ||
+    title.includes('creatina') ||
+    title.includes('creapure') ||
+    title.includes('resveratrol') ||
+    title.includes('nmn') ||
+    title.includes('nad') ||
+    title.includes('niagen') ||
+    title.includes('omega') ||
+    title.includes('protein') ||
+    title.includes('quercetin') ||
+    title.includes('spermidine') ||
+    title.includes('idine forte') ||
+    title.includes('magnesium') ||
+    title.includes('magnesio') ||
+    title.includes('vitamin') ||
+    title.includes('probiotic') ||
+    title.includes('prebio') ||
+    title.includes('enzyme') ||
+    title.includes('glycine') ||
+    title.includes('ashwagandha') ||
+    title.includes('coq10') ||
+    title.includes('coenzyme q10') ||
+    title.includes('electrolyte') ||
+    title.includes('inulin') ||
+    title.includes('centrum') ||
+    title.includes('wellman') ||
+    title.includes('wellwoman') ||
+    title.includes('lion\'s mane') ||
+    title.includes('lions mane') ||
+    title.includes('thorne') ||
+    title.includes('calcium')
+  ) {
+    return 'Supplements & Nutraceuticals';
+  }
+
+  // 4. "Exercise & Fitness Gear"
+  // Rowers, Kettlebells, Saunas, Cold Plunges, Massage Guns, Shiatsu/Foot Massagers, EMS/TENS, Meditation Cushions, Singing Bowls, Weighted Blankets
+  if (
+    cat.includes('fitness') ||
+    cat.includes('exercise') ||
+    title.includes('rower') ||
+    title.includes('rowing') ||
+    title.includes('concept2') ||
+    title.includes('kettlebell') ||
+    title.includes('pesa rusa') ||
+    title.includes('bowflex') ||
+    title.includes('sauna') ||
+    title.includes('thermolab') ||
+    title.includes('rejuvawrap') ||
+    title.includes('cold pod') ||
+    title.includes('ice pod') ||
+    title.includes('ice bath') ||
+    title.includes('ice bathtub') ||
+    title.includes('cold plunge') ||
+    title.includes('massage gun') ||
+    title.includes('massager') ||
+    title.includes('shiatsu') ||
+    title.includes('electrostimulator') ||
+    title.includes('beurer em') ||
+    title.includes('meditation cushion') ||
+    title.includes('zafu') ||
+    title.includes('yoga') ||
+    title.includes('singing bowl') ||
+    title.includes('weighted blanket') ||
+    title.includes('ludo') ||
+    title.includes('natulim')
+  ) {
+    return 'Exercise & Fitness Gear';
+  }
+
+  // 5. "Smart Hardware & Wearables"
+  // Withings Smart Scales, BPM Cuffs, Sleep Analyzer Mats, Smartwatches, ANC Headphones, Sunrise Clocks, Smart Sleep Masks, Ultrasonic Diffusers/Purifiers
+  return 'Smart Hardware & Wearables';
 }
 
 export const DIAGNOSTIC_GP_BRIEF_BADGE = '💷 Up-to-date prices on LOLA Health website';
@@ -2409,7 +2497,7 @@ export const DIAGNOSTIC_GP_BRIEF_BADGE = '💷 Up-to-date prices on LOLA Health 
 export function isDiagnosticProduct(product: any): boolean {
   if (!product) return false;
   const cat = normalizeStoreCategory(product.category, product.name, product.deal_url);
-  return cat === '🩸 Clinical Diagnostics & Lab Testing';
+  return cat === 'Clinical Diagnostics & Labs';
 }
 
 export const BUNDLED_DIAGNOSTIC_IMAGES = new Set<string>([
@@ -2441,10 +2529,13 @@ export function isBundledDiagnosticImage(url?: string): boolean {
 }
 
 export function isLolaProduct(product: any, market?: MarketTab): boolean {
+  const region = String(product?.market_region || market || '').toUpperCase();
+  // LOLA Health is strictly UK exclusive - never display for US or ES
+  if (region !== 'UK') return false;
+
   const id = String(product?.id || '').toLowerCase();
   const title = String(product?.name || product?.title || '').toLowerCase();
   const deal = String(product?.deal_url || product?.affiliate_link || '').toLowerCase();
-  const region = String(product?.market_region || market || '').toUpperCase();
 
   // Never treat CGMs, Stethoscopes, Ovarian kits, or ALLTEST/Diagnox dipsticks as LOLA branded boxes
   if (
@@ -2757,47 +2848,133 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
   const healedItems = items.map((item: any) => {
     const cat = normalizeStoreCategory(item.category, item.name || item.title, item.deal_url);
     const enriched = { ...item, market_region: item.market_region || market, category: cat };
+    const resolvedSuppliers = resolveProductSuppliers(enriched, market);
     return {
       ...enriched,
       image_url: resolveDiagnosticImage(enriched, item.image_url, market),
-      price_text: formatDiagnosticPrice(item.price_text, enriched, market)
+      price_text: formatDiagnosticPrice(item.price_text, enriched, market),
+      suppliers: resolvedSuppliers
     };
   });
 
   const existingIds = new Set(healedItems.map(i => String(i.id || '').toLowerCase()));
+  const existingDeals = new Set(healedItems.map(i => String(i.deal_url || '').toLowerCase()).filter(Boolean));
   const corePrefixes = ['essential-blood-panel', 'blood-panel', 'urinalysis', 'reagent-strips', 'epigenetic-test', 'cgm', 'stethoscope'];
+
   const missingCore = fallbackCatalog.filter(fb => {
     const fbId = String(fb.id || '').toLowerCase();
     return corePrefixes.some(prefix => fbId.startsWith(prefix)) && !existingIds.has(fbId);
   });
 
-  return [...missingCore, ...healedItems];
+  const missingCategoryItems = fallbackCatalog.filter(fb => {
+    const fbId = String(fb.id || '').toLowerCase();
+    const fbDeal = String(fb.deal_url || '').toLowerCase();
+    if (corePrefixes.some(prefix => fbId.startsWith(prefix))) return false;
+    return !existingIds.has(fbId) && (!fbDeal || !existingDeals.has(fbDeal));
+  });
+
+  return [...missingCore, ...healedItems, ...missingCategoryItems];
+}
+
+export function getCategoryDisplayLabel(category: string): string {
+  const norm = category.toLowerCase();
+  if (norm === 'all') return '🌐 All 5 Categories';
+  if (norm.includes('diagnostic')) return '🩸 Clinical Diagnostics & Labs';
+  if (norm.includes('hardware') || norm.includes('wearable')) return '⌚ Smart Hardware & Wearables';
+  if (norm.includes('exercise') || norm.includes('fitness')) return '🏋️ Exercise & Fitness Gear';
+  if (norm.includes('supplement') || norm.includes('nutraceutical')) return '🌿 Supplements & Nutraceuticals';
+  if (norm.includes('kitchen') || norm.includes('culinary')) return '🍳 Kitchen & Culinary Bio-Hacks';
+  return category;
+}
+
+export function MultiSupplierOptionsBar({
+  product,
+  market
+}: {
+  product: any;
+  market: MarketTab;
+}) {
+  const suppliers: SupplierOption[] = resolveProductSuppliers(product, market);
+  const primary = suppliers.find(s => s.isPrimary) || suppliers[0];
+  const secondary = suppliers.filter(s => s !== primary);
+
+  return (
+    <div className="space-y-2.5">
+      {primary?.perksNote && (
+        <div className="flex items-center justify-between text-[11px] px-2.5 py-1 rounded-lg bg-slate-900/90 border border-slate-800">
+          <span className="text-slate-400 font-medium">
+            Primary: <strong className="text-slate-200">{primary.supplierName}</strong>
+          </span>
+          <span className="text-emerald-400 font-semibold">✨ {primary.perksNote}</span>
+        </div>
+      )}
+
+      {secondary.length > 0 && (
+        <div className="pt-2 border-t border-slate-900/80 space-y-1.5">
+          <span className="block text-[10px] font-mono uppercase tracking-wider text-slate-400">
+            Alternate Verified Suppliers ({market}):
+          </span>
+          <div className="flex flex-wrap gap-1.5">
+            {secondary.map((opt, idx) => (
+              <a
+                key={`${opt.supplierName}-${idx}`}
+                href={opt.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/40 text-[11px] font-semibold text-slate-200 hover:text-cyan-300 transition-all"
+              >
+                <span>{opt.supplierName}</span>
+                {opt.perksNote && (
+                  <span className="text-[10px] text-amber-400 font-normal">({opt.perksNote})</span>
+                )}
+                <ExternalLink size={10} className="text-slate-400" />
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marketTab: MarketTab }) {
   const normKey = categoryKey.toLowerCase();
   
   const getBannerConfig = (cat: string, market: MarketTab) => {
-    if (cat.includes('diagnostic') || cat.includes('lab testing')) {
+    if (cat.includes('diagnostic') || cat.includes('lab')) {
       return {
-        title: market === 'ES' ? '🩸 DIAGNÓSTICO CLÍNICO Y LABORATORIO (ES)' : `🩸 ${market} CLINICAL DIAGNOSTICS & LAB TESTING`,
+        title: market === 'ES' ? '🩸 CLINICAL DIAGNOSTICS & LABS (ES)' : `🩸 ${market} CLINICAL DIAGNOSTICS & LABS`,
         subtitle: market === 'ES' 
           ? 'Paneles de sangre Choice A y Choice B 56, ACR de orina en laboratorio, tiras reactivas, epigenética, CGM y estetoscopio IA' 
           : 'Choice A Essential Bloods, Choice B Vital Check 56, Lab Urine ACR, Home Dipstick Kits, Epigenetics, CGMs, and AI Stethoscope',
         icon: Microscope,
-        iconColor: 'text-cyan-400',
-        iconBorder: 'border-cyan-500/30',
-        iconGlow: 'shadow-[0_0_25px_rgba(6,182,212,0.25)]',
-        radarColor: 'text-cyan-500/10'
+        iconColor: 'text-rose-400',
+        iconBorder: 'border-rose-500/30',
+        iconGlow: 'shadow-[0_0_25px_rgba(244,63,94,0.25)]',
+        radarColor: 'text-rose-500/10'
       };
     }
 
-    if (cat.includes('supplement') || cat.includes('guide')) {
+    if (cat.includes('exercise') || cat.includes('fitness')) {
       return {
-        title: market === 'ES' ? '🌿 SUPLEMENTOS Y GUÍAS MAESTRAS (ES)' : `🌿 ${market} SUPPLEMENTS & MASTER GUIDES`,
+        title: market === 'ES' ? '🏋️ EXERCISE & FITNESS GEAR (ES)' : `🏋️ ${market} EXERCISE & FITNESS GEAR`,
         subtitle: market === 'ES'
-          ? 'Stacks de Sirtuinas, Colágeno, bioactivos de longevidad y Guías Digitales Maestras en PDF'
-          : 'Sirtuin Activation Stacks, Marine Collagen, purity-audited longevity bioactives, and Downloadable Digital PDF Master Guides',
+          ? 'Remos Concept2, pesas rusas ajustables, saunas infrarrojas, baños de hielo, pistolas de masaje y recuperación física'
+          : 'Concept2 Rowers, Adjustable Kettlebells, Far-Infrared Saunas, Cold Plunge Tubs, Percussion Massagers, and recovery gear',
+        icon: Dumbbell,
+        iconColor: 'text-amber-400',
+        iconBorder: 'border-amber-500/30',
+        iconGlow: 'shadow-[0_0_25px_rgba(245,158,11,0.25)]',
+        radarColor: 'text-amber-500/10'
+      };
+    }
+
+    if (cat.includes('supplement') || cat.includes('nutraceutical') || cat.includes('guide')) {
+      return {
+        title: market === 'ES' ? '🌿 SUPPLEMENTS & NUTRACEUTICALS (ES)' : `🌿 ${market} SUPPLEMENTS & NUTRACEUTICALS`,
+        subtitle: market === 'ES'
+          ? 'Stacks de Sirtuinas, Colágeno, NAD+, Creatina, Magnesio y bioactivos verificados en múltiples proveedores (Amazon, iHerb, Life Extension)'
+          : 'Sirtuin Stacks, Marine Collagen, NAD+, Creatine, Magnesium, and purity-audited nutraceuticals across Amazon, iHerb & Life Extension',
         icon: Pill,
         iconColor: 'text-emerald-400',
         iconBorder: 'border-emerald-500/30',
@@ -2806,16 +2983,30 @@ function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marke
       };
     }
 
+    if (cat.includes('kitchen') || cat.includes('culinary')) {
+      return {
+        title: market === 'ES' ? '🍳 KITCHEN & CULINARY BIO-HACKS (ES)' : `🍳 ${market} KITCHEN & CULINARY BIO-HACKS`,
+        subtitle: market === 'ES'
+          ? 'Extractores de nutrientes de alta velocidad, freidoras de aire sin aceite, ósmosis inversa y equipamiento culinario libre de BPA'
+          : 'High-speed nutrient extractors, oil-free air fryers, reverse osmosis water filtration, vacuum sealers, and toxin-free culinary gear',
+        icon: ChefHat,
+        iconColor: 'text-indigo-400',
+        iconBorder: 'border-indigo-500/30',
+        iconGlow: 'shadow-[0_0_25px_rgba(99,102,241,0.25)]',
+        radarColor: 'text-indigo-500/10'
+      };
+    }
+
     return {
-      title: market === 'ES' ? '⌚ HARDWARE INTELIGENTE Y WEARABLES (ES)' : `⌚ ${market} SMART HARDWARE & WEARABLES`,
+      title: market === 'ES' ? '⌚ SMART HARDWARE & WEARABLES (ES)' : `⌚ ${market} SMART HARDWARE & WEARABLES`,
       subtitle: market === 'ES'
-        ? 'Básculas inteligentes Withings, tensiómetros BPM, analizadores de sueño, smartwatches y equipamiento de longevidad'
-        : 'Withings Smart Scales, BPM Blood Pressure Cuffs, Sleep Analyzer Mats, Smartwatches, and longevity hardware',
+        ? 'Básculas inteligentes Withings, tensiómetros BPM, analizadores de sueño, smartwatches y sensores circadianos'
+        : 'Withings Smart Scales, BPM Blood Pressure Cuffs, Sleep Analyzer Mats, Smartwatches, and circadian telemetry hardware',
       icon: Smartphone,
-      iconColor: 'text-amber-400',
-      iconBorder: 'border-amber-500/30',
-      iconGlow: 'shadow-[0_0_25px_rgba(245,158,11,0.25)]',
-      radarColor: 'text-amber-500/10'
+      iconColor: 'text-cyan-400',
+      iconBorder: 'border-cyan-500/30',
+      iconGlow: 'shadow-[0_0_25px_rgba(6,182,212,0.25)]',
+      radarColor: 'text-cyan-500/10'
     };
   };
 
@@ -2949,7 +3140,7 @@ export function Store({ region }: StoreProps = {}) {
           }
 
           const catFormatted = normalizeStoreCategory(p.category, p.name || p.title, healedDeal);
-          const isDiag = catFormatted === '🩸 Clinical Diagnostics & Lab Testing';
+          const isDiag = catFormatted === 'Clinical Diagnostics & Labs';
 
           let healedImg = resolveDiagnosticImage(
             { ...p, market_region: activeTab, category: catFormatted, deal_url: healedDeal },
@@ -3037,9 +3228,9 @@ export function Store({ region }: StoreProps = {}) {
     (p.deal_url && p.deal_url.toLowerCase().includes('amazon'))
   );
 
-  // Group amazon products by category for structured sections when "All" is active
-  const amazonCategoriesInView = Array.from(
-    new Set(amazonHubProducts.map(p => p.category).filter(Boolean))
+  // Group amazon products by category in the canonical 5-category order when "All" is active
+  const amazonCategoriesInView = STORE_CATEGORIES.filter(cat =>
+    amazonHubProducts.some(p => p.category === cat)
   );
 
   const getFlagEmoji = (tab: MarketTab) => {
@@ -3087,7 +3278,7 @@ export function Store({ region }: StoreProps = {}) {
           </div>
           <div className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900/80 border border-slate-800 backdrop-blur-sm">
             <CheckCircle2 size={13} className="text-amber-400" />
-            <span>Direct Partner Portals</span>
+            <span>Multi-Supplier Price & Perks</span>
           </div>
           <div className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900/80 border border-slate-800 backdrop-blur-sm">
             <Lock size={13} className="text-sky-400" />
@@ -3096,8 +3287,8 @@ export function Store({ region }: StoreProps = {}) {
         </div>
       </div>
 
-      {/* Country Selector */}
-      <div className="max-w-md mx-auto flex justify-center space-x-2 bg-slate-900 border border-slate-800 p-1.5 rounded-xl mb-12">
+      {/* LEVEL 1: Country Market Selector */}
+      <div className="max-w-md mx-auto flex justify-center space-x-2 bg-slate-900 border border-slate-800 p-1.5 rounded-xl mb-8">
         {(['US', 'UK', 'ES'] as MarketTab[]).map(tab => (
           <button
             key={tab}
@@ -3119,19 +3310,19 @@ export function Store({ region }: StoreProps = {}) {
         ))}
       </div>
 
-      {/* Dynamic Filter Pills */}
+      {/* LEVEL 2: 5-Category Filter Pills */}
       <div className="max-w-7xl mx-auto flex flex-wrap justify-center gap-2 mb-12 border-b border-slate-900 pb-6">
         {categories.map(category => (
           <button
             key={category}
             onClick={() => setActiveCategory(category)}
-            className={`px-4 py-2 rounded-full text-xs font-bold border transition-all duration-300 ${
+            className={`px-4 py-2.5 rounded-full text-xs font-bold border transition-all duration-300 cursor-pointer ${
               activeCategory.toLowerCase() === category.toLowerCase()
-                ? 'bg-cyan-950 text-cyan-400 border-cyan-500/40'
-                : 'bg-slate-900/40 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
+                ? 'bg-cyan-950 text-cyan-300 border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.2)]'
+                : 'bg-slate-900/50 text-slate-400 border-slate-800 hover:border-slate-700 hover:text-slate-200'
             }`}
           >
-            {category}
+            {getCategoryDisplayLabel(category)}
           </button>
         ))}
       </div>
@@ -3225,7 +3416,7 @@ export function Store({ region }: StoreProps = {}) {
             <div className="space-y-6">
               <div className="border-l-4 border-rose-500 pl-4">
                 <span className="text-xs text-rose-500 uppercase font-semibold tracking-widest">DIRECT ACCESS PARTNERS ({activeTab})</span>
-                <h2 className="text-2xl font-bold text-slate-100 mt-1">🩸 Clinical Diagnostics &amp; Lab Testing</h2>
+                <h2 className="text-2xl font-bold text-slate-100 mt-1">🩸 Clinical Diagnostics &amp; Labs</h2>
               </div>
               
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -3250,9 +3441,13 @@ export function Store({ region }: StoreProps = {}) {
                                   target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
                                   return;
                                 }
-                                target.src = isDiag
-                                  ? (isLolaProduct(product, activeTab) ? lolaBloodPanelImg : clinicalBloodPanelImg)
-                                  : '/Products/ancientbrave.jpeg';
+                                if (isDiag) {
+                                  target.src = isLolaProduct(product, activeTab) ? lolaBloodPanelImg : clinicalBloodPanelImg;
+                                } else if (product.category === 'Smart Hardware & Wearables') {
+                                  target.src = withingsScaleImg;
+                                } else {
+                                  target.src = '/assets/images/shop/sirtuin-stack.png';
+                                }
                               }}
                             />
                           </div>
@@ -3279,7 +3474,7 @@ export function Store({ region }: StoreProps = {}) {
                         <h3 className="text-lg font-bold text-slate-100 group-hover:text-rose-400 transition-colors duration-300 line-clamp-2">{product.name}</h3>
                         <p className="text-xs text-slate-400 mt-3 leading-relaxed line-clamp-3">{product.description}</p>
                       </div>
-                      <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
+                      <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-3">
                         <div className="flex justify-between items-center">
                           <span className="text-xs text-slate-500 font-semibold">Badge Status</span>
                           <span className="text-[10px] text-cyan-400 font-bold px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-800/20">
@@ -3303,6 +3498,8 @@ export function Store({ region }: StoreProps = {}) {
                             {isDiag ? getCleanDiagnosticCta(product, activeTab) : (product.deal_url?.includes('/checkout') ? 'Get Master Guide ➔' : 'Access Partner Portal')}
                           </a>
                         </div>
+                        {/* LEVEL 3: Multi-Supplier Comparison Options */}
+                        <MultiSupplierOptionsBar product={product} market={activeTab} />
                       </div>
                     </div>
                   );
@@ -3311,12 +3508,12 @@ export function Store({ region }: StoreProps = {}) {
             </div>
           )}
 
-          {/* TIER 2: CURATED LIFESTYLE & GEAR (AMAZON ASSOCIATES) */}
+          {/* TIER 2: CURATED LIFESTYLE & GEAR (MULTI-SUPPLIER HUB) */}
           {amazonHubProducts.length > 0 && (
             <div className="space-y-10 pt-6 border-t border-slate-900">
               <div className="border-l-4 border-cyan-500 pl-4">
-                <span className="text-xs text-cyan-400 uppercase font-semibold tracking-widest">CURATED LIFESTYLE & PILLAR HARDWARE</span>
-                <h2 className="text-2xl font-bold text-slate-100 mt-1">Amazon Longevity Gear Hub {getFlagEmoji(activeTab)}</h2>
+                <span className="text-xs text-cyan-400 uppercase font-semibold tracking-widest">MULTI-SUPPLIER LONGEVITY CATALOG</span>
+                <h2 className="text-2xl font-bold text-slate-100 mt-1">Sovereign Gear &amp; Nutraceutical Hub {getFlagEmoji(activeTab)}</h2>
               </div>
 
               {/* If "All" is active, render category-by-category with header banners */}
@@ -3349,9 +3546,13 @@ export function Store({ region }: StoreProps = {}) {
                                           target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
                                           return;
                                         }
-                                        target.src = isDiag
-                                          ? (isLolaProduct(product, activeTab) ? lolaBloodPanelImg : clinicalBloodPanelImg)
-                                          : '/Products/ancientbrave.jpeg';
+                                        if (isDiag) {
+                                          target.src = isLolaProduct(product, activeTab) ? lolaBloodPanelImg : clinicalBloodPanelImg;
+                                        } else if (product.category === 'Smart Hardware & Wearables') {
+                                          target.src = withingsScaleImg;
+                                        } else {
+                                          target.src = '/assets/images/shop/sirtuin-stack.png';
+                                        }
                                       }}
                                     />
                                   </div>
@@ -3378,7 +3579,7 @@ export function Store({ region }: StoreProps = {}) {
                                 <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2">{product.name}</h3>
                                 <p className="text-xs text-slate-400 mt-3 leading-relaxed line-clamp-3">{product.description}</p>
                               </div>
-                              <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
+                              <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-3">
                                 <div className="flex justify-between items-center">
                                   <span className="text-xs text-slate-500 font-semibold">Network Target</span>
                                   <span className="text-[10px] text-slate-400 font-semibold px-2 py-0.5 rounded bg-slate-905 border border-slate-800">
@@ -3403,6 +3604,8 @@ export function Store({ region }: StoreProps = {}) {
                                     </a>
                                   )}
                                 </div>
+                                {/* LEVEL 3: Multi-Supplier Comparison Options */}
+                                <MultiSupplierOptionsBar product={product} market={activeTab} />
                               </div>
                             </div>
                           );
@@ -3437,9 +3640,13 @@ export function Store({ region }: StoreProps = {}) {
                                       target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
                                       return;
                                     }
-                                    target.src = isDiag
-                                      ? (isLolaProduct(product, activeTab) ? lolaBloodPanelImg : clinicalBloodPanelImg)
-                                      : '/Products/ancientbrave.jpeg';
+                                    if (isDiag) {
+                                      target.src = isLolaProduct(product, activeTab) ? lolaBloodPanelImg : clinicalBloodPanelImg;
+                                    } else if (product.category === 'Smart Hardware & Wearables') {
+                                      target.src = withingsScaleImg;
+                                    } else {
+                                      target.src = '/assets/images/shop/sirtuin-stack.png';
+                                    }
                                   }}
                                 />
                               </div>
@@ -3466,7 +3673,7 @@ export function Store({ region }: StoreProps = {}) {
                             <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2">{product.name}</h3>
                             <p className="text-xs text-slate-400 mt-3 leading-relaxed line-clamp-3">{product.description}</p>
                           </div>
-                          <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
+                          <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-3">
                             <div className="flex justify-between items-center">
                               <span className="text-xs text-slate-500 font-semibold">Network Target</span>
                               <span className="text-[10px] text-slate-400 font-semibold px-2 py-0.5 rounded bg-slate-905 border border-slate-800">
@@ -3491,6 +3698,8 @@ export function Store({ region }: StoreProps = {}) {
                                 </a>
                               )}
                             </div>
+                            {/* LEVEL 3: Multi-Supplier Comparison Options */}
+                            <MultiSupplierOptionsBar product={product} market={activeTab} />
                           </div>
                         </div>
                       );
