@@ -607,7 +607,7 @@ export default function ClinicianCopilot() {
       };
 
       const doc = buildGpConsultationTemplatePdf(templateData);
-      doc.save('clinical-baseline-consultation-template-v2-completed.pdf');
+      doc.save('clinical-baseline-consultation-template-v2.pdf');
       setPdfExportSuccess(true);
       setTimeout(() => setPdfExportSuccess(false), 5000);
     } catch (err) {
@@ -670,158 +670,275 @@ export default function ClinicianCopilot() {
       `}</style>
 
       {/* ========================================================================= */}
-      {/* TOP BAR: DUAL PDF EXPORT & 100% GUEST MODE CTAs                            */}
-      {/* 1. "📄 Export Pre-Filled GP Template (PDF)"                                */}
-      {/* 2. "✏️ Download Blank Printable Template (PDF)"                            */}
-      {/* 3. "🗑️ Clear Local Form Data"                                             */}
+      {/* 1. SECTION TITLE & MOTIVATIONAL HERO BANNER                               */}
       {/* ========================================================================= */}
-      <section className="no-print py-6 border-b border-slate-900 bg-slate-950/95 backdrop-blur-md shadow-2xl">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div className="space-y-1">
-            <Link 
-              to="/" 
+      <div className="no-print border-b border-slate-800/80 bg-gradient-to-b from-slate-950 via-slate-900/90 to-slate-950 pt-8 pb-6">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+          {/* Top Utility Bar: Back to Home + Guest Mode Badge + Clear Data */}
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <Link
+              to="/"
               className="inline-flex items-center text-xs font-mono uppercase tracking-wider text-cyan-400 hover:text-cyan-300 transition-colors"
             >
               <ArrowLeft size={13} className="mr-1.5" />
               Back to Home
             </Link>
-            <h1 className="text-xl sm:text-2xl font-display uppercase tracking-tight text-white font-black flex items-center gap-2.5 flex-wrap">
-              <span>The Clinician Co-Pilot Suite</span>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 uppercase tracking-widest font-bold flex items-center gap-1">
+
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 uppercase tracking-widest font-bold flex items-center gap-1">
                 <ShieldCheck size={12} />
                 100% Guest Mode • Zero Server Writes
               </span>
               {lastSavedTime && (
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700 font-medium">
+                <span className="text-[10px] font-mono px-2.5 py-1 rounded-full bg-slate-900 text-slate-300 border border-slate-700 font-medium">
                   Auto-saved locally at {lastSavedTime}
                 </span>
               )}
+              <button
+                type="button"
+                onClick={handleClearLocalData}
+                disabled={isExportingPdf}
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-950/40 border border-rose-800/60 hover:bg-rose-900/60 text-rose-300 hover:text-white text-[10px] font-bold uppercase tracking-wider transition-all cursor-pointer"
+                title="Purge all localStorage form data on this device"
+              >
+                <RotateCcw size={11} />
+                <span>🗑️ Clear Local Form Data</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Main Hub Title & Subtitle */}
+          <div className="space-y-2.5">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-[11px] font-mono uppercase tracking-widest font-bold">
+              <Stethoscope size={13} />
+              <span>Consolidated Diagnostics &amp; Clinician Co-Pilot</span>
+            </div>
+            <h1 className="text-2xl sm:text-4xl font-display font-black uppercase tracking-tight text-white">
+              Clinician Co-Pilot Hub: From Guessing to Knowing
             </h1>
+            <p className="text-sm sm:text-lg text-slate-300 max-w-3xl leading-relaxed font-medium">
+              Transform your raw cellular data into a standardized 2-Page GP Consultation Brief for your next doctor appointment.
+            </p>
           </div>
 
-          {/* Explicit Action Buttons (Top) */}
-          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-            {/* Dual PDF Export CTA 1: Pre-Filled GP Template (PDF) */}
-            <button
-              onClick={handleExportCompletedPdf}
-              disabled={isExportingPdf}
-              className="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:via-teal-300 hover:to-emerald-300 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-lg shadow-cyan-500/25 hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-75 disabled:cursor-wait"
-              title="Compiles your localStorage inputs into a completed vector PDF"
-            >
-              <FileDown size={15} />
-              <span>📄 Export Pre-Filled GP Template (PDF)</span>
-            </button>
-
-            {/* Dual PDF Export CTA 2: Download Blank Printable Template (PDF) */}
-            <a
-              href="/assets/docs/clinical-baseline-consultation-template-v2.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              download="clinical-baseline-consultation-template-v2.pdf"
-              onClick={handleDownloadBlank}
-              className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-slate-950 text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-lg shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
-              title="Downloads the clean 2-page blank PDF for hand completion with a pen"
-            >
-              <FileText size={15} />
-              <span>✏️ Download Blank Printable Template (PDF)</span>
-            </a>
-
-            {/* Read Workbook PDF */}
-            <a
-              href="/assets/docs/the-next-level-lifespan-2026.pdf?v=2026-revised"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-500/60 hover:bg-cyan-950/20 text-slate-200 hover:text-cyan-300 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-sm"
-              title="Opens the Lifespan Educational Workbook PDF in a new tab"
-            >
-              <BookOpen size={14} className="text-cyan-400" />
-              <span className="hidden xl:inline">Workbook</span>
-            </a>
-
-            {/* Clear Local Form Data Button */}
-            <button
-              onClick={handleClearLocalData}
-              disabled={isExportingPdf}
-              className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl bg-rose-950/40 border border-rose-800/60 hover:bg-rose-900/60 text-rose-300 hover:text-white text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
-              title="Instantly purges all localStorage form data on this device"
-            >
-              <RotateCcw size={13} />
-              <span>🗑️ Clear Local Form Data</span>
-            </button>
+          {/* Motivational Why Callout */}
+          <div className="bg-slate-900/90 border border-sky-500/30 rounded-xl p-6 mb-8 shadow-2xl space-y-3 relative overflow-hidden">
+            <div className="absolute -top-16 -right-16 w-56 h-56 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
+            <h2 className="text-base sm:text-lg font-display font-black text-sky-300 tracking-wide relative z-10">
+              🔥 Why Establish Your Diagnostic Baseline Today?
+            </h2>
+            <ul className="space-y-2.5 text-xs sm:text-sm text-slate-200 leading-relaxed relative z-10">
+              <li>
+                • 80% to 90% of cellular aging and chronic disease risk is governed by daily lifestyle and metabolic telemetry—not raw genetics.
+              </li>
+              <li>
+                • Reactive &apos;sick-care&apos; waits for symptoms, organ strain, or emergencies. Proactive health catches subtle biomarker drifts years before symptoms appear.
+              </li>
+              <li>
+                • Your GP only has 10 minutes. Handing them raw lab printouts causes decision fatigue. The Clinician Co-Pilot translates your blood, urine, and scale metrics into a 2-page clinical summary your doctor can review in 30 seconds.
+              </li>
+            </ul>
           </div>
-        </div>
 
-        {/* Real-time PDF Export Loading Banner */}
-        {isExportingPdf && (
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
+          {/* Real-time PDF Export / Download / Reset Status Toasts */}
+          {isExportingPdf && (
             <div className="p-3 bg-slate-900/95 border border-cyan-500/50 rounded-xl flex items-center gap-2.5 text-xs text-cyan-300 animate-pulse shadow-lg">
               <Loader2 size={16} className="animate-spin text-cyan-400 shrink-0" />
-              <span><strong>Generating Pre-Filled GP Template...</strong> Compiling your localStorage telemetry into a print-ready vector PDF.</span>
+              <span><strong>Generating Pre-Filled GP Brief...</strong> Compiling your telemetry into <code>clinical-baseline-consultation-template-v2.pdf</code>.</span>
             </div>
-          </div>
-        )}
+          )}
 
-        {/* PDF Downloaded Success Toast */}
-        {pdfExportSuccess && (
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
+          {pdfExportSuccess && (
             <div className="p-3 bg-emerald-950/90 border border-emerald-500/60 rounded-xl flex items-center gap-2.5 text-xs text-emerald-200 animate-fadeIn shadow-lg shadow-emerald-500/10">
               <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
-              <span><strong>Export Complete!</strong> Your pre-filled GP Consultation Template has been compiled and saved as <code>clinical-baseline-consultation-template-v2-completed.pdf</code>.</span>
+              <span><strong>Export Complete!</strong> Your pre-filled GP Consultation Brief has been saved as <code>clinical-baseline-consultation-template-v2.pdf</code>.</span>
             </div>
-          </div>
-        )}
+          )}
 
-        {downloadSuccess && (
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
+          {downloadSuccess && (
             <div className="p-3 bg-amber-950/80 border border-amber-500/50 rounded-xl flex items-center gap-2.5 text-xs text-amber-200 animate-fadeIn">
               <CheckCircle2 size={16} className="text-amber-400 shrink-0" />
               <span><strong>Blank Template Download Started!</strong> <code>clinical-baseline-consultation-template-v2.pdf</code> is ready for pen-and-paper writing.</span>
             </div>
-          </div>
-        )}
+          )}
 
-        {resetToast && (
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mt-3">
+          {resetToast && (
             <div className="p-3 bg-rose-950/80 border border-rose-500/50 rounded-xl flex items-center gap-2.5 text-xs text-rose-200 animate-fadeIn">
               <RotateCcw size={16} className="text-rose-400 shrink-0" />
               <span><strong>Local Guest Data Purged!</strong> Browser localStorage has been completely cleared and form restored to blank state.</span>
             </div>
+          )}
+        </div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 2. STAGE 1: CHOOSE & COORDINATE YOUR DIAGNOSTICS                          */}
+      {/* ========================================================================= */}
+      <div id="stage-1" className="no-print max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4 space-y-6">
+        <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
+          <span className="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-400 font-mono font-bold flex items-center justify-center text-xs shrink-0">
+            01
+          </span>
+          <div>
+            <span className="text-[11px] font-mono uppercase text-sky-400 tracking-widest font-bold block">
+              STAGE 1 OF 3 • DIAGNOSTIC SELECTION HUB
+            </span>
+            <h2 className="text-xl sm:text-2xl font-display font-black uppercase text-white tracking-tight">
+              Stage 1: Choose &amp; Coordinate Your Diagnostics
+            </h2>
           </div>
-        )}
-      </section>
+        </div>
 
-      {/* ========================================================================= */}
-      {/* STEP 3 TOP PLACEMENT: HEADER, GUIDING EXPLANATION, BUTTONS & FORM         */}
-      {/* ========================================================================= */}
-      <section id="interactive-form" className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-        
-        {/* 1. SECTION HEADER, 2. GUIDING EXPLANATION BANNER, 3. ACTION BUTTONS */}
-        <Step3GuidingBanner 
-          id="step-3"
-          className="no-print" 
-          onExportPdf={handleExportCompletedPdf}
-          isExportingPdf={isExportingPdf}
-          onScrollToForm={() => {
-            const el = document.getElementById('gp-template-page-1');
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
-          }}
-        />
-
-        <div className="no-print bg-slate-900 border border-cyan-500/30 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2">
-            <Edit3 size={16} className="text-cyan-400 shrink-0" />
-            <span className="text-slate-300">
-              <strong>Interactive Clinical Form:</strong> Enter your telemetry below to pre-fill the digital export, or download blank to complete by hand.
+        {/* A. BLOOD DIAGNOSTICS (CHOOSE ONE) */}
+        <div className="p-5 sm:p-6 rounded-2xl bg-slate-900/90 border border-sky-500/30 space-y-5 shadow-xl">
+          <div className="flex items-center justify-between flex-wrap gap-2 border-b border-slate-800 pb-3">
+            <h3 className="text-sm sm:text-base font-display font-black uppercase text-sky-300 tracking-wide flex items-center gap-2">
+              <span>🩸 A. Blood Diagnostics (Choose One)</span>
+            </h3>
+            <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded bg-sky-500/10 text-sky-300 border border-sky-500/30 font-bold">
+              Quarterly Venous Lab Draw
             </span>
           </div>
-          <div className="flex items-center gap-2 shrink-0">
-            <button
-              onClick={handleExportCompletedPdf}
-              className="px-3.5 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold uppercase tracking-wider text-[11px] transition shadow cursor-pointer"
-            >
-              Export PDF Now
-            </button>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Choice A */}
+            <div className="p-4 sm:p-5 rounded-xl bg-slate-950/90 border border-emerald-500/40 space-y-2.5">
+              <div className="flex items-center justify-between gap-2">
+                <h4 className="text-sm font-display font-black uppercase text-emerald-300">
+                  • Choice A: Essential Baseline Check
+                </h4>
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                  Core Baseline
+                </span>
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                <strong className="text-white">Scope:</strong> Core lipids (Cholesterol, HDL, LDL, Triglycerides), Fasting Glucose, HbA1c (90-day glycemic trend), and basic kidney/liver filtration.
+              </p>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                <strong className="text-emerald-300">Ideal For:</strong> Targeted yearly check-ins and baseline screening.
+              </p>
+            </div>
+
+            {/* Choice B */}
+            <div className="p-4 sm:p-5 rounded-xl bg-slate-950/90 border border-cyan-500/40 space-y-2.5">
+              <div className="flex items-center justify-between gap-2">
+                <h4 className="text-sm font-display font-black uppercase text-cyan-300">
+                  • Choice B: Comprehensive Cellular Map (LOLA Vital Check 56)
+                </h4>
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/30">
+                  Gold Standard (56)
+                </span>
+              </div>
+              <p className="text-xs text-slate-300 leading-relaxed">
+                <strong className="text-white">Scope:</strong> Gold-standard 56-biomarker panel including ApoB (cardiovascular plaque risk), hs-CRP (cellular inflammation), Thyroid panel (TSH, Free T3/T4), Vitamin D3, Ferritin, and full Sex Hormones.
+              </p>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                <strong className="text-cyan-300">Ideal For:</strong> Complete biological age mapping and deep-dive performance optimization.
+              </p>
+            </div>
           </div>
+
+          {/* Direct Affiliate Order Buttons */}
+          <div className="pt-3 border-t border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <span className="text-xs font-mono uppercase tracking-wider text-slate-300 font-bold">
+              Order Accredited Regional Blood &amp; Urine Lab Panels:
+            </span>
+            <div className="flex flex-wrap items-center gap-2.5">
+              <a
+                href="https://referrals.lolahealth.com/NextLevel15"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-lg shadow-emerald-500/20"
+              >
+                <span>UK 🇬🇧 (LOLA Health 15% Off)</span>
+                <ExternalLink size={12} />
+              </a>
+              <a
+                href="https://www.healthlabs.com/?affiliate=123znl"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-lg shadow-cyan-500/20"
+              >
+                <span>US 🇺🇸 (HealthLabs)</span>
+                <ExternalLink size={12} />
+              </a>
+              <a
+                href="https://www.melio.es"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-lg shadow-amber-500/20"
+              >
+                <span>ES 🇪🇸 (SaludOnNet/Melio)</span>
+                <ExternalLink size={12} />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* B. COORDINATED URINALYSIS SCHEDULE & C. 14-DAY HARDWARE TELEMETRY */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {/* B. COORDINATED URINALYSIS SCHEDULE */}
+          <div className="p-5 sm:p-6 rounded-2xl bg-slate-900/90 border border-teal-500/30 space-y-3 shadow-xl">
+            <h3 className="text-sm sm:text-base font-display font-black uppercase text-teal-300 tracking-wide border-b border-slate-800 pb-2.5">
+              🧪 B. Coordinated Urinalysis Schedule
+            </h3>
+            <ul className="space-y-3 text-xs sm:text-sm text-slate-300 leading-relaxed">
+              <li>
+                • <strong className="text-white">Scheduled Lab Test (Quarterly):</strong> Request a clinical Urine ACR (Albumin-to-Creatinine Ratio) during the <strong className="text-teal-300">EXACT SAME clinic appointment as your blood draw</strong>. Submitting your urine sample alongside your blood draw gives your GP a synchronized kidney and cardiovascular profile in one visit.
+              </li>
+              <li>
+                • <strong className="text-white">In-Between Home Dipsticks (Weekly):</strong> Run a 60-second Sunday 10-parameter urine strip at home to track hydration, pH balance, and ketone levels between quarterly blood draws.
+              </li>
+            </ul>
+          </div>
+
+          {/* C. 14-DAY HARDWARE TELEMETRY */}
+          <div className="p-5 sm:p-6 rounded-2xl bg-slate-900/90 border border-amber-500/30 space-y-3 shadow-xl flex flex-col justify-between">
+            <div className="space-y-3">
+              <h3 className="text-sm sm:text-base font-display font-black uppercase text-amber-300 tracking-wide border-b border-slate-800 pb-2.5">
+                ⌚ C. 14-Day Hardware Telemetry
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                • <strong className="text-white">Smart Scale &amp; Wearables:</strong> Capture 14-day rolling averages for <strong className="text-amber-300">Visceral Fat Rating (1–12 scale)</strong>, <strong className="text-amber-300">Skeletal Muscle Mass %</strong>, <strong className="text-amber-300">Nocturnal HRV (ms)</strong>, and <strong className="text-amber-300">Resting Heart Rate (bpm)</strong>.
+              </p>
+            </div>
+            <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
+              <span className="text-slate-400 font-mono">Need diagnostic strips or smart scales?</span>
+              <Link
+                to="/store"
+                className="text-amber-300 hover:text-amber-200 font-bold uppercase tracking-wider underline"
+              >
+                Browse Hardware Store ➔
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 3. STAGE 2: INTERACTIVE TELEMETRY LOGGING FORM                            */}
+      {/* ========================================================================= */}
+      <section id="interactive-form" className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+        <div className="no-print flex items-center justify-between flex-wrap gap-3 border-b border-slate-800 pb-3">
+          <div className="flex items-center gap-3">
+            <span className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 font-mono font-bold flex items-center justify-center text-xs shrink-0">
+              02
+            </span>
+            <div>
+              <span className="text-[11px] font-mono uppercase text-amber-400 tracking-widest font-bold block">
+                STAGE 2 OF 3 • 100% LOCAL BROWSER AUTO-SAVE
+              </span>
+              <h2 className="text-xl sm:text-2xl font-display font-black uppercase text-white tracking-tight">
+                Stage 2: Interactive Telemetry Logging Form
+              </h2>
+            </div>
+          </div>
+          <a
+            href="#stage-3-export"
+            className="px-3.5 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 font-bold uppercase tracking-wider text-xs transition"
+          >
+            Jump to Stage 3 Export ↓
+          </a>
         </div>
 
 
@@ -853,12 +970,12 @@ export default function ClinicianCopilot() {
           </header>
 
           {/* ----------------------------------------------------------------- */}
-          {/* 4-QUESTION INTERACTIVE SEQUENCE (Q1 -> Q2 -> Q3 -> Q4)             */}
+          {/* STAGE 2 INTERACTIVE QUESTION SEQUENCE (Q1 -> Q2 -> Q3)             */}
           {/* ----------------------------------------------------------------- */}
           <div className="no-print mt-4 space-y-4">
 
             {/* =============================================================== */}
-            {/* QUESTION 1: WHICH BLOOD PANEL DID YOU COMPLETE?                 */}
+            {/* QUESTION 1 (Blood Panel Toggle)                                 */}
             {/* =============================================================== */}
             <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border-2 border-sky-500/50 shadow-xl space-y-3">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
@@ -868,16 +985,16 @@ export default function ClinicianCopilot() {
                   </div>
                   <div>
                     <h3 className="text-sm sm:text-base font-display font-black uppercase text-white tracking-wide">
-                      Question 1: Which blood panel did you complete?
+                      Which blood panel did you complete?
                     </h3>
                     <p className="text-[11px] text-slate-400">
-                      Select your blood draw option to dynamically toggle and focus your biomarker fields
+                      Toggle reveals only the relevant biomarker input fields for your chosen test tier
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-1.5 self-start sm:self-center">
                   <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded font-bold bg-slate-800 text-sky-300 border border-sky-500/30">
-                    {bloodPanelTierFilter === 'basic' ? 'Choice A: LOLA Essential Active' : bloodPanelTierFilter === 'complete' ? 'Choice B: LOLA Vital 56 Active' : 'All Fields Visible'}
+                    {bloodPanelTierFilter === 'basic' ? 'Choice A: Essential Baseline' : bloodPanelTierFilter === 'complete' ? 'Choice B: Vital Check 56' : 'All Fields Visible'}
                   </span>
                 </div>
               </div>
@@ -903,14 +1020,14 @@ export default function ClinicianCopilot() {
                   <label htmlFor="blood-choice-a" className="space-y-1.5 cursor-pointer flex-1">
                     <div className="flex items-center justify-between gap-2 flex-wrap">
                       <span className="font-display font-black text-xs sm:text-sm text-white uppercase tracking-tight">
-                        Choice A: LOLA Essential Check (Core Lipids, HbA1c, Fasting Glucose)
+                        Choice A: Essential Baseline
                       </span>
                       <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
-                        Core Baseline
+                        Core Lipids, HbA1c, Fasting Glucose
                       </span>
                     </div>
                     <p className="text-[11px] text-slate-400 leading-relaxed font-light">
-                      Targeted entry-level panel covering core lipids, HbA1c (90-day sugar trend), fasting glucose, and basic organ function.
+                      Core lipids (Cholesterol, HDL, LDL, Triglycerides), Fasting Glucose, HbA1c (90-day glycemic trend), and basic kidney/liver filtration.
                     </p>
                   </label>
                 </div>
@@ -935,14 +1052,14 @@ export default function ClinicianCopilot() {
                   <label htmlFor="blood-choice-b" className="space-y-1.5 cursor-pointer flex-1">
                     <div className="flex items-center justify-between gap-2 flex-wrap">
                       <span className="font-display font-black text-xs sm:text-sm text-white uppercase tracking-tight">
-                        Choice B: LOLA Vital Check 56 (Full 56-Biomarker Panel)
+                        Choice B: Vital Check 56
                       </span>
                       <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
-                        Full 56 Biomarkers
+                        Full 56-Biomarker Panel
                       </span>
                     </div>
                     <p className="text-[11px] text-slate-400 leading-relaxed font-light">
-                      Our deep-dive gold standard covering 56 biomarkers, including ApoB, hs-CRP, thyroid, hormones, and micronutrients.
+                      Gold-standard 56-biomarker panel including ApoB, hs-CRP, Thyroid panel, Vitamin D3, Ferritin, and full Sex Hormones.
                     </p>
                   </label>
                 </div>
@@ -952,8 +1069,8 @@ export default function ClinicianCopilot() {
               <div className="pt-2 border-t border-slate-800 space-y-2.5">
                 <div className="text-[11px] font-mono uppercase tracking-wider text-sky-300 font-bold">
                   {bloodPanelTierFilter === 'basic'
-                    ? '🩸 Enter Choice A (LOLA Essential Check) Blood Numbers:'
-                    : '🩸 Enter Choice B (LOLA Vital Check 56) Blood Numbers:'}
+                    ? '🩸 Enter Choice A (Essential Baseline) Blood Numbers:'
+                    : '🩸 Enter Choice B (Vital Check 56) Blood Numbers:'}
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 text-xs">
                   <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
@@ -1046,7 +1163,7 @@ export default function ClinicianCopilot() {
             </div>
 
             {/* =============================================================== */}
-            {/* QUESTION 2: WHICH URINE DIAGNOSTICS DID YOU COMPLETE?           */}
+            {/* QUESTION 2 (Urine Diagnostic Toggle)                            */}
             {/* =============================================================== */}
             <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border-2 border-teal-500/50 shadow-xl space-y-3">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
@@ -1056,48 +1173,52 @@ export default function ClinicianCopilot() {
                   </div>
                   <div>
                     <h3 className="text-sm sm:text-base font-display font-black uppercase text-white tracking-wide">
-                      Question 2: Which urine diagnostics did you complete?
+                      Which urine test did you complete?
                     </h3>
                     <p className="text-[11px] text-slate-400">
-                      Select your completed urine test(s) to dynamically expand lab ACR and/or weekly home dipstick fields
+                      Expands input fields for ACR ratio (mg/mmol) or Dipstick pH/Hydration accordingly
                     </p>
                   </div>
                 </div>
                 <span className="text-[10px] font-mono uppercase px-2.5 py-0.5 rounded font-bold bg-slate-800 text-teal-300 border border-teal-500/30 self-start sm:self-center">
                   {urineDiagnosticOption === 'both'
-                    ? 'Lab ACR + Weekly Dipsticks Active'
+                    ? 'Both (Lab ACR + Weekly Dipsticks)'
                     : urineDiagnosticOption === 'lab_acr'
-                      ? 'Synchronized Lab ACR Active'
+                      ? 'Scheduled Lab ACR'
                       : urineDiagnosticOption === 'weekly_dipstick'
-                        ? 'Weekly Home Dipsticks Active'
-                        : 'No Urine Inputs Selected'}
+                        ? 'Weekly Home Dipstick'
+                        : 'None yet'}
                 </span>
               </div>
 
               {/* 4 Urine Options */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 pt-1">
                 {[
                   {
                     id: 'lab_acr' as const,
-                    label: 'Synchronized Lab Urine ACR (Completed during your blood draw appointment)',
+                    label: 'Scheduled Lab ACR',
+                    sub: 'Same visit as blood draw',
                   },
                   {
                     id: 'weekly_dipstick' as const,
-                    label: 'Weekly 10-Parameter Home Dipstick (60-second Sunday bathroom test)',
+                    label: 'Weekly Home Dipstick',
+                    sub: '60-sec Sunday strip',
                   },
                   {
                     id: 'both' as const,
-                    label: 'Both (Synchronized Lab ACR + Weekly Dipsticks)',
+                    label: 'Both',
+                    sub: 'Lab ACR + Home Dipstick',
                   },
                   {
                     id: 'none' as const,
-                    label: 'None / Not completed yet',
+                    label: 'None yet',
+                    sub: 'Skip urine inputs',
                   },
                 ].map((opt) => (
                   <div
                     key={opt.id}
                     onClick={() => setUrineDiagnosticOption(opt.id)}
-                    className={`p-3 rounded-xl border-2 transition-all cursor-pointer flex items-center gap-2.5 select-none ${
+                    className={`p-3 rounded-xl border-2 transition-all cursor-pointer flex items-start gap-2.5 select-none ${
                       urineDiagnosticOption === opt.id
                         ? 'bg-teal-950/60 border-teal-400 shadow-md ring-1 ring-teal-400/30'
                         : 'bg-slate-950/70 border-slate-800 hover:border-teal-500/40 hover:bg-slate-900'
@@ -1108,22 +1229,39 @@ export default function ClinicianCopilot() {
                       name="urineDiagnosticSelector"
                       checked={urineDiagnosticOption === opt.id}
                       onChange={() => setUrineDiagnosticOption(opt.id)}
-                      className="w-4 h-4 text-teal-400 accent-teal-400 shrink-0 cursor-pointer"
+                      className="mt-0.5 w-4 h-4 text-teal-400 accent-teal-400 shrink-0 cursor-pointer"
                     />
-                    <span className="text-xs font-bold text-white leading-snug">
-                      {opt.label}
-                    </span>
+                    <div>
+                      <span className="text-xs font-bold text-white block leading-snug">
+                        {opt.label}
+                      </span>
+                      <span className="text-[10px] text-slate-400 block">
+                        {opt.sub}
+                      </span>
+                    </div>
                   </div>
                 ))}
               </div>
 
-              {/* Dynamic Expansion: Synchronized Lab ACR Fields */}
+              {/* Dynamic Expansion: Scheduled Lab ACR Fields */}
               {(urineDiagnosticOption === 'lab_acr' || urineDiagnosticOption === 'both') && (
                 <div className="pt-3 border-t border-slate-800 space-y-2">
                   <div className="text-[11px] font-mono uppercase tracking-wider text-sky-300 font-bold">
-                    🧪 Synchronized Lab Urine ACR Fields (Completed During Blood Draw Visit):
+                    🧪 Scheduled Lab Urine ACR Fields (Completed During Blood Draw Visit):
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+                    <div className="p-2.5 rounded-xl bg-slate-950/80 border border-sky-500/30 space-y-1">
+                      <label className="block text-[10px] font-mono uppercase text-sky-300 font-bold">
+                        ACR Ratio (mg/mmol or mg/g)
+                      </label>
+                      <input
+                        type="text"
+                        value={urinalysisData.labAcr.result}
+                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labAcr: { ...urinalysisData.labAcr, result: e.target.value } })}
+                        placeholder="e.g. 1.2 mg/mmol (< 3.0)"
+                        className="w-full bg-slate-900 border border-slate-700 focus:border-sky-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                      />
+                    </div>
                     <div className="p-2.5 rounded-xl bg-slate-950/80 border border-sky-500/30 space-y-1">
                       <label className="block text-[10px] font-mono uppercase text-sky-300 font-bold">
                         Microalbumin (mg/L)
@@ -1148,32 +1286,20 @@ export default function ClinicianCopilot() {
                         className="w-full bg-slate-900 border border-slate-700 focus:border-sky-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
                       />
                     </div>
-                    <div className="p-2.5 rounded-xl bg-slate-950/80 border border-sky-500/30 space-y-1">
-                      <label className="block text-[10px] font-mono uppercase text-sky-300 font-bold">
-                        Albumin-to-Creatinine Ratio (ACR)
-                      </label>
-                      <input
-                        type="text"
-                        value={urinalysisData.labAcr.result}
-                        onChange={(e) => setUrinalysisData({ ...urinalysisData, labAcr: { ...urinalysisData.labAcr, result: e.target.value } })}
-                        placeholder="e.g. 1.2 mg/mmol (< 3.0)"
-                        className="w-full bg-slate-900 border border-slate-700 focus:border-sky-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
-                      />
-                    </div>
                   </div>
                 </div>
               )}
 
-              {/* Dynamic Expansion: Weekly 10-Parameter Dipstick Fields */}
+              {/* Dynamic Expansion: Weekly Home Dipstick Fields */}
               {(urineDiagnosticOption === 'weekly_dipstick' || urineDiagnosticOption === 'both') && (
                 <div className="pt-3 border-t border-slate-800 space-y-2">
                   <div className="text-[11px] font-mono uppercase tracking-wider text-teal-300 font-bold">
-                    💧 Weekly 10-Parameter Home Dipstick Fields (60-Second Sunday Test):
+                    💧 Weekly Home Dipstick Fields (pH, Hydration / Specific Gravity, Ketones, Protein):
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 text-xs">
                     <div className="p-2.5 rounded-xl bg-slate-950/80 border border-teal-500/30 space-y-1">
                       <label className="block text-[10px] font-mono uppercase text-teal-300 font-bold">
-                        pH (Target 6.0–7.5)
+                        Dipstick pH (Target 6.0–7.5)
                       </label>
                       <input
                         type="text"
@@ -1185,7 +1311,7 @@ export default function ClinicianCopilot() {
                     </div>
                     <div className="p-2.5 rounded-xl bg-slate-950/80 border border-teal-500/30 space-y-1">
                       <label className="block text-[10px] font-mono uppercase text-teal-300 font-bold">
-                        Specific Gravity (1.010–1.020)
+                        Hydration / Specific Gravity
                       </label>
                       <input
                         type="text"
@@ -1225,7 +1351,7 @@ export default function ClinicianCopilot() {
             </div>
 
             {/* =============================================================== */}
-            {/* QUESTION 3: 14-DAY HARDWARE & WEARABLE TELEMETRY                */}
+            {/* QUESTION 3 (Hardware Telemetry)                                 */}
             {/* =============================================================== */}
             <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 border-2 border-amber-500/50 shadow-xl space-y-3">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
@@ -1235,7 +1361,7 @@ export default function ClinicianCopilot() {
                   </div>
                   <div>
                     <h3 className="text-sm sm:text-base font-display font-black uppercase text-white tracking-wide">
-                      Question 3: 14-Day Hardware &amp; Wearable Telemetry
+                      14-Day Hardware Telemetry
                     </h3>
                     <p className="text-[11px] text-slate-400">
                       Enter your smart scale body composition and wearable autonomic recovery averages
@@ -1247,7 +1373,7 @@ export default function ClinicianCopilot() {
                 </span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 pt-1 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 pt-1 text-xs">
                 <div className="p-2.5 rounded-xl bg-slate-950/80 border border-amber-500/30 space-y-1">
                   <label className="block text-[10px] font-mono uppercase text-amber-300 font-bold">
                     Visceral Fat Rating (1–12)
@@ -1262,7 +1388,7 @@ export default function ClinicianCopilot() {
                 </div>
                 <div className="p-2.5 rounded-xl bg-slate-950/80 border border-amber-500/30 space-y-1">
                   <label className="block text-[10px] font-mono uppercase text-amber-300 font-bold">
-                    Skeletal Muscle Mass %
+                    Skeletal Muscle %
                   </label>
                   <input
                     type="text"
@@ -1286,7 +1412,7 @@ export default function ClinicianCopilot() {
                 </div>
                 <div className="p-2.5 rounded-xl bg-slate-950/80 border border-amber-500/30 space-y-1">
                   <label className="block text-[10px] font-mono uppercase text-amber-300 font-bold">
-                    Resting Heart Rate (bpm)
+                    Resting HR (bpm)
                   </label>
                   <input
                     type="text"
@@ -1296,36 +1422,18 @@ export default function ClinicianCopilot() {
                     className="w-full bg-slate-900 border border-slate-700 focus:border-amber-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
                   />
                 </div>
-              </div>
-            </div>
-
-            {/* =============================================================== */}
-            {/* QUESTION 4: GENERATE GP BRIEF                                   */}
-            {/* =============================================================== */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-slate-900 via-cyan-950/60 to-slate-900 border-2 border-cyan-400/60 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 font-bold flex items-center justify-center text-sm font-mono shrink-0">
-                  Q4
+                <div className="p-2.5 rounded-xl bg-slate-950/80 border border-amber-500/30 space-y-1">
+                  <label className="block text-[10px] font-mono uppercase text-amber-300 font-bold">
+                    Sleep Efficiency %
+                  </label>
+                  <input
+                    type="text"
+                    value={summaryVitals[3]?.average || ''}
+                    onChange={(e) => updateSummaryVitals(3, 'average', e.target.value)}
+                    placeholder="e.g. 88% / 7.5 hrs"
+                    className="w-full bg-slate-900 border border-slate-700 focus:border-amber-400 rounded-lg px-2.5 py-1.5 text-white font-mono text-xs outline-none"
+                  />
                 </div>
-                <div>
-                  <h3 className="text-sm sm:text-base font-display font-black uppercase text-white tracking-wide">
-                    Question 4: Generate GP Brief
-                  </h3>
-                  <p className="text-[11px] text-slate-300">
-                    Map all entered blood, urine, and 14-day hardware telemetry directly into your 2-Page GP Consultation Brief PDF (<code className="text-cyan-300">clinical-baseline-consultation-template-v2.pdf</code>)
-                  </p>
-                </div>
-              </div>
-              <div className="flex flex-wrap items-center gap-2.5 shrink-0">
-                <button
-                  type="button"
-                  onClick={handleExportCompletedPdf}
-                  disabled={isExportingPdf}
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:via-teal-300 hover:to-emerald-300 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/25 cursor-pointer disabled:opacity-75"
-                >
-                  <FileDown size={16} />
-                  <span>📄 Generate 2-Page GP Consultation Brief (PDF)</span>
-                </button>
               </div>
             </div>
 
@@ -2621,115 +2729,92 @@ export default function ClinicianCopilot() {
       </section>
 
       {/* ========================================================================= */}
-      {/* MULTI-REGION DUAL-TRACK DIAGNOSTIC RADAR & REQUISITION SELECTOR           */}
+      {/* 4. STAGE 3: EXPORT YOUR 2-PAGE GP CONSULTATION BRIEF                      */}
       {/* ========================================================================= */}
-      <section className="no-print max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-8 space-y-8">
-        <DualTrackSelector className="shadow-2xl" />
-
-        <div className="p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-cyan-950/40 border-2 border-cyan-500/30 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-          
-          <div className="relative z-10">
-            <DiagnosticPathwaySelector
-              showRegionTabs={true}
-              selectedPathway={agreedPathway.level2 ? 'level2' : agreedPathway.level1 ? 'level1' : null}
-              onSelectPathway={(pathway) => {
-                if (pathway === 'level1') {
-                  setAgreedPathway({ level1: true, level2: false });
-                  setRequisitions((prev) => ({ ...prev, apob: true, hba1c: true, hscrp: true }));
-                } else {
-                  setAgreedPathway({ level1: false, level2: true });
-                  setRequisitions((prev) => ({ ...prev, panel56: true }));
-                }
-              }}
-            />
+      <section id="stage-3-export" className="no-print max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 pt-4 space-y-6">
+        <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
+          <span className="w-8 h-8 rounded-lg bg-teal-500/10 border border-teal-500/30 text-teal-400 font-mono font-bold flex items-center justify-center text-xs shrink-0">
+            03
+          </span>
+          <div>
+            <span className="text-[11px] font-mono uppercase text-teal-400 tracking-widest font-bold block">
+              STAGE 3 OF 3 • DOCTOR CONSULTATION OUTPUT
+            </span>
+            <h2 className="text-xl sm:text-2xl font-display font-black uppercase text-white tracking-tight">
+              Stage 3: Export Your 2-Page GP Consultation Brief
+            </h2>
           </div>
         </div>
-      </section>
 
-      {/* ========================================================================= */}
-      {/* BOTTOM SECTION: 3 REQUIRED CTAs & STOREFRONT REDIRECTION                  */}
-      {/* 1. "📄 Export My Completed GP Template (PDF)"                             */}
-      {/* 2. "✏️ Download Blank Template to Fill by Hand (PDF)"                     */}
-      {/* 3. "📘 Read Educational Workbook (PDF)"                                   */}
-      {/* ========================================================================= */}
-      <section className="no-print max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 pt-4">
-        <div className="p-8 sm:p-10 rounded-3xl bg-slate-900 border border-slate-800 text-center space-y-6 shadow-2xl">
-          <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center mx-auto">
-            <HeartPulse size={28} />
-          </div>
-
-          <div className="space-y-2 max-w-2xl mx-auto">
-            <h3 className="text-xl sm:text-2xl md:text-3xl font-display uppercase tracking-tight text-white font-black">
-              Ready for Your Clinical Consultation?
+        {/* Export Generator Card */}
+        <div className="p-6 sm:p-8 rounded-2xl bg-slate-900/90 border border-teal-500/40 space-y-6 shadow-2xl">
+          <div className="space-y-2">
+            <h3 className="text-lg sm:text-xl font-display uppercase tracking-tight text-white font-black">
+              Generate or Download Your 2-Page GP Brief
             </h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
-              Choose your preferred method below: generate your auto-filled digital PDF now, download the blank template to fill out with a pen, or review the comprehensive educational manual.
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Map all entered blood, urine, and 14-day hardware telemetry directly into <code className="text-teal-300">clinical-baseline-consultation-template-v2.pdf</code>, or download a blank printable version for pen-and-paper completion.
             </p>
           </div>
 
-          {/* 4 Explicit Action Buttons (Bottom) */}
-          <div className="flex flex-wrap justify-center items-center gap-3 pt-2">
-            {/* CTA 1: Pre-Filled GP Template */}
+          {/* Primary & Secondary Export Buttons */}
+          <div className="flex flex-wrap items-center gap-3">
+            {/* PRIMARY ACTION: Generate Pre-Filled 2-Page GP Brief (PDF) */}
             <button
+              type="button"
               onClick={handleExportCompletedPdf}
               disabled={isExportingPdf}
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:via-teal-300 hover:to-emerald-300 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-xl shadow-cyan-500/25 hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-75"
+              className="inline-flex items-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:via-teal-300 hover:to-emerald-300 text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-xl shadow-cyan-500/25 hover:scale-[1.01] active:scale-[0.99] cursor-pointer disabled:opacity-75"
             >
-              <FileDown size={16} />
-              <span>📄 Export Pre-Filled GP Template (PDF)</span>
+              <FileDown size={18} />
+              <span>Generate Pre-Filled 2-Page GP Brief (PDF)</span>
             </button>
 
-            {/* CTA 2: Download Blank Printable Template */}
+            {/* SECONDARY ACTION: Download Blank Pen-and-Paper Template */}
             <a
               href="/assets/docs/clinical-baseline-consultation-template-v2.pdf"
               target="_blank"
               rel="noopener noreferrer"
               download="clinical-baseline-consultation-template-v2.pdf"
               onClick={handleDownloadBlank}
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-slate-950 text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-xl shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-slate-950 text-xs sm:text-sm font-black uppercase tracking-wider transition-all duration-300 shadow-xl shadow-amber-500/20 hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
             >
-              <FileText size={16} />
-              <span>✏️ Download Blank Printable Template (PDF)</span>
+              <FileText size={17} />
+              <span>Download Blank Pen-and-Paper Template</span>
             </a>
 
-            {/* CTA 3: Read Educational Workbook */}
+            {/* Educational Workbook Reference */}
             <a
               href="/assets/docs/the-next-level-lifespan-2026.pdf?v=2026-revised"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 hover:text-white border border-slate-700 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-md"
+              className="inline-flex items-center gap-2 px-4 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-100 hover:text-white border border-slate-700 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-md"
             >
               <BookOpen size={16} className="text-cyan-400" />
-              <span>📘 Read Educational Workbook (PDF)</span>
+              <span>Read Educational Workbook (PDF)</span>
               <ExternalLink size={12} className="opacity-70" />
             </a>
-
-            {/* CTA 4: Clear Local Form Data */}
-            <button
-              onClick={handleClearLocalData}
-              disabled={isExportingPdf}
-              className="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl bg-rose-950/40 border border-rose-800/60 hover:bg-rose-900/60 text-rose-300 hover:text-white text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-md"
-            >
-              <RotateCcw size={14} />
-              <span>🗑️ Clear Local Form Data</span>
-            </button>
           </div>
 
-          <div className="pt-6 border-t border-slate-800 flex flex-wrap justify-center gap-4 text-xs">
-            <Link
-              to="/store"
-              className="text-cyan-400 hover:text-cyan-300 font-bold uppercase tracking-wider transition"
-            >
-              Order Regional Lab Panels &amp; Urinalysis Kits →
-            </Link>
-            <span className="text-slate-600">•</span>
-            <Link
-              to="/health-quiz"
-              className="text-slate-400 hover:text-slate-200 font-bold uppercase tracking-wider transition"
-            >
-              Take 5-Min Longevity Baseline Quiz →
-            </Link>
+          {/* CLINICAL APPOINTMENT GUIDANCE CONTAINER (Below Export Buttons) */}
+          <div className="p-5 sm:p-6 rounded-xl bg-slate-950/90 border border-sky-500/30 space-y-3">
+            <h4 className="text-sm sm:text-base font-display font-black text-sky-300 tracking-wide">
+              🩺 How to Use Your Brief in Your 10-Minute Appointment:
+            </h4>
+            <ol className="space-y-2.5 text-xs sm:text-sm text-slate-200 leading-relaxed list-decimal list-inside">
+              <li>
+                <strong className="text-white">Hand Page 1 to Your GP:</strong> Pass the printed summary to your doctor as soon as you sit down. It displays your standardized red-flag matrix, key lab averages, and main discussion points.
+              </li>
+              <li>
+                <strong className="text-white">Keep Page 2 as Your Personal Checklist:</strong> Hold Page 2 during the visit—it lists your 14-day home telemetry trends (HRV, visceral fat, sleep) and personal notes.
+              </li>
+              <li>
+                <strong className="text-white">Frame as Partnership:</strong> Start with:{' '}
+                <em className="text-teal-300">
+                  &apos;I&apos;ve logged my baseline health metrics so we can catch subtle shifts early and keep my long-term health on track.&apos;
+                </em>
+              </li>
+            </ol>
           </div>
         </div>
       </section>

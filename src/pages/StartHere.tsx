@@ -741,10 +741,10 @@ export default function StartHere() {
 
                 <div className="pt-2">
                   <Link
-                    to="/diagnostics"
+                    to="/clinician-copilot"
                     className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-xl bg-gradient-to-r from-cyan-500 via-teal-400 to-indigo-500 hover:from-cyan-400 hover:via-teal-300 hover:to-indigo-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-xl shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.98] cursor-pointer"
                   >
-                    <span>🔬 Explore Full Testing &amp; Diagnostics Suite →</span>
+                    <span>🔬 Open Diagnostics &amp; Clinician Co-Pilot Hub →</span>
                   </Link>
                 </div>
               </div>
@@ -1264,16 +1264,10 @@ export default function StartHere() {
           </p>
           <div className="pt-2 flex flex-wrap justify-center gap-4">
             <Link
-              to="/diagnostics"
+              to="/clinician-copilot"
               className="py-3 px-6 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/20 active:scale-95"
             >
-              Order Clinical Diagnostics Suite →
-            </Link>
-            <Link
-              to="/clinician-copilot"
-              className="py-3 px-6 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs uppercase tracking-wider transition-all border border-slate-700"
-            >
-              Launch Clinician Co-Pilot Form →
+              Open Diagnostics &amp; Co-Pilot Hub →
             </Link>
           </div>
         </div>

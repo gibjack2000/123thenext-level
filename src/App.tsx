@@ -250,7 +250,7 @@ function App() {
                 <Route path="/gp-script" element={<Navigate to="/clinician-copilot" replace />} />
 
                 {/* Diagnostics Route: Phase 1 Onboarding & Blood Panels */}
-                <Route path="/diagnostics" element={<DiagnosticsSuite />} />
+                <Route path="/diagnostics" element={<Navigate to="/clinician-copilot" replace />} />
                 <Route path="/guide" element={<DiagnosticGuide />} />
                 <Route path="/guides" element={<Navigate to="/premium-guides" replace />} />
 

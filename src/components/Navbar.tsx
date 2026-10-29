@@ -115,11 +115,11 @@ export const Navbar: React.FC = () => {
                   🧬 Pillar 1: Epigenetics & Longevity
                 </Link>
                 <Link
-                  to="/diagnostics"
+                  to="/clinician-copilot"
                   onClick={() => setIsPillarsOpen(false)}
                   className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
                 >
-                  🩸 Pillar 2: Diagnostics & Telemetry
+                  🩸 Pillar 2: Diagnostics & Co-Pilot
                 </Link>
                 <Link
                   to="/wellness"
@@ -178,7 +178,7 @@ export const Navbar: React.FC = () => {
             to="/clinician-copilot" 
             className={`transition-colors ${location.pathname === '/clinician-copilot' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
-            🩺 Clinician Co-Pilot
+            🩺 Diagnostics & Co-Pilot
           </Link>
 
           <Link 
@@ -324,12 +324,11 @@ export const Navbar: React.FC = () => {
           <Link to="/" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🏠 Home</Link>
           <Link to="/start-here" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🚀 Start Here</Link>
           <Link to="/overview" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🌐 The Big Picture</Link>
-          <Link to="/clinician-copilot" onClick={closeMobileMenu} className="block text-amber-400 font-bold py-1">🩺 Clinician Co-Pilot</Link>
+          <Link to="/clinician-copilot" onClick={closeMobileMenu} className="block text-amber-400 font-bold py-1">🩺 Diagnostics & Co-Pilot</Link>
           <Link to="/library" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">📁 Library</Link>
           <Link to="/library#free-pdfs" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">📄 Free PDFs ($0 Download)</Link>
           <Link to="/premium-guides" onClick={closeMobileMenu} className="block text-amber-400/90 font-bold py-1">⚡ Premium Guides (9 Books)</Link>
           <Link to="/science" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧬 Epigenetics & Longevity</Link>
-          <Link to="/diagnostics" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🩸 Diagnostics & Telemetry</Link>
           <Link to="/wellness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧠 Autonomic & Wellness</Link>
           <Link to="/fitness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">⚡ Performance & Bio-Data</Link>
           <Link to="/nutrition" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🥗 Metabolic Nutrition</Link>

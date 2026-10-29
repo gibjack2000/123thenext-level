@@ -91,6 +91,11 @@ app.get('/health', (req, res) => {
   res.status(200).send('OK');
 });
 
+// 301 Permanent Redirect from /diagnostics to consolidated /clinician-copilot hub
+app.get('/diagnostics', (req, res) => {
+  res.redirect(301, '/clinician-copilot');
+});
+
 // Handle client-side routing by returning the index.html file for all paths
 app.get('*', (req, res) => {
   // If the request is for a missing asset (e.g. .js or .css), don't send index.html

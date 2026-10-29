@@ -2,6 +2,7 @@
 RewriteEngine On
 RewriteBase /
 
+RewriteRule ^diagnostics/?$ /clinician-copilot [R=301,L]
 RewriteRule ^index\.html$ - [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f

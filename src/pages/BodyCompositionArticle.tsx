@@ -156,7 +156,7 @@ export default function BodyCompositionArticle() {
         <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
           <Link to="/library" className="hover:text-cyan-400 transition-colors">Library</Link>
           <ChevronRight size={12} />
-          <Link to="/diagnostics" className="hover:text-cyan-400 transition-colors">Diagnostics</Link>
+          <Link to="/clinician-copilot" className="hover:text-cyan-400 transition-colors">Diagnostics &amp; Co-Pilot</Link>
           <ChevronRight size={12} />
           <span className="text-cyan-400 font-bold">Body Composition</span>
         </div>
