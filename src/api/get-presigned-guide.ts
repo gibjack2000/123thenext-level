@@ -106,11 +106,16 @@ export const R2_GUIDE_FILE_KEYS: Record<string, string> = {
   'all-10-master-guides': 'all-ten-master-guides.zip',
   'bundle-complete-vault-10': 'all-ten-master-guides.zip',
   'g-bundle-10': 'all-ten-master-guides.zip',
-  'bundle-pick-3': 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf',
+  'bundle-pick-3': 'Complete_6_Pillar_Master_Suite-2026.zip',
 
   // Metabolic Master Guide
-  'metabolic-master-guide': 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf',
-  'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf': 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf'
+  'metabolic-master-guide': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'metabolic-visceral-fat-protocol': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'visceral-fat-protocol': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'g-met-1': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'The_12_Week_Metabolic_ReEngineering_Protocol.pdf': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf'
 };
 
 export async function getPresignedDownloadUrl(guideId: string): Promise<string> {

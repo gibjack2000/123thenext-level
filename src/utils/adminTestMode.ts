@@ -4,121 +4,133 @@ export const ADMIN_AUTH_STORAGE_KEY = 'admin_session_authenticated';
 export const PAYWALL_BYPASS_STORAGE_KEY = 'admin_paywall_bypass_active';
 export const PAYWALL_BYPASS_EVENT_KEY = 'paywall_bypass_updated';
 
-// Map of canonical guide IDs, product codes, and slugs to direct public PDF documents
+// Map of canonical guide IDs, product codes, and slugs to direct Cloudflare R2 presigned download streams
 export const GUIDE_PDF_MAP: Record<string, string> = {
-  // 1. Metabolic Protocol
-  'metabolic-master-guide': '/assets/docs/metabolic-master-guide.pdf',
-  'g-met-1': '/assets/docs/metabolic-master-guide.pdf',
-  'visceral-fat-protocol': '/assets/docs/metabolic-master-guide.pdf',
-  '12-Week_Metabolic_Re-Engineering_Protocol.pdf': '/assets/docs/12-Week_Metabolic_Re-Engineering_Protocol.pdf',
-  'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf': '/assets/docs/The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf',
+  // 1. Metabolic Protocol (Cloudflare R2 Vault: the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf)
+  'metabolic-master-guide': '/api/download/guide/the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'metabolic-visceral-fat-protocol': '/api/download/guide/the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'visceral-fat-protocol': '/api/download/guide/the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'g-met-1': '/api/download/guide/the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  '12-Week_Metabolic_Re-Engineering_Protocol.pdf': '/api/download/guide/the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf': '/api/download/guide/the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf': '/api/download/guide/the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
 
   // 2. Beginner Home Workout
-  'beginner-home-workout': '/assets/docs/beginner_home_workout-2026.pdf',
-  'beginner-home-workout-plan': '/assets/docs/beginner_home_workout-2026.pdf',
-  'workout-plan': '/assets/docs/beginner_home_workout-2026.pdf',
-  'g-fit-1': '/assets/docs/beginner_home_workout-2026.pdf',
-  'beginner_home_workout-2026.pdf': '/assets/docs/beginner_home_workout-2026.pdf',
-  'beginner_home_workout_v1.pdf': '/assets/docs/beginner_home_workout_v1.pdf',
+  'beginner-home-workout': '/api/download/guide/beginner-home-workout',
+  'beginner-home-workout-plan': '/api/download/guide/beginner-home-workout',
+  'workout-plan': '/api/download/guide/beginner-home-workout',
+  'g-fit-1': '/api/download/guide/beginner-home-workout',
+  'beginner_home_workout-2026.pdf': '/api/download/guide/beginner-home-workout',
+  'beginner_home_workout_v1.pdf': '/api/download/guide/beginner-home-workout',
 
   // 3. Hypertrophy & Strength
-  'hypertrophy-strength': '/assets/docs/Hypertrophy-Strength-Protocol-2026.pdf',
-  'strength-training-hypertrophy': '/assets/docs/Hypertrophy-Strength-Protocol-2026.pdf',
-  'g-fit-2': '/assets/docs/Hypertrophy-Strength-Protocol-2026.pdf',
-  'Hypertrophy-Strength-Protocol-2026.pdf': '/assets/docs/Hypertrophy-Strength-Protocol-2026.pdf',
-  'hypertrophy_protocol_v1.pdf': '/assets/docs/hypertrophy_protocol_v1.pdf',
+  'hypertrophy-strength': '/api/download/guide/hypertrophy-strength',
+  'strength-training-hypertrophy': '/api/download/guide/hypertrophy-strength',
+  'g-fit-2': '/api/download/guide/hypertrophy-strength',
+  'Hypertrophy-Strength-Protocol-2026.pdf': '/api/download/guide/hypertrophy-strength',
+  'hypertrophy_protocol_v1.pdf': '/api/download/guide/hypertrophy-strength',
 
   // 4. Mobility & Recovery
-  'mobility-recovery': '/assets/docs/Daily_Mobility_and_Recovery-2026.pdf',
-  'mobility-recovery-routine': '/assets/docs/Daily_Mobility_and_Recovery-2026.pdf',
-  'g-fit-3': '/assets/docs/Daily_Mobility_and_Recovery-2026.pdf',
-  'Daily_Mobility_and_Recovery-2026.pdf': '/assets/docs/Daily_Mobility_and_Recovery-2026.pdf',
-  'daily_mobility_v1.pdf': '/assets/docs/daily_mobility_v1.pdf',
+  'mobility-recovery': '/api/download/guide/mobility-recovery',
+  'mobility-recovery-routine': '/api/download/guide/mobility-recovery',
+  'g-fit-3': '/api/download/guide/mobility-recovery',
+  'Daily_Mobility_and_Recovery-2026.pdf': '/api/download/guide/mobility-recovery',
+  'daily_mobility_v1.pdf': '/api/download/guide/mobility-recovery',
 
   // 5. Master Meal Planning
-  'master-meal-planning': '/assets/docs/The_Master_Meal_Planning_Guide-2026.pdf',
-  'healthy-meal-planning-guide': '/assets/docs/The_Master_Meal_Planning_Guide-2026.pdf',
-  'meal-planner': '/assets/docs/The_Master_Meal_Planning_Guide-2026.pdf',
-  'g-nut-1': '/assets/docs/The_Master_Meal_Planning_Guide-2026.pdf',
-  'The Master_Meal_Planning_Guide-2026.pdf': '/assets/docs/The_Master_Meal_Planning_Guide-2026.pdf',
-  'the_master_meal_planning_guide.pdf': '/assets/docs/the_master_meal_planning_guide.pdf',
+  'master-meal-planning': '/api/download/guide/master-meal-planning',
+  'healthy-meal-planning-guide': '/api/download/guide/master-meal-planning',
+  'meal-planner': '/api/download/guide/master-meal-planning',
+  'g-nut-1': '/api/download/guide/master-meal-planning',
+  'The Master_Meal_Planning_Guide-2026.pdf': '/api/download/guide/master-meal-planning',
+  'the_master_meal_planning_guide.pdf': '/api/download/guide/master-meal-planning',
 
   // 6. Fat Loss Nutrition
-  'fat-loss-nutrition': '/assets/docs/Fat-Loss-Nutrition-Blueprint-2026.pdf',
-  'fat-loss-nutrition-blueprint': '/assets/docs/Fat-Loss-Nutrition-Blueprint-2026.pdf',
-  'fat-loss-blueprint': '/assets/docs/Fat-Loss-Nutrition-Blueprint-2026.pdf',
-  'g-nut-2': '/assets/docs/Fat-Loss-Nutrition-Blueprint-2026.pdf',
-  'Fat-Loss-Nutrition-Blueprint-2026.pdf': '/assets/docs/Fat-Loss-Nutrition-Blueprint-2026.pdf',
-  'fat-loss-nutrition-blueprint.pdf': '/assets/docs/fat-loss-nutrition-blueprint.pdf',
-  'fat_loss_blueprint.pdf': '/assets/docs/fat_loss_blueprint.pdf',
+  'fat-loss-nutrition': '/api/download/guide/fat-loss-nutrition-blueprint',
+  'fat-loss-nutrition-blueprint': '/api/download/guide/fat-loss-nutrition-blueprint',
+  'fat-loss-blueprint': '/api/download/guide/fat-loss-nutrition-blueprint',
+  'g-nut-2': '/api/download/guide/fat-loss-nutrition-blueprint',
+  'Fat-Loss-Nutrition-Blueprint-2026.pdf': '/api/download/guide/fat-loss-nutrition-blueprint',
+  'fat-loss-nutrition-blueprint.pdf': '/api/download/guide/fat-loss-nutrition-blueprint',
+  'fat_loss_blueprint.pdf': '/api/download/guide/fat-loss-nutrition-blueprint',
 
   // 7. High-Protein Recipes
-  'high-protein-recipes': '/assets/docs/High_Protein_Recipe_Collection-2026.pdf',
-  'high-protein-recipe-collection': '/assets/docs/High_Protein_Recipe_Collection-2026.pdf',
-  'g-nut-3': '/assets/docs/High_Protein_Recipe_Collection-2026.pdf',
-  'High_Protein_Recipe_Collection-2026.pdf': '/assets/docs/High_Protein_Recipe_Collection-2026.pdf',
-  'high_protein_recipes.pdf': '/assets/docs/high_protein_recipes.pdf',
+  'high-protein-recipes': '/api/download/guide/high-protein-recipes',
+  'high-protein-recipe-collection': '/api/download/guide/high-protein-recipes',
+  'g-nut-3': '/api/download/guide/high-protein-recipes',
+  'High_Protein_Recipe_Collection-2026.pdf': '/api/download/guide/high-protein-recipes',
+  'high_protein_recipes.pdf': '/api/download/guide/high-protein-recipes',
 
   // 8. Cortisol & Stress Management
-  'cortisol-stress-management': '/assets/docs/Cortisol_&_Stress_Management-2026.pdf',
-  'stress-management-toolkit': '/assets/docs/Cortisol_&_Stress_Management-2026.pdf',
-  'stress-management': '/assets/docs/Cortisol_&_Stress_Management-2026.pdf',
-  'g-wel-1': '/assets/docs/Cortisol_&_Stress_Management-2026.pdf',
-  'Cortisol_&_Stress_Management-2026.pdf': '/assets/docs/Cortisol_&_Stress_Management-2026.pdf',
-  'stress-management-toolkit.pdf': '/assets/docs/stress-management-toolkit.pdf',
+  'cortisol-stress-management': '/api/download/guide/cortisol-stress-management',
+  'stress-management-toolkit': '/api/download/guide/cortisol-stress-management',
+  'stress-management': '/api/download/guide/cortisol-stress-management',
+  'g-wel-1': '/api/download/guide/cortisol-stress-management',
+  'Cortisol_&_Stress_Management-2026.pdf': '/api/download/guide/cortisol-stress-management',
+  'stress-management-toolkit.pdf': '/api/download/guide/cortisol-stress-management',
 
   // 9. Deep Sleep Optimization
-  'sleep-optimization': '/assets/docs/Deep_Sleep_Optimization-2026.pdf',
-  'sleep-optimization-protocol': '/assets/docs/Deep_Sleep_Optimization-2026.pdf',
-  'g-wel-2': '/assets/docs/Deep_Sleep_Optimization-2026.pdf',
-  'Deep_Sleep_Optimization-2026.pdf': '/assets/docs/Deep_Sleep_Optimization-2026.pdf',
-  'sleep_optimization.pdf': '/assets/docs/sleep_optimization.pdf',
+  'sleep-optimization': '/api/download/guide/sleep-optimization',
+  'sleep-optimization-protocol': '/api/download/guide/sleep-optimization',
+  'g-wel-2': '/api/download/guide/sleep-optimization',
+  'Deep_Sleep_Optimization-2026.pdf': '/api/download/guide/sleep-optimization',
+  'sleep_optimization.pdf': '/api/download/guide/sleep-optimization',
 
   // 10. Mindfulness & Habit Reset
-  'mindfulness-habit-reset': '/assets/docs/Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
-  'habit-reset': '/assets/docs/Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
-  'g-wel-3': '/assets/docs/Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
-  'Mindfulness_and_Habit_Reset_Workbook-2026.pdf': '/assets/docs/Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
-  'habit_reset_workbook.pdf': '/assets/docs/habit_reset_workbook.pdf',
+  'mindfulness-habit-reset': '/api/download/guide/mindfulness-habit-reset',
+  'habit-reset': '/api/download/guide/mindfulness-habit-reset',
+  'g-wel-3': '/api/download/guide/mindfulness-habit-reset',
+  'Mindfulness_and_Habit_Reset_Workbook-2026.pdf': '/api/download/guide/mindfulness-habit-reset',
+  'habit_reset_workbook.pdf': '/api/download/guide/mindfulness-habit-reset',
 
   // Lifespan Blueprint
-  'the-next-level-lifespan': '/assets/docs/the-next-level-lifespan.pdf',
-  'g-epi-1': '/assets/docs/the-next-level-lifespan.pdf',
-  'the-next-level-lifespan.pdf': '/assets/docs/the-next-level-lifespan.pdf',
+  'the-next-level-lifespan': '/api/download/guide/the-next-level-lifespan',
+  'g-epi-1': '/api/download/guide/the-next-level-lifespan',
+  'the-next-level-lifespan.pdf': '/api/download/guide/the-next-level-lifespan',
 
   // Diagnostic guide
   'phase1-diagnostic-guide': '/assets/docs/phase1-diagnostic-guide.pdf',
 
   // Bundles & ZIP Archives
-  'bundle-pick-3': '/assets/docs/Complete_6_Pillar_Master_Suite-2026.zip',
-  'bundle-complete-vault-10': '/assets/docs/all-ten-master-guides.zip',
-  'g-bundle-6': '/assets/docs/all-six-master-guides.zip',
-  'g-bundle-9': '/assets/docs/all-nine-master-guides.zip',
-  'g-bundle-10': '/assets/docs/all-ten-master-guides.zip',
-  'all-six-master-guides': '/assets/docs/all-six-master-guides.zip',
-  'all-nine-master-guides': '/assets/docs/all-nine-master-guides.zip',
-  'all-ten-master-guides': '/assets/docs/all-ten-master-guides.zip'
+  'bundle-pick-3': '/api/download/guide/Complete_6_Pillar_Master_Suite-2026.zip',
+  'bundle-complete-vault-10': '/api/download/guide/Complete_9_Book_Master_Vault-2026.zip',
+  'g-bundle-6': '/api/download/guide/Complete_6_Pillar_Master_Suite-2026.zip',
+  'g-bundle-9': '/api/download/guide/Complete_9_Book_Master_Vault-2026.zip',
+  'g-bundle-10': '/api/download/guide/Complete_9_Book_Master_Vault-2026.zip',
+  'all-six-master-guides': '/api/download/guide/Complete_6_Pillar_Master_Suite-2026.zip',
+  'all-nine-master-guides': '/api/download/guide/Complete_9_Book_Master_Vault-2026.zip',
+  'all-ten-master-guides': '/api/download/guide/Complete_9_Book_Master_Vault-2026.zip'
 };
 
 /**
  * Resolves the direct downloadable URL for any guide ID or slug
+ * Returns direct Cloudflare R2 vault stream redirect
  */
 export function getGuidePdfDownloadUrl(guideIdOrSlug: string): string {
-  if (!guideIdOrSlug) return '/assets/docs/metabolic-master-guide.pdf';
-  const cleanKey = guideIdOrSlug.trim().toLowerCase();
+  if (!guideIdOrSlug) return '/api/download/guide/the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf';
+  const cleanKey = guideIdOrSlug.trim();
+  const lowerKey = cleanKey.toLowerCase();
   
-  if (GUIDE_PDF_MAP[cleanKey]) {
-    return GUIDE_PDF_MAP[cleanKey];
+  if (
+    lowerKey.includes('metabolic') || 
+    lowerKey.includes('visceral') || 
+    lowerKey === 'g-met-1'
+  ) {
+    return '/api/download/guide/the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf';
+  }
+
+  if (GUIDE_PDF_MAP[lowerKey]) {
+    return GUIDE_PDF_MAP[lowerKey];
   }
 
   // Fallback search in map keys
   for (const [key, path] of Object.entries(GUIDE_PDF_MAP)) {
-    if (cleanKey.includes(key) || key.includes(cleanKey)) {
+    if (lowerKey.includes(key) || key.includes(lowerKey)) {
       return path;
     }
   }
 
-  return '/assets/docs/metabolic-master-guide.pdf';
+  return `/api/download/guide/${encodeURIComponent(cleanKey)}`;
 }
 
 /**

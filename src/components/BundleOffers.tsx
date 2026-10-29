@@ -37,7 +37,7 @@ export const ALL_10_MASTER_GUIDES: BundleMasterGuide[] = [
     fallbackImage: '/covers/metabolic_nutrition_cover_New.png',
     priceFormatted: '£19.00',
     shortDesc: 'A phased biometric blueprint to strip deep visceral organ fat and optimize glycemic control.',
-    fileKey: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf'
+    fileKey: 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf'
   },
   {
     id: 'beginner-home-workout',

@@ -52,7 +52,7 @@ export const BUNDLE_CONSTITUENTS = {
     { id: 'habit-reset', title: 'Mindfulness & Habit Reset Workbook', key: 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf', pillar: 'Habits' }
   ],
   'bundle-complete-vault-10': [
-    { id: 'metabolic-master-guide', title: 'The 12-Week Metabolic Re-Engineering Protocol', key: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf', pillar: 'Metabolic & Visceral' },
+    { id: 'metabolic-master-guide', title: 'The 12-Week Metabolic Re-Engineering Protocol', key: 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf', pillar: 'Metabolic & Visceral' },
     { id: 'workout-plan', title: 'Beginner Home Workout Plan', key: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
     { id: 'hypertrophy-strength', title: 'Hypertrophy & Strength Protocol', key: 'Hypertrophy-Strength-Protocol-2026.pdf', pillar: 'Strength' },
     { id: 'mobility-recovery', title: 'Daily Mobility & Recovery Routine', key: 'Daily_Mobility_and_Recovery-2026.pdf', pillar: 'Mobility' },
@@ -64,7 +64,7 @@ export const BUNDLE_CONSTITUENTS = {
     { id: 'habit-reset', title: 'Mindfulness & Habit Reset Workbook', key: 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf', pillar: 'Habits' }
   ],
   'all-ten-master-guides': [
-    { id: 'metabolic-master-guide', title: 'The 12-Week Metabolic Re-Engineering Protocol', key: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf', pillar: 'Metabolic & Visceral' },
+    { id: 'metabolic-master-guide', title: 'The 12-Week Metabolic Re-Engineering Protocol', key: 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf', pillar: 'Metabolic & Visceral' },
     { id: 'workout-plan', title: 'Beginner Home Workout Plan', key: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
     { id: 'hypertrophy-strength', title: 'Hypertrophy & Strength Protocol', key: 'Hypertrophy-Strength-Protocol-2026.pdf', pillar: 'Strength' },
     { id: 'mobility-recovery', title: 'Daily Mobility & Recovery Routine', key: 'Daily_Mobility_and_Recovery-2026.pdf', pillar: 'Mobility' },
@@ -756,6 +756,25 @@ async function handleDownloadDelivery(req, res, forceJson = false) {
  */
 router.get('/download/:token', async (req, res) => {
   return handleDownloadDelivery(req, res, false);
+});
+
+/**
+ * GET /api/download/guide/:guideId
+ * Direct instant presigned download from Cloudflare R2 vault.
+ * Generates an authenticated, short-lived presigned download URL and redirects the browser directly to Cloudflare R2.
+ */
+router.get('/download/guide/:guideId', async (req, res) => {
+  try {
+    const { guideId } = req.params;
+    if (!guideId) {
+      return res.status(400).send('guideId is required.');
+    }
+    const downloadUrl = await generateGuidePresignedUrl(guideId, 900);
+    return res.redirect(302, downloadUrl);
+  } catch (error) {
+    console.error(`[Direct Guide Download Error] ${req.params.guideId}:`, error.message);
+    return res.status(404).send('Guide not found in vault or R2 unavailable.');
+  }
 });
 
 /**

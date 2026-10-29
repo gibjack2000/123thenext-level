@@ -26,7 +26,7 @@ interface ProductInfo {
 }
 
 const TEN_BOOK_VAULT_GUIDES: BundleGuideItem[] = [
-  { id: 'metabolic-master-guide', title: 'The 12-Week Metabolic Re-Engineering Protocol', file: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf', pillar: 'Metabolic & Visceral' },
+  { id: 'metabolic-master-guide', title: 'The 12-Week Metabolic Re-Engineering Protocol', file: 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf', pillar: 'Metabolic & Visceral' },
   { id: 'workout-plan', title: 'Beginner Home Workout Plan', file: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
   { id: 'hypertrophy-strength', title: 'Hypertrophy & Strength Protocol', file: 'Hypertrophy-Strength-Protocol-2026.pdf', pillar: 'Muscle Architecture' },
   { id: 'mobility-recovery', title: 'Daily Mobility & Recovery Routine', file: 'Daily_Mobility_and_Recovery-2026.pdf', pillar: 'Joint & Kinematics' },
@@ -39,9 +39,9 @@ const TEN_BOOK_VAULT_GUIDES: BundleGuideItem[] = [
 ];
 
 const GUIDE_MAP_BY_ID: Record<string, BundleGuideItem> = {
-  'metabolic-master-guide': { id: 'metabolic-master-guide', title: 'The 12-Week Metabolic Re-Engineering Protocol', file: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf', pillar: 'Metabolic & Visceral' },
-  'metabolic-visceral-fat-protocol': { id: 'metabolic-master-guide', title: 'The 12-Week Metabolic Re-Engineering Protocol', file: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf', pillar: 'Metabolic & Visceral' },
-  'visceral-fat-protocol': { id: 'metabolic-master-guide', title: 'The 12-Week Metabolic Re-Engineering Protocol', file: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf', pillar: 'Metabolic & Visceral' },
+  'metabolic-master-guide': { id: 'metabolic-master-guide', title: 'The 12-Week Metabolic Re-Engineering Protocol', file: 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf', pillar: 'Metabolic & Visceral' },
+  'metabolic-visceral-fat-protocol': { id: 'metabolic-master-guide', title: 'The 12-Week Metabolic Re-Engineering Protocol', file: 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf', pillar: 'Metabolic & Visceral' },
+  'visceral-fat-protocol': { id: 'metabolic-master-guide', title: 'The 12-Week Metabolic Re-Engineering Protocol', file: 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf', pillar: 'Metabolic & Visceral' },
   'beginner-home-workout': { id: 'beginner-home-workout', title: 'Beginner Home Workout Plan', file: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
   'workout-plan': { id: 'workout-plan', title: 'Beginner Home Workout Plan', file: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
   'hypertrophy-strength': { id: 'hypertrophy-strength', title: 'Hypertrophy & Strength Protocol', file: 'Hypertrophy-Strength-Protocol-2026.pdf', pillar: 'Muscle Architecture' },

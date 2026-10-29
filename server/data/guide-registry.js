@@ -121,7 +121,7 @@ export const GUIDE_PRODUCTS = {
     title: 'The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol',
     priceInCents: 2900, // £29.00
     priceFormatted: '£29.00',
-    r2FileKey: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf'
+    r2FileKey: 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf'
   }
 };
 
@@ -218,6 +218,7 @@ export const GUIDE_ALIASES = {
   'g-bundle-10': 'bundle-complete-vault-10',
 
   // Metabolic Master Guide & Visceral Fat Protocol
+  'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf': 'metabolic-master-guide',
   'metabolic-master-guide': 'metabolic-master-guide',
   'metabolic-visceral-fat-protocol': 'metabolic-master-guide',
   'visceral-fat-protocol': 'metabolic-master-guide',

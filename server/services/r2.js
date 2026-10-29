@@ -38,6 +38,16 @@ export function getBucketName() {
 
 // Updated Cloudflare R2 Object Key Mapping
 export const R2_GUIDE_FILE_KEYS = {
+  // 0. The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol
+  'metabolic-master-guide': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'metabolic-visceral-fat-protocol': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'visceral-fat-protocol': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'g-met-1': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'The_12_Week_Metabolic_ReEngineering_Protocol.pdf': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  '12-Week_Metabolic_Re-Engineering_Protocol.pdf': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+
   // 1. Beginner Home Workout Plan
   'beginner-home-workout': 'beginner_home_workout-2026.pdf',
   'beginner-home-workout-plan': 'beginner_home_workout-2026.pdf',
@@ -130,7 +140,16 @@ export const R2_GUIDE_FILE_KEYS = {
   'all-nine-master-guides': 'Complete_9_Book_Master_Vault-2026.zip',
   'all-9-master-guides': 'Complete_9_Book_Master_Vault-2026.zip',
   'g-bundle-9': 'Complete_9_Book_Master_Vault-2026.zip',
-  'g-bundle-9-zip': 'Complete_9_Book_Master_Vault-2026.zip'
+  'g-bundle-9-zip': 'Complete_9_Book_Master_Vault-2026.zip',
+
+  // 1-Click ZIP Bundle for Complete 10-Book Master Longevity Vault
+  'Complete_10_Book_Master_Vault-2026.zip': 'all-ten-master-guides.zip',
+  'all-ten-master-guides': 'all-ten-master-guides.zip',
+  'all-10-master-guides': 'all-ten-master-guides.zip',
+  'bundle-complete-vault-10': 'all-ten-master-guides.zip',
+  'g-bundle-10': 'all-ten-master-guides.zip',
+  'g-bundle-10-zip': 'all-ten-master-guides.zip',
+  'all-ten-master-guides.zip': 'all-ten-master-guides.zip'
 };
 
 export const GUIDE_FILE_KEYS = R2_GUIDE_FILE_KEYS;
