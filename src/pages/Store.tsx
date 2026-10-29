@@ -3417,7 +3417,11 @@ export function Store({ region }: StoreProps = {}) {
 
         {/* Engaging Caption */}
         <p className="text-slate-300 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed font-sans">
-          Every solution in our sovereign registry is <strong className="text-white font-semibold">selectively procured</strong> and relentlessly audited against clinical biomarker efficacy, independent third-party purity assays, and strict regional regulatory standards (<span className="text-cyan-300 font-mono font-semibold">FDA &bull; MHRA &bull; CE</span>). Upgrade your biological operating system with zero guesswork.
+          {activeTab === 'UK'
+            ? "Certified UK protocols built for uncompromising quality and speed. We audit against strict MHRA metrics and batch-purity standards, ensuring secure, instant data integration and dependable nationwide fulfillment."
+            : activeTab === 'ES'
+            ? "Protocolos certificados con máxima rapidez y calidad en España. Auditados según estándares de la AEMPS y pureza de lote para garantizar integración instantánea y entrega segura."
+            : "Enterprise-grade US clinical registry infrastructure. Access protocols audited for biomarker efficacy, verified purity, and full FDA/CLIA compliance, powered by live data integration."}
         </p>
 
         {/* Highlights / Trust Pillars Grid */}

@@ -6,8 +6,14 @@
     <link rel="icon" type="image/png" href="/assets/logo-icon.png" />
     <link rel="apple-touch-icon" href="/assets/logo-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <title>123TheNextLevel | Longevity • Performance • Wellness</title>
-    <script>if (location.search.includes('nosplash')) sessionStorage.setItem('hasSeen123Splash', 'true');</script>
+    <script>
+      if (location.search.includes('nosplash')) sessionStorage.setItem('hasSeen123Splash', 'true');
+      if (location.search.includes('splash=1') || location.search.includes('splash=true')) sessionStorage.removeItem('hasSeen123Splash');
+    </script>
     <!-- Dark & Luxurious Design System (Scope: html.theme-luxe) -->
     <link rel="stylesheet" href="/src/styles/backgrounds-luxe.css" />
   </head>

@@ -82,9 +82,18 @@ app.use('/Products', express.static(publicProducts));
 app.use('/products', express.static(distProducts));
 app.use('/products', express.static(publicProducts));
 
-// Serve root static assets from dist and public
-app.use(express.static(distPath));
-app.use(express.static(publicDir));
+// Serve root static assets from dist and public with strict cache policies for HTML
+const staticHtmlNoCache = {
+  setHeaders: (res, filePath) => {
+    if (filePath.endsWith('.html')) {
+      res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+      res.setHeader('Pragma', 'no-cache');
+      res.setHeader('Expires', '0');
+    }
+  }
+};
+app.use(express.static(distPath, staticHtmlNoCache));
+app.use(express.static(publicDir, staticHtmlNoCache));
 
 // Add a specific health check route before wildcard
 app.get('/health', (req, res) => {
@@ -103,6 +112,11 @@ app.get('*', (req, res) => {
   if (req.url.includes('.') && !req.url.endsWith('.html')) {
     return res.status(404).send('Asset not found');
   }
+
+  // Ensure index.html is never cached by browsers or CDNs so updates propagate instantly
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
 
   // Ensure index.html exists before attempting to send it
   res.sendFile(indexPath, (err) => {

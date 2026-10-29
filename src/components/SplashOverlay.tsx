@@ -97,8 +97,14 @@ export const SplashOverlay: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDismissing, setIsDismissing] = useState(false);
   const [isMounted, setIsMounted] = useState(() => {
-    if (typeof window !== 'undefined' && window.sessionStorage) {
-      return !sessionStorage.getItem('hasSeen123Splash');
+    if (typeof window !== 'undefined') {
+      const search = window.location.search || '';
+      if (search.includes('splash=1') || search.includes('splash=true')) {
+        return true;
+      }
+      if (window.sessionStorage) {
+        return !sessionStorage.getItem('hasSeen123Splash');
+      }
     }
     return true;
   });
@@ -184,11 +190,19 @@ export const SplashOverlay: React.FC = () => {
     }, 600);
   }, [playSoundFile]);
 
-  // Check sessionStorage on mount
+  // Check sessionStorage on mount (with ?splash=1 override)
   useEffect(() => {
-    const hasSeenSplash = sessionStorage.getItem('hasSeen123Splash');
-    if (hasSeenSplash) {
-      setIsMounted(false);
+    if (typeof window !== 'undefined') {
+      const search = window.location.search || '';
+      if (search.includes('splash=1') || search.includes('splash=true')) {
+        sessionStorage.removeItem('hasSeen123Splash');
+        setIsMounted(true);
+        return;
+      }
+      const hasSeenSplash = sessionStorage.getItem('hasSeen123Splash');
+      if (hasSeenSplash) {
+        setIsMounted(false);
+      }
     }
   }, []);
 
