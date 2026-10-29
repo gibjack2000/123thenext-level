@@ -68,6 +68,10 @@ export const US_BLOOD_TEST_BASIC_BADGE = "💊 Entry-Level Metabolic Baseline ($
 export const US_BLOOD_TEST_COMPREHENSIVE_URL = "https://www.lifeextension.com/lab-testing/itemqd100026/healthy-aging-panel-comprehensive-blood-test";
 export const US_BLOOD_TEST_COMPREHENSIVE_BADGE = "💊 Comprehensive Metabolic & Inflammatory Map";
 
+// Direct Life Extension US Complete Urinalysis (Item #QD007909)
+export const US_URINALYSIS_TEST_URL = "https://www.lifeextension.com/lab-testing/itemqd007909/urinalysis-urine-test";
+export const US_URINALYSIS_TEST_BADGE = "💊 Quest Diagnostics Requisition ($24)";
+
 export const sovereignHealthStack: SovereignProduct[] = [
   // ============================================================================
   // 1. CLINICAL DIAGNOSTICS & LABS
@@ -172,13 +176,13 @@ export const sovereignHealthStack: SovereignProduct[] = [
     image_url: "/Products/clinical-urine-acr.jpg",
     us: [
       {
-        supplierName: "HealthLabs",
-        url: "https://www.healthlabs.com/?affiliate=123znl",
-        ctaText: "Order Lab Urine ACR (HealthLabs US 🇺🇸)",
-        priceText: "From $69.00",
-        badgeText: "🇺🇸 US (HealthLabs/Quest)",
+        supplierName: "Life Extension",
+        url: US_URINALYSIS_TEST_URL,
+        ctaText: "Order Lab Urinalysis (Life Extension $24 🇺🇸)",
+        priceText: "$24.00",
+        badgeText: US_URINALYSIS_TEST_BADGE,
         isPrimary: true,
-        perksNote: "Sync with Morning Blood Draw"
+        perksNote: "Item #QD007909 • Quest Diagnostics Requisition"
       }
     ],
     uk: [
@@ -1176,6 +1180,22 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
     dealUrl = US_BLOOD_TEST_COMPREHENSIVE_URL;
     priceText = 'From $299.00';
     badgeText = US_BLOOD_TEST_COMPREHENSIVE_BADGE;
+  } else if (
+    market === 'US' && (
+      id.includes('urinalysis-test') ||
+      id === 'urinalysis-us' ||
+      id === 'urinalysis-acr' ||
+      lowerDeal.includes('itemqd007909') ||
+      (id.includes('urinalysis') && !id.includes('reagent') && !lowerTitle.includes('dipstick') && !lowerTitle.includes('urinox'))
+    )
+  ) {
+    // US Clinical Lab Urinalysis (Life Extension Item #QD007909)
+    primarySupplier = 'Life Extension';
+    primaryPerks = 'Item #QD007909 • Quest Diagnostics Requisition';
+    primaryCta = 'Order Lab Urinalysis (Life Extension $24 🇺🇸)';
+    dealUrl = US_URINALYSIS_TEST_URL;
+    priceText = '$24.00';
+    badgeText = US_URINALYSIS_TEST_BADGE;
   } else if (lowerDeal.includes('lolahealth') || (market === 'UK' && lowerTitle.includes('lola'))) {
     primarySupplier = 'LOLA Health';
     primaryPerks = '15% Off Referral • UKAS Lab';
@@ -1356,6 +1376,9 @@ export const affiliateLinks: Record<string, any> = {
   hp_blood_panel_us: US_BLOOD_TEST_COMPREHENSIVE_URL,
   us_blood_test_comprehensive: US_BLOOD_TEST_COMPREHENSIVE_URL,
   us_blood_test_basic: US_BLOOD_TEST_BASIC_URL,
+  hp_urinalysis_us: US_URINALYSIS_TEST_URL,
+  us_urinalysis_test: US_URINALYSIS_TEST_URL,
+  urinalysis_test_us: US_URINALYSIS_TEST_URL,
   hp_biological_age: 'https://amazon.com/dp/B0CXM1X8PQ',
   hp_nad_stack: 'https://livemomentous.com/modernwisdom?code=modernwisdom',
   hp_bio_response: 'https://amazon.com/dp/B0CXM1X8PQ',

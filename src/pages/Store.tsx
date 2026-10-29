@@ -39,7 +39,9 @@ import {
   US_BLOOD_TEST_BASIC_URL,
   US_BLOOD_TEST_BASIC_BADGE,
   US_BLOOD_TEST_COMPREHENSIVE_URL,
-  US_BLOOD_TEST_COMPREHENSIVE_BADGE
+  US_BLOOD_TEST_COMPREHENSIVE_BADGE,
+  US_URINALYSIS_TEST_URL,
+  US_URINALYSIS_TEST_BADGE
 } from '../config/affiliateLinks';
 
 import lolaBloodPanelImg from '../assets/products/lola-blood-panel.jpg';
@@ -1002,15 +1004,15 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "image_url": "/Products/aymed.webp"
     },
     {
-      "id": "urinalysis-us",
-      "name": "HealthLabs Comprehensive Urinalysis & Microalbumin Panel",
+      "id": "urinalysis-test-us",
+      "name": "Life Extension Complete Urinalysis (#QD007909)",
       "category": "Clinical Diagnostics & Labs",
       "rating": 4.92,
-      "description": "14-parameter Quest/Labcorp clinical urine analysis screening microvascular health, ACR, pH, ketones, and renal filtration.",
-      "price_text": "From $69.00",
-      "deal_url": "https://www.healthlabs.com/?affiliate=123znl",
+      "description": "Comprehensive laboratory urinalysis screening microvascular health, ACR, pH, ketones, and renal filtration via Quest Diagnostics requisition.",
+      "price_text": "$24.00",
+      "deal_url": "https://www.lifeextension.com/lab-testing/itemqd007909/urinalysis-urine-test",
       "market_region": "US",
-      "badge_text": "🇺🇸 US (HealthLabs/Quest)",
+      "badge_text": "💊 Quest Diagnostics Requisition ($24)",
       "image_url": "/Products/clinical-urine-acr.jpg"
     },
     {
@@ -2634,6 +2636,13 @@ export function getDiagnosticPricingBadge(product: any, market: MarketTab): stri
     return '💊 Direct Life Extension • Quest Draw';
   }
 
+  if (market === 'US') {
+    const deal = String(product?.deal_url || '').toLowerCase();
+    if (id.includes('urinalysis-test') || id === 'urinalysis-us' || deal.includes('itemqd007909') || (id.includes('urinalysis') && !id.includes('reagent') && !title.includes('dipstick') && !title.includes('urinox'))) {
+      return '💊 Quest Diagnostics Requisition ($24)';
+    }
+  }
+
   if (id.includes('cgm') || title.includes('glucose monitor') || title.includes('glucosa') || title.includes('lingo') || title.includes('dexcom')) {
     if (market === 'UK') return '💷 Live sensor pricing on Lingo UK';
     if (market === 'ES') return '💶 Precios actualizados en Dexcom ES';
@@ -2807,6 +2816,15 @@ export function formatDiagnosticPrice(priceText: string, product: any, market: M
     return raw.toLowerCase().startsWith('from ') ? raw : `From ${raw}`;
   }
 
+  if (market === 'US' && (
+    id.includes('urinalysis-test') ||
+    id === 'urinalysis-us' ||
+    deal.includes('itemqd007909') ||
+    (id.includes('urinalysis') && !id.includes('reagent') && !title.includes('dipstick') && !title.includes('urinox'))
+  )) {
+    return '$24.00';
+  }
+
   if (isLabOrTestKit) {
     return market === 'ES' ? `Desde ${raw}` : `From ${raw}`;
   }
@@ -2847,6 +2865,12 @@ export function getDiagnosticCountryBadge(market: MarketTab, product?: any): str
 
   if (market === 'UK') return '🇬🇧 UK (LOLA/UKAS)';
   if (market === 'ES') return '🇪🇸 ES (Melio/Megalab)';
+  if (market === 'US') {
+    const deal = String(product?.deal_url || '').toLowerCase();
+    if (id.includes('urinalysis-test') || id === 'urinalysis-us' || deal.includes('itemqd007909') || (id.includes('urinalysis') && !id.includes('reagent') && !title.includes('dipstick') && !title.includes('urinox'))) {
+      return '💊 Quest Diagnostics Requisition ($24)';
+    }
+  }
   return '🇺🇸 US (Quest / Life Extension)';
 }
 
@@ -2877,11 +2901,11 @@ export function getCleanDiagnosticCta(product: any, market: MarketTab): string {
     return 'Order Comprehensive Panel (Life Extension US 🇺🇸)';
   }
 
-  // Lab Urine ACR
+  // Lab Urine ACR / Urinalysis
   if (id.includes('urinalysis') || title.includes('acr') || title.includes('microalbumin') || title.includes('sedimento')) {
     if (market === 'UK') return 'Order Lab Urine ACR (LOLA UK 🇬🇧)';
     if (market === 'ES') return 'Order Lab Urine ACR (Melio ES 🇪🇸)';
-    return 'Order Lab Urine ACR (HealthLabs US 🇺🇸)';
+    return 'Order Lab Urinalysis (Life Extension $24 🇺🇸)';
   }
 
   // Home Dipstick Kits
@@ -2940,6 +2964,21 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
   const healedItems = items.map((item: any) => {
     const cat = normalizeStoreCategory(item.category, item.name || item.title, item.deal_url);
     const enriched = { ...item, market_region: item.market_region || market, category: cat };
+
+    // Auto-heal US Urinalysis to Life Extension Complete Urinalysis (#QD007909) $24.00
+    if (enriched.market_region === 'US' && (
+      String(enriched.id).toLowerCase() === 'urinalysis-us' ||
+      String(enriched.id).toLowerCase() === 'urinalysis-test-us' ||
+      String(enriched.deal_url || '').toLowerCase().includes('itemqd007909') ||
+      (String(enriched.id).toLowerCase().includes('urinalysis') && !String(enriched.id).toLowerCase().includes('reagent') && !String(enriched.name || '').toLowerCase().includes('dipstick') && !String(enriched.name || '').toLowerCase().includes('urinox'))
+    )) {
+      enriched.id = 'urinalysis-test-us';
+      enriched.name = 'Life Extension Complete Urinalysis (#QD007909)';
+      enriched.price_text = '$24.00';
+      enriched.deal_url = US_URINALYSIS_TEST_URL;
+      enriched.badge_text = US_URINALYSIS_TEST_BADGE;
+    }
+
     const resolvedSuppliers = resolveProductSuppliers(enriched, market);
     return {
       ...enriched,
@@ -3062,6 +3101,20 @@ export function DynamicSupplierCtaSection({
     }
   }
 
+  const isUSUrinalysis = market === 'US' && (
+    String(product?.id || '').toLowerCase().includes('urinalysis-test') ||
+    String(product?.id || '').toLowerCase() === 'urinalysis-us' ||
+    String(product?.deal_url || '').toLowerCase().includes('itemqd007909') ||
+    (String(product?.id || '').toLowerCase().includes('urinalysis') && !String(product?.id || '').toLowerCase().includes('reagent') && !String(product?.name || '').toLowerCase().includes('dipstick') && !String(product?.name || '').toLowerCase().includes('urinox'))
+  );
+
+  if (isUSUrinalysis) {
+    priceToShow = '$24.00';
+    primaryUrl = US_URINALYSIS_TEST_URL;
+    ctaButtonText = 'Order Lab Urinalysis (Life Extension $24 🇺🇸)';
+    perksNoteToShow = 'Item #QD007909 • Quest Diagnostics Requisition';
+  }
+
   return (
     <div className="flex flex-col space-y-2.5">
       {/* Interactive Tier Selector for US Blood Tests */}
@@ -3101,6 +3154,10 @@ export function DynamicSupplierCtaSection({
           {isUSBlood ? (
             <span className="text-[10px] text-emerald-400/90 font-medium mt-0.5">
               {selectedBloodTier === 'basic' ? 'Direct Life Extension • $155' : 'Direct Life Extension • Quest Draw'}
+            </span>
+          ) : isUSUrinalysis ? (
+            <span className="text-[10px] text-emerald-400/90 font-medium mt-0.5">
+              Quest Diagnostics Requisition ($24)
             </span>
           ) : isDiag ? (
             <span className="text-[10px] text-emerald-400/90 font-medium mt-0.5">
