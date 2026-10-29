@@ -54,27 +54,27 @@ export const sovereignHealthStack: SovereignProduct[] = [
     isDirectAffiliate: true,
     rating: 4.92,
     description: "Core cardiovascular and metabolic blood panel measuring Cholesterol, HDL, LDL, Triglycerides, Fasting Glucose, HbA1c, and basic kidney/liver filtration.",
-    image_url: "/assets/images/shop/blood-panel.png",
+    image_url: "/Products/lola-blood-panel.jpg",
     us: {
       url: "https://www.healthlabs.com/?affiliate=123znl",
       ctaText: "Order Baseline Bloods (HealthLabs US 🇺🇸)",
       badge: "🇺🇸 US (HealthLabs/Quest)",
       network: "HealthLabs Direct",
-      priceText: "$99.00"
+      priceText: "From $99.00"
     },
     uk: {
       url: "https://referrals.lolahealth.com/NextLevel15",
       ctaText: "Order Baseline Bloods (LOLA UK 🇬🇧)",
       badge: "🇬🇧 UK (LOLA/UKAS)",
       network: "LOLA Health Partner",
-      priceText: "£69.00"
+      priceText: "From £69.00"
     },
     es: {
       url: "https://www.melio.es",
       ctaText: "Order Baseline Bloods (Melio ES 🇪🇸)",
       badge: "🇪🇸 ES (Melio/Megalab)",
       network: "Melio ES Partner",
-      priceText: "69,00€"
+      priceText: "Desde 69,00€"
     }
   },
   {
@@ -84,27 +84,27 @@ export const sovereignHealthStack: SovereignProduct[] = [
     isDirectAffiliate: true,
     rating: 4.95,
     description: "Direct-to-consumer longevity blood panels mapping 56 essential biomarkers including ApoB, hs-CRP, Vitamin D, Thyroid, and Hormones. Local Quest/Labcorp draw in the US, private clinical setups in UK and ES.",
-    image_url: "/assets/images/shop/blood-panel.png",
+    image_url: "/Products/lola-blood-panel.jpg",
     us: {
       url: "https://www.healthlabs.com/?affiliate=123znl",
       ctaText: "Order 56-Biomarker Panel (HealthLabs US 🇺🇸)",
       badge: "🇺🇸 US (HealthLabs/Quest)",
       network: "HealthLabs Direct",
-      priceText: "$299.00"
+      priceText: "From $299.00"
     },
     uk: {
       url: "https://referrals.lolahealth.com/NextLevel15",
       ctaText: "Order 56-Biomarker Panel (LOLA UK 🇬🇧)",
       badge: "🇬🇧 UK (LOLA/UKAS)",
       network: "LOLA Health Partner",
-      priceText: "£149.00"
+      priceText: "From £149.00"
     },
     es: {
       url: "https://www.melio.es",
       ctaText: "Order 56-Biomarker Panel (Melio ES 🇪🇸)",
       badge: "🇪🇸 ES (Melio/Megalab)",
       network: "Melio ES Partner",
-      priceText: "149,00€"
+      priceText: "Desde 149,00€"
     }
   },
   {
@@ -114,27 +114,27 @@ export const sovereignHealthStack: SovereignProduct[] = [
     isDirectAffiliate: true,
     rating: 4.91,
     description: "Synchronized clinical urinalysis measuring Albumin-to-Creatinine Ratio (ACR), Microalbumin, and Creatinine to evaluate renal filtration alongside your blood draw.",
-    image_url: "/Products/bloodtest.jpg",
+    image_url: "/Products/lola-urine-acr.jpg",
     us: {
       url: "https://www.healthlabs.com/?affiliate=123znl",
       ctaText: "Order Lab Urine ACR (HealthLabs US 🇺🇸)",
       badge: "🇺🇸 US (HealthLabs/Quest)",
       network: "HealthLabs Direct",
-      priceText: "$69.00"
+      priceText: "From $69.00"
     },
     uk: {
       url: "https://referrals.lolahealth.com/NextLevel15",
       ctaText: "Order Lab Urine ACR (LOLA UK 🇬🇧)",
       badge: "🇬🇧 UK (LOLA/UKAS)",
       network: "LOLA Health Partner",
-      priceText: "£49.00"
+      priceText: "From £49.00"
     },
     es: {
       url: "https://www.melio.es",
       ctaText: "Order Lab Urine ACR (Melio ES 🇪🇸)",
       badge: "🇪🇸 ES (Melio/Megalab)",
       network: "Melio ES Partner",
-      priceText: "39,00€"
+      priceText: "Desde 39,00€"
     }
   },
   {
@@ -234,27 +234,27 @@ export const sovereignHealthStack: SovereignProduct[] = [
     isDirectAffiliate: false,
     rating: 4.90,
     description: "Direct medical-grade 10-parameter urinalysis strips for weekly tracking of microvascular health, proteinuria, pH, ketones, glucose, and renal function.",
-    image_url: "/assets/images/shop/reagent-strips.png",
+    image_url: "/Products/lola-urine-acr.jpg",
     us: {
       url: "https://diagnoxhealth.com/products/urinalysis-test",
       ctaText: "Order Home Dipstick Kit (Diagnox US 🇺🇸)",
       badge: "🇺🇸 US (HealthLabs/Quest)",
       network: "Diagnox Health Direct",
-      priceText: "$16.99"
+      priceText: "From $16.99"
     },
     uk: {
       url: "https://referrals.lolahealth.com/NextLevel15",
       ctaText: "Order Home Dipstick Kit (LOLA UK 🇬🇧)",
       badge: "🇬🇧 UK (LOLA/UKAS)",
       network: "LOLA Health Direct",
-      priceText: "£12.99"
+      priceText: "From £12.99"
     },
     es: {
-      url: "[PASTE_YOUR_SALUDONNET_AWIN_LINK]",
+      url: "https://www.melio.es",
       ctaText: "Order Home Dipstick Kit (ALLTEST ES 🇪🇸)",
       badge: "🇪🇸 ES (Melio/Megalab)",
       network: "SaludOnNet / Eurofins Direct",
-      priceText: "14,50€"
+      priceText: "Desde 14,50€"
     }
   },
   {
@@ -264,27 +264,27 @@ export const sovereignHealthStack: SovereignProduct[] = [
     isDirectAffiliate: true,
     rating: 4.93,
     description: "DunedinPACE epigenetic clock and DNA methylation pace-of-aging test kit to quantify your biological age trajectory vs chronological age.",
-    image_url: "/assets/images/shop/blood-panel.png",
+    image_url: "/Products/lola-epigenetic-kit.jpg",
     us: {
       url: "https://www.healthlabs.com/?affiliate=123znl",
       ctaText: "Order Epigenetic Kit (HealthLabs US 🇺🇸)",
       badge: "🇺🇸 US (HealthLabs/Quest)",
       network: "HealthLabs Direct",
-      priceText: "$299.00"
+      priceText: "From $299.00"
     },
     uk: {
       url: "https://referrals.lolahealth.com/NextLevel15",
       ctaText: "Order Epigenetic Kit (LOLA UK 🇬🇧)",
       badge: "🇬🇧 UK (LOLA/UKAS)",
       network: "LOLA Health Partner",
-      priceText: "£249.00"
+      priceText: "From £249.00"
     },
     es: {
       url: "https://www.melio.es",
       ctaText: "Order Epigenetic Kit (Melio ES 🇪🇸)",
       badge: "🇪🇸 ES (Melio/Megalab)",
       network: "Melio ES Partner",
-      priceText: "249,00€"
+      priceText: "Desde 249,00€"
     }
   },
   {

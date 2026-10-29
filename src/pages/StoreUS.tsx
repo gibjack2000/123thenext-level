@@ -25,7 +25,9 @@ import {
   isDiagnosticProduct,
   getDiagnosticCountryBadge,
   getCleanDiagnosticCta,
-  DIAGNOSTIC_GP_BRIEF_BADGE,
+  getDiagnosticPricingBadge,
+  resolveDiagnosticImage,
+  formatDiagnosticPrice,
   ensureCoreRegionalCatalog
 } from './Store';
 import { DigitalGuides } from '../components/DigitalGuides';
@@ -84,13 +86,6 @@ export const StoreUS: React.FC = () => {
 
       if (data && data.length > 0) {
         const sanitized: ProductRecord[] = data.map((item: any) => {
-          let healedImg = item.image_url || '/assets/images/shop/sirtuin-stack.png';
-          if (healedImg.startsWith('/assets/') && !healedImg.startsWith('http')) {
-            healedImg = `https://123thenextlevel.com${healedImg}`;
-          } else if (healedImg.startsWith('/Products/') && !healedImg.startsWith('http')) {
-            healedImg = `https://123thenextlevel.com${healedImg}`;
-          }
-
           let healedDeal = item.deal_url || item.affiliate_link || '';
           if (healedDeal.startsWith('https://123thenextlevel.comhttp')) {
             healedDeal = healedDeal.replace('https://123thenextlevel.com', '');
@@ -99,13 +94,30 @@ export const StoreUS: React.FC = () => {
           const catFormatted = normalizeStoreCategory(item.category, item.name, healedDeal);
           const isDiag = catFormatted === '🩸 Clinical Diagnostics & Lab Testing';
 
+          let healedImg = resolveDiagnosticImage(
+            { ...item, category: catFormatted, deal_url: healedDeal },
+            item.image_url || '/assets/images/shop/sirtuin-stack.png'
+          );
+          if (
+            !healedImg.startsWith('http') &&
+            !healedImg.includes('lola-') &&
+            !healedImg.includes('bloodtest')
+          ) {
+            if (healedImg.startsWith('/assets/') || healedImg.startsWith('/Products/')) {
+              healedImg = `https://123thenextlevel.com${healedImg}`;
+            }
+          }
+
+          const rawPrice = item.price_text || (item.price != null ? `$${Number(item.price).toFixed(2)}` : '$0.00');
+          const priceFormatted = formatDiagnosticPrice(rawPrice, { ...item, category: catFormatted, deal_url: healedDeal }, 'US');
+
           return {
             id: item.id,
             name: item.name || 'Curated US Protocol',
             category: catFormatted,
             rating: typeof item.rating === 'number' ? item.rating : 4.8,
             description: item.description || 'Clinically verified biological telemetry and longevity equipment.',
-            price_text: item.price_text || (item.price != null ? `$${Number(item.price).toFixed(2)}` : '$0.00'),
+            price_text: priceFormatted,
             deal_url: healedDeal,
             market_region: 'US',
             badge_text: isDiag ? getDiagnosticCountryBadge('US') : (item.badge_text || 'FDA / US Verified'),
@@ -408,18 +420,20 @@ export const StoreUS: React.FC = () => {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {clinicalPartners.map(product => {
                   const isDiag = isDiagnosticProduct(product);
+                  const displayImg = isDiag ? resolveDiagnosticImage(product, product.image_url) : product.image_url;
+                  const displayPrice = isDiag ? formatDiagnosticPrice(product.price_text, product, 'US') : product.price_text;
                   return (
                     <div 
                       key={product.id} 
                       className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 hover:border-rose-500/30 p-6 flex flex-col justify-between shadow-xl transition-all duration-300"
                     >
                       <div>
-                        {product.image_url && (
-                          <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-800/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
+                        {displayImg && (
+                          <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-slate-900/80 border border-slate-800/80 mb-4 flex items-center justify-center p-2 transition-colors group-hover:bg-white/[0.04]">
                             <img 
-                              src={product.image_url} 
+                              src={displayImg} 
                               alt={product.name} 
-                              className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                              className="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
                               referrerPolicy="no-referrer"
                               onError={(e) => {
                                 const target = e.currentTarget;
@@ -428,7 +442,7 @@ export const StoreUS: React.FC = () => {
                                   target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
                                   return;
                                 }
-                                target.src = '/assets/images/shop/sirtuin-stack.png';
+                                target.src = isDiag ? '/Products/lola-blood-panel.jpg' : '/assets/images/shop/sirtuin-stack.png';
                               }}
                             />
                           </div>
@@ -448,7 +462,7 @@ export const StoreUS: React.FC = () => {
                               {getDiagnosticCountryBadge('US')}
                             </span>
                             <span className="text-[11px] font-bold text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-md">
-                              {DIAGNOSTIC_GP_BRIEF_BADGE}
+                              {getDiagnosticPricingBadge(product, 'US')}
                             </span>
                           </div>
                         )}
@@ -468,7 +482,14 @@ export const StoreUS: React.FC = () => {
                           </span>
                         </div>
                         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-slate-900/40 p-3 rounded-xl border border-slate-850">
-                          <span className="font-extrabold text-slate-100 text-lg shrink-0">{product.price_text}</span>
+                          <div className="flex flex-col shrink-0">
+                            <span className="font-extrabold text-slate-100 text-lg leading-tight">{displayPrice}</span>
+                            {isDiag && (
+                              <span className="text-[10px] text-emerald-400/90 font-medium mt-0.5">
+                                Live pricing on HealthLabs
+                              </span>
+                            )}
+                          </div>
                           <div className="flex items-center gap-2">
                             <a 
                               href={product.deal_url} 
@@ -550,7 +571,7 @@ export const StoreUS: React.FC = () => {
                               {getDiagnosticCountryBadge('US')}
                             </span>
                             <span className="text-[11px] font-bold text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-md">
-                              {DIAGNOSTIC_GP_BRIEF_BADGE}
+                              {getDiagnosticPricingBadge(product, 'US')}
                             </span>
                           </div>
                         )}

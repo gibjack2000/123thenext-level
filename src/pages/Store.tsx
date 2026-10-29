@@ -42,11 +42,11 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "category": "🩸 Clinical Diagnostics & Lab Testing",
       "rating": 4.95,
       "description": "Targeted UKAS-accredited baseline blood panel measuring Core Lipids (Cholesterol, HDL, LDL, Triglycerides), HbA1c, Fasting Glucose, and basic kidney/liver filtration.",
-      "price_text": "£69.00",
+      "price_text": "From £69.00",
       "deal_url": "https://referrals.lolahealth.com/NextLevel15",
       "market_region": "UK",
       "badge_text": "🇬🇧 UK (LOLA/UKAS)",
-      "image_url": "/Products/bloodtest.jpg"
+      "image_url": "/Products/lola-blood-panel.jpg"
     },
     {
       "id": "epigenetic-test-uk",
@@ -54,11 +54,11 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "category": "🩸 Clinical Diagnostics & Lab Testing",
       "rating": 4.93,
       "description": "Epigenetic DNA methylation clock measuring biological pace of aging vs chronological age.",
-      "price_text": "£249.00",
+      "price_text": "From £249.00",
       "deal_url": "https://referrals.lolahealth.com/NextLevel15",
       "market_region": "UK",
       "badge_text": "🇬🇧 UK (LOLA/UKAS)",
-      "image_url": "/Products/ancientbrave.jpeg"
+      "image_url": "/Products/lola-epigenetic-kit.jpg"
     },
     {
       "id": "metabolic-master-guide-uk",
@@ -75,26 +75,26 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "reagent-strips-uk",
       "name": "ALLTEST 10-Parameter Clinical Urinalysis Dipsticks UK",
-      "category": "Rapid Fluid Telemetry",
+      "category": "🩸 Clinical Diagnostics & Lab Testing",
       "rating": 4.88,
       "description": "CE Medical Marked 10-parameter urinalysis dipsticks monitoring kidney filtration integrity, microalbuminuria, acid-base balance, and systemic hydration.",
-      "price_text": "£12.99",
+      "price_text": "From £12.99",
       "deal_url": "https://referrals.lolahealth.com/NextLevel15",
       "market_region": "UK",
-      "badge_text": "CE Medical Marked | UKAS Aligned",
-      "image_url": "/Products/oxford.jpeg"
+      "badge_text": "🇬🇧 UK (LOLA/UKAS)",
+      "image_url": "/Products/lola-urine-acr.jpg"
     },
     {
       "id": "urinalysis-uk",
-      "name": "Lola Urinalysis & Microvascular ACR Panel",
-      "category": "Clinical Diagnostics & Co-Pilot",
+      "name": "LOLA Urinalysis & Microvascular ACR Panel (UK 🇬🇧)",
+      "category": "🩸 Clinical Diagnostics & Lab Testing",
       "rating": 4.90,
       "description": "UKAS-certified urine panel measuring Albumin-to-Creatinine ratio (ACR), proteinuria, and kidney metabolic safety.",
-      "price_text": "£49.00",
+      "price_text": "From £49.00",
       "deal_url": "https://referrals.lolahealth.com/NextLevel15",
       "market_region": "UK",
-      "badge_text": "UKAS Certified Fluid Telemetry",
-      "image_url": "/Products/bloodtest.jpg"
+      "badge_text": "🇬🇧 UK (LOLA/UKAS)",
+      "image_url": "/Products/lola-urine-acr.jpg"
     },
     {
       "id": "sleep-analyzer-uk",
@@ -182,15 +182,15 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     },
     {
       "id": "blood-panel-uk",
-      "name": "LOLA Vital Check 56 (UK 🇬🇧)",
-      "category": "Performance & Testing",
+      "name": "Choice B: LOLA Vital Check 56 (UK 🇬🇧)",
+      "category": "🩸 Clinical Diagnostics & Lab Testing",
       "rating": 4.98,
       "description": "When you arrive on LOLA Health, select: 'LOLA Vital Check 56' (Full 56-biomarker panel: ApoB, hs-CRP, Vitamin D, Thyroid & Hormones). Official UKAS-accredited venous draw panel mapping 56 biomarkers.",
-      "price_text": "£149.00",
+      "price_text": "From £149.00",
       "deal_url": "https://referrals.lolahealth.com/NextLevel15",
       "market_region": "UK",
-      "badge_text": "UKAS Accredited & ISO 9001 Certified",
-      "image_url": "/Products/ancientbrave.jpeg"
+      "badge_text": "🇬🇧 UK (LOLA/UKAS)",
+      "image_url": "/Products/lola-blood-panel.jpg"
     },
     {
       "id": "amazon-supp-uk-b0dd7tjzp5",
@@ -896,11 +896,11 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "category": "🩸 Clinical Diagnostics & Lab Testing",
       "rating": 4.95,
       "description": "CLIA/CAP-certified baseline blood panel via Quest/Labcorp measuring Core Lipids (Cholesterol, HDL, LDL, Triglycerides), HbA1c, Fasting Glucose, and basic kidney/liver filtration.",
-      "price_text": "$99.00",
+      "price_text": "From $99.00",
       "deal_url": "https://www.healthlabs.com/?affiliate=123znl",
       "market_region": "US",
       "badge_text": "🇺🇸 US (HealthLabs/Quest)",
-      "image_url": "/Products/bloodtest.jpg"
+      "image_url": "/Products/lola-blood-panel.jpg"
     },
     {
       "id": "epigenetic-test-us",
@@ -908,11 +908,11 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "category": "🩸 Clinical Diagnostics & Lab Testing",
       "rating": 4.93,
       "description": "Epigenetic DNA methylation clock measuring biological pace of aging vs chronological age.",
-      "price_text": "$299.00",
+      "price_text": "From $299.00",
       "deal_url": "https://www.healthlabs.com/?affiliate=123znl",
       "market_region": "US",
       "badge_text": "🇺🇸 US (HealthLabs/Quest)",
-      "image_url": "/Products/ancientbrave.jpeg"
+      "image_url": "/Products/lola-epigenetic-kit.jpg"
     },
     {
       "id": "metabolic-master-guide-us",
@@ -953,26 +953,26 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "reagent-strips-us",
       "name": "Diagnox Urinox-10 Medical-Grade Urinalysis Strips",
-      "category": "Rapid Fluid Telemetry",
+      "category": "🩸 Clinical Diagnostics & Lab Testing",
       "rating": 4.90,
       "description": "FDA-cleared 10-parameter rapid urinalysis reagent strips for weekly tracking of microvascular health, proteinuria, pH, ketones, glucose, and renal function.",
-      "price_text": "$16.99",
+      "price_text": "From $16.99",
       "deal_url": "https://diagnoxhealth.com/products/urinalysis-test",
       "market_region": "US",
-      "badge_text": "FDA Cleared | 10-Parameter Clinical Grade",
-      "image_url": "/Products/oxford.jpeg"
+      "badge_text": "🇺🇸 US (HealthLabs/Quest)",
+      "image_url": "/Products/lola-urine-acr.jpg"
     },
     {
       "id": "urinalysis-us",
       "name": "HealthLabs Comprehensive Urinalysis & Microalbumin Panel",
-      "category": "Clinical Diagnostics & Co-Pilot",
+      "category": "🩸 Clinical Diagnostics & Lab Testing",
       "rating": 4.92,
       "description": "14-parameter Quest/Labcorp clinical urine analysis screening microvascular health, ACR, pH, ketones, and renal filtration.",
-      "price_text": "$69.00",
-      "deal_url": "PASTE_YOUR_HEALTHLABS_CJ_URINALYSIS_LINK",
+      "price_text": "From $69.00",
+      "deal_url": "https://www.healthlabs.com/?affiliate=123znl",
       "market_region": "US",
-      "badge_text": "CLIA / CAP Accredited",
-      "image_url": "/Products/bloodtest.jpg"
+      "badge_text": "🇺🇸 US (HealthLabs/Quest)",
+      "image_url": "/Products/lola-urine-acr.jpg"
     },
     {
       "id": "sirtuin-stack-us",
@@ -1024,15 +1024,15 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     },
     {
       "id": "blood-panel-us",
-      "name": "Personalized Cellular Biomarker Map (56 Biomarkers)",
-      "category": "Performance & Testing",
+      "name": "Choice B: Personalized Cellular Biomarker Map (56 Biomarkers)",
+      "category": "🩸 Clinical Diagnostics & Lab Testing",
       "rating": 4.92,
       "description": "Direct-to-consumer longevity blood panels mapping 56 essential biomarkers—including ApoB (cardiovascular plaque risk), HbA1c, and hs-CRP. Draws are completed at local Quest or Labcorp patient centers.",
-      "price_text": "$299.00",
+      "price_text": "From $299.00",
       "deal_url": "https://www.healthlabs.com/?affiliate=123znl",
       "market_region": "US",
-      "badge_text": "CLIA Certified & CAP Accredited",
-      "image_url": "/Products/ancientbrave.jpeg"
+      "badge_text": "🇺🇸 US (HealthLabs/Quest)",
+      "image_url": "/Products/lola-blood-panel.jpg"
     },
     {
       "id": "cgm-us",
@@ -1510,11 +1510,11 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "category": "🩸 Clinical Diagnostics & Lab Testing",
       "rating": 4.94,
       "description": "Panel de sangre de referencia en centros Megalab/Unilabs midiendo perfil lipídico completo, HbA1c, glucosa en ayunas y filtración renal/hepática.",
-      "price_text": "69,00€",
+      "price_text": "Desde 69,00€",
       "deal_url": "https://www.melio.es",
       "market_region": "ES",
       "badge_text": "🇪🇸 ES (Melio/Megalab)",
-      "image_url": "/Products/bloodtest.jpg"
+      "image_url": "/Products/lola-blood-panel.jpg"
     },
     {
       "id": "epigenetic-test-es",
@@ -1522,11 +1522,11 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "category": "🩸 Clinical Diagnostics & Lab Testing",
       "rating": 4.93,
       "description": "Reloj epigenético de metilación del ADN para cuantificar el ritmo de envejecimiento biológico frente a la edad cronológica.",
-      "price_text": "249,00€",
+      "price_text": "Desde 249,00€",
       "deal_url": "https://www.melio.es",
       "market_region": "ES",
       "badge_text": "🇪🇸 ES (Melio/Megalab)",
-      "image_url": "/Products/ancientbrave.jpeg"
+      "image_url": "/Products/lola-epigenetic-kit.jpg"
     },
     {
       "id": "metabolic-master-guide-es",
@@ -1578,15 +1578,15 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     },
     {
       "id": "blood-panel-es",
-      "name": "Mapa de Biomarcadores Celulares Personalizados Melio (56 Biomarcadores)",
-      "category": "Performance & Testing",
+      "name": "Choice B: Mapa de Biomarcadores Celulares Melio (56 Biomarcadores)",
+      "category": "🩸 Clinical Diagnostics & Lab Testing",
       "rating": 4.92,
       "description": "Análisis de sangre integral directo al consumidor que cubre 56 biomarcadores metabólicos y cardiovasculares. Extracción privada en centros colaboradores Megalab o Unilabs de España.",
-      "price_text": "149,00€",
+      "price_text": "Desde 149,00€",
       "deal_url": "https://www.melio.es",
       "market_region": "ES",
-      "badge_text": "CE Marked & Megalab/Unilabs Certified",
-      "image_url": "/Products/ancientbrave.jpeg"
+      "badge_text": "🇪🇸 ES (Melio/Megalab)",
+      "image_url": "/Products/lola-blood-panel.jpg"
     },
     {
       "id": "wearable-tracker-es",
@@ -1639,26 +1639,26 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     {
       "id": "reagent-strips-es",
       "name": "ALLTEST Tiras Reactivas de Orina 10 Parámetros ES",
-      "category": "Rapid Fluid Telemetry",
+      "category": "🩸 Clinical Diagnostics & Lab Testing",
       "rating": 4.85,
       "description": "Tiras reactivas clínicas de 10 parámetros para el seguimiento semanal de función renal, pH, cetonas, glucosa y microalbuminuria en España.",
-      "price_text": "14,50€",
-      "deal_url": "[PASTE_YOUR_SALUDONNET_AWIN_LINK]",
+      "price_text": "Desde 14,50€",
+      "deal_url": "https://www.melio.es",
       "market_region": "ES",
-      "badge_text": "Marcado CE Médico | Red Eurofins / Unilabs",
-      "image_url": "/Products/oxford.jpeg"
+      "badge_text": "🇪🇸 ES (Melio/Megalab)",
+      "image_url": "/Products/lola-urine-acr.jpg"
     },
     {
       "id": "urinalysis-es",
       "name": "SaludOnNet / Eurofins Análisis Completo de Orina con Sedimento",
-      "category": "Clinical Diagnostics & Co-Pilot",
+      "category": "🩸 Clinical Diagnostics & Lab Testing",
       "rating": 4.90,
       "description": "CE Marked & ISO 15189 certified clinical urine sediment panel across 160+ Eurofins Megalab centers in Spain.",
-      "price_text": "39,00€",
-      "deal_url": "PASTE_YOUR_SALUDONNET_AWIN_LINK",
+      "price_text": "Desde 39,00€",
+      "deal_url": "https://www.melio.es",
       "market_region": "ES",
-      "badge_text": "Marcado CE & ISO 15189",
-      "image_url": "/Products/bloodtest.jpg"
+      "badge_text": "🇪🇸 ES (Melio/Megalab)",
+      "image_url": "/Products/lola-urine-acr.jpg"
     },
     {
       "id": "amazon-supp-es-b08tcg2rh7",
@@ -2391,12 +2391,132 @@ export function normalizeStoreCategory(rawCategory: string | undefined, name?: s
   return '⌚ Smart Hardware & Wearables';
 }
 
-export const DIAGNOSTIC_GP_BRIEF_BADGE = '✨ Includes 2-Page GP Brief Integration';
+export const DIAGNOSTIC_GP_BRIEF_BADGE = '💷 Up-to-date prices on LOLA Health website';
 
 export function isDiagnosticProduct(product: any): boolean {
   if (!product) return false;
   const cat = normalizeStoreCategory(product.category, product.name, product.deal_url);
   return cat === '🩸 Clinical Diagnostics & Lab Testing';
+}
+
+export function getDiagnosticPricingBadge(product: any, market: MarketTab): string {
+  const deal = String(product?.deal_url || '').toLowerCase();
+  const title = String(product?.name || product?.title || '').toLowerCase();
+  if (market === 'UK' || deal.includes('lolahealth') || title.includes('lola')) {
+    return '💷 Up-to-date prices on LOLA Health website';
+  }
+  if (market === 'ES') {
+    return '💶 Precios actualizados en la web de Melio';
+  }
+  return '💵 Up-to-date prices on HealthLabs website';
+}
+
+export function resolveDiagnosticImage(product: any, fallbackImg?: string): string {
+  const id = String(product?.id || '').toLowerCase();
+  const title = String(product?.name || product?.title || '').toLowerCase();
+  const deal = String(product?.deal_url || product?.affiliate_link || '').toLowerCase();
+  const rawImg = String(product?.image_url || fallbackImg || '');
+
+  // Epigenetics / Biological Age / DNA Methylation
+  if (
+    id.includes('epigenetic') ||
+    title.includes('epigenetic') ||
+    title.includes('epigenética') ||
+    title.includes('methylation') ||
+    title.includes('metilación') ||
+    title.includes('biological age') ||
+    title.includes('edad biológica')
+  ) {
+    return '/Products/lola-epigenetic-kit.jpg';
+  }
+
+  // Urine ACR / Urinalysis / Dipstick Kits
+  if (
+    id.includes('urinalysis') ||
+    id.includes('reagent') ||
+    title.includes('urine') ||
+    title.includes('urinalysis') ||
+    title.includes('acr') ||
+    title.includes('microalbumin') ||
+    title.includes('orina') ||
+    title.includes('sedimento') ||
+    title.includes('dipstick') ||
+    title.includes('tiras') ||
+    title.includes('reagent') ||
+    title.includes('alltest') ||
+    title.includes('urinox')
+  ) {
+    return '/Products/lola-urine-acr.jpg';
+  }
+
+  // Blood Panels (Choice A Essential, Choice B Vital Check 56, LOLA, HealthLabs, Melio)
+  if (
+    id.includes('essential-blood') ||
+    id.includes('blood-panel') ||
+    title.includes('blood') ||
+    title.includes('sangre') ||
+    title.includes('vital check') ||
+    title.includes('biomarker') ||
+    title.includes('biomarcador') ||
+    title.includes('lola') ||
+    title.includes('melio') ||
+    title.includes('healthlabs') ||
+    deal.includes('lolahealth')
+  ) {
+    return '/Products/lola-blood-panel.jpg';
+  }
+
+  // Also heal any diagnostic item that mistakenly points to ancientbrave.jpeg or bloodtest.jpg
+  if (isDiagnosticProduct(product) && (rawImg.includes('ancientbrave') || rawImg.includes('bloodtest'))) {
+    return '/Products/lola-blood-panel.jpg';
+  }
+
+  return rawImg || '/Products/lola-blood-panel.jpg';
+}
+
+export function formatDiagnosticPrice(priceText: string, product: any, market: MarketTab): string {
+  const raw = String(priceText || '').trim();
+  if (!raw) {
+    if (market === 'UK') return 'From £49.00';
+    if (market === 'ES') return 'Desde 39,00€';
+    return 'From $69.00';
+  }
+  if (!isDiagnosticProduct(product)) {
+    return raw;
+  }
+  const lower = raw.toLowerCase();
+  if (lower.startsWith('from ') || lower.startsWith('desde ')) {
+    return raw;
+  }
+  const id = String(product?.id || '').toLowerCase();
+  const title = String(product?.name || product?.title || '').toLowerCase();
+  const deal = String(product?.deal_url || '').toLowerCase();
+  const isLabOrTestKit =
+    id.includes('blood') ||
+    id.includes('urinalysis') ||
+    id.includes('reagent') ||
+    id.includes('epigenetic') ||
+    title.includes('blood') ||
+    title.includes('vital check') ||
+    title.includes('biomarker') ||
+    title.includes('biomarcador') ||
+    title.includes('urine') ||
+    title.includes('urinalysis') ||
+    title.includes('acr') ||
+    title.includes('orina') ||
+    title.includes('dipstick') ||
+    title.includes('tiras') ||
+    title.includes('epigenetic') ||
+    title.includes('epigenética') ||
+    title.includes('lola') ||
+    deal.includes('lolahealth') ||
+    deal.includes('healthlabs') ||
+    deal.includes('melio');
+
+  if (isLabOrTestKit) {
+    return market === 'ES' ? `Desde ${raw}` : `From ${raw}`;
+  }
+  return raw;
 }
 
 export function getDiagnosticCountryBadge(market: MarketTab): string {
@@ -2464,24 +2584,42 @@ export function getCleanDiagnosticCta(product: any, market: MarketTab): string {
 }
 
 export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[] {
-  const fallbackCatalog = (REGIONAL_MASTER_CATALOGS[market] || []).map((p: any) => ({
-    ...p,
-    category: normalizeStoreCategory(p.category, p.name || p.title, p.deal_url),
-    is_direct_affiliate: p.is_direct_affiliate ?? (!String(p.deal_url || '').toLowerCase().includes('amazon'))
-  }));
+  const fallbackCatalog = (REGIONAL_MASTER_CATALOGS[market] || []).map((p: any) => {
+    const cat = normalizeStoreCategory(p.category, p.name || p.title, p.deal_url);
+    const enriched = {
+      ...p,
+      category: cat,
+      is_direct_affiliate: p.is_direct_affiliate ?? (!String(p.deal_url || '').toLowerCase().includes('amazon'))
+    };
+    return {
+      ...enriched,
+      image_url: resolveDiagnosticImage(enriched, p.image_url),
+      price_text: formatDiagnosticPrice(p.price_text, enriched, market)
+    };
+  });
 
   if (!items || items.length === 0) {
     return fallbackCatalog;
   }
 
-  const existingIds = new Set(items.map(i => String(i.id || '').toLowerCase()));
+  const healedItems = items.map((item: any) => {
+    const cat = normalizeStoreCategory(item.category, item.name || item.title, item.deal_url);
+    const enriched = { ...item, category: cat };
+    return {
+      ...enriched,
+      image_url: resolveDiagnosticImage(enriched, item.image_url),
+      price_text: formatDiagnosticPrice(item.price_text, enriched, market)
+    };
+  });
+
+  const existingIds = new Set(healedItems.map(i => String(i.id || '').toLowerCase()));
   const corePrefixes = ['essential-blood-panel', 'blood-panel', 'urinalysis', 'reagent-strips', 'epigenetic-test', 'cgm', 'stethoscope'];
   const missingCore = fallbackCatalog.filter(fb => {
     const fbId = String(fb.id || '').toLowerCase();
     return corePrefixes.some(prefix => fbId.startsWith(prefix)) && !existingIds.has(fbId);
   });
 
-  return [...missingCore, ...items];
+  return [...missingCore, ...healedItems];
 }
 
 function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marketTab: MarketTab }) {
@@ -2653,23 +2791,32 @@ export function Store({ region }: StoreProps = {}) {
         }
 
         const healedData = data.map((p: any) => {
-          let healedImg = p.image_url;
-          if (healedImg && healedImg.startsWith('/assets/') && !healedImg.startsWith('http')) {
-            healedImg = `https://123thenextlevel.com${healedImg}`;
-          } else if (healedImg && healedImg.startsWith('/Products/') && !healedImg.startsWith('http')) {
-            healedImg = `https://123thenextlevel.com${healedImg}`;
-          }
-
           let healedDeal = p.deal_url || p.affiliate_link || '';
           if (healedDeal && healedDeal.startsWith('https://123thenextlevel.comhttp')) {
             healedDeal = healedDeal.replace('https://123thenextlevel.com', '');
           }
 
-          const currencySymbol = activeTab === 'UK' ? '£' : activeTab === 'ES' ? '€' : '$';
-          const priceFormatted = p.price_text || (p.price != null ? `${currencySymbol}${Number(p.price).toFixed(2)}` : '');
-
           const catFormatted = normalizeStoreCategory(p.category, p.name || p.title, healedDeal);
           const isDiag = catFormatted === '🩸 Clinical Diagnostics & Lab Testing';
+
+          let healedImg = resolveDiagnosticImage(
+            { ...p, category: catFormatted, deal_url: healedDeal },
+            p.image_url
+          );
+          if (
+            healedImg &&
+            !healedImg.startsWith('http') &&
+            !healedImg.includes('lola-') &&
+            !healedImg.includes('bloodtest')
+          ) {
+            if (healedImg.startsWith('/assets/') || healedImg.startsWith('/Products/')) {
+              healedImg = `https://123thenextlevel.com${healedImg}`;
+            }
+          }
+
+          const currencySymbol = activeTab === 'UK' ? '£' : activeTab === 'ES' ? '€' : '$';
+          const rawPrice = p.price_text || (p.price != null ? `${currencySymbol}${Number(p.price).toFixed(2)}` : '');
+          const priceFormatted = formatDiagnosticPrice(rawPrice, { ...p, category: catFormatted, deal_url: healedDeal }, activeTab);
 
           return {
             ...p,
@@ -2932,20 +3079,26 @@ export function Store({ region }: StoreProps = {}) {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {clinicalPartners.map(product => {
                   const isDiag = isDiagnosticProduct(product);
+                  const displayImg = isDiag ? resolveDiagnosticImage(product, product.image_url) : product.image_url;
+                  const displayPrice = isDiag ? formatDiagnosticPrice(product.price_text, product, activeTab) : product.price_text;
                   return (
                     <div key={product.id} className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 hover:border-rose-500/30 p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
                       <div>
-                        {product.image_url && (
-                          <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-800/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
+                        {displayImg && (
+                          <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-slate-900/80 border border-slate-800/80 mb-4 flex items-center justify-center p-2 transition-colors group-hover:bg-white/[0.04]">
                             <img 
-                              src={product.image_url} 
+                              src={displayImg} 
                               alt={product.name} 
-                              className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                              className="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
                               referrerPolicy="no-referrer"
                               onError={(e) => {
                                 const target = e.currentTarget;
                                 target.onerror = null;
-                                target.src = '/Products/owala.jpg';
+                                if (target.src.includes('123thenextlevel.com/')) {
+                                  target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
+                                  return;
+                                }
+                                target.src = isDiag ? '/Products/lola-blood-panel.jpg' : '/Products/ancientbrave.jpeg';
                               }}
                             />
                           </div>
@@ -2965,7 +3118,7 @@ export function Store({ region }: StoreProps = {}) {
                               {getDiagnosticCountryBadge(activeTab)}
                             </span>
                             <span className="text-[11px] font-bold text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-md">
-                              {DIAGNOSTIC_GP_BRIEF_BADGE}
+                              {getDiagnosticPricingBadge(product, activeTab)}
                             </span>
                           </div>
                         )}
@@ -2980,7 +3133,14 @@ export function Store({ region }: StoreProps = {}) {
                           </span>
                         </div>
                         <div className="flex justify-between items-center gap-3 bg-slate-900/40 p-3 rounded-xl border border-slate-850">
-                          <span className="font-extrabold text-slate-100 text-lg shrink-0">{product.price_text}</span>
+                          <div className="flex flex-col shrink-0">
+                            <span className="font-extrabold text-slate-100 text-lg leading-tight">{displayPrice}</span>
+                            {isDiag && (
+                              <span className="text-[10px] text-emerald-400/90 font-medium mt-0.5">
+                                {activeTab === 'UK' ? 'Live pricing on LOLA Health' : activeTab === 'ES' ? 'Precios en vivo en Melio' : 'Live pricing on partner site'}
+                              </span>
+                            )}
+                          </div>
                           <a href={product.deal_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white text-xs font-bold shadow-lg transition-all duration-300 text-center">
                             {isDiag ? getCleanDiagnosticCta(product, activeTab) : (product.deal_url?.includes('/checkout') ? 'Get Master Guide ➔' : 'Access Partner Portal')}
                           </a>
@@ -3026,7 +3186,11 @@ export function Store({ region }: StoreProps = {}) {
                                       onError={(e) => {
                                         const target = e.currentTarget;
                                         target.onerror = null;
-                                        target.src = '/Products/owala.jpg';
+                                        if (target.src.includes('123thenextlevel.com/')) {
+                                          target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
+                                          return;
+                                        }
+                                        target.src = isDiag ? '/Products/lola-blood-panel.jpg' : '/Products/ancientbrave.jpeg';
                                       }}
                                     />
                                   </div>
@@ -3046,7 +3210,7 @@ export function Store({ region }: StoreProps = {}) {
                                       {getDiagnosticCountryBadge(activeTab)}
                                     </span>
                                     <span className="text-[11px] font-bold text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-md">
-                                      {DIAGNOSTIC_GP_BRIEF_BADGE}
+                                      {getDiagnosticPricingBadge(product, activeTab)}
                                     </span>
                                   </div>
                                 )}
@@ -3107,7 +3271,11 @@ export function Store({ region }: StoreProps = {}) {
                                   onError={(e) => {
                                     const target = e.currentTarget;
                                     target.onerror = null;
-                                    target.src = '/Products/owala.jpg';
+                                    if (target.src.includes('123thenextlevel.com/')) {
+                                      target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
+                                      return;
+                                    }
+                                    target.src = isDiag ? '/Products/lola-blood-panel.jpg' : '/Products/ancientbrave.jpeg';
                                   }}
                                 />
                               </div>
@@ -3127,7 +3295,7 @@ export function Store({ region }: StoreProps = {}) {
                                   {getDiagnosticCountryBadge(activeTab)}
                                 </span>
                                 <span className="text-[11px] font-bold text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-md">
-                                  {DIAGNOSTIC_GP_BRIEF_BADGE}
+                                  {getDiagnosticPricingBadge(product, activeTab)}
                                 </span>
                               </div>
                             )}
