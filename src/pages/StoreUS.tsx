@@ -216,7 +216,7 @@ export const StoreUS: React.FC = () => {
         </h1>
 
         <p className="text-slate-300 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed font-sans">
-          Every solution in our sovereign US registry is <strong className="text-white font-semibold">selectively procured</strong> and verified against clinical biomarker efficacy, independent purity assays, and strict regional regulatory standards (<span className="text-cyan-300 font-mono font-semibold">FDA &bull; CLIA</span>). Real-time database synchronisation active.
+          Enterprise-grade US clinical registry infrastructure. Access protocols audited for biomarker efficacy, verified purity, and full FDA/CLIA compliance, powered by live data integration.
         </p>
 
         {/* Highlights / Trust Pillars Grid */}
