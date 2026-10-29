@@ -197,7 +197,7 @@ export const StoreUK: React.FC = () => {
         </h1>
 
         <p className="text-slate-300 text-sm sm:text-base md:text-lg max-w-3xl mx-auto leading-relaxed font-sans">
-          Curated protocol solutions for Great Britain and Northern Ireland, audited against MHRA safety metrics, UK batch purity benchmarks, and low latency fulfillment. Real-time Supabase integration.
+          Certified UK protocols built for uncompromising quality and speed. We audit against strict MHRA metrics and batch-purity standards, ensuring secure, instant data integration and dependable nationwide fulfillment.
         </p>
 
         {/* Highlights / Trust Pillars Grid */}
