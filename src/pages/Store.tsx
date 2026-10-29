@@ -2943,7 +2943,7 @@ function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marke
   const getBannerConfig = (cat: string, market: MarketTab) => {
     if (cat.includes('diagnostic') || cat.includes('lab')) {
       return {
-        title: market === 'ES' ? '🩸 CLINICAL DIAGNOSTICS & LABS (ES)' : `🩸 ${market} CLINICAL DIAGNOSTICS & LABS`,
+        title: 'Clinical Diagnostics & Labs',
         subtitle: market === 'ES' 
           ? 'Paneles de sangre Choice A y Choice B 56, ACR de orina en laboratorio, tiras reactivas, epigenética, CGM y estetoscopio IA' 
           : 'Choice A Essential Bloods, Choice B Vital Check 56, Lab Urine ACR, Home Dipstick Kits, Epigenetics, CGMs, and AI Stethoscope',
@@ -2957,7 +2957,7 @@ function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marke
 
     if (cat.includes('exercise') || cat.includes('fitness')) {
       return {
-        title: market === 'ES' ? '🏋️ EXERCISE & FITNESS GEAR (ES)' : `🏋️ ${market} EXERCISE & FITNESS GEAR`,
+        title: 'Exercise & Fitness Gear',
         subtitle: market === 'ES'
           ? 'Remos Concept2, pesas rusas ajustables, saunas infrarrojas, baños de hielo, pistolas de masaje y recuperación física'
           : 'Concept2 Rowers, Adjustable Kettlebells, Far-Infrared Saunas, Cold Plunge Tubs, Percussion Massagers, and recovery gear',
@@ -2971,10 +2971,10 @@ function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marke
 
     if (cat.includes('supplement') || cat.includes('nutraceutical') || cat.includes('guide')) {
       return {
-        title: market === 'ES' ? '🌿 SUPPLEMENTS & NUTRACEUTICALS (ES)' : `🌿 ${market} SUPPLEMENTS & NUTRACEUTICALS`,
+        title: 'Supplements & Nutraceuticals',
         subtitle: market === 'ES'
-          ? 'Stacks de Sirtuinas, Colágeno, NAD+, Creatina, Magnesio y bioactivos verificados en múltiples proveedores (Amazon, iHerb, Life Extension)'
-          : 'Sirtuin Stacks, Marine Collagen, NAD+, Creatine, Magnesium, and purity-audited nutraceuticals across Amazon, iHerb & Life Extension',
+          ? 'Stacks de Sirtuinas, Colágeno marino, NAD+, Creatina, Magnesio y bioactivos celulares de máxima pureza'
+          : 'Sirtuin Stacks, Marine Collagen, NAD+, Creatine, Magnesium, and purity-audited cellular bioactives',
         icon: Pill,
         iconColor: 'text-emerald-400',
         iconBorder: 'border-emerald-500/30',
@@ -2985,7 +2985,7 @@ function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marke
 
     if (cat.includes('kitchen') || cat.includes('culinary')) {
       return {
-        title: market === 'ES' ? '🍳 KITCHEN & CULINARY BIO-HACKS (ES)' : `🍳 ${market} KITCHEN & CULINARY BIO-HACKS`,
+        title: 'Kitchen & Culinary Bio-Hacks',
         subtitle: market === 'ES'
           ? 'Extractores de nutrientes de alta velocidad, freidoras de aire sin aceite, ósmosis inversa y equipamiento culinario libre de BPA'
           : 'High-speed nutrient extractors, oil-free air fryers, reverse osmosis water filtration, vacuum sealers, and toxin-free culinary gear',
@@ -2998,10 +2998,10 @@ function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marke
     }
 
     return {
-      title: market === 'ES' ? '⌚ SMART HARDWARE & WEARABLES (ES)' : `⌚ ${market} SMART HARDWARE & WEARABLES`,
+      title: 'Smart Hardware & Wearables',
       subtitle: market === 'ES'
-        ? 'Básculas inteligentes Withings, tensiómetros BPM, analizadores de sueño, smartwatches y sensores circadianos'
-        : 'Withings Smart Scales, BPM Blood Pressure Cuffs, Sleep Analyzer Mats, Smartwatches, and circadian telemetry hardware',
+        ? 'Básculas de bioimpedancia segmentaria, tensiómetros BPM, analizadores de sueño, smartwatches y sensores circadianos'
+        : 'Segmental bioimpedance scales, BPM blood pressure cuffs, sleep analyzer mats, smartwatches, and circadian telemetry hardware',
       icon: Smartphone,
       iconColor: 'text-cyan-400',
       iconBorder: 'border-cyan-500/30',
@@ -3414,10 +3414,7 @@ export function Store({ region }: StoreProps = {}) {
           {/* TIER 1: CLINICAL DIAGNOSTICS & DIRECT PARTNERS */}
           {clinicalPartners.length > 0 && (
             <div className="space-y-6">
-              <div className="border-l-4 border-rose-500 pl-4">
-                <span className="text-xs text-rose-500 uppercase font-semibold tracking-widest">DIRECT ACCESS PARTNERS ({activeTab})</span>
-                <h2 className="text-2xl font-bold text-slate-100 mt-1">🩸 Clinical Diagnostics &amp; Labs</h2>
-              </div>
+              <CategoryBanner categoryKey="Clinical Diagnostics & Labs" marketTab={activeTab} />
               
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {clinicalPartners.map(product => {
@@ -3511,11 +3508,6 @@ export function Store({ region }: StoreProps = {}) {
           {/* TIER 2: CURATED LIFESTYLE & GEAR (MULTI-SUPPLIER HUB) */}
           {amazonHubProducts.length > 0 && (
             <div className="space-y-10 pt-6 border-t border-slate-900">
-              <div className="border-l-4 border-cyan-500 pl-4">
-                <span className="text-xs text-cyan-400 uppercase font-semibold tracking-widest">MULTI-SUPPLIER LONGEVITY CATALOG</span>
-                <h2 className="text-2xl font-bold text-slate-100 mt-1">Sovereign Gear &amp; Nutraceutical Hub {getFlagEmoji(activeTab)}</h2>
-              </div>
-
               {/* If "All" is active, render category-by-category with header banners */}
               {activeCategory === 'All' ? (
                 amazonCategoriesInView.map(catKey => {

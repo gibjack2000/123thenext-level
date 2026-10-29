@@ -408,10 +408,10 @@ export const StoreUS: React.FC = () => {
               <div className="border-l-4 border-rose-500 pl-4 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                 <div>
                   <span className="text-xs text-rose-500 uppercase font-semibold tracking-widest font-mono">
-                    DIRECT ACCESS PROTOCOLS (US)
+                    DIRECT ACCESS PROTOCOLS
                   </span>
                   <h2 className="text-2xl sm:text-3xl font-bold text-slate-100 mt-1 font-display">
-                    🩸 Clinical Diagnostics &amp; Labs
+                    Clinical Diagnostics &amp; Labs
                   </h2>
                 </div>
                 <div className="text-xs font-mono text-cyan-400 bg-cyan-950/40 px-3 py-1.5 rounded-lg border border-cyan-800/30 self-start sm:self-auto flex items-center gap-1.5">
@@ -529,8 +529,8 @@ export const StoreUS: React.FC = () => {
           {amazonProducts.length > 0 && (
             <div className="space-y-6 pt-6 border-t border-slate-900">
               <div className="border-l-4 border-cyan-500 pl-4">
-                <span className="text-xs text-cyan-400 uppercase font-semibold tracking-widest">CURATED HARDWARE & WEARABLES</span>
-                <h2 className="text-2xl font-bold text-slate-100 mt-1">Amazon US Longevity Gear Hub 🇺🇸</h2>
+                <span className="text-xs text-cyan-400 uppercase font-semibold tracking-widest">VERIFIED PROTOCOL CATALOG</span>
+                <h2 className="text-2xl font-bold text-slate-100 mt-1">{activeCategory === 'All' ? 'Smart Hardware & Wearables' : getCategoryDisplayLabel(activeCategory)}</h2>
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
