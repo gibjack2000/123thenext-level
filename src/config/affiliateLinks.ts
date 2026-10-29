@@ -1082,6 +1082,7 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
   }
 
   const rawId = String(product?.id || '').toLowerCase().replace(/-(us|uk|es)$/, '');
+  const id = String(product?.id || rawId || 'prod');
   const matchedStackItem = sovereignHealthStack.find(item => item.id.toLowerCase() === rawId);
 
   const dealUrl = String(product?.deal_url || product?.affiliate_link || '');

@@ -51,6 +51,21 @@ import withingsSleepImg from '../assets/products/withingsleep.webp';
 import withingsConnectImg from '../assets/products/withingsconnect.webp';
 import withingsScaleImg from '../assets/products/newithings.webp';
 
+export {
+  lolaBloodPanelImg,
+  lolaUrineAcrImg,
+  lolaEpigeneticKitImg,
+  clinicalBloodPanelImg,
+  clinicalUrineAcrImg,
+  clinicalEpigeneticKitImg,
+  clinicalCgmSensorImg,
+  clinicalAiStethoscopeImg,
+  aymedDipstickImg,
+  withingsSleepImg,
+  withingsConnectImg,
+  withingsScaleImg
+};
+
 export type MarketTab = 'US' | 'UK' | 'ES';
 
 // Dedicated Regional Master Registries (Guarantees strict separation across US, UK, and Spain)
@@ -3355,19 +3370,21 @@ export function Store({ region }: StoreProps = {}) {
   ).filter(p => getActiveSuppliers(p, activeTab).length > 0);
 
   // Split into Tier 1 (Clinical Direct) and Tier 2 (Amazon Hub)
+  // When 'Clinical Diagnostics & Labs' category is active, group ALL diagnostic products in Tier 1 to avoid duplicate section headers
+  const isDiagCategoryActive = activeCategory.toLowerCase().includes('diagnostic');
   const clinicalPartners = filteredProducts.filter(p => 
     p.is_direct_affiliate === true || 
+    (isDiagCategoryActive && (p.category === 'Clinical Diagnostics & Labs' || isDiagnosticProduct(p))) ||
     (p.deal_url && !p.deal_url.toLowerCase().includes('amazon'))
   );
 
   const amazonHubProducts = filteredProducts.filter(p => 
-    p.is_direct_affiliate !== true && 
-    (p.deal_url && p.deal_url.toLowerCase().includes('amazon'))
+    !clinicalPartners.includes(p)
   );
 
-  // Group amazon products by category in the canonical 5-category order when "All" is active
+  // Group amazon products by category in the canonical 5-category order when "All" is active (excluding diagnostics to prevent duplicate headers)
   const amazonCategoriesInView = STORE_CATEGORIES.filter(cat =>
-    amazonHubProducts.some(p => p.category === cat)
+    cat !== 'Clinical Diagnostics & Labs' && amazonHubProducts.some(p => p.category === cat)
   );
 
   const getFlagEmoji = (tab: MarketTab) => {

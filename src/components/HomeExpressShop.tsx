@@ -1365,7 +1365,7 @@ export default function HomeExpressShop() {
                       onError={(e) => {
                         const target = e.currentTarget;
                         target.onerror = null;
-                        target.src = '/Products/ancientbrave.jpeg';
+                        target.src = '/assets/images/shop/sirtuin-stack.png';
                       }}
                       className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-500"
                     />

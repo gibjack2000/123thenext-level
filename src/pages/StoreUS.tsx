@@ -33,7 +33,9 @@ import {
   getCategoryDisplayLabel,
   MultiSupplierOptionsBar,
   DynamicSupplierCtaSection,
-  getActiveSuppliers
+  getActiveSuppliers,
+  clinicalBloodPanelImg,
+  withingsScaleImg
 } from './Store';
 import { DigitalGuides } from '../components/DigitalGuides';
 import BundleOffers from '../components/BundleOffers';
@@ -187,8 +189,11 @@ export const StoreUS: React.FC = () => {
     return matchesCategory && matchesSearch && getActiveSuppliers(product, 'US').length > 0;
   });
 
-  const clinicalPartners = filteredProducts.filter(p => p.is_direct_affiliate);
-  const amazonProducts = filteredProducts.filter(p => !p.is_direct_affiliate);
+  const isDiagCategoryActive = activeCategory.toLowerCase().includes('diagnostic');
+  const clinicalPartners = filteredProducts.filter(p => 
+    p.is_direct_affiliate || (isDiagCategoryActive && (p.category === 'Clinical Diagnostics & Labs' || isDiagnosticProduct(p)))
+  );
+  const amazonProducts = filteredProducts.filter(p => !clinicalPartners.includes(p));
 
   return (
     <div className="min-h-screen bg-slate-950 text-white font-sans antialiased pt-28 pb-16 md:pt-36 md:pb-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
@@ -455,7 +460,13 @@ export const StoreUS: React.FC = () => {
                                   target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
                                   return;
                                 }
-                                target.src = isDiag ? '/Products/clinical-blood-panel.jpg' : '/assets/images/shop/sirtuin-stack.png';
+                                if (isDiag) {
+                                  target.src = clinicalBloodPanelImg;
+                                } else if (product.category === 'Smart Hardware & Wearables') {
+                                  target.src = withingsScaleImg;
+                                } else {
+                                  target.src = '/assets/images/shop/sirtuin-stack.png';
+                                }
                               }}
                             />
                           </div>
