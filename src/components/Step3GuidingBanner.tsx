@@ -68,83 +68,96 @@ export const Step3GuidingBanner: React.FC<Step3GuidingBannerProps> = ({
       </div>
 
       {/* ========================================================================= */}
-      {/* 2. INTRO EXPLANATION BANNER & 3 NUMBERED ACTION CARDS                     */}
+      {/* 1. TOP GUIDANCE BANNER (Above Step Cards)                                 */}
       {/* ========================================================================= */}
-      <div className="bg-slate-900/90 border border-sky-500/30 rounded-xl p-6 mb-8 shadow-2xl space-y-6 relative overflow-hidden backdrop-blur-md">
+      <div className="bg-slate-900/90 border border-sky-500/30 rounded-xl p-6 mb-8 shadow-2xl space-y-3 relative overflow-hidden backdrop-blur-md">
         {/* Subtle background glow */}
         <div className="absolute -top-16 -right-16 w-60 h-60 bg-sky-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-16 -left-16 w-60 h-60 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
-        {/* Intro Lead Paragraph */}
+        <h3 className="text-base sm:text-lg font-display font-black text-sky-300 tracking-wide relative z-10 flex items-center gap-2">
+          <span>💡 Why Prepare a Clinician Co-Pilot Brief?</span>
+        </h3>
         <p className="text-sm sm:text-base text-slate-200 leading-relaxed font-medium relative z-10">
-          Raw biometric data isn&apos;t a diagnosis—it becomes powerful when translated into a structured clinical summary for your doctor. Follow this streamlined 3-step process to prepare for your 10-minute GP consultation:
+          Your General Practitioner typically has just 10 minutes per appointment. Handing them endless phone screens or complex raw lab sheets leads to decision fatigue. The Clinician Co-Pilot automatically translates your blood labs, urine tests, and home wearable telemetry into a standardized 2-Page GP Brief that doctors can scan and act on in seconds.
         </p>
+      </div>
 
-        {/* 3 Clean Numbered Action Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 relative z-10">
-          
-          {/* STEP 1 CARD */}
-          <div className="p-4 sm:p-5 rounded-xl bg-slate-950/80 border border-sky-500/30 flex flex-col justify-between space-y-4">
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 border-b border-slate-800 pb-2.5">
-                <span className="text-base">🩸</span>
-                <h3 className="text-sm sm:text-base font-display font-black text-sky-300 tracking-wide">
-                  1. Coordinate Your Diagnostics
-                </h3>
-              </div>
-
-              <ul className="space-y-2.5 text-xs text-slate-300 leading-relaxed">
-                <li>
-                  <span className="text-slate-100 font-semibold">• Blood Draw Choice:</span> Select <strong className="text-emerald-400">Choice A (LOLA Essential Check)</strong> for a targeted baseline OR <strong className="text-cyan-400">Choice B (LOLA Vital Check 56)</strong> for full cellular mapping.
-                </li>
-                <li className="p-2.5 rounded-lg bg-sky-950/40 border border-sky-500/30 text-slate-200">
-                  <span className="text-sky-300 font-bold">• Lab Urinalysis Coordination:</span> <strong>Request your clinical Urine ACR (Microalbumin) test during the exact same laboratory visit as your blood draw.</strong> Submitting your urine sample alongside your blood draw gives your GP a synchronized cardiovascular, metabolic, and renal (kidney) assessment in one visit.
-                </li>
-                <li>
-                  <span className="text-slate-100 font-semibold">• Weekly Home Testing:</span> Continue your 60-second Sunday 10-parameter dipstick for continuous hydration and pH monitoring.
-                </li>
-              </ul>
+      {/* ========================================================================= */}
+      {/* 2. STEP CARDS & INTER-CARD HELPER MICROCOPY                               */}
+      {/* ========================================================================= */}
+      <div className="space-y-4">
+        {/* STEP 1 CARD */}
+        <div className="p-5 sm:p-6 rounded-xl bg-slate-950/90 border border-sky-500/30 flex flex-col justify-between space-y-4 shadow-lg">
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 border-b border-slate-800 pb-2.5">
+              <span className="text-base">🩸</span>
+              <h3 className="text-sm sm:text-base font-display font-black text-sky-300 tracking-wide">
+                1. Coordinate Your Diagnostics
+              </h3>
             </div>
 
-            {/* Regional Affiliate Quick-Links */}
-            <div className="pt-3 border-t border-slate-800/80 space-y-1.5">
-              <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block">
-                Book Lab Draw + Urine ACR:
-              </span>
-              <div className="flex flex-wrap gap-1.5">
-                <a
-                  href="https://referrals.lolahealth.com/NextLevel15"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-emerald-950/60 hover:bg-emerald-900/70 border border-emerald-500/40 text-emerald-300 text-[10px] font-bold transition"
-                >
-                  <span>🇬🇧 UK: LOLA Health</span>
-                  <ExternalLink size={10} />
-                </a>
-                <a
-                  href="https://www.healthlabs.com/?affiliate=123znl"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-cyan-950/60 hover:bg-cyan-900/70 border border-cyan-500/40 text-cyan-300 text-[10px] font-bold transition"
-                >
-                  <span>🇺🇸 US: HealthLabs</span>
-                  <ExternalLink size={10} />
-                </a>
-                <a
-                  href="https://www.melio.es"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-amber-950/60 hover:bg-amber-900/70 border border-amber-500/40 text-amber-300 text-[10px] font-bold transition"
-                >
-                  <span>🇪🇸 ES: SaludOnNet / Melio</span>
-                  <ExternalLink size={10} />
-                </a>
-              </div>
-            </div>
+            <ul className="space-y-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
+              <li>
+                <span className="text-slate-100 font-semibold">• Blood Panel Choice:</span>{' '}
+                <strong className="text-emerald-400">Choice A (Essential Baseline)</strong> OR{' '}
+                <strong className="text-cyan-400">Choice B (Vital Check 56)</strong>.
+              </li>
+              <li>
+                <span className="text-slate-100 font-semibold">• Lab Urine Test:</span> Scheduled Urine ACR test alongside your blood draw.
+              </li>
+              <li>
+                <span className="text-slate-100 font-semibold">• Home Urine Test:</span> Weekly 60-second Sunday 10-parameter dipsticks in between.
+              </li>
+            </ul>
           </div>
 
+          {/* Regional Affiliate Quick-Links */}
+          <div className="pt-3 border-t border-slate-800/80 space-y-1.5">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 block">
+              Book Lab Draw + Urine ACR:
+            </span>
+            <div className="flex flex-wrap gap-1.5">
+              <a
+                href="https://referrals.lolahealth.com/NextLevel15"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-emerald-950/60 hover:bg-emerald-900/70 border border-emerald-500/40 text-emerald-300 text-[10px] font-bold transition"
+              >
+                <span>🇬🇧 UK: LOLA Health</span>
+                <ExternalLink size={10} />
+              </a>
+              <a
+                href="https://www.healthlabs.com/?affiliate=123znl"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-cyan-950/60 hover:bg-cyan-900/70 border border-cyan-500/40 text-cyan-300 text-[10px] font-bold transition"
+              >
+                <span>🇺🇸 US: HealthLabs</span>
+                <ExternalLink size={10} />
+              </a>
+              <a
+                href="https://www.melio.es"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-amber-950/60 hover:bg-amber-900/70 border border-amber-500/40 text-amber-300 text-[10px] font-bold transition"
+              >
+                <span>🇪🇸 ES: SaludOnNet / Melio</span>
+                <ExternalLink size={10} />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* INTER-CARD CALLOUT (Between Step 1 & Step 2) */}
+        <div className="p-4 sm:p-5 rounded-xl bg-sky-950/50 border border-sky-500/40 text-xs sm:text-sm text-sky-100 leading-relaxed shadow-md">
+          <strong className="text-sky-300 font-bold">📌 Co-Pilot Coordination Note:</strong> Request your clinical Urine ACR test for the exact same morning as your blood draw. One quick lab visit gives your GP a fully synchronized cardiovascular, metabolic, and renal (kidney) profile.
+        </div>
+
+        {/* STEP 2 & STEP 3 CARDS */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* STEP 2 CARD */}
-          <div className="p-4 sm:p-5 rounded-xl bg-slate-950/80 border border-amber-500/30 flex flex-col justify-between space-y-4">
+          <div className="p-5 sm:p-6 rounded-xl bg-slate-950/90 border border-amber-500/30 flex flex-col justify-between space-y-4 shadow-lg">
             <div className="space-y-3">
               <div className="flex items-center gap-2 border-b border-slate-800 pb-2.5">
                 <span className="text-base">💻</span>
@@ -153,9 +166,9 @@ export const Step3GuidingBanner: React.FC<Step3GuidingBannerProps> = ({
                 </h3>
               </div>
 
-              <ul className="space-y-2.5 text-xs text-slate-300 leading-relaxed">
+              <ul className="space-y-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
                 <li>
-                  • Open the interactive form at{' '}
+                  <span className="text-slate-100 font-semibold">• Form Link:</span> Open{' '}
                   <Link
                     to="/clinician-copilot#gp-template-page-1"
                     onClick={handleOpenInteractiveForm}
@@ -166,10 +179,11 @@ export const Step3GuidingBanner: React.FC<Step3GuidingBannerProps> = ({
                   .
                 </li>
                 <li>
-                  • Toggle your blood test tier (<strong className="text-emerald-400">Choice A</strong> vs. <strong className="text-cyan-400">Choice B</strong>) so the form displays only your relevant biomarker fields.
-                </li>
-                <li>
-                  • Enter your lab results (Blood + Urine ACR), weekly dipstick averages, and 14-day smart scale / wearable metrics.
+                  <span className="text-slate-100 font-semibold">• Dynamic Toggle:</span> Select{' '}
+                  <strong className="text-emerald-400">Choice A</strong> vs{' '}
+                  <strong className="text-cyan-400">Choice B</strong> and{' '}
+                  <strong className="text-sky-300">Lab ACR</strong> vs{' '}
+                  <strong className="text-amber-300">Home Dipsticks</strong> to reveal only relevant input fields.
                 </li>
               </ul>
             </div>
@@ -189,34 +203,31 @@ export const Step3GuidingBanner: React.FC<Step3GuidingBannerProps> = ({
           </div>
 
           {/* STEP 3 CARD */}
-          <div className="p-4 sm:p-5 rounded-xl bg-slate-950/80 border border-teal-500/30 flex flex-col justify-between space-y-4">
+          <div className="p-5 sm:p-6 rounded-xl bg-slate-950/90 border border-teal-500/30 flex flex-col justify-between space-y-4 shadow-lg">
             <div className="space-y-3">
               <div className="flex items-center gap-2 border-b border-slate-800 pb-2.5">
                 <span className="text-base">📄</span>
                 <h3 className="text-sm sm:text-base font-display font-black text-teal-300 tracking-wide">
-                  3. Export GP Consultation Brief
+                  3. Export Your GP Brief
                 </h3>
               </div>
 
-              <ul className="space-y-2.5 text-xs text-slate-300 leading-relaxed">
+              <ul className="space-y-2.5 text-xs sm:text-sm text-slate-300 leading-relaxed">
                 <li>
-                  • Click to generate your pre-filled <strong className="text-white">2-Page GP Consultation Brief</strong> (
+                  <span className="text-slate-100 font-semibold">• Output:</span> Generate pre-filled{' '}
                   <a
                     href="/assets/docs/clinical-baseline-consultation-template-v2.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                     download="clinical-baseline-consultation-template-v2.pdf"
-                    className="text-teal-300 hover:text-teal-200 text-[11px] bg-slate-900 px-1 py-0.5 rounded font-mono underline"
+                    className="text-teal-300 hover:text-teal-200 text-xs bg-slate-900 px-1.5 py-0.5 rounded font-mono underline"
                   >
                     clinical-baseline-consultation-template-v2.pdf
-                  </a>
-                  ).
+                  </a>{' '}
+                  or download a blank pen-and-paper template.
                 </li>
                 <li>
-                  • Alternatively, download a blank PDF template to complete by hand before your doctor appointment.
-                </li>
-                <li>
-                  • Reference{' '}
+                  <span className="text-slate-100 font-semibold">• Reference Guide:</span> Use{' '}
                   <a
                     href="/assets/docs/the-next-level-lifespan-2026.pdf?v=2026-revised"
                     target="_blank"
@@ -234,8 +245,30 @@ export const Step3GuidingBanner: React.FC<Step3GuidingBannerProps> = ({
               ✓ Built for standard 10-minute GP appointments
             </div>
           </div>
-
         </div>
+      </div>
+
+      {/* ========================================================================= */}
+      {/* 3. POST-CARD CLINIC PREPARATION GUIDANCE (Below Cards)                    */}
+      {/* ========================================================================= */}
+      <div className="bg-slate-900/90 border border-teal-500/30 rounded-xl p-6 space-y-4 shadow-xl">
+        <h3 className="text-base sm:text-lg font-display font-black text-teal-300 tracking-wide flex items-center gap-2 border-b border-slate-800 pb-3">
+          <span>🩺 How to Conduct Your 10-Minute GP Consultation</span>
+        </h3>
+        <ul className="space-y-3 text-xs sm:text-sm text-slate-200 leading-relaxed">
+          <li>
+            • <strong className="text-white">Hand Page 1 to Your GP</strong>: Pass the printed summary directly to your doctor at the start of the appointment. Page 1 contains your standardized red-flag matrix, key lab averages, and primary discussion points.
+          </li>
+          <li>
+            • <strong className="text-white">Keep Page 2 as Your Checklist</strong>: Hold onto Page 2 during the visit—it lists your 14-day home telemetry trends (HRV, visceral fat, sleep) and personal notes.
+          </li>
+          <li>
+            • <strong className="text-white">Collaborative Care</strong>: Frame the conversation around partnership:{' '}
+            <em className="text-teal-200">
+              &quot;I&apos;ve logged my baseline health metrics to help us catch any subtle shifts early and optimize my long-term healthspan.&quot;
+            </em>
+          </li>
+        </ul>
       </div>
 
       {/* ========================================================================= */}
