@@ -62,26 +62,32 @@ export const STORE_CATEGORIES: StoreCategory[] = [
   "Kitchen & Culinary Bio-Hacks"
 ];
 
+// Direct Life Extension US Blood Panel Links (Temporary Direct Protocol)
+export const US_BLOOD_TEST_BASIC_URL = "https://www.lifeextension.com/lab-testing/itemqd100025/healthy-aging-panel-basic-blood-test";
+export const US_BLOOD_TEST_BASIC_BADGE = "💊 Entry-Level Metabolic Baseline ($155)";
+export const US_BLOOD_TEST_COMPREHENSIVE_URL = "https://www.lifeextension.com/lab-testing/itemqd100026/healthy-aging-panel-comprehensive-blood-test";
+export const US_BLOOD_TEST_COMPREHENSIVE_BADGE = "💊 Comprehensive Metabolic & Inflammatory Map";
+
 export const sovereignHealthStack: SovereignProduct[] = [
   // ============================================================================
   // 1. CLINICAL DIAGNOSTICS & LABS
   // ============================================================================
   {
     id: "essential-blood-panel",
-    name: "Choice A: Essential Baseline Bloods (Core Lipids, HbA1c, Fasting Glucose)",
+    name: "Healthy Aging Panel (Basic) [#QD100025]",
     category: "Clinical Diagnostics & Labs",
     rating: 4.92,
-    description: "Core cardiovascular and metabolic blood panel measuring Cholesterol, HDL, LDL, Triglycerides, Fasting Glucose, HbA1c, and basic kidney/liver filtration.",
+    description: "Core cardiovascular and metabolic blood panel measuring Cholesterol, HDL, LDL, Triglycerides, Fasting Glucose, HbA1c, and basic kidney/liver filtration via Quest Diagnostics.",
     image_url: "/Products/clinical-blood-panel.jpg",
     us: [
       {
-        supplierName: "HealthLabs",
-        url: "https://www.healthlabs.com/?affiliate=123znl",
-        ctaText: "Order Baseline Bloods (HealthLabs US 🇺🇸)",
-        priceText: "From $99.00",
-        badgeText: "🇺🇸 US (HealthLabs/Quest)",
+        supplierName: "Life Extension",
+        url: US_BLOOD_TEST_BASIC_URL,
+        ctaText: "Order Basic Bloods (Life Extension $155 🇺🇸)",
+        priceText: "$155.00",
+        badgeText: US_BLOOD_TEST_BASIC_BADGE,
         isPrimary: true,
-        perksNote: "CLIA/CAP Quest & Labcorp Draw"
+        perksNote: "Item #QD100025 • Entry-Level Baseline"
       }
     ],
     uk: [
@@ -109,20 +115,29 @@ export const sovereignHealthStack: SovereignProduct[] = [
   },
   {
     id: "blood-panel",
-    name: "Choice B: Vital Check 56 (Full 56-Biomarker Cellular Panel)",
+    name: "Healthy Aging Panel (Comprehensive) [#QD100026]",
     category: "Clinical Diagnostics & Labs",
     rating: 4.95,
-    description: "Direct-to-consumer longevity blood panels mapping 56 essential biomarkers including ApoB, hs-CRP, Vitamin D, Thyroid, and Hormones. Local Quest/Labcorp draw in the US, private clinical setups in UK and ES.",
+    description: "Direct-to-consumer longevity blood panels mapping essential biomarkers including ApoB, hs-CRP, Vitamin D, Thyroid, and Hormones. Local Quest draw in the US via Life Extension, private clinical setups in UK and ES.",
     image_url: "/Products/clinical-blood-panel.jpg",
     us: [
       {
-        supplierName: "HealthLabs",
-        url: "https://www.healthlabs.com/?affiliate=123znl",
-        ctaText: "Order 56-Biomarker Panel (HealthLabs US 🇺🇸)",
+        supplierName: "Life Extension",
+        url: US_BLOOD_TEST_COMPREHENSIVE_URL,
+        ctaText: "Order Comprehensive Panel (Life Extension US 🇺🇸)",
         priceText: "From $299.00",
-        badgeText: "🇺🇸 US (HealthLabs/Quest)",
+        badgeText: US_BLOOD_TEST_COMPREHENSIVE_BADGE,
         isPrimary: true,
-        perksNote: "Same-Day Lab Requisition"
+        perksNote: "Item #QD100026 • Quest Diagnostics Requisition"
+      },
+      {
+        supplierName: "Life Extension",
+        url: US_BLOOD_TEST_BASIC_URL,
+        ctaText: "Order Basic Option ($155)",
+        priceText: "$155.00",
+        badgeText: US_BLOOD_TEST_BASIC_BADGE,
+        isPrimary: false,
+        perksNote: "Item #QD100025 • Entry Baseline"
       }
     ],
     uk: [
@@ -1087,7 +1102,7 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
 
   let dealUrl = String(product?.deal_url || product?.affiliate_link || '');
   let priceText = String(product?.price_text || '');
-  const badgeText = String(product?.badge_text || 'Verified');
+  let badgeText = String(product?.badge_text || 'Verified');
   const category = String(product?.category || '');
   const title = String(product?.name || product?.title || '');
   const lowerTitle = title.toLowerCase();
@@ -1130,6 +1145,25 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
     primaryCta = 'Access Paid Protocol 🔒 — £29.00';
     dealUrl = '/checkout?item=metabolic-visceral-fat-protocol';
     priceText = '£29.00';
+  } else if (
+    market === 'US' && (
+      id.includes('blood-panel') ||
+      id.includes('essential-blood') ||
+      lowerDeal.includes('itemqd100025') ||
+      lowerDeal.includes('itemqd100026') ||
+      lowerDeal.includes('healthy-aging-panel') ||
+      ((lowerTitle.includes('blood') || lowerTitle.includes('cellular') || lowerTitle.includes('biomarker')) &&
+       !id.includes('pressure') && !lowerTitle.includes('pressure') &&
+       !id.includes('ovarian') && !lowerTitle.includes('ovarian'))
+    )
+  ) {
+    // Temporary US Blood Test Links: Default to Comprehensive (#QD100026)
+    primarySupplier = 'Life Extension';
+    primaryPerks = 'Item #QD100026 • Quest Diagnostics Requisition';
+    primaryCta = 'Order Comprehensive Panel (Life Extension US 🇺🇸)';
+    dealUrl = US_BLOOD_TEST_COMPREHENSIVE_URL;
+    priceText = 'From $299.00';
+    badgeText = US_BLOOD_TEST_COMPREHENSIVE_BADGE;
   } else if (lowerDeal.includes('lolahealth') || (market === 'UK' && lowerTitle.includes('lola'))) {
     primarySupplier = 'LOLA Health';
     primaryPerks = '15% Off Referral • UKAS Lab';
@@ -1175,6 +1209,34 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
       perksNote: primaryPerks
     }
   ];
+
+  // Add Basic Option ($155) for US Blood Tests
+  if (
+    market === 'US' && (
+      id.includes('blood-panel') ||
+      id.includes('essential-blood') ||
+      lowerDeal.includes('itemqd100025') ||
+      lowerDeal.includes('itemqd100026') ||
+      lowerDeal.includes('healthy-aging-panel') ||
+      ((lowerTitle.includes('blood') || lowerTitle.includes('cellular') || lowerTitle.includes('biomarker')) &&
+       !id.includes('pressure') && !lowerTitle.includes('pressure') &&
+       !id.includes('ovarian') && !lowerTitle.includes('ovarian'))
+    )
+  ) {
+    options.push({
+      id: `${id || 'prod'}-us-life-extension-basic`,
+      productId: id,
+      marketRegion: 'US',
+      supplierName: 'Life Extension',
+      url: US_BLOOD_TEST_BASIC_URL,
+      ctaText: 'Order Basic Panel ($155)',
+      priceText: '$155.00',
+      badgeText: US_BLOOD_TEST_BASIC_BADGE,
+      isPrimary: false,
+      isActive: true,
+      perksNote: 'Item #QD100025 • Entry Baseline'
+    });
+  }
 
   // Add multi-supplier options for Supplements & Nutraceuticals (excluding digital guides)
   if (
@@ -1264,6 +1326,9 @@ export const affiliateLinks: Record<string, any> = {
   lola_peak_insights: 'https://referrals.lolahealth.com/NextLevel15',
   lola_health: 'https://referrals.lolahealth.com/NextLevel15',
   hp_blood_panel_uk: 'https://referrals.lolahealth.com/NextLevel15',
+  hp_blood_panel_us: US_BLOOD_TEST_COMPREHENSIVE_URL,
+  us_blood_test_comprehensive: US_BLOOD_TEST_COMPREHENSIVE_URL,
+  us_blood_test_basic: US_BLOOD_TEST_BASIC_URL,
   hp_biological_age: 'https://amazon.com/dp/B0CXM1X8PQ',
   hp_nad_stack: 'https://livemomentous.com/modernwisdom?code=modernwisdom',
   hp_bio_response: 'https://amazon.com/dp/B0CXM1X8PQ',

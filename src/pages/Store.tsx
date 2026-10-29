@@ -35,7 +35,11 @@ import {
   StoreCategory,
   SupplierOption,
   STORE_CATEGORIES,
-  resolveProductSuppliers
+  resolveProductSuppliers,
+  US_BLOOD_TEST_BASIC_URL,
+  US_BLOOD_TEST_BASIC_BADGE,
+  US_BLOOD_TEST_COMPREHENSIVE_URL,
+  US_BLOOD_TEST_COMPREHENSIVE_BADGE
 } from '../config/affiliateLinks';
 
 import lolaBloodPanelImg from '../assets/products/lola-blood-panel.jpg';
@@ -927,14 +931,14 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
   "US": [
     {
       "id": "essential-blood-panel-us",
-      "name": "Choice A: HealthLabs Essential Baseline Blood Check (US 🇺🇸)",
+      "name": "Healthy Aging Panel (Basic) [#QD100025]",
       "category": "Clinical Diagnostics & Labs",
       "rating": 4.95,
-      "description": "CLIA/CAP-certified baseline blood panel via Quest/Labcorp measuring Core Lipids (Cholesterol, HDL, LDL, Triglycerides), HbA1c, Fasting Glucose, and basic kidney/liver filtration.",
-      "price_text": "From $99.00",
-      "deal_url": "https://www.healthlabs.com/?affiliate=123znl",
+      "description": "CLIA/CAP-certified baseline blood panel via Quest Diagnostics measuring Core Lipids (Cholesterol, HDL, LDL, Triglycerides), HbA1c, Fasting Glucose, and basic metabolic filtration.",
+      "price_text": "$155.00",
+      "deal_url": "https://www.lifeextension.com/lab-testing/itemqd100025/healthy-aging-panel-basic-blood-test",
       "market_region": "US",
-      "badge_text": "🇺🇸 US (HealthLabs/Quest)",
+      "badge_text": "💊 Entry-Level Metabolic Baseline ($155)",
       "image_url": "/Products/clinical-blood-panel.jpg"
     },
     {
@@ -1059,14 +1063,14 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     },
     {
       "id": "blood-panel-us",
-      "name": "Choice B: Personalized Cellular Biomarker Map (56 Biomarkers)",
+      "name": "Healthy Aging Panel: Comprehensive & Basic Baseline (US 🇺🇸)",
       "category": "Clinical Diagnostics & Labs",
-      "rating": 4.92,
-      "description": "Direct-to-consumer longevity blood panels mapping 56 essential biomarkers—including ApoB (cardiovascular plaque risk), HbA1c, and hs-CRP. Draws are completed at local Quest or Labcorp patient centers.",
-      "price_text": "From $299.00",
-      "deal_url": "https://www.healthlabs.com/?affiliate=123znl",
+      "rating": 4.95,
+      "description": "Direct-to-consumer longevity blood panels via Quest Diagnostics requisition. Toggle between the Comprehensive 56-Biomarker Map (#QD100026) or the Entry-Level Baseline (#QD100025).",
+      "price_text": "$299.00",
+      "deal_url": "https://www.lifeextension.com/lab-testing/itemqd100026/healthy-aging-panel-comprehensive-blood-test",
       "market_region": "US",
-      "badge_text": "🇺🇸 US (HealthLabs/Quest)",
+      "badge_text": "💊 Comprehensive Metabolic & Inflammatory Map",
       "image_url": "/Products/clinical-blood-panel.jpg"
     },
     {
@@ -2601,9 +2605,34 @@ export function isLolaProduct(product: any, market?: MarketTab): boolean {
   return region === 'UK' && (title.includes('lola') || deal.includes('lolahealth') || id.endsWith('-uk'));
 }
 
+export function isUSBloodTest(product: any, market?: MarketTab): boolean {
+  const region = String(product?.market_region || market || '').toUpperCase();
+  if (region !== 'US') return false;
+
+  const id = String(product?.id || '').toLowerCase();
+  const title = String(product?.name || product?.title || '').toLowerCase();
+  const deal = String(product?.deal_url || product?.affiliate_link || product?.url || '').toLowerCase();
+
+  return (
+    id.includes('blood-panel') ||
+    id.includes('essential-blood') ||
+    deal.includes('itemqd100025') ||
+    deal.includes('itemqd100026') ||
+    deal.includes('healthy-aging-panel') ||
+    ((title.includes('blood') || title.includes('cellular') || title.includes('biomarker') || title.includes('healthy aging')) &&
+     !id.includes('pressure') && !title.includes('pressure') &&
+     !id.includes('ovarian') && !title.includes('ovarian') &&
+     !id.includes('cgm') && !title.includes('cgm'))
+  );
+}
+
 export function getDiagnosticPricingBadge(product: any, market: MarketTab): string {
   const id = String(product?.id || '').toLowerCase();
   const title = String(product?.name || product?.title || '').toLowerCase();
+
+  if (isUSBloodTest(product, market)) {
+    return '💊 Direct Life Extension • Quest Draw';
+  }
 
   if (id.includes('cgm') || title.includes('glucose monitor') || title.includes('glucosa') || title.includes('lingo') || title.includes('dexcom')) {
     if (market === 'UK') return '💷 Live sensor pricing on Lingo UK';
@@ -2627,7 +2656,7 @@ export function getDiagnosticPricingBadge(product: any, market: MarketTab): stri
   if (market === 'ES') {
     return '💶 Precios actualizados en la web de Melio';
   }
-  return '💵 Up-to-date prices on HealthLabs website';
+  return '💵 Up-to-date pricing on Life Extension';
 }
 
 export function resolveDiagnosticImage(product: any, fallbackImg?: string, market?: MarketTab): string {
@@ -2799,27 +2828,39 @@ export function getDiagnosticCountryBadge(market: MarketTab, product?: any): str
     return '🇺🇸 US (Diagnox / FDA Cleared)';
   }
 
+  if (isUSBloodTest(product, market)) {
+    const id = String(product?.id || '').toLowerCase();
+    if (id.includes('essential')) return '💊 Entry-Level Metabolic Baseline ($155)';
+    return '💊 Comprehensive Metabolic & Inflammatory Map';
+  }
+
   if (market === 'UK') return '🇬🇧 UK (LOLA/UKAS)';
   if (market === 'ES') return '🇪🇸 ES (Melio/Megalab)';
-  return '🇺🇸 US (HealthLabs/Quest)';
+  return '🇺🇸 US (Quest / Life Extension)';
 }
 
 export function getCleanDiagnosticCta(product: any, market: MarketTab): string {
   const id = (product?.id || '').toLowerCase();
   const title = (product?.name || '').toLowerCase();
 
+  // Temporary US Blood Tests (Life Extension Direct)
+  if (isUSBloodTest(product, market)) {
+    if (id.includes('essential')) return 'Order Basic Panel (Life Extension $155 🇺🇸)';
+    return 'Order Comprehensive Panel (Life Extension US 🇺🇸)';
+  }
+
   // Choice A: Essential Baseline Bloods
   if (id.includes('essential-blood') || title.includes('choice a') || title.includes('essential baseline')) {
     if (market === 'UK') return 'Order Baseline Bloods (LOLA UK 🇬🇧)';
     if (market === 'ES') return 'Order Baseline Bloods (Melio ES 🇪🇸)';
-    return 'Order Baseline Bloods (HealthLabs US 🇺🇸)';
+    return 'Order Basic Panel (Life Extension $155 🇺🇸)';
   }
 
   // Choice B: Vital Check 56 / 56-Biomarker Panel
   if (id.includes('blood-panel') || title.includes('56') || title.includes('vital check') || title.includes('biomarker') || title.includes('biomarcador')) {
     if (market === 'UK') return 'Order 56-Biomarker Panel (LOLA UK 🇬🇧)';
     if (market === 'ES') return 'Order 56-Biomarker Panel (Melio ES 🇪🇸)';
-    return 'Order 56-Biomarker Panel (HealthLabs US 🇺🇸)';
+    return 'Order Comprehensive Panel (Life Extension US 🇺🇸)';
   }
 
   // Lab Urine ACR
@@ -2956,11 +2997,13 @@ export function DynamicSupplierCtaSection({
   displayPrice: string;
   isBypassActive?: boolean;
 }) {
+  const [selectedBloodTier, setSelectedBloodTier] = useState<'comprehensive' | 'basic'>('comprehensive');
+  const isUSBlood = isUSBloodTest(product, market);
   const activeSuppliers = getActiveSuppliers(product, market);
   if (activeSuppliers.length === 0) return null;
 
   const primary = activeSuppliers.find(s => s.isPrimary) || activeSuppliers[0];
-  const secondary = activeSuppliers.filter(s => s !== primary);
+  const secondary = isUSBlood ? [] : activeSuppliers.filter(s => s !== primary);
   const flagEmoji = market === 'US' ? '🇺🇸' : market === 'UK' ? '🇬🇧' : '🇪🇸';
 
   const isMetabolicProtocol =
@@ -2970,28 +3013,75 @@ export function DynamicSupplierCtaSection({
     String(product.deal_url || '').toLowerCase().includes('metabolic-visceral-fat') ||
     String(product.deal_url || '').toLowerCase().includes('metabolic-master-guide');
 
-  const defaultCtaText = isMetabolicProtocol
+  let defaultCtaText = isMetabolicProtocol
     ? "Access Paid Protocol 🔒 — £29.00"
     : isDiag 
     ? getCleanDiagnosticCta(product, market) 
     : (product.deal_url?.includes('/checkout') ? 'Get Master Guide ➔' : (primary.ctaText || `Buy on Amazon ${flagEmoji}`));
 
-  const primaryUrl = isMetabolicProtocol
+  let primaryUrl = isMetabolicProtocol
     ? '/checkout?item=metabolic-visceral-fat-protocol'
     : (primary.url || product.deal_url || '#');
 
-  const priceToShow = isMetabolicProtocol ? '£29.00' : (primary.priceText || displayPrice || product.price_text);
-  const ctaButtonText = isMetabolicProtocol ? "Access Paid Protocol 🔒 — £29.00" : (primary.ctaText || defaultCtaText);
+  let priceToShow = isMetabolicProtocol ? '£29.00' : (primary.priceText || displayPrice || product.price_text);
+  let ctaButtonText = isMetabolicProtocol ? "Access Paid Protocol 🔒 — £29.00" : (primary.ctaText || defaultCtaText);
+  let perksNoteToShow = primary.perksNote;
+
+  if (isUSBlood) {
+    if (selectedBloodTier === 'basic') {
+      priceToShow = '$155.00';
+      primaryUrl = US_BLOOD_TEST_BASIC_URL;
+      ctaButtonText = 'Order Basic Panel ($155 🇺🇸)';
+      perksNoteToShow = 'Item #QD100025 • Entry-Level Baseline';
+    } else {
+      priceToShow = 'From $299.00';
+      primaryUrl = US_BLOOD_TEST_COMPREHENSIVE_URL;
+      ctaButtonText = 'Order Comprehensive Panel (Life Extension US 🇺🇸)';
+      perksNoteToShow = 'Item #QD100026 • 56-Biomarker Cellular Map';
+    }
+  }
 
   return (
     <div className="flex flex-col space-y-2.5">
+      {/* Interactive Tier Selector for US Blood Tests */}
+      {isUSBlood && (
+        <div className="flex rounded-xl bg-slate-900/90 p-1 border border-slate-800 gap-1 mb-1">
+          <button
+            type="button"
+            onClick={() => setSelectedBloodTier('comprehensive')}
+            className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-bold transition-all text-center cursor-pointer ${
+              selectedBloodTier === 'comprehensive'
+                ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 shadow-sm'
+                : 'text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            Comprehensive
+          </button>
+          <button
+            type="button"
+            onClick={() => setSelectedBloodTier('basic')}
+            className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-bold transition-all text-center cursor-pointer ${
+              selectedBloodTier === 'basic'
+                ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40 shadow-sm'
+                : 'text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            Basic ($155)
+          </button>
+        </div>
+      )}
+
       {/* Primary CTA Box */}
       <div className={`flex justify-between items-center gap-3 p-3 rounded-xl border ${
         isDiag ? 'bg-slate-900/40 border-slate-850' : 'bg-slate-900/20 border-slate-900'
       }`}>
         <div className="flex flex-col shrink-0">
           <span className="font-extrabold text-slate-100 text-lg leading-tight">{priceToShow}</span>
-          {isDiag && (
+          {isUSBlood ? (
+            <span className="text-[10px] text-emerald-400/90 font-medium mt-0.5">
+              {selectedBloodTier === 'basic' ? 'Direct Life Extension • $155' : 'Direct Life Extension • Quest Draw'}
+            </span>
+          ) : isDiag ? (
             <span className="text-[10px] text-emerald-400/90 font-medium mt-0.5">
               {isLolaProduct(product, market)
                 ? 'Live pricing on LOLA Health'
@@ -2999,10 +3089,10 @@ export function DynamicSupplierCtaSection({
                 ? 'Precios en vivo en el portal'
                 : 'Live pricing on partner site'}
             </span>
-          )}
-          {!isDiag && primary.perksNote && (
+          ) : null}
+          {!isDiag && perksNoteToShow && (
             <span className="text-[10px] text-emerald-400 font-semibold mt-0.5">
-              ✨ {primary.perksNote}
+              ✨ {perksNoteToShow}
             </span>
           )}
         </div>
@@ -3408,9 +3498,15 @@ export function Store({ region }: StoreProps = {}) {
 
   // Split into Tier 1 (Clinical Direct) and Tier 2 (Amazon Hub)
   // Only genuine Clinical Diagnostics & Labs products belong in Tier 1
-  const clinicalPartners = filteredProducts.filter(p => 
+  const rawClinicalPartners = filteredProducts.filter(p => 
     p.category === 'Clinical Diagnostics & Labs' || isDiagnosticProduct(p)
   );
+
+  // In US view, unify blood testing under the flagship card with interactive tier selector
+  const hasBloodPanel = activeTab === 'US' && rawClinicalPartners.some(p => String(p.id).toLowerCase() === 'blood-panel-us');
+  const clinicalPartners = hasBloodPanel
+    ? rawClinicalPartners.filter(p => String(p.id).toLowerCase() !== 'essential-blood-panel-us')
+    : rawClinicalPartners;
 
   const amazonHubProducts = filteredProducts.filter(p => 
     !clinicalPartners.includes(p)
