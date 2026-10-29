@@ -224,8 +224,8 @@ export const GUIDE_PRODUCTS: Record<string, DigitalGuideProduct> = {
     id: 'metabolic-master-guide',
     productId: 'g-met-1',
     title: 'The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol',
-    priceInCents: 1900, // £19.00
-    priceFormatted: '£19.00',
+    priceInCents: 2900, // £29.00
+    priceFormatted: '£29.00',
     r2FileKey: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf',
     pillar: 'Metabolic Health & Body Composition',
     description: 'A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.',
@@ -333,6 +333,7 @@ export const GUIDE_ALIASES: Record<string, string> = {
 
   // Metabolic Master Guide & Visceral Fat Protocol
   'metabolic-master-guide': 'metabolic-master-guide',
+  'metabolic-visceral-fat-protocol': 'metabolic-master-guide',
   'visceral-fat-protocol': 'metabolic-master-guide',
   '12-week-protocol': 'metabolic-master-guide',
   'metabolic-protocol': 'metabolic-master-guide',

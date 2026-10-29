@@ -49,7 +49,7 @@ export default function MetabolicMasterGuidePage() {
     else setActiveCurrency('GBP');
   }, [market]);
 
-  const priceFormatted = activeCurrency === 'USD' ? '$25.00' : activeCurrency === 'EUR' ? '22,00 €' : '£19.00';
+  const priceFormatted = activeCurrency === 'USD' ? '$38.00' : activeCurrency === 'EUR' ? '34,00 €' : '£29.00';
   const currencySign = activeCurrency === 'USD' ? '$' : activeCurrency === 'EUR' ? '€' : '£';
 
   const productData = {

@@ -101,8 +101,8 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "category": "Supplements & Nutraceuticals",
       "rating": 4.98,
       "description": "A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.",
-      "price_text": "£19.00",
-      "deal_url": "/checkout?product=metabolic-master-guide",
+      "price_text": "£29.00",
+      "deal_url": "/checkout?item=metabolic-visceral-fat-protocol",
       "market_region": "UK",
       "badge_text": "PREMIUM MASTER GUIDE",
       "image_url": "/assets/images/metabolic_nutrition_cover_New.png"
@@ -955,8 +955,8 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "category": "Supplements & Nutraceuticals",
       "rating": 4.98,
       "description": "A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.",
-      "price_text": "$25.00",
-      "deal_url": "/checkout?product=metabolic-master-guide",
+      "price_text": "£29.00",
+      "deal_url": "/checkout?item=metabolic-visceral-fat-protocol",
       "market_region": "US",
       "badge_text": "PREMIUM MASTER GUIDE",
       "image_url": "/assets/images/metabolic_nutrition_cover_New.png"
@@ -1569,8 +1569,8 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "category": "Supplements & Nutraceuticals",
       "rating": 4.98,
       "description": "A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.",
-      "price_text": "22,00€",
-      "deal_url": "/checkout?product=metabolic-master-guide",
+      "price_text": "£29.00",
+      "deal_url": "/checkout?item=metabolic-visceral-fat-protocol",
       "market_region": "ES",
       "badge_text": "PREMIUM MASTER GUIDE",
       "image_url": "/assets/images/metabolic_nutrition_cover_New.png"
@@ -2332,6 +2332,16 @@ export function normalizeStoreCategory(rawCategory: string | undefined, name?: s
   const title = (name || '').toLowerCase();
   const deal = (dealUrl || '').toLowerCase();
 
+  // "The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol" is strictly Supplements & Nutraceuticals
+  if (
+    title.includes('12-week metabolic') ||
+    title.includes('visceral fat protocol') ||
+    deal.includes('metabolic-visceral-fat') ||
+    deal.includes('metabolic-master-guide')
+  ) {
+    return 'Supplements & Nutraceuticals';
+  }
+
   // Direct match for the 5 unified StoreCategory values
   if (cat === 'clinical diagnostics & labs') return 'Clinical Diagnostics & Labs';
   if (cat === 'smart hardware & wearables') return 'Smart Hardware & Wearables';
@@ -2511,6 +2521,18 @@ export const DIAGNOSTIC_GP_BRIEF_BADGE = '💷 Up-to-date prices on LOLA Health 
 
 export function isDiagnosticProduct(product: any): boolean {
   if (!product) return false;
+  const title = (product.name || '').toLowerCase();
+  const deal = (product.deal_url || '').toLowerCase();
+  const id = (product.id || '').toLowerCase();
+  if (
+    title.includes('12-week metabolic') ||
+    title.includes('visceral fat protocol') ||
+    deal.includes('metabolic-visceral-fat') ||
+    deal.includes('metabolic-master-guide') ||
+    id.includes('metabolic-master-guide')
+  ) {
+    return false;
+  }
   const cat = normalizeStoreCategory(product.category, product.name, product.deal_url);
   return cat === 'Clinical Diagnostics & Labs';
 }
@@ -2941,12 +2963,25 @@ export function DynamicSupplierCtaSection({
   const secondary = activeSuppliers.filter(s => s !== primary);
   const flagEmoji = market === 'US' ? '🇺🇸' : market === 'UK' ? '🇬🇧' : '🇪🇸';
 
-  const defaultCtaText = isDiag 
+  const isMetabolicProtocol =
+    String(product.name || '').toLowerCase().includes('12-week metabolic') ||
+    String(product.name || '').toLowerCase().includes('visceral fat protocol') ||
+    String(product.id || '').toLowerCase().includes('metabolic-master-guide') ||
+    String(product.deal_url || '').toLowerCase().includes('metabolic-visceral-fat') ||
+    String(product.deal_url || '').toLowerCase().includes('metabolic-master-guide');
+
+  const defaultCtaText = isMetabolicProtocol
+    ? "Access Paid Protocol 🔒 — £29.00"
+    : isDiag 
     ? getCleanDiagnosticCta(product, market) 
     : (product.deal_url?.includes('/checkout') ? 'Get Master Guide ➔' : (primary.ctaText || `Buy on Amazon ${flagEmoji}`));
 
-  const primaryUrl = primary.url || product.deal_url || '#';
-  const priceToShow = primary.priceText || displayPrice || product.price_text;
+  const primaryUrl = isMetabolicProtocol
+    ? '/checkout?item=metabolic-visceral-fat-protocol'
+    : (primary.url || product.deal_url || '#');
+
+  const priceToShow = isMetabolicProtocol ? '£29.00' : (primary.priceText || displayPrice || product.price_text);
+  const ctaButtonText = isMetabolicProtocol ? "Access Paid Protocol 🔒 — £29.00" : (primary.ctaText || defaultCtaText);
 
   return (
     <div className="flex flex-col space-y-2.5">
@@ -2985,15 +3020,17 @@ export function DynamicSupplierCtaSection({
         ) : (
           <a
             href={primaryUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+            target={primaryUrl.startsWith('/checkout') ? undefined : "_blank"}
+            rel={primaryUrl.startsWith('/checkout') ? undefined : "noopener noreferrer"}
             className={`px-4 py-2 rounded-lg text-xs font-bold transition-all duration-300 text-center shadow-lg ${
               isDiag 
                 ? 'bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white shadow-rose-500/20'
+                : isMetabolicProtocol
+                ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 shadow-emerald-500/25 font-black'
                 : 'bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400'
             }`}
           >
-            {primary.ctaText || defaultCtaText}
+            {ctaButtonText}
           </a>
         )}
       </div>
@@ -3370,12 +3407,9 @@ export function Store({ region }: StoreProps = {}) {
   ).filter(p => getActiveSuppliers(p, activeTab).length > 0);
 
   // Split into Tier 1 (Clinical Direct) and Tier 2 (Amazon Hub)
-  // When 'Clinical Diagnostics & Labs' category is active, group ALL diagnostic products in Tier 1 to avoid duplicate section headers
-  const isDiagCategoryActive = activeCategory.toLowerCase().includes('diagnostic');
+  // Only genuine Clinical Diagnostics & Labs products belong in Tier 1
   const clinicalPartners = filteredProducts.filter(p => 
-    p.is_direct_affiliate === true || 
-    (isDiagCategoryActive && (p.category === 'Clinical Diagnostics & Labs' || isDiagnosticProduct(p))) ||
-    (p.deal_url && !p.deal_url.toLowerCase().includes('amazon'))
+    p.category === 'Clinical Diagnostics & Labs' || isDiagnosticProduct(p)
   );
 
   const amazonHubProducts = filteredProducts.filter(p => 

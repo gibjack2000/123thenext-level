@@ -1085,8 +1085,8 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
   const id = String(product?.id || rawId || 'prod');
   const matchedStackItem = sovereignHealthStack.find(item => item.id.toLowerCase() === rawId);
 
-  const dealUrl = String(product?.deal_url || product?.affiliate_link || '');
-  const priceText = String(product?.price_text || '');
+  let dealUrl = String(product?.deal_url || product?.affiliate_link || '');
+  let priceText = String(product?.price_text || '');
   const badgeText = String(product?.badge_text || 'Verified');
   const category = String(product?.category || '');
   const title = String(product?.name || product?.title || '');
@@ -1119,7 +1119,18 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
       ? 'Buy on Amazon UK 🇬🇧'
       : 'Buy on Amazon US 🇺🇸';
 
-  if (lowerDeal.includes('lolahealth') || (market === 'UK' && lowerTitle.includes('lola'))) {
+  if (
+    lowerTitle.includes('12-week metabolic') ||
+    lowerTitle.includes('visceral fat protocol') ||
+    lowerDeal.includes('metabolic-visceral-fat') ||
+    lowerDeal.includes('metabolic-master-guide')
+  ) {
+    primarySupplier = 'Life Extension';
+    primaryPerks = 'Instant Protocol Access • Secure Checkout';
+    primaryCta = 'Access Paid Protocol 🔒 — £29.00';
+    dealUrl = '/checkout?item=metabolic-visceral-fat-protocol';
+    priceText = '£29.00';
+  } else if (lowerDeal.includes('lolahealth') || (market === 'UK' && lowerTitle.includes('lola'))) {
     primarySupplier = 'LOLA Health';
     primaryPerks = '15% Off Referral • UKAS Lab';
     primaryCta = 'Order via LOLA Health UK 🇬🇧';

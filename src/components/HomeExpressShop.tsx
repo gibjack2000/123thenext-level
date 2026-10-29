@@ -654,24 +654,24 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     isDirectAffiliate: true,
     regions: {
       US: {
-        price: "$25.00",
+        price: "£29.00",
         badge: "PREMIUM GUIDE | Instant PDF",
-        url: "/checkout?product=metabolic-master-guide",
-        ctaText: "Get Master Guide ($25) 🇺🇸",
+        url: "/checkout?item=metabolic-visceral-fat-protocol",
+        ctaText: "Access Paid Protocol 🔒 — £29.00",
         network: "Digital Download"
       },
       UK: {
-        price: "£19.00",
+        price: "£29.00",
         badge: "PREMIUM GUIDE | Instant PDF",
-        url: "/checkout?product=metabolic-master-guide",
-        ctaText: "Get Master Guide (£19) 🇬🇧",
+        url: "/checkout?item=metabolic-visceral-fat-protocol",
+        ctaText: "Access Paid Protocol 🔒 — £29.00",
         network: "Digital Download"
       },
       ES: {
-        price: "22,00€",
+        price: "£29.00",
         badge: "GUÍA PREMIUM | PDF Instantáneo",
-        url: "/checkout?product=metabolic-master-guide",
-        ctaText: "Obtener Guía (22€) 🇪🇸",
+        url: "/checkout?item=metabolic-visceral-fat-protocol",
+        ctaText: "Access Paid Protocol 🔒 — £29.00",
         network: "Digital Download"
       }
     }

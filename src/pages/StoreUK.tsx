@@ -172,7 +172,7 @@ export const StoreUK: React.FC = () => {
 
   const isDiagCategoryActive = activeCategory.toLowerCase().includes('diagnostic');
   const clinicalPartners = filteredProducts.filter(p => 
-    p.is_direct_affiliate || (isDiagCategoryActive && (p.category === 'Clinical Diagnostics & Labs' || isDiagnosticProduct(p)))
+    p.category === 'Clinical Diagnostics & Labs' || isDiagnosticProduct(p)
   );
   const amazonProducts = filteredProducts.filter(p => !clinicalPartners.includes(p));
 

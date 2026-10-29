@@ -40,6 +40,8 @@ const TEN_BOOK_VAULT_GUIDES: BundleGuideItem[] = [
 
 const GUIDE_MAP_BY_ID: Record<string, BundleGuideItem> = {
   'metabolic-master-guide': { id: 'metabolic-master-guide', title: 'The 12-Week Metabolic Re-Engineering Protocol', file: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf', pillar: 'Metabolic & Visceral' },
+  'metabolic-visceral-fat-protocol': { id: 'metabolic-master-guide', title: 'The 12-Week Metabolic Re-Engineering Protocol', file: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf', pillar: 'Metabolic & Visceral' },
+  'visceral-fat-protocol': { id: 'metabolic-master-guide', title: 'The 12-Week Metabolic Re-Engineering Protocol', file: 'The_12_Week_Metabolic_ReEngineering_Protocol-2026.pdf', pillar: 'Metabolic & Visceral' },
   'beginner-home-workout': { id: 'beginner-home-workout', title: 'Beginner Home Workout Plan', file: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
   'workout-plan': { id: 'workout-plan', title: 'Beginner Home Workout Plan', file: 'beginner_home_workout-2026.pdf', pillar: 'Fitness' },
   'hypertrophy-strength': { id: 'hypertrophy-strength', title: 'Hypertrophy & Strength Protocol', file: 'Hypertrophy-Strength-Protocol-2026.pdf', pillar: 'Muscle Architecture' },
@@ -336,16 +338,24 @@ const PRODUCT_MAP: Record<string, ProductInfo> = {
   'metabolic-master-guide': {
     id: 'g-met-1',
     name: 'The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol',
-    price: '£19.00',
-    usPrice: '$25.00',
+    price: '£29.00',
+    usPrice: '$38.00',
     slug: 'metabolic-master-guide',
     desc: 'A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.'
   },
   'visceral-fat-protocol': {
     id: 'g-met-1',
     name: 'The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol',
-    price: '£19.00',
-    usPrice: '$25.00',
+    price: '£29.00',
+    usPrice: '$38.00',
+    slug: 'metabolic-master-guide',
+    desc: 'A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.'
+  },
+  'metabolic-visceral-fat-protocol': {
+    id: 'g-met-1',
+    name: 'The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol',
+    price: '£29.00',
+    usPrice: '$38.00',
     slug: 'metabolic-master-guide',
     desc: 'A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.'
   },
@@ -377,7 +387,7 @@ const PRODUCT_MAP: Record<string, ProductInfo> = {
 
 export default function CheckoutPage() {
   const [searchParams] = useSearchParams();
-  const rawKey = searchParams.get('product') || searchParams.get('bundle') || 'bundle-complete-vault-10';
+  const rawKey = searchParams.get('item') || searchParams.get('product') || searchParams.get('guide') || searchParams.get('bundle') || 'bundle-complete-vault-10';
   const guidesParam = searchParams.get('guides');
   const baseItem = PRODUCT_MAP[rawKey] || PRODUCT_MAP['bundle-complete-vault-10'];
 
