@@ -15,12 +15,19 @@ import {
   Stethoscope,
   FileText
 } from 'lucide-react';
-import DiagnosticPathwaySelector from '../components/DiagnosticPathwaySelector';
 import { supabase as importedSupabase, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
 import { useMarket } from '../contexts/MarketContext';
 import { ProductRecord } from './StoreUS';
-import { STOREFRONT_CATEGORIES, normalizeStoreCategory } from './Store';
+import {
+  STOREFRONT_CATEGORIES,
+  normalizeStoreCategory,
+  isDiagnosticProduct,
+  getDiagnosticCountryBadge,
+  getCleanDiagnosticCta,
+  DIAGNOSTIC_GP_BRIEF_BADGE,
+  ensureCoreRegionalCatalog
+} from './Store';
 import { DigitalGuides } from '../components/DigitalGuides';
 import BundleOffers from '../components/BundleOffers';
 
@@ -71,16 +78,19 @@ export const StoreUK: React.FC = () => {
             healedDeal = healedDeal.replace('https://123thenextlevel.com', '');
           }
 
+          const catFormatted = normalizeStoreCategory(item.category, item.name, healedDeal);
+          const isDiag = catFormatted === '🩸 Clinical Diagnostics & Lab Testing';
+
           return {
             id: item.id,
             name: item.name || 'Curated UK Protocol',
-            category: normalizeStoreCategory(item.category, item.name, healedDeal),
+            category: catFormatted,
             rating: typeof item.rating === 'number' ? item.rating : 4.8,
             description: item.description || 'Clinically verified biological telemetry and longevity equipment for the UK market.',
             price_text: item.price_text || (item.price != null ? `£${Number(item.price).toFixed(2)}` : '£0.00'),
             deal_url: healedDeal,
             market_region: 'UK',
-            badge_text: item.badge_text || 'MHRA / UK Verified',
+            badge_text: isDiag ? getDiagnosticCountryBadge('UK') : (item.badge_text || 'MHRA / UK Verified'),
             image_url: healedImg,
             is_direct_affiliate: item.is_direct_affiliate || (!healedDeal.toLowerCase().includes('amazon')),
             hub_placement_slot: item.hub_placement_slot,
@@ -88,13 +98,13 @@ export const StoreUK: React.FC = () => {
           };
         });
 
-        setProducts(sanitized);
+        setProducts(ensureCoreRegionalCatalog(sanitized, 'UK'));
       } else {
-        setProducts([]);
+        setProducts(ensureCoreRegionalCatalog([], 'UK'));
       }
     } catch (err: any) {
       console.error('Error fetching UK products from Supabase:', err);
-      setFetchError(err.message || 'Unable to sync live catalog from Supabase.');
+      setProducts(ensureCoreRegionalCatalog([], 'UK'));
     } finally {
       setLoading(false);
     }
@@ -321,14 +331,6 @@ export const StoreUK: React.FC = () => {
         </div>
       ) : (
         <div className="max-w-7xl mx-auto space-y-12">
-          {/* Diagnostic Dual-Pathway Requisition Selector */}
-          <div className="relative overflow-hidden rounded-3xl bg-slate-900/60 border border-slate-800 p-6 sm:p-8 shadow-2xl backdrop-blur-md">
-            <DiagnosticPathwaySelector 
-              showRegionTabs={true}
-              showCopilotLink={true}
-            />
-          </div>
-
           {/* Clinician Co-Pilot Helper Banner above Clinical Lab Panels */}
           <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-cyan-950/40 to-slate-900 border border-cyan-500/30 p-6 sm:p-8 shadow-2xl backdrop-blur-md">
             <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -339,10 +341,10 @@ export const StoreUK: React.FC = () => {
                   <span>Physician Consultation Guide • 100% Free</span>
                 </div>
                 <h3 className="text-xl sm:text-2xl font-display uppercase tracking-tight text-white font-bold">
-                  Planning a Lola Vital Check 56 Blood Panel? Consult Your GP First
+                  Planning a LOLA Blood Panel? Consult Your GP First
                 </h3>
                 <p className="text-slate-350 text-xs sm:text-sm font-light leading-relaxed">
-                  Before booking venous phlebotomy or starting high-dose protocols, download our free 4-page <strong>Clinician Co-Pilot Workbook</strong>. It includes a 14-day vital signs log, Level 1 Core Tri-Marker requisition (ApoB, HbA1c, hs-CRP), and word-for-word GP discussion scripts to co-evaluate your biomarkers with your British clinician.
+                  Before booking venous phlebotomy or starting high-dose protocols, use our free <strong>Clinician Co-Pilot Hub</strong> to translate your blood, urine, and wearable metrics into a standardized 2-Page GP Consultation Brief.
                 </p>
               </div>
               <div className="shrink-0 flex flex-col sm:flex-row lg:flex-col gap-2.5">
@@ -354,11 +356,11 @@ export const StoreUK: React.FC = () => {
                   <span>Open Clinician Co-Pilot →</span>
                 </Link>
                 <a
-                  href="/assets/docs/clinical-baseline-consultation-workbook.pdf"
-                  download="clinical-baseline-consultation-workbook.pdf"
+                  href="/assets/docs/clinical-baseline-consultation-template-v2.pdf"
+                  download="clinical-baseline-consultation-template-v2.pdf"
                   className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-slate-600 text-slate-300 hover:text-white text-[11px] font-bold uppercase tracking-wider transition-all text-center"
                 >
-                  <span>Download Direct PDF</span>
+                  <span>Download 2-Page GP Brief PDF</span>
                 </a>
               </div>
             </div>
@@ -369,74 +371,87 @@ export const StoreUK: React.FC = () => {
             <div className="space-y-6">
               <div className="border-l-4 border-rose-500 pl-4">
                 <span className="text-xs text-rose-500 uppercase font-semibold tracking-widest">DIRECT ACCESS PARTNERS (UK)</span>
-                <h2 className="text-2xl font-bold text-slate-100 mt-1">Clinical Diagnostics & Co-Pilot Offerings</h2>
+                <h2 className="text-2xl font-bold text-slate-100 mt-1">🩸 Clinical Diagnostics &amp; Lab Testing</h2>
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {clinicalPartners.map(product => (
-                  <div 
-                    key={product.id} 
-                    className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 hover:border-rose-500/30 p-6 flex flex-col justify-between shadow-xl transition-all duration-300"
-                  >
-                    <div>
-                      {product.image_url && (
-                        <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-800/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
-                          <img 
-                            src={product.image_url} 
-                            alt={product.name} 
-                            className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
-                            referrerPolicy="no-referrer"
-                            onError={(e) => {
-                              const target = e.currentTarget;
-                              target.onerror = null;
-                              if (target.src.includes('123thenextlevel.com/')) {
-                                target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
-                                return;
-                              }
-                              target.src = '/assets/images/shop/sirtuin-stack.png';
-                            }}
-                          />
+                {clinicalPartners.map(product => {
+                  const isDiag = isDiagnosticProduct(product);
+                  return (
+                    <div 
+                      key={product.id} 
+                      className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 hover:border-rose-500/30 p-6 flex flex-col justify-between shadow-xl transition-all duration-300"
+                    >
+                      <div>
+                        {product.image_url && (
+                          <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-800/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
+                            <img 
+                              src={product.image_url} 
+                              alt={product.name} 
+                              className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                              referrerPolicy="no-referrer"
+                              onError={(e) => {
+                                const target = e.currentTarget;
+                                target.onerror = null;
+                                if (target.src.includes('123thenextlevel.com/')) {
+                                  target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
+                                  return;
+                                }
+                                target.src = '/assets/images/shop/sirtuin-stack.png';
+                              }}
+                            />
+                          </div>
+                        )}
+                        <div className="flex justify-between items-start mb-3">
+                          <span className="text-[10px] text-rose-400 font-bold uppercase tracking-widest px-2 py-1 rounded bg-rose-950/20 border border-rose-900/30">
+                            {product.category}
+                          </span>
+                          <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
+                            <Star size={13} className="fill-amber-400 text-amber-400" />
+                            <span>{Number(product.rating).toFixed(1)}</span>
+                          </span>
                         </div>
-                      )}
-                      <div className="flex justify-between items-start mb-4">
-                        <span className="text-[10px] text-rose-400 font-bold uppercase tracking-widest px-2 py-1 rounded bg-rose-950/20 border border-rose-900/30">
-                          {product.category}
-                        </span>
-                        <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
-                          <Star size={13} className="fill-amber-400 text-amber-400" />
-                          <span>{Number(product.rating).toFixed(1)}</span>
-                        </span>
+                        {isDiag && (
+                          <div className="flex flex-wrap items-center gap-1.5 mb-3">
+                            <span className="text-[11px] font-bold text-sky-300 bg-sky-950/60 border border-sky-500/40 px-2.5 py-1 rounded-md">
+                              {getDiagnosticCountryBadge('UK')}
+                            </span>
+                            <span className="text-[11px] font-bold text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-md">
+                              {DIAGNOSTIC_GP_BRIEF_BADGE}
+                            </span>
+                          </div>
+                        )}
+                        <h3 className="text-lg font-bold text-slate-100 group-hover:text-rose-400 transition-colors duration-300 line-clamp-2">
+                          {product.name}
+                        </h3>
+                        <p className="text-xs text-slate-400 mt-3 leading-relaxed line-clamp-3">
+                          {product.description}
+                        </p>
                       </div>
-                      <h3 className="text-lg font-bold text-slate-100 group-hover:text-rose-400 transition-colors duration-300 line-clamp-2">
-                        {product.name}
-                      </h3>
-                      <p className="text-xs text-slate-400 mt-3 leading-relaxed line-clamp-3">
-                        {product.description}
-                      </p>
-                    </div>
 
-                    <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs text-slate-500 font-semibold">Verification</span>
-                        <span className="text-[10px] text-cyan-400 font-bold px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-800/20">
-                          {product.badge_text || 'MHRA / UKCA'}
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center bg-slate-900/40 p-3 rounded-xl border border-slate-850">
-                        <span className="font-extrabold text-slate-100 text-lg">{product.price_text}</span>
-                        <a 
-                          href={product.deal_url} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="px-4 py-2 rounded-lg bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white text-xs font-bold shadow-lg transition-all duration-300 inline-flex items-center gap-1.5"
-                        >
-                          <span>Access Partner Portal</span>
-                          <ExternalLink size={12} />
-                        </a>
+                      <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-slate-500 font-semibold">Verification</span>
+                          <span className="text-[10px] text-cyan-400 font-bold px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-800/20">
+                            {isDiag ? getDiagnosticCountryBadge('UK') : (product.badge_text || 'MHRA / UKCA')}
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center gap-3 bg-slate-900/40 p-3 rounded-xl border border-slate-850">
+                          <span className="font-extrabold text-slate-100 text-lg shrink-0">{product.price_text}</span>
+                          <a 
+                            href={product.deal_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="px-4 py-2 rounded-lg bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white text-xs font-bold shadow-lg transition-all duration-300 inline-flex items-center gap-1.5 text-center"
+                          >
+                            <span>{isDiag ? getCleanDiagnosticCta(product, 'UK') : 'Access Partner Portal'}</span>
+                            <ExternalLink size={12} />
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
@@ -450,70 +465,83 @@ export const StoreUK: React.FC = () => {
               </div>
 
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {amazonProducts.map(product => (
-                  <div 
-                    key={product.id} 
-                    className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-850 hover:border-cyan-500/20 p-6 flex flex-col justify-between shadow-xl transition-all duration-300"
-                  >
-                    <div>
-                      {product.image_url && (
-                        <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-850/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
-                          <img 
-                            src={product.image_url} 
-                            alt={product.name} 
-                            className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
-                            referrerPolicy="no-referrer"
-                            onError={(e) => {
-                              const target = e.currentTarget;
-                              target.onerror = null;
-                              if (target.src.includes('123thenextlevel.com/')) {
-                                target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
-                                return;
-                              }
-                              target.src = '/Products/oxford.jpeg';
-                            }}
-                          />
+                {amazonProducts.map(product => {
+                  const isDiag = isDiagnosticProduct(product);
+                  return (
+                    <div 
+                      key={product.id} 
+                      className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-850 hover:border-cyan-500/20 p-6 flex flex-col justify-between shadow-xl transition-all duration-300"
+                    >
+                      <div>
+                        {product.image_url && (
+                          <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-850/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
+                            <img 
+                              src={product.image_url} 
+                              alt={product.name} 
+                              className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                              referrerPolicy="no-referrer"
+                              onError={(e) => {
+                                const target = e.currentTarget;
+                                target.onerror = null;
+                                if (target.src.includes('123thenextlevel.com/')) {
+                                  target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
+                                  return;
+                                }
+                                target.src = '/Products/oxford.jpeg';
+                              }}
+                            />
+                          </div>
+                        )}
+                        <div className="flex justify-between items-start mb-3">
+                          <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-widest px-2 py-1 rounded bg-cyan-950/20 border border-cyan-900/30">
+                            {product.category}
+                          </span>
+                          <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
+                            <Star size={13} className="fill-amber-400 text-amber-400" />
+                            <span>{Number(product.rating).toFixed(1)}</span>
+                          </span>
                         </div>
-                      )}
-                      <div className="flex justify-between items-start mb-4">
-                        <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-widest px-2 py-1 rounded bg-cyan-950/20 border border-cyan-900/30">
-                          {product.category}
-                        </span>
-                        <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
-                          <Star size={13} className="fill-amber-400 text-amber-400" />
-                          <span>{Number(product.rating).toFixed(1)}</span>
-                        </span>
+                        {isDiag && (
+                          <div className="flex flex-wrap items-center gap-1.5 mb-3">
+                            <span className="text-[11px] font-bold text-sky-300 bg-sky-950/60 border border-sky-500/40 px-2.5 py-1 rounded-md">
+                              {getDiagnosticCountryBadge('UK')}
+                            </span>
+                            <span className="text-[11px] font-bold text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-md">
+                              {DIAGNOSTIC_GP_BRIEF_BADGE}
+                            </span>
+                          </div>
+                        )}
+                        <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2">
+                          {product.name}
+                        </h3>
+                        <p className="text-xs text-slate-400 mt-3 leading-relaxed line-clamp-3">
+                          {product.description}
+                        </p>
                       </div>
-                      <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2">
-                        {product.name}
-                      </h3>
-                      <p className="text-xs text-slate-400 mt-3 leading-relaxed line-clamp-3">
-                        {product.description}
-                      </p>
-                    </div>
 
-                    <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs text-slate-500 font-semibold">Compliance Badge</span>
-                        <span className="text-[10px] text-slate-400 font-semibold px-2 py-0.5 rounded bg-slate-905 border border-slate-800">
-                          {product.badge_text || 'UK Verified'}
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center bg-slate-900/20 p-3 rounded-xl border border-slate-900">
-                        <span className="font-extrabold text-slate-100 text-lg">{product.price_text}</span>
-                        <a 
-                          href={product.deal_url} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="px-4 py-2 rounded-lg bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400 text-xs font-bold transition-all duration-300 inline-flex items-center gap-1.5"
-                        >
-                          <span>Buy on Amazon 🇬🇧</span>
-                          <ExternalLink size={12} />
-                        </a>
+                      <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-slate-500 font-semibold">Compliance Badge</span>
+                          <span className="text-[10px] text-slate-400 font-semibold px-2 py-0.5 rounded bg-slate-905 border border-slate-800">
+                            {isDiag ? getDiagnosticCountryBadge('UK') : (product.badge_text || 'UK Verified')}
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center gap-3 bg-slate-900/20 p-3 rounded-xl border border-slate-900">
+                          <span className="font-extrabold text-slate-100 text-lg shrink-0">{product.price_text}</span>
+                          <a 
+                            href={product.deal_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer" 
+                            className="px-4 py-2 rounded-lg bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400 text-xs font-bold transition-all duration-300 inline-flex items-center gap-1.5 text-center"
+                          >
+                            <span>{isDiag ? getCleanDiagnosticCta(product, 'UK') : 'Buy on Amazon 🇬🇧'}</span>
+                            <ExternalLink size={12} />
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}

@@ -1,5 +1,13 @@
 export type MarketRegion = 'US' | 'UK' | 'ES';
-export type ProductCategory = 'Tech Gadgets & Wearables' | 'Performance & Testing' | 'Supplements' | 'Lifestyle & Performance Gear' | 'Rapid Fluid Telemetry';
+export type ProductCategory =
+  | '🩸 Clinical Diagnostics & Lab Testing'
+  | '⌚ Smart Hardware & Wearables'
+  | '🌿 Supplements & Master Guides'
+  | 'Tech Gadgets & Wearables'
+  | 'Performance & Testing'
+  | 'Supplements'
+  | 'Lifestyle & Performance Gear'
+  | 'Rapid Fluid Telemetry';
 
 export interface ProductMarketConfig {
   url: string;
@@ -40,61 +48,121 @@ export interface SovereignProductItem {
 
 export const sovereignHealthStack: SovereignProduct[] = [
   {
-    id: "blood-panel",
-    name: "Personalized Cellular Biomarker Map (56 Biomarkers)",
-    category: "Performance & Testing",
+    id: "essential-blood-panel",
+    name: "Choice A: Essential Baseline Bloods (Core Lipids, HbA1c, Fasting Glucose)",
+    category: "🩸 Clinical Diagnostics & Lab Testing",
     isDirectAffiliate: true,
-    rating: 4.95,
-    description: "Direct-to-consumer longevity blood panels mapping 56 essential biomarkers. Local Quest/Labcorp draw in the US, private clinical setups in UK and ES.",
+    rating: 4.92,
+    description: "Core cardiovascular and metabolic blood panel measuring Cholesterol, HDL, LDL, Triglycerides, Fasting Glucose, HbA1c, and basic kidney/liver filtration.",
     image_url: "/assets/images/shop/blood-panel.png",
     us: {
       url: "https://www.healthlabs.com/?affiliate=123znl",
-      ctaText: "Map Your Biomarkers on HealthLabs US 🇺🇸",
-      badge: "CLIA Certified & CAP Accredited",
+      ctaText: "Order Baseline Bloods (HealthLabs US 🇺🇸)",
+      badge: "🇺🇸 US (HealthLabs/Quest)",
+      network: "HealthLabs Direct",
+      priceText: "$99.00"
+    },
+    uk: {
+      url: "https://referrals.lolahealth.com/NextLevel15",
+      ctaText: "Order Baseline Bloods (LOLA UK 🇬🇧)",
+      badge: "🇬🇧 UK (LOLA/UKAS)",
+      network: "LOLA Health Partner",
+      priceText: "£69.00"
+    },
+    es: {
+      url: "https://www.melio.es",
+      ctaText: "Order Baseline Bloods (Melio ES 🇪🇸)",
+      badge: "🇪🇸 ES (Melio/Megalab)",
+      network: "Melio ES Partner",
+      priceText: "69,00€"
+    }
+  },
+  {
+    id: "blood-panel",
+    name: "Choice B: Vital Check 56 (Full 56-Biomarker Cellular Panel)",
+    category: "🩸 Clinical Diagnostics & Lab Testing",
+    isDirectAffiliate: true,
+    rating: 4.95,
+    description: "Direct-to-consumer longevity blood panels mapping 56 essential biomarkers including ApoB, hs-CRP, Vitamin D, Thyroid, and Hormones. Local Quest/Labcorp draw in the US, private clinical setups in UK and ES.",
+    image_url: "/assets/images/shop/blood-panel.png",
+    us: {
+      url: "https://www.healthlabs.com/?affiliate=123znl",
+      ctaText: "Order 56-Biomarker Panel (HealthLabs US 🇺🇸)",
+      badge: "🇺🇸 US (HealthLabs/Quest)",
       network: "HealthLabs Direct",
       priceText: "$299.00"
     },
     uk: {
       url: "https://referrals.lolahealth.com/NextLevel15",
-      ctaText: "Map Your Biomarkers on LOLA Health UK 🇬🇧",
-      badge: "UKAS Accredited & ISO Certified",
+      ctaText: "Order 56-Biomarker Panel (LOLA UK 🇬🇧)",
+      badge: "🇬🇧 UK (LOLA/UKAS)",
       network: "LOLA Health Partner",
       priceText: "£149.00"
     },
     es: {
       url: "https://www.melio.es",
-      ctaText: "Map Your Biomarkers on Melio ES 🇪🇸",
-      badge: "CE Marked & Megalab Certified Partner",
+      ctaText: "Order 56-Biomarker Panel (Melio ES 🇪🇸)",
+      badge: "🇪🇸 ES (Melio/Megalab)",
       network: "Melio ES Partner",
       priceText: "149,00€"
     }
   },
   {
+    id: "urinalysis-acr",
+    name: "Clinical Lab Urine ACR (Microalbumin & Creatinine Panel)",
+    category: "🩸 Clinical Diagnostics & Lab Testing",
+    isDirectAffiliate: true,
+    rating: 4.91,
+    description: "Synchronized clinical urinalysis measuring Albumin-to-Creatinine Ratio (ACR), Microalbumin, and Creatinine to evaluate renal filtration alongside your blood draw.",
+    image_url: "/Products/bloodtest.jpg",
+    us: {
+      url: "https://www.healthlabs.com/?affiliate=123znl",
+      ctaText: "Order Lab Urine ACR (HealthLabs US 🇺🇸)",
+      badge: "🇺🇸 US (HealthLabs/Quest)",
+      network: "HealthLabs Direct",
+      priceText: "$69.00"
+    },
+    uk: {
+      url: "https://referrals.lolahealth.com/NextLevel15",
+      ctaText: "Order Lab Urine ACR (LOLA UK 🇬🇧)",
+      badge: "🇬🇧 UK (LOLA/UKAS)",
+      network: "LOLA Health Partner",
+      priceText: "£49.00"
+    },
+    es: {
+      url: "https://www.melio.es",
+      ctaText: "Order Lab Urine ACR (Melio ES 🇪🇸)",
+      badge: "🇪🇸 ES (Melio/Megalab)",
+      network: "Melio ES Partner",
+      priceText: "39,00€"
+    }
+  },
+  {
     id: "cgm",
     name: "Continuous Glucose Monitor (Abbott Lingo / Dexcom ONE+)",
-    category: "Tech Gadgets & Wearables",
+    category: "🩸 Clinical Diagnostics & Lab Testing",
     isDirectAffiliate: true,
     rating: 4.80,
     description: "Real-time interstitial glucose tracking mapping energy peaks and valleys. Instantly syncs blood sugar fluctuations to target metabolic health.",
     image_url: "/assets/images/shop/cgm.png",
     us: {
       url: "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl0e-20",
-      ctaText: "Examine Glycemic Protocols on Lingo US 🇺🇸",
-      badge: "FDA Cleared / OTC Eligible",
+      ctaText: "Order CGM Sensor (Lingo US 🇺🇸)",
+      badge: "🇺🇸 US (HealthLabs/Quest)",
       network: "Amazon Associates",
       priceText: "$89.00/mo"
     },
     uk: {
       url: "https://hellolingo.co.uk",
-      ctaText: "Examine Glycemic Protocols on Lingo UK 🇬🇧",
-      badge: "MHRA Registered",
+      ctaText: "Order CGM Sensor (Lingo UK 🇬🇧)",
+      badge: "🇬🇧 UK (LOLA/UKAS)",
       network: "Lingo UK Direct",
       priceText: "£79.00/mo"
     },
     es: {
       url: "https://www.dexcom.com/es-ES",
-      ctaText: "Examine Glycemic Protocols on Dexcom ES 🇪🇸",
-      badge: "CE Marked / Pharmacy Approved",
+      ctaText: "Order CGM Sensor (Dexcom ES 🇪🇸)",
+      badge: "🇪🇸 ES (Melio/Megalab)",
       network: "Dexcom ES Portal",
       priceText: "79,00€/mo"
     }
@@ -102,29 +170,29 @@ export const sovereignHealthStack: SovereignProduct[] = [
   {
     id: "stethoscope",
     name: "Eko CORE 500™ Digital AI Stethoscope",
-    category: "Performance & Testing",
+    category: "🩸 Clinical Diagnostics & Lab Testing",
     isDirectAffiliate: true,
     rating: 4.95,
     description: "FDA-cleared electronic stethoscope with 3-lead ECG. Uses clinical AI to detect murmurs, arrhythmias, and cardiac strain signs in 15 seconds.",
     image_url: "/assets/images/shop/core-500.png",
     us: {
       url: "https://www.ekohealth.com/products/core-500-digital-stethoscope",
-      ctaText: "Review Acoustic Specs on Eko US 🇺🇸",
-      badge: "FDA Cleared AI Auscultation",
+      ctaText: "Order AI Stethoscope (Eko US 🇺🇸)",
+      badge: "🇺🇸 US (HealthLabs/Quest)",
       network: "Eko Health Direct",
       priceText: "$429.00"
     },
     uk: {
       url: "https://www.ekohealth.com/products/core-500-digital-stethoscope",
-      ctaText: "Review Acoustic Specs on Eko UK 🇬🇧",
-      badge: "MHRA Registered",
+      ctaText: "Order AI Stethoscope (Eko UK 🇬🇧)",
+      badge: "🇬🇧 UK (LOLA/UKAS)",
       network: "Eko Health Direct",
       priceText: "£379.00"
     },
     es: {
       url: "https://www.doccheck.com/es/",
-      ctaText: "Review Acoustic Specs on DocCheck ES 🇪🇸",
-      badge: "CE Marked Clinical Device",
+      ctaText: "Order AI Stethoscope (DocCheck ES 🇪🇸)",
+      badge: "🇪🇸 ES (Melio/Megalab)",
       network: "DocCheck EU Partner",
       priceText: "429,00€"
     }
@@ -132,28 +200,28 @@ export const sovereignHealthStack: SovereignProduct[] = [
   {
     id: "sirtuin-stack",
     name: "Momentous Sirtuin Activation & Cell Recovery Stack",
-    category: "Supplements",
+    category: "🌿 Supplements & Master Guides",
     isDirectAffiliate: true,
     rating: 4.90,
     description: "Premium NSF Certified for Sport Trans-Resveratrol, NMN, and Nattokinase. Formulated to provide biological cofactors to activate Sirtuin pathways.",
     image_url: "/assets/images/shop/sirtuin-stack.png",
     us: {
       url: "https://livemomentous.com/modernwisdom?code=modernwisdom",
-      ctaText: "Review Certified Ingredients on Momentous US 🇺🇸",
+      ctaText: "Order Sirtuin Stack (Momentous US 🇺🇸)",
       badge: "NSF Certified for Sport",
       network: "Momentous Partner",
       priceText: "$89.95"
     },
     uk: {
       url: "https://healf.co.uk/collections/momentus",
-      ctaText: "Review Certified Ingredients on Healf UK 🇬🇧",
+      ctaText: "Order Sirtuin Stack (Healf UK 🇬🇧)",
       badge: "NSF Certified / UK Sourced",
       network: "Healf UK Portal",
       priceText: "£79.99"
     },
     es: {
       url: "https://newtra.eu",
-      ctaText: "Review Certified Ingredients on Newtra ES 🇪🇸",
+      ctaText: "Order Sirtuin Stack (Newtra ES 🇪🇸)",
       badge: "Customs-Safe EU Delivery",
       network: "Newtra EU Portal",
       priceText: "89,95€"
@@ -161,38 +229,68 @@ export const sovereignHealthStack: SovereignProduct[] = [
   },
   {
     id: "reagent-strips",
-    name: "Direct 10-Parameter Rapid Fluid Telemetry Strips",
-    category: "Rapid Fluid Telemetry",
+    name: "10-Parameter Home Urinalysis Dipstick Kit",
+    category: "🩸 Clinical Diagnostics & Lab Testing",
     isDirectAffiliate: false,
     rating: 4.90,
     description: "Direct medical-grade 10-parameter urinalysis strips for weekly tracking of microvascular health, proteinuria, pH, ketones, glucose, and renal function.",
     image_url: "/assets/images/shop/reagent-strips.png",
     us: {
       url: "https://diagnoxhealth.com/products/urinalysis-test",
-      ctaText: "Order Diagnox Urinox-10 Strips US 🇺🇸",
-      badge: "FDA Cleared | 10-Parameter Clinical Grade",
+      ctaText: "Order Home Dipstick Kit (Diagnox US 🇺🇸)",
+      badge: "🇺🇸 US (HealthLabs/Quest)",
       network: "Diagnox Health Direct",
       priceText: "$16.99"
     },
     uk: {
       url: "https://referrals.lolahealth.com/NextLevel15",
-      ctaText: "Order ALLTEST Dipsticks UK 🇬🇧",
-      badge: "CE Medical Marked | UKAS Aligned",
+      ctaText: "Order Home Dipstick Kit (LOLA UK 🇬🇧)",
+      badge: "🇬🇧 UK (LOLA/UKAS)",
       network: "LOLA Health Direct",
       priceText: "£12.99"
     },
     es: {
       url: "[PASTE_YOUR_SALUDONNET_AWIN_LINK]",
-      ctaText: "Pedir Tiras Urinarias ALLTEST ES 🇪🇸",
-      badge: "Marcado CE Médico | Red Eurofins / Unilabs",
+      ctaText: "Order Home Dipstick Kit (ALLTEST ES 🇪🇸)",
+      badge: "🇪🇸 ES (Melio/Megalab)",
       network: "SaludOnNet / Eurofins Direct",
       priceText: "14,50€"
     }
   },
   {
+    id: "epigenetic-test",
+    name: "Biological Age & Epigenetic Methylation Test Kit",
+    category: "🩸 Clinical Diagnostics & Lab Testing",
+    isDirectAffiliate: true,
+    rating: 4.93,
+    description: "DunedinPACE epigenetic clock and DNA methylation pace-of-aging test kit to quantify your biological age trajectory vs chronological age.",
+    image_url: "/assets/images/shop/blood-panel.png",
+    us: {
+      url: "https://www.healthlabs.com/?affiliate=123znl",
+      ctaText: "Order Epigenetic Kit (HealthLabs US 🇺🇸)",
+      badge: "🇺🇸 US (HealthLabs/Quest)",
+      network: "HealthLabs Direct",
+      priceText: "$299.00"
+    },
+    uk: {
+      url: "https://referrals.lolahealth.com/NextLevel15",
+      ctaText: "Order Epigenetic Kit (LOLA UK 🇬🇧)",
+      badge: "🇬🇧 UK (LOLA/UKAS)",
+      network: "LOLA Health Partner",
+      priceText: "£249.00"
+    },
+    es: {
+      url: "https://www.melio.es",
+      ctaText: "Order Epigenetic Kit (Melio ES 🇪🇸)",
+      badge: "🇪🇸 ES (Melio/Megalab)",
+      network: "Melio ES Partner",
+      priceText: "249,00€"
+    }
+  },
+  {
     id: "blood-pressure-cuff",
     name: "Withings BPM Connect Wi-Fi Cuff",
-    category: "Tech Gadgets & Wearables",
+    category: "⌚ Smart Hardware & Wearables",
     isDirectAffiliate: false,
     rating: 4.80,
     description: "Smart Wi-Fi blood pressure cuff. Automatically logs systolic, diastolic, and pulse trends, classifying cardiovascular data.",
@@ -222,7 +320,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
   {
     id: "sleep-analyzer",
     name: "Withings Sleep Analyzer Under-Mattress Pad",
-    category: "Tech Gadgets & Wearables",
+    category: "⌚ Smart Hardware & Wearables",
     isDirectAffiliate: false,
     rating: 4.82,
     description: "A contact-free sleep tracker placed under your mattress. Automatically logs sleeping heart rate, sleep cycles, and passive breathing disturbances.",
@@ -252,7 +350,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
   {
     id: "segmental-scale",
     name: "Withings Body Scan Segmental Composition Scale",
-    category: "Tech Gadgets & Wearables",
+    category: "⌚ Smart Hardware & Wearables",
     isDirectAffiliate: false,
     rating: 4.88,
     description: "FDA-cleared 8-electrode bioelectrical impedance scale. Segmentally maps skeletal muscle mass, fat percentage by limb, and visceral fat index.",
@@ -282,7 +380,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
   {
     id: "wearable-tracker",
     name: "Apple Watch Series 10 (GPS 46mm)",
-    category: "Tech Gadgets & Wearables",
+    category: "⌚ Smart Hardware & Wearables",
     isDirectAffiliate: false,
     rating: 4.80,
     description: "Advanced multispectral wearable capturing sleep architecture, resting heart rate, sleep apnea flags, and Heart Rate Variability (HRV).",
@@ -312,7 +410,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
   {
     id: "noise-headphones",
     name: "Sony WH-CH720N Noise-Canceling Headphones",
-    category: "Lifestyle & Performance Gear",
+    category: "⌚ Smart Hardware & Wearables",
     isDirectAffiliate: false,
     rating: 4.90,
     description: "Immersive active noise cancellation to completely isolate your auditory environment during vagal and deep-breathing mindfulness cycles.",
@@ -342,7 +440,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
   {
     id: "meditation-cushion",
     name: "basaho Classic Zafu Meditation Cushion",
-    category: "Lifestyle & Performance Gear",
+    category: "⌚ Smart Hardware & Wearables",
     isDirectAffiliate: false,
     rating: 4.85,
     description: "Buckwheat-filled organic cotton meditation cushion to optimize posture, spinal alignment, and vagal tone training.",
@@ -372,7 +470,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
   {
     id: "marine-collagen",
     name: "Zebora Marine Collagen Peptides Powder",
-    category: "Lifestyle & Performance Gear",
+    category: "🌿 Supplements & Master Guides",
     isDirectAffiliate: false,
     rating: 4.75,
     description: "Hydrolyzed Type I & III fish collagen with biotin and vitamin C to reinforce structural tissue matrix and joint integrity.",
@@ -402,7 +500,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
   {
     id: "water-bottle",
     name: "Owala FreeSip Insulated Stainless Steel Bottle",
-    category: "Lifestyle & Performance Gear",
+    category: "⌚ Smart Hardware & Wearables",
     isDirectAffiliate: false,
     rating: 4.90,
     description: "Triple-insulated water bottle with patented FreeSip built-in straw, keeping hydration clean and ice-cold for 24 hours.",
@@ -432,7 +530,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
   {
     id: "rowing-machine",
     name: "Concept2 Remo Indoor Model D Rower",
-    category: "Performance & Testing",
+    category: "⌚ Smart Hardware & Wearables",
     isDirectAffiliate: false,
     rating: 4.95,
     description: "The gold-standard indoor rowing machine with PM5 monitor to optimize cardiorespiratory output, muscular baseline, and metabolic power.",
@@ -462,7 +560,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
   {
     id: "sauna-tent",
     name: "Portable Full-Body Infrared Sauna Tent",
-    category: "Lifestyle & Performance Gear",
+    category: "⌚ Smart Hardware & Wearables",
     isDirectAffiliate: false,
     rating: 4.80,
     description: "Advanced far-infrared full-body heating cabin with folding chair, remote control, and heated footpad to accelerate cellular recovery and detoxification.",
@@ -492,29 +590,29 @@ export const sovereignHealthStack: SovereignProduct[] = [
   {
     id: "ovarian-test",
     name: "Ovarian Reserve Female Hormone Test Kit",
-    category: "Performance & Testing",
+    category: "🩸 Clinical Diagnostics & Lab Testing",
     isDirectAffiliate: false,
     rating: 4.85,
     description: "A biology-specific finger-prick blood test to evaluate ovarian reserve and reproductive longevity baselines.",
     image_url: "/assets/images/shop/ovarian-test.png",
     us: {
       url: "https://www.amazon.com/dp/B08H7V69F7?tag=123znl0e-20",
-      ctaText: "Buy Ovarian Test on Amazon US 🇺🇸",
-      badge: "CLIA Certified Labs",
+      ctaText: "Order Hormone Test (HealthLabs US 🇺🇸)",
+      badge: "🇺🇸 US (HealthLabs/Quest)",
       network: "Amazon Associates",
       priceText: "$49.00"
     },
     uk: {
       url: "https://www.amazon.co.uk/dp/B08H7V69F7?tag=123znl0f3-21",
-      ctaText: "Buy Ovarian Test on Amazon UK 🇬🇧",
-      badge: "UKAS Accredited Labs",
+      ctaText: "Order Hormone Test (LOLA UK 🇬🇧)",
+      badge: "🇬🇧 UK (LOLA/UKAS)",
       network: "Amazon Associates",
       priceText: "£39.00"
     },
     es: {
       url: "https://www.amazon.es/dp/B08H7V69F7?tag=123znl08a-21",
-      ctaText: "Buy Ovarian Test on Amazon ES 🇪🇸",
-      badge: "Laboratorios Acreditados UE",
+      ctaText: "Order Hormone Test (Melio ES 🇪🇸)",
+      badge: "🇪🇸 ES (Melio/Megalab)",
       network: "Amazon Associates",
       priceText: "45,00€"
     }

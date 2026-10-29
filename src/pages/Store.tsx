@@ -26,21 +26,44 @@ import {
   Stethoscope,
   FileText
 } from 'lucide-react';
-import DiagnosticPathwaySelector from '../components/DiagnosticPathwaySelector';
 import DualTrackSelector from '../components/DualTrackSelector';
 import BundleOffers from '../components/BundleOffers';
 import { DigitalGuides } from '../components/DigitalGuides';
 import { usePaywallBypass, getGuidePdfDownloadUrl } from '../utils/adminTestMode';
 
-type MarketTab = 'US' | 'UK' | 'ES';
+export type MarketTab = 'US' | 'UK' | 'ES';
 
 // Dedicated Regional Master Registries (Guarantees strict separation across US, UK, and Spain)
-const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
+export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
   "UK": [
+    {
+      "id": "essential-blood-panel-uk",
+      "name": "Choice A: LOLA Essential Baseline Blood Check (UK 🇬🇧)",
+      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "rating": 4.95,
+      "description": "Targeted UKAS-accredited baseline blood panel measuring Core Lipids (Cholesterol, HDL, LDL, Triglycerides), HbA1c, Fasting Glucose, and basic kidney/liver filtration.",
+      "price_text": "£69.00",
+      "deal_url": "https://referrals.lolahealth.com/NextLevel15",
+      "market_region": "UK",
+      "badge_text": "🇬🇧 UK (LOLA/UKAS)",
+      "image_url": "/Products/bloodtest.jpg"
+    },
+    {
+      "id": "epigenetic-test-uk",
+      "name": "Biological Age & Epigenetic Methylation Kit (UK 🇬🇧)",
+      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "rating": 4.93,
+      "description": "Epigenetic DNA methylation clock measuring biological pace of aging vs chronological age.",
+      "price_text": "£249.00",
+      "deal_url": "https://referrals.lolahealth.com/NextLevel15",
+      "market_region": "UK",
+      "badge_text": "🇬🇧 UK (LOLA/UKAS)",
+      "image_url": "/Products/ancientbrave.jpeg"
+    },
     {
       "id": "metabolic-master-guide-uk",
       "name": "The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol",
-      "category": "Clinical Diagnostics & Co-Pilot",
+      "category": "🌿 Supplements & Master Guides",
       "rating": 4.98,
       "description": "A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.",
       "price_text": "£19.00",
@@ -868,9 +891,33 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
   ],
   "US": [
     {
+      "id": "essential-blood-panel-us",
+      "name": "Choice A: HealthLabs Essential Baseline Blood Check (US 🇺🇸)",
+      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "rating": 4.95,
+      "description": "CLIA/CAP-certified baseline blood panel via Quest/Labcorp measuring Core Lipids (Cholesterol, HDL, LDL, Triglycerides), HbA1c, Fasting Glucose, and basic kidney/liver filtration.",
+      "price_text": "$99.00",
+      "deal_url": "https://www.healthlabs.com/?affiliate=123znl",
+      "market_region": "US",
+      "badge_text": "🇺🇸 US (HealthLabs/Quest)",
+      "image_url": "/Products/bloodtest.jpg"
+    },
+    {
+      "id": "epigenetic-test-us",
+      "name": "Biological Age & Epigenetic Methylation Kit (US 🇺🇸)",
+      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "rating": 4.93,
+      "description": "Epigenetic DNA methylation clock measuring biological pace of aging vs chronological age.",
+      "price_text": "$299.00",
+      "deal_url": "https://www.healthlabs.com/?affiliate=123znl",
+      "market_region": "US",
+      "badge_text": "🇺🇸 US (HealthLabs/Quest)",
+      "image_url": "/Products/ancientbrave.jpeg"
+    },
+    {
       "id": "metabolic-master-guide-us",
       "name": "The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol",
-      "category": "Clinical Diagnostics & Co-Pilot",
+      "category": "🌿 Supplements & Master Guides",
       "rating": 4.98,
       "description": "A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.",
       "price_text": "$25.00",
@@ -1458,9 +1505,33 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
   ],
   "ES": [
     {
+      "id": "essential-blood-panel-es",
+      "name": "Choice A: Melio Essential Baseline Blood Check (ES 🇪🇸)",
+      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "rating": 4.94,
+      "description": "Panel de sangre de referencia en centros Megalab/Unilabs midiendo perfil lipídico completo, HbA1c, glucosa en ayunas y filtración renal/hepática.",
+      "price_text": "69,00€",
+      "deal_url": "https://www.melio.es",
+      "market_region": "ES",
+      "badge_text": "🇪🇸 ES (Melio/Megalab)",
+      "image_url": "/Products/bloodtest.jpg"
+    },
+    {
+      "id": "epigenetic-test-es",
+      "name": "Kit de Edad Biológica y Metilación Epigenética (ES 🇪🇸)",
+      "category": "🩸 Clinical Diagnostics & Lab Testing",
+      "rating": 4.93,
+      "description": "Reloj epigenético de metilación del ADN para cuantificar el ritmo de envejecimiento biológico frente a la edad cronológica.",
+      "price_text": "249,00€",
+      "deal_url": "https://www.melio.es",
+      "market_region": "ES",
+      "badge_text": "🇪🇸 ES (Melio/Megalab)",
+      "image_url": "/Products/ancientbrave.jpeg"
+    },
+    {
       "id": "metabolic-master-guide-es",
       "name": "The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol",
-      "category": "Clinical Diagnostics & Co-Pilot",
+      "category": "🌿 Supplements & Master Guides",
       "rating": 4.98,
       "description": "A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.",
       "price_text": "22,00€",
@@ -2218,11 +2289,9 @@ const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
 
 export const STOREFRONT_CATEGORIES = [
   'All',
-  'Clinical Diagnostics & Co-Pilot',
-  'Supplements & Nutrition',
-  'Fitness & Movement',
-  'Kitchen & Meal Prep',
-  'Mind & Wellness'
+  '🩸 Clinical Diagnostics & Lab Testing',
+  '⌚ Smart Hardware & Wearables',
+  '🌿 Supplements & Master Guides'
 ];
 
 export function normalizeStoreCategory(rawCategory: string | undefined, name?: string, dealUrl?: string): string {
@@ -2230,91 +2299,201 @@ export function normalizeStoreCategory(rawCategory: string | undefined, name?: s
   const title = (name || '').toLowerCase();
   const deal = (dealUrl || '').toLowerCase();
 
-  if (cat === 'clinical diagnostics & co-pilot' || cat === 'clinical diagnostics' || cat === 'co-pilot' || cat === 'rapid fluid telemetry' || cat.includes('fluid') || cat.includes('telemetry') || cat.includes('reagent')) return 'Clinical Diagnostics & Co-Pilot';
-  if (cat === 'supplements & nutrition') return 'Supplements & Nutrition';
-  if (cat === 'fitness & movement') return 'Fitness & Movement';
-  if (cat === 'kitchen & meal prep') return 'Kitchen & Meal Prep';
-  if (cat === 'mind & wellness') return 'Mind & Wellness';
+  // Direct match for the 3 clean categories
+  if (cat === '🩸 clinical diagnostics & lab testing') return '🩸 Clinical Diagnostics & Lab Testing';
+  if (cat === '⌚ smart hardware & wearables') return '⌚ Smart Hardware & Wearables';
+  if (cat === '🌿 supplements & master guides') return '🌿 Supplements & Master Guides';
 
-  // Supplements & Nutrition
+  // TAB 3: "🌿 Supplements & Master Guides"
+  // Sirtuin Stacks, Collagen, Downloadable Digital PDF Guides, and Supplements
   if (
-    cat.includes('supplement') || 
-    cat.includes('nutri') || 
-    title.includes('supplement') || 
-    title.includes('creatine') || 
-    title.includes('resveratrol') || 
-    title.includes('nmn') || 
-    title.includes('omega') || 
+    deal.includes('/checkout') ||
+    title.includes('master guide') ||
+    title.includes('12-week metabolic') ||
+    cat.includes('supplement') ||
+    cat.includes('nutri') ||
+    title.includes('sirtuin') ||
+    title.includes('sirtuina') ||
     title.includes('collagen') ||
+    title.includes('colágeno') ||
+    title.includes('supplement') ||
+    title.includes('creatine') ||
+    title.includes('creatina') ||
+    title.includes('resveratrol') ||
+    title.includes('nmn') ||
+    title.includes('nad') ||
+    title.includes('niagen') ||
+    title.includes('omega') ||
     title.includes('protein') ||
     title.includes('quercetin') ||
-    title.includes('sirtuin')
+    title.includes('spermidine') ||
+    title.includes('magnesium') ||
+    title.includes('magnesio') ||
+    title.includes('vitamin') ||
+    title.includes('probiotic') ||
+    title.includes('enzyme') ||
+    title.includes('glycine') ||
+    title.includes('ashwagandha') ||
+    title.includes('coq10') ||
+    title.includes('electrolyte') ||
+    title.includes('inulin') ||
+    title.includes('centrum') ||
+    title.includes('wellman') ||
+    title.includes('wellwoman')
   ) {
-    return 'Supplements & Nutrition';
+    return '🌿 Supplements & Master Guides';
   }
 
-  // Kitchen & Meal Prep
+  // TAB 1: "🩸 Clinical Diagnostics & Lab Testing"
+  // Choice A Essential Bloods, Choice B Vital Check 56, Lab Urine ACR, Home Dipstick Kits, Epigenetics, CGMs, and AI Stethoscope
   if (
-    cat.includes('kitchen') || 
-    cat.includes('meal') || 
-    cat.includes('home_kitchen') ||
-    title.includes('blender') || 
-    title.includes('cookware') || 
-    title.includes('air fryer') || 
-    title.includes('steamer') ||
-    title.includes('extractor') ||
-    title.includes('pan') ||
-    title.includes('knife')
+    title.includes('blood') ||
+    title.includes('vital check') ||
+    title.includes('biomarker') ||
+    title.includes('biomarcador') ||
+    title.includes('melio') ||
+    title.includes('healthlabs') ||
+    title.includes('lola') ||
+    title.includes('urine') ||
+    title.includes('urinalysis') ||
+    title.includes('acr') ||
+    title.includes('microalbumin') ||
+    title.includes('orina') ||
+    title.includes('dipstick') ||
+    title.includes('tiras') ||
+    title.includes('reagent') ||
+    title.includes('urinox') ||
+    title.includes('alltest') ||
+    title.includes('epigenetic') ||
+    title.includes('epigenética') ||
+    title.includes('methylation') ||
+    title.includes('metilación') ||
+    title.includes('biological age') ||
+    title.includes('edad biológica') ||
+    title.includes('glucose monitor') ||
+    title.includes('monitor continuo de glucosa') ||
+    title.includes('cgm') ||
+    title.includes('lingo') ||
+    title.includes('dexcom') ||
+    title.includes('stelo') ||
+    title.includes('stethoscope') ||
+    title.includes('estetoscopio') ||
+    title.includes('eko core') ||
+    title.includes('ovarian') ||
+    title.includes('hormone test') ||
+    cat.includes('rapid fluid telemetry')
   ) {
-    return 'Kitchen & Meal Prep';
+    return '🩸 Clinical Diagnostics & Lab Testing';
   }
 
-  // Fitness & Movement
-  if (
-    cat.includes('fitness') || 
-    cat.includes('movement') || 
-    cat.includes('fitness_gear') ||
-    title.includes('rower') || 
-    title.includes('kettlebell') || 
-    title.includes('dumbbell') || 
-    title.includes('pull-up') || 
-    title.includes('workout') ||
-    title.includes('gym') ||
-    title.includes('resistance band')
-  ) {
-    return 'Fitness & Movement';
+  // TAB 2: "⌚ Smart Hardware & Wearables"
+  // Withings Smart Scales, BPM Cuffs, Sleep Mats, Smartwatches, and performance hardware
+  return '⌚ Smart Hardware & Wearables';
+}
+
+export const DIAGNOSTIC_GP_BRIEF_BADGE = '✨ Includes 2-Page GP Brief Integration';
+
+export function isDiagnosticProduct(product: any): boolean {
+  if (!product) return false;
+  const cat = normalizeStoreCategory(product.category, product.name, product.deal_url);
+  return cat === '🩸 Clinical Diagnostics & Lab Testing';
+}
+
+export function getDiagnosticCountryBadge(market: MarketTab): string {
+  if (market === 'UK') return '🇬🇧 UK (LOLA/UKAS)';
+  if (market === 'ES') return '🇪🇸 ES (Melio/Megalab)';
+  return '🇺🇸 US (HealthLabs/Quest)';
+}
+
+export function getCleanDiagnosticCta(product: any, market: MarketTab): string {
+  const id = (product?.id || '').toLowerCase();
+  const title = (product?.name || '').toLowerCase();
+
+  // Choice A: Essential Baseline Bloods
+  if (id.includes('essential-blood') || title.includes('choice a') || title.includes('essential baseline')) {
+    if (market === 'UK') return 'Order Baseline Bloods (LOLA UK 🇬🇧)';
+    if (market === 'ES') return 'Order Baseline Bloods (Melio ES 🇪🇸)';
+    return 'Order Baseline Bloods (HealthLabs US 🇺🇸)';
   }
 
-  // Mind & Wellness
-  if (
-    cat.includes('health') || 
-    cat.includes('wellness') || 
-    cat.includes('mind') || 
-    title.includes('sauna') || 
-    title.includes('plunge') || 
-    title.includes('sleep') || 
-    title.includes('massage') || 
-    title.includes('meditation') || 
-    title.includes('cushion') ||
-    title.includes('headphone')
-  ) {
-    return 'Mind & Wellness';
+  // Choice B: Vital Check 56 / 56-Biomarker Panel
+  if (id.includes('blood-panel') || title.includes('56') || title.includes('vital check') || title.includes('biomarker') || title.includes('biomarcador')) {
+    if (market === 'UK') return 'Order 56-Biomarker Panel (LOLA UK 🇬🇧)';
+    if (market === 'ES') return 'Order 56-Biomarker Panel (Melio ES 🇪🇸)';
+    return 'Order 56-Biomarker Panel (HealthLabs US 🇺🇸)';
   }
 
-  // Clinical Diagnostics & Co-Pilot
-  return 'Clinical Diagnostics & Co-Pilot';
+  // Lab Urine ACR
+  if (id.includes('urinalysis') || title.includes('acr') || title.includes('microalbumin') || title.includes('sedimento')) {
+    if (market === 'UK') return 'Order Lab Urine ACR (LOLA UK 🇬🇧)';
+    if (market === 'ES') return 'Order Lab Urine ACR (Melio ES 🇪🇸)';
+    return 'Order Lab Urine ACR (HealthLabs US 🇺🇸)';
+  }
+
+  // Home Dipstick Kits
+  if (id.includes('reagent') || title.includes('dipstick') || title.includes('strips') || title.includes('tiras') || title.includes('urinox') || title.includes('alltest')) {
+    if (market === 'UK') return 'Order Home Dipstick Kit (LOLA UK 🇬🇧)';
+    if (market === 'ES') return 'Order Home Dipstick Kit (ALLTEST ES 🇪🇸)';
+    return 'Order Home Dipstick Kit (Diagnox US 🇺🇸)';
+  }
+
+  // Epigenetics
+  if (id.includes('epigenetic') || title.includes('epigenetic') || title.includes('epigenética') || title.includes('methylation')) {
+    if (market === 'UK') return 'Order Epigenetic Kit (LOLA UK 🇬🇧)';
+    if (market === 'ES') return 'Order Epigenetic Kit (Melio ES 🇪🇸)';
+    return 'Order Epigenetic Kit (HealthLabs US 🇺🇸)';
+  }
+
+  // CGMs
+  if (id.includes('cgm') || title.includes('glucose') || title.includes('glucosa') || title.includes('lingo') || title.includes('dexcom')) {
+    if (market === 'UK') return 'Order CGM Sensor (Lingo UK 🇬🇧)';
+    if (market === 'ES') return 'Order CGM Sensor (Dexcom ES 🇪🇸)';
+    return 'Order CGM Sensor (Lingo US 🇺🇸)';
+  }
+
+  // AI Stethoscope
+  if (id.includes('stethoscope') || title.includes('stethoscope') || title.includes('estetoscopio') || title.includes('eko')) {
+    if (market === 'UK') return 'Order AI Stethoscope (Eko UK 🇬🇧)';
+    if (market === 'ES') return 'Order AI Stethoscope (DocCheck ES 🇪🇸)';
+    return 'Order AI Stethoscope (Eko US 🇺🇸)';
+  }
+
+  if (market === 'UK') return 'Order Diagnostic (LOLA UK 🇬🇧)';
+  if (market === 'ES') return 'Order Diagnostic (Melio ES 🇪🇸)';
+  return 'Order Diagnostic (HealthLabs US 🇺🇸)';
+}
+
+export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[] {
+  const fallbackCatalog = (REGIONAL_MASTER_CATALOGS[market] || []).map((p: any) => ({
+    ...p,
+    category: normalizeStoreCategory(p.category, p.name || p.title, p.deal_url),
+    is_direct_affiliate: p.is_direct_affiliate ?? (!String(p.deal_url || '').toLowerCase().includes('amazon'))
+  }));
+
+  if (!items || items.length === 0) {
+    return fallbackCatalog;
+  }
+
+  const existingIds = new Set(items.map(i => String(i.id || '').toLowerCase()));
+  const corePrefixes = ['essential-blood-panel', 'blood-panel', 'urinalysis', 'reagent-strips', 'epigenetic-test', 'cgm', 'stethoscope'];
+  const missingCore = fallbackCatalog.filter(fb => {
+    const fbId = String(fb.id || '').toLowerCase();
+    return corePrefixes.some(prefix => fbId.startsWith(prefix)) && !existingIds.has(fbId);
+  });
+
+  return [...missingCore, ...items];
 }
 
 function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marketTab: MarketTab }) {
   const normKey = categoryKey.toLowerCase();
   
   const getBannerConfig = (cat: string, market: MarketTab) => {
-    if (cat.includes('diagnostic') || cat.includes('co-pilot') || cat.includes('copilot') || cat.includes('testing') || cat.includes('performance') || cat.includes('wearable') || cat.includes('tech')) {
+    if (cat.includes('diagnostic') || cat.includes('lab testing')) {
       return {
-        title: market === 'ES' ? 'ES DIAGNÓSTICO CLÍNICO & CO-PILOT' : `${market} CLINICAL DIAGNOSTICS & CO-PILOT`,
+        title: market === 'ES' ? '🩸 DIAGNÓSTICO CLÍNICO Y LABORATORIO (ES)' : `🩸 ${market} CLINICAL DIAGNOSTICS & LAB TESTING`,
         subtitle: market === 'ES' 
-          ? 'Herramientas de diagnóstico de biomarcadores, cuaderno Co-Pilot y sensores médicos validados' 
-          : 'Diagnostic tools, Clinician Co-Pilot workbook, biomarker test kits, and medical-grade telemetry devices',
+          ? 'Paneles de sangre Choice A y Choice B 56, ACR de orina en laboratorio, tiras reactivas, epigenética, CGM y estetoscopio IA' 
+          : 'Choice A Essential Bloods, Choice B Vital Check 56, Lab Urine ACR, Home Dipstick Kits, Epigenetics, CGMs, and AI Stethoscope',
         icon: Microscope,
         iconColor: 'text-cyan-400',
         iconBorder: 'border-cyan-500/30',
@@ -2323,90 +2502,30 @@ function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marke
       };
     }
 
-    if (cat.includes('supplement') || cat.includes('nutrition')) {
-      if (market === 'UK') {
-        return {
-          title: 'UK SUPPLEMENTS & NUTRITION',
-          subtitle: 'Curated British & European pharmaceutical-grade longevity supplements and clean bioactives',
-          icon: Pill,
-          iconColor: 'text-emerald-400',
-          iconBorder: 'border-emerald-500/30',
-          iconGlow: 'shadow-[0_0_25px_rgba(16,185,129,0.25)]',
-          radarColor: 'text-emerald-500/10'
-        };
-      } else if (market === 'ES') {
-        return {
-          title: 'ES SUPLEMENTOS Y NUTRICIÓN',
-          subtitle: 'Vitaminas, bioactivos y suplementos de longevidad certificados de Amazon España',
-          icon: Pill,
-          iconColor: 'text-emerald-400',
-          iconBorder: 'border-emerald-500/30',
-          iconGlow: 'shadow-[0_0_25px_rgba(16,185,129,0.25)]',
-          radarColor: 'text-emerald-500/10'
-        };
-      } else {
-        return {
-          title: 'US SUPPLEMENTS & NUTRITION',
-          subtitle: 'Curated US Amazon longevity vitamins, bioactives, and purity-tested nutraceuticals',
-          icon: Pill,
-          iconColor: 'text-emerald-400',
-          iconBorder: 'border-emerald-500/30',
-          iconGlow: 'shadow-[0_0_25px_rgba(16,185,129,0.25)]',
-          radarColor: 'text-emerald-500/10'
-        };
-      }
-    }
-    
-    if (cat.includes('fitness') || cat.includes('movement')) {
+    if (cat.includes('supplement') || cat.includes('guide')) {
       return {
-        title: market === 'ES' ? 'ES FITNESS Y MOVIMIENTO' : `${market} FITNESS & MOVEMENT`,
-        subtitle: market === 'ES' 
-          ? 'Material de entrenamiento en casa, fuerza y cardio Zone 2 en España' 
-          : `Home gym essentials, VO2 max conditioning, and functional strength gear in the ${market === 'UK' ? 'United Kingdom' : 'United States'}`,
-        icon: Dumbbell,
-        iconColor: 'text-amber-400',
-        iconBorder: 'border-amber-500/30',
-        iconGlow: 'shadow-[0_0_25px_rgba(245,158,11,0.25)]',
-        radarColor: 'text-amber-500/10'
-      };
-    }
-
-    if (cat.includes('kitchen') || cat.includes('meal')) {
-      return {
-        title: market === 'ES' ? 'ES COCINA Y PREPARACIÓN' : `${market} KITCHEN & MEAL PREP`,
-        subtitle: market === 'ES' 
-          ? 'Electrodomésticos, extractores y cocina para nutrición metabólica en España' 
-          : `Appliances, cookware, and longevity nutrient extractors in the ${market === 'UK' ? 'UK' : 'US'}`,
-        icon: ChefHat,
-        iconColor: 'text-orange-400',
-        iconBorder: 'border-orange-500/30',
-        iconGlow: 'shadow-[0_0_25px_rgba(249,115,22,0.25)]',
-        radarColor: 'text-orange-500/10'
-      };
-    }
-
-    if (cat.includes('mind') || cat.includes('wellness') || cat.includes('health')) {
-      return {
-        title: market === 'ES' ? 'ES MENTE Y BIENESTAR' : `${market} MIND & WELLNESS`,
-        subtitle: market === 'ES' 
-          ? 'Mantas térmicas, inmersión en frío, presoterapia y equipos de relajación y sueño en España' 
-          : `Cold plunge tubs, infrared saunas, percussive massage, and sleep optimization gear in the ${market === 'UK' ? 'UK' : 'US'}`,
-        icon: HeartPulse,
-        iconColor: 'text-indigo-400',
-        iconBorder: 'border-indigo-500/30',
-        iconGlow: 'shadow-[0_0_25px_rgba(99,102,241,0.25)]',
-        radarColor: 'text-indigo-500/10'
+        title: market === 'ES' ? '🌿 SUPLEMENTOS Y GUÍAS MAESTRAS (ES)' : `🌿 ${market} SUPPLEMENTS & MASTER GUIDES`,
+        subtitle: market === 'ES'
+          ? 'Stacks de Sirtuinas, Colágeno, bioactivos de longevidad y Guías Digitales Maestras en PDF'
+          : 'Sirtuin Activation Stacks, Marine Collagen, purity-audited longevity bioactives, and Downloadable Digital PDF Master Guides',
+        icon: Pill,
+        iconColor: 'text-emerald-400',
+        iconBorder: 'border-emerald-500/30',
+        iconGlow: 'shadow-[0_0_25px_rgba(16,185,129,0.25)]',
+        radarColor: 'text-emerald-500/10'
       };
     }
 
     return {
-      title: `${market} CURATED GEAR`,
-      subtitle: 'High-performance lifestyle accelerators and equipment',
-      icon: Activity,
-      iconColor: 'text-cyan-400',
-      iconBorder: 'border-cyan-500/30',
-      iconGlow: 'shadow-[0_0_25px_rgba(6,182,212,0.25)]',
-      radarColor: 'text-cyan-500/10'
+      title: market === 'ES' ? '⌚ HARDWARE INTELIGENTE Y WEARABLES (ES)' : `⌚ ${market} SMART HARDWARE & WEARABLES`,
+      subtitle: market === 'ES'
+        ? 'Básculas inteligentes Withings, tensiómetros BPM, analizadores de sueño, smartwatches y equipamiento de longevidad'
+        : 'Withings Smart Scales, BPM Blood Pressure Cuffs, Sleep Analyzer Mats, Smartwatches, and longevity hardware',
+      icon: Smartphone,
+      iconColor: 'text-amber-400',
+      iconBorder: 'border-amber-500/30',
+      iconGlow: 'shadow-[0_0_25px_rgba(245,158,11,0.25)]',
+      radarColor: 'text-amber-500/10'
     };
   };
 
@@ -2550,6 +2669,7 @@ export function Store({ region }: StoreProps = {}) {
           const priceFormatted = p.price_text || (p.price != null ? `${currencySymbol}${Number(p.price).toFixed(2)}` : '');
 
           const catFormatted = normalizeStoreCategory(p.category, p.name || p.title, healedDeal);
+          const isDiag = catFormatted === '🩸 Clinical Diagnostics & Lab Testing';
 
           return {
             ...p,
@@ -2558,23 +2678,21 @@ export function Store({ region }: StoreProps = {}) {
             image_url: healedImg,
             price_text: priceFormatted,
             category: catFormatted,
-            badge_text: p.badge_text || (activeTab === 'ES' ? 'Certificado UE' : activeTab === 'UK' ? 'UK Verified' : 'US Verified'),
+            badge_text: isDiag ? getDiagnosticCountryBadge(activeTab) : (p.badge_text || (activeTab === 'ES' ? 'Certificado UE' : activeTab === 'UK' ? 'UK Verified' : 'US Verified')),
             network: p.network || (healedDeal.includes('amazon') ? 'Amazon Associates' : 'Clinical Partner')
           };
         });
 
         if (isCancelled) return;
 
-        storeCatalogCache[activeTab] = healedData;
-        setProducts(healedData);
+        const mergedList = ensureCoreRegionalCatalog(healedData, activeTab);
+        storeCatalogCache[activeTab] = mergedList;
+        setProducts(mergedList);
         setCategories(STOREFRONT_CATEGORIES);
       } catch (err) {
         if (isCancelled) return;
         console.warn(`Supabase fetch failed for ${activeTab}. Falling back to regional offline registry:`, err);
-        const fallbackList = (REGIONAL_MASTER_CATALOGS[activeTab] || []).map((p: any) => ({
-          ...p,
-          category: normalizeStoreCategory(p.category, p.name || p.title, p.deal_url)
-        }));
+        const fallbackList = ensureCoreRegionalCatalog([], activeTab);
         setProducts(fallbackList);
         setCategories(STOREFRONT_CATEGORIES);
       } finally {
@@ -2768,14 +2886,6 @@ export function Store({ region }: StoreProps = {}) {
           {/* Dual-Track Performance Framework Selector */}
           <DualTrackSelector className="shadow-2xl" />
 
-          {/* Diagnostic Dual-Pathway Requisition Selector */}
-          <div className="relative overflow-hidden rounded-3xl bg-slate-900/60 border border-slate-800 p-6 sm:p-8 shadow-2xl backdrop-blur-md">
-            <DiagnosticPathwaySelector 
-              showRegionTabs={true}
-              showCopilotLink={true}
-            />
-          </div>
-
           {/* Clinician Co-Pilot Helper Banner above Clinical Lab Panels */}
           <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-slate-900 via-cyan-950/40 to-slate-900 border border-cyan-500/30 p-6 sm:p-8 shadow-2xl backdrop-blur-md">
             <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -2789,7 +2899,7 @@ export function Store({ region }: StoreProps = {}) {
                   Planning a Clinical Lab Draw? Review Panels with Your Doctor First
                 </h3>
                 <p className="text-slate-350 text-xs sm:text-sm font-light leading-relaxed">
-                  Before ordering private blood panels or starting high-dose protocols, download our free 4-page <strong>Clinician Co-Pilot Workbook</strong>. It includes a 14-day vital signs log, Level 1 Core Tri-Marker requisition (ApoB, HbA1c, hs-CRP), and word-for-word GP discussion scripts to co-evaluate your telemetry with your doctor.
+                  Before ordering private blood panels or starting high-dose protocols, use our free <strong>Clinician Co-Pilot Hub</strong> to translate your blood, urine, and wearable metrics into a standardized 2-Page GP Consultation Brief.
                 </p>
               </div>
               <div className="shrink-0 flex flex-col sm:flex-row lg:flex-col gap-2.5">
@@ -2801,11 +2911,11 @@ export function Store({ region }: StoreProps = {}) {
                   <span>Open Clinician Co-Pilot →</span>
                 </Link>
                 <a
-                  href="/assets/docs/clinical-baseline-consultation-workbook.pdf"
-                  download="clinical-baseline-consultation-workbook.pdf"
+                  href="/assets/docs/clinical-baseline-consultation-template-v2.pdf"
+                  download="clinical-baseline-consultation-template-v2.pdf"
                   className="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-slate-600 text-slate-300 hover:text-white text-[11px] font-bold uppercase tracking-wider transition-all text-center"
                 >
-                  <span>Download Direct PDF</span>
+                  <span>Download 2-Page GP Brief PDF</span>
                 </a>
               </div>
             </div>
@@ -2816,54 +2926,69 @@ export function Store({ region }: StoreProps = {}) {
             <div className="space-y-6">
               <div className="border-l-4 border-rose-500 pl-4">
                 <span className="text-xs text-rose-500 uppercase font-semibold tracking-widest">DIRECT ACCESS PARTNERS ({activeTab})</span>
-                <h2 className="text-2xl font-bold text-slate-100 mt-1">Clinical Diagnostics & Co-Pilot Offerings</h2>
+                <h2 className="text-2xl font-bold text-slate-100 mt-1">🩸 Clinical Diagnostics &amp; Lab Testing</h2>
               </div>
               
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {clinicalPartners.map(product => (
-                  <div key={product.id} className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 hover:border-rose-500/30 p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
-                    <div>
-                      {product.image_url && (
-                        <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-800/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
-                          <img 
-                            src={product.image_url} 
-                            alt={product.name} 
-                            className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
-                            referrerPolicy="no-referrer"
-                            onError={(e) => {
-                              const target = e.currentTarget;
-                              target.onerror = null;
-                              target.src = '/Products/owala.jpg';
-                            }}
-                          />
+                {clinicalPartners.map(product => {
+                  const isDiag = isDiagnosticProduct(product);
+                  return (
+                    <div key={product.id} className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 hover:border-rose-500/30 p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
+                      <div>
+                        {product.image_url && (
+                          <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-800/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
+                            <img 
+                              src={product.image_url} 
+                              alt={product.name} 
+                              className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                              referrerPolicy="no-referrer"
+                              onError={(e) => {
+                                const target = e.currentTarget;
+                                target.onerror = null;
+                                target.src = '/Products/owala.jpg';
+                              }}
+                            />
+                          </div>
+                        )}
+                        <div className="flex justify-between items-start mb-3">
+                          <span className="text-[10px] text-rose-400 font-bold uppercase tracking-widest px-2 py-1 rounded bg-rose-950/20 border border-rose-900/30">
+                            {product.category}
+                          </span>
+                          <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
+                            <Star size={13} className="fill-amber-400 text-amber-400" />
+                            <span>{product.rating ? Number(product.rating).toFixed(1) : '4.9'}</span>
+                          </span>
                         </div>
-                      )}
-                      <div className="flex justify-between items-start mb-4">
-                        <span className="text-[10px] text-rose-400 font-bold uppercase tracking-widest px-2 py-1 rounded bg-rose-950/20 border border-rose-900/30">
-                          {product.category}
-                        </span>
-                        <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
-                          <Star size={13} className="fill-amber-400 text-amber-400" />
-                          <span>{product.rating ? Number(product.rating).toFixed(1) : '4.9'}</span>
-                        </span>
+                        {isDiag && (
+                          <div className="flex flex-wrap items-center gap-1.5 mb-3">
+                            <span className="text-[11px] font-bold text-sky-300 bg-sky-950/60 border border-sky-500/40 px-2.5 py-1 rounded-md">
+                              {getDiagnosticCountryBadge(activeTab)}
+                            </span>
+                            <span className="text-[11px] font-bold text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-md">
+                              {DIAGNOSTIC_GP_BRIEF_BADGE}
+                            </span>
+                          </div>
+                        )}
+                        <h3 className="text-lg font-bold text-slate-100 group-hover:text-rose-400 transition-colors duration-300 line-clamp-2">{product.name}</h3>
+                        <p className="text-xs text-slate-400 mt-3 leading-relaxed line-clamp-3">{product.description}</p>
                       </div>
-                      <h3 className="text-lg font-bold text-slate-100 group-hover:text-rose-400 transition-colors duration-300 line-clamp-2">{product.name}</h3>
-                      <p className="text-xs text-slate-400 mt-3 leading-relaxed line-clamp-3">{product.description}</p>
+                      <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
+                        <div className="flex justify-between items-center">
+                          <span className="text-xs text-slate-500 font-semibold">Badge Status</span>
+                          <span className="text-[10px] text-cyan-400 font-bold px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-800/20">
+                            {isDiag ? getDiagnosticCountryBadge(activeTab) : (product.badge_text || 'Verified')}
+                          </span>
+                        </div>
+                        <div className="flex justify-between items-center gap-3 bg-slate-900/40 p-3 rounded-xl border border-slate-850">
+                          <span className="font-extrabold text-slate-100 text-lg shrink-0">{product.price_text}</span>
+                          <a href={product.deal_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white text-xs font-bold shadow-lg transition-all duration-300 text-center">
+                            {isDiag ? getCleanDiagnosticCta(product, activeTab) : (product.deal_url?.includes('/checkout') ? 'Get Master Guide ➔' : 'Access Partner Portal')}
+                          </a>
+                        </div>
+                      </div>
                     </div>
-                    <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
-                      <div className="flex justify-between items-center">
-                        <span className="text-xs text-slate-500 font-semibold">Badge Status</span>
-                        <span className="text-[10px] text-cyan-400 font-bold px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-800/20">{product.badge_text || 'Verified'}</span>
-                      </div>
-                      <div className="flex justify-between items-center bg-slate-900/40 p-3 rounded-xl border border-slate-850">
-                        <span className="font-extrabold text-slate-100 text-lg">{product.price_text}</span>
-                        <a href={product.deal_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white text-xs font-bold shadow-lg transition-all duration-300">
-                          Access Partner Portal
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
           )}
@@ -2886,62 +3011,77 @@ export function Store({ region }: StoreProps = {}) {
                       <CategoryBanner categoryKey={catKey} marketTab={activeTab} />
 
                       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {catProducts.map(product => (
-                          <div key={product.id} className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-850 hover:border-cyan-500/20 p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
-                            <div>
-                              {product.image_url && (
-                                <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-850/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
-                                  <img 
-                                    src={product.image_url} 
-                                    alt={product.name} 
-                                    className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
-                                    referrerPolicy="no-referrer"
-                                    onError={(e) => {
-                                      const target = e.currentTarget;
-                                      target.onerror = null;
-                                      target.src = '/Products/owala.jpg';
-                                    }}
-                                  />
-                                </div>
-                              )}
-                              <div className="flex justify-between items-start mb-4">
-                                <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-widest px-2 py-1 rounded bg-cyan-950/20 border border-cyan-900/30">
-                                  {product.category}
-                                </span>
-                                <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
-                                  <Star size={13} className="fill-amber-400 text-amber-400" />
-                                  <span>{product.rating ? Number(product.rating).toFixed(1) : '4.8'}</span>
-                                </span>
-                              </div>
-                              <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2">{product.name}</h3>
-                              <p className="text-xs text-slate-400 mt-3 leading-relaxed line-clamp-3">{product.description}</p>
-                            </div>
-                            <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
-                              <div className="flex justify-between items-center">
-                                <span className="text-xs text-slate-500 font-semibold">Network Target</span>
-                                <span className="text-[10px] text-slate-400 font-semibold px-2 py-0.5 rounded bg-slate-905 border border-slate-800">{product.network || 'Amazon Associates'}</span>
-                              </div>
-                              <div className="flex justify-between items-center bg-slate-900/20 p-3 rounded-xl border border-slate-900">
-                                <span className="font-extrabold text-slate-100 text-lg">{product.price_text}</span>
-                                {isBypassActive && (product.deal_url?.includes('/checkout') || product.id?.includes('guide') || product.id?.includes('metabolic')) ? (
-                                  <a
-                                    href={getGuidePdfDownloadUrl(product.id)}
-                                    download
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-md shadow-emerald-500/20"
-                                  >
-                                    Test Download (Free Bypass)
-                                  </a>
-                                ) : (
-                                  <a href={product.deal_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400 text-xs font-bold transition-all duration-300">
-                                    {product.deal_url?.includes('/checkout') ? 'Get Master Guide ➔' : `Buy on Amazon ${getFlagEmoji(activeTab)}`}
-                                  </a>
+                        {catProducts.map(product => {
+                          const isDiag = isDiagnosticProduct(product);
+                          return (
+                            <div key={product.id} className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-850 hover:border-cyan-500/20 p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
+                              <div>
+                                {product.image_url && (
+                                  <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-850/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
+                                    <img 
+                                      src={product.image_url} 
+                                      alt={product.name} 
+                                      className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                                      referrerPolicy="no-referrer"
+                                      onError={(e) => {
+                                        const target = e.currentTarget;
+                                        target.onerror = null;
+                                        target.src = '/Products/owala.jpg';
+                                      }}
+                                    />
+                                  </div>
                                 )}
+                                <div className="flex justify-between items-start mb-3">
+                                  <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-widest px-2 py-1 rounded bg-cyan-950/20 border border-cyan-900/30">
+                                    {product.category}
+                                  </span>
+                                  <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
+                                    <Star size={13} className="fill-amber-400 text-amber-400" />
+                                    <span>{product.rating ? Number(product.rating).toFixed(1) : '4.8'}</span>
+                                  </span>
+                                </div>
+                                {isDiag && (
+                                  <div className="flex flex-wrap items-center gap-1.5 mb-3">
+                                    <span className="text-[11px] font-bold text-sky-300 bg-sky-950/60 border border-sky-500/40 px-2.5 py-1 rounded-md">
+                                      {getDiagnosticCountryBadge(activeTab)}
+                                    </span>
+                                    <span className="text-[11px] font-bold text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-md">
+                                      {DIAGNOSTIC_GP_BRIEF_BADGE}
+                                    </span>
+                                  </div>
+                                )}
+                                <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2">{product.name}</h3>
+                                <p className="text-xs text-slate-400 mt-3 leading-relaxed line-clamp-3">{product.description}</p>
+                              </div>
+                              <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
+                                <div className="flex justify-between items-center">
+                                  <span className="text-xs text-slate-500 font-semibold">Network Target</span>
+                                  <span className="text-[10px] text-slate-400 font-semibold px-2 py-0.5 rounded bg-slate-905 border border-slate-800">
+                                    {isDiag ? getDiagnosticCountryBadge(activeTab) : (product.network || 'Amazon Associates')}
+                                  </span>
+                                </div>
+                                <div className="flex justify-between items-center gap-3 bg-slate-900/20 p-3 rounded-xl border border-slate-900">
+                                  <span className="font-extrabold text-slate-100 text-lg shrink-0">{product.price_text}</span>
+                                  {isBypassActive && (product.deal_url?.includes('/checkout') || product.id?.includes('guide') || product.id?.includes('metabolic')) ? (
+                                    <a
+                                      href={getGuidePdfDownloadUrl(product.id)}
+                                      download
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-md shadow-emerald-500/20"
+                                    >
+                                      Test Download (Free Bypass)
+                                    </a>
+                                  ) : (
+                                    <a href={product.deal_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400 text-xs font-bold transition-all duration-300 text-center">
+                                      {isDiag ? getCleanDiagnosticCta(product, activeTab) : (product.deal_url?.includes('/checkout') ? 'Get Master Guide ➔' : `Buy on Amazon ${getFlagEmoji(activeTab)}`)}
+                                    </a>
+                                  )}
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     </div>
                   );
@@ -2952,62 +3092,77 @@ export function Store({ region }: StoreProps = {}) {
                   <CategoryBanner categoryKey={activeCategory} marketTab={activeTab} />
 
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {amazonHubProducts.map(product => (
-                      <div key={product.id} className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-850 hover:border-cyan-500/20 p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
-                        <div>
-                          {product.image_url && (
-                            <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-850/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
-                              <img 
-                                src={product.image_url} 
-                                alt={product.name} 
-                                className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
-                                referrerPolicy="no-referrer"
-                                onError={(e) => {
-                                  const target = e.currentTarget;
-                                  target.onerror = null;
-                                  target.src = '/Products/owala.jpg';
-                                }}
-                              />
-                            </div>
-                          )}
-                          <div className="flex justify-between items-start mb-4">
-                            <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-widest px-2 py-1 rounded bg-cyan-950/20 border border-cyan-900/30">
-                              {product.category}
-                            </span>
-                            <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
-                              <Star size={13} className="fill-amber-400 text-amber-400" />
-                              <span>{product.rating ? Number(product.rating).toFixed(1) : '4.8'}</span>
-                            </span>
-                          </div>
-                          <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2">{product.name}</h3>
-                          <p className="text-xs text-slate-400 mt-3 leading-relaxed line-clamp-3">{product.description}</p>
-                        </div>
-                        <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
-                          <div className="flex justify-between items-center">
-                            <span className="text-xs text-slate-500 font-semibold">Network Target</span>
-                            <span className="text-[10px] text-slate-400 font-semibold px-2 py-0.5 rounded bg-slate-905 border border-slate-800">{product.network || 'Amazon Associates'}</span>
-                          </div>
-                          <div className="flex justify-between items-center bg-slate-900/20 p-3 rounded-xl border border-slate-900">
-                            <span className="font-extrabold text-slate-100 text-lg">{product.price_text}</span>
-                            {isBypassActive && (product.deal_url?.includes('/checkout') || product.id?.includes('guide') || product.id?.includes('metabolic')) ? (
-                              <a
-                                href={getGuidePdfDownloadUrl(product.id)}
-                                download
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-md shadow-emerald-500/20"
-                              >
-                                Test Download (Free Bypass)
-                              </a>
-                            ) : (
-                              <a href={product.deal_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400 text-xs font-bold transition-all duration-300">
-                                {product.deal_url?.includes('/checkout') ? 'Get Master Guide ➔' : `Buy on Amazon ${getFlagEmoji(activeTab)}`}
-                              </a>
+                    {amazonHubProducts.map(product => {
+                      const isDiag = isDiagnosticProduct(product);
+                      return (
+                        <div key={product.id} className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-850 hover:border-cyan-500/20 p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
+                          <div>
+                            {product.image_url && (
+                              <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-850/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
+                                <img 
+                                  src={product.image_url} 
+                                  alt={product.name} 
+                                  className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                                  referrerPolicy="no-referrer"
+                                  onError={(e) => {
+                                    const target = e.currentTarget;
+                                    target.onerror = null;
+                                    target.src = '/Products/owala.jpg';
+                                  }}
+                                />
+                              </div>
                             )}
+                            <div className="flex justify-between items-start mb-3">
+                              <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-widest px-2 py-1 rounded bg-cyan-950/20 border border-cyan-900/30">
+                                {product.category}
+                              </span>
+                              <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
+                                <Star size={13} className="fill-amber-400 text-amber-400" />
+                                <span>{product.rating ? Number(product.rating).toFixed(1) : '4.8'}</span>
+                              </span>
+                            </div>
+                            {isDiag && (
+                              <div className="flex flex-wrap items-center gap-1.5 mb-3">
+                                <span className="text-[11px] font-bold text-sky-300 bg-sky-950/60 border border-sky-500/40 px-2.5 py-1 rounded-md">
+                                  {getDiagnosticCountryBadge(activeTab)}
+                                </span>
+                                <span className="text-[11px] font-bold text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-md">
+                                  {DIAGNOSTIC_GP_BRIEF_BADGE}
+                                </span>
+                              </div>
+                            )}
+                            <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2">{product.name}</h3>
+                            <p className="text-xs text-slate-400 mt-3 leading-relaxed line-clamp-3">{product.description}</p>
+                          </div>
+                          <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
+                            <div className="flex justify-between items-center">
+                              <span className="text-xs text-slate-500 font-semibold">Network Target</span>
+                              <span className="text-[10px] text-slate-400 font-semibold px-2 py-0.5 rounded bg-slate-905 border border-slate-800">
+                                {isDiag ? getDiagnosticCountryBadge(activeTab) : (product.network || 'Amazon Associates')}
+                              </span>
+                            </div>
+                            <div className="flex justify-between items-center gap-3 bg-slate-900/20 p-3 rounded-xl border border-slate-900">
+                              <span className="font-extrabold text-slate-100 text-lg shrink-0">{product.price_text}</span>
+                              {isBypassActive && (product.deal_url?.includes('/checkout') || product.id?.includes('guide') || product.id?.includes('metabolic')) ? (
+                                <a
+                                  href={getGuidePdfDownloadUrl(product.id)}
+                                  download
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-md shadow-emerald-500/20"
+                                >
+                                  Test Download (Free Bypass)
+                                </a>
+                              ) : (
+                                <a href={product.deal_url} target="_blank" rel="noopener noreferrer" className="px-4 py-2 rounded-lg bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400 text-xs font-bold transition-all duration-300 text-center">
+                                  {isDiag ? getCleanDiagnosticCta(product, activeTab) : (product.deal_url?.includes('/checkout') ? 'Get Master Guide ➔' : `Buy on Amazon ${getFlagEmoji(activeTab)}`)}
+                                </a>
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </div>
               )}
