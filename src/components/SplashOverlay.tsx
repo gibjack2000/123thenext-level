@@ -1,4 +1,39 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+
+// Custom Web Audio Synthesizer for UI Feedback
+const playStepSound = (stepIndex: number, isMuted: boolean) => {
+  if (isMuted || typeof window === 'undefined') return;
+  
+  const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+  if (!AudioCtx) return;
+  const ctx = new AudioCtx();
+  
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  
+  osc.type = "sine";
+  
+  if (stepIndex < 5) {
+    // Soft high-tech double frequency sweep for Steps 1-4
+    osc.frequency.setValueAtTime(320 + stepIndex * 40, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(640 + stepIndex * 80, ctx.currentTime + 0.12);
+    gain.gain.setValueAtTime(0.08, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.12);
+  } else {
+    // Harmonious major chord chime for Final Step 5 (Portal Entry)
+    osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+    osc.frequency.exponentialRampToValueAtTime(1046.50, ctx.currentTime + 0.25); // C6
+    gain.gain.setValueAtTime(0.12, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.25);
+  }
+  
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  
+  osc.start();
+  osc.stop(ctx.currentTime + 0.25);
+};
 
 const PAIN_POINTS = [
   {
@@ -157,9 +192,12 @@ export const SplashOverlay: React.FC = () => {
     }
   }, []);
 
-  // Trigger lightning sound with thunder roll on EVERY new warning once started!
+  // Trigger lightning sound with thunder roll and Web Audio synthesizer cue on EVERY new warning once started!
   useEffect(() => {
     if (!isMounted || isDismissing || !hasStarted) return;
+
+    // Web Audio synthesizer cue for current step
+    playStepSound(currentIndex, isMutedRef.current);
 
     const intensityLevels = [1.0, 0.85, 0.70];
     const intensity = intensityLevels[currentIndex] ?? 0.85;
@@ -274,6 +312,9 @@ export const SplashOverlay: React.FC = () => {
   const handleStartExperience = (e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
     setHasStarted(true);
+
+    // Play Web Audio synthesizer cue for initial step
+    playStepSound(0, isMutedRef.current);
 
     // 1. Launch continuous dramatic cinematic score in background (31s duration)
     try {
@@ -947,15 +988,18 @@ export const SplashOverlay: React.FC = () => {
 
               {/* Primary START Button (Unlocks Audio on Click!) */}
               <div className="pt-2 sm:pt-4 flex flex-col items-center gap-3">
-                <button
-                  type="button"
-                  onClick={handleStartExperience}
-                  className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 w-full xs:w-auto max-w-sm sm:max-w-none px-5 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-cyan-500 bg-[length:200%_auto] hover:bg-right transition-all duration-500 text-white font-black text-xs sm:text-base md:text-lg tracking-wider uppercase shadow-[0_0_40px_rgba(6,182,212,0.6)] hover:shadow-[0_0_60px_rgba(6,182,212,0.9)] transform hover:scale-105 active:scale-95 cursor-pointer text-center"
-                >
-                  <span className="text-base sm:text-xl group-hover:animate-bounce">⚡</span>
-                  <span className="truncate">Click Here to Make Today Day 1</span>
-                  <span className="text-base sm:text-xl">➔</span>
-                </button>
+                <div className="relative group">
+                  <span className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-cyan-400/50 via-emerald-400/50 to-teal-400/50 blur-lg opacity-70 group-hover:opacity-100 group-focus-within:opacity-100 animate-pulse pointer-events-none transition-opacity duration-300" />
+                  <button
+                    type="button"
+                    onClick={handleStartExperience}
+                    className="relative inline-flex items-center justify-center gap-2 sm:gap-3 w-full xs:w-auto max-w-sm sm:max-w-none px-5 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-cyan-500 via-blue-600 to-cyan-500 bg-[length:200%_auto] hover:bg-right transition-all duration-500 text-white font-black text-xs sm:text-base md:text-lg tracking-wider uppercase shadow-[0_0_40px_rgba(6,182,212,0.6)] hover:shadow-[0_0_60px_rgba(6,182,212,0.9)] transform hover:scale-105 active:scale-95 cursor-pointer text-center"
+                  >
+                    <span className="text-base sm:text-xl group-hover:animate-bounce">⚡</span>
+                    <span className="truncate">Click Here to Make Today Day 1</span>
+                    <span className="text-base sm:text-xl">➔</span>
+                  </button>
+                </div>
 
                 <button
                   type="button"
@@ -1005,22 +1049,36 @@ export const SplashOverlay: React.FC = () => {
                 </span>
               </div>
 
-              {/* Glowing Warning Badge & Step Counter */}
-              <div className={`inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest backdrop-blur-md transition-all ${
-                currentIndex === 0
-                  ? 'bg-rose-500/20 border border-rose-500/50 text-rose-300 shadow-[0_0_30px_rgba(244,63,94,0.35)] animate-pulse'
-                  : currentIndex === PAIN_POINTS.length - 1
-                    ? 'bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 shadow-[0_0_30px_rgba(16,185,129,0.35)]'
-                    : 'bg-amber-500/15 border border-amber-500/35 text-amber-400 shadow-[0_0_25px_rgba(245,158,11,0.25)]'
-              }`}>
+              {/* Glowing Warning Badge & Step Counter with Gentle Micro-Zoom on Enter */}
+              <motion.div
+                key={`badge-${currentIndex}`}
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0, scale: [1, 1.03, 1] }}
+                transition={{
+                  scale: { duration: 0.6, ease: "easeInOut" },
+                  opacity: { duration: 0.25 }
+                }}
+                className={`inline-flex items-center gap-2 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-black uppercase tracking-wider sm:tracking-widest backdrop-blur-md transition-all ${
+                  currentIndex === 0
+                    ? 'bg-rose-500/20 border border-rose-500/50 text-rose-300 shadow-[0_0_30px_rgba(244,63,94,0.35)] animate-pulse'
+                    : currentIndex === PAIN_POINTS.length - 1
+                      ? 'bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 shadow-[0_0_30px_rgba(16,185,129,0.35)]'
+                      : 'bg-amber-500/15 border border-amber-500/35 text-amber-400 shadow-[0_0_25px_rgba(245,158,11,0.25)]'
+                }`}
+              >
                 <span className="truncate">{current.badge}</span>
                 <span className="text-slate-500">|</span>
                 <span className="text-slate-300">{current.number} / {String(PAIN_POINTS.length).padStart(2, '0')}</span>
-              </div>
+              </motion.div>
 
-              {/* Biometric EKG Heartbeat Pulse Waveform (Featured on Frame 01) */}
+              {/* Biometric EKG Heartbeat Pulse Waveform (Featured on Frame 01) with Micro-Zoom */}
               {currentIndex === 0 && (
-                <div className="flex flex-col items-center justify-center gap-1 py-0.5 sm:py-1">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: [1, 1.03, 1] }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  className="flex flex-col items-center justify-center gap-1 py-0.5 sm:py-1"
+                >
                   <svg className="w-40 sm:w-56 h-5 sm:h-7 text-rose-400 filter drop-shadow-[0_0_8px_rgba(244,63,94,0.6)]" viewBox="0 0 240 40" fill="none">
                     <path
                       className="animate-ecg"
@@ -1034,30 +1092,43 @@ export const SplashOverlay: React.FC = () => {
                   <span className="text-[9px] sm:text-[10px] font-bold tracking-wider sm:tracking-widest text-rose-400/80 uppercase">
                     Biometric Telemetry: Urgent Intervention Window Active
                   </span>
-                </div>
+                </motion.div>
               )}
 
-              {/* Flashing Headline & Detail with Cross-Fade */}
-              <div key={currentIndex} className="splash-cross-fade space-y-2.5 sm:space-y-4 min-h-0 sm:min-h-[160px] flex flex-col justify-center">
-                <h2 className="text-lg xs:text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-white leading-snug sm:leading-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] px-2">
-                  {current.headline}
-                </h2>
-                <p className="text-xs sm:text-sm md:text-base lg:text-lg text-slate-200 max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)] font-normal sm:font-medium px-2">
-                  {current.detail}
-                </p>
+              {/* Step Slide Container with Framer Motion AnimatePresence mode="wait" */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentIndex}
+                  initial={{ opacity: 0, x: 25, scale: 0.98 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: -25, scale: 0.98 }}
+                  transition={{ type: "spring", stiffness: 320, damping: 28 }}
+                  className="space-y-2.5 sm:space-y-4 min-h-0 sm:min-h-[160px] flex flex-col justify-center"
+                >
+                  <h2 className="text-lg xs:text-xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-white leading-snug sm:leading-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] px-2">
+                    {current.headline}
+                  </h2>
+                  <p className="text-xs sm:text-sm md:text-base lg:text-lg text-slate-200 max-w-2xl mx-auto leading-relaxed drop-shadow-[0_2px_12px_rgba(0,0,0,0.85)] font-normal sm:font-medium px-2">
+                    {current.detail}
+                  </p>
 
-                {/* Climax Apothecary Spotlight on Slide 06 */}
-                {currentIndex === PAIN_POINTS.length - 1 && (
-                  <div className="pt-1 sm:pt-2 flex flex-col items-center gap-2">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/50 shadow-[0_0_25px_rgba(16,185,129,0.35)] backdrop-blur-md animate-pulse">
-                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping shrink-0" />
-                      <span className="text-xs sm:text-sm font-black text-emerald-300 tracking-wide uppercase">
-                        🌿 Sovereign Apothecary • Curated Longevity Gear Active
-                      </span>
-                    </div>
-                  </div>
-                )}
-              </div>
+                  {/* Climax Apothecary Spotlight on Slide 06 with Micro-Zoom */}
+                  {currentIndex === PAIN_POINTS.length - 1 && (
+                    <motion.div
+                      animate={{ scale: [1, 1.03, 1] }}
+                      transition={{ duration: 0.6, ease: "easeInOut" }}
+                      className="pt-1 sm:pt-2 flex flex-col items-center gap-2"
+                    >
+                      <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/50 shadow-[0_0_25px_rgba(16,185,129,0.35)] backdrop-blur-md animate-pulse">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping shrink-0" />
+                        <span className="text-xs sm:text-sm font-black text-emerald-300 tracking-wide uppercase">
+                          🌿 Sovereign Apothecary • Curated Longevity Gear Active
+                        </span>
+                      </div>
+                    </motion.div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
 
               {/* Bottom Quote & Subtext */}
               <p className={`text-[10px] sm:text-xs font-bold drop-shadow uppercase tracking-wider sm:tracking-widest px-2 ${
@@ -1090,22 +1161,26 @@ export const SplashOverlay: React.FC = () => {
                   <span>Back</span>
                 </button>
 
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleNext();
-                  }}
-                  className={`px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-wider transition-all border shadow-lg cursor-pointer flex items-center gap-1.5 ${
-                    currentIndex === 0
-                      ? 'bg-rose-950/80 hover:bg-rose-900 border-rose-500/60 text-rose-200 hover:text-white'
-                      : 'bg-cyan-950/80 hover:bg-cyan-900 border-cyan-500/60 text-cyan-200 hover:text-white'
-                  }`}
-                  aria-label={currentIndex === PAIN_POINTS.length - 1 ? 'Enter website' : 'Next warning'}
-                >
-                  <span>{currentIndex === PAIN_POINTS.length - 1 ? 'Enter Portal' : 'Next Warning'}</span>
-                  <span>➔</span>
-                </button>
+                <div className="relative group">
+                  {/* Subtle cyan/emerald ambient glow pulse behind the dynamic CTA button on active focus */}
+                  <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-500/50 via-emerald-500/50 to-teal-500/50 blur-md opacity-60 group-hover:opacity-100 group-focus-within:opacity-100 animate-pulse pointer-events-none transition-opacity duration-300" />
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleNext();
+                    }}
+                    className={`relative px-4 py-1.5 rounded-full text-[11px] font-black uppercase tracking-wider transition-all border shadow-lg cursor-pointer flex items-center gap-1.5 ${
+                      currentIndex === 0
+                        ? 'bg-rose-950/80 hover:bg-rose-900 border-rose-500/60 text-rose-200 hover:text-white'
+                        : 'bg-cyan-950/80 hover:bg-cyan-900 border-cyan-500/60 text-cyan-200 hover:text-white'
+                    }`}
+                    aria-label={currentIndex === PAIN_POINTS.length - 1 ? 'Enter website' : 'Next warning'}
+                  >
+                    <span>{currentIndex === PAIN_POINTS.length - 1 ? 'Enter Portal' : 'Next Warning'}</span>
+                    <span>➔</span>
+                  </button>
+                </div>
               </div>
             </div>
           )}
