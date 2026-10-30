@@ -30,8 +30,9 @@ export default function QuizResultsLeadCapture({ score }: QuizResultsPanelProps)
         })
       });
 
-      // Save subscription in localStorage
+      // Save subscription in sessionStorage and localStorage
       try {
+        sessionStorage.setItem('subscribed_email', email.trim().toLowerCase());
         localStorage.setItem('subscribed_email', email.trim().toLowerCase());
       } catch (e) {}
 

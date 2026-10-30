@@ -68,12 +68,12 @@ export function executeDirectDownload(fileUrl: string, fileName?: string) {
 }
 
 /**
- * Helper to check whether user has already subscribed anywhere during this session or prior visits
+ * Helper to check whether user has already subscribed anywhere during this active session
  */
 export function isUserSubscribed(): boolean {
   if (typeof window === 'undefined') return false;
   try {
-    const email = localStorage.getItem('subscribed_email');
+    const email = sessionStorage.getItem('subscribed_email');
     return Boolean(email && email.includes('@'));
   } catch {
     return false;
@@ -107,7 +107,22 @@ export const DownloadGateProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
   const triggerGuideAction = (guide: GuideGateItem, explicitMode?: GateMode) => {
     const mode: GateMode = explicitMode || guide.type || (guide.checkoutUrl ? 'premium' : 'free');
-    // Always open modal without silent bypass for strict testing & conversion
+    let storedEmail: string | null = null;
+    try {
+      storedEmail = sessionStorage.getItem('subscribed_email');
+    } catch (e) {}
+
+    if (storedEmail) {
+      if (mode === 'premium') {
+        proceedToCheckout(guide.checkoutUrl, guide.id);
+      } else {
+        if (guide.fileUrl) {
+          window.open(guide.fileUrl, '_blank');
+        }
+      }
+      return;
+    }
+
     openGateModal({ item: guide, mode });
   };
 
@@ -248,8 +263,9 @@ export const DownloadGateModal: React.FC<DownloadGateModalProps> = ({
       console.warn('[DownloadGate] Subscription non-blocking error:', err);
     }
 
-    // 2. Save localStorage.setItem('subscribed_email', email)
+    // 2. Save sessionStorage.setItem('subscribed_email', email) & backup to localStorage
     try {
+      sessionStorage.setItem('subscribed_email', cleanEmail);
       localStorage.setItem('subscribed_email', cleanEmail);
     } catch (e) {}
 

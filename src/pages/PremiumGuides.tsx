@@ -57,7 +57,11 @@ export default function PremiumGuidesPage() {
     e.preventDefault();
     e.stopPropagation();
 
-    const storedEmail = localStorage.getItem('subscribed_email');
+    let storedEmail: string | null = null;
+    try {
+      storedEmail = sessionStorage.getItem('subscribed_email');
+    } catch (e) {}
+
     if (storedEmail) {
       window.location.href = guide.checkoutUrl;
       return;

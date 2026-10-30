@@ -42,11 +42,22 @@ export const DigitalGuides: React.FC<DigitalGuidesProps> = ({
 
   const handleBuyNow = (guideId: string) => {
     const guide = guidesList.find(g => g.id === guideId) || GUIDE_PRODUCTS[guideId];
+    const checkoutUrl = `/checkout?product=${guideId}`;
+    let storedEmail: string | null = null;
+    try {
+      storedEmail = sessionStorage.getItem('subscribed_email');
+    } catch (e) {}
+
+    if (storedEmail) {
+      window.location.href = checkoutUrl;
+      return;
+    }
+
     triggerGuideAction({
       id: guideId,
       title: guide?.title || 'Digital Master Guide',
       price: guide?.priceFormatted || '£29.00',
-      checkoutUrl: `/checkout?product=${guideId}`,
+      checkoutUrl: checkoutUrl,
       type: 'premium'
     }, 'premium');
   };

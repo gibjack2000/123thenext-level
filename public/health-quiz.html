@@ -2416,12 +2416,12 @@ $('nextBtn').addEventListener('click', () => {
     state.current++;
     renderQuestion();
   } else {
-    // Quiz complete → Check if user has already subscribed
+    // Quiz complete → Check if user has already subscribed in this session
     let alreadySubscribed = false;
     try {
       alreadySubscribed = !!(
-        localStorage.getItem('subscribed_email') ||
-        (window.parent && window.parent.localStorage && window.parent.localStorage.getItem('subscribed_email'))
+        sessionStorage.getItem('subscribed_email') ||
+        (window.parent && window.parent.sessionStorage && window.parent.sessionStorage.getItem('subscribed_email'))
       );
     } catch (e) {}
 
@@ -2441,8 +2441,8 @@ function showOptinScreen() {
   let alreadySubscribed = false;
   try {
     alreadySubscribed = !!(
-      localStorage.getItem('subscribed_email') ||
-      (window.parent && window.parent.localStorage && window.parent.localStorage.getItem('subscribed_email'))
+      sessionStorage.getItem('subscribed_email') ||
+      (window.parent && window.parent.sessionStorage && window.parent.sessionStorage.getItem('subscribed_email'))
     );
   } catch (e) {}
 
@@ -2512,12 +2512,16 @@ $('optinForm').addEventListener('submit', async (e) => {
 
   // Persist email & name across storage & parent frames
   try {
+    sessionStorage.setItem('subscribed_email', email);
     localStorage.setItem('subscribed_email', email);
     localStorage.setItem('quiz_subscriber_email', email);
     if (name) localStorage.setItem('quiz_subscriber_name', name);
-    if (window.parent && window.parent.localStorage) {
-      window.parent.localStorage.setItem('subscribed_email', email);
-      window.parent.localStorage.setItem('quiz_subscriber_email', email);
+    if (window.parent) {
+      if (window.parent.sessionStorage) window.parent.sessionStorage.setItem('subscribed_email', email);
+      if (window.parent.localStorage) {
+        window.parent.localStorage.setItem('subscribed_email', email);
+        window.parent.localStorage.setItem('quiz_subscriber_email', email);
+      }
     }
   } catch (e) {}
 

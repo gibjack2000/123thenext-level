@@ -37,6 +37,9 @@ export default function LibraryPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedGuide, setSelectedGuide] = useState<GuideItem | null>(null);
 
+  // Active session subscriber state (sessionStorage-driven for shared laptops)
+  const [currentSubscribedEmail, setCurrentSubscribedEmail] = useState<string | null>(null);
+
   // Compliant definition of complimentaryGuides (free) and premiumGuides (paid)
   const complimentaryGuides: GuideItem[] = COMPLIMENTARY_FREE_GUIDES.map((g) => ({
     ...g,
@@ -50,21 +53,45 @@ export default function LibraryPage() {
     checkoutUrl: g.checkoutUrl || `/checkout?product=${g.id}`,
   }));
 
+  useEffect(() => {
+    try {
+      const stored = sessionStorage.getItem('subscribed_email');
+      if (stored && stored.includes('@')) {
+        setCurrentSubscribedEmail(stored);
+      }
+    } catch (e) {}
+  }, []);
+
+  const handleResetSubscriber = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      sessionStorage.removeItem('subscribed_email');
+      localStorage.removeItem('subscribed_email');
+    } catch (err) {}
+    setCurrentSubscribedEmail(null);
+    setSelectedGuide(complimentaryGuides[0]);
+    setIsModalOpen(true);
+  };
+
   const handleGuideAction = (e: React.MouseEvent, guide: GuideItem) => {
     e.preventDefault();
     e.stopPropagation();
 
-    const storedEmail = localStorage.getItem('subscribed_email');
+    let storedEmail: string | null = null;
+    try {
+      storedEmail = sessionStorage.getItem('subscribed_email');
+    } catch (err) {}
 
     if (storedEmail) {
-      // ALREADY SUBSCRIBED: Instant execution without modal
+      // ALREADY SUBSCRIBED IN THIS ACTIVE SESSION: Instant execution without modal
       if (guide.type === 'premium') {
         window.location.href = guide.checkoutUrl;
       } else {
         window.open(guide.fileUrl, '_blank');
       }
     } else {
-      // FIRST-TIME VISITOR: Intercept and prompt to subscribe
+      // FIRST-TIME VISITOR OR EXPIRED SESSION: Intercept and prompt to subscribe
       setSelectedGuide(guide);
       setIsModalOpen(true);
     }
@@ -267,6 +294,26 @@ export default function LibraryPage() {
               <ArrowDown size={14} />
             </a>
           </div>
+
+          {/* Active Session Utility Status: Not You Reset Control */}
+          {currentSubscribedEmail && (
+            <div className="pt-2 animate-fade-in flex items-center justify-center">
+              <div className="inline-flex items-center gap-2 py-1.5 px-4 rounded-full bg-slate-900/90 border border-slate-800 text-xs text-slate-300 shadow-md">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span>
+                  Downloading as <strong className="text-cyan-300 font-semibold">{currentSubscribedEmail}</strong>
+                </span>
+                <span className="text-slate-600">•</span>
+                <button
+                  type="button"
+                  onClick={handleResetSubscriber}
+                  className="text-amber-400 hover:text-amber-300 underline font-bold cursor-pointer transition-colors"
+                >
+                  (Not you? Click here)
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </header>
 
@@ -616,6 +663,9 @@ export default function LibraryPage() {
           guide={selectedGuide}
           onSuccess={(email) => {
             setIsModalOpen(false);
+            if (email) {
+              setCurrentSubscribedEmail(email);
+            }
             if (!selectedGuide) return;
             if (selectedGuide.type === 'premium') {
               window.location.href = selectedGuide.checkoutUrl || `/checkout?product=${selectedGuide.id}`;

@@ -50,6 +50,7 @@ export const NewsletterOptIn: React.FC<NewsletterOptInProps> = ({
       if (response.ok && data.success) {
         setStatus('success');
         try {
+          sessionStorage.setItem('subscribed_email', email.trim().toLowerCase());
           localStorage.setItem('subscribed_email', email.trim().toLowerCase());
         } catch (e) {}
         if (onSuccess) onSuccess();
