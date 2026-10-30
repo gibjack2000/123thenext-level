@@ -114,3 +114,4 @@ export default async function handler(req: any, res: any) {
     return res.status(500).json({ error: 'Unable to subscribe at this moment. Please try again.' });
   }
 }
+

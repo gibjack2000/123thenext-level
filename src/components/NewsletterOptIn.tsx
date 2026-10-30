@@ -292,3 +292,4 @@ export const NewsletterOptIn: React.FC<NewsletterOptInProps> = ({
 };
 
 export default NewsletterOptIn;
+
