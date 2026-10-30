@@ -304,7 +304,7 @@ export const BloodPanelComparisonTable: React.FC<BloodPanelComparisonTableProps>
                 if (onSelectOption) onSelectOption('basic');
                 triggerLabRequisition({
                   destinationUrl: regionConfig.basic.url,
-                  testName: `${regionConfig.basic.title} (${activeMarket})`,
+                  testName: `${regionConfig.basic.name} (${activeMarket})`,
                 });
               }}
               className="w-full py-3.5 px-5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-emerald-600/20 active:scale-[0.98] cursor-pointer"
@@ -408,7 +408,7 @@ export const BloodPanelComparisonTable: React.FC<BloodPanelComparisonTableProps>
                 if (onSelectOption) onSelectOption('complete');
                 triggerLabRequisition({
                   destinationUrl: regionConfig.complete.url,
-                  testName: `${regionConfig.complete.title} (${activeMarket})`,
+                  testName: `${regionConfig.complete.name} (${activeMarket})`,
                 });
               }}
               className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:via-teal-300 hover:to-emerald-300 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-cyan-500/25 active:scale-[0.98] cursor-pointer"

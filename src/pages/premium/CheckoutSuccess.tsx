@@ -32,7 +32,7 @@ interface OrderSummary {
 
 export default function CheckoutSuccess() {
   const [searchParams] = useSearchParams();
-  const sessionId = searchParams.get('session_id');
+  const sessionId = searchParams.get('session_id') || searchParams.get('sessionId');
   const { clearCart } = useCart();
 
   const [orderSummary, setOrderSummary] = useState<OrderSummary | null>(null);
@@ -61,6 +61,14 @@ export default function CheckoutSuccess() {
         if (data.payment_status === 'paid') {
           setOrderSummary(data);
           clearCart(); // Clear the cart since purchase is completed
+
+          // Cache buyer email in storage so they remain recognized across the app
+          if (data.customer_email) {
+            try {
+              sessionStorage.setItem('subscribed_email', data.customer_email);
+              localStorage.setItem('subscribed_email', data.customer_email);
+            } catch {}
+          }
           
           // Automatically trigger download for convenient instant delivery
           if (data.products && data.products.length > 0) {
@@ -164,18 +172,47 @@ export default function CheckoutSuccess() {
   }
 
   // 3. Success State
+  const primaryProduct = orderSummary.products && orderSummary.products[0];
+  const primaryDownloadUrl = primaryProduct 
+    ? (orderSummary.download_links[primaryProduct.id] || (primaryProduct.productId && orderSummary.download_links[primaryProduct.productId])) 
+    : null;
+  const customerEmail = orderSummary.customer_email || sessionStorage.getItem('subscribed_email') || localStorage.getItem('subscribed_email') || 'your email';
+
   return (
     <div className="min-h-screen bg-slate-950 pt-32 pb-20 px-6">
       <div className="max-w-4xl mx-auto">
         <div className="bg-slate-900 border border-slate-800 rounded-[2.5rem] overflow-hidden shadow-2xl relative">
           
           {/* Header Banner */}
-          <div className="bg-emerald-500/10 border-b border-emerald-500/20 p-10 text-center">
+          <div className="bg-emerald-500/10 border-b border-emerald-500/20 p-8 sm:p-10 text-center">
             <div className="bg-emerald-500/20 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_35px_rgba(16,185,129,0.3)] animate-pulse">
               <CheckCircle2 className="w-10 h-10 text-emerald-400" />
             </div>
-            <h1 className="text-3xl font-display font-black text-white uppercase tracking-tight mb-2">Payment Confirmed</h1>
-            <p className="text-emerald-400 font-medium">Thank you for your purchase! Your digital assets have been generated securely.</p>
+            <h1 className="text-2xl sm:text-4xl font-display font-black text-white uppercase tracking-tight mb-3">
+              Payment Confirmed — Access Granted
+            </h1>
+            <p className="text-emerald-400 font-medium text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+              A permanent copy and receipt have also been sent to <span className="font-bold underline text-white">{customerEmail}</span>.
+            </p>
+
+            {primaryProduct && primaryDownloadUrl && (
+              <div className="mt-8 flex flex-col items-center">
+                <a
+                  href={primaryDownloadUrl}
+                  download={`${primaryProduct.slug || primaryProduct.id}.pdf`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => triggerDownload(primaryDownloadUrl, `${primaryProduct.slug || primaryProduct.id}.pdf`)}
+                  className="w-full sm:w-auto px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-2xl font-black uppercase tracking-wider text-sm transition-all flex items-center justify-center gap-3 shadow-xl shadow-cyan-500/25 cursor-pointer hover:scale-[1.02]"
+                >
+                  <Download size={18} />
+                  <span>Download Your {primaryProduct.title} PDF Now</span>
+                </a>
+                <span className="text-[11px] text-slate-400 mt-2 font-mono">
+                  Direct High-Speed PDF Asset Link • Cloudflare R2 Verified
+                </span>
+              </div>
+            )}
           </div>
 
           <div className="p-10">
@@ -186,13 +223,13 @@ export default function CheckoutSuccess() {
                   <Mail size={20} />
                 </div>
                 <div className="text-center md:text-left">
-                  <span className="text-[9px] font-black text-slate-550 uppercase tracking-widest block mb-0.5">Delivered to</span>
-                  <span className="text-white font-bold text-sm block truncate max-w-xs">{orderSummary.customer_email}</span>
+                  <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest block mb-0.5">Confirmation & Receipt Delivered to</span>
+                  <span className="text-white font-bold text-sm block truncate max-w-xs">{customerEmail}</span>
                 </div>
               </div>
               <div className="text-center md:text-right">
-                <span className="text-[9px] font-black text-slate-550 uppercase tracking-widest block mb-0.5">Amount Paid</span>
-                <span className="text-xl font-black text-white uppercase">
+                <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest block mb-0.5">Amount Paid</span>
+                <span className="text-xl font-black text-emerald-400 uppercase">
                   {orderSummary.currencySymbol || orderSummary.currency.toUpperCase()} {orderSummary.amount_total.toFixed(2)}
                 </span>
               </div>
@@ -200,7 +237,7 @@ export default function CheckoutSuccess() {
 
             {/* List of Purchased Guides */}
             <h2 className="text-lg font-black uppercase tracking-wider text-white mb-6 flex items-center gap-2">
-              <ShoppingBag size={18} className="text-blue-500" /> Purchased Guides ({orderSummary.products.length})
+              <ShoppingBag size={18} className="text-cyan-400" /> Purchased Guides ({orderSummary.products.length})
             </h2>
 
             <div className="space-y-4 mb-10">
@@ -212,28 +249,32 @@ export default function CheckoutSuccess() {
                     className="bg-slate-950 border border-slate-850 p-6 rounded-2xl flex flex-col sm:flex-row items-center justify-between gap-6 transition-all hover:border-slate-800"
                   >
                     <div className="flex items-center gap-4 text-center sm:text-left flex-col sm:flex-row">
-                      <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/10 flex items-center justify-center flex-shrink-0">
+                      <div className="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 flex items-center justify-center flex-shrink-0">
                         <FileText size={22} />
                       </div>
                       <div>
                         <h4 className="text-base font-bold text-white mb-1">{product.title}</h4>
                         <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
-                          Format: PDF Guide
+                          Format: Instant PDF Guide
                         </span>
                       </div>
                     </div>
 
                     {downloadUrl ? (
-                      <button 
-                        onClick={() => triggerDownload(downloadUrl, `${product.slug}.pdf`)}
-                        className="w-full sm:w-auto px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-black uppercase tracking-widest text-xs transition-colors flex items-center justify-center gap-2.5 shadow-lg shadow-blue-600/10"
+                      <a 
+                        href={downloadUrl}
+                        download={`${product.slug || product.id}.pdf`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => triggerDownload(downloadUrl, `${product.slug || product.id}.pdf`)}
+                        className="w-full sm:w-auto px-6 py-3.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-xl font-black uppercase tracking-widest text-xs transition-colors flex items-center justify-center gap-2.5 shadow-lg shadow-cyan-500/20 cursor-pointer"
                       >
                         <Download size={14} />
-                        Download PDF
-                      </button>
+                        <span>Download Your {product.title} PDF Now</span>
+                      </a>
                     ) : (
                       <span className="text-xs text-amber-500 font-bold uppercase tracking-widest flex items-center gap-1 border border-amber-500/20 bg-amber-500/5 px-4 py-2.5 rounded-xl">
-                        Generating...
+                        Generating Direct Link...
                       </span>
                     )}
                   </div>

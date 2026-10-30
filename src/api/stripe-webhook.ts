@@ -23,7 +23,7 @@ export async function handleStripeWebhook(req: Request): Promise<Response> {
 
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object as Stripe.Checkout.Session;
-    console.log(`🎉 Payment confirmed for guide: ${session.metadata?.guideId || 'order'}`);
+    console.log(`🎉 Payment confirmed for guide: ${session.metadata?.guide_id || session.metadata?.guideId || 'order'}`);
   }
 
   return new Response(JSON.stringify({ received: true }), {

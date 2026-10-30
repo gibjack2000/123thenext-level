@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import CheckoutSuccess from './premium/CheckoutSuccess';
 import { 
   CheckCircle2, 
   Download, 
@@ -15,6 +16,13 @@ import {
 
 export default function SuccessPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const sessionId = searchParams.get('session_id') || searchParams.get('sessionId');
+
+  // If redirected from paid Stripe checkout with session_id, render verified paid fulfillment screen
+  if (sessionId) {
+    return <CheckoutSuccess />;
+  }
 
   useEffect(() => {
     document.title = "Access Granted | 123TheNextLevel";

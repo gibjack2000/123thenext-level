@@ -36,11 +36,13 @@ export async function handleCreateCheckoutSession(req: Request): Promise<Respons
         },
       ],
       metadata: {
+        guide_id: guide.id,
+        file_url: guide.r2FileKey ? `${origin}/api/download-r2/${guide.r2FileKey}` : (guide.r2FileKey || ''),
         guideId: guide.id,
         r2FileKey: guide.r2FileKey,
       },
-      success_url: `${origin}/library?success=true&session_id={CHECKOUT_SESSION_ID}&guideId=${guide.id}`,
-      cancel_url: `${origin}/library?canceled=true`,
+      success_url: `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}&guideId=${guide.id}`,
+      cancel_url: `${origin}/checkout?canceled=true`,
     });
 
     return new Response(JSON.stringify({ url: session.url }), {

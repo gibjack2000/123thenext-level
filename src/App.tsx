@@ -230,6 +230,9 @@ function App() {
                 <Route path="/life-practice/beginners-guide" element={<BeginnersGuide />} />
                 <Route path="/premium-guides" element={<PremiumGuidesPage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
+                <Route path="/checkout/success" element={<CheckoutSuccess />} />
+                <Route path="/checkout/cancel" element={<CheckoutCancel />} />
+                <Route path="/success" element={<CheckoutSuccess />} />
                 <Route path="/premium-guides/success" element={<CheckoutSuccess />} />
                 <Route path="/premium-guides/cancel" element={<CheckoutCancel />} />
                 <Route path="/premium-guides/:slug" element={<PremiumGuideDetailPage />} />

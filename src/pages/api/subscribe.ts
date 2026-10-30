@@ -44,8 +44,7 @@ export default async function handler(req: any, res: any) {
 
         await supabase
           .from('newsletter_subscribers')
-          .upsert([{ email: cleanEmail, preferences: [cleanSource] }], { onConflict: 'email' })
-          .catch(() => {});
+          .upsert([{ email: cleanEmail, preferences: [cleanSource] }], { onConflict: 'email' });
       } catch (dbEx: any) {
         console.warn('Supabase Lead Log Exception:', dbEx?.message);
       }

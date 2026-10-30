@@ -15,7 +15,7 @@ const port = process.env.PORT || 3001;
 
 app.use(express.json({
   verify: (req, res, buf) => {
-    if (req.originalUrl && req.originalUrl.includes('stripe-webhook')) {
+    if (req.originalUrl && (req.originalUrl.includes('stripe') || req.originalUrl.includes('webhook'))) {
       req.rawBody = buf;
     }
   }
@@ -64,6 +64,12 @@ app.get('/ping', (req, res) => {
 });
 
 app.use('/api', apiRouter);
+
+// Direct alias for Stripe webhooks sent without /api prefix
+app.post(['/webhooks/stripe', '/stripe-webhook', '/webhook/stripe'], (req, res, next) => {
+  req.url = '/webhooks/stripe';
+  apiRouter(req, res, next);
+});
 
 // Add a logger
 app.use((req, res, next) => {

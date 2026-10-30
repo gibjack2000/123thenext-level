@@ -187,12 +187,15 @@ router.post('/create-checkout-session', async (req, res) => {
     const targetGuide = guideId ? resolveGuideProduct(guideId) : (items && Array.isArray(items) && items.length === 1 ? resolveGuideProduct(items[0].id) : null);
     if (targetGuide) {
       const origin = resolveValidBaseUrl(req);
-      const successUrl = (source === 'library')
-        ? `${origin}/library?success=true&session_id={CHECKOUT_SESSION_ID}&guideId=${targetGuide.id}`
-        : `${origin}/premium-guides/success?session_id={CHECKOUT_SESSION_ID}&guideId=${targetGuide.id}`;
+      const successUrl = `${origin}/checkout/success?session_id={CHECKOUT_SESSION_ID}&guideId=${targetGuide.id}`;
       const cancelUrl = (source === 'library')
         ? `${origin}/library?canceled=true`
         : `${origin}/checkout?canceled=true`;
+
+      const r2FileKey = targetGuide.r2FileKey || targetGuide.r2Key || '';
+      const guideFileUrl = r2FileKey 
+        ? `${origin}/api/download-r2/${r2FileKey}` 
+        : (targetGuide.fileUrl || `/assets/docs/${r2FileKey}`);
 
       const session = await stripeService.createCheckoutSession({
         lineItems: [
@@ -212,6 +215,8 @@ router.post('/create-checkout-session', async (req, res) => {
         cancelUrl,
         customerEmail: customerEmail || undefined,
         metadata: {
+          guide_id: targetGuide.id,
+          file_url: guideFileUrl,
           guideId: targetGuide.id,
           bundleId: targetGuide.pillar === 'Bundle' ? targetGuide.id : undefined,
           r2FileKey: targetGuide.r2FileKey,
@@ -273,14 +278,20 @@ router.post('/create-checkout-session', async (req, res) => {
     }
 
     const domainURL = resolveValidBaseUrl(req);
+    const firstProduct = validatedItems[0] ? (getProductById(validatedItems[0].product_id) || resolveGuideProduct(validatedItems[0].product_id)) : null;
+    const firstR2Key = firstProduct?.r2FileKey || firstProduct?.r2Key || '';
+    const cartFileUrl = firstR2Key ? `${domainURL}/api/download-r2/${firstR2Key}` : '';
 
     // Create session on Stripe
     const session = await stripeService.createCheckoutSession({
       lineItems,
-      successUrl: `${domainURL}/premium-guides/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancelUrl: `${domainURL}/premium-guides/cancel`,
+      successUrl: `${domainURL}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancelUrl: `${domainURL}/checkout?canceled=true`,
       customerEmail: customerEmail || undefined,
       metadata: {
+        guide_id: firstProduct?.id || (validatedItems[0] ? validatedItems[0].product_id : 'cart_order'),
+        file_url: cartFileUrl,
+        guideId: firstProduct?.id || (validatedItems[0] ? validatedItems[0].product_id : 'cart_order'),
         itemCount: validatedItems.length.toString()
       }
     });
@@ -381,6 +392,9 @@ router.get('/order-summary', async (req, res) => {
       }
     }
 
+    if (stripeSession?.metadata?.guide_id) {
+      rawProductIds.push(stripeSession.metadata.guide_id);
+    }
     if (stripeSession?.metadata?.guideId) {
       rawProductIds.push(stripeSession.metadata.guideId);
     }
@@ -508,10 +522,10 @@ router.get('/order-summary', async (req, res) => {
 });
 
 /**
- * 3. POST /api/stripe-webhook
+ * 3. POST /api/stripe-webhook & /api/webhooks/stripe
  * Endpoint for Stripe to push event notifications (idempotent fulfillment)
  */
-router.post('/stripe-webhook', async (req, res) => {
+router.post(['/stripe-webhook', '/webhooks/stripe', '/webhook/stripe'], async (req, res) => {
   const signature = req.headers['stripe-signature'];
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
@@ -532,7 +546,7 @@ router.post('/stripe-webhook', async (req, res) => {
   try {
     if (event.type === 'checkout.session.completed') {
       const session = event.data.object;
-      console.log(`🎉 Payment confirmed for guide: ${session.metadata?.guideId || 'order'}`);
+      console.log(`🎉 Payment confirmed for guide: ${session.metadata?.guide_id || session.metadata?.guideId || 'order'}`);
 
       // 1. Retrieve full session with line items
       const fullSession = await stripeService.retrieveSession(session.id);
@@ -585,14 +599,14 @@ router.post('/stripe-webhook', async (req, res) => {
 
       console.log(`Successfully fulfilled order ${order.id} for session ${session.id}`);
 
-      // 4. Trigger MailerLite Thank You & Guide Delivery Automation
+      // 4. Trigger MailerLite Thank You & Guide Delivery Automation with customer_status: paid_buyer
       try {
         const customerEmail = session.customer_details?.email || fullSession.customer_details?.email || order?.customer_email;
         const customerName = session.customer_details?.name || fullSession.customer_details?.name || '';
         
-        let displayTitle = session.metadata?.guideId;
-        if (session.metadata?.guideId) {
-          const resolved = resolveGuideProduct(session.metadata.guideId);
+        let displayTitle = session.metadata?.guide_id || session.metadata?.guideId;
+        if (displayTitle) {
+          const resolved = resolveGuideProduct(displayTitle);
           if (resolved) displayTitle = resolved.title;
         } else if (orderItems.length > 0) {
           const firstProd = getProductById(orderItems[0].product_id) || resolveGuideProduct(orderItems[0].product_id);
