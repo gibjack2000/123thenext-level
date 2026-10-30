@@ -220,9 +220,11 @@ router.post('/subscribe', async (req, res) => {
 
     const cleanEmail = email.toLowerCase().trim();
     const cleanName = firstName ? String(firstName).trim() : '';
-    const cleanSource = testName 
-      ? `clinical_test_requisition: ${testName}` 
-      : (pdfTitle ? `pdf_download: ${pdfTitle}` : (source || 'website_lead'));
+    const cleanSource = source 
+      ? source 
+      : (testName 
+          ? `clinical_test_requisition: ${testName}` 
+          : (pdfTitle ? `pdf_download: ${pdfTitle}` : 'website_lead'));
     const cleanScore = quizScore !== undefined && quizScore !== null ? String(quizScore) : null;
 
     // 1. Save / Backup Lead in Supabase 'leads' table

@@ -316,3 +316,4 @@ export const LabRequisitionModal: React.FC = () => {
 };
 
 export default LabRequisitionModal;
+

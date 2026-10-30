@@ -17,10 +17,43 @@ export default function LibraryPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
-  const { triggerGatedDownload } = useDownloadGate();
+  const { triggerGatedDownload, triggerGuideAction } = useDownloadGate();
   const [freeDownloadTriggered, setFreeDownloadTriggered] = useState(false);
   const [paidDownload, setPaidDownload] = useState<PaidDownloadState>({ status: 'idle' });
   const [downloadToast, setDownloadToast] = useState<string | null>(null);
+
+  // Compliant definition of complimentaryGuides (free) and premiumGuides (paid)
+  const complimentaryGuides = COMPLIMENTARY_FREE_GUIDES.map((g) => ({
+    ...g,
+    type: 'free' as const,
+  }));
+
+  const premiumGuides = PREMIUM_MASTER_GUIDES.map((g) => ({
+    ...g,
+    type: 'premium' as const,
+    price: g.priceDisplay,
+    checkoutUrl: g.checkoutUrl || `/checkout?product=${g.id}`,
+  }));
+
+  const handleGuideClick = (guide: any, mode: 'free' | 'premium' = guide.type || 'free') => {
+    const isSubscribed = Boolean(localStorage.getItem('subscribed_email'));
+    if (isSubscribed) {
+      if (mode === 'free') {
+        if (guide.fileUrl) {
+          triggerDirectDownload(
+            guide.fileUrl,
+            guide.fileName || `${guide.id}.pdf`,
+            guide.title
+          );
+        }
+      } else {
+        const targetUrl = guide.checkoutUrl || (guide.id ? `/checkout?product=${guide.id}` : '/checkout');
+        window.location.href = targetUrl;
+      }
+    } else {
+      triggerGuideAction(guide, mode);
+    }
+  };
 
   useEffect(() => {
     document.title = "Free PDFs & Master Guides Library | 123TheNextLevel";
@@ -319,11 +352,7 @@ export default function LibraryPage() {
                 type="button"
                 onClick={(e) => {
                   e.preventDefault();
-                  triggerDirectDownload(
-                    '/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf?v=2026-revised',
-                    'idiots-guide-to-the-next-level-lifespan.pdf',
-                    "An Idiot's Guide to the Next Level Lifespan"
-                  );
+                  handleGuideClick(complimentaryGuides[0], 'free');
                 }}
                 className="w-full py-4 px-5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2 transition duration-200 shadow-lg cursor-pointer bg-cyan-500 text-slate-950 hover:bg-cyan-400 shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.99]"
               >
@@ -419,11 +448,7 @@ export default function LibraryPage() {
                 type="button"
                 onClick={(e) => {
                   e.preventDefault();
-                  triggerDirectDownload(
-                    '/assets/docs/clinical-baseline-consultation-workbook.pdf',
-                    'clinical-baseline-consultation-workbook.pdf',
-                    "The Clinician Co-Pilot Workbook"
-                  );
+                  handleGuideClick(complimentaryGuides[1], 'free');
                 }}
                 className="w-full py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition bg-cyan-950/60 hover:bg-cyan-900/70 border border-cyan-500/30 text-cyan-300 hover:text-white cursor-pointer"
               >

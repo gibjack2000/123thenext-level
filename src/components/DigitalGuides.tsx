@@ -18,7 +18,7 @@ export const DigitalGuides: React.FC<DigitalGuidesProps> = ({
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [selectedTocGuide, setSelectedTocGuide] = useState<DigitalGuideProduct | null>(null);
   const { isBypassActive } = usePaywallBypass();
-  const { triggerGatedDownload } = useDownloadGate();
+  const { triggerGatedDownload, triggerGuideAction } = useDownloadGate();
 
   // Explicitly ensure ALL Master Guides are rendered in order (including the new Metabolic Master Protocol)
   const MASTER_GUIDE_KEYS = [
@@ -39,6 +39,20 @@ export const DigitalGuides: React.FC<DigitalGuidesProps> = ({
     .filter((g): g is DigitalGuideProduct => Boolean(g));
 
   const handleBuyNow = async (guideId: string) => {
+    const isSubscribed = Boolean(localStorage.getItem('subscribed_email'));
+    const guide = guidesList.find(g => g.id === guideId) || GUIDE_PRODUCTS[guideId];
+
+    if (!isSubscribed) {
+      triggerGuideAction({
+        id: guideId,
+        title: guide?.title || 'Digital Master Guide',
+        price: guide?.priceFormatted || '£29.00',
+        checkoutUrl: `/checkout?product=${guideId}`,
+        type: 'premium'
+      }, 'premium');
+      return;
+    }
+
     try {
       setCheckoutError(null);
       setLoadingGuideId(guideId);

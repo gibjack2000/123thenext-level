@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BookOpen, X, CheckCircle2, ShieldCheck, Download, ArrowRight, Activity, FileText, Sparkles } from 'lucide-react';
 import BundleOffers from '../components/BundleOffers';
 import { usePaywallBypass, getGuidePdfDownloadUrl } from '../utils/adminTestMode';
+import { useDownloadGate } from '../components/DownloadGateModal';
 
 interface MasterGuide {
   id: string;
@@ -49,6 +50,26 @@ const GuideCoverImage: React.FC<{ primaryImage: string; fallbackImage?: string; 
 export default function PremiumGuidesPage() {
   const [selectedTocGuide, setSelectedTocGuide] = useState<MasterGuide | null>(null);
   const { isBypassActive } = usePaywallBypass();
+  const { triggerGuideAction } = useDownloadGate();
+
+  const handleCheckoutClick = (e: React.MouseEvent, guide: MasterGuide) => {
+    e.preventDefault();
+    const isSubscribed = Boolean(localStorage.getItem('subscribed_email'));
+    if (isSubscribed) {
+      window.location.href = guide.checkoutUrl;
+    } else {
+      triggerGuideAction(
+        {
+          id: guide.id,
+          title: guide.title,
+          price: guide.price,
+          checkoutUrl: guide.checkoutUrl,
+          type: 'premium',
+        },
+        'premium'
+      );
+    }
+  };
 
   useEffect(() => {
     document.title = "Premium Master Guides | 123TheNextLevel";
@@ -358,7 +379,8 @@ export default function PremiumGuidesPage() {
                 ) : (
                   <a
                     href={guide.checkoutUrl}
-                    className="w-full py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider text-center block bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 hover:from-cyan-400 hover:to-blue-500 transition-all shadow-lg shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.99]"
+                    onClick={(e) => handleCheckoutClick(e, guide)}
+                    className="w-full py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider text-center block bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 hover:from-cyan-400 hover:to-blue-500 transition-all shadow-lg shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
                   >
                     {guide.id === 'metabolic-master-guide' ? `Get Master Guide (${guide.price}) ➔` : `Buy Digital Master Book (${guide.price}) ➔`}
                   </a>
@@ -563,6 +585,11 @@ export default function PremiumGuidesPage() {
               ) : (
                 <a
                   href={selectedTocGuide.checkoutUrl}
+                  onClick={(e) => {
+                    const g = selectedTocGuide;
+                    setSelectedTocGuide(null);
+                    handleCheckoutClick(e, g);
+                  }}
                   className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 transition-all shadow-xl shadow-amber-500/20 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>Get Master Guide ({selectedTocGuide.price})</span>

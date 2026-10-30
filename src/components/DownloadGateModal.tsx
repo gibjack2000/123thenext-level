@@ -1,17 +1,35 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { X, Download, Mail, ShieldCheck, Sparkles, Loader2, FileText, CheckCircle2 } from 'lucide-react';
+import { X, Download, Mail, ShieldCheck, Sparkles, Loader2, FileText, CheckCircle2, ArrowRight, Lock } from 'lucide-react';
 
-export interface DownloadItem {
-  fileUrl: string;
-  fileName?: string;
+export type GateMode = 'free' | 'premium';
+
+export interface GuideGateItem {
+  id?: string;
   title: string;
+  fileUrl?: string;
+  fileName?: string;
+  checkoutUrl?: string;
+  price?: string;
+  priceDisplay?: string;
+  type?: GateMode;
+  [key: string]: any;
 }
 
+export interface GateModalRequest {
+  item: GuideGateItem;
+  mode?: GateMode;
+}
+
+export type DownloadItem = GuideGateItem;
+
 interface DownloadGateContextType {
-  triggerGatedDownload: (item: DownloadItem) => void;
+  triggerGatedDownload: (item: GuideGateItem) => void;
+  triggerGuideAction: (guide: GuideGateItem, mode?: GateMode) => void;
+  openGateModal: (request: GateModalRequest) => void;
   isOpen: boolean;
   closeModal: () => void;
-  currentDownload: DownloadItem | null;
+  currentRequest: GateModalRequest | null;
+  currentDownload: GuideGateItem | null;
 }
 
 const DownloadGateContext = createContext<DownloadGateContextType | undefined>(undefined);
@@ -48,40 +66,65 @@ export function isUserSubscribed(): boolean {
   if (typeof window === 'undefined') return false;
   try {
     const email = localStorage.getItem('subscribed_email');
-    return !!(email && email.includes('@'));
+    return Boolean(email && email.includes('@'));
   } catch {
     return false;
   }
 }
 
 /**
- * Universal Download Gate Provider
+ * Helper to proceed to checkout route safely
+ */
+export function proceedToCheckout(checkoutUrl?: string, guideId?: string) {
+  const target = checkoutUrl || (guideId ? `/checkout?product=${guideId}` : '/checkout');
+  window.location.href = target;
+}
+
+/**
+ * Universal Download & Guide Gate Provider
  */
 export const DownloadGateProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentDownload, setCurrentDownload] = useState<DownloadItem | null>(null);
+  const [currentRequest, setCurrentRequest] = useState<GateModalRequest | null>(null);
 
-  const triggerGatedDownload = (item: DownloadItem) => {
-    // 1. If already subscribed, bypass modal and immediately trigger file download
-    if (isUserSubscribed()) {
-      executeDirectDownload(item.fileUrl, item.fileName);
-      return;
-    }
-
-    // 2. Otherwise open modal interceptor
-    setCurrentDownload(item);
+  const openGateModal = (request: GateModalRequest) => {
+    setCurrentRequest(request);
     setIsOpen(true);
   };
 
   const closeModal = () => {
     setIsOpen(false);
-    setCurrentDownload(null);
+    setCurrentRequest(null);
+  };
+
+  const triggerGuideAction = (guide: GuideGateItem, explicitMode?: GateMode) => {
+    const mode: GateMode = explicitMode || guide.type || (guide.checkoutUrl ? 'premium' : 'free');
+
+    // 1. If already subscribed, bypass modal and immediately proceed
+    if (isUserSubscribed()) {
+      if (mode === 'free' && guide.fileUrl) {
+        executeDirectDownload(guide.fileUrl, guide.fileName);
+      } else if (mode === 'premium') {
+        proceedToCheckout(guide.checkoutUrl, guide.id);
+      } else if (guide.fileUrl) {
+        executeDirectDownload(guide.fileUrl, guide.fileName);
+      }
+      return;
+    }
+
+    // 2. Otherwise open modal interceptor
+    openGateModal({ item: guide, mode });
+  };
+
+  const triggerGatedDownload = (item: GuideGateItem) => {
+    triggerGuideAction(item, item.type || 'free');
   };
 
   // Expose global window helper for easy access outside React tree if needed
   useEffect(() => {
     if (typeof window !== 'undefined') {
       (window as any).nextLevelTriggerGatedDownload = triggerGatedDownload;
+      (window as any).nextLevelTriggerGuideAction = triggerGuideAction;
     }
   }, []);
 
@@ -89,9 +132,12 @@ export const DownloadGateProvider: React.FC<{ children: React.ReactNode }> = ({ 
     <DownloadGateContext.Provider
       value={{
         triggerGatedDownload,
+        triggerGuideAction,
+        openGateModal,
         isOpen,
         closeModal,
-        currentDownload,
+        currentRequest,
+        currentDownload: currentRequest ? currentRequest.item : null,
       }}
     >
       {children}
@@ -101,22 +147,27 @@ export const DownloadGateProvider: React.FC<{ children: React.ReactNode }> = ({ 
 };
 
 /**
- * Hook to consume the universal download gate
+ * Hook to consume the universal download and guide gate
  */
 export function useDownloadGate() {
   const context = useContext(DownloadGateContext);
   if (!context) {
     // Fallback if rendered outside provider
     return {
-      triggerGatedDownload: (item: DownloadItem) => {
-        if (isUserSubscribed()) {
-          executeDirectDownload(item.fileUrl, item.fileName);
+      triggerGatedDownload: (item: GuideGateItem) => {
+        if (item.fileUrl) executeDirectDownload(item.fileUrl, item.fileName);
+      },
+      triggerGuideAction: (guide: GuideGateItem, mode: GateMode = 'free') => {
+        if (mode === 'free' && guide.fileUrl) {
+          executeDirectDownload(guide.fileUrl, guide.fileName);
         } else {
-          executeDirectDownload(item.fileUrl, item.fileName);
+          proceedToCheckout(guide.checkoutUrl, guide.id);
         }
       },
+      openGateModal: () => {},
       isOpen: false,
       closeModal: () => {},
+      currentRequest: null,
       currentDownload: null,
     };
   }
@@ -128,21 +179,28 @@ export function useDownloadGate() {
  */
 export const DownloadGateModal: React.FC = () => {
   const context = useContext(DownloadGateContext);
+  const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [success, setSuccess] = useState(false);
 
-  if (!context || !context.isOpen || !context.currentDownload) {
+  if (!context || !context.isOpen || !context.currentRequest) {
     return null;
   }
 
-  const { currentDownload, closeModal } = context;
-  const pdfTitle = currentDownload.title || 'Clinical Guide';
+  const { currentRequest, closeModal } = context;
+  const guide = currentRequest.item;
+  const mode: GateMode = currentRequest.mode || guide.type || 'free';
+  const guideTitle = guide.title || 'Clinical Guide';
+  const priceDisplay = guide.price || guide.priceDisplay || '£29.00';
+
+  const isFree = mode === 'free';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const cleanEmail = email.trim().toLowerCase();
+    const cleanFirstName = firstName.trim();
 
     if (!cleanEmail || !cleanEmail.includes('@') || !cleanEmail.includes('.')) {
       setErrorMessage('Please enter a valid email address.');
@@ -152,8 +210,11 @@ export const DownloadGateModal: React.FC = () => {
     setErrorMessage('');
     setIsSubmitting(true);
 
+    const guideId = guide.id || (guide.title ? guide.title.toLowerCase().replace(/[^a-z0-9]+/g, '_') : 'guide');
+    const source = isFree ? `free_pdf_${guideId}` : `premium_pdf_${guideId}`;
+
     try {
-      // 1. Sync to MailerLite (Group 201226349911737620) & Supabase Leads
+      // Sync to MailerLite (Group 201226349911737620) & Supabase Leads
       await fetch('/api/subscribe', {
         method: 'POST',
         headers: {
@@ -162,51 +223,82 @@ export const DownloadGateModal: React.FC = () => {
         },
         body: JSON.stringify({
           email: cleanEmail,
-          firstName: '',
-          source: 'pdf_download_gate',
-          pdfTitle: pdfTitle,
-          downloadName: currentDownload.fileName || currentDownload.fileUrl,
+          firstName: cleanFirstName,
+          source: source,
+          pdfTitle: guideTitle,
+          downloadName: guide.fileName || guide.fileUrl || guideId,
+          price: priceDisplay,
           groupId: '201226349911737620',
         }),
       });
     } catch (err) {
-      console.warn('[DownloadGate] Subscription request non-blocking error:', err);
+      console.warn('[DownloadGate] Subscription non-blocking error:', err);
     }
 
-    // 2. Persist email so user is never prompted again anywhere on site
+    // Persist email in localStorage so user is never prompted again anywhere on site
     try {
       localStorage.setItem('subscribed_email', cleanEmail);
     } catch (e) {}
 
     setSuccess(true);
 
-    // 3. Trigger immediate file download
-    executeDirectDownload(currentDownload.fileUrl, currentDownload.fileName);
-
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSuccess(false);
-      setEmail('');
-      closeModal();
-    }, 600);
+    if (isFree) {
+      // Free guide: automatically trigger file download
+      if (guide.fileUrl) {
+        executeDirectDownload(guide.fileUrl, guide.fileName);
+      }
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setSuccess(false);
+        setEmail('');
+        setFirstName('');
+        closeModal();
+      }, 600);
+    } else {
+      // Paid guide: forward user directly to guide.checkoutUrl
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setSuccess(false);
+        setEmail('');
+        setFirstName('');
+        closeModal();
+        proceedToCheckout(guide.checkoutUrl, guide.id);
+      }, 500);
+    }
   };
 
   const handleSkip = () => {
-    // Optional skip path: immediately trigger download without subscribing
-    executeDirectDownload(currentDownload.fileUrl, currentDownload.fileName);
+    // Optional skip path: completes respective action without subscribing
+    if (isFree) {
+      if (guide.fileUrl) {
+        executeDirectDownload(guide.fileUrl, guide.fileName);
+      }
+    } else {
+      proceedToCheckout(guide.checkoutUrl, guide.id);
+    }
     closeModal();
   };
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-fade-in"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md animate-fade-in"
       role="dialog"
       aria-modal="true"
     >
       <div className="relative w-full max-w-md bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 border border-slate-800 rounded-3xl shadow-2xl p-6 sm:p-8 overflow-hidden text-left">
         {/* Decorative Top Accent Glow */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-500" />
-        <div className="absolute -top-24 -right-24 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div
+          className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${
+            isFree
+              ? 'from-emerald-500 via-cyan-500 to-blue-500'
+              : 'from-amber-500 via-orange-500 to-cyan-500'
+          }`}
+        />
+        <div
+          className={`absolute -top-24 -right-24 w-48 h-48 rounded-full blur-3xl pointer-events-none ${
+            isFree ? 'bg-cyan-500/10' : 'bg-amber-500/10'
+          }`}
+        />
 
         {/* Close Button */}
         <button
@@ -220,33 +312,62 @@ export const DownloadGateModal: React.FC = () => {
 
         {/* Header Badge */}
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-mono font-medium mb-4">
-          <FileText size={13} />
-          <span>Clinical Telemetry PDF</span>
+          {isFree ? <FileText size={13} /> : <Lock size={13} className="text-amber-400" />}
+          <span>
+            {isFree ? 'Clinical Telemetry PDF • $0.00 Free' : `Digital Master Guide • ${priceDisplay}`}
+          </span>
         </div>
 
-        {/* Headline */}
+        {/* Dynamic Headline */}
         <h3 className="text-2xl font-black text-white tracking-tight leading-snug">
-          Instant Download Access
+          {isFree ? 'Instant Download Access' : `Access ${guideTitle}`}
         </h3>
 
-        {/* Subheadline with PDF Title */}
+        {/* Dynamic Subheadline */}
         <p className="text-sm text-slate-400 mt-2 leading-relaxed">
-          Enter your email to receive your copy of{' '}
-          <strong className="text-cyan-300 font-semibold">{pdfTitle}</strong> and get our weekly biomarker updates.
+          {isFree ? (
+            <>
+              Enter your email to receive your free copy of{' '}
+              <strong className="text-cyan-300 font-semibold">{guideTitle}</strong> and join our weekly biomarker updates.
+            </>
+          ) : (
+            <>
+              Enter your email to secure your customer profile and proceed to checkout (
+              <strong className="text-amber-300 font-semibold">{priceDisplay}</strong>).
+            </>
+          )}
         </p>
 
-        {/* Form */}
+        {/* Form or Success State */}
         {success ? (
           <div className="mt-6 p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-center space-y-2 animate-fade-in">
             <CheckCircle2 size={32} className="mx-auto text-emerald-400" />
-            <p className="text-sm font-bold text-white">Download Dispatched!</p>
+            <p className="text-sm font-bold text-white">
+              {isFree ? 'Download Dispatched!' : 'Profile Secured!'}
+            </p>
             <p className="text-xs text-emerald-400/90 font-medium">
-              Your file is downloading now. Check your inbox for updates.
+              {isFree
+                ? 'Your file is downloading now. Check your inbox for updates.'
+                : 'Redirecting to secure Stripe checkout...'}
             </p>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-            <div className="space-y-1.5">
+            <div className="space-y-1">
+              <label htmlFor="gate-firstname" className="block text-xs font-bold uppercase tracking-wider text-slate-400">
+                First Name <span className="text-slate-500 text-[10px] font-normal lowercase">(optional)</span>
+              </label>
+              <input
+                id="gate-firstname"
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                placeholder="Alex"
+                className="w-full px-4 py-2.5 bg-slate-950 border border-slate-700 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 rounded-xl text-white placeholder-slate-500 text-sm outline-none transition"
+              />
+            </div>
+
+            <div className="space-y-1">
               <label htmlFor="gate-email" className="block text-xs font-bold uppercase tracking-wider text-slate-400">
                 Email Address <span className="text-rose-400">*</span>
               </label>
@@ -268,32 +389,42 @@ export const DownloadGateModal: React.FC = () => {
               )}
             </div>
 
+            {/* Dynamic CTA Button */}
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3.5 px-5 bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:to-emerald-300 text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-lg shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.99] transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
+              className={`w-full py-3.5 px-5 font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl shadow-lg hover:scale-[1.01] active:scale-[0.99] transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60 ${
+                isFree
+                  ? 'bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:to-emerald-300 text-slate-950 shadow-cyan-500/20'
+                  : 'bg-gradient-to-r from-amber-500 via-orange-500 to-amber-400 hover:from-amber-400 hover:to-orange-400 text-slate-950 shadow-amber-500/25'
+              }`}
             >
               {isSubmitting ? (
                 <>
                   <Loader2 size={16} className="animate-spin" />
-                  <span>Preparing Download...</span>
+                  <span>{isFree ? 'Preparing Download...' : 'Connecting to Checkout...'}</span>
+                </>
+              ) : isFree ? (
+                <>
+                  <Download size={16} />
+                  <span>Download Free Guide</span>
                 </>
               ) : (
                 <>
-                  <Download size={16} />
-                  <span>Download Now</span>
+                  <span>Continue to Checkout</span>
+                  <ArrowRight size={16} />
                 </>
               )}
             </button>
 
-            {/* Optional Skip Link */}
+            {/* Secondary Low-Contrast Skip Link */}
             <div className="text-center pt-1.5">
               <button
                 type="button"
                 onClick={handleSkip}
                 className="text-xs text-slate-500 hover:text-slate-400 underline font-medium transition-colors cursor-pointer"
               >
-                Download without subscribing
+                {isFree ? 'Download without subscribing →' : 'Proceed to checkout without subscribing →'}
               </button>
             </div>
 
@@ -325,7 +456,7 @@ export const GatedDownloadButton: React.FC<{
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     if (onClick) onClick();
-    triggerGatedDownload({ fileUrl, fileName, title });
+    triggerGatedDownload({ fileUrl, fileName, title, type: 'free' });
   };
 
   return (
@@ -336,4 +467,3 @@ export const GatedDownloadButton: React.FC<{
 };
 
 export default DownloadGateModal;
-
