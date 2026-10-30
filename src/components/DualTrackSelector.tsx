@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
 import { FlagUS, FlagUK, FlagES } from './MarketSelector';
+import { useDownloadGate } from './DownloadGateModal';
 
 export interface DualTrackSelectorProps {
   className?: string;
@@ -191,6 +192,7 @@ export const DualTrackSelector: React.FC<DualTrackSelectorProps> = ({
   const [selectedMarket, setSelectedMarket] = useState<Market>(
     initialMarket || (globalMarket as Market) || 'US'
   );
+  const { triggerGatedDownload } = useDownloadGate();
 
   const handleTabChange = (marketKey: Market) => {
     setSelectedMarket(marketKey);
@@ -419,16 +421,18 @@ export const DualTrackSelector: React.FC<DualTrackSelectorProps> = ({
             </a>
 
             {/* Mandatory PDF Consultation Template V2 Button */}
-            <a
-              href={currentData.track1.pdfUrl}
-              download="clinical-baseline-consultation-template-v2.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-850 text-cyan-300 hover:text-white border border-cyan-500/30 hover:border-cyan-400 text-xs font-bold text-center transition-all duration-200 flex items-center justify-center gap-2 shadow-sm"
+            <button
+              type="button"
+              onClick={() => triggerGatedDownload({
+                fileUrl: currentData.track1.pdfUrl,
+                fileName: 'clinical-baseline-consultation-template-v2.pdf',
+                title: '2-Page Clinical Baseline Consultation Template V2',
+              })}
+              className="w-full py-3 px-4 rounded-xl bg-slate-900 hover:bg-slate-850 text-cyan-300 hover:text-white border border-cyan-500/30 hover:border-cyan-400 text-xs font-bold text-center transition-all duration-200 flex items-center justify-center gap-2 shadow-sm cursor-pointer"
             >
               <Download size={14} className="text-cyan-400" />
               <span>{currentData.track1.pdfLabel}</span>
-            </a>
+            </button>
 
             <div className="flex items-center justify-center gap-1.5 text-[10px] text-slate-400 font-mono">
               <Stethoscope size={11} className="text-cyan-400" />
@@ -557,16 +561,18 @@ export const DualTrackSelector: React.FC<DualTrackSelectorProps> = ({
             <strong>Dual-Track Feedback Synergy:</strong> Weekly dips flag acute anomalies early; quarterly venous draws calibrate cellular trajectory.
           </span>
         </div>
-        <a
-          href="/assets/docs/clinical-baseline-consultation-template-v2.pdf"
-          download="clinical-baseline-consultation-template-v2.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-cyan-400 hover:text-cyan-300 font-mono text-[11px] font-bold flex items-center gap-1 shrink-0 transition"
+        <button
+          type="button"
+          onClick={() => triggerGatedDownload({
+            fileUrl: '/assets/docs/clinical-baseline-consultation-template-v2.pdf',
+            fileName: 'clinical-baseline-consultation-template-v2.pdf',
+            title: 'Printable GP Consultation Template (PDF V2)',
+          })}
+          className="text-cyan-400 hover:text-cyan-300 font-mono text-[11px] font-bold flex items-center gap-1 shrink-0 transition cursor-pointer"
         >
           <span>Download Printable GP Template (PDF V2)</span>
           <ArrowRight size={12} />
-        </a>
+        </button>
       </div>
     </div>
   );

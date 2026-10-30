@@ -1299,12 +1299,12 @@
       <div id="optinFormWrap">
         <div class="optin-hero">
           <div class="optin-mini-score">
-            <span class="lbl">5-Minute Assessment Complete</span>
-            <span class="num" style="font-size:22px; letter-spacing:1px; color:var(--brand-deep);">🔒 RESULTS READY</span>
-            <span class="lbl" id="optinScoreTier">Enter your details below to reveal your score</span>
+            <span class="lbl">Assessment Complete</span>
+            <span class="num" style="font-size:20px; letter-spacing:1px; color:var(--brand-deep);">🔒 RESULTS READY</span>
+            <span class="lbl" id="optinScoreTier">Your Longevity Protocol Is Ready</span>
           </div>
-          <h2>Send My Full Results & Roadmap to Email</h2>
-          <p>Optional: Enter your first name and email below to receive your personalized baseline score, full biological blueprint, and clinical roadmap directly in your inbox — or skip below to view immediately on screen.</p>
+          <h2>Your Longevity Protocol Is Ready</h2>
+          <p>Enter your email to receive your personalized roadmap, biomarker baseline guide, and full 14-day habit checklist.</p>
         </div>
 
         <div class="optin-perks">
@@ -1318,21 +1318,21 @@
           </div>
           <div class="optin-perk">
             <div class="check">✓</div>
-            <div><strong>Weekly Next Level tips</strong> — short, actionable protocols sent straight to your inbox</div>
+            <div><strong>Biomarker baseline guide &amp; 14-day habit checklist</strong> — sent straight to your inbox</div>
           </div>
         </div>
 
         <form class="optin-form" id="optinForm" novalidate>
           <div class="field">
-            <label for="optinName">First name <span style="color:var(--danger);">*</span></label>
-            <input type="text" id="optinName" name="name" placeholder="Enter your first name" autocomplete="given-name" required />
+            <label for="optinName">First name <span style="font-size:12px; font-weight:normal; color:var(--text-muted);">(optional)</span></label>
+            <input type="text" id="optinName" name="name" placeholder="Enter your first name (optional)" autocomplete="given-name" />
           </div>
           <div class="field">
             <label for="optinEmail">Email <span style="color:var(--danger);">*</span></label>
             <input type="email" id="optinEmail" name="email" placeholder="you@example.com" autocomplete="email" required />
           </div>
           <div class="field">
-            <label for="optinRegion">Select Your Market <span style="color:var(--danger);">*</span></label>
+            <label for="optinRegion">Select Your Market</label>
             <select id="optinRegion" name="region">
               <option value="us">🇺🇸 United States (US)</option>
               <option value="uk">🇬🇧 United Kingdom (UK)</option>
@@ -1343,18 +1343,18 @@
             <input type="checkbox" id="optinConsent" required checked />
             <label for="optinConsent">Yes, reveal my score and send my Health Baseline report. View our <a href="/privacy" target="_blank" rel="noopener" style="color:var(--brand-deep);">Privacy Policy</a>.</label>
           </div>
-          <div class="optin-error" id="optinError">Please enter your first name, a valid email address, and check consent.</div>
-          <button type="submit" class="btn btn-primary btn-block" id="optinSubmit">Send My Full Results & Roadmap to Email →</button>
-          <div style="text-align:center; margin-top:12px;">
-            <button type="button" id="optinSkipBtn" style="background:none; border:none; color:var(--text-muted); font-size:12px; font-weight:600; text-decoration:underline; cursor:pointer;">Skip & View Results Directly →</button>
+          <div class="optin-error" id="optinError">Please enter a valid email address and check consent.</div>
+          <button type="submit" class="btn btn-primary btn-block" id="optinSubmit">Send My Protocol &amp; Unlock Results →</button>
+          <div style="text-align:center; margin-top:14px;">
+            <button type="button" id="optinSkipBtn" style="background:none; border:none; color:var(--text-muted); font-size:13px; font-weight:600; text-decoration:underline; cursor:pointer;">Skip to results on screen →</button>
           </div>
         </form>
       </div>
 
       <div id="optinSuccessWrap" class="optin-success hidden">
         <div class="check-big">✓</div>
-        <h3>You're in! Check your inbox.</h3>
-        <p id="optinSuccessMsg">We're emailing your complete Health Baseline Plan — score, action steps, blood test checklist, and meditation practices — right now. Loading your on-screen results…</p>
+        <h3>Your Protocol Is Ready!</h3>
+        <p id="optinSuccessMsg">We're emailing your complete Longevity Protocol &amp; Habit Checklist right now. Loading your on-screen results…</p>
       </div>
     </div>
 
@@ -2416,8 +2416,21 @@ $('nextBtn').addEventListener('click', () => {
     state.current++;
     renderQuestion();
   } else {
-    // Quiz complete → go to email opt-in screen (then results)
-    showOptinScreen();
+    // Quiz complete → Check if user has already subscribed
+    let alreadySubscribed = false;
+    try {
+      alreadySubscribed = !!(
+        localStorage.getItem('subscribed_email') ||
+        (window.parent && window.parent.localStorage && window.parent.localStorage.getItem('subscribed_email'))
+      );
+    } catch (e) {}
+
+    if (alreadySubscribed) {
+      renderResults();
+      showScreen('results');
+    } else {
+      showOptinScreen();
+    }
   }
 });
 
@@ -2425,8 +2438,22 @@ $('nextBtn').addEventListener('click', () => {
    EMAIL OPT-IN FLOW
    ========================================================= */
 function showOptinScreen() {
+  let alreadySubscribed = false;
+  try {
+    alreadySubscribed = !!(
+      localStorage.getItem('subscribed_email') ||
+      (window.parent && window.parent.localStorage && window.parent.localStorage.getItem('subscribed_email'))
+    );
+  } catch (e) {}
+
+  if (alreadySubscribed) {
+    renderResults();
+    showScreen('results');
+    return;
+  }
+
   if ($('optinScoreTier')) {
-    $('optinScoreTier').textContent = 'Enter your details below to reveal your score';
+    $('optinScoreTier').textContent = 'Your Longevity Protocol Is Ready';
   }
 
   // Reset form visibility (in case of retake)
@@ -2455,10 +2482,8 @@ $('optinForm').addEventListener('submit', async (e) => {
   const consent = $('optinConsent').checked;
   const region = $('optinRegion') ? $('optinRegion').value : 'us';
 
-  if (!name || !isValidEmail(email) || !consent) {
-    if (!name) {
-      $('optinError').textContent = 'Please enter your first name.';
-    } else if (!isValidEmail(email)) {
+  if (!isValidEmail(email) || !consent) {
+    if (!isValidEmail(email)) {
       $('optinError').textContent = 'Please enter a valid email address.';
     } else {
       $('optinError').textContent = 'Please check the consent box.';
@@ -2471,7 +2496,7 @@ $('optinForm').addEventListener('submit', async (e) => {
   const submitBtn = $('optinSubmit');
   if (submitBtn) {
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Revealing Your Score...';
+    submitBtn.textContent = 'Unlocking Your Protocol...';
   }
 
   // Compute full quiz score
@@ -2485,10 +2510,15 @@ $('optinForm').addEventListener('submit', async (e) => {
   state.selectedRegion = region;
   state.optedIn = true;
 
-  // Persist email & name in session/local storage for persistence
+  // Persist email & name across storage & parent frames
   try {
+    localStorage.setItem('subscribed_email', email);
     localStorage.setItem('quiz_subscriber_email', email);
-    localStorage.setItem('quiz_subscriber_name', name);
+    if (name) localStorage.setItem('quiz_subscriber_name', name);
+    if (window.parent && window.parent.localStorage) {
+      window.parent.localStorage.setItem('subscribed_email', email);
+      window.parent.localStorage.setItem('quiz_subscriber_email', email);
+    }
   } catch (e) {}
 
   // 1. Submit lead to /api/subscribe (MailerLite & Supabase sync)
@@ -2500,9 +2530,10 @@ $('optinForm').addEventListener('submit', async (e) => {
       },
       body: JSON.stringify({
         email: email,
-        firstName: name,
+        firstName: name || '',
         quizScore: quizScore,
-        source: 'wellness_quiz'
+        source: 'quiz_results',
+        groupId: '201226349911737620'
       })
     });
   } catch (subErr) {

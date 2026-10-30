@@ -8,7 +8,7 @@ const supabase = (supabaseUrl && supabaseAnonKey) ? createClient(supabaseUrl, su
 
 export async function POST(req: Request) {
   try {
-    const { email, firstName, source, quizScore } = await req.json();
+    const { email, firstName, source, quizScore, pdfTitle, downloadName } = await req.json();
 
     // Validate that email is present and valid
     if (!email || typeof email !== 'string' || !email.includes('@') || !email.includes('.')) {
@@ -20,7 +20,7 @@ export async function POST(req: Request) {
 
     const cleanEmail = email.toLowerCase().trim();
     const cleanName = firstName ? String(firstName).trim() : '';
-    const cleanSource = source || 'website_lead';
+    const cleanSource = pdfTitle ? `pdf_download: ${pdfTitle}` : (source || 'website_lead');
     const cleanScore = quizScore !== undefined && quizScore !== null ? String(quizScore) : null;
 
     // 1. Save / Backup Lead in Supabase 'leads' table

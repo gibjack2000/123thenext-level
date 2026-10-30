@@ -33,10 +33,12 @@ import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
 import BloodPanelComparisonTable from '../components/BloodPanelComparisonTable';
 import Step2DiagnosticChannels from '../components/Step2DiagnosticChannels';
 import Step3GuidingBanner from '../components/Step3GuidingBanner';
+import { useDownloadGate } from '../components/DownloadGateModal';
 
 export default function StartHere() {
   const { market, setMarket } = useMarket();
   const navigate = useNavigate();
+  const { triggerGatedDownload } = useDownloadGate();
 
   // Region selection state for Step 0 Quiz dual-hook
   const [selectedRegion, setSelectedRegion] = useState<'US' | 'UK' | 'ES'>(
@@ -286,14 +288,18 @@ export default function StartHere() {
               </div>
 
               <div className="relative z-10">
-                <a
-                  href="/assets/docs/the-next-level-lifespan-2026.pdf?v=2026-revised"
-                  download="the-next-level-lifespan-2026.pdf"
+                <button
+                  type="button"
+                  onClick={() => triggerGatedDownload({
+                    fileUrl: '/assets/docs/the-next-level-lifespan-2026.pdf?v=2026-revised',
+                    fileName: 'the-next-level-lifespan-2026.pdf',
+                    title: 'The Next Level Lifespan Blueprint',
+                  })}
                   className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-emerald-500/20 hover:scale-[1.01] active:scale-[0.98] cursor-pointer"
                 >
                   <Download size={15} />
                   <span>Download Free Guide (PDF)</span>
-                </a>
+                </button>
                 <div className="text-center mt-2 flex items-center justify-center gap-3 text-[10px] text-slate-400">
                   <a 
                     href="/assets/docs/the-next-level-lifespan-2026.pdf?v=2026-revised" 

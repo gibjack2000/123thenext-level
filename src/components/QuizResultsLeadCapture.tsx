@@ -29,6 +29,11 @@ export default function QuizResultsLeadCapture({ score }: QuizResultsPanelProps)
         })
       });
 
+      // Save subscription in localStorage
+      try {
+        localStorage.setItem('subscribed_email', email.trim().toLowerCase());
+      } catch (e) {}
+
       // Also trigger PDF download
       const link = document.createElement('a');
       link.href = '/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf';

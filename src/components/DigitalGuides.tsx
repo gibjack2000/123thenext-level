@@ -3,6 +3,7 @@ import { Lock, ShieldCheck, Download, Sparkles, CheckCircle2, ArrowRight, BookOp
 import { GUIDE_PRODUCTS, DigitalGuideProduct } from '../data/guide-registry';
 import BundleOffers from './BundleOffers';
 import { usePaywallBypass, getGuidePdfDownloadUrl } from '../utils/adminTestMode';
+import { useDownloadGate } from './DownloadGateModal';
 
 interface DigitalGuidesProps {
   className?: string;
@@ -17,6 +18,7 @@ export const DigitalGuides: React.FC<DigitalGuidesProps> = ({
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
   const [selectedTocGuide, setSelectedTocGuide] = useState<DigitalGuideProduct | null>(null);
   const { isBypassActive } = usePaywallBypass();
+  const { triggerGatedDownload } = useDownloadGate();
 
   // Explicitly ensure ALL Master Guides are rendered in order (including the new Metabolic Master Protocol)
   const MASTER_GUIDE_KEYS = [
@@ -175,16 +177,18 @@ export const DigitalGuides: React.FC<DigitalGuidesProps> = ({
               {/* Dynamic Purchase Trigger & Table of Contents Action Buttons */}
               <div className="pt-4 border-t border-slate-800/80 space-y-2.5">
                 {isBypassActive ? (
-                  <a
-                    href={getGuidePdfDownloadUrl(guide.id)}
-                    download
-                    target="_blank"
-                    rel="noopener noreferrer"
+                  <button
+                    type="button"
+                    onClick={() => triggerGatedDownload({
+                      fileUrl: getGuidePdfDownloadUrl(guide.id),
+                      fileName: `${guide.id}.pdf`,
+                      title: guide.title,
+                    })}
                     className="w-full py-3.5 px-5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 shadow-lg shadow-emerald-500/25 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 cursor-pointer"
                   >
                     <Download size={15} className="text-slate-950" />
                     <span>Test Download (Free Bypass)</span>
-                  </a>
+                  </button>
                 ) : (
                   <button
                     type="button"
@@ -395,16 +399,18 @@ export const DigitalGuides: React.FC<DigitalGuidesProps> = ({
               </button>
 
               {isBypassActive ? (
-                <a
-                  href={getGuidePdfDownloadUrl(selectedTocGuide.id)}
-                  download
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
+                  onClick={() => triggerGatedDownload({
+                    fileUrl: getGuidePdfDownloadUrl(selectedTocGuide.id),
+                    fileName: `${selectedTocGuide.id}.pdf`,
+                    title: selectedTocGuide.title,
+                  })}
                   className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 transition-all shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <Download size={15} />
                   <span>Test Download (Free Bypass)</span>
-                </a>
+                </button>
               ) : (
                 <button
                   type="button"

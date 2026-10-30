@@ -61,6 +61,9 @@ export default function SlideInNewsletter() {
 
       if (response.ok && data.success) {
         setStatus('success');
+        try {
+          localStorage.setItem('subscribed_email', email.trim().toLowerCase());
+        } catch (e) {}
         localStorage.setItem('newsletter_subscribed', 'true');
         setHasSubscribed(true);
         setEmail('');

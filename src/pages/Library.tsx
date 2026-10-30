@@ -4,6 +4,7 @@ import { CheckCircle2, Lock, ShieldCheck, Download, Sparkles, BookOpen, ArrowDow
 import { DigitalGuides } from '../components/DigitalGuides';
 import { COMPLIMENTARY_FREE_GUIDES, PREMIUM_MASTER_GUIDES } from '../config/guides';
 import NewsletterOptIn from '../components/NewsletterOptIn';
+import { useDownloadGate } from '../components/DownloadGateModal';
 
 interface PaidDownloadState {
   status: 'idle' | 'verifying' | 'verified' | 'error';
@@ -16,6 +17,7 @@ export default function LibraryPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
+  const { triggerGatedDownload } = useDownloadGate();
   const [freeDownloadTriggered, setFreeDownloadTriggered] = useState(false);
   const [paidDownload, setPaidDownload] = useState<PaidDownloadState>({ status: 'idle' });
   const [downloadToast, setDownloadToast] = useState<string | null>(null);
@@ -107,22 +109,15 @@ export default function LibraryPage() {
   }, [searchParams, location, freeDownloadTriggered, paidDownload.status]);
 
   const triggerDirectDownload = (fileUrl: string, fileName: string, title: string) => {
-    try {
-      const link = document.createElement('a');
-      link.href = fileUrl;
-      link.download = fileName;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      setDownloadToast(title);
-      setTimeout(() => {
-        setDownloadToast(null);
-      }, 5000);
-    } catch (err) {
-      console.error('Download error:', err);
-      window.open(fileUrl, '_blank');
-    }
+    triggerGatedDownload({
+      fileUrl,
+      fileName,
+      title,
+    });
+    setDownloadToast(title);
+    setTimeout(() => {
+      setDownloadToast(null);
+    }, 5000);
   };
 
   return (
@@ -320,10 +315,10 @@ export default function LibraryPage() {
             </div>
 
             <div className="pt-4 border-t border-slate-800/80 relative z-10 space-y-2">
-              <a
-                href="/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf?v=2026-revised"
-                download="idiots-guide-to-the-next-level-lifespan.pdf"
-                onClick={() => {
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
                   triggerDirectDownload(
                     '/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf?v=2026-revised',
                     'idiots-guide-to-the-next-level-lifespan.pdf',
@@ -335,7 +330,7 @@ export default function LibraryPage() {
                 <Download size={16} />
                 <span>Download Free Guide (PDF)</span>
                 <span>➔</span>
-              </a>
+              </button>
 
               <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400 font-mono text-center">
                 <ShieldCheck size={12} className="text-emerald-400" />
@@ -420,21 +415,21 @@ export default function LibraryPage() {
               </Link>
 
               {/* Secondary Button */}
-              <a
-                href="/assets/docs/clinical-baseline-consultation-workbook.pdf"
-                download="clinical-baseline-consultation-workbook.pdf"
-                onClick={() => {
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
                   triggerDirectDownload(
                     '/assets/docs/clinical-baseline-consultation-workbook.pdf',
                     'clinical-baseline-consultation-workbook.pdf',
                     "The Clinician Co-Pilot Workbook"
                   );
                 }}
-                className="w-full py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition bg-cyan-950/60 hover:bg-cyan-900/70 border border-cyan-500/30 text-cyan-300 hover:text-white"
+                className="w-full py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition bg-cyan-950/60 hover:bg-cyan-900/70 border border-cyan-500/30 text-cyan-300 hover:text-white cursor-pointer"
               >
                 <Download size={14} />
                 <span>📥 Download Blank PDF ($0)</span>
-              </a>
+              </button>
 
               <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400 font-mono text-center">
                 <ShieldCheck size={12} className="text-emerald-400" />
