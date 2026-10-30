@@ -53,8 +53,21 @@ export default function LibraryPage() {
   const handleGuideAction = (e: React.MouseEvent, guide: GuideItem) => {
     e.preventDefault();
     e.stopPropagation();
-    setSelectedGuide(guide);
-    setIsModalOpen(true);
+
+    const storedEmail = localStorage.getItem('subscribed_email');
+
+    if (storedEmail) {
+      // ALREADY SUBSCRIBED: Instant execution without modal
+      if (guide.type === 'premium') {
+        window.location.href = guide.checkoutUrl;
+      } else {
+        window.open(guide.fileUrl, '_blank');
+      }
+    } else {
+      // FIRST-TIME VISITOR: Intercept and prompt to subscribe
+      setSelectedGuide(guide);
+      setIsModalOpen(true);
+    }
   };
 
   useEffect(() => {

@@ -225,10 +225,9 @@ export const DownloadGateModal: React.FC<DownloadGateModalProps> = ({
     setIsSubmitting(true);
 
     const guideId = guide.id || (guide.title ? guide.title.toLowerCase().replace(/[^a-z0-9]+/g, '_') : 'guide');
-    const source = isFree ? `free_pdf_${guideId}` : `premium_pdf_${guideId}`;
 
     try {
-      // Sync to MailerLite (Group 201226349911737620) & Supabase Leads
+      // 1. Post { email, source: selectedGuide.id } to /api/subscribe (targeting MailerLite Group ID "201226349911737620")
       await fetch('/api/subscribe', {
         method: 'POST',
         headers: {
@@ -238,7 +237,7 @@ export const DownloadGateModal: React.FC<DownloadGateModalProps> = ({
         body: JSON.stringify({
           email: cleanEmail,
           firstName: cleanFirstName,
-          source: source,
+          source: guideId,
           pdfTitle: guideTitle,
           downloadName: guide.fileName || guide.fileUrl || guideId,
           price: priceDisplay,
@@ -249,32 +248,30 @@ export const DownloadGateModal: React.FC<DownloadGateModalProps> = ({
       console.warn('[DownloadGate] Subscription non-blocking error:', err);
     }
 
-    // Persist email in localStorage
+    // 2. Save localStorage.setItem('subscribed_email', email)
     try {
       localStorage.setItem('subscribed_email', cleanEmail);
     } catch (e) {}
 
-    setSuccess(true);
+    // 3. Close the modal immediately
+    closeModal();
+    setIsSubmitting(false);
+    setEmail('');
+    setFirstName('');
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSuccess(false);
-      setEmail('');
-      setFirstName('');
-      closeModal();
-
-      if (propsOnSuccess) {
-        propsOnSuccess(cleanEmail);
-      } else {
-        if (isFree) {
-          if (guide.fileUrl) {
-            executeDirectDownload(guide.fileUrl, guide.fileName);
-          }
-        } else {
-          proceedToCheckout(guide.checkoutUrl, guide.id);
+    // 4. Execute the deliverable right away
+    if (propsOnSuccess) {
+      propsOnSuccess(cleanEmail);
+    } else {
+      if (isFree) {
+        if (guide.fileUrl) {
+          window.open(guide.fileUrl, '_blank');
         }
+      } else {
+        const targetUrl = guide.checkoutUrl || (guide.id ? `/checkout?product=${guide.id}` : '/checkout');
+        window.location.href = targetUrl;
       }
-    }, 500);
+    }
   };
 
   const handleSkip = () => {
@@ -284,10 +281,11 @@ export const DownloadGateModal: React.FC<DownloadGateModalProps> = ({
     } else {
       if (isFree) {
         if (guide.fileUrl) {
-          executeDirectDownload(guide.fileUrl, guide.fileName);
+          window.open(guide.fileUrl, '_blank');
         }
       } else {
-        proceedToCheckout(guide.checkoutUrl, guide.id);
+        const targetUrl = guide.checkoutUrl || (guide.id ? `/checkout?product=${guide.id}` : '/checkout');
+        window.location.href = targetUrl;
       }
     }
   };
@@ -437,7 +435,7 @@ export const DownloadGateModal: React.FC<DownloadGateModalProps> = ({
                 onClick={handleSkip}
                 className="text-xs text-slate-500 hover:text-slate-400 underline font-medium transition-colors cursor-pointer"
               >
-                {isFree ? 'Download without subscribing →' : 'Proceed to checkout without subscribing →'}
+                Continue without subscribing →
               </button>
             </div>
 

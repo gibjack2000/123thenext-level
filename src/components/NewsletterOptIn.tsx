@@ -41,6 +41,7 @@ export const NewsletterOptIn: React.FC<NewsletterOptInProps> = ({
           email: email.trim(),
           firstName: firstName.trim(),
           source: source,
+          groupId: '201226349911737620',
         }),
       });
 

@@ -25,7 +25,8 @@ export default function QuizResultsLeadCapture({ score }: QuizResultsPanelProps)
           email,
           firstName,
           quizScore: score,
-          source: 'wellness_quiz'
+          source: 'wellness_quiz',
+          groupId: '201226349911737620'
         })
       });
 

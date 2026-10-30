@@ -56,6 +56,13 @@ export default function PremiumGuidesPage() {
   const handleCheckoutClick = (e: React.MouseEvent, guide: MasterGuide) => {
     e.preventDefault();
     e.stopPropagation();
+
+    const storedEmail = localStorage.getItem('subscribed_email');
+    if (storedEmail) {
+      window.location.href = guide.checkoutUrl;
+      return;
+    }
+
     setSelectedGuide(guide);
     setIsModalOpen(true);
   };
