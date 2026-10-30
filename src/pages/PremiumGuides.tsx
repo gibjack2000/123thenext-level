@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BookOpen, X, CheckCircle2, ShieldCheck, Download, ArrowRight, Activity, FileText, Sparkles } from 'lucide-react';
 import BundleOffers from '../components/BundleOffers';
 import { usePaywallBypass, getGuidePdfDownloadUrl } from '../utils/adminTestMode';
-import { useDownloadGate } from '../components/DownloadGateModal';
+import DownloadGateModal from '../components/DownloadGateModal';
 
 interface MasterGuide {
   id: string;
@@ -49,26 +49,15 @@ const GuideCoverImage: React.FC<{ primaryImage: string; fallbackImage?: string; 
 
 export default function PremiumGuidesPage() {
   const [selectedTocGuide, setSelectedTocGuide] = useState<MasterGuide | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedGuide, setSelectedGuide] = useState<MasterGuide | null>(null);
   const { isBypassActive } = usePaywallBypass();
-  const { triggerGuideAction } = useDownloadGate();
 
   const handleCheckoutClick = (e: React.MouseEvent, guide: MasterGuide) => {
     e.preventDefault();
-    const isSubscribed = Boolean(localStorage.getItem('subscribed_email'));
-    if (isSubscribed) {
-      window.location.href = guide.checkoutUrl;
-    } else {
-      triggerGuideAction(
-        {
-          id: guide.id,
-          title: guide.title,
-          price: guide.price,
-          checkoutUrl: guide.checkoutUrl,
-          type: 'premium',
-        },
-        'premium'
-      );
-    }
+    e.stopPropagation();
+    setSelectedGuide(guide);
+    setIsModalOpen(true);
   };
 
   useEffect(() => {
@@ -377,13 +366,14 @@ export default function PremiumGuidesPage() {
                     <span>Test Download (Free Bypass)</span>
                   </a>
                 ) : (
-                  <a
-                    href={guide.checkoutUrl}
+                  <button
+                    type="button"
                     onClick={(e) => handleCheckoutClick(e, guide)}
-                    className="w-full py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider text-center block bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 hover:from-cyan-400 hover:to-blue-500 transition-all shadow-lg shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
+                    className="w-full py-3.5 px-4 rounded-xl text-xs font-black uppercase tracking-wider text-center flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 hover:from-cyan-400 hover:to-blue-500 transition-all shadow-lg shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
                   >
-                    {guide.id === 'metabolic-master-guide' ? `Get Master Guide (${guide.price}) ➔` : `Buy Digital Master Book (${guide.price}) ➔`}
-                  </a>
+                    <span>{guide.id === 'metabolic-master-guide' ? `Get Master Guide (${guide.price})` : `Buy Digital Master Book (${guide.price})`}</span>
+                    <ArrowRight size={14} />
+                  </button>
                 )}
 
                 <button
@@ -583,8 +573,8 @@ export default function PremiumGuidesPage() {
                   <span>Test Download (Free Bypass)</span>
                 </a>
               ) : (
-                <a
-                  href={selectedTocGuide.checkoutUrl}
+                <button
+                  type="button"
                   onClick={(e) => {
                     const g = selectedTocGuide;
                     setSelectedTocGuide(null);
@@ -594,12 +584,35 @@ export default function PremiumGuidesPage() {
                 >
                   <span>Get Master Guide ({selectedTocGuide.price})</span>
                   <ArrowRight size={14} />
-                </a>
+                </button>
               )}
             </div>
 
           </div>
         </div>
+      )}
+
+      {/* Universal Subscription Intercept Modal for Premium Master Guides */}
+      {selectedGuide && (
+        <DownloadGateModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          guide={{
+            id: selectedGuide.id,
+            title: selectedGuide.title,
+            price: selectedGuide.price,
+            checkoutUrl: selectedGuide.checkoutUrl,
+            type: 'premium',
+          }}
+          onSuccess={() => {
+            setIsModalOpen(false);
+            window.location.href = selectedGuide.checkoutUrl;
+          }}
+          onSkip={() => {
+            setIsModalOpen(false);
+            window.location.href = selectedGuide.checkoutUrl;
+          }}
+        />
       )}
 
     </div>

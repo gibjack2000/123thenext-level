@@ -4,7 +4,19 @@ import { CheckCircle2, Lock, ShieldCheck, Download, Sparkles, BookOpen, ArrowDow
 import { DigitalGuides } from '../components/DigitalGuides';
 import { COMPLIMENTARY_FREE_GUIDES, PREMIUM_MASTER_GUIDES } from '../config/guides';
 import NewsletterOptIn from '../components/NewsletterOptIn';
-import { useDownloadGate } from '../components/DownloadGateModal';
+import DownloadGateModal, { executeDirectDownload } from '../components/DownloadGateModal';
+
+export interface GuideItem {
+  id: string;
+  title: string;
+  type: 'free' | 'premium';
+  fileUrl?: string;
+  fileName?: string;
+  checkoutUrl?: string;
+  price?: string;
+  priceDisplay?: string;
+  [key: string]: any;
+}
 
 interface PaidDownloadState {
   status: 'idle' | 'verifying' | 'verified' | 'error';
@@ -17,42 +29,32 @@ export default function LibraryPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
-  const { triggerGatedDownload, triggerGuideAction } = useDownloadGate();
   const [freeDownloadTriggered, setFreeDownloadTriggered] = useState(false);
   const [paidDownload, setPaidDownload] = useState<PaidDownloadState>({ status: 'idle' });
   const [downloadToast, setDownloadToast] = useState<string | null>(null);
 
+  // Explicit state for DownloadGateModal
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedGuide, setSelectedGuide] = useState<GuideItem | null>(null);
+
   // Compliant definition of complimentaryGuides (free) and premiumGuides (paid)
-  const complimentaryGuides = COMPLIMENTARY_FREE_GUIDES.map((g) => ({
+  const complimentaryGuides: GuideItem[] = COMPLIMENTARY_FREE_GUIDES.map((g) => ({
     ...g,
-    type: 'free' as const,
+    type: 'free',
   }));
 
-  const premiumGuides = PREMIUM_MASTER_GUIDES.map((g) => ({
+  const premiumGuides: GuideItem[] = PREMIUM_MASTER_GUIDES.map((g) => ({
     ...g,
-    type: 'premium' as const,
+    type: 'premium',
     price: g.priceDisplay,
     checkoutUrl: g.checkoutUrl || `/checkout?product=${g.id}`,
   }));
 
-  const handleGuideClick = (guide: any, mode: 'free' | 'premium' = guide.type || 'free') => {
-    const isSubscribed = Boolean(localStorage.getItem('subscribed_email'));
-    if (isSubscribed) {
-      if (mode === 'free') {
-        if (guide.fileUrl) {
-          triggerDirectDownload(
-            guide.fileUrl,
-            guide.fileName || `${guide.id}.pdf`,
-            guide.title
-          );
-        }
-      } else {
-        const targetUrl = guide.checkoutUrl || (guide.id ? `/checkout?product=${guide.id}` : '/checkout');
-        window.location.href = targetUrl;
-      }
-    } else {
-      triggerGuideAction(guide, mode);
-    }
+  const handleGuideAction = (e: React.MouseEvent, guide: GuideItem) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setSelectedGuide(guide);
+    setIsModalOpen(true);
   };
 
   useEffect(() => {
@@ -142,11 +144,7 @@ export default function LibraryPage() {
   }, [searchParams, location, freeDownloadTriggered, paidDownload.status]);
 
   const triggerDirectDownload = (fileUrl: string, fileName: string, title: string) => {
-    triggerGatedDownload({
-      fileUrl,
-      fileName,
-      title,
-    });
+    executeDirectDownload(fileUrl, fileName);
     setDownloadToast(title);
     setTimeout(() => {
       setDownloadToast(null);
@@ -350,14 +348,11 @@ export default function LibraryPage() {
             <div className="pt-4 border-t border-slate-800/80 relative z-10 space-y-2">
               <button
                 type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleGuideClick(complimentaryGuides[0], 'free');
-                }}
+                onClick={(e) => handleGuideAction(e, complimentaryGuides[0])}
                 className="w-full py-4 px-5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2 transition duration-200 shadow-lg cursor-pointer bg-cyan-500 text-slate-950 hover:bg-cyan-400 shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.99]"
               >
                 <Download size={16} />
-                <span>Download Free Guide (PDF)</span>
+                <span>Download Free PDF</span>
                 <span>➔</span>
               </button>
 
@@ -436,25 +431,34 @@ export default function LibraryPage() {
             {/* Dual CTAs for Card 2 */}
             <div className="pt-4 border-t border-slate-800/80 relative z-10 space-y-2.5">
               {/* Primary Button */}
-              <Link
-                to="/clinician-copilot"
+              <button
+                type="button"
+                onClick={(e) => handleGuideAction(e, complimentaryGuides[1])}
                 className="w-full py-4 px-5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2 transition duration-200 shadow-lg cursor-pointer bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 hover:from-amber-400 hover:to-orange-400 shadow-amber-500/20 hover:scale-[1.01] active:scale-[0.99]"
               >
-                <span>Open Clinician Co-Pilot ➔</span>
-              </Link>
+                <Download size={16} />
+                <span>Download Free PDF</span>
+                <span>➔</span>
+              </button>
 
               {/* Secondary Button */}
               <button
                 type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleGuideClick(complimentaryGuides[1], 'free');
-                }}
+                onClick={(e) => handleGuideAction(e, complimentaryGuides[1])}
                 className="w-full py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition bg-cyan-950/60 hover:bg-cyan-900/70 border border-cyan-500/30 text-cyan-300 hover:text-white cursor-pointer"
               >
                 <Download size={14} />
                 <span>📥 Download Blank PDF ($0)</span>
               </button>
+
+              <div className="pt-1 text-center">
+                <Link
+                  to="/clinician-copilot"
+                  className="text-xs text-amber-400/90 hover:text-amber-300 underline font-semibold transition"
+                >
+                  Or launch interactive online workbook ➔
+                </Link>
+              </div>
 
               <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400 font-mono text-center">
                 <ShieldCheck size={12} className="text-emerald-400" />
@@ -510,7 +514,7 @@ export default function LibraryPage() {
         </div>
 
         {/* Embedded DigitalGuides Component Rendering ALL 9 Master Guides Intact */}
-        <DigitalGuides showVaultBanner={true} />
+        <DigitalGuides showVaultBanner={true} onGuideAction={handleGuideAction} />
       </section>
 
       {/* E-Commerce Sovereign Store Callout Banner */}
@@ -590,6 +594,37 @@ export default function LibraryPage() {
           </div>
         </div>
       </section>
+
+      {/* Universal Subscription Intercept Modal for all Free & Premium Guides */}
+      {selectedGuide && (
+        <DownloadGateModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          guide={selectedGuide}
+          onSuccess={(email) => {
+            setIsModalOpen(false);
+            if (!selectedGuide) return;
+            if (selectedGuide.type === 'premium') {
+              window.location.href = selectedGuide.checkoutUrl || `/checkout?product=${selectedGuide.id}`;
+            } else {
+              if (selectedGuide.fileUrl) {
+                window.open(selectedGuide.fileUrl, '_blank');
+              }
+            }
+          }}
+          onSkip={() => {
+            setIsModalOpen(false);
+            if (!selectedGuide) return;
+            if (selectedGuide.type === 'premium') {
+              window.location.href = selectedGuide.checkoutUrl || `/checkout?product=${selectedGuide.id}`;
+            } else {
+              if (selectedGuide.fileUrl) {
+                window.open(selectedGuide.fileUrl, '_blank');
+              }
+            }
+          }}
+        />
+      )}
 
     </div>
   );

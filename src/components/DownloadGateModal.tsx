@@ -22,6 +22,14 @@ export interface GateModalRequest {
 
 export type DownloadItem = GuideGateItem;
 
+export interface DownloadGateModalProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+  guide?: GuideGateItem | any | null;
+  onSuccess?: (email: string) => void;
+  onSkip?: () => void;
+}
+
 interface DownloadGateContextType {
   triggerGatedDownload: (item: GuideGateItem) => void;
   triggerGuideAction: (guide: GuideGateItem, mode?: GateMode) => void;
@@ -60,7 +68,7 @@ export function executeDirectDownload(fileUrl: string, fileName?: string) {
 }
 
 /**
- * Check whether user has already subscribed anywhere during this session or prior visits
+ * Helper to check whether user has already subscribed anywhere during this session or prior visits
  */
 export function isUserSubscribed(): boolean {
   if (typeof window === 'undefined') return false;
@@ -99,20 +107,7 @@ export const DownloadGateProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
   const triggerGuideAction = (guide: GuideGateItem, explicitMode?: GateMode) => {
     const mode: GateMode = explicitMode || guide.type || (guide.checkoutUrl ? 'premium' : 'free');
-
-    // 1. If already subscribed, bypass modal and immediately proceed
-    if (isUserSubscribed()) {
-      if (mode === 'free' && guide.fileUrl) {
-        executeDirectDownload(guide.fileUrl, guide.fileName);
-      } else if (mode === 'premium') {
-        proceedToCheckout(guide.checkoutUrl, guide.id);
-      } else if (guide.fileUrl) {
-        executeDirectDownload(guide.fileUrl, guide.fileName);
-      }
-      return;
-    }
-
-    // 2. Otherwise open modal interceptor
+    // Always open modal without silent bypass for strict testing & conversion
     openGateModal({ item: guide, mode });
   };
 
@@ -152,7 +147,6 @@ export const DownloadGateProvider: React.FC<{ children: React.ReactNode }> = ({ 
 export function useDownloadGate() {
   const context = useContext(DownloadGateContext);
   if (!context) {
-    // Fallback if rendered outside provider
     return {
       triggerGatedDownload: (item: GuideGateItem) => {
         if (item.fileUrl) executeDirectDownload(item.fileUrl, item.fileName);
@@ -175,27 +169,47 @@ export function useDownloadGate() {
 }
 
 /**
- * The Modal Interceptor UI Component
+ * Universal Modal Interceptor UI Component
+ * Can be used as a standalone component with props (isOpen, onClose, guide, onSuccess, onSkip)
+ * or rendered inside DownloadGateProvider using React Context.
  */
-export const DownloadGateModal: React.FC = () => {
+export const DownloadGateModal: React.FC<DownloadGateModalProps> = ({
+  isOpen: propsIsOpen,
+  onClose: propsOnClose,
+  guide: propsGuide,
+  onSuccess: propsOnSuccess,
+  onSkip: propsOnSkip,
+}) => {
   const context = useContext(DownloadGateContext);
+
+  const isDirectProps = propsIsOpen !== undefined;
+  const isOpen = isDirectProps ? propsIsOpen : Boolean(context?.isOpen);
+  const closeModal = isDirectProps ? (propsOnClose || (() => {})) : (context?.closeModal || (() => {}));
+  const guide = isDirectProps ? propsGuide : context?.currentRequest?.item;
+  const contextMode = context?.currentRequest?.mode;
+
   const [firstName, setFirstName] = useState('');
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [success, setSuccess] = useState(false);
 
-  if (!context || !context.isOpen || !context.currentRequest) {
+  useEffect(() => {
+    if (isOpen) {
+      setErrorMessage('');
+      setSuccess(false);
+      setIsSubmitting(false);
+    }
+  }, [isOpen, guide]);
+
+  if (!isOpen || !guide) {
     return null;
   }
 
-  const { currentRequest, closeModal } = context;
-  const guide = currentRequest.item;
-  const mode: GateMode = currentRequest.mode || guide.type || 'free';
+  const mode: GateMode = guide.type || contextMode || (guide.checkoutUrl ? 'premium' : 'free');
+  const isFree = mode === 'free';
   const guideTitle = guide.title || 'Clinical Guide';
   const priceDisplay = guide.price || guide.priceDisplay || '£29.00';
-
-  const isFree = mode === 'free';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -235,48 +249,47 @@ export const DownloadGateModal: React.FC = () => {
       console.warn('[DownloadGate] Subscription non-blocking error:', err);
     }
 
-    // Persist email in localStorage so user is never prompted again anywhere on site
+    // Persist email in localStorage
     try {
       localStorage.setItem('subscribed_email', cleanEmail);
     } catch (e) {}
 
     setSuccess(true);
 
-    if (isFree) {
-      // Free guide: automatically trigger file download
-      if (guide.fileUrl) {
-        executeDirectDownload(guide.fileUrl, guide.fileName);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSuccess(false);
+      setEmail('');
+      setFirstName('');
+      closeModal();
+
+      if (propsOnSuccess) {
+        propsOnSuccess(cleanEmail);
+      } else {
+        if (isFree) {
+          if (guide.fileUrl) {
+            executeDirectDownload(guide.fileUrl, guide.fileName);
+          }
+        } else {
+          proceedToCheckout(guide.checkoutUrl, guide.id);
+        }
       }
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setSuccess(false);
-        setEmail('');
-        setFirstName('');
-        closeModal();
-      }, 600);
-    } else {
-      // Paid guide: forward user directly to guide.checkoutUrl
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setSuccess(false);
-        setEmail('');
-        setFirstName('');
-        closeModal();
-        proceedToCheckout(guide.checkoutUrl, guide.id);
-      }, 500);
-    }
+    }, 500);
   };
 
   const handleSkip = () => {
-    // Optional skip path: completes respective action without subscribing
-    if (isFree) {
-      if (guide.fileUrl) {
-        executeDirectDownload(guide.fileUrl, guide.fileName);
-      }
-    } else {
-      proceedToCheckout(guide.checkoutUrl, guide.id);
-    }
     closeModal();
+    if (propsOnSkip) {
+      propsOnSkip();
+    } else {
+      if (isFree) {
+        if (guide.fileUrl) {
+          executeDirectDownload(guide.fileUrl, guide.fileName);
+        }
+      } else {
+        proceedToCheckout(guide.checkoutUrl, guide.id);
+      }
+    }
   };
 
   return (
@@ -348,7 +361,7 @@ export const DownloadGateModal: React.FC = () => {
             <p className="text-xs text-emerald-400/90 font-medium">
               {isFree
                 ? 'Your file is downloading now. Check your inbox for updates.'
-                : 'Redirecting to secure Stripe checkout...'}
+                : 'Redirecting to secure checkout...'}
             </p>
           </div>
         ) : (
@@ -437,32 +450,6 @@ export const DownloadGateModal: React.FC = () => {
         )}
       </div>
     </div>
-  );
-};
-
-/**
- * Reusable helper button that automatically opens the download gate or directly downloads if subscribed
- */
-export const GatedDownloadButton: React.FC<{
-  fileUrl: string;
-  fileName?: string;
-  title: string;
-  className?: string;
-  children: React.ReactNode;
-  onClick?: () => void;
-}> = ({ fileUrl, fileName, title, className = '', children, onClick }) => {
-  const { triggerGatedDownload } = useDownloadGate();
-
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (onClick) onClick();
-    triggerGatedDownload({ fileUrl, fileName, title, type: 'free' });
-  };
-
-  return (
-    <button type="button" onClick={handleClick} className={className}>
-      {children}
-    </button>
   );
 };
 

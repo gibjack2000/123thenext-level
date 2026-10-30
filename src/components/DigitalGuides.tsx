@@ -8,11 +8,13 @@ import { useDownloadGate } from './DownloadGateModal';
 interface DigitalGuidesProps {
   className?: string;
   showVaultBanner?: boolean;
+  onGuideAction?: (e: React.MouseEvent, guide: any) => void;
 }
 
 export const DigitalGuides: React.FC<DigitalGuidesProps> = ({ 
   className = '', 
-  showVaultBanner = true 
+  showVaultBanner = true,
+  onGuideAction,
 }) => {
   const [loadingGuideId, setLoadingGuideId] = useState<string | null>(null);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
@@ -38,50 +40,15 @@ export const DigitalGuides: React.FC<DigitalGuidesProps> = ({
     .map(key => GUIDE_PRODUCTS[key])
     .filter((g): g is DigitalGuideProduct => Boolean(g));
 
-  const handleBuyNow = async (guideId: string) => {
-    const isSubscribed = Boolean(localStorage.getItem('subscribed_email'));
+  const handleBuyNow = (guideId: string) => {
     const guide = guidesList.find(g => g.id === guideId) || GUIDE_PRODUCTS[guideId];
-
-    if (!isSubscribed) {
-      triggerGuideAction({
-        id: guideId,
-        title: guide?.title || 'Digital Master Guide',
-        price: guide?.priceFormatted || '£29.00',
-        checkoutUrl: `/checkout?product=${guideId}`,
-        type: 'premium'
-      }, 'premium');
-      return;
-    }
-
-    try {
-      setCheckoutError(null);
-      setLoadingGuideId(guideId);
-
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ guideId })
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || 'Failed to initiate secure checkout');
-      }
-
-      const data = await response.json();
-      if (data.url) {
-        // Redirect directly to Stripe Checkout
-        window.location.href = data.url;
-      } else {
-        throw new Error('No checkout URL received from server');
-      }
-    } catch (err: any) {
-      console.error('[DigitalGuides] Checkout error:', err);
-      setCheckoutError(err.message || 'Unable to connect to Stripe checkout. Please try again.');
-      setLoadingGuideId(null);
-    }
+    triggerGuideAction({
+      id: guideId,
+      title: guide?.title || 'Digital Master Guide',
+      price: guide?.priceFormatted || '£29.00',
+      checkoutUrl: `/checkout?product=${guideId}`,
+      type: 'premium'
+    }, 'premium');
   };
 
   return (
@@ -206,7 +173,21 @@ export const DigitalGuides: React.FC<DigitalGuidesProps> = ({
                 ) : (
                   <button
                     type="button"
-                    onClick={() => handleBuyNow(guide.id)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      if (onGuideAction) {
+                        onGuideAction(e, {
+                          id: guide.id,
+                          title: guide.title,
+                          price: guide.priceFormatted,
+                          checkoutUrl: `/checkout?product=${guide.id}`,
+                          type: 'premium',
+                        });
+                      } else {
+                        handleBuyNow(guide.id);
+                      }
+                    }}
                     disabled={isLoading}
                     className="w-full py-3.5 px-5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 shadow-lg shadow-cyan-500/20 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 cursor-pointer disabled:opacity-60 disabled:cursor-wait"
                   >
@@ -428,10 +409,22 @@ export const DigitalGuides: React.FC<DigitalGuidesProps> = ({
               ) : (
                 <button
                   type="button"
-                  onClick={() => {
-                    const gId = selectedTocGuide.id;
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const g = selectedTocGuide;
                     setSelectedTocGuide(null);
-                    handleBuyNow(gId);
+                    if (onGuideAction) {
+                      onGuideAction(e, {
+                        id: g.id,
+                        title: g.title,
+                        price: g.priceFormatted,
+                        checkoutUrl: `/checkout?product=${g.id}`,
+                        type: 'premium',
+                      });
+                    } else {
+                      handleBuyNow(g.id);
+                    }
                   }}
                   className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 transition-all shadow-xl shadow-amber-500/20 flex items-center justify-center gap-2 cursor-pointer"
                 >
