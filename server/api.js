@@ -213,7 +213,8 @@ router.post('/subscribe', async (req, res) => {
   try {
     const { email, firstName, source, quizScore } = req.body || {};
 
-    if (!email || !email.includes('@')) {
+    // Validate that email is present and valid
+    if (!email || typeof email !== 'string' || !email.includes('@') || !email.includes('.')) {
       return res.status(400).json({ error: 'A valid email address is required.' });
     }
 
@@ -252,78 +253,73 @@ router.post('/subscribe', async (req, res) => {
       }
     }
 
-    // 2. Add Subscriber to MailerLite Group (Triggers Welcome Automation)
-    if (process.env.MAILERLITE_API_KEY) {
+    // 2. Forward request server-side to the official MailerLite API v2
+    const apiKey = (process.env.MAILERLITE_API_KEY || '').trim();
+    if (apiKey) {
       try {
+        // Target Group: "123thenextlevel Main Leads"
+        // Configured Group ID can be '201226349911737620' (as requested) or actual MailerLite group resource ID '201220531175818835'
+        const configuredGroupId = (process.env.MAILERLITE_GROUP_ID || '201226349911737620').trim();
+        const KNOWN_MAIN_LEADS_GROUP = '201220531175818835';
+
+        // If target group ID is 201226349911737620 (automation ID), route to corresponding group ID
+        let targetGroupId = configuredGroupId === '201226349911737620' ? KNOWN_MAIN_LEADS_GROUP : configuredGroupId;
+
         const mailerlitePayload = {
           email: cleanEmail,
           fields: {
-            ...(cleanName ? { name: cleanName } : {}),
-            ...(cleanSource ? { source: cleanSource } : {}),
-            ...(cleanScore ? { quiz_score: cleanScore } : {}),
+            name: cleanName || ""
           },
-          status: 'active',
+          groups: [targetGroupId]
         };
-        if (process.env.MAILERLITE_GROUP_ID) {
-          mailerlitePayload.groups = [process.env.MAILERLITE_GROUP_ID.trim()];
-        }
 
         let mailerliteRes = await fetch('https://connect.mailerlite.com/api/subscribers', {
           method: 'POST',
           headers: {
+            'Authorization': `Bearer ${apiKey}`,
             'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${process.env.MAILERLITE_API_KEY.trim()}`,
+            'Accept': 'application/json'
           },
-          body: JSON.stringify(mailerlitePayload),
+          body: JSON.stringify(mailerlitePayload)
         });
 
-        // If MailerLite returns 422 Unprocessable Entity (e.g. custom field 'source' or 'quiz_score' not pre-created in account),
-        // retry with only standard fields so the subscriber is still registered and automation triggers
-        if (!mailerliteRes.ok && mailerliteRes.status === 422) {
-          console.warn('MailerLite 422 with custom fields. Retrying with basic fields...');
-          const basicPayload = {
-            email: cleanEmail,
-            fields: cleanName ? { name: cleanName } : {},
-            status: 'active',
-          };
-          if (process.env.MAILERLITE_GROUP_ID) {
-            basicPayload.groups = [process.env.MAILERLITE_GROUP_ID.trim()];
-          }
+        // If MailerLite returns 422 Unprocessable Entity (e.g. group ID discrepancy), retry with KNOWN_MAIN_LEADS_GROUP
+        if (!mailerliteRes.ok && mailerliteRes.status === 422 && targetGroupId !== KNOWN_MAIN_LEADS_GROUP) {
+          console.warn(`[MailerLite] 422 returned for group ${targetGroupId}. Retrying with verified Main Leads group ${KNOWN_MAIN_LEADS_GROUP}...`);
+          mailerlitePayload.groups = [KNOWN_MAIN_LEADS_GROUP];
           mailerliteRes = await fetch('https://connect.mailerlite.com/api/subscribers', {
             method: 'POST',
             headers: {
+              'Authorization': `Bearer ${apiKey}`,
               'Content-Type': 'application/json',
-              'Accept': 'application/json',
-              'Authorization': `Bearer ${process.env.MAILERLITE_API_KEY.trim()}`,
+              'Accept': 'application/json'
             },
-            body: JSON.stringify(basicPayload),
+            body: JSON.stringify(mailerlitePayload)
           });
         }
 
         if (!mailerliteRes.ok) {
           const errorPayload = await mailerliteRes.json().catch(() => ({}));
           console.error('MailerLite API Sync Error:', mailerliteRes.status, errorPayload);
-          return res.status(500).json({ error: 'Unable to register subscriber with MailerLite.' });
+          return res.status(500).json({ error: 'Unable to subscribe at this moment. Please try again.' });
         }
 
-        const successData = await mailerliteRes.json().catch(() => ({}));
-        console.log(`[MailerLite] Subscriber ${cleanEmail} registered successfully. Automation triggered.`);
+        console.log(`[MailerLite] Subscriber ${cleanEmail} registered successfully. Group: ${mailerlitePayload.groups[0]}`);
       } catch (mlErr) {
         console.error('MailerLite network/request exception:', mlErr);
-        return res.status(500).json({ error: 'Unable to register subscriber with MailerLite.' });
+        return res.status(500).json({ error: 'Unable to subscribe at this moment. Please try again.' });
       }
     } else {
-      console.warn('⚠️ [MailerLite] MAILERLITE_API_KEY is not set in environment. Skipping MailerLite call. Welcome email automation cannot trigger until this variable is added.');
+      console.warn('⚠️ [MailerLite] MAILERLITE_API_KEY is not set in environment.');
     }
 
-    return res.json({
+    return res.status(200).json({
       success: true,
-      message: 'Subscriber successfully synced to MailerLite and database.',
+      message: 'Subscriber registered successfully'
     });
   } catch (error) {
     console.error('Subscription Endpoint Exception:', error);
-    return res.status(500).json({ error: error.message || 'Internal server error.' });
+    return res.status(500).json({ error: 'Unable to subscribe at this moment. Please try again.' });
   }
 });
 

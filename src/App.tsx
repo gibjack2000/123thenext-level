@@ -103,6 +103,7 @@ const DesignSystem = lazy(() => import('./pages/DesignSystem'));
 const Success = lazy(() => import('./pages/Success'));
 const StartHere = lazy(() => import('./pages/StartHere'));
 const QuizResults = lazy(() => import('./pages/QuizResults'));
+const Quiz = lazy(() => import('./pages/Quiz'));
 const AgeReversalShowcase = lazy(() => import('./pages/AgeReversalShowcase'));
 const HardwareStorePage = lazy(() => import('./pages/HardwareStorePage'));
 const Store = lazy(() => import('./pages/Store'));
@@ -242,7 +243,8 @@ function App() {
                 <Route path="/free-pdf" element={<Navigate to="/free-pdfs" replace />} />
                 <Route path="/free-guides" element={<Navigate to="/free-pdfs" replace />} />
                 <Route path="/free-documents" element={<Navigate to="/free-pdfs" replace />} />
-                <Route path="/quiz" element={<Navigate to="/health-quiz" replace />} />
+                <Route path="/quiz" element={<Quiz />} />
+                <Route path="/onboarding-quiz" element={<Quiz />} />
                 <Route path="/quiz-results" element={<QuizResults />} />
                 <Route path="/overview" element={<MasterOverview />} />
                 <Route path="/the-big-picture" element={<Navigate to="/overview" replace />} />

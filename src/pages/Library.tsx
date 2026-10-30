@@ -3,6 +3,7 @@ import { useNavigate, useSearchParams, useLocation, Link } from 'react-router-do
 import { CheckCircle2, Lock, ShieldCheck, Download, Sparkles, BookOpen, ArrowDown, FileText, Check, ArrowRight } from 'lucide-react';
 import { DigitalGuides } from '../components/DigitalGuides';
 import { COMPLIMENTARY_FREE_GUIDES, PREMIUM_MASTER_GUIDES } from '../config/guides';
+import NewsletterOptIn from '../components/NewsletterOptIn';
 
 interface PaidDownloadState {
   status: 'idle' | 'verifying' | 'verified' | 'error';
@@ -443,6 +444,11 @@ export default function LibraryPage() {
           </div>
 
         </div>
+      </section>
+
+      {/* Newsletter Opt-In Callout: Free Idiot's Guide & Longevity Blueprint Delivery */}
+      <section className="max-w-6xl mx-auto px-6 pb-12">
+        <NewsletterOptIn source="library_inline_callout" variant="card" />
       </section>
 
       {/* ============================================================== */}

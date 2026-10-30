@@ -5,6 +5,7 @@ import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { BlogPost } from '../types';
 import { guides as fallbackGuides } from '../data/guides';
 import { MOCK_BLOG_POSTS } from '../data/mockBlogPosts';
+import NewsletterOptIn from '../components/NewsletterOptIn';
 
 export default function MagazineRack() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -201,87 +202,95 @@ export default function MagazineRack() {
             {filteredPosts.map((post, idx) => {
               const styles = getPillarStyles(post.category);
               return (
-                <Link
-                  key={post.id}
-                  to={`/blog/${post.slug}`}
-                  className="group relative flex flex-col h-[520px] rounded-3xl overflow-hidden bg-slate-900 border border-slate-800/80 hover:border-slate-700/80 shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-blue-900/10"
-                >
-                  {/* Magazine Cover Visual Background */}
-                  <div className="absolute inset-0 z-0">
-                    <img
-                      src={post.image_url || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80'}
-                      alt={post.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-900/30" />
-                    {/* Top border accent */}
-                    <div className={`absolute top-0 inset-x-0 h-2 border-t-2 ${styles.accent}`} />
-                  </div>
-
-                  {/* Magazine Cover Formatting / Content Overlay */}
-                  <div className="relative z-10 p-6 h-full flex flex-col justify-between">
-                    {/* Top Header Row of the Cover */}
-                    <div className="flex justify-between items-start">
-                      <span 
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          navigate(`/blog/category/${post.category}`);
-                        }}
-                        className={`px-2.5 py-1 rounded border text-[9px] font-black uppercase tracking-widest transition-colors cursor-pointer hover:bg-white hover:text-slate-950 ${styles.bg}`}
-                      >
-                        {styles.badge}
-                      </span>
-                      <div className="text-right text-[9px] font-bold text-slate-400 tracking-wider uppercase space-y-0.5">
-                        <div>Issue #{posts.length - idx}</div>
-                        <div>{new Date(post.created_at).toLocaleDateString(undefined, { month: 'short', year: 'numeric' })}</div>
-                      </div>
+                <React.Fragment key={post.id}>
+                  <Link
+                    to={`/blog/${post.slug}`}
+                    className="group relative flex flex-col h-[520px] rounded-3xl overflow-hidden bg-slate-900 border border-slate-800/80 hover:border-slate-700/80 shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:shadow-blue-900/10"
+                  >
+                    {/* Magazine Cover Visual Background */}
+                    <div className="absolute inset-0 z-0">
+                      <img
+                        src={post.image_url || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80'}
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-900/30" />
+                      {/* Top border accent */}
+                      <div className={`absolute top-0 inset-x-0 h-2 border-t-2 ${styles.accent}`} />
                     </div>
 
-                    {/* Middle Text: Big Cover Headlines */}
-                    <div className="space-y-4">
-                      {/* Bold Editorial Headline */}
-                      <h2 className="text-2xl font-display font-extrabold uppercase tracking-tight text-white leading-tight line-clamp-3 group-hover:text-blue-300 transition-colors">
-                        {post.title}
-                      </h2>
-                      
-                      {/* Author Cover Line */}
-                      <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
-                        By <span className="text-white">{post.author}</span>
-                      </p>
-                      
-                      {/* Cover Excerpt */}
-                      <p className="text-xs text-slate-300/80 leading-relaxed font-medium line-clamp-3">
-                        {post.excerpt}
-                      </p>
-                    </div>
-
-                    {/* Footer Row: Barcode & Stats */}
-                    <div className="border-t border-white/10 pt-4 flex items-center justify-between">
-                      {/* Decorative Barcode to simulate real magazine covers */}
-                      <div className="flex items-center gap-1.5 shrink-0 opacity-70 group-hover:opacity-100 transition-opacity">
-                        <div className="flex flex-col justify-between h-8 bg-slate-950 p-1 rounded border border-slate-800">
-                          <div className="flex gap-px h-5 items-stretch bg-white px-0.5">
-                            <span className="w-0.5 bg-black" />
-                            <span className="w-px bg-black" />
-                            <span className="w-1 bg-black" />
-                            <span className="w-0.5 bg-black" />
-                            <span className="w-px bg-black" />
-                            <span className="w-1.5 bg-black" />
-                            <span className="w-0.5 bg-black" />
-                          </div>
-                          <span className="text-[5px] text-white font-mono leading-none tracking-widest uppercase">NXTLVL-#{posts.length - idx}</span>
+                    {/* Magazine Cover Formatting / Content Overlay */}
+                    <div className="relative z-10 p-6 h-full flex flex-col justify-between">
+                      {/* Top Header Row of the Cover */}
+                      <div className="flex justify-between items-start">
+                        <span 
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            navigate(`/blog/category/${post.category}`);
+                          }}
+                          className={`px-2.5 py-1 rounded border text-[9px] font-black uppercase tracking-widest transition-colors cursor-pointer hover:bg-white hover:text-slate-950 ${styles.bg}`}
+                        >
+                          {styles.badge}
+                        </span>
+                        <div className="text-right text-[9px] font-bold text-slate-400 tracking-wider uppercase space-y-0.5">
+                          <div>Issue #{posts.length - idx}</div>
+                          <div>{new Date(post.created_at).toLocaleDateString(undefined, { month: 'short', year: 'numeric' })}</div>
                         </div>
                       </div>
 
-                      {/* Read Info */}
-                      <div className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-blue-400 group-hover:text-blue-300">
-                        <BookOpen size={12} />
-                        <span>Read Issue</span>
+                      {/* Middle Text: Big Cover Headlines */}
+                      <div className="space-y-4">
+                        {/* Bold Editorial Headline */}
+                        <h2 className="text-2xl font-display font-extrabold uppercase tracking-tight text-white leading-tight line-clamp-3 group-hover:text-blue-300 transition-colors">
+                          {post.title}
+                        </h2>
+                        
+                        {/* Author Cover Line */}
+                        <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+                          By <span className="text-white">{post.author}</span>
+                        </p>
+                        
+                        {/* Cover Excerpt */}
+                        <p className="text-xs text-slate-300/80 leading-relaxed font-medium line-clamp-3">
+                          {post.excerpt}
+                        </p>
+                      </div>
+
+                      {/* Footer Row: Barcode & Stats */}
+                      <div className="border-t border-white/10 pt-4 flex items-center justify-between">
+                        {/* Decorative Barcode to simulate real magazine covers */}
+                        <div className="flex items-center gap-1.5 shrink-0 opacity-70 group-hover:opacity-100 transition-opacity">
+                          <div className="flex flex-col justify-between h-8 bg-slate-950 p-1 rounded border border-slate-800">
+                            <div className="flex gap-px h-5 items-stretch bg-white px-0.5">
+                              <span className="w-0.5 bg-black" />
+                              <span className="w-px bg-black" />
+                              <span className="w-1 bg-black" />
+                              <span className="w-0.5 bg-black" />
+                              <span className="w-px bg-black" />
+                              <span className="w-1.5 bg-black" />
+                              <span className="w-0.5 bg-black" />
+                            </div>
+                            <span className="text-[5px] text-white font-mono leading-none tracking-widest uppercase">NXTLVL-#{posts.length - idx}</span>
+                          </div>
+                        </div>
+
+                        {/* Read Info */}
+                        <div className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-blue-400 group-hover:text-blue-300">
+                          <BookOpen size={12} />
+                          <span>Read Issue</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+
+                  {/* Inline Newsletter Callout between featured articles (after 3rd post) */}
+                  {idx === 2 && (
+                    <div className="col-span-1 md:col-span-2 lg:col-span-3 xl:col-span-4 my-4">
+                      <NewsletterOptIn source="blog_index_inline" variant="card" />
+                    </div>
+                  )}
+                </React.Fragment>
               );
             })}
           </div>

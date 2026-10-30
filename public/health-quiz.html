@@ -1344,7 +1344,10 @@
             <label for="optinConsent">Yes, reveal my score and send my Health Baseline report. View our <a href="/privacy" target="_blank" rel="noopener" style="color:var(--brand-deep);">Privacy Policy</a>.</label>
           </div>
           <div class="optin-error" id="optinError">Please enter your first name, a valid email address, and check consent.</div>
-          <button type="submit" class="btn btn-primary btn-block" id="optinSubmit">Reveal My Full Score & Results →</button>
+          <button type="submit" class="btn btn-primary btn-block" id="optinSubmit">Send My Full Results & Roadmap to Email →</button>
+          <div style="text-align:center; margin-top:12px;">
+            <button type="button" id="optinSkipBtn" style="background:none; border:none; color:var(--text-muted); font-size:12px; font-weight:600; text-decoration:underline; cursor:pointer;">Skip & View Results Directly →</button>
+          </div>
         </form>
       </div>
 
@@ -2522,6 +2525,12 @@ $('optinForm').addEventListener('submit', async (e) => {
     renderResults();
     showScreen('results');
   }, 400);
+});
+
+$('optinSkipBtn')?.addEventListener('click', () => {
+  $('optinFormWrap').classList.add('hidden');
+  renderResults();
+  showScreen('results');
 });
 
 function submitToProvider(email, name) {

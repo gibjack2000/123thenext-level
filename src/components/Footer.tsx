@@ -1,49 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Settings, Home as HomeIcon, Shield, Info, Heart, ExternalLink, Mail, Check, Loader2 } from 'lucide-react';
+import { Settings, Home as HomeIcon, Shield, Info, Heart, ExternalLink } from 'lucide-react';
 import { useT } from '../translations';
 import MarketSelector from './MarketSelector';
+import NewsletterOptIn from './NewsletterOptIn';
 
 const Footer = () => {
   const t = useT();
   const currentYear = new Date().getFullYear();
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
-
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-
-    setStatus('loading');
-    setErrorMessage('');
-
-    try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          source: 'homepage_lead',
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.success) {
-        setStatus('success');
-        setEmail('');
-      } else {
-        setStatus('error');
-        setErrorMessage(data.error || 'Failed to subscribe.');
-      }
-    } catch (err) {
-      setStatus('error');
-      setErrorMessage('Server connection error.');
-    }
-  };
 
   return (
     <footer className="relative bg-slate-900 text-slate-300 pt-16 pb-8 overflow-hidden">
@@ -54,55 +18,21 @@ const Footer = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Footer Real Estate Makeover: Split-screen Newsletter Signup */}
+        {/* Footer Real Estate: High-Trust Newsletter Registration Block */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-b border-slate-800/80 pb-12 mb-12">
-          <div className="lg:col-span-7">
-            <h3 className="text-2xl md:text-3xl font-display font-semibold uppercase tracking-wide text-white mb-2">
-              Don't chase the updates. Let them come to you.
+          <div className="lg:col-span-6 space-y-2 text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-[10px] font-mono uppercase tracking-widest">
+              <span>Proactive Longevity Dispatch</span>
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-display font-extrabold uppercase tracking-wide text-white">
+              Join the <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-indigo-300">Proactive Longevity Protocol</span>
             </h3>
-            <p className="text-slate-400 text-sm font-medium max-w-xl">
-              Get our weekly Bento Box summary of clinical insights, curated training strategies, and supplement protocols direct to your inbox.
+            <p className="text-slate-300 text-xs sm:text-sm font-medium max-w-xl leading-relaxed">
+              Get the Free Idiot's Guide to Biological Age, High-Level Blueprint PDF, and weekly biomarker telemetry insights.
             </p>
           </div>
-          <div className="lg:col-span-5 w-full">
-            {status === 'success' ? (
-              <div className="flex items-center gap-3 bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-4 text-emerald-400">
-                <Check size={18} />
-                <span className="text-xs font-bold uppercase tracking-wider">Check your inbox! Your welcome email is on its way.</span>
-              </div>
-            ) : (
-              <form onSubmit={handleSubscribe} className="space-y-3">
-                <div className="flex flex-col sm:flex-row gap-2">
-                  <div className="relative flex-1">
-                    <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500">
-                      <Mail size={14} />
-                    </span>
-                    <input
-                      type="email"
-                      required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email"
-                      className="w-full bg-slate-950/60 border border-slate-800 focus:border-blue-500 text-white rounded-xl py-3 pl-10 pr-4 text-xs font-medium placeholder-slate-500 outline-none transition-colors"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    disabled={status === 'loading'}
-                    className="inline-flex justify-center items-center px-6 py-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-black uppercase tracking-widest transition-all border border-slate-700 hover:border-slate-600 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer shrink-0"
-                  >
-                    {status === 'loading' ? (
-                      <Loader2 size={14} className="animate-spin" />
-                    ) : (
-                      'Subscribe'
-                    )}
-                  </button>
-                </div>
-                {status === 'error' && (
-                  <p className="text-red-400 text-xs font-semibold">{errorMessage}</p>
-                )}
-              </form>
-            )}
+          <div className="lg:col-span-6 w-full">
+            <NewsletterOptIn variant="footer" source="footer_lead" />
           </div>
         </div>
 
