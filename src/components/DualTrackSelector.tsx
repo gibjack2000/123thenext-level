@@ -19,6 +19,7 @@ import {
 import { useMarket, Market } from '../contexts/MarketContext';
 import { FlagUS, FlagUK, FlagES } from './MarketSelector';
 import { useDownloadGate } from './DownloadGateModal';
+import { useLabRequisition } from './LabRequisitionModal';
 
 export interface DualTrackSelectorProps {
   className?: string;
@@ -193,6 +194,7 @@ export const DualTrackSelector: React.FC<DualTrackSelectorProps> = ({
     initialMarket || (globalMarket as Market) || 'US'
   );
   const { triggerGatedDownload } = useDownloadGate();
+  const { triggerLabRequisition } = useLabRequisition();
 
   const handleTabChange = (marketKey: Market) => {
     setSelectedMarket(marketKey);
@@ -410,15 +412,17 @@ export const DualTrackSelector: React.FC<DualTrackSelectorProps> = ({
           {/* Action CTAs: Direct Requisition + Download PDF V2 */}
           <div className="space-y-3 pt-6 mt-6 border-t border-slate-800/80 relative z-10">
             {/* Primary Order Button */}
-            <a
-              href={currentData.track1.affiliateUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-2 group-hover:scale-[1.01]"
+            <button
+              type="button"
+              onClick={() => triggerLabRequisition({
+                destinationUrl: currentData.track1.affiliateUrl,
+                testName: `${currentData.track1.title} (${selectedMarket})`,
+              })}
+              className="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-200 shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-2 group-hover:scale-[1.01] cursor-pointer"
             >
               <span>{currentData.track1.actionLabel}</span>
               <ExternalLink size={14} />
-            </a>
+            </button>
 
             {/* Mandatory PDF Consultation Template V2 Button */}
             <button

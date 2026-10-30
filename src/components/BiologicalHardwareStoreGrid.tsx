@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import { useAffiliateLinks } from '../contexts/AffiliateLinksContext';
 import { useMarket } from '../contexts/MarketContext';
+import { useLabRequisition } from './LabRequisitionModal';
 
 export type StoreCountry = 'US' | 'UK' | 'ES';
 export type BioSuiteKey = 'all' | 'suite-a' | 'suite-b' | 'suite-c' | 'suite-d' | 'suite-e';
@@ -550,6 +551,7 @@ export const hardwareListings: LocalizedListing[] = [
 export const BiologicalHardwareStoreGrid: React.FC = () => {
   const { links } = useAffiliateLinks();
   const { market } = useMarket();
+  const { triggerLabRequisition } = useLabRequisition();
   const [searchParams] = useSearchParams();
   const [selectedCountry, setSelectedCountry] = useState<StoreCountry>(
     (market as StoreCountry) || 'US'
@@ -874,17 +876,33 @@ export const BiologicalHardwareStoreGrid: React.FC = () => {
 
                     {/* Bottom CTA Action Button */}
                     <div className="relative z-10 mt-5 pt-3 border-t border-slate-800/80">
-                      <a
-                        href={dynamicUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 hover:from-cyan-950/60 hover:via-slate-800 hover:to-cyan-950/60 border border-slate-700 hover:border-cyan-500/50 text-white hover:text-cyan-200 text-xs font-mono font-bold flex items-center justify-between transition-all group/btn shadow"
-                      >
-                        <span className="truncate">{countryInfo.ctaText || item.ctaText}</span>
-                        <div className="flex items-center space-x-1 flex-shrink-0 text-cyan-400">
-                          <ExternalLink size={13} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                        </div>
-                      </a>
+                      {item.id === 'blood-panels' || item.id === 'urinalysis-panels' ? (
+                        <button
+                          type="button"
+                          onClick={() => triggerLabRequisition({
+                            destinationUrl: dynamicUrl,
+                            testName: `${item.title} (${countryInfo.logistics || selectedCountry})`,
+                          })}
+                          className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 hover:from-cyan-950/60 hover:via-slate-800 hover:to-cyan-950/60 border border-slate-700 hover:border-cyan-500/50 text-white hover:text-cyan-200 text-xs font-mono font-bold flex items-center justify-between transition-all group/btn shadow cursor-pointer"
+                        >
+                          <span className="truncate">{countryInfo.ctaText || item.ctaText}</span>
+                          <div className="flex items-center space-x-1 flex-shrink-0 text-cyan-400">
+                            <ExternalLink size={13} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                          </div>
+                        </button>
+                      ) : (
+                        <a
+                          href={dynamicUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 hover:from-cyan-950/60 hover:via-slate-800 hover:to-cyan-950/60 border border-slate-700 hover:border-cyan-500/50 text-white hover:text-cyan-200 text-xs font-mono font-bold flex items-center justify-between transition-all group/btn shadow"
+                        >
+                          <span className="truncate">{countryInfo.ctaText || item.ctaText}</span>
+                          <div className="flex items-center space-x-1 flex-shrink-0 text-cyan-400">
+                            <ExternalLink size={13} className="group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                          </div>
+                        </a>
+                      )}
                     </div>
                   </motion.div>
                 );

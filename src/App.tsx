@@ -16,6 +16,7 @@ import FloatingShopFAB from './components/FloatingShopFAB';
 import CartDrawer from './components/CartDrawer';
 import { AdminAffiliates } from './pages/AdminAffiliates';
 import { DownloadGateProvider } from './components/DownloadGateModal';
+import { LabRequisitionProvider } from './components/LabRequisitionModal';
 
 // Transparent redirect from generic /store to active regional storefront (/store-us, /store-uk, /store-es)
 const StoreRedirect: React.FC = () => {
@@ -136,7 +137,8 @@ function App() {
       <BrowserRouter>
         <MarketProvider>
           <DownloadGateProvider>
-            <ScrollToTop />
+            <LabRequisitionProvider>
+              <ScrollToTop />
           <div className="min-h-screen bg-slate-950 flex flex-col">
           {/* Non-destructive splash layer */}
           <SplashOverlay />
@@ -289,6 +291,7 @@ function App() {
           <FloatingShopFAB />
           <CartDrawer />
         </div>
+            </LabRequisitionProvider>
           </DownloadGateProvider>
         </MarketProvider>
       </BrowserRouter>

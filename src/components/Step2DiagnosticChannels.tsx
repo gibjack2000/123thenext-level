@@ -12,6 +12,7 @@ import {
   Watch
 } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
+import { useLabRequisition } from './LabRequisitionModal';
 
 export interface Step2DiagnosticChannelsProps {
   selectedRegion?: Market;
@@ -249,6 +250,7 @@ export const Step2DiagnosticChannels: React.FC<Step2DiagnosticChannelsProps> = (
   showComparisonLink = true,
 }) => {
   const { market } = useMarket();
+  const { triggerLabRequisition } = useLabRequisition();
   const activeRegion: Market = propRegion || (market?.toUpperCase() as Market) || 'US';
   const config = REGIONAL_CHANNEL_CONFIG[activeRegion] || REGIONAL_CHANNEL_CONFIG.US;
 
@@ -347,10 +349,12 @@ export const Step2DiagnosticChannels: React.FC<Step2DiagnosticChannelsProps> = (
 
           {/* Action CTA Button */}
           <div className="pt-3 border-t border-slate-800 relative z-10 space-y-2">
-            <a
-              href={currentBlood.url}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
+              onClick={() => triggerLabRequisition({
+                destinationUrl: currentBlood.url,
+                testName: `${currentBlood.title} (${activeRegion})`,
+              })}
               className={`w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl font-bold text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer ${
                 selectedBloodOption === 'A'
                   ? 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/20'
@@ -359,7 +363,7 @@ export const Step2DiagnosticChannels: React.FC<Step2DiagnosticChannelsProps> = (
             >
               <span>{currentBlood.ctaText}</span>
               <ExternalLink size={13} />
-            </a>
+            </button>
 
             {/* Quick Toggle Link */}
             <button
@@ -442,15 +446,17 @@ export const Step2DiagnosticChannels: React.FC<Step2DiagnosticChannelsProps> = (
                 {config.urinalysis.quarterly.summary}
               </p>
               <div className="pt-1">
-                <a
-                  href={config.urinalysis.quarterly.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-700/60 text-cyan-300 text-xs font-bold transition shadow-sm"
+                <button
+                  type="button"
+                  onClick={() => triggerLabRequisition({
+                    destinationUrl: config.urinalysis.quarterly.url,
+                    testName: `${config.urinalysis.quarterly.title} (${activeRegion})`,
+                  })}
+                  className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg bg-cyan-950/80 hover:bg-cyan-900 border border-cyan-700/60 text-cyan-300 text-xs font-bold transition shadow-sm cursor-pointer"
                 >
                   <span>{config.urinalysis.quarterly.ctaText}</span>
                   <ExternalLink size={11} />
-                </a>
+                </button>
               </div>
             </div>
           </div>

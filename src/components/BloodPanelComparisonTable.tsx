@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ExternalLink, CheckCircle2, ShieldCheck, Stethoscope, ChevronDown, ChevronUp, Sparkles, Info } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
+import { useLabRequisition } from './LabRequisitionModal';
 
 export interface BloodPanelComparisonTableProps {
   className?: string;
@@ -206,6 +207,7 @@ export const BloodPanelComparisonTable: React.FC<BloodPanelComparisonTableProps>
 }) => {
   const { market } = useMarket();
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
+  const { triggerLabRequisition } = useLabRequisition();
 
   const activeMarket: Market = selectedRegion || (market?.toUpperCase() as Market) || 'US';
   const regionConfig = REGIONAL_BLOOD_TIERS[activeMarket] || REGIONAL_BLOOD_TIERS.US;
@@ -296,16 +298,20 @@ export const BloodPanelComparisonTable: React.FC<BloodPanelComparisonTableProps>
           </div>
 
           <div className="pt-4 border-t border-slate-800 relative z-10 flex flex-col gap-2">
-            <a
-              href={regionConfig.basic.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => onSelectOption && onSelectOption('basic')}
+            <button
+              type="button"
+              onClick={() => {
+                if (onSelectOption) onSelectOption('basic');
+                triggerLabRequisition({
+                  destinationUrl: regionConfig.basic.url,
+                  testName: `${regionConfig.basic.title} (${activeMarket})`,
+                });
+              }}
               className="w-full py-3.5 px-5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-emerald-600/20 active:scale-[0.98] cursor-pointer"
             >
               <span>{regionConfig.basic.actionText} ➔</span>
               <ExternalLink size={14} className="text-white" />
-            </a>
+            </button>
             <span className="text-center text-[10px] text-slate-400 font-mono">
               Low-barrier baseline • Upgradeable anytime
             </span>
@@ -396,16 +402,20 @@ export const BloodPanelComparisonTable: React.FC<BloodPanelComparisonTableProps>
           </div>
 
           <div className="pt-4 border-t border-slate-800 relative z-10 flex flex-col gap-2">
-            <a
-              href={regionConfig.complete.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => onSelectOption && onSelectOption('complete')}
+            <button
+              type="button"
+              onClick={() => {
+                if (onSelectOption) onSelectOption('complete');
+                triggerLabRequisition({
+                  destinationUrl: regionConfig.complete.url,
+                  testName: `${regionConfig.complete.title} (${activeMarket})`,
+                });
+              }}
               className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 hover:from-cyan-400 hover:via-teal-300 hover:to-emerald-300 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 shadow-lg shadow-cyan-500/25 active:scale-[0.98] cursor-pointer"
             >
               <span>{regionConfig.complete.actionText} ➔</span>
               <ExternalLink size={14} className="text-slate-950" />
-            </a>
+            </button>
             <span className="text-center text-[10px] text-cyan-300 font-mono">
               Complete baseline clarity in a single draw
             </span>

@@ -12,7 +12,7 @@ export default async function handler(req: any, res: any) {
   }
 
   try {
-    const { email, firstName, source, quizScore, pdfTitle, downloadName } = req.body || {};
+    const { email, firstName, source, quizScore, pdfTitle, downloadName, testName } = req.body || {};
 
     // Validate that email is present and valid
     if (!email || typeof email !== 'string' || !email.includes('@') || !email.includes('.')) {
@@ -21,7 +21,9 @@ export default async function handler(req: any, res: any) {
 
     const cleanEmail = email.toLowerCase().trim();
     const cleanName = firstName ? String(firstName).trim() : '';
-    const cleanSource = pdfTitle ? `pdf_download: ${pdfTitle}` : (source || 'website_lead');
+    const cleanSource = testName 
+      ? `clinical_test_requisition: ${testName}` 
+      : (pdfTitle ? `pdf_download: ${pdfTitle}` : (source || 'website_lead'));
     const cleanScore = quizScore !== undefined && quizScore !== null ? String(quizScore) : null;
 
     // 1. Save / Backup Lead in Supabase 'leads' table

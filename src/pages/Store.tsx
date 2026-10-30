@@ -31,6 +31,7 @@ import DualTrackSelector from '../components/DualTrackSelector';
 import BundleOffers from '../components/BundleOffers';
 import { DigitalGuides } from '../components/DigitalGuides';
 import { usePaywallBypass, getGuidePdfDownloadUrl } from '../utils/adminTestMode';
+import { useLabRequisition } from '../components/LabRequisitionModal';
 import {
   StoreCategory,
   SupplierOption,
@@ -3058,6 +3059,7 @@ export function DynamicSupplierCtaSection({
   const [selectedBloodTier, setSelectedBloodTier] = useState<'comprehensive' | 'basic'>(
     isEssentialOrBasic ? 'basic' : 'comprehensive'
   );
+  const { triggerLabRequisition } = useLabRequisition();
   const isUSBlood = isUSBloodTest(product, market);
   const activeSuppliers = getActiveSuppliers(product, market);
   if (activeSuppliers.length === 0) return null;
@@ -3114,6 +3116,21 @@ export function DynamicSupplierCtaSection({
     ctaButtonText = 'Order Lab Urinalysis (Life Extension $24 🇺🇸)';
     perksNoteToShow = 'Item #QD007909 • Quest Diagnostics Requisition';
   }
+
+  const isLabTest = (isDiag || isUSBlood || isUSUrinalysis) && !primaryUrl.startsWith('/checkout');
+
+  const handlePrimaryClick = (e: React.MouseEvent) => {
+    if (isLabTest) {
+      e.preventDefault();
+      const testName = isUSBlood 
+        ? (selectedBloodTier === 'basic' ? 'Healthy Aging Panel (Basic) [#QD100025]' : 'Healthy Aging Panel (Comprehensive) [#QD100026]')
+        : (isUSUrinalysis ? 'Life Extension Complete Urinalysis (#QD007909)' : (product.name || 'Clinical Diagnostic Lab Test'));
+      triggerLabRequisition({
+        destinationUrl: primaryUrl,
+        testName,
+      });
+    }
+  };
 
   return (
     <div className="flex flex-col space-y-2.5">
@@ -3185,6 +3202,18 @@ export function DynamicSupplierCtaSection({
           >
             Test Download (Free Bypass)
           </a>
+        ) : isLabTest ? (
+          <button
+            type="button"
+            onClick={handlePrimaryClick}
+            className={`px-4 py-2 rounded-lg text-xs font-bold transition-all duration-300 text-center shadow-lg cursor-pointer ${
+              isDiag 
+                ? 'bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white shadow-rose-500/20'
+                : 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 shadow-emerald-500/10'
+            }`}
+          >
+            {ctaButtonText}
+          </button>
         ) : (
           <a
             href={primaryUrl}
@@ -3216,7 +3245,16 @@ export function DynamicSupplierCtaSection({
                 href={opt.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/40 text-[11px] font-semibold text-slate-200 hover:text-cyan-300 transition-all"
+                onClick={(e) => {
+                  if (isLabTest) {
+                    e.preventDefault();
+                    triggerLabRequisition({
+                      destinationUrl: opt.url,
+                      testName: `${product.name || 'Clinical Diagnostic'} (${opt.supplierName})`,
+                    });
+                  }
+                }}
+                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 border border-slate-800 hover:border-cyan-500/40 text-[11px] font-semibold text-slate-200 hover:text-cyan-300 transition-all cursor-pointer"
               >
                 <span>{opt.supplierName}</span>
                 {opt.priceText && <span className="text-[10px] text-slate-400 font-mono">({opt.priceText})</span>}
