@@ -8,14 +8,17 @@ export async function syncPaidCustomerToMailerLite({
   email,
   name,
   productTitle,
+  productUrl,
   sessionId,
   amount,
   currency = 'GBP',
-  origin = 'https://123thenextlevel.com'
+  origin = 'https://123thenextlevel.com',
+  groupId
 }) {
   const apiKey = (process.env.MAILERLITE_API_KEY || '').trim();
-  const configuredGroupId = (process.env.MAILERLITE_BUYERS_GROUP_ID || process.env.MAILERLITE_GROUP_ID || '201226349911737620').trim();
-  const KNOWN_MAIN_LEADS_GROUP = '201220531175818835';
+  // Known official MailerLite Group ID for "Paid Buyers"
+  const KNOWN_PAID_BUYERS_GROUP = '202427608236820440';
+  const configuredGroupId = (groupId || process.env.MAILERLITE_BUYERS_GROUP_ID || KNOWN_PAID_BUYERS_GROUP).trim();
 
   if (!apiKey) {
     console.warn('⚠️ [MailerLite] MAILERLITE_API_KEY is not configured. Customer sync skipped.');
@@ -29,23 +32,23 @@ export async function syncPaidCustomerToMailerLite({
 
   const cleanEmail = email.trim().toLowerCase();
   const cleanName = (name || '').trim();
-  const downloadUrl = sessionId 
+  const downloadUrl = productUrl || (sessionId 
     ? `${origin}/checkout/success?session_id=${sessionId}`
-    : `${origin}/library`;
+    : `${origin}/library`);
 
   const formattedAmount = amount ? `${currency.toUpperCase()} ${Number(amount).toFixed(2)}` : '';
 
-  // Smart group mapping
-  let targetGroupId = configuredGroupId === '201226349911737620' ? KNOWN_MAIN_LEADS_GROUP : configuredGroupId;
+  // Smart group mapping: ensure "Paid Buyers" group is selected
+  let targetGroupId = configuredGroupId;
 
-  // 1. Comprehensive payload with custom fields for email template personalization & paid buyer status
+  // 1. Comprehensive payload with custom fields: download_url, last_purchased_product & customer_status
   const fullPayload = {
     email: cleanEmail,
     fields: {
+      download_url: downloadUrl,
+      last_purchased_product: productTitle || 'Digital Longevity Guide',
       customer_status: 'paid_buyer',
       ...(cleanName ? { name: cleanName } : {}),
-      ...(productTitle ? { last_purchased_product: productTitle } : {}),
-      download_url: downloadUrl,
       ...(formattedAmount ? { order_amount: formattedAmount } : {}),
       source: 'stripe_checkout_paid'
     },
@@ -53,7 +56,7 @@ export async function syncPaidCustomerToMailerLite({
   };
 
   try {
-    console.log(`[MailerLite] Syncing paid buyer ${cleanEmail} (Product: "${productTitle || 'Digital Guide'}") with customer_status: paid_buyer to MailerLite...`);
+    console.log(`[MailerLite] Syncing paid buyer ${cleanEmail} (Product: "${productTitle || 'Digital Guide'}", URL: "${downloadUrl}") to "Paid Buyers" group [${targetGroupId}]...`);
 
     let response = await fetch('https://connect.mailerlite.com/api/subscribers', {
       method: 'POST',
@@ -65,13 +68,14 @@ export async function syncPaidCustomerToMailerLite({
       body: JSON.stringify(fullPayload)
     });
 
-    // 2. Fallback handling: If MailerLite returns 422 because custom fields (like download_url) 
-    // are not yet declared in the MailerLite dashboard, retry with essential fields including customer_status!
+    // 2. Fallback handling: If MailerLite returns 422, retry with verified fields (download_url, last_purchased_product)
     if (!response.ok && response.status === 422) {
-      console.warn('[MailerLite] 422 Unprocessable Entity. Retrying with essential fields including customer_status: paid_buyer...');
+      console.warn('[MailerLite] 422 Unprocessable Entity. Retrying with essential fields (download_url, last_purchased_product)...');
       const fallbackPayload = {
         email: cleanEmail,
         fields: {
+          download_url: downloadUrl,
+          last_purchased_product: productTitle || 'Digital Longevity Guide',
           customer_status: 'paid_buyer',
           ...(cleanName ? { name: cleanName } : {}),
           source: 'stripe_checkout_paid'

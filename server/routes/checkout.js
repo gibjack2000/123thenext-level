@@ -8,6 +8,7 @@ import { db } from '../services/db.js';
 import { stripeService } from '../services/stripe.js';
 import { generatePresignedDownloadUrl, generateGuidePresignedUrl, isR2Configured, listVaultObjects, GUIDE_FILE_KEYS } from '../services/r2.js';
 import { syncPaidCustomerToMailerLite } from '../services/mailerlite.js';
+import { VAULT_BASE, PRODUCT_DOWNLOAD_MAP, matchProductDownload } from '../data/vault-products.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -454,15 +455,12 @@ router.get('/order-summary', async (req, res) => {
     for (const pid of resolvedProductIds) {
       const product = getProductById(pid) || resolveGuideProduct(pid);
       if (product) {
-        purchasedProducts.push({
-          id: product.id,
-          productId: product.productId || product.id,
-          title: product.title,
-          slug: product.slug || product.id
-        });
+        // Match against complete R2 Cloudflare Vault mapping (vault.123thenextlevel.com)
+        const vaultMatch = matchProductDownload(pid) || matchProductDownload(product.id) || matchProductDownload(product.title) || matchProductDownload(product.slug);
+        const resolvedTitle = vaultMatch ? vaultMatch.title : product.title;
+        let downloadUrl = vaultMatch ? vaultMatch.url : null;
 
-        if (isPaid) {
-          let downloadUrl = null;
+        if (isPaid && !downloadUrl) {
           const fileKey = product.r2FileKey || product.r2Key;
 
           // 1. Direct Cloudflare R2 Presigned Download Link (valid for 24 hours / 86400s)
@@ -481,12 +479,21 @@ router.get('/order-summary', async (req, res) => {
               downloadUrl = `/api/download/${tokenRecord.token}`;
             }
           }
-
-          downloadLinks[product.id] = downloadUrl;
-          if (product.productId) {
-            downloadLinks[product.productId] = downloadUrl;
-          }
         }
+
+        downloadLinks[product.id] = downloadUrl;
+        if (product.productId) {
+          downloadLinks[product.productId] = downloadUrl;
+        }
+
+        purchasedProducts.push({
+          id: product.id,
+          productId: product.productId || product.id,
+          title: resolvedTitle,
+          slug: product.slug || product.id,
+          url: downloadUrl,
+          downloadUrl: downloadUrl
+        });
       }
     }
 
@@ -495,15 +502,18 @@ router.get('/order-summary', async (req, res) => {
       const emailToSync = order?.customer_email || stripeSession?.customer_details?.email;
       const nameToSync = stripeSession?.customer_details?.name || '';
       const displayTitle = purchasedProducts[0]?.title || 'Digital Longevity Guide';
+      const displayUrl = purchasedProducts[0]?.url || null;
       const baseUrl = resolveValidBaseUrl(req);
       syncPaidCustomerToMailerLite({
         email: emailToSync,
         name: nameToSync,
         productTitle: displayTitle,
+        productUrl: displayUrl,
         sessionId: session_id,
         amount: order?.amount_total || (stripeSession?.amount_total ? stripeSession.amount_total / 100 : 0),
         currency: order?.currency || stripeSession?.currency || 'GBP',
-        origin: baseUrl
+        origin: baseUrl,
+        groupId: '202427608236820440'
       }).catch(err => console.warn('Non-blocking order-summary MailerLite sync warning:', err.message));
     }
 
@@ -599,30 +609,63 @@ router.post(['/stripe-webhook', '/webhooks/stripe', '/webhook/stripe'], async (r
 
       console.log(`Successfully fulfilled order ${order.id} for session ${session.id}`);
 
-      // 4. Trigger MailerLite Thank You & Guide Delivery Automation with customer_status: paid_buyer
+      // 4. Trigger MailerLite Delivery Automation using PRODUCT_DOWNLOAD_MAP
       try {
         const customerEmail = session.customer_details?.email || fullSession.customer_details?.email || order?.customer_email;
         const customerName = session.customer_details?.name || fullSession.customer_details?.name || '';
         
-        let displayTitle = session.metadata?.guide_id || session.metadata?.guideId;
-        if (displayTitle) {
-          const resolved = resolveGuideProduct(displayTitle);
-          if (resolved) displayTitle = resolved.title;
-        } else if (orderItems.length > 0) {
-          const firstProd = getProductById(orderItems[0].product_id) || resolveGuideProduct(orderItems[0].product_id);
-          displayTitle = firstProd ? firstProd.title : orderItems[0].product_id;
-          if (orderItems.length > 1) displayTitle += ` (+${orderItems.length - 1} more)`;
+        // 1. Match the line item / session metadata to PRODUCT_DOWNLOAD_MAP
+        let matchedProduct = null;
+        const candidateKeys = [
+          session.metadata?.guide_id,
+          session.metadata?.guideId,
+          session.metadata?.bundleId,
+          session.metadata?.item,
+          session.client_reference_id
+        ].filter(Boolean);
+
+        for (const k of candidateKeys) {
+          matchedProduct = matchProductDownload(k);
+          if (matchedProduct) break;
         }
 
+        if (!matchedProduct && fullSession.line_items?.data?.length > 0) {
+          for (const lineItem of fullSession.line_items.data) {
+            const desc = lineItem.description || lineItem.price?.product?.name || '';
+            matchedProduct = matchProductDownload(desc) || matchProductDownload(lineItem.price?.id);
+            if (matchedProduct) break;
+          }
+        }
+
+        if (!matchedProduct && orderItems?.length > 0) {
+          for (const oi of orderItems) {
+            matchedProduct = matchProductDownload(oi.product_id);
+            if (matchedProduct) break;
+          }
+        }
+
+        // Fallback default if unmatched
+        if (!matchedProduct) {
+          matchedProduct = {
+            title: "Complete 10-Guide Master Longevity Suite",
+            url: `${VAULT_BASE}/Complete_9_Book_Master_Vault-2026.zip`
+          };
+        }
+
+        console.log(`[Stripe Webhook] Matched order to vault product: "${matchedProduct.title}" -> ${matchedProduct.url}`);
+
+        // 2. Push customer email to MailerLite Group "Paid Buyers" with fields: download_url, last_purchased_product
         const baseUrl = resolveValidBaseUrl(req);
         syncPaidCustomerToMailerLite({
           email: customerEmail,
           name: customerName,
-          productTitle: displayTitle || 'Digital Longevity Guide',
+          productTitle: matchedProduct.title,
+          productUrl: matchedProduct.url,
           sessionId: session.id,
           amount: session.amount_total ? session.amount_total / 100 : (order?.amount_total || 0),
           currency: session.currency || order?.currency || 'GBP',
-          origin: baseUrl
+          origin: baseUrl,
+          groupId: '202427608236820440' // Group: "Paid Buyers"
         }).catch(mlErr => console.warn('Non-blocking MailerLite sync warning in webhook:', mlErr.message));
       } catch (mlSyncErr) {
         console.warn('MailerLite sync block error:', mlSyncErr.message);

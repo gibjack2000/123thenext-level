@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import CheckoutSuccess from './premium/CheckoutSuccess';
+import { VAULT_BASE, PRODUCT_DOWNLOAD_MAP, matchProductDownload } from '../config/vaultProducts';
 import { 
   CheckCircle2, 
   Download, 
@@ -18,10 +19,64 @@ export default function SuccessPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get('session_id') || searchParams.get('sessionId');
+  const guideParam = searchParams.get('guide') || searchParams.get('product') || searchParams.get('guideId') || searchParams.get('item');
+  const matchedVault = guideParam ? matchProductDownload(guideParam) : null;
+  const customerEmail = searchParams.get('email') || sessionStorage.getItem('subscribed_email') || localStorage.getItem('subscribed_email') || 'your email';
 
   // If redirected from paid Stripe checkout with session_id, render verified paid fulfillment screen
   if (sessionId) {
     return <CheckoutSuccess />;
+  }
+
+  // If a specific master guide product was targeted, display direct post-checkout confirmation screen
+  if (matchedVault) {
+    return (
+      <div className="min-h-screen bg-slate-950 pt-32 pb-20 px-6 text-slate-100 font-sans">
+        <div className="max-w-3xl mx-auto">
+          <div className="bg-slate-900 border border-slate-800 rounded-[2.5rem] overflow-hidden shadow-2xl relative">
+            <div className="bg-emerald-500/10 border-b border-emerald-500/20 p-8 sm:p-10 text-center">
+              <div className="bg-emerald-500/20 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_35px_rgba(16,185,129,0.3)] animate-pulse">
+                <CheckCircle2 className="w-10 h-10 text-emerald-400" />
+              </div>
+              <h1 className="text-2xl sm:text-4xl font-display font-black text-white uppercase tracking-tight mb-3">
+                Payment Confirmed — Access Granted
+              </h1>
+              <p className="text-emerald-400 font-medium text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+                A permanent copy and receipt have also been sent to <span className="font-bold underline text-white">{customerEmail}</span>.
+              </p>
+
+              <div className="mt-8 flex flex-col items-center">
+                <a
+                  href={matchedVault.url}
+                  download={`${matchedVault.key || 'guide'}.pdf`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full sm:w-auto px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-2xl font-black uppercase tracking-wider text-sm transition-all flex items-center justify-center gap-3 shadow-xl shadow-cyan-500/25 cursor-pointer hover:scale-[1.02]"
+                >
+                  <Download size={18} />
+                  <span>Download Your {matchedVault.title} PDF Now</span>
+                </a>
+                <span className="text-[11px] text-cyan-400 mt-2 font-mono break-all text-center">
+                  {matchedVault.url}
+                </span>
+              </div>
+            </div>
+
+            <div className="p-8 sm:p-10 bg-slate-950 border-t border-slate-850 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <span className="text-xs text-slate-400">
+                Direct Cloudflare R2 Asset CDN • Encrypted Delivery
+              </span>
+              <Link 
+                to="/premium-guides"
+                className="text-xs font-bold text-slate-300 hover:text-white uppercase tracking-wider flex items-center gap-1.5"
+              >
+                <span>Browse All Guides</span> ➔
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   useEffect(() => {

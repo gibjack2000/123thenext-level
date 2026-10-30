@@ -12,12 +12,15 @@ import {
   ShoppingBag,
   ExternalLink
 } from 'lucide-react';
+import { VAULT_BASE, PRODUCT_DOWNLOAD_MAP, matchProductDownload } from '../../config/vaultProducts';
 
 interface PurchasedProduct {
   id: string;
   title: string;
   slug: string;
   productId?: string;
+  url?: string;
+  downloadUrl?: string;
 }
 
 interface OrderSummary {
@@ -74,7 +77,8 @@ export default function CheckoutSuccess() {
           if (data.products && data.products.length > 0) {
             setTimeout(() => {
               data.products.forEach((p: PurchasedProduct, idx: number) => {
-                const downloadUrl = data.download_links[p.id] || (p.productId && data.download_links[p.productId]);
+                const vaultItem = matchProductDownload(p.id) || matchProductDownload(p.slug) || matchProductDownload(p.title);
+                const downloadUrl = (vaultItem && vaultItem.url) || data.download_links[p.id] || (p.productId && data.download_links[p.productId]);
                 if (downloadUrl) {
                   setTimeout(() => {
                     triggerDownload(downloadUrl, `${p.slug || p.id}.pdf`);
@@ -92,7 +96,8 @@ export default function CheckoutSuccess() {
               purchases = JSON.parse(savedPurchases);
             }
             data.products.forEach((p: PurchasedProduct) => {
-              const downloadUrl = data.download_links[p.id] || (p.productId && data.download_links[p.productId]);
+              const vaultItem = matchProductDownload(p.id) || matchProductDownload(p.slug) || matchProductDownload(p.title);
+              const downloadUrl = (vaultItem && vaultItem.url) || data.download_links[p.id] || (p.productId && data.download_links[p.productId]);
               if (downloadUrl) {
                 purchases[p.id] = {
                   purchased: true,
@@ -173,9 +178,9 @@ export default function CheckoutSuccess() {
 
   // 3. Success State
   const primaryProduct = orderSummary.products && orderSummary.products[0];
-  const primaryDownloadUrl = primaryProduct 
-    ? (orderSummary.download_links[primaryProduct.id] || (primaryProduct.productId && orderSummary.download_links[primaryProduct.productId])) 
-    : null;
+  const primaryVault = primaryProduct ? (matchProductDownload(primaryProduct.id) || matchProductDownload(primaryProduct.slug) || matchProductDownload(primaryProduct.title)) : null;
+  const primaryDownloadUrl = (primaryVault && primaryVault.url) || (primaryProduct ? (orderSummary.download_links[primaryProduct.id] || (primaryProduct.productId && orderSummary.download_links[primaryProduct.productId]) || primaryProduct.url) : null);
+  const primaryTitle = (primaryVault && primaryVault.title) || (primaryProduct && primaryProduct.title) || 'Digital Master Guide';
   const customerEmail = orderSummary.customer_email || sessionStorage.getItem('subscribed_email') || localStorage.getItem('subscribed_email') || 'your email';
 
   return (
@@ -206,10 +211,10 @@ export default function CheckoutSuccess() {
                   className="w-full sm:w-auto px-8 py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-2xl font-black uppercase tracking-wider text-sm transition-all flex items-center justify-center gap-3 shadow-xl shadow-cyan-500/25 cursor-pointer hover:scale-[1.02]"
                 >
                   <Download size={18} />
-                  <span>Download Your {primaryProduct.title} PDF Now</span>
+                  <span>Download Your {primaryTitle} PDF Now</span>
                 </a>
-                <span className="text-[11px] text-slate-400 mt-2 font-mono">
-                  Direct High-Speed PDF Asset Link • Cloudflare R2 Verified
+                <span className="text-[11px] text-cyan-400 mt-2 font-mono break-all text-center">
+                  {primaryDownloadUrl}
                 </span>
               </div>
             )}
@@ -242,7 +247,10 @@ export default function CheckoutSuccess() {
 
             <div className="space-y-4 mb-10">
               {orderSummary.products.map(product => {
-                const downloadUrl = orderSummary.download_links[product.id] || (product.productId && orderSummary.download_links[product.productId]);
+                const vaultMatch = matchProductDownload(product.id) || matchProductDownload(product.slug) || matchProductDownload(product.title);
+                const downloadUrl = (vaultMatch && vaultMatch.url) || orderSummary.download_links[product.id] || (product.productId && orderSummary.download_links[product.productId]) || product.url;
+                const displayTitle = (vaultMatch && vaultMatch.title) || product.title;
+
                 return (
                   <div 
                     key={product.id}
@@ -253,25 +261,32 @@ export default function CheckoutSuccess() {
                         <FileText size={22} />
                       </div>
                       <div>
-                        <h4 className="text-base font-bold text-white mb-1">{product.title}</h4>
-                        <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+                        <h4 className="text-base font-bold text-white mb-1">{displayTitle}</h4>
+                        <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest block">
                           Format: Instant PDF Guide
                         </span>
+                        {downloadUrl && (
+                          <span className="text-[10px] text-slate-400 font-mono break-all block mt-0.5">
+                            {downloadUrl}
+                          </span>
+                        )}
                       </div>
                     </div>
 
                     {downloadUrl ? (
-                      <a 
-                        href={downloadUrl}
-                        download={`${product.slug || product.id}.pdf`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => triggerDownload(downloadUrl, `${product.slug || product.id}.pdf`)}
-                        className="w-full sm:w-auto px-6 py-3.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-xl font-black uppercase tracking-widest text-xs transition-colors flex items-center justify-center gap-2.5 shadow-lg shadow-cyan-500/20 cursor-pointer"
-                      >
-                        <Download size={14} />
-                        <span>Download Your {product.title} PDF Now</span>
-                      </a>
+                      <div className="flex flex-col items-center sm:items-end gap-1.5 w-full sm:w-auto">
+                        <a 
+                          href={downloadUrl}
+                          download={`${product.slug || product.id}.pdf`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => triggerDownload(downloadUrl, `${product.slug || product.id}.pdf`)}
+                          className="w-full sm:w-auto px-6 py-3.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 rounded-xl font-black uppercase tracking-widest text-xs transition-colors flex items-center justify-center gap-2.5 shadow-lg shadow-cyan-500/20 cursor-pointer"
+                        >
+                          <Download size={14} />
+                          <span>Download Your {displayTitle} PDF Now</span>
+                        </a>
+                      </div>
                     ) : (
                       <span className="text-xs text-amber-500 font-bold uppercase tracking-widest flex items-center gap-1 border border-amber-500/20 bg-amber-500/5 px-4 py-2.5 rounded-xl">
                         Generating Direct Link...
