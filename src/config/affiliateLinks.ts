@@ -363,7 +363,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
         supplierName: "LOLA Health UK",
         url: "https://snwbl.io/out/NcealZ11",
         ctaText: "Order Your TruAge Test on LOLA Health UK 🇬🇧",
-        priceText: "From £249.00",
+        priceText: "From £375.00",
         badgeText: "🇬🇧 UK (LOLA/UKAS)",
         isPrimary: true,
         perksNote: "TruAge • Biological Age & DunedinPACE"
@@ -1201,7 +1201,7 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
     primaryPerks = 'TruAge • Biological Age & DunedinPACE';
     primaryCta = 'Order Your TruAge Test on LOLA Health UK 🇬🇧';
     dealUrl = 'https://snwbl.io/out/NcealZ11';
-    priceText = 'From £249.00';
+    priceText = 'From £375.00';
     badgeText = '🇬🇧 UK (LOLA/UKAS)';
   } else if (market === 'UK' && (id.includes('vital') || lowerTitle.includes('vital check') || id === 'blood-panel-uk-vital56' || (lowerTitle.includes('56') && (lowerTitle.includes('blood') || lowerTitle.includes('longevity'))))) {
     primarySupplier = 'LOLA Health UK';
@@ -1222,7 +1222,7 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
     primaryPerks = 'TruAge • Biological Age & DunedinPACE';
     primaryCta = 'Order Your TruAge Test on LOLA Health UK 🇬🇧';
     dealUrl = 'https://snwbl.io/out/NcealZ11';
-    priceText = 'From £249.00';
+    priceText = 'From £375.00';
   } else if (lowerDeal.includes('lolahealth') || (market === 'UK' && lowerTitle.includes('lola'))) {
     primarySupplier = 'LOLA Health';
     primaryPerks = '15% Off Referral • UKAS Lab';

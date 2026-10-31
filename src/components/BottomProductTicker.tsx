@@ -31,6 +31,15 @@ const products: ProductItem[] = [
     link: '/store-uk'
   },
   {
+    id: 'lola-truage',
+    name: 'LOLA TruAge Epigenetic Test',
+    badge: 'Biological Age (UK 🇬🇧)',
+    price: 'From £375.00',
+    category: 'Epigenetic DNA Clock',
+    icon: '⏳',
+    link: '/store-uk'
+  },
+  {
     id: 'healthlabs-56',
     name: 'HealthLabs Cellular Biomarker Map',
     badge: 'CLIA Accredited (US 🇺🇸)',

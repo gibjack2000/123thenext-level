@@ -325,7 +325,7 @@ export const Step2DiagnosticChannels: React.FC<Step2DiagnosticChannelsProps> = (
             >
               <div className="flex items-center justify-between mb-1">
                 <span className="text-[10px] font-mono uppercase font-bold text-purple-300">3. Biological Age</span>
-                <span className="text-[11px] font-mono font-bold text-white">From £249.00</span>
+                <span className="text-[11px] font-mono font-bold text-white">From £375.00</span>
               </div>
               <p className="text-[11px] font-semibold text-slate-200 group-hover:text-purple-300 transition-colors flex items-center justify-between">
                 <span>LOLA TruAge Test</span>

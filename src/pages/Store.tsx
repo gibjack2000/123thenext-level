@@ -111,7 +111,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "category": "Clinical Diagnostics & Labs",
       "rating": 4.93,
       "description": "Epigenetic DNA methylation clock measuring biological pace of aging vs chronological age.",
-      "price_text": "From £249.00",
+      "price_text": "From £375.00",
       "deal_url": "https://snwbl.io/out/NcealZ11",
       "market_region": "UK",
       "badge_text": "🇬🇧 UK (LOLA/UKAS)",
@@ -2838,7 +2838,7 @@ export function formatDiagnosticPrice(priceText: string, product: any, market: M
       return 'From £155.00';
     }
     if (id.includes('epigenetic') || title.includes('epigenetic') || title.includes('truage')) {
-      return 'From £249.00';
+      return 'From £375.00';
     }
   }
 
@@ -3060,6 +3060,7 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
     )) {
       enriched.id = 'epigenetic-kit-uk';
       enriched.name = 'Biological Age & Epigenetic Methylation Kit (UK 🇬🇧)';
+      enriched.price_text = 'From £375.00';
       enriched.deal_url = 'https://snwbl.io/out/NcealZ11';
       enriched.badge_text = '🇬🇧 UK (LOLA/UKAS)';
       enriched.checkout_instruction = "On the LOLA Health website, select the 'TruAge Test' to measure your cellular biological age, rate of ageing (DunedinPACE), and telomere length.";
