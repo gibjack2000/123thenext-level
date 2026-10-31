@@ -81,22 +81,22 @@ const REGIONAL_CHANNEL_CONFIG: Record<Market, RegionalChannelData> = {
     blood: {
       discountNote: 'Choose your preferred baseline depth. Both options link via your 15% discount.',
       optionA: {
-        title: 'Lola Core Health 45 (Baseline Longevity Blood Map)',
-        tier: '45 Essential Biomarkers • UKAS Accredited',
-        price: '£149.00',
-        summary: 'Comprehensive 45-biomarker direct-to-consumer blood panel covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones.',
-        bestFor: 'Essential metabolic baseline & biomarker telemetry with at-home phlebotomy visit.',
+        title: 'LOLA Core Health 45',
+        tier: 'Basic MOT • 45 Essential Biomarkers',
+        price: 'From £125.00',
+        summary: 'Essential health MOT covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones with at-home phlebotomist visit.',
+        bestFor: 'Routine health MOT, introductory metabolic baseline, and periodic biomarker monitoring.',
         ctaText: 'Select Core Health 45 ➔',
         url: 'https://referrals.lolahealth.com/NextLevel15',
       },
       optionB: {
-        title: 'LOLA Vital Check 56',
-        tier: 'Comprehensive Tier',
-        price: '£149.00',
-        summary: 'Complete 56-biomarker panel (ApoB, hs-CRP, Thyroid, Vitamin D & Hormones).',
-        bestFor: 'Deep cellular longevity mapping & cardiovascular risk re-engineering.',
+        title: 'LOLA Vital Check 56 (Comprehensive Longevity Baseline)',
+        tier: '⭐ Full Protocol Longevity Baseline • 56 Biomarkers',
+        price: 'From £155.00',
+        summary: 'Advanced multi-omic longevity blood panel tracking 56 essential biomarkers—including ApoB (cardiovascular plaque risk), hs-CRP (systemic inflammation), and HbA1c (glycemic variability). Includes GMC doctor review and optional home phlebotomy visit.',
+        bestFor: 'Deep cellular longevity mapping, plaque prevention (ApoB), and hormone cascade analysis.',
         ctaText: 'Select Vital Check 56 ➔',
-        url: 'https://referrals.lolahealth.com/NextLevel15',
+        url: 'https://snwbl.io/out/NcealZ11',
       },
     },
     urinalysis: {
@@ -260,6 +260,83 @@ export const Step2DiagnosticChannels: React.FC<Step2DiagnosticChannelsProps> = (
 
   return (
     <div className={`space-y-6 ${className}`}>
+      {/* UK 3-Stage Diagnostic Radar Pathway */}
+      {activeRegion === 'UK' && (
+        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-slate-900 via-cyan-950/40 to-slate-900 border border-cyan-500/30 shadow-xl space-y-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <span className="text-base">🇬🇧</span>
+              <h4 className="text-xs sm:text-sm font-display font-black uppercase text-white tracking-wider">
+                UK Clinical Longevity Pathway • 3-Stage Diagnostic Radar
+              </h4>
+            </div>
+            <span className="text-[10px] font-mono text-cyan-400 bg-cyan-950 px-2.5 py-1 rounded-full border border-cyan-800 font-bold uppercase tracking-wider">
+              LOLA Health UK
+            </span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+            {/* Step 1: Basic MOT */}
+            <div 
+              onClick={() => setSelectedBloodOption('A')}
+              className={`p-3 rounded-xl border transition-all cursor-pointer ${
+                selectedBloodOption === 'A'
+                  ? 'bg-emerald-950/40 border-emerald-500/60 ring-1 ring-emerald-500/40'
+                  : 'bg-slate-950/70 border-slate-800 hover:border-slate-700'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[10px] font-mono uppercase font-bold text-emerald-400">1. Basic MOT</span>
+                <span className="text-[11px] font-mono font-bold text-white">From £125.00</span>
+              </div>
+              <p className="text-[11px] font-semibold text-slate-200">LOLA Core Health 45</p>
+              <p className="text-[10px] text-slate-400 mt-0.5">45 Essential Biomarkers • Routine MOT</p>
+            </div>
+
+            {/* Step 2: Full Protocol Longevity Baseline */}
+            <div 
+              onClick={() => setSelectedBloodOption('B')}
+              className={`p-3 rounded-xl border transition-all cursor-pointer ${
+                selectedBloodOption === 'B'
+                  ? 'bg-cyan-950/50 border-cyan-400 ring-1 ring-cyan-400/50 shadow-[0_0_15px_rgba(6,182,212,0.15)]'
+                  : 'bg-slate-950/70 border-slate-800 hover:border-slate-700'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[10px] font-mono uppercase font-bold text-cyan-300">2. Longevity Baseline</span>
+                <span className="text-[11px] font-mono font-bold text-white">From £155.00</span>
+              </div>
+              <p className="text-[11px] font-semibold text-white">⭐ LOLA Vital Check 56</p>
+              <p className="text-[10px] text-slate-400 mt-0.5">Full 56 Markers • ApoB, hs-CRP &amp; Hormones</p>
+            </div>
+
+            {/* Step 3: Biological Age */}
+            <a 
+              href="https://snwbl.io/out/NcealZ11"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => {
+                e.preventDefault();
+                triggerLabRequisition({
+                  destinationUrl: 'https://snwbl.io/out/NcealZ11',
+                  testName: 'LOLA TruAge Test (UK 🇬🇧)',
+                });
+              }}
+              className="p-3 rounded-xl border bg-slate-950/70 border-slate-800 hover:border-purple-500/50 transition-all cursor-pointer block group"
+            >
+              <div className="flex items-center justify-between mb-1">
+                <span className="text-[10px] font-mono uppercase font-bold text-purple-300">3. Biological Age</span>
+                <span className="text-[11px] font-mono font-bold text-white">From £249.00</span>
+              </div>
+              <p className="text-[11px] font-semibold text-slate-200 group-hover:text-purple-300 transition-colors flex items-center justify-between">
+                <span>LOLA TruAge Test</span>
+                <ExternalLink size={11} className="opacity-60 group-hover:opacity-100" />
+              </p>
+              <p className="text-[10px] text-slate-400 mt-0.5">DunedinPACE Methylation &amp; Telomeres</p>
+            </a>
+          </div>
+        </div>
+      )}
+
       {/* 3-Channel Grid Container */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
 
@@ -339,9 +416,13 @@ export const Step2DiagnosticChannels: React.FC<Step2DiagnosticChannelsProps> = (
               {activeRegion === 'UK' && (
                 <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-200 leading-snug">
                   <span className="font-bold text-amber-300 block uppercase tracking-wider text-[10px]">
-                    Action Required on Lola:
+                    Action Required on LOLA Health:
                   </span>
-                  <span>On Lola's website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose 'Phlebotomist for a Home Visit'.</span>
+                  <span>
+                    {selectedBloodOption === 'A'
+                      ? "Select 'Core Health 45' on LOLA Health for an essential health MOT."
+                      : "On the LOLA Health website, select 'Vital Check 56' and choose 'Phlebotomist for a Home Visit'."}
+                  </span>
                 </div>
               )}
             </div>

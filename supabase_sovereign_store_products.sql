@@ -24,7 +24,8 @@ INSERT INTO public.products (
 
 -- Blood Panels
 ('blood-panel-us', 'Personalized Cellular Biomarker Map (56 Biomarkers)', 'Performance & Testing', 4.95, 'Direct-to-consumer longevity blood panels mapping 56 essential biomarkers via local Quest or Labcorp centers.', '$299.00', 'https://www.healthlabs.com/?affiliate=123znl', 'US', 'CLIA Certified & CAP Accredited', '/assets/images/shop/blood-panel.png', TRUE, 'blood_panel_slot'),
-('blood-panel-uk', 'Lola Core Health 45 (Baseline Longevity Blood Map)', 'Performance & Testing', 4.98, 'Comprehensive 45-biomarker direct-to-consumer blood panel covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones. Includes at-home venous blood draw by a certified phlebotomist and GMC doctor review.', '£149.00', 'https://referrals.lolahealth.com/NextLevel15', 'UK', '45 Essential Biomarkers • UKAS Accredited', '/assets/images/shop/blood-panel.png', TRUE, 'blood_panel_slot'),
+('blood-panel-uk-core45', 'LOLA Core Health 45', 'Performance & Testing', 4.98, 'Comprehensive 45-biomarker direct-to-consumer blood panel covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones. Includes at-home venous blood draw by a certified phlebotomist and GMC doctor review.', 'From £125.00', 'https://referrals.lolahealth.com/NextLevel15', 'UK', '45 Essential Biomarkers • UKAS Accredited', '/assets/images/shop/blood-panel.png', TRUE, 'blood_panel_slot'),
+('blood-panel-uk-vital56', 'LOLA Vital Check 56 (Comprehensive Longevity Baseline)', 'Performance & Testing', 4.99, 'Advanced multi-omic longevity blood panel tracking 56 essential biomarkers—including ApoB (cardiovascular plaque risk), hs-CRP (systemic inflammation), and HbA1c (glycemic variability). Includes GMC doctor review and optional home phlebotomy visit.', 'From £155.00', 'https://snwbl.io/out/NcealZ11', 'UK', '⭐ Recommended Longevity Baseline • 56 Biomarkers', '/assets/images/shop/blood-panel.png', TRUE, 'blood_panel_slot'),
 ('blood-panel-es', 'Personalized Cellular Biomarker Map (56 Biomarkers)', 'Performance & Testing', 4.95, 'Direct-to-consumer longevity blood panels mapping 56 essential biomarkers via partner ES lab centers.', '149,00€', 'https://www.melio.es', 'ES', 'CE Marked & Megalab Certified Partner', '/assets/images/shop/blood-panel.png', TRUE, 'blood_panel_slot'),
 
 -- CGM
@@ -111,15 +112,22 @@ ON CONFLICT (id) DO UPDATE SET
   hub_placement_slot = EXCLUDED.hub_placement_slot,
   updated_at = NOW();
 
--- 4. UPDATE UK BLOOD PANEL CHECKOUT INSTRUCTION SPECIFICALLY
-UPDATE public.products 
-SET 
-  name = 'Lola Core Health 45 (Baseline Longevity Blood Map)',
-  badge_text = '45 Essential Biomarkers • UKAS Accredited',
-  description = 'Comprehensive 45-biomarker direct-to-consumer blood panel covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones. Includes at-home venous blood draw by a certified phlebotomist and GMC doctor review.',
-  checkout_instruction = 'On Lola''s website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose ''Phlebotomist for a Home Visit''.',
-  updated_at = NOW()
-WHERE id = 'blood-panel-uk';
+-- 4. UPSERT UK BLOOD PANELS (TIER 1 & TIER 2)
+DELETE FROM public.products WHERE id = 'blood-panel-uk';
+
+INSERT INTO public.products (
+  id, name, category, rating, description, price_text, deal_url, market_region, badge_text, image_url, is_direct_affiliate, hub_placement_slot, checkout_instruction
+) VALUES 
+('blood-panel-uk-core45', 'LOLA Core Health 45', 'Performance & Testing', 4.98, 'Comprehensive 45-biomarker direct-to-consumer blood panel covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones. Includes at-home venous blood draw by a certified phlebotomist and GMC doctor review.', 'From £125.00', 'https://referrals.lolahealth.com/NextLevel15', 'UK', '45 Essential Biomarkers • UKAS Accredited', '/assets/images/shop/blood-panel.png', TRUE, 'blood_panel_slot', 'Select ''Core Health 45'' on LOLA Health for an essential health MOT.'),
+('blood-panel-uk-vital56', 'LOLA Vital Check 56 (Comprehensive Longevity Baseline)', 'Performance & Testing', 4.99, 'Advanced multi-omic longevity blood panel tracking 56 essential biomarkers—including ApoB (cardiovascular plaque risk), hs-CRP (systemic inflammation), and HbA1c (glycemic variability). Includes GMC doctor review and optional home phlebotomy visit.', 'From £155.00', 'https://snwbl.io/out/NcealZ11', 'UK', '⭐ Recommended Longevity Baseline • 56 Biomarkers', '/assets/images/shop/blood-panel.png', TRUE, 'blood_panel_slot', 'On the LOLA Health website, select ''Vital Check 56'' and choose ''Phlebotomist for a Home Visit''.')
+ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  badge_text = EXCLUDED.badge_text,
+  description = EXCLUDED.description,
+  price_text = EXCLUDED.price_text,
+  deal_url = EXCLUDED.deal_url,
+  checkout_instruction = EXCLUDED.checkout_instruction,
+  updated_at = NOW();
 
 -- 5. UPSERT UK EPIGENETIC KIT (TRUAGE TEST ON LOLA HEALTH UK)
 INSERT INTO public.products (

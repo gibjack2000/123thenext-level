@@ -14,9 +14,18 @@ interface ProductItem {
 const products: ProductItem[] = [
   {
     id: 'lola-core-45',
-    name: 'Lola Core Health 45 (Baseline Longevity Blood Map)',
+    name: 'LOLA Core Health 45',
     badge: '45 Essential Biomarkers • UKAS Accredited',
-    price: '£149.00',
+    price: 'From £125.00',
+    category: 'Clinical Blood Test',
+    icon: '🩸',
+    link: '/store-uk'
+  },
+  {
+    id: 'lola-vital-56',
+    name: 'LOLA Vital Check 56 (Longevity Baseline)',
+    badge: '⭐ Recommended Longevity Baseline • 56 Biomarkers',
+    price: 'From £155.00',
     category: 'Clinical Blood Test',
     icon: '🩸',
     link: '/store-uk'

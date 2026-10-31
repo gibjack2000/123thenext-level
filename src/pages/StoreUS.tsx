@@ -59,6 +59,7 @@ export interface ProductRecord {
   image_url: string;
   is_direct_affiliate?: boolean;
   hub_placement_slot?: string | null;
+  checkout_instruction?: string | null;
   updated_at?: string;
   network?: string;
 }

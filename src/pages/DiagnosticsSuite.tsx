@@ -345,7 +345,7 @@ export default function DiagnosticsSuite() {
                     🇬🇧 United Kingdom • Phlebotomy Fulfillment
                   </span>
                   <span className="text-xl font-display font-black text-white">
-                    {selectedBloodChoice === 'clinic' ? '£149.00' : '£237.00'}
+                    {selectedBloodChoice === 'clinic' ? 'From £155.00' : '£237.00'}
                   </span>
                 </div>
 
@@ -353,21 +353,21 @@ export default function DiagnosticsSuite() {
                   <h3 className="text-xl font-display font-black uppercase text-white">
                     {selectedBloodChoice === 'clinic'
                       ? 'LOLA Vital Check 56 (In-Clinic Draw)'
-                      : 'LOLA Mobile Phlebotomist / Medichecks Home Nurse Visit'}
+                      : 'LOLA Vital Check 56 (Mobile Phlebotomist Home Visit)'}
                   </h3>
                   <p className="text-xs text-slate-400 mt-1">
                     {selectedBloodChoice === 'clinic'
-                      ? 'Walk into partner clinics across London, Manchester, Birmingham, Edinburgh, and Belfast.'
-                      : 'A GMC-registered nurse visits your private residence for gold-standard venous tube collection.'}
+                      ? 'Foundational longevity blood panel pairing with the LOLA TruAge Test. Walk into partner clinics across London, Manchester, Birmingham, Edinburgh, and Belfast.'
+                      : 'Foundational longevity blood panel pairing with the LOLA TruAge Test. A GMC-registered nurse visits your private residence for gold-standard venous tube collection.'}
                   </p>
                 </div>
 
                 {/* Explicit helper instruction */}
                 <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs text-cyan-200 leading-snug space-y-1">
                   <span className="font-bold text-cyan-300 block text-[11px] uppercase tracking-wider">
-                    Action Required on Lola Health:
+                    Action Required on LOLA Health:
                   </span>
-                  <p>On Lola's website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose 'Phlebotomist for a Home Visit'.</p>
+                  <p>On the LOLA Health website, select 'Vital Check 56' and choose 'Phlebotomist for a Home Visit'.</p>
                 </div>
 
                 <div className="space-y-2 text-xs text-slate-300 border-t border-slate-800 pt-4">
@@ -392,7 +392,7 @@ export default function DiagnosticsSuite() {
 
               <div className="pt-4 border-t border-slate-800">
                 <a
-                  href="https://referrals.lolahealth.com/NextLevel15"
+                  href="https://snwbl.io/out/NcealZ11"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-cyan-500/20 active:scale-95 cursor-pointer"

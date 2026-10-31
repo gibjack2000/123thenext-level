@@ -115,6 +115,7 @@ export const StoreUK: React.FC = () => {
             image_url: healedImg,
             is_direct_affiliate: item.is_direct_affiliate || (!healedDeal.toLowerCase().includes('amazon')),
             hub_placement_slot: item.hub_placement_slot,
+            checkout_instruction: item.checkout_instruction,
             network: healedDeal.toLowerCase().includes('amazon') ? 'Amazon Associates' : 'Clinical Direct'
           };
         });

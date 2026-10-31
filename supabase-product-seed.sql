@@ -305,8 +305,12 @@ ON CONFLICT (slug) DO UPDATE SET
   included = EXCLUDED.included;
 
 -- ============================================================================
--- 5. Upsert UK Blood Panel (Lola Core Health 45)
+-- 5. Upsert UK Blood Panels (Tier 1: LOLA Core Health 45 & Tier 2: LOLA Vital Check 56)
 -- ============================================================================
+-- Clean up legacy ambiguous ID if present
+DELETE FROM public.products WHERE id = 'blood-panel-uk';
+
+-- Tier 1: LOLA Core Health 45
 INSERT INTO public.products (
   id,
   name,
@@ -323,12 +327,12 @@ INSERT INTO public.products (
   hub_placement_slot,
   checkout_instruction
 ) VALUES (
-  'blood-panel-uk',
-  'Lola Core Health 45 (Baseline Longevity Blood Map)',
+  'blood-panel-uk-core45',
+  'LOLA Core Health 45',
   'Performance & Testing',
   4.98,
   'Comprehensive 45-biomarker direct-to-consumer blood panel covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones. Includes at-home venous blood draw by a certified phlebotomist and GMC doctor review.',
-  '£149.00',
+  'From £125.00',
   'https://referrals.lolahealth.com/NextLevel15',
   'UK',
   '45 Essential Biomarkers • UKAS Accredited',
@@ -336,7 +340,55 @@ INSERT INTO public.products (
   TRUE,
   TRUE,
   'blood_panel_slot',
-  'On Lola''s website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose ''Phlebotomist for a Home Visit''.'
+  'Select ''Core Health 45'' on LOLA Health for an essential health MOT.'
+)
+ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  category = EXCLUDED.category,
+  rating = EXCLUDED.rating,
+  description = EXCLUDED.description,
+  price_text = EXCLUDED.price_text,
+  deal_url = EXCLUDED.deal_url,
+  market_region = EXCLUDED.market_region,
+  badge_text = EXCLUDED.badge_text,
+  image_url = EXCLUDED.image_url,
+  is_direct_affiliate = EXCLUDED.is_direct_affiliate,
+  is_active = EXCLUDED.is_active,
+  hub_placement_slot = EXCLUDED.hub_placement_slot,
+  checkout_instruction = EXCLUDED.checkout_instruction,
+  updated_at = NOW();
+
+-- Tier 2: LOLA Vital Check 56 (Comprehensive Longevity Baseline)
+INSERT INTO public.products (
+  id,
+  name,
+  category,
+  rating,
+  description,
+  price_text,
+  deal_url,
+  market_region,
+  badge_text,
+  image_url,
+  is_direct_affiliate,
+  is_active,
+  hub_placement_slot,
+  checkout_instruction
+) VALUES (
+  'blood-panel-uk-vital56',
+  'LOLA Vital Check 56 (Comprehensive Longevity Baseline)',
+  'Performance & Testing',
+  4.99,
+  'Advanced multi-omic longevity blood panel tracking 56 essential biomarkers—including ApoB (cardiovascular plaque risk), hs-CRP (systemic inflammation), and HbA1c (glycemic variability). Includes GMC doctor review and optional home phlebotomy visit.',
+  'From £155.00',
+  'https://snwbl.io/out/NcealZ11',
+  'UK',
+  '⭐ Recommended Longevity Baseline • 56 Biomarkers',
+  '/assets/images/shop/blood-panel.png',
+  TRUE,
+  TRUE,
+  'blood_panel_slot',
+  'On the LOLA Health website, select ''Vital Check 56'' and choose ''Phlebotomist for a Home Visit''.'
 )
 ON CONFLICT (id) DO UPDATE SET
   name = EXCLUDED.name,

@@ -67,7 +67,7 @@ export const DiagnosticGuide: React.FC = () => {
                   activeRegion === 'UK' ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20' : 'text-slate-400 hover:text-white'
                 }`}
               >
-                <FlagUK className="w-4 h-3 pointer-events-none" /> <span>UK (£149)</span>
+                <FlagUK className="w-4 h-3 pointer-events-none" /> <span>UK (From £155)</span>
               </button>
               <button
                 type="button"
@@ -129,15 +129,15 @@ export const DiagnosticGuide: React.FC = () => {
                   <span className="px-2.5 py-1 rounded-md text-[10px] font-mono uppercase bg-cyan-950 border border-cyan-800 text-cyan-400 font-bold">
                     🇬🇧 United Kingdom
                   </span>
-                  <span className="text-xl font-display font-black text-white">£149.00</span>
+                  <span className="text-xl font-display font-black text-white">From £155.00</span>
                 </div>
 
                 <div>
                   <h3 className="text-xl font-display font-black uppercase text-white">
-                    Lola Vital Check 56
+                    LOLA Vital Check 56 (Comprehensive Longevity Baseline)
                   </h3>
                   <p className="text-xs text-slate-400 mt-1">
-                    56-Biomarker Longevity Blood Map • Phlebotomy Home Collection (£237) or Walk-In Clinic (£149)
+                    Foundational 56-biomarker longevity blood panel pairing with the LOLA TruAge Test • Phlebotomy Home Collection (£237) or Walk-In Clinic (From £155)
                   </p>
                 </div>
 
@@ -156,23 +156,23 @@ export const DiagnosticGuide: React.FC = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle2 size={14} className="text-cyan-400 shrink-0" />
-                    <span>Full Liver, Kidney, Lipid & Thyroid Hormone Profile</span>
+                    <span>Full Liver, Kidney, Lipid &amp; Thyroid Hormone Profile</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle2 size={14} className="text-cyan-400 shrink-0" />
-                    <span>NHS-standard UKAS accredited lab & GMC doctor review</span>
+                    <span>NHS-standard UKAS accredited lab &amp; GMC doctor review</span>
                   </div>
                 </div>
               </div>
 
               <div className="pt-4 border-t border-slate-800/80">
                 <a
-                  href="https://referrals.lolahealth.com/NextLevel15"
+                  href="https://snwbl.io/out/NcealZ11"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-cyan-500/20 active:scale-95 cursor-pointer"
                 >
-                  <span>Book Lola Vital Check (UK)</span>
+                  <span>Select Vital Check 56 (UK)</span>
                   <ExternalLink size={14} />
                 </a>
               </div>

@@ -80,17 +80,30 @@ export type MarketTab = 'US' | 'UK' | 'ES';
 export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
   "UK": [
     {
-      "id": "blood-panel-uk",
-      "name": "Lola Core Health 45 (Baseline Longevity Blood Map)",
+      "id": "blood-panel-uk-core45",
+      "name": "LOLA Core Health 45",
       "category": "Clinical Diagnostics & Labs",
       "rating": 4.98,
       "description": "Comprehensive 45-biomarker direct-to-consumer blood panel covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones. Includes at-home venous blood draw by a certified phlebotomist and GMC doctor review.",
-      "price_text": "From £149.00",
+      "price_text": "From £125.00",
       "deal_url": "https://referrals.lolahealth.com/NextLevel15",
       "market_region": "UK",
       "badge_text": "45 Essential Biomarkers • UKAS Accredited",
       "image_url": "/Products/lola-blood-panel.jpg",
-      "checkout_instruction": "On Lola's website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose 'Phlebotomist for a Home Visit'."
+      "checkout_instruction": "Select 'Core Health 45' on LOLA Health for an essential health MOT."
+    },
+    {
+      "id": "blood-panel-uk-vital56",
+      "name": "LOLA Vital Check 56 (Comprehensive Longevity Baseline)",
+      "category": "Clinical Diagnostics & Labs",
+      "rating": 4.99,
+      "description": "Advanced multi-omic longevity blood panel tracking 56 essential biomarkers—including ApoB (cardiovascular plaque risk), hs-CRP (systemic inflammation), and HbA1c (glycemic variability). Includes GMC doctor review and optional home phlebotomy visit.",
+      "price_text": "From £155.00",
+      "deal_url": "https://snwbl.io/out/NcealZ11",
+      "market_region": "UK",
+      "badge_text": "⭐ Recommended Longevity Baseline • 56 Biomarkers",
+      "image_url": "/Products/lola-blood-panel.jpg",
+      "checkout_instruction": "On the LOLA Health website, select 'Vital Check 56' and choose 'Phlebotomist for a Home Visit'."
     },
     {
       "id": "epigenetic-kit-uk",
@@ -2817,6 +2830,18 @@ export function formatDiagnosticPrice(priceText: string, product: any, market: M
     return '$24.00';
   }
 
+  if (market === 'UK') {
+    if (id.includes('core') || title.includes('core health') || id.includes('essential-blood')) {
+      return 'From £125.00';
+    }
+    if (id.includes('vital') || title.includes('vital check') || id.includes('vital56')) {
+      return 'From £155.00';
+    }
+    if (id.includes('epigenetic') || title.includes('epigenetic') || title.includes('truage')) {
+      return 'From £249.00';
+    }
+  }
+
   if (isLabOrTestKit) {
     return market === 'ES' ? `Desde ${raw}` : `From ${raw}`;
   }
@@ -2856,11 +2881,14 @@ export function getDiagnosticCountryBadge(market: MarketTab, product?: any): str
   }
 
   if (market === 'UK') {
-    if (product?.badge_text && (product.badge_text.includes('45') || product.badge_text.includes('Biomarker'))) {
-      return product.badge_text;
+    if (id.includes('vital') || title.includes('vital check') || id.includes('vital56')) {
+      return '⭐ Recommended Longevity Baseline • 56 Biomarkers';
     }
-    if (id.includes('blood-panel') || id.includes('essential-blood') || title.includes('core health') || title.includes('vital check')) {
+    if (id.includes('core') || title.includes('core health') || id.includes('essential-blood')) {
       return '45 Essential Biomarkers • UKAS Accredited';
+    }
+    if (product?.badge_text && (product.badge_text.includes('45') || product.badge_text.includes('Biomarker') || product.badge_text.includes('Recommended'))) {
+      return product.badge_text;
     }
     return '🇬🇧 UK (LOLA/UKAS)';
   }
@@ -2887,9 +2915,18 @@ export function getCleanDiagnosticCta(product: any, market: MarketTab): string {
     return 'Order Comprehensive Panel (Life Extension US 🇺🇸)';
   }
 
-  // Blood Panels: Lola Core Health 45 (UK) / Melio 56 (ES) / Comprehensive (US)
+  // Blood Panels: Lola Core Health 45 (UK) / Lola Vital Check 56 (UK) / Melio 56 (ES) / Comprehensive (US)
+  if (market === 'UK' && (id.includes('blood-panel') || id.includes('essential-blood') || title.includes('core health') || title.includes('vital check') || title.includes('blood') || title.includes('56') || title.includes('45'))) {
+    if (id.includes('vital') || title.includes('vital check') || id.includes('vital56')) {
+      return 'Select Vital Check 56 (LOLA UK 🇬🇧)';
+    }
+    if (id.includes('core') || title.includes('core health') || id.includes('essential-blood')) {
+      return 'Select Core Health 45 (LOLA UK 🇬🇧)';
+    }
+    return 'Select Vital Check 56 (LOLA UK 🇬🇧)';
+  }
+
   if (id.includes('blood-panel') || id.includes('essential-blood') || title.includes('core health') || title.includes('choice a') || title.includes('choice b') || title.includes('essential baseline') || title.includes('56') || title.includes('vital check') || title.includes('biomarker') || title.includes('biomarcador')) {
-    if (market === 'UK') return 'Order Core Health 45 (Lola UK 🇬🇧)';
     if (market === 'ES') return 'Order 56-Biomarker Panel (Melio ES 🇪🇸)';
     return 'Order Comprehensive Panel (Life Extension US 🇺🇸)';
   }
@@ -2972,25 +3009,45 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
       enriched.badge_text = US_URINALYSIS_TEST_BADGE;
     }
 
-    // Auto-heal UK Blood Panel to Lola Core Health 45 (Baseline Longevity Blood Map)
-    if (enriched.market_region === 'UK' && (
-      String(enriched.id).toLowerCase() === 'blood-panel-uk' ||
+    // Auto-heal UK Blood Panel Tier 1: LOLA Core Health 45
+    const isUKCoreHealth = enriched.market_region === 'UK' && (
+      String(enriched.id).toLowerCase() === 'blood-panel-uk-core45' ||
       String(enriched.id).toLowerCase() === 'essential-blood-panel-uk' ||
-      String(enriched.name || '').toLowerCase().includes('lola') ||
-      String(enriched.deal_url || '').toLowerCase().includes('lolahealth')
-    ) && (
-      String(enriched.id).toLowerCase().includes('blood-panel') ||
-      String(enriched.id).toLowerCase().includes('essential-blood') ||
-      String(enriched.name || '').toLowerCase().includes('blood') ||
-      String(enriched.name || '').toLowerCase().includes('biomarker') ||
-      String(enriched.name || '').toLowerCase().includes('vital check') ||
-      String(enriched.name || '').toLowerCase().includes('core health')
-    )) {
-      enriched.id = 'blood-panel-uk';
-      enriched.name = 'Lola Core Health 45 (Baseline Longevity Blood Map)';
+      String(enriched.id).toLowerCase() === 'essential-blood-panel' ||
+      String(enriched.name || '').toLowerCase().includes('core health') ||
+      (String(enriched.name || '').toLowerCase().includes('45') && String(enriched.name || '').toLowerCase().includes('biomarker') && !String(enriched.name || '').toLowerCase().includes('vital check'))
+    );
+
+    if (isUKCoreHealth) {
+      enriched.id = 'blood-panel-uk-core45';
+      enriched.name = 'LOLA Core Health 45';
+      enriched.price_text = 'From £125.00';
       enriched.badge_text = '45 Essential Biomarkers • UKAS Accredited';
       enriched.description = 'Comprehensive 45-biomarker direct-to-consumer blood panel covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones. Includes at-home venous blood draw by a certified phlebotomist and GMC doctor review.';
-      enriched.checkout_instruction = "On Lola's website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose 'Phlebotomist for a Home Visit'.";
+      enriched.deal_url = enriched.deal_url || 'https://referrals.lolahealth.com/NextLevel15';
+      enriched.checkout_instruction = "Select 'Core Health 45' on LOLA Health for an essential health MOT.";
+    }
+
+    // Auto-heal UK Blood Panel Tier 2: LOLA Vital Check 56
+    const isUKVital56 = enriched.market_region === 'UK' && !isUKCoreHealth && (
+      String(enriched.id).toLowerCase() === 'blood-panel-uk-vital56' ||
+      String(enriched.id).toLowerCase() === 'blood-panel-uk' ||
+      String(enriched.id).toLowerCase() === 'blood-panel' ||
+      String(enriched.name || '').toLowerCase().includes('vital check') ||
+      String(enriched.name || '').toLowerCase().includes('56') ||
+      (String(enriched.id).toLowerCase().includes('blood-panel') && !isUKCoreHealth) ||
+      ((String(enriched.deal_url || '').toLowerCase().includes('lola') || String(enriched.name || '').toLowerCase().includes('lola')) && 
+       (String(enriched.id).toLowerCase().includes('blood') || String(enriched.name || '').toLowerCase().includes('blood') || String(enriched.name || '').toLowerCase().includes('panel')))
+    );
+
+    if (isUKVital56) {
+      enriched.id = 'blood-panel-uk-vital56';
+      enriched.name = 'LOLA Vital Check 56 (Comprehensive Longevity Baseline)';
+      enriched.price_text = 'From £155.00';
+      enriched.badge_text = '⭐ Recommended Longevity Baseline • 56 Biomarkers';
+      enriched.description = 'Advanced multi-omic longevity blood panel tracking 56 essential biomarkers—including ApoB (cardiovascular plaque risk), hs-CRP (systemic inflammation), and HbA1c (glycemic variability). Includes GMC doctor review and optional home phlebotomy visit.';
+      enriched.deal_url = 'https://snwbl.io/out/NcealZ11';
+      enriched.checkout_instruction = "On the LOLA Health website, select 'Vital Check 56' and choose 'Phlebotomist for a Home Visit'.";
     }
 
     // Auto-heal UK Epigenetic Kit
@@ -3017,9 +3074,29 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
     };
   });
 
-  const existingIds = new Set(healedItems.map(i => String(i.id || '').toLowerCase()));
-  const existingDeals = new Set(healedItems.map(i => String(i.deal_url || '').toLowerCase()).filter(Boolean));
-  const corePrefixes = ['essential-blood-panel', 'blood-panel', 'urinalysis', 'reagent-strips', 'epigenetic-test', 'epigenetic-kit', 'cgm', 'stethoscope'];
+  // Deduplicate healedItems by canonical id so multiple database entries don't duplicate
+  const seenHealedIds = new Set<string>();
+  const dedupedHealed = healedItems.filter((i: any) => {
+    const idKey = String(i.id || '').toLowerCase();
+    if (seenHealedIds.has(idKey)) return false;
+    seenHealedIds.add(idKey);
+    return true;
+  });
+
+  const existingIds = new Set(dedupedHealed.map((i: any) => String(i.id || '').toLowerCase()));
+  const existingDeals = new Set(dedupedHealed.map((i: any) => String(i.deal_url || '').toLowerCase()).filter(Boolean));
+  const corePrefixes = [
+    'blood-panel-uk-core45',
+    'blood-panel-uk-vital56',
+    'essential-blood-panel',
+    'blood-panel',
+    'urinalysis',
+    'reagent-strips',
+    'epigenetic-test',
+    'epigenetic-kit',
+    'cgm',
+    'stethoscope'
+  ];
 
   const missingCore = fallbackCatalog.filter(fb => {
     const fbId = String(fb.id || '').toLowerCase();
@@ -3033,7 +3110,18 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
     return !existingIds.has(fbId) && (!fbDeal || !existingDeals.has(fbDeal));
   });
 
-  return [...missingCore, ...healedItems, ...missingCategoryItems];
+  const combined = [...missingCore, ...dedupedHealed, ...missingCategoryItems];
+
+  // Final strict deduplication by ID and normalized product name to guarantee zero duplicates
+  const finalSeen = new Set<string>();
+  return combined.filter((item: any) => {
+    const idKey = String(item.id || '').toLowerCase();
+    const nameKey = String(item.name || '').toLowerCase().trim();
+    if (finalSeen.has(idKey) || (nameKey && finalSeen.has(nameKey))) return false;
+    finalSeen.add(idKey);
+    if (nameKey) finalSeen.add(nameKey);
+    return true;
+  });
 }
 
 export function getCategoryDisplayLabel(category: string): string {
@@ -3298,10 +3386,17 @@ export function DynamicSupplierCtaSection({
 
       {/* Checkout Instruction / Helper text under card */}
       {(() => {
-        const isLolaBlood = (market === 'UK' && (
-          String(product?.id || '').includes('blood-panel') ||
+        const isLolaVital56 = (market === 'UK' && (
+          String(product?.id || '').includes('vital56') ||
+          String(product?.name || '').toLowerCase().includes('vital check') ||
+          (String(product?.name || '').toLowerCase().includes('56') && String(product?.name || '').toLowerCase().includes('blood'))
+        ));
+
+        const isLolaCore45 = (market === 'UK' && !isLolaVital56 && (
+          String(product?.id || '').includes('core45') ||
           String(product?.name || '').toLowerCase().includes('core health') ||
-          (String(product?.deal_url || '').toLowerCase().includes('lolahealth') && !String(product?.id || '').includes('epigenetic') && !String(product?.name || '').toLowerCase().includes('epigenetic'))
+          String(product?.id || '').includes('essential-blood') ||
+          (String(product?.name || '').toLowerCase().includes('45') && String(product?.name || '').toLowerCase().includes('biomarker'))
         ));
 
         const isLolaEpigenetic = (market === 'UK' && (
@@ -3312,10 +3407,12 @@ export function DynamicSupplierCtaSection({
         ));
 
         const instruction = product?.checkout_instruction || (
-          isLolaEpigenetic
+          isLolaVital56
+            ? "On the LOLA Health website, select 'Vital Check 56' and choose 'Phlebotomist for a Home Visit'."
+            : isLolaCore45
+            ? "Select 'Core Health 45' on LOLA Health for an essential health MOT."
+            : isLolaEpigenetic
             ? "On the LOLA Health website, select the 'TruAge Test' to measure your cellular biological age, rate of ageing (DunedinPACE), and telomere length."
-            : isLolaBlood 
-            ? "On Lola's website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose 'Phlebotomist for a Home Visit'."
             : null
         );
 
@@ -3326,7 +3423,7 @@ export function DynamicSupplierCtaSection({
             <Info size={14} className="text-amber-400 shrink-0 mt-0.5" />
             <div>
               <span className="font-bold text-amber-300 block text-[10px] uppercase tracking-wider mb-0.5">
-                {isLolaEpigenetic ? "On LOLA Health:" : "On Lola's Website:"}
+                {isLolaVital56 ? "On LOLA Health UK:" : isLolaCore45 ? "On LOLA Health:" : isLolaEpigenetic ? "On LOLA Health UK:" : "On Lola's Website:"}
               </span>
               <span>{instruction}</span>
             </div>

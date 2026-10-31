@@ -227,20 +227,20 @@ const DIAGNOSTIC_REGIONS = {
     flag: '🇬🇧',
     partnerName: 'LOLA Health',
     badge: 'UKAS Accredited & ISO Certified Phlebotomy',
-    affiliateUrl: 'https://referrals.lolahealth.com/NextLevel15',
+    affiliateUrl: 'https://snwbl.io/out/NcealZ11',
     optionA: {
-      name: 'Lola Core Health 45 (Baseline Longevity Blood Map)',
+      name: 'LOLA Core Health 45',
       badge: '45 Essential Biomarkers • UKAS Accredited',
-      description: "On Lola's website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose 'Phlebotomist for a Home Visit'. Comprehensive 45-biomarker direct-to-consumer blood panel covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones.",
-      price: '£149.00',
-      actionText: 'Order Lola Core Health 45 (£149) ➔'
+      description: "Select 'Core Health 45' on LOLA Health for an essential health MOT. Comprehensive 45-biomarker direct-to-consumer blood panel covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones.",
+      price: 'From £125.00',
+      actionText: 'Order LOLA Core Health 45 (From £125) ➔'
     },
     optionB: {
-      name: 'LOLA Vital Check 56',
-      badge: 'Comprehensive Tier',
-      description: "On Lola's website, select Vital Check 56 (or Core Health 45 for baseline monitoring) and choose 'Phlebotomist for a Home Visit'. Full 56-biomarker panel: ApoB, hs-CRP, Vitamin D, Thyroid & Hormones.",
-      price: '£149.00',
-      actionText: 'Order LOLA Vital Check 56 (£149) ➔'
+      name: 'LOLA Vital Check 56 (Comprehensive Longevity Baseline)',
+      badge: '⭐ Recommended Longevity Baseline • 56 Biomarkers',
+      description: "On the LOLA Health website, select 'Vital Check 56' and choose 'Phlebotomist for a Home Visit'. Advanced multi-omic longevity blood panel tracking 56 essential biomarkers—including ApoB (cardiovascular plaque risk), hs-CRP (systemic inflammation), and HbA1c (glycemic variability). Its GMC-reviewed digital report feeds directly into the GP Consultation Template.",
+      price: 'From £155.00',
+      actionText: 'Order LOLA Vital Check 56 (From £155) ➔'
     },
     urinalysis: {
       name: 'Lola Urinalysis & Microvascular ACR Panel',
@@ -1067,11 +1067,19 @@ export default function ClinicianCopilot() {
 
               {/* Dynamic Blood Inputs Expansion inside Q1 */}
               <div className="pt-2 border-t border-slate-800 space-y-2.5">
-                <div className="text-[11px] font-mono uppercase tracking-wider text-sky-300 font-bold">
-                  {bloodPanelTierFilter === 'basic'
-                    ? '🩸 Enter Choice A (Essential Baseline) Blood Numbers:'
-                    : '🩸 Enter Choice B (Vital Check 56) Blood Numbers:'}
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <div className="text-[11px] font-mono uppercase tracking-wider text-sky-300 font-bold">
+                    {bloodPanelTierFilter === 'basic'
+                      ? '🩸 Enter Choice A (Essential Baseline) Blood Numbers:'
+                      : '🩸 Enter Choice B (LOLA Vital Check 56 / Quest 56) Blood Numbers:'}
+                  </div>
+                  <span className="text-[10px] font-mono text-cyan-400 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800">
+                    Automated Lab Telemetry ➔ GP Template
+                  </span>
                 </div>
+                <p className="text-[11px] text-slate-400 leading-relaxed font-light">
+                  Aligned directly with <strong>LOLA Vital Check 56</strong> (UK) &amp; Quest Diagnostics (US) digital lab reports. Entered values automatically populate into the printable GP Consultation Template below.
+                </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 text-xs">
                   <div className="p-2.5 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1">
                     <label className="block text-[10px] font-mono uppercase text-slate-400 font-bold">Core Lipids (Chol/LDL/Trig)</label>
@@ -2147,7 +2155,7 @@ export default function ClinicianCopilot() {
                   <>
                     <tr className="bg-cyan-50/80 border-t-2 border-cyan-400">
                       <td colSpan={4} className="p-1.5 px-2 text-[11px] font-bold text-cyan-950 uppercase tracking-wide flex items-center justify-between">
-                        <span>CHOICE B: Comprehensive Vital Check 56 Panel (Full Cellular Biomarker Map)</span>
+                        <span>CHOICE B: LOLA Vital Check 56 / 56-Biomarker Master Panel (GMC Doctor Reviewed)</span>
                         <span className="bg-cyan-600 text-white text-[9px] px-2 py-0.5 rounded font-mono font-bold">
                           Full 56-Biomarker Map
                         </span>

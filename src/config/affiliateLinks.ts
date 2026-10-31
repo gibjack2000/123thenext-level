@@ -98,11 +98,11 @@ export const sovereignHealthStack: SovereignProduct[] = [
       {
         supplierName: "LOLA Health",
         url: "https://referrals.lolahealth.com/NextLevel15",
-        ctaText: "Order Core Health 45 (Lola UK 🇬🇧)",
-        priceText: "From £149.00",
+        ctaText: "Select Core Health 45 (LOLA UK 🇬🇧)",
+        priceText: "From £125.00",
         badgeText: "45 Essential Biomarkers • UKAS Accredited",
         isPrimary: true,
-        perksNote: "15% Off Referral • Home Phlebotomist"
+        perksNote: "Select 'Core Health 45' • Essential Health MOT"
       }
     ],
     es: [
@@ -146,13 +146,13 @@ export const sovereignHealthStack: SovereignProduct[] = [
     ],
     uk: [
       {
-        supplierName: "LOLA Health",
-        url: "https://referrals.lolahealth.com/NextLevel15",
-        ctaText: "Order Core Health 45 (Lola UK 🇬🇧)",
-        priceText: "From £149.00",
-        badgeText: "45 Essential Biomarkers • UKAS Accredited",
+        supplierName: "LOLA Health UK",
+        url: "https://snwbl.io/out/NcealZ11",
+        ctaText: "Select Vital Check 56 (LOLA UK 🇬🇧)",
+        priceText: "From £155.00",
+        badgeText: "⭐ Recommended Longevity Baseline • 56 Biomarkers",
         isPrimary: true,
-        perksNote: "15% Off Referral • Home Phlebotomist"
+        perksNote: "56 Biomarkers • ApoB, hs-CRP, Hormones & Home Draw"
       }
     ],
     es: [
@@ -1196,7 +1196,28 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
     dealUrl = US_URINALYSIS_TEST_URL;
     priceText = '$24.00';
     badgeText = US_URINALYSIS_TEST_BADGE;
-  } else if (lowerDeal.includes('snwbl.io') || (market === 'UK' && (id.includes('epigenetic') || lowerTitle.includes('epigenetic')))) {
+  } else if (market === 'UK' && (id.includes('epigenetic') || lowerTitle.includes('epigenetic') || lowerTitle.includes('truage') || (lowerTitle.includes('biological age') && !id.includes('blood-panel')))) {
+    primarySupplier = 'LOLA Health UK';
+    primaryPerks = 'TruAge • Biological Age & DunedinPACE';
+    primaryCta = 'Order Your TruAge Test on LOLA Health UK 🇬🇧';
+    dealUrl = 'https://snwbl.io/out/NcealZ11';
+    priceText = 'From £249.00';
+    badgeText = '🇬🇧 UK (LOLA/UKAS)';
+  } else if (market === 'UK' && (id.includes('vital') || lowerTitle.includes('vital check') || id === 'blood-panel-uk-vital56' || (lowerTitle.includes('56') && (lowerTitle.includes('blood') || lowerTitle.includes('longevity'))))) {
+    primarySupplier = 'LOLA Health UK';
+    primaryPerks = '56 Biomarkers • ApoB, hs-CRP, Hormones & Home Draw';
+    primaryCta = 'Select Vital Check 56 (LOLA UK 🇬🇧)';
+    dealUrl = 'https://snwbl.io/out/NcealZ11';
+    priceText = 'From £155.00';
+    badgeText = '⭐ Recommended Longevity Baseline • 56 Biomarkers';
+  } else if (market === 'UK' && (id.includes('core') || lowerTitle.includes('core health') || id === 'blood-panel-uk-core45' || id.includes('essential-blood'))) {
+    primarySupplier = 'LOLA Health';
+    primaryPerks = '45 Essential Biomarkers • UKAS Lab';
+    primaryCta = 'Select Core Health 45 (LOLA UK 🇬🇧)';
+    dealUrl = 'https://referrals.lolahealth.com/NextLevel15';
+    priceText = 'From £125.00';
+    badgeText = '45 Essential Biomarkers • UKAS Accredited';
+  } else if (lowerDeal.includes('snwbl.io')) {
     primarySupplier = 'LOLA Health UK';
     primaryPerks = 'TruAge • Biological Age & DunedinPACE';
     primaryCta = 'Order Your TruAge Test on LOLA Health UK 🇬🇧';
@@ -1205,7 +1226,9 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
   } else if (lowerDeal.includes('lolahealth') || (market === 'UK' && lowerTitle.includes('lola'))) {
     primarySupplier = 'LOLA Health';
     primaryPerks = '15% Off Referral • UKAS Lab';
-    primaryCta = 'Order Core Health 45 (Lola UK 🇬🇧)';
+    primaryCta = 'Select Core Health 45 (LOLA UK 🇬🇧)';
+    priceText = 'From £125.00';
+    badgeText = '45 Essential Biomarkers • UKAS Accredited';
   } else if (lowerDeal.includes('healthlabs')) {
     primarySupplier = 'HealthLabs';
     primaryPerks = 'CLIA/CAP Quest & Labcorp';
@@ -1377,7 +1400,7 @@ export const affiliateLinks: Record<string, any> = {
   lola_truage_epigenetic: 'https://snwbl.io/out/NcealZ11',
   epigenetic_uk: 'https://snwbl.io/out/NcealZ11',
   lola_core_health: 'https://referrals.lolahealth.com/NextLevel15',
-  lola_vital_check: 'https://referrals.lolahealth.com/NextLevel15',
+  lola_vital_check: 'https://snwbl.io/out/NcealZ11',
   lola_peak_insights: 'https://referrals.lolahealth.com/NextLevel15',
   lola_health: 'https://referrals.lolahealth.com/NextLevel15',
   hp_blood_panel_uk: 'https://referrals.lolahealth.com/NextLevel15',
