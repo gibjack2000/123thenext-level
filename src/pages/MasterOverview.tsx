@@ -866,7 +866,7 @@ export const MasterOverview: React.FC = () => {
                   </li>
                   <li className="flex items-start gap-1.5">
                     <Droplets size={13} className="text-cyan-400 shrink-0 mt-0.5" />
-                    <span><strong>Lola Urinalysis &amp; Microvascular ACR Panel:</strong> UKAS-certified urine panel measuring Albumin-to-Creatinine ratio (ACR), proteinuria, and kidney metabolic safety.</span>
+                    <span><strong>Lola Urinalysis:</strong> UKAS-certified urine panel measuring Albumin-to-Creatinine ratio (ACR), proteinuria, and kidney metabolic safety.</span>
                   </li>
                   <li className="flex items-start gap-1.5">
                     <Droplets size={13} className="text-cyan-400 shrink-0 mt-0.5" />

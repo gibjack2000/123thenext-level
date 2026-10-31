@@ -109,12 +109,12 @@ const REGIONAL_CHANNEL_CONFIG: Record<Market, RegionalChannelData> = {
         ctaText: 'Order ALLTEST Dipsticks (£12.99) ➔',
       },
       quarterly: {
-        title: 'Clinical Lab ACR (Microalbumin)',
+        title: 'Urinalysis',
         cadence: 'Quarterly Option',
         summary: 'Diagnostic laboratory urine test paired with your quarterly blood draw.',
-        price: '£49.00',
+        price: 'From £65.00',
         url: 'https://referrals.lolahealth.com/NextLevel15',
-        ctaText: 'Order Lab ACR Panel (£49) ➔',
+        ctaText: 'Order LOLA Urinalysis (From £65) ➔',
       },
     },
     hardware: {

@@ -503,3 +503,53 @@ ON CONFLICT (id) DO UPDATE SET
   checkout_instruction = EXCLUDED.checkout_instruction,
   updated_at = NOW();
 
+-- ============================================================================
+-- 7. Upsert UK Urinalysis (LOLA Health UK)
+-- ============================================================================
+INSERT INTO public.products (
+  id,
+  name,
+  category,
+  rating,
+  description,
+  price_text,
+  deal_url,
+  market_region,
+  badge_text,
+  image_url,
+  is_direct_affiliate,
+  is_active,
+  hub_placement_slot,
+  checkout_instruction
+) VALUES (
+  'urinalysis-uk',
+  'Urinalysis',
+  'Performance & Testing',
+  4.90,
+  'UKAS-certified urine panel measuring Albumin-to-Creatinine ratio (ACR), proteinuria, and kidney metabolic safety.',
+  'From £65.00',
+  'https://referrals.lolahealth.com/NextLevel15',
+  'UK',
+  '🇬🇧 UK (LOLA/UKAS)',
+  '/Products/lola-urine-acr.jpg',
+  TRUE,
+  TRUE,
+  'urinalysis_slot',
+  'On the LOLA Health website, select ''Urinalysis'' for full-spectrum urine and renal screening.'
+)
+ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  category = EXCLUDED.category,
+  rating = EXCLUDED.rating,
+  description = EXCLUDED.description,
+  price_text = EXCLUDED.price_text,
+  deal_url = EXCLUDED.deal_url,
+  market_region = EXCLUDED.market_region,
+  badge_text = EXCLUDED.badge_text,
+  image_url = EXCLUDED.image_url,
+  is_direct_affiliate = EXCLUDED.is_direct_affiliate,
+  is_active = EXCLUDED.is_active,
+  hub_placement_slot = EXCLUDED.hub_placement_slot,
+  checkout_instruction = EXCLUDED.checkout_instruction,
+  updated_at = NOW();
+

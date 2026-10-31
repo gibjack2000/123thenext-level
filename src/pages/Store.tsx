@@ -144,15 +144,16 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     },
     {
       "id": "urinalysis-uk",
-      "name": "LOLA Urinalysis & Microvascular ACR Panel (UK 🇬🇧)",
+      "name": "Urinalysis",
       "category": "Clinical Diagnostics & Labs",
       "rating": 4.90,
       "description": "UKAS-certified urine panel measuring Albumin-to-Creatinine ratio (ACR), proteinuria, and kidney metabolic safety.",
-      "price_text": "From £49.00",
+      "price_text": "From £65.00",
       "deal_url": "https://referrals.lolahealth.com/NextLevel15",
       "market_region": "UK",
       "badge_text": "🇬🇧 UK (LOLA/UKAS)",
-      "image_url": "/Products/lola-urine-acr.jpg"
+      "image_url": "/Products/lola-urine-acr.jpg",
+      "checkout_instruction": "On the LOLA Health website, select 'Urinalysis' for full-spectrum urine and renal screening."
     },
     {
       "id": "sleep-analyzer-uk",
@@ -2840,6 +2841,12 @@ export function formatDiagnosticPrice(priceText: string, product: any, market: M
     if (id.includes('epigenetic') || title.includes('epigenetic') || title.includes('truage')) {
       return 'From £375.00';
     }
+    if (
+      (id.includes('urinalysis') || title.includes('urinalysis') || id.includes('acr') || title.includes('acr')) &&
+      !id.includes('reagent') && !title.includes('dipstick') && !title.includes('urinox') && !id.includes('alltest')
+    ) {
+      return 'From £65.00';
+    }
   }
 
   if (isLabOrTestKit) {
@@ -2933,7 +2940,7 @@ export function getCleanDiagnosticCta(product: any, market: MarketTab): string {
 
   // Lab Urine ACR / Urinalysis
   if (id.includes('urinalysis') || title.includes('acr') || title.includes('microalbumin') || title.includes('sedimento')) {
-    if (market === 'UK') return 'Order Lab Urine ACR (LOLA UK 🇬🇧)';
+    if (market === 'UK') return 'Order Urinalysis (LOLA UK 🇬🇧)';
     if (market === 'ES') return 'Order Lab Urine ACR (Melio ES 🇪🇸)';
     return 'Order Lab Urinalysis (Life Extension $24 🇺🇸)';
   }
@@ -3064,6 +3071,25 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
       enriched.deal_url = 'https://snwbl.io/out/NcealZ11';
       enriched.badge_text = '🇬🇧 UK (LOLA/UKAS)';
       enriched.checkout_instruction = "On the LOLA Health website, select the 'TruAge Test' to measure your cellular biological age, rate of ageing (DunedinPACE), and telomere length.";
+    }
+
+    // Auto-heal UK Urinalysis
+    if (enriched.market_region === 'UK' && (
+      String(enriched.id).toLowerCase() === 'urinalysis-uk' ||
+      String(enriched.id).toLowerCase() === 'urinalysis-acr' ||
+      (
+        (String(enriched.id).toLowerCase().includes('urinalysis') || String(enriched.name || '').toLowerCase().includes('urinalysis') || String(enriched.name || '').toLowerCase().includes('acr')) &&
+        !String(enriched.id).toLowerCase().includes('reagent') &&
+        !String(enriched.name || '').toLowerCase().includes('dipstick') &&
+        !String(enriched.name || '').toLowerCase().includes('alltest')
+      )
+    )) {
+      enriched.id = 'urinalysis-uk';
+      enriched.name = 'Urinalysis';
+      enriched.price_text = 'From £65.00';
+      enriched.deal_url = 'https://referrals.lolahealth.com/NextLevel15';
+      enriched.badge_text = '🇬🇧 UK (LOLA/UKAS)';
+      enriched.checkout_instruction = "On the LOLA Health website, select 'Urinalysis' for full-spectrum urine and renal screening.";
     }
 
     const resolvedSuppliers = resolveProductSuppliers(enriched, market);

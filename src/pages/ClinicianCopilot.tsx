@@ -243,10 +243,10 @@ const DIAGNOSTIC_REGIONS = {
       actionText: 'Order LOLA Vital Check 56 (From £155) ➔'
     },
     urinalysis: {
-      name: 'Lola Urinalysis & Microvascular ACR Panel',
+      name: 'Urinalysis',
       description: 'UKAS-certified urine panel measuring Albumin-to-Creatinine ratio (ACR), proteinuria, and kidney metabolic safety.',
-      price: '£49.00',
-      actionText: 'Order Lola Urinalysis & ACR Panel',
+      price: 'From £65.00',
+      actionText: 'Order LOLA Urinalysis (From £65) ➔',
       url: 'https://referrals.lolahealth.com/NextLevel15'
     },
     fluidTelemetry: {

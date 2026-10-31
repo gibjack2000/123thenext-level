@@ -189,11 +189,11 @@ export const sovereignHealthStack: SovereignProduct[] = [
       {
         supplierName: "LOLA Health",
         url: "https://referrals.lolahealth.com/NextLevel15",
-        ctaText: "Order Lab Urine ACR (LOLA UK 🇬🇧)",
-        priceText: "From £49.00",
+        ctaText: "Order Urinalysis on LOLA Health UK 🇬🇧",
+        priceText: "From £65.00",
         badgeText: "🇬🇧 UK (LOLA/UKAS)",
         isPrimary: true,
-        perksNote: "15% Off Referral • UKAS Renal Lab"
+        perksNote: "15% Off Referral • UKAS Urinalysis"
       }
     ],
     es: [
@@ -1217,6 +1217,17 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
     dealUrl = 'https://referrals.lolahealth.com/NextLevel15';
     priceText = 'From £125.00';
     badgeText = '45 Essential Biomarkers • UKAS Accredited';
+  } else if (
+    market === 'UK' && (
+      id.includes('urinalysis') || lowerTitle.includes('urinalysis') || lowerTitle.includes('acr')
+    ) && !id.includes('reagent') && !lowerTitle.includes('dipstick') && !lowerTitle.includes('urinox') && !id.includes('alltest')
+  ) {
+    primarySupplier = 'LOLA Health UK';
+    primaryPerks = 'UKAS Lab • Urine Albumin & Renal Screen';
+    primaryCta = 'Order Urinalysis on LOLA Health UK 🇬🇧';
+    dealUrl = 'https://referrals.lolahealth.com/NextLevel15';
+    priceText = 'From £65.00';
+    badgeText = '🇬🇧 UK (LOLA/UKAS)';
   } else if (lowerDeal.includes('snwbl.io')) {
     primarySupplier = 'LOLA Health UK';
     primaryPerks = 'TruAge • Biological Age & DunedinPACE';

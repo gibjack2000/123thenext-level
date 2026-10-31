@@ -533,7 +533,7 @@ export default function DiagnosticsSuite() {
               <div className="pt-4 border-t border-slate-800/80">
                 <div className="text-[11px] text-slate-400 mb-2 font-mono">
                   {activeRegion === 'US' && '🇺🇸 Requisition: HealthLabs ACR Microalbumin Panel ($69)'}
-                  {activeRegion === 'UK' && '🇬🇧 Requisition: LOLA Health Urinalysis & ACR (£49)'}
+                  {activeRegion === 'UK' && '🇬🇧 Requisition: LOLA Health Urinalysis (£65)'}
                   {activeRegion === 'ES' && '🇪🇸 Requisition: SaludOnNet / Eurofins Análisis con Sedimento (39€)'}
                 </div>
                 <a

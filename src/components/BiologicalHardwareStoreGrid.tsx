@@ -530,10 +530,10 @@ export const hardwareListings: LocalizedListing[] = [
       },
       UK: {
         badge: 'UKAS Certified Fluid Telemetry',
-        logistics: 'Lola Urinalysis & Microvascular ACR Panel with home kit & nationwide partner clinics',
+        logistics: 'Urinalysis with home kit & nationwide partner clinics',
         affiliateKey: 'hp_urinalysis_uk',
         fallbackUrl: 'https://referrals.lolahealth.com/NextLevel15',
-        priceEstimate: '£49.00',
+        priceEstimate: '£65.00',
         ctaText: 'Order Lola Urinalysis UK 🇬🇧'
       },
       ES: {

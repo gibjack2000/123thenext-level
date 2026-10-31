@@ -150,12 +150,12 @@ export const REGIONAL_PATHWAYS: Record<Market, RegionalPathwayData> = {
       helperText: "On the LOLA Health website, select 'Vital Check 56' and choose 'Phlebotomist for a Home Visit'.",
     },
     urinalysis: {
-      name: 'Clinical Lab ACR (Microalbumin)',
+      name: 'Urinalysis',
       partnerName: 'LOLA Health',
       badge: 'UKAS Certified Fluid Telemetry',
       description: 'Home sample kit and partner clinic assessment tracking albumin-to-creatinine ratio and renal metabolic performance.',
       details: 'UKAS-certified urine panel measuring Albumin-to-Creatinine ratio (ACR), proteinuria, and kidney metabolic safety.',
-      price: '£49.00',
+      price: 'From £65.00',
       requisitionUrl: 'https://referrals.lolahealth.com/NextLevel15',
     },
     fluidTelemetry: {

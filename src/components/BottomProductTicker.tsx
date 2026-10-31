@@ -40,6 +40,15 @@ const products: ProductItem[] = [
     link: '/store-uk'
   },
   {
+    id: 'lola-urinalysis',
+    name: 'LOLA Urinalysis',
+    badge: 'Fluid Telemetry (UK 🇬🇧)',
+    price: 'From £65.00',
+    category: 'Renal & Microvascular',
+    icon: '🧪',
+    link: '/store-uk'
+  },
+  {
     id: 'healthlabs-56',
     name: 'HealthLabs Cellular Biomarker Map',
     badge: 'CLIA Accredited (US 🇺🇸)',
