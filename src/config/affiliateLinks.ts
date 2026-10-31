@@ -360,13 +360,13 @@ export const sovereignHealthStack: SovereignProduct[] = [
     ],
     uk: [
       {
-        supplierName: "LOLA Health",
-        url: "https://referrals.lolahealth.com/NextLevel15",
-        ctaText: "Order Epigenetic Kit (LOLA UK 🇬🇧)",
+        supplierName: "LOLA Health UK",
+        url: "https://snwbl.io/out/NcealZ11",
+        ctaText: "Order Your TruAge Test on LOLA Health UK 🇬🇧",
         priceText: "From £249.00",
         badgeText: "🇬🇧 UK (LOLA/UKAS)",
         isPrimary: true,
-        perksNote: "15% Off Referral • Biological Age"
+        perksNote: "TruAge • Biological Age & DunedinPACE"
       }
     ],
     es: [
@@ -1135,8 +1135,8 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
     market === 'ES'
       ? 'Comprar en Amazon ES 🇪🇸'
       : market === 'UK'
-      ? 'Buy on Amazon UK 🇬🇧'
-      : 'Buy on Amazon US 🇺🇸';
+        ? 'Buy on Amazon UK 🇬🇧'
+        : 'Buy on Amazon US 🇺🇸';
 
   if (
     lowerTitle.includes('12-week metabolic') ||
@@ -1169,8 +1169,8 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
       lowerDeal.includes('itemqd100026') ||
       lowerDeal.includes('healthy-aging-panel') ||
       ((lowerTitle.includes('blood') || lowerTitle.includes('cellular') || lowerTitle.includes('biomarker') || lowerTitle.includes('comprehensive')) &&
-       !id.includes('pressure') && !lowerTitle.includes('pressure') &&
-       !id.includes('ovarian') && !lowerTitle.includes('ovarian'))
+        !id.includes('pressure') && !lowerTitle.includes('pressure') &&
+        !id.includes('ovarian') && !lowerTitle.includes('ovarian'))
     )
   ) {
     // Temporary US Blood Test Links: Comprehensive (#QD100026)
@@ -1196,6 +1196,12 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
     dealUrl = US_URINALYSIS_TEST_URL;
     priceText = '$24.00';
     badgeText = US_URINALYSIS_TEST_BADGE;
+  } else if (lowerDeal.includes('snwbl.io') || (market === 'UK' && (id.includes('epigenetic') || lowerTitle.includes('epigenetic')))) {
+    primarySupplier = 'LOLA Health UK';
+    primaryPerks = 'TruAge • Biological Age & DunedinPACE';
+    primaryCta = 'Order Your TruAge Test on LOLA Health UK 🇬🇧';
+    dealUrl = 'https://snwbl.io/out/NcealZ11';
+    priceText = 'From £249.00';
   } else if (lowerDeal.includes('lolahealth') || (market === 'UK' && lowerTitle.includes('lola'))) {
     primarySupplier = 'LOLA Health';
     primaryPerks = '15% Off Referral • UKAS Lab';
@@ -1250,8 +1256,8 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
       lowerDeal.includes('itemqd100026') ||
       lowerDeal.includes('healthy-aging-panel') ||
       ((lowerTitle.includes('blood') || lowerTitle.includes('cellular') || lowerTitle.includes('biomarker')) &&
-       !id.includes('pressure') && !lowerTitle.includes('pressure') &&
-       !id.includes('ovarian') && !lowerTitle.includes('ovarian'))
+        !id.includes('pressure') && !lowerTitle.includes('pressure') &&
+        !id.includes('ovarian') && !lowerTitle.includes('ovarian'))
     );
 
     if (isCompCard) {
@@ -1368,6 +1374,8 @@ export const affiliateLinks: Record<string, any> = {
   creatine: 'https://amazon.com/dp/B0CXM1X8PQ',
   nad: 'https://livemomentous.com/modernwisdom?code=modernwisdom',
   epigenetic: 'https://amazon.com/dp/B0D5N6X8Z2',
+  lola_truage_epigenetic: 'https://snwbl.io/out/NcealZ11',
+  epigenetic_uk: 'https://snwbl.io/out/NcealZ11',
   lola_core_health: 'https://referrals.lolahealth.com/NextLevel15',
   lola_vital_check: 'https://referrals.lolahealth.com/NextLevel15',
   lola_peak_insights: 'https://referrals.lolahealth.com/NextLevel15',

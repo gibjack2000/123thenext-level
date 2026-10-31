@@ -354,3 +354,100 @@ ON CONFLICT (id) DO UPDATE SET
   checkout_instruction = EXCLUDED.checkout_instruction,
   updated_at = NOW();
 
+-- ============================================================================
+-- 6. Upsert UK Epigenetic Kit (Biological Age & Epigenetic Methylation Kit)
+-- ============================================================================
+INSERT INTO public.products (
+  id,
+  name,
+  category,
+  rating,
+  description,
+  price_text,
+  deal_url,
+  market_region,
+  badge_text,
+  image_url,
+  is_direct_affiliate,
+  is_active,
+  hub_placement_slot,
+  checkout_instruction
+) VALUES (
+  'epigenetic-kit-uk',
+  'Biological Age & Epigenetic Methylation Kit (UK 🇬🇧)',
+  'Performance & Testing',
+  4.93,
+  'Epigenetic DNA methylation clock measuring biological pace of aging vs chronological age, DunedinPACE, and telomere length.',
+  'From £249.00',
+  'https://snwbl.io/out/NcealZ11',
+  'UK',
+  '🇬🇧 UK (LOLA/UKAS)',
+  '/Products/lola-epigenetic-kit.jpg',
+  TRUE,
+  TRUE,
+  'epigenetic_slot',
+  'On the LOLA Health website, select the ''TruAge Test'' to measure your cellular biological age, rate of ageing (DunedinPACE), and telomere length.'
+)
+ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  category = EXCLUDED.category,
+  rating = EXCLUDED.rating,
+  description = EXCLUDED.description,
+  price_text = EXCLUDED.price_text,
+  deal_url = EXCLUDED.deal_url,
+  market_region = EXCLUDED.market_region,
+  badge_text = EXCLUDED.badge_text,
+  image_url = EXCLUDED.image_url,
+  is_direct_affiliate = EXCLUDED.is_direct_affiliate,
+  is_active = EXCLUDED.is_active,
+  hub_placement_slot = EXCLUDED.hub_placement_slot,
+  checkout_instruction = EXCLUDED.checkout_instruction,
+  updated_at = NOW();
+
+INSERT INTO public.products (
+  id,
+  name,
+  category,
+  rating,
+  description,
+  price_text,
+  deal_url,
+  market_region,
+  badge_text,
+  image_url,
+  is_direct_affiliate,
+  is_active,
+  hub_placement_slot,
+  checkout_instruction
+) VALUES (
+  'epigenetic-test-uk',
+  'Biological Age & Epigenetic Methylation Kit (UK 🇬🇧)',
+  'Performance & Testing',
+  4.93,
+  'Epigenetic DNA methylation clock measuring biological pace of aging vs chronological age, DunedinPACE, and telomere length.',
+  'From £249.00',
+  'https://snwbl.io/out/NcealZ11',
+  'UK',
+  '🇬🇧 UK (LOLA/UKAS)',
+  '/Products/lola-epigenetic-kit.jpg',
+  TRUE,
+  TRUE,
+  'epigenetic_slot',
+  'On the LOLA Health website, select the ''TruAge Test'' to measure your cellular biological age, rate of ageing (DunedinPACE), and telomere length.'
+)
+ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  category = EXCLUDED.category,
+  rating = EXCLUDED.rating,
+  description = EXCLUDED.description,
+  price_text = EXCLUDED.price_text,
+  deal_url = EXCLUDED.deal_url,
+  market_region = EXCLUDED.market_region,
+  badge_text = EXCLUDED.badge_text,
+  image_url = EXCLUDED.image_url,
+  is_direct_affiliate = EXCLUDED.is_direct_affiliate,
+  is_active = EXCLUDED.is_active,
+  hub_placement_slot = EXCLUDED.hub_placement_slot,
+  checkout_instruction = EXCLUDED.checkout_instruction,
+  updated_at = NOW();
+

@@ -93,16 +93,17 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "checkout_instruction": "On Lola's website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose 'Phlebotomist for a Home Visit'."
     },
     {
-      "id": "epigenetic-test-uk",
+      "id": "epigenetic-kit-uk",
       "name": "Biological Age & Epigenetic Methylation Kit (UK 🇬🇧)",
       "category": "Clinical Diagnostics & Labs",
       "rating": 4.93,
       "description": "Epigenetic DNA methylation clock measuring biological pace of aging vs chronological age.",
       "price_text": "From £249.00",
-      "deal_url": "https://referrals.lolahealth.com/NextLevel15",
+      "deal_url": "https://snwbl.io/out/NcealZ11",
       "market_region": "UK",
       "badge_text": "🇬🇧 UK (LOLA/UKAS)",
-      "image_url": "/Products/lola-epigenetic-kit.jpg"
+      "image_url": "/Products/lola-epigenetic-kit.jpg",
+      "checkout_instruction": "On the LOLA Health website, select the 'TruAge Test' to measure your cellular biological age, rate of ageing (DunedinPACE), and telomere length."
     },
     {
       "id": "metabolic-master-guide-uk",
@@ -2909,7 +2910,7 @@ export function getCleanDiagnosticCta(product: any, market: MarketTab): string {
 
   // Epigenetics
   if (id.includes('epigenetic') || title.includes('epigenetic') || title.includes('epigenética') || title.includes('methylation')) {
-    if (market === 'UK') return 'Order Epigenetic Kit (LOLA UK 🇬🇧)';
+    if (market === 'UK') return 'Order Your TruAge Test on LOLA Health UK 🇬🇧';
     if (market === 'ES') return 'Order Epigenetic Kit (Melio ES 🇪🇸)';
     return 'Order Epigenetic Kit (HealthLabs US 🇺🇸)';
   }
@@ -2992,6 +2993,21 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
       enriched.checkout_instruction = "On Lola's website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose 'Phlebotomist for a Home Visit'.";
     }
 
+    // Auto-heal UK Epigenetic Kit
+    if (enriched.market_region === 'UK' && (
+      String(enriched.id).toLowerCase() === 'epigenetic-kit-uk' ||
+      String(enriched.id).toLowerCase() === 'epigenetic-test-uk' ||
+      String(enriched.id).toLowerCase() === 'epigenetic-kit' ||
+      (String(enriched.id).toLowerCase().includes('epigenetic') && !String(enriched.id).toLowerCase().includes('ovarian')) ||
+      (String(enriched.name || '').toLowerCase().includes('epigenetic') && !String(enriched.name || '').toLowerCase().includes('ovarian'))
+    )) {
+      enriched.id = 'epigenetic-kit-uk';
+      enriched.name = 'Biological Age & Epigenetic Methylation Kit (UK 🇬🇧)';
+      enriched.deal_url = 'https://snwbl.io/out/NcealZ11';
+      enriched.badge_text = '🇬🇧 UK (LOLA/UKAS)';
+      enriched.checkout_instruction = "On the LOLA Health website, select the 'TruAge Test' to measure your cellular biological age, rate of ageing (DunedinPACE), and telomere length.";
+    }
+
     const resolvedSuppliers = resolveProductSuppliers(enriched, market);
     return {
       ...enriched,
@@ -3003,7 +3019,7 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
 
   const existingIds = new Set(healedItems.map(i => String(i.id || '').toLowerCase()));
   const existingDeals = new Set(healedItems.map(i => String(i.deal_url || '').toLowerCase()).filter(Boolean));
-  const corePrefixes = ['essential-blood-panel', 'blood-panel', 'urinalysis', 'reagent-strips', 'epigenetic-test', 'cgm', 'stethoscope'];
+  const corePrefixes = ['essential-blood-panel', 'blood-panel', 'urinalysis', 'reagent-strips', 'epigenetic-test', 'epigenetic-kit', 'cgm', 'stethoscope'];
 
   const missingCore = fallbackCatalog.filter(fb => {
     const fbId = String(fb.id || '').toLowerCase();
@@ -3284,12 +3300,21 @@ export function DynamicSupplierCtaSection({
       {(() => {
         const isLolaBlood = (market === 'UK' && (
           String(product?.id || '').includes('blood-panel') ||
-          String(product?.name || '').toLowerCase().includes('lola') ||
           String(product?.name || '').toLowerCase().includes('core health') ||
-          String(product?.deal_url || '').toLowerCase().includes('lolahealth')
+          (String(product?.deal_url || '').toLowerCase().includes('lolahealth') && !String(product?.id || '').includes('epigenetic') && !String(product?.name || '').toLowerCase().includes('epigenetic'))
         ));
+
+        const isLolaEpigenetic = (market === 'UK' && (
+          String(product?.id || '').includes('epigenetic') ||
+          String(product?.name || '').toLowerCase().includes('epigenetic') ||
+          String(product?.deal_url || '').includes('snwbl.io') ||
+          (String(product?.name || '').toLowerCase().includes('biological age') && !String(product?.id || '').includes('blood-panel'))
+        ));
+
         const instruction = product?.checkout_instruction || (
-          isLolaBlood 
+          isLolaEpigenetic
+            ? "On the LOLA Health website, select the 'TruAge Test' to measure your cellular biological age, rate of ageing (DunedinPACE), and telomere length."
+            : isLolaBlood 
             ? "On Lola's website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose 'Phlebotomist for a Home Visit'."
             : null
         );
@@ -3301,7 +3326,7 @@ export function DynamicSupplierCtaSection({
             <Info size={14} className="text-amber-400 shrink-0 mt-0.5" />
             <div>
               <span className="font-bold text-amber-300 block text-[10px] uppercase tracking-wider mb-0.5">
-                On Lola's Website:
+                {isLolaEpigenetic ? "On LOLA Health:" : "On Lola's Website:"}
               </span>
               <span>{instruction}</span>
             </div>
