@@ -111,6 +111,23 @@ app.get('/diagnostics', (req, res) => {
   res.redirect(301, '/clinician-copilot');
 });
 
+// Explicit sitemap and robots handlers to guarantee correct MIME types and fast delivery
+app.get('/sitemap.xml', (req, res) => {
+  res.header('Content-Type', 'application/xml');
+  const sitemapPath = fs.existsSync(path.resolve(distPath, 'sitemap.xml'))
+    ? path.resolve(distPath, 'sitemap.xml')
+    : path.resolve(publicDir, 'sitemap.xml');
+  res.sendFile(sitemapPath);
+});
+
+app.get('/robots.txt', (req, res) => {
+  res.header('Content-Type', 'text/plain');
+  const robotsPath = fs.existsSync(path.resolve(distPath, 'robots.txt'))
+    ? path.resolve(distPath, 'robots.txt')
+    : path.resolve(publicDir, 'robots.txt');
+  res.sendFile(robotsPath);
+});
+
 // Handle client-side routing by returning the index.html file for all paths
 app.get('*', (req, res) => {
   // If the request is for a missing asset (e.g. .js or .css), don't send index.html
