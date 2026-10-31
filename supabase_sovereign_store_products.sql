@@ -8,6 +8,7 @@
 ALTER TABLE public.products ADD COLUMN IF NOT EXISTS is_active BOOLEAN DEFAULT TRUE;
 ALTER TABLE public.products ADD COLUMN IF NOT EXISTS is_direct_affiliate BOOLEAN DEFAULT FALSE;
 ALTER TABLE public.products ADD COLUMN IF NOT EXISTS hub_placement_slot TEXT DEFAULT NULL;
+ALTER TABLE public.products ADD COLUMN IF NOT EXISTS checkout_instruction TEXT DEFAULT NULL;
 
 -- 2. RESET DYNAMIC CATEGORIES FOR EXISTING ENTRIES
 UPDATE public.products SET category = 'Performance & Testing' WHERE id LIKE '%reagent%';
@@ -23,7 +24,7 @@ INSERT INTO public.products (
 
 -- Blood Panels
 ('blood-panel-us', 'Personalized Cellular Biomarker Map (56 Biomarkers)', 'Performance & Testing', 4.95, 'Direct-to-consumer longevity blood panels mapping 56 essential biomarkers via local Quest or Labcorp centers.', '$299.00', 'https://www.healthlabs.com/?affiliate=123znl', 'US', 'CLIA Certified & CAP Accredited', '/assets/images/shop/blood-panel.png', TRUE, 'blood_panel_slot'),
-('blood-panel-uk', 'Personalized Cellular Biomarker Map (56 Biomarkers)', 'Performance & Testing', 4.95, 'Direct-to-consumer longevity blood panels mapping 56 essential biomarkers via partner UK lab centers.', '£149.00', 'https://referrals.lolahealth.com/NextLevel15', 'UK', 'UKAS Accredited & ISO Certified', '/assets/images/shop/blood-panel.png', TRUE, 'blood_panel_slot'),
+('blood-panel-uk', 'Lola Core Health 45 (Baseline Longevity Blood Map)', 'Performance & Testing', 4.98, 'Comprehensive 45-biomarker direct-to-consumer blood panel covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones. Includes at-home venous blood draw by a certified phlebotomist and GMC doctor review.', '£149.00', 'https://referrals.lolahealth.com/NextLevel15', 'UK', '45 Essential Biomarkers • UKAS Accredited', '/assets/images/shop/blood-panel.png', TRUE, 'blood_panel_slot'),
 ('blood-panel-es', 'Personalized Cellular Biomarker Map (56 Biomarkers)', 'Performance & Testing', 4.95, 'Direct-to-consumer longevity blood panels mapping 56 essential biomarkers via partner ES lab centers.', '149,00€', 'https://www.melio.es', 'ES', 'CE Marked & Megalab Certified Partner', '/assets/images/shop/blood-panel.png', TRUE, 'blood_panel_slot'),
 
 -- CGM
@@ -107,4 +108,16 @@ ON CONFLICT (id) DO UPDATE SET
   badge_text = EXCLUDED.badge_text,
   image_url = EXCLUDED.image_url,
   is_direct_affiliate = EXCLUDED.is_direct_affiliate,
-  hub_placement_slot = EXCLUDED.hub_placement_slot;
+  hub_placement_slot = EXCLUDED.hub_placement_slot,
+  updated_at = NOW();
+
+-- 4. UPDATE UK BLOOD PANEL CHECKOUT INSTRUCTION SPECIFICALLY
+UPDATE public.products 
+SET 
+  name = 'Lola Core Health 45 (Baseline Longevity Blood Map)',
+  badge_text = '45 Essential Biomarkers • UKAS Accredited',
+  description = 'Comprehensive 45-biomarker direct-to-consumer blood panel covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones. Includes at-home venous blood draw by a certified phlebotomist and GMC doctor review.',
+  checkout_instruction = 'On Lola''s website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose ''Phlebotomist for a Home Visit''.',
+  updated_at = NOW()
+WHERE id = 'blood-panel-uk';
+

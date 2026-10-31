@@ -112,13 +112,13 @@ export const REGIONAL_DUAL_TRACK_DATA: Record<Market, RegionalTrackData> = {
     tabLabel: 'United Kingdom',
     flagIcon: <FlagUK className="w-5 h-3.5" />,
     track1: {
-      title: 'LOLA Vital Check 56 & Renal ACR Panel',
+      title: 'Lola Core Health 45 (Baseline Longevity Blood Map)',
       network: 'UKAS Pathology & Partner Phlebotomy Network',
-      badge: 'UKAS Accredited & ISO 15189',
-      description: "Nationwide British clinical venous phlebotomy panel measuring 56 vital biomarkers plus microvascular renal ACR telemetry with verified lab reports. When you arrive on LOLA Health, select: 'LOLA Vital Check 56' (Full 56-biomarker panel: ApoB, hs-CRP, Vitamin D, Thyroid & Hormones).",
+      badge: '45 Essential Biomarkers • UKAS Accredited',
+      description: "Comprehensive 45-biomarker direct-to-consumer blood panel covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones. Includes at-home venous blood draw by a certified phlebotomist and GMC doctor review. On Lola's website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose 'Phlebotomist for a Home Visit'.",
       cadence: 'Quarterly (Every 90 Days)',
       affiliateUrl: 'https://referrals.lolahealth.com/NextLevel15',
-      actionLabel: 'Order LOLA Vital Check 56 (£149) ➔',
+      actionLabel: 'Order Lola Core Health 45 (£149) ➔',
       pdfLabel: '📄 Download GP Consultation Template (PDF V2)',
       pdfUrl: '/assets/docs/clinical-baseline-consultation-template-v2.pdf',
       highlights: [

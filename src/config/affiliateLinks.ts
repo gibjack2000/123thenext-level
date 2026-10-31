@@ -98,11 +98,11 @@ export const sovereignHealthStack: SovereignProduct[] = [
       {
         supplierName: "LOLA Health",
         url: "https://referrals.lolahealth.com/NextLevel15",
-        ctaText: "Order Baseline Bloods (LOLA UK 🇬🇧)",
-        priceText: "From £69.00",
-        badgeText: "🇬🇧 UK (LOLA/UKAS)",
+        ctaText: "Order Core Health 45 (Lola UK 🇬🇧)",
+        priceText: "From £149.00",
+        badgeText: "45 Essential Biomarkers • UKAS Accredited",
         isPrimary: true,
-        perksNote: "15% Off Referral • UKAS Accredited"
+        perksNote: "15% Off Referral • Home Phlebotomist"
       }
     ],
     es: [
@@ -148,11 +148,11 @@ export const sovereignHealthStack: SovereignProduct[] = [
       {
         supplierName: "LOLA Health",
         url: "https://referrals.lolahealth.com/NextLevel15",
-        ctaText: "Order 56-Biomarker Panel (LOLA UK 🇬🇧)",
+        ctaText: "Order Core Health 45 (Lola UK 🇬🇧)",
         priceText: "From £149.00",
-        badgeText: "🇬🇧 UK (LOLA/UKAS)",
+        badgeText: "45 Essential Biomarkers • UKAS Accredited",
         isPrimary: true,
-        perksNote: "15% Off Referral • Home or Clinic"
+        perksNote: "15% Off Referral • Home Phlebotomist"
       }
     ],
     es: [
@@ -1199,7 +1199,7 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
   } else if (lowerDeal.includes('lolahealth') || (market === 'UK' && lowerTitle.includes('lola'))) {
     primarySupplier = 'LOLA Health';
     primaryPerks = '15% Off Referral • UKAS Lab';
-    primaryCta = 'Order via LOLA Health UK 🇬🇧';
+    primaryCta = 'Order Core Health 45 (Lola UK 🇬🇧)';
   } else if (lowerDeal.includes('healthlabs')) {
     primarySupplier = 'HealthLabs';
     primaryPerks = 'CLIA/CAP Quest & Labcorp';

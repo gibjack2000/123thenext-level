@@ -323,7 +323,7 @@ export const DiagnosticRoadmap: React.FC = () => {
                   </h4>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
-                  Establish your scientific baseline. We map your cellular structures using advanced whole-methylome Epigenetic Age testing and the Lola Vital Check 56 blood panel—designed to be co-evaluated with your local general practitioner.
+                  Establish your scientific baseline. We map your cellular structures using advanced whole-methylome Epigenetic Age testing and the Lola Core Health 45 (or Vital Check 56) blood panel—designed to be co-evaluated with your local general practitioner.
                 </p>
               </div>
 

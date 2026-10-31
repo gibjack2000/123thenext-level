@@ -81,12 +81,12 @@ const REGIONAL_CHANNEL_CONFIG: Record<Market, RegionalChannelData> = {
     blood: {
       discountNote: 'Choose your preferred baseline depth. Both options link via your 15% discount.',
       optionA: {
-        title: 'LOLA Essential Check',
-        tier: 'Basic Tier',
-        price: '£89.00',
-        summary: 'Core lipid profile, fasting glucose, HbA1c, kidney & liver function.',
-        bestFor: 'First-time baseline or routine spot-checks.',
-        ctaText: 'Select Essential Check ➔',
+        title: 'Lola Core Health 45 (Baseline Longevity Blood Map)',
+        tier: '45 Essential Biomarkers • UKAS Accredited',
+        price: '£149.00',
+        summary: 'Comprehensive 45-biomarker direct-to-consumer blood panel covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones.',
+        bestFor: 'Essential metabolic baseline & biomarker telemetry with at-home phlebotomy visit.',
+        ctaText: 'Select Core Health 45 ➔',
         url: 'https://referrals.lolahealth.com/NextLevel15',
       },
       optionB: {
@@ -339,9 +339,9 @@ export const Step2DiagnosticChannels: React.FC<Step2DiagnosticChannelsProps> = (
               {activeRegion === 'UK' && (
                 <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-200 leading-snug">
                   <span className="font-bold text-amber-300 block uppercase tracking-wider text-[10px]">
-                    Action Required on LOLA Health:
+                    Action Required on Lola:
                   </span>
-                  <span>Select '{currentBlood.title}' when landing.</span>
+                  <span>On Lola's website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose 'Phlebotomist for a Home Visit'.</span>
                 </div>
               )}
             </div>

@@ -13,9 +13,9 @@ interface ProductItem {
 
 const products: ProductItem[] = [
   {
-    id: 'lola-check-56',
-    name: 'Lola Vital Check 56 Blood Panel',
-    badge: 'UKAS Certified (UK 🇬🇧)',
+    id: 'lola-core-45',
+    name: 'Lola Core Health 45 (Baseline Longevity Blood Map)',
+    badge: '45 Essential Biomarkers • UKAS Accredited',
     price: '£149.00',
     category: 'Clinical Blood Test',
     icon: '🩸',

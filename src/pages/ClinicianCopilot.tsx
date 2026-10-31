@@ -229,18 +229,18 @@ const DIAGNOSTIC_REGIONS = {
     badge: 'UKAS Accredited & ISO Certified Phlebotomy',
     affiliateUrl: 'https://referrals.lolahealth.com/NextLevel15',
     optionA: {
-      name: 'LOLA Vital Check 56',
-      badge: 'Clinical Gold Standard',
-      description: "When you arrive on LOLA Health, select: 'LOLA Vital Check 56' (Full 56-biomarker panel: ApoB, hs-CRP, Vitamin D, Thyroid & Hormones). Official UKAS-accredited venous draw panel covering 56 essential biomarkers.",
+      name: 'Lola Core Health 45 (Baseline Longevity Blood Map)',
+      badge: '45 Essential Biomarkers • UKAS Accredited',
+      description: "On Lola's website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose 'Phlebotomist for a Home Visit'. Comprehensive 45-biomarker direct-to-consumer blood panel covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones.",
       price: '£149.00',
-      actionText: 'Order LOLA Vital Check 56 (£149) ➔'
+      actionText: 'Order Lola Core Health 45 (£149) ➔'
     },
     optionB: {
-      name: 'LOLA Essential Check',
-      badge: 'Essential Starter',
-      description: "When you arrive on LOLA Health, select: 'LOLA Essential Check' (Core lipids, HbA1c, glucose, kidney & liver). UKAS-accredited core baseline check.",
-      price: '£89.00',
-      actionText: 'Order LOLA Essential Check (£89) ➔'
+      name: 'LOLA Vital Check 56',
+      badge: 'Comprehensive Tier',
+      description: "On Lola's website, select Vital Check 56 (or Core Health 45 for baseline monitoring) and choose 'Phlebotomist for a Home Visit'. Full 56-biomarker panel: ApoB, hs-CRP, Vitamin D, Thyroid & Hormones.",
+      price: '£149.00',
+      actionText: 'Order LOLA Vital Check 56 (£149) ➔'
     },
     urinalysis: {
       name: 'Lola Urinalysis & Microvascular ACR Panel',

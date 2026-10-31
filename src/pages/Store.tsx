@@ -25,7 +25,8 @@ import {
   Lock,
   Stethoscope,
   FileText,
-  ExternalLink
+  ExternalLink,
+  Info
 } from 'lucide-react';
 import DualTrackSelector from '../components/DualTrackSelector';
 import BundleOffers from '../components/BundleOffers';
@@ -79,16 +80,17 @@ export type MarketTab = 'US' | 'UK' | 'ES';
 export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
   "UK": [
     {
-      "id": "essential-blood-panel-uk",
-      "name": "Choice A: LOLA Essential Baseline Blood Check (UK 🇬🇧)",
+      "id": "blood-panel-uk",
+      "name": "Lola Core Health 45 (Baseline Longevity Blood Map)",
       "category": "Clinical Diagnostics & Labs",
-      "rating": 4.95,
-      "description": "Targeted UKAS-accredited baseline blood panel measuring Core Lipids (Cholesterol, HDL, LDL, Triglycerides), HbA1c, Fasting Glucose, and basic kidney/liver filtration.",
-      "price_text": "From £69.00",
+      "rating": 4.98,
+      "description": "Comprehensive 45-biomarker direct-to-consumer blood panel covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones. Includes at-home venous blood draw by a certified phlebotomist and GMC doctor review.",
+      "price_text": "From £149.00",
       "deal_url": "https://referrals.lolahealth.com/NextLevel15",
       "market_region": "UK",
-      "badge_text": "🇬🇧 UK (LOLA/UKAS)",
-      "image_url": "/Products/lola-blood-panel.jpg"
+      "badge_text": "45 Essential Biomarkers • UKAS Accredited",
+      "image_url": "/Products/lola-blood-panel.jpg",
+      "checkout_instruction": "On Lola's website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose 'Phlebotomist for a Home Visit'."
     },
     {
       "id": "epigenetic-test-uk",
@@ -221,18 +223,6 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "market_region": "UK",
       "badge_text": "MHRA Certified Telemetry",
       "image_url": "/Products/apple10.jpg"
-    },
-    {
-      "id": "blood-panel-uk",
-      "name": "Choice B: LOLA Vital Check 56 (UK 🇬🇧)",
-      "category": "Clinical Diagnostics & Labs",
-      "rating": 4.98,
-      "description": "When you arrive on LOLA Health, select: 'LOLA Vital Check 56' (Full 56-biomarker panel: ApoB, hs-CRP, Vitamin D, Thyroid & Hormones). Official UKAS-accredited venous draw panel mapping 56 biomarkers.",
-      "price_text": "From £149.00",
-      "deal_url": "https://referrals.lolahealth.com/NextLevel15",
-      "market_region": "UK",
-      "badge_text": "🇬🇧 UK (LOLA/UKAS)",
-      "image_url": "/Products/lola-blood-panel.jpg"
     },
     {
       "id": "amazon-supp-uk-b0dd7tjzp5",
@@ -2864,7 +2854,15 @@ export function getDiagnosticCountryBadge(market: MarketTab, product?: any): str
     return '💊 Comprehensive Metabolic & Inflammatory Map';
   }
 
-  if (market === 'UK') return '🇬🇧 UK (LOLA/UKAS)';
+  if (market === 'UK') {
+    if (product?.badge_text && (product.badge_text.includes('45') || product.badge_text.includes('Biomarker'))) {
+      return product.badge_text;
+    }
+    if (id.includes('blood-panel') || id.includes('essential-blood') || title.includes('core health') || title.includes('vital check')) {
+      return '45 Essential Biomarkers • UKAS Accredited';
+    }
+    return '🇬🇧 UK (LOLA/UKAS)';
+  }
   if (market === 'ES') return '🇪🇸 ES (Melio/Megalab)';
   if (market === 'US') {
     const deal = String(product?.deal_url || '').toLowerCase();
@@ -2888,16 +2886,9 @@ export function getCleanDiagnosticCta(product: any, market: MarketTab): string {
     return 'Order Comprehensive Panel (Life Extension US 🇺🇸)';
   }
 
-  // Choice A: Essential Baseline Bloods
-  if (id.includes('essential-blood') || title.includes('choice a') || title.includes('essential baseline')) {
-    if (market === 'UK') return 'Order Baseline Bloods (LOLA UK 🇬🇧)';
-    if (market === 'ES') return 'Order Baseline Bloods (Melio ES 🇪🇸)';
-    return 'Order Basic Panel (Life Extension $155 🇺🇸)';
-  }
-
-  // Choice B: Vital Check 56 / 56-Biomarker Panel
-  if (id.includes('blood-panel') || title.includes('56') || title.includes('vital check') || title.includes('biomarker') || title.includes('biomarcador')) {
-    if (market === 'UK') return 'Order 56-Biomarker Panel (LOLA UK 🇬🇧)';
+  // Blood Panels: Lola Core Health 45 (UK) / Melio 56 (ES) / Comprehensive (US)
+  if (id.includes('blood-panel') || id.includes('essential-blood') || title.includes('core health') || title.includes('choice a') || title.includes('choice b') || title.includes('essential baseline') || title.includes('56') || title.includes('vital check') || title.includes('biomarker') || title.includes('biomarcador')) {
+    if (market === 'UK') return 'Order Core Health 45 (Lola UK 🇬🇧)';
     if (market === 'ES') return 'Order 56-Biomarker Panel (Melio ES 🇪🇸)';
     return 'Order Comprehensive Panel (Life Extension US 🇺🇸)';
   }
@@ -2978,6 +2969,27 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
       enriched.price_text = '$24.00';
       enriched.deal_url = US_URINALYSIS_TEST_URL;
       enriched.badge_text = US_URINALYSIS_TEST_BADGE;
+    }
+
+    // Auto-heal UK Blood Panel to Lola Core Health 45 (Baseline Longevity Blood Map)
+    if (enriched.market_region === 'UK' && (
+      String(enriched.id).toLowerCase() === 'blood-panel-uk' ||
+      String(enriched.id).toLowerCase() === 'essential-blood-panel-uk' ||
+      String(enriched.name || '').toLowerCase().includes('lola') ||
+      String(enriched.deal_url || '').toLowerCase().includes('lolahealth')
+    ) && (
+      String(enriched.id).toLowerCase().includes('blood-panel') ||
+      String(enriched.id).toLowerCase().includes('essential-blood') ||
+      String(enriched.name || '').toLowerCase().includes('blood') ||
+      String(enriched.name || '').toLowerCase().includes('biomarker') ||
+      String(enriched.name || '').toLowerCase().includes('vital check') ||
+      String(enriched.name || '').toLowerCase().includes('core health')
+    )) {
+      enriched.id = 'blood-panel-uk';
+      enriched.name = 'Lola Core Health 45 (Baseline Longevity Blood Map)';
+      enriched.badge_text = '45 Essential Biomarkers • UKAS Accredited';
+      enriched.description = 'Comprehensive 45-biomarker direct-to-consumer blood panel covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones. Includes at-home venous blood draw by a certified phlebotomist and GMC doctor review.';
+      enriched.checkout_instruction = "On Lola's website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose 'Phlebotomist for a Home Visit'.";
     }
 
     const resolvedSuppliers = resolveProductSuppliers(enriched, market);
@@ -3267,6 +3279,35 @@ export function DynamicSupplierCtaSection({
           </div>
         </div>
       )}
+
+      {/* Checkout Instruction / Helper text under card */}
+      {(() => {
+        const isLolaBlood = (market === 'UK' && (
+          String(product?.id || '').includes('blood-panel') ||
+          String(product?.name || '').toLowerCase().includes('lola') ||
+          String(product?.name || '').toLowerCase().includes('core health') ||
+          String(product?.deal_url || '').toLowerCase().includes('lolahealth')
+        ));
+        const instruction = product?.checkout_instruction || (
+          isLolaBlood 
+            ? "On Lola's website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose 'Phlebotomist for a Home Visit'."
+            : null
+        );
+
+        if (!instruction) return null;
+
+        return (
+          <div className="mt-2.5 p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-200/95 leading-relaxed flex items-start gap-2 shadow-sm">
+            <Info size={14} className="text-amber-400 shrink-0 mt-0.5" />
+            <div>
+              <span className="font-bold text-amber-300 block text-[10px] uppercase tracking-wider mb-0.5">
+                On Lola's Website:
+              </span>
+              <span>{instruction}</span>
+            </div>
+          </div>
+        );
+      })()}
     </div>
   );
 }
@@ -3859,7 +3900,7 @@ export function Store({ region }: StoreProps = {}) {
                         {isDiag && (
                           <div className="flex flex-wrap items-center gap-1.5 mb-3">
                             <span className="text-[11px] font-bold text-sky-300 bg-sky-950/60 border border-sky-500/40 px-2.5 py-1 rounded-md">
-                              {getDiagnosticCountryBadge(activeTab, product)}
+                              {product.badge_text || getDiagnosticCountryBadge(activeTab, product)}
                             </span>
                             <span className="text-[11px] font-bold text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-md">
                               {getDiagnosticPricingBadge(product, activeTab)}
@@ -3873,7 +3914,7 @@ export function Store({ region }: StoreProps = {}) {
                         <div className="flex justify-between items-center">
                           <span className="text-xs text-slate-500 font-semibold">Badge Status</span>
                           <span className="text-[10px] text-cyan-400 font-bold px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-800/20">
-                            {isDiag ? getDiagnosticCountryBadge(activeTab, product) : (product.badge_text || 'Verified')}
+                            {product.badge_text || (isDiag ? getDiagnosticCountryBadge(activeTab, product) : 'Verified')}
                           </span>
                         </div>
                         <DynamicSupplierCtaSection
@@ -3947,7 +3988,7 @@ export function Store({ region }: StoreProps = {}) {
                                 {isDiag && (
                                   <div className="flex flex-wrap items-center gap-1.5 mb-3">
                                     <span className="text-[11px] font-bold text-sky-300 bg-sky-950/60 border border-sky-500/40 px-2.5 py-1 rounded-md">
-                                      {getDiagnosticCountryBadge(activeTab, product)}
+                                      {product.badge_text || getDiagnosticCountryBadge(activeTab, product)}
                                     </span>
                                     <span className="text-[11px] font-bold text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-md">
                                       {getDiagnosticPricingBadge(product, activeTab)}
@@ -4028,7 +4069,7 @@ export function Store({ region }: StoreProps = {}) {
                             {isDiag && (
                               <div className="flex flex-wrap items-center gap-1.5 mb-3">
                                 <span className="text-[11px] font-bold text-sky-300 bg-sky-950/60 border border-sky-500/40 px-2.5 py-1 rounded-md">
-                                  {getDiagnosticCountryBadge(activeTab, product)}
+                                  {product.badge_text || getDiagnosticCountryBadge(activeTab, product)}
                                 </span>
                                 <span className="text-[11px] font-bold text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-md">
                                   {getDiagnosticPricingBadge(product, activeTab)}

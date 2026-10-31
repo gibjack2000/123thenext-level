@@ -111,7 +111,7 @@ export const StoreUK: React.FC = () => {
             price_text: priceFormatted,
             deal_url: healedDeal,
             market_region: 'UK',
-            badge_text: isDiag ? getDiagnosticCountryBadge('UK', item) : (item.badge_text || 'MHRA / UK Verified'),
+            badge_text: item.badge_text || (isDiag ? getDiagnosticCountryBadge('UK', item) : 'MHRA / UK Verified'),
             image_url: healedImg,
             is_direct_affiliate: item.is_direct_affiliate || (!healedDeal.toLowerCase().includes('amazon')),
             hub_placement_slot: item.hub_placement_slot,
@@ -454,7 +454,7 @@ export const StoreUK: React.FC = () => {
                         {isDiag && (
                           <div className="flex flex-wrap items-center gap-1.5 mb-3">
                             <span className="text-[11px] font-bold text-sky-300 bg-sky-950/60 border border-sky-500/40 px-2.5 py-1 rounded-md">
-                              {getDiagnosticCountryBadge('UK', product)}
+                              {product.badge_text || getDiagnosticCountryBadge('UK', product)}
                             </span>
                             <span className="text-[11px] font-bold text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-md">
                               {getDiagnosticPricingBadge(product, 'UK')}
@@ -473,7 +473,7 @@ export const StoreUK: React.FC = () => {
                         <div className="flex justify-between items-center">
                           <span className="text-xs text-slate-500 font-semibold">Verification</span>
                           <span className="text-[10px] text-cyan-400 font-bold px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-800/20">
-                            {isDiag ? getDiagnosticCountryBadge('UK', product) : (product.badge_text || 'MHRA / UKCA')}
+                            {product.badge_text || (isDiag ? getDiagnosticCountryBadge('UK', product) : 'MHRA / UKCA')}
                           </span>
                         </div>
                         <DynamicSupplierCtaSection

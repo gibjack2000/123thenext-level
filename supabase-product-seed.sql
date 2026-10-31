@@ -19,9 +19,12 @@ CREATE TABLE IF NOT EXISTS public.products (
   is_direct_affiliate BOOLEAN DEFAULT FALSE,
   is_active BOOLEAN DEFAULT TRUE,
   hub_placement_slot TEXT DEFAULT NULL,
+  checkout_instruction TEXT DEFAULT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+ALTER TABLE public.products ADD COLUMN IF NOT EXISTS checkout_instruction TEXT DEFAULT NULL;
 
 -- 2. Upsert Metabolic Master Guide into Store Products (US, UK, & Spain)
 INSERT INTO public.products (
@@ -300,3 +303,54 @@ ON CONFLICT (slug) DO UPDATE SET
   file_name = EXCLUDED.file_name,
   tags = EXCLUDED.tags,
   included = EXCLUDED.included;
+
+-- ============================================================================
+-- 5. Upsert UK Blood Panel (Lola Core Health 45)
+-- ============================================================================
+INSERT INTO public.products (
+  id,
+  name,
+  category,
+  rating,
+  description,
+  price_text,
+  deal_url,
+  market_region,
+  badge_text,
+  image_url,
+  is_direct_affiliate,
+  is_active,
+  hub_placement_slot,
+  checkout_instruction
+) VALUES (
+  'blood-panel-uk',
+  'Lola Core Health 45 (Baseline Longevity Blood Map)',
+  'Performance & Testing',
+  4.98,
+  'Comprehensive 45-biomarker direct-to-consumer blood panel covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones. Includes at-home venous blood draw by a certified phlebotomist and GMC doctor review.',
+  '£149.00',
+  'https://referrals.lolahealth.com/NextLevel15',
+  'UK',
+  '45 Essential Biomarkers • UKAS Accredited',
+  '/assets/images/shop/blood-panel.png',
+  TRUE,
+  TRUE,
+  'blood_panel_slot',
+  'On Lola''s website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose ''Phlebotomist for a Home Visit''.'
+)
+ON CONFLICT (id) DO UPDATE SET
+  name = EXCLUDED.name,
+  category = EXCLUDED.category,
+  rating = EXCLUDED.rating,
+  description = EXCLUDED.description,
+  price_text = EXCLUDED.price_text,
+  deal_url = EXCLUDED.deal_url,
+  market_region = EXCLUDED.market_region,
+  badge_text = EXCLUDED.badge_text,
+  image_url = EXCLUDED.image_url,
+  is_direct_affiliate = EXCLUDED.is_direct_affiliate,
+  is_active = EXCLUDED.is_active,
+  hub_placement_slot = EXCLUDED.hub_placement_slot,
+  checkout_instruction = EXCLUDED.checkout_instruction,
+  updated_at = NOW();
+

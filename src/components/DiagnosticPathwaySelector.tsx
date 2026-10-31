@@ -134,12 +134,12 @@ export const REGIONAL_PATHWAYS: Record<Market, RegionalPathwayData> = {
     partnerName: 'LOLA Health',
     badge: 'UKAS Accredited & ISO Certified Phlebotomy Network',
     level1: {
-      partnerName: 'LOLA Essential Check',
-      description: 'Core lipid profile, fasting glucose, HbA1c, kidney & liver function.',
-      price: '£89.00',
+      partnerName: 'Lola Core Health 45 (Baseline Longevity Blood Map)',
+      description: 'Comprehensive 45-biomarker direct-to-consumer blood panel covering cholesterol & lipid ratios, HbA1c 90-day glucose, liver, kidney, high-sensitivity CRP, vitamin D, active B12, and baseline hormones.',
+      price: '£149.00',
       requisitionUrl: 'https://referrals.lolahealth.com/NextLevel15',
-      actionText: 'Select Essential Check ➔',
-      helperText: "When you arrive on LOLA Health, select: 'LOLA Essential Check'.",
+      actionText: 'Select Core Health 45 ➔',
+      helperText: "On Lola's website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose 'Phlebotomist for a Home Visit'.",
     },
     level2: {
       partnerName: 'LOLA Vital Check 56',
@@ -147,7 +147,7 @@ export const REGIONAL_PATHWAYS: Record<Market, RegionalPathwayData> = {
       price: '£149.00',
       requisitionUrl: 'https://referrals.lolahealth.com/NextLevel15',
       actionText: 'Select Vital Check 56 ➔',
-      helperText: "When you arrive on LOLA Health, select: 'LOLA Vital Check 56'.",
+      helperText: "On Lola's website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose 'Phlebotomist for a Home Visit'.",
     },
     urinalysis: {
       name: 'Clinical Lab ACR (Microalbumin)',

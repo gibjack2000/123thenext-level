@@ -365,9 +365,9 @@ export default function DiagnosticsSuite() {
                 {/* Explicit helper instruction */}
                 <div className="p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-xs text-cyan-200 leading-snug space-y-1">
                   <span className="font-bold text-cyan-300 block text-[11px] uppercase tracking-wider">
-                    Action Required on LOLA Health:
+                    Action Required on Lola Health:
                   </span>
-                  <p>When you arrive on LOLA Health, select: 'LOLA Vital Check 56' (Full 56-biomarker panel: ApoB, hs-CRP, Vitamin D, Thyroid &amp; Hormones).</p>
+                  <p>On Lola's website, select Core Health 45 (or Vital Check 56 for deeper hormonal tracking) and choose 'Phlebotomist for a Home Visit'.</p>
                 </div>
 
                 <div className="space-y-2 text-xs text-slate-300 border-t border-slate-800 pt-4">
