@@ -205,45 +205,82 @@ export const Navbar: React.FC = () => {
           >
             <button 
               type="button"
-              className={`font-semibold hover:text-cyan-300 flex items-center gap-1 transition-colors py-2 cursor-pointer ${
-                location.pathname.startsWith('/guides') ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'
+              className={`font-semibold hover:text-emerald-400 flex items-center gap-1 transition-colors py-2 cursor-pointer ${
+                location.pathname.startsWith('/guides') ? 'text-emerald-400 font-bold' : 'text-slate-300 hover:text-white'
               }`}
             >
               <span>Guides</span> <span className="text-[10px]">▾</span>
             </button>
 
             {isGuidesOpen && (
-              <div className="absolute top-full right-0 w-72 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-2 space-y-1 z-50 animate-fade-in normal-case tracking-normal">
-                <div className="px-3 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest flex items-center justify-between">
-                  <span>Preventative Blood Tests</span>
-                  <a href="/guides/" className="text-cyan-400 hover:underline normal-case text-[10px]">All Guides →</a>
+              <div 
+                className="absolute top-full right-0 w-80 rounded-xl shadow-2xl p-2.5 space-y-1.5 z-50 animate-fade-in normal-case tracking-normal"
+                style={{ backgroundColor: '#111827', border: '1px solid #1f2937' }}
+              >
+                <div className="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center justify-between border-b border-slate-800/80 pb-1.5 mb-1">
+                  <span>Clinical Guides</span>
+                  <a href="/guides/" className="text-emerald-400 hover:underline normal-case text-[11px] font-semibold">Directory Hub →</a>
                 </div>
+                
+                {/* 1. UK NHS Blood Test Guide */}
                 <a
                   href="/guides/uk-preventative-blood-tests/"
                   onClick={() => setIsGuidesOpen(false)}
-                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                  className="block px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800/70 transition-all group"
+                  style={{ textDecoration: 'none' }}
                 >
-                  🇬🇧 UK NHS Blood Test Guide
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors flex items-center gap-1.5">
+                      🇬🇧 UK NHS Blood Test Guide
+                    </span>
+                    <span className="text-[10px] text-emerald-400 font-mono opacity-0 group-hover:opacity-100 transition-opacity">➔</span>
+                  </div>
+                  <span className="block text-[11px] text-slate-400 mt-0.5 font-normal">
+                    Doctor Scripts &amp; NICE Rules
+                  </span>
                 </a>
+
+                {/* 2. US Preventative Blood Test Guide */}
                 <a
                   href="/guides/us-doctor-blood-tests/"
                   onClick={() => setIsGuidesOpen(false)}
-                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                  className="block px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800/70 transition-all group"
+                  style={{ textDecoration: 'none' }}
                 >
-                  🇺🇸 US Preventative Blood Test Guide
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors flex items-center gap-1.5">
+                      🇺🇸 US Preventative Blood Test Guide
+                    </span>
+                    <span className="text-[10px] text-emerald-400 font-mono opacity-0 group-hover:opacity-100 transition-opacity">➔</span>
+                  </div>
+                  <span className="block text-[11px] text-slate-400 mt-0.5 font-normal">
+                    PCPs, Billing &amp; Labs
+                  </span>
                 </a>
+
+                {/* 3. Spain Expat Health Guide */}
                 <a
                   href="/guides/spain-preventative-blood-tests/"
                   onClick={() => setIsGuidesOpen(false)}
-                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                  className="block px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800/70 transition-all group"
+                  style={{ textDecoration: 'none' }}
                 >
-                  🇪🇸 Spain Expat Health Guide (EN)
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-white group-hover:text-emerald-400 transition-colors flex items-center gap-1.5">
+                      🇪🇸 Spain Expat Health Guide
+                    </span>
+                    <span className="text-[10px] text-emerald-400 font-mono opacity-0 group-hover:opacity-100 transition-opacity">➔</span>
+                  </div>
+                  <span className="block text-[11px] text-slate-400 mt-0.5 font-normal">
+                    English Guide: Doctors &amp; Mutuas
+                  </span>
                 </a>
-                <div className="pt-1 mt-1 border-t border-slate-800">
+
+                <div className="pt-1.5 mt-1 border-t border-slate-800">
                   <a
                     href="/guides/"
                     onClick={() => setIsGuidesOpen(false)}
-                    className="block px-3 py-1.5 rounded-lg text-[11px] font-medium text-cyan-400 hover:text-cyan-300 hover:bg-slate-800/60 transition-all"
+                    className="block px-3 py-1.5 rounded-lg text-[11px] font-semibold text-slate-400 hover:text-emerald-400 hover:bg-slate-800/50 transition-all text-center"
                   >
                     📖 View All Guides &amp; Pillar Directory →
                   </a>
@@ -387,45 +424,53 @@ export const Navbar: React.FC = () => {
           <Link to="/premium-guides" onClick={closeMobileMenu} className="block text-amber-400/90 font-bold py-1">⚡ Premium Guides (9 Books)</Link>
 
           {/* Collapsible Guides Section in Mobile Drawer */}
-          <div className="py-1 border-y border-slate-800/80 my-1">
+          <div className="py-1.5 border-y border-slate-800/80 my-1">
             <button
               type="button"
               onClick={() => setIsMobileGuidesOpen(!isMobileGuidesOpen)}
               className="w-full flex items-center justify-between text-slate-200 font-bold py-1.5 text-left cursor-pointer"
             >
-              <span className="flex items-center gap-1.5">📖 Preventative Blood Test Guides</span>
+              <span className="flex items-center gap-1.5 text-slate-200 hover:text-emerald-400">📖 Clinical Guides</span>
               <span className="text-xs text-slate-400">{isMobileGuidesOpen ? '▴' : '▾'}</span>
             </button>
             {isMobileGuidesOpen && (
-              <div className="pl-3 pr-1 py-1 space-y-1.5 text-xs bg-slate-900/60 rounded-lg mt-1 border border-slate-800/60">
+              <div 
+                className="pl-3 pr-2 py-2 space-y-2 text-xs rounded-xl mt-1"
+                style={{ backgroundColor: '#111827', border: '1px solid #1f2937' }}
+              >
                 <a 
                   href="/guides/uk-preventative-blood-tests/" 
                   onClick={closeMobileMenu} 
-                  className="block py-1 text-slate-300 hover:text-cyan-400"
+                  className="block py-1 text-slate-200 hover:text-emerald-400 transition-colors"
                 >
-                  🇬🇧 UK NHS Blood Test Guide
+                  <div className="font-bold flex items-center gap-1.5 text-white">🇬🇧 UK NHS Blood Test Guide</div>
+                  <div className="text-[11px] text-slate-400">Doctor Scripts &amp; NICE Rules</div>
                 </a>
                 <a 
                   href="/guides/us-doctor-blood-tests/" 
                   onClick={closeMobileMenu} 
-                  className="block py-1 text-slate-300 hover:text-cyan-400"
+                  className="block py-1 text-slate-200 hover:text-emerald-400 transition-colors border-t border-slate-800/60 pt-1.5"
                 >
-                  🇺🇸 US Preventative Blood Test Guide
+                  <div className="font-bold flex items-center gap-1.5 text-white">🇺🇸 US Preventative Blood Test Guide</div>
+                  <div className="text-[11px] text-slate-400">PCPs, Billing &amp; Labs</div>
                 </a>
                 <a 
                   href="/guides/spain-preventative-blood-tests/" 
                   onClick={closeMobileMenu} 
-                  className="block py-1 text-slate-300 hover:text-cyan-400"
+                  className="block py-1 text-slate-200 hover:text-emerald-400 transition-colors border-t border-slate-800/60 pt-1.5"
                 >
-                  🇪🇸 Spain Expat Health Guide (EN)
+                  <div className="font-bold flex items-center gap-1.5 text-white">🇪🇸 Spain Expat Health Guide</div>
+                  <div className="text-[11px] text-slate-400">English Guide: Doctors &amp; Mutuas</div>
                 </a>
-                <a 
-                  href="/guides/" 
-                  onClick={closeMobileMenu} 
-                  className="block py-1 text-cyan-400 hover:underline font-semibold text-[11px]"
-                >
-                  📖 View All Guides Directory →
-                </a>
+                <div className="pt-1.5 border-t border-slate-800">
+                  <a 
+                    href="/guides/" 
+                    onClick={closeMobileMenu} 
+                    className="block py-1 text-emerald-400 hover:underline font-bold text-[11px]"
+                  >
+                    📖 View All Guides Directory →
+                  </a>
+                </div>
               </div>
             )}
           </div>

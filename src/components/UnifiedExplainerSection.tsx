@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
 import { FlagUS, FlagUK, FlagES } from './MarketSelector';
+import { RegionalGuidesSection } from './RegionalGuidesSection';
 
 interface UnifiedExplainerSectionProps {
   className?: string;
@@ -349,6 +350,9 @@ export const UnifiedExplainerSection: React.FC<UnifiedExplainerSectionProps> = (
 
           </div>
         </div>
+
+        {/* REGIONAL CLINICAL GUIDES SECTION */}
+        <RegionalGuidesSection />
 
         {/* ========================================================================= */}
         {/* STAGE 4: REVENUE & STOREFRONT FUNNEL (Monetization Hooks)                  */}
