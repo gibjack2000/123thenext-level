@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, Calendar, Tag as TagIcon, Share2, Star, ExternalLink, Stethoscope, FileText } from 'lucide-react';
+import { useParams, Link, useSearchParams } from 'react-router-dom';
+import { ArrowLeft, Calendar, Tag as TagIcon, Share2, Star, ExternalLink, Stethoscope, FileText, Eye } from 'lucide-react';
 import { motion } from 'motion/react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { BlogPost } from '../types';
@@ -12,12 +12,18 @@ import { getCategoryDefaultBanner, extractFrontmatter } from '../utils/blogImage
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
+  const [searchParams] = useSearchParams();
   const { market } = useMarket();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const isPreview = new URLSearchParams(window.location.search).get('preview') === 'true';
+  // Allow preview if ?preview=true or if logged into admin portal
+  const isAdminLoggedIn = typeof window !== 'undefined' && (
+    sessionStorage.getItem('admin_session_authenticated') === 'true' ||
+    localStorage.getItem('admin_session_authenticated') === 'true'
+  );
+  const isPreview = searchParams.get('preview') === 'true' || isAdminLoggedIn;
 
   useEffect(() => {
     async function fetchPost() {
@@ -30,35 +36,58 @@ export default function BlogPostPage() {
         
         if (supabase && hasValidSupabaseConfig) {
           try {
-            // 1. Primary Query from blogs table
-            const { data: blogDb, error: blogErr } = await supabase
-              .from('blogs')
-              .select('*')
-              .eq('slug', slug)
-              .single();
+            const cleanSlug = slug.trim().toLowerCase();
 
-            if (!blogErr && blogDb) {
-              postData = {
-                ...blogDb,
-                image_url: blogDb.cover_image_url || blogDb.image_url,
-                created_at: blogDb.published_at || blogDb.created_at
-              };
-            } else {
-              // 2. Fallback to legacy blog_posts table
-              const { data: legacyDb, error: legacyErr } = await supabase
+            // 1. Primary Query: check blog_posts table directly
+            let { data: postDb } = await supabase
+              .from('blog_posts')
+              .select('*')
+              .eq('slug', cleanSlug)
+              .maybeSingle();
+
+            if (!postDb) {
+              const res = await supabase
                 .from('blog_posts')
                 .select('*')
                 .eq('slug', slug)
-                .single();
+                .maybeSingle();
+              postDb = res.data;
+            }
 
-              if (!legacyErr && legacyDb) {
-                postData = {
-                  ...legacyDb,
-                  image_url: legacyDb.cover_image_url || legacyDb.image_url
-                };
-              } else {
-                throw new Error('Post not found in database');
-              }
+            // Fallback: match slug with prefix (in case numeric suffix was added)
+            if (!postDb) {
+              const res = await supabase
+                .from('blog_posts')
+                .select('*')
+                .ilike('slug', `${cleanSlug}%`)
+                .order('created_at', { ascending: false })
+                .limit(1)
+                .maybeSingle();
+              postDb = res.data;
+            }
+
+            // Fallback: check blogs table if exists
+            if (!postDb) {
+              try {
+                const { data: blogDb } = await supabase
+                  .from('blogs')
+                  .select('*')
+                  .eq('slug', cleanSlug)
+                  .maybeSingle();
+                if (blogDb) postDb = blogDb;
+              } catch (_) {}
+            }
+
+            if (postDb) {
+              postData = {
+                ...postDb,
+                image_url: postDb.cover_image_url || postDb.image_url,
+                created_at: postDb.created_at
+              };
+            } else {
+              const mockPost = MOCK_BLOG_POSTS.find(p => p.slug === cleanSlug || p.slug === slug);
+              if (!mockPost) throw new Error('Post not found in database or catalog');
+              postData = mockPost;
             }
           } catch (dbErr) {
             console.warn('Post not found in database, checking mock data:', dbErr);
@@ -73,10 +102,9 @@ export default function BlogPostPage() {
           postData = mockPost;
         }
         
-        // If it's a draft or future-scheduled and not in preview mode, block public view
-        const isFutureScheduled = postData.published_at && new Date(postData.published_at) > new Date();
-        if ((postData.status === 'draft' || postData.status === 'scheduled' || isFutureScheduled) && !isPreview) {
-          setError('This article is currently in draft or scheduled for publication.');
+        // If it's a draft and not in preview mode, block public view
+        if (postData.status === 'draft' && !isPreview) {
+          setError('This article is currently in draft and awaiting editorial authorization.');
           return;
         }
 
@@ -158,14 +186,44 @@ export default function BlogPostPage() {
   }
 
   if (error || !post) {
+    const isDraftError = error?.includes('draft');
     return (
-      <div className="min-h-screen pt-40 pb-16 px-4 max-w-3xl mx-auto text-center">
-        <h1 className="text-3xl font-display uppercase text-slate-900 mb-4">{error || 'Article not found'}</h1>
-        <p className="text-slate-500 mb-8">The blog post you're looking for doesn't exist or has been removed.</p>
-        <Link to="/" className="inline-flex items-center px-6 py-3 bg-slate-900 text-white rounded-xl hover:bg-slate-800 font-medium transition-colors">
-          <ArrowLeft size={16} className="mr-2" />
-          Back to Home
-        </Link>
+      <div className="min-h-screen pt-40 pb-20 px-4 max-w-2xl mx-auto text-center flex flex-col items-center justify-center">
+        <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 mb-6">
+          <FileText size={28} />
+        </div>
+        <h1 className="text-2xl sm:text-3xl font-display font-extrabold uppercase text-white tracking-tight mb-3">
+          {isDraftError ? 'Draft Awaiting Approval' : (error || 'Article Not Found')}
+        </h1>
+        <p className="text-slate-400 text-sm max-w-md mb-8 leading-relaxed">
+          {isDraftError
+            ? 'This article has been generated and is currently in your review queue. To inspect or edit the draft, use preview mode or open the automation dashboard.'
+            : "The blog post you're looking for doesn't exist, has been archived, or is currently being drafted."}
+        </p>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 w-full sm:w-auto">
+          {slug && (
+            <Link
+              to={`/blog/${slug}?preview=true`}
+              className="w-full sm:w-auto px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-lg shadow-cyan-900/30"
+            >
+              <Eye size={15} />
+              <span>Open in Preview Mode</span>
+            </Link>
+          )}
+          <Link
+            to="/automation-admin"
+            className="w-full sm:w-auto px-6 py-3 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 border border-slate-700"
+          >
+            <span>Automation Admin</span>
+          </Link>
+          <Link
+            to="/blog"
+            className="w-full sm:w-auto px-6 py-3 bg-slate-900 hover:bg-slate-800 text-slate-400 rounded-xl font-medium text-xs transition flex items-center justify-center gap-1.5 border border-slate-800"
+          >
+            <ArrowLeft size={14} />
+            <span>Blog Rack</span>
+          </Link>
+        </div>
       </div>
     );
   }
@@ -199,6 +257,16 @@ export default function BlogPostPage() {
 
   return (
     <main className="min-h-screen bg-slate-50 pb-20">
+      {/* Editorial Preview Banner for Draft Articles */}
+      {post.status === 'draft' && (
+        <div className="sticky top-0 z-50 bg-amber-500/90 text-slate-950 font-black py-2.5 px-4 text-xs tracking-wider uppercase text-center flex items-center justify-center gap-2 shadow-lg backdrop-blur-md">
+          <Eye size={15} />
+          <span>EDITORIAL PREVIEW MODE — Article status is currently DRAFT (hidden from public category feeds until authorized).</span>
+          <Link to="/automation-admin" className="underline ml-2 hover:opacity-80">
+            Open /automation-admin &rarr;
+          </Link>
+        </div>
+      )}
       {/* Hero Section */}
       <div className="relative w-full min-h-[560px] md:min-h-[640px] pt-36 sm:pt-40 md:pt-44 pb-28 sm:pb-32 flex flex-col justify-end items-center mb-12 overflow-hidden">
         <div className="absolute inset-0 z-0">

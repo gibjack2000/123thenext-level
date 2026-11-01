@@ -249,11 +249,22 @@ export default function BlogAutomationAdmin() {
   const handleGeneratePitchDraft = async (pitch: any) => {
     setGeneratingPitchId(pitch.id);
     try {
-      // 1. Check if this article already exists in the database
-      const existingMatch = allPosts.find(p =>
+      // 1. Check if this article already exists in local state or Supabase
+      let existingMatch = allPosts.find(p =>
         p.slug === pitch.slug ||
         (p.title && p.title.toLowerCase().trim() === pitch.title.toLowerCase().trim())
       );
+
+      if (!existingMatch && supabase) {
+        try {
+          const { data: dbMatch } = await supabase
+            .from('blog_posts')
+            .select('*')
+            .eq('slug', pitch.slug || '')
+            .maybeSingle();
+          if (dbMatch) existingMatch = dbMatch;
+        } catch (_) {}
+      }
 
       if (existingMatch) {
         setWeeklyPitches(prev => prev.map(p => p.id === pitch.id ? { ...p, draftStatus: 'drafted' } : p));
@@ -269,9 +280,13 @@ export default function BlogAutomationAdmin() {
         wellness: 'Wellness'
       };
       const cat = categoryMap[pitch.category] || 'Health';
-      let slug = pitch.slug || pitch.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+      const baseSlug = (pitch.slug || pitch.title || 'clinical-masterclass')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+      let slug = baseSlug;
       if (allPosts.some(p => p.slug === slug)) {
-        slug = `${slug}-${Date.now().toString().slice(-4)}`;
+        slug = `${baseSlug}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
       }
 
       // Generate comprehensive 2,000+ word clinical masterclass
@@ -324,9 +339,14 @@ export default function BlogAutomationAdmin() {
       if (!draftCreated && supabase) {
         let insertResult = await supabase.from('blog_posts').insert([newDraft]).select().single();
 
-        // If unique constraint or duplicate key, retry with unique suffix
-        if (insertResult.error && (insertResult.error.code === '23505' || insertResult.error.message?.includes('unique') || insertResult.error.message?.includes('duplicate'))) {
-          newDraft.slug = `${slug}-${Date.now().toString().slice(-4)}`;
+        // If unique constraint or duplicate key, retry with guaranteed unique suffix
+        if (insertResult.error && (
+          insertResult.error.code === '23505' ||
+          insertResult.error.message?.includes('unique') ||
+          insertResult.error.message?.includes('duplicate') ||
+          insertResult.error.message?.includes('slug')
+        )) {
+          newDraft.slug = `${baseSlug}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
           insertResult = await supabase.from('blog_posts').insert([newDraft]).select().single();
         }
 

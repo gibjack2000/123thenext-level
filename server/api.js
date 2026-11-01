@@ -242,14 +242,19 @@ router.post('/automation/create-draft', async (req, res) => {
     }
 
     let payload = { ...draft };
+    delete payload.published;
+    delete payload.published_at;
+    delete payload.updated_at;
     payload.author = payload.author || 'Clinical Advisory Team';
     payload.category = payload.category || 'Health';
     payload.status = payload.status || 'draft';
 
     // Ensure slug exists and avoid collisions
-    if (!payload.slug) {
-      payload.slug = payload.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-    }
+    const baseSlug = (payload.slug || payload.title || 'clinical-masterclass')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+    payload.slug = baseSlug;
 
     // Check if slug already exists in blog_posts, append timestamp if so
     try {
@@ -260,7 +265,7 @@ router.post('/automation/create-draft', async (req, res) => {
         .maybeSingle();
 
       if (existing) {
-        payload.slug = `${payload.slug}-${Date.now().toString().slice(-4)}`;
+        payload.slug = `${baseSlug}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
       }
     } catch (_) {}
 
@@ -271,8 +276,8 @@ router.post('/automation/create-draft', async (req, res) => {
       console.warn('Initial insert into blog_posts returned:', result.error.message);
 
       // Handle duplicate slug if constraint caught it
-      if (result.error.code === '23505' || result.error.message?.includes('duplicate key') || result.error.message?.includes('unique constraint')) {
-        payload.slug = `${payload.slug}-${Date.now().toString().slice(-4)}`;
+      if (result.error.code === '23505' || result.error.message?.includes('duplicate key') || result.error.message?.includes('unique constraint') || result.error.message?.includes('slug')) {
+        payload.slug = `${baseSlug}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
         result = await supabase.from('blog_posts').insert([payload]).select().single();
       }
 
@@ -325,10 +330,9 @@ router.post('/automation/publish-draft', async (req, res) => {
       return res.status(500).json({ success: false, error: 'Supabase server client not initialized' });
     }
 
-    const nowIso = new Date().toISOString();
     let result = await supabase
       .from('blog_posts')
-      .update({ status: 'published', published_at: nowIso, updated_at: nowIso })
+      .update({ status: 'published' })
       .eq('id', id)
       .select()
       .single();
@@ -336,7 +340,7 @@ router.post('/automation/publish-draft', async (req, res) => {
     if (result.error && result.error.code === 'PGRST205') {
       result = await supabase
         .from('blogs')
-        .update({ status: 'published', published_at: nowIso, updated_at: nowIso })
+        .update({ status: 'published' })
         .eq('id', id)
         .select()
         .single();

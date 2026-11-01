@@ -80,36 +80,36 @@ export default function BlogCategoryPage() {
         const nowIso = new Date().toISOString();
         let loadedPosts: BlogPost[] = [];
 
-        // 1. Primary Query: public.blogs with status = 'published' AND published_at <= NOW()
-        const { data: blogsData, error: blogsError } = await supabase
-          .from('blogs')
+        // 1. Primary Query: public.blog_posts with status = 'published'
+        const { data: legacyData, error: legacyError } = await supabase
+          .from('blog_posts')
           .select('*')
-          .eq('category', catKey)
+          .ilike('category', catKey)
           .eq('status', 'published')
-          .lte('published_at', nowIso)
-          .order('published_at', { ascending: false, nullsFirst: false });
+          .order('created_at', { ascending: false });
 
-        if (!blogsError && blogsData && blogsData.length > 0) {
-          loadedPosts = blogsData.map((item: any) => ({
+        if (!legacyError && legacyData && legacyData.length > 0) {
+          loadedPosts = legacyData.map((item: any) => ({
             ...item,
-            image_url: item.cover_image_url || item.image_url,
-            created_at: item.published_at || item.created_at
+            image_url: item.cover_image_url || item.image_url
           }));
         } else {
-          // 2. Fallback query to legacy blog_posts
-          const { data: legacyData, error: legacyError } = await supabase
-            .from('blog_posts')
-            .select('*')
-            .eq('category', catKey)
-            .eq('status', 'published')
-            .order('created_at', { ascending: false });
+          // 2. Fallback query to blogs table if exists
+          try {
+            const { data: blogsData } = await supabase
+              .from('blogs')
+              .select('*')
+              .ilike('category', catKey)
+              .eq('status', 'published')
+              .order('created_at', { ascending: false });
 
-          if (!legacyError && legacyData && legacyData.length > 0) {
-            loadedPosts = legacyData.map((item: any) => ({
-              ...item,
-              image_url: item.cover_image_url || item.image_url
-            }));
-          }
+            if (blogsData && blogsData.length > 0) {
+              loadedPosts = blogsData.map((item: any) => ({
+                ...item,
+                image_url: item.cover_image_url || item.image_url
+              }));
+            }
+          } catch (_) {}
         }
 
         if (loadedPosts.length > 0) {
