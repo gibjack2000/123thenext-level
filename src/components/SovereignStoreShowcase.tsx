@@ -6,7 +6,32 @@ import { Product, mapToProduct } from '../types';
 import { MOCK_PRODUCTS } from '../data/mockData';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { FlagUS, FlagUK, FlagES } from './MarketSelector';
-import HomeExpressShop from './HomeExpressShop';
+import HomeExpressShop, { EXPRESS_PRODUCTS } from './HomeExpressShop';
+import { resolveDiagnosticImage, getSmartImageFallback, withCacheBuster } from '../pages/Store';
+
+export function cleanProductImage(product: any, region: string = 'US'): string {
+  let url = product?.image_url || product?.imageUrl || '';
+  if (typeof url === 'string') {
+    url = url.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
+    if (url.startsWith('/Products/zelus') && !url.endsWith('.jpg')) url = '/Products/zelus.jpg';
+    if (url.startsWith('/Products/multifunctionabs') && !url.endsWith('.jpg')) url = '/Products/multifunctionabs.jpg';
+    if (url.startsWith('/Products/aerlang') && !url.endsWith('.jpg')) url = '/Products/aerlang.jpg';
+    if (url.startsWith('/Products/Yogamat') && !url.endsWith('.jpg')) url = '/Products/yogamat.jpg';
+    if (url.startsWith('/Products/vibrationplate') && !url.endsWith('.jpg')) url = '/Products/vibration.jpg';
+    if (url.startsWith('/Products/gritin') && !url.endsWith('.jpg')) url = '/Products/gritin.jpg';
+    if (url.startsWith('/Products/burever') && !url.endsWith('.jpg')) url = '/Products/burever.jpg';
+  }
+
+  const isAmazonGif = typeof url === 'string' && (url.includes('ssl-images-amazon') || url.includes('images-na.ssl-images-amazon'));
+  const isBroken = !url || isAmazonGif || (typeof url === 'string' && url.includes('lola_clinic_peak'));
+
+  if (isBroken) {
+    url = getSmartImageFallback(product, region as any);
+  }
+
+  const resolved = resolveDiagnosticImage(product, url, region as any);
+  return withCacheBuster(resolved);
+}
 
 const REGIONS = [
   { 
@@ -62,12 +87,40 @@ export const SovereignStoreShowcase: React.FC = () => {
   };
 
   useEffect(() => {
-    // 1. Seed instantly with curated high-rated products so ticker renders immediately
-    const initialPool = [...MOCK_PRODUCTS]
+    // 1. Seed instantly with curated high-rated products from verified catalog
+    const expressMapped: Product[] = EXPRESS_PRODUCTS.flatMap((ep) => {
+      return (['US', 'UK', 'ES'] as const).map(reg => {
+        const rc = ep.regions[reg];
+        const numPrice = parseFloat(rc.price.replace(/[^0-9.]/g, '')) || 29.99;
+        return {
+          id: `${ep.id}-${reg.toLowerCase()}`,
+          region: reg,
+          category: ep.categoryLabel || 'Supplements & Longevity Protocols',
+          product_name: ep.name,
+          amazon_asin: '',
+          amazon_url: rc.url || `/store-${reg.toLowerCase()}`,
+          image_url: cleanProductImage({ ...ep, image_url: ep.imageUrl }, reg),
+          short_benefit: ep.shortBenefit || rc.badge,
+          description: ep.description,
+          price: numPrice,
+          currency: reg === 'UK' ? 'GBP' : reg === 'ES' ? 'EUR' : 'USD',
+          rating: ep.rating || 4.8,
+          featured: true,
+          tags: [ep.category, ep.tag]
+        };
+      });
+    });
+
+    const mockPool = [...MOCK_PRODUCTS]
       .filter(p => p.rating && p.rating >= 4.0)
-      .slice(0, 16);
+      .map(p => ({
+        ...p,
+        image_url: cleanProductImage(p, p.region)
+      }));
+
+    const initialPool = [...expressMapped, ...mockPool];
     if (initialPool.length > 0) {
-      setShuffledTopPicks([...initialPool].sort(() => Math.random() - 0.5));
+      setShuffledTopPicks([...initialPool].sort(() => Math.random() - 0.5).slice(0, 20));
     }
 
     // 2. Fetch live affiliate products from Supabase
@@ -86,8 +139,14 @@ export const SovereignStoreShowcase: React.FC = () => {
           .limit(50);
 
         if (!amazonErr && amazonData && amazonData.length > 0) {
-          const mapped = amazonData.map(mapToProduct);
-          setShuffledTopPicks([...mapped].sort(() => Math.random() - 0.5).slice(0, 16));
+          const mapped = amazonData.map(p => {
+            const base = mapToProduct(p);
+            return {
+              ...base,
+              image_url: cleanProductImage(base, base.region)
+            };
+          });
+          setShuffledTopPicks([...mapped].sort(() => Math.random() - 0.5).slice(0, 20));
           return;
         }
 
@@ -99,23 +158,26 @@ export const SovereignStoreShowcase: React.FC = () => {
           .limit(50);
 
         if (!storeErr && storeProducts && storeProducts.length > 0) {
-          const fallbackMapped: Product[] = storeProducts.map((p: any) => ({
-            id: p.id,
-            region: (p.market_region as 'US' | 'UK' | 'ES') || 'US',
-            category: p.category || 'Clinical Hardware',
-            product_name: p.name,
-            amazon_asin: '',
-            amazon_url: p.deal_url || `/store-${(p.market_region || 'us').toLowerCase()}`,
-            image_url: p.image_url,
-            short_benefit: p.badge_text || '',
-            description: p.description || '',
-            price: parseFloat(p.price_text?.replace(/[^0-9.]/g, '') || '0') || 29.99,
-            currency: p.market_region === 'UK' ? 'GBP' : p.market_region === 'ES' ? 'EUR' : 'USD',
-            rating: Number(p.rating) || 4.8,
-            featured: true,
-            tags: []
-          }));
-          setShuffledTopPicks([...fallbackMapped].sort(() => Math.random() - 0.5).slice(0, 16));
+          const fallbackMapped: Product[] = storeProducts.map((p: any) => {
+            const reg = (p.market_region as 'US' | 'UK' | 'ES') || 'US';
+            return {
+              id: p.id,
+              region: reg,
+              category: p.category || 'Clinical Hardware',
+              product_name: p.name,
+              amazon_asin: '',
+              amazon_url: p.deal_url || `/store-${reg.toLowerCase()}`,
+              image_url: cleanProductImage(p, reg),
+              short_benefit: p.badge_text || '',
+              description: p.description || '',
+              price: parseFloat(p.price_text?.replace(/[^0-9.]/g, '') || '0') || 29.99,
+              currency: reg === 'UK' ? 'GBP' : reg === 'ES' ? 'EUR' : 'USD',
+              rating: Number(p.rating) || 4.8,
+              featured: true,
+              tags: []
+            };
+          });
+          setShuffledTopPicks([...fallbackMapped].sort(() => Math.random() - 0.5).slice(0, 20));
         }
       } catch (err) {
         console.warn('Live product fetch info:', err);
@@ -284,20 +346,17 @@ export const SovereignStoreShowcase: React.FC = () => {
 
                   {/* Product Image Box */}
                   <div className="aspect-square w-full bg-slate-950 rounded-xl mb-3 overflow-hidden p-2.5 flex items-center justify-center border border-slate-800/60 group-hover:border-slate-700 transition-colors relative">
-                    {product.image_url ? (
-                      <img 
-                        src={product.image_url} 
-                        alt={product.product_name} 
-                        className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500" 
-                        loading="lazy"
-                        referrerPolicy="no-referrer"
-                        onError={(e) => {
-                          (e.target as HTMLImageElement).src = '/assets/images/shop/sirtuin-stack.png';
-                        }}
-                      />
-                    ) : (
-                      <div className="text-3xl text-cyan-400">🧬</div>
-                    )}
+                    <img 
+                      src={cleanProductImage(product, regUpper)} 
+                      alt={product.product_name} 
+                      className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500" 
+                      loading="lazy"
+                      referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        const fallback = getSmartImageFallback(product, regUpper as any);
+                        (e.target as HTMLImageElement).src = withCacheBuster(fallback);
+                      }}
+                    />
                   </div>
 
                   {/* Title */}

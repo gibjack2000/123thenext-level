@@ -78,3 +78,4 @@ GRANT ALL ON TABLE public.publish_logs TO anon, authenticated, service_role;
 GRANT ALL ON TABLE public.publish_jobs TO anon, authenticated, service_role;
 
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO anon, authenticated, service_role;
+

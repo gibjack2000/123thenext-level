@@ -1123,6 +1123,21 @@ export default function AdminPage() {
               console.warn(`Column '${columnName}' not found in database. Retrying without it.`);
               currentData = { ...currentData };
               delete (currentData as any)[columnName];
+            } else if (
+              supabaseError.code === '23505' ||
+              supabaseError.message?.includes('duplicate key') ||
+              supabaseError.message?.includes('unique constraint') ||
+              supabaseError.message?.includes('slug')
+            ) {
+              const base = (currentData.slug || currentData.title || 'article')
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+              currentData = {
+                ...currentData,
+                slug: `${base}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`
+              };
+              continue;
             } else if ((supabaseError.message || '').includes('row-level security')) {
               // Server bypass via service role key
               try {

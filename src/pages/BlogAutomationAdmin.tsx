@@ -381,9 +381,15 @@ export default function BlogAutomationAdmin() {
   const handleGeneratePitchDraft = async (pitch: any) => {
     setGeneratingPitchId(pitch.id);
     try {
+      const baseSlug = (pitch.slug || pitch.title || 'clinical-masterclass')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+
       // 1. Check if this article already exists in local state or Supabase
       let existingMatch = allPosts.find(p =>
-        p.slug === pitch.slug ||
+        p.slug === baseSlug ||
+        p.slug?.startsWith(`${baseSlug}-`) ||
         (p.title && p.title.toLowerCase().trim() === pitch.title.toLowerCase().trim())
       );
 
@@ -392,7 +398,8 @@ export default function BlogAutomationAdmin() {
           const { data: dbMatch } = await supabase
             .from('blog_posts')
             .select('*')
-            .eq('slug', pitch.slug || '')
+            .or(`slug.eq.${baseSlug},title.ilike.${pitch.title.trim()}`)
+            .limit(1)
             .maybeSingle();
           if (dbMatch) existingMatch = dbMatch;
         } catch (_) {}
@@ -412,10 +419,6 @@ export default function BlogAutomationAdmin() {
         wellness: 'Wellness'
       };
       const cat = categoryMap[pitch.category] || 'Health';
-      const baseSlug = (pitch.slug || pitch.title || 'clinical-masterclass')
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/^-+|-+$/g, '');
       let slug = baseSlug;
       if (allPosts.some(p => p.slug === slug)) {
         slug = `${baseSlug}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
@@ -817,13 +820,21 @@ export default function BlogAutomationAdmin() {
     try {
       const { data: logsData } = await supabase.from('publish_logs').select('*').order('created_at', { ascending: false }).limit(20);
 
-      // Poll pipeline queue (with zero error crashes)
+      // Poll pipeline queue (with zero error crashes, filter out any error strings)
       try {
         const qRes = await fetch('/api/jobs/queue');
         if (qRes.ok) {
           const qData = await qRes.json();
           if (qData && typeof qData === 'object' && !qData.error) {
-            setQueueTopics(prev => ({ ...prev, ...qData }));
+            const cleanQueue: Record<string, string> = {};
+            for (const [k, v] of Object.entries(qData)) {
+              if (typeof v === 'string' && !v.toLowerCase().includes('error') && v.trim().length > 0) {
+                cleanQueue[k] = v.trim();
+              }
+            }
+            if (Object.keys(cleanQueue).length > 0) {
+              setQueueTopics(prev => ({ ...prev, ...cleanQueue }));
+            }
           }
         }
       } catch (_) {}
@@ -1067,7 +1078,9 @@ export default function BlogAutomationAdmin() {
             {['Health', 'Fitness', 'Nutrition', 'Wellness'].map((category) => {
               const job = pipelineJobs[category] || { status: 'idle' };
               const isRunning = job.running || job.status === 'running';
-              const nextTopic = queueTopics[category] || 
+              const rawQueue = queueTopics[category];
+              const validQueueTopic = (rawQueue && typeof rawQueue === 'string' && !rawQueue.toLowerCase().includes('error')) ? rawQueue : null;
+              const nextTopic = validQueueTopic || 
                 (weeklyPitches.find(p => (p.category || '').toLowerCase() === category.toLowerCase() && p.draftStatus !== 'drafted')?.title) ||
                 (category === 'Health' ? 'ApoB vs LDL Particle Count: Complete Cardiovascular Longevity Guide' :
                  category === 'Fitness' ? 'Zone 2 Cardio & Lactate Clearance: How Everyday Movement Transforms Your Cells' :
