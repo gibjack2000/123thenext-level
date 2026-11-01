@@ -172,7 +172,20 @@ export const StoreES: React.FC = () => {
   const clinicalPartners = filteredProducts.filter(p => 
     p.category === 'Clinical Diagnostics & Labs' || isDiagnosticProduct(p)
   );
-  const amazonProducts = filteredProducts.filter(p => !clinicalPartners.includes(p));
+  const isPremiumGuideProduct = (p: any) => {
+    const title = String(p.name || p.title || '').toLowerCase();
+    const id = String(p.id || '').toLowerCase();
+    const deal = String(p.deal_url || '').toLowerCase();
+    return (
+      title.includes('12-week metabolic') ||
+      title.includes('visceral fat protocol') ||
+      id.includes('metabolic-master-guide') ||
+      deal.includes('metabolic-visceral-fat') ||
+      deal.includes('/checkout?item=metabolic') ||
+      deal.includes('/checkout?product=')
+    );
+  };
+  const amazonProducts = filteredProducts.filter(p => !clinicalPartners.includes(p) && !isPremiumGuideProduct(p));
 
   return (
     <div className="min-h-screen bg-slate-950 text-white font-sans antialiased pt-28 pb-16 md:pt-36 md:pb-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">

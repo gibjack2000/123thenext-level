@@ -119,18 +119,6 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "checkout_instruction": "On the LOLA Health website, select the 'TruAge Test' to measure your cellular biological age, rate of ageing (DunedinPACE), and telomere length."
     },
     {
-      "id": "metabolic-master-guide-uk",
-      "name": "The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol",
-      "category": "Supplements & Nutraceuticals",
-      "rating": 4.98,
-      "description": "A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.",
-      "price_text": "£29.00",
-      "deal_url": "/checkout?item=metabolic-visceral-fat-protocol",
-      "market_region": "UK",
-      "badge_text": "PREMIUM MASTER GUIDE",
-      "image_url": "/assets/images/metabolic_nutrition_cover_New.png"
-    },
-    {
       "id": "reagent-strips-uk",
       "name": "ALLTEST 10-Parameter Clinical Urinalysis Dipsticks UK",
       "category": "Clinical Diagnostics & Labs",
@@ -962,18 +950,6 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "image_url": "/Products/clinical-epigenetic-kit.jpg"
     },
     {
-      "id": "metabolic-master-guide-us",
-      "name": "The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol",
-      "category": "Supplements & Nutraceuticals",
-      "rating": 4.98,
-      "description": "A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.",
-      "price_text": "£29.00",
-      "deal_url": "/checkout?item=metabolic-visceral-fat-protocol",
-      "market_region": "US",
-      "badge_text": "PREMIUM MASTER GUIDE",
-      "image_url": "/assets/images/metabolic_nutrition_cover_New.png"
-    },
-    {
       "id": "sleep-analyzer-us",
       "name": "Withings Sleep Analyzer Under-Mattress Pad",
       "category": "Smart Hardware & Wearables",
@@ -1574,18 +1550,6 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "market_region": "ES",
       "badge_text": "🇪🇸 ES (Melio/Megalab)",
       "image_url": "/Products/clinical-epigenetic-kit.jpg"
-    },
-    {
-      "id": "metabolic-master-guide-es",
-      "name": "The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol",
-      "category": "Supplements & Nutraceuticals",
-      "rating": 4.98,
-      "description": "A phased biometric blueprint to strip deep visceral organ fat, optimize glycemic control, and preserve skeletal muscle mass.",
-      "price_text": "£29.00",
-      "deal_url": "/checkout?item=metabolic-visceral-fat-protocol",
-      "market_region": "ES",
-      "badge_text": "PREMIUM MASTER GUIDE",
-      "image_url": "/assets/images/metabolic_nutrition_cover_New.png"
     },
     {
       "id": "sirtuin-stack-es",
@@ -2343,16 +2307,6 @@ export function normalizeStoreCategory(rawCategory: string | undefined, name?: s
   const cat = (rawCategory || '').toLowerCase().trim();
   const title = (name || '').toLowerCase();
   const deal = (dealUrl || '').toLowerCase();
-
-  // "The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol" is strictly Supplements & Nutraceuticals
-  if (
-    title.includes('12-week metabolic') ||
-    title.includes('visceral fat protocol') ||
-    deal.includes('metabolic-visceral-fat') ||
-    deal.includes('metabolic-master-guide')
-  ) {
-    return 'Supplements & Nutraceuticals';
-  }
 
   // Direct match for the 5 unified StoreCategory values
   if (cat === 'clinical diagnostics & labs') return 'Clinical Diagnostics & Labs';
@@ -3857,8 +3811,22 @@ export function Store({ region }: StoreProps = {}) {
     p.category === 'Clinical Diagnostics & Labs' || isDiagnosticProduct(p)
   );
 
+  const isPremiumGuideProduct = (p: any) => {
+    const title = String(p.name || p.title || '').toLowerCase();
+    const id = String(p.id || '').toLowerCase();
+    const deal = String(p.deal_url || '').toLowerCase();
+    return (
+      title.includes('12-week metabolic') ||
+      title.includes('visceral fat protocol') ||
+      id.includes('metabolic-master-guide') ||
+      deal.includes('metabolic-visceral-fat') ||
+      deal.includes('/checkout?item=metabolic') ||
+      deal.includes('/checkout?product=')
+    );
+  };
+
   const amazonHubProducts = filteredProducts.filter(p => 
-    !clinicalPartners.includes(p)
+    !clinicalPartners.includes(p) && !isPremiumGuideProduct(p)
   );
 
   // Group amazon products by category in the canonical 5-category order when "All" is active (excluding diagnostics to prevent duplicate headers)
