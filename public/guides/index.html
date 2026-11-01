@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,8 +9,8 @@
   
   <!-- Hreflang Regional Annotations -->
   <link rel="alternate" hreflang="en-gb" href="https://123thenextlevel.com/guides/uk-preventative-blood-tests/" />
-  <link rel="alternate" hreflang="en-us" href="https://123thenextlevel.com/guides/us-preventative-blood-tests/" />
-  <link rel="alternate" hreflang="es-es" href="https://123thenextlevel.com/guides/es-analisis-sangre-preventivos/" />
+  <link rel="alternate" hreflang="en-us" href="https://123thenextlevel.com/guides/us-doctor-blood-tests/" />
+  <link rel="alternate" hreflang="en-es" href="https://123thenextlevel.com/guides/spain-preventative-blood-tests/" />
   <link rel="alternate" hreflang="x-default" href="https://123thenextlevel.com/guides/" />
 
   <!-- Open Graph / Social Sharing -->
@@ -28,7 +28,7 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
 
   <!-- Structured Data (JSON-LD) -->
   <script type="application/ld+json">
@@ -47,12 +47,12 @@
       {
         "@type": "MedicalWebPage",
         "name": "How to Ask Your Doctor for Preventative Blood Tests in the US: The Complete Clinical Script & Biomarker Guide",
-        "url": "https://123thenextlevel.com/guides/us-preventative-blood-tests/"
+        "url": "https://123thenextlevel.com/guides/us-doctor-blood-tests/"
       },
       {
         "@type": "MedicalWebPage",
-        "name": "Cómo Solicitar Análisis Preventivos a Tu Médico de Cabecera: Protocolo y Guía de Biomarcadores en España",
-        "url": "https://123thenextlevel.com/guides/es-analisis-sangre-preventivos/"
+        "name": "Preventative Blood Tests in Spain: The Expat & Nomad Clinical Guide",
+        "url": "https://123thenextlevel.com/guides/spain-preventative-blood-tests/"
       }
     ]
   }
@@ -60,218 +60,611 @@
 
   <style>
     :root {
-      --bg-dark: #080c14;
-      --card-dark: #0f172a;
+      --bg: #080c14;
+      --card-bg: #111827;
       --card-border: rgba(255, 255, 255, 0.08);
-      --cyan-accent: #06b6d4;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent: #10b981;
+      --accent-hover: #059669;
+      --accent-cyan: #06b6d4;
       --cyan-glow: rgba(6, 182, 212, 0.15);
-      --amber-accent: #f59e0b;
-      --emerald-accent: #10b981;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
     }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
     body {
-      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-      background-color: var(--bg-dark);
-      color: #cbd5e1;
-      margin: 0;
-      padding: 0;
+      background-color: #080c14;
+      background-image: 
+        radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 85% 25%, rgba(16, 185, 129, 0.07) 0%, transparent 40%),
+        radial-gradient(circle at 15% 65%, rgba(59, 130, 246, 0.05) 0%, transparent 45%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      font-family: var(--font-sans);
       line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
-    h1, h2, h3, h4, .font-display {
-      font-family: 'Outfit', sans-serif;
-      color: #ffffff;
-      letter-spacing: -0.02em;
-    }
-    .font-mono {
-      font-family: 'JetBrains Mono', monospace;
-    }
-    .glass-card {
-      background: rgba(15, 23, 42, 0.75);
+
+    /* Fixed, Clean Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(8, 12, 20, 0.88);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      transition: all 0.3s ease;
+      border-bottom: 1px solid var(--card-border);
+      padding: 14px 24px;
     }
-    .glass-card:hover {
-      border-color: rgba(6, 182, 212, 0.35);
-      transform: translateY(-2px);
+
+    .nav-container {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
-    .gradient-text {
-      background: linear-gradient(135deg, #ffffff 0%, #38bdf8 50%, #818cf8 100%);
+
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.5px;
+    }
+
+    /* Strict Logo Constraints */
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      max-width: 32px;
+      max-height: 32px;
+      object-fit: contain;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    .brand-link span {
+      color: var(--accent-cyan);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .nav-item {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .nav-item:hover {
+      color: #ffffff;
+    }
+
+    .nav-cta {
+      padding: 6px 14px;
+      border-radius: 8px;
+      background: rgba(6, 182, 212, 0.15);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      color: var(--accent-cyan);
+      text-decoration: none;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+    .nav-cta:hover {
+      background: var(--accent-cyan);
+      color: #040810;
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 1160px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 56px 24px 80px 24px;
+    }
+
+    /* Hero Section */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 20px;
+    }
+
+    .hero-title {
+      font-size: 2.75rem;
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      color: #ffffff;
+    }
+
+    .hero-title .gradient-text {
+      background: linear-gradient(135deg, #ffffff 30%, #38bdf8 70%, #818cf8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: #94a3b8;
+      max-width: 720px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+
+    /* 3-Guide Cards Grid */
+    .guides-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    @media (min-width: 768px) {
+      .guides-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .guide-card {
+      background: linear-gradient(180deg, rgba(17, 24, 39, 0.75) 0%, rgba(15, 23, 42, 0.85) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-decoration: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .guide-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.5), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .guide-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(6, 182, 212, 0.4);
+      box-shadow: 0 16px 36px -4px rgba(6, 182, 212, 0.15), 0 0 0 1px rgba(6, 182, 212, 0.2);
+    }
+
+    .guide-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-top {
+      margin-bottom: 24px;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .region-flag {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
+    .region-tag {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--accent-cyan);
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.35;
+      margin-bottom: 12px;
+      transition: color 0.2s;
+    }
+
+    .guide-card:hover .card-title {
+      color: var(--accent-cyan);
+    }
+
+    .card-snippet {
+      font-size: 0.875rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    .card-cta {
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--accent-cyan);
+      font-size: 0.875rem;
+      font-weight: 700;
+    }
+
+    .card-cta span:last-child {
+      transition: transform 0.2s ease;
+    }
+
+    .guide-card:hover .card-cta span:last-child {
+      transform: translateX(4px);
+    }
+
+    /* Co-Pilot Download Banner */
+    .copilot-banner {
+      background: linear-gradient(135deg, #111827 0%, #0f172a 50%, #162438 100%);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.5);
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    @media (min-width: 840px) {
+      .copilot-banner {
+        grid-template-columns: 1.5fr 1fr;
+      }
+    }
+
+    .banner-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+
+    .banner-title {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+
+    .banner-desc {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .banner-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 10px;
+      background: var(--accent-cyan);
+      color: #040810;
+      font-weight: 800;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3);
+    }
+    .btn-primary:hover {
+      background: #38bdf8;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+    }
+
+    .preview-box {
+      background: rgba(8, 12, 20, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .preview-icon {
+      font-size: 2.75rem;
+      margin-bottom: 8px;
+    }
+
+    .preview-label {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .preview-sub {
+      font-size: 0.75rem;
+      color: #94a3af;
+      margin-top: 4px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--card-border);
+      background: #06090f;
+      padding: 28px 24px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    .footer-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    @media (min-width: 640px) {
+      .footer-inner {
+        flex-direction: row;
+      }
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-logo {
+      width: 20px;
+      height: 20px;
+      max-width: 20px;
+      max-height: 20px;
+      object-fit: contain;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 18px;
+    }
+
+    .footer-nav a {
+      color: #94a3af;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-nav a:hover {
+      color: var(--accent-cyan);
+    }
   </style>
 </head>
-<body class="selection:bg-cyan-500/20 selection:text-cyan-300">
+<body>
 
-  <!-- Header -->
-  <header class="w-full bg-slate-950/90 border-b border-white/5 py-4 px-4 sm:px-8">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
-      <a href="/" class="flex items-center gap-3 text-decoration-none" style="text-decoration:none;">
-        <img src="/assets/logo-icon.png" alt="123TheNextLevel" class="w-8 h-8 object-contain" />
-        <span class="font-display font-extrabold text-lg text-white tracking-tight">
-          123TheNext<span class="text-cyan-400">Level</span>
-        </span>
+  <!-- Sleek Fixed Navigation -->
+  <header>
+    <div class="nav-container">
+      <a href="https://123thenextlevel.com/" class="brand-link">
+        <img src="/assets/logo-icon.png" alt="123TheNextLevel Logo" class="brand-logo" />
+        <span>123TheNext<span style="color:#06b6d4;">Level</span></span>
       </a>
-      <div class="flex items-center gap-4 text-xs font-semibold">
-        <a href="/clinician-copilot" class="text-slate-300 hover:text-white" style="text-decoration:none;">🩺 Co-Pilot</a>
-        <a href="/library" class="text-slate-300 hover:text-white" style="text-decoration:none;">📁 Library</a>
-        <a href="/store" class="px-3.5 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500 hover:text-slate-950 font-bold transition-all" style="text-decoration:none;">Hardware &amp; Labs</a>
-      </div>
+      <nav class="nav-links">
+        <a href="/clinician-copilot" class="nav-item">🩺 Co-Pilot</a>
+        <a href="/library" class="nav-item">📁 Library</a>
+        <a href="/store" class="nav-cta">Hardware &amp; Labs</a>
+      </nav>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-14 pb-20">
-    <div class="text-center max-w-3xl mx-auto mb-16">
-      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-bold uppercase tracking-wider mb-5">
-        <span>Clinical Pillar Guides • Open Access Knowledge Base</span>
-      </div>
-      <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight mb-6">
-        Preventative Blood Testing &amp; <span class="gradient-text">Doctor Consultation Guides</span>
-      </h1>
-      <p class="text-slate-300 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
-        Bridge the gap between reactive healthcare systems and proactive longevity medicine. Select your region below to get exact clinician discussion scripts, biomarker matrices, and accredited direct phlebotomy pathways:
-      </p>
+  <!-- Main Content -->
+  <main>
+    
+    <div class="hero-badge">
+      <span>Clinical Pillar Guides • Open Access Knowledge Base</span>
     </div>
+    
+    <h1 class="hero-title">
+      Preventative Blood Testing &amp; <br />
+      <span class="gradient-text">Doctor Consultation Guides</span>
+    </h1>
+    
+    <p class="hero-desc">
+      Bridge the diagnostic gap between reactive healthcare systems and proactive longevity medicine. Select your region below to access 14-day vitals discussion scripts, optimal functional biomarker targets, and accredited direct phlebotomy pathways.
+    </p>
 
-    <!-- 3 Regional Pillar Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+    <!-- 3 Regional Guide Cards -->
+    <section class="guides-grid">
       
       <!-- UK Guide Card -->
-      <a href="/guides/uk-preventative-blood-tests/" class="glass-card p-6 flex flex-col justify-between block group" style="text-decoration:none;">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-3xl">🇬🇧</span>
-            <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded-full bg-cyan-500/20 text-cyan-300 font-bold">United Kingdom</span>
+      <a href="/guides/uk-preventative-blood-tests/" class="guide-card">
+        <div class="card-top">
+          <div class="card-meta">
+            <span class="region-flag">🇬🇧</span>
+            <span class="region-tag">United Kingdom</span>
           </div>
-          <h2 class="text-xl font-extrabold text-white group-hover:text-cyan-300 transition-colors mb-3 leading-snug">
-            How to Ask Your GP for Preventative Blood Tests in the UK
-          </h2>
-          <p class="text-xs text-slate-400 leading-relaxed mb-6">
-            Complete NHS GP script, NICE guideline breakdown, ApoB vs LDL cholesterol, fasting insulin, and direct UKAS phlebotomy alternatives (LOLA Vital Check 56).
+          <h2 class="card-title">How to Ask Your GP for Preventative Blood Tests (UK)</h2>
+          <p class="card-snippet">
+            Complete NHS GP script, NICE guideline breakdown, ApoB vs. standard LDL cholesterol, fasting insulin thresholds, and direct UKAS phlebotomy alternatives (LOLA Vital Check 56).
           </p>
         </div>
-        <div>
-          <div class="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-bold text-cyan-400 group-hover:translate-x-1 transition-transform">
-            <span>Read NHS Guide &amp; Script</span>
-            <span>➔</span>
-          </div>
+        <div class="card-cta">
+          <span>Read NHS Guide &amp; Script</span>
+          <span>➔</span>
         </div>
       </a>
 
       <!-- US Guide Card -->
-      <a href="/guides/us-doctor-blood-tests/" class="glass-card p-6 flex flex-col justify-between block group" style="text-decoration:none;">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-3xl">🇺🇸</span>
-            <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded-full bg-cyan-500/20 text-cyan-300 font-bold">United States</span>
+      <a href="/guides/us-doctor-blood-tests/" class="guide-card">
+        <div class="card-top">
+          <div class="card-meta">
+            <span class="region-flag">🇺🇸</span>
+            <span class="region-tag">United States</span>
           </div>
-          <h2 class="text-xl font-extrabold text-white group-hover:text-cyan-300 transition-colors mb-3 leading-snug">
-            How to Ask Your Doctor for Preventative Blood Tests (US)
-          </h2>
-          <p class="text-xs text-slate-400 leading-relaxed mb-6">
-            Navigating HMO/PPO preventive coding limitations, USPSTF guidelines, CPT code rejection avoidance, and walk-in Quest/Labcorp 56-biomarker draws via HealthLabs.
+          <h2 class="card-title">How to Ask Your Doctor for Preventative Blood Tests (US)</h2>
+          <p class="card-snippet">
+            Navigating ACA preventive coding limitations, avoiding insurance claim denials, understanding CPT codes, and ordering walk-in Quest/Labcorp panels via HealthLabs.
           </p>
         </div>
-        <div>
-          <div class="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-bold text-cyan-400 group-hover:translate-x-1 transition-transform">
-            <span>Read US Guide &amp; Script</span>
-            <span>➔</span>
-          </div>
+        <div class="card-cta">
+          <span>Read US Guide &amp; Script</span>
+          <span>➔</span>
         </div>
       </a>
 
       <!-- Spain Guide Card -->
-      <a href="/guides/spain-preventative-blood-tests/" class="glass-card p-6 flex flex-col justify-between block group" style="text-decoration:none;">
-        <div>
-          <div class="flex items-center justify-between mb-4">
-            <span class="text-3xl">🇪🇸</span>
-            <span class="text-[10px] font-mono uppercase px-2.5 py-1 rounded-full bg-cyan-500/20 text-cyan-300 font-bold">Spain (English Expat)</span>
+      <a href="/guides/spain-preventative-blood-tests/" class="guide-card">
+        <div class="card-top">
+          <div class="card-meta">
+            <span class="region-flag">🇪🇸</span>
+            <span class="region-tag">Spain (English Expat)</span>
           </div>
-          <h2 class="text-xl font-extrabold text-white group-hover:text-cyan-300 transition-colors mb-3 leading-snug">
-            Preventative Blood Tests in Spain: The Expat &amp; Nomad Guide
-          </h2>
-          <p class="text-xs text-slate-400 leading-relaxed mb-6">
-            Navigating Seguridad Social &amp; private mutuas (Sanitas, Adeslas), English-speaking clinics, and direct walk-in testing at 160+ Eurofins Megalab locations.
+          <h2 class="card-title">Preventative Blood Tests in Spain: Expat &amp; Nomad Guide</h2>
+          <p class="card-snippet">
+            100% in English. Navigating Seguridad Social &amp; private mutuas (Sanitas, Adeslas), booking English-speaking clinics, and direct walk-in testing at 160+ Eurofins Megalab locations.
           </p>
         </div>
-        <div>
-          <div class="pt-4 border-t border-white/10 flex items-center justify-between text-xs font-bold text-cyan-400 group-hover:translate-x-1 transition-transform">
-            <span>Read Spain Expat Guide</span>
-            <span>➔</span>
-          </div>
+        <div class="card-cta">
+          <span>Read Spain Expat Guide</span>
+          <span>➔</span>
         </div>
       </a>
-    </div>
 
-    <!-- Free Tools Banner -->
-    <div class="p-8 sm:p-10 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900/90 to-cyan-950/40 border border-white/10 relative overflow-hidden">
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-        <div class="md:col-span-8 space-y-3">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-mono font-bold uppercase">
-            <span>Free Open-Access Tools ($0.00)</span>
-          </div>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-white m-0">
-            Download the Clinician Co-Pilot Consultation Suite
-          </h2>
-          <p class="text-sm text-slate-300 max-w-xl leading-relaxed">
-            Standardized 14-day vitals telemetry logging grid, physician discussion scripts, and complete laboratory diagnostic codes.
-          </p>
-          <div class="pt-2 flex flex-wrap gap-4">
-            <a 
-              href="/assets/docs/clinical-baseline-consultation-template-v2.pdf" 
-              download="clinical-baseline-consultation-template-v2.pdf" 
-              class="px-5 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md"
-              style="text-decoration:none;"
-            >
-              📥 Download Doctor Script PDF
-            </a>
-            <a 
-              href="/the-next-level-lifespan-2026.pdf" 
-              download="the-next-level-lifespan-2026.pdf" 
-              class="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs uppercase tracking-wider border border-white/10 transition-all"
-              style="text-decoration:none;"
-            >
-              📄 28-Page Blueprint PDF
-            </a>
-            <a 
-              href="/clinician-copilot" 
-              class="px-5 py-3 rounded-xl bg-slate-800/60 hover:bg-slate-700 text-cyan-300 font-bold text-xs uppercase tracking-wider border border-cyan-500/30 transition-all"
-              style="text-decoration:none;"
-            >
-              Interactive Online Co-Pilot ➔
-            </a>
-          </div>
-        </div>
-        <div class="md:col-span-4 text-center">
-          <div class="p-4 rounded-xl bg-slate-950 border border-white/10 inline-block shadow-xl">
-            <div class="text-5xl mb-2">📋</div>
-            <div class="text-xs font-mono text-cyan-400 font-bold uppercase">Validated Template</div>
-            <div class="text-[11px] text-slate-400 mt-1">4 Pages • Printable Grid</div>
-          </div>
+    </section>
+
+    <!-- Free Tools Co-Pilot Banner -->
+    <section class="copilot-banner">
+      <div>
+        <span class="banner-badge">Free Open-Access Tools ($0.00)</span>
+        <h2 class="banner-title">Download the Clinician Co-Pilot Consultation Suite</h2>
+        <p class="banner-desc">
+          Download our standardized 14-day vitals telemetry logging grid, physician discussion scripts, and complete laboratory diagnostic codes.
+        </p>
+        <div class="banner-buttons">
+          <a 
+            href="/assets/docs/clinical-baseline-consultation-template-v2.pdf" 
+            download="clinical-baseline-consultation-template-v2.pdf" 
+            class="btn-primary"
+          >
+            📥 Doctor Script PDF
+          </a>
+          <a 
+            href="/assets/docs/the-next-level-lifespan-2026.pdf" 
+            download="the-next-level-lifespan-2026.pdf" 
+            class="btn-secondary"
+          >
+            📄 28-Page Blueprint
+          </a>
+          <a 
+            href="/clinician-copilot" 
+            class="btn-secondary"
+            style="border-color: rgba(6, 182, 212, 0.4); color: var(--accent-cyan);"
+          >
+            Online Co-Pilot ➔
+          </a>
         </div>
       </div>
-    </div>
+
+      <div class="preview-box">
+        <div class="preview-icon">📋</div>
+        <div class="preview-label">Validated Clinical Template</div>
+        <div class="preview-sub">4-Page Printable Vitals &amp; Lab Matrix</div>
+      </div>
+    </section>
+
   </main>
 
   <!-- Site Footer -->
-  <footer class="w-full bg-slate-950 border-t border-white/5 py-10 px-4 text-xs text-slate-400">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
-        <img src="/assets/logo-icon.png" alt="Logo" class="w-5 h-5 object-contain" />
-        <span class="text-white font-bold">123TheNextLevel</span>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="/assets/logo-icon.png" alt="123TheNextLevel Logo" class="footer-logo" />
+        <span style="color:#ffffff; font-weight:700;">123TheNextLevel</span>
         <span>• Proactive Longevity Systems</span>
       </div>
-      <div class="flex items-center gap-4 font-mono text-[11px]">
-        <a href="/store" class="hover:text-cyan-400" style="text-decoration:none;">Store</a>
-        <a href="/library" class="hover:text-cyan-400" style="text-decoration:none;">Library</a>
-        <a href="/clinician-copilot" class="hover:text-cyan-400" style="text-decoration:none;">Co-Pilot</a>
-        <a href="/" class="hover:text-cyan-400" style="text-decoration:none;">Home</a>
+      <div class="footer-nav">
+        <a href="/store">Store</a>
+        <a href="/library">Library</a>
+        <a href="/clinician-copilot">Co-Pilot</a>
+        <a href="/">Home</a>
       </div>
     </div>
   </footer>
+
 </body>
 </html>
-
