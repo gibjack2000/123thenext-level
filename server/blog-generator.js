@@ -72,18 +72,19 @@ export async function processCategoryJob(category) {
     // Generate AI Content
     const model = genAI.getGenerativeModel({ model: 'gemini-2.5-pro' });
     const prompt = `
-      Act as an expert SEO blog writer for the ${category} niche.
-      Write a highly engaging, well-structured, production-ready blog post.
+      Act as an expert health and longevity writer for the ${category} niche.
+      Write a highly engaging, well-structured, production-ready blog post in clear, simple layman terms.
       Title: ${title}
       Keywords to include: ${keywords}
-      Tone: ${tone}
-      Audience: ${audience}
+      Tone: ${tone} (warm, encouraging, friendly, and easy to understand)
+      Audience: ${audience} (general public, everyday readers seeking practical longevity guidance)
       Call to action at the end: ${cta}
       
       Requirements:
-      - Start with a compelling introduction.
+      - Start with a compelling, relatable introduction using everyday analogies.
+      - Use simple, accessible vocabulary throughout. Avoid dense medical-school jargon; explain complex health concepts in plain English so any reader can easily understand and act on them.
       - Use proper HTML headings (<h2>, <h3>).
-      - Include bullet points where relevant.
+      - Include bullet points and easy action steps where relevant.
       - Output ONLY HTML content, without markdown wrappers like \`\`\`html.
       - Ensure the final output is clean HTML ready for a CMS.
     `;

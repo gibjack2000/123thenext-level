@@ -1,19 +1,20 @@
 /**
  * Clinical Masterclass Article Generator Engine
- * Generates authoritative, 2,000+ word clinical longevity masterclasses with:
- * - Executive Direct Clinical Answer (Google Featured Snippet optimized)
- * - ASCII Diagnostic Telemetry & Pathway Architecture Flowcharts
- * - In-depth Biochemical & Pathophysiological Mechanisms
- * - Biomarker Comparison Matrix (Standard Reactive vs. Optimal Longevity Targets)
- * - The Universal 3-Tier Clinical Model (Public PCP vs. Private vs. Direct Phlebotomy)
- * - Verbatim Doctor Consultation Scripts (Word-for-Word dialogue)
- * - Step-by-Step 3-Phase Clinical Action Protocol (Phase 1 Audit, Phase 2 Intervention, Phase 3 Calibration)
- * - Interactive Clinical Self-Audit Checklist
- * - Interactive Biometric Self-Audit Callouts (/health-quiz)
+ * Generates authoritative, 2,000+ word longevity masterclasses written in:
+ * - Simple, easy-to-understand layman terms with relatable everyday analogies
+ * - Clear Executive Summary (Google Featured Snippet optimized)
+ * - Simple Visual ASCII Systems Flowcharts
+ * - The Science in Plain English (explaining what's happening inside the body)
+ * - Key Health Numbers: Standard Reactive vs. Optimal Longevity Targets
+ * - Navigating Healthcare: 3 Easy Ways to Get Tested
+ * - Word-for-Word Doctor Talking Points (friendly, confident scripts)
+ * - 3-Phase Step-by-Step Practical Action Plan
+ * - Simple Action Checklist
  * - Free Clinician Co-Pilot 4-Page PDF Workbook Callouts (/clinician-copilot)
- * - Dynamic Regional Protocol Fuel Hubs (US, UK, Spain)
- * - Search-Intent Clinical FAQs (FAQPage schema compatible)
- * - Peer-Reviewed Academic Bibliography & Citations
+ * - Health Baseline Quiz Callout (/health-quiz)
+ * - Verified Regional Lab & Equipment Hubs (US, UK, Spain)
+ * - Common Questions & Clear Answers (FAQPage schema compatible)
+ * - Scientific Studies & Medical Bibliography
  */
 
 export interface PitchInput {
@@ -57,418 +58,373 @@ interface TopicBlueprint {
   citations: string[];
 }
 
-// Curated specialized blueprints for high-intent clinical domains
+// Curated specialized blueprints for high-intent longevity domains in plain English
 const TOPIC_BLUEPRINTS: Record<string, Partial<TopicBlueprint>> = {
   // --- HEALTHSPAN INTELLIGENCE ---
   apob: {
-    subtitle: "Particle Concentration, Atherogenic Lipoproteins & Endothelial Retention",
-    directAnswer: "Apolipoprotein B (ApoB) measures the exact number of circulating atherogenic particles—including LDL, VLDL, and IDL. Because standard calculated LDL-C only estimates the cholesterol mass inside particles, up to 30% of adults with 'normal' LDL have high ApoB, harboring silent atherosclerotic plaque buildup. Optimal preventive longevity targets demand an ApoB below 60 mg/dL (or below 50 mg/dL for individuals with family history), whereas conventional reactive guidelines only flag risks when values exceed 90-100 mg/dL.",
+    subtitle: "Protecting Your Arteries: The True Number Behind Heart Health",
+    directAnswer: "Think of cholesterol in your blood like cargo, and the particles carrying it like delivery trucks driving down a highway. Standard cholesterol tests (like calculated LDL) only weigh the cargo inside the trucks. But ApoB counts the actual number of delivery trucks on the road. This matters because plaque doesn't build up from loose cholesterol—it builds up when too many trucks bump into and get stuck inside your artery walls. Up to 30% of adults have 'normal' standard cholesterol but dangerously high ApoB levels, quietly accumulating arterial plaque. For optimal long-term heart health, preventive experts recommend an ApoB below 60 mg/dL, whereas routine checkups usually only flag problems when it climbs above 90–100 mg/dL.",
     asciiDiagram: `===================================================================================
-                   ATHEROGENIC APOB PARTICLES VS. ENDOTHELIAL RETENTION
+                   HOW ARTERY-CLOGGING PARTICLES GET TRAPPED (PLAIN ENGLISH)
 ===================================================================================
 
-  [ Systemic Circulation ]      [ Sub-Endothelial Space ]       [ Plaque Cascade ]
-   +-----------------------+     +--------------------------+    +----------------------+
-   | High ApoB Particle    | ==> | Transcytosis Across      | => | Macrophage Uptake    |
-   | Concentration (>90mg) |     | Arterial Endothelium     |    | (Scavenger Receptors)|
-   +-----------------------+     +--------------------------+    +----------------------+
-               |                              |                             |
-               v                              v                             v
-   [ Conventional LDL-C ]        [ Proteoglycan Trapping ]       [ Foam Cell Formation  ]
-   (Misleading Mass Est.)        (Oxidation by ROS/Myelo.)       (Fibrous Core & CAC)
+  [ Highway: Your Bloodstream ]     [ Road Wall: Artery Lining ]     [ Traffic Jam: Plaque Buildup ]
+   +--------------------------+     +--------------------------+     +---------------------------+
+   | Too Many Delivery Trucks | ==> | Trucks Slip Through the  | ==> | White Blood Cells Try to  |
+   | (ApoB Particles > 90mg)  |     | Delicate Artery Wall     |     | Clean Up & Form Foam Cells|
+   +--------------------------+     +--------------------------+     +---------------------------+
+                 |                                |                                |
+                 v                                v                                v
+   [ Old-School LDL Test ]          [ Particles Get Stuck ]          [ Hard Plaque Forms ]
+   (Only weighs cargo, misses       (Like dirt caught in carpet,     (Restricts blood flow,
+    the true truck count)            particles 'rust' & oxidize)      raises blood pressure)
 ===================================================================================`,
     mechanisms: [
-      "**ApoB-100 Molecular Stoichiometry:** Every atherogenic lipoprotein particle (LDL, VLDL, IDL, and Lp(a)) contains exactly one molecule of Apolipoprotein B-100 on its surface. Therefore, quantifying serum ApoB provides a true 1:1 census of particles circulating in your bloodstream, eliminating the confounding errors of the Friedewald calculated LDL formula.",
-      "**Endothelial Transcytosis & Proteoglycan Binding:** Plaque formation is primarily driven by particle concentration rather than cholesterol volume. High particle density dramatically accelerates the stochastic passage of ApoB particles across the arterial endothelial monolayer via caveolae. Once inside the intima, positively charged arginine and lysine residues on ApoB bind tightly to negatively charged sub-endothelial chondroitin sulfate proteoglycans.",
-      "**Oxidative Modification & Foam Cell Cascade:** Trapped particles undergo enzymatic and non-enzymatic oxidation by myeloperoxidase (MPO) and reactive oxygen species (ROS). Scavenger receptors on tissue macrophages recognize these oxidized epitopes, engulfing them unregulated until they become lipid-laden foam cells, initiating the fatty streak.",
-      "**Discordance Analysis:** In metabolic syndrome, insulin resistance, or elevated triglycerides, LDL particles become small and dense (sdLDL). While cholesterol mass (LDL-C) may appear deceptively normal (e.g., 95 mg/dL), particle number (ApoB) can be severely elevated (>110 mg/dL), indicating substantial hidden vascular hazard."
+      "**One Tracking Tag Per Truck (Why ApoB Never Lies):** Every single particle in your blood capable of clogging an artery—whether it's called LDL, VLDL, or IDL—carries exactly one ApoB protein on its surface. It's like having a unique license plate on every truck. By testing ApoB, your lab performs an exact 1-to-1 head count of artery-clogging particles, eliminating the guesswork and formulas used in standard cholesterol tests.",
+      "**How Artery Walls Trap Particles (The Carpet Analogy):** Your arteries have a delicate inner lining called the endothelium. When the concentration of ApoB trucks in your bloodstream is too high, more of them randomly bump into this wall and slip underneath. Once inside, positive charges on the particles stick to negative fibers in the wall—just like fine dust particles clinging to the fibers of a deep shag carpet.",
+      "**Rusting Inside the Wall (The Plaque Cascade):** Once a particle is trapped inside your artery wall, it oxidizes—very similar to how oxygen causes iron to rust or an apple slice to turn brown. Your immune system sees this 'rusty' fat as an intruder and sends defender white blood cells (macrophages) to swallow it. But these cells gorge themselves until they become swollen 'foam cells', creating the fatty streaks that eventually harden into dangerous plaque.",
+      "**The Trap of 'Normal' Cholesterol Numbers:** Millions of people are falsely reassured because their regular LDL-C number looks fine (for example, 95 mg/dL). But if you have lots of small, dense particles instead of a few large fluffy ones, you might carry 120 mg/dL of ApoB trucks on the road. Testing your ApoB removes the blindfold so you can protect your heart decades before an event occurs."
     ],
     biomarkerTable: [
-      { marker: "Apolipoprotein B (ApoB)", standardRange: "< 90 - 100 mg/dL", optimalRange: "< 55 - 60 mg/dL", rationale: "Definitively halts sub-endothelial particle retention and stabilizes existing fibrous cap architecture." },
-      { marker: "Calculated LDL-C", standardRange: "< 100 - 130 mg/dL", optimalRange: "< 70 mg/dL", rationale: "Standard surrogate marker; susceptible to discordance in metabolic resistance." },
-      { marker: "Lipoprotein(a) [Lp(a)]", standardRange: "< 75 nmol/L (< 30 mg/dL)", optimalRange: "< 30 nmol/L (< 14 mg/dL)", rationale: "Genetically determined pro-thrombotic atherogenic particle carrying oxidised phospholipids." },
-      { marker: "ApoB / ApoA1 Ratio", standardRange: "< 0.80", optimalRange: "< 0.55", rationale: "Direct ratio of atherogenic to protective reverse-cholesterol-transport particles." },
-      { marker: "High-Sensitivity CRP", standardRange: "< 3.0 mg/L", optimalRange: "< 0.5 mg/L", rationale: "Vascular endothelial inflammatory driver promoting fibrous cap erosion." }
+      { marker: "Apolipoprotein B (ApoB)", standardRange: "Under 90 - 100 mg/dL", optimalRange: "Under 55 - 60 mg/dL", rationale: "Stops delivery trucks from getting trapped in your artery walls and stabilizes existing blood vessels." },
+      { marker: "Standard LDL Cholesterol", standardRange: "Under 100 - 130 mg/dL", optimalRange: "Under 70 mg/dL", rationale: "The classic lab number; helpful, but only weighs cholesterol cargo rather than counting particle numbers." },
+      { marker: "Lipoprotein(a) [Lp(a)]", standardRange: "Under 75 nmol/L (30 mg/dL)", optimalRange: "Under 30 nmol/L (14 mg/dL)", rationale: "A genetic heart risk marker you only need to check once in your lifetime." },
+      { marker: "High-Sensitivity CRP (hs-CRP)", standardRange: "Under 3.0 mg/L", optimalRange: "Under 0.5 mg/L", rationale: "Measures low-grade, silent inflammation irritating your blood vessel walls." },
+      { marker: "Triglyceride-to-HDL Ratio", standardRange: "Under 3.0", optimalRange: "Under 1.2", rationale: "A simple indicator of whether your particles are small and dense or large and healthy." }
     ],
     statutoryScripts: {
-      opening: "Doctor, given modern cardiovascular guidelines from the European Society of Cardiology and the American College of Cardiology, I want to assess my actual atherogenic particle concentration rather than an estimated LDL calculation. Could we order an Apolipoprotein B (ApoB) test on my standard blood panel?",
-      gatekeeperRebuttal: "I understand that local primary care protocols default to standard lipid profiles. However, cardiovascular disease remains the primary risk factor for preventable morbidity. If our local statutory system cannot cover ApoB under routine checks, could you note the requisition code on my paperwork, or I will gladly self-requisition via direct private phlebotomy."
+      opening: "Doctor, I'm taking a proactive approach to my long-term heart health. Recent cardiovascular guidelines show that counting the actual particle number with an ApoB blood test is more accurate than calculated LDL. Could we please add an Apolipoprotein B test to my routine blood panel?",
+      gatekeeperRebuttal: "I understand that standard physicals usually stick with the classic lipid panel for cost reasons. But because heart disease runs in families and prevention is my top priority, I'd really value knowing my true particle count. If the routine clinic can't cover it, would you mind writing the requisition so I can take it to a private walk-in lab?"
     },
     protocolPhases: {
-      phase1: "**Baseline Quantification (Days 1–7):** Requisition a direct fasting ApoB, Lp(a), and high-sensitivity CRP panel. Audit current saturated fat intake vs. extra-virgin olive oil monounsaturated fats.",
-      phase2: "**Active Lipid Engineering (Weeks 2–8):** Increase daily viscous soluble fiber (psyllium husk, acacia, beta-glucans) to 15-20g daily. Restrict saturated fats to <7% of total caloric intake. If baseline ApoB is >90 mg/dL with positive CAC scan, discuss pharmacotherapy (statin/ezetimibe/bempedoic acid) with your clinical physician.",
-      phase3: "**Longitudinal Calibration (Week 12+):** Re-test ApoB at steady-state. If particle concentration is <60 mg/dL, schedule an annual maintenance audit."
+      phase1: "**Step 1: Check Your Starting Numbers (Days 1–7):** Get a morning fasting blood test that includes ApoB, a one-time Lipoprotein(a) check, and high-sensitivity CRP. Take a close look at your daily fats: swap butter and heavy processed foods for extra-virgin olive oil and avocados.",
+      phase2: "**Step 2: Simple Nutrition Upgrades (Weeks 2–8):** Add 15 to 20 grams of gentle, natural soluble fiber to your daily diet (such as psyllium husk, rolled oats, chia seeds, and beans). Soluble fiber acts like a natural sponge in your gut, binding to bile acids and helping your liver flush out excess cholesterol trucks.",
+      phase3: "**Step 3: Check Your Progress (Week 12 and Beyond):** Re-test your ApoB after 8 to 12 weeks of consistent habits. Once your number drops into the optimal green zone (below 60 mg/dL), you only need to re-check it once a year to stay confident."
     },
     checklist: [
-      "Fasting ApoB blood test completed and quantified in mg/dL or g/L",
-      "Lipoprotein(a) checked at least once in adult life to rule out genetic cardiovascular risk",
-      "Coronary Artery Calcium (CAC) CT scan discussed if aged 38+ with positive family history",
-      "Dietary soluble fiber titrated to 15g+ daily to promote bile acid excretion"
+      "Fasting ApoB blood test ordered and recorded in your personal health log",
+      "Lipoprotein(a) checked once to rule out inherited genetic family risk",
+      "Coronary Artery Calcium (CAC) heart scan discussed with doctor if over age 40",
+      "Daily soluble fiber increased to 15g+ per day using natural whole foods and oats"
     ],
     faqs: [
-      { q: "Why doesn't my regular NHS or HMO physical include ApoB automatically?", a: "Standard healthcare systems operate under reactive population health guidelines designed decades ago around the cheapest assay: the Friedewald calculated LDL formula. While calculated LDL costs pennies, ApoB requires immunoturbidimetric testing. Statutory guidelines often wait until an adverse cardiac event occurs before upgrading diagnostic precision." },
-      { q: "Can diet alone reduce ApoB into the optimal longevity zone (<60 mg/dL)?", a: "Dietary modulation (replacing saturated fats with extra-virgin olive oil polyunsaturated fats, eliminating trans-fats, and consuming 15g+ of daily soluble fiber) typically reduces ApoB by 15-25%. However, genetic receptor variants (such as PCSK9 clearance rates) often require pharmaceutical or nutraceutical protocols to reach aggressive longevity targets." },
-      { q: "What is the difference between ApoB and Lipoprotein(a)?", a: "Lipoprotein(a) is a specialized, highly atherogenic variant of LDL that has an additional apolipoprotein(a) glycoprotein tail attached. While ApoB measures ALL atherogenic particles, Lp(a) is an independent genetic risk factor that only needs to be measured once in a lifetime." },
-      { q: "How often should I re-test my ApoB levels?", a: "Once an active nutrition, exercise, or lipid-lowering protocol is initiated, ApoB reaches steady-state concentrations within 4 to 6 weeks. An annual audit is recommended once you are within your optimal target range." }
+      { q: "Why doesn't my regular family doctor order ApoB automatically?", a: "Standard healthcare systems were designed decades ago around the cheapest routine test: the estimated LDL formula. While that old formula costs almost nothing for insurance to process, ApoB requires specialized lab testing. Routine clinics often wait until someone already shows symptoms before upgrading to high-precision tests." },
+      { q: "Can healthy eating alone drop my ApoB into the ideal zone?", a: "Eating a clean Mediterranean diet rich in extra-virgin olive oil, cutting out trans-fats, and eating 15 grams of soluble fiber daily typically lowers ApoB by 15% to 25%. If your numbers are higher due to genetics, your doctor can also discuss gentle medical options to get you fully protected." },
+      { q: "What is the difference between ApoB and Lipoprotein(a)?", a: "Think of ApoB as counting ALL the delivery trucks on your highway. Lipoprotein(a), or Lp(a), is a special genetic truck that has a sticky hook attached to it. Because your Lp(a) level is set by your DNA at birth, you only need to test it once in your life to know your baseline." },
+      { q: "How long does it take for ApoB numbers to improve?", a: "Your body recycles particles quickly. Once you improve your diet or start an intervention, your blood levels adjust within 4 to 6 weeks. A follow-up test at 8 to 12 weeks gives you a clear, rewarding look at your progress." }
     ],
     citations: [
       "Sniderman, A. D., et al. (2019). 'Apolipoprotein B Particles and Cardiovascular Risk.' JAMA Cardiology, 4(12), 1287-1295.",
       "Marston, N. A., et al. (2022). 'Predicting Cardiovascular Events With Apolipoprotein B Versus Low-Density Lipoprotein Cholesterol.' Circulation, 144(21), 1695-1701.",
-      "Ference, B. A., et al. (2017). 'Low-density lipoproteins cause atherosclerotic cardiovascular disease.' European Heart Journal, 38(32), 2459-2472.",
-      "Boran, G., et al. (2021). 'Discordance between Apolipoprotein B and LDL-Cholesterol: Clinical Implications.' Annals of Clinical Biochemistry, 58(4), 312-320."
-    ]
-  },
-
-  mri: {
-    subtitle: "Diffusion-Weighted MRI, Incidentaloma Triage & Early Neoplasm Surveillance",
-    directAnswer: "Whole-body magnetic resonance imaging (MRI) utilizing diffusion-weighted imaging with background body signal suppression (DWIBS) provides radiation-free structural screening across all major organ systems. However, up to 35-40% of asymptomatic adults scanned will reveal an 'incidentaloma'—a benign finding such as a liver hemangioma, renal cyst, or thyroid nodule. Navigating whole-body MRI successfully requires a structured clinical triage framework to prevent unnecessary invasive biopsies while catching early-stage solid tumors and aortic aneurysms.",
-    asciiDiagram: `===================================================================================
-                   WHOLE-BODY MRI INCIDENTALOMA CLINICAL TRIAGE
-===================================================================================
-
-  [ Whole-Body DWIBS Scan ]     [ Radiologic Risk Stratification ]   [ Clinical Action Path ]
-   +-----------------------+     +--------------------------+         +----------------------+
-   | High-Field 3T MR Scans| ==> | Category 1: Benign Cyst  | ======> | Discharge / Reassure |
-   | Brain to Mid-Thigh    |     | Category 2: Intermediate | ======> | 6-Mo Targeted MRI    |
-   +-----------------------+     | Category 3: High Susp.   | ======> | Oncology Specialist  |
-                                 +--------------------------+         +----------------------+
-===================================================================================`,
-    mechanisms: [
-      "**Diffusion-Weighted Imaging (DWIBS):** High-field 3 Tesla MRI utilizes water molecule Brownian motion restriction to identify hyper-cellular tissue architecture, differentiating dense neoplasms from benign fluid-filled cysts without ionizing radiation.",
-      "**Incidentaloma Cascade Management:** Finding an unexpected asymptomatic anomaly can induce acute psychological distress. Modern clinical protocols categorize findings into benign Tier 1 (simple cysts, hemangiomas requiring zero intervention), Tier 2 (indeterminate lesions requiring scheduled 6-month non-invasive follow-up), and Tier 3 (actionable solid tumors or vascular aneurysms).",
-      "**Aortic & Intracranial Aneurysm Detection:** Silent thoracic and abdominal aortic dilation (>4.0 cm) and cerebral berry aneurysms are 100% asymptomatic until catastrophic dissection or rupture. MRI screening identifies these vascular anomalies years before emergency intervention.",
-      "**False Positive Mitigation Protocol:** To prevent unnecessary exploratory surgeries, any indeterminate finding must first be evaluated with targeted multi-parametric ultrasound or contrast-enhanced organ-specific imaging before invasive tissue biopsy is considered."
-    ],
-    biomarkerTable: [
-      { marker: "Whole-Body MRI Ionizing Radiation", standardRange: "CT: 10 - 20 mSv", optimalRange: "0.0 mSv (Zero Radiation)", rationale: "Eliminates cumulative lifetime DNA double-strand break mutagenic hazard." },
-      { marker: "Abdominal Aortic Diameter", standardRange: "< 3.0 cm", optimalRange: "< 2.0 cm", rationale: "Rules out subclinical aneurysm formation and elastin degradation." },
-      { marker: "Prostate PI-RADS Score (Men)", standardRange: "PI-RADS 1 - 2", optimalRange: "PI-RADS 1 (Normal)", rationale: "Standardized multiparametric assessment of prostate adenoma vs carcinoma." },
-      { marker: "Hepatic Steatosis Fraction (MRI-PDFF)", standardRange: "< 5.0%", optimalRange: "< 2.5%", rationale: "Gold-standard magnetic resonance quantitative proton density fat fraction." }
-    ],
-    statutoryScripts: {
-      opening: "Doctor, I am considering an asymptomatic whole-body MRI screening to establish a structural baseline. If any indeterminate incidentalomas are identified, could we agree on an evidence-based surveillance protocol rather than rushing to invasive biopsies?",
-      gatekeeperRebuttal: "I understand that public healthcare systems do not fund asymptomatic screening due to false-positive costs. I am covering the scan privately, but would value your clinical partnership to review the board-certified radiologist's report."
-    },
-    protocolPhases: {
-      phase1: "**Pre-Scan Triage (Day 0):** Review family oncological and cardiovascular history with your physician. Ensure the imaging facility uses 3-Tesla scanners with DWIBS sequences and dual-board-certified radiologist reads.",
-      phase2: "**Execution & Board Review (Day 7):** Undergo the 60-minute non-contrast scan. Ensure imaging discs (DICOM files) and formal radiologic impression reports are archived.",
-      phase3: "**Surveillance Periodicity (Yearly / Triennial):** For healthy asymptomatic adults with clean Category 1 findings, repeat scans are recommended every 3 to 5 years."
-    },
-    checklist: [
-      "3-Tesla MRI scanner confirmed with diffusion-weighted imaging (DWIBS)",
-      "Full DICOM imaging files preserved on private cloud storage for longitudinal comparison",
-      "Established clinical triage protocol agreed with your primary physician before scanning",
-      "Zero contrast dye required unless a specific high-suspicion finding demands targeted follow-up"
-    ],
-    faqs: [
-      { q: "Is whole-body MRI safe to do regularly?", a: "Yes. MRI uses magnetic fields and radiofrequency waves rather than ionizing X-ray radiation (unlike CT or PET scans). There is zero radiation burden, making it safe for longitudinal monitoring." },
-      { q: "What should I do if my scan finds a liver or kidney cyst?", a: "Over 35% of adults have simple cysts in the liver or kidneys. These are overwhelmingly benign Category 1 findings that require zero treatment and should not cause alarm." }
-    ],
-    citations: [
-      "Goyen, M., et al. (2020). 'Whole-Body MRI for Preventive Health Screening: Current Evidence and Clinical Recommendations.' Journal of Magnetic Resonance Imaging, 52(4), 1012-1024.",
-      "Kwee, T. C., et al. (2019). 'Whole-Body Diffusion-Weighted MRI in Cancer Screening: A Systematic Review.' Radiology, 290(3), 640-652."
+      "Ference, B. A., et al. (2017). 'Low-density lipoproteins cause atherosclerotic cardiovascular disease.' European Heart Journal, 38(32), 2459-2472."
     ]
   },
 
   // --- PERFORMANCE PROTOCOLS ---
   sarcopenia: {
-    subtitle: "Mechanical Tension, Motor Unit Recruitment & Skeletal Muscle Sarcopenia Defense",
-    directAnswer: "After age 35, adults lose approximately 1% of skeletal muscle mass and up to 3% of muscle force output per year if progressive resistance training is absent—a clinical phenomenon termed sarcopenia and dynapenia. Muscle tissue is not merely aesthetic; it is the body's primary metabolic sink for glucose disposal, the reservoir of amino acids for immune function during trauma, and the primary organ of physical longevity. Defending against sarcopenia requires mechanical tension close to failure (RPE 8-9) across multi-joint compound movement patterns, stimulating Type II motor unit recruitment and muscle protein synthesis.",
+    subtitle: "Staying Strong and Agile: Why Muscle Is Your Best Anti-Aging Medicine",
+    directAnswer: "Starting around age 35, adults naturally lose about 1% of their muscle mass and up to 3% of their physical strength each year if they don't do regular strength training. Doctors call this natural muscle loss sarcopenia. But muscle isn't just about looks or athletic trophies—it is your body's biggest sugar-burning engine, your natural armor against falls and broken bones, and the number-one predictor of staying active, independent, and vibrant well into your 70s, 80s, and 90s. Protecting your muscle only requires a few focused strength sessions each week where you challenge your muscles close to their comfortable limit.",
     asciiDiagram: `===================================================================================
-                   MECHANICAL TENSION & SKELETAL SARCOPENIA DEFENSE
+                   HOW STRENGTH TRAINING PROTECTS YOUR BODY AS YOU AGE
 ===================================================================================
 
-  [ High Mechanical Loading ]   [ Intracellular Mechanosensors ]    [ Muscle Phenotype ]
-   +-----------------------+     +--------------------------+       +-------------------+
-   | 70-85% 1RM Loading    | ==> | Focal Adhesion Kinase    | ====> | mTORC1 Activation |
-   | High Force Production |     | Costamere Shear Strain   |       | Ribosome Biogen.  |
-   +-----------------------+     +--------------------------+       +-------------------+
-               |                              |                              |
-               v                              v                              v
-   [ Type II Fast-Twitch ]       [ Satellite Cell Fusion ]          [ Muscle Preservation]
-   (High-Threshold Motor Units)  (Myonuclear Domain Expansion)      (Basal Metabolic Rate)
+  [ Regular Daily Walking ]     [ Challenging Strength Training ]    [ The Longevity Payoff ]
+   +-----------------------+     +-------------------------------+    +----------------------+
+   | Only uses slow-twitch |     | Fires up powerful fast-twitch | => | Signals muscle to    |
+   | endurance fibers      |     | muscle fibers (70%+ effort)   |    | repair and grow      |
+   +-----------------------+     +-------------------------------+    +----------------------+
+               |                                 |                               |
+               v                                 v                               v
+   [ Great for heart, but  ]     [ Releases Healing Myokines ]        [ Youthful Metabolism  ]
+   (does not stop age-     ]     (Natural chemicals that soothe       (Burns excess glucose,
+    related muscle loss)          the brain and burn belly fat)        protects joints & bone)
 ===================================================================================`,
     mechanisms: [
-      "**Size Principle of Motor Unit Recruitment (Henneman's Principle):** Low-intensity cardio only recruits low-threshold Type I slow-twitch motor units. To recruit high-threshold Type II fast-twitch motor units—the exact fibers lost preferentially during aging—muscles must be subjected to heavy loads (>70% 1RM) or moderate loads lifted close to momentary muscular failure.",
-      "**Mechanotransduction & Costamere Strain:** Mechanical tension physically deforms costamere complexes on the sarcolemma, activating Focal Adhesion Kinase (FAK) and stimulating phosphatidic acid synthesis. This activates Mechanistic Target of Rapamycin Complex 1 (mTORC1), driving muscle protein synthesis (MPS).",
-      "**Myonuclear Domain Theory & Satellite Cells:** Resistance exercise stimulates quiescent satellite stem cells residing beneath the basal lamina to proliferate, differentiate, and donate their nuclei to existing myofibers, expanding the transcriptional capacity for muscle repair.",
-      "**Myokine Endocrine Secretion:** Contracting skeletal muscles act as endocrine organs, releasing longevity-promoting myokines (such as Interleukin-15, Irisin, and Brain-Derived Neurotrophic Factor) that promote visceral fat browning and hippocampal neuroplasticity."
+      "**Waking Up Your 'High-Gear' Muscle Fibers:** Gentle walking is fantastic for your heart and mental clarity, but it only uses your slow-twitch endurance fibers. To protect against age-related decline, your body needs to fire up its powerful fast-twitch fibers—the exact ones that slip away first as we age. You wake these up whenever you lift weights, use resistance bands, or do bodyweight moves where the last 2 or 3 repetitions feel genuinely challenging.",
+      "**The Construction Signal (Turning on Muscle Repair):** When you challenge your muscles against resistance, tension sensors in your muscle fibers send a chemical signal (called mTOR). Think of this like a foreman on a building site shouting: 'Reinforce these walls and build them back stronger!' Without this signal, your body naturally recycles unused muscle tissue.",
+      "**Fueling the Rebuild with Dietary Protein:** Just like you need bricks to rebuild a garden wall, your body needs amino acids from protein to repair muscle after exercise. An essential amino acid called leucine acts as the green light for muscle growth. Getting a generous palm-sized portion of quality protein with your meals keeps this rebuilding switch turned on.",
+      "**Muscle as a Medicine-Producing Organ:** When muscles contract against resistance, they act like a pharmacy, pumping beneficial chemical messengers called myokines directly into your bloodstream. These natural messengers help burn stubborn deep belly fat, lower blood sugar, and stimulate fresh brain cell connections."
     ],
     biomarkerTable: [
-      { marker: "Skeletal Muscle Mass Index (SMMI)", standardRange: "> 7.0 kg/m² (M) / > 5.7 (F)", optimalRange: "> 9.2 kg/m² (M) / > 7.5 (F)", rationale: "Directly correlates with reduced surgical morbidity and metabolic longevity." },
-      { marker: "Grip Strength Dynamometry", standardRange: "> 30 kg (M) / > 20 kg (F)", optimalRange: "> 50 kg (M) / > 34 kg (F)", rationale: "Validated clinical proxy for whole-body neuromuscular integrity and all-cause mortality." },
-      { marker: "Basal Metabolic Rate (BMR)", standardRange: "Standard Harris-Benedict", optimalRange: "> 1,750 kcal/day", rationale: "Prevents visceral fat accumulation and supports mitochondrial calorie turnover." },
-      { marker: "Serum Creatine Kinase (Resting)", standardRange: "< 250 U/L", optimalRange: "80 - 180 U/L", rationale: "Confirms proper muscular recovery without ongoing rhabdomyolysis or chronic tissue breakdown." }
+      { marker: "Skeletal Muscle Mass Index", standardRange: "Basic population average", optimalRange: "Top 25% for your age group", rationale: "Directly linked to staying independent, avoiding hospital stays, and living longer." },
+      { marker: "Grip Strength Test", standardRange: "Over 30 kg (Men) / 20 kg (Women)", optimalRange: "Over 48 kg (Men) / 32 kg (Women)", rationale: "A simple, proven indicator of overall muscle power, nervous system health, and vitality." },
+      { marker: "Resting Metabolic Rate", standardRange: "Standard baseline", optimalRange: "High active calorie burn", rationale: "Healthy muscle burns calories all day long, even while sitting or sleeping." },
+      { marker: "Resting Recovery Score (CK)", standardRange: "Under 250 U/L", optimalRange: "80 - 180 U/L", rationale: "Confirms your muscles are recovering and adapting without excessive breakdown." }
     ],
     statutoryScripts: {
-      opening: "Doctor, I am proactively screening for sarcopenia and age-related dynapenia. Could we perform a baseline dual-energy X-ray absorptiometry (DEXA) body composition scan to quantify my appendicular skeletal lean mass?",
-      gatekeeperRebuttal: "While DEXA is traditionally used to evaluate osteoporosis, modern clinical guidelines strongly endorse quantifying appendicular lean mass index to prevent metabolic frailty. If public funding is restricted, could you authorize the clinical requisition for private DEXA processing?"
+      opening: "Doctor, I want to be proactive about maintaining my strength and mobility as I get older. Could we include a DEXA body scan or a bioimpedance test to check my actual lean muscle mass, rather than just relying on bathroom scale weight and BMI?",
+      gatekeeperRebuttal: "I know BMI is the standard quick tool, but BMI can't tell the difference between healthy muscle and excess fat. Measuring my actual muscle mass gives me a clear starting point to safely tailor my weekly strength training."
     },
     protocolPhases: {
-      phase1: "**Movement Competency Baseline (Weeks 1–4):** Master fundamental multi-joint patterns: Squat, Hinge, Horizontal Press, Horizontal Row, and Loaded Carry at RPE 6-7.",
-      phase2: "**Progressive Mechanical Overload (Weeks 5–16):** Train 3 to 4 days weekly. Apply progressive overload: add 1-2 repetitions or 2.5% load whenever an exercise reaches the upper target rep bracket with pristine form.",
-      phase3: "**Nutritional Support & Leucine Threshold:** Ingest 1.6 to 2.2 grams of bioavailable protein per kilogram of body weight daily, distributed across 3 to 4 meals containing at least 3.0g of leucine per feeding to trigger the mTORC1 threshold."
+      phase1: "**Step 1: Learn the 5 Fundamental Movements (Weeks 1–4):** Practice 5 basic movement patterns with comfortable weights: a squat (sitting down and standing up), a hinge (picking something up from the floor), a push (push-up or chest press), a pull (rowing motion), and a carry (walking with light weights in hand).",
+      phase2: "**Step 2: The 2-to-3 Day Weekly Routine (Weeks 5–12):** Train 2 to 3 days per week for 35 to 45 minutes. Pick weights where you can do 8 to 12 smooth repetitions, stopping when you still have 1 or 2 good reps left in reserve.",
+      phase3: "**Step 3: Eat Enough Protein Daily:** Aim for roughly 1.6 to 2.0 grams of protein per kilogram of your ideal body weight (about 0.7 to 1 gram per pound), distributed across your main meals. Include eggs, fish, poultry, Greek yogurt, or plant-based protein shakes."
     },
     checklist: [
-      "DEXA or clinical segmental multi-frequency bioimpedance scan completed",
-      "Weekly resistance training programmed with compound multi-joint movements",
-      "Daily dietary protein intake calibrated to 1.6 - 2.2g / kg bodyweight",
-      "Isometric grip dynamometer baseline recorded monthly"
+      "Body composition scan (DEXA or clinical scale) completed to establish lean mass baseline",
+      "Simple 2-to-3 day per week strength routine scheduled on your personal calendar",
+      "Palm-sized portion of protein included with breakfast, lunch, and dinner",
+      "Handgrip strength tested or simple push-up benchmark recorded to track progress"
     ],
     faqs: [
-      { q: "Is it too late to build muscle after age 50 or 60?", a: "Clinical trials conclusively prove that individuals in their 60s, 70s, and even 80s retain robust muscle protein synthesis responses to resistance training, experiencing measurable hypertrophy and strength gains within 8 weeks." },
-      { q: "Do I have to lift heavy barbells to prevent sarcopenia?", a: "No. While heavy loads (70-85% 1RM) are efficient, sets of 15 to 25 repetitions taken close to failure (1 to 2 reps in reserve) induce comparable muscle hypertrophy by recruiting high-threshold motor units." }
+      { q: "Is it too late to build strength if I'm in my 50s, 60s, or 70s?", a: "Not at all! Medical studies consistently show that people in their 60s, 70s, and even 80s gain noticeable muscle size, strength, and balance within just 6 to 8 weeks of regular resistance training. Your muscles never lose the ability to adapt." },
+      { q: "Do I have to lift heavy iron barbells at a gym?", a: "No. Resistance bands, kettlebells, dumbbells, cable machines, and even your own body weight (squats, wall push-ups, step-ups) work remarkably well. The key is simply challenging the muscle until it feels comfortably fatigued." },
+      { q: "Will lifting weights make me feel stiff or bulky?", a: "No. Moving your joints through their full range of motion under light-to-moderate resistance actually improves your flexibility, lubricates your joints, and strengthens the tendons that support your knees, hips, and back." }
     ],
     citations: [
       "Cruz-Jentoft, A. J., et al. (2019). 'Sarcopenia: revised European consensus on definition and diagnosis.' Age and Ageing, 48(1), 16-31.",
-      "Schoenfeld, B. J., et al. (2021). 'Loading Recommendations for Muscle Strength, Hypertrophy, and Local Endurance: A Re-Examination of the Repetition Continuum.' Sports, 9(3), 32.",
-      "Morton, R. W., et al. (2018). 'A systematic review, meta-analysis and meta-regression of the effect of protein supplementation on resistance training-induced gains in muscle mass.' British Journal of Sports Medicine, 52(6), 376-384."
+      "Schoenfeld, B. J., et al. (2021). 'Loading Recommendations for Muscle Strength, Hypertrophy, and Local Endurance.' Sports, 9(3), 32."
     ]
   },
 
+  // --- AEROBIC CAPACITY ---
   zone2: {
-    subtitle: "Mitochondrial Cristae Density, Lactate Clearance & Aerobic Base Polarization",
-    directAnswer: "Zone 2 endurance training is defined as the maximum exercise intensity where cellular energy is derived predominantly through mitochondrial beta-oxidation of fatty acids without accumulating systemic lactate. Operating strictly at the First Lactate Turnpoint (LT1, typically 1.5 - 2.0 mmol/L blood lactate), Zone 2 stimulates the biogenesis of new mitochondria, expands cristae density, and upregulates monocarboxylate transporters (MCT-1). To achieve optimal longevity and metabolic flexibility, accumulate 180 to 240 minutes per week in Zone 2, polarized with a single high-intensity VO2 Max session.",
+    subtitle: "Zone 2 Cardio: The Easy Pace That Builds All-Day Energy and Burns Fat",
+    directAnswer: "Zone 2 cardio is comfortable, conversational exercise—a steady pace where you can easily speak full sentences without gasping, but your breathing is deep enough that someone on the phone would know you are moving. Most people make the mistake of pushing too hard on every workout, which causes quick fatigue. Training in Zone 2 teaches your cells to burn pure body fat for fuel, builds fresh cellular energy engines (mitochondria), and strengthens your heart muscle without draining your energy for the rest of the day. Aiming for 150 to 200 minutes per week in Zone 2 is one of the most powerful habits for lifelong stamina and health.",
     asciiDiagram: `===================================================================================
-                   MITOCHONDRIAL SUBSTRATE UTILIZATION & LACTATE CURVE
+                   THE TWO ENERGY ENGINES IN YOUR BODY (PLAIN ENGLISH)
 ===================================================================================
 
-  [ Exercise Intensity ]        [ Cellular Metabolic Engine ]    [ Systemic Lactate ]
-   +-----------------------+     +--------------------------+    +----------------------+
-   | Zone 2 Aerobic Base   | ==> | Carnitine Palmitoyl-     | => | Basal Lactate Level  |
-   | (LT1: 1.5 - 2.0 mmol) |     | transferase-1 (Fat Burn) |    | (1.5 - 1.9 mmol/L)   |
-   +-----------------------+     +--------------------------+    +----------------------+
-               |                              |                             |
-               v                              v                             v
-   [ Zone 4/5 Threshold ]        [ High Cytosolic Glycolysis]    [ Rapid Lactate Surge  ]
-   (LT2: > 4.0 mmol/L)           (MCT-4 Clearance Saturation)    (Metabolic Acidosis)
+  [ Easy-to-Moderate Pace ]      [ Cellular Power Plants ]          [ The Daily Result ]
+   +-----------------------+     +--------------------------+       +-------------------+
+   | Zone 2 'Talk Test'    | ==> | Cells Burn Pure Fat for  | ====> | Steady, All-Day   |
+   | (Can speak full text) |     | Long-Lasting Clean Fuel  |       | Natural Energy    |
+   +-----------------------+     +--------------------------+       +-------------------+
+               |                               |                              |
+               v                               v                              v
+   [ Pushing Too Hard / Fast ]   [ Cells Switch to Pure Sugar ]     [ Rapid Energy Crash]
+   (Gasping for breath, lungs    (Lactic acid piles up, lungs       (Heavy legs, brain  |
+    burning, hard to talk)        burn, quick fatigue)               fog, exhaustion)   |
 ===================================================================================`,
     mechanisms: [
-      "**Mitochondrial Cristae Volume & PGC-1alpha:** Zone 2 intensity activates the master transcriptional coactivator Peroxisome Proliferator-Activated Receptor Gamma Coactivator 1-alpha (PGC-1alpha). This stimulates nuclear respiratory factors (NRF-1 and NRF-2), driving mitochondrial DNA replication and increasing inner mitochondrial membrane folding (cristae surface area).",
-      "**Fat Oxidation Kinetics via CPT-1:** At low-to-moderate intensities, Carnitine Palmitoyltransferase-1 facilitates the shuttling of long-chain fatty acids into the mitochondrial matrix. When exercise intensity climbs too high, glycolytic flux produces malonyl-CoA, which allosterically inhibits CPT-1, abruptly shutting down fat oxidation and forcing dependence on glucose.",
-      "**Lactate Shuttling & MCT-1 Expression:** Lactate is an oxidative fuel for cardiac myocytes and slow-twitch muscle fibers. Zone 2 training selectively upregulates Monocarboxylate Transporter 1 (MCT-1), accelerating the transport of lactate into mitochondria where it is converted back into pyruvate via mitochondrial lactate dehydrogenase (mLDH).",
-      "**Type I Slow-Twitch Capillary Angiogenesis:** Prolonged steady-state loading releases Vascular Endothelial Growth Factor (VEGF), expanding the microvascular capillary bed surrounding slow-twitch motor units and shortening oxygen diffusion distances."
+      "**Building New Cellular Power Plants:** Inside nearly every cell in your body are tiny microscopic power stations called mitochondria. They take in oxygen and turn fat from your food into clean energy. Training in Zone 2 tells your cells to build fresh, brand-new power plants and make your existing ones bigger and more efficient.",
+      "**Teaching Your Body to Burn Body Fat:** When you move at an easy, steady pace, your muscle cells prefer to burn body fat for fuel. If you push too fast too soon, your body panics and switches over to burning pure sugar, creating lactic acid that makes your legs feel like lead. Zone 2 keeps you right in the fat-burning sweet spot.",
+      "**Recycling Lactic Acid into Energy:** Lactic acid isn't actually a toxic waste product—it's high-octane fuel for your heart and slow-twitch muscle fibers! When you train in Zone 2, your cells build specialized doorways (called MCT-1 transporters) that soak up lactic acid and burn it cleanly for energy, keeping your body feeling fresh.",
+      "**Growing a Rich Network of Tiny Blood Vessels:** Spending time in Zone 2 encourages your body to sprout thousands of microscopic new blood vessels (capillaries) around your muscle fibers. This means more oxygen, water, and nutrients reach your tissues with less effort required from your heart."
     ],
     biomarkerTable: [
-      { marker: "Blood Lactate at LT1", standardRange: "Untracked", optimalRange: "1.4 - 1.9 mmol/L", rationale: "Defines the exact metabolic ceiling where fat oxidation remains maximized." },
-      { marker: "VO2 Max (Age 35-50)", standardRange: "35 - 42 mL/kg/min", optimalRange: "> 52 - 58 mL/kg/min", rationale: "Top decile cardiorespiratory fitness correlates with a 5x reduction in all-cause mortality." },
-      { marker: "Resting Heart Rate (RHR)", standardRange: "60 - 90 bpm", optimalRange: "44 - 52 bpm", rationale: "Reflects superior left ventricular stroke volume and parasympathetic cardiac vagal tone." },
-      { marker: "Heart Rate Recovery (60s)", standardRange: "> 12 bpm drop", optimalRange: "> 28 - 35 bpm drop", rationale: "Rapid vagal reactivation following maximal exertion reflects autonomic resilience." }
+      { marker: "Zone 2 Effort Level", standardRange: "Unmonitored", optimalRange: "Talk Test: Can speak in full sentences", rationale: "Guarantees your cells are burning fat cleanly without quick fatigue." },
+      { marker: "Estimated VO2 Max", standardRange: "30 - 38 mL/kg/min", optimalRange: "Top 20% for your age group", rationale: "Cardiovascular fitness is the single strongest predictor of a long, healthy life." },
+      { marker: "Resting Heart Rate", standardRange: "60 - 90 beats/min", optimalRange: "46 - 54 beats/min", rationale: "A calmer resting pulse shows your heart pumps more blood with every single beat." },
+      { marker: "1-Minute Heart Recovery", standardRange: "Drops 12 beats", optimalRange: "Drops 25 - 35+ beats in 60s", rationale: "A fast recovery after exercise proves your nervous system is resilient and calm." }
     ],
     statutoryScripts: {
-      opening: "Doctor, I am incorporating structured cardiovascular training to optimize my VO2 Max and metabolic lipid clearance. Could we perform an exercise stress test or review my resting electrocardiogram?",
-      gatekeeperRebuttal: "Given that cardiorespiratory fitness is now recognized by the American Heart Association as a primary clinical vital sign, establishing my objective cardiovascular baseline helps me safely program polarized training."
+      opening: "Doctor, I'm structuring my weekly exercise routine around steady Zone 2 cardio and building cardiovascular fitness. Could we check my resting ECG and establish my baseline heart rate targets?",
+      gatekeeperRebuttal: "Cardiovascular endurance is now recognized as a vital sign for long-term health. Setting an objective target helps me exercise safely and consistently without overtraining."
     },
     protocolPhases: {
-      phase1: "**LT1 Threshold Determination (Week 1):** Use a portable lactate meter or the conversational 'talk test' (able to speak in full sentences, but breathing audibly) to find your Zone 2 heart rate bracket.",
-      phase2: "**Volume Accumulation (Weeks 2–12):** Accumulate 180 to 240 minutes per week divided across 3 to 4 sessions (e.g., 4x 45 min or 3x 60 min) on a bike, rower, or incline walk.",
-      phase3: "**Polarized VO2 Max Ladder:** Once per week, add one 4x4-minute Norwegian interval session (4 minutes at 90-95% max heart rate, followed by 3 minutes easy recovery) to stimulate stroke volume expansion."
+      phase1: "**Step 1: Find Your 'Talk Test' Rhythm (Week 1):** Hop on a stationary bike, go for a brisk incline walk on a treadmill, or step on an elliptical. Find the speed where you can talk in full sentences without gasping, but you couldn't sing a song. Note your heart rate—that is your personal Zone 2.",
+      phase2: "**Step 2: Build Up Your Weekly Minutes (Weeks 2–8):** Aim for 3 to 4 sessions per week of 35 to 50 minutes each (around 150 to 180 total minutes). Because Zone 2 is gentle on your joints and nervous system, you will feel energized, not exhausted, after each session.",
+      phase3: "**Step 3: Add One Quick Booster Session (Week 9+):** Once a week, add a short 15-minute high-intensity interval session (like 30 seconds fast, 60 seconds easy, repeated 5 times) to give your heart and lungs an extra longevity boost."
     },
     checklist: [
-      "Zone 2 target heart rate range calibrated and locked into biometric smartwatch",
-      "Weekly endurance volume tracked to hit 180+ minutes at LT1",
-      "One dedicated VO2 Max high-intensity session scheduled per week",
-      "Heart rate recovery at 60 seconds audited monthly"
+      "Personal conversational Zone 2 heart rate range identified using the Talk Test",
+      "Smartwatch or chest strap set up to gently alert you if you pace too fast",
+      "Weekly goal of 150+ minutes of easy, enjoyable cardio scheduled",
+      "Resting morning heart rate tracked once a week to watch your heart get stronger"
     ],
     faqs: [
-      { q: "How do I know I am in Zone 2 without a fingerstick lactate meter?", a: "Use the 'Talk Test': You should be able to speak full, complete sentences without gasping, but your breathing is deep enough that someone on the phone would know you are exercising. In heart rate terms, it typically falls between 68% and 75% of your maximum heart rate." },
-      { q: "Can I do Zone 2 training on a stationary bike or rower?", a: "Yes. In fact, stationary cycling, incline walking on a treadmill, and rowing are ideal because they minimize eccentric joint pounding, allowing you to accumulate 3 to 4 hours weekly without musculoskeletal breakdown." }
+      { q: "How do I know I'm in Zone 2 without expensive lab tests?", a: "Use the simple 'Talk Test': You should be able to speak full sentences comfortably without gasping for air. If you can only speak two or three words at a time before breathing in, you are going too fast. Slow down and let your cells burn fat." },
+      { q: "Can I do Zone 2 by walking outside?", a: "Yes, especially if you walk briskly or choose a route with gentle hills. If you are already quite fit, an incline walk on a treadmill, a stationary bicycle, or an easy jog will keep you right in the zone." },
+      { q: "Why shouldn't I just push as hard as I can every workout?", a: "Pushing hard every day wears out your joints, spikes stress hormones like cortisol, and leads to burnout. By doing 80% of your cardio at an easy Zone 2 pace and only 20% hard, you get much faster and healthier while feeling refreshed." }
     ],
     citations: [
-      "San-Millán, I., & Brooks, G. A. (2018). 'Assessment of Metabolic Flexibility and General Physiology in Elite Athletes: Implications for Disease.' Sports Medicine, 48(2), 269-279.",
-      "Mandsager, K., et al. (2018). 'Association of Cardiorespiratory Fitness With Long-term Mortality.' JAMA Network Open, 1(6), e183605.",
-      "Brooks, G. A. (2020). 'The Science and Translation of Lactate Shuttle Theory.' Cell Metabolism, 31(4), 719-791."
+      "San-Millán, I., & Brooks, G. A. (2018). 'Assessment of Metabolic Flexibility in Athletes.' Sports Medicine, 48(2), 269-279.",
+      "Mandsager, K., et al. (2018). 'Association of Cardiorespiratory Fitness With Mortality.' JAMA Network Open, 1(6), e183605."
     ]
   },
 
   // --- METABOLIC INTELLIGENCE ---
   insulin: {
-    subtitle: "Pancreatic Beta-Cell Reserves, Insulin Resistance & Homeostatic Modeling",
-    directAnswer: "Fasting glucose is one of the most misleading metrics in modern medicine. Because the pancreas can hyper-secrete insulin for up to 10 to 15 years to forcibly clear blood sugar, an individual can maintain a 'normal' fasting glucose of 88 mg/dL while their fasting insulin climbs from a healthy 3.5 uIU/mL to a pathological 18 uIU/mL. Evaluating fasting insulin alongside glucose using the Homeostatic Model Assessment of Insulin Resistance (HOMA-IR) allows proactive clinicians to catch metabolic distress over a decade before pre-diabetes is officially diagnosed.",
+    subtitle: "The Truth About Blood Sugar: Why Normal Tests Can Hide Insulin Resistance",
+    directAnswer: "Fasting blood sugar tests can be surprisingly misleading. Your pancreas can work overtime for 10 to 15 years, pumping out extra insulin to force sugar out of your blood and keep your routine glucose numbers looking 'normal'—even while your cells are quietly becoming resistant to it. Testing your fasting insulin alongside your glucose (using a simple score called HOMA-IR) gives you a 10-year advance warning on your metabolic health. Keeping your insulin sensitive protects your blood vessels, clears brain fog, and keeps extra weight off your waistline.",
     asciiDiagram: `===================================================================================
-                   THE 10-YEAR METABOLIC COMPENSATORY CASCADE
+                   THE 10-YEAR BLOOD SUGAR WARNING (PLAIN ENGLISH)
 ===================================================================================
 
-  [ Early Metabolic Strain ]    [ Pancreatic Hyper-Secretion ]   [ Full Decompensation ]
-   +-----------------------+     +--------------------------+    +---------------------+
-   | Visceral Fat Influx   | ==> | Fasting Insulin Surges   | => | Beta-Cell Burnout   |
-   | Muscle Ectopic Lipid  |     | (3.5 uIU ==> 18+ uIU/mL) |    | Glucose Finally Rises|
-   +-----------------------+     +--------------------------+    +---------------------+
-               |                              |                             |
-               v                              v                             v
-   [ 'Normal' Fasting Gluc ]     [ High HOMA-IR (> 2.0) ]        [ Clinical Diagnosis  ]
-   (Deceptive Health Sign)       (Arterial Stiffening / Steat.)  (Type 2 Diabetes Gate)
+  [ Early Warning: Years 1 - 8 ]    [ The Silent Middle: Years 8 - 12 ] [ Official Diagnosis: Year 15 ]
+   +---------------------------+     +--------------------------------+  +----------------------------+
+   | Body cells get full;      | ==> | Pancreas pumps out 5x more     | =>| Pancreas gets exhausted;   |
+   | insulin locks start sticking|   | insulin to keep sugar normal   |   | blood sugar finally spikes |
+   +---------------------------+     +--------------------------------+  +----------------------------+
+                 |                                   |                                  |
+                 v                                   v                                  v
+   [ Fasting Glucose Looks Fine ]     [ High Fasting Insulin / HOMA-IR ] [ Prediabetes / Diabetes ]
+   (Routine physical says 'normal',   (Hidden danger: belly fat,         (Could have been easily    |
+    giving a false sense of security)  fatty liver, artery stiffness)     prevented 10 years earlier)|
 ===================================================================================`,
     mechanisms: [
-      "**Receptor Tyrosine Kinase Desensitization:** Chronic post-prandial glycemic spikes maintain high baseline insulin. Excessive insulin binding induces serine phosphorylation of Insulin Receptor Substrate-1 (IRS-1), interrupting downstream PI3K/Akt signaling and preventing GLUT4 glucose transporter translocation to the cell membrane.",
-      "**Hepatic De Novo Lipogenesis (DNL):** While skeletal muscle becomes insulin resistant, the liver remains paradoxically sensitive to insulin's lipogenic drive. Hyperinsulinemia activates SREBP-1c, converting excess glucose into palmitic acid and contributing to non-alcoholic fatty liver disease (MASLD).",
-      "**Endothelial Nitric Oxide Synthase (eNOS) Suppression:** Under healthy conditions, insulin stimulates eNOS to produce nitric oxide, promoting vasodilation. Under insulin resistance, the mitogenic MAPK pathway takes over, stimulating endothelin-1 and vascular smooth muscle proliferation, resulting in systemic arterial hypertension.",
-      "**Inhibition of Lipolysis (Hormone-Sensitive Lipase):** Circulating insulin concentrations as low as 10-15 uIU/mL completely suppress Hormone-Sensitive Lipase (HSL) in adipose tissue, locking fat stores and preventing fat oxidation."
+      "**The Lock and Key Analogy (Why Cells Resist Insulin):** Think of insulin as a key that unlocks your cell doors so glucose (sugar) from your food can enter and be used for energy. When you eat lots of refined carbohydrates, sugar, and seed oils, the locks get worn out and gummed up. This is insulin resistance. Your pancreas has to forge 5 to 10 times more keys just to turn the lock.",
+      "**Where Extra Sugar Goes When Cells Are Full:** Your muscle cells can only store a limited amount of sugar. When they are full and insulin resistance blocks them from taking more, your liver turns the excess sugar into fat. This fat gets stored around your inner organs (visceral fat) and inside your liver, slowing down your metabolism.",
+      "**The Energy Rollercoaster and Brain Fog:** When your pancreas floods your body with massive waves of insulin to clear a blood sugar spike, your sugar levels crash down too low an hour or two later. This reactive crash leaves you feeling irritable, foggy-headed, and craving sugary snacks or caffeine by mid-afternoon.",
+      "**The Simple 15-Minute Post-Meal Trick:** When your muscles contract during a brisk walk, they activate special sponge-like gates (called GLUT4) that pull sugar directly out of your blood without needing any extra insulin at all! A simple 15-minute walk after your biggest meal cuts blood sugar spikes in half."
     ],
     biomarkerTable: [
-      { marker: "Fasting Serum Insulin", standardRange: "< 24.9 uIU/mL", optimalRange: "< 4.0 - 5.5 uIU/mL", rationale: "Earliest indicator of metabolic flexibility and low chronic disease burden." },
-      { marker: "HOMA-IR Calculation", standardRange: "< 2.0 (Mild Risk)", optimalRange: "< 1.0 (Pristine)", rationale: "Calculated as: (Fasting Glucose mg/dL × Fasting Insulin uIU/mL) / 405." },
-      { marker: "Fasting Blood Glucose", standardRange: "70 - 99 mg/dL", optimalRange: "72 - 86 mg/dL", rationale: "Evaluated in conjunction with insulin to avoid masking pancreatic stress." },
-      { marker: "Triglyceride / HDL Ratio", standardRange: "< 3.0", optimalRange: "< 1.2", rationale: "Highly validated clinical surrogate for hepatic insulin resistance and small dense LDL particles." }
+      { marker: "Fasting Serum Insulin", standardRange: "Under 25.0 uIU/mL (broad average)", optimalRange: "Under 4.5 - 5.5 uIU/mL", rationale: "The single earliest indicator of whether your metabolism is running clean and effortless." },
+      { marker: "HOMA-IR Score", standardRange: "Under 2.0 (Mild risk)", optimalRange: "Under 1.0 (Pristine sensitivity)", rationale: "A simple math score: (Fasting Glucose × Fasting Insulin) / 405." },
+      { marker: "Fasting Blood Glucose", standardRange: "70 - 99 mg/dL", optimalRange: "72 - 86 mg/dL", rationale: "Helpful, but must always be viewed alongside insulin to see how hard your pancreas is working." },
+      { marker: "Triglyceride-to-HDL Ratio", standardRange: "Under 3.0", optimalRange: "Under 1.2", rationale: "A reliable indicator of how well your liver is handling carbohydrates and fats." }
     ],
     statutoryScripts: {
-      opening: "Doctor, given that fasting glucose can remain stable even when the pancreas is under high compensatory stress, could we add a fasting insulin assay to my metabolic panel so I can calculate my true HOMA-IR score?",
-      gatekeeperRebuttal: "I recognize that standard statutory screening typically only requisitions HbA1c and glucose. However, evaluating fasting insulin allows us to detect endothelial and metabolic strain 10 years before HbA1c shifts. If local guidelines restrict it, could you approve the requisition slip for private lab processing?"
+      opening: "Doctor, I'm interested in testing my metabolic health proactively. Because fasting blood sugar can look normal even when the pancreas is working overtime, could we please add a fasting insulin test so I can calculate my HOMA-IR score?",
+      gatekeeperRebuttal: "I know standard routine checkups usually focus only on HbA1c and glucose. But checking fasting insulin helps catch metabolic strain 10 years earlier. If our local clinic rules can't cover it routinely, would you write the lab code so I can do a direct private draw?"
     },
     protocolPhases: {
-      phase1: "**Baseline HOMA-IR Audit (Day 1):** Fast for 12 hours. Measure simultaneous fasting glucose and fasting insulin. Calculate HOMA-IR score: (Glucose × Insulin) / 405.",
-      phase2: "**Meal Sequencing Protocol (Weeks 1–6):** Follow the clinical sequencing rule: Consume fiber/greens first, followed by proteins and fats, with starches last. Take a 15-minute brisk walk immediately after your largest meal to clear glucose via contraction-mediated GLUT4 translocation.",
-      phase3: "**Longitudinal Metabolic Audit (Month 3):** Re-test fasting insulin and calculate HOMA-IR delta. Aim for HOMA-IR < 1.0 and fasting insulin < 5.0 uIU/mL."
+      phase1: "**Step 1: Check Your Fasting Numbers (Day 1):** Fast overnight for 12 hours. Measure your fasting glucose and fasting insulin on the same blood draw. Calculate your HOMA-IR score: multiply glucose by insulin and divide by 405.",
+      phase2: "**Step 2: Change the Order of Your Food (Weeks 1–6):** Follow the easy meal-sequencing rule: eat your vegetables and fiber first, your protein and healthy fats second, and save your starches (rice, potatoes, bread) for last. This simple habit slows down digestion and stops sharp sugar spikes.",
+      phase3: "**Step 3: The 15-Minute Post-Dinner Walk (Weeks 2–12):** Put on your shoes right after dinner and walk at a comfortable pace for 15 minutes. Your leg muscles will soak up the meal's glucose naturally, keeping your insulin low and helping you sleep peacefully."
     },
     checklist: [
-      "Simultaneous fasting glucose and fasting insulin measured",
-      "HOMA-IR score calculated and recorded",
-      "Post-meal 15-minute walks implemented after dinner",
-      "Meal sequencing implemented: fiber first, protein second, starch last"
+      "Fasting blood glucose and fasting insulin tested on the same morning draw",
+      "Personal HOMA-IR score calculated and written into your health journal",
+      "Vegetables and protein eaten before starches at your main meals",
+      "Easy 15-minute walk taken after your largest meal of the day"
     ],
     faqs: [
-      { q: "What should my HOMA-IR score be?", a: "A pristine HOMA-IR score is below 1.0. A score between 1.0 and 1.9 represents early subclinical resistance, while values above 2.0 indicate significant insulin resistance and elevated risk for cardiovascular and hepatic disease." },
-      { q: "How quickly can fasting insulin be reduced?", a: "With consistent time-restricted eating, elimination of refined sugars, daily 15-minute post-meal walks, and resistance training, fasting insulin can drop by 30-50% within 4 to 8 weeks." }
+      { q: "What is a good HOMA-IR score to aim for?", a: "A pristine score is below 1.0. A score between 1.0 and 1.9 shows early, mild insulin resistance that is very easy to reverse. Scores above 2.0 mean your pancreas is working overtime and it is time to make simple diet and walking upgrades." },
+      { q: "How fast can fasting insulin numbers improve?", a: "Surprisingly fast! By cutting out liquid sugars, walking for 15 minutes after dinner, and eating your veggies first, most people see their fasting insulin drop by 30% to 50% in just 4 to 8 weeks." },
+      { q: "Do I have to stop eating all carbohydrates?", a: "No! You don't need an extreme zero-carb diet. Focus on whole, fiber-rich carbs (like sweet potatoes, oats, berries, and beans) and simply eat them after your protein and greens rather than eating refined sugars on an empty stomach." }
     ],
     citations: [
       "DeFronzo, R. A., et al. (2015). 'Type 2 diabetes mellitus.' Nature Reviews Disease Primers, 1, 15019.",
-      "Kraft, J. R. (2008). 'Detection of Diabetes Mellitus In Situ (Occult Diabetes).' Laboratory Medicine, 6(2), 10-22.",
-      "Matthews, D. R., et al. (1985). 'Homeostasis model assessment: insulin resistance and beta-cell function from fasting plasma glucose and insulin concentrations in man.' Diabetologia, 28(7), 412-419."
+      "Kraft, J. R. (2008). 'Detection of Diabetes Mellitus In Situ.' Laboratory Medicine, 6(2), 10-22."
     ]
   },
 
   // --- NEUROWELLNESS RESEARCH ---
   vagus: {
-    subtitle: "Auricular Neuro-Stimulation, Cholinergic Anti-Inflammatory Pathways & Vagal Tone",
-    directAnswer: "The vagus nerve (Cranial Nerve X) serves as the primary bidirectional communications superhighway connecting the brainstem to the heart, lungs, and gastrointestinal tract. Chronically suppressed vagal tone locks the body in sympathetic fight-or-flight dominance, driving systemic inflammation, elevated resting heart rates, and impaired recovery. Non-invasive vagus nerve stimulation (nVNS)—particularly targeted at the auricular branch in the cymba conchae of the ear—stimulates acetylcholine release, activating the Cholinergic Anti-Inflammatory Pathway to suppress TNF-alpha and interleukin-1 within minutes.",
+    subtitle: "The Vagus Nerve: Tapping Your Body's Built-In Brake Pedal to Melt Stress",
+    directAnswer: "The vagus nerve is your body's built-in brake pedal. It is a long, wandering nerve that connects your brainstem directly to your heart, lungs, and digestive tract. When you are stressed or rushed, your body hits the gas pedal ('fight-or-flight'). But when your vagus nerve is strong and active, it gently taps the brake—slowing your racing heart, calming nervous tension, improving digestion, and turning down chronic inflammation. Simple daily practices like slow prolonged exhales, cool water face splashes, and gentle ear stimulation activate this nerve in under two minutes.",
     asciiDiagram: `===================================================================================
-                   THE CHOLINERGIC ANTI-INFLAMMATORY VAGAL CIRCUIT
+                   THE BRAKE PEDAL VS. GAS PEDAL IN YOUR BODY
 ===================================================================================
 
-  [ Auricular nVNS / Breath ]   [ Nucleus Tractus Solitarius ]   [ Systemic Organ Targets ]
-   +-----------------------+     +--------------------------+    +-----------------------+
-   | Cymba Conchae Ear nVNS| ==> | Afferent Vagal Signals   | => | Efferent Vagal Motor   |
-   | Slow Prolonged Exhale |     | Integrated in Brainstem  |    | Outflow to Spleen     |
-   +-----------------------+     +--------------------------+    +-----------------------+
-               |                              |                             |
-               v                              v                             v
-   [ Heart Rate Deceleration]    [ High RMSSD Heart Rate ]       [ Acetylcholine Release ]
-   (Vagal Brake Activated)       (Parasympathetic Spike)         (Alpha7-nAChR Shuts TNF)
+  [ Stress & Hustle: Gas Pedal ]     [ Vagus Nerve: Built-In Brake ]     [ Deep Recovery & Calm ]
+   +---------------------------+     +-----------------------------+     +----------------------+
+   | Racing Thoughts, Shallow  | ==> | Slow Prolonged Exhale / Ear | ==> | Heart Rate Slows Down|
+   | Breaths, Tight Shoulders  |     | Stimulation Signals Brain   |     | Digestion Turns On   |
+   +---------------------------+     +-----------------------------+     +----------------------+
+                 |                                  |                               |
+                 v                                  v                               v
+   [ High Stress Hormones ]          [ Calming Acetylcholine Flows ]     [ Healing Rest Mode ]
+   (Body locked in fight-or-flight,   (Signals heart to relax, shuts      (Deep refreshing sleep,
+    raises blood pressure & swelling)  off inflammatory chemicals)         soothed gut & nerves)
 ===================================================================================`,
     mechanisms: [
-      "**The Auricular Vagal Gateway:** The outer ear is the only surface of the human body where the vagus nerve sends cutaneous sensory branches (the auricular branch, or Arnold's nerve). Stimulating the cymba conchae delivers direct electrical impulses to the Nucleus Tractus Solitarius (NTS) in the medulla.",
-      "**The Cholinergic Anti-Inflammatory Pathway (CAP):** Efferent vagal signals stimulate the splenic nerve to release norepinephrine, prompting specialized choline acetyltransferase-positive T-cells to secrete acetylcholine (ACh). This ACh binds to alpha7-nicotinic acetylcholine receptors (alpha7-nAChR) on splenic macrophages, suppressing NF-kB activation and blocking the release of pro-inflammatory cytokines (TNF-alpha, IL-6).",
-      "**The Vagal Cardiac Brake & RMSSD:** At rest, parasympathetic acetylcholine release on cardiac muscarinic (M2) receptors slows the intrinsic sinoatrial node firing rate. High heart rate variability (specifically RMSSD) directly reflects the strength of this vagal brake.",
-      "**Baroreceptor Reflex Synchronization:** Prolonging the exhalation phase (e.g., 4s inhale, 7s exhale) increases intrathoracic pressure, activating arterial baroreceptors that fire sensory inputs into the NTS, triggering instant reflex bradycardia and vagal outflow."
+      "**The Body's Natural Brake Pedal:** Every time you inhale, your heart rate naturally speeds up a little bit. Every time you exhale slowly, your vagus nerve releases a calming chemical (called acetylcholine) that acts like a gentle brake, slowing your heartbeat down. The natural, healthy variation between these beats is called Heart Rate Variability (HRV)—and a higher score means your nervous system is resilient and calm.",
+      "**The Ear Connection (Gentle Bio-Stimulation):** The outer ear is the only place on the human body where branches of the vagus nerve reach right to the skin surface. Gently massaging or using a mild bio-pulse device on the inner hollow of the ear (the cymba conchae) sends an instant calming signal directly to your brain's relaxation centers.",
+      "**Turning Down the Heat on Inflammation:** When your vagus nerve fires, it sends signals to your spleen and white blood cells telling them to stop producing excess inflammatory chemicals. This helps soothe irritated joints, protect your blood vessels, and clear away brain fog.",
+      "**The 4-Second Inhale, 7-Second Exhale Reset:** Your nervous system takes cues from how you breathe. When you take a deep breath in for 4 seconds and exhale slowly and smoothly for 7 seconds, you trigger pressure sensors in your chest that immediately tell your brain: 'The danger has passed. You are completely safe.'"
     ],
     biomarkerTable: [
-      { marker: "Morning Basal RMSSD", standardRange: "30 - 55 ms", optimalRange: "> 65 - 85 ms (Age adjusted)", rationale: "Direct, non-invasive surrogate metric for cardiac parasympathetic vagal tone." },
-      { marker: "High-Frequency (HF) HRV Power", standardRange: "150 - 500 ms²", optimalRange: "> 1,000 ms²", rationale: "Captures respiratory sinus arrhythmia mediated exclusively by vagal parasympathetic modulation." },
-      { marker: "Resting Pupil Constriction Latency", standardRange: "250 - 320 ms", optimalRange: "< 220 ms", rationale: "Parasympathetic ciliary ganglion reflex speed." },
-      { marker: "High-Sensitivity CRP", standardRange: "< 3.0 mg/L", optimalRange: "< 0.5 mg/L", rationale: "Systemic indicator reflecting systemic cytokine suppression via the cholinergic pathway." }
+      { marker: "Morning HRV (RMSSD)", standardRange: "30 - 55 ms", optimalRange: "Over 65 - 85 ms (Age adjusted)", rationale: "A simple, non-invasive number from your smartwatch showing how strong your relaxation brake is." },
+      { marker: "Resting Heart Rate", standardRange: "60 - 90 beats/min", optimalRange: "48 - 56 beats/min", rationale: "Shows that your heart is resting comfortably and not working overtime." },
+      { marker: "High-Sensitivity CRP", standardRange: "Under 3.0 mg/L", optimalRange: "Under 0.5 mg/L", rationale: "Confirms that calming your nervous system is keeping body-wide inflammation low." },
+      { marker: "Deep Sleep Percentage", standardRange: "10 - 15% of total sleep", optimalRange: "18 - 25% of total sleep", rationale: "Reflects the deep physical repair that happens when your vagus nerve is active overnight." }
     ],
     statutoryScripts: {
-      opening: "Doctor, I am tracking my autonomic nervous system recovery and heart rate variability to evaluate sympathetic overdrive. Could we perform a comprehensive resting ECG with autonomic rhythm strip?",
-      gatekeeperRebuttal: "I want to rule out subclinical autonomic dysregulation and ensure my cardiovascular response to stressors is physiologically resilient. Recording a resting telemetry baseline will help me monitor nervous system equilibrium."
+      opening: "Doctor, I'm tracking my heart rate variability and recovery metrics to evaluate chronic stress and autonomic balance. Could we review a resting rhythm check to confirm my nervous system is in good equilibrium?",
+      gatekeeperRebuttal: "I want to be proactive about preventing stress-related cardiovascular strain. Checking an objective baseline helps me ensure my daily recovery and sleep habits are supporting my heart."
     },
     protocolPhases: {
-      phase1: "**Autonomic Baseline Logging (Days 1–14):** Measure morning resting RMSSD for 3 minutes immediately upon waking. Establish your individualized rolling 14-day baseline and standard deviation bounds.",
-      phase2: "**Somatic Downregulation Protocol (Weeks 3–6):** Practice twice-daily 5-minute resonance breathing (5.5s inhale, 5.5s exhale = 6 breaths/minute) to entrain the baroreceptor reflex. Apply 10 minutes of auricular nVNS or cold facial immersion post-workout.",
-      phase3: "**Neurochemical Optimization:** Supplement with highly bioavailable Magnesium L-Threonate (1,500mg) and Phosphatidylserine 30 minutes before sleep to support hippocampal synaptic architecture."
+      phase1: "**Step 1: Check Your Morning Score (Days 1–7):** Use a smart ring, watch, or chest strap to record your heart rate variability (HRV / RMSSD) for 2 minutes right after waking up to learn your personal baseline.",
+      phase2: "**Step 2: The 5-Minute Breathing Reset (Weeks 2–6):** Twice a day, practice 5 minutes of relaxed 'resonance breathing': inhale gently through your nose for 5 seconds, then exhale smoothly through your mouth for 5 seconds. This naturally resets your nervous system.",
+      phase3: "**Step 3: Evening Wind-Down Habits (Weeks 4–12):** Disconnect from bright screens 60 minutes before bed, take a relaxing warm shower, and consider gentle magnesium glycinate or L-threonate with dinner to support deep, restorative sleep."
     },
     checklist: [
-      "Wearable or ECG chest strap logging morning basal RMSSD",
-      "Resonance breathing (6 breaths per minute) practiced daily for 10 minutes",
-      "Magnesium L-Threonate incorporated into nighttime sleep routine",
-      "Post-exercise parasympathetic cooldown completed before exiting gym"
+      "Morning resting HRV checked using your favorite wearable or smartwatch",
+      "5 minutes of slow, relaxed breathing practiced before starting your workday",
+      "Cool water splash on your face or gentle ear massage used when feeling stressed",
+      "Screen-free wind-down routine started 45 to 60 minutes before bedtime"
     ],
     faqs: [
-      { q: "How does non-invasive vagus stimulation compare to breathwork?", a: "Both activate parasympathetic vagal circuits. Breathwork (such as slow prolonged 4-7-8 exhales) activates vagal tone through mechanical baroreceptor reflexes, while auricular nVNS delivers direct electrical bio-current into cutaneous nerve fibers. Combining both yields rapid autonomic reset." },
-      { q: "Can vagal tone be improved permanently?", a: "Yes. Regular Zone 2 cardio, cold water facial immersion, targeted magnesium L-threonate, and consistent sleep schedules induce structural neuroplasticity in the brainstem, elevating baseline vagal tone permanently." }
+      { q: "How quickly does slow breathing calm down stress?", a: "Almost immediately! In clinical tests, taking just 3 to 5 slow breaths with prolonged exhales activates the vagus nerve and noticeably lowers your heart rate in under 90 seconds." },
+      { q: "Can my vagus nerve and HRV get permanently stronger?", a: "Yes! Just like lifting weights strengthens your biceps, regular Zone 2 cardio, consistent sleep routines, and daily breathing exercises train your nervous system to stay calmer, more resilient, and less reactive over time." },
+      { q: "Why does splashing cold water on my face help?", a: "Cold water on your face triggers an ancient reflex called the 'mammalian dive reflex'. It instantly signals your brainstem through the vagus nerve to slow your heartbeat and conserve energy, giving you an immediate feeling of calm." }
     ],
     citations: [
       "Tracey, K. J. (2002). 'The inflammatory reflex.' Nature, 420(6917), 853-859.",
-      "Pavlov, V. A., & Tracey, K. J. (2012). 'The vagus nerve and the inflammatory reflex—linking immunity and metabolism.' Nature Reviews Endocrinology, 8(12), 743-754.",
-      "Frangos, E., et al. (2015). 'Non-invasive Access to the Vagus Nerve Central Projections via Electrical Stimulation of the External Ear: fMRI Evidence in Humans.' Brain Stimulation, 8(3), 624-636."
+      "Pavlov, V. A., & Tracey, K. J. (2012). 'The vagus nerve and immunity.' Nature Reviews Endocrinology, 8(12), 743-754."
     ]
   }
 };
 
 /**
- * Fallback Dynamic Blueprint Generator
+ * Fallback Dynamic Blueprint Generator (Layman-Terms Edition)
  * For any custom title or un-indexed pitch, generates a comprehensive 2,000+ word masterclass
+ * using clear, friendly everyday analogies and plain English.
  */
 function generateDynamicBlueprint(pitch: PitchInput): TopicBlueprint {
   const cat = (pitch.category || '').toLowerCase();
   const kw = pitch.targetKeyword || pitch.title;
 
-  let pillarFocus = "Healthspan & Preventive Diagnostics";
-  let primaryBiomarker = "Vascular & Cellular Biomarkers";
+  let pillarFocus = "Health & Preventive Longevity";
+  let primaryTheme = "Your Body's Essential Health Numbers";
 
   if (cat.includes('fit') || cat.includes('perform')) {
-    pillarFocus = "High-Output Athletic Conditioning & Durability";
-    primaryBiomarker = "Lactate Dynamics & Biomechanical Telemetry";
+    pillarFocus = "Daily Energy, Strength & Endurance";
+    primaryTheme = "Cardio Health, Muscle Power & Recovery";
   } else if (cat.includes('nutri') || cat.includes('metab')) {
-    pillarFocus = "Metabolic Flexibility & Cellular Fueling";
-    primaryBiomarker = "Insulin Sensitivity & Lipid Oxidation";
+    pillarFocus = "Metabolic Health & Smart Fueling";
+    primaryTheme = "Blood Sugar Balance & Steady Energy";
   } else if (cat.includes('well') || cat.includes('neuro')) {
-    pillarFocus = "Cognitive Longevity & Autonomic Nervous Equilibrium";
-    primaryBiomarker = "Parasympathetic Vagal Tone & Sleep Architecture";
+    pillarFocus = "Stress Relief, Sleep & Mental Clarity";
+    primaryTheme = "Nervous System Calm & Restorative Sleep";
   }
 
   return {
-    subtitle: `${pillarFocus}: Precision Protocols, Biomarker Analytics & Clinical Longevity Targets`,
-    directAnswer: `When evaluating ${pitch.title}, conventional reactive medicine frequently relies on broad population averages designed to catch late-stage pathology rather than optimize functional longevity. Modern preventive gerontology establishes tight clinical thresholds for ${kw} decades before outward symptoms arise. By combining targeted diagnostic screening, cellular lifestyle protocols, and objective telemetry, individuals can preserve cellular resilience, safeguard organ micro-architecture, and extend disease-free healthspan.`,
+    subtitle: `${pillarFocus}: A Clear, Step-by-Step Guide to Looking, Feeling, and Living Better`,
+    directAnswer: `When it comes to ${pitch.title.toLowerCase()}, standard checkups often wait until outward symptoms appear before raising a flag. But modern preventive health focuses on catching early warning signs years before they turn into problems. By understanding how your body works in simple, plain English—and pairing that knowledge with practical daily habits like good nutrition, easy cardio, and quality rest—you can protect your energy, safeguard your cells, and add vibrant, healthy years to your life.`,
     asciiDiagram: `===================================================================================
-                   ${pillarFocus.toUpperCase()} ARCHITECTURE
+                   ${pillarFocus.toUpperCase()} IN PLAIN ENGLISH
 ===================================================================================
 
-  [ Diagnostic Trigger ]         [ Molecular Signaling Pathway ]     [ Clinical Longevity Endpoint ]
-   +-----------------------+     +--------------------------+       +-------------------------------+
-   | High-Intent Biomarker | ==> | Cellular Transduction    | ====> | Preserved Physiological Reserve|
-   | Assessment (${kw.slice(0, 15)}) |     | (Receptor & Enzyme Flux) |       | (Morbidity Compression)       |
-   +-----------------------+     +--------------------------+       +-------------------------------+
-               |                              |                                     |
-               v                              v                                     v
-   [ Conventional Reactive ]     [ Targeted Requisition ]           [ Longitudinal Resilience Data ]
-   (Broad Lab Population)        (Tier 1-3 Clinical Model)          (Annual Tracking & Calibration)
+  [ Simple Daily Habits ]       [ What Happens in Your Body ]       [ The Lifelong Reward ]
+   +-----------------------+     +--------------------------+       +---------------------+
+   | Quality Sleep, Good   | ==> | Cells Clean Up Waste,    | ====> | Steady All-Day      |
+   | Food, Daily Movement  |     | Inflammation Calms Down  |       | Natural Energy      |
+   +-----------------------+     +--------------------------+       +---------------------+
+               |                              |                                |
+               v                              v                                v
+   [ Old Reactive Approach ]     [ Simple Preventive Check ]        [ Staying Strong & Fit]
+   (Waiting until you feel sick  (Checking numbers early,           (Living independently,
+    before taking action)         making easy adjustments)           sharp mind, healthy heart)
 ===================================================================================`,
     mechanisms: [
-      `**Molecular Mechanisms of ${kw}:** Cellular homeostasis requires continuous coordination between genomic stability, mitochondrial energy transfer, and micro-vascular perfusion. When evaluating ${pitch.title.toLowerCase()}, standard diagnostics frequently overlook sub-clinical alterations in metabolic and cellular signaling.`,
-      "**Mitochondrial & Endothelial Dynamics:** At the cellular level, micro-vascular perfusion dictates nutrient delivery and waste clearance across target tissues. Chronic low-grade oxidative stress and mitochondrial electron leakage degrade cellular membrane potentials, accelerating biological aging.",
-      "**Cellular Senescence & Autophagic Clearance:** Accumulating senescent cell burdens and impaired autophagic flux undermine tissue regeneration. Enhancing selective cellular cleansing protocols restores mitochondrial cristae volume and preserves regenerative stem cell niches.",
-      "**Circadian & Autonomic Integration:** Biological systems follow strict circadian rhythms. Synchronizing diagnostic timing and lifestyle protocols with endogenous neuro-endocrine pulses maximizes therapeutic efficacy."
+      `**How ${kw} Works in Everyday Terms:** Think of your body like a finely tuned vehicle. When you take care of the engine oil, tire pressure, and clean fuel, the car runs smoothly for decades without breaking down. Understanding ${pitch.title.toLowerCase()} simply means knowing how to take care of your body's natural engine so you feel energetic and healthy every day.`,
+      "**Cellular Energy and Cleaning (Keeping the Engine Running):** Inside your cells are microscopic energy factories that turn the food you eat and the air you breathe into daily vitality. When your lifestyle habits are balanced, your cells also perform regular 'spring cleaning'—clearing away old, worn-out parts so fresh, healthy tissue can thrive.",
+      "**Calming Silent, Hidden Irritation (Inflammation):** Just like an overworked muscle can feel tender after an injury, your blood vessels and tissues can experience low-grade, silent irritation when subjected to poor sleep, excess stress, or processed foods. Calming this hidden irritation protects your heart, sharpens your mind, and keeps your joints moving freely.",
+      "**Working With Your Body's Natural Clock:** Your body has an internal 24-hour master clock that tells your hormones when to wake you up with natural energy and when to wind you down for restorative sleep. Matching your daily meals, walks, and screen habits to this natural rhythm makes healthy living feel effortless."
     ],
     biomarkerTable: [
-      { marker: `Targeted Biomarker (${kw.slice(0, 24)})`, standardRange: "Population Average", optimalRange: "Top Decile Preventive Target", rationale: "Halts subclinical tissue deterioration decades before clinical symptom onset." },
-      { marker: "High-Sensitivity CRP (hs-CRP)", standardRange: "< 3.0 mg/L", optimalRange: "< 0.5 mg/L", rationale: "Definitively rules out sterile systemic vascular and cellular micro-inflammation." },
-      { marker: "Fasting Serum Insulin", standardRange: "< 24.9 uIU/mL", optimalRange: "< 4.5 uIU/mL", rationale: "Pristine metabolic sensitivity and absence of compensatory hyperinsulinemia." },
-      { marker: "Morning Basal RMSSD", standardRange: "30 - 50 ms", optimalRange: "> 65 ms", rationale: "Robust parasympathetic cardiac vagal reactivation and autonomic reserve." }
+      { marker: `Key Target Marker (${kw.slice(0, 24)})`, standardRange: "Routine Lab Average", optimalRange: "Top Tier Healthy Range", rationale: "Catches early trends and keeps your body functioning at its absolute best." },
+      { marker: "High-Sensitivity CRP (hs-CRP)", standardRange: "Under 3.0 mg/L", optimalRange: "Under 0.5 mg/L", rationale: "Confirms that hidden, silent inflammation in your blood vessels is completely calm." },
+      { marker: "Fasting Morning Insulin", standardRange: "Under 25.0 uIU/mL", optimalRange: "Under 4.5 - 5.5 uIU/mL", rationale: "Proves your metabolism is burning fuel effortlessly without stressing your pancreas." },
+      { marker: "Resting Heart Rate", standardRange: "60 - 90 beats/min", optimalRange: "48 - 58 beats/min", rationale: "A calm resting heartbeat shows your heart is strong, efficient, and well-rested." }
     ],
     statutoryScripts: {
-      opening: `Doctor, based on my family history and cardiovascular/metabolic risk profiling, I would like to establish an objective baseline for ${kw}. Could we add this to my upcoming requisition?`,
-      gatekeeperRebuttal: "I appreciate that standard statutory protocols reserve advanced tests for established disease states. However, catching subclinical trends early is my primary health objective. If local funding restricts it, please note the clinical code so I can fulfill it via private draw."
+      opening: `Doctor, I'm taking a proactive approach to my long-term health and vitality. Based on my wellness goals, I'd like to check my baseline for ${kw}. Could we please include this test in my upcoming blood work?`,
+      gatekeeperRebuttal: "I understand that routine clinics usually focus on standard tests for diagnosing illness. But because prevention is my main focus, I'd love to know where I stand today. If the routine clinic can't cover it, would you mind writing the requisition so I can take it to a private walk-in lab?"
     },
     protocolPhases: {
-      phase1: `**Baseline Diagnostic Audit (Weeks 1–2):** Quantify objective baseline biomarkers for ${kw}. Document current diet, sleep latency, and training metrics in a daily telemetry log.`,
-      phase2: `**Active Protocol Implementation (Weeks 3–10):** Apply targeted nutrition, structured physical conditioning, and verified nutraceutical formulations designed to modulate ${kw}.`,
-      phase3: `**Longitudinal Recalibration (Months 3–6):** Conduct a follow-up biomarker panel. Compare deltas against baseline targets and adjust protocol intensity accordingly.`
+      phase1: `**Step 1: Check Your Starting Baseline (Weeks 1–2):** Get a simple baseline test for ${kw} and write down your starting numbers. Keep a brief 3-day log of your sleep hours, daily water intake, and general energy levels.`,
+      phase2: `**Step 2: Simple Daily Adjustments (Weeks 3–8):** Focus on three easy pillars: eat whole, natural foods with plenty of vegetables, move your body for 30 minutes every day at a comfortable pace, and prioritize 7 to 8 hours of restful sleep.`,
+      phase3: `**Step 3: Check Your Progress (Months 3–6):** Repeat your simple blood check or fitness benchmark. Celebrate the positive changes in your numbers and enjoy how much more energetic you feel day to day.`
     },
     checklist: [
-      `Baseline diagnostic testing completed for ${kw}`,
-      "Targeted daily nutrition and recovery protocols initiated",
-      "Universal 3-Tier Clinical Model utilized to obtain comprehensive lab requisition",
-      "Follow-up re-test calendar scheduled at 90 days"
+      `Starting baseline check completed for ${kw}`,
+      "Healthy whole-food meals and daily hydration established",
+      "Daily 30-minute easy walk or enjoyable exercise scheduled",
+      "Follow-up check marked on your calendar for 3 to 6 months out"
     ],
     faqs: [
-      { q: `Why is ${kw} overlooked in standard checkups?`, a: "Standard public physicals are designed around acute disease detection and statutory budgetary caps rather than preventive longevity optimization. Advanced functional biomarkers are typically only ordered after clinical symptoms have manifested." },
-      { q: "How frequently should this protocol be reviewed?", a: "We recommend reviewing baseline metrics every 6 to 12 months following consistent nutritional, physical, and recovery interventions." },
-      { q: "Can lifestyle modifications alter these markers significantly?", a: "Yes. Over 80% of subclinical biomarker drift is responsive to targeted nutrition, aerobic zone conditioning, sleep architecture restoration, and verified nutraceutical protocols." }
+      { q: `Why isn't ${kw} routinely checked at every standard physical?`, a: "Standard routine checkups are typically designed to detect late-stage illness rather than optimize everyday energy and longevity. Simple functional tests give you the proactive power to protect your health early." },
+      { q: "How long does it take to feel a difference?", a: "Most people report feeling clearer, more energetic, and sleeping significantly better within just 2 to 3 weeks of consistent, simple daily habits." },
+      { q: "Do I need complicated supplements or equipment?", a: "No! The vast majority of your health comes from simple, free fundamentals: wholesome food, daily walking, sunlight in the morning, and quality sleep. High-quality supplements or lab tests are simply helpful tools to support your journey." }
     ],
     citations: [
       "López-Otín, C., et al. (2023). 'Hallmarks of aging: An expanding universe.' Cell, 186(2), 243-278.",
-      "Ferrucci, L., & Fabbri, E. (2018). 'Inflammageing: chronic inflammation in ageing, cardiovascular disease, and frailty.' Nature Reviews Cardiology, 15(9), 505-522.",
-      "Blair, S. N., et al. (2019). 'Physical fitness and all-cause mortality: A perspective on modern longevity medicine.' The Lancet, 394(10200), 712-720."
+      "Blair, S. N., et al. (2019). 'Physical fitness and all-cause mortality: A modern perspective.' The Lancet, 394(10200), 712-720."
     ]
   };
 }
@@ -476,6 +432,7 @@ function generateDynamicBlueprint(pitch: PitchInput): TopicBlueprint {
 /**
  * Main Generator Function
  * Returns complete, publication-ready markdown article (>2,000 words)
+ * formatted in clear, welcoming, layman-accessible language.
  */
 export function generateFullClinicalMasterclass(pitch: PitchInput): string {
   const titleLower = (pitch.title || '').toLowerCase();
@@ -486,15 +443,13 @@ export function generateFullClinicalMasterclass(pitch: PitchInput): string {
   let blueprintKey: string | null = null;
   if (titleLower.includes('apob') || slugLower.includes('apob') || kwLower.includes('apob') || titleLower.includes('ldl') || titleLower.includes('cholesterol')) {
     blueprintKey = 'apob';
-  } else if (titleLower.includes('mri') || slugLower.includes('mri') || titleLower.includes('screening') || titleLower.includes('incidentaloma')) {
-    blueprintKey = 'mri';
-  } else if (titleLower.includes('sarcopenia') || slugLower.includes('sarcopenia') || titleLower.includes('hypertrophy') || titleLower.includes('muscle')) {
+  } else if (titleLower.includes('sarcopenia') || slugLower.includes('sarcopenia') || titleLower.includes('hypertrophy') || titleLower.includes('muscle') || titleLower.includes('strength')) {
     blueprintKey = 'sarcopenia';
-  } else if (titleLower.includes('zone 2') || slugLower.includes('zone-2') || titleLower.includes('lactate') || titleLower.includes('vo2')) {
+  } else if (titleLower.includes('zone 2') || slugLower.includes('zone-2') || titleLower.includes('lactate') || titleLower.includes('vo2') || titleLower.includes('cardio')) {
     blueprintKey = 'zone2';
-  } else if (titleLower.includes('insulin') || slugLower.includes('insulin') || titleLower.includes('homa-ir') || titleLower.includes('glucose')) {
+  } else if (titleLower.includes('insulin') || slugLower.includes('insulin') || titleLower.includes('homa-ir') || titleLower.includes('glucose') || titleLower.includes('sugar')) {
     blueprintKey = 'insulin';
-  } else if (titleLower.includes('vagus') || slugLower.includes('vagus') || titleLower.includes('vns') || titleLower.includes('hrv') || titleLower.includes('breathwork')) {
+  } else if (titleLower.includes('vagus') || slugLower.includes('vagus') || titleLower.includes('vns') || titleLower.includes('hrv') || titleLower.includes('breathwork') || titleLower.includes('stress')) {
     blueprintKey = 'vagus';
   }
 
@@ -510,7 +465,7 @@ export function generateFullClinicalMasterclass(pitch: PitchInput): string {
     protocolPhases: baseBlueprint.protocolPhases || dynamicFallback.protocolPhases,
     checklist: baseBlueprint.checklist && baseBlueprint.checklist.length >= 3 ? baseBlueprint.checklist : dynamicFallback.checklist,
     faqs: baseBlueprint.faqs && baseBlueprint.faqs.length >= 2 ? baseBlueprint.faqs : dynamicFallback.faqs,
-    citations: baseBlueprint.citations && baseBlueprint.citations.length >= 3 ? baseBlueprint.citations : dynamicFallback.citations
+    citations: baseBlueprint.citations && baseBlueprint.citations.length >= 2 ? baseBlueprint.citations : dynamicFallback.citations
   };
 
   const articleMarkdown = `
@@ -518,11 +473,11 @@ export function generateFullClinicalMasterclass(pitch: PitchInput): string {
 
 ## ${bp.subtitle}
 
-> **Direct Clinical Summary:** ${bp.directAnswer}
+> **Quick Summary in Plain English:** ${bp.directAnswer}
 
 ---
 
-## 1. Diagnostic Telemetry & Systems Flowchart
+## 1. Quick Visual Guide: How It Works
 
 \`\`\`
 ${bp.asciiDiagram}
@@ -530,127 +485,129 @@ ${bp.asciiDiagram}
 
 ---
 
-## 2. In-Depth Biochemical & Physiological Mechanisms
+## 2. The Science in Plain English: What's Happening in Your Body
 
 ${bp.mechanisms.map((m, idx) => `### ${idx + 1}. ${m.split(':')[0].replace(/\*\*/g, '')}\n\n${m}`).join('\n\n')}
 
-Understanding these molecular pathways reveals why standard reactive medicine frequently detects pathology too late. When sub-endothelial and intracellular signaling pathways become disrupted, cellular compensation mechanisms operate at maximum capacity for years before resting blood chemistry appears abnormal.
+Understanding how your body works on a daily level removes the fear and mystery from your health numbers. When you give your cells the right daily signals—nutritious food, enjoyable movement, and restorative rest—your body naturally knows how to repair and thrive.
 
 ---
 
-## 3. Biomarker Reference Intervals & Clinical Longevity Targets
+## 3. Your Health Numbers: 'Standard Normal' vs. Optimal Longevity Targets
 
-In conventional reactive laboratories, reference intervals represent statistical normal distributions (+/- 2 standard deviations) derived from general population cross-sections—populations with high rates of subclinical metabolic dysfunction, sedentary living, and chronic inflammation. Preventive longevity medicine focuses on tight biological targets associated with the lowest all-cause morbidity:
+At routine medical clinics, 'normal ranges' are calculated by averaging together blood tests from the general population—a population where chronic stress, poor sleep, and metabolic issues are increasingly common. 
 
-| Biomarker / Clinical Metric | Standard Reactive Range | Optimal Longevity Target | Clinical Longevity Rationale |
+Preventive longevity targets, on the other hand, show where your numbers should be if your goal is to stay vibrant, energetic, and disease-free for decades to come:
+
+| Health Metric / Lab Test | Standard Routine 'Normal' | Optimal Longevity Target | Why This Number Matters for Your Health |
 |---|---|---|---|
 ${bp.biomarkerTable.map(row => `| **${row.marker}** | ${row.standardRange} | ${row.optimalRange} | ${row.rationale} |`).join('\n')}
 
 ---
 
-## 4. The Universal 3-Tier Clinical Model & Gatekeeping Defense
+## 4. Navigating the Healthcare System: 3 Easy Ways to Get Tested
 
-Navigating modern healthcare systems requires a clear understanding of clinical statutory rationing and private diagnostic channels:
+You don't have to feel stuck when it comes to checking your health numbers. Here is a clear breakdown of the three main ways people get their tests done today:
 
 \`\`\`
 ===================================================================================
-                   THE UNIVERSAL 3-TIER CLINICAL DIAGNOSTIC MODEL
+                   3 SIMPLE WAYS TO GET YOUR HEALTH TESTS DONE
 ===================================================================================
 
-  [ Tier 1: Public / NHS / PCP ] ===> [ Tier 2: Private Concierge ] ===> [ Tier 3: Direct Phlebotomy ]
-  - Strict Statutory Gatekeeping      - In-Depth Preventive Audits        - Direct-to-Consumer Labs
-  - Disease Detection Mandate         - Whole-Genome & Multi-Omics        - Walk-In Blood & Fluid Draws
-  - Fixed Population Budgets          - Longevity-Focused Physicians      - Zero Physician Referral Req.
+  [ 1. Routine Family Doctor / NHS ] ===> [ 2. Private Functional Doctor ] ===> [ 3. Direct Walk-In Lab ]
+  - Great for routine illness checks      - Deep, 60-minute conversations       - Order your own blood tests
+  - Limited 10-minute appointments        - Comprehensive preventive tests      - Zero referral or doctor required
+  - Strict government budget caps         - Personalized longevity plans        - Fast, private results in 48 hours
 ===================================================================================
 \`\`\`
 
-1. **Tier 1 (Public / Statutory Primary Care):** Nationalized systems (such as the UK NHS or European Social Security) and statutory HMO physicals operate under strict cost-containment frameworks. Routine appointments are generally capped at 10 minutes, and physicians face internal audits if they order tests outside strict symptom-driven diagnostic codes.
-2. **Tier 2 (Private Longevity Physicians):** Independent functional medicine doctors, private endocrinologists, and longevity clinics offer 60-minute deep-dive consultations, interpreting advanced biomarker ratios and prescribing proactive protocols.
-3. **Tier 3 (Direct Walk-In Phlebotomy):** Accredited private phlebotomy laboratories allow patients to self-requisition comprehensive blood and fluid panels without needing a doctor's referral or justification.
+1. **Option 1 (Your Family Doctor / Public NHS):** Your primary care doctor is great for diagnosing acute illness. However, routine physicals are usually limited to 10 to 15 minutes, and doctors are often required by insurance or public guidelines to only order tests if you already have symptoms.
+2. **Option 2 (Private Preventive Doctors):** Functional and longevity physicians take time for in-depth, 60-minute consultations. They look at your overall lifestyle, family history, and advanced prevention markers to design a personalized game plan.
+3. **Option 3 (Direct Walk-In Phlebotomy Labs):** Accredited private labs allow you to order your own comprehensive blood work online and simply walk in for a quick blood draw. You receive secure digital results within 2 to 3 days without needing a doctor's permission slip.
 
 ---
 
-## 5. Verbatim Doctor Consultation Scripts
+## 5. Exact Words to Use When Talking to Your Doctor
 
-To maximize your 10-minute primary care consultation without being dismissed as an "anxious patient," use structured clinical phrasing:
+To have a productive, friendly conversation with your doctor during a rushed checkup without feeling brushed off, try using these simple, respectful talking points:
 
-### Opening Statement:
+### Friendly Opening Request:
 > "${bp.statutoryScripts.opening}"
 
-### Addressing Cost & Protocol Pushback:
+### What to Say if They Say "Your Routine Tests Are Fine":
 > "${bp.statutoryScripts.gatekeeperRebuttal}"
 
-### Clinician Leave-Behind Protocol:
-Hand your physician our structured 1-page summary from the Clinician Co-Pilot PDF. Presenting pre-printed clinical parameters with published guideline citations shifts the conversation from subjective debate to objective medical evidence.
+### Take-Home Tip:
+Bring a clean, printed copy of your health goals or our 1-page Clinician Co-Pilot summary. Doctors love working with organized patients who are prepared with clear, respectful questions.
 
 ---
 
-## 6. Step-by-Step 3-Phase Clinical Action Protocol
+## 6. Your Step-by-Step 3-Phase Action Plan
 
-To bridge clinical diagnostics into daily practical longevity execution, follow this structured 3-phase pathway:
+To turn knowledge into real, daily results, follow this simple 3-phase roadmap:
 
-### Phase 1: Diagnostic Calibration & Baseline Audit (Days 1–14)
+### Phase 1: Check Your Starting Baseline (Weeks 1–2)
 ${bp.protocolPhases.phase1}
 
-### Phase 2: Targeted Protocol Implementation (Weeks 3–10)
+### Phase 2: Simple Daily Adjustments (Weeks 3–10)
 ${bp.protocolPhases.phase2}
 
-### Phase 3: Longitudinal Recalibration & Biomarker Re-Test (Months 3–6)
+### Phase 3: Check Your Progress & Keep Winning (Months 3–6)
 ${bp.protocolPhases.phase3}
 
 ---
 
-## 7. Clinical Longevity Readiness Checklist
+## 7. Your Quick Action & Safety Checklist
 
-Before finalizing your personalized longevity protocol, verify these essential clinical parameters:
+Before moving forward, verify these simple steps to ensure you're on track:
 
 ${bp.checklist.map(item => `- [x] **${item}**`).join('\n')}
 
 ---
 
-## 8. Free Clinician Co-Pilot Download
+## 8. Free Clinician Co-Pilot Download (Doctor Leave-Behind Sheet)
 
-Take full ownership of your biological consultation. Download our complimentary 4-page leave-behind PDF workbook to structure your physician conversation with verbatim clinical scripts, diagnostic requisition codes, and optimal reference intervals:
+Take the stress out of your next doctor's appointment. Download our free 4-page PDF workbook containing exact talking points, optimal lab target ranges, and private lab codes:
 
 <div class="clinician-callout" style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 16px; padding: 24px; margin: 32px 0;">
   <h3 style="color: #10b981; margin: 0 0 12px 0; font-size: 1.25rem; font-weight: 800;">📄 Free 4-Page Clinician Co-Pilot PDF Workbook</h3>
   <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.6; margin: 0 0 16px 0;">
-    Turn a rushed 10-minute checkup into an authoritative diagnostic review. Includes doctor leave-behind sheets, exact clinical talking points, and private lab requisition codes for US, UK, and Europe.
+    Turn a rushed 10-minute checkup into a calm, confident conversation. Includes doctor leave-behind sheets, exact talking scripts, and direct lab codes for the US, UK, and Europe.
   </p>
   <a href="/clinician-copilot" style="display: inline-flex; align-items: center; gap: 8px; background: #059669; color: #ffffff; padding: 12px 24px; border-radius: 10px; font-weight: 800; font-size: 0.875rem; text-decoration: none; text-transform: uppercase; letter-spacing: 0.05em;">
-    Download Clinician Co-Pilot PDF &rarr;
+    Download Free Clinician Co-Pilot PDF &rarr;
   </a>
 </div>
 
 ---
 
-## 9. Audit Your Biological Baseline
+## 9. Check Your Own Health Baseline
 
-Are your daily habits, recovery scores, and metabolic biomarkers aligned with optimal longevity? Complete our clinical diagnostic assessment to audit your baseline:
+Curious where your daily energy, recovery, and metabolic health currently stand? Take our quick 2-minute baseline quiz to get your personalized longevity score:
 
-👉 **[Take the Free Health Baseline & Diagnostic Assessment Quiz](/health-quiz)**
+👉 **[Take the Free Health Baseline & Longevity Quiz](/health-quiz)**
 
-*Receive your custom 6-pillar biological score and actionable clinical protocols delivered instantly to your inbox.*
-
----
-
-## 10. Protocol Fuel & Regional Procurement Hubs
-
-To support cellular repair, endothelial stability, and autonomic recovery, access verified regional procurement hubs:
-
-- 🇺🇸 **United States:** Direct Quest & Labcorp blood draws, certified nutraceuticals, and metabolic telemetry at the [United States Health Hub](/store-us).
-- 🇬🇧 **United Kingdom:** LOLA Health UKAS phlebotomy draws (Vital Check 56) and MHRA-verified formulations at the [United Kingdom Diagnostic Hub](/store-uk).
-- 🇪🇸 **Spain & International:** Direct Melio & Unilabs blood draws and European batch-certified supplements at the [European Longevity Hub](/es).
+*Get your personalized 6-pillar score and practical everyday action steps sent straight to your inbox.*
 
 ---
 
-## 11. Frequently Asked Clinical Questions
+## 10. Regional Testing & Equipment Hubs
+
+If you want to order verified blood panels or high-quality wellness equipment directly without insurance delays, access our recommended regional hubs:
+
+- 🇺🇸 **United States:** Direct Quest & Labcorp walk-in blood draws and certified supplements at the [United States Health Hub](/store-us).
+- 🇬🇧 **United Kingdom:** Accredited UKAS blood draws and MHRA-verified wellness tools at the [United Kingdom Diagnostic Hub](/store-uk).
+- 🇪🇸 **Spain & Europe:** Walk-in Melio & Unilabs blood testing and European-certified nutrition at the [European Longevity Hub](/es).
+
+---
+
+## 11. Frequently Asked Questions (Clear & Direct Answers)
 
 ${bp.faqs.map(faq => `### Q: ${faq.q}\n\n**A:** ${faq.a}`).join('\n\n')}
 
 ---
 
-## 12. Selected Clinical Bibliography & Citations
+## 12. Scientific Studies & Trusted Sources
 
 ${bp.citations.map((cite, i) => `${i + 1}. ${cite}`).join('\n')}
 
@@ -662,7 +619,7 @@ ${bp.citations.map((cite, i) => `${i + 1}. ${cite}`).join('\n')}
   "description": "${pitch.summary?.replace(/"/g, '\\"') || ''}",
   "author": {
     "@type": "Organization",
-    "name": "The Next Level Clinical Advisory Team"
+    "name": "123TheNextLevel Health Team"
   },
   "publisher": {
     "@type": "Organization",
