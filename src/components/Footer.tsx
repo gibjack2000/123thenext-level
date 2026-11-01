@@ -36,7 +36,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-10 mb-16">
           {/* Brand Column */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center group">
@@ -114,6 +114,43 @@ const Footer = () => {
                   <span className="w-0 group-hover:w-2 h-0.5 bg-indigo-500 mr-0 group-hover:mr-2 transition-all duration-300"></span>
                   Jargon Buster (Glossary)
                 </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Clinical & Expat Guides Column */}
+          <div>
+            <h3 className="text-white font-bold text-base mb-6 uppercase tracking-wider flex items-center">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 mr-2"></span>
+              Clinical &amp; Expat Guides
+            </h3>
+            <ul className="space-y-4">
+              <li>
+                <a 
+                  href="/guides/uk-preventative-blood-tests/" 
+                  className="text-slate-400 hover:text-cyan-400 font-semibold transition-colors duration-200 flex items-center group"
+                >
+                  <span className="w-0 group-hover:w-2 h-0.5 bg-cyan-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                  UK Preventative Blood Test Guide (NHS Script)
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/guides/us-doctor-blood-tests/" 
+                  className="text-slate-400 hover:text-cyan-400 font-semibold transition-colors duration-200 flex items-center group"
+                >
+                  <span className="w-0 group-hover:w-2 h-0.5 bg-cyan-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                  US Preventative Blood Test Guide (PCP &amp; Insurance)
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/guides/spain-preventative-blood-tests/" 
+                  className="text-slate-400 hover:text-cyan-400 font-semibold transition-colors duration-200 flex items-center group"
+                >
+                  <span className="w-0 group-hover:w-2 h-0.5 bg-cyan-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                  Spain Preventative Blood Test Guide (English Expat Guide)
+                </a>
               </li>
             </ul>
           </div>

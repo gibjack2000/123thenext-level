@@ -2824,6 +2824,36 @@ export default function ClinicianCopilot() {
               </li>
             </ol>
           </div>
+
+          {/* Regional Pillar Guides Cross-Link Bar */}
+          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-sm">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+              <div className="flex items-center gap-2 text-slate-300 font-semibold shrink-0">
+                <span className="text-sm">🗺️</span>
+                <span>Regional Doctor Scripts &amp; Lab Pathways:</span>
+              </div>
+              <div className="flex flex-wrap items-center gap-2">
+                <a 
+                  href="/guides/uk-preventative-blood-tests/" 
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-800 text-slate-200 hover:text-cyan-300 border border-slate-700/60 hover:border-cyan-500/40 transition-all font-medium"
+                >
+                  <span>🇬🇧 UK (NHS Script)</span>
+                </a>
+                <a 
+                  href="/guides/us-doctor-blood-tests/" 
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-800 text-slate-200 hover:text-cyan-300 border border-slate-700/60 hover:border-cyan-500/40 transition-all font-medium"
+                >
+                  <span>🇺🇸 US (PCP &amp; Insurance)</span>
+                </a>
+                <a 
+                  href="/guides/spain-preventative-blood-tests/" 
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/80 hover:bg-slate-800 text-slate-200 hover:text-cyan-300 border border-slate-700/60 hover:border-cyan-500/40 transition-all font-medium"
+                >
+                  <span>🇪🇸 Spain (Expat Guide)</span>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>
