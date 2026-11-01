@@ -390,6 +390,29 @@ export const DiagnosticRoadmap: React.FC = () => {
               >
                 🎁 Or, Access the Free Clinician Co-Pilot Workbook &amp; GP Consultation Script →
               </Link>
+
+              {/* Regional Consultation Guides Companion Links */}
+              <div className="flex flex-wrap items-center justify-center gap-1.5 pt-1 text-[11px] text-slate-400">
+                <span className="text-slate-500 text-[10px] uppercase tracking-wider font-mono">Guides:</span>
+                <a
+                  href="/guides/uk-preventative-blood-tests/"
+                  className="px-2 py-0.5 rounded-full bg-slate-950/80 border border-slate-800 hover:border-emerald-500/60 hover:text-emerald-400 text-slate-300 transition-colors text-[10px] font-medium"
+                >
+                  🇬🇧 UK NHS Guide
+                </a>
+                <a
+                  href="/guides/us-doctor-blood-tests/"
+                  className="px-2 py-0.5 rounded-full bg-slate-950/80 border border-slate-800 hover:border-emerald-500/60 hover:text-emerald-400 text-slate-300 transition-colors text-[10px] font-medium"
+                >
+                  🇺🇸 US Doctor Guide
+                </a>
+                <a
+                  href="/guides/spain-preventative-blood-tests/"
+                  className="px-2 py-0.5 rounded-full bg-slate-950/80 border border-slate-800 hover:border-emerald-500/60 hover:text-emerald-400 text-slate-300 transition-colors text-[10px] font-medium"
+                >
+                  🇪🇸 Spain Expat Guide
+                </a>
+              </div>
             </div>
           </div>
         </div>

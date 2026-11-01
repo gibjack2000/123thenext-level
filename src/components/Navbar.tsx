@@ -14,6 +14,8 @@ export const Navbar: React.FC = () => {
   );
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isPillarsOpen, setIsPillarsOpen] = useState(false);
+  const [isGuidesOpen, setIsGuidesOpen] = useState(false);
+  const [isMobileGuidesOpen, setIsMobileGuidesOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -67,7 +69,7 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Master Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-5 xl:gap-6 text-xs font-semibold uppercase tracking-wider">
+        <nav className="hidden lg:flex items-center gap-3.5 xl:gap-5 text-[11px] xl:text-xs font-semibold uppercase tracking-wider">
           <Link 
             to="/" 
             className={`transition-colors ${location.pathname === '/' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
@@ -194,6 +196,61 @@ export const Navbar: React.FC = () => {
           >
             📚 Blogs
           </Link>
+
+          {/* CLINICAL BLOOD TEST GUIDES DROPDOWN */}
+          <div 
+            className="relative"
+            onMouseEnter={() => setIsGuidesOpen(true)}
+            onMouseLeave={() => setIsGuidesOpen(false)}
+          >
+            <button 
+              type="button"
+              className={`font-semibold hover:text-cyan-300 flex items-center gap-1 transition-colors py-2 cursor-pointer ${
+                location.pathname.startsWith('/guides') ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              <span>Guides</span> <span className="text-[10px]">▾</span>
+            </button>
+
+            {isGuidesOpen && (
+              <div className="absolute top-full right-0 w-72 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-2 space-y-1 z-50 animate-fade-in normal-case tracking-normal">
+                <div className="px-3 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest flex items-center justify-between">
+                  <span>Preventative Blood Tests</span>
+                  <a href="/guides/" className="text-cyan-400 hover:underline normal-case text-[10px]">All Guides →</a>
+                </div>
+                <a
+                  href="/guides/uk-preventative-blood-tests/"
+                  onClick={() => setIsGuidesOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                >
+                  🇬🇧 UK NHS Blood Test Guide
+                </a>
+                <a
+                  href="/guides/us-doctor-blood-tests/"
+                  onClick={() => setIsGuidesOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                >
+                  🇺🇸 US Preventative Blood Test Guide
+                </a>
+                <a
+                  href="/guides/spain-preventative-blood-tests/"
+                  onClick={() => setIsGuidesOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                >
+                  🇪🇸 Spain Expat Health Guide (EN)
+                </a>
+                <div className="pt-1 mt-1 border-t border-slate-800">
+                  <a
+                    href="/guides/"
+                    onClick={() => setIsGuidesOpen(false)}
+                    className="block px-3 py-1.5 rounded-lg text-[11px] font-medium text-cyan-400 hover:text-cyan-300 hover:bg-slate-800/60 transition-all"
+                  >
+                    📖 View All Guides &amp; Pillar Directory →
+                  </a>
+                </div>
+              </div>
+            )}
+          </div>
 
           <Link 
             to={`/store-${market?.toLowerCase() || selectedRegion}`} 
@@ -328,6 +385,50 @@ export const Navbar: React.FC = () => {
           <Link to="/library" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">📁 Library</Link>
           <Link to="/library#free-pdfs" onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">📄 Free PDFs ($0 Download)</Link>
           <Link to="/premium-guides" onClick={closeMobileMenu} className="block text-amber-400/90 font-bold py-1">⚡ Premium Guides (9 Books)</Link>
+
+          {/* Collapsible Guides Section in Mobile Drawer */}
+          <div className="py-1 border-y border-slate-800/80 my-1">
+            <button
+              type="button"
+              onClick={() => setIsMobileGuidesOpen(!isMobileGuidesOpen)}
+              className="w-full flex items-center justify-between text-slate-200 font-bold py-1.5 text-left cursor-pointer"
+            >
+              <span className="flex items-center gap-1.5">📖 Preventative Blood Test Guides</span>
+              <span className="text-xs text-slate-400">{isMobileGuidesOpen ? '▴' : '▾'}</span>
+            </button>
+            {isMobileGuidesOpen && (
+              <div className="pl-3 pr-1 py-1 space-y-1.5 text-xs bg-slate-900/60 rounded-lg mt-1 border border-slate-800/60">
+                <a 
+                  href="/guides/uk-preventative-blood-tests/" 
+                  onClick={closeMobileMenu} 
+                  className="block py-1 text-slate-300 hover:text-cyan-400"
+                >
+                  🇬🇧 UK NHS Blood Test Guide
+                </a>
+                <a 
+                  href="/guides/us-doctor-blood-tests/" 
+                  onClick={closeMobileMenu} 
+                  className="block py-1 text-slate-300 hover:text-cyan-400"
+                >
+                  🇺🇸 US Preventative Blood Test Guide
+                </a>
+                <a 
+                  href="/guides/spain-preventative-blood-tests/" 
+                  onClick={closeMobileMenu} 
+                  className="block py-1 text-slate-300 hover:text-cyan-400"
+                >
+                  🇪🇸 Spain Expat Health Guide (EN)
+                </a>
+                <a 
+                  href="/guides/" 
+                  onClick={closeMobileMenu} 
+                  className="block py-1 text-cyan-400 hover:underline font-semibold text-[11px]"
+                >
+                  📖 View All Guides Directory →
+                </a>
+              </div>
+            )}
+          </div>
           <Link to="/science" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧬 Epigenetics & Longevity</Link>
           <Link to="/wellness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🧠 Autonomic & Wellness</Link>
           <Link to="/fitness" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">⚡ Performance & Bio-Data</Link>

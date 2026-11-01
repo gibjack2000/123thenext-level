@@ -290,13 +290,42 @@ export const UnifiedExplainerSection: React.FC<UnifiedExplainerSectionProps> = (
                   Free interactive 4-page clinical app and print-ready GP consultation template. Record 14 days of vitals and present exact lab requests.
                 </p>
               </div>
-              <Link
-                to="/clinician-copilot"
-                className="w-full py-3 px-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-center text-xs sm:text-sm transition-all shadow-lg shadow-emerald-500/20 active:scale-95 flex items-center justify-center gap-1.5"
-              >
-                <span>🩺 Open Clinician Co-Pilot</span>
-                <ArrowRight size={14} />
-              </Link>
+              <div className="space-y-3">
+                <Link
+                  to="/clinician-copilot"
+                  className="w-full py-3 px-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold rounded-xl text-center text-xs sm:text-sm transition-all shadow-lg shadow-emerald-500/20 active:scale-95 flex items-center justify-center gap-1.5"
+                >
+                  <span>🩺 Open Clinician Co-Pilot</span>
+                  <ArrowRight size={14} />
+                </Link>
+
+                {/* Regional Healthcare System Guides Companion Block */}
+                <div className="pt-2.5 border-t border-slate-800/80 text-[11px] text-slate-400 space-y-1.5">
+                  <p className="font-medium text-slate-300 text-[11px] text-center sm:text-left">
+                    Preparing for an appointment? Choose your healthcare system:
+                  </p>
+                  <div className="flex flex-wrap items-center justify-center sm:justify-start gap-1.5">
+                    <a
+                      href="/guides/uk-preventative-blood-tests/"
+                      className="px-2.5 py-1 rounded-full bg-slate-950 border border-slate-800 hover:border-emerald-500/60 hover:text-emerald-400 text-slate-300 transition-colors text-[11px] font-medium"
+                    >
+                      🇬🇧 UK NHS Guide
+                    </a>
+                    <a
+                      href="/guides/us-doctor-blood-tests/"
+                      className="px-2.5 py-1 rounded-full bg-slate-950 border border-slate-800 hover:border-emerald-500/60 hover:text-emerald-400 text-slate-300 transition-colors text-[11px] font-medium"
+                    >
+                      🇺🇸 US Doctor Guide
+                    </a>
+                    <a
+                      href="/guides/spain-preventative-blood-tests/"
+                      className="px-2.5 py-1 rounded-full bg-slate-950 border border-slate-800 hover:border-emerald-500/60 hover:text-emerald-400 text-slate-300 transition-colors text-[11px] font-medium"
+                    >
+                      🇪🇸 Spain Expat Guide
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* CTA Card 3: Free Blueprint PDF */}
