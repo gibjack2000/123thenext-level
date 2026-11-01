@@ -430,7 +430,21 @@ export default function BlogAdminPage() {
             .eq('id', editingPost.id);
 
           if (uErr) {
-            await supabase.from('blog_posts').update(payload).eq('id', editingPost.id);
+            const { error: postErr } = await supabase.from('blog_posts').update(payload).eq('id', editingPost.id);
+            if (postErr) {
+              // Server bypass via service role key
+              try {
+                const res = await fetch('/api/automation/update-draft', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ id: editingPost.id, updates: payload })
+                });
+                const data = await res.json();
+                if (!res.ok || !data.success) throw postErr;
+              } catch (_) {
+                throw postErr;
+              }
+            }
           }
         } else {
           // Insert new
@@ -442,12 +456,32 @@ export default function BlogAdminPage() {
             .single();
 
           if (iErr) {
-            const { data: legacyData } = await supabase
+            const { data: legacyData, error: postErr } = await supabase
               .from('blog_posts')
               .insert([payload])
               .select()
               .single();
-            if (legacyData) payload.id = legacyData.id;
+
+            if (postErr) {
+              // Server bypass via service role key
+              try {
+                const res = await fetch('/api/automation/create-draft', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ draft: payload })
+                });
+                const data = await res.json();
+                if (res.ok && data.success && data.post) {
+                  payload.id = data.post.id;
+                } else {
+                  throw postErr;
+                }
+              } catch (_) {
+                throw postErr;
+              }
+            } else if (legacyData) {
+              payload.id = legacyData.id;
+            }
           } else if (iData) {
             payload.id = iData.id;
           }

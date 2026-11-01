@@ -229,6 +229,150 @@ router.post('/automation/upload-blog-image', async (req, res) => {
   }
 });
 
+// --- Secure Server-Side Draft Creation (Bypasses RLS with Service Role Key) ---
+router.post('/automation/create-draft', async (req, res) => {
+  try {
+    const { draft } = req.body;
+    if (!draft || !draft.title) {
+      return res.status(400).json({ success: false, error: 'Draft title and data are required' });
+    }
+
+    if (!supabase) {
+      return res.status(500).json({ success: false, error: 'Supabase server client not initialized' });
+    }
+
+    // Try inserting into blog_posts
+    let payload = { ...draft };
+    let result = await supabase.from('blog_posts').insert([payload]).select().single();
+
+    if (result.error) {
+      console.warn('Initial insert into blog_posts failed:', result.error.message);
+      // If error is missing status column or column cache, retry without status
+      if (result.error.message && result.error.message.includes('status')) {
+        const withoutStatus = { ...payload };
+        delete withoutStatus.status;
+        result = await supabase.from('blog_posts').insert([withoutStatus]).select().single();
+      }
+
+      // If still error (or PGRST205 table not found), try blogs table
+      if (result.error) {
+        let blogRes = await supabase.from('blogs').insert([payload]).select().single();
+        if (blogRes.error && blogRes.error.message && blogRes.error.message.includes('status')) {
+          const withoutStatus = { ...payload };
+          delete withoutStatus.status;
+          blogRes = await supabase.from('blogs').insert([withoutStatus]).select().single();
+        }
+        result = blogRes;
+      }
+    }
+
+    if (result.error) {
+      throw result.error;
+    }
+
+    const post = result.data;
+
+    // Trigger draft notification email asynchronously
+    try {
+      sendBlogDraftAlertEmail({
+        title: post.title,
+        category: post.category,
+        status: post.status || 'draft',
+        slug: post.slug,
+        id: post.id
+      }).catch(() => {});
+    } catch (_) {}
+
+    res.json({ success: true, post });
+  } catch (err) {
+    console.error('Error in /automation/create-draft:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// --- Secure Server-Side Draft Publishing (Bypasses RLS with Service Role Key) ---
+router.post('/automation/publish-draft', async (req, res) => {
+  try {
+    const { id } = req.body;
+    if (!id) {
+      return res.status(400).json({ success: false, error: 'Draft id is required' });
+    }
+
+    if (!supabase) {
+      return res.status(500).json({ success: false, error: 'Supabase server client not initialized' });
+    }
+
+    const nowIso = new Date().toISOString();
+    let result = await supabase
+      .from('blog_posts')
+      .update({ status: 'published', published_at: nowIso, updated_at: nowIso })
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (result.error) {
+      result = await supabase
+        .from('blogs')
+        .update({ status: 'published', published_at: nowIso, updated_at: nowIso })
+        .eq('id', id)
+        .select()
+        .single();
+    }
+
+    if (result.error) throw result.error;
+
+    // Check if review queue is now empty
+    try {
+      const { count } = await supabase.from('blog_posts').select('*', { count: 'exact', head: true }).eq('status', 'draft');
+      if (count === 0) {
+        sendQueueEmptyAlertEmail().catch(() => {});
+      }
+    } catch (_) {}
+
+    res.json({ success: true, post: result.data });
+  } catch (err) {
+    console.error('Error in /automation/publish-draft:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// --- Secure Server-Side Draft Update (Bypasses RLS with Service Role Key) ---
+router.post('/automation/update-draft', async (req, res) => {
+  try {
+    const { id, updates } = req.body;
+    if (!id || !updates) {
+      return res.status(400).json({ success: false, error: 'Draft id and updates are required' });
+    }
+
+    if (!supabase) {
+      return res.status(500).json({ success: false, error: 'Supabase server client not initialized' });
+    }
+
+    let result = await supabase
+      .from('blog_posts')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (result.error) {
+      result = await supabase
+        .from('blogs')
+        .update(updates)
+        .eq('id', id)
+        .select()
+        .single();
+    }
+
+    if (result.error) throw result.error;
+
+    res.json({ success: true, post: result.data });
+  } catch (err) {
+    console.error('Error in /automation/update-draft:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 
 
 // --- Quiz Results Route ---

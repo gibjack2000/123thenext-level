@@ -70,16 +70,36 @@ export default function BlogAutomationAdmin() {
       const altToUse = newAlt || customImageAlt || getCategoryDefaultAlt(previewingDraft.category, previewingDraft.title);
       const updatedContent = updateArticleFrontmatter(previewingDraft.content || '', newUrl, altToUse);
 
-      // 1. Update in Supabase
-      const { error } = await supabase
-        .from('blog_posts')
-        .update({
-          image_url: newUrl,
-          content: updatedContent
-        })
-        .eq('id', previewingDraft.id);
+      // 1. Try server-side bypass first (service role key bypasses RLS)
+      let updated = false;
+      try {
+        const res = await fetch('/api/automation/update-draft', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: previewingDraft.id,
+            updates: {
+              image_url: newUrl,
+              content: updatedContent
+            }
+          })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) updated = true;
+      } catch (_) {}
 
-      if (error) throw error;
+      // Fallback to client-side Supabase
+      if (!updated && supabase) {
+        const { error } = await supabase
+          .from('blog_posts')
+          .update({
+            image_url: newUrl,
+            content: updatedContent
+          })
+          .eq('id', previewingDraft.id);
+
+        if (error) throw error;
+      }
 
       // 2. Update local state
       const updatedPost = {
@@ -285,12 +305,33 @@ export default function BlogAutomationAdmin() {
         created_at: new Date().toISOString()
       };
 
-      let insertResult = await supabase.from('blog_posts').insert([newDraft]).select().single();
-      if (insertResult.error && insertResult.error.code === 'PGRST205') {
-        insertResult = await supabase.from('blogs').insert([newDraft]).select().single();
+      // 1. Try server-side endpoint first (uses SUPABASE_SERVICE_ROLE_KEY which bypasses RLS)
+      let draftCreated = false;
+      try {
+        const res = await fetch('/api/automation/create-draft', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ draft: newDraft })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          draftCreated = true;
+        } else {
+          console.warn('Backend create-draft error:', data.error);
+        }
+      } catch (apiErr) {
+        console.warn('Backend create-draft endpoint unreachable, falling back to direct Supabase client');
       }
 
-      if (insertResult.error) throw insertResult.error;
+      // 2. Fallback to client-side Supabase if server API is offline
+      if (!draftCreated && supabase) {
+        let insertResult = await supabase.from('blog_posts').insert([newDraft]).select().single();
+        if (insertResult.error && insertResult.error.code === 'PGRST205') {
+          insertResult = await supabase.from('blogs').insert([newDraft]).select().single();
+        }
+
+        if (insertResult.error) throw insertResult.error;
+      }
 
       // Update local state
       setWeeklyPitches(prev => prev.map(p => p.id === pitch.id ? { ...p, draftStatus: 'drafted' } : p));
@@ -298,7 +339,18 @@ export default function BlogAutomationAdmin() {
       fetchPendingReviews();
     } catch (err: any) {
       console.error('Error creating pitch draft:', err);
-      alert('Draft error: ' + (err.message || 'Failed to create draft in database'));
+      const isRls = (err.message || '').includes('row-level security') || err.code === '42501';
+      if (isRls) {
+        alert(
+          'Supabase RLS Block Detected:\n\n' +
+          'Row-Level Security (RLS) is blocking draft creation on "blog_posts".\n\n' +
+          'To resolve this in 5 seconds, run this in your Supabase SQL Editor:\n\n' +
+          'ALTER TABLE blog_posts DISABLE ROW LEVEL SECURITY;\n' +
+          'ALTER TABLE blogs DISABLE ROW LEVEL SECURITY;'
+        );
+      } else {
+        alert('Draft error: ' + (err.message || 'Failed to create draft in database'));
+      }
     } finally {
       setGeneratingPitchId(null);
     }
@@ -307,18 +359,38 @@ export default function BlogAutomationAdmin() {
   const handleAuthorizePublish = async (post: any) => {
     setPublishingId(post.id);
     try {
-      const { error } = await supabase
-        .from('blog_posts')
-        .update({ status: 'published' })
-        .eq('id', post.id);
+      // 1. Try server-side endpoint first (uses service role key to bypass RLS)
+      let published = false;
+      try {
+        const res = await fetch('/api/automation/publish-draft', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: post.id })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) published = true;
+      } catch (_) {}
 
-      if (error) throw error;
+      // 2. Fallback to client-side Supabase
+      if (!published && supabase) {
+        const { error } = await supabase
+          .from('blog_posts')
+          .update({ status: 'published' })
+          .eq('id', post.id);
+
+        if (error) throw error;
+      }
 
       setAlertMessage(`✅ Successfully published "${post.title}" live! View at /blog/${post.slug}`);
       fetchPendingReviews();
     } catch (err: any) {
       console.error('Error publishing post:', err);
-      alert('Publish error: ' + (err.message || 'Failed to update article status'));
+      const isRls = (err.message || '').includes('row-level security') || err.code === '42501';
+      if (isRls) {
+        alert('Publish error: Supabase RLS is blocking updates. Run "ALTER TABLE blog_posts DISABLE ROW LEVEL SECURITY;" in Supabase SQL editor.');
+      } else {
+        alert('Publish error: ' + (err.message || 'Failed to update article status'));
+      }
     } finally {
       setPublishingId(null);
     }

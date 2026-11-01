@@ -116,3 +116,4 @@ export function extractFrontmatter(content: string): { featured_image?: string; 
   }
   return result;
 }
+
