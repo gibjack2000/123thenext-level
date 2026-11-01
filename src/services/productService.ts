@@ -456,12 +456,8 @@ Object.entries(baseAliasFallbacks).forEach(([alias, targetId]) => {
 export function sanitizeProductData(p: any): ProductDb {
   let healedImg = p.image_url || '';
   if (healedImg) {
-    if (healedImg.startsWith('/Products/') || healedImg.startsWith('/products/')) {
-      healedImg = 'https://www.123thenextlevel.com' + healedImg;
-    } else if (healedImg.startsWith('/assets/')) {
-      healedImg = 'https://www.123thenextlevel.com' + healedImg;
-    } else if (healedImg.startsWith('http://') || healedImg.startsWith('https://')) {
-      healedImg = healedImg.replace('https://123thenextlevel.com/', 'https://www.123thenextlevel.com/');
+    if (healedImg.includes('123thenextlevel.com/')) {
+      healedImg = healedImg.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
     }
   }
 

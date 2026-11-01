@@ -111,9 +111,7 @@ export const StoreUS: React.FC = () => {
             !healedImg.startsWith('http') &&
             !isBundledDiagnosticImage(healedImg)
           ) {
-            if (healedImg.startsWith('/assets/') || healedImg.startsWith('/Products/')) {
-              healedImg = `https://123thenextlevel.com${healedImg}`;
-            }
+            healedImg = healedImg.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
           }
 
           const rawPrice = item.price_text || (item.price != null ? `$${Number(item.price).toFixed(2)}` : '$0.00');
@@ -457,10 +455,6 @@ export const StoreUS: React.FC = () => {
                               onError={(e) => {
                                 const target = e.currentTarget;
                                 target.onerror = null;
-                                if (target.src.includes('123thenextlevel.com/')) {
-                                  target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
-                                  return;
-                                }
                                 if (isDiag) {
                                   target.src = clinicalBloodPanelImg;
                                 } else if (product.category === 'Smart Hardware & Wearables') {
@@ -558,10 +552,6 @@ export const StoreUS: React.FC = () => {
                               onError={(e) => {
                                 const target = e.currentTarget;
                                 target.onerror = null;
-                                if (target.src.includes('123thenextlevel.com/')) {
-                                  target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
-                                  return;
-                                }
                                 target.src = '/assets/images/shop/sirtuin-stack.png';
                               }}
                             />

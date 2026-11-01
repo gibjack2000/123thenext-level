@@ -25,7 +25,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       priceText: "$399.00",
       dealUrl: "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl08-20",
       badgeText: "Vetted Telemetry Hub",
-      imagePlaceholder: "/assets/products/apple-watch-10.jpg",
+      imagePlaceholder: "/Products/apple10.jpg",
       pillar: "fitness"
     },
     {
@@ -36,7 +36,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       priceText: "$990.00",
       dealUrl: "https://www.amazon.com/dp/B00NH9WEUA?tag=123znl08-20",
       badgeText: "VO2 Max Optimizer",
-      imagePlaceholder: "/assets/products/concept2-rowerg-us.jpg",
+      imagePlaceholder: "/Products/concept2us.webp",
       pillar: "fitness"
     },
     {
@@ -47,7 +47,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       priceText: "$25.00",
       dealUrl: "https://www.amazon.com/dp/B01LR5RG08?tag=123znl08-20",
       badgeText: "Resistance Training",
-      imagePlaceholder: "/assets/products/basics-dumbbells.jpg",
+      imagePlaceholder: "/Products/dumbell.jpg",
       pillar: "fitness"
     },
     {
@@ -58,7 +58,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       priceText: "$29.99",
       dealUrl: "https://www.amazon.com/dp/B0055OUOQQ?tag=123znl08-20",
       badgeText: "Mitochondrial Fuel",
-      imagePlaceholder: "/assets/products/qunol-coq10.jpg",
+      imagePlaceholder: "/Products/coq10.jpeg",
       pillar: "health"
     },
     {
@@ -69,7 +69,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       priceText: "$499.00",
       dealUrl: "/shop/strength-rack",
       badgeText: "Structural Joint Health",
-      imagePlaceholder: "/assets/products/strength-rack.jpg",
+      imagePlaceholder: "/Products/rackus.webp",
       pillar: "fitness"
     },
     {
@@ -80,7 +80,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       priceText: "$89.00",
       dealUrl: "https://www.amazon.co.uk/dp/B01B81R34U?tag=123znl0a-21&",
       badgeText: "Biology-Specific Screening",
-      imagePlaceholder: "/assets/products/ovarian-test-us.jpg",
+      imagePlaceholder: "/Products/clinical-blood-panel.jpg",
       pillar: "womens-health"
     }
   ],
@@ -93,7 +93,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       priceText: "£237.00",
       dealUrl: "https://referrals.lolahealth.com/NextLevel15",
       badgeText: "Cardiovascular Baseline",
-      imagePlaceholder: "/assets/products/lola-check-56.jpg",
+      imagePlaceholder: "/Products/lola-blood-panel.jpg",
       pillar: "health"
     },
     {
@@ -104,7 +104,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       priceText: "£349.00",
       dealUrl: "https://referrals.lolahealth.com/NextLevel15",
       badgeText: "Vascular Protection",
-      imagePlaceholder: "/assets/products/lola-insights-70.jpg",
+      imagePlaceholder: "/Products/lola-blood-panel.jpg",
       pillar: "health"
     },
     {
@@ -115,7 +115,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       priceText: "£199.00",
       dealUrl: "/shop/ninja-af300",
       badgeText: "Glycemic Meal Prep",
-      imagePlaceholder: "/assets/products/ninja-airfryer.jpg",
+      imagePlaceholder: "/Products/NinjaAirFryerCrisp.jpeg",
       pillar: "nutrition"
     },
     {
@@ -126,7 +126,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       priceText: "£89.99",
       dealUrl: "https://www.amazon.co.uk/dp/B09FQBKFQ6?tag=123znl08a-21",
       badgeText: "Low-Glycemic Snacking",
-      imagePlaceholder: "/assets/products/moulinex-airfryer.jpg",
+      imagePlaceholder: "/Products/airfryer.jpg",
       pillar: "nutrition"
     },
     {
@@ -137,7 +137,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       priceText: "£860.00",
       dealUrl: "https://www.amazon.co.uk/dp/B00NH9WEUA?tag=123znl0f3-21",
       badgeText: "Global Top Pick",
-      imagePlaceholder: "/assets/products/concept2-rowerg-uk.jpg",
+      imagePlaceholder: "/Products/concept2.jpeg",
       pillar: "fitness"
     },
     {
@@ -148,7 +148,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       priceText: "£149.00",
       dealUrl: "https://www.amazon.co.uk/dp/B0BY9NK73N?tag=123znl0f3-21",
       badgeText: "Longevity Strength",
-      imagePlaceholder: "/assets/products/strongway-barbell.jpg",
+      imagePlaceholder: "/Products/barbellus.webp",
       pillar: "fitness"
     },
     {
@@ -159,7 +159,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       priceText: "£34.99",
       dealUrl: "https://www.amazon.co.uk/dp/B07H353SSV?tag=123znl0f3-21",
       badgeText: "Mobility Protocol",
-      imagePlaceholder: "/assets/products/xn8-mat.jpg",
+      imagePlaceholder: "/Products/yogamat.jpg",
       pillar: "fitness"
     },
     {
@@ -170,7 +170,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       priceText: "£79.00",
       dealUrl: "/shop/ovarian-test-uk",
       badgeText: "Biology-Specific Screening",
-      imagePlaceholder: "/assets/products/ovarian-test-uk.jpg",
+      imagePlaceholder: "/Products/bloodtest.jpg",
       pillar: "womens-health"
     }
   ],
@@ -183,7 +183,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       priceText: "89,99 €",
       dealUrl: "https://www.amazon.es/dp/B0GW8GWK1Q?tag=123znl08a-21",
       badgeText: "Mapeo de Composición",
-      imagePlaceholder: "/assets/products/smart-scale-es.jpg",
+      imagePlaceholder: "/Products/newithings.webp",
       pillar: "health"
     },
     {
@@ -194,7 +194,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       priceText: "449,00 €",
       dealUrl: "https://www.amazon.es/dp/B0DKDZYNTC?tag=123znl08a-21",
       badgeText: "Resistencia Vascular",
-      imagePlaceholder: "/assets/products/treadmill-es.jpg",
+      imagePlaceholder: "/Products/cinta.jpg",
       pillar: "fitness"
     },
     {
@@ -205,7 +205,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       priceText: "990,00 €",
       dealUrl: "https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21",
       badgeText: "Top Deporte",
-      imagePlaceholder: "/assets/products/concept2-rowerg-es.jpg",
+      imagePlaceholder: "/Products/concept2.jpeg",
       pillar: "fitness"
     }
   ]

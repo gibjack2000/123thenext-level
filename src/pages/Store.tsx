@@ -3725,12 +3725,9 @@ export function Store({ region }: StoreProps = {}) {
           );
           if (
             healedImg &&
-            !healedImg.startsWith('http') &&
             !isBundledDiagnosticImage(healedImg)
           ) {
-            if (healedImg.startsWith('/assets/') || healedImg.startsWith('/Products/')) {
-              healedImg = `https://123thenextlevel.com${healedImg}`;
-            }
+            healedImg = healedImg.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
           }
 
           const currencySymbol = activeTab === 'UK' ? '£' : activeTab === 'ES' ? '€' : '$';
@@ -4022,10 +4019,6 @@ export function Store({ region }: StoreProps = {}) {
                               onError={(e) => {
                                 const target = e.currentTarget;
                                 target.onerror = null;
-                                if (target.src.includes('123thenextlevel.com/')) {
-                                  target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
-                                  return;
-                                }
                                 if (isDiag) {
                                   target.src = isLolaProduct(product, activeTab) ? lolaBloodPanelImg : clinicalBloodPanelImg;
                                 } else if (product.category === 'Smart Hardware & Wearables') {
@@ -4110,10 +4103,6 @@ export function Store({ region }: StoreProps = {}) {
                                       onError={(e) => {
                                         const target = e.currentTarget;
                                         target.onerror = null;
-                                        if (target.src.includes('123thenextlevel.com/')) {
-                                          target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
-                                          return;
-                                        }
                                         if (isDiag) {
                                           target.src = isLolaProduct(product, activeTab) ? lolaBloodPanelImg : clinicalBloodPanelImg;
                                         } else if (product.category === 'Smart Hardware & Wearables') {
@@ -4191,10 +4180,6 @@ export function Store({ region }: StoreProps = {}) {
                                   onError={(e) => {
                                     const target = e.currentTarget;
                                     target.onerror = null;
-                                    if (target.src.includes('123thenextlevel.com/')) {
-                                      target.src = target.src.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');
-                                      return;
-                                    }
                                     if (isDiag) {
                                       target.src = isLolaProduct(product, activeTab) ? lolaBloodPanelImg : clinicalBloodPanelImg;
                                     } else if (product.category === 'Smart Hardware & Wearables') {

@@ -749,7 +749,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     category: "Exercise & Fitness Gear",
     rating: 4.95,
     description: "The gold-standard indoor rowing machine with PM5 monitor to optimize cardiorespiratory output, muscular baseline, and metabolic power.",
-    image_url: "/assets/images/shop/rower.png",
+    image_url: "/Products/concept2.jpeg",
     us: [
       {
         supplierName: "Amazon",
@@ -1052,7 +1052,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     category: "Kitchen & Culinary Bio-Hacks",
     rating: 4.90,
     description: "Triple-insulated water bottle with patented FreeSip built-in straw, keeping hydration clean and ice-cold for 24 hours.",
-    image_url: "/assets/images/shop/water-bottle.png",
+    image_url: "/Products/owala.jpg",
     us: [
       {
         supplierName: "Amazon",

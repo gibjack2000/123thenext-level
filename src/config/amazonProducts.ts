@@ -15,7 +15,7 @@ export const hubAmazonProducts: HubAmazonProduct[] = [
     category: "Tech Gadgets & Wearables",
     price: "$99.95",
     url: "https://www.amazon.com/dp/B07SJV1HNR?tag=123znl0e-20",
-    image_url: "/assets/images/shop/bpm-connect.png",
+    image_url: "/Products/withingsconnect.webp",
     description: "Smart Wi-Fi blood pressure cuff. Automatically logs systolic, diastolic, and pulse trends, classifying cardiovascular data against JNC-8 guidelines without spot-check anxiety."
   },
   {
@@ -24,7 +24,7 @@ export const hubAmazonProducts: HubAmazonProduct[] = [
     category: "Tech Gadgets & Wearables",
     price: "$129.95",
     url: "https://www.amazon.com/dp/B078Z1B34S?tag=123znl0e-20",
-    image_url: "/assets/images/shop/sleep-analyzer.png",
+    image_url: "/Products/withingsleep.webp",
     description: "A contact-free sleep tracker placed under your mattress. Automatically logs sleeping heart rate, sleep cycles, and passive breathing disturbances."
   },
   {
@@ -33,7 +33,7 @@ export const hubAmazonProducts: HubAmazonProduct[] = [
     category: "Tech Gadgets & Wearables",
     price: "$399.95",
     url: "https://www.amazon.com/dp/B0B9849CD1?tag=123znl0e-20",
-    image_url: "/assets/images/shop/body-scan.png",
+    image_url: "/Products/newithings.webp",
     description: "FDA-cleared 8-electrode bioelectrical impedance scale. Segmentally maps skeletal muscle mass, fat percentage by limb, and visceral fat index surrounding organs."
   },
   {
@@ -42,7 +42,7 @@ export const hubAmazonProducts: HubAmazonProduct[] = [
     category: "Tech Gadgets & Wearables",
     price: "$399.00",
     url: "https://www.amazon.com/dp/B0DGJG692K?tag=123znl0e-20",
-    image_url: "/assets/images/shop/apple-watch.png",
+    image_url: "/Products/apple10.jpg",
     description: "Advanced multispectral wearable capturing sleep architecture, resting heart rate, sleep apnea flags, and Heart Rate Variability (HRV)."
   }
 ];

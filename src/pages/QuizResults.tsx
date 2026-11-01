@@ -156,7 +156,7 @@ export default function QuizResults() {
         priceText: "$399.00",
         dealUrl: "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl08-20",
         badgeText: "Continuous Telemetry",
-        imagePlaceholder: "/assets/products/apple-watch-10.jpg",
+        imagePlaceholder: "/Products/apple10.jpg",
         pillar: "fitness"
       };
     } else if (m === 'UK') {
@@ -169,7 +169,7 @@ export default function QuizResults() {
         priceText: "£237.00",
         dealUrl: "https://referrals.lolahealth.com/NextLevel15",
         badgeText: "Clinical Diagnostics",
-        imagePlaceholder: "/assets/products/lola-check-56.jpg",
+        imagePlaceholder: "/Products/lola-blood-panel.jpg",
         pillar: "health"
       };
     } else { // ES
@@ -182,7 +182,7 @@ export default function QuizResults() {
         priceText: "89,99 €",
         dealUrl: "https://www.amazon.es/dp/B0GW8GWK1Q?tag=123znl08a-21",
         badgeText: "Mapeo de Composición",
-        imagePlaceholder: "/assets/products/smart-scale-es.jpg",
+        imagePlaceholder: "/Products/newithings.webp",
         pillar: "health"
       };
     }
@@ -201,7 +201,7 @@ export default function QuizResults() {
           priceText: "$199.00",
           dealUrl: "https://www.amazon.com/dp/B08HM5T3H5?tag=123znl08-20",
           badgeText: "Glycemic Kitchen Prep",
-          imagePlaceholder: "/assets/products/ninja-airfryer.jpg"
+          imagePlaceholder: "/Products/NinjaAirFryerCrisp.jpeg"
         };
       } else if (m === 'UK') {
         const prod = RECOMMENDATIONS_MAP.UK.find(item => item.id === 'uk-ninja-airfryer');
@@ -212,7 +212,7 @@ export default function QuizResults() {
           priceText: "£199.00",
           dealUrl: "/shop/ninja-af300",
           badgeText: "Glycemic Meal Prep",
-          imagePlaceholder: "/assets/products/ninja-airfryer.jpg"
+          imagePlaceholder: "/Products/NinjaAirFryerCrisp.jpeg"
         };
       } else { // ES
         return {
@@ -222,7 +222,7 @@ export default function QuizResults() {
           priceText: "89,99 €",
           dealUrl: "https://www.amazon.es/dp/B09FQBKFQ6?tag=123znl08a-21",
           badgeText: "Glycemic Kitchen Prep",
-          imagePlaceholder: "/assets/products/moulinex-airfryer.jpg"
+          imagePlaceholder: "/Products/airfryer.jpg"
         };
       }
     } else {
@@ -240,7 +240,7 @@ export default function QuizResults() {
         priceText: m === 'US' ? "$28.99" : m === 'UK' ? "£24.99" : "26,99 €",
         dealUrl: affiliateUrl,
         badgeText: "Cellular Nutrition",
-        imagePlaceholder: "/assets/products/qunol-coq10.jpg"
+        imagePlaceholder: "/Products/coq10.jpeg"
       };
     }
   };
