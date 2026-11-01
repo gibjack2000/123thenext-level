@@ -19,10 +19,7 @@ export default function BlogAutomationAdmin() {
   const [passwordInput, setPasswordInput] = useState('');
   const [loginError, setLoginError] = useState('');
 
-  const [jobs, setJobs] = useState<any[]>([]);
   const [logs, setLogs] = useState<any[]>([]);
-  const [queue, setQueue] = useState<Record<string, string | null>>({});
-  const [queueError, setQueueError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [backendOffline, setBackendOffline] = useState(false);
   const [pendingReviews, setPendingReviews] = useState<any[]>([]);
@@ -472,67 +469,30 @@ export default function BlogAutomationAdmin() {
 
   const fetchData = async () => {
     try {
-      const { data: jobsData } = await supabase.from('publish_jobs').select('*');
       const { data: logsData } = await supabase.from('publish_logs').select('*').order('created_at', { ascending: false }).limit(20);
       
+      // Health check endpoint probe
       if (!isOfflineRef.current) {
         try {
-          const queueRes = await fetch('/api/jobs/queue');
-          if (queueRes.ok) {
-            const queueData = await queueRes.json();
-            setQueue(queueData);
-            setQueueError(null);
+          const pingRes = await fetch('/ping');
+          if (pingRes.ok) {
             setBackendOffline(false);
             isOfflineRef.current = false;
           } else {
-            // Check if it's a proxy error (Vite returns 504/502 on proxy fail)
-            if (queueRes.status === 504 || queueRes.status === 502) {
-              setBackendOffline(true);
-              isOfflineRef.current = true;
-            } else {
-              const errData = await queueRes.json();
-              setQueueError(errData.error || 'Failed to fetch queue');
-            }
+            setBackendOffline(true);
+            isOfflineRef.current = true;
           }
         } catch (apiErr) {
-          // This is where the ECONNREFUSED usually ends up in the browser console
           setBackendOffline(true);
           isOfflineRef.current = true;
-          console.warn('Backend API is currently unreachable.');
         }
       }
       
-      if (jobsData) setJobs(jobsData);
       if (logsData) setLogs(logsData);
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleRunJob = async (category: string) => {
-    try {
-      // Optimistic UI update so the user instantly sees it running
-      setJobs(prevJobs => {
-        const newJobs = [...prevJobs];
-        const index = newJobs.findIndex(j => j.category === category);
-        if (index !== -1) {
-          newJobs[index] = { ...newJobs[index], status: 'running' };
-        } else {
-          newJobs.push({ category, status: 'running' });
-        }
-        return newJobs;
-      });
-
-      const res = await fetch(`/api/jobs/${category}/run`, { method: 'POST' });
-      const data = await res.json();
-      
-      // We removed the alert() because some browsers block it silently.
-      // The UI now instantly updates to "running" (yellow dot).
-      fetchData();
-    } catch (error) {
-      console.error('Error triggering job:', error);
     }
   };
 
@@ -977,55 +937,6 @@ export default function BlogAutomationAdmin() {
               );
             })}
           </div>
-        </div>
-        
-        {/* Jobs Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-          {['Health', 'Fitness', 'Nutrition', 'Wellness'].map((category) => {
-            const job = jobs.find(j => j.category === category) || { status: 'idle' };
-            
-            return (
-              <div key={category} className="bg-slate-900 border border-slate-800 rounded-xl p-6 relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
-                <h3 className="text-xl font-semibold mb-4">{category} Pipeline</h3>
-                
-                <div className="flex items-center space-x-2 mb-4">
-                  <div className={`w-3 h-3 rounded-full ${job.status === 'running' ? 'bg-amber-400 animate-pulse' : 'bg-emerald-400'}`}></div>
-                  <span className="text-slate-300 capitalize">{job.status || 'idle'}</span>
-                </div>
-
-                <div className="mb-6 h-12">
-                  <p className="text-xs text-slate-400 font-semibold mb-1">UP NEXT:</p>
-                  <p className="text-sm text-slate-200 line-clamp-2">
-                    {queueError ? (
-                      <span className="text-red-400 text-xs" title={queueError}>Error checking queue</span>
-                    ) : queue[category] ? (
-                      `"${queue[category]}"`
-                    ) : (
-                      <span className="italic text-slate-500">Queue is empty</span>
-                    )}
-                  </p>
-                </div>
-
-                <div className="flex space-x-3">
-                  <button 
-                    onClick={() => handleRunJob(category)}
-                    className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-lg font-bold transition-all shadow-lg shadow-indigo-600/20 flex items-center justify-center space-x-2"
-                  >
-                    <Sparkles className="w-4 h-4" />
-                    <span>Generate Review Draft</span>
-                  </button>
-                  <button 
-                    onClick={() => handleRunJob(category)}
-                    className="p-2 border border-slate-700 hover:border-slate-500 rounded-lg transition-colors"
-                    title="Retry Failed"
-                  >
-                    <RotateCcw className="w-4 h-4 text-slate-400" />
-                  </button>
-                </div>
-              </div>
-            );
-          })}
         </div>
 
         {/* Logs Section */}
