@@ -30,6 +30,21 @@ export default function BlogAutomationAdmin() {
   const [isUpgradingDraftId, setIsUpgradingDraftId] = useState<string | null>(null);
   const isOfflineRef = React.useRef(false);
 
+  // 4 Core Pillar Pipelines State
+  const [pipelineJobs, setPipelineJobs] = useState<Record<string, { status: string; running?: boolean }>>({
+    Health: { status: 'idle' },
+    Fitness: { status: 'idle' },
+    Nutrition: { status: 'idle' },
+    Wellness: { status: 'idle' }
+  });
+  const [queueTopics, setQueueTopics] = useState<Record<string, string>>({
+    Health: 'ApoB vs LDL Particle Count: Complete Cardiovascular Longevity Guide',
+    Fitness: 'Zone 2 Cardio & Lactate Clearance: How Everyday Movement Transforms Your Cells',
+    Nutrition: 'The Glycaemic Impact Spectrum: How Food Sequencing Balances Energy and Mood',
+    Wellness: 'Vagus Nerve Reset: Daily Breathing and Somatic Protocols for Deep Rest'
+  });
+  const [rlsWarning, setRlsWarning] = useState<string | null>(null);
+
   // Weekly Topic Pitches State
   const [weeklyPitches, setWeeklyPitches] = useState<any[]>([]);
   const [pitchLoading, setPitchLoading] = useState(false);
@@ -454,24 +469,51 @@ export default function BlogAutomationAdmin() {
 
       // 2. Fallback to client-side Supabase if server API is offline
       if (!draftCreated && supabase) {
-        let insertResult = await supabase.from('blog_posts').insert([newDraft]).select().single();
+        let insertSuccess = false;
+        let lastErr: any = null;
 
-        // If unique constraint or duplicate key, retry with guaranteed unique suffix
-        if (insertResult.error && (
-          insertResult.error.code === '23505' ||
-          insertResult.error.message?.includes('unique') ||
-          insertResult.error.message?.includes('duplicate') ||
-          insertResult.error.message?.includes('slug')
-        )) {
-          newDraft.slug = `${baseSlug}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
-          insertResult = await supabase.from('blog_posts').insert([newDraft]).select().single();
+        for (let attempt = 1; attempt <= 4; attempt++) {
+          newDraft.slug = attempt === 1 
+            ? slug 
+            : `${baseSlug}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
+
+          let insertResult = await supabase.from('blog_posts').insert([newDraft]).select().single();
+
+          if (!insertResult.error) {
+            insertSuccess = true;
+            lastErr = null;
+            break;
+          }
+
+          lastErr = insertResult.error;
+
+          // If unique constraint or duplicate key, continue retry loop with unique suffix
+          if (
+            insertResult.error.code === '23505' ||
+            insertResult.error.message?.includes('unique') ||
+            insertResult.error.message?.includes('duplicate') ||
+            insertResult.error.message?.includes('slug')
+          ) {
+            console.warn(`[Client] Slug collision on "${newDraft.slug}", retrying with unique suffix (attempt ${attempt}/4)...`);
+            continue;
+          }
+
+          // If table doesn't exist, try fallback blogs table
+          if (insertResult.error.code === 'PGRST205') {
+            const bRes = await supabase.from('blogs').insert([newDraft]).select().single();
+            if (!bRes.error) {
+              insertSuccess = true;
+              lastErr = null;
+              break;
+            }
+          }
+
+          break;
         }
 
-        if (insertResult.error && insertResult.error.code === 'PGRST205') {
-          insertResult = await supabase.from('blogs').insert([newDraft]).select().single();
+        if (!insertSuccess && lastErr) {
+          throw lastErr;
         }
-
-        if (insertResult.error) throw insertResult.error;
       }
 
       // Update local state
@@ -482,15 +524,12 @@ export default function BlogAutomationAdmin() {
       console.error('Error creating pitch draft:', err);
       const isRls = (err.message || '').includes('row-level security') || err.code === '42501';
       if (isRls) {
-        alert(
-          'Supabase RLS Block Detected:\n\n' +
-          'Row-Level Security (RLS) is blocking draft creation on "blog_posts".\n\n' +
-          'To resolve this in 5 seconds, run this in your Supabase SQL Editor:\n\n' +
-          'ALTER TABLE blog_posts DISABLE ROW LEVEL SECURITY;\n' +
-          'ALTER TABLE blogs DISABLE ROW LEVEL SECURITY;'
+        setRlsWarning(
+          'ALTER TABLE blog_posts DISABLE ROW LEVEL SECURITY;\nALTER TABLE blogs DISABLE ROW LEVEL SECURITY;'
         );
+        setAlertMessage('⚠️ Supabase Row-Level Security (RLS) is active. Copy the quick SQL fix above to disable RLS.');
       } else {
-        alert('Draft error: ' + (err.message || 'Failed to create draft in database'));
+        setAlertMessage(`⚠️ Notice creating draft: ${err.message || 'Please check database connection'}`);
       }
     } finally {
       setGeneratingPitchId(null);
@@ -719,9 +758,75 @@ export default function BlogAutomationAdmin() {
     }
   };
 
+  const handleRunPipeline = async (category: string) => {
+    setPipelineJobs(prev => ({
+      ...prev,
+      [category]: { status: 'running', running: true }
+    }));
+    setAlertMessage(`⚡ Generating draft for ${category} pipeline...`);
+
+    try {
+      // 1. Try server-side runner first
+      let triggered = false;
+      try {
+        const res = await fetch(`/api/jobs/${category}/run`, { method: 'POST' });
+        if (res.ok) {
+          triggered = true;
+        }
+      } catch (_) {}
+
+      // 2. If server was offline or unreachable, find candidate pitch and draft client-side
+      if (!triggered) {
+        const catKey = category.toLowerCase();
+        const candidatePitch = weeklyPitches.find(
+          p => (p.category || '').toLowerCase() === catKey && p.draftStatus !== 'drafted'
+        );
+        if (candidatePitch) {
+          await handleGeneratePitchDraft(candidatePitch);
+        } else {
+          const defaultTopic = {
+            id: `pitch-${catKey}-auto-${Date.now()}`,
+            category: catKey,
+            title: queueTopics[category] || `${category} Longevity Masterclass: Practical Biomarker Targets`,
+            targetKeyword: `${catKey} longevity biomarker health`,
+            summary: `Clinical guidance and practical everyday protocols for optimal ${catKey} healthspan.`,
+            regionalProducts: { US: '/store-us', UK: '/store-uk', ES: '/es' }
+          };
+          await handleGeneratePitchDraft(defaultTopic);
+        }
+      } else {
+        setTimeout(async () => {
+          await fetchPendingReviews();
+          setAlertMessage(`✅ Successfully generated review draft for ${category} pipeline!`);
+        }, 3000);
+      }
+    } catch (err: any) {
+      console.error(`Error running ${category} pipeline:`, err);
+      setAlertMessage(`⚠️ Pipeline notice: ${err.message || 'Generation logged'}`);
+    } finally {
+      setTimeout(() => {
+        setPipelineJobs(prev => ({
+          ...prev,
+          [category]: { status: 'idle', running: false }
+        }));
+      }, 3500);
+    }
+  };
+
   const fetchData = async () => {
     try {
       const { data: logsData } = await supabase.from('publish_logs').select('*').order('created_at', { ascending: false }).limit(20);
+
+      // Poll pipeline queue (with zero error crashes)
+      try {
+        const qRes = await fetch('/api/jobs/queue');
+        if (qRes.ok) {
+          const qData = await qRes.json();
+          if (qData && typeof qData === 'object' && !qData.error) {
+            setQueueTopics(prev => ({ ...prev, ...qData }));
+          }
+        }
+      } catch (_) {}
 
       // Health check endpoint probe
       if (!isOfflineRef.current) {
@@ -794,6 +899,35 @@ export default function BlogAutomationAdmin() {
     <div className="min-h-screen bg-slate-950 p-8 pt-24 text-white">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">AI Blog Automation Dashboard</h1>
+
+        {/* Supabase RLS Fix Banner (Zero Obstacles) */}
+        {rlsWarning && (
+          <div className="mb-8 p-6 bg-amber-950/60 border border-amber-500/50 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-xl">
+            <div>
+              <div className="flex items-center gap-2 text-amber-400 font-bold text-sm mb-1">
+                <AlertTriangle size={16} />
+                <span>Supabase Row Level Security (RLS) Detected</span>
+              </div>
+              <p className="text-slate-300 text-xs">
+                To allow draft creation and updates without database permission blocks, run this in your Supabase SQL Editor:
+              </p>
+              <code className="mt-2 block bg-slate-950 px-3 py-1.5 rounded-lg text-xs font-mono text-amber-300 border border-amber-500/30 select-all">
+                {rlsWarning}
+              </code>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                navigator.clipboard.writeText(rlsWarning);
+                setAlertMessage('✅ SQL copied to clipboard! Paste into your Supabase SQL Editor.');
+                setTimeout(() => setAlertMessage(null), 5000);
+              }}
+              className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs uppercase rounded-xl transition cursor-pointer shrink-0 shadow-lg"
+            >
+              Copy SQL Fix
+            </button>
+          </div>
+        )}
 
         {backendOffline && (
           <div className="bg-red-900/50 border border-red-700 text-red-200 p-6 rounded-xl mb-8 flex items-center justify-between">
@@ -911,6 +1045,89 @@ export default function BlogAutomationAdmin() {
             </div>
           </div>
         )}
+
+        {/* 4 Core Pillars Automation Pipelines */}
+        <div className="mb-12">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/60 border border-indigo-500/30 text-indigo-300 text-xs font-mono uppercase tracking-widest mb-2">
+                <Sparkles size={13} className="text-indigo-400" />
+                <span>Automated Generation Pipelines</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
+                Pillar Review Pipelines
+              </h2>
+              <p className="text-slate-400 text-sm mt-0.5">
+                Click &quot;Generate Review Draft&quot; on any pillar to draft an engaging, layman-terms clinical masterclass with responsive infographics.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {['Health', 'Fitness', 'Nutrition', 'Wellness'].map((category) => {
+              const job = pipelineJobs[category] || { status: 'idle' };
+              const isRunning = job.running || job.status === 'running';
+              const nextTopic = queueTopics[category] || 
+                (weeklyPitches.find(p => (p.category || '').toLowerCase() === category.toLowerCase() && p.draftStatus !== 'drafted')?.title) ||
+                (category === 'Health' ? 'ApoB vs LDL Particle Count: Complete Cardiovascular Longevity Guide' :
+                 category === 'Fitness' ? 'Zone 2 Cardio & Lactate Clearance: How Everyday Movement Transforms Your Cells' :
+                 category === 'Nutrition' ? 'The Glycaemic Impact Spectrum: How Food Sequencing Balances Energy and Mood' :
+                 'Vagus Nerve Reset: Daily Breathing and Somatic Protocols for Deep Rest');
+
+              return (
+                <div key={category} className="bg-slate-900 border border-slate-800 rounded-xl p-6 relative overflow-hidden group hover:border-slate-700 transition-all flex flex-col justify-between shadow-lg">
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                  
+                  <div>
+                    <h3 className="text-xl font-semibold mb-4 text-white">{category} Pipeline</h3>
+                    
+                    <div className="flex items-center space-x-2 mb-4">
+                      <div className={`w-3 h-3 rounded-full ${isRunning ? 'bg-amber-400 animate-pulse' : 'bg-emerald-400'}`} />
+                      <span className="text-slate-300 capitalize text-sm font-medium">{isRunning ? 'generating draft...' : (job.status || 'idle')}</span>
+                    </div>
+
+                    <div className="mb-6 h-14">
+                      <p className="text-xs text-slate-400 font-semibold mb-1">UP NEXT:</p>
+                      <p className="text-xs text-slate-200 line-clamp-2 leading-relaxed" title={nextTopic}>
+                        &ldquo;{nextTopic}&rdquo;
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex space-x-3 pt-2">
+                    <button 
+                      type="button"
+                      disabled={isRunning}
+                      onClick={() => handleRunPipeline(category)}
+                      className="flex-1 bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white px-4 py-2.5 rounded-lg font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-indigo-600/20 flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50"
+                    >
+                      {isRunning ? (
+                        <>
+                          <RefreshCw className="w-4 h-4 animate-spin text-white" />
+                          <span>Drafting...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Sparkles className="w-4 h-4 text-indigo-200" />
+                          <span>Generate Review Draft</span>
+                        </>
+                      )}
+                    </button>
+                    <button 
+                      type="button"
+                      disabled={isRunning}
+                      onClick={() => handleRunPipeline(category)}
+                      className="p-2 border border-slate-700 hover:border-slate-500 rounded-lg transition-colors text-slate-400 hover:text-white cursor-pointer disabled:opacity-50"
+                      title={`Run ${category} Pipeline`}
+                    >
+                      <RotateCcw className={`w-4 h-4 ${isRunning ? 'animate-spin text-indigo-400' : ''}`} />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
 
         {/* Pending Reviews Section */}
         {!statusColumnMissing && (

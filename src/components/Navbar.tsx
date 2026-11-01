@@ -369,7 +369,44 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Mobile Header Right */}
-        <div className="flex items-center gap-1 lg:hidden">
+        <div className="flex items-center gap-1.5 lg:hidden">
+          {/* Mobile 3-Flag Country Switcher */}
+          <div className="flex items-center bg-slate-900 border border-slate-800 rounded-full p-0.5 text-[10px] shadow-sm">
+            <button
+              type="button"
+              onClick={() => handleRegionChange('us')}
+              className={`p-1 rounded-full transition-all flex items-center justify-center cursor-pointer ${
+                market === 'US' ? 'bg-cyan-500 text-slate-950 font-bold shadow' : 'text-slate-400 opacity-70 hover:opacity-100'
+              }`}
+              title="United States (US)"
+              aria-label="Switch to US Market"
+            >
+              <FlagUS className="w-3.5 h-2.5 pointer-events-none" />
+            </button>
+            <button
+              type="button"
+              onClick={() => handleRegionChange('uk')}
+              className={`p-1 rounded-full transition-all flex items-center justify-center cursor-pointer ${
+                market === 'UK' ? 'bg-cyan-500 text-slate-950 font-bold shadow' : 'text-slate-400 opacity-70 hover:opacity-100'
+              }`}
+              title="United Kingdom (UK)"
+              aria-label="Switch to UK Market"
+            >
+              <FlagUK className="w-3.5 h-2.5 pointer-events-none" />
+            </button>
+            <button
+              type="button"
+              onClick={() => handleRegionChange('es')}
+              className={`p-1 rounded-full transition-all flex items-center justify-center cursor-pointer ${
+                market === 'ES' ? 'bg-cyan-500 text-slate-950 font-bold shadow' : 'text-slate-400 opacity-70 hover:opacity-100'
+              }`}
+              title="Spain / EU (ES)"
+              aria-label="Switch to Spain / EU Market"
+            >
+              <FlagES className="w-3.5 h-2.5 pointer-events-none" />
+            </button>
+          </div>
+
           <button
             type="button"
             onClick={openCart}

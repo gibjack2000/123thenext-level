@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FlagUS, FlagUK, FlagES } from './MarketSelector';
 
 interface ProductItem {
   id: string;
@@ -9,6 +10,7 @@ interface ProductItem {
   category: string;
   icon: string;
   link: string;
+  region: 'US' | 'UK' | 'ES';
 }
 
 const products: ProductItem[] = [
@@ -19,61 +21,58 @@ const products: ProductItem[] = [
     price: 'From £125.00',
     category: 'Clinical Blood Test',
     icon: '🩸',
-    link: '/store-uk'
+    link: '/store-uk',
+    region: 'UK'
   },
   {
     id: 'lola-vital-56',
     name: 'LOLA Vital Check 56 (Longevity Baseline)',
-    badge: '⭐ Recommended Longevity Baseline • 56 Biomarkers',
+    badge: '56 Biomarkers • ApoB + hs-CRP + HbA1c',
     price: 'From £155.00',
     category: 'Clinical Blood Test',
     icon: '🩸',
-    link: '/store-uk'
-  },
-  {
-    id: 'lola-truage',
-    name: 'LOLA TruAge Epigenetic Test',
-    badge: 'Biological Age (UK 🇬🇧)',
-    price: 'From £375.00',
-    category: 'Epigenetic DNA Clock',
-    icon: '⏳',
-    link: '/store-uk'
-  },
-  {
-    id: 'lola-urinalysis',
-    name: 'LOLA Urinalysis',
-    badge: 'Fluid Telemetry (UK 🇬🇧)',
-    price: 'From £65.00',
-    category: 'Renal & Microvascular',
-    icon: '🧪',
-    link: '/store-uk'
+    link: '/store-uk',
+    region: 'UK'
   },
   {
     id: 'healthlabs-56',
     name: 'HealthLabs Cellular Biomarker Map',
-    badge: 'CLIA Accredited (US 🇺🇸)',
+    badge: 'CLIA Accredited Direct Requisition',
     price: '$299.00',
     category: 'Clinical Blood Test',
     icon: '🩸',
-    link: '/store-us'
+    link: '/store-us',
+    region: 'US'
+  },
+  {
+    id: 'melio-advanced',
+    name: 'Melio Health España Bio-Panel',
+    badge: 'Red de Laboratorios Certificados',
+    price: '149,00€',
+    category: 'Clinical Blood Test',
+    icon: '🩸',
+    link: '/store-es',
+    region: 'ES'
   },
   {
     id: 'cgm-lingo',
     name: 'Continuous Glucose Monitor (CGM)',
-    badge: 'FDA Cleared / MHRA',
+    badge: 'FDA Cleared / MHRA Telemetry',
     price: '$89.00/mo',
     category: 'Glycemic Telemetry',
     icon: '📊',
-    link: '/store'
+    link: '/store-us',
+    region: 'US'
   },
   {
     id: 'eko-core-500',
     name: 'Eko CORE 500™ Digital AI Stethoscope',
-    badge: 'FDA 3-Lead ECG',
+    badge: 'FDA 3-Lead ECG Sensor',
     price: '$429.00',
     category: 'Cardiac AI Diagnostics',
     icon: '🫀',
-    link: '/store'
+    link: '/store-us',
+    region: 'US'
   },
   {
     id: 'momentous-stack',
@@ -82,43 +81,53 @@ const products: ProductItem[] = [
     price: '$89.95',
     category: 'Cellular Nutraceuticals',
     icon: '🧬',
-    link: '/store'
+    link: '/store-us',
+    region: 'US'
   },
   {
     id: 'withings-body-scan',
     name: 'Withings Body Scan Segmental Scale',
-    badge: '8-Electrode BIA',
+    badge: '8-Electrode Segmental BIA',
     price: '$399.95',
     category: 'Somatic Hardware',
     icon: '⚖️',
-    link: '/store'
+    link: '/store-us',
+    region: 'US'
   },
   {
-    id: 'alltest-strips',
-    name: 'ALLTEST 10-Parameter Urinary Strips',
-    badge: 'CE Medical Marked',
-    price: '$14.99',
-    category: 'Rapid Fluid Reagents',
+    id: 'lola-urinalysis',
+    name: 'LOLA Urinalysis Microalbumin/ACR',
+    badge: 'MHRA Registered Reagent',
+    price: 'From £65.00',
+    category: 'Renal & Microvascular',
     icon: '🧪',
-    link: '/store'
+    link: '/store-uk',
+    region: 'UK'
   },
   {
     id: 'withings-sleep',
     name: 'Withings Sleep Analyzer Mattress Pad',
-    badge: 'Touch-Free HRV',
+    badge: 'Touch-Free Autonomous HRV',
     price: '$129.95',
     category: 'Circadian Telemetry',
     icon: '😴',
-    link: '/store'
+    link: '/store-us',
+    region: 'US'
   }
 ];
 
 export const BottomProductTicker: React.FC = () => {
+  const renderCountryFlag = (region: 'US' | 'UK' | 'ES') => {
+    if (region === 'UK') return <FlagUK className="w-3.5 h-2.5 pointer-events-none rounded-[1px] shrink-0" />;
+    if (region === 'ES') return <FlagES className="w-3.5 h-2.5 pointer-events-none rounded-[1px] shrink-0" />;
+    return <FlagUS className="w-3.5 h-2.5 pointer-events-none rounded-[1px] shrink-0" />;
+  };
+
   const renderProductCard = (item: ProductItem, key: string) => (
     <Link
       key={key}
       to={item.link}
-      className="group bg-slate-900/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-3.5 flex items-center gap-3.5 transition-all duration-300 hover:scale-[1.02] shadow-lg min-w-[280px] shrink-0"
+      className="group bg-slate-900/90 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-xl p-3.5 flex items-center gap-3.5 transition-all duration-300 hover:scale-[1.02] shadow-lg min-w-[290px] shrink-0"
     >
       <div className="w-10 h-10 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-center text-xl shrink-0 group-hover:border-cyan-500/40 transition-colors">
         {item.icon}
@@ -126,18 +135,19 @@ export const BottomProductTicker: React.FC = () => {
 
       <div className="flex flex-col text-left">
         <div className="flex items-center gap-2">
-          <span className="text-[9px] font-bold text-cyan-400 bg-cyan-950/80 border border-cyan-800/60 px-1.5 py-0.5 rounded uppercase">
-            {item.badge}
+          <span className="text-[9px] font-bold text-cyan-400 bg-cyan-950/80 border border-cyan-800/60 px-1.5 py-0.5 rounded uppercase flex items-center gap-1">
+            {renderCountryFlag(item.region)}
+            <span>{item.region}</span>
           </span>
           <span className="text-xs font-black text-white">{item.price}</span>
         </div>
 
-        <h4 className="text-xs font-bold text-slate-200 group-hover:text-white transition-colors truncate max-w-[190px] mt-1">
+        <h4 className="text-xs font-bold text-slate-200 group-hover:text-white transition-colors truncate max-w-[195px] mt-1">
           {item.name}
         </h4>
 
-        <span className="text-[10px] text-slate-400">
-          {item.category}
+        <span className="text-[10px] text-slate-400 truncate max-w-[195px]">
+          {item.badge}
         </span>
       </div>
     </Link>
@@ -151,7 +161,7 @@ export const BottomProductTicker: React.FC = () => {
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
           <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 font-mono">
-            SOVEREIGN HARDWARE & CLINICAL DIRECTORY
+            SOVEREIGN HARDWARE &amp; CLINICAL DIRECTORY
           </h3>
         </div>
         <Link 

@@ -1,273 +1,338 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, MapPin, ArrowRight } from 'lucide-react';
-import { motion } from 'motion/react';
+import { ShoppingBag, MapPin, ArrowRight, Star, ExternalLink, Sparkles } from 'lucide-react';
 import { useMarket, Market } from '../contexts/MarketContext';
 import { Product, mapToProduct } from '../types';
 import { MOCK_PRODUCTS } from '../data/mockData';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
+import { FlagUS, FlagUK, FlagES } from './MarketSelector';
 import HomeExpressShop from './HomeExpressShop';
 
 const REGIONS = [
-  { id: 'us', name: 'United States', currency: 'USD', flag: '🇺🇸', domain: 'amazon.com', image: 'https://flagcdn.com/w640/us.png' },
-  { id: 'uk', name: 'United Kingdom', currency: 'GBP', flag: '🇬🇧', domain: 'amazon.co.uk', image: 'https://flagcdn.com/w640/gb.png' },
-  { id: 'es', name: 'Spain', currency: 'EUR', flag: '🇪🇸', domain: 'amazon.es', image: 'https://flagcdn.com/w640/es.png' },
+  { 
+    id: 'us', 
+    name: 'United States', 
+    label: 'US Storefront', 
+    currency: 'USD', 
+    domain: 'amazon.com • CLIA HealthLabs', 
+    FlagComponent: FlagUS, 
+    storeUrl: '/store-us',
+    accentColor: '#06b6d4',
+    badgeText: 'FDA / CLIA Monitored'
+  },
+  { 
+    id: 'uk', 
+    name: 'United Kingdom', 
+    label: 'UK Storefront', 
+    currency: 'GBP', 
+    domain: 'amazon.co.uk • UKAS LOLA', 
+    FlagComponent: FlagUK, 
+    storeUrl: '/store-uk',
+    accentColor: '#10b981',
+    badgeText: 'MHRA / UKAS Accredited'
+  },
+  { 
+    id: 'es', 
+    name: 'Spain / Europe', 
+    label: 'ES / EU Storefront', 
+    currency: 'EUR', 
+    domain: 'amazon.es • Melio Health', 
+    FlagComponent: FlagES, 
+    storeUrl: '/store-es',
+    accentColor: '#f59e0b',
+    badgeText: 'CE Medical Marked'
+  },
 ];
 
 export const SovereignStoreShowcase: React.FC = () => {
   const { setMarket } = useMarket();
-  const [topPicks, setTopPicks] = useState<Product[]>([]);
   const [shuffledTopPicks, setShuffledTopPicks] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [showingMockData, setShowingMockData] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const loadMockData = () => {
-    const mockPicks = [...MOCK_PRODUCTS]
-      .filter(p => p.featured)
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 12);
-    setTopPicks(mockPicks);
-    setShowingMockData(true);
-    setLoading(false);
+  // Helper to render responsive, offline-resilient country SVG flag
+  const renderCountryFlag = (region?: string) => {
+    const regUpper = (region || 'US').toUpperCase();
+    if (regUpper === 'UK') {
+      return <FlagUK className="w-4 h-3 pointer-events-none rounded-[2px] shadow-sm shrink-0" />;
+    }
+    if (regUpper === 'ES') {
+      return <FlagES className="w-4 h-3 pointer-events-none rounded-[2px] shadow-sm shrink-0" />;
+    }
+    return <FlagUS className="w-4 h-3 pointer-events-none rounded-[2px] shadow-sm shrink-0" />;
   };
 
   useEffect(() => {
-    if (topPicks.length > 0) {
-      const shuffled = [...topPicks]
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 12);
-      setShuffledTopPicks(shuffled);
+    // 1. Seed instantly with curated high-rated products so ticker renders immediately
+    const initialPool = [...MOCK_PRODUCTS]
+      .filter(p => p.rating && p.rating >= 4.0)
+      .slice(0, 16);
+    if (initialPool.length > 0) {
+      setShuffledTopPicks([...initialPool].sort(() => Math.random() - 0.5));
     }
-  }, [topPicks]);
 
-  useEffect(() => {
-    async function fetchData() {
-      if (!hasValidSupabaseConfig || !supabase) {
-        loadMockData();
-        return;
-      }
+    // 2. Fetch live affiliate products from Supabase
+    async function fetchLiveProducts() {
+      if (!hasValidSupabaseConfig || !supabase) return;
 
       try {
         setLoading(true);
-        const { data: topData, error: topError } = await supabase
+
+        // Try amazon_affiliate_products first
+        const { data: amazonData, error: amazonErr } = await supabase
           .from('amazon_affiliate_products')
           .select('*')
           .eq('is_active', true)
           .order('rating', { ascending: false })
           .limit(50);
 
-        if (topError) throw topError;
+        if (!amazonErr && amazonData && amazonData.length > 0) {
+          const mapped = amazonData.map(mapToProduct);
+          setShuffledTopPicks([...mapped].sort(() => Math.random() - 0.5).slice(0, 16));
+          return;
+        }
 
-        if (topData && topData.length > 0) {
-          setTopPicks(topData.map(mapToProduct));
-          setShowingMockData(false);
-        } else {
-          loadMockData();
+        // Fallback to products table
+        const { data: storeProducts, error: storeErr } = await supabase
+          .from('products')
+          .select('*')
+          .order('rating', { ascending: false })
+          .limit(50);
+
+        if (!storeErr && storeProducts && storeProducts.length > 0) {
+          const fallbackMapped: Product[] = storeProducts.map((p: any) => ({
+            id: p.id,
+            region: (p.market_region as 'US' | 'UK' | 'ES') || 'US',
+            category: p.category || 'Clinical Hardware',
+            product_name: p.name,
+            amazon_asin: '',
+            amazon_url: p.deal_url || `/store-${(p.market_region || 'us').toLowerCase()}`,
+            image_url: p.image_url,
+            short_benefit: p.badge_text || '',
+            description: p.description || '',
+            price: parseFloat(p.price_text?.replace(/[^0-9.]/g, '') || '0') || 29.99,
+            currency: p.market_region === 'UK' ? 'GBP' : p.market_region === 'ES' ? 'EUR' : 'USD',
+            rating: Number(p.rating) || 4.8,
+            featured: true,
+            tags: []
+          }));
+          setShuffledTopPicks([...fallbackMapped].sort(() => Math.random() - 0.5).slice(0, 16));
         }
       } catch (err) {
-        console.error('Error fetching affiliate products in SovereignStoreShowcase:', err);
-        loadMockData();
+        console.warn('Live product fetch info:', err);
       } finally {
         setLoading(false);
       }
     }
 
-    fetchData();
-
-    if (hasValidSupabaseConfig && supabase) {
-      const channel = supabase
-        .channel('sovereign_store_updates')
-        .on(
-          'postgres_changes',
-          { event: '*', schema: 'public', table: 'amazon_affiliate_products' },
-          () => {
-            fetchData();
-          }
-        )
-        .subscribe();
-
-      return () => {
-        supabase.removeChannel(channel);
-      };
-    }
+    fetchLiveProducts();
   }, []);
+
+  // Duplicate track for 100% seamless -50% loop without visual jump
+  const tickerItems = shuffledTopPicks.length > 0 ? [...shuffledTopPicks, ...shuffledTopPicks] : [];
 
   return (
     <section id="store-showcase" className="relative z-10 bg-slate-950 border-t border-cyan-500/10">
+      
       {/* Product Express Lane: Supplements, Gym Equipment & Autonomic Reset Gear */}
       <div className="pt-16 pb-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <HomeExpressShop />
       </div>
 
-      {/* Affiliates Hub */}
-      <div id="shop" className="relative pt-16 pb-24 bg-fixed bg-center bg-cover scroll-mt-20" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&q=80&w=2000')" }}>
-        <div className="absolute inset-0 bg-slate-900/90"></div>
+      {/* Affiliates Hub Section with 3 Market Country Flags & Product Ticker */}
+      <div 
+        id="shop" 
+        className="relative pt-16 pb-20 bg-slate-950 border-t border-slate-800/80 scroll-mt-20 overflow-hidden"
+      >
+        {/* Subtle Ambient Radial Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-cyan-500/5 rounded-full blur-[160px] pointer-events-none" />
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
-              <div className="p-2 bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-xl backdrop-blur-sm">
-                <ShoppingBag size={24} />
-              </div>
-              <h2 className="text-2xl md:text-3xl font-display uppercase tracking-tight text-white">Shop the Tools We Trust</h2>
+          
+          {/* Section Heading */}
+          <div className="max-w-4xl mx-auto text-center mb-12 space-y-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-400 text-xs font-black uppercase tracking-widest shadow-md">
+              <ShoppingBag size={14} className="animate-pulse" />
+              <span>Multi-Region Procurement Network</span>
             </div>
+
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-black uppercase tracking-tight text-white">
+              Sovereign Longevity Marketplaces
+            </h2>
             
-            <p className="text-slate-400 text-sm max-w-2xl mx-auto mb-8">
-              We curate helpful products that support the six pillars of health, fitness, metabolic nutrition, neurowellness, women's health, and social fitness. Our recommendations are chosen for usefulness, not hype.
+            <p className="text-slate-400 text-xs sm:text-sm max-w-2xl mx-auto leading-relaxed font-sans">
+              Curated hardware, clinical diagnostic blood draws, and verified nutritional protocols customized for local regulatory compliance across the United States, United Kingdom, and Spain.
             </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-              <div className="bg-slate-800/50 backdrop-blur-md p-4 rounded-xl border border-slate-700/50">
-                <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
-                  <span className="text-amber-400 mr-2">●</span>
-                  Hand-picked gear, kitchen tools, and wellness gadgets chosen for quality and performance.
-                </p>
-              </div>
-              <div className="bg-slate-800/50 backdrop-blur-md p-4 rounded-xl border border-slate-700/50">
-                <p className="text-xs md:text-sm text-slate-300 leading-relaxed">
-                  <span className="text-amber-400 mr-2">●</span>
-                  Organized by region (US, UK, Spain) and category for an easy, customized shopping experience.
-                </p>
-              </div>
-            </div>
-            
-            <div className="mt-6 text-center">
-              <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold">
-                Transparency: Links may be affiliate links. We only recommend products we truly believe in.
-              </p>
-            </div>
           </div>
 
-          {/* Region Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
-            {REGIONS.map((region) => (
-              <Link
-                key={region.id}
-                to={`/${region.id}`}
-                onClick={() => {
-                  setMarket(region.id.toUpperCase() as Market);
-                }}
-                className="relative rounded-3xl p-8 shadow-sm border border-slate-700 hover:-translate-y-3 hover:shadow-[0_30px_60px_rgba(0,0,0,0.3)] transition-all duration-500 ease-out group overflow-hidden min-h-[240px] flex flex-col justify-end touch-manipulation cursor-pointer active:scale-98"
-                aria-label={`Explore Amazon ${region.name} Marketplace`}
-              >
-                <div className="absolute inset-0">
-                  <img 
-                    src={region.image} 
-                    alt={region.name} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                    referrerPolicy="no-referrer"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).style.display = 'none';
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-slate-900/20 group-hover:via-slate-900/60 transition-colors duration-500"></div>
-                </div>
-                <div className="relative z-10">
-                  <motion.div
-                    className="text-4xl mb-2 origin-bottom-left w-fit animate-flag-wave select-none"
-                    style={{ display: 'inline-block' }}
-                  >
-                    {region.flag}
-                  </motion.div>
-                  <h3 className="text-2xl font-display uppercase tracking-tight text-white mb-1">{region.name}</h3>
-                  <div className="flex items-center text-slate-300 mb-4">
-                    <MapPin size={16} className="mr-1" />
-                    <span className="text-sm">{region.domain}</span>
-                  </div>
-                  <div className="flex items-center text-amber-400 font-medium group-hover:text-amber-300">
-                    Browse Categories <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          {/* Top Picks Section - Random Ticker Tape */}
-          <div className="flex items-center justify-between mb-8">
-            <h3 className="text-2xl font-display uppercase tracking-tight text-white flex items-center">
-              Global Top Picks
-            </h3>
-          </div>
-
-          {loading ? (
-            <div className="flex justify-center py-12">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white"></div>
-            </div>
-          ) : shuffledTopPicks.length > 0 ? (
-            <div className="relative w-full overflow-hidden py-10 -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8 mb-20 bg-slate-900/30 backdrop-blur-sm border-y border-slate-800/50">
-              <div className="flex w-fit animate-marquee hover:[animation-play-state:paused] gap-6">
-                {/* Duplicate the items to create the seamless loop */}
-                {[...shuffledTopPicks, ...shuffledTopPicks, ...shuffledTopPicks].map((product, idx) => (
-                  <div 
-                    key={`${product.id}-${idx}`} 
-                    className="inline-block w-[320px] bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:-translate-y-2 hover:shadow-xl transition-all duration-300 ease-out flex-shrink-0 group"
-                  >
-                    <div className="flex justify-between items-start mb-4">
-                      <div className="flex items-center gap-2">
-                        <div className="flex items-center gap-1.5 py-1">
-                          <img 
-                            src={REGIONS.find(r => r.id === (product.region || '').toLowerCase())?.image} 
-                            alt={product.region} 
-                            className="w-5 h-3.5 object-cover rounded shadow-sm border border-slate-100" 
-                            referrerPolicy="no-referrer"
-                          />
-                          <span className="text-slate-500 text-[10px] font-black uppercase tracking-[0.1em]">
-                            {product.region}
-                          </span>
-                        </div>
-                        {showingMockData && (
-                          <span className="px-2 py-1 bg-amber-100 text-amber-700 text-[10px] font-bold rounded uppercase whitespace-nowrap">
-                            Demo
-                          </span>
-                        )}
-                      </div>
-                      <span className="text-amber-500 text-sm font-bold flex items-center whitespace-nowrap">
-                        ★ {product.rating}
-                      </span>
-                    </div>
-                    <div className="aspect-square w-full bg-slate-50 rounded-xl mb-4 overflow-hidden p-3 flex items-center justify-center">
-                      {product.image_url && (
-                        <img src={product.image_url} alt={product.product_name} className="max-w-full max-h-full object-contain" referrerPolicy="no-referrer" />
-                      )}
-                    </div>
-                    <h3 className="text-md font-bold text-slate-900 mb-2 truncate whitespace-normal line-clamp-2 h-10 leading-tight">
-                      {product.product_name}
-                    </h3>
-                    <div className="mt-auto pt-4 flex items-center justify-between gap-2">
-                      <span className="font-black text-[8px] text-blue-600 tracking-wider uppercase border border-blue-500/20 px-2 py-1 rounded-md bg-blue-500/5 whitespace-nowrap">
-                        CHECK THE LATEST DEAL
-                      </span>
-                      <a 
-                        href={product.amazon_url} 
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-2 px-3 rounded-lg transition-colors whitespace-nowrap"
-                      >
-                        View Deal
-                      </a>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="bg-white border border-slate-200 rounded-2xl p-12 text-center mb-20">
-              <p className="text-slate-500 mb-6">No top picks found in your database yet.</p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/admin" className="inline-flex items-center justify-center px-6 py-3 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-colors">
-                  Add Your First Product
-                </Link>
-                <button
-                  onClick={loadMockData}
-                  className="inline-flex items-center justify-center px-6 py-3 bg-white border border-slate-200 text-slate-700 rounded-xl font-bold hover:bg-slate-50 transition-colors"
+          {/* 3 Country Market Flag Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+            {REGIONS.map((region) => {
+              const FlagComp = region.FlagComponent;
+              return (
+                <Link
+                  key={region.id}
+                  to={region.storeUrl}
+                  onClick={() => {
+                    setMarket(region.id.toUpperCase() as Market);
+                  }}
+                  className="group relative rounded-2xl p-6 sm:p-7 bg-slate-900/80 hover:bg-slate-900 border border-slate-800 hover:border-cyan-500/50 shadow-xl transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between overflow-hidden cursor-pointer"
+                  aria-label={`Explore ${region.name} Marketplace`}
                 >
-                  View Demo Products
-                </button>
-              </div>
+                  {/* Watermark flag glow in top corner */}
+                  <div className="absolute -top-4 -right-4 w-32 h-24 opacity-10 group-hover:opacity-20 transition-opacity pointer-events-none overflow-hidden blur-[1px]">
+                    <FlagComp className="w-full h-full object-cover" />
+                  </div>
+
+                  <div>
+                    {/* Top Row: Country Flag Badge & Compliance Tag */}
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-12 h-8 rounded-lg overflow-hidden border border-slate-700 shadow-md group-hover:scale-105 transition-transform flex items-center justify-center bg-slate-950">
+                        <FlagComp className="w-full h-full object-cover" />
+                      </div>
+                      <span className="text-[10px] font-bold text-cyan-400 bg-cyan-950/80 border border-cyan-800/60 px-2 py-0.5 rounded-full uppercase tracking-wider">
+                        {region.badgeText}
+                      </span>
+                    </div>
+
+                    {/* Country Name */}
+                    <h3 className="text-xl sm:text-2xl font-display font-black uppercase tracking-tight text-white group-hover:text-cyan-400 transition-colors mb-1.5">
+                      {region.name}
+                    </h3>
+
+                    {/* Domain & Clinical Networks */}
+                    <div className="flex items-center text-slate-400 text-xs mb-6">
+                      <MapPin size={13} className="mr-1.5 text-cyan-400 shrink-0" />
+                      <span className="truncate">{region.domain}</span>
+                    </div>
+                  </div>
+
+                  {/* Bottom Action Button */}
+                  <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between">
+                    <span className="text-xs font-bold text-white group-hover:text-cyan-400 transition-colors uppercase tracking-wider flex items-center gap-1.5">
+                      <span>Enter {region.label}</span>
+                      <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+                    </span>
+                    <span className="text-[11px] font-mono text-slate-500">
+                      {region.currency}
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Section Header: Global Top Picks Product Ticker Tape */}
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 mb-6">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse" />
+              <h3 className="text-lg sm:text-xl font-display font-bold uppercase tracking-tight text-white flex items-center gap-2">
+                <span>Global Top Picks</span>
+                <span className="text-xs font-mono font-normal text-slate-400 normal-case">(Live Telemetry &amp; Protocol Equipment)</span>
+              </h3>
             </div>
-          )}
+            <span className="text-xs text-slate-400 font-mono">
+              Hover over items to pause ticker • Auto-looping 24/7
+            </span>
+          </div>
 
         </div>
+
+        {/* Self-Contained CSS Marquee Animation */}
+        <style>{`
+          @keyframes topPicksMarquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+          }
+          .animate-top-picks-track {
+            display: flex;
+            width: max-content;
+            animation: topPicksMarquee 44s linear infinite;
+          }
+          .animate-top-picks-track:hover {
+            animation-play-state: paused;
+          }
+        `}</style>
+
+        {/* Soft edge fade masks */}
+        <div className="absolute left-0 top-64 bottom-0 w-16 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-64 bottom-0 w-16 bg-gradient-to-l from-slate-950 via-slate-950/80 to-transparent z-10 pointer-events-none" />
+
+        {/* Scrolling Continuous Product Ticker Tape Track */}
+        <div className="relative w-full overflow-hidden py-4 bg-slate-900/40 border-y border-slate-800/80 select-none">
+          <div className="animate-top-picks-track flex items-center gap-5 whitespace-nowrap pr-5">
+            {tickerItems.map((product, idx) => {
+              const regUpper = (product.region || 'US').toUpperCase();
+              return (
+                <div 
+                  key={`${product.id}-${idx}`} 
+                  className="inline-block w-[300px] sm:w-[320px] bg-slate-900 border border-slate-800 hover:border-cyan-500/50 rounded-2xl p-4.5 shadow-xl transition-all duration-300 hover:scale-[1.02] flex-shrink-0 group text-left"
+                >
+                  {/* Top Header: Country Flag Badge & Star Rating */}
+                  <div className="flex justify-between items-center mb-3">
+                    <div className="flex items-center gap-1.5 py-0.5 px-2 rounded-md bg-slate-950 border border-slate-800">
+                      {renderCountryFlag(product.region)}
+                      <span className="text-slate-300 text-[10px] font-black uppercase tracking-wider">
+                        {regUpper} Market
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-1 text-amber-400 text-xs font-bold">
+                      <Star size={12} className="fill-amber-400 text-amber-400" />
+                      <span>{Number(product.rating || 4.8).toFixed(1)}</span>
+                    </div>
+                  </div>
+
+                  {/* Product Image Box */}
+                  <div className="aspect-square w-full bg-slate-950 rounded-xl mb-3 overflow-hidden p-2.5 flex items-center justify-center border border-slate-800/60 group-hover:border-slate-700 transition-colors relative">
+                    {product.image_url ? (
+                      <img 
+                        src={product.image_url} 
+                        alt={product.product_name} 
+                        className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500" 
+                        loading="lazy"
+                        referrerPolicy="no-referrer"
+                        onError={(e) => {
+                          (e.target as HTMLImageElement).src = '/assets/images/shop/sirtuin-stack.png';
+                        }}
+                      />
+                    ) : (
+                      <div className="text-3xl text-cyan-400">🧬</div>
+                    )}
+                  </div>
+
+                  {/* Title */}
+                  <h4 className="text-xs font-bold text-white mb-2 line-clamp-2 h-8 leading-snug group-hover:text-cyan-400 transition-colors">
+                    {product.product_name}
+                  </h4>
+
+                  {/* Footer: Price & View Deal Button */}
+                  <div className="pt-3 border-t border-slate-800 flex items-center justify-between gap-2">
+                    <div className="flex flex-col">
+                      <span className="text-[9px] uppercase font-bold text-slate-500">Verified Price:</span>
+                      <span className="font-black text-sm text-white">
+                        {product.currency === 'GBP' ? '£' : product.currency === 'EUR' ? '€' : '$'}
+                        {typeof product.price === 'number' ? product.price.toFixed(2) : product.price || '29.99'}
+                      </span>
+                    </div>
+
+                    <a 
+                      href={product.amazon_url || `/store-${regUpper.toLowerCase()}`} 
+                      target={product.amazon_url?.startsWith('http') ? '_blank' : '_self'} 
+                      rel="noopener noreferrer" 
+                      className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-black uppercase tracking-wider py-1.5 px-3.5 rounded-lg transition-all shadow-md shadow-cyan-500/10 flex items-center gap-1 cursor-pointer"
+                    >
+                      <span>View Deal</span>
+                      <ExternalLink size={11} />
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
       </div>
+
     </section>
   );
 };
