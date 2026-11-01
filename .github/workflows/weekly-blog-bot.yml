@@ -1,0 +1,75 @@
+name: Weekly Blog Pitch Engine & Monday Alert
+
+on:
+  schedule:
+    # Run every Monday at 08:00 UTC (09:00 CET)
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-and-notify:
+    name: Generate Pitches & Dispatch Email Alert
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🚚 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🧪 Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: 📦 Install Dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: ⚙️ Generate 20 Weekly Topic Pitches (5 Per Category)
+        run: node scripts/generate-weekly-pitches.js
+
+      - name: 💾 Commit & Push New Pitches
+        run: |
+          git config user.name "123TheNextLevel Bot"
+          git config user.email "bot@123thenextlevel.com"
+          git add content/pitches/weekly-pitches.json public/content/pitches/weekly-pitches.json
+          git commit -m "chore(blog): auto-generate 20 weekly topic pitches [skip ci]" || echo "No pitch changes to commit"
+          git push origin main || echo "Branch push skipped or up to date"
+
+      - name: 📧 Send Monday Pitch Alert Email
+        uses: dawidd6/action-send-mail@v3
+        continue-on-error: true
+        with:
+          server_address: ${{ secrets.SMTP_HOST || 'smtp.hostinger.com' }}
+          server_port: ${{ secrets.SMTP_PORT || 465 }}
+          username: ${{ secrets.SMTP_USER || 'jack@123thenextlevel.com' }}
+          password: ${{ secrets.SMTP_PASS || secrets.SMTP_PASSWORD }}
+          subject: "[123TheNextLevel] 20 Weekly Topic Pitches Ready for Selection"
+          to: jack_2000@yahoo.com
+          from: ${{ secrets.SMTP_FROM || '123TheNextLevel Automation <jack@123thenextlevel.com>' }}
+          secure: true
+          body: |
+            Your 20 weekly blog topic pitches (5 per category) are ready for review:
+             - Healthspan (/blog/category/health)
+             - Performance (/blog/category/fitness)
+             - Nutrition (/blog/category/nutrition)
+             - Wellness (/blog/category/wellness)
+
+            Select your 4 titles here:
+            https://123thenextlevel.com/automation-admin
+
+      - name: 🔔 Fallback Script Dispatcher
+        if: always()
+        run: node scripts/send-weekly-pitch-alert.js
+        env:
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS || secrets.SMTP_PASSWORD }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}

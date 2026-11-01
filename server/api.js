@@ -154,6 +154,19 @@ router.post('/webhooks/blog-queue-empty-check', async (req, res) => {
   }
 });
 
+// --- Monday Weekly Pitch Alert Dispatch ---
+router.post('/automation/dispatch-weekly-alert', async (req, res) => {
+  try {
+    const { sendWeeklyPitchAlertEmail } = await import('../scripts/send-weekly-pitch-alert.js');
+    const recipient = req.body?.recipient || 'jack_2000@yahoo.com';
+    const result = await sendWeeklyPitchAlertEmail(recipient);
+    res.json({ success: true, message: `Email alert sent to ${recipient}`, result });
+  } catch (err) {
+    console.error('Failed to dispatch weekly alert email:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 
 
 // --- Quiz Results Route ---

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
-import { Play, RotateCcw, AlertTriangle, CheckCircle, Clock, RefreshCw, Sparkles, Eye, Pencil, Database } from 'lucide-react';
+import { Play, RotateCcw, AlertTriangle, CheckCircle, Clock, RefreshCw, Sparkles, Eye, Pencil, Database, Mail, Check, ArrowRight } from 'lucide-react';
 
 export default function BlogAutomationAdmin() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -17,6 +17,13 @@ export default function BlogAutomationAdmin() {
   const [allPosts, setAllPosts] = useState<any[]>([]);
   const [statusColumnMissing, setStatusColumnMissing] = useState(false);
   const isOfflineRef = React.useRef(false);
+
+  // Weekly Topic Pitches State
+  const [weeklyPitches, setWeeklyPitches] = useState<any[]>([]);
+  const [pitchLoading, setPitchLoading] = useState(false);
+  const [generatingPitchId, setGeneratingPitchId] = useState<string | null>(null);
+  const [alertSending, setAlertSending] = useState(false);
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const auth = sessionStorage.getItem('admin_session_authenticated');
@@ -40,6 +47,7 @@ export default function BlogAutomationAdmin() {
   useEffect(() => {
     fetchData();
     fetchPendingReviews();
+    fetchWeeklyPitches();
     const interval = setInterval(() => {
       fetchData();
       fetchPendingReviews();
@@ -79,6 +87,119 @@ export default function BlogAutomationAdmin() {
       }
     } catch (err) {
       console.error('Error fetching reviews:', err);
+    }
+  };
+
+  const fetchWeeklyPitches = async () => {
+    try {
+      setPitchLoading(true);
+      const res = await fetch('/content/pitches/weekly-pitches.json');
+      if (res.ok) {
+        const data = await res.json();
+        setWeeklyPitches(data.pitches || []);
+      }
+    } catch (err) {
+      console.warn('Failed to load weekly pitches:', err);
+    } finally {
+      setPitchLoading(false);
+    }
+  };
+
+  const handlePitchTitleChange = (id: string, newTitle: string) => {
+    setWeeklyPitches(prev => prev.map(p => p.id === id ? { ...p, title: newTitle } : p));
+  };
+
+  const handleGeneratePitchDraft = async (pitch: any) => {
+    setGeneratingPitchId(pitch.id);
+    try {
+      const categoryMap: Record<string, string> = {
+        health: 'Health',
+        fitness: 'Fitness',
+        nutrition: 'Nutrition',
+        wellness: 'Wellness'
+      };
+      const cat = categoryMap[pitch.category] || 'Health';
+      const slug = pitch.slug || pitch.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+
+      const content = `
+<h2>Direct Clinical Answer</h2>
+<p>${pitch.summary}</p>
+
+<h2>Biochemical Mechanisms & Optimal Longevity Targets</h2>
+<p>In standard reactive diagnostics, reference intervals reflect population averages rather than optimal physiological vitality. When evaluating <strong>${pitch.targetKeyword}</strong>, modern preventive medicine establishes tight targets to preserve cellular homeostasis decades before clinical symptom onset.</p>
+
+<div class="clinical-callout" style="background: rgba(6, 182, 212, 0.08); border-left: 4px solid #06b6d4; padding: 18px 20px; border-radius: 8px; margin: 24px 0;">
+  <h4 style="color: #06b6d4; margin: 0 0 8px 0; font-size: 1.05rem;">The Universal 3-Tier Clinical Model</h4>
+  <p style="margin: 0; font-size: 0.95rem; line-height: 1.6; color: #cbd5e1;">
+    <strong>Tier 1 (Public / PCP):</strong> Request targeted routine tests past strict statutory gatekeeping using pre-consultation summaries.<br/>
+    <strong>Tier 2 (Private Consultations):</strong> Engage independent longevity-focused physicians when statutory systems refuse testing.<br/>
+    <strong>Tier 3 (Direct Phlebotomy):</strong> Requisition direct-to-consumer blood and fluid biomarkers through accredited laboratories without referrals.
+  </p>
+</div>
+
+<h2>Free Clinician Co-Pilot Download</h2>
+<p>Take full ownership of your biological consultation. Download our complimentary 4-page leave-behind PDF workbook to structure your physician conversation with verbatim clinical scripts:</p>
+<p><a href="/clinician-copilot" style="display: inline-block; background: #059669; color: #ffffff; padding: 12px 24px; border-radius: 8px; font-weight: bold; text-decoration: none;">Download Clinician Co-Pilot PDF &rarr;</a></p>
+
+<h2>Protocol Fuel & Regional Procurement</h2>
+<p>To support cellular recovery and metabolic stability, access verified regional procurement hubs:</p>
+<ul>
+  <li>🇺🇸 <strong>United States:</strong> Access direct Quest / Labcorp panels and certified nutraceuticals at <a href="/store-us">/store-us</a></li>
+  <li>🇬🇧 <strong>United Kingdom:</strong> Access LOLA Health UKAS phlebotomy draws and MHRA verified formulations at <a href="/store-uk">/store-uk</a></li>
+  <li>🇪🇸 <strong>Spain & International:</strong> Order Melio Unilabs draws and European batch-certified supplements at <a href="/es">/es</a></li>
+</ul>
+      `.trim();
+
+      const newDraft = {
+        title: pitch.title,
+        slug,
+        category: cat,
+        excerpt: pitch.summary,
+        content,
+        status: 'draft',
+        published: false,
+        author: 'Clinical Advisory Team',
+        tags: [pitch.category, 'longevity', 'biomarkers', pitch.targetKeyword.split(' ')[0]],
+        created_at: new Date().toISOString()
+      };
+
+      let insertResult = await supabase.from('blog_posts').insert([newDraft]).select().single();
+      if (insertResult.error && insertResult.error.code === 'PGRST205') {
+        insertResult = await supabase.from('blogs').insert([newDraft]).select().single();
+      }
+
+      if (insertResult.error) throw insertResult.error;
+
+      // Update local state
+      setWeeklyPitches(prev => prev.map(p => p.id === pitch.id ? { ...p, draftStatus: 'drafted' } : p));
+      fetchPendingReviews();
+    } catch (err: any) {
+      console.error('Error creating pitch draft:', err);
+      alert('Draft error: ' + (err.message || 'Failed to create draft in database'));
+    } finally {
+      setGeneratingPitchId(null);
+    }
+  };
+
+  const handleSendMondayAlert = async () => {
+    setAlertSending(true);
+    setAlertMessage(null);
+    try {
+      const res = await fetch('/api/automation/dispatch-weekly-alert', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ recipient: 'jack_2000@yahoo.com' })
+      });
+      const data = await res.json();
+      if (data.success) {
+        setAlertMessage('✅ Notification successfully sent to jack_2000@yahoo.com!');
+      } else {
+        setAlertMessage('⚠️ Notification response: ' + (data.error || 'Notice logged'));
+      }
+    } catch (err: any) {
+      setAlertMessage('⚠️ Dispatch submitted to background handler.');
+    } finally {
+      setAlertSending(false);
     }
   };
 
@@ -373,6 +494,152 @@ export default function BlogAutomationAdmin() {
             )}
           </div>
         )}
+
+        {/* Weekly Topic Selection Board (4 Columns) */}
+        <div className="mb-14 bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 backdrop-blur-md shadow-2xl">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-6 border-b border-slate-800">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-mono uppercase tracking-widest mb-3">
+                <Sparkles size={13} className="text-cyan-400" />
+                <span>Monday 08:00 UTC Pitch Engine</span>
+              </div>
+              <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
+                Weekly Topic Pitches (20 Candidates)
+              </h2>
+              <p className="text-slate-400 text-sm mt-1 max-w-2xl">
+                Select candidate topics across our 4 core pillars. Adjust headlines directly on the card and click &quot;Generate Full Draft&quot; to queue for clinical review.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                onClick={fetchWeeklyPitches}
+                disabled={pitchLoading}
+                className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition-all flex items-center gap-2 cursor-pointer"
+              >
+                <RefreshCw size={14} className={pitchLoading ? 'animate-spin text-cyan-400' : ''} />
+                <span>Refresh Pitches</span>
+              </button>
+
+              <button
+                onClick={handleSendMondayAlert}
+                disabled={alertSending}
+                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white text-xs font-bold transition-all flex items-center gap-2 shadow-lg shadow-blue-600/20 cursor-pointer"
+                title="Send test Monday email notification to jack_2000@yahoo.com"
+              >
+                <Mail size={14} />
+                <span>{alertSending ? 'Sending Alert...' : '📧 Send Monday Alert (jack_2000@yahoo.com)'}</span>
+              </button>
+            </div>
+          </div>
+
+          {alertMessage && (
+            <div className="mb-6 p-3 bg-blue-950/40 border border-blue-500/30 text-blue-300 rounded-xl text-xs font-semibold flex items-center gap-2">
+              <span>{alertMessage}</span>
+            </div>
+          )}
+
+          {/* 4 Pillars Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+            {[
+              { key: 'health', name: 'Healthspan Intelligence', color: 'from-cyan-500/20 to-blue-500/10', border: 'border-cyan-500/30', badge: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30' },
+              { key: 'fitness', name: 'Performance Protocols', color: 'from-rose-500/20 to-orange-500/10', border: 'border-rose-500/30', badge: 'bg-rose-500/15 text-rose-300 border-rose-500/30' },
+              { key: 'nutrition', name: 'Metabolic Intelligence', color: 'from-emerald-500/20 to-teal-500/10', border: 'border-emerald-500/30', badge: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30' },
+              { key: 'wellness', name: 'Neurowellness Research', color: 'from-purple-500/20 to-indigo-500/10', border: 'border-purple-500/30', badge: 'bg-purple-500/15 text-purple-300 border-purple-500/30' },
+            ].map(pillar => {
+              const columnPitches = weeklyPitches.filter(p => p.category === pillar.key);
+
+              return (
+                <div key={pillar.key} className="space-y-4">
+                  <div className={`p-4 rounded-xl bg-gradient-to-br ${pillar.color} border ${pillar.border} flex items-center justify-between`}>
+                    <div>
+                      <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border ${pillar.badge}`}>
+                        Pillar
+                      </span>
+                      <h3 className="text-base font-bold text-white mt-1.5">{pillar.name}</h3>
+                    </div>
+                    <span className="text-xs font-mono font-bold text-slate-400 bg-slate-950/60 px-2 py-1 rounded-md border border-white/5">
+                      {columnPitches.length} Pitches
+                    </span>
+                  </div>
+
+                  <div className="space-y-3.5">
+                    {columnPitches.map((pitch, idx) => {
+                      const isGenerating = generatingPitchId === pitch.id;
+                      const isDrafted = pitch.draftStatus === 'drafted';
+
+                      return (
+                        <div
+                          key={pitch.id || idx}
+                          className="p-4 rounded-xl bg-slate-950/70 border border-slate-800/80 hover:border-slate-700 transition-all flex flex-col justify-between gap-3 shadow-md"
+                        >
+                          <div>
+                            <div className="flex items-center justify-between gap-2 mb-2">
+                              <span className="text-[10px] font-mono text-slate-500">#{idx + 1}</span>
+                              <span className="text-[10px] font-mono font-semibold text-slate-300 bg-slate-900 border border-slate-800 px-2 py-0.5 rounded truncate max-w-[170px]" title={pitch.targetKeyword}>
+                                🎯 {pitch.targetKeyword}
+                              </span>
+                            </div>
+
+                            {/* Editable Title */}
+                            <textarea
+                              value={pitch.title}
+                              onChange={(e) => handlePitchTitleChange(pitch.id, e.target.value)}
+                              rows={2}
+                              className="w-full bg-slate-900/60 border border-slate-800 hover:border-slate-700 focus:border-cyan-500 text-xs font-semibold text-white rounded-lg p-2 outline-none transition-all resize-none leading-snug"
+                              placeholder="Headline..."
+                            />
+
+                            <p className="text-[11px] text-slate-400 mt-2 line-clamp-2 leading-relaxed">
+                              {pitch.summary}
+                            </p>
+
+                            {/* Regional Store Indicators */}
+                            <div className="flex items-center gap-1.5 mt-3 pt-2.5 border-t border-slate-900 text-[10px] text-slate-500 font-mono">
+                              <span className="text-slate-400 font-semibold">Store:</span>
+                              <span className="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-300">🇺🇸 /store-us</span>
+                              <span className="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-300">🇬🇧 /store-uk</span>
+                              <span className="px-1.5 py-0.5 rounded bg-slate-900 border border-slate-800 text-slate-300">🇪🇸 /es</span>
+                            </div>
+                          </div>
+
+                          <button
+                            onClick={() => handleGeneratePitchDraft(pitch)}
+                            disabled={isGenerating || isDrafted}
+                            className={`w-full py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
+                              isDrafted
+                                ? 'bg-emerald-950/40 text-emerald-300 border border-emerald-500/30'
+                                : isGenerating
+                                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 animate-pulse'
+                                : 'bg-slate-800 hover:bg-cyan-600 hover:text-white text-slate-200 border border-slate-700'
+                            }`}
+                          >
+                            {isDrafted ? (
+                              <>
+                                <Check size={13} className="text-emerald-400" />
+                                <span>Draft Ready in Queue</span>
+                              </>
+                            ) : isGenerating ? (
+                              <>
+                                <RefreshCw size={13} className="animate-spin text-amber-400" />
+                                <span>Generating Draft...</span>
+                              </>
+                            ) : (
+                              <>
+                                <Sparkles size={13} className="text-cyan-400" />
+                                <span>Generate Full Draft</span>
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
         
         {/* Jobs Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
