@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../lib/supabase';
-import { 
-  Play, RotateCcw, AlertTriangle, CheckCircle, Clock, RefreshCw, 
+import {
+  Play, RotateCcw, AlertTriangle, CheckCircle, Clock, RefreshCw,
   Sparkles, Eye, Pencil, Database, Mail, Check, ArrowRight, Zap,
   Upload, Image as ImageIcon, X, ExternalLink, Link2, FileText, CheckCircle2
 } from 'lucide-react';
@@ -13,6 +13,7 @@ import {
   extractFrontmatter
 } from '../utils/blogImages';
 import BlogMarkdownRenderer from '../components/BlogMarkdownRenderer';
+import { generateFullClinicalMasterclass } from '../utils/clinicalArticleGenerator';
 
 export default function BlogAutomationAdmin() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -25,6 +26,7 @@ export default function BlogAutomationAdmin() {
   const [pendingReviews, setPendingReviews] = useState<any[]>([]);
   const [allPosts, setAllPosts] = useState<any[]>([]);
   const [statusColumnMissing, setStatusColumnMissing] = useState(false);
+  const [isUpgradingDraftId, setIsUpgradingDraftId] = useState<string | null>(null);
   const isOfflineRef = React.useRef(false);
 
   // Weekly Topic Pitches State
@@ -83,7 +85,7 @@ export default function BlogAutomationAdmin() {
         });
         const data = await res.json();
         if (res.ok && data.success) updated = true;
-      } catch (_) {}
+      } catch (_) { }
 
       // Fallback to client-side Supabase
       if (!updated && supabase) {
@@ -197,14 +199,14 @@ export default function BlogAutomationAdmin() {
         .select('*')
         .eq('status', 'draft')
         .order('created_at', { ascending: false });
-      
+
       if (error) {
         if (error.code === '42703') { // Column missing
           setStatusColumnMissing(true);
         }
         throw error;
       }
-      
+
       if (data) {
         setPendingReviews(data);
         setStatusColumnMissing(false);
@@ -216,7 +218,7 @@ export default function BlogAutomationAdmin() {
         .select('id, title, slug, status, created_at')
         .order('created_at', { ascending: false })
         .limit(50);
-      
+
       if (allData) {
         setAllPosts(allData);
       }
@@ -248,8 +250,8 @@ export default function BlogAutomationAdmin() {
     setGeneratingPitchId(pitch.id);
     try {
       // 1. Check if this article already exists in the database
-      const existingMatch = allPosts.find(p => 
-        p.slug === pitch.slug || 
+      const existingMatch = allPosts.find(p =>
+        p.slug === pitch.slug ||
         (p.title && p.title.toLowerCase().trim() === pitch.title.toLowerCase().trim())
       );
 
@@ -272,45 +274,26 @@ export default function BlogAutomationAdmin() {
         slug = `${slug}-${Date.now().toString().slice(-4)}`;
       }
 
-      const content = `
-<h2>Direct Clinical Answer</h2>
-<p>${pitch.summary}</p>
-
-<h2>Biochemical Mechanisms & Optimal Longevity Targets</h2>
-<p>In standard reactive diagnostics, reference intervals reflect population averages rather than optimal physiological vitality. When evaluating <strong>${pitch.targetKeyword}</strong>, modern preventive medicine establishes tight targets to preserve cellular homeostasis decades before clinical symptom onset.</p>
-
-<div class="clinical-callout" style="background: rgba(6, 182, 212, 0.08); border-left: 4px solid #06b6d4; padding: 18px 20px; border-radius: 8px; margin: 24px 0;">
-  <h4 style="color: #06b6d4; margin: 0 0 8px 0; font-size: 1.05rem;">The Universal 3-Tier Clinical Model</h4>
-  <p style="margin: 0; font-size: 0.95rem; line-height: 1.6; color: #cbd5e1;">
-    <strong>Tier 1 (Public / PCP):</strong> Request targeted routine tests past strict statutory gatekeeping using pre-consultation summaries.<br/>
-    <strong>Tier 2 (Private Consultations):</strong> Engage independent longevity-focused physicians when statutory systems refuse testing.<br/>
-    <strong>Tier 3 (Direct Phlebotomy):</strong> Requisition direct-to-consumer blood and fluid biomarkers through accredited laboratories without referrals.
-  </p>
-</div>
-
-<h2>Free Clinician Co-Pilot Download</h2>
-<p>Take full ownership of your biological consultation. Download our complimentary 4-page leave-behind PDF workbook to structure your physician conversation with verbatim clinical scripts:</p>
-<p><a href="/clinician-copilot" style="display: inline-block; background: #059669; color: #ffffff; padding: 12px 24px; border-radius: 8px; font-weight: bold; text-decoration: none;">Download Clinician Co-Pilot PDF &rarr;</a></p>
-
-<h2>Protocol Fuel & Regional Procurement</h2>
-<p>To support cellular recovery and metabolic stability, access verified regional procurement hubs:</p>
-<ul>
-  <li>🇺🇸 <strong>United States:</strong> Access direct Quest / Labcorp panels and certified nutraceuticals at <a href="/store-us">/store-us</a></li>
-  <li>🇬🇧 <strong>United Kingdom:</strong> Access LOLA Health UKAS phlebotomy draws and MHRA verified formulations at <a href="/store-uk">/store-uk</a></li>
-  <li>🇪🇸 <strong>Spain & International:</strong> Order Melio Unilabs draws and European batch-certified supplements at <a href="/es">/es</a></li>
-</ul>
-      `.trim();
+      // Generate comprehensive 2,000+ word clinical masterclass
+      const fullMasterclassContent = generateFullClinicalMasterclass({
+        title: pitch.title,
+        category: cat,
+        targetKeyword: pitch.targetKeyword,
+        summary: pitch.summary,
+        slug,
+        regionalProducts: pitch.regionalProducts
+      });
 
       const defaultBanner = getCategoryDefaultBanner(pitch.category);
       const defaultAlt = getCategoryDefaultAlt(pitch.category, pitch.title);
-      const contentWithFm = updateArticleFrontmatter(content, defaultBanner, defaultAlt);
+      const contentWithFm = updateArticleFrontmatter(fullMasterclassContent, defaultBanner, defaultAlt);
       const keywordTag = (pitch.targetKeyword || '').split(' ')[0] || 'longevity';
 
       const newDraft: any = {
         title: pitch.title,
         slug,
         category: cat,
-        excerpt: pitch.summary,
+        excerpt: pitch.summary || `${pitch.title} — Comprehensive clinical masterclass covering biochemical pathways, reference intervals, and actionable protocols.`,
         content: contentWithFm,
         status: 'draft',
         image_url: defaultBanner,
@@ -340,7 +323,7 @@ export default function BlogAutomationAdmin() {
       // 2. Fallback to client-side Supabase if server API is offline
       if (!draftCreated && supabase) {
         let insertResult = await supabase.from('blog_posts').insert([newDraft]).select().single();
-        
+
         // If unique constraint or duplicate key, retry with unique suffix
         if (insertResult.error && (insertResult.error.code === '23505' || insertResult.error.message?.includes('unique') || insertResult.error.message?.includes('duplicate'))) {
           newDraft.slug = `${slug}-${Date.now().toString().slice(-4)}`;
@@ -377,6 +360,71 @@ export default function BlogAutomationAdmin() {
     }
   };
 
+  const handleUpgradeDraftToMasterclass = async (post: any) => {
+    setIsUpgradingDraftId(post.id);
+    try {
+      const cat = post.category || 'Health';
+      const targetKeyword = (post.tags && post.tags[0]) || post.title;
+      const fullMasterclass = generateFullClinicalMasterclass({
+        title: post.title,
+        category: cat,
+        targetKeyword,
+        summary: post.excerpt || post.title,
+        slug: post.slug
+      });
+
+      const currentBanner = post.image_url || getCategoryDefaultBanner(cat);
+      const currentAlt = getCategoryDefaultAlt(cat, post.title);
+      const contentWithFm = updateArticleFrontmatter(fullMasterclass, currentBanner, currentAlt);
+
+      // 1. Try server-side endpoint first (uses service role key to bypass RLS)
+      let updated = false;
+      try {
+        const res = await fetch('/api/automation/update-draft', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: post.id,
+            updates: {
+              content: contentWithFm,
+              excerpt: post.excerpt || `${post.title} — Comprehensive clinical masterclass covering biochemical pathways, reference intervals, and actionable protocols.`
+            }
+          })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) updated = true;
+      } catch (_) {}
+
+      // 2. Fallback to direct supabase client
+      if (!updated && supabase) {
+        const { error } = await supabase
+          .from('blog_posts')
+          .update({ content: contentWithFm })
+          .eq('id', post.id);
+
+        if (error && error.code === 'PGRST205') {
+          await supabase.from('blogs').update({ content: contentWithFm }).eq('id', post.id);
+        }
+      }
+
+      // 3. Update local state
+      const updatedPost = { ...post, content: contentWithFm };
+      setPendingReviews(prev => prev.map(p => p.id === post.id ? updatedPost : p));
+      setAllPosts(prev => prev.map(p => p.id === post.id ? updatedPost : p));
+      if (previewingDraft && previewingDraft.id === post.id) {
+        setPreviewingDraft(updatedPost);
+      }
+
+      setAlertMessage(`⚡ Successfully upgraded "${post.title}" into a full 2,000+ word clinical masterclass!`);
+      await fetchPendingReviews();
+    } catch (err: any) {
+      console.error('Error upgrading draft to masterclass:', err);
+      alert('Upgrade error: ' + (err.message || 'Failed to update draft content'));
+    } finally {
+      setIsUpgradingDraftId(null);
+    }
+  };
+
   const handleAuthorizePublish = async (post: any) => {
     setPublishingId(post.id);
     try {
@@ -390,7 +438,7 @@ export default function BlogAutomationAdmin() {
         });
         const data = await res.json();
         if (res.ok && data.success) published = true;
-      } catch (_) {}
+      } catch (_) { }
 
       // 2. Fallback to client-side Supabase
       if (!published && supabase) {
@@ -470,7 +518,7 @@ export default function BlogAutomationAdmin() {
   const fetchData = async () => {
     try {
       const { data: logsData } = await supabase.from('publish_logs').select('*').order('created_at', { ascending: false }).limit(20);
-      
+
       // Health check endpoint probe
       if (!isOfflineRef.current) {
         try {
@@ -487,7 +535,7 @@ export default function BlogAutomationAdmin() {
           isOfflineRef.current = true;
         }
       }
-      
+
       if (logsData) setLogs(logsData);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -510,9 +558,9 @@ export default function BlogAutomationAdmin() {
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
               <label className="block text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2">Security Key</label>
-              <input 
-                type="password" 
-                value={passwordInput} 
+              <input
+                type="password"
+                value={passwordInput}
                 onChange={(e) => setPasswordInput(e.target.value)}
                 className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3.5 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all font-mono text-white"
                 placeholder="••••••••••••"
@@ -524,7 +572,7 @@ export default function BlogAutomationAdmin() {
                 {loginError}
               </div>
             )}
-            <button 
+            <button
               type="submit"
               className="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-xl font-black uppercase tracking-widest text-xs transition-all shadow-xl shadow-blue-900/10"
             >
@@ -542,7 +590,7 @@ export default function BlogAutomationAdmin() {
     <div className="min-h-screen bg-slate-950 p-8 pt-24 text-white">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">AI Blog Automation Dashboard</h1>
-        
+
         {backendOffline && (
           <div className="bg-red-900/50 border border-red-700 text-red-200 p-6 rounded-xl mb-8 flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -552,7 +600,7 @@ export default function BlogAutomationAdmin() {
                 <p className="text-sm opacity-80">Automation jobs cannot be triggered. Please start the server using npm run dev.</p>
               </div>
             </div>
-            <button 
+            <button
               onClick={() => {
                 isOfflineRef.current = false;
                 setBackendOffline(false);
@@ -570,7 +618,7 @@ export default function BlogAutomationAdmin() {
         <div className="mb-12 bg-slate-900/60 border border-slate-800 rounded-2xl p-6 backdrop-blur-sm">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-xs font-black uppercase tracking-widest text-slate-500">System Diagnostics</h3>
-            <button 
+            <button
               onClick={() => fetchPendingReviews()}
               className="text-[10px] font-bold text-indigo-400 hover:text-indigo-300 uppercase tracking-widest flex items-center gap-2"
             >
@@ -605,14 +653,14 @@ export default function BlogAutomationAdmin() {
                 <AlertTriangle size={14} /> Potential Security Block Detected
               </p>
               <p className="text-[10px] text-slate-400 mb-3">
-                You have articles in the database, but your dashboard cannot see "Drafts". 
+                You have articles in the database, but your dashboard cannot see "Drafts".
                 This usually means **Supabase Row Level Security (RLS)** is blocking access.
               </p>
               <div className="flex items-center gap-3">
                 <code className="bg-slate-950 p-2 rounded text-[9px] text-indigo-400 flex-grow">
                   ALTER TABLE blog_posts DISABLE ROW LEVEL SECURITY;
                 </code>
-                <button 
+                <button
                   onClick={() => {
                     navigator.clipboard.writeText('ALTER TABLE blog_posts DISABLE ROW LEVEL SECURITY;');
                     alert('SQL Copied! Run this in Supabase SQL Editor.');
@@ -624,7 +672,7 @@ export default function BlogAutomationAdmin() {
               </div>
             </div>
           )}
-          
+
           {/* Recent Database Peek */}
           <div className="mt-6 pt-6 border-t border-white/5">
             <p className="text-[10px] text-slate-500 uppercase font-black mb-3 text-center">Last 5 Articles in Database</p>
@@ -672,33 +720,57 @@ export default function BlogAutomationAdmin() {
                 {pendingReviews.length} Articles Pending
               </span>
             </div>
-            
+
             {pendingReviews.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {pendingReviews.map((post) => (
                   <div key={post.id} className="bg-slate-900/80 border border-slate-800 rounded-xl overflow-hidden hover:border-indigo-500/50 transition-all group">
-                    <div 
+                    <div
                       className="aspect-video relative overflow-hidden cursor-pointer"
                       onClick={() => openPreviewModal(post)}
                       title="Click to preview draft & replace featured image"
                     >
-                      <img 
-                        src={post.image_url || getCategoryDefaultBanner(post.category)} 
-                        alt="" 
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-70" 
+                      <img
+                        src={post.image_url || getCategoryDefaultBanner(post.category)}
+                        alt=""
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-70"
                         onError={(e) => {
                           (e.currentTarget as HTMLImageElement).src = getCategoryDefaultBanner(post.category);
                         }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
                       <div className="absolute bottom-4 left-4 right-4">
-                        <span className="px-2 py-0.5 bg-indigo-600 text-white text-[10px] font-bold rounded uppercase tracking-widest mb-2 inline-block">Draft Article</span>
+                        <div className="flex items-center gap-1.5 mb-2">
+                          <span className="px-2 py-0.5 bg-indigo-600 text-white text-[10px] font-bold rounded uppercase tracking-widest inline-block">
+                            {post.category || 'Draft'}
+                          </span>
+                          {(post.content || '').split(/\s+/).filter(Boolean).length < 600 ? (
+                            <span className="px-2 py-0.5 bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-bold rounded-full">
+                              ⚠️ Short ({(post.content || '').split(/\s+/).filter(Boolean).length}w)
+                            </span>
+                          ) : (
+                            <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold rounded-full">
+                              ✓ {(post.content || '').split(/\s+/).filter(Boolean).length.toLocaleString()}w Masterclass
+                            </span>
+                          )}
+                        </div>
                         <h3 className="text-sm font-bold text-white line-clamp-1">{post.title}</h3>
                       </div>
                     </div>
                     <div className="p-4 space-y-2.5">
+                      {(post.content || '').split(/\s+/).filter(Boolean).length < 600 && (
+                        <button
+                          type="button"
+                          disabled={isUpgradingDraftId === post.id}
+                          onClick={() => handleUpgradeDraftToMasterclass(post)}
+                          className="w-full flex items-center justify-center gap-1.5 py-2 bg-gradient-to-r from-amber-500/20 to-emerald-500/20 hover:from-amber-500/30 hover:to-emerald-500/30 text-amber-200 border border-amber-500/40 rounded-lg text-xs font-bold transition-all cursor-pointer disabled:opacity-50"
+                        >
+                          <Zap size={13} className={isUpgradingDraftId === post.id ? 'animate-spin' : 'text-amber-400'} />
+                          <span>{isUpgradingDraftId === post.id ? 'Upgrading to Masterclass...' : '⚡ Upgrade to 2,000+ Word Masterclass'}</span>
+                        </button>
+                      )}
                       <div className="flex items-center justify-between gap-2">
-                        <button 
+                        <button
                           type="button"
                           onClick={() => openPreviewModal(post)}
                           className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-lg text-xs font-bold transition-all border border-cyan-500/30 cursor-pointer"
@@ -707,8 +779,8 @@ export default function BlogAutomationAdmin() {
                           <Eye className="w-3.5 h-3.5 text-cyan-400" />
                           <span>Preview &amp; Image</span>
                         </button>
-                        <a 
-                          href={`/admin?edit_id=${post.id}`} 
+                        <a
+                          href={`/admin?edit_id=${post.id}`}
                           onClick={() => {
                             localStorage.setItem('admin_target_tab', 'blog');
                             localStorage.setItem('edit_blog_post_id', post.id);
@@ -853,8 +925,8 @@ export default function BlogAutomationAdmin() {
                   <div className="space-y-3.5">
                     {columnPitches.map((pitch, idx) => {
                       const isGenerating = generatingPitchId === pitch.id;
-                      const existingMatch = allPosts.find(p => 
-                        p.slug === pitch.slug || 
+                      const existingMatch = allPosts.find(p =>
+                        p.slug === pitch.slug ||
                         (p.title && p.title.toLowerCase().trim() === pitch.title.toLowerCase().trim())
                       );
                       const isDrafted = pitch.draftStatus === 'drafted' || Boolean(existingMatch);
@@ -904,13 +976,12 @@ export default function BlogAutomationAdmin() {
                               }
                             }}
                             disabled={isGenerating}
-                            className={`w-full py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                              isDrafted
+                            className={`w-full py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${isDrafted
                                 ? 'bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-500/40 shadow-sm'
                                 : isGenerating
-                                ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 animate-pulse'
-                                : 'bg-slate-800 hover:bg-cyan-600 hover:text-white text-slate-200 border border-slate-700'
-                            }`}
+                                  ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 animate-pulse'
+                                  : 'bg-slate-800 hover:bg-cyan-600 hover:text-white text-slate-200 border border-slate-700'
+                              }`}
                           >
                             {isDrafted ? (
                               <>
@@ -945,7 +1016,7 @@ export default function BlogAutomationAdmin() {
             <Clock className="w-5 h-5 text-blue-400" />
             <span>Recent Activity Logs</span>
           </h2>
-          
+
           <div className="space-y-4">
             {logs.map((log) => (
               <div key={log.id} className="flex items-start space-x-4 p-4 border border-slate-800 rounded-lg bg-slate-950/50">
@@ -965,7 +1036,7 @@ export default function BlogAutomationAdmin() {
                 </div>
               </div>
             ))}
-            
+
             {logs.length === 0 && (
               <div className="text-center text-slate-500 py-8">No recent activity logs.</div>
             )}
@@ -992,11 +1063,10 @@ export default function BlogAutomationAdmin() {
                   <tr key={post.id} className="group hover:bg-white/5 transition-colors">
                     <td className="py-4 text-white font-medium">{post.title}</td>
                     <td className="py-4">
-                      <span className={`px-2 py-1 rounded text-[10px] font-black uppercase ${
-                        post.status === 'published' ? 'bg-emerald-500/10 text-emerald-500' : 
-                        post.status === 'draft' ? 'bg-amber-500/10 text-amber-500' : 
-                        'bg-slate-500/10 text-slate-500'
-                      }`}>
+                      <span className={`px-2 py-1 rounded text-[10px] font-black uppercase ${post.status === 'published' ? 'bg-emerald-500/10 text-emerald-500' :
+                          post.status === 'draft' ? 'bg-amber-500/10 text-amber-500' :
+                            'bg-slate-500/10 text-slate-500'
+                        }`}>
                         {post.status || 'NULL'}
                       </span>
                     </td>
@@ -1004,15 +1074,15 @@ export default function BlogAutomationAdmin() {
                       {new Date(post.created_at).toLocaleString()}
                     </td>
                     <td className="py-4 text-right">
-                      <a 
-                        href={`/blog/${post.slug}?preview=true`} 
-                        target="_blank" 
+                      <a
+                        href={`/blog/${post.slug}?preview=true`}
+                        target="_blank"
                         className="text-slate-400 hover:text-white transition-colors"
                         title="Preview"
                       >
                         <Eye size={16} className="inline" />
                       </a>
-                      <a 
+                      <a
                         href={`/admin?edit_id=${post.id}`}
                         onClick={() => {
                           localStorage.setItem('admin_target_tab', 'blog');
@@ -1039,11 +1109,11 @@ export default function BlogAutomationAdmin() {
       {/* BLOG DRAFT PREVIEW & FEATURED IMAGE REPLACEMENT MODAL                     */}
       {/* ========================================================================= */}
       {previewingDraft && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-md animate-in fade-in"
           onClick={closePreviewModal}
         >
-          <div 
+          <div
             className="relative w-full max-w-4xl max-h-[92vh] bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl flex flex-col overflow-hidden text-left"
             onClick={(e) => e.stopPropagation()}
           >
@@ -1062,7 +1132,7 @@ export default function BlogAutomationAdmin() {
                   {previewingDraft.title}
                 </h3>
               </div>
-              <button 
+              <button
                 onClick={closePreviewModal}
                 className="p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 transition cursor-pointer"
                 title="Close modal"
@@ -1101,9 +1171,9 @@ export default function BlogAutomationAdmin() {
 
                 {/* Hero Preview Box */}
                 <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-xl group">
-                  <img 
-                    src={previewingDraft.image_url || getCategoryDefaultBanner(previewingDraft.category)} 
-                    alt={customImageAlt || previewingDraft.title} 
+                  <img
+                    src={previewingDraft.image_url || getCategoryDefaultBanner(previewingDraft.category)}
+                    alt={customImageAlt || previewingDraft.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.01]"
                     onError={(e) => {
                       (e.currentTarget as HTMLImageElement).src = getCategoryDefaultBanner(previewingDraft.category);
@@ -1124,12 +1194,12 @@ export default function BlogAutomationAdmin() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                   {/* Option A: Direct File Upload to /assets/images/blog/ */}
                   <div>
-                    <input 
-                      type="file" 
-                      ref={fileInputRef} 
-                      onChange={handleFileUpload} 
-                      accept="image/png,image/jpeg,image/webp,image/svg+xml" 
-                      className="hidden" 
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      onChange={handleFileUpload}
+                      accept="image/png,image/jpeg,image/webp,image/svg+xml"
+                      className="hidden"
                     />
                     <button
                       type="button"
@@ -1156,11 +1226,11 @@ export default function BlogAutomationAdmin() {
 
                   {/* Option B: Enter Custom Image URL */}
                   <div className="flex gap-2">
-                    <input 
-                      type="text" 
-                      value={customImageUrl} 
-                      onChange={(e) => setCustomImageUrl(e.target.value)} 
-                      placeholder="https://... or /assets/images/blog/..." 
+                    <input
+                      type="text"
+                      value={customImageUrl}
+                      onChange={(e) => setCustomImageUrl(e.target.value)}
+                      placeholder="https://... or /assets/images/blog/..."
                       className="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 font-mono"
                     />
                     <button
@@ -1178,11 +1248,11 @@ export default function BlogAutomationAdmin() {
                   <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider shrink-0">
                     featured_image_alt:
                   </span>
-                  <input 
-                    type="text" 
-                    value={customImageAlt} 
-                    onChange={(e) => setCustomImageAlt(e.target.value)} 
-                    placeholder="Clinical visual description for SEO & accessibility" 
+                  <input
+                    type="text"
+                    value={customImageAlt}
+                    onChange={(e) => setCustomImageAlt(e.target.value)}
+                    placeholder="Clinical visual description for SEO & accessibility"
                     className="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-500"
                   />
                   <button
@@ -1208,11 +1278,10 @@ export default function BlogAutomationAdmin() {
                           key={catKey}
                           type="button"
                           onClick={() => handleApplyFeaturedImage(banner.url, banner.alt)}
-                          className={`p-2.5 rounded-xl border text-left transition flex flex-col justify-between gap-2 cursor-pointer ${
-                            isActive
+                          className={`p-2.5 rounded-xl border text-left transition flex flex-col justify-between gap-2 cursor-pointer ${isActive
                               ? 'bg-emerald-950/60 border-emerald-500/80 ring-1 ring-emerald-500'
                               : 'bg-slate-900 hover:bg-slate-850 border-slate-800 hover:border-slate-700'
-                          }`}
+                            }`}
                         >
                           <div className="aspect-[21/9] w-full rounded-lg overflow-hidden bg-slate-950 relative">
                             <img src={banner.url} alt={banner.label} className="w-full h-full object-cover" />
@@ -1235,11 +1304,38 @@ export default function BlogAutomationAdmin() {
 
               {/* SECTION 2: ARTICLE SUMMARY & CONTENT PREVIEW */}
               <div className="space-y-4">
-                <div className="flex items-center gap-2 border-b border-slate-800 pb-2">
-                  <FileText size={16} className="text-cyan-400" />
-                  <h4 className="text-sm font-black text-white uppercase tracking-wider">
-                    Article Reader Preview
-                  </h4>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <FileText size={16} className="text-cyan-400" />
+                    <h4 className="text-sm font-black text-white uppercase tracking-wider">
+                      Article Reader Preview
+                    </h4>
+                    {((previewingDraft.content || '').split(/\s+/).filter(Boolean).length < 600) ? (
+                      <span className="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-bold">
+                        ⚠️ Short Stub ({(previewingDraft.content || '').split(/\s+/).filter(Boolean).length} words)
+                      </span>
+                    ) : (
+                      <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold">
+                        ✓ {(previewingDraft.content || '').split(/\s+/).filter(Boolean).length.toLocaleString()} words (~{Math.ceil((previewingDraft.content || '').split(/\s+/).filter(Boolean).length / 220)} min read)
+                      </span>
+                    )}
+                  </div>
+
+                  <button
+                    type="button"
+                    disabled={isUpgradingDraftId === previewingDraft.id}
+                    onClick={() => handleUpgradeDraftToMasterclass(previewingDraft)}
+                    className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-emerald-500 hover:from-amber-400 hover:to-emerald-400 text-slate-950 text-xs font-black uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md transition cursor-pointer disabled:opacity-50"
+                  >
+                    <Zap size={13} className={isUpgradingDraftId === previewingDraft.id ? 'animate-spin' : ''} />
+                    <span>
+                      {isUpgradingDraftId === previewingDraft.id
+                        ? 'Upgrading Content...'
+                        : (previewingDraft.content || '').split(/\s+/).filter(Boolean).length < 600
+                        ? '⚡ Upgrade to 2,000+ Word Masterclass'
+                        : '⚡ Regenerate 2,000+ Word Masterclass'}
+                    </span>
+                  </button>
                 </div>
 
                 {previewingDraft.excerpt && (
@@ -1259,17 +1355,17 @@ export default function BlogAutomationAdmin() {
             {/* Modal Footer */}
             <div className="p-4 sm:p-6 border-t border-slate-800 bg-slate-950/80 flex flex-col sm:flex-row items-center justify-between gap-3">
               <div className="flex items-center gap-2 w-full sm:w-auto">
-                <a 
-                  href={`/blog/${previewingDraft.slug}?preview=true`} 
-                  target="_blank" 
+                <a
+                  href={`/blog/${previewingDraft.slug}?preview=true`}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition flex items-center justify-center gap-1.5 border border-slate-700"
                 >
                   <ExternalLink size={13} />
                   <span>Full Reader Page</span>
                 </a>
-                <a 
-                  href={`/admin?edit_id=${previewingDraft.id}`} 
+                <a
+                  href={`/admin?edit_id=${previewingDraft.id}`}
                   onClick={() => {
                     localStorage.setItem('admin_target_tab', 'blog');
                     localStorage.setItem('edit_blog_post_id', previewingDraft.id);

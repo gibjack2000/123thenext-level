@@ -7,6 +7,7 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Product, BlogPost, PremiumGuide, mapToProduct } from '../types';
 import { usePaywallBypass } from '../utils/adminTestMode';
 import BlogMarkdownRenderer from '../components/BlogMarkdownRenderer';
+import { generateFullClinicalMasterclass } from '../utils/clinicalArticleGenerator';
 import {
   CATEGORY_DEFAULT_BANNERS,
   getCategoryDefaultBanner,
@@ -745,6 +746,61 @@ export default function AdminPage() {
       alert('Failed to publish post: ' + err.message);
     } finally {
       setIsAuthorizingPostId(null);
+    }
+  };
+
+  const [isUpgradingAdminPost, setIsUpgradingAdminPost] = useState(false);
+
+  const handleAdminUpgradeToMasterclass = async (post: BlogPost) => {
+    setIsUpgradingAdminPost(true);
+    try {
+      const fullMasterclass = generateFullClinicalMasterclass({
+        title: post.title,
+        category: post.category,
+        targetKeyword: post.tags && post.tags[0] ? post.tags[0] : post.title,
+        summary: post.excerpt || post.title,
+        slug: post.slug
+      });
+
+      const currentBanner = post.image_url || getCategoryDefaultBanner(post.category);
+      const currentAlt = getCategoryDefaultAlt(post.category, post.title);
+      const contentWithFm = updateArticleFrontmatter(fullMasterclass, currentBanner, currentAlt);
+
+      // 1. Server-side endpoint
+      let updated = false;
+      try {
+        const res = await fetch('/api/automation/update-draft', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: post.id,
+            updates: { content: contentWithFm }
+          })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) updated = true;
+      } catch (_) {}
+
+      // 2. Direct client fallback
+      if (!updated && supabase) {
+        const { error } = await supabase
+          .from('blog_posts')
+          .update({ content: contentWithFm })
+          .eq('id', post.id);
+
+        if (error && error.code === 'PGRST205') {
+          await supabase.from('blogs').update({ content: contentWithFm }).eq('id', post.id);
+        }
+      }
+
+      const updatedPost: BlogPost = { ...post, content: contentWithFm };
+      setBlogPosts(prev => prev.map(p => p.id === post.id ? updatedPost : p));
+      setPreviewingBlogPost(updatedPost);
+      alert(`⚡ Successfully upgraded "${post.title}" into a full 2,000+ word clinical masterclass!`);
+    } catch (err: any) {
+      alert('Upgrade error: ' + (err.message || 'Failed to upgrade article'));
+    } finally {
+      setIsUpgradingAdminPost(false);
     }
   };
 
@@ -2805,16 +2861,37 @@ create table if not exists premium_guides (
 
                 {/* SECTION 2: ARTICLE BODY PREVIEW */}
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                    <div className="flex items-center gap-2">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-2">
+                    <div className="flex items-center gap-2 flex-wrap">
                       <FileText size={16} className="text-cyan-400" />
                       <h4 className="text-xs font-black uppercase tracking-wider text-white">
                         Article Reader Preview
                       </h4>
+                      {((previewingBlogPost.content || '').split(/\s+/).filter(Boolean).length < 600) ? (
+                        <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-bold">
+                          ⚠️ Short Stub ({(previewingBlogPost.content || '').split(/\s+/).filter(Boolean).length} words)
+                        </span>
+                      ) : (
+                        <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold">
+                          ✓ {(previewingBlogPost.content || '').split(/\s+/).filter(Boolean).length.toLocaleString()} words
+                        </span>
+                      )}
                     </div>
-                    <span className="text-[10px] text-slate-400 uppercase font-mono">
-                      /{previewingBlogPost.slug}
-                    </span>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        disabled={isUpgradingAdminPost}
+                        onClick={() => handleAdminUpgradeToMasterclass(previewingBlogPost)}
+                        className="px-3 py-1 rounded-lg bg-gradient-to-r from-amber-500 to-emerald-500 hover:from-amber-400 hover:to-emerald-400 text-slate-950 text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-md transition cursor-pointer disabled:opacity-50"
+                      >
+                        <Sparkles size={12} className={isUpgradingAdminPost ? 'animate-spin' : ''} />
+                        <span>{isUpgradingAdminPost ? 'Upgrading...' : (previewingBlogPost.content || '').split(/\s+/).filter(Boolean).length < 600 ? '⚡ Upgrade to 2,000w Masterclass' : '⚡ Regenerate Masterclass'}</span>
+                      </button>
+                      <span className="text-[10px] text-slate-400 uppercase font-mono">
+                        /{previewingBlogPost.slug}
+                      </span>
+                    </div>
                   </div>
 
                   <div className="p-6 rounded-2xl bg-slate-950/80 border border-slate-800">
