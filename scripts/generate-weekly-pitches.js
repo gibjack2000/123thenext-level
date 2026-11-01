@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// 20 High-Intent Clinical & Performance Topic Pitch Pool (5 per category)
+// Comprehensive High-Intent Topic Pitch Pool (8-10 per category)
 const PITCH_POOLS = {
   health: [
     {
@@ -37,6 +37,24 @@ const PITCH_POOLS = {
       slug: "ai-digital-stethoscope-phonocardiogram-heart-sounds",
       targetKeyword: "digital AI stethoscope cardiac telemetry",
       summary: "How portable dual-sensor acoustic ECG captures murmurs, S3 gallops, and micro-arrhythmias with FDA-grade precision from home."
+    },
+    {
+      title: "Coronary Artery Calcium (CAC) Scoring: Zero-Score Longevity vs Early Soft Plaque",
+      slug: "coronary-artery-calcium-cac-scan-interpretation",
+      targetKeyword: "coronary artery calcium score zero interpretation",
+      summary: "Understanding Agatston scoring, radiation safety thresholds, and when to request low-dose non-contrast cardiac CT."
+    },
+    {
+      title: "Liver Elastography & FibroScan: Detecting Metabolic Steatohepatitis Before Fibrosis",
+      slug: "fibroscan-liver-elastography-fatty-liver-biomarkers",
+      targetKeyword: "fatty liver CAP score fibroscan normal ranges",
+      summary: "A non-invasive acoustic shear-wave guide to measuring hepatic fat fraction and defending metabolic detoxification."
+    },
+    {
+      title: "Full-Body MRI vs Targeted Screening: Incidentaloma Management in Asymptomatic Adults",
+      slug: "full-body-mri-screening-longevity-incidentalomas",
+      targetKeyword: "full body MRI preventive health pros cons",
+      summary: "The clinical utility of diffusion-weighted imaging, false-positive mitigation, and structured physician triage."
     }
   ],
   fitness: [
@@ -69,6 +87,24 @@ const PITCH_POOLS = {
       slug: "grip-strength-dynamometer-biological-biomarker",
       targetKeyword: "grip strength longevity biomarker",
       summary: "Why grip strength tracks total body neuromuscular integrity and biological aging more reliably than systolic blood pressure."
+    },
+    {
+      title: "Eccentric Overload & Tendon Stiffness: The Patellar & Achilles Longevity Protocol",
+      slug: "eccentric-tendon-loading-patellar-achilles-stiffness",
+      targetKeyword: "eccentric training tendon remodeling collagen",
+      summary: "Stimulating tenocyte cellular collagen synthesis through controlled 4-second eccentric tempo loading to prevent tendon rupture."
+    },
+    {
+      title: "Cadence & Heart Rate Decoupling: Detecting Cardiac Aerobic Drift in Endurance Training",
+      slug: "cardiac-drift-aerobic-decoupling-hydration-zones",
+      targetKeyword: "aerobic decoupling heart rate drift threshold",
+      summary: "How rising heart rate at fixed power output signals core thermal load, plasma volume drops, and autonomic fatigue."
+    },
+    {
+      title: "Intermittent Hypoxic Training (IHT): Upregulating EPO and Capillary Density Naturally",
+      slug: "intermittent-hypoxic-training-epo-capillary-density",
+      targetKeyword: "hypoxic breathing training athletic endurance",
+      summary: "HIF-1alpha transcriptional induction, systemic oxygen delivery adaptation, and mitochondrial efficiency gains."
     }
   ],
   nutrition: [
@@ -101,6 +137,24 @@ const PITCH_POOLS = {
       slug: "visceral-fat-reversal-protocol-bioimpedance",
       targetKeyword: "how to reduce visceral organ fat fast",
       summary: "The distinction between subcutaneous and deep hepatic-omental fat, mapped using multi-frequency segmental bioimpedance analysis."
+    },
+    {
+      title: "Continuous Ketone Monitoring (CKM): Glycemic vs Ketogenic Flux for Neurological Clarity",
+      slug: "continuous-ketone-monitoring-ckm-brain-energy",
+      targetKeyword: "continuous ketone monitor beta-hydroxybutyrate",
+      summary: "Real-time BHB tracking and brain-energy rescue for metabolic longevity and cognitive resilience."
+    },
+    {
+      title: "ApoE4 Genotype Dietary Modulation: Saturated Fat Thresholds & Choline Repletion",
+      slug: "apoe4-diet-saturated-fat-choline-longevity",
+      targetKeyword: "apoe4 diet saturated fat brain health",
+      summary: "Personalized lipid engineering for ApoE4 carriers: navigating saturated fatty acid thresholds and phosphatidylcholine synthesis."
+    },
+    {
+      title: "Electrolyte Osmolality in Heat Stress: Sodium-to-Potassium Ratios for Aldosterone Defense",
+      slug: "electrolyte-osmolality-sodium-potassium-ratio",
+      targetKeyword: "optimal electrolyte ratio hydration longevity",
+      summary: "Balancing mineral concentrations to prevent renin-aldosterone spikes and sustain cellular hydration under physical demand."
     }
   ],
   wellness: [
@@ -133,6 +187,24 @@ const PITCH_POOLS = {
       slug: "circadian-rhythm-lux-morning-sunlight-melatonin",
       targetKeyword: "morning light circadian rhythm sleep architecture",
       summary: "The exact neurological timing for melanopsin activation to anchor the suprachiasmatic nucleus and boost nocturnal melatonin release."
+    },
+    {
+      title: "Transcranial Photobiomodulation (tPBM): 810nm Near-Infrared Cortical Energy Transfer",
+      slug: "transcranial-photobiomodulation-red-light-brain",
+      targetKeyword: "transcranial photobiomodulation cognitive longevity",
+      summary: "Stimulating cytochrome c oxidase in cortical mitochondria to elevate ATP production and microvascular perfusion."
+    },
+    {
+      title: "Bilateral Eye Movement Desensitization: Amygdala Downregulation During Chronic Work Stress",
+      slug: "bilateral-eye-movement-stress-amygdala-reset",
+      targetKeyword: "bilateral stimulation stress vagal tone",
+      summary: "The neurobiological mechanism behind horizontal saccades in reducing subjective distress and dampening sympathetic hyper-arousal."
+    },
+    {
+      title: "Sensory Deprivation Flotation: Theta Brainwave Inducement and Cortisol Clearance",
+      slug: "sensory-deprivation-float-tank-theta-waves-cortisol",
+      targetKeyword: "float tank sensory deprivation stress cortisol",
+      summary: "How eliminating graviceptive and sensory input triggers spontaneous 4-8Hz theta EEG states and flushes systemic glucocorticoids."
     }
   ]
 };
@@ -176,18 +248,31 @@ const CATEGORY_META = {
   }
 };
 
+function shuffle(array) {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 export function generateWeeklyTopicPitches() {
   const generatedAt = new Date().toISOString();
   const weekNumber = getWeekNumber(new Date());
   const year = new Date().getFullYear();
+  const timestamp = Date.now();
 
   const allPitches = [];
 
   for (const [categoryKey, topics] of Object.entries(PITCH_POOLS)) {
     const meta = CATEGORY_META[categoryKey];
-    topics.forEach((topic, idx) => {
+    // Randomly select 5 unique topics per category for variety
+    const selectedTopics = shuffle(topics).slice(0, 5);
+    
+    selectedTopics.forEach((topic, idx) => {
       allPitches.push({
-        id: `pitch-${categoryKey}-${year}-w${weekNumber}-${idx + 1}`,
+        id: `pitch-${categoryKey}-${year}-w${weekNumber}-${timestamp}-${idx + 1}`,
         category: categoryKey,
         categoryLabel: meta.label,
         categoryUrl: meta.feedUrl,
@@ -206,7 +291,7 @@ export function generateWeeklyTopicPitches() {
 
   const payload = {
     metadata: {
-      batchId: `batch-${year}-w${weekNumber}`,
+      batchId: `batch-${year}-w${weekNumber}-${timestamp}`,
       year,
       weekNumber,
       totalCount: allPitches.length,

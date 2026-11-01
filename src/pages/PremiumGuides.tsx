@@ -80,7 +80,7 @@ export default function PremiumGuidesPage() {
     {
       id: "metabolic-master-guide",
       pillar: "Metabolic Health & Body Composition",
-      title: "12-Week Metabolic & Visceral Fat Protocol",
+      title: "The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol",
       price: "£19.00",
       usPrice: "$25.00 • €22.00",
       primaryImage: "/assets/images/metabolic_nutrition_cover_New.png",

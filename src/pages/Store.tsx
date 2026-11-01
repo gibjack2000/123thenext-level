@@ -2501,6 +2501,9 @@ export function isPremiumGuideProduct(product: any): boolean {
     title.includes('master protocol') ||
     id.includes('metabolic-master-guide') ||
     id.includes('guide') ||
+    id.includes('bundle') ||
+    title.includes('bundle') ||
+    title.includes('vault') ||
     deal.includes('metabolic-visceral-fat') ||
     deal.includes('metabolic-master-guide') ||
     deal.includes('/checkout') ||
@@ -2508,9 +2511,12 @@ export function isPremiumGuideProduct(product: any): boolean {
     cat.includes('master guide') ||
     cat.includes('digital guide') ||
     cat.includes('co-pilot') ||
+    cat.includes('bundle') ||
+    cat.includes('vault') ||
     badge.includes('master guide') ||
     badge.includes('premium guide') ||
-    badge.includes('guía premium')
+    badge.includes('guía premium') ||
+    badge.includes('bundle')
   );
 }
 

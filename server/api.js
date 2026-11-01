@@ -167,6 +167,18 @@ router.post('/automation/dispatch-weekly-alert', async (req, res) => {
   }
 });
 
+// --- On-Demand Manual Weekly Pitch Generation ---
+router.post('/automation/generate-fresh-pitches', async (req, res) => {
+  try {
+    const { generateWeeklyTopicPitches } = await import('../scripts/generate-weekly-pitches.js');
+    const result = generateWeeklyTopicPitches();
+    res.json({ success: true, message: 'Successfully generated 20 fresh weekly topic pitches', data: result });
+  } catch (err) {
+    console.error('Failed to generate fresh pitches:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 
 
 // --- Quiz Results Route ---

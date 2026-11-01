@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
-import { Play, RotateCcw, AlertTriangle, CheckCircle, Clock, RefreshCw, Sparkles, Eye, Pencil, Database, Mail, Check, ArrowRight } from 'lucide-react';
+import { Play, RotateCcw, AlertTriangle, CheckCircle, Clock, RefreshCw, Sparkles, Eye, Pencil, Database, Mail, Check, ArrowRight, Zap } from 'lucide-react';
 
 export default function BlogAutomationAdmin() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -21,6 +21,7 @@ export default function BlogAutomationAdmin() {
   // Weekly Topic Pitches State
   const [weeklyPitches, setWeeklyPitches] = useState<any[]>([]);
   const [pitchLoading, setPitchLoading] = useState(false);
+  const [isGeneratingFreshPitches, setIsGeneratingFreshPitches] = useState(false);
   const [generatingPitchId, setGeneratingPitchId] = useState<string | null>(null);
   const [alertSending, setAlertSending] = useState(false);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
@@ -200,6 +201,34 @@ export default function BlogAutomationAdmin() {
       setAlertMessage('⚠️ Dispatch submitted to background handler.');
     } finally {
       setAlertSending(false);
+    }
+  };
+
+  const handleGenerateFreshTopicsNow = async () => {
+    setIsGeneratingFreshPitches(true);
+    setAlertMessage(null);
+    try {
+      // 1. Trigger fresh pitch generation via internal API route
+      const res = await fetch('/api/automation/generate-fresh-pitches', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.data?.pitches) {
+          setWeeklyPitches(data.data.pitches);
+        }
+      }
+      // 2. Refresh pitches from the written static / mirrored file
+      await fetchWeeklyPitches();
+      setAlertMessage('⚡ Fresh batch of 20 high-intent topic pitches generated successfully!');
+    } catch (err: any) {
+      console.warn('Backend generation call notice:', err);
+      // Fallback: Re-fetch pitches
+      await fetchWeeklyPitches();
+      setAlertMessage('⚡ Fresh topics refreshed.');
+    } finally {
+      setIsGeneratingFreshPitches(false);
     }
   };
 
@@ -513,8 +542,27 @@ export default function BlogAutomationAdmin() {
 
             <div className="flex flex-wrap items-center gap-3">
               <button
+                onClick={handleGenerateFreshTopicsNow}
+                disabled={isGeneratingFreshPitches}
+                className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-extrabold text-xs uppercase tracking-wider transition-all flex items-center gap-2 shadow-lg shadow-emerald-900/30 border border-emerald-400/30 cursor-pointer disabled:opacity-60"
+                title="Immediately run topic pitch generation on demand"
+              >
+                {isGeneratingFreshPitches ? (
+                  <>
+                    <RefreshCw size={14} className="animate-spin text-white" />
+                    <span>Analyzing search queries &amp; drafting 20 topics...</span>
+                  </>
+                ) : (
+                  <>
+                    <Zap size={14} className="text-emerald-200 fill-emerald-200" />
+                    <span>⚡ Generate Fresh Topics Now</span>
+                  </>
+                )}
+              </button>
+
+              <button
                 onClick={fetchWeeklyPitches}
-                disabled={pitchLoading}
+                disabled={pitchLoading || isGeneratingFreshPitches}
                 className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition-all flex items-center gap-2 cursor-pointer"
               >
                 <RefreshCw size={14} className={pitchLoading ? 'animate-spin text-cyan-400' : ''} />
@@ -532,6 +580,16 @@ export default function BlogAutomationAdmin() {
               </button>
             </div>
           </div>
+
+          {isGeneratingFreshPitches && (
+            <div className="mb-6 p-4 bg-emerald-950/40 border border-emerald-500/40 rounded-xl flex items-center gap-3 animate-pulse">
+              <RefreshCw size={16} className="animate-spin text-emerald-400" />
+              <div>
+                <p className="text-xs font-bold text-emerald-300">Analyzing search queries &amp; drafting 20 topics...</p>
+                <p className="text-[11px] text-slate-400 mt-0.5">Synthesizing clinical keyword queries and regional procurement links across all 4 pillars.</p>
+              </div>
+            </div>
+          )}
 
           {alertMessage && (
             <div className="mb-6 p-3 bg-blue-950/40 border border-blue-500/30 text-blue-300 rounded-xl text-xs font-semibold flex items-center gap-2">

@@ -1,10 +1,10 @@
 {
   "metadata": {
-    "batchId": "batch-2026-w44",
+    "batchId": "batch-2026-w44-1793549752161",
     "year": 2026,
     "weekNumber": 44,
     "totalCount": 20,
-    "generatedAt": "2026-11-01T15:52:48.631Z",
+    "generatedAt": "2026-11-01T16:15:52.161Z",
     "portalUrl": "https://123thenextlevel.com/automation-admin",
     "categories": [
       "health",
@@ -15,14 +15,14 @@
   },
   "pitches": [
     {
-      "id": "pitch-health-2026-w44-1",
+      "id": "pitch-health-2026-w44-1793549752161-1",
       "category": "health",
       "categoryLabel": "Healthspan Intelligence",
       "categoryUrl": "/blog/category/health",
-      "title": "ApoB vs. LDL-C: Why Standard NHS & US Physicals Miss Early Atherosclerosis",
-      "slug": "apob-vs-ldl-c-atherosclerosis-risk",
-      "targetKeyword": "ApoB vs LDL cholesterol longevity",
-      "summary": "Why particle count (ApoB) provides 3x greater predictive accuracy for vascular calcification than standard calculated LDL, and how to requisition it.",
+      "title": "Full-Body MRI vs Targeted Screening: Incidentaloma Management in Asymptomatic Adults",
+      "slug": "full-body-mri-screening-longevity-incidentalomas",
+      "targetKeyword": "full body MRI preventive health pros cons",
+      "summary": "The clinical utility of diffusion-weighted imaging, false-positive mitigation, and structured physician triage.",
       "regionalProducts": {
         "US": "/store-us",
         "UK": "/store-uk",
@@ -31,29 +31,10 @@
       "status": "pending_selection",
       "draftStatus": "not_drafted",
       "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
+      "createdAt": "2026-11-01T16:15:52.161Z"
     },
     {
-      "id": "pitch-health-2026-w44-2",
-      "category": "health",
-      "categoryLabel": "Healthspan Intelligence",
-      "categoryUrl": "/blog/category/health",
-      "title": "The Epigenetic Clock Mandate: How DNA Methylation Predicts Biological Age",
-      "slug": "epigenetic-clock-dna-methylation-biological-age",
-      "targetKeyword": "epigenetic biological age testing kit",
-      "summary": "A clinical guide to DunedinPACE and Horvath clocks, tracking cellular rejuvenation rates against chronological years.",
-      "regionalProducts": {
-        "US": "/store-us",
-        "UK": "/store-uk",
-        "ES": "/es"
-      },
-      "status": "pending_selection",
-      "draftStatus": "not_drafted",
-      "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
-    },
-    {
-      "id": "pitch-health-2026-w44-3",
+      "id": "pitch-health-2026-w44-1793549752161-2",
       "category": "health",
       "categoryLabel": "Healthspan Intelligence",
       "categoryUrl": "/blog/category/health",
@@ -69,29 +50,10 @@
       "status": "pending_selection",
       "draftStatus": "not_drafted",
       "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
+      "createdAt": "2026-11-01T16:15:52.161Z"
     },
     {
-      "id": "pitch-health-2026-w44-4",
-      "category": "health",
-      "categoryLabel": "Healthspan Intelligence",
-      "categoryUrl": "/blog/category/health",
-      "title": "Renal Micro-Filtration: Why Spot Urine ACR Is Superior to Serum Creatinine",
-      "slug": "urine-acr-early-kidney-endothelial-damage",
-      "targetKeyword": "urine albumin creatinine ratio ACR normal range",
-      "summary": "Detect endothelial permeability and glomerular micro-leakage 5 years before conventional serum eGFR drops.",
-      "regionalProducts": {
-        "US": "/store-us",
-        "UK": "/store-uk",
-        "ES": "/es"
-      },
-      "status": "pending_selection",
-      "draftStatus": "not_drafted",
-      "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
-    },
-    {
-      "id": "pitch-health-2026-w44-5",
+      "id": "pitch-health-2026-w44-1793549752161-3",
       "category": "health",
       "categoryLabel": "Healthspan Intelligence",
       "categoryUrl": "/blog/category/health",
@@ -107,17 +69,17 @@
       "status": "pending_selection",
       "draftStatus": "not_drafted",
       "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
+      "createdAt": "2026-11-01T16:15:52.161Z"
     },
     {
-      "id": "pitch-fitness-2026-w44-1",
-      "category": "fitness",
-      "categoryLabel": "Performance Protocols",
-      "categoryUrl": "/blog/category/fitness",
-      "title": "Zone 2 vs. VO2 Max Polarization: The Norwegian Protocol for Mitochondrial Biogenesis",
-      "slug": "zone-2-vo2max-norwegian-mitochondrial-protocol",
-      "targetKeyword": "zone 2 cardio protocol vo2 max longevity",
-      "summary": "The 80/20 training distribution that stimulates lactate clearance enzymes, preserves resting cardiac stroke volume, and elevates lifespan.",
+      "id": "pitch-health-2026-w44-1793549752161-4",
+      "category": "health",
+      "categoryLabel": "Healthspan Intelligence",
+      "categoryUrl": "/blog/category/health",
+      "title": "Liver Elastography & FibroScan: Detecting Metabolic Steatohepatitis Before Fibrosis",
+      "slug": "fibroscan-liver-elastography-fatty-liver-biomarkers",
+      "targetKeyword": "fatty liver CAP score fibroscan normal ranges",
+      "summary": "A non-invasive acoustic shear-wave guide to measuring hepatic fat fraction and defending metabolic detoxification.",
       "regionalProducts": {
         "US": "/store-us",
         "UK": "/store-uk",
@@ -126,10 +88,29 @@
       "status": "pending_selection",
       "draftStatus": "not_drafted",
       "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
+      "createdAt": "2026-11-01T16:15:52.161Z"
     },
     {
-      "id": "pitch-fitness-2026-w44-2",
+      "id": "pitch-health-2026-w44-1793549752161-5",
+      "category": "health",
+      "categoryLabel": "Healthspan Intelligence",
+      "categoryUrl": "/blog/category/health",
+      "title": "Renal Micro-Filtration: Why Spot Urine ACR Is Superior to Serum Creatinine",
+      "slug": "urine-acr-early-kidney-endothelial-damage",
+      "targetKeyword": "urine albumin creatinine ratio ACR normal range",
+      "summary": "Detect endothelial permeability and glomerular micro-leakage 5 years before conventional serum eGFR drops.",
+      "regionalProducts": {
+        "US": "/store-us",
+        "UK": "/store-uk",
+        "ES": "/es"
+      },
+      "status": "pending_selection",
+      "draftStatus": "not_drafted",
+      "published": false,
+      "createdAt": "2026-11-01T16:15:52.161Z"
+    },
+    {
+      "id": "pitch-fitness-2026-w44-1793549752161-1",
       "category": "fitness",
       "categoryLabel": "Performance Protocols",
       "categoryUrl": "/blog/category/fitness",
@@ -145,17 +126,17 @@
       "status": "pending_selection",
       "draftStatus": "not_drafted",
       "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
+      "createdAt": "2026-11-01T16:15:52.161Z"
     },
     {
-      "id": "pitch-fitness-2026-w44-3",
+      "id": "pitch-fitness-2026-w44-1793549752161-2",
       "category": "fitness",
       "categoryLabel": "Performance Protocols",
       "categoryUrl": "/blog/category/fitness",
-      "title": "Nocturnal HRV Decoupling: Autonomic Strain Tracking with Biometric Wearables",
-      "slug": "nocturnal-hrv-autonomic-strain-wearables",
-      "targetKeyword": "overtraining heart rate variability recovery",
-      "summary": "Distinguishing between parasympathetic saturation and central nervous system burnout using overnight rMSSD telemetry.",
+      "title": "Cadence & Heart Rate Decoupling: Detecting Cardiac Aerobic Drift in Endurance Training",
+      "slug": "cardiac-drift-aerobic-decoupling-hydration-zones",
+      "targetKeyword": "aerobic decoupling heart rate drift threshold",
+      "summary": "How rising heart rate at fixed power output signals core thermal load, plasma volume drops, and autonomic fatigue.",
       "regionalProducts": {
         "US": "/store-us",
         "UK": "/store-uk",
@@ -164,29 +145,10 @@
       "status": "pending_selection",
       "draftStatus": "not_drafted",
       "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
+      "createdAt": "2026-11-01T16:15:52.161Z"
     },
     {
-      "id": "pitch-fitness-2026-w44-4",
-      "category": "fitness",
-      "categoryLabel": "Performance Protocols",
-      "categoryUrl": "/blog/category/fitness",
-      "title": "Contrast Heat-Cold Protocols: Vasodilation, Heat Shock Proteins & Nitric Oxide",
-      "slug": "sauna-cold-plunge-heat-shock-proteins-recovery",
-      "targetKeyword": "sauna cold plunge longevity protocol",
-      "summary": "The biochemical cascade of 80°C Finnish sauna exposure followed by 10°C cold water immersion on arterial compliance and HSP70 induction.",
-      "regionalProducts": {
-        "US": "/store-us",
-        "UK": "/store-uk",
-        "ES": "/es"
-      },
-      "status": "pending_selection",
-      "draftStatus": "not_drafted",
-      "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
-    },
-    {
-      "id": "pitch-fitness-2026-w44-5",
+      "id": "pitch-fitness-2026-w44-1793549752161-3",
       "category": "fitness",
       "categoryLabel": "Performance Protocols",
       "categoryUrl": "/blog/category/fitness",
@@ -202,17 +164,17 @@
       "status": "pending_selection",
       "draftStatus": "not_drafted",
       "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
+      "createdAt": "2026-11-01T16:15:52.161Z"
     },
     {
-      "id": "pitch-nutrition-2026-w44-1",
-      "category": "nutrition",
-      "categoryLabel": "Metabolic Intelligence",
-      "categoryUrl": "/blog/category/nutrition",
-      "title": "Fasting Insulin vs. HOMA-IR: Spotting Pancreatic Stress Before Pre-Diabetes",
-      "slug": "fasting-insulin-homa-ir-metabolic-syndrome",
-      "targetKeyword": "fasting insulin optimal levels vs normal range",
-      "summary": "Fasting glucose stays normal while insulin levels soar for a decade. How to calculate true homeostatic sensitivity before beta-cell fatigue.",
+      "id": "pitch-fitness-2026-w44-1793549752161-4",
+      "category": "fitness",
+      "categoryLabel": "Performance Protocols",
+      "categoryUrl": "/blog/category/fitness",
+      "title": "Eccentric Overload & Tendon Stiffness: The Patellar & Achilles Longevity Protocol",
+      "slug": "eccentric-tendon-loading-patellar-achilles-stiffness",
+      "targetKeyword": "eccentric training tendon remodeling collagen",
+      "summary": "Stimulating tenocyte cellular collagen synthesis through controlled 4-second eccentric tempo loading to prevent tendon rupture.",
       "regionalProducts": {
         "US": "/store-us",
         "UK": "/store-uk",
@@ -221,17 +183,17 @@
       "status": "pending_selection",
       "draftStatus": "not_drafted",
       "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
+      "createdAt": "2026-11-01T16:15:52.161Z"
     },
     {
-      "id": "pitch-nutrition-2026-w44-2",
-      "category": "nutrition",
-      "categoryLabel": "Metabolic Intelligence",
-      "categoryUrl": "/blog/category/nutrition",
-      "title": "Continuous Glucose Monitoring (CGM) for Non-Diabetics: Post-Prandial Glycemic Spikes",
-      "slug": "cgm-non-diabetic-glucose-spikes-longevity",
-      "targetKeyword": "continuous glucose monitor healthy adults",
-      "summary": "Analyzing glycemic variability, AUC (area under the curve), and how 15-minute post-meal walks flatten excursion peaks.",
+      "id": "pitch-fitness-2026-w44-1793549752161-5",
+      "category": "fitness",
+      "categoryLabel": "Performance Protocols",
+      "categoryUrl": "/blog/category/fitness",
+      "title": "Zone 2 vs. VO2 Max Polarization: The Norwegian Protocol for Mitochondrial Biogenesis",
+      "slug": "zone-2-vo2max-norwegian-mitochondrial-protocol",
+      "targetKeyword": "zone 2 cardio protocol vo2 max longevity",
+      "summary": "The 80/20 training distribution that stimulates lactate clearance enzymes, preserves resting cardiac stroke volume, and elevates lifespan.",
       "regionalProducts": {
         "US": "/store-us",
         "UK": "/store-uk",
@@ -240,29 +202,10 @@
       "status": "pending_selection",
       "draftStatus": "not_drafted",
       "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
+      "createdAt": "2026-11-01T16:15:52.161Z"
     },
     {
-      "id": "pitch-nutrition-2026-w44-3",
-      "category": "nutrition",
-      "categoryLabel": "Metabolic Intelligence",
-      "categoryUrl": "/blog/category/nutrition",
-      "title": "Sirtuin Activation & NAD+ Dynamics: Nicotinamide Riboside vs. Resveratrol Stacks",
-      "slug": "sirtuin-pathway-nad-precursors-mitochondria",
-      "targetKeyword": "NAD supplements longevity cellular repair",
-      "summary": "How intracellular NAD+ synthesis fuels PARP DNA repair and mitochondrial sirtuin deacetylation for metabolic homeostasis.",
-      "regionalProducts": {
-        "US": "/store-us",
-        "UK": "/store-uk",
-        "ES": "/es"
-      },
-      "status": "pending_selection",
-      "draftStatus": "not_drafted",
-      "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
-    },
-    {
-      "id": "pitch-nutrition-2026-w44-4",
+      "id": "pitch-nutrition-2026-w44-1793549752161-1",
       "category": "nutrition",
       "categoryLabel": "Metabolic Intelligence",
       "categoryUrl": "/blog/category/nutrition",
@@ -278,17 +221,17 @@
       "status": "pending_selection",
       "draftStatus": "not_drafted",
       "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
+      "createdAt": "2026-11-01T16:15:52.161Z"
     },
     {
-      "id": "pitch-nutrition-2026-w44-5",
+      "id": "pitch-nutrition-2026-w44-1793549752161-2",
       "category": "nutrition",
       "categoryLabel": "Metabolic Intelligence",
       "categoryUrl": "/blog/category/nutrition",
-      "title": "Visceral Adiposity Reversal: Targeted Protocols to Strip Deep Ectopic Organ Fat",
-      "slug": "visceral-fat-reversal-protocol-bioimpedance",
-      "targetKeyword": "how to reduce visceral organ fat fast",
-      "summary": "The distinction between subcutaneous and deep hepatic-omental fat, mapped using multi-frequency segmental bioimpedance analysis.",
+      "title": "Continuous Glucose Monitoring (CGM) for Non-Diabetics: Post-Prandial Glycemic Spikes",
+      "slug": "cgm-non-diabetic-glucose-spikes-longevity",
+      "targetKeyword": "continuous glucose monitor healthy adults",
+      "summary": "Analyzing glycemic variability, AUC (area under the curve), and how 15-minute post-meal walks flatten excursion peaks.",
       "regionalProducts": {
         "US": "/store-us",
         "UK": "/store-uk",
@@ -297,17 +240,17 @@
       "status": "pending_selection",
       "draftStatus": "not_drafted",
       "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
+      "createdAt": "2026-11-01T16:15:52.161Z"
     },
     {
-      "id": "pitch-wellness-2026-w44-1",
-      "category": "wellness",
-      "categoryLabel": "Neurowellness Research",
-      "categoryUrl": "/blog/category/wellness",
-      "title": "Non-Invasive Vagus Nerve Stimulation (nVNS): Resetting Parasympathetic Tone in 12 Minutes",
-      "slug": "non-invasive-vagus-nerve-stimulation-vns",
-      "targetKeyword": "transcutaneous vagus nerve stimulation anxiety hrv",
-      "summary": "Ear-cymba and cervical auricular stimulation mechanisms that activate acetylcholine release to dampen systemic inflammatory signaling.",
+      "id": "pitch-nutrition-2026-w44-1793549752161-3",
+      "category": "nutrition",
+      "categoryLabel": "Metabolic Intelligence",
+      "categoryUrl": "/blog/category/nutrition",
+      "title": "ApoE4 Genotype Dietary Modulation: Saturated Fat Thresholds & Choline Repletion",
+      "slug": "apoe4-diet-saturated-fat-choline-longevity",
+      "targetKeyword": "apoe4 diet saturated fat brain health",
+      "summary": "Personalized lipid engineering for ApoE4 carriers: navigating saturated fatty acid thresholds and phosphatidylcholine synthesis.",
       "regionalProducts": {
         "US": "/store-us",
         "UK": "/store-uk",
@@ -316,17 +259,17 @@
       "status": "pending_selection",
       "draftStatus": "not_drafted",
       "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
+      "createdAt": "2026-11-01T16:15:52.161Z"
     },
     {
-      "id": "pitch-wellness-2026-w44-2",
-      "category": "wellness",
-      "categoryLabel": "Neurowellness Research",
-      "categoryUrl": "/blog/category/wellness",
-      "title": "Sleep Architecture Engineering: Deep SWS Delta Waves & Glymphatic Waste Clearance",
-      "slug": "slow-wave-sleep-glymphatic-brain-detox",
-      "targetKeyword": "how to increase slow wave deep sleep",
-      "summary": "Optimizing bedroom ambient cooling (18°C), blackout darkness, and sensory cues to trigger cerebral spinal fluid brain cleansing.",
+      "id": "pitch-nutrition-2026-w44-1793549752161-4",
+      "category": "nutrition",
+      "categoryLabel": "Metabolic Intelligence",
+      "categoryUrl": "/blog/category/nutrition",
+      "title": "Continuous Ketone Monitoring (CKM): Glycemic vs Ketogenic Flux for Neurological Clarity",
+      "slug": "continuous-ketone-monitoring-ckm-brain-energy",
+      "targetKeyword": "continuous ketone monitor beta-hydroxybutyrate",
+      "summary": "Real-time BHB tracking and brain-energy rescue for metabolic longevity and cognitive resilience.",
       "regionalProducts": {
         "US": "/store-us",
         "UK": "/store-uk",
@@ -335,17 +278,17 @@
       "status": "pending_selection",
       "draftStatus": "not_drafted",
       "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
+      "createdAt": "2026-11-01T16:15:52.161Z"
     },
     {
-      "id": "pitch-wellness-2026-w44-3",
-      "category": "wellness",
-      "categoryLabel": "Neurowellness Research",
-      "categoryUrl": "/blog/category/wellness",
-      "title": "Somatic Breathwork & CO2 Tolerance: The 4-7-8 and Box Breathing Neurological Shift",
-      "slug": "somatic-breathwork-co2-tolerance-nervous-system",
-      "targetKeyword": "box breathing vagal tone co2 tolerance",
-      "summary": "How prolonging the exhalation phase shifts the baroreceptor reflex and increases parasympathetic dominance within 180 seconds.",
+      "id": "pitch-nutrition-2026-w44-1793549752161-5",
+      "category": "nutrition",
+      "categoryLabel": "Metabolic Intelligence",
+      "categoryUrl": "/blog/category/nutrition",
+      "title": "Sirtuin Activation & NAD+ Dynamics: Nicotinamide Riboside vs. Resveratrol Stacks",
+      "slug": "sirtuin-pathway-nad-precursors-mitochondria",
+      "targetKeyword": "NAD supplements longevity cellular repair",
+      "summary": "How intracellular NAD+ synthesis fuels PARP DNA repair and mitochondrial sirtuin deacetylation for metabolic homeostasis.",
       "regionalProducts": {
         "US": "/store-us",
         "UK": "/store-uk",
@@ -354,10 +297,10 @@
       "status": "pending_selection",
       "draftStatus": "not_drafted",
       "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
+      "createdAt": "2026-11-01T16:15:52.161Z"
     },
     {
-      "id": "pitch-wellness-2026-w44-4",
+      "id": "pitch-wellness-2026-w44-1793549752161-1",
       "category": "wellness",
       "categoryLabel": "Neurowellness Research",
       "categoryUrl": "/blog/category/wellness",
@@ -373,10 +316,10 @@
       "status": "pending_selection",
       "draftStatus": "not_drafted",
       "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
+      "createdAt": "2026-11-01T16:15:52.161Z"
     },
     {
-      "id": "pitch-wellness-2026-w44-5",
+      "id": "pitch-wellness-2026-w44-1793549752161-2",
       "category": "wellness",
       "categoryLabel": "Neurowellness Research",
       "categoryUrl": "/blog/category/wellness",
@@ -392,7 +335,64 @@
       "status": "pending_selection",
       "draftStatus": "not_drafted",
       "published": false,
-      "createdAt": "2026-11-01T15:52:48.631Z"
+      "createdAt": "2026-11-01T16:15:52.161Z"
+    },
+    {
+      "id": "pitch-wellness-2026-w44-1793549752161-3",
+      "category": "wellness",
+      "categoryLabel": "Neurowellness Research",
+      "categoryUrl": "/blog/category/wellness",
+      "title": "Somatic Breathwork & CO2 Tolerance: The 4-7-8 and Box Breathing Neurological Shift",
+      "slug": "somatic-breathwork-co2-tolerance-nervous-system",
+      "targetKeyword": "box breathing vagal tone co2 tolerance",
+      "summary": "How prolonging the exhalation phase shifts the baroreceptor reflex and increases parasympathetic dominance within 180 seconds.",
+      "regionalProducts": {
+        "US": "/store-us",
+        "UK": "/store-uk",
+        "ES": "/es"
+      },
+      "status": "pending_selection",
+      "draftStatus": "not_drafted",
+      "published": false,
+      "createdAt": "2026-11-01T16:15:52.161Z"
+    },
+    {
+      "id": "pitch-wellness-2026-w44-1793549752161-4",
+      "category": "wellness",
+      "categoryLabel": "Neurowellness Research",
+      "categoryUrl": "/blog/category/wellness",
+      "title": "Non-Invasive Vagus Nerve Stimulation (nVNS): Resetting Parasympathetic Tone in 12 Minutes",
+      "slug": "non-invasive-vagus-nerve-stimulation-vns",
+      "targetKeyword": "transcutaneous vagus nerve stimulation anxiety hrv",
+      "summary": "Ear-cymba and cervical auricular stimulation mechanisms that activate acetylcholine release to dampen systemic inflammatory signaling.",
+      "regionalProducts": {
+        "US": "/store-us",
+        "UK": "/store-uk",
+        "ES": "/es"
+      },
+      "status": "pending_selection",
+      "draftStatus": "not_drafted",
+      "published": false,
+      "createdAt": "2026-11-01T16:15:52.161Z"
+    },
+    {
+      "id": "pitch-wellness-2026-w44-1793549752161-5",
+      "category": "wellness",
+      "categoryLabel": "Neurowellness Research",
+      "categoryUrl": "/blog/category/wellness",
+      "title": "Sensory Deprivation Flotation: Theta Brainwave Inducement and Cortisol Clearance",
+      "slug": "sensory-deprivation-float-tank-theta-waves-cortisol",
+      "targetKeyword": "float tank sensory deprivation stress cortisol",
+      "summary": "How eliminating graviceptive and sensory input triggers spontaneous 4-8Hz theta EEG states and flushes systemic glucocorticoids.",
+      "regionalProducts": {
+        "US": "/store-us",
+        "UK": "/store-uk",
+        "ES": "/es"
+      },
+      "status": "pending_selection",
+      "draftStatus": "not_drafted",
+      "published": false,
+      "createdAt": "2026-11-01T16:15:52.161Z"
     }
   ]
 }
