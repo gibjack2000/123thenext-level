@@ -241,28 +241,51 @@ router.post('/automation/create-draft', async (req, res) => {
       return res.status(500).json({ success: false, error: 'Supabase server client not initialized' });
     }
 
-    // Try inserting into blog_posts
     let payload = { ...draft };
+    payload.author = payload.author || 'Clinical Advisory Team';
+    payload.category = payload.category || 'Health';
+    payload.status = payload.status || 'draft';
+
+    // Ensure slug exists and avoid collisions
+    if (!payload.slug) {
+      payload.slug = payload.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    }
+
+    // Check if slug already exists in blog_posts, append timestamp if so
+    try {
+      const { data: existing } = await supabase
+        .from('blog_posts')
+        .select('id')
+        .eq('slug', payload.slug)
+        .maybeSingle();
+
+      if (existing) {
+        payload.slug = `${payload.slug}-${Date.now().toString().slice(-4)}`;
+      }
+    } catch (_) {}
+
+    // Insert into blog_posts using service role (bypasses RLS)
     let result = await supabase.from('blog_posts').insert([payload]).select().single();
 
     if (result.error) {
-      console.warn('Initial insert into blog_posts failed:', result.error.message);
-      // If error is missing status column or column cache, retry without status
-      if (result.error.message && result.error.message.includes('status')) {
+      console.warn('Initial insert into blog_posts returned:', result.error.message);
+
+      // Handle duplicate slug if constraint caught it
+      if (result.error.code === '23505' || result.error.message?.includes('duplicate key') || result.error.message?.includes('unique constraint')) {
+        payload.slug = `${payload.slug}-${Date.now().toString().slice(-4)}`;
+        result = await supabase.from('blog_posts').insert([payload]).select().single();
+      }
+
+      // If missing status column, retry without status
+      if (result.error && result.error.message && result.error.message.includes('status')) {
         const withoutStatus = { ...payload };
         delete withoutStatus.status;
         result = await supabase.from('blog_posts').insert([withoutStatus]).select().single();
       }
 
-      // If still error (or PGRST205 table not found), try blogs table
-      if (result.error) {
-        let blogRes = await supabase.from('blogs').insert([payload]).select().single();
-        if (blogRes.error && blogRes.error.message && blogRes.error.message.includes('status')) {
-          const withoutStatus = { ...payload };
-          delete withoutStatus.status;
-          blogRes = await supabase.from('blogs').insert([withoutStatus]).select().single();
-        }
-        result = blogRes;
+      // Only attempt 'blogs' if blog_posts table literally does not exist (PGRST205)
+      if (result.error && result.error.code === 'PGRST205') {
+        result = await supabase.from('blogs').insert([payload]).select().single();
       }
     }
 
@@ -310,7 +333,7 @@ router.post('/automation/publish-draft', async (req, res) => {
       .select()
       .single();
 
-    if (result.error) {
+    if (result.error && result.error.code === 'PGRST205') {
       result = await supabase
         .from('blogs')
         .update({ status: 'published', published_at: nowIso, updated_at: nowIso })
@@ -355,7 +378,7 @@ router.post('/automation/update-draft', async (req, res) => {
       .select()
       .single();
 
-    if (result.error) {
+    if (result.error && result.error.code === 'PGRST205') {
       result = await supabase
         .from('blogs')
         .update(updates)

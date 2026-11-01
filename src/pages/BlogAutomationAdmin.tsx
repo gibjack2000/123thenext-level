@@ -257,7 +257,10 @@ export default function BlogAutomationAdmin() {
         wellness: 'Wellness'
       };
       const cat = categoryMap[pitch.category] || 'Health';
-      const slug = pitch.slug || pitch.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      let slug = pitch.slug || pitch.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+      if (allPosts.some(p => p.slug === slug)) {
+        slug = `${slug}-${Date.now().toString().slice(-4)}`;
+      }
 
       const content = `
 <h2>Direct Clinical Answer</h2>
@@ -291,6 +294,7 @@ export default function BlogAutomationAdmin() {
       const defaultBanner = getCategoryDefaultBanner(pitch.category);
       const defaultAlt = getCategoryDefaultAlt(pitch.category, pitch.title);
       const contentWithFm = updateArticleFrontmatter(content, defaultBanner, defaultAlt);
+      const keywordTag = (pitch.targetKeyword || '').split(' ')[0] || 'longevity';
 
       const newDraft: any = {
         title: pitch.title,
@@ -301,7 +305,7 @@ export default function BlogAutomationAdmin() {
         status: 'draft',
         image_url: defaultBanner,
         author: 'Clinical Advisory Team',
-        tags: [pitch.category, 'longevity', 'biomarkers', pitch.targetKeyword.split(' ')[0]],
+        tags: [pitch.category, 'longevity', 'biomarkers', keywordTag].filter(Boolean),
         created_at: new Date().toISOString()
       };
 
