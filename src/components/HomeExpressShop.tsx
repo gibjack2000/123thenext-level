@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 import { supabase as importedSupabase, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 import { useMarket, Market } from '../contexts/MarketContext';
-import { resolveDiagnosticImage } from '../pages/Store';
+import { resolveDiagnosticImage, getSmartImageFallback } from '../pages/Store';
 
 const supabase = importedSupabase || createClient(
   import.meta.env.VITE_SUPABASE_URL || supabaseUrl || 'https://seoaictzhmqdwnkfymxt.supabase.co',
@@ -66,7 +66,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "2.8k+",
     shortBenefit: "Synergistic Trans-Resveratrol, NMN & Nattokinase to activate cellular repair, genomic stability, and NAD+ longevity cofactors.",
     description: "NSF Certified for Sport. Clinical-grade longevity cofactors designed for mitochondrial integrity and cellular geroscience.",
-    imageUrl: "/Products/quercitin.jpeg",
+    imageUrl: "/assets/images/shop/sirtuin-stack.png",
     isDirectAffiliate: true,
     regions: {
       US: {
@@ -358,7 +358,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "14k+",
     shortBenefit: "The gold-standard ergometer for whole-body cardiovascular threshold training and zero-impact joint longevity.",
     description: "Precision flywheel air-resistance rowing ergometer with PM5 performance monitor tracking wattage, split times, and heart rate telemetry.",
-    imageUrl: "/Products/yyfit.jpeg",
+    imageUrl: "/Products/concept2.jpeg",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -538,7 +538,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "6.8k+",
     shortBenefit: "Anti-fog, 180-degree wide panoramic lenses with 100% UV protection and leak-free silicone eye gasket.",
     description: "High-clarity swimming goggles engineered for low-impact aquatic conditioning, breathwork laps, and zone 2 cardiovascular endurance.",
-    imageUrl: "/Products/seago.jpg",
+    imageUrl: "/Products/speedo.jpg",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -614,7 +614,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "940+",
     shortBenefit: "Direct-to-consumer longevity blood panels mapping 56 essential biomarkers across ApoB, HbA1c, hs-CRP, liver enzymes & hormones.",
     description: "Comprehensive preventative blood test with physician review. Quest/Labcorp draw in US, private partner clinics across UK and Spain.",
-    imageUrl: "/Products/ancientbrave.jpeg",
+    imageUrl: "/Products/clinical-blood-panel.jpg",
     isDirectAffiliate: true,
     regions: {
       US: {
@@ -686,7 +686,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "1.8k+",
     shortBenefit: "Real-time interstitial glucose tracking mapping energy peaks and glycemic variability to optimize metabolic longevity.",
     description: "Waterproof sensor logging glucose fluctuations every minute, streaming continuous glycemic curves directly to your smartphone.",
-    imageUrl: "/Products/thorne.jpg",
+    imageUrl: "/Products/clinical-cgm-sensor.jpg",
     isDirectAffiliate: true,
     regions: {
       US: {
@@ -722,7 +722,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "1.2k+",
     shortBenefit: "FDA-cleared acoustic amplifier with 3-lead ECG display and AI murmur/arrhythmia detection in 15 seconds.",
     description: "Next-generation clinician acoustic tool bridging digital stethoscope clarity with live wireless phonocardiogram telemetry.",
-    imageUrl: "/Products/duronic520.jpg",
+    imageUrl: "/Products/clinical-ai-stethoscope.jpg",
     isDirectAffiliate: true,
     regions: {
       US: {
@@ -758,7 +758,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "3.4k+",
     shortBenefit: "Zero-wearable pneumatic sensor analyzing sleep cycles, continuous heart rate, snoring, and breathing disturbances.",
     description: "Clinically validated under-mattress mat with automatic Wi-Fi sync, generating medical-grade sleep architecture and apnea diagnostics.",
-    imageUrl: "/Products/ouraring5.jpeg",
+    imageUrl: "/Products/withingsleep.webp",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -794,7 +794,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "7.8k+",
     shortBenefit: "FDA-cleared wireless cuff delivering instant color-coded systolic, diastolic, and pulse feedback directly to your phone.",
     description: "Compact smart monitor that logs arterial elasticity trends and exports clinician-formatted PDF reports for shared decision-making.",
-    imageUrl: "/Products/beurer.jpeg",
+    imageUrl: "/Products/withingsconnect.webp",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -830,7 +830,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "2.1k+",
     shortBenefit: "FDA-cleared 6-lead ECG and 8-electrode bioelectrical impedance mapping limb-by-limb muscle mass and visceral fat index.",
     description: "Retractable handle composition scale measuring autonomic nervous system vascular age and nerve health markers at home.",
-    imageUrl: "/Products/renphoscale1.jpeg",
+    imageUrl: "/Products/newithings.webp",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -902,7 +902,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "11k+",
     shortBenefit: "10-parameter rapid dip-and-read urinary reagent strips for weekly tracking of pH, specific gravity, ketones, glucose, and leukocyte activity.",
     description: "10-parameter rapid dip-and-read urinary reagent strips for weekly tracking of pH, specific gravity, ketones, glucose, and leukocyte activity.",
-    imageUrl: "/Products/oxford.jpeg",
+    imageUrl: "/Products/aymed.webp",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -1010,7 +1010,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "1.9k+",
     shortBenefit: "Buckwheat-filled organic cotton cushion designed for pelvis alignment during somatic breathwork and parasympathetic resets.",
     description: "Ergonomic meditation bolster providing firm spinal support, opening the diaphragm for optimal diaphragmatic breathing cycles.",
-    imageUrl: "/Products/tibetanbowl-us.webp",
+    imageUrl: "/Products/medcushion-uk.webp",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -1046,7 +1046,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "820+",
     shortBenefit: "Direct-to-lab finger-prick blood test evaluating Anti-Müllerian Hormone (AMH) and endocrine longevity metrics.",
     description: "Accredited home collection test with physician-approved clinical lab report mapping reproductive healthspan baselines.",
-    imageUrl: "/Products/ancientbrave.jpeg",
+    imageUrl: "/Products/bloodtest.jpg",
     isDirectAffiliate: false,
     regions: {
       US: {
@@ -1365,7 +1365,7 @@ export default function HomeExpressShop() {
                       onError={(e) => {
                         const target = e.currentTarget;
                         target.onerror = null;
-                        target.src = '/assets/images/shop/sirtuin-stack.png';
+                        target.src = getSmartImageFallback(product, selectedRegion);
                       }}
                       className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-500"
                     />

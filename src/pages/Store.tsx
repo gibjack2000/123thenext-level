@@ -609,7 +609,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B07V2C6374?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "6-in-1 Compact Weight",
-      "image_url": "/assets/images/shop/rower.png"
+      "image_url": "/Products/bowflexdumbbells.webp"
     },
     {
       "id": "amazon-kitchen-uk-blender",
@@ -621,7 +621,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.co.uk/dp/B08524B5C6?tag=123znl0f3-21",
       "market_region": "UK",
       "badge_text": "1200W High Speed",
-      "image_url": "/assets/images/shop/water-bottle.png"
+      "image_url": "/Products/nutri.webp"
     },
     {
       "id": "amazon-kitchen-uk-b0b2kpcbjz",
@@ -1355,7 +1355,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B07V2C6374?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "6-in-1 Compact Weight",
-      "image_url": "/assets/images/shop/rower.png"
+      "image_url": "/Products/kettlebellus.webp"
     },
     {
       "id": "amazon-kitchen-us-blender",
@@ -1367,7 +1367,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.com/dp/B08524B5C6?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "1200W High Speed",
-      "image_url": "/assets/images/shop/water-bottle.png"
+      "image_url": "/Products/nutri.webp"
     },
     {
       "id": "amazon-kitchen-us-b09krdk677",
@@ -1945,7 +1945,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B07V2C6374?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Compacta 6 en 1",
-      "image_url": "/assets/images/shop/rower.png"
+      "image_url": "/Products/bowflex.webp"
     },
     {
       "id": "amazon-kitchen-es-blender",
@@ -1957,7 +1957,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "deal_url": "https://www.amazon.es/dp/B08524B5C6?tag=123znl08a-21",
       "market_region": "ES",
       "badge_text": "Motor Potente 1200W",
-      "image_url": "/assets/images/shop/water-bottle.png"
+      "image_url": "/Products/nutri.webp"
     },
     {
       "id": "amazon-kitchen-es-b09833f2tw",
@@ -2672,6 +2672,47 @@ export function getDiagnosticPricingBadge(product: any, market: MarketTab): stri
     return '💶 Precios actualizados en la web de Melio';
   }
   return '💵 Up-to-date pricing on Life Extension';
+}
+
+export function getSmartImageFallback(product: any, market: any = 'US', isDiag: boolean = false): string {
+  const name = String(product?.name || product?.title || '').toLowerCase();
+  const id = String(product?.id || '').toLowerCase();
+  const cat = String(product?.category || '');
+
+  if (name.includes('urine') || name.includes('urinalysis') || name.includes('acr') || id.includes('urine') || id.includes('urinalysis')) {
+    return typeof isLolaProduct === 'function' && isLolaProduct(product, market) ? lolaUrineAcrImg : clinicalUrineAcrImg;
+  }
+  if (name.includes('cgm') || id.includes('cgm') || name.includes('glucose') || name.includes('glucosa')) {
+    return clinicalCgmSensorImg;
+  }
+  if (name.includes('stethoscope') || id.includes('stethoscope') || name.includes('estetoscopio')) {
+    return clinicalAiStethoscopeImg;
+  }
+  if (name.includes('epigenetic') || id.includes('epigenetic') || name.includes('methylation') || name.includes('epigenética')) {
+    return typeof isLolaProduct === 'function' && isLolaProduct(product, market) ? lolaEpigeneticKitImg : clinicalEpigeneticKitImg;
+  }
+  if (name.includes('sleep') || id.includes('sleep') || name.includes('sueño')) {
+    return withingsSleepImg;
+  }
+  if (name.includes('cuff') || name.includes('bpm') || id.includes('cuff') || id.includes('bpm') || name.includes('tensi')) {
+    return withingsConnectImg;
+  }
+  if (isDiag) {
+    return typeof isLolaProduct === 'function' && isLolaProduct(product, market) ? lolaBloodPanelImg : clinicalBloodPanelImg;
+  }
+  if (cat === 'Smart Hardware & Wearables' || name.includes('scale') || name.includes('báscula') || id.includes('scale')) {
+    return withingsScaleImg;
+  }
+  if (name.includes('rower') || id.includes('rower') || name.includes('remo')) {
+    return '/Products/concept2.jpeg';
+  }
+  if (name.includes('kettlebell') || id.includes('kettlebell') || name.includes('pesa')) {
+    return '/Products/bowflex.webp';
+  }
+  if (name.includes('blender') || id.includes('blender') || name.includes('batidora')) {
+    return '/Products/nutri.webp';
+  }
+  return '/assets/images/shop/sirtuin-stack.png';
 }
 
 export function resolveDiagnosticImage(product: any, fallbackImg?: string, market?: MarketTab): string {
@@ -4016,17 +4057,7 @@ export function Store({ region }: StoreProps = {}) {
                               alt={product.name} 
                               className="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
                               referrerPolicy="no-referrer"
-                              onError={(e) => {
-                                const target = e.currentTarget;
-                                target.onerror = null;
-                                if (isDiag) {
-                                  target.src = isLolaProduct(product, activeTab) ? lolaBloodPanelImg : clinicalBloodPanelImg;
-                                } else if (product.category === 'Smart Hardware & Wearables') {
-                                  target.src = withingsScaleImg;
-                                } else {
-                                  target.src = '/assets/images/shop/sirtuin-stack.png';
-                                }
-                              }}
+                              onError={(e) => { const target = e.currentTarget; target.onerror = null; target.src = getSmartImageFallback(product, activeTab, isDiag); }}
                             />
                           </div>
                         )}
@@ -4100,17 +4131,7 @@ export function Store({ region }: StoreProps = {}) {
                                       alt={product.name} 
                                       className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                                       referrerPolicy="no-referrer"
-                                      onError={(e) => {
-                                        const target = e.currentTarget;
-                                        target.onerror = null;
-                                        if (isDiag) {
-                                          target.src = isLolaProduct(product, activeTab) ? lolaBloodPanelImg : clinicalBloodPanelImg;
-                                        } else if (product.category === 'Smart Hardware & Wearables') {
-                                          target.src = withingsScaleImg;
-                                        } else {
-                                          target.src = '/assets/images/shop/sirtuin-stack.png';
-                                        }
-                                      }}
+                                      onError={(e) => { const target = e.currentTarget; target.onerror = null; target.src = getSmartImageFallback(product, activeTab, isDiag); }}
                                     />
                                   </div>
                                 )}
@@ -4177,17 +4198,7 @@ export function Store({ region }: StoreProps = {}) {
                                   alt={product.name} 
                                   className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                                   referrerPolicy="no-referrer"
-                                  onError={(e) => {
-                                    const target = e.currentTarget;
-                                    target.onerror = null;
-                                    if (isDiag) {
-                                      target.src = isLolaProduct(product, activeTab) ? lolaBloodPanelImg : clinicalBloodPanelImg;
-                                    } else if (product.category === 'Smart Hardware & Wearables') {
-                                      target.src = withingsScaleImg;
-                                    } else {
-                                      target.src = '/assets/images/shop/sirtuin-stack.png';
-                                    }
-                                  }}
+                                  onError={(e) => { const target = e.currentTarget; target.onerror = null; target.src = getSmartImageFallback(product, activeTab, isDiag); }}
                                 />
                               </div>
                             )}

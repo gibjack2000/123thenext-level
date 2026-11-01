@@ -29,6 +29,7 @@ import {
   getCleanDiagnosticCta,
   getDiagnosticPricingBadge,
   resolveDiagnosticImage,
+  getSmartImageFallback,
   formatDiagnosticPrice,
   ensureCoreRegionalCatalog,
   getCategoryDisplayLabel,
@@ -423,17 +424,7 @@ export const StoreUK: React.FC = () => {
                               alt={product.name} 
                               className="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
                               referrerPolicy="no-referrer"
-                              onError={(e) => {
-                                const target = e.currentTarget;
-                                target.onerror = null;
-                                if (isDiag) {
-                                  target.src = isLolaProduct(product, 'UK') ? lolaBloodPanelImg : clinicalBloodPanelImg;
-                                } else if (product.category === 'Smart Hardware & Wearables') {
-                                  target.src = withingsScaleImg;
-                                } else {
-                                  target.src = '/assets/images/shop/sirtuin-stack.png';
-                                }
-                              }}
+                              onError={(e) => { const target = e.currentTarget; target.onerror = null; target.src = getSmartImageFallback(product, 'UK', isDiag); }}
                             />
                           </div>
                         )}
@@ -513,7 +504,7 @@ export const StoreUK: React.FC = () => {
                               onError={(e) => {
                                 const target = e.currentTarget;
                                 target.onerror = null;
-                                target.src = '/Products/oxford.jpeg';
+                                target.src = getSmartImageFallback(product, 'UK', isDiag);
                               }}
                             />
                           </div>
