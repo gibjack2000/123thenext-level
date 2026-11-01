@@ -2,10 +2,18 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { supabase, hasValidSupabaseConfig, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 import { affiliateLinks } from '../config/affiliateLinks';
-import { Save, AlertCircle, CheckCircle2, Sparkles, Database, Copy, ExternalLink, ChevronDown, ChevronUp, Shield, Cpu, Trash2, RefreshCw, Search, Tag, MapPin, Star, BookOpen, FileText, Pencil, Eye } from 'lucide-react';
+import { Save, AlertCircle, CheckCircle2, Sparkles, Database, Copy, ExternalLink, ChevronDown, ChevronUp, Shield, Cpu, Trash2, RefreshCw, Search, Tag, MapPin, Star, BookOpen, FileText, Pencil, Eye, Upload, X, Check } from 'lucide-react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Product, BlogPost, PremiumGuide, mapToProduct } from '../types';
 import { usePaywallBypass } from '../utils/adminTestMode';
+import BlogMarkdownRenderer from '../components/BlogMarkdownRenderer';
+import {
+  CATEGORY_DEFAULT_BANNERS,
+  getCategoryDefaultBanner,
+  getCategoryDefaultAlt,
+  updateArticleFrontmatter,
+  extractFrontmatter
+} from '../utils/blogImages';
 
 const REGIONS = ['US', 'UK', 'ES'];
 const PRODUCT_CATEGORIES = ['fitness_gear', 'home_kitchen', 'tech_gadgets', 'supplements', 'performance_testing', 'health_wellness'];
@@ -605,6 +613,141 @@ export default function AdminPage() {
     }
   };
 
+  // Blog Preview & Featured Image Controls
+  const [previewingBlogPost, setPreviewingBlogPost] = useState<BlogPost | null>(null);
+  const [isUploadingBlogImage, setIsUploadingBlogImage] = useState(false);
+  const [blogImageUploadMsg, setBlogImageUploadMsg] = useState<{ text: string; error?: boolean } | null>(null);
+  const [isAuthorizingPostId, setIsAuthorizingPostId] = useState<string | null>(null);
+  const adminBlogFileInputRef = React.useRef<HTMLInputElement | null>(null);
+
+  const handleAdminBlogFileUpload = async (e: React.ChangeEvent<HTMLInputElement>, targetPost?: BlogPost | null) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setIsUploadingBlogImage(true);
+      setBlogImageUploadMsg({ text: `Uploading ${file.name} to /assets/images/blog/...` });
+
+      const reader = new FileReader();
+      const base64Promise = new Promise<string>((resolve, reject) => {
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = (err) => reject(err);
+      });
+      reader.readAsDataURL(file);
+      const base64Data = await base64Promise;
+
+      const titleForAlt = targetPost?.title || blogFormData.title || 'Featured Article Visual';
+
+      const res = await fetch('/api/automation/upload-blog-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          imageData: base64Data,
+          fileName: file.name,
+          altText: titleForAlt
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Upload failed');
+      }
+
+      const uploadedUrl = data.url;
+
+      // Update current form data
+      setBlogFormData(prev => {
+        const updatedContent = updateArticleFrontmatter(prev.content || '', uploadedUrl, titleForAlt);
+        return {
+          ...prev,
+          image_url: uploadedUrl,
+          content: updatedContent
+        };
+      });
+
+      // Update preview post if open & sync DB
+      if (targetPost) {
+        const updatedContent = updateArticleFrontmatter(targetPost.content || '', uploadedUrl, titleForAlt);
+        const updated = {
+          ...targetPost,
+          image_url: uploadedUrl,
+          content: updatedContent
+        };
+        setPreviewingBlogPost(updated);
+        setBlogPosts(prev => prev.map(p => p.id === targetPost.id ? updated : p));
+
+        if (supabase && targetPost.id) {
+          await supabase.from('blog_posts').update({
+            image_url: uploadedUrl,
+            content: updatedContent
+          }).eq('id', targetPost.id);
+        }
+      }
+
+      setBlogImageUploadMsg({ text: `Uploaded to ${uploadedUrl}` });
+      setTimeout(() => setBlogImageUploadMsg(null), 4000);
+    } catch (err: any) {
+      console.error('File upload failed:', err);
+      setBlogImageUploadMsg({ text: 'Upload failed: ' + err.message, error: true });
+    } finally {
+      setIsUploadingBlogImage(false);
+      if (adminBlogFileInputRef.current) adminBlogFileInputRef.current.value = '';
+    }
+  };
+
+  const handleAdminApplyCover = async (url: string, targetPost?: BlogPost | null, altText?: string) => {
+    const titleForAlt = altText || targetPost?.title || blogFormData.title || 'Featured Article Visual';
+
+    // Update form
+    setBlogFormData(prev => ({
+      ...prev,
+      image_url: url,
+      content: updateArticleFrontmatter(prev.content || '', url, titleForAlt)
+    }));
+
+    // Update preview post & DB
+    if (targetPost) {
+      const updatedContent = updateArticleFrontmatter(targetPost.content || '', url, titleForAlt);
+      const updated = {
+        ...targetPost,
+        image_url: url,
+        content: updatedContent
+      };
+      setPreviewingBlogPost(updated);
+      setBlogPosts(prev => prev.map(p => p.id === targetPost.id ? updated : p));
+
+      if (supabase && targetPost.id) {
+        await supabase.from('blog_posts').update({
+          image_url: url,
+          content: updatedContent
+        }).eq('id', targetPost.id);
+      }
+    }
+  };
+
+  const handleAuthorizePostDirectly = async (post: BlogPost) => {
+    if (!supabase) return;
+    try {
+      setIsAuthorizingPostId(post.id);
+      const { error } = await supabase.from('blog_posts').update({
+        status: 'published'
+      }).eq('id', post.id);
+
+      if (error) throw error;
+
+      setBlogPosts(prev => prev.map(p => p.id === post.id ? { ...p, status: 'published' } : p));
+      if (previewingBlogPost?.id === post.id) {
+        setPreviewingBlogPost(prev => prev ? { ...prev, status: 'published' } : null);
+      }
+      alert(`🚀 "${post.title}" is now published and live!`);
+    } catch (err: any) {
+      console.error('Error authorizing post:', err);
+      alert('Failed to publish post: ' + err.message);
+    } finally {
+      setIsAuthorizingPostId(null);
+    }
+  };
+
   const handleGuideChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target;
     const checked = (e.target as HTMLInputElement).checked;
@@ -814,8 +957,12 @@ export default function AdminPage() {
     }
 
     try {
+      const finalImage = blogFormData.image_url || getCategoryDefaultBanner(blogFormData.category);
+      const syncedContent = updateArticleFrontmatter(blogFormData.content || '', finalImage, blogFormData.title);
       const postData: any = {
         ...blogFormData,
+        image_url: finalImage,
+        content: syncedContent,
         tags: blogFormData.tags.split(',').map((t: string) => t.trim()).filter(Boolean),
       };
 
@@ -1706,17 +1853,130 @@ create table if not exists premium_guides (
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <div className="flex items-center justify-between px-1">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Featured Visual URL</label>
-                  <button type="button" onClick={handleGenerateBlogImage} className="text-[10px] font-black text-indigo-600 hover:text-indigo-700 flex items-center gap-1 uppercase tracking-widest">
-                    {isGeneratingBlogImage ? <RefreshCw size={10} className="animate-spin" /> : <Sparkles size={10} />}
-                    Visualizer
-                  </button>
+              <div className="space-y-4 p-6 bg-slate-50 border border-slate-200 rounded-3xl">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 px-1 pb-2 border-b border-slate-200">
+                  <div>
+                    <label className="text-[10px] font-black text-slate-700 uppercase tracking-widest flex items-center gap-1.5">
+                      <Sparkles size={12} className="text-emerald-600" />
+                      Featured Visual &amp; Category Banners
+                    </label>
+                    <p className="text-[10px] text-slate-500">
+                      Upload directly to <code className="text-emerald-700">/assets/images/blog/</code> or choose 1-click category banners.
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <input 
+                      type="file" 
+                      ref={adminBlogFileInputRef} 
+                      onChange={(e) => handleAdminBlogFileUpload(e, null)} 
+                      accept="image/*" 
+                      className="hidden" 
+                    />
+                    <button
+                      type="button"
+                      disabled={isUploadingBlogImage}
+                      onClick={() => adminBlogFileInputRef.current?.click()}
+                      className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-[10px] font-black uppercase tracking-widest transition flex items-center gap-1.5 shadow-sm disabled:opacity-50 cursor-pointer"
+                    >
+                      {isUploadingBlogImage ? (
+                        <>
+                          <RefreshCw size={12} className="animate-spin" />
+                          <span>Uploading...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Upload size={12} />
+                          <span>Upload File</span>
+                        </>
+                      )}
+                    </button>
+
+                    <button type="button" onClick={handleGenerateBlogImage} className="px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-[10px] font-black uppercase tracking-widest flex items-center gap-1">
+                      {isGeneratingBlogImage ? <RefreshCw size={10} className="animate-spin" /> : <Sparkles size={10} />}
+                      Visualizer
+                    </button>
+                  </div>
                 </div>
-                <input type="url" name="image_url" value={blogFormData.image_url} onChange={handleBlogChange} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 font-bold text-slate-900 outline-none focus:ring-4 focus:ring-blue-500/10" placeholder="https://..." />
+
+                {blogImageUploadMsg && (
+                  <div className={`p-2.5 rounded-xl text-xs font-bold flex items-center gap-2 ${blogImageUploadMsg.error ? 'bg-rose-50 text-rose-700 border border-rose-200' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'}`}>
+                    <Sparkles size={14} />
+                    <span>{blogImageUploadMsg.text}</span>
+                  </div>
+                )}
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+                  <div className="relative rounded-xl overflow-hidden border border-slate-200 bg-slate-100 aspect-video group">
+                    <img
+                      src={blogFormData.image_url || getCategoryDefaultBanner(blogFormData.category)}
+                      alt="Featured Preview"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = getCategoryDefaultBanner(blogFormData.category);
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent flex items-end p-2">
+                      <span className="text-[9px] font-mono text-slate-200 truncate">
+                        {blogFormData.image_url || 'Default category banner'}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="md:col-span-2 space-y-2">
+                    <input 
+                      type="url" 
+                      name="image_url" 
+                      value={blogFormData.image_url} 
+                      onChange={(e) => handleAdminApplyCover(e.target.value, null)} 
+                      className="w-full bg-white border border-slate-200 rounded-xl p-3 font-bold text-xs text-slate-900 outline-none focus:ring-4 focus:ring-emerald-500/10 font-mono" 
+                      placeholder="https://... or /assets/images/blog/..." 
+                    />
+                    <div className="text-[10px] text-slate-500 flex items-center gap-1">
+                      <Sparkles size={11} className="text-emerald-600" />
+                      <span>Updates article frontmatter (<code className="text-slate-700">featured_image</code> &amp; <code className="text-slate-700">featured_image_alt</code>) automatically.</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* 1-Click Dark-Mode Category Banners */}
+                <div className="space-y-1.5 pt-2 border-t border-slate-200">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    1-Click Dark-Mode Category Banners (#111827 &amp; #10b981)
+                  </span>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {Object.entries(CATEGORY_DEFAULT_BANNERS).map(([catKey, banner]) => {
+                      const isActive = blogFormData.image_url === banner.url;
+                      return (
+                        <button
+                          key={catKey}
+                          type="button"
+                          onClick={() => handleAdminApplyCover(banner.url, null, banner.alt)}
+                          className={`p-2 rounded-xl border text-left transition flex flex-col justify-between gap-1.5 cursor-pointer ${
+                            isActive
+                              ? 'bg-emerald-50 border-emerald-500 ring-2 ring-emerald-500/20'
+                              : 'bg-white hover:bg-slate-50 border-slate-200'
+                          }`}
+                        >
+                          <div className="aspect-[21/9] w-full rounded-lg overflow-hidden bg-slate-950 relative">
+                            <img src={banner.url} alt={banner.label} className="w-full h-full object-cover" />
+                            {isActive && (
+                              <div className="absolute top-1 right-1 bg-emerald-600 text-white rounded-full p-0.5">
+                                <Check size={10} />
+                              </div>
+                            )}
+                          </div>
+                          <span className="text-[10px] font-black uppercase tracking-wider text-slate-700 truncate">
+                            {banner.label}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
                 {generatedBlogImage && (
-                  <div className="mt-4 p-4 bg-indigo-50 rounded-2xl border border-indigo-100 flex items-center justify-between">
+                  <div className="p-4 bg-indigo-50 rounded-2xl border border-indigo-100 flex items-center justify-between">
                     <div className="flex items-center gap-4">
                       <img src={generatedBlogImage} alt="" className="w-20 h-12 rounded-lg object-cover shadow-sm" />
                       <span className="text-xs font-bold text-indigo-900">Cover Art Ready</span>
@@ -1816,8 +2076,19 @@ create table if not exists premium_guides (
                       <tr key={post.id} className="group hover:bg-slate-50/80 transition-all">
                         <td className="px-10 py-6">
                           <div className="flex items-center gap-5">
-                            <div className="w-16 h-10 rounded-lg bg-slate-100 border border-slate-200 overflow-hidden shadow-sm">
-                              <img src={post.image_url} alt="" className="w-full h-full object-cover" />
+                            <div 
+                              onClick={() => setPreviewingBlogPost(post)}
+                              className="w-16 h-10 rounded-lg bg-slate-100 border border-slate-200 overflow-hidden shadow-sm cursor-pointer hover:ring-2 hover:ring-emerald-500/50 transition-all"
+                              title="Click to preview &amp; replace featured image"
+                            >
+                              <img 
+                                src={post.image_url || getCategoryDefaultBanner(post.category)} 
+                                alt="" 
+                                className="w-full h-full object-cover" 
+                                onError={(e) => {
+                                  (e.currentTarget as HTMLImageElement).src = getCategoryDefaultBanner(post.category);
+                                }}
+                              />
                             </div>
                             <div>
                               <div className="font-black text-slate-900">{post.title}</div>
@@ -1832,14 +2103,22 @@ create table if not exists premium_guides (
                         </td>
                         <td className="px-10 py-6">
                           <div className="flex items-center justify-end gap-2">
-                            <button onClick={() => handleEditBlog(post)} className="p-3 bg-white border border-slate-100 text-slate-400 hover:text-indigo-600 rounded-xl shadow-sm transition-all">
+                            <button 
+                              type="button"
+                              onClick={() => setPreviewingBlogPost(post)} 
+                              className="p-3 bg-white border border-slate-100 text-slate-400 hover:text-emerald-600 rounded-xl shadow-sm transition-all cursor-pointer"
+                              title="Preview Draft &amp; Replace Featured Image"
+                            >
+                              <Eye size={18} />
+                            </button>
+                            <button onClick={() => handleEditBlog(post)} className="p-3 bg-white border border-slate-100 text-slate-400 hover:text-indigo-600 rounded-xl shadow-sm transition-all" title="Edit Article">
                               <Pencil size={18} />
                             </button>
-                            <button onClick={() => handleDeleteBlog(post.id)} className="p-3 bg-white border border-slate-100 text-slate-400 hover:text-red-600 rounded-xl shadow-sm transition-all">
+                            <button onClick={() => handleDeleteBlog(post.id)} className="p-3 bg-white border border-slate-100 text-slate-400 hover:text-red-600 rounded-xl shadow-sm transition-all" title="Delete Article">
                               <Trash2 size={18} />
                             </button>
-                            <a href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-900 text-white rounded-xl shadow-lg hover:bg-indigo-600 transition-all">
-                              <Eye size={18} />
+                            <a href={`/blog/${post.slug}`} target="_blank" rel="noopener noreferrer" className="p-3 bg-slate-900 text-white rounded-xl shadow-lg hover:bg-indigo-600 transition-all" title="Open Public Article">
+                              <ExternalLink size={18} />
                             </a>
                           </div>
                         </td>
@@ -2347,6 +2626,237 @@ create table if not exists premium_guides (
             </div>
           )}
         </footer>
+
+        {/* Blog Draft Preview & Featured Image Modal */}
+        {previewingBlogPost && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto">
+            <div className="bg-slate-900 border border-slate-800 w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl my-8 flex flex-col max-h-[92vh]">
+              
+              {/* Modal Header */}
+              <div className="p-6 border-b border-slate-800 flex items-center justify-between bg-slate-950/50">
+                <div className="flex items-center gap-3">
+                  <span className={`px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-widest ${
+                    previewingBlogPost.status === 'published' 
+                      ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' 
+                      : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                  }`}>
+                    {previewingBlogPost.status || 'Draft'}
+                  </span>
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+                    Blog Review &amp; Featured Visual Selector
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setPreviewingBlogPost(null)}
+                  className="p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white transition cursor-pointer"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              {/* Modal Content */}
+              <div className="p-6 overflow-y-auto space-y-6 flex-1 text-slate-100">
+                
+                {/* SECTION 1: FEATURED IMAGE CONTROL */}
+                <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-5 space-y-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                      <h4 className="text-xs font-black uppercase tracking-wider text-slate-300 flex items-center gap-2">
+                        <Sparkles size={14} className="text-emerald-400" />
+                        Featured Visual Control
+                      </h4>
+                      <p className="text-[11px] text-slate-400 mt-0.5">
+                        Upload to <code className="text-emerald-400">/assets/images/blog/</code> or choose a dark-mode category banner. Updates frontmatter automatically.
+                      </p>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <input 
+                        type="file" 
+                        id="modal-blog-file-input"
+                        onChange={(e) => handleAdminBlogFileUpload(e, previewingBlogPost)} 
+                        accept="image/*" 
+                        className="hidden" 
+                      />
+                      <button
+                        type="button"
+                        disabled={isUploadingBlogImage}
+                        onClick={() => document.getElementById('modal-blog-file-input')?.click()}
+                        className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold uppercase tracking-wider transition flex items-center gap-1.5 shadow-md shadow-emerald-950 cursor-pointer disabled:opacity-50"
+                      >
+                        {isUploadingBlogImage ? (
+                          <>
+                            <RefreshCw size={12} className="animate-spin" />
+                            <span>Uploading...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Upload size={12} />
+                            <span>Upload / Replace Image</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
+                  {blogImageUploadMsg && (
+                    <div className={`p-2.5 rounded-xl text-xs font-bold flex items-center gap-2 ${blogImageUploadMsg.error ? 'bg-rose-950/60 text-rose-300 border border-rose-500/30' : 'bg-emerald-950/60 text-emerald-300 border border-emerald-500/30'}`}>
+                      <Sparkles size={14} />
+                      <span>{blogImageUploadMsg.text}</span>
+                    </div>
+                  )}
+
+                  {/* Active Image Banner */}
+                  <div className="relative rounded-2xl overflow-hidden border border-slate-800 aspect-[21/9] max-h-64 bg-slate-900 group">
+                    <img
+                      src={previewingBlogPost.image_url || getCategoryDefaultBanner(previewingBlogPost.category)}
+                      alt={previewingBlogPost.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = getCategoryDefaultBanner(previewingBlogPost.category);
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex flex-col justify-end p-4">
+                      <span className="text-[10px] font-mono text-emerald-400 truncate">
+                        {previewingBlogPost.image_url || 'Default category banner'}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Custom URL Input */}
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      value={previewingBlogPost.image_url || ''}
+                      onChange={(e) => handleAdminApplyCover(e.target.value, previewingBlogPost)}
+                      placeholder="Enter custom image URL..."
+                      className="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-xs text-emerald-300 font-mono focus:outline-none focus:border-emerald-500"
+                    />
+                  </div>
+
+                  {/* 1-Click Category Banners */}
+                  <div className="space-y-2 pt-2 border-t border-slate-900">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                      1-Click Dark-Mode Category Banners (#111827 &amp; #10b981)
+                    </span>
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                      {Object.entries(CATEGORY_DEFAULT_BANNERS).map(([catKey, banner]) => {
+                        const isActive = previewingBlogPost.image_url === banner.url;
+                        return (
+                          <button
+                            key={catKey}
+                            type="button"
+                            onClick={() => handleAdminApplyCover(banner.url, previewingBlogPost, banner.alt)}
+                            className={`p-2 rounded-xl border text-left transition flex flex-col justify-between gap-1.5 cursor-pointer ${
+                              isActive
+                                ? 'bg-emerald-950/60 border-emerald-500/80 ring-1 ring-emerald-500'
+                                : 'bg-slate-900 hover:bg-slate-850 border-slate-800 hover:border-slate-700'
+                            }`}
+                          >
+                            <div className="aspect-[21/9] w-full rounded-lg overflow-hidden bg-slate-950 relative">
+                              <img src={banner.url} alt={banner.label} className="w-full h-full object-cover" />
+                              {isActive && (
+                                <div className="absolute top-1 right-1 bg-emerald-500 text-slate-950 rounded-full p-0.5">
+                                  <Check size={10} />
+                                </div>
+                              )}
+                            </div>
+                            <span className="text-[10px] font-black uppercase tracking-wider text-slate-300 truncate">
+                              {banner.label}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* SECTION 2: ARTICLE BODY PREVIEW */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                    <div className="flex items-center gap-2">
+                      <FileText size={16} className="text-cyan-400" />
+                      <h4 className="text-xs font-black uppercase tracking-wider text-white">
+                        Article Reader Preview
+                      </h4>
+                    </div>
+                    <span className="text-[10px] text-slate-400 uppercase font-mono">
+                      /{previewingBlogPost.slug}
+                    </span>
+                  </div>
+
+                  <div className="p-6 rounded-2xl bg-slate-950/80 border border-slate-800">
+                    <h1 className="text-2xl font-bold text-white mb-2">{previewingBlogPost.title}</h1>
+                    <p className="text-xs text-slate-400 mb-6 pb-4 border-b border-slate-800">
+                      Category: <span className="text-emerald-400 uppercase font-bold">{previewingBlogPost.category}</span> • By {previewingBlogPost.author || 'The Next Level Team'}
+                    </p>
+                    <BlogMarkdownRenderer content={previewingBlogPost.content || ''} theme="dark" />
+                  </div>
+                </div>
+
+              </div>
+
+              {/* Modal Footer */}
+              <div className="p-5 border-t border-slate-800 bg-slate-950/80 flex flex-col sm:flex-row items-center justify-between gap-3">
+                <div className="flex items-center gap-2 w-full sm:w-auto">
+                  <a
+                    href={`/blog/${previewingBlogPost.slug}?preview=true`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition flex items-center gap-1.5 border border-slate-700"
+                  >
+                    <ExternalLink size={13} />
+                    <span>Full Reader Page</span>
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      handleEditBlog(previewingBlogPost);
+                      setPreviewingBlogPost(null);
+                    }}
+                    className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-indigo-300 text-xs font-bold transition flex items-center gap-1.5 border border-indigo-500/30"
+                  >
+                    <Pencil size={13} />
+                    <span>Edit in Form</span>
+                  </button>
+                </div>
+
+                <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
+                  <button
+                    type="button"
+                    onClick={() => setPreviewingBlogPost(null)}
+                    className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition"
+                  >
+                    Close
+                  </button>
+                  {previewingBlogPost.status !== 'published' && (
+                    <button
+                      type="button"
+                      disabled={isAuthorizingPostId === previewingBlogPost.id}
+                      onClick={() => handleAuthorizePostDirectly(previewingBlogPost)}
+                      className="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-extrabold uppercase tracking-wider transition flex items-center gap-1.5 shadow-lg shadow-emerald-900/30 cursor-pointer disabled:opacity-50"
+                    >
+                      {isAuthorizingPostId === previewingBlogPost.id ? (
+                        <>
+                          <RefreshCw size={13} className="animate-spin" />
+                          <span>Publishing...</span>
+                        </>
+                      ) : (
+                        <>
+                          <CheckCircle2 size={13} />
+                          <span>Authorize &amp; Publish Live</span>
+                        </>
+                      )}
+                    </button>
+                  )}
+                </div>
+              </div>
+
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );

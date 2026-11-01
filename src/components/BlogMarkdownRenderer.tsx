@@ -237,8 +237,9 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
     return nodes;
   };
 
-  // Block parser
-  const lines = content.split('\n');
+  // Block parser - strip leading YAML frontmatter if present
+  const bodyContent = content.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, '');
+  const lines = bodyContent.split('\n');
   const blocks: React.ReactNode[] = [];
   const renderedProductIds = new Set<string>();
   let i = 0;

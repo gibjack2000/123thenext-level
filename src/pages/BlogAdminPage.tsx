@@ -24,12 +24,20 @@ import {
   ExternalLink,
   Layers,
   Check,
-  ChevronRight
+  ChevronRight,
+  Upload
 } from 'lucide-react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
 import { BlogPost } from '../types';
 import { MOCK_BLOG_POSTS } from '../data/mockBlogPosts';
 import BlogMarkdownRenderer from '../components/BlogMarkdownRenderer';
+import {
+  CATEGORY_DEFAULT_BANNERS,
+  getCategoryDefaultBanner,
+  getCategoryDefaultAlt,
+  updateArticleFrontmatter,
+  extractFrontmatter
+} from '../utils/blogImages';
 
 const CATEGORY_OPTIONS = [
   { id: 'health', name: 'Health & Longevity', color: 'bg-rose-500/20 text-rose-300 border-rose-500/30' },
@@ -94,6 +102,9 @@ export default function BlogAdminPage() {
   const [editingPost, setEditingPost] = useState<Partial<BlogPost> | null>(null);
   const [editorTab, setEditorTab] = useState<'write' | 'preview'>('write');
   const [saving, setSaving] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const [imageUploadMsg, setImageUploadMsg] = useState<{ text: string; error?: boolean } | null>(null);
+  const fileInputRef = React.useRef<HTMLInputElement | null>(null);
 
   // Check existing session authentication
   useEffect(() => {
@@ -263,11 +274,89 @@ export default function BlogAdminPage() {
     }
   };
 
+  // File upload to /assets/images/blog/
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setIsUploadingImage(true);
+      setImageUploadMsg({ text: `Uploading ${file.name} to /assets/images/blog/...` });
+
+      const reader = new FileReader();
+      const base64Promise = new Promise<string>((resolve, reject) => {
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = (err) => reject(err);
+      });
+      reader.readAsDataURL(file);
+      const base64Data = await base64Promise;
+
+      const res = await fetch('/api/automation/upload-blog-image', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          imageData: base64Data,
+          fileName: file.name,
+          altText: editingPost?.title || 'Featured Article Visual'
+        })
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Upload failed');
+      }
+
+      const uploadedUrl = data.url;
+      const safeAlt = editingPost?.title || 'Featured Article Visual';
+
+      setEditingPost(prev => {
+        if (!prev) return null;
+        const updatedContent = updateArticleFrontmatter(prev.content || '', uploadedUrl, safeAlt);
+        return {
+          ...prev,
+          cover_image_url: uploadedUrl,
+          image_url: uploadedUrl,
+          content: updatedContent
+        };
+      });
+
+      setImageUploadMsg({ text: `Uploaded to ${uploadedUrl}` });
+      setTimeout(() => setImageUploadMsg(null), 4000);
+    } catch (err: any) {
+      console.error('File upload failed:', err);
+      setImageUploadMsg({ text: 'Upload failed: ' + err.message, error: true });
+    } finally {
+      setIsUploadingImage(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
+
+  // 1-Click apply cover & sync frontmatter
+  const handleApplyCover = (url: string, alt?: string) => {
+    if (!editingPost) return;
+    const safeAlt = alt || editingPost.title || 'Featured Article Visual';
+    const updatedContent = updateArticleFrontmatter(editingPost.content || '', url, safeAlt);
+    setEditingPost({
+      ...editingPost,
+      cover_image_url: url,
+      image_url: url,
+      content: updatedContent
+    });
+  };
+
   // Open Editor for New or Existing Article
   const handleOpenEditor = (post?: BlogPost) => {
     if (post) {
-      setEditingPost({ ...post });
+      const fm = extractFrontmatter(post.content || '');
+      const coverUrl = post.cover_image_url || post.image_url || fm.featured_image || getCategoryDefaultBanner(post.category);
+      setEditingPost({
+        ...post,
+        cover_image_url: coverUrl,
+        image_url: coverUrl
+      });
     } else {
+      const defaultBanner = getCategoryDefaultBanner('wellness');
+      const initialContent = `## Executive Summary\n\nEnter article opening hook and problem statement here...\n\n### Scientific Protocol & Mechanism\n\nExplain physiological or training mechanisms here.\n\n### Practical Action Steps\n\n- **Step 1:** Action item\n- **Step 2:** Action item\n\n### Conclusion\n\nSummary and call to action.`;
       setEditingPost({
         id: '',
         title: '',
@@ -275,9 +364,9 @@ export default function BlogAdminPage() {
         category: 'wellness',
         author: '123TheNextLevel Editorial',
         excerpt: '',
-        content: `## Executive Summary\n\nEnter article opening hook and problem statement here...\n\n### Scientific Protocol & Mechanism\n\nExplain physiological or training mechanisms here.\n\n### Practical Action Steps\n\n- **Step 1:** Action item\n- **Step 2:** Action item\n\n### Conclusion\n\nSummary and call to action.`,
-        cover_image_url: PRESET_COVERS[0].url,
-        image_url: PRESET_COVERS[0].url,
+        content: updateArticleFrontmatter(initialContent, defaultBanner, 'Featured Article Visual'),
+        cover_image_url: defaultBanner,
+        image_url: defaultBanner,
         status: 'draft',
         published_at: null,
         reading_time_minutes: 5,
@@ -310,15 +399,18 @@ export default function BlogAdminPage() {
         ? nowIso 
         : (newStatus === 'published' ? (editingPost.published_at || nowIso) : editingPost.published_at || null);
 
+      const finalCover = editingPost.cover_image_url || editingPost.image_url || getCategoryDefaultBanner(editingPost.category);
+      const syncedContent = updateArticleFrontmatter(editingPost.content || '', finalCover, editingPost.title);
+
       const payload: any = {
         title: editingPost.title,
         slug: slugValue,
         category: editingPost.category || 'wellness',
         author: editingPost.author || '123TheNextLevel Editorial',
         excerpt: editingPost.excerpt || '',
-        content: editingPost.content,
-        cover_image_url: editingPost.cover_image_url || editingPost.image_url || PRESET_COVERS[0].url,
-        image_url: editingPost.cover_image_url || editingPost.image_url || PRESET_COVERS[0].url,
+        content: syncedContent,
+        cover_image_url: finalCover,
+        image_url: finalCover,
         status: newStatus,
         published_at: publishTimestamp,
         reading_time_minutes: editingPost.reading_time_minutes || 5,
@@ -923,53 +1015,166 @@ export default function BlogAdminPage() {
                 </div>
               </div>
 
-              {/* Row 3: Cover Image Selector & CDN Presets */}
-              <div className="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-4.5 space-y-4">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
-                    <ImageIcon size={14} className="text-blue-400" />
-                    Cover Image Selection (1-Click Studio CDN Presets)
-                  </label>
-                  <span className="text-[10px] text-slate-500 uppercase tracking-widest font-mono">Public Supabase CDN</span>
+              {/* Row 3: Cover Image Selector, Upload & Category Banners */}
+              <div className="bg-slate-950/60 border border-slate-800/80 rounded-2xl p-5 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-800/80">
+                  <div className="flex items-center gap-2">
+                    <ImageIcon size={16} className="text-emerald-400" />
+                    <div>
+                      <label className="text-xs font-bold uppercase tracking-wider text-slate-200">
+                        Featured Visual &amp; Category Banners
+                      </label>
+                      <p className="text-[11px] text-slate-500">
+                        Direct upload to <code className="text-emerald-400">/assets/images/blog/</code> or 1-click dark-mode banner presets.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Upload Action Button */}
+                  <div className="flex items-center gap-2">
+                    <input 
+                      type="file" 
+                      ref={fileInputRef} 
+                      onChange={handleFileUpload} 
+                      accept="image/*" 
+                      className="hidden" 
+                    />
+                    <button
+                      type="button"
+                      disabled={isUploadingImage}
+                      onClick={() => fileInputRef.current?.click()}
+                      className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold uppercase tracking-wider transition flex items-center gap-1.5 shadow-md shadow-emerald-950 disabled:opacity-50 cursor-pointer"
+                    >
+                      {isUploadingImage ? (
+                        <>
+                          <RefreshCw size={12} className="animate-spin" />
+                          <span>Uploading...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Upload size={12} />
+                          <span>Upload to /assets/images/blog/</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
                 </div>
 
-                {/* Preset Chips */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
-                  {PRESET_COVERS.map(preset => {
-                    const isSelected = (editingPost.cover_image_url || editingPost.image_url) === preset.url;
-                    return (
-                      <button
-                        key={preset.name}
-                        type="button"
-                        onClick={() => setEditingPost({ ...editingPost, cover_image_url: preset.url, image_url: preset.url })}
-                        className={`relative rounded-xl overflow-hidden border p-1 text-left transition-all group cursor-pointer ${
-                          isSelected 
-                            ? 'border-blue-500 ring-2 ring-blue-500/40 bg-blue-500/10' 
-                            : 'border-slate-800 hover:border-slate-700 bg-slate-900'
-                        }`}
-                      >
-                        <div className="h-14 rounded-lg overflow-hidden mb-1.5 relative">
-                          <img src={preset.url} alt={preset.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-                          {isSelected && (
-                            <div className="absolute top-1 right-1 bg-blue-600 rounded-full p-0.5 text-white">
-                              <Check size={10} />
-                            </div>
-                          )}
-                        </div>
-                        <div className="text-[10px] font-bold text-slate-300 leading-tight line-clamp-1">{preset.name}</div>
-                      </button>
-                    );
-                  })}
+                {imageUploadMsg && (
+                  <div className={`p-2.5 rounded-xl text-xs font-bold flex items-center gap-2 ${imageUploadMsg.error ? 'bg-rose-950/60 text-rose-300 border border-rose-500/30' : 'bg-emerald-950/60 text-emerald-300 border border-emerald-500/30'}`}>
+                    <Sparkles size={14} />
+                    <span>{imageUploadMsg.text}</span>
+                  </div>
+                )}
+
+                {/* Active Image Preview & Input */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+                  <div className="relative rounded-xl overflow-hidden border border-slate-800 bg-slate-900 aspect-video group">
+                    <img
+                      src={editingPost.cover_image_url || editingPost.image_url || getCategoryDefaultBanner(editingPost.category)}
+                      alt="Current Cover Preview"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                      onError={(e) => {
+                        (e.currentTarget as HTMLImageElement).src = getCategoryDefaultBanner(editingPost.category);
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent flex items-end p-2.5">
+                      <span className="text-[10px] font-mono text-slate-300 truncate max-w-full">
+                        {editingPost.cover_image_url || editingPost.image_url || 'Default category banner'}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="md:col-span-2 space-y-3">
+                    <div>
+                      <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                        Featured Image URL
+                      </label>
+                      <input
+                        type="text"
+                        value={editingPost.cover_image_url || editingPost.image_url || ''}
+                        onChange={(e) => handleApplyCover(e.target.value)}
+                        placeholder="/assets/images/blog/... or https://..."
+                        className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-xs text-emerald-300 placeholder-slate-600 focus:outline-none focus:border-emerald-500 font-mono"
+                      />
+                    </div>
+
+                    <div className="text-[11px] text-slate-400 flex items-center gap-1.5">
+                      <Sparkles size={12} className="text-emerald-400" />
+                      <span>Updates article frontmatter (<code className="text-slate-300">featured_image</code> &amp; <code className="text-slate-300">featured_image_alt</code>) automatically.</span>
+                    </div>
+                  </div>
                 </div>
 
-                <div>
-                  <input
-                    type="text"
-                    value={editingPost.cover_image_url || editingPost.image_url || ''}
-                    onChange={(e) => setEditingPost({ ...editingPost, cover_image_url: e.target.value, image_url: e.target.value })}
-                    placeholder="Custom image URL..."
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-xs text-slate-300 placeholder-slate-600 focus:outline-none focus:border-blue-500 font-mono"
-                  />
+                {/* SECTION 1: 1-Click Dark-Mode Category Banners (#111827 & #10b981) */}
+                <div className="space-y-2 pt-2 border-t border-slate-900">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                    <Sparkles size={12} className="text-emerald-400" />
+                    1-Click Dark-Mode Category Banners (#111827 &amp; #10b981)
+                  </span>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {Object.entries(CATEGORY_DEFAULT_BANNERS).map(([catKey, banner]) => {
+                      const isActive = (editingPost.cover_image_url || editingPost.image_url) === banner.url;
+                      return (
+                        <button
+                          key={catKey}
+                          type="button"
+                          onClick={() => handleApplyCover(banner.url, banner.alt)}
+                          className={`p-2 rounded-xl border text-left transition flex flex-col justify-between gap-1.5 cursor-pointer ${
+                            isActive
+                              ? 'bg-emerald-950/60 border-emerald-500/80 ring-1 ring-emerald-500'
+                              : 'bg-slate-900 hover:bg-slate-850 border-slate-800 hover:border-slate-700'
+                          }`}
+                        >
+                          <div className="aspect-[21/9] w-full rounded-lg overflow-hidden bg-slate-950 relative">
+                            <img src={banner.url} alt={banner.label} className="w-full h-full object-cover" />
+                            {isActive && (
+                              <div className="absolute top-1 right-1 bg-emerald-500 text-slate-950 rounded-full p-0.5">
+                                <Check size={10} />
+                              </div>
+                            )}
+                          </div>
+                          <span className="text-[10px] font-black uppercase tracking-wider text-slate-300 truncate">
+                            {banner.label}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* SECTION 2: Studio CDN Presets */}
+                <div className="space-y-2 pt-2 border-t border-slate-900">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                    Studio CDN Presets
+                  </span>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+                    {PRESET_COVERS.map(preset => {
+                      const isSelected = (editingPost.cover_image_url || editingPost.image_url) === preset.url;
+                      return (
+                        <button
+                          key={preset.name}
+                          type="button"
+                          onClick={() => handleApplyCover(preset.url, preset.name)}
+                          className={`relative rounded-xl overflow-hidden border p-1 text-left transition-all group cursor-pointer ${
+                            isSelected 
+                              ? 'border-blue-500 ring-2 ring-blue-500/40 bg-blue-500/10' 
+                              : 'border-slate-800 hover:border-slate-700 bg-slate-900'
+                          }`}
+                        >
+                          <div className="h-12 rounded-lg overflow-hidden mb-1 relative">
+                            <img src={preset.url} alt={preset.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
+                            {isSelected && (
+                              <div className="absolute top-1 right-1 bg-blue-600 rounded-full p-0.5 text-white">
+                                <Check size={10} />
+                              </div>
+                            )}
+                          </div>
+                          <div className="text-[10px] font-bold text-slate-300 leading-tight line-clamp-1">{preset.name}</div>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
 
@@ -1072,14 +1277,54 @@ export default function BlogAdminPage() {
                     />
                   </div>
                 ) : (
-                  <div className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-6 text-slate-200 max-w-none min-h-[350px] max-h-[600px] overflow-y-auto">
-                    <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
-                      <h1 className="text-2xl font-bold text-white">{editingPost.title || 'Untitled Post'}</h1>
-                      <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-400 bg-slate-900 border border-slate-800 px-3 py-1 rounded-lg">
-                        <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-pulse"></span>
-                        <span>Live Supabase Synced</span>
+                  <div className="w-full bg-slate-950 border border-slate-800 rounded-2xl p-6 text-slate-200 max-w-none min-h-[350px] max-h-[600px] overflow-y-auto space-y-6">
+                    {/* Featured Image Hero in Preview */}
+                    <div className="relative rounded-2xl overflow-hidden border border-slate-800 aspect-[21/9] max-h-72 bg-slate-900 group">
+                      <img
+                        src={editingPost.cover_image_url || editingPost.image_url || getCategoryDefaultBanner(editingPost.category)}
+                        alt={editingPost.title || 'Draft Preview'}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).src = getCategoryDefaultBanner(editingPost.category);
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent flex flex-col justify-between p-4">
+                        <div className="flex items-center justify-between">
+                          <span className="px-3 py-1 rounded-full bg-slate-950/80 backdrop-blur-md text-[10px] font-black uppercase tracking-wider text-emerald-400 border border-emerald-500/30">
+                            Featured Visual
+                          </span>
+
+                          <button
+                            type="button"
+                            onClick={() => fileInputRef.current?.click()}
+                            className="px-3 py-1.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-white text-xs font-bold transition flex items-center gap-1.5 border border-slate-700 shadow-lg cursor-pointer"
+                          >
+                            <Upload size={12} className="text-emerald-400" />
+                            <span>Upload / Replace Image</span>
+                          </button>
+                        </div>
+
+                        <div className="space-y-1">
+                          <span className="text-[10px] font-mono text-slate-400 truncate block">
+                            {editingPost.cover_image_url || editingPost.image_url || 'Category Default Banner'}
+                          </span>
+                        </div>
                       </div>
                     </div>
+
+                    <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+                      <div>
+                        <h1 className="text-2xl font-bold text-white">{editingPost.title || 'Untitled Post'}</h1>
+                        <p className="text-xs text-slate-400 mt-1">
+                          Category: <span className="text-emerald-400 uppercase font-bold">{editingPost.category || 'wellness'}</span> • Est. {editingPost.reading_time_minutes || 5} min read
+                        </p>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-400 bg-slate-900 border border-slate-800 px-3 py-1 rounded-lg">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-pulse"></span>
+                        <span>Frontmatter Synced</span>
+                      </div>
+                    </div>
+
                     <BlogMarkdownRenderer content={editingPost.content || ''} theme="dark" />
                   </div>
                 )}

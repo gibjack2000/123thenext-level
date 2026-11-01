@@ -8,6 +8,7 @@ import { MOCK_BLOG_POSTS } from '../data/mockBlogPosts';
 import BlogMarkdownRenderer from '../components/BlogMarkdownRenderer';
 import BlogNewsletterBanner from '../components/newsletter/BlogNewsletterBanner';
 import { useMarket } from '../contexts/MarketContext';
+import { getCategoryDefaultBanner, extractFrontmatter } from '../utils/blogImages';
 
 export default function BlogPostPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -192,21 +193,25 @@ export default function BlogPostPage() {
     return prod.market.toUpperCase() === (market || 'US').toUpperCase();
   });
 
+  const fm = post ? extractFrontmatter(post.content || '') : {};
+  const heroImage = post?.image_url || fm.featured_image || getCategoryDefaultBanner(post?.category);
+  const heroAlt = fm.featured_image_alt || post?.title || 'Featured Article Visual';
+
   return (
     <main className="min-h-screen bg-slate-50 pb-20">
       {/* Hero Section */}
       <div className="relative w-full min-h-[560px] md:min-h-[640px] pt-36 sm:pt-40 md:pt-44 pb-28 sm:pb-32 flex flex-col justify-end items-center mb-12 overflow-hidden">
-        {post.image_url ? (
-          <div className="absolute inset-0 z-0">
-            <img 
-              src={post.image_url} 
-              alt={post.title} 
-              className="w-full h-full object-cover" 
-              referrerPolicy="no-referrer" 
-            />
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-slate-900/10"></div>
-            {/* Clickable Link covering everything */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={heroImage} 
+            alt={heroAlt} 
+            className="w-full h-full object-cover" 
+            referrerPolicy="no-referrer" 
+          />
+          {/* Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-slate-900/10"></div>
+          {/* Clickable Link covering everything */}
+          {displayAffiliateUrl && (
             <a 
               href={displayAffiliateUrl} 
               target="_blank" 
@@ -214,19 +219,8 @@ export default function BlogPostPage() {
               className="absolute inset-0 z-10 block cursor-pointer hover:bg-black/5 transition-colors"
               aria-label="View Product"
             ></a>
-          </div>
-        ) : (
-          <div className="absolute inset-0 z-0">
-            <img 
-              src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" 
-              alt="Engaging Post Background" 
-              className="w-full h-full object-cover opacity-90" 
-              referrerPolicy="no-referrer" 
-            />
-            {/* Gradient Overlay for text readability */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-slate-900/20"></div>
-          </div>
-        )}
+          )}
+        </div>
 
         {/* Hero Content */}
         <div className="relative z-10 w-full max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">

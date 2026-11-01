@@ -116,6 +116,18 @@ export async function processCategoryJob(category) {
     const excerptMatch = htmlContent.replace(/<[^>]+>/g, '').substring(0, 160);
     const excerpt = excerptMatch.length === 160 ? excerptMatch + '...' : excerptMatch;
 
+    // Default dark-mode category banners (#111827 & #10b981)
+    const CATEGORY_DEFAULT_BANNERS = {
+      health: '/assets/images/blog/healthspan_longevity_cover.png',
+      fitness: '/assets/images/blog/performance_biodata_cover.png',
+      nutrition: '/assets/images/blog/metabolic_nutrition_cover.png',
+      wellness: '/assets/images/blog/autonomic_engineering_cover.png'
+    };
+    const defaultCover = CATEGORY_DEFAULT_BANNERS[category.toLowerCase()] || CATEGORY_DEFAULT_BANNERS.health;
+    const finalImageUrl = targetRow.get('image_url') || defaultCover;
+    const frontmatter = `---\nfeatured_image: '${finalImageUrl}'\nfeatured_image_alt: '${title.replace(/['"]/g, '')}'\n---\n\n`;
+    const finalContent = frontmatter + htmlContent;
+
     // Save to Supabase
     const { data: postInsert, error: dbError } = await supabase
       .from('blog_posts')
@@ -124,9 +136,9 @@ export async function processCategoryJob(category) {
         title,
         slug,
         author: 'AI Blog Automation',
-        content: htmlContent,
+        content: finalContent,
         excerpt,
-        image_url: null,
+        image_url: finalImageUrl,
         image_url_2: image_2_id,
         image_url_3: null, // Placeholder for 3rd image if needed
         affiliate_product_1: affiliate_1_id,

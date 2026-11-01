@@ -1,6 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../lib/supabase';
-import { Play, RotateCcw, AlertTriangle, CheckCircle, Clock, RefreshCw, Sparkles, Eye, Pencil, Database, Mail, Check, ArrowRight, Zap } from 'lucide-react';
+import { 
+  Play, RotateCcw, AlertTriangle, CheckCircle, Clock, RefreshCw, 
+  Sparkles, Eye, Pencil, Database, Mail, Check, ArrowRight, Zap,
+  Upload, Image as ImageIcon, X, ExternalLink, Link2, FileText, CheckCircle2
+} from 'lucide-react';
+import {
+  CATEGORY_DEFAULT_BANNERS,
+  getCategoryDefaultBanner,
+  getCategoryDefaultAlt,
+  updateArticleFrontmatter,
+  extractFrontmatter
+} from '../utils/blogImages';
+import BlogMarkdownRenderer from '../components/BlogMarkdownRenderer';
 
 export default function BlogAutomationAdmin() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -26,6 +38,110 @@ export default function BlogAutomationAdmin() {
   const [publishingId, setPublishingId] = useState<string | null>(null);
   const [alertSending, setAlertSending] = useState(false);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
+
+  // Featured Image Replacement & Preview Modal State
+  const [previewingDraft, setPreviewingDraft] = useState<any | null>(null);
+  const [customImageUrl, setCustomImageUrl] = useState('');
+  const [customImageAlt, setCustomImageAlt] = useState('');
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const [imageSuccessMsg, setImageSuccessMsg] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const openPreviewModal = (post: any) => {
+    const fm = extractFrontmatter(post.content || '');
+    const currentImg = post.image_url || fm.featured_image || getCategoryDefaultBanner(post.category);
+    const currentAlt = fm.featured_image_alt || getCategoryDefaultAlt(post.category, post.title);
+    setPreviewingDraft(post);
+    setCustomImageUrl(currentImg);
+    setCustomImageAlt(currentAlt);
+    setImageSuccessMsg(null);
+  };
+
+  const closePreviewModal = () => {
+    setPreviewingDraft(null);
+    setCustomImageUrl('');
+    setCustomImageAlt('');
+    setImageSuccessMsg(null);
+  };
+
+  const handleApplyFeaturedImage = async (newUrl: string, newAlt?: string) => {
+    if (!previewingDraft) return;
+    try {
+      const altToUse = newAlt || customImageAlt || getCategoryDefaultAlt(previewingDraft.category, previewingDraft.title);
+      const updatedContent = updateArticleFrontmatter(previewingDraft.content || '', newUrl, altToUse);
+
+      // 1. Update in Supabase
+      const { error } = await supabase
+        .from('blog_posts')
+        .update({
+          image_url: newUrl,
+          content: updatedContent
+        })
+        .eq('id', previewingDraft.id);
+
+      if (error) throw error;
+
+      // 2. Update local state
+      const updatedPost = {
+        ...previewingDraft,
+        image_url: newUrl,
+        content: updatedContent
+      };
+      setPreviewingDraft(updatedPost);
+      setCustomImageUrl(newUrl);
+      setCustomImageAlt(altToUse);
+      setPendingReviews(prev => prev.map(p => p.id === previewingDraft.id ? updatedPost : p));
+      setImageSuccessMsg(`✅ Featured image updated to ${newUrl} with frontmatter!`);
+      setTimeout(() => setImageSuccessMsg(null), 4000);
+    } catch (err: any) {
+      console.error('Failed to update featured image:', err);
+      alert('Error updating image: ' + (err.message || 'Database update failed'));
+    }
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !previewingDraft) return;
+
+    setIsUploadingImage(true);
+    setImageSuccessMsg(null);
+
+    try {
+      const reader = new FileReader();
+      reader.onload = async () => {
+        try {
+          const base64Data = reader.result as string;
+          const res = await fetch('/api/automation/upload-blog-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              imageData: base64Data,
+              fileName: file.name,
+              altText: customImageAlt || previewingDraft.title
+            })
+          });
+
+          const data = await res.json();
+          if (!data.success || !data.url) {
+            throw new Error(data.error || 'Server upload failed');
+          }
+
+          await handleApplyFeaturedImage(data.url, customImageAlt || previewingDraft.title);
+        } catch (uploadErr: any) {
+          console.error('File upload error:', uploadErr);
+          alert('Upload failed: ' + uploadErr.message);
+        } finally {
+          setIsUploadingImage(false);
+          if (fileInputRef.current) fileInputRef.current.value = '';
+        }
+      };
+
+      reader.readAsDataURL(file);
+    } catch (err: any) {
+      console.error('File reading failed:', err);
+      setIsUploadingImage(false);
+    }
+  };
 
   useEffect(() => {
     const auth = sessionStorage.getItem('admin_session_authenticated');
@@ -152,21 +268,18 @@ export default function BlogAutomationAdmin() {
 </ul>
       `.trim();
 
-      const coverImages: Record<string, string> = {
-        health: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80',
-        fitness: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1200&q=80',
-        nutrition: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=1200&q=80',
-        wellness: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80'
-      };
+      const defaultBanner = getCategoryDefaultBanner(pitch.category);
+      const defaultAlt = getCategoryDefaultAlt(pitch.category, pitch.title);
+      const contentWithFm = updateArticleFrontmatter(content, defaultBanner, defaultAlt);
 
       const newDraft: any = {
         title: pitch.title,
         slug,
         category: cat,
         excerpt: pitch.summary,
-        content,
+        content: contentWithFm,
         status: 'draft',
-        image_url: coverImages[pitch.category] || coverImages.health,
+        image_url: defaultBanner,
         author: 'Clinical Advisory Team',
         tags: [pitch.category, 'longevity', 'biomarkers', pitch.targetKeyword.split(' ')[0]],
         created_at: new Date().toISOString()
@@ -508,8 +621,19 @@ export default function BlogAutomationAdmin() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {pendingReviews.map((post) => (
                   <div key={post.id} className="bg-slate-900/80 border border-slate-800 rounded-xl overflow-hidden hover:border-indigo-500/50 transition-all group">
-                    <div className="aspect-video relative overflow-hidden">
-                      <img src={post.image_url || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop'} alt="" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-60" />
+                    <div 
+                      className="aspect-video relative overflow-hidden cursor-pointer"
+                      onClick={() => openPreviewModal(post)}
+                      title="Click to preview draft & replace featured image"
+                    >
+                      <img 
+                        src={post.image_url || getCategoryDefaultBanner(post.category)} 
+                        alt="" 
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-70" 
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).src = getCategoryDefaultBanner(post.category);
+                        }}
+                      />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
                       <div className="absolute bottom-4 left-4 right-4">
                         <span className="px-2 py-0.5 bg-indigo-600 text-white text-[10px] font-bold rounded uppercase tracking-widest mb-2 inline-block">Draft Article</span>
@@ -518,15 +642,15 @@ export default function BlogAutomationAdmin() {
                     </div>
                     <div className="p-4 space-y-2.5">
                       <div className="flex items-center justify-between gap-2">
-                        <a 
-                          href={`/blog/${post.slug}?preview=true`} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-bold transition-all border border-slate-700"
+                        <button 
+                          type="button"
+                          onClick={() => openPreviewModal(post)}
+                          className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded-lg text-xs font-bold transition-all border border-cyan-500/30 cursor-pointer"
+                          title="Open preview modal to inspect draft & replace featured image"
                         >
-                          <Eye className="w-3.5 h-3.5" />
-                          Preview
-                        </a>
+                          <Eye className="w-3.5 h-3.5 text-cyan-400" />
+                          <span>Preview &amp; Image</span>
+                        </button>
                         <a 
                           href={`/admin?edit_id=${post.id}`} 
                           onClick={() => {
@@ -892,6 +1016,288 @@ export default function BlogAutomationAdmin() {
           </div>
         </div>
       </div>
+
+      {/* ========================================================================= */}
+      {/* BLOG DRAFT PREVIEW & FEATURED IMAGE REPLACEMENT MODAL                     */}
+      {/* ========================================================================= */}
+      {previewingDraft && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/85 backdrop-blur-md animate-in fade-in"
+          onClick={closePreviewModal}
+        >
+          <div 
+            className="relative w-full max-w-4xl max-h-[92vh] bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl flex flex-col overflow-hidden text-left"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="p-5 sm:p-6 border-b border-slate-800 bg-slate-950/60 flex items-start justify-between gap-4">
+              <div>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="px-2.5 py-0.5 rounded text-[10px] font-black uppercase tracking-wider bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                    Draft Article Review
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-slate-800 text-slate-300 border border-slate-700">
+                    Category: {previewingDraft.category}
+                  </span>
+                </div>
+                <h3 className="text-xl sm:text-2xl font-black text-white leading-tight">
+                  {previewingDraft.title}
+                </h3>
+              </div>
+              <button 
+                onClick={closePreviewModal}
+                className="p-2 rounded-xl bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 transition cursor-pointer"
+                title="Close modal"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Modal Body (Scrollable) */}
+            <div className="flex-1 overflow-y-auto p-5 sm:p-8 space-y-8 custom-scrollbar">
+
+              {/* Notification Banner */}
+              {imageSuccessMsg && (
+                <div className="p-3.5 rounded-xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-200 text-xs font-bold flex items-center gap-2">
+                  <CheckCircle size={15} className="text-emerald-400 shrink-0" />
+                  <span>{imageSuccessMsg}</span>
+                </div>
+              )}
+
+              {/* SECTION 1: FEATURED IMAGE SELECTION & REPLACEMENT */}
+              <div className="p-5 sm:p-6 rounded-2xl bg-slate-950/90 border border-slate-800 space-y-5">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800/80 pb-3">
+                  <div>
+                    <h4 className="text-sm font-black text-white uppercase tracking-wider flex items-center gap-2">
+                      <ImageIcon size={16} className="text-emerald-400" />
+                      Featured Hero Image
+                    </h4>
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      Preview and replace the article&apos;s featured cover image and frontmatter metadata.
+                    </p>
+                  </div>
+                  <span className="text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900 border border-slate-800 text-emerald-400 font-bold self-start sm:self-auto">
+                    frontmatter synced
+                  </span>
+                </div>
+
+                {/* Hero Preview Box */}
+                <div className="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-xl group">
+                  <img 
+                    src={previewingDraft.image_url || getCategoryDefaultBanner(previewingDraft.category)} 
+                    alt={customImageAlt || previewingDraft.title} 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.01]"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = getCategoryDefaultBanner(previewingDraft.category);
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent pointer-events-none" />
+                  <div className="absolute bottom-3 left-3 right-3 flex flex-wrap items-center justify-between gap-2 pointer-events-none">
+                    <span className="text-[10px] font-mono font-bold px-2 py-1 rounded bg-slate-950/80 backdrop-blur-md text-slate-300 border border-slate-700/60 max-w-md truncate">
+                      {previewingDraft.image_url || getCategoryDefaultBanner(previewingDraft.category)}
+                    </span>
+                    <span className="text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-500 text-slate-950 shadow">
+                      Active Cover
+                    </span>
+                  </div>
+                </div>
+
+                {/* Replacement Action Buttons */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                  {/* Option A: Direct File Upload to /assets/images/blog/ */}
+                  <div>
+                    <input 
+                      type="file" 
+                      ref={fileInputRef} 
+                      onChange={handleFileUpload} 
+                      accept="image/png,image/jpeg,image/webp,image/svg+xml" 
+                      className="hidden" 
+                    />
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={isUploadingImage}
+                      className="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-lg shadow-emerald-900/30 border border-emerald-400/30 cursor-pointer disabled:opacity-50"
+                    >
+                      {isUploadingImage ? (
+                        <>
+                          <RefreshCw size={14} className="animate-spin text-white" />
+                          <span>Uploading to /assets/images/blog/...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Upload size={14} />
+                          <span>Upload File to /assets/images/blog/</span>
+                        </>
+                      )}
+                    </button>
+                    <p className="text-[10px] text-slate-500 mt-1 pl-1 font-mono">
+                      Accepts PNG, JPG, WebP. Writes directly to public assets.
+                    </p>
+                  </div>
+
+                  {/* Option B: Enter Custom Image URL */}
+                  <div className="flex gap-2">
+                    <input 
+                      type="text" 
+                      value={customImageUrl} 
+                      onChange={(e) => setCustomImageUrl(e.target.value)} 
+                      placeholder="https://... or /assets/images/blog/..." 
+                      className="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500 font-mono"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleApplyFeaturedImage(customImageUrl, customImageAlt)}
+                      className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white font-bold text-xs uppercase tracking-wider transition border border-slate-700 cursor-pointer"
+                    >
+                      Apply URL
+                    </button>
+                  </div>
+                </div>
+
+                {/* Alt Text Input */}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 pt-2 border-t border-slate-900">
+                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider shrink-0">
+                    featured_image_alt:
+                  </span>
+                  <input 
+                    type="text" 
+                    value={customImageAlt} 
+                    onChange={(e) => setCustomImageAlt(e.target.value)} 
+                    placeholder="Clinical visual description for SEO & accessibility" 
+                    className="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-emerald-500"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleApplyFeaturedImage(previewingDraft.image_url || customImageUrl, customImageAlt)}
+                    className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-750 text-emerald-400 text-xs font-bold transition border border-slate-700 cursor-pointer"
+                  >
+                    Save Alt
+                  </button>
+                </div>
+
+                {/* Quick 1-Click Dark-Mode Category Banners (#111827 & #10b981) */}
+                <div className="space-y-2 pt-3 border-t border-slate-900">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+                    <Sparkles size={12} className="text-emerald-400" />
+                    1-Click Dark-Mode Banners (#111827 &amp; #10b981)
+                  </span>
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    {Object.entries(CATEGORY_DEFAULT_BANNERS).map(([catKey, banner]) => {
+                      const isActive = (previewingDraft.image_url === banner.url);
+                      return (
+                        <button
+                          key={catKey}
+                          type="button"
+                          onClick={() => handleApplyFeaturedImage(banner.url, banner.alt)}
+                          className={`p-2.5 rounded-xl border text-left transition flex flex-col justify-between gap-2 cursor-pointer ${
+                            isActive
+                              ? 'bg-emerald-950/60 border-emerald-500/80 ring-1 ring-emerald-500'
+                              : 'bg-slate-900 hover:bg-slate-850 border-slate-800 hover:border-slate-700'
+                          }`}
+                        >
+                          <div className="aspect-[21/9] w-full rounded-lg overflow-hidden bg-slate-950 relative">
+                            <img src={banner.url} alt={banner.label} className="w-full h-full object-cover" />
+                            {isActive && (
+                              <div className="absolute top-1 right-1 bg-emerald-500 text-slate-950 rounded-full p-0.5">
+                                <Check size={10} />
+                              </div>
+                            )}
+                          </div>
+                          <span className="text-[10px] font-black uppercase tracking-wider text-slate-300">
+                            {banner.label}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+              </div>
+
+              {/* SECTION 2: ARTICLE SUMMARY & CONTENT PREVIEW */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 border-b border-slate-800 pb-2">
+                  <FileText size={16} className="text-cyan-400" />
+                  <h4 className="text-sm font-black text-white uppercase tracking-wider">
+                    Article Reader Preview
+                  </h4>
+                </div>
+
+                {previewingDraft.excerpt && (
+                  <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800 text-xs text-slate-300 leading-relaxed font-medium">
+                    <span className="text-[10px] uppercase font-bold text-slate-500 block mb-1">Snippet Excerpt:</span>
+                    {previewingDraft.excerpt}
+                  </div>
+                )}
+
+                <div className="p-6 rounded-2xl bg-slate-950/80 border border-slate-800 text-slate-200">
+                  <BlogMarkdownRenderer content={previewingDraft.content} theme="dark" />
+                </div>
+              </div>
+
+            </div>
+
+            {/* Modal Footer */}
+            <div className="p-4 sm:p-6 border-t border-slate-800 bg-slate-950/80 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="flex items-center gap-2 w-full sm:w-auto">
+                <a 
+                  href={`/blog/${previewingDraft.slug}?preview=true`} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition flex items-center justify-center gap-1.5 border border-slate-700"
+                >
+                  <ExternalLink size={13} />
+                  <span>Full Reader Page</span>
+                </a>
+                <a 
+                  href={`/admin?edit_id=${previewingDraft.id}`} 
+                  onClick={() => {
+                    localStorage.setItem('admin_target_tab', 'blog');
+                    localStorage.setItem('edit_blog_post_id', previewingDraft.id);
+                  }}
+                  className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-indigo-300 text-xs font-bold transition flex items-center justify-center gap-1.5 border border-indigo-500/30"
+                >
+                  <Pencil size={13} />
+                  <span>Open in /admin</span>
+                </a>
+              </div>
+
+              <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
+                <button
+                  type="button"
+                  onClick={closePreviewModal}
+                  className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition"
+                >
+                  Close
+                </button>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    await handleAuthorizePublish(previewingDraft);
+                    closePreviewModal();
+                  }}
+                  disabled={publishingId === previewingDraft.id}
+                  className="flex-1 sm:flex-initial px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white text-xs font-extrabold uppercase tracking-wider transition-all shadow-lg shadow-emerald-900/30 border border-emerald-400/30 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                >
+                  {publishingId === previewingDraft.id ? (
+                    <>
+                      <RefreshCw size={14} className="animate-spin" />
+                      <span>Publishing...</span>
+                    </>
+                  ) : (
+                    <>
+                      <CheckCircle size={14} />
+                      <span>Authorize &amp; Publish Live</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
     </div>
   );
 }

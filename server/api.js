@@ -1,4 +1,6 @@
 import express from 'express';
+import fs from 'fs';
+import path from 'path';
 import { processCategoryJob, getQueue } from './blog-generator.js';
 import checkoutRouter from './routes/checkout.js';
 import { sendQuizResultsEmail, sendNewsletterWelcomeEmail, sendBlogDraftAlertEmail, sendQueueEmptyAlertEmail } from './services/mailer.js';
@@ -175,6 +177,54 @@ router.post('/automation/generate-fresh-pitches', async (req, res) => {
     res.json({ success: true, message: 'Successfully generated 20 fresh weekly topic pitches', data: result });
   } catch (err) {
     console.error('Failed to generate fresh pitches:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// --- Direct Blog Featured Image Upload to /assets/images/blog/ ---
+router.post('/automation/upload-blog-image', async (req, res) => {
+  try {
+    const { imageData, fileName, altText } = req.body;
+    if (!imageData) {
+      return res.status(400).json({ success: false, error: 'Missing image data' });
+    }
+
+    const cleanBase = (fileName || 'featured-blog-image')
+      .toLowerCase()
+      .replace(/[^a-z0-9._-]/g, '-')
+      .replace(/-+/g, '-');
+    const extension = cleanBase.includes('.') ? '' : '.png';
+    const finalName = `blog-${Date.now()}-${cleanBase}${extension}`;
+
+    let buffer;
+    if (imageData.startsWith('data:')) {
+      const base64Data = imageData.split(';base64,').pop();
+      buffer = Buffer.from(base64Data, 'base64');
+    } else {
+      buffer = Buffer.from(imageData, 'base64');
+    }
+
+    const publicDir = path.resolve(process.cwd(), 'public/assets/images/blog');
+    fs.mkdirSync(publicDir, { recursive: true });
+    const targetFile = path.join(publicDir, finalName);
+    fs.writeFileSync(targetFile, buffer);
+
+    // Also mirror to dist if dist exists
+    const distDir = path.resolve(process.cwd(), 'dist/assets/images/blog');
+    if (fs.existsSync(path.resolve(process.cwd(), 'dist'))) {
+      fs.mkdirSync(distDir, { recursive: true });
+      fs.writeFileSync(path.join(distDir, finalName), buffer);
+    }
+
+    const publicUrl = `/assets/images/blog/${finalName}`;
+    res.json({
+      success: true,
+      url: publicUrl,
+      fileName: finalName,
+      altText: altText || cleanBase.replace(/[-_.]/g, ' ')
+    });
+  } catch (err) {
+    console.error('Failed to upload blog image:', err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
