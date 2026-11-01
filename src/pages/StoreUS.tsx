@@ -29,6 +29,7 @@ import {
   getDiagnosticPricingBadge,
   resolveDiagnosticImage,
   getSmartImageFallback,
+  withCacheBuster,
   formatDiagnosticPrice,
   ensureCoreRegionalCatalog,
   getCategoryDisplayLabel,
@@ -449,7 +450,7 @@ export const StoreUS: React.FC = () => {
                         {displayImg && (
                           <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-slate-900/80 border border-slate-800/80 mb-4 flex items-center justify-center p-2 transition-colors group-hover:bg-white/[0.04]">
                             <img 
-                              src={displayImg} 
+                              src={withCacheBuster(displayImg)} 
                               alt={product.name} 
                               className="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
                               referrerPolicy="no-referrer"
@@ -536,7 +537,7 @@ export const StoreUS: React.FC = () => {
                         {displayImg && (
                           <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-850/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
                             <img 
-                              src={displayImg} 
+                              src={withCacheBuster(displayImg)} 
                               alt={product.name} 
                               className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                               referrerPolicy="no-referrer"

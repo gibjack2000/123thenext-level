@@ -2674,6 +2674,17 @@ export function getDiagnosticPricingBadge(product: any, market: MarketTab): stri
   return '💵 Up-to-date pricing on Life Extension';
 }
 
+export const ASSET_CACHE_VERSION = '20261101b';
+
+export function withCacheBuster(url?: string): string {
+  if (!url) return '';
+  if (url.startsWith('data:') || url.startsWith('blob:')) return url;
+  if (url.includes('amazon.com') || url.includes('ssl-images-amazon')) return url;
+  if (url.includes('?v=')) return url;
+  const separator = url.includes('?') ? '&' : '?';
+  return `${url}${separator}v=${ASSET_CACHE_VERSION}`;
+}
+
 export function getSmartImageFallback(product: any, market: any = 'US', isDiag: boolean = false): string {
   const name = String(product?.name || product?.title || '').toLowerCase();
   const id = String(product?.id || '').toLowerCase();
@@ -4053,7 +4064,7 @@ export function Store({ region }: StoreProps = {}) {
                         {displayImg && (
                           <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-slate-900/80 border border-slate-800/80 mb-4 flex items-center justify-center p-2 transition-colors group-hover:bg-white/[0.04]">
                             <img 
-                              src={displayImg} 
+                              src={withCacheBuster(displayImg)} 
                               alt={product.name} 
                               className="w-full h-full object-cover rounded-xl transition-transform duration-500 group-hover:scale-105"
                               referrerPolicy="no-referrer"
@@ -4127,7 +4138,7 @@ export function Store({ region }: StoreProps = {}) {
                                 {displayImg && (
                                   <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-850/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
                                     <img 
-                                      src={displayImg} 
+                                      src={withCacheBuster(displayImg)} 
                                       alt={product.name} 
                                       className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                                       referrerPolicy="no-referrer"
@@ -4194,7 +4205,7 @@ export function Store({ region }: StoreProps = {}) {
                             {displayImg && (
                               <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-850/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
                                 <img 
-                                  src={displayImg} 
+                                  src={withCacheBuster(displayImg)} 
                                   alt={product.name} 
                                   className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
                                   referrerPolicy="no-referrer"

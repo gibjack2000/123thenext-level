@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 import { supabase as importedSupabase, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 import { useMarket, Market } from '../contexts/MarketContext';
-import { resolveDiagnosticImage, getSmartImageFallback } from '../pages/Store';
+import { resolveDiagnosticImage, getSmartImageFallback, withCacheBuster } from '../pages/Store';
 
 const supabase = importedSupabase || createClient(
   import.meta.env.VITE_SUPABASE_URL || supabaseUrl || 'https://seoaictzhmqdwnkfymxt.supabase.co',
@@ -1360,12 +1360,12 @@ export default function HomeExpressShop() {
                 <div>
                   <div className="relative aspect-square w-full bg-slate-950 p-4 flex items-center justify-center overflow-hidden border-b border-slate-800/80">
                     <img
-                      src={displayImg}
+                      src={withCacheBuster(displayImg)}
                       alt={displayName}
                       onError={(e) => {
                         const target = e.currentTarget;
                         target.onerror = null;
-                        target.src = getSmartImageFallback(product, selectedRegion);
+                        target.src = withCacheBuster(getSmartImageFallback(product, selectedRegion));
                       }}
                       className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-500"
                     />
