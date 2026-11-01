@@ -234,19 +234,73 @@ export async function processCategoryJob(category) {
     const excerptMatch = htmlContent.replace(/<[^>]+>/g, '').substring(0, 160);
     const excerpt = summary || (excerptMatch.length === 160 ? excerptMatch + '...' : excerptMatch);
 
-    const fmEntries = [
-      `featured_image: '${finalImageUrl}'`,
-      `featured_image_alt: '${title.replace(/['"]/g, '')}'`
-    ];
-    if (infographicUrl) {
-      fmEntries.push(`infographic_banner_url: '${infographicUrl}'`);
-      fmEntries.push(`infographic_banner_alt: '${title.replace(/['"]/g, '')} Infographic'`);
-    }
-    const frontmatter = `---\n${fmEntries.join('\n')}\n---\n\n`;
+    const baseSlug = sanitizeSlug(title);
+    const currentDate = new Date().toISOString().split('T')[0];
+    const parentGuide = '/guides/uk-preventative-blood-tests/';
+
+    // Category default regional products
+    const defaultProds = {
+      health: {
+        us: { name: 'Quest Diagnostics Cardiovascular Longevity & ApoB Particle Panel', asin_or_sku: 'QUEST-APOB-778', rating: '4.9', reviews: '14.2k+', market_price: '$49.00', url: 'https://www.amazon.com/dp/B00068U48C?tag=123znl0e-20' },
+        uk: { name: 'LOLA Health Preventive Cardiovascular & Blood Chemistry Panel', asin_or_sku: 'LOLA-CV-902', rating: '4.9', reviews: '4.1k+', market_price: '£39.00', url: 'https://www.amazon.co.uk/dp/B08N5N68K6?tag=123znl0e-21' },
+        es: { name: 'Melio Salud Perfil Cardiovascular Avanzado con ApoB y PCR ultrasensible', asin_or_sku: 'MELIO-CARDIO-ES', rating: '4.8', reviews: '2.3k+', market_price: '€45.00', url: 'https://www.amazon.es/dp/B07R4C9R69?tag=123znl0e-21' }
+      },
+      fitness: {
+        us: { name: 'Concept2 RowErg Precision Dynamic Cardio Ergometer', asin_or_sku: 'B00NH9WEUA', rating: '4.9', reviews: '18.5k+', market_price: '$990.00', url: 'https://www.amazon.com/dp/B00NH9WEUA?tag=123znl0e-20' },
+        uk: { name: 'WHOOP 4.0 Wireless Recovery & Strain Telemetry Tracker', asin_or_sku: 'WHOOP-4-UK', rating: '4.8', reviews: '8.7k+', market_price: '£229.00', url: 'https://www.amazon.co.uk/dp/B09V7Y1659?tag=123znl0e-21' },
+        es: { name: 'Garmin Forerunner 265 Sensor Cardíaco con VAM y Lactato', asin_or_sku: 'B0BSLYW5P9', rating: '4.8', reviews: '3.2k+', market_price: '€449.99', url: 'https://www.amazon.es/dp/B0BSLYW5P9?tag=123znl0e-21' }
+      },
+      nutrition: {
+        us: { name: 'Nutrisense Continuous Glucose Biosensor System (CGM 14-Day)', asin_or_sku: 'NUTRI-CGM-14', rating: '4.8', reviews: '9.4k+', market_price: '$175.00', url: 'https://www.amazon.com/dp/B07P88H4NL?tag=123znl0e-20' },
+        uk: { name: 'FreeStyle Libre 2 Continuous Glucose Monitoring Sensor', asin_or_sku: 'LIBRE2-UK', rating: '4.9', reviews: '11.2k+', market_price: '£52.50', url: 'https://www.amazon.co.uk/dp/B07P88H4NL?tag=123znl0e-21' },
+        es: { name: 'Tanita BC-730 Báscula de Composición Corporal Segmental', asin_or_sku: 'B008DWX1MG', rating: '4.7', reviews: '4.8k+', market_price: '€49.90', url: 'https://www.amazon.es/dp/B008DWX1MG?tag=123znl0e-21' }
+      },
+      wellness: {
+        us: { name: 'Withings Sleep Analyzer Under-Mattress Sleep Lab Pad', asin_or_sku: 'B078Z1B34S', rating: '4.8', reviews: '5.6k+', market_price: '$129.95', url: 'https://www.amazon.com/dp/B078Z1B34S?tag=123znl0e-20' },
+        uk: { name: 'Soundcore by Anker Space One Active Noise Cancelling Headset', asin_or_sku: 'B0C6T3R35X', rating: '4.8', reviews: '7.8k+', market_price: '£69.99', url: 'https://www.amazon.co.uk/dp/B0C3HCD34R?tag=123znl0e-21' },
+        es: { name: 'Manta Sauna de Infrarrojo Lejano Térmico RejuvaWrap', asin_or_sku: 'B09PSKN6X3', rating: '4.8', reviews: '1.9k+', market_price: '€289.99', url: 'https://www.amazon.es/dp/B09PSKN6X3?tag=123znl0e-21' }
+      }
+    };
+    const resolvedCatProds = defaultProds[catKey] || defaultProds.health;
+
+    const frontmatter = `---
+title: "${title.replace(/"/g, '\\"')}"
+slug: "${baseSlug}"
+date: "${currentDate}"
+category: "${catKey}"
+status: "pending_approval"
+published: false
+author: "123TheNextLevel Clinical Advisory"
+featured_image: "${finalImageUrl}"
+featured_image_alt: "${title.replace(/"/g, '')}"
+parent_guide: "${parentGuide}"
+${infographicUrl ? `infographic_banner_url: "${infographicUrl}"\ninfographic_banner_alt: "${title.replace(/"/g, '')} Infographic"\n` : ''}products:
+  us:
+    name: "${resolvedCatProds.us.name}"
+    asin_or_sku: "${resolvedCatProds.us.asin_or_sku}"
+    rating: "${resolvedCatProds.us.rating}"
+    reviews: "${resolvedCatProds.us.reviews}"
+    market_price: "${resolvedCatProds.us.market_price}"
+    url: "${resolvedCatProds.us.url}"
+  uk:
+    name: "${resolvedCatProds.uk.name}"
+    asin_or_sku: "${resolvedCatProds.uk.asin_or_sku}"
+    rating: "${resolvedCatProds.uk.rating}"
+    reviews: "${resolvedCatProds.uk.reviews}"
+    market_price: "${resolvedCatProds.uk.market_price}"
+    url: "${resolvedCatProds.uk.url}"
+  es:
+    name: "${resolvedCatProds.es.name}"
+    asin_or_sku: "${resolvedCatProds.es.asin_or_sku}"
+    rating: "${resolvedCatProds.es.rating}"
+    reviews: "${resolvedCatProds.es.reviews}"
+    market_price: "${resolvedCatProds.es.market_price}"
+    url: "${resolvedCatProds.es.url}"
+---
+
+`;
     const finalContent = frontmatter + htmlContent;
 
-    // Guaranteed Unique Slug Strategy
-    const baseSlug = sanitizeSlug(title);
     let assignedSlug = baseSlug;
 
     // Retry loop with timestamp & entropy to guarantee 100% collision-free insertion

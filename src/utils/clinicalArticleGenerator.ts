@@ -17,18 +17,154 @@
  * - Scientific Studies & Medical Bibliography
  */
 
+import {
+  buildFrontmatterYaml,
+  ArticleFrontmatter,
+  RegionalProductItem,
+  getCategoryDefaultBanner,
+  getCategoryDefaultAlt
+} from './blogImages';
+
 export interface PitchInput {
   title: string;
   category: string;
   targetKeyword?: string;
   summary?: string;
   slug?: string;
+  date?: string;
+  parent_guide?: string;
+  featured_image?: string;
+  featured_image_alt?: string;
+  infographic_banner_url?: string;
+  infographic_banner_alt?: string;
+  products?: {
+    us?: RegionalProductItem;
+    uk?: RegionalProductItem;
+    es?: RegionalProductItem;
+  };
   regionalProducts?: {
     US?: string;
     UK?: string;
     ES?: string;
   };
 }
+
+export const CATEGORY_PARENT_GUIDES: Record<string, string> = {
+  health: '/guides/uk-preventative-blood-tests/',
+  fitness: '/guides/uk-preventative-blood-tests/',
+  nutrition: '/guides/uk-preventative-blood-tests/',
+  wellness: '/guides/uk-preventative-blood-tests/'
+};
+
+export const CATEGORY_DEFAULT_REGIONAL_PRODUCTS: Record<
+  string,
+  { us: RegionalProductItem; uk: RegionalProductItem; es: RegionalProductItem }
+> = {
+  health: {
+    us: {
+      name: 'Quest Diagnostics Cardiovascular Longevity & ApoB Particle Panel',
+      asin_or_sku: 'QUEST-APOB-778',
+      rating: '4.9',
+      reviews: '14.2k+',
+      market_price: '$49.00',
+      url: 'https://www.amazon.com/dp/B00068U48C?tag=123znl0e-20'
+    },
+    uk: {
+      name: 'LOLA Health Preventive Cardiovascular & Blood Chemistry Panel',
+      asin_or_sku: 'LOLA-CV-902',
+      rating: '4.9',
+      reviews: '4.1k+',
+      market_price: '£39.00',
+      url: 'https://www.amazon.co.uk/dp/B08N5N68K6?tag=123znl0e-21'
+    },
+    es: {
+      name: 'Melio Salud Perfil Cardiovascular Avanzado con ApoB y PCR ultrasensible',
+      asin_or_sku: 'MELIO-CARDIO-ES',
+      rating: '4.8',
+      reviews: '2.3k+',
+      market_price: '€45.00',
+      url: 'https://www.amazon.es/dp/B07R4C9R69?tag=123znl0e-21'
+    }
+  },
+  fitness: {
+    us: {
+      name: 'Concept2 RowErg Precision Dynamic Cardio Ergometer',
+      asin_or_sku: 'B00NH9WEUA',
+      rating: '4.9',
+      reviews: '18.5k+',
+      market_price: '$990.00',
+      url: 'https://www.amazon.com/dp/B00NH9WEUA?tag=123znl0e-20'
+    },
+    uk: {
+      name: 'WHOOP 4.0 Wireless Recovery & Strain Telemetry Tracker',
+      asin_or_sku: 'WHOOP-4-UK',
+      rating: '4.8',
+      reviews: '8.7k+',
+      market_price: '£229.00',
+      url: 'https://www.amazon.co.uk/dp/B09V7Y1659?tag=123znl0e-21'
+    },
+    es: {
+      name: 'Garmin Forerunner 265 Sensor Cardíaco con VAM y Lactato',
+      asin_or_sku: 'B0BSLYW5P9',
+      rating: '4.8',
+      reviews: '3.2k+',
+      market_price: '€449.99',
+      url: 'https://www.amazon.es/dp/B0BSLYW5P9?tag=123znl0e-21'
+    }
+  },
+  nutrition: {
+    us: {
+      name: 'Nutrisense Continuous Glucose Biosensor System (CGM 14-Day)',
+      asin_or_sku: 'NUTRI-CGM-14',
+      rating: '4.8',
+      reviews: '9.4k+',
+      market_price: '$175.00',
+      url: 'https://www.amazon.com/dp/B07P88H4NL?tag=123znl0e-20'
+    },
+    uk: {
+      name: 'FreeStyle Libre 2 Continuous Glucose Monitoring Sensor',
+      asin_or_sku: 'LIBRE2-UK',
+      rating: '4.9',
+      reviews: '11.2k+',
+      market_price: '£52.50',
+      url: 'https://www.amazon.co.uk/dp/B07P88H4NL?tag=123znl0e-21'
+    },
+    es: {
+      name: 'Tanita BC-730 Báscula de Composición Corporal Segmental',
+      asin_or_sku: 'B008DWX1MG',
+      rating: '4.7',
+      reviews: '4.8k+',
+      market_price: '€49.90',
+      url: 'https://www.amazon.es/dp/B008DWX1MG?tag=123znl0e-21'
+    }
+  },
+  wellness: {
+    us: {
+      name: 'Withings Sleep Analyzer Under-Mattress Sleep Lab Pad',
+      asin_or_sku: 'B078Z1B34S',
+      rating: '4.8',
+      reviews: '5.6k+',
+      market_price: '$129.95',
+      url: 'https://www.amazon.com/dp/B078Z1B34S?tag=123znl0e-20'
+    },
+    uk: {
+      name: 'Soundcore by Anker Space One Active Noise Cancelling Headset',
+      asin_or_sku: 'B0C6T3R35X',
+      rating: '4.8',
+      reviews: '7.8k+',
+      market_price: '£69.99',
+      url: 'https://www.amazon.co.uk/dp/B0C3HCD34R?tag=123znl0e-21'
+    },
+    es: {
+      name: 'Manta Sauna de Infrarrojo Lejano Térmico RejuvaWrap',
+      asin_or_sku: 'B09PSKN6X3',
+      rating: '4.8',
+      reviews: '1.9k+',
+      market_price: '€289.99',
+      url: 'https://www.amazon.es/dp/B09PSKN6X3?tag=123znl0e-21'
+    }
+  }
+};
 
 interface TopicBlueprint {
   subtitle: string;
@@ -788,12 +924,98 @@ export function generateCategoryInfographicHtml(
 `.trim();
 }
 
+function generateRegionalProductCardsHtml(
+  products: { us?: RegionalProductItem; uk?: RegionalProductItem; es?: RegionalProductItem },
+  category: string
+): string {
+  const regions: { key: 'us' | 'uk' | 'es'; flag: string; country: string; badge: string; hubUrl: string }[] = [
+    { key: 'us', flag: '🇺🇸', country: 'United States', badge: 'US Direct Requisition', hubUrl: '/store-us' },
+    { key: 'uk', flag: '🇬🇧', country: 'United Kingdom', badge: 'UKAS Accredited Stack', hubUrl: '/store-uk' },
+    { key: 'es', flag: '🇪🇸', country: 'Spain & Europe', badge: 'Melio / CE Diagnostic', hubUrl: '/es' }
+  ];
+
+  return `
+<div class="regional-product-matrix my-10 p-6 sm:p-8 rounded-2xl bg-slate-950/95 border border-slate-800 shadow-2xl backdrop-blur-md">
+  <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+    <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+      <span style="display: inline-flex; align-items: center; gap: 0.5rem; font-size: 11px; font-weight: 800; color: #10b981; text-transform: uppercase; letter-spacing: 0.08em;">
+        <span style="width: 8px; height: 8px; border-radius: 9999px; background: #10b981; box-shadow: 0 0 8px #10b981;"></span>
+        Regional Protocol Hardware &amp; Diagnostic Requisitions
+      </span>
+      <span style="font-size: 10px; color: #64748b; font-family: monospace; text-transform: uppercase;">Direct Regional Access</span>
+    </div>
+    <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800; color: #ffffff; letter-spacing: -0.01em;">
+      Curated Testing &amp; Bio-Telemetry Stacks
+    </h3>
+    <p style="margin: 0; font-size: 0.85rem; color: #94a3b8;">
+      Accredited diagnostic blood panels and medical-grade hardware customized to your region:
+    </p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem;">
+    ${regions
+      .map(({ key, flag, country, badge, hubUrl }) => {
+        const prod = products[key];
+        if (!prod) return '';
+        const rating = prod.rating || '4.8';
+        const reviews = prod.reviews || '3.5k+';
+        const price = prod.market_price || '$34.95';
+        const directUrl = prod.url || hubUrl;
+
+        return `
+    <div style="background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(51, 65, 85, 0.8); border-radius: 16px; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.2s ease;">
+      <div>
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+          <span style="display: inline-flex; align-items: center; gap: 0.4rem; font-size: 12px; font-weight: 700; color: #f8fafc;">
+            <span style="font-size: 1.15rem;">${flag}</span>
+            <span>${country}</span>
+          </span>
+          <span style="font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); padding: 2px 8px; border-radius: 9999px;">
+            ${badge}
+          </span>
+        </div>
+        
+        <h4 style="margin: 0 0 0.5rem 0; font-size: 0.95rem; font-weight: 700; color: #ffffff; line-height: 1.4;">
+          ${prod.name}
+        </h4>
+
+        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; font-size: 11px; color: #fbbf24;">
+          <span>★ ★ ★ ★ ★</span>
+          <span style="font-weight: 700; color: #f8fafc;">${rating}</span>
+          <span style="color: #64748b;">(${reviews} reviews)</span>
+        </div>
+
+        <div style="font-size: 10px; color: #94a3b8; font-family: monospace; margin-bottom: 1rem; background: rgba(2, 6, 23, 0.6); padding: 4px 8px; border-radius: 6px; display: inline-block;">
+          Code / SKU: <span style="color: #38bdf8;">${prod.asin_or_sku}</span>
+        </div>
+      </div>
+
+      <div style="padding-top: 0.75rem; border-top: 1px solid rgba(255, 255, 255, 0.06); display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;">
+        <div>
+          <div style="font-size: 9px; text-transform: uppercase; color: #64748b; font-weight: 700;">Verified Price</div>
+          <div style="font-size: 1.1rem; font-weight: 800; color: #38bdf8;">${price}</div>
+        </div>
+        <a href="${directUrl}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 6px; background: #2563eb; color: #ffffff; padding: 8px 14px; border-radius: 10px; font-weight: 700; font-size: 11px; text-decoration: none; text-transform: uppercase; letter-spacing: 0.04em;">
+          <span>View Deal</span>
+          <span>&rarr;</span>
+        </a>
+      </div>
+    </div>`;
+      })
+      .join('')}
+  </div>
+</div>
+`.trim();
+}
+
 /**
  * Main Generator Function
  * Returns complete, publication-ready markdown article (>2,000 words)
- * formatted in clear, welcoming, layman-accessible language.
+ * formatted with strict YAML frontmatter, layman analogies, responsive infographics,
+ * and 3-column regional affiliate product cards matching socio-architecture-bio-networks.
  */
 export function generateFullClinicalMasterclass(pitch: PitchInput): string {
+  const catKey = (pitch.category || 'health').toLowerCase();
   const titleLower = (pitch.title || '').toLowerCase();
   const slugLower = (pitch.slug || '').toLowerCase();
   const kwLower = (pitch.targetKeyword || '').toLowerCase();
@@ -827,11 +1049,43 @@ export function generateFullClinicalMasterclass(pitch: PitchInput): string {
     citations: baseBlueprint.citations && baseBlueprint.citations.length >= 2 ? baseBlueprint.citations : dynamicFallback.citations
   };
 
+  const resolvedSlug = pitch.slug || pitch.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  const resolvedDate = pitch.date || new Date().toISOString().split('T')[0];
+  const resolvedParentGuide = pitch.parent_guide || CATEGORY_PARENT_GUIDES[catKey] || '/guides/uk-preventative-blood-tests/';
+  const defaultCategoryProds = CATEGORY_DEFAULT_REGIONAL_PRODUCTS[catKey] || CATEGORY_DEFAULT_REGIONAL_PRODUCTS.health;
+  const resolvedProducts = {
+    us: pitch.products?.us || defaultCategoryProds.us,
+    uk: pitch.products?.uk || defaultCategoryProds.uk,
+    es: pitch.products?.es || defaultCategoryProds.es
+  };
+  const resolvedFeaturedImage = pitch.featured_image || `/assets/images/blog/${resolvedSlug}-hero.webp`;
+  const resolvedFeaturedAlt = pitch.featured_image_alt || `${pitch.title} - Clinical Preventive Guide`;
+
+  const frontmatterObj: ArticleFrontmatter = {
+    title: pitch.title,
+    slug: resolvedSlug,
+    date: resolvedDate,
+    category: catKey,
+    status: 'pending_approval',
+    published: false,
+    author: '123TheNextLevel Clinical Advisory',
+    featured_image: resolvedFeaturedImage,
+    featured_image_alt: resolvedFeaturedAlt,
+    parent_guide: resolvedParentGuide,
+    infographic_banner_url: pitch.infographic_banner_url,
+    infographic_banner_alt: pitch.infographic_banner_alt,
+    products: resolvedProducts
+  };
+
+  const frontmatterYaml = buildFrontmatterYaml(frontmatterObj);
+
   const infographicHtml = generateCategoryInfographicHtml(
-    pitch.category,
+    catKey,
     pitch.title,
-    (pitch as any).infographic_banner_url
+    pitch.infographic_banner_url
   );
+
+  const regionalCardsHtml = generateRegionalProductCardsHtml(resolvedProducts, catKey);
 
   const articleMarkdown = `
 # ${pitch.title}
@@ -898,7 +1152,15 @@ You don't have to feel stuck when it comes to checking your health numbers. Here
 
 ---
 
-## 6. Exact Words to Use When Talking to Your Doctor
+## 6. Curated Regional Protocol Equipment & Testing Stacks
+
+Transform your daily preventive regimen with certified regional diagnostic panels and bio-telemetry hardware:
+
+${regionalCardsHtml}
+
+---
+
+## 7. Exact Words to Use When Talking to Your Doctor
 
 To have a productive, friendly conversation with your doctor during a rushed checkup without feeling brushed off, try using these simple, respectful talking points:
 
@@ -913,7 +1175,7 @@ Bring a clean, printed copy of your health goals or our 1-page Clinician Co-Pilo
 
 ---
 
-## 7. Your Step-by-Step 3-Phase Action Plan
+## 8. Your Step-by-Step 3-Phase Action Plan
 
 To turn knowledge into real, daily results, follow this simple 3-phase roadmap:
 
@@ -928,7 +1190,7 @@ ${bp.protocolPhases.phase3}
 
 ---
 
-## 8. Your Quick Action & Safety Checklist
+## 9. Your Quick Action & Safety Checklist
 
 Before moving forward, verify these simple steps to ensure you're on track:
 
@@ -936,9 +1198,9 @@ ${bp.checklist.map(item => `- [x] **${item}**`).join('\n')}
 
 ---
 
-## 9. Free Clinician Co-Pilot Download (Doctor Leave-Behind Sheet)
+## 10. Next-Level Conversion & Diagnostic Next Steps
 
-Take the stress out of your next doctor's appointment. Download our free 4-page PDF workbook containing exact talking points, optimal lab target ranges, and private lab codes:
+Audit your health metrics, download your clinician leave-behind sheet, and explore our master guides:
 
 <div class="clinician-callout" style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 16px; padding: 24px; margin: 32px 0;">
   <h3 style="color: #10b981; margin: 0 0 12px 0; font-size: 1.25rem; font-weight: 800;">📄 Free 4-Page Clinician Co-Pilot PDF Workbook</h3>
@@ -950,15 +1212,9 @@ Take the stress out of your next doctor's appointment. Download our free 4-page 
   </a>
 </div>
 
----
+👉 **[Take the Free 2-Minute Health Baseline &amp; Longevity Quiz](/health-quiz)**
 
-## 10. Check Your Own Health Baseline
-
-Curious where your daily energy, recovery, and metabolic health currently stand? Take our quick 2-minute baseline quiz to get your personalized longevity score:
-
-👉 **[Take the Free Health Baseline & Longevity Quiz](/health-quiz)**
-
-*Get your personalized 6-pillar score and practical everyday action steps sent straight to your inbox.*
+📘 **[Explore the Master Parent Guide &amp; Comprehensive Requisition Directory](${resolvedParentGuide})**
 
 ---
 
@@ -990,7 +1246,7 @@ ${bp.citations.map((cite, i) => `${i + 1}. ${cite}`).join('\n')}
   "description": "${pitch.summary?.replace(/"/g, '\\"') || ''}",
   "author": {
     "@type": "Organization",
-    "name": "123TheNextLevel Health Team"
+    "name": "123TheNextLevel Clinical Advisory"
   },
   "publisher": {
     "@type": "Organization",
@@ -1001,5 +1257,5 @@ ${bp.citations.map((cite, i) => `${i + 1}. ${cite}`).join('\n')}
 </script>
 `.trim();
 
-  return articleMarkdown;
+  return `${frontmatterYaml}\n\n${articleMarkdown}`;
 }

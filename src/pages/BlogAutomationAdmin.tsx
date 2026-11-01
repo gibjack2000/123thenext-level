@@ -431,6 +431,8 @@ export default function BlogAutomationAdmin() {
         targetKeyword: pitch.targetKeyword,
         summary: pitch.summary,
         slug,
+        parent_guide: pitch.parent_guide,
+        products: pitch.products,
         regionalProducts: pitch.regionalProducts
       });
 
@@ -820,25 +822,6 @@ export default function BlogAutomationAdmin() {
     try {
       const { data: logsData } = await supabase.from('publish_logs').select('*').order('created_at', { ascending: false }).limit(20);
 
-      // Poll pipeline queue (with zero error crashes, filter out any error strings)
-      try {
-        const qRes = await fetch('/api/jobs/queue');
-        if (qRes.ok) {
-          const qData = await qRes.json();
-          if (qData && typeof qData === 'object' && !qData.error) {
-            const cleanQueue: Record<string, string> = {};
-            for (const [k, v] of Object.entries(qData)) {
-              if (typeof v === 'string' && !v.toLowerCase().includes('error') && v.trim().length > 0) {
-                cleanQueue[k] = v.trim();
-              }
-            }
-            if (Object.keys(cleanQueue).length > 0) {
-              setQueueTopics(prev => ({ ...prev, ...cleanQueue }));
-            }
-          }
-        }
-      } catch (_) {}
-
       // Health check endpoint probe
       if (!isOfflineRef.current) {
         try {
@@ -1056,91 +1039,6 @@ export default function BlogAutomationAdmin() {
             </div>
           </div>
         )}
-
-        {/* 4 Core Pillars Automation Pipelines */}
-        <div className="mb-12">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
-            <div>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/60 border border-indigo-500/30 text-indigo-300 text-xs font-mono uppercase tracking-widest mb-2">
-                <Sparkles size={13} className="text-indigo-400" />
-                <span>Automated Generation Pipelines</span>
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight">
-                Pillar Review Pipelines
-              </h2>
-              <p className="text-slate-400 text-sm mt-0.5">
-                Click &quot;Generate Review Draft&quot; on any pillar to draft an engaging, layman-terms clinical masterclass with responsive infographics.
-              </p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {['Health', 'Fitness', 'Nutrition', 'Wellness'].map((category) => {
-              const job = pipelineJobs[category] || { status: 'idle' };
-              const isRunning = job.running || job.status === 'running';
-              const rawQueue = queueTopics[category];
-              const validQueueTopic = (rawQueue && typeof rawQueue === 'string' && !rawQueue.toLowerCase().includes('error')) ? rawQueue : null;
-              const nextTopic = validQueueTopic || 
-                (weeklyPitches.find(p => (p.category || '').toLowerCase() === category.toLowerCase() && p.draftStatus !== 'drafted')?.title) ||
-                (category === 'Health' ? 'ApoB vs LDL Particle Count: Complete Cardiovascular Longevity Guide' :
-                 category === 'Fitness' ? 'Zone 2 Cardio & Lactate Clearance: How Everyday Movement Transforms Your Cells' :
-                 category === 'Nutrition' ? 'The Glycaemic Impact Spectrum: How Food Sequencing Balances Energy and Mood' :
-                 'Vagus Nerve Reset: Daily Breathing and Somatic Protocols for Deep Rest');
-
-              return (
-                <div key={category} className="bg-slate-900 border border-slate-800 rounded-xl p-6 relative overflow-hidden group hover:border-slate-700 transition-all flex flex-col justify-between shadow-lg">
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-                  
-                  <div>
-                    <h3 className="text-xl font-semibold mb-4 text-white">{category} Pipeline</h3>
-                    
-                    <div className="flex items-center space-x-2 mb-4">
-                      <div className={`w-3 h-3 rounded-full ${isRunning ? 'bg-amber-400 animate-pulse' : 'bg-emerald-400'}`} />
-                      <span className="text-slate-300 capitalize text-sm font-medium">{isRunning ? 'generating draft...' : (job.status || 'idle')}</span>
-                    </div>
-
-                    <div className="mb-6 h-14">
-                      <p className="text-xs text-slate-400 font-semibold mb-1">UP NEXT:</p>
-                      <p className="text-xs text-slate-200 line-clamp-2 leading-relaxed" title={nextTopic}>
-                        &ldquo;{nextTopic}&rdquo;
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex space-x-3 pt-2">
-                    <button 
-                      type="button"
-                      disabled={isRunning}
-                      onClick={() => handleRunPipeline(category)}
-                      className="flex-1 bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white px-4 py-2.5 rounded-lg font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-indigo-600/20 flex items-center justify-center space-x-2 cursor-pointer disabled:opacity-50"
-                    >
-                      {isRunning ? (
-                        <>
-                          <RefreshCw className="w-4 h-4 animate-spin text-white" />
-                          <span>Drafting...</span>
-                        </>
-                      ) : (
-                        <>
-                          <Sparkles className="w-4 h-4 text-indigo-200" />
-                          <span>Generate Review Draft</span>
-                        </>
-                      )}
-                    </button>
-                    <button 
-                      type="button"
-                      disabled={isRunning}
-                      onClick={() => handleRunPipeline(category)}
-                      className="p-2 border border-slate-700 hover:border-slate-500 rounded-lg transition-colors text-slate-400 hover:text-white cursor-pointer disabled:opacity-50"
-                      title={`Run ${category} Pipeline`}
-                    >
-                      <RotateCcw className={`w-4 h-4 ${isRunning ? 'animate-spin text-indigo-400' : ''}`} />
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
 
         {/* Pending Reviews Section */}
         {!statusColumnMissing && (
