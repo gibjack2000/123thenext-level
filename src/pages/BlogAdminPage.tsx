@@ -513,9 +513,22 @@ export default function BlogAdminPage() {
     if (!window.confirm(`Are you sure you want to delete "${post.title}"?`)) return;
 
     try {
-      if (supabase && hasValidSupabaseConfig) {
-        await supabase.from('blogs').delete().eq('id', post.id);
+      // 1. Try server-side deletion first (service role key bypasses RLS)
+      let deleted = false;
+      try {
+        const res = await fetch('/api/automation/delete-post', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: post.id })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) deleted = true;
+      } catch (_) {}
+
+      // 2. Fallback to client-side Supabase
+      if (!deleted && supabase && hasValidSupabaseConfig) {
         await supabase.from('blog_posts').delete().eq('id', post.id);
+        await supabase.from('blogs').delete().eq('id', post.id);
       }
       setPosts(prev => prev.filter(p => p.id !== post.id));
       showToast(`Article "${post.title}" deleted.`, 'info');

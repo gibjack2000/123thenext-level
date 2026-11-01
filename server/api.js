@@ -400,6 +400,49 @@ router.post('/automation/update-draft', async (req, res) => {
   }
 });
 
+// --- Secure Server-Side Post / Draft Deletion (Bypasses RLS with Service Role Key) ---
+router.post('/automation/delete-post', async (req, res) => {
+  try {
+    const { id } = req.body;
+    if (!id) {
+      return res.status(400).json({ success: false, error: 'Post id is required' });
+    }
+
+    if (!supabase) {
+      return res.status(500).json({ success: false, error: 'Supabase server client not initialized' });
+    }
+
+    // 1. Delete from blog_posts
+    let result = await supabase
+      .from('blog_posts')
+      .delete()
+      .eq('id', id);
+
+    // 2. Fallback to blogs table if PGRST205
+    if (result.error && result.error.code === 'PGRST205') {
+      result = await supabase
+        .from('blogs')
+        .delete()
+        .eq('id', id);
+    }
+
+    if (result.error) throw result.error;
+
+    // Check if review queue is now empty
+    try {
+      const { count } = await supabase.from('blog_posts').select('*', { count: 'exact', head: true }).eq('status', 'draft');
+      if (count === 0) {
+        sendQueueEmptyAlertEmail().catch(() => {});
+      }
+    } catch (_) {}
+
+    res.json({ success: true, message: 'Article deleted successfully' });
+  } catch (err) {
+    console.error('Error in /automation/delete-post:', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
 
 
 // --- Quiz Results Route ---

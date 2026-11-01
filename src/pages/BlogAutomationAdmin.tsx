@@ -3,7 +3,8 @@ import { supabase } from '../lib/supabase';
 import {
   Play, RotateCcw, AlertTriangle, CheckCircle, Clock, RefreshCw,
   Sparkles, Eye, Pencil, Database, Mail, Check, ArrowRight, Zap,
-  Upload, Image as ImageIcon, X, ExternalLink, Link2, FileText, CheckCircle2
+  Upload, Image as ImageIcon, X, ExternalLink, Link2, FileText, CheckCircle2,
+  Trash2
 } from 'lucide-react';
 import {
   CATEGORY_DEFAULT_BANNERS,
@@ -35,6 +36,7 @@ export default function BlogAutomationAdmin() {
   const [isGeneratingFreshPitches, setIsGeneratingFreshPitches] = useState(false);
   const [generatingPitchId, setGeneratingPitchId] = useState<string | null>(null);
   const [publishingId, setPublishingId] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   const [alertSending, setAlertSending] = useState(false);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
@@ -485,6 +487,62 @@ export default function BlogAutomationAdmin() {
     }
   };
 
+  const handleDeleteDraft = async (post: any): Promise<boolean> => {
+    if (!post || !post.id) return false;
+    const confirmed = window.confirm(`Are you sure you want to permanently delete "${post.title}"?\n\nThis will remove it from the review queue and database.`);
+    if (!confirmed) return false;
+
+    setDeletingId(post.id);
+    try {
+      // 1. Try server-side deletion first (uses service role key to bypass RLS)
+      let deleted = false;
+      try {
+        const res = await fetch('/api/automation/delete-post', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: post.id })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) deleted = true;
+      } catch (_) {}
+
+      // 2. Fallback to client-side Supabase
+      if (!deleted && supabase) {
+        let { error } = await supabase.from('blog_posts').delete().eq('id', post.id);
+        if (error && error.code === 'PGRST205') {
+          await supabase.from('blogs').delete().eq('id', post.id);
+        } else if (error) {
+          throw error;
+        }
+      }
+
+      // 3. Update local state
+      setPendingReviews(prev => prev.filter(p => p.id !== post.id));
+      setAllPosts(prev => prev.filter(p => p.id !== post.id));
+      if (previewingDraft && previewingDraft.id === post.id) {
+        closePreviewModal();
+      }
+
+      // 4. Reset pitch draftStatus if matching
+      setWeeklyPitches(prev => prev.map(p => {
+        if (p.slug === post.slug || (p.title && p.title.toLowerCase().trim() === (post.title || '').toLowerCase().trim())) {
+          return { ...p, draftStatus: undefined };
+        }
+        return p;
+      }));
+
+      setAlertMessage(`🗑️ Article "${post.title}" was permanently deleted.`);
+      setTimeout(() => setAlertMessage(null), 5000);
+      return true;
+    } catch (err: any) {
+      console.error('Error deleting article:', err);
+      alert('Delete error: ' + (err.message || 'Failed to delete article from database'));
+      return false;
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
   const handleSendMondayAlert = async () => {
     setAlertSending(true);
     setAlertMessage(null);
@@ -797,7 +855,7 @@ export default function BlogAutomationAdmin() {
                           title="Open preview modal to inspect draft & replace featured image"
                         >
                           <Eye className="w-3.5 h-3.5 text-cyan-400" />
-                          <span>Preview &amp; Image</span>
+                          <span>Preview</span>
                         </button>
                         <a
                           href={`/admin?edit_id=${post.id}`}
@@ -810,6 +868,19 @@ export default function BlogAutomationAdmin() {
                           <Pencil className="w-3.5 h-3.5" />
                           Edit
                         </a>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteDraft(post)}
+                          disabled={deletingId === post.id}
+                          className="px-2.5 py-2 bg-slate-800 hover:bg-rose-950/80 text-slate-400 hover:text-rose-400 rounded-lg text-xs font-bold transition-all border border-slate-700 hover:border-rose-500/40 cursor-pointer disabled:opacity-50"
+                          title="Permanently delete this draft"
+                        >
+                          {deletingId === post.id ? (
+                            <RefreshCw className="w-3.5 h-3.5 animate-spin text-rose-400" />
+                          ) : (
+                            <Trash2 className="w-3.5 h-3.5" />
+                          )}
+                        </button>
                       </div>
 
                       <button
@@ -1094,25 +1165,40 @@ export default function BlogAutomationAdmin() {
                       {new Date(post.created_at).toLocaleString()}
                     </td>
                     <td className="py-4 text-right">
-                      <a
-                        href={`/blog/${post.slug}?preview=true`}
-                        target="_blank"
-                        className="text-slate-400 hover:text-white transition-colors"
-                        title="Preview"
-                      >
-                        <Eye size={16} className="inline" />
-                      </a>
-                      <a
-                        href={`/admin?edit_id=${post.id}`}
-                        onClick={() => {
-                          localStorage.setItem('admin_target_tab', 'blog');
-                          localStorage.setItem('edit_blog_post_id', post.id);
-                        }}
-                        className="ml-3 text-indigo-400 hover:text-white transition-colors"
-                        title="Edit"
-                      >
-                        <Pencil size={16} className="inline" />
-                      </a>
+                      <div className="flex items-center justify-end gap-3">
+                        <a
+                          href={`/blog/${post.slug}?preview=true`}
+                          target="_blank"
+                          className="text-slate-400 hover:text-white transition-colors"
+                          title="Preview"
+                        >
+                          <Eye size={16} />
+                        </a>
+                        <a
+                          href={`/admin?edit_id=${post.id}`}
+                          onClick={() => {
+                            localStorage.setItem('admin_target_tab', 'blog');
+                            localStorage.setItem('edit_blog_post_id', post.id);
+                          }}
+                          className="text-indigo-400 hover:text-white transition-colors"
+                          title="Edit"
+                        >
+                          <Pencil size={16} />
+                        </a>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteDraft(post)}
+                          disabled={deletingId === post.id}
+                          className="text-slate-500 hover:text-rose-400 transition-colors cursor-pointer disabled:opacity-50"
+                          title="Permanently Delete Article"
+                        >
+                          {deletingId === post.id ? (
+                            <RefreshCw size={15} className="animate-spin text-rose-400" />
+                          ) : (
+                            <Trash2 size={15} />
+                          )}
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -1395,6 +1481,23 @@ export default function BlogAutomationAdmin() {
                   <Pencil size={13} />
                   <span>Open in /admin</span>
                 </a>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    const deleted = await handleDeleteDraft(previewingDraft);
+                    if (deleted) closePreviewModal();
+                  }}
+                  disabled={deletingId === previewingDraft.id}
+                  className="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-rose-950/60 hover:bg-rose-900/80 text-rose-300 hover:text-white text-xs font-bold transition flex items-center justify-center gap-1.5 border border-rose-500/40 cursor-pointer disabled:opacity-50"
+                  title="Permanently delete this draft"
+                >
+                  {deletingId === previewingDraft.id ? (
+                    <RefreshCw size={13} className="animate-spin text-rose-300" />
+                  ) : (
+                    <Trash2 size={13} />
+                  )}
+                  <span>Delete Draft</span>
+                </button>
               </div>
 
               <div className="flex items-center gap-3 w-full sm:w-auto justify-end">

@@ -602,15 +602,39 @@ export default function AdminPage() {
   }, [isAuthenticated, blogPosts, handleEditBlog]);
 
   const handleDeleteBlog = async (id: string) => {
-    if (!supabase || !window.confirm('Are you sure you want to delete this blog post?')) return;
+    if (!window.confirm('Are you sure you want to delete this blog post? This action cannot be undone.')) return;
     
     try {
-      const { error } = await supabase.from('blog_posts').delete().eq('id', id);
-      if (error) throw error;
+      // 1. Try server-side deletion first (uses service role key to bypass RLS)
+      let deleted = false;
+      try {
+        const res = await fetch('/api/automation/delete-post', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) deleted = true;
+      } catch (_) {}
+
+      // 2. Fallback to client-side Supabase
+      if (!deleted && supabase) {
+        let { error } = await supabase.from('blog_posts').delete().eq('id', id);
+        if (error && error.code === 'PGRST205') {
+          await supabase.from('blogs').delete().eq('id', id);
+        } else if (error) {
+          throw error;
+        }
+      }
+
       setBlogPosts(prev => prev.filter(p => p.id !== id));
-    } catch (err) {
+      if (previewingBlogPost?.id === id) {
+        setPreviewingBlogPost(null);
+      }
+      alert('Blog post deleted successfully.');
+    } catch (err: any) {
       console.error('Error deleting blog post:', err);
-      alert('Failed to delete blog post.');
+      alert('Failed to delete blog post: ' + (err.message || 'Database error'));
     }
   };
 
@@ -2927,6 +2951,15 @@ create table if not exists premium_guides (
                   >
                     <Pencil size={13} />
                     <span>Edit in Form</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteBlog(previewingBlogPost.id)}
+                    className="px-4 py-2 rounded-xl bg-rose-950/60 hover:bg-rose-900/80 text-rose-300 hover:text-white text-xs font-bold transition flex items-center gap-1.5 border border-rose-500/30 cursor-pointer"
+                    title="Permanently delete this blog post"
+                  >
+                    <Trash2 size={13} />
+                    <span>Delete</span>
                   </button>
                 </div>
 
