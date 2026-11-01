@@ -126,7 +126,16 @@ export async function processCategoryJob(category) {
     };
     const defaultCover = CATEGORY_DEFAULT_BANNERS[category.toLowerCase()] || CATEGORY_DEFAULT_BANNERS.health;
     const finalImageUrl = targetRow.get('image_url') || defaultCover;
-    const frontmatter = `---\nfeatured_image: '${finalImageUrl}'\nfeatured_image_alt: '${title.replace(/['"]/g, '')}'\n---\n\n`;
+    const infographicUrl = targetRow.get('infographic_banner_url') || '';
+    const fmEntries = [
+      `featured_image: '${finalImageUrl}'`,
+      `featured_image_alt: '${title.replace(/['"]/g, '')}'`
+    ];
+    if (infographicUrl) {
+      fmEntries.push(`infographic_banner_url: '${infographicUrl}'`);
+      fmEntries.push(`infographic_banner_alt: '${title.replace(/['"]/g, '')} Infographic'`);
+    }
+    const frontmatter = `---\n${fmEntries.join('\n')}\n---\n\n`;
     const finalContent = frontmatter + htmlContent;
 
     // Save to Supabase

@@ -66,34 +66,40 @@ export function getCategoryDefaultAlt(category?: string, title?: string): string
 }
 
 /**
- * Updates or injects YAML frontmatter (featured_image: and featured_image_alt:) into article markdown/HTML content
+ * Updates or injects YAML frontmatter into article markdown/HTML content
+ * Supports:
+ * - featured_image: and featured_image_alt:
+ * - infographic_banner_url: and infographic_banner_alt:
  */
-export function updateArticleFrontmatter(content: string, imageUrl: string, altText?: string): string {
+export function updateArticleFrontmatter(
+  content: string,
+  imageUrl: string,
+  altText?: string,
+  infographicUrl?: string,
+  infographicAlt?: string
+): string {
   const safeAlt = (altText || 'Featured Article Visual').replace(/['"]/g, '');
-  const frontmatterBlock = [
-    '---',
-    `featured_image: '${imageUrl}'`,
-    `featured_image_alt: '${safeAlt}'`,
-    '---'
-  ].join('\n');
+  const existingFmObj = extractFrontmatter(content);
+  
+  const finalFeaturedImg = imageUrl || existingFmObj.featured_image || '';
+  const finalFeaturedAlt = safeAlt || existingFmObj.featured_image_alt || '';
+  const finalInfographicUrl = infographicUrl !== undefined ? infographicUrl : (existingFmObj.infographic_banner_url || '');
+  const finalInfographicAlt = (infographicAlt || existingFmObj.infographic_banner_alt || 'Visual Infographic Guide').replace(/['"]/g, '');
+
+  const fmEntries = [
+    `featured_image: '${finalFeaturedImg}'`,
+    `featured_image_alt: '${finalFeaturedAlt}'`
+  ];
+
+  if (finalInfographicUrl) {
+    fmEntries.push(`infographic_banner_url: '${finalInfographicUrl}'`);
+    fmEntries.push(`infographic_banner_alt: '${finalInfographicAlt}'`);
+  }
+
+  const frontmatterBlock = ['---', ...fmEntries, '---'].join('\n');
 
   if (/^---\r?\n[\s\S]*?\r?\n---/.test(content)) {
-    const existingFm = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
-    let fmBody = existingFm ? existingFm[1] : '';
-
-    if (/featured_image:/i.test(fmBody)) {
-      fmBody = fmBody.replace(/featured_image:.*$/m, `featured_image: '${imageUrl}'`);
-    } else {
-      fmBody += `\nfeatured_image: '${imageUrl}'`;
-    }
-
-    if (/featured_image_alt:/i.test(fmBody)) {
-      fmBody = fmBody.replace(/featured_image_alt:.*$/m, `featured_image_alt: '${safeAlt}'`);
-    } else {
-      fmBody += `\nfeatured_image_alt: '${safeAlt}'`;
-    }
-
-    return content.replace(/^---\r?\n[\s\S]*?\r?\n---/, `---\n${fmBody.trim()}\n---`);
+    return content.replace(/^---\r?\n[\s\S]*?\r?\n---/, frontmatterBlock);
   }
 
   return `${frontmatterBlock}\n\n${content.trim()}`;
@@ -102,17 +108,35 @@ export function updateArticleFrontmatter(content: string, imageUrl: string, altT
 /**
  * Extracts frontmatter key-values from article content
  */
-export function extractFrontmatter(content: string): { featured_image?: string; featured_image_alt?: string } {
+export function extractFrontmatter(content: string): {
+  featured_image?: string;
+  featured_image_alt?: string;
+  infographic_banner_url?: string;
+  infographic_banner_alt?: string;
+} {
   if (!content) return {};
   const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
   if (!match) return {};
   const lines = match[1].split('\n');
-  const result: { featured_image?: string; featured_image_alt?: string } = {};
+  const result: {
+    featured_image?: string;
+    featured_image_alt?: string;
+    infographic_banner_url?: string;
+    infographic_banner_alt?: string;
+  } = {};
+
   for (const line of lines) {
     const imgMatch = line.match(/^featured_image:\s*['"]?([^'"\r\n]+)['"]?/i);
     if (imgMatch) result.featured_image = imgMatch[1].trim();
+    
     const altMatch = line.match(/^featured_image_alt:\s*['"]?([^'"\r\n]+)['"]?/i);
     if (altMatch) result.featured_image_alt = altMatch[1].trim();
+
+    const infoMatch = line.match(/^infographic_banner_url:\s*['"]?([^'"\r\n]+)['"]?/i);
+    if (infoMatch) result.infographic_banner_url = infoMatch[1].trim();
+
+    const infoAltMatch = line.match(/^infographic_banner_alt:\s*['"]?([^'"\r\n]+)['"]?/i);
+    if (infoAltMatch) result.infographic_banner_alt = infoAltMatch[1].trim();
   }
   return result;
 }

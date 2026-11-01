@@ -4,7 +4,7 @@ import {
   Play, RotateCcw, AlertTriangle, CheckCircle, Clock, RefreshCw,
   Sparkles, Eye, Pencil, Database, Mail, Check, ArrowRight, Zap,
   Upload, Image as ImageIcon, X, ExternalLink, Link2, FileText, CheckCircle2,
-  Trash2
+  Trash2, BarChart3, Layers
 } from 'lucide-react';
 import {
   CATEGORY_DEFAULT_BANNERS,
@@ -48,6 +48,13 @@ export default function BlogAutomationAdmin() {
   const [imageSuccessMsg, setImageSuccessMsg] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+  // Infographic Banner & Matrix Customization State
+  const [customInfographicUrl, setCustomInfographicUrl] = useState('');
+  const [customInfographicAlt, setCustomInfographicAlt] = useState('');
+  const [isUploadingInfographic, setIsUploadingInfographic] = useState(false);
+  const [infographicSuccessMsg, setInfographicSuccessMsg] = useState<string | null>(null);
+  const infographicFileInputRef = useRef<HTMLInputElement | null>(null);
+
   const openPreviewModal = (post: any) => {
     const fm = extractFrontmatter(post.content || '');
     const currentImg = post.image_url || fm.featured_image || getCategoryDefaultBanner(post.category);
@@ -55,14 +62,20 @@ export default function BlogAutomationAdmin() {
     setPreviewingDraft(post);
     setCustomImageUrl(currentImg);
     setCustomImageAlt(currentAlt);
+    setCustomInfographicUrl(fm.infographic_banner_url || '');
+    setCustomInfographicAlt(fm.infographic_banner_alt || `${post.title} Infographic Guide`);
     setImageSuccessMsg(null);
+    setInfographicSuccessMsg(null);
   };
 
   const closePreviewModal = () => {
     setPreviewingDraft(null);
     setCustomImageUrl('');
     setCustomImageAlt('');
+    setCustomInfographicUrl('');
+    setCustomInfographicAlt('');
     setImageSuccessMsg(null);
+    setInfographicSuccessMsg(null);
   };
 
   const handleApplyFeaturedImage = async (newUrl: string, newAlt?: string) => {
@@ -161,6 +174,108 @@ export default function BlogAutomationAdmin() {
     } catch (err: any) {
       console.error('File reading failed:', err);
       setIsUploadingImage(false);
+    }
+  };
+
+  const handleApplyInfographic = async (newUrl: string, newAlt?: string) => {
+    if (!previewingDraft) return;
+    try {
+      const fm = extractFrontmatter(previewingDraft.content || '');
+      const coverUrl = previewingDraft.image_url || fm.featured_image || getCategoryDefaultBanner(previewingDraft.category);
+      const coverAlt = fm.featured_image_alt || getCategoryDefaultAlt(previewingDraft.category, previewingDraft.title);
+      const altToUse = newAlt || customInfographicAlt || `${previewingDraft.title} Infographic Guide`;
+      
+      const updatedContent = updateArticleFrontmatter(
+        previewingDraft.content || '',
+        coverUrl,
+        coverAlt,
+        newUrl,
+        altToUse
+      );
+
+      // 1. Try server-side bypass first (service role key bypasses RLS)
+      let updated = false;
+      try {
+        const res = await fetch('/api/automation/update-draft', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            id: previewingDraft.id,
+            updates: { content: updatedContent }
+          })
+        });
+        const data = await res.json();
+        if (res.ok && data.success) updated = true;
+      } catch (_) { }
+
+      // Fallback to client-side Supabase
+      if (!updated && supabase) {
+        const { error } = await supabase
+          .from('blog_posts')
+          .update({ content: updatedContent })
+          .eq('id', previewingDraft.id);
+
+        if (error) throw error;
+      }
+
+      // Update local state
+      const updatedPost = {
+        ...previewingDraft,
+        content: updatedContent
+      };
+      setPreviewingDraft(updatedPost);
+      setCustomInfographicUrl(newUrl);
+      setCustomInfographicAlt(altToUse);
+      setPendingReviews(prev => prev.map(p => p.id === previewingDraft.id ? updatedPost : p));
+      setInfographicSuccessMsg(`✅ Infographic updated: ${newUrl ? newUrl : 'Native Bento Grid Blueprint'}`);
+      setTimeout(() => setInfographicSuccessMsg(null), 4000);
+    } catch (err: any) {
+      console.error('Failed to update infographic:', err);
+      alert('Error updating infographic: ' + (err.message || 'Database update failed'));
+    }
+  };
+
+  const handleInfographicFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !previewingDraft) return;
+
+    setIsUploadingInfographic(true);
+    setInfographicSuccessMsg(null);
+
+    try {
+      const reader = new FileReader();
+      reader.onload = async () => {
+        try {
+          const base64Data = reader.result as string;
+          const res = await fetch('/api/automation/upload-blog-image', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              imageData: base64Data,
+              fileName: file.name,
+              altText: customInfographicAlt || `${previewingDraft.title} Infographic`
+            })
+          });
+
+          const data = await res.json();
+          if (!data.success || !data.url) {
+            throw new Error(data.error || 'Server upload failed');
+          }
+
+          await handleApplyInfographic(data.url, customInfographicAlt || `${previewingDraft.title} Infographic`);
+        } catch (uploadErr: any) {
+          console.error('Infographic upload error:', uploadErr);
+          alert('Upload failed: ' + uploadErr.message);
+        } finally {
+          setIsUploadingInfographic(false);
+          if (infographicFileInputRef.current) infographicFileInputRef.current.value = '';
+        }
+      };
+
+      reader.readAsDataURL(file);
+    } catch (err: any) {
+      console.error('File reading failed:', err);
+      setIsUploadingInfographic(false);
     }
   };
 
@@ -387,17 +502,28 @@ export default function BlogAutomationAdmin() {
     try {
       const cat = post.category || 'Health';
       const targetKeyword = (post.tags && post.tags[0]) || post.title;
+      const fm = extractFrontmatter(post.content || '');
+      const currentBanner = post.image_url || fm.featured_image || getCategoryDefaultBanner(cat);
+      const currentAlt = fm.featured_image_alt || getCategoryDefaultAlt(cat, post.title);
+      const currentInfographicUrl = fm.infographic_banner_url;
+      const currentInfographicAlt = fm.infographic_banner_alt;
+
       const fullMasterclass = generateFullClinicalMasterclass({
         title: post.title,
         category: cat,
         targetKeyword,
         summary: post.excerpt || post.title,
-        slug: post.slug
-      });
+        slug: post.slug,
+        infographic_banner_url: currentInfographicUrl
+      } as any);
 
-      const currentBanner = post.image_url || getCategoryDefaultBanner(cat);
-      const currentAlt = getCategoryDefaultAlt(cat, post.title);
-      const contentWithFm = updateArticleFrontmatter(fullMasterclass, currentBanner, currentAlt);
+      const contentWithFm = updateArticleFrontmatter(
+        fullMasterclass,
+        currentBanner,
+        currentAlt,
+        currentInfographicUrl,
+        currentInfographicAlt
+      );
 
       // 1. Try server-side endpoint first (uses service role key to bypass RLS)
       let updated = false;
@@ -1406,6 +1532,123 @@ export default function BlogAutomationAdmin() {
                   </div>
                 </div>
 
+              </div>
+
+              {/* SECTION 1.5: MID-ARTICLE RESPONSIVE INFOGRAPHIC & BENTO MATRIX */}
+              <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-5 space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-900 pb-3">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <BarChart3 size={16} className="text-emerald-400" />
+                      <h4 className="text-xs font-black uppercase tracking-wider text-slate-200">
+                        Mid-Article Responsive Infographic &amp; Bento Matrix
+                      </h4>
+                    </div>
+                    <p className="text-xs text-slate-400 mt-1">
+                      Every masterclass automatically generates a responsive Dark Bento Grid (<span className="text-emerald-400 font-mono">#111827 / #10b981 / #06b6d4</span>). You can also upload a custom SVG/PNG diagram or set an external banner URL.
+                    </p>
+                  </div>
+                  {customInfographicUrl ? (
+                    <span className="px-2.5 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-[10px] font-bold shrink-0">
+                      ✓ Custom SVG/PNG Banner Active
+                    </span>
+                  ) : (
+                    <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold shrink-0">
+                      ✓ Native Bento Grid Blueprint Active
+                    </span>
+                  )}
+                </div>
+
+                {infographicSuccessMsg && (
+                  <div className="p-3 bg-emerald-950/80 border border-emerald-500/50 rounded-xl text-xs text-emerald-300 flex items-center gap-2">
+                    <CheckCircle2 size={14} className="shrink-0 text-emerald-400" />
+                    <span>{infographicSuccessMsg}</span>
+                  </div>
+                )}
+
+                {/* Upload & URL Controls */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {/* Option A: Upload Custom Infographic Graphic */}
+                  <div>
+                    <input
+                      ref={infographicFileInputRef}
+                      type="file"
+                      accept="image/png,image/jpeg,image/webp,image/svg+xml"
+                      onChange={handleInfographicFileUpload}
+                      className="hidden"
+                    />
+                    <button
+                      type="button"
+                      disabled={isUploadingInfographic}
+                      onClick={() => infographicFileInputRef.current?.click()}
+                      className="w-full px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-slate-600 text-slate-200 hover:text-white font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                    >
+                      {isUploadingInfographic ? (
+                        <>
+                          <RefreshCw size={14} className="animate-spin text-emerald-400" />
+                          <span>Uploading Infographic...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Upload size={14} className="text-emerald-400" />
+                          <span>Upload Infographic (SVG / PNG / JPG)</span>
+                        </>
+                      )}
+                    </button>
+                    <p className="text-[10px] text-slate-500 mt-1 pl-1 font-mono">
+                      Accepts SVG vector charts, high-res PNG, or JPG diagrams.
+                    </p>
+                  </div>
+
+                  {/* Option B: Custom URL input */}
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={customInfographicUrl}
+                      onChange={(e) => setCustomInfographicUrl(e.target.value)}
+                      placeholder="https://... or /assets/images/blog/infographic.svg"
+                      className="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 font-mono"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => handleApplyInfographic(customInfographicUrl, customInfographicAlt)}
+                      className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 hover:text-white font-bold text-xs uppercase tracking-wider transition border border-slate-700 cursor-pointer"
+                    >
+                      Apply
+                    </button>
+                    {customInfographicUrl && (
+                      <button
+                        type="button"
+                        onClick={() => handleApplyInfographic('', '')}
+                        title="Reset to default native Bento Grid"
+                        className="px-3 py-2 rounded-xl bg-red-950/40 hover:bg-red-900/60 text-red-300 text-xs font-bold transition border border-red-800/60 cursor-pointer"
+                      >
+                        Reset
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Alt text for Infographic */}
+                <div className="flex flex-col sm:flex-row sm:items-center gap-2 pt-2 border-t border-slate-900">
+                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider shrink-0">
+                    infographic_banner_alt:
+                  </span>
+                  <input
+                    type="text"
+                    value={customInfographicAlt}
+                    onChange={(e) => setCustomInfographicAlt(e.target.value)}
+                    placeholder="Infographic diagram description for clinical accessibility"
+                    className="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleApplyInfographic(customInfographicUrl, customInfographicAlt)}
+                    className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-750 text-cyan-300 text-xs font-bold transition border border-slate-700 cursor-pointer"
+                  >
+                    Save Alt
+                  </button>
+                </div>
               </div>
 
               {/* SECTION 2: ARTICLE SUMMARY & CONTENT PREVIEW */}

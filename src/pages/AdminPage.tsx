@@ -778,17 +778,28 @@ export default function AdminPage() {
   const handleAdminUpgradeToMasterclass = async (post: BlogPost) => {
     setIsUpgradingAdminPost(true);
     try {
+      const fm = extractFrontmatter(post.content || '');
+      const currentBanner = post.image_url || fm.featured_image || getCategoryDefaultBanner(post.category);
+      const currentAlt = fm.featured_image_alt || getCategoryDefaultAlt(post.category, post.title);
+      const currentInfographicUrl = fm.infographic_banner_url;
+      const currentInfographicAlt = fm.infographic_banner_alt;
+
       const fullMasterclass = generateFullClinicalMasterclass({
         title: post.title,
         category: post.category,
         targetKeyword: post.tags && post.tags[0] ? post.tags[0] : post.title,
         summary: post.excerpt || post.title,
-        slug: post.slug
-      });
+        slug: post.slug,
+        infographic_banner_url: currentInfographicUrl
+      } as any);
 
-      const currentBanner = post.image_url || getCategoryDefaultBanner(post.category);
-      const currentAlt = getCategoryDefaultAlt(post.category, post.title);
-      const contentWithFm = updateArticleFrontmatter(fullMasterclass, currentBanner, currentAlt);
+      const contentWithFm = updateArticleFrontmatter(
+        fullMasterclass,
+        currentBanner,
+        currentAlt,
+        currentInfographicUrl,
+        currentInfographicAlt
+      );
 
       // 1. Server-side endpoint
       let updated = false;

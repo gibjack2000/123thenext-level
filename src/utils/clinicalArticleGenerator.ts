@@ -430,6 +430,365 @@ function generateDynamicBlueprint(pitch: PitchInput): TopicBlueprint {
 }
 
 /**
+ * Builds a responsive, dark-mode Bento Grid infographic section mid-article.
+ * Theme:
+ *  - Dark container: #111827
+ *  - Subtle border: #1f2937
+ *  - Accent highlights: #10b981 (emerald) and #06b6d4 (cyan)
+ *  - Mobile-first CSS grid (1 col mobile, 2-3 col desktop)
+ */
+export function generateCategoryInfographicHtml(
+  category?: string,
+  title?: string,
+  bannerUrl?: string
+): string {
+  const cat = (category || 'health').toLowerCase();
+  const safeTitle = (title || 'Clinical Longevity Blueprint').replace(/"/g, '&quot;');
+
+  let blueprintTitle = 'Biomarker Longevity Target Matrix';
+  let blueprintSubtitle = 'Standard Lab Normal Ranges vs. Optimal Longevity Targets';
+  let badgeText = 'Longevity Target Matrix';
+  let badgeColor = '#10b981';
+  let cardsHtml = '';
+  let takeawayHtml = '';
+
+  if (cat.includes('fit') || cat.includes('perf')) {
+    blueprintTitle = 'Zone 2 & Physiological Recovery Pathway';
+    blueprintSubtitle = 'Heart Rate Zones, Lactate Thresholds, and Longevity Adaptations';
+    badgeText = 'Performance Pathway';
+    badgeColor = '#06b6d4';
+
+    cardsHtml = `
+      <div style="background-color: #1f2937; border: 1px solid #374151; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #9ca3af; letter-spacing: 0.05em;">Zone 1: Active Recovery</span>
+            <span style="font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background-color: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3);">50 - 60% HRmax</span>
+          </div>
+          <h4 style="color: #f9fafb; font-size: 1.05rem; font-weight: 700; margin: 0 0 6px 0;">Parasympathetic Reset</h4>
+          <p style="color: #9ca3af; font-size: 0.85rem; line-height: 1.45; margin: 0 0 12px 0;">Easy walking, gentle cycling. Accelerates metabolic waste clearance without raising stress hormones.</p>
+        </div>
+        <div style="border-top: 1px solid #374151; padding-top: 10px; display: flex; justify-content: space-between; font-size: 0.8rem;">
+          <span style="color: #9ca3af;">Lactate:</span>
+          <span style="color: #f9fafb; font-weight: 600;">&lt; 1.2 mmol/L</span>
+        </div>
+      </div>
+
+      <div style="background-color: #1f2937; border: 1px solid #10b981; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #10b981; letter-spacing: 0.05em;">Zone 2: Longevity Engine</span>
+            <span style="font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background-color: rgba(16, 185, 129, 0.25); color: #6ee7b7; border: 1px solid #10b981;">60 - 70% HRmax</span>
+          </div>
+          <h4 style="color: #f9fafb; font-size: 1.05rem; font-weight: 700; margin: 0 0 6px 0;">Mitochondrial Biogenesis</h4>
+          <p style="color: #d1d5db; font-size: 0.85rem; line-height: 1.45; margin: 0 0 12px 0;">Comfortable conversational pace. Maximizes cellular fat burning (FatMax) and multiplies healthy mitochondria.</p>
+        </div>
+        <div style="border-top: 1px solid #374151; padding-top: 10px; display: flex; justify-content: space-between; font-size: 0.8rem;">
+          <span style="color: #9ca3af;">Lactate Threshold:</span>
+          <span style="color: #10b981; font-weight: 700;">1.5 - 2.0 mmol/L</span>
+        </div>
+      </div>
+
+      <div style="background-color: #1f2937; border: 1px solid #374151; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #9ca3af; letter-spacing: 0.05em;">Zone 3-4: Anaerobic Threshold</span>
+            <span style="font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background-color: rgba(6, 182, 212, 0.15); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.3);">75 - 88% HRmax</span>
+          </div>
+          <h4 style="color: #f9fafb; font-size: 1.05rem; font-weight: 700; margin: 0 0 6px 0;">Lactate Buffering</h4>
+          <p style="color: #9ca3af; font-size: 0.85rem; line-height: 1.45; margin: 0 0 12px 0;">Challenging tempo efforts. Depletes cellular glycogen stores and expands your body's cardiovascular pump.</p>
+        </div>
+        <div style="border-top: 1px solid #374151; padding-top: 10px; display: flex; justify-content: space-between; font-size: 0.8rem;">
+          <span style="color: #9ca3af;">Lactate:</span>
+          <span style="color: #f9fafb; font-weight: 600;">2.5 - 4.0 mmol/L</span>
+        </div>
+      </div>
+
+      <div style="background-color: #1f2937; border: 1px solid #06b6d4; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #06b6d4; letter-spacing: 0.05em;">Zone 5: VO2 Max Peak</span>
+            <span style="font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background-color: rgba(6, 182, 212, 0.25); color: #67e8f9; border: 1px solid #06b6d4;">90 - 100% HRmax</span>
+          </div>
+          <h4 style="color: #f9fafb; font-size: 1.05rem; font-weight: 700; margin: 0 0 6px 0;">Cardiorespiratory Power</h4>
+          <p style="color: #d1d5db; font-size: 0.85rem; line-height: 1.45; margin: 0 0 12px 0;">Short all-out intervals (30s to 4 mins). Expands heart stroke volume and is directly correlated with long life expectancy.</p>
+        </div>
+        <div style="border-top: 1px solid #374151; padding-top: 10px; display: flex; justify-content: space-between; font-size: 0.8rem;">
+          <span style="color: #9ca3af;">Adaptation Goal:</span>
+          <span style="color: #06b6d4; font-weight: 700;">Top 10% Fitness Bracket</span>
+        </div>
+      </div>
+    `;
+
+    takeawayHtml = `
+      <div style="background: linear-gradient(90deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1)); border-left: 4px solid #10b981; border-radius: 8px; padding: 14px 18px; margin-top: 16px;">
+        <p style="color: #e5e7eb; font-size: 0.9rem; line-height: 1.5; margin: 0;">
+          <strong style="color: #34d399;">Golden 80/20 Rule:</strong> Spend 80% of your weekly training volume in gentle Zone 2 to build endurance without burnout, and 20% in Zone 5 to keep your cardiovascular peak razor-sharp.
+        </p>
+      </div>
+    `;
+  } else if (cat.includes('nutri') || cat.includes('diet')) {
+    blueprintTitle = 'Glycaemic Curve & Particle Impact Matrix';
+    blueprintSubtitle = 'Blood Sugar Stability, Insulin Clearance, and Cardiovascular Particle Clearance';
+    badgeText = 'Metabolic Nutrition';
+    badgeColor = '#10b981';
+
+    cardsHtml = `
+      <div style="background-color: #1f2937; border: 1px solid #374151; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #9ca3af; letter-spacing: 0.05em;">Post-Meal Sugar Curve</span>
+            <span style="font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background-color: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3);">&lt; 140 mg/dL Peak</span>
+          </div>
+          <h4 style="color: #f9fafb; font-size: 1.05rem; font-weight: 700; margin: 0 0 6px 0;">Gentle Glucose Waves</h4>
+          <p style="color: #9ca3af; font-size: 0.85rem; line-height: 1.45; margin: 0 0 12px 0;">Preventing sharp sugar spikes protects blood vessel walls from microscopic irritation and stops midday energy crashes.</p>
+        </div>
+        <div style="border-top: 1px solid #374151; padding-top: 10px; display: flex; justify-content: space-between; font-size: 0.8rem;">
+          <span style="color: #9ca3af;">2-Hour Clearance:</span>
+          <span style="color: #10b981; font-weight: 600;">Return to &lt; 100 mg/dL</span>
+        </div>
+      </div>
+
+      <div style="background-color: #1f2937; border: 1px solid #10b981; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #10b981; letter-spacing: 0.05em;">Insulin Clearance Pace</span>
+            <span style="font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background-color: rgba(16, 185, 129, 0.25); color: #6ee7b7; border: 1px solid #10b981;">Rapid Reset</span>
+          </div>
+          <h4 style="color: #f9fafb; font-size: 1.05rem; font-weight: 700; margin: 0 0 6px 0;">Metabolic Flexibility</h4>
+          <p style="color: #d1d5db; font-size: 0.85rem; line-height: 1.45; margin: 0 0 12px 0;">High-fiber, balanced meals allow insulin to return to resting levels within 90 minutes, turning on natural fat-burning enzymes.</p>
+        </div>
+        <div style="border-top: 1px solid #374151; padding-top: 10px; display: flex; justify-content: space-between; font-size: 0.8rem;">
+          <span style="color: #9ca3af;">Fasting Target:</span>
+          <span style="color: #10b981; font-weight: 700;">3.0 - 5.0 uIU/mL</span>
+        </div>
+      </div>
+
+      <div style="background-color: #1f2937; border: 1px solid #374151; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #9ca3af; letter-spacing: 0.05em;">ApoB & Saturated Fat</span>
+            <span style="font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background-color: rgba(6, 182, 212, 0.15); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.3);">Vessel Clearance</span>
+          </div>
+          <h4 style="color: #f9fafb; font-size: 1.05rem; font-weight: 700; margin: 0 0 6px 0;">Liver LDL Receptors</h4>
+          <p style="color: #9ca3af; font-size: 0.85rem; line-height: 1.45; margin: 0 0 12px 0;">Excess saturated fats slow down liver particle clearance. Replacing butter/processed meats with olive oil keeps receptors active.</p>
+        </div>
+        <div style="border-top: 1px solid #374151; padding-top: 10px; display: flex; justify-content: space-between; font-size: 0.8rem;">
+          <span style="color: #9ca3af;">ApoB Target:</span>
+          <span style="color: #22d3ee; font-weight: 600;">&lt; 65 mg/dL</span>
+        </div>
+      </div>
+
+      <div style="background-color: #1f2937; border: 1px solid #06b6d4; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #06b6d4; letter-spacing: 0.05em;">Viscous Fiber Shield</span>
+            <span style="font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background-color: rgba(6, 182, 212, 0.25); color: #67e8f9; border: 1px solid #06b6d4;">15g+ Daily</span>
+          </div>
+          <h4 style="color: #f9fafb; font-size: 1.05rem; font-weight: 700; margin: 0 0 6px 0;">Bile Acid Trap</h4>
+          <p style="color: #d1d5db; font-size: 0.85rem; line-height: 1.45; margin: 0 0 12px 0;">Oats, chia, and lentils trap cholesterol particles in the gut before they enter the bloodstream, supporting clean arterial walls.</p>
+        </div>
+        <div style="border-top: 1px solid #374151; padding-top: 10px; display: flex; justify-content: space-between; font-size: 0.8rem;">
+          <span style="color: #9ca3af;">Reduction Impact:</span>
+          <span style="color: #06b6d4; font-weight: 700;">-12% Circulating LDL</span>
+        </div>
+      </div>
+    `;
+
+    takeawayHtml = `
+      <div style="background: linear-gradient(90deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1)); border-left: 4px solid #10b981; border-radius: 8px; padding: 14px 18px; margin-top: 16px;">
+        <p style="color: #e5e7eb; font-size: 0.9rem; line-height: 1.5; margin: 0;">
+          <strong style="color: #34d399;">Meal Sequence Hack:</strong> Eat your greens and proteins first, followed by wholesome carbohydrates. This natural order slows gastric emptying and cuts post-meal glucose spikes by up to 40%.
+        </p>
+      </div>
+    `;
+  } else if (cat.includes('well') || cat.includes('sleep') || cat.includes('stress')) {
+    blueprintTitle = 'Sleep Architecture & Autonomic Balance Gauge';
+    blueprintSubtitle = 'HRV Recovery, Deep Sleep Slow-Waves, and 24-Hour Cortisol Harmony';
+    badgeText = 'Autonomic Recovery';
+    badgeColor = '#06b6d4';
+
+    cardsHtml = `
+      <div style="background-color: #1f2937; border: 1px solid #06b6d4; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #06b6d4; letter-spacing: 0.05em;">Stage 3 Deep Sleep</span>
+            <span style="font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background-color: rgba(6, 182, 212, 0.25); color: #67e8f9; border: 1px solid #06b6d4;">&gt; 90 Minutes</span>
+          </div>
+          <h4 style="color: #f9fafb; font-size: 1.05rem; font-weight: 700; margin: 0 0 6px 0;">Cellular Brain Detox</h4>
+          <p style="color: #d1d5db; font-size: 0.85rem; line-height: 1.45; margin: 0 0 12px 0;">Your brain's glymphatic cleaning system opens up, clearing away metabolic waste while releasing natural growth and repair hormones.</p>
+        </div>
+        <div style="border-top: 1px solid #374151; padding-top: 10px; display: flex; justify-content: space-between; font-size: 0.8rem;">
+          <span style="color: #9ca3af;">Nightly Share:</span>
+          <span style="color: #06b6d4; font-weight: 700;">18 - 25% Total Rest</span>
+        </div>
+      </div>
+
+      <div style="background-color: #1f2937; border: 1px solid #374151; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #9ca3af; letter-spacing: 0.05em;">REM Dream Sleep</span>
+            <span style="font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background-color: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3);">Emotional Recalibration</span>
+          </div>
+          <h4 style="color: #f9fafb; font-size: 1.05rem; font-weight: 700; margin: 0 0 6px 0;">Memory Consolidation</h4>
+          <p style="color: #9ca3af; font-size: 0.85rem; line-height: 1.45; margin: 0 0 12px 0;">Re-organizes daily learnings, sharpens decision-making, and resets emotional patience so you wake up clear-headed.</p>
+        </div>
+        <div style="border-top: 1px solid #374151; padding-top: 10px; display: flex; justify-content: space-between; font-size: 0.8rem;">
+          <span style="color: #9ca3af;">Nightly Share:</span>
+          <span style="color: #34d399; font-weight: 600;">20 - 25% Total Rest</span>
+        </div>
+      </div>
+
+      <div style="background-color: #1f2937; border: 1px solid #10b981; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #10b981; letter-spacing: 0.05em;">HRV (Autonomic Tone)</span>
+            <span style="font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background-color: rgba(16, 185, 129, 0.25); color: #6ee7b7; border: 1px solid #10b981;">Upward Trend</span>
+          </div>
+          <h4 style="color: #f9fafb; font-size: 1.05rem; font-weight: 700; margin: 0 0 6px 0;">Nervous System Reserve</h4>
+          <p style="color: #d1d5db; font-size: 0.85rem; line-height: 1.45; margin: 0 0 12px 0;">Higher variability between heartbeats indicates a calm, adaptable nervous system and strong vagal brake against stress.</p>
+        </div>
+        <div style="border-top: 1px solid #374151; padding-top: 10px; display: flex; justify-content: space-between; font-size: 0.8rem;">
+          <span style="color: #9ca3af;">Recovery Benchmark:</span>
+          <span style="color: #10b981; font-weight: 700;">Within Personal Top 20%</span>
+        </div>
+      </div>
+
+      <div style="background-color: #1f2937; border: 1px solid #374151; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #9ca3af; letter-spacing: 0.05em;">Cortisol Rhythm</span>
+            <span style="font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background-color: rgba(6, 182, 212, 0.15); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.3);">Morning Peak / Night Low</span>
+          </div>
+          <h4 style="color: #f9fafb; font-size: 1.05rem; font-weight: 700; margin: 0 0 6px 0;">Circadian Alignment</h4>
+          <p style="color: #9ca3af; font-size: 0.85rem; line-height: 1.45; margin: 0 0 12px 0;">Morning outdoor sunlight triggers a healthy cortisol waking surge, followed by a smooth decline at night so natural melatonin rises.</p>
+        </div>
+        <div style="border-top: 1px solid #374151; padding-top: 10px; display: flex; justify-content: space-between; font-size: 0.8rem;">
+          <span style="color: #9ca3af;">Bedtime Cortisol:</span>
+          <span style="color: #22d3ee; font-weight: 600;">Calm & Baseline Low</span>
+        </div>
+      </div>
+    `;
+
+    takeawayHtml = `
+      <div style="background: linear-gradient(90deg, rgba(6, 182, 212, 0.1), rgba(16, 185, 129, 0.1)); border-left: 4px solid #06b6d4; border-radius: 8px; padding: 14px 18px; margin-top: 16px;">
+        <p style="color: #e5e7eb; font-size: 0.9rem; line-height: 1.5; margin: 0;">
+          <strong style="color: #22d3ee;">Autonomic Reset Habit:</strong> Taking 10 slow, diaphragmatic breaths (4 seconds in through the nose, 7 seconds slow exhale through the mouth) before sleep activates your vagus nerve and lowers resting heart rate by 4 to 8 bpm.
+        </p>
+      </div>
+    `;
+  } else {
+    // Health / Longevity Default
+    cardsHtml = `
+      <div style="background-color: #1f2937; border: 1px solid #10b981; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 0 15px rgba(16, 185, 129, 0.12);">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #10b981; letter-spacing: 0.05em;">ApoB (Atherogenic Load)</span>
+            <span style="font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background-color: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid #10b981;">Arterial Shield</span>
+          </div>
+          <h4 style="color: #f9fafb; font-size: 1.05rem; font-weight: 700; margin: 0 0 6px 0;">Cardiovascular Risk Driver</h4>
+          <p style="color: #d1d5db; font-size: 0.85rem; line-height: 1.45; margin: 0 0 12px 0;">Measures the exact number of plaque-causing particles in your bloodstream, far more accurately than routine total cholesterol.</p>
+        </div>
+        <div style="border-top: 1px solid #374151; padding-top: 10px; display: flex; justify-content: space-between; font-size: 0.8rem;">
+          <span style="color: #9ca3af;">Standard: &lt; 100 mg/dL</span>
+          <span style="color: #10b981; font-weight: 700;">Longevity: &lt; 60 mg/dL</span>
+        </div>
+      </div>
+
+      <div style="background-color: #1f2937; border: 1px solid #06b6d4; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #06b6d4; letter-spacing: 0.05em;">hs-CRP (Inflammation)</span>
+            <span style="font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background-color: rgba(6, 182, 212, 0.2); color: #67e8f9; border: 1px solid #06b6d4;">Vascular Caliber</span>
+          </div>
+          <h4 style="color: #f9fafb; font-size: 1.05rem; font-weight: 700; margin: 0 0 6px 0;">Silent Systemic Heat</h4>
+          <p style="color: #d1d5db; font-size: 0.85rem; line-height: 1.45; margin: 0 0 12px 0;">Detects low-grade irritation inside blood vessels. Keeping this low keeps vessels flexible, youthful, and plaque-resistant.</p>
+        </div>
+        <div style="border-top: 1px solid #374151; padding-top: 10px; display: flex; justify-content: space-between; font-size: 0.8rem;">
+          <span style="color: #9ca3af;">Standard: &lt; 3.0 mg/L</span>
+          <span style="color: #06b6d4; font-weight: 700;">Longevity: &lt; 0.5 mg/L</span>
+        </div>
+      </div>
+
+      <div style="background-color: #1f2937; border: 1px solid #374151; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #9ca3af; letter-spacing: 0.05em;">Fasting Morning Insulin</span>
+            <span style="font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background-color: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3);">Early Alarm</span>
+          </div>
+          <h4 style="color: #f9fafb; font-size: 1.05rem; font-weight: 700; margin: 0 0 6px 0;">Pancreatic Reserve</h4>
+          <p style="color: #9ca3af; font-size: 0.85rem; line-height: 1.45; margin: 0 0 12px 0;">Rises 8 to 10 years before blood sugar shifts. Low fasting insulin confirms effortless metabolic engine efficiency.</p>
+        </div>
+        <div style="border-top: 1px solid #374151; padding-top: 10px; display: flex; justify-content: space-between; font-size: 0.8rem;">
+          <span style="color: #9ca3af;">Standard: &lt; 25.0 uIU/mL</span>
+          <span style="color: #34d399; font-weight: 600;">Longevity: 3.0 - 5.0 uIU/mL</span>
+        </div>
+      </div>
+
+      <div style="background-color: #1f2937; border: 1px solid #374151; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <span style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; color: #9ca3af; letter-spacing: 0.05em;">Homocysteine</span>
+            <span style="font-size: 0.7rem; font-weight: 600; padding: 2px 8px; border-radius: 9999px; background-color: rgba(6, 182, 212, 0.15); color: #22d3ee; border: 1px solid rgba(6, 182, 212, 0.3);">Methylation</span>
+          </div>
+          <h4 style="color: #f9fafb; font-size: 1.05rem; font-weight: 700; margin: 0 0 6px 0;">Cellular Recycling</h4>
+          <p style="color: #9ca3af; font-size: 0.85rem; line-height: 1.45; margin: 0 0 12px 0;">An amino acid metabolite reflecting B-vitamin utilization. Keeping it low protects brain volume and inner artery linings.</p>
+        </div>
+        <div style="border-top: 1px solid #374151; padding-top: 10px; display: flex; justify-content: space-between; font-size: 0.8rem;">
+          <span style="color: #9ca3af;">Standard: &lt; 15.0 umol/L</span>
+          <span style="color: #22d3ee; font-weight: 600;">Longevity: &lt; 7.5 umol/L</span>
+        </div>
+      </div>
+    `;
+
+    takeawayHtml = `
+      <div style="background: linear-gradient(90deg, rgba(16, 185, 129, 0.1), rgba(6, 182, 212, 0.1)); border-left: 4px solid #10b981; border-radius: 8px; padding: 14px 18px; margin-top: 16px;">
+        <p style="color: #e5e7eb; font-size: 0.9rem; line-height: 1.5; margin: 0;">
+          <strong style="color: #34d399;">Proactive Insight:</strong> Standard lab 'normal ranges' are calculated from the general public average. Targeting optimal longevity numbers catches trends 10 years before disease ever manifests.
+        </p>
+      </div>
+    `;
+  }
+
+  // If a custom banner is provided in frontmatter (infographic_banner_url), render banner visual preview
+  const customBannerHtml = bannerUrl ? `
+    <div style="margin-bottom: 20px; border-radius: 12px; overflow: hidden; border: 1px solid #374151; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);">
+      <img src="${bannerUrl}" alt="${safeTitle} Infographic Guide" style="width: 100%; height: auto; max-height: 480px; object-fit: cover; display: block;" />
+      <div style="background-color: #1e293b; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #94a3b8;">
+        <span>Visual Reference: <strong>${safeTitle}</strong></span>
+        <span style="color: #38bdf8;">Custom Clinical Flowchart</span>
+      </div>
+    </div>
+  ` : '';
+
+  return `
+<div class="infographic-bento-section" style="background-color: #111827; border: 1px solid #1f2937; border-radius: 16px; padding: 24px; margin: 32px 0; color: #f9fafb; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 20px; border-bottom: 1px solid #1f2937; padding-bottom: 16px;">
+    <div>
+      <div style="display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border-radius: 9999px; background-color: rgba(16, 185, 129, 0.1); border: 1px solid ${badgeColor}; color: ${badgeColor}; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">
+        <span style="display: inline-block; width: 6px; height: 6px; border-radius: 50%; background-color: ${badgeColor};"></span>
+        ${badgeText}
+      </div>
+      <h3 style="color: #ffffff; font-size: 1.35rem; font-weight: 800; margin: 0 0 4px 0; letter-spacing: -0.02em;">${blueprintTitle}</h3>
+      <p style="color: #9ca3af; font-size: 0.9rem; margin: 0;">${blueprintSubtitle}</p>
+    </div>
+    <div style="display: flex; gap: 8px;">
+      <span style="background-color: #1f2937; color: #e5e7eb; border: 1px solid #374151; font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 6px;">Interactive Data Grid</span>
+    </div>
+  </div>
+
+  ${customBannerHtml}
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+    ${cardsHtml}
+  </div>
+
+  ${takeawayHtml}
+</div>
+`.trim();
+}
+
+/**
  * Main Generator Function
  * Returns complete, publication-ready markdown article (>2,000 words)
  * formatted in clear, welcoming, layman-accessible language.
@@ -468,6 +827,12 @@ export function generateFullClinicalMasterclass(pitch: PitchInput): string {
     citations: baseBlueprint.citations && baseBlueprint.citations.length >= 2 ? baseBlueprint.citations : dynamicFallback.citations
   };
 
+  const infographicHtml = generateCategoryInfographicHtml(
+    pitch.category,
+    pitch.title,
+    (pitch as any).infographic_banner_url
+  );
+
   const articleMarkdown = `
 # ${pitch.title}
 
@@ -485,7 +850,13 @@ ${bp.asciiDiagram}
 
 ---
 
-## 2. The Science in Plain English: What's Happening in Your Body
+## 2. Visual Longevity Infographic & Bento Matrix
+
+${infographicHtml}
+
+---
+
+## 3. The Science in Plain English: What's Happening in Your Body
 
 ${bp.mechanisms.map((m, idx) => `### ${idx + 1}. ${m.split(':')[0].replace(/\*\*/g, '')}\n\n${m}`).join('\n\n')}
 
@@ -493,7 +864,7 @@ Understanding how your body works on a daily level removes the fear and mystery 
 
 ---
 
-## 3. Your Health Numbers: 'Standard Normal' vs. Optimal Longevity Targets
+## 4. Your Health Numbers: 'Standard Normal' vs. Optimal Longevity Targets
 
 At routine medical clinics, 'normal ranges' are calculated by averaging together blood tests from the general population—a population where chronic stress, poor sleep, and metabolic issues are increasingly common. 
 
@@ -505,7 +876,7 @@ ${bp.biomarkerTable.map(row => `| **${row.marker}** | ${row.standardRange} | ${r
 
 ---
 
-## 4. Navigating the Healthcare System: 3 Easy Ways to Get Tested
+## 5. Navigating the Healthcare System: 3 Easy Ways to Get Tested
 
 You don't have to feel stuck when it comes to checking your health numbers. Here is a clear breakdown of the three main ways people get their tests done today:
 
@@ -527,7 +898,7 @@ You don't have to feel stuck when it comes to checking your health numbers. Here
 
 ---
 
-## 5. Exact Words to Use When Talking to Your Doctor
+## 6. Exact Words to Use When Talking to Your Doctor
 
 To have a productive, friendly conversation with your doctor during a rushed checkup without feeling brushed off, try using these simple, respectful talking points:
 
@@ -542,7 +913,7 @@ Bring a clean, printed copy of your health goals or our 1-page Clinician Co-Pilo
 
 ---
 
-## 6. Your Step-by-Step 3-Phase Action Plan
+## 7. Your Step-by-Step 3-Phase Action Plan
 
 To turn knowledge into real, daily results, follow this simple 3-phase roadmap:
 
@@ -557,7 +928,7 @@ ${bp.protocolPhases.phase3}
 
 ---
 
-## 7. Your Quick Action & Safety Checklist
+## 8. Your Quick Action & Safety Checklist
 
 Before moving forward, verify these simple steps to ensure you're on track:
 
@@ -565,7 +936,7 @@ ${bp.checklist.map(item => `- [x] **${item}**`).join('\n')}
 
 ---
 
-## 8. Free Clinician Co-Pilot Download (Doctor Leave-Behind Sheet)
+## 9. Free Clinician Co-Pilot Download (Doctor Leave-Behind Sheet)
 
 Take the stress out of your next doctor's appointment. Download our free 4-page PDF workbook containing exact talking points, optimal lab target ranges, and private lab codes:
 
@@ -581,7 +952,7 @@ Take the stress out of your next doctor's appointment. Download our free 4-page 
 
 ---
 
-## 9. Check Your Own Health Baseline
+## 10. Check Your Own Health Baseline
 
 Curious where your daily energy, recovery, and metabolic health currently stand? Take our quick 2-minute baseline quiz to get your personalized longevity score:
 
@@ -591,7 +962,7 @@ Curious where your daily energy, recovery, and metabolic health currently stand?
 
 ---
 
-## 10. Regional Testing & Equipment Hubs
+## 11. Regional Testing & Equipment Hubs
 
 If you want to order verified blood panels or high-quality wellness equipment directly without insurance delays, access our recommended regional hubs:
 
@@ -601,13 +972,13 @@ If you want to order verified blood panels or high-quality wellness equipment di
 
 ---
 
-## 11. Frequently Asked Questions (Clear & Direct Answers)
+## 12. Frequently Asked Questions (Clear & Direct Answers)
 
 ${bp.faqs.map(faq => `### Q: ${faq.q}\n\n**A:** ${faq.a}`).join('\n\n')}
 
 ---
 
-## 12. Scientific Studies & Trusted Sources
+## 13. Scientific Studies & Trusted Sources
 
 ${bp.citations.map((cite, i) => `${i + 1}. ${cite}`).join('\n')}
 
