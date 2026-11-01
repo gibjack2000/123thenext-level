@@ -23,6 +23,7 @@ export default function BlogAutomationAdmin() {
   const [pitchLoading, setPitchLoading] = useState(false);
   const [isGeneratingFreshPitches, setIsGeneratingFreshPitches] = useState(false);
   const [generatingPitchId, setGeneratingPitchId] = useState<string | null>(null);
+  const [publishingId, setPublishingId] = useState<string | null>(null);
   const [alertSending, setAlertSending] = useState(false);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
@@ -151,14 +152,21 @@ export default function BlogAutomationAdmin() {
 </ul>
       `.trim();
 
-      const newDraft = {
+      const coverImages: Record<string, string> = {
+        health: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80',
+        fitness: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1200&q=80',
+        nutrition: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=1200&q=80',
+        wellness: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80'
+      };
+
+      const newDraft: any = {
         title: pitch.title,
         slug,
         category: cat,
         excerpt: pitch.summary,
         content,
         status: 'draft',
-        published: false,
+        image_url: coverImages[pitch.category] || coverImages.health,
         author: 'Clinical Advisory Team',
         tags: [pitch.category, 'longevity', 'biomarkers', pitch.targetKeyword.split(' ')[0]],
         created_at: new Date().toISOString()
@@ -173,12 +181,33 @@ export default function BlogAutomationAdmin() {
 
       // Update local state
       setWeeklyPitches(prev => prev.map(p => p.id === pitch.id ? { ...p, draftStatus: 'drafted' } : p));
+      setAlertMessage(`✅ Draft created for "${pitch.title}"! It is now pending review in the queue above.`);
       fetchPendingReviews();
     } catch (err: any) {
       console.error('Error creating pitch draft:', err);
       alert('Draft error: ' + (err.message || 'Failed to create draft in database'));
     } finally {
       setGeneratingPitchId(null);
+    }
+  };
+
+  const handleAuthorizePublish = async (post: any) => {
+    setPublishingId(post.id);
+    try {
+      const { error } = await supabase
+        .from('blog_posts')
+        .update({ status: 'published' })
+        .eq('id', post.id);
+
+      if (error) throw error;
+
+      setAlertMessage(`✅ Successfully published "${post.title}" live! View at /blog/${post.slug}`);
+      fetchPendingReviews();
+    } catch (err: any) {
+      console.error('Error publishing post:', err);
+      alert('Publish error: ' + (err.message || 'Failed to update article status'));
+    } finally {
+      setPublishingId(null);
     }
   };
 
@@ -487,27 +516,47 @@ export default function BlogAutomationAdmin() {
                         <h3 className="text-sm font-bold text-white line-clamp-1">{post.title}</h3>
                       </div>
                     </div>
-                    <div className="p-4 flex items-center justify-between gap-3">
-                      <a 
-                        href={`/blog/${post.slug}?preview=true`} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-bold transition-all border border-slate-700"
+                    <div className="p-4 space-y-2.5">
+                      <div className="flex items-center justify-between gap-2">
+                        <a 
+                          href={`/blog/${post.slug}?preview=true`} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-bold transition-all border border-slate-700"
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                          Preview
+                        </a>
+                        <a 
+                          href={`/admin?edit_id=${post.id}`} 
+                          onClick={() => {
+                            localStorage.setItem('admin_target_tab', 'blog');
+                            localStorage.setItem('edit_blog_post_id', post.id);
+                          }}
+                          className="flex-1 flex items-center justify-center gap-1.5 py-2 bg-slate-800 hover:bg-slate-700 text-indigo-300 rounded-lg text-xs font-bold transition-all border border-indigo-500/30"
+                        >
+                          <Pencil className="w-3.5 h-3.5" />
+                          Edit
+                        </a>
+                      </div>
+
+                      <button
+                        onClick={() => handleAuthorizePublish(post)}
+                        disabled={publishingId === post.id}
+                        className="w-full flex items-center justify-center gap-2 py-2.5 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white rounded-lg text-xs font-extrabold uppercase tracking-wider transition-all shadow-lg shadow-emerald-900/30 border border-emerald-400/30 disabled:opacity-50 cursor-pointer"
                       >
-                        <Eye className="w-3.5 h-3.5" />
-                        Preview
-                      </a>
-                      <a 
-                        href={`/admin?edit_id=${post.id}`} 
-                        onClick={() => {
-                          localStorage.setItem('admin_target_tab', 'blog');
-                          localStorage.setItem('edit_blog_post_id', post.id);
-                        }}
-                        className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-bold transition-all shadow-lg shadow-indigo-600/20"
-                      >
-                        <Pencil className="w-3.5 h-3.5" />
-                        Edit & Publish
-                      </a>
+                        {publishingId === post.id ? (
+                          <>
+                            <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                            <span>Publishing Live...</span>
+                          </>
+                        ) : (
+                          <>
+                            <CheckCircle className="w-3.5 h-3.5" />
+                            <span>Authorize &amp; Publish Live</span>
+                          </>
+                        )}
+                      </button>
                     </div>
                   </div>
                 ))}
