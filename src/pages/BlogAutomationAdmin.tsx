@@ -250,6 +250,19 @@ export default function BlogAutomationAdmin() {
   const handleGeneratePitchDraft = async (pitch: any) => {
     setGeneratingPitchId(pitch.id);
     try {
+      // 1. Check if this article already exists in the database
+      const existingMatch = allPosts.find(p => 
+        p.slug === pitch.slug || 
+        (p.title && p.title.toLowerCase().trim() === pitch.title.toLowerCase().trim())
+      );
+
+      if (existingMatch) {
+        setWeeklyPitches(prev => prev.map(p => p.id === pitch.id ? { ...p, draftStatus: 'drafted' } : p));
+        setAlertMessage(`ℹ️ "${pitch.title}" is already in your Review Queue! Opening preview...`);
+        openPreviewModal(existingMatch);
+        return;
+      }
+
       const categoryMap: Record<string, string> = {
         health: 'Health',
         fitness: 'Fitness',
@@ -330,6 +343,13 @@ export default function BlogAutomationAdmin() {
       // 2. Fallback to client-side Supabase if server API is offline
       if (!draftCreated && supabase) {
         let insertResult = await supabase.from('blog_posts').insert([newDraft]).select().single();
+        
+        // If unique constraint or duplicate key, retry with unique suffix
+        if (insertResult.error && (insertResult.error.code === '23505' || insertResult.error.message?.includes('unique') || insertResult.error.message?.includes('duplicate'))) {
+          newDraft.slug = `${slug}-${Date.now().toString().slice(-4)}`;
+          insertResult = await supabase.from('blog_posts').insert([newDraft]).select().single();
+        }
+
         if (insertResult.error && insertResult.error.code === 'PGRST205') {
           insertResult = await supabase.from('blogs').insert([newDraft]).select().single();
         }
@@ -340,7 +360,7 @@ export default function BlogAutomationAdmin() {
       // Update local state
       setWeeklyPitches(prev => prev.map(p => p.id === pitch.id ? { ...p, draftStatus: 'drafted' } : p));
       setAlertMessage(`✅ Draft created for "${pitch.title}"! It is now pending review in the queue above.`);
-      fetchPendingReviews();
+      await fetchPendingReviews();
     } catch (err: any) {
       console.error('Error creating pitch draft:', err);
       const isRls = (err.message || '').includes('row-level security') || err.code === '42501';
@@ -873,7 +893,11 @@ export default function BlogAutomationAdmin() {
                   <div className="space-y-3.5">
                     {columnPitches.map((pitch, idx) => {
                       const isGenerating = generatingPitchId === pitch.id;
-                      const isDrafted = pitch.draftStatus === 'drafted';
+                      const existingMatch = allPosts.find(p => 
+                        p.slug === pitch.slug || 
+                        (p.title && p.title.toLowerCase().trim() === pitch.title.toLowerCase().trim())
+                      );
+                      const isDrafted = pitch.draftStatus === 'drafted' || Boolean(existingMatch);
 
                       return (
                         <div
@@ -911,11 +935,18 @@ export default function BlogAutomationAdmin() {
                           </div>
 
                           <button
-                            onClick={() => handleGeneratePitchDraft(pitch)}
-                            disabled={isGenerating || isDrafted}
+                            type="button"
+                            onClick={() => {
+                              if (existingMatch) {
+                                openPreviewModal(existingMatch);
+                              } else {
+                                handleGeneratePitchDraft(pitch);
+                              }
+                            }}
+                            disabled={isGenerating}
                             className={`w-full py-2 px-3 rounded-lg text-xs font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
                               isDrafted
-                                ? 'bg-emerald-950/40 text-emerald-300 border border-emerald-500/30'
+                                ? 'bg-emerald-950/60 hover:bg-emerald-900/60 text-emerald-300 border border-emerald-500/40 shadow-sm'
                                 : isGenerating
                                 ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 animate-pulse'
                                 : 'bg-slate-800 hover:bg-cyan-600 hover:text-white text-slate-200 border border-slate-700'
@@ -923,8 +954,8 @@ export default function BlogAutomationAdmin() {
                           >
                             {isDrafted ? (
                               <>
-                                <Check size={13} className="text-emerald-400" />
-                                <span>Draft Ready in Queue</span>
+                                <Eye size={13} className="text-emerald-400" />
+                                <span>Draft in Queue (View / Edit)</span>
                               </>
                             ) : isGenerating ? (
                               <>
