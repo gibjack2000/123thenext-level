@@ -7,6 +7,7 @@ interface ErrorBoundaryProps {
 interface ErrorBoundaryState {
   hasError: boolean;
   error?: Error;
+  isChunkMismatch?: boolean;
 }
 
 export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -16,31 +17,53 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   }
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
-    return { hasError: true, error };
+    const errorMsg = error?.message || error?.toString() || '';
+    const isChunkMismatch = /Failed to fetch dynamically imported module|Importing a module script failed|Loading chunk/i.test(errorMsg);
+    return { hasError: true, error, isChunkMismatch };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('Uncaught error:', error, errorInfo);
+
+    const errorMsg = error?.message || error?.toString() || '';
+    const isChunkMismatch = /Failed to fetch dynamically imported module|Importing a module script failed|Loading chunk/i.test(errorMsg);
+
+    if (isChunkMismatch) {
+      const reloadKey = 'last_chunk_reload_attempt';
+      const lastReload = sessionStorage.getItem(reloadKey);
+      const now = Date.now();
+      // Auto-reload once if not attempted in the last 15 seconds
+      if (!lastReload || now - parseInt(lastReload, 10) > 15000) {
+        sessionStorage.setItem(reloadKey, now.toString());
+        window.location.reload();
+      }
+    }
   }
 
   render() {
     if (this.state.hasError) {
+      const isChunk = this.state.isChunkMismatch;
+
       return (
         <div className="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center p-6 text-center">
           <div className="max-w-md w-full bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl space-y-6">
-            <div className="w-14 h-14 bg-red-500/10 border border-red-500/30 rounded-2xl flex items-center justify-center mx-auto text-red-400 text-2xl font-bold">
-              !
+            <div className={`w-14 h-14 ${isChunk ? 'bg-cyan-500/10 border-cyan-500/30 text-cyan-400' : 'bg-red-500/10 border-red-500/30 text-red-400'} border rounded-2xl flex items-center justify-center mx-auto text-2xl font-bold`}>
+              {isChunk ? '🔄' : '!'}
             </div>
             
             <div className="space-y-2">
-              <h1 className="text-2xl font-bold text-white tracking-tight">Something went wrong</h1>
+              <h1 className="text-2xl font-bold text-white tracking-tight">
+                {isChunk ? 'New Version Deployed' : 'Something went wrong'}
+              </h1>
               <p className="text-sm text-slate-400">
-                An unexpected interface issue occurred. You can reload the page or return to home.
+                {isChunk 
+                  ? 'A new update has been deployed. Please reload the page to load the latest version.' 
+                  : 'An unexpected interface issue occurred. You can reload the page or return to home.'}
               </p>
             </div>
 
             {this.state.error && (
-              <div className="p-3 bg-black/40 border border-white/5 rounded-xl text-left font-mono text-xs text-red-300 overflow-x-auto max-h-32">
+              <div className="p-3 bg-black/40 border border-white/5 rounded-xl text-left font-mono text-xs text-slate-400 overflow-x-auto max-h-32">
                 {this.state.error.toString()}
               </div>
             )}
@@ -48,13 +71,13 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
               <button
                 onClick={() => window.location.reload()}
-                className="flex-1 py-3 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-cyan-500/20"
+                className="flex-1 py-3 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-cyan-500/20 cursor-pointer"
               >
-                Reload Page
+                {isChunk ? 'Refresh to Latest' : 'Reload Page'}
               </button>
               <button
                 onClick={() => { window.location.href = '/'; }}
-                className="flex-1 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-sm transition-all border border-slate-700"
+                className="flex-1 py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-sm transition-all border border-slate-700 cursor-pointer"
               >
                 Go to Home
               </button>
