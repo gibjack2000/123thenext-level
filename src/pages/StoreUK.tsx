@@ -22,6 +22,7 @@ import { ProductRecord } from './StoreUS';
 import {
   STOREFRONT_CATEGORIES,
   normalizeStoreCategory,
+  isPremiumGuideProduct,
   isDiagnosticProduct,
   isLolaProduct,
   isBundledDiagnosticImage,
@@ -78,7 +79,9 @@ export const StoreUK: React.FC = () => {
       }
 
       if (data && data.length > 0) {
-        const sanitized: ProductRecord[] = data.map((item: any) => {
+        const sanitized: ProductRecord[] = data
+          .filter((item: any) => !isPremiumGuideProduct(item))
+          .map((item: any) => {
           let healedDeal = item.deal_url || item.affiliate_link || '';
           if (healedDeal.startsWith('https://123thenextlevel.comhttp')) {
             healedDeal = healedDeal.replace('https://123thenextlevel.com', '');
@@ -168,26 +171,13 @@ export const StoreUK: React.FC = () => {
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.category.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch && getActiveSuppliers(product, 'UK').length > 0;
+    return matchesCategory && matchesSearch && !isPremiumGuideProduct(product) && getActiveSuppliers(product, 'UK').length > 0;
   });
 
   const isDiagCategoryActive = activeCategory.toLowerCase().includes('diagnostic');
   const clinicalPartners = filteredProducts.filter(p => 
     p.category === 'Clinical Diagnostics & Labs' || isDiagnosticProduct(p)
   );
-  const isPremiumGuideProduct = (p: any) => {
-    const title = String(p.name || p.title || '').toLowerCase();
-    const id = String(p.id || '').toLowerCase();
-    const deal = String(p.deal_url || '').toLowerCase();
-    return (
-      title.includes('12-week metabolic') ||
-      title.includes('visceral fat protocol') ||
-      id.includes('metabolic-master-guide') ||
-      deal.includes('metabolic-visceral-fat') ||
-      deal.includes('/checkout?item=metabolic') ||
-      deal.includes('/checkout?product=')
-    );
-  };
   const amazonProducts = filteredProducts.filter(p => !clinicalPartners.includes(p) && !isPremiumGuideProduct(p));
 
   return (

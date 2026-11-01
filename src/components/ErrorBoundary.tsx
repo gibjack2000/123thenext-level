@@ -18,7 +18,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
     const errorMsg = error?.message || error?.toString() || '';
-    const isChunkMismatch = /Failed to fetch dynamically imported module|Importing a module script failed|Loading chunk/i.test(errorMsg);
+    const isChunkMismatch = /Failed to fetch dynamically imported module|Importing a module script failed|Loading chunk|error loading dynamically imported module|Unable to preload CSS/i.test(errorMsg);
     return { hasError: true, error, isChunkMismatch };
   }
 
@@ -26,7 +26,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
     console.error('Uncaught error:', error, errorInfo);
 
     const errorMsg = error?.message || error?.toString() || '';
-    const isChunkMismatch = /Failed to fetch dynamically imported module|Importing a module script failed|Loading chunk/i.test(errorMsg);
+    const isChunkMismatch = /Failed to fetch dynamically imported module|Importing a module script failed|Loading chunk|error loading dynamically imported module|Unable to preload CSS/i.test(errorMsg);
 
     if (isChunkMismatch) {
       const reloadKey = 'last_chunk_reload_attempt';

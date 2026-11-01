@@ -2396,11 +2396,8 @@ export function normalizeStoreCategory(rawCategory: string | undefined, name?: s
   }
 
   // 3. "Supplements & Nutraceuticals"
-  // Sirtuin Stacks, Collagen, NAD+, Omega-3, Creatine, Magnesium, Spermidine, Quercetin, Ashwagandha, Lion's Mane, CoQ10, Probiotics, Master Guides
+  // Sirtuin Stacks, Collagen, NAD+, Omega-3, Creatine, Magnesium, Spermidine, Quercetin, Ashwagandha, Lion's Mane, CoQ10, Probiotics
   if (
-    deal.includes('/checkout') ||
-    title.includes('master guide') ||
-    title.includes('12-week metabolic') ||
     cat.includes('supplement') ||
     cat.includes('nutri') ||
     title.includes('sirtuin') ||
@@ -2485,18 +2482,41 @@ export function normalizeStoreCategory(rawCategory: string | undefined, name?: s
 
 export const DIAGNOSTIC_GP_BRIEF_BADGE = '💷 Up-to-date prices on LOLA Health website';
 
-export function isDiagnosticProduct(product: any): boolean {
+export function isPremiumGuideProduct(product: any): boolean {
   if (!product) return false;
-  const title = (product.name || '').toLowerCase();
-  const deal = (product.deal_url || '').toLowerCase();
-  const id = (product.id || '').toLowerCase();
-  if (
+  const rawTitle = String(product.name || product.title || '').toLowerCase();
+  const title = rawTitle.replace(/[\u2010-\u2015\u2212]/g, '-').replace(/\s+/g, ' ').trim();
+  const id = String(product.id || '').toLowerCase();
+  const deal = String(product.deal_url || product.affiliate_link || '').toLowerCase();
+  const cat = String(product.category || '').toLowerCase();
+  const badge = String(product.badge_text || '').toLowerCase();
+
+  return (
     title.includes('12-week metabolic') ||
-    title.includes('visceral fat protocol') ||
+    title.includes('12 week metabolic') ||
+    title.includes('visceral fat') ||
+    title.includes('metabolic re-engineering') ||
+    title.includes('metabolic re engineering') ||
+    title.includes('master guide') ||
+    title.includes('master protocol') ||
+    id.includes('metabolic-master-guide') ||
+    id.includes('guide') ||
     deal.includes('metabolic-visceral-fat') ||
     deal.includes('metabolic-master-guide') ||
-    id.includes('metabolic-master-guide')
-  ) {
+    deal.includes('/checkout') ||
+    deal.includes('checkout') ||
+    cat.includes('master guide') ||
+    cat.includes('digital guide') ||
+    cat.includes('co-pilot') ||
+    badge.includes('master guide') ||
+    badge.includes('premium guide') ||
+    badge.includes('guía premium')
+  );
+}
+
+export function isDiagnosticProduct(product: any): boolean {
+  if (!product) return false;
+  if (isPremiumGuideProduct(product)) {
     return false;
   }
   const cat = normalizeStoreCategory(product.category, product.name, product.deal_url);
@@ -3755,13 +3775,15 @@ export function Store({ region }: StoreProps = {}) {
         if (isCancelled) return;
 
         const mergedList = ensureCoreRegionalCatalog(healedData, activeTab);
-        storeCatalogCache[activeTab] = mergedList;
-        setProducts(mergedList);
+        const physicalOnly = mergedList.filter((p: any) => !isPremiumGuideProduct(p));
+        storeCatalogCache[activeTab] = physicalOnly;
+        setProducts(physicalOnly);
         setCategories(STOREFRONT_CATEGORIES);
       } catch (err) {
         if (isCancelled) return;
         console.warn(`Supabase fetch failed for ${activeTab}. Falling back to regional offline registry:`, err);
-        const fallbackList = ensureCoreRegionalCatalog([], activeTab);
+        const fallbackList = ensureCoreRegionalCatalog([], activeTab).filter((p: any) => !isPremiumGuideProduct(p));
+        storeCatalogCache[activeTab] = fallbackList;
         setProducts(fallbackList);
         setCategories(STOREFRONT_CATEGORIES);
       } finally {
@@ -3799,31 +3821,17 @@ export function Store({ region }: StoreProps = {}) {
     };
   }, [activeTab]);
 
-  // Handle case-insensitive filtering & dynamically filter out products with 0 active suppliers
+  // Handle case-insensitive filtering & dynamically filter out products with 0 active suppliers (strictly exclude digital guides)
   const filteredProducts = (activeCategory === 'All'
     ? products
     : products.filter(p => p.category && p.category.toLowerCase() === activeCategory.toLowerCase())
-  ).filter(p => getActiveSuppliers(p, activeTab).length > 0);
+  ).filter(p => !isPremiumGuideProduct(p) && getActiveSuppliers(p, activeTab).length > 0);
 
   // Split into Tier 1 (Clinical Direct) and Tier 2 (Amazon Hub)
   // Only genuine Clinical Diagnostics & Labs products belong in Tier 1
   const clinicalPartners = filteredProducts.filter(p => 
     p.category === 'Clinical Diagnostics & Labs' || isDiagnosticProduct(p)
   );
-
-  const isPremiumGuideProduct = (p: any) => {
-    const title = String(p.name || p.title || '').toLowerCase();
-    const id = String(p.id || '').toLowerCase();
-    const deal = String(p.deal_url || '').toLowerCase();
-    return (
-      title.includes('12-week metabolic') ||
-      title.includes('visceral fat protocol') ||
-      id.includes('metabolic-master-guide') ||
-      deal.includes('metabolic-visceral-fat') ||
-      deal.includes('/checkout?item=metabolic') ||
-      deal.includes('/checkout?product=')
-    );
-  };
 
   const amazonHubProducts = filteredProducts.filter(p => 
     !clinicalPartners.includes(p) && !isPremiumGuideProduct(p)
