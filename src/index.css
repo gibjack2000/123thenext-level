@@ -56,8 +56,27 @@
 }
 
 @layer base {
+  html {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
     @apply text-[#2D2D2D] antialiased;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  #root {
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
   }
 
   h1, h2 {
@@ -66,6 +85,13 @@
 
   h3, h4 {
     @apply font-sans font-semibold tracking-[0.02em];
+  }
+
+  /* Prevent mobile Safari from zooming in on input focus */
+  @media screen and (max-width: 768px) {
+    input, select, textarea {
+      font-size: 16px !important;
+    }
   }
 }
 

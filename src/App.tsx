@@ -140,13 +140,13 @@ function App() {
           <DownloadGateProvider>
             <LabRequisitionProvider>
               <ScrollToTop />
-          <div className="min-h-screen bg-slate-950 flex flex-col">
+          <div className="min-h-screen bg-slate-950 flex flex-col w-full max-w-full overflow-x-hidden">
           {/* Non-destructive splash layer */}
           <SplashOverlay />
 
           <Navbar />
 
-          <main className="flex-grow">
+          <main className="flex-grow w-full max-w-full overflow-x-hidden">
             <Suspense fallback={<PageLoader />}>
               <Routes>
                 <Route path="/" element={<Home />} />

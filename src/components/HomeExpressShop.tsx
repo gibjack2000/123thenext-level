@@ -1239,7 +1239,7 @@ export default function HomeExpressShop() {
       </div>
 
       {/* Control Bar: Category Tabs + Country Switcher */}
-      <div className="bg-slate-900/90 border border-slate-800/90 rounded-2xl p-4 sm:p-5 shadow-2xl backdrop-blur-xl mb-10">
+      <div className="bg-slate-900/90 border border-slate-800/90 rounded-2xl p-4 sm:p-5 shadow-2xl backdrop-blur-xl mb-10 overflow-hidden">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
           
           {/* Navigation Category Tabs */}
@@ -1282,7 +1282,7 @@ export default function HomeExpressShop() {
           </div>
 
           {/* Right Side: Country Specific Pricing Switcher */}
-          <div className="flex items-center gap-3 w-full lg:w-auto justify-between lg:justify-end border-t lg:border-t-0 pt-4 lg:pt-0 border-slate-800">
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-3 w-full lg:w-auto justify-between lg:justify-end border-t lg:border-t-0 pt-4 lg:pt-0 border-slate-800">
             <span className="text-xs font-bold text-slate-400 flex items-center gap-1.5 uppercase tracking-wider">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
               Pricing Market:
@@ -1292,7 +1292,7 @@ export default function HomeExpressShop() {
               <button
                 type="button"
                 onClick={() => setMarket('US')}
-                className={`min-h-[44px] min-w-[44px] px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition cursor-pointer flex items-center gap-1.5 touch-manipulation active:scale-95 ${
+                className={`min-h-[40px] px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-bold transition cursor-pointer flex items-center gap-1.5 touch-manipulation active:scale-95 ${
                   selectedRegion === 'US'
                     ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
                     : 'text-slate-400 hover:text-white hover:bg-slate-900'
@@ -1307,7 +1307,7 @@ export default function HomeExpressShop() {
               <button
                 type="button"
                 onClick={() => setMarket('UK')}
-                className={`min-h-[44px] min-w-[44px] px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition cursor-pointer flex items-center gap-1.5 touch-manipulation active:scale-95 ${
+                className={`min-h-[40px] px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-bold transition cursor-pointer flex items-center gap-1.5 touch-manipulation active:scale-95 ${
                   selectedRegion === 'UK'
                     ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
                     : 'text-slate-400 hover:text-white hover:bg-slate-900'
@@ -1322,7 +1322,7 @@ export default function HomeExpressShop() {
               <button
                 type="button"
                 onClick={() => setMarket('ES')}
-                className={`min-h-[44px] min-w-[44px] px-3.5 py-2 rounded-lg text-xs sm:text-sm font-bold transition cursor-pointer flex items-center gap-1.5 touch-manipulation active:scale-95 ${
+                className={`min-h-[40px] px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-bold transition cursor-pointer flex items-center gap-1.5 touch-manipulation active:scale-95 ${
                   selectedRegion === 'ES'
                     ? 'bg-cyan-500 text-slate-950 shadow-md font-black'
                     : 'text-slate-400 hover:text-white hover:bg-slate-900'
@@ -1375,7 +1375,7 @@ export default function HomeExpressShop() {
           </button>
         </div>
       ) : (
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredProducts.map((product) => {
             const regionalData = product.regions[selectedRegion];
             const override = liveOverrides[product.id] || 

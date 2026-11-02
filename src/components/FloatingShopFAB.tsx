@@ -30,7 +30,7 @@ export default function FloatingShopFAB() {
 
   return (
     <div 
-      className="fixed bottom-6 right-6 z-40 flex items-center group select-none print:hidden"
+      className="fixed bottom-4 right-3 sm:bottom-6 sm:right-6 z-40 flex items-center group select-none print:hidden"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -41,10 +41,10 @@ export default function FloatingShopFAB() {
       <button
         onClick={handleClick}
         aria-label="Open Express Longevity Shop"
-        className="relative flex items-center gap-2.5 px-4 py-3 sm:px-5 sm:py-3.5 rounded-full bg-slate-950 border border-amber-500/50 text-white shadow-2xl shadow-amber-500/20 hover:border-amber-400 hover:shadow-amber-500/30 transition-all duration-300 transform group-hover:scale-105 active:scale-95 cursor-pointer"
+        className="relative flex items-center gap-2 px-3 py-2.5 sm:px-5 sm:py-3.5 rounded-full bg-slate-950 border border-amber-500/50 text-white shadow-2xl shadow-amber-500/20 hover:border-amber-400 hover:shadow-amber-500/30 transition-all duration-300 transform group-hover:scale-105 active:scale-95 cursor-pointer"
       >
         {/* Animated Cart / Shopping Bag Icon */}
-        <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 to-orange-500 text-slate-950 shadow-md">
+        <div className="relative flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 shrink-0 rounded-full bg-gradient-to-tr from-amber-500 to-orange-500 text-slate-950 shadow-md">
           <ShoppingBag size={16} className="transition-transform group-hover:rotate-12" />
           <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-slate-950 animate-ping" />
           <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-slate-950" />

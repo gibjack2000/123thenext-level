@@ -86,7 +86,7 @@ export default function SlideInNewsletter() {
       {/* Floating Trigger Tab */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-6 left-4 sm:left-6 z-40 flex items-center gap-2.5 px-4 py-3 sm:px-5 sm:py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full font-bold text-xs uppercase tracking-widest shadow-xl shadow-blue-500/20 hover:scale-105 active:scale-95 transition-all duration-300 group cursor-pointer ${
+        className={`fixed bottom-4 left-3 sm:bottom-6 sm:left-6 z-40 flex items-center gap-2 px-3 py-2.5 sm:px-5 sm:py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full font-bold text-xs uppercase tracking-widest shadow-xl shadow-blue-500/20 hover:scale-105 active:scale-95 transition-all duration-300 group cursor-pointer ${
           isOpen ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100'
         }`}
         aria-label="Open Newsletter Center"
@@ -96,7 +96,7 @@ export default function SlideInNewsletter() {
           <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-400"></span>
         </span>
         <Mail size={16} className="group-hover:rotate-12 transition-transform duration-300 shrink-0" />
-        <span>{hasSubscribed ? 'Newsletter Center' : 'Subscribe & Level Up'}</span>
+        <span className="text-[11px] sm:text-xs tracking-wider">{hasSubscribed ? 'Newsletter' : 'Subscribe'}</span>
       </button>
 
       {/* Slide-out Panel Overlay */}

@@ -13,7 +13,7 @@ export const DiagnosticRoadmap: React.FC = () => {
   }, []);
 
   return (
-    <section id="diagnostic-roadmap" className="relative z-10 bg-slate-950 py-16 md:py-24 border-t border-cyan-500/10">
+    <section id="diagnostic-roadmap" className="relative z-10 bg-slate-950 py-16 md:py-24 border-t border-cyan-500/10 overflow-hidden w-full max-w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* ========================================================================= */}
@@ -21,8 +21,8 @@ export const DiagnosticRoadmap: React.FC = () => {
         {/* ========================================================================= */}
         <div className="relative z-10" id="mindset-trigger">
           {/* Ambient Background Glows */}
-          <div className="absolute top-10 left-1/4 w-[500px] h-[300px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
-          <div className="absolute top-20 right-1/4 w-[450px] h-[300px] bg-amber-500/10 rounded-full blur-[130px] pointer-events-none" />
+          <div className="absolute top-10 left-1/4 w-[500px] max-w-[80vw] h-[300px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
+          <div className="absolute top-20 right-1/4 w-[450px] max-w-[80vw] h-[300px] bg-amber-500/10 rounded-full blur-[130px] pointer-events-none" />
 
           <div className="max-w-6xl mx-auto text-center space-y-10">
             {/* 1. Centered Header */}

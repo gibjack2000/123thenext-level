@@ -193,7 +193,7 @@ export const SovereignStoreShowcase: React.FC = () => {
   const tickerItems = shuffledTopPicks.length > 0 ? [...shuffledTopPicks, ...shuffledTopPicks] : [];
 
   return (
-    <section id="store-showcase" className="relative z-10 bg-slate-950 border-t border-cyan-500/10">
+    <section id="store-showcase" className="relative z-10 bg-slate-950 border-t border-cyan-500/10 overflow-hidden w-full max-w-full">
       
       {/* Product Express Lane: Supplements, Gym Equipment & Autonomic Reset Gear */}
       <div className="pt-16 pb-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

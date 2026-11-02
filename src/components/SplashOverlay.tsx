@@ -637,7 +637,7 @@ export const SplashOverlay: React.FC = () => {
 
       {/* Main Overlay Fixed Screen Container: Pins 100% of viewport without collapsing */}
       <div
-        className={`fixed inset-0 z-[100] bg-slate-950 w-full w-screen h-full h-screen min-h-[100vh] min-h-[100dvh] transition-all duration-1000 select-none overflow-hidden ${
+        className={`fixed inset-0 z-[100] bg-slate-950 w-full max-w-full h-full h-screen min-h-[100vh] min-h-[100dvh] transition-all duration-1000 select-none overflow-hidden ${
           isDismissing 
             ? 'opacity-0 scale-110 blur-3xl pointer-events-none' 
             : 'opacity-100 scale-100'

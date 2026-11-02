@@ -52,14 +52,14 @@ export const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
         {/* Logo & Mission Badge */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
           <Link to="/" className="flex items-center gap-2.5 group" onClick={closeMobileMenu}>
             <img 
               src="/assets/logo-icon.png" 
               alt="123TheNextLevel Logo" 
               className="w-8 h-8 sm:w-9 sm:h-9 object-contain drop-shadow group-hover:scale-105 transition-transform duration-300 shrink-0" 
             />
-            <span className="text-xl font-black tracking-tight text-white group-hover:text-cyan-400 transition-colors">
+            <span className="text-lg sm:text-xl font-black tracking-tight text-white group-hover:text-cyan-400 transition-colors truncate">
               123<span className="text-cyan-400">TheNextLevel</span>
             </span>
           </Link>
@@ -369,7 +369,7 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Mobile Header Right */}
-        <div className="flex items-center gap-1.5 lg:hidden">
+        <div className="flex items-center gap-1 sm:gap-1.5 lg:hidden shrink-0">
           {/* Mobile 3-Flag Country Switcher */}
           <div className="flex items-center bg-slate-900 border border-slate-800 rounded-full p-0.5 text-[10px] shadow-sm">
             <button
