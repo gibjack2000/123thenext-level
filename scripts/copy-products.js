@@ -43,6 +43,27 @@ if (fs.existsSync(targetParentDir)) {
   } catch (error) {
     console.error('Failed to copy Products folder:', error);
   }
+
+  // Also guarantee sitemap.xml and robots.txt are copied to public_html root
+  try {
+    const sitemapSource = fs.existsSync(path.resolve(projectRoot, 'dist', 'sitemap.xml'))
+      ? path.resolve(projectRoot, 'dist', 'sitemap.xml')
+      : path.resolve(projectRoot, 'public', 'sitemap.xml');
+    if (fs.existsSync(sitemapSource)) {
+      fs.copyFileSync(sitemapSource, path.resolve(targetParentDir, 'sitemap.xml'));
+      console.log('Successfully copied sitemap.xml to public_html/sitemap.xml.');
+    }
+
+    const robotsSource = fs.existsSync(path.resolve(projectRoot, 'dist', 'robots.txt'))
+      ? path.resolve(projectRoot, 'dist', 'robots.txt')
+      : path.resolve(projectRoot, 'public', 'robots.txt');
+    if (fs.existsSync(robotsSource)) {
+      fs.copyFileSync(robotsSource, path.resolve(targetParentDir, 'robots.txt'));
+      console.log('Successfully copied robots.txt to public_html/robots.txt.');
+    }
+  } catch (seoError) {
+    console.error('Failed to copy sitemap.xml / robots.txt to public_html:', seoError);
+  }
 } else {
   console.log(`public_html folder not found at ${targetParentDir}. Skipping copy (this is normal for local dev).`);
 }

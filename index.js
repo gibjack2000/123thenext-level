@@ -29,34 +29,55 @@ const distPath = fs.existsSync(path.resolve(__dirname, 'dist'))
   ? path.resolve(__dirname, 'dist') 
   : __dirname;
 const indexPath = path.resolve(distPath, 'index.html');
+const publicDir = path.resolve(__dirname, 'public');
 
-// Automatically copy Products folder from dist/Products to public_html/Products if it's missing there
+// Automatically copy Products folder, sitemap.xml, and robots.txt to public_html if it exists
 try {
   const parentDir = path.resolve(__dirname, '..');
-  const publicHtmlProductsPath = path.resolve(parentDir, 'public_html', 'Products');
+  const publicHtmlDir = path.resolve(parentDir, 'public_html');
+  const publicHtmlProductsPath = path.resolve(publicHtmlDir, 'Products');
   const sourceProductsPath = path.resolve(distPath, 'Products');
 
-  if (fs.existsSync(sourceProductsPath) && fs.existsSync(path.resolve(parentDir, 'public_html'))) {
-    if (!fs.existsSync(publicHtmlProductsPath)) {
-      console.log('Auto-copying Products to public_html/Products on startup...');
-      fs.mkdirSync(publicHtmlProductsPath, { recursive: true });
-    }
-    const files = fs.readdirSync(sourceProductsPath);
-    let copiedCount = 0;
-    for (const file of files) {
-      const srcFile = path.join(sourceProductsPath, file);
-      const destFile = path.join(publicHtmlProductsPath, file);
-      if (fs.statSync(srcFile).isFile()) {
-        fs.copyFileSync(srcFile, destFile);
-        copiedCount++;
+  if (fs.existsSync(publicHtmlDir)) {
+    if (fs.existsSync(sourceProductsPath)) {
+      if (!fs.existsSync(publicHtmlProductsPath)) {
+        console.log('Auto-copying Products to public_html/Products on startup...');
+        fs.mkdirSync(publicHtmlProductsPath, { recursive: true });
+      }
+      const files = fs.readdirSync(sourceProductsPath);
+      let copiedCount = 0;
+      for (const file of files) {
+        const srcFile = path.join(sourceProductsPath, file);
+        const destFile = path.join(publicHtmlProductsPath, file);
+        if (fs.statSync(srcFile).isFile()) {
+          fs.copyFileSync(srcFile, destFile);
+          copiedCount++;
+        }
+      }
+      if (copiedCount > 0) {
+        console.log(`Successfully copied ${copiedCount} product images to public_html/Products`);
       }
     }
-    if (copiedCount > 0) {
-      console.log(`Successfully copied ${copiedCount} product images to public_html/Products`);
+
+    // Guarantee sitemap.xml and robots.txt are synced to public_html root
+    const sourceSitemap = fs.existsSync(path.resolve(distPath, 'sitemap.xml'))
+      ? path.resolve(distPath, 'sitemap.xml')
+      : path.resolve(publicDir, 'sitemap.xml');
+    if (fs.existsSync(sourceSitemap)) {
+      fs.copyFileSync(sourceSitemap, path.resolve(publicHtmlDir, 'sitemap.xml'));
+      console.log('Synced sitemap.xml to public_html/sitemap.xml');
+    }
+
+    const sourceRobots = fs.existsSync(path.resolve(distPath, 'robots.txt'))
+      ? path.resolve(distPath, 'robots.txt')
+      : path.resolve(publicDir, 'robots.txt');
+    if (fs.existsSync(sourceRobots)) {
+      fs.copyFileSync(sourceRobots, path.resolve(publicHtmlDir, 'robots.txt'));
+      console.log('Synced robots.txt to public_html/robots.txt');
     }
   }
 } catch (err) {
-  console.error('Failed to auto-copy Products to public_html:', err);
+  console.error('Failed to auto-sync files to public_html:', err);
 }
 
 
@@ -85,13 +106,44 @@ app.get(['/sitemap.xml', '/sitemap'], (req, res) => {
     ? path.resolve(distPath, 'sitemap.xml')
     : path.resolve(publicDir, 'sitemap.xml');
 
+  res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+  res.setHeader('X-Robots-Tag', 'all');
+  res.setHeader('Cache-Control', 'public, max-age=3600');
+
   if (fs.existsSync(sitemapPath)) {
-    res.setHeader('Content-Type', 'application/xml; charset=utf-8');
-    res.setHeader('X-Robots-Tag', 'all');
-    res.setHeader('Cache-Control', 'public, max-age=3600');
     return res.status(200).send(fs.readFileSync(sitemapPath, 'utf8'));
   }
-  res.status(404).send('Sitemap not found');
+
+  // Resilient fallback if neither file is on disk
+  const fallbackSitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://123thenextlevel.com/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://123thenextlevel.com/store</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://123thenextlevel.com/clinician-copilot</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://123thenextlevel.com/guides/uk-preventative-blood-tests/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://123thenextlevel.com/blog</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+</urlset>`;
+  return res.status(200).send(fallbackSitemap);
 });
 
 app.get('/robots.txt', (req, res) => {
@@ -99,17 +151,19 @@ app.get('/robots.txt', (req, res) => {
     ? path.resolve(distPath, 'robots.txt')
     : path.resolve(publicDir, 'robots.txt');
 
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('X-Robots-Tag', 'all');
+  res.setHeader('Cache-Control', 'public, max-age=3600');
+
   if (fs.existsSync(robotsPath)) {
-    res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-    res.setHeader('X-Robots-Tag', 'all');
-    res.setHeader('Cache-Control', 'public, max-age=3600');
     return res.status(200).send(fs.readFileSync(robotsPath, 'utf8'));
   }
-  res.status(404).send('Robots.txt not found');
+
+  const fallbackRobots = `User-agent: *\nAllow: /\n\nSitemap: https://123thenextlevel.com/sitemap.xml\n`;
+  return res.status(200).send(fallbackRobots);
 });
 
 // --- Static Asset Serving for Railway & Local ---
-const publicDir = path.resolve(__dirname, 'public');
 const distProducts = path.resolve(distPath, 'Products');
 const publicProducts = path.resolve(publicDir, 'Products');
 
