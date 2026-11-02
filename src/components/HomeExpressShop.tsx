@@ -1230,11 +1230,11 @@ export default function HomeExpressShop() {
         </div>
 
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-black text-white tracking-tight uppercase">
-          Longevity Hardware <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent">&amp; Clinical Fuel</span>
+          Selected by Us, <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent">Matched to Your Protocol</span>
         </h2>
 
         <p className="text-sm sm:text-base text-slate-400 max-w-3xl mx-auto font-sans leading-relaxed">
-          Direct-to-consumer procurement for biological optimization. Verified Amazon Associate catalog items and clinical-partner test kits mapped directly to our core geroscience protocols across US, UK, and Spain.
+          A short list of vetted products. Verified partner and Amazon Associate catalog items and test kits, available in the US, UK, and Spain.
         </p>
       </div>
 
