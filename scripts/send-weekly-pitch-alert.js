@@ -120,6 +120,57 @@ export async function sendWeeklyPitchAlertEmail(targetEmail = TARGET_RECIPIENT) 
   const smtpPort = parseInt(process.env.SMTP_PORT || '465', 10);
   const smtpFrom = process.env.SMTP_FROM || `"123TheNextLevel Automation" <${smtpUser}>`;
 
+  // 0. Try MailerLite API if key is present
+  if (process.env.MAILERLITE_API_KEY) {
+    try {
+      console.log(`[Weekly Pitch Mailer] Dispatching via MailerLite API to ${targetEmail}...`);
+      const targetGroupId = process.env.MAILERLITE_ADMIN_GROUP_ID || '203052285768500622'; // Admin Alerts (Jack Only)
+      
+      const createRes = await fetch('https://connect.mailerlite.com/api/campaigns', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.MAILERLITE_API_KEY}`,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: `Monday Blog Pitches Alert - ${new Date().toISOString()}`,
+          type: 'regular',
+          emails: [
+            {
+              subject: SUBJECT,
+              from_name: '123TheNextLevel Automation',
+              from: 'jack@123thenextlevel.com',
+              content: HTML_BODY
+            }
+          ],
+          groups: [targetGroupId]
+        })
+      });
+
+      const campaign = await createRes.json();
+      if (campaign.data?.id) {
+        const cid = campaign.data.id;
+        const sendRes = await fetch(`https://connect.mailerlite.com/api/campaigns/${cid}/schedule`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${process.env.MAILERLITE_API_KEY}`,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({ delivery: 'instant' })
+        });
+        const sendData = await sendRes.json();
+        console.log(`[Weekly Pitch Mailer] ✅ Email successfully dispatched via MailerLite! Campaign ID: ${cid}`);
+        return { success: true, provider: 'mailerlite', campaignId: cid };
+      } else {
+        console.warn('[Weekly Pitch Mailer] MailerLite campaign error:', campaign.message || campaign);
+      }
+    } catch (mlErr) {
+      console.warn(`[Weekly Pitch Mailer] MailerLite dispatch failed: ${mlErr.message}. Trying next provider...`);
+    }
+  }
+
   // 1. Try Resend API if key is present
   if (process.env.RESEND_API_KEY) {
     try {

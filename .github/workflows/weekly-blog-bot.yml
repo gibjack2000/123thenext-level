@@ -73,4 +73,5 @@ jobs:
           SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+          MAILERLITE_API_KEY: ${{ secrets.MAILERLITE_API_KEY }}
 
