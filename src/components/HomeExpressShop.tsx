@@ -35,6 +35,7 @@ export interface RegionalConfig {
   url: string;
   ctaText: string;
   network: string;
+  imageUrl?: string;
 }
 
 export interface ExpressProduct {
@@ -109,6 +110,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "$28.99",
         badge: "Non-GMO & Wild Caught",
         url: "https://www.amazon.com/dp/B07T8H5N1M?tag=123znl0e-20",
+        imageUrl: "/Products/CollagenUS.jpg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
@@ -116,6 +118,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "£24.99",
         badge: "Wild-Caught Marine Matrix",
         url: "https://www.amazon.co.uk/dp/B07T8H5N1M?tag=123znl0f3-21",
+        imageUrl: "/Products/CollagenUK.jpg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -123,6 +126,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "27,99€",
         badge: "Péptidos Hidrolizados Tipo I/III",
         url: "https://www.amazon.es/dp/B07T8H5N1M?tag=123znl08a-21",
+        imageUrl: "/Products/CollagenSpain.jpg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -138,13 +142,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "68k+",
     shortBenefit: "100% pure micronized creatine supporting ATP cellular energy, executive brain function, and muscular power density.",
     description: "Unflavored pure creatine powder designed to saturate phosphocreatine cellular reserves and enhance muscular power output.",
-    imageUrl: "https://images-na.ssl-images-amazon.com/images/P/B002DYIZEO.01._SL500_.jpg",
+    imageUrl: "/Products/creatine.jpg",
     isDirectAffiliate: false,
     regions: {
       US: {
         price: "$39.99",
         badge: "Creapure Tested / Zero Fillers",
         url: "https://www.amazon.com/dp/B002DYIZEO?tag=123znl0e-20",
+        imageUrl: "/Products/creatineus.webp",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
@@ -152,6 +157,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "£32.99",
         badge: "Informed-Choice Certified",
         url: "https://www.amazon.co.uk/dp/B002DYIZEO?tag=123znl0f3-21",
+        imageUrl: "/Products/creatine.jpg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -159,6 +165,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "36,99€",
         badge: "Creatina Micronizada 100% Pura",
         url: "https://www.amazon.es/dp/B002DYIZEO?tag=123znl08a-21",
+        imageUrl: "/Products/creatine-es.webp",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -174,13 +181,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "12k+",
     shortBenefit: "The only magnesium compound clinically proven to cross the blood-brain barrier for deep slow-wave sleep and memory density.",
     description: "Patented Magtein® complex formulated to enhance synaptic plasticity, nighttime HRV recovery, and neuro-metabolic stability.",
-    imageUrl: "https://images-na.ssl-images-amazon.com/images/P/B01M4GM9R1.01._SL500_.jpg",
+    imageUrl: "/Products/magnesiumchelate.jpg",
     isDirectAffiliate: false,
     regions: {
       US: {
         price: "$34.95",
         badge: "Patented Magtein® Brain Formula",
         url: "https://www.amazon.com/dp/B01M4GM9R1?tag=123znl0e-20",
+        imageUrl: "/Products/magglycinateus.webp",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
@@ -188,6 +196,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "£29.95",
         badge: "Blood-Brain Barrier Bioactive",
         url: "https://www.amazon.co.uk/dp/B01M4GM9R1?tag=123znl0f3-21",
+        imageUrl: "/Products/magnesiumglycinate.jpeg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -195,6 +204,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "34,00€",
         badge: "L-Treonato de Magnesio Patentado",
         url: "https://www.amazon.es/dp/B01M4GM9R1?tag=123znl08a-21",
+        imageUrl: "/Products/magnesiumchelate.jpg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -210,13 +220,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "3.2k+",
     shortBenefit: "Natural polyamine that induces deep cellular autophagy, clearing senescent debris and recycling damaged mitochondria.",
     description: "Concentrated wheat germ extract standardized for bioactive spermidine to support healthy cellular lifespans and cardiovascular resilience.",
-    imageUrl: "https://images-na.ssl-images-amazon.com/images/P/B08J5P8D9D.01._SL500_.jpg",
+    imageUrl: "/Products/spermidineus.jpeg",
     isDirectAffiliate: false,
     regions: {
       US: {
         price: "$49.95",
         badge: "Standardized 99% Pure Extract",
         url: "https://www.amazon.com/dp/B08J5P8D9D?tag=123znl0e-20",
+        imageUrl: "/Products/spermidineus.jpeg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
@@ -224,6 +235,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "£42.00",
         badge: "Natural Autophagy Inducer",
         url: "https://www.amazon.co.uk/dp/B08J5P8D9D?tag=123znl0f3-21",
+        imageUrl: "/Products/spermidineuk.jpeg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -231,6 +243,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "47,50€",
         badge: "Inductor de Autofagia Celular",
         url: "https://www.amazon.es/dp/B08J5P8D9D?tag=123znl08a-21",
+        imageUrl: "/Products/spermidinespain.jpeg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -246,13 +259,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "5.6k+",
     shortBenefit: "Enhanced-absorption quercetin phytosome targeting zombie senescent cells and dampening chronic low-grade inflammation.",
     description: "Phospholipid-bound quercetin delivery system offering 20x higher plasma absorption than standard unformulated quercetin powder.",
-    imageUrl: "https://images-na.ssl-images-amazon.com/images/P/B07BFR4QC2.01._SL500_.jpg",
+    imageUrl: "/Products/quercitin.jpeg",
     isDirectAffiliate: false,
     regions: {
       US: {
         price: "$32.50",
         badge: "20x Bioavailability Phytosome",
         url: "https://www.amazon.com/dp/B07BFR4QC2?tag=123znl0e-20",
+        imageUrl: "/Products/quercitin.jpeg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
@@ -260,6 +274,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "£28.00",
         badge: "Liposomal Bioflavonoid Matrix",
         url: "https://www.amazon.co.uk/dp/B07BFR4QC2?tag=123znl0f3-21",
+        imageUrl: "/Products/quercitin.jpeg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -267,6 +282,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "31,90€",
         badge: "Fitosoma de Quercetina Avanzado",
         url: "https://www.amazon.es/dp/B07BFR4QC2?tag=123znl08a-21",
+        imageUrl: "/Products/quercitin.jpeg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -282,13 +298,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "21k+",
     shortBenefit: "Active antioxidant form of Coenzyme Q10 powering cardiac ATP synthesis and neutralizing free-radical lipid peroxidation.",
     description: "Genuine Kaneka Ubiquinol in pharmaceutical-grade softgels supporting myocardial elasticity, vascular tone, and endurance performance.",
-    imageUrl: "https://images-na.ssl-images-amazon.com/images/P/B0019GW3Y8.01._SL500_.jpg",
+    imageUrl: "/Products/coq10.jpeg",
     isDirectAffiliate: false,
     regions: {
       US: {
         price: "$44.99",
         badge: "Genuine Kaneka Ubiquinol®",
         url: "https://www.amazon.com/dp/B0019GW3Y8?tag=123znl0e-20",
+        imageUrl: "/Products/coq10us.webp",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
@@ -296,6 +313,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "£38.50",
         badge: "Active Mitochondrial CoQ10",
         url: "https://www.amazon.co.uk/dp/B0019GW3Y8?tag=123znl0f3-21",
+        imageUrl: "/Products/coq10.jpeg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -303,6 +321,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "42,00€",
         badge: "Ubiquinol Activo Kaneka 200mg",
         url: "https://www.amazon.es/dp/B0019GW3Y8?tag=123znl08a-21",
+        imageUrl: "/Products/coq10es.jpeg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -318,13 +337,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "82k+",
     shortBenefit: "IFOS 5-star certified wild Alaska pollock triglyceride fish oil yielding 1055mg active EPA & DHA per single softgel.",
     description: "Molecularly distilled triglyceride-form omega-3 fatty acids engineered to modulate the Omega-3 Index and optimize cellular membrane fluidity.",
-    imageUrl: "https://images-na.ssl-images-amazon.com/images/P/B00TAK5HCI.01._SL500_.jpg",
+    imageUrl: "/Products/omega3.jpg",
     isDirectAffiliate: false,
     regions: {
       US: {
         price: "$29.95",
         badge: "IFOS 5-Star Certified Triglyceride",
         url: "https://www.amazon.com/dp/B00TAK5HCI?tag=123znl0e-20",
+        imageUrl: "/Products/omega3.jpg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
@@ -332,6 +352,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "£26.50",
         badge: "Wild Alaska Pollock Sourced",
         url: "https://www.amazon.co.uk/dp/B00TAK5HCI?tag=123znl0f3-21",
+        imageUrl: "/Products/omega3fish.jpeg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -339,6 +360,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "29,00€",
         badge: "Aceite de Pescado Triglicérido Puro",
         url: "https://www.amazon.es/dp/B00TAK5HCI?tag=123znl08a-21",
+        imageUrl: "/Products/omega3sp.jpeg.jpeg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -394,13 +416,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "115k+",
     shortBenefit: "Color-coded non-slip cast iron weights for progressive resistance training, osteogenic loading, and metabolic tone.",
     description: "Durable neoprene-coated cast iron dumbbells designed with anti-roll hexagonal heads for safe home gym strength routines.",
-    imageUrl: "https://images-na.ssl-images-amazon.com/images/P/B01LR5RG08.01._SL500_.jpg",
+    imageUrl: "/Products/dumbell.jpg",
     isDirectAffiliate: false,
     regions: {
       US: {
         price: "$10.26 - $45.00",
         badge: "Non-Slip Anti-Roll Grip",
         url: "https://www.amazon.com/dp/B01LR5RG08?tag=123znl0e-20",
+        imageUrl: "/Products/dumbell.jpg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
@@ -408,6 +431,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "£9.99 - £39.99",
         badge: "Hexagonal Cast Iron Core",
         url: "https://www.amazon.co.uk/dp/B01LR5RG08?tag=123znl0f3-21",
+        imageUrl: "/Products/dumbell.jpg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -415,6 +439,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "11,50€ - 42,00€",
         badge: "Recubrimiento de Neopreno Antideslizante",
         url: "https://www.amazon.es/dp/B01LR5RG08?tag=123znl08a-21",
+        imageUrl: "/Products/dumbell.jpg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -430,13 +455,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "140k+",
     shortBenefit: "100% natural latex progressive resistance loops for hip stability, rotator cuff conditioning, and injury prevention.",
     description: "Complete 5-band progressive resistance system with travel pouch and illustrated physical therapy exercise manual.",
-    imageUrl: "https://images-na.ssl-images-amazon.com/images/P/B01AVDVHTI.01._SL500_.jpg",
+    imageUrl: "/Products/gritin.jpg",
     isDirectAffiliate: false,
     regions: {
       US: {
         price: "$8.48",
         badge: "100% Eco-Latex / 5 Levels",
         url: "https://www.amazon.com/dp/B01AVDVHTI?tag=123znl0e-20",
+        imageUrl: "/Products/gritin.jpg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
@@ -444,6 +470,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "£7.99",
         badge: "5 Levels + Instruction Manual",
         url: "https://www.amazon.co.uk/dp/B01AVDVHTI?tag=123znl0f3-21",
+        imageUrl: "/Products/gritin.jpg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -451,6 +478,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "8,99€",
         badge: "Set de 5 Bandas Elásticas",
         url: "https://www.amazon.es/dp/B01AVDVHTI?tag=123znl08a-21",
+        imageUrl: "/Products/resistancebands-es.webp",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -466,13 +494,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "95k+",
     shortBenefit: "Molded polypropylene foam roller for deep myofascial release, spinal decompression, and post-workout lymphatic flow.",
     description: "High-density foam structure that retains shape under heavy pressure, facilitating targeted tissue recovery and flexibility.",
-    imageUrl: "https://images-na.ssl-images-amazon.com/images/P/B00XM2MXK8.01._SL500_.jpg",
+    imageUrl: "/Products/roller.jpg",
     isDirectAffiliate: false,
     regions: {
       US: {
         price: "$15.29",
         badge: "High-Density Molded Foam",
         url: "https://www.amazon.com/dp/B00XM2MXK8?tag=123znl0e-20",
+        imageUrl: "/Products/roller.jpg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
@@ -480,6 +509,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "£13.99",
         badge: "Deep Tissue Myofascial Tool",
         url: "https://www.amazon.co.uk/dp/B00XM2MXK8?tag=123znl0f3-21",
+        imageUrl: "/Products/roller.jpg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -487,6 +517,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "15,99€",
         badge: "Rodillo de Espuma Alta Densidad",
         url: "https://www.amazon.es/dp/B00XM2MXK8?tag=123znl08a-21",
+        imageUrl: "/Products/roller.jpg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -509,6 +540,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "$34.99",
         badge: "Patented 2-Way FreeSip Spout",
         url: "https://www.amazon.com/dp/B08524B5C6?tag=123znl0e-20",
+        imageUrl: "/Products/owala.jpg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
@@ -516,6 +548,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "£28.99",
         badge: "24-Hour Thermal Isolation",
         url: "https://www.amazon.co.uk/dp/B08524B5C6?tag=123znl0f3-21",
+        imageUrl: "/Products/owala.jpg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -523,6 +556,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "32,99€",
         badge: "Aislamiento Térmico Acero Inox",
         url: "https://www.amazon.es/dp/B08524B5C6?tag=123znl08a-21",
+        imageUrl: "/Products/owala.jpg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -545,6 +579,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "$14.99",
         badge: "Anti-Fog & 180° Panoramic Vision",
         url: "https://www.amazon.com/dp/B08XQ35T47?tag=123znl0e-20",
+        imageUrl: "/Products/speedo.jpg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
@@ -552,6 +587,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "£12.99",
         badge: "Leak-Free Silicone Seal",
         url: "https://www.amazon.co.uk/dp/B08XQ35T47?tag=123znl0f3-21",
+        imageUrl: "/Products/speedo.jpg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -559,6 +595,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "13,99€",
         badge: "Gafas de Natación Antivaho UV",
         url: "https://www.amazon.es/dp/B08XQ35T47?tag=123znl08a-21",
+        imageUrl: "/Products/speedo.jpg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -574,13 +611,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
     reviewsCount: "98k+",
     shortBenefit: "0.2 micron membrane filtration removing 99.999999% of bacteria, parasites, and microplastics from any freshwater source.",
     description: "Compact emergency and outdoor adventure water filtration straw ensuring clean, contaminant-free hydration anywhere in the world.",
-    imageUrl: "https://images-na.ssl-images-amazon.com/images/P/B006QF3TW4.01._SL500_.jpg",
+    imageUrl: "/Products/lifestraw.jpg",
     isDirectAffiliate: false,
     regions: {
       US: {
         price: "$13.18",
         badge: "Removes 99.999999% Bacteria",
         url: "https://www.amazon.com/dp/B006QF3TW4?tag=123znl0e-20",
+        imageUrl: "/Products/lifestraw.jpg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
@@ -588,6 +626,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "£11.99",
         badge: "0.2 Micron Hollow Fiber Membrane",
         url: "https://www.amazon.co.uk/dp/B006QF3TW4?tag=123znl0f3-21",
+        imageUrl: "/Products/lifestraw.jpg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -595,6 +634,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "12,95€",
         badge: "Filtro de Agua Personal Portátil",
         url: "https://www.amazon.es/dp/B006QF3TW4?tag=123znl08a-21",
+        imageUrl: "/Products/lifestraw.jpg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -1345,9 +1385,10 @@ export default function HomeExpressShop() {
             const displayUrl = override?.url || regionalData.url;
             const displayBadge = override?.badge || regionalData.badge;
             const displayName = override?.name || product.name;
+            const regionalImg = regionalData?.imageUrl || product.imageUrl;
             const displayImg = resolveDiagnosticImage(
-              { id: product.id, name: displayName, deal_url: displayUrl, market_region: selectedRegion, image_url: product.imageUrl },
-              product.imageUrl,
+              { id: product.id, name: displayName, deal_url: displayUrl, market_region: selectedRegion, image_url: regionalImg },
+              regionalImg,
               selectedRegion
             );
 
@@ -1365,7 +1406,7 @@ export default function HomeExpressShop() {
                       onError={(e) => {
                         const target = e.currentTarget;
                         target.onerror = null;
-                        target.src = withCacheBuster(getSmartImageFallback(product, selectedRegion));
+                        target.src = withCacheBuster(getSmartImageFallback({ ...product, name: displayName }, selectedRegion));
                       }}
                       className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-500"
                     />

@@ -2703,6 +2703,69 @@ export function getSmartImageFallback(product: any, market: any = 'US', isDiag: 
   if (name.includes('blender') || id.includes('blender') || name.includes('batidora')) {
     return '/Products/nutri.webp';
   }
+  if (name.includes('spermidine') || id.includes('spermidine')) {
+    if (market === 'UK') return '/Products/spermidineuk.jpeg';
+    if (market === 'ES') return '/Products/spermidinespain.jpeg';
+    return '/Products/spermidineus.jpeg';
+  }
+  if (name.includes('quercetin') || id.includes('quercetin') || name.includes('quercitina')) {
+    return '/Products/quercitin.jpeg';
+  }
+  if (name.includes('coq10') || id.includes('coq10') || name.includes('ubiquinol')) {
+    if (market === 'UK') return '/Products/coq10.jpeg';
+    if (market === 'ES') return '/Products/coq10es.jpeg';
+    return '/Products/coq10us.webp';
+  }
+  if (name.includes('omega') || id.includes('omega') || name.includes('fish oil')) {
+    if (market === 'UK') return '/Products/omega3fish.jpeg';
+    if (market === 'ES') return '/Products/omega3sp.jpeg.jpeg';
+    return '/Products/omega3.jpg';
+  }
+  if (name.includes('creatine') || id.includes('creatine') || name.includes('creatina')) {
+    if (market === 'ES') return '/Products/creatine-es.webp';
+    if (market === 'UK') return '/Products/creatine.jpg';
+    return '/Products/creatineus.webp';
+  }
+  if (name.includes('magnesium') || id.includes('magnesium') || name.includes('magnesio')) {
+    if (market === 'ES') return '/Products/magnesiumchelate.jpg';
+    if (market === 'UK') return '/Products/magnesiumglycinate.jpeg';
+    return '/Products/magglycinateus.webp';
+  }
+  if (name.includes('collagen') || id.includes('collagen') || name.includes('colágeno')) {
+    if (market === 'UK') return '/Products/CollagenUK.jpg';
+    if (market === 'ES') return '/Products/CollagenSpain.jpg';
+    return '/Products/CollagenUS.jpg';
+  }
+  if (name.includes('dumbbell') || id.includes('dumbbell') || name.includes('mancuerna')) {
+    return '/Products/dumbell.jpg';
+  }
+  if (name.includes('band') || id.includes('band') || name.includes('elástica')) {
+    return '/Products/gritin.jpg';
+  }
+  if (name.includes('roller') || id.includes('roller') || name.includes('rodillo')) {
+    return '/Products/roller.jpg';
+  }
+  if (name.includes('lifestraw') || id.includes('lifestraw') || name.includes('filtro')) {
+    return '/Products/lifestraw.jpg';
+  }
+  if (name.includes('bottle') || id.includes('bottle') || name.includes('botella') || id.includes('owala')) {
+    return '/Products/owala.jpg';
+  }
+  if (name.includes('goggle') || id.includes('goggle') || name.includes('swim') || name.includes('gafas') || id.includes('swim')) {
+    return '/Products/speedo.jpg';
+  }
+  if (name.includes('sauna') || id.includes('sauna')) {
+    return '/Products/sauna.jpeg';
+  }
+  if (name.includes('headphone') || id.includes('headphone') || name.includes('auricular') || id.includes('noise')) {
+    return '/Products/sonyhead.jpg';
+  }
+  if (name.includes('cushion') || id.includes('cushion') || name.includes('cojín') || id.includes('meditation')) {
+    return '/Products/medcushion-uk.webp';
+  }
+  if (name.includes('watch') || id.includes('watch') || name.includes('reloj') || id.includes('apple')) {
+    return '/Products/apple10.jpg';
+  }
   return '/assets/images/shop/sirtuin-stack.png';
 }
 
