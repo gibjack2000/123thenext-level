@@ -109,6 +109,37 @@ export const StoreUS: React.FC = () => {
             healedDeal = healedDeal.replace('https://123thenextlevel.com', '');
           }
 
+          const isEssentialHealthLabs = (
+            item.id === 'essential-blood-panel-us' ||
+            item.id === 'essential-blood-panel' ||
+            String(healedDeal).toLowerCase().includes('click-101875189') ||
+            String(healedDeal).toLowerCase().includes('itemqd100025') ||
+            String(item.name || '').toLowerCase().includes('entry-level') ||
+            String(item.name || '').toLowerCase().includes('choice a') ||
+            (String(item.name || '').toLowerCase().includes('basic') && (String(item.name || '').toLowerCase().includes('blood') || String(item.name || '').toLowerCase().includes('aging')))
+          );
+
+          if (isEssentialHealthLabs) {
+            return {
+              id: 'essential-blood-panel-us',
+              name: '💊 Entry-Level Metabolic Baseline ($99)',
+              category: 'Clinical Diagnostics & Labs',
+              rating: 5.0,
+              description: 'Comprehensive cardiovascular, organ filtration, and metabolic profile measuring Complete Blood Count (CBC), Comprehensive Metabolic Panel (CMP with fasting glucose, kidney and liver filtration), Complete Lipid Panel, and Routine Urinalysis.',
+              price_text: '$99',
+              deal_url: 'https://www.kqzyfj.com/click-101875189-15735109',
+              market_region: 'US',
+              badge_text: '💊 Entry-Level Metabolic Baseline ($99)',
+              subtitle: 'Choice A: Essential Baseline Bloods (US 🇺🇸)',
+              provider: '💊 Direct HealthLabs • Quest / Labcorp Draw',
+              verification_tag: '💊 Entry-Level Metabolic Baseline ($99)',
+              image_url: '/Products/clinical-blood-panel.jpg',
+              is_direct_affiliate: true,
+              hub_placement_slot: item.hub_placement_slot,
+              network: 'Clinical Direct'
+            };
+          }
+
           const catFormatted = normalizeStoreCategory(item.category, item.name, healedDeal);
           const isDiag = isDiagnosticProduct({ ...item, category: catFormatted, deal_url: healedDeal });
 

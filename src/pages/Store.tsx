@@ -2984,7 +2984,7 @@ export function getDiagnosticCountryBadge(market: MarketTab, product?: any): str
     const deal = String(product?.deal_url || '').toLowerCase();
     const title = String(product?.name || '').toLowerCase();
     if (id.includes('essential') || deal.includes('click-101875189') || title.includes('entry-level') || title.includes('choice a') || deal.includes('itemqd100025') || title.includes('basic')) {
-      return '💊 Entry-Level Metabolic Baseline ($99)';
+      return 'Choice A: Essential Baseline Bloods (US 🇺🇸)';
     }
     return '💊 Comprehensive Metabolic & Inflammatory Map';
   }
@@ -3221,7 +3221,7 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
     return {
       ...enriched,
       image_url: resolveDiagnosticImage(enriched, item.image_url, market),
-      price_text: formatDiagnosticPrice(item.price_text, enriched, market),
+      price_text: formatDiagnosticPrice(enriched.price_text || item.price_text, enriched, market),
       suppliers: resolvedSuppliers
     };
   });
@@ -3403,11 +3403,13 @@ export function DynamicSupplierCtaSection({
   const isLabTest = (isDiag || isUSBlood || isUSUrinalysis) && !primaryUrl.startsWith('/checkout');
 
   const handlePrimaryClick = (e: React.MouseEvent) => {
+    if (isHealthLabsBasic) {
+      // Do not prevent default: direct outbound link navigation via target="_blank"
+      return;
+    }
     if (isLabTest) {
       e.preventDefault();
-      const testName = isHealthLabsBasic
-        ? '💊 Entry-Level Metabolic Baseline ($99)'
-        : isUSBlood 
+      const testName = isUSBlood 
         ? (selectedBloodTier === 'basic' ? '💊 Entry-Level Metabolic Baseline ($99)' : 'Healthy Aging Panel (Comprehensive) [#QD100026]')
         : (isUSUrinalysis ? 'Life Extension Complete Urinalysis (#QD007909)' : (product.name || 'Clinical Diagnostic Lab Test'));
       triggerLabRequisition({

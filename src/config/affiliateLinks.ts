@@ -135,13 +135,13 @@ export const sovereignHealthStack: SovereignProduct[] = [
         perksNote: "Item #QD100026 • Quest Diagnostics Requisition"
       },
       {
-        supplierName: "Life Extension",
+        supplierName: "HealthLabs",
         url: US_BLOOD_TEST_BASIC_URL,
-        ctaText: "Order Basic Option ($155)",
-        priceText: "$155.00",
-        badgeText: US_BLOOD_TEST_BASIC_BADGE,
+        ctaText: "Order Requisition ($99)",
+        priceText: "$99",
+        badgeText: "💊 Entry-Level Metabolic Baseline ($99)",
         isPrimary: false,
-        perksNote: "Item #QD100025 • Entry Baseline"
+        perksNote: "Choice A: Essential Baseline Bloods (US 🇺🇸)"
       }
     ],
     uk: [
