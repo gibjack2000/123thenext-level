@@ -15,6 +15,7 @@ export const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isPillarsOpen, setIsPillarsOpen] = useState(false);
   const [isGuidesOpen, setIsGuidesOpen] = useState(false);
+  const [isLibraryOpen, setIsLibraryOpen] = useState(false);
   const [isMobileGuidesOpen, setIsMobileGuidesOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -49,46 +50,39 @@ export const Navbar: React.FC = () => {
       <TickerTapeBanner />
 
       {/* 2. Main Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 lg:gap-3 xl:gap-6">
         
         {/* Logo & Mission Badge */}
-        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           <Link to="/" className="flex items-center gap-2.5 group" onClick={closeMobileMenu}>
             <img 
               src="/assets/logo-icon.png" 
               alt="123TheNextLevel Logo" 
               className="w-8 h-8 sm:w-9 sm:h-9 object-contain drop-shadow group-hover:scale-105 transition-transform duration-300 shrink-0" 
             />
-            <span className="text-lg sm:text-xl font-black tracking-tight text-white group-hover:text-cyan-400 transition-colors truncate">
-              123<span className="text-cyan-400">TheNextLevel</span>
+            <span className="text-lg sm:text-xl font-black tracking-tight text-white group-hover:text-cyan-400 transition-colors whitespace-nowrap">
+              123<span className="text-cyan-400 logo-brand-accent">TheNextLevel</span>
             </span>
           </Link>
-          <span className="hidden xl:inline-block text-[10px] font-bold text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-2 py-0.5 rounded-md uppercase tracking-wider">
+          <span className="geroscience-badge hidden 2xl:inline-block text-[10px] font-bold text-cyan-400 bg-cyan-950/60 border border-cyan-800/50 px-2 py-0.5 rounded-md uppercase tracking-wider shrink-0">
             Geroscience Portal
           </span>
         </div>
 
         {/* Master Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-3.5 xl:gap-5 text-[11px] xl:text-xs font-semibold uppercase tracking-wider">
-          <Link 
-            to="/" 
-            className={`transition-colors ${location.pathname === '/' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
-          >
-            Home
-          </Link>
-
+        <nav className="hidden lg:flex items-center gap-1.5 xl:gap-3 2xl:gap-4.5 text-[11px] xl:text-xs font-semibold uppercase tracking-wider shrink min-w-0 justify-center">
           <Link 
             to="/start-here" 
-            className={`transition-colors ${location.pathname === '/start-here' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+            className={`whitespace-nowrap transition-colors py-2 px-1 rounded-md ${location.pathname === '/start-here' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
             Start Here
           </Link>
 
           <Link 
             to="/overview" 
-            className={`transition-colors ${location.pathname === '/overview' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+            className={`whitespace-nowrap transition-colors py-2 px-1 rounded-md ${location.pathname === '/overview' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
-            The Big Picture
+            <span className="lg:hidden xl:inline">The </span>Big Picture
           </Link>
 
           {/* COMPLETE 6-PILLAR DROPDOWN */}
@@ -99,14 +93,14 @@ export const Navbar: React.FC = () => {
           >
             <button 
               type="button"
-              className="text-cyan-400 font-bold hover:text-cyan-300 flex items-center gap-1 transition-colors py-2 cursor-pointer"
+              className="text-cyan-400 font-bold hover:text-cyan-300 flex items-center gap-1 transition-colors py-2 px-1 rounded-md cursor-pointer whitespace-nowrap"
             >
-              Pillars (6) <span className="text-[10px]">▾</span>
+              <span>Pillars <span className="hidden xl:inline">(6)</span></span> <span className="text-[10px]">▾</span>
             </button>
 
             {isPillarsOpen && (
-              <div className="absolute top-full left-0 w-64 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-2 space-y-1 z-50 animate-fade-in">
-                <div className="px-3 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+              <div className="absolute top-full left-0 w-64 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-2 space-y-1 z-50 animate-fade-in normal-case tracking-normal">
+                <div className="px-3 py-1 text-[10px] font-bold text-slate-500 uppercase tracking-widest border-b border-slate-800/80 pb-1 mb-1">
                   Core Longevity Protocols
                 </div>
                 <Link
@@ -114,28 +108,28 @@ export const Navbar: React.FC = () => {
                   onClick={() => setIsPillarsOpen(false)}
                   className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
                 >
-                  🧬 Pillar 1: Epigenetics & Longevity
+                  🧬 Pillar 1: Epigenetics &amp; Longevity
                 </Link>
                 <Link
                   to="/clinician-copilot"
                   onClick={() => setIsPillarsOpen(false)}
                   className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
                 >
-                  🩸 Pillar 2: Diagnostics & Co-Pilot
+                  🩸 Pillar 2: Diagnostics &amp; Co-Pilot
                 </Link>
                 <Link
                   to="/wellness"
                   onClick={() => setIsPillarsOpen(false)}
                   className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
                 >
-                  🧠 Pillar 3: Autonomic & Wellness
+                  🧠 Pillar 3: Autonomic &amp; Wellness
                 </Link>
                 <Link
                   to="/fitness"
                   onClick={() => setIsPillarsOpen(false)}
                   className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
                 >
-                  ⚡ Pillar 4: Performance & Bio-Data
+                  ⚡ Pillar 4: Performance &amp; Bio-Data
                 </Link>
                 <Link
                   to="/nutrition"
@@ -149,7 +143,7 @@ export const Navbar: React.FC = () => {
                   onClick={() => setIsPillarsOpen(false)}
                   className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
                 >
-                  🌸 Pillar 6: Women's Health & Ovary-Span
+                  🌸 Pillar 6: Women's Health &amp; Ovary-Span
                 </Link>
                 <Link
                   to="/blog-post-socio-architecture"
@@ -162,42 +156,58 @@ export const Navbar: React.FC = () => {
             )}
           </div>
 
-          <Link 
-            to="/library" 
-            className={`transition-colors ${location.pathname === '/library' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
-          >
-            📁 Library
-          </Link>
-
-          <Link 
-            to="/library#free-pdfs" 
-            className={`transition-colors ${['/free-pdfs'].includes(location.pathname) ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
-          >
-            📄 Free PDFs
-          </Link>
-
+          {/* CLINICIAN CO-PILOT DIRECT LINK */}
           <Link 
             to="/clinician-copilot" 
-            className={`transition-colors ${location.pathname === '/clinician-copilot' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+            className={`whitespace-nowrap transition-colors py-2 px-1 rounded-md flex items-center gap-1 ${
+              location.pathname === '/clinician-copilot' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'
+            }`}
           >
-            🩺 Diagnostics & Co-Pilot
+            <span>Co-Pilot</span>
           </Link>
 
-          <Link 
-            to="/premium-guides" 
-            className={`transition-colors ${location.pathname === '/premium-guides' ? 'text-amber-400 font-bold' : 'text-amber-400/90 hover:text-amber-300'}`}
+          {/* LIBRARY DROPDOWN (Includes Free PDFs) */}
+          <div 
+            className="relative"
+            onMouseEnter={() => setIsLibraryOpen(true)}
+            onMouseLeave={() => setIsLibraryOpen(false)}
           >
-            ⚡ Premium Guides
-          </Link>
+            <Link 
+              to="/library"
+              className={`whitespace-nowrap transition-colors flex items-center gap-1 py-2 px-1 rounded-md cursor-pointer ${
+                location.pathname === '/library' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              <span>Library</span> <span className="text-[10px]">▾</span>
+            </Link>
 
-          <Link 
-            to="/blog" 
-            className={`transition-colors ${location.pathname === '/blog' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
-          >
-            📚 Blogs
-          </Link>
+            {isLibraryOpen && (
+              <div 
+                className="absolute top-full left-0 w-64 bg-slate-900 border border-slate-800 rounded-xl shadow-2xl p-2.5 space-y-1.5 z-50 animate-fade-in normal-case tracking-normal"
+              >
+                <div className="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-widest border-b border-slate-800/80 pb-1 mb-1">
+                  Research &amp; Downloads
+                </div>
+                <Link
+                  to="/library"
+                  onClick={() => setIsLibraryOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:text-cyan-400 hover:bg-slate-800 transition-all"
+                >
+                  📁 Complete Scientific Archive
+                </Link>
+                <Link
+                  to="/library#free-pdfs"
+                  onClick={() => setIsLibraryOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-bold text-emerald-400 hover:text-emerald-300 hover:bg-slate-800 transition-all flex items-center justify-between"
+                >
+                  <span>📄 Free PDF Protocols</span>
+                  <span className="text-[9px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-500/30">$0 FREE</span>
+                </Link>
+              </div>
+            )}
+          </div>
 
-          {/* CLINICAL BLOOD TEST GUIDES DROPDOWN */}
+          {/* CLINICAL BLOOD TEST GUIDES & PREMIUM PROTOCOLS DROPDOWN */}
           <div 
             className="relative"
             onMouseEnter={() => setIsGuidesOpen(true)}
@@ -205,8 +215,8 @@ export const Navbar: React.FC = () => {
           >
             <button 
               type="button"
-              className={`font-semibold hover:text-emerald-400 flex items-center gap-1 transition-colors py-2 cursor-pointer ${
-                location.pathname.startsWith('/guides') ? 'text-emerald-400 font-bold' : 'text-slate-300 hover:text-white'
+              className={`whitespace-nowrap font-semibold hover:text-emerald-400 flex items-center gap-1 transition-colors py-2 px-1 rounded-md cursor-pointer ${
+                location.pathname.startsWith('/guides') || location.pathname === '/premium-guides' ? 'text-emerald-400 font-bold' : 'text-slate-300 hover:text-white'
               }`}
             >
               <span>Guides</span> <span className="text-[10px]">▾</span>
@@ -276,6 +286,29 @@ export const Navbar: React.FC = () => {
                   </span>
                 </a>
 
+                {/* Featured: Premium Protocols & Workbooks */}
+                <div className="pt-1.5 mt-1 border-t border-slate-800/80">
+                  <div className="px-3 py-1 text-[10px] font-bold text-amber-400 uppercase tracking-widest flex items-center justify-between">
+                    <span>⚡ Master Protocols</span>
+                    <span className="text-[9px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded border border-amber-500/30">9 Guides</span>
+                  </div>
+                  <Link
+                    to="/premium-guides"
+                    onClick={() => setIsGuidesOpen(false)}
+                    className="block px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800/70 transition-all group"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-amber-300 group-hover:text-amber-200 transition-colors flex items-center gap-1.5">
+                        ⚡ Premium Longevity Guides
+                      </span>
+                      <span className="text-[10px] text-amber-400 font-mono opacity-0 group-hover:opacity-100 transition-opacity">➔</span>
+                    </div>
+                    <span className="block text-[11px] text-slate-400 mt-0.5 font-normal">
+                      Metabolic, Epigenetic &amp; Cellular Workbooks
+                    </span>
+                  </Link>
+                </div>
+
                 <div className="pt-1.5 mt-1 border-t border-slate-800">
                   <a
                     href="/guides/"
@@ -290,20 +323,27 @@ export const Navbar: React.FC = () => {
           </div>
 
           <Link 
-            to={`/store-${market?.toLowerCase() || selectedRegion}`} 
-            className={`transition-colors ${location.pathname.startsWith('/store') ? 'text-cyan-400 font-bold font-black' : 'text-slate-300 hover:text-white'}`}
+            to="/blog" 
+            className={`whitespace-nowrap transition-colors py-2 px-1 rounded-md ${location.pathname === '/blog' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
-            🛒 Store
+            Blog
+          </Link>
+
+          <Link 
+            to={`/store-${market?.toLowerCase() || selectedRegion}`} 
+            className={`whitespace-nowrap transition-colors py-2 px-1 rounded-md font-bold ${location.pathname.startsWith('/store') ? 'text-cyan-400 font-black' : 'text-slate-300 hover:text-white'}`}
+          >
+            Store
           </Link>
         </nav>
 
         {/* Regional Selector Pills (Desktop) */}
-        <div className="hidden sm:flex items-center gap-3">
-          <div className="flex items-center bg-slate-900 border border-slate-800 rounded-full p-1 text-xs shadow-inner">
+        <div className="hidden sm:flex items-center gap-2 xl:gap-3 shrink-0">
+          <div className="flex items-center bg-slate-900 border border-slate-800 rounded-full p-1 text-xs shadow-inner shrink-0">
             <button
               type="button"
               onClick={() => handleRegionChange('us')}
-              className={`px-2.5 py-1 rounded-full font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+              className={`px-2 py-0.5 xl:px-2.5 xl:py-1 rounded-full font-bold transition-all flex items-center gap-1 xl:gap-1.5 cursor-pointer ${
                 market === 'US' 
                   ? 'bg-cyan-500 text-slate-950 font-bold shadow-md scale-105' 
                   : 'text-slate-400 hover:text-white'
@@ -317,7 +357,7 @@ export const Navbar: React.FC = () => {
             <button
               type="button"
               onClick={() => handleRegionChange('uk')}
-              className={`px-2.5 py-1 rounded-full font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+              className={`px-2 py-0.5 xl:px-2.5 xl:py-1 rounded-full font-bold transition-all flex items-center gap-1 xl:gap-1.5 cursor-pointer ${
                 market === 'UK' 
                   ? 'bg-cyan-500 text-slate-950 font-bold shadow-md scale-105' 
                   : 'text-slate-400 hover:text-white'
@@ -331,7 +371,7 @@ export const Navbar: React.FC = () => {
             <button
               type="button"
               onClick={() => handleRegionChange('es')}
-              className={`px-2.5 py-1 rounded-full font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
+              className={`px-2 py-0.5 xl:px-2.5 xl:py-1 rounded-full font-bold transition-all flex items-center gap-1 xl:gap-1.5 cursor-pointer ${
                 market === 'ES' 
                   ? 'bg-cyan-500 text-slate-950 font-bold shadow-md scale-105' 
                   : 'text-slate-400 hover:text-white'
@@ -346,9 +386,9 @@ export const Navbar: React.FC = () => {
 
           <Link
             to="/quiz"
-            className="py-2 px-3.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold rounded-lg transition-all shadow-md shadow-cyan-500/20 whitespace-nowrap active:scale-95"
+            className="py-1.5 px-2.5 xl:py-2 xl:px-3.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold rounded-lg transition-all shadow-md shadow-cyan-500/20 whitespace-nowrap active:scale-95 shrink-0"
           >
-            5-Min Quiz ➔
+            <span className="hidden xl:inline">5-Min </span>Quiz ➔
           </Link>
 
           {/* Cart Trigger Button */}
@@ -356,10 +396,10 @@ export const Navbar: React.FC = () => {
             type="button"
             onClick={openCart}
             aria-label="View Shopping Cart"
-            className="relative px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-850 text-slate-300 hover:text-white transition-all flex items-center gap-1.5 cursor-pointer shadow-sm group"
+            className="relative px-2.5 py-1.5 xl:px-3 xl:py-2 rounded-lg bg-slate-900 border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-850 text-slate-300 hover:text-white transition-all flex items-center gap-1.5 cursor-pointer shadow-sm group shrink-0"
           >
             <ShoppingCart size={15} className="text-cyan-400 group-hover:scale-110 transition-transform" />
-            <span className="text-xs font-bold uppercase tracking-wider hidden xl:inline">Cart</span>
+            <span className="text-xs font-bold uppercase tracking-wider hidden 2xl:inline">Cart</span>
             {cartCount > 0 && (
               <span className="flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[10px] font-black bg-emerald-400 text-slate-950 rounded-full shadow animate-pulse">
                 {cartCount}

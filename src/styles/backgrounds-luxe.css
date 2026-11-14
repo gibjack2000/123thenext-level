@@ -133,9 +133,16 @@ html.theme-luxe header img[alt*="123TheNextLevel"]:hover {
 }
 
 /* Geroscience portal badge */
-html.theme-luxe header span.text-cyan-400 {
+html.theme-luxe header .geroscience-badge {
   background: rgba(223, 183, 74, 0.15) !important;
   border-color: rgba(223, 183, 74, 0.4) !important;
+  color: var(--luxe-text-gold) !important;
+}
+
+/* Ensure logo brand accent text remains clean without background box */
+html.theme-luxe header .logo-brand-accent {
+  background: transparent !important;
+  border: none !important;
   color: var(--luxe-text-gold) !important;
 }
 
