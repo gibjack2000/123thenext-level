@@ -1050,14 +1050,17 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     },
     {
       "id": "blood-panel-us",
-      "name": "Healthy Aging Panel (Comprehensive) [#QD100026]",
+      "name": "💊 Comprehensive Metabolic & Inflammatory Map ($269)",
       "category": "Clinical Diagnostics & Labs",
-      "rating": 4.95,
-      "description": "Direct-to-consumer longevity blood panels via Quest Diagnostics requisition mapping 56 essential biomarkers including ApoB, hs-CRP, and metabolic health.",
-      "price_text": "From $299.00",
-      "deal_url": "https://www.lifeextension.com/lab-testing/itemqd100026/healthy-aging-panel-comprehensive-blood-test",
+      "rating": 4.9,
+      "description": "Direct-to-consumer longevity blood panels with Quest Diagnostics and Labcorp requisition. Comprehensive vascular and cellular inflammatory blueprint covering systemic inflammation (hs-CRP), advanced lipids, glycemic regulation, and core metabolic organ telemetry.",
+      "price_text": "$269.00",
+      "deal_url": "https://www.healthlabs.com/comprehensive-heart-health-testing",
       "market_region": "US",
-      "badge_text": "💊 Comprehensive Metabolic & Inflammatory Map",
+      "badge_text": "💊 HealthLabs Comprehensive Heart Health Panel ($269)",
+      "subtitle": "Personalized Cellular Biomarker Map • Comprehensive Heart Health Panel",
+      "provider": "💊 Direct HealthLabs • Quest / Labcorp Draw",
+      "verification_tag": "💊 HealthLabs Comprehensive Heart Health Panel ($269)",
       "image_url": "/Products/clinical-blood-panel.jpg"
     },
     {
@@ -2607,10 +2610,12 @@ export function isUSBloodTest(product: any, market?: MarketTab): boolean {
   return (
     id.includes('blood-panel') ||
     id.includes('essential-blood') ||
+    deal.includes('comprehensive-heart-health') ||
+    deal.includes('comprehensive-health-testing') ||
     deal.includes('itemqd100025') ||
     deal.includes('itemqd100026') ||
     deal.includes('healthy-aging-panel') ||
-    ((title.includes('blood') || title.includes('cellular') || title.includes('biomarker') || title.includes('healthy aging')) &&
+    ((title.includes('blood') || title.includes('cellular') || title.includes('biomarker') || title.includes('healthy aging') || title.includes('comprehensive metabolic') || title.includes('heart health') || title.includes('metabolic baseline') || title.includes('entry-level')) &&
      !id.includes('pressure') && !title.includes('pressure') &&
      !id.includes('ovarian') && !title.includes('ovarian') &&
      !id.includes('cgm') && !title.includes('cgm'))
@@ -2623,10 +2628,7 @@ export function getDiagnosticPricingBadge(product: any, market: MarketTab): stri
   const deal = String(product?.deal_url || '').toLowerCase();
 
   if (isUSBloodTest(product, market)) {
-    if (id.includes('essential') || deal.includes('comprehensive-health-testing') || deal.includes('click-101875189') || title.includes('entry-level') || title.includes('choice a') || deal.includes('itemqd100025') || title.includes('basic')) {
-      return '💊 Direct HealthLabs • Quest / Labcorp Draw';
-    }
-    return '💊 Direct Life Extension • Quest Draw';
+    return '💊 Direct HealthLabs • Quest / Labcorp Draw';
   }
 
   if (market === 'US') {
@@ -2658,7 +2660,10 @@ export function getDiagnosticPricingBadge(product: any, market: MarketTab): stri
   if (market === 'ES') {
     return '💶 Precios actualizados en la web de Melio';
   }
-  return '💵 Up-to-date pricing on Life Extension';
+  if (market === 'US') {
+    return '💊 Direct HealthLabs • Quest / Labcorp Draw';
+  }
+  return '💵 Live pricing on partner site';
 }
 
 export const ASSET_CACHE_VERSION = '20261101b';
@@ -2921,7 +2926,7 @@ export function formatDiagnosticPrice(priceText: string, product: any, market: M
     if (id.includes('essential') || deal.includes('comprehensive-health-testing') || deal.includes('click-101875189') || title.includes('entry-level') || title.includes('choice a') || deal.includes('itemqd100025') || title.includes('basic')) {
       return '$99';
     }
-    return raw.toLowerCase().startsWith('from ') ? raw : `From ${raw}`;
+    return '$269.00';
   }
 
   if (market === 'US' && (
@@ -2986,7 +2991,7 @@ export function getDiagnosticCountryBadge(market: MarketTab, product?: any): str
     if (id.includes('essential') || deal.includes('comprehensive-health-testing') || deal.includes('click-101875189') || title.includes('entry-level') || title.includes('choice a') || deal.includes('itemqd100025') || title.includes('basic')) {
       return 'Choice A: Essential Baseline Bloods (US 🇺🇸)';
     }
-    return '💊 Comprehensive Metabolic & Inflammatory Map';
+    return product?.subtitle || 'Personalized Cellular Biomarker Map • Comprehensive Heart Health Panel';
   }
 
   if (market === 'UK') {
@@ -3007,21 +3012,22 @@ export function getDiagnosticCountryBadge(market: MarketTab, product?: any): str
     if (id.includes('urinalysis-test') || id === 'urinalysis-us' || deal.includes('itemqd007909') || (id.includes('urinalysis') && !id.includes('reagent') && !title.includes('dipstick') && !title.includes('urinox'))) {
       return '💊 Quest Diagnostics Requisition ($24)';
     }
+    return '💊 Direct HealthLabs • Quest / Labcorp Draw';
   }
-  return '🇺🇸 US (Quest / Life Extension)';
+  return '💊 Direct HealthLabs • Quest / Labcorp Draw';
 }
 
 export function getCleanDiagnosticCta(product: any, market: MarketTab): string {
   const id = (product?.id || '').toLowerCase();
   const title = (product?.name || '').toLowerCase();
 
-  // Temporary US Blood Tests (Life Extension Direct)
+  // US Blood Tests (HealthLabs Direct)
   if (isUSBloodTest(product, market)) {
     const deal = (product?.deal_url || '').toLowerCase();
     if (id.includes('essential') || deal.includes('comprehensive-health-testing') || deal.includes('click-101875189') || title.includes('entry-level') || title.includes('choice a') || deal.includes('itemqd100025') || title.includes('basic')) {
       return 'Order Requisition ($99)';
     }
-    return 'Order Comprehensive Panel (Life Extension US 🇺🇸)';
+    return 'Order Comprehensive Panel ($269)';
   }
 
   // Blood Panels: Lola Core Health 45 (UK) / Lola Vital Check 56 (UK) / Melio 56 (ES) / Comprehensive (US)
@@ -3037,7 +3043,7 @@ export function getCleanDiagnosticCta(product: any, market: MarketTab): string {
 
   if (id.includes('blood-panel') || id.includes('essential-blood') || title.includes('core health') || title.includes('choice a') || title.includes('choice b') || title.includes('essential baseline') || title.includes('56') || title.includes('vital check') || title.includes('biomarker') || title.includes('biomarcador')) {
     if (market === 'ES') return 'Order 56-Biomarker Panel (Melio ES 🇪🇸)';
-    return 'Order Comprehensive Panel (Life Extension US 🇺🇸)';
+    return 'Order Comprehensive Panel ($269)';
   }
 
   // Lab Urine ACR / Urinalysis
@@ -3125,6 +3131,31 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
       enriched.provider = '💊 Direct HealthLabs • Quest / Labcorp Draw';
       enriched.verification_tag = '💊 Entry-Level Metabolic Baseline ($99)';
       enriched.description = 'Comprehensive cardiovascular, organ filtration, and metabolic profile measuring Complete Blood Count (CBC), Comprehensive Metabolic Panel (CMP with fasting glucose, kidney and liver filtration), Complete Lipid Panel, and Routine Urinalysis.';
+      enriched.image_url = '/Products/clinical-blood-panel.jpg';
+    }
+
+    // Auto-heal US Comprehensive Blood Panel to HealthLabs ($269)
+    if (enriched.market_region === 'US' && (
+      String(enriched.id).toLowerCase() === 'blood-panel-us' ||
+      String(enriched.id).toLowerCase() === 'blood-panel' ||
+      String(enriched.deal_url || '').toLowerCase().includes('comprehensive-heart-health-testing') ||
+      String(enriched.deal_url || '').toLowerCase().includes('itemqd100026') ||
+      String(enriched.name || '').toLowerCase().includes('comprehensive metabolic') ||
+      String(enriched.name || '').toLowerCase().includes('healthy aging panel (comprehensive)') ||
+      (String(enriched.name || '').toLowerCase().includes('comprehensive') && String(enriched.name || '').toLowerCase().includes('inflammatory')) ||
+      (String(enriched.name || '').toLowerCase().includes('cellular biomarker map') && !String(enriched.id).toLowerCase().includes('essential'))
+    )) {
+      enriched.id = 'blood-panel-us';
+      enriched.name = '💊 Comprehensive Metabolic & Inflammatory Map ($269)';
+      enriched.category = 'Clinical Diagnostics & Labs';
+      enriched.rating = 4.9;
+      enriched.price_text = '$269.00';
+      enriched.deal_url = 'https://www.healthlabs.com/comprehensive-heart-health-testing';
+      enriched.badge_text = '💊 HealthLabs Comprehensive Heart Health Panel ($269)';
+      enriched.subtitle = 'Personalized Cellular Biomarker Map • Comprehensive Heart Health Panel';
+      enriched.provider = '💊 Direct HealthLabs • Quest / Labcorp Draw';
+      enriched.verification_tag = '💊 HealthLabs Comprehensive Heart Health Panel ($269)';
+      enriched.description = 'Direct-to-consumer longevity blood panels with Quest Diagnostics and Labcorp requisition. Comprehensive vascular and cellular inflammatory blueprint covering systemic inflammation (hs-CRP), advanced lipids, glycemic regulation, and core metabolic organ telemetry.';
       enriched.image_url = '/Products/clinical-blood-panel.jpg';
     }
 
@@ -3381,10 +3412,10 @@ export function DynamicSupplierCtaSection({
       ctaButtonText = 'Order Requisition ($99)';
       perksNoteToShow = 'Choice A: Essential Baseline Bloods (US 🇺🇸)';
     } else {
-      priceToShow = 'From $299.00';
-      primaryUrl = US_BLOOD_TEST_COMPREHENSIVE_URL;
-      ctaButtonText = 'Order Comprehensive Panel (Life Extension US 🇺🇸)';
-      perksNoteToShow = 'Item #QD100026 • 56-Biomarker Cellular Map';
+      priceToShow = '$269.00';
+      primaryUrl = 'https://www.healthlabs.com/comprehensive-heart-health-testing';
+      ctaButtonText = 'Order Comprehensive Panel ($269)';
+      perksNoteToShow = 'Personalized Cellular Biomarker Map • Comprehensive Heart Health Panel';
     }
   }
 
@@ -3405,14 +3436,14 @@ export function DynamicSupplierCtaSection({
   const isLabTest = (isDiag || isUSBlood || isUSUrinalysis) && !primaryUrl.startsWith('/checkout');
 
   const handlePrimaryClick = (e: React.MouseEvent) => {
-    if (isHealthLabsBasic) {
+    if (isHealthLabsBasic || isUSBlood) {
       // Do not prevent default: direct outbound link navigation via target="_blank"
       return;
     }
     if (isLabTest) {
       e.preventDefault();
       const testName = isUSBlood 
-        ? (selectedBloodTier === 'basic' ? '💊 Entry-Level Metabolic Baseline ($99)' : 'Healthy Aging Panel (Comprehensive) [#QD100026]')
+        ? (selectedBloodTier === 'basic' ? '💊 Entry-Level Metabolic Baseline ($99)' : '💊 Comprehensive Metabolic & Inflammatory Map ($269)')
         : (isUSUrinalysis ? 'Life Extension Complete Urinalysis (#QD007909)' : (product.name || 'Clinical Diagnostic Lab Test'));
       triggerLabRequisition({
         destinationUrl: primaryUrl,
@@ -3435,7 +3466,7 @@ export function DynamicSupplierCtaSection({
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
-            Comprehensive
+            Comprehensive ($269)
           </button>
           <button
             type="button"
@@ -3463,7 +3494,7 @@ export function DynamicSupplierCtaSection({
             </span>
           ) : isUSBlood ? (
             <span className="text-[10px] text-emerald-400/90 font-medium mt-0.5">
-              {selectedBloodTier === 'basic' ? '💊 Direct HealthLabs • Quest / Labcorp Draw' : 'Direct Life Extension • Quest Draw'}
+              💊 Direct HealthLabs • Quest / Labcorp Draw
             </span>
           ) : isUSUrinalysis ? (
             <span className="text-[10px] text-emerald-400/90 font-medium mt-0.5">
@@ -3499,7 +3530,7 @@ export function DynamicSupplierCtaSection({
           <a
             href={primaryUrl}
             target="_blank"
-            rel={isHealthLabsBasic ? "noopener" : "noopener sponsored"}
+            rel={(isHealthLabsBasic || isUSBlood) ? "noopener" : "noopener sponsored"}
             onClick={handlePrimaryClick}
             className={`px-4 py-2 rounded-lg text-xs font-bold transition-all duration-300 text-center shadow-lg cursor-pointer ${
               isDiag 

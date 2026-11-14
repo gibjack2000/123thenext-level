@@ -141,6 +141,38 @@ export const StoreUS: React.FC = () => {
             };
           }
 
+          const isComprehensiveHealthLabs = (
+            item.id === 'blood-panel-us' ||
+            item.id === 'blood-panel' ||
+            String(healedDeal).toLowerCase().includes('comprehensive-heart-health-testing') ||
+            String(healedDeal).toLowerCase().includes('itemqd100026') ||
+            String(item.name || '').toLowerCase().includes('comprehensive metabolic') ||
+            String(item.name || '').toLowerCase().includes('healthy aging panel (comprehensive)') ||
+            (String(item.name || '').toLowerCase().includes('comprehensive') && String(item.name || '').toLowerCase().includes('inflammatory')) ||
+            (String(item.name || '').toLowerCase().includes('cellular biomarker map') && !isEssentialHealthLabs)
+          );
+
+          if (isComprehensiveHealthLabs) {
+            return {
+              id: 'blood-panel-us',
+              name: '💊 Comprehensive Metabolic & Inflammatory Map ($269)',
+              category: 'Clinical Diagnostics & Labs',
+              rating: 4.9,
+              description: 'Direct-to-consumer longevity blood panels with Quest Diagnostics and Labcorp requisition. Comprehensive vascular and cellular inflammatory blueprint covering systemic inflammation (hs-CRP), advanced lipids, glycemic regulation, and core metabolic organ telemetry.',
+              price_text: '$269.00',
+              deal_url: 'https://www.healthlabs.com/comprehensive-heart-health-testing',
+              market_region: 'US',
+              badge_text: '💊 Comprehensive Metabolic & Inflammatory Map ($269)',
+              subtitle: 'Personalized Cellular Biomarker Map • Comprehensive Heart Health Panel',
+              provider: '💊 Direct HealthLabs • Quest / Labcorp Draw',
+              verification_tag: '💊 HealthLabs Comprehensive Heart Health Panel ($269)',
+              image_url: '/Products/clinical-blood-panel.jpg',
+              is_direct_affiliate: true,
+              hub_placement_slot: item.hub_placement_slot,
+              network: 'Clinical Direct'
+            };
+          }
+
           const catFormatted = normalizeStoreCategory(item.category, item.name, healedDeal);
           const isDiag = isDiagnosticProduct({ ...item, category: catFormatted, deal_url: healedDeal });
 

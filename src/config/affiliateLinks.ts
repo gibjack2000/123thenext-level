@@ -65,8 +65,8 @@ export const STORE_CATEGORIES: StoreCategory[] = [
 // Direct Life Extension & HealthLabs US Blood Panel Links
 export const US_BLOOD_TEST_BASIC_URL = "https://www.healthlabs.com/comprehensive-health-testing";
 export const US_BLOOD_TEST_BASIC_BADGE = "💊 Entry-Level Metabolic Baseline ($99)";
-export const US_BLOOD_TEST_COMPREHENSIVE_URL = "https://www.lifeextension.com/lab-testing/itemqd100026/healthy-aging-panel-comprehensive-blood-test";
-export const US_BLOOD_TEST_COMPREHENSIVE_BADGE = "💊 Comprehensive Metabolic & Inflammatory Map";
+export const US_BLOOD_TEST_COMPREHENSIVE_URL = "https://www.healthlabs.com/comprehensive-heart-health-testing";
+export const US_BLOOD_TEST_COMPREHENSIVE_BADGE = "💊 HealthLabs Comprehensive Heart Health Panel ($269)";
 
 // Direct Life Extension US Complete Urinalysis (Item #QD007909)
 export const US_URINALYSIS_TEST_URL = "https://www.lifeextension.com/lab-testing/itemqd007909/urinalysis-urine-test";
@@ -119,20 +119,20 @@ export const sovereignHealthStack: SovereignProduct[] = [
   },
   {
     id: "blood-panel",
-    name: "Healthy Aging Panel (Comprehensive) [#QD100026]",
+    name: "💊 Comprehensive Metabolic & Inflammatory Map ($269)",
     category: "Clinical Diagnostics & Labs",
-    rating: 4.95,
-    description: "Direct-to-consumer longevity blood panels mapping essential biomarkers including ApoB, hs-CRP, Vitamin D, Thyroid, and Hormones. Local Quest draw in the US via Life Extension, private clinical setups in UK and ES.",
+    rating: 4.9,
+    description: "Direct-to-consumer longevity blood panels with Quest Diagnostics and Labcorp requisition. Comprehensive vascular and cellular inflammatory blueprint covering systemic inflammation (hs-CRP), advanced lipids, glycemic regulation, and core metabolic organ telemetry.",
     image_url: "/Products/clinical-blood-panel.jpg",
     us: [
       {
-        supplierName: "Life Extension",
+        supplierName: "HealthLabs",
         url: US_BLOOD_TEST_COMPREHENSIVE_URL,
-        ctaText: "Order Comprehensive Panel (Life Extension US 🇺🇸)",
-        priceText: "From $299.00",
-        badgeText: US_BLOOD_TEST_COMPREHENSIVE_BADGE,
+        ctaText: "Order Comprehensive Panel ($269)",
+        priceText: "$269.00",
+        badgeText: "💊 HealthLabs Comprehensive Heart Health Panel ($269)",
         isPrimary: true,
-        perksNote: "Item #QD100026 • Quest Diagnostics Requisition"
+        perksNote: "Personalized Cellular Biomarker Map • Comprehensive Heart Health Panel"
       },
       {
         supplierName: "HealthLabs",
@@ -1169,20 +1169,22 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
   } else if (
     market === 'US' && (
       id.includes('blood-panel') ||
+      lowerDeal.includes('comprehensive-heart-health-testing') ||
       lowerDeal.includes('itemqd100026') ||
       lowerDeal.includes('healthy-aging-panel') ||
       ((lowerTitle.includes('blood') || lowerTitle.includes('cellular') || lowerTitle.includes('biomarker') || lowerTitle.includes('comprehensive')) &&
         !id.includes('pressure') && !lowerTitle.includes('pressure') &&
-        !id.includes('ovarian') && !lowerTitle.includes('ovarian'))
+        !id.includes('ovarian') && !lowerTitle.includes('ovarian') &&
+        !id.includes('essential'))
     )
   ) {
-    // Temporary US Blood Test Links: Comprehensive (#QD100026)
-    primarySupplier = 'Life Extension';
-    primaryPerks = 'Item #QD100026 • Quest Diagnostics Requisition';
-    primaryCta = 'Order Comprehensive Panel (Life Extension US 🇺🇸)';
+    // US Blood Test: Choice B Comprehensive Metabolic & Inflammatory Map ($269) via HealthLabs
+    primarySupplier = 'HealthLabs';
+    primaryPerks = 'Personalized Cellular Biomarker Map • Comprehensive Heart Health Panel';
+    primaryCta = 'Order Comprehensive Panel ($269)';
     dealUrl = US_BLOOD_TEST_COMPREHENSIVE_URL;
-    priceText = 'From $299.00';
-    badgeText = US_BLOOD_TEST_COMPREHENSIVE_BADGE;
+    priceText = '$269.00';
+    badgeText = '💊 HealthLabs Comprehensive Heart Health Panel ($269)';
   } else if (
     market === 'US' && (
       id.includes('urinalysis-test') ||
@@ -1313,17 +1315,17 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
       });
     } else if (isBasicCard) {
       options.push({
-        id: `${id || 'prod'}-us-life-extension-comp`,
+        id: `${id || 'prod'}-us-healthlabs-comp`,
         productId: id,
         marketRegion: 'US',
-        supplierName: 'Life Extension (Comprehensive)',
+        supplierName: 'HealthLabs (Comprehensive $269)',
         url: US_BLOOD_TEST_COMPREHENSIVE_URL,
-        ctaText: 'Order Comprehensive Panel ($299)',
-        priceText: 'From $299.00',
+        ctaText: 'Order Comprehensive Panel ($269)',
+        priceText: '$269.00',
         badgeText: US_BLOOD_TEST_COMPREHENSIVE_BADGE,
         isPrimary: false,
         isActive: true,
-        perksNote: 'Item #QD100026 • 56-Biomarker Map'
+        perksNote: 'Personalized Cellular Biomarker Map • Comprehensive Heart Health Panel'
       });
     }
   }
