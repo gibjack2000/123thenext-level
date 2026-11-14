@@ -2554,12 +2554,8 @@ export function isBundledDiagnosticImage(url?: string): boolean {
   if (!url) return false;
   return (
     BUNDLED_DIAGNOSTIC_IMAGES.has(url) ||
-    url.includes('lola-') ||
-    url.includes('clinical-') ||
-    url.includes('aymed') ||
-    url.includes('withing') ||
-    url.includes('newithings') ||
-    url.includes('bloodtest')
+    url.startsWith('/assets/') ||
+    url.startsWith('assets/')
   );
 }
 
@@ -2672,9 +2668,14 @@ export function withCacheBuster(url?: string): string {
   if (!url) return '';
   if (url.startsWith('data:') || url.startsWith('blob:')) return url;
   if (url.includes('amazon.com') || url.includes('ssl-images-amazon')) return url;
-  if (url.includes('?v=')) return url;
-  const separator = url.includes('?') ? '&' : '?';
-  return `${url}${separator}v=${ASSET_CACHE_VERSION}`;
+  if (url.includes('?v=') || url.includes('&v=')) return url;
+  // Only append static ASSET_CACHE_VERSION to local bundled /assets/ paths if needed.
+  // Dynamic database URLs (Supabase storage, /Products/, etc.) must not be locked to a stale static version!
+  if (url.startsWith('/assets/') || url.startsWith('assets/')) {
+    const separator = url.includes('?') ? '&' : '?';
+    return `${url}${separator}v=${ASSET_CACHE_VERSION}`;
+  }
+  return url;
 }
 
 export function getSmartImageFallback(product: any, market: any = 'US', isDiag: boolean = false): string {
@@ -2782,9 +2783,22 @@ export function getSmartImageFallback(product: any, market: any = 'US', isDiag: 
 }
 
 export function resolveDiagnosticImage(product: any, fallbackImg?: string, market?: MarketTab): string {
+  // Strictly prioritize live database URL (product.image_url / product.image / fallbackImg)
+  // whenever non-empty and not a Vite static bundle path (/assets/...)
+  const candidate = String(product?.image_url || product?.image || fallbackImg || '').trim();
+
+  if (
+    candidate &&
+    !candidate.startsWith('/assets/') &&
+    !candidate.startsWith('assets/') &&
+    !BUNDLED_DIAGNOSTIC_IMAGES.has(candidate)
+  ) {
+    return candidate;
+  }
+
+  // Only fall back to local bundled assets if the database image field is null/empty or a stale /assets/ static bundle path
   const id = String(product?.id || '').toLowerCase();
   const title = String(product?.name || product?.title || '').toLowerCase();
-  const rawImg = String(product?.image_url || fallbackImg || '');
   const useLolaBranding = isLolaProduct(product, market);
 
   // 1. Continuous Glucose Monitor (CGM)
@@ -2875,12 +2889,7 @@ export function resolveDiagnosticImage(product: any, fallbackImg?: string, marke
     return withingsScaleImg;
   }
 
-  // Heal any diagnostic item that mistakenly points to ancientbrave.jpeg or bloodtest.jpg
-  if (isDiagnosticProduct(product) && (rawImg.includes('ancientbrave') || rawImg.includes('bloodtest'))) {
-    return useLolaBranding ? lolaBloodPanelImg : clinicalBloodPanelImg;
-  }
-
-  return rawImg || (useLolaBranding ? lolaBloodPanelImg : clinicalBloodPanelImg);
+  return candidate || (useLolaBranding ? lolaBloodPanelImg : clinicalBloodPanelImg);
 }
 
 export function formatDiagnosticPrice(priceText: string, product: any, market: MarketTab): string {
@@ -3131,7 +3140,7 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
       enriched.provider = '💊 Direct HealthLabs • Quest / Labcorp Draw';
       enriched.verification_tag = '💊 Entry-Level Metabolic Baseline ($99)';
       enriched.description = 'Comprehensive cardiovascular, organ filtration, and metabolic profile measuring Complete Blood Count (CBC), Comprehensive Metabolic Panel (CMP with fasting glucose, kidney and liver filtration), Complete Lipid Panel, and Routine Urinalysis.';
-      enriched.image_url = '/Products/clinical-blood-panel.jpg';
+      enriched.image_url = item.image_url || item.image || enriched.image_url || '/Products/clinical-blood-panel.jpg';
     }
 
     // Auto-heal US Comprehensive Blood Panel to HealthLabs ($269)
@@ -3156,7 +3165,7 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
       enriched.provider = '💊 Direct HealthLabs • Quest / Labcorp Draw';
       enriched.verification_tag = '💊 HealthLabs Comprehensive Heart Health Panel ($269)';
       enriched.description = 'Direct-to-consumer longevity blood panels with Quest Diagnostics and Labcorp requisition. Comprehensive vascular and cellular inflammatory blueprint covering systemic inflammation (hs-CRP), advanced lipids, glycemic regulation, and core metabolic organ telemetry.';
-      enriched.image_url = '/Products/clinical-blood-panel.jpg';
+      enriched.image_url = item.image_url || item.image || enriched.image_url || '/Products/clinical-blood-panel.jpg';
     }
 
     // Auto-heal US Urinalysis to Life Extension Complete Urinalysis (#QD007909) $24.00
@@ -3252,7 +3261,7 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
     const resolvedSuppliers = resolveProductSuppliers(enriched, market);
     return {
       ...enriched,
-      image_url: resolveDiagnosticImage(enriched, item.image_url, market),
+      image_url: resolveDiagnosticImage(enriched, enriched.image_url || item.image_url || item.image, market),
       price_text: formatDiagnosticPrice(enriched.price_text || item.price_text, enriched, market),
       suppliers: resolvedSuppliers
     };
@@ -3903,7 +3912,7 @@ export function Store({ region }: StoreProps = {}) {
 
           let healedImg = resolveDiagnosticImage(
             { ...p, market_region: activeTab, category: catFormatted, deal_url: healedDeal },
-            p.image_url,
+            p.image_url || p.image,
             activeTab
           );
           if (
@@ -4189,7 +4198,7 @@ export function Store({ region }: StoreProps = {}) {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {clinicalPartners.map(product => {
                   const isDiag = isDiagnosticProduct(product);
-                  const displayImg = resolveDiagnosticImage(product, product.image_url, activeTab);
+                  const displayImg = resolveDiagnosticImage(product, product.image_url || product.image, activeTab);
                   const displayPrice = isDiag ? formatDiagnosticPrice(product.price_text, product, activeTab) : product.price_text;
                   return (
                     <div key={product.id} className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 hover:border-rose-500/30 p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
@@ -4264,7 +4273,7 @@ export function Store({ region }: StoreProps = {}) {
                       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {catProducts.map(product => {
                           const isDiag = isDiagnosticProduct(product);
-                          const displayImg = resolveDiagnosticImage(product, product.image_url, activeTab);
+                          const displayImg = resolveDiagnosticImage(product, product.image_url || product.image, activeTab);
                           return (
                             <div key={product.id} className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-850 hover:border-cyan-500/20 p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
                               <div>
@@ -4331,7 +4340,7 @@ export function Store({ region }: StoreProps = {}) {
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {amazonHubProducts.map(product => {
                       const isDiag = isDiagnosticProduct(product);
-                      const displayImg = resolveDiagnosticImage(product, product.image_url, activeTab);
+                      const displayImg = resolveDiagnosticImage(product, product.image_url || product.image, activeTab);
                       return (
                         <div key={product.id} className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-850 hover:border-cyan-500/20 p-6 flex flex-col justify-between shadow-xl transition-all duration-300">
                           <div>

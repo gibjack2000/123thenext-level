@@ -1123,7 +1123,7 @@ export default function HomeExpressShop() {
   const selectedRegion: RegionKey = (['US', 'UK', 'ES'].includes(market) ? market : 'US') as RegionKey;
 
   // Live overrides from Supabase products table
-  const [liveOverrides, setLiveOverrides] = useState<Record<string, { price?: string; url?: string; badge?: string; name?: string }>>({});
+  const [liveOverrides, setLiveOverrides] = useState<Record<string, { price?: string; url?: string; badge?: string; name?: string; imageUrl?: string }>>({});
 
   useEffect(() => {
     let isCancelled = false;
@@ -1132,18 +1132,19 @@ export default function HomeExpressShop() {
       try {
         const { data, error } = await supabase
           .from('products')
-          .select('id, name, price_text, deal_url, badge_text')
+          .select('id, name, price_text, deal_url, badge_text, image_url')
           .eq('market_region', selectedRegion);
 
         if (error || isCancelled || !data) return;
 
-        const map: Record<string, { price?: string; url?: string; badge?: string; name?: string }> = {};
+        const map: Record<string, { price?: string; url?: string; badge?: string; name?: string; imageUrl?: string }> = {};
         for (const item of data) {
           map[item.id] = {
             price: item.price_text,
             url: item.deal_url,
             badge: item.badge_text,
-            name: item.name
+            name: item.name,
+            imageUrl: item.image_url
           };
           // Strip regional suffix so sirtuin-stack-us maps to sirtuin-stack
           const baseId = item.id.replace(new RegExp(`-${selectedRegion.toLowerCase()}$`, 'i'), '');
@@ -1385,7 +1386,7 @@ export default function HomeExpressShop() {
             const displayUrl = override?.url || regionalData.url;
             const displayBadge = override?.badge || regionalData.badge;
             const displayName = override?.name || product.name;
-            const regionalImg = regionalData?.imageUrl || product.imageUrl;
+            const regionalImg = override?.imageUrl || regionalData?.imageUrl || product.imageUrl;
             const displayImg = resolveDiagnosticImage(
               { id: product.id, name: displayName, deal_url: displayUrl, market_region: selectedRegion, image_url: regionalImg },
               regionalImg,

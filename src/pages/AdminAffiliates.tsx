@@ -195,6 +195,13 @@ export const AdminAffiliates: React.FC = () => {
 
     setIsCreating(true);
     try {
+      let rawImg = newProductForm.image_url.trim();
+      if (rawImg && !rawImg.includes('amazon.com') && !rawImg.includes('ssl-images-amazon')) {
+        const clean = rawImg.replace(/([?&])v=[^&]*(&|$)/, '$1').replace(/[?&]$/, '');
+        const sep = clean.includes('?') ? '&' : '?';
+        rawImg = `${clean}${sep}v=${Date.now()}`;
+      }
+
       const { error } = await supabase
         .from('products')
         .insert([
@@ -208,7 +215,7 @@ export const AdminAffiliates: React.FC = () => {
             deal_url: newProductForm.deal_url.trim(),
             market_region: newProductForm.market_region,
             badge_text: newProductForm.badge_text.trim(),
-            image_url: newProductForm.image_url.trim(),
+            image_url: rawImg,
             is_direct_affiliate: newProductForm.is_direct_affiliate,
             updated_at: new Date().toISOString()
           }

@@ -90,7 +90,7 @@ export const StoreES: React.FC = () => {
 
           let healedImg = resolveDiagnosticImage(
             { ...item, market_region: 'ES', category: catFormatted, deal_url: healedDeal },
-            item.image_url || '/assets/images/shop/sirtuin-stack.png',
+            item.image_url || item.image || '/assets/images/shop/sirtuin-stack.png',
             'ES'
           );
           if (
@@ -410,7 +410,7 @@ export const StoreES: React.FC = () => {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {clinicalPartners.map(product => {
                   const isDiag = isDiagnosticProduct(product);
-                  const displayImg = resolveDiagnosticImage(product, product.image_url, 'ES');
+                  const displayImg = resolveDiagnosticImage(product, product.image_url || product.image, 'ES');
                   const displayPrice = isDiag ? formatDiagnosticPrice(product.price_text, product, 'ES') : product.price_text;
                   return (
                     <div 
@@ -488,7 +488,7 @@ export const StoreES: React.FC = () => {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {amazonProducts.map(product => {
                   const isDiag = isDiagnosticProduct(product);
-                  const displayImg = resolveDiagnosticImage(product, product.image_url, 'ES');
+                  const displayImg = resolveDiagnosticImage(product, product.image_url || product.image, 'ES');
                   return (
                     <div 
                       key={product.id} 

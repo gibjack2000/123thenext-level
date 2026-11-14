@@ -134,7 +134,7 @@ export const StoreUS: React.FC = () => {
               subtitle: 'Choice A: Essential Baseline Bloods (US 🇺🇸)',
               provider: '💊 Direct HealthLabs • Quest / Labcorp Draw',
               verification_tag: '💊 Entry-Level Metabolic Baseline ($99)',
-              image_url: '/Products/clinical-blood-panel.jpg',
+              image_url: item.image_url || item.image || '/Products/clinical-blood-panel.jpg',
               is_direct_affiliate: true,
               hub_placement_slot: item.hub_placement_slot,
               network: 'Clinical Direct'
@@ -166,7 +166,7 @@ export const StoreUS: React.FC = () => {
               subtitle: 'Personalized Cellular Biomarker Map • Comprehensive Heart Health Panel',
               provider: '💊 Direct HealthLabs • Quest / Labcorp Draw',
               verification_tag: '💊 HealthLabs Comprehensive Heart Health Panel ($269)',
-              image_url: '/Products/clinical-blood-panel.jpg',
+              image_url: item.image_url || item.image || '/Products/clinical-blood-panel.jpg',
               is_direct_affiliate: true,
               hub_placement_slot: item.hub_placement_slot,
               network: 'Clinical Direct'
@@ -178,7 +178,7 @@ export const StoreUS: React.FC = () => {
 
           let healedImg = resolveDiagnosticImage(
             { ...item, market_region: 'US', category: catFormatted, deal_url: healedDeal },
-            item.image_url || '/assets/images/shop/sirtuin-stack.png',
+            item.image_url || item.image || '/assets/images/shop/sirtuin-stack.png',
             'US'
           );
           if (
@@ -514,7 +514,7 @@ export const StoreUS: React.FC = () => {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {clinicalPartners.map(product => {
                   const isDiag = isDiagnosticProduct(product);
-                  const displayImg = resolveDiagnosticImage(product, product.image_url, 'US');
+                  const displayImg = resolveDiagnosticImage(product, product.image_url || product.image, 'US');
                   const displayPrice = isDiag ? formatDiagnosticPrice(product.price_text, product, 'US') : product.price_text;
                   return (
                     <div 
@@ -602,7 +602,7 @@ export const StoreUS: React.FC = () => {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {amazonProducts.map(product => {
                   const isDiag = isDiagnosticProduct(product);
-                  const displayImg = resolveDiagnosticImage(product, product.image_url, 'US');
+                  const displayImg = resolveDiagnosticImage(product, product.image_url || product.image, 'US');
                   return (
                     <div 
                       key={product.id} 

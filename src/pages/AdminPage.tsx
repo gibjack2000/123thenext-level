@@ -954,6 +954,13 @@ export default function AdminPage() {
         (formData.amazon_url && !formData.amazon_url.toLowerCase().includes('amazon'))
       );
 
+      let finalImageUrl = (formData.image_url || '').trim();
+      if (finalImageUrl && !finalImageUrl.includes('amazon.com') && !finalImageUrl.includes('ssl-images-amazon')) {
+        const cleanImg = finalImageUrl.replace(/([?&])v=[^&]*(&|$)/, '$1').replace(/[?&]$/, '');
+        const sep = cleanImg.includes('?') ? '&' : '?';
+        finalImageUrl = `${cleanImg}${sep}v=${Date.now()}`;
+      }
+
       // 1. Authoritative primary products table payload (Used by Store, Arsenal, Quiz)
       const productsTablePayload = {
         id: targetId,
@@ -965,7 +972,7 @@ export default function AdminPage() {
         deal_url: formData.amazon_url,
         market_region: formData.region,
         badge_text: formData.short_benefit || (isDirectPartner ? 'Direct Partner Protocol' : 'Clinical Arsenal'),
-        image_url: formData.image_url,
+        image_url: finalImageUrl,
         is_direct_affiliate: isDirectPartner,
         updated_at: new Date().toISOString()
       };
@@ -986,7 +993,7 @@ export default function AdminPage() {
         title: formData.product_name,
         asin: formData.amazon_asin || targetId,
         affiliate_link: formData.amazon_url,
-        image_url: formData.image_url,
+        image_url: finalImageUrl,
         price: parsedPrice,
         currency: formData.currency,
         rating: parseFloat(formData.rating) || 4.9,
