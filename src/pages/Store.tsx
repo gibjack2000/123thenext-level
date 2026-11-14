@@ -927,14 +927,17 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
   "US": [
     {
       "id": "essential-blood-panel-us",
-      "name": "Healthy Aging Panel (Basic) [#QD100025]",
+      "name": "💊 Entry-Level Metabolic Baseline ($99)",
       "category": "Clinical Diagnostics & Labs",
-      "rating": 4.95,
-      "description": "CLIA/CAP-certified baseline blood panel via Quest Diagnostics measuring Core Lipids (Cholesterol, HDL, LDL, Triglycerides), HbA1c, Fasting Glucose, and basic metabolic filtration.",
-      "price_text": "$155.00",
-      "deal_url": "https://www.lifeextension.com/lab-testing/itemqd100025/healthy-aging-panel-basic-blood-test",
+      "rating": 5.0,
+      "description": "Comprehensive cardiovascular, organ filtration, and metabolic profile measuring Complete Blood Count (CBC), Comprehensive Metabolic Panel (CMP with fasting glucose, kidney and liver filtration), Complete Lipid Panel, and Routine Urinalysis.",
+      "price_text": "$99",
+      "deal_url": "https://www.kqzyfj.com/click-101875189-15735109",
       "market_region": "US",
-      "badge_text": "💊 Entry-Level Metabolic Baseline ($155)",
+      "badge_text": "💊 Entry-Level Metabolic Baseline ($99)",
+      "subtitle": "Choice A: Essential Baseline Bloods (US 🇺🇸)",
+      "provider": "💊 Direct HealthLabs • Quest / Labcorp Draw",
+      "verification_tag": "💊 Entry-Level Metabolic Baseline ($99)",
       "image_url": "/Products/clinical-blood-panel.jpg"
     },
     {
@@ -2617,8 +2620,12 @@ export function isUSBloodTest(product: any, market?: MarketTab): boolean {
 export function getDiagnosticPricingBadge(product: any, market: MarketTab): string {
   const id = String(product?.id || '').toLowerCase();
   const title = String(product?.name || product?.title || '').toLowerCase();
+  const deal = String(product?.deal_url || '').toLowerCase();
 
   if (isUSBloodTest(product, market)) {
+    if (id.includes('essential') || deal.includes('click-101875189') || title.includes('entry-level') || title.includes('choice a') || deal.includes('itemqd100025') || title.includes('basic')) {
+      return '💊 Direct HealthLabs • Quest / Labcorp Draw';
+    }
     return '💊 Direct Life Extension • Quest Draw';
   }
 
@@ -2911,8 +2918,8 @@ export function formatDiagnosticPrice(priceText: string, product: any, market: M
     deal.includes('melio');
 
   if (isUSBloodTest(product, market)) {
-    if (id.includes('essential') || deal.includes('itemqd100025') || title.includes('basic')) {
-      return '$155.00';
+    if (id.includes('essential') || deal.includes('click-101875189') || title.includes('entry-level') || title.includes('choice a') || deal.includes('itemqd100025') || title.includes('basic')) {
+      return '$99';
     }
     return raw.toLowerCase().startsWith('from ') ? raw : `From ${raw}`;
   }
@@ -2976,8 +2983,8 @@ export function getDiagnosticCountryBadge(market: MarketTab, product?: any): str
     const id = String(product?.id || '').toLowerCase();
     const deal = String(product?.deal_url || '').toLowerCase();
     const title = String(product?.name || '').toLowerCase();
-    if (id.includes('essential') || deal.includes('itemqd100025') || title.includes('basic')) {
-      return '💊 Entry-Level Metabolic Baseline ($155)';
+    if (id.includes('essential') || deal.includes('click-101875189') || title.includes('entry-level') || title.includes('choice a') || deal.includes('itemqd100025') || title.includes('basic')) {
+      return '💊 Entry-Level Metabolic Baseline ($99)';
     }
     return '💊 Comprehensive Metabolic & Inflammatory Map';
   }
@@ -3011,8 +3018,8 @@ export function getCleanDiagnosticCta(product: any, market: MarketTab): string {
   // Temporary US Blood Tests (Life Extension Direct)
   if (isUSBloodTest(product, market)) {
     const deal = (product?.deal_url || '').toLowerCase();
-    if (id.includes('essential') || deal.includes('itemqd100025') || title.includes('basic')) {
-      return 'Order Basic Panel ($155 🇺🇸)';
+    if (id.includes('essential') || deal.includes('click-101875189') || title.includes('entry-level') || title.includes('choice a') || deal.includes('itemqd100025') || title.includes('basic')) {
+      return 'Order Requisition ($99)';
     }
     return 'Order Comprehensive Panel (Life Extension US 🇺🇸)';
   }
@@ -3096,6 +3103,29 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
   const healedItems = items.map((item: any) => {
     const cat = normalizeStoreCategory(item.category, item.name || item.title, item.deal_url);
     const enriched = { ...item, market_region: item.market_region || market, category: cat };
+
+    // Auto-heal US Entry-Level Metabolic Baseline to HealthLabs ($99)
+    if (enriched.market_region === 'US' && (
+      String(enriched.id).toLowerCase() === 'essential-blood-panel-us' ||
+      String(enriched.id).toLowerCase() === 'essential-blood-panel' ||
+      String(enriched.deal_url || '').toLowerCase().includes('click-101875189') ||
+      String(enriched.deal_url || '').toLowerCase().includes('itemqd100025') ||
+      String(enriched.name || '').toLowerCase().includes('entry-level') ||
+      (String(enriched.name || '').toLowerCase().includes('basic') && (String(enriched.name || '').toLowerCase().includes('aging') || String(enriched.name || '').toLowerCase().includes('blood')))
+    )) {
+      enriched.id = 'essential-blood-panel-us';
+      enriched.name = '💊 Entry-Level Metabolic Baseline ($99)';
+      enriched.category = 'Clinical Diagnostics & Labs';
+      enriched.rating = 5.0;
+      enriched.price_text = '$99';
+      enriched.deal_url = 'https://www.kqzyfj.com/click-101875189-15735109';
+      enriched.badge_text = '💊 Entry-Level Metabolic Baseline ($99)';
+      enriched.subtitle = 'Choice A: Essential Baseline Bloods (US 🇺🇸)';
+      enriched.provider = '💊 Direct HealthLabs • Quest / Labcorp Draw';
+      enriched.verification_tag = '💊 Entry-Level Metabolic Baseline ($99)';
+      enriched.description = 'Comprehensive cardiovascular, organ filtration, and metabolic profile measuring Complete Blood Count (CBC), Comprehensive Metabolic Panel (CMP with fasting glucose, kidney and liver filtration), Complete Lipid Panel, and Routine Urinalysis.';
+      enriched.image_url = '/Products/clinical-blood-panel.jpg';
+    }
 
     // Auto-heal US Urinalysis to Life Extension Complete Urinalysis (#QD007909) $24.00
     if (enriched.market_region === 'US' && (
@@ -3289,7 +3319,17 @@ export function DynamicSupplierCtaSection({
   displayPrice: string;
   isBypassActive?: boolean;
 }) {
+  const isHealthLabsBasic = (
+    market === 'US' && (
+      String(product?.id || '').toLowerCase().includes('essential') ||
+      String(product?.deal_url || '').toLowerCase().includes('click-101875189') ||
+      String(product?.name || '').toLowerCase().includes('entry-level') ||
+      String(product?.name || '').toLowerCase().includes('choice a')
+    )
+  );
+
   const isEssentialOrBasic = 
+    isHealthLabsBasic ||
     String(product?.id || '').toLowerCase().includes('essential') ||
     String(product?.name || '').toLowerCase().includes('basic') ||
     String(product?.deal_url || '').toLowerCase().includes('itemqd100025');
@@ -3327,12 +3367,17 @@ export function DynamicSupplierCtaSection({
   let ctaButtonText = isMetabolicProtocol ? "Access Paid Protocol 🔒 — £29.00" : (primary.ctaText || defaultCtaText);
   let perksNoteToShow = primary.perksNote;
 
-  if (isUSBlood) {
+  if (isHealthLabsBasic) {
+    priceToShow = '$99';
+    primaryUrl = 'https://www.kqzyfj.com/click-101875189-15735109';
+    ctaButtonText = 'Order Requisition ($99)';
+    perksNoteToShow = 'Choice A: Essential Baseline Bloods (US 🇺🇸)';
+  } else if (isUSBlood) {
     if (selectedBloodTier === 'basic') {
-      priceToShow = '$155.00';
-      primaryUrl = US_BLOOD_TEST_BASIC_URL;
-      ctaButtonText = 'Order Basic Panel ($155 🇺🇸)';
-      perksNoteToShow = 'Item #QD100025 • Entry-Level Baseline';
+      priceToShow = '$99';
+      primaryUrl = 'https://www.kqzyfj.com/click-101875189-15735109';
+      ctaButtonText = 'Order Requisition ($99)';
+      perksNoteToShow = 'Choice A: Essential Baseline Bloods (US 🇺🇸)';
     } else {
       priceToShow = 'From $299.00';
       primaryUrl = US_BLOOD_TEST_COMPREHENSIVE_URL;
@@ -3360,8 +3405,10 @@ export function DynamicSupplierCtaSection({
   const handlePrimaryClick = (e: React.MouseEvent) => {
     if (isLabTest) {
       e.preventDefault();
-      const testName = isUSBlood 
-        ? (selectedBloodTier === 'basic' ? 'Healthy Aging Panel (Basic) [#QD100025]' : 'Healthy Aging Panel (Comprehensive) [#QD100026]')
+      const testName = isHealthLabsBasic
+        ? '💊 Entry-Level Metabolic Baseline ($99)'
+        : isUSBlood 
+        ? (selectedBloodTier === 'basic' ? '💊 Entry-Level Metabolic Baseline ($99)' : 'Healthy Aging Panel (Comprehensive) [#QD100026]')
         : (isUSUrinalysis ? 'Life Extension Complete Urinalysis (#QD007909)' : (product.name || 'Clinical Diagnostic Lab Test'));
       triggerLabRequisition({
         destinationUrl: primaryUrl,
@@ -3372,8 +3419,8 @@ export function DynamicSupplierCtaSection({
 
   return (
     <div className="flex flex-col space-y-2.5">
-      {/* Interactive Tier Selector for US Blood Tests */}
-      {isUSBlood && (
+      {/* Interactive Tier Selector for US Blood Tests (Comprehensive blood panel only) */}
+      {isUSBlood && !isHealthLabsBasic && (
         <div className="flex rounded-xl bg-slate-900/90 p-1 border border-slate-800 gap-1 mb-1">
           <button
             type="button"
@@ -3395,7 +3442,7 @@ export function DynamicSupplierCtaSection({
                 : 'text-slate-400 hover:text-slate-200'
             }`}
           >
-            Basic ($155)
+            Basic ($99)
           </button>
         </div>
       )}
@@ -3406,9 +3453,13 @@ export function DynamicSupplierCtaSection({
       }`}>
         <div className="flex flex-col shrink-0">
           <span className="font-extrabold text-slate-100 text-lg leading-tight">{priceToShow}</span>
-          {isUSBlood ? (
+          {isHealthLabsBasic ? (
             <span className="text-[10px] text-emerald-400/90 font-medium mt-0.5">
-              {selectedBloodTier === 'basic' ? 'Direct Life Extension • $155' : 'Direct Life Extension • Quest Draw'}
+              💊 Direct HealthLabs • Quest / Labcorp Draw
+            </span>
+          ) : isUSBlood ? (
+            <span className="text-[10px] text-emerald-400/90 font-medium mt-0.5">
+              {selectedBloodTier === 'basic' ? '💊 Direct HealthLabs • Quest / Labcorp Draw' : 'Direct Life Extension • Quest Draw'}
             </span>
           ) : isUSUrinalysis ? (
             <span className="text-[10px] text-emerald-400/90 font-medium mt-0.5">
@@ -3441,8 +3492,10 @@ export function DynamicSupplierCtaSection({
             Test Download (Free Bypass)
           </a>
         ) : isLabTest ? (
-          <button
-            type="button"
+          <a
+            href={primaryUrl}
+            target="_blank"
+            rel="noopener sponsored"
             onClick={handlePrimaryClick}
             className={`px-4 py-2 rounded-lg text-xs font-bold transition-all duration-300 text-center shadow-lg cursor-pointer ${
               isDiag 
@@ -3451,7 +3504,7 @@ export function DynamicSupplierCtaSection({
             }`}
           >
             {ctaButtonText}
-          </button>
+          </a>
         ) : (
           <a
             href={primaryUrl}
@@ -4123,16 +4176,16 @@ export function Store({ region }: StoreProps = {}) {
                           </span>
                           <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
                             <Star size={13} className="fill-amber-400 text-amber-400" />
-                            <span>{product.rating ? Number(product.rating).toFixed(1) : '4.9'}</span>
+                            <span>{product.rating ? Number(product.rating).toFixed(1) : '5.0'}</span>
                           </span>
                         </div>
                         {isDiag && (
                           <div className="flex flex-wrap items-center gap-1.5 mb-3">
                             <span className="text-[11px] font-bold text-sky-300 bg-sky-950/60 border border-sky-500/40 px-2.5 py-1 rounded-md">
-                              {product.badge_text || getDiagnosticCountryBadge(activeTab, product)}
+                              {product.subtitle || product.option || getDiagnosticCountryBadge(activeTab, product)}
                             </span>
                             <span className="text-[11px] font-bold text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-md">
-                              {getDiagnosticPricingBadge(product, activeTab)}
+                              {product.provider || product.draw_type || getDiagnosticPricingBadge(product, activeTab)}
                             </span>
                           </div>
                         )}
@@ -4141,9 +4194,9 @@ export function Store({ region }: StoreProps = {}) {
                       </div>
                       <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-3">
                         <div className="flex justify-between items-center">
-                          <span className="text-xs text-slate-500 font-semibold">Badge Status</span>
+                          <span className="text-xs text-slate-500 font-semibold">Verification</span>
                           <span className="text-[10px] text-cyan-400 font-bold px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-800/20">
-                            {product.badge_text || (isDiag ? getDiagnosticCountryBadge(activeTab, product) : 'Verified')}
+                            {product.verification_tag || (isDiag ? getDiagnosticCountryBadge(activeTab, product) : (product.badge_text || 'Verified'))}
                           </span>
                         </div>
                         <DynamicSupplierCtaSection

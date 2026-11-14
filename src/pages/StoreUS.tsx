@@ -60,6 +60,11 @@ export interface ProductRecord {
   market_region: 'US' | 'UK' | 'ES';
   badge_text: string;
   image_url: string;
+  subtitle?: string;
+  option?: string;
+  provider?: string;
+  draw_type?: string;
+  verification_tag?: string;
   is_direct_affiliate?: boolean;
   hub_placement_slot?: string | null;
   checkout_instruction?: string | null;
@@ -131,7 +136,10 @@ export const StoreUS: React.FC = () => {
             price_text: priceFormatted,
             deal_url: healedDeal,
             market_region: 'US',
-            badge_text: isDiag ? getDiagnosticCountryBadge('US', item) : (item.badge_text || 'FDA / US Verified'),
+            badge_text: item.badge_text || (isDiag ? getDiagnosticCountryBadge('US', item) : 'FDA / US Verified'),
+            subtitle: item.subtitle,
+            provider: item.provider,
+            verification_tag: item.verification_tag,
             image_url: healedImg,
             is_direct_affiliate: item.is_direct_affiliate || (!healedDeal.toLowerCase().includes('amazon')),
             hub_placement_slot: item.hub_placement_slot,
@@ -467,16 +475,16 @@ export const StoreUS: React.FC = () => {
                           </span>
                           <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
                             <Star size={13} className="fill-amber-400 text-amber-400" />
-                            <span>{Number(product.rating).toFixed(1)}</span>
+                            <span>{product.rating ? Number(product.rating).toFixed(1) : '5.0'}</span>
                           </span>
                         </div>
                         {isDiag && (
                           <div className="flex flex-wrap items-center gap-1.5 mb-3">
                             <span className="text-[11px] font-bold text-sky-300 bg-sky-950/60 border border-sky-500/40 px-2.5 py-1 rounded-md">
-                              {getDiagnosticCountryBadge('US', product)}
+                              {product.subtitle || product.option || getDiagnosticCountryBadge('US', product)}
                             </span>
                             <span className="text-[11px] font-bold text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-md">
-                              {getDiagnosticPricingBadge(product, 'US')}
+                              {product.provider || product.draw_type || getDiagnosticPricingBadge(product, 'US')}
                             </span>
                           </div>
                         )}
@@ -492,7 +500,7 @@ export const StoreUS: React.FC = () => {
                         <div className="flex justify-between items-center">
                           <span className="text-xs text-slate-500 font-semibold">Verification</span>
                           <span className="text-[10px] text-cyan-400 font-bold px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-800/20">
-                            {isDiag ? getDiagnosticCountryBadge('US', product) : (product.badge_text || 'FDA / CLIA Verified')}
+                            {product.verification_tag || (isDiag ? getDiagnosticCountryBadge('US', product) : (product.badge_text || 'FDA / CLIA Verified'))}
                           </span>
                         </div>
                         <DynamicSupplierCtaSection

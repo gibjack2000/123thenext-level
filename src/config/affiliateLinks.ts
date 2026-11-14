@@ -62,9 +62,9 @@ export const STORE_CATEGORIES: StoreCategory[] = [
   "Kitchen & Culinary Bio-Hacks"
 ];
 
-// Direct Life Extension US Blood Panel Links (Temporary Direct Protocol)
-export const US_BLOOD_TEST_BASIC_URL = "https://www.lifeextension.com/lab-testing/itemqd100025/healthy-aging-panel-basic-blood-test";
-export const US_BLOOD_TEST_BASIC_BADGE = "💊 Entry-Level Metabolic Baseline ($155)";
+// Direct Life Extension & HealthLabs US Blood Panel Links
+export const US_BLOOD_TEST_BASIC_URL = "https://www.kqzyfj.com/click-101875189-15735109";
+export const US_BLOOD_TEST_BASIC_BADGE = "💊 Entry-Level Metabolic Baseline ($99)";
 export const US_BLOOD_TEST_COMPREHENSIVE_URL = "https://www.lifeextension.com/lab-testing/itemqd100026/healthy-aging-panel-comprehensive-blood-test";
 export const US_BLOOD_TEST_COMPREHENSIVE_BADGE = "💊 Comprehensive Metabolic & Inflammatory Map";
 
@@ -78,20 +78,20 @@ export const sovereignHealthStack: SovereignProduct[] = [
   // ============================================================================
   {
     id: "essential-blood-panel",
-    name: "Healthy Aging Panel (Basic) [#QD100025]",
+    name: "💊 Entry-Level Metabolic Baseline ($99)",
     category: "Clinical Diagnostics & Labs",
-    rating: 4.92,
-    description: "Core cardiovascular and metabolic blood panel measuring Cholesterol, HDL, LDL, Triglycerides, Fasting Glucose, HbA1c, and basic kidney/liver filtration via Quest Diagnostics.",
+    rating: 5.0,
+    description: "Comprehensive cardiovascular, organ filtration, and metabolic profile measuring Complete Blood Count (CBC), Comprehensive Metabolic Panel (CMP with fasting glucose, kidney and liver filtration), Complete Lipid Panel, and Routine Urinalysis.",
     image_url: "/Products/clinical-blood-panel.jpg",
     us: [
       {
-        supplierName: "Life Extension",
-        url: US_BLOOD_TEST_BASIC_URL,
-        ctaText: "Order Basic Bloods (Life Extension $155 🇺🇸)",
-        priceText: "$155.00",
-        badgeText: US_BLOOD_TEST_BASIC_BADGE,
+        supplierName: "HealthLabs",
+        url: "https://www.kqzyfj.com/click-101875189-15735109",
+        ctaText: "Order Requisition ($99)",
+        priceText: "$99",
+        badgeText: "💊 Entry-Level Metabolic Baseline ($99)",
         isPrimary: true,
-        perksNote: "Item #QD100025 • Entry-Level Baseline"
+        perksNote: "Choice A: Essential Baseline Bloods (US 🇺🇸)"
       }
     ],
     uk: [
@@ -1152,17 +1152,19 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
   } else if (
     market === 'US' && (
       id.includes('essential-blood') ||
+      lowerDeal.includes('click-101875189') ||
       lowerDeal.includes('itemqd100025') ||
+      lowerTitle.includes('entry-level') ||
       (lowerTitle.includes('basic') && (lowerTitle.includes('blood') || lowerTitle.includes('aging') || lowerTitle.includes('panel')))
     )
   ) {
-    // Temporary US Blood Test Links: Basic Option (#QD100025)
-    primarySupplier = 'Life Extension';
-    primaryPerks = 'Item #QD100025 • Entry-Level Baseline';
-    primaryCta = 'Order Basic Panel ($155 🇺🇸)';
-    dealUrl = US_BLOOD_TEST_BASIC_URL;
-    priceText = '$155.00';
-    badgeText = US_BLOOD_TEST_BASIC_BADGE;
+    // US Blood Test: Choice A Entry-Level Metabolic Baseline ($99) via HealthLabs
+    primarySupplier = 'HealthLabs';
+    primaryPerks = 'Choice A: Essential Baseline Bloods (US 🇺🇸)';
+    primaryCta = 'Order Requisition ($99)';
+    dealUrl = 'https://www.kqzyfj.com/click-101875189-15735109';
+    priceText = '$99';
+    badgeText = '💊 Entry-Level Metabolic Baseline ($99)';
   } else if (
     market === 'US' && (
       id.includes('blood-panel') ||
@@ -1296,17 +1298,17 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
 
     if (isCompCard) {
       options.push({
-        id: `${id || 'prod'}-us-life-extension-basic`,
+        id: `${id || 'prod'}-us-healthlabs-basic`,
         productId: id,
         marketRegion: 'US',
-        supplierName: 'Life Extension (Basic $155)',
-        url: US_BLOOD_TEST_BASIC_URL,
-        ctaText: 'Order Basic Panel ($155)',
-        priceText: '$155.00',
-        badgeText: US_BLOOD_TEST_BASIC_BADGE,
+        supplierName: 'HealthLabs (Basic $99)',
+        url: 'https://www.kqzyfj.com/click-101875189-15735109',
+        ctaText: 'Order Requisition ($99)',
+        priceText: '$99',
+        badgeText: '💊 Entry-Level Metabolic Baseline ($99)',
         isPrimary: false,
         isActive: true,
-        perksNote: 'Item #QD100025 • Entry Baseline'
+        perksNote: 'Choice A: Essential Baseline Bloods (US 🇺🇸)'
       });
     } else if (isBasicCard) {
       options.push({

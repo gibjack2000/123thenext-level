@@ -14,7 +14,7 @@ export type Product = {
   rating: number;
   featured: boolean;
   tags: string[];
-  last_checked_at: string;
+  last_checked_at?: string;
 };
 
 export type BlogPost = {
