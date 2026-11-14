@@ -932,7 +932,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 5.0,
       "description": "Comprehensive cardiovascular, organ filtration, and metabolic profile measuring Complete Blood Count (CBC), Comprehensive Metabolic Panel (CMP with fasting glucose, kidney and liver filtration), Complete Lipid Panel, and Routine Urinalysis.",
       "price_text": "$99",
-      "deal_url": "https://www.kqzyfj.com/click-101875189-15735109",
+      "deal_url": "https://www.healthlabs.com/comprehensive-health-testing",
       "market_region": "US",
       "badge_text": "💊 Entry-Level Metabolic Baseline ($99)",
       "subtitle": "Choice A: Essential Baseline Bloods (US 🇺🇸)",
@@ -2623,7 +2623,7 @@ export function getDiagnosticPricingBadge(product: any, market: MarketTab): stri
   const deal = String(product?.deal_url || '').toLowerCase();
 
   if (isUSBloodTest(product, market)) {
-    if (id.includes('essential') || deal.includes('click-101875189') || title.includes('entry-level') || title.includes('choice a') || deal.includes('itemqd100025') || title.includes('basic')) {
+    if (id.includes('essential') || deal.includes('comprehensive-health-testing') || deal.includes('click-101875189') || title.includes('entry-level') || title.includes('choice a') || deal.includes('itemqd100025') || title.includes('basic')) {
       return '💊 Direct HealthLabs • Quest / Labcorp Draw';
     }
     return '💊 Direct Life Extension • Quest Draw';
@@ -2918,7 +2918,7 @@ export function formatDiagnosticPrice(priceText: string, product: any, market: M
     deal.includes('melio');
 
   if (isUSBloodTest(product, market)) {
-    if (id.includes('essential') || deal.includes('click-101875189') || title.includes('entry-level') || title.includes('choice a') || deal.includes('itemqd100025') || title.includes('basic')) {
+    if (id.includes('essential') || deal.includes('comprehensive-health-testing') || deal.includes('click-101875189') || title.includes('entry-level') || title.includes('choice a') || deal.includes('itemqd100025') || title.includes('basic')) {
       return '$99';
     }
     return raw.toLowerCase().startsWith('from ') ? raw : `From ${raw}`;
@@ -2983,7 +2983,7 @@ export function getDiagnosticCountryBadge(market: MarketTab, product?: any): str
     const id = String(product?.id || '').toLowerCase();
     const deal = String(product?.deal_url || '').toLowerCase();
     const title = String(product?.name || '').toLowerCase();
-    if (id.includes('essential') || deal.includes('click-101875189') || title.includes('entry-level') || title.includes('choice a') || deal.includes('itemqd100025') || title.includes('basic')) {
+    if (id.includes('essential') || deal.includes('comprehensive-health-testing') || deal.includes('click-101875189') || title.includes('entry-level') || title.includes('choice a') || deal.includes('itemqd100025') || title.includes('basic')) {
       return 'Choice A: Essential Baseline Bloods (US 🇺🇸)';
     }
     return '💊 Comprehensive Metabolic & Inflammatory Map';
@@ -3018,7 +3018,7 @@ export function getCleanDiagnosticCta(product: any, market: MarketTab): string {
   // Temporary US Blood Tests (Life Extension Direct)
   if (isUSBloodTest(product, market)) {
     const deal = (product?.deal_url || '').toLowerCase();
-    if (id.includes('essential') || deal.includes('click-101875189') || title.includes('entry-level') || title.includes('choice a') || deal.includes('itemqd100025') || title.includes('basic')) {
+    if (id.includes('essential') || deal.includes('comprehensive-health-testing') || deal.includes('click-101875189') || title.includes('entry-level') || title.includes('choice a') || deal.includes('itemqd100025') || title.includes('basic')) {
       return 'Order Requisition ($99)';
     }
     return 'Order Comprehensive Panel (Life Extension US 🇺🇸)';
@@ -3108,6 +3108,7 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
     if (enriched.market_region === 'US' && (
       String(enriched.id).toLowerCase() === 'essential-blood-panel-us' ||
       String(enriched.id).toLowerCase() === 'essential-blood-panel' ||
+      String(enriched.deal_url || '').toLowerCase().includes('comprehensive-health-testing') ||
       String(enriched.deal_url || '').toLowerCase().includes('click-101875189') ||
       String(enriched.deal_url || '').toLowerCase().includes('itemqd100025') ||
       String(enriched.name || '').toLowerCase().includes('entry-level') ||
@@ -3118,7 +3119,7 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
       enriched.category = 'Clinical Diagnostics & Labs';
       enriched.rating = 5.0;
       enriched.price_text = '$99';
-      enriched.deal_url = 'https://www.kqzyfj.com/click-101875189-15735109';
+      enriched.deal_url = 'https://www.healthlabs.com/comprehensive-health-testing';
       enriched.badge_text = '💊 Entry-Level Metabolic Baseline ($99)';
       enriched.subtitle = 'Choice A: Essential Baseline Bloods (US 🇺🇸)';
       enriched.provider = '💊 Direct HealthLabs • Quest / Labcorp Draw';
@@ -3322,6 +3323,7 @@ export function DynamicSupplierCtaSection({
   const isHealthLabsBasic = (
     market === 'US' && (
       String(product?.id || '').toLowerCase().includes('essential') ||
+      String(product?.deal_url || '').toLowerCase().includes('comprehensive-health-testing') ||
       String(product?.deal_url || '').toLowerCase().includes('click-101875189') ||
       String(product?.name || '').toLowerCase().includes('entry-level') ||
       String(product?.name || '').toLowerCase().includes('choice a')
@@ -3369,13 +3371,13 @@ export function DynamicSupplierCtaSection({
 
   if (isHealthLabsBasic) {
     priceToShow = '$99';
-    primaryUrl = 'https://www.kqzyfj.com/click-101875189-15735109';
+    primaryUrl = 'https://www.healthlabs.com/comprehensive-health-testing';
     ctaButtonText = 'Order Requisition ($99)';
     perksNoteToShow = 'Choice A: Essential Baseline Bloods (US 🇺🇸)';
   } else if (isUSBlood) {
     if (selectedBloodTier === 'basic') {
       priceToShow = '$99';
-      primaryUrl = 'https://www.kqzyfj.com/click-101875189-15735109';
+      primaryUrl = 'https://www.healthlabs.com/comprehensive-health-testing';
       ctaButtonText = 'Order Requisition ($99)';
       perksNoteToShow = 'Choice A: Essential Baseline Bloods (US 🇺🇸)';
     } else {
@@ -3497,7 +3499,7 @@ export function DynamicSupplierCtaSection({
           <a
             href={primaryUrl}
             target="_blank"
-            rel="noopener sponsored"
+            rel={isHealthLabsBasic ? "noopener" : "noopener sponsored"}
             onClick={handlePrimaryClick}
             className={`px-4 py-2 rounded-lg text-xs font-bold transition-all duration-300 text-center shadow-lg cursor-pointer ${
               isDiag 

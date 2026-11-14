@@ -112,6 +112,7 @@ export const StoreUS: React.FC = () => {
           const isEssentialHealthLabs = (
             item.id === 'essential-blood-panel-us' ||
             item.id === 'essential-blood-panel' ||
+            String(healedDeal).toLowerCase().includes('comprehensive-health-testing') ||
             String(healedDeal).toLowerCase().includes('click-101875189') ||
             String(healedDeal).toLowerCase().includes('itemqd100025') ||
             String(item.name || '').toLowerCase().includes('entry-level') ||
@@ -127,7 +128,7 @@ export const StoreUS: React.FC = () => {
               rating: 5.0,
               description: 'Comprehensive cardiovascular, organ filtration, and metabolic profile measuring Complete Blood Count (CBC), Comprehensive Metabolic Panel (CMP with fasting glucose, kidney and liver filtration), Complete Lipid Panel, and Routine Urinalysis.',
               price_text: '$99',
-              deal_url: 'https://www.kqzyfj.com/click-101875189-15735109',
+              deal_url: 'https://www.healthlabs.com/comprehensive-health-testing',
               market_region: 'US',
               badge_text: '💊 Entry-Level Metabolic Baseline ($99)',
               subtitle: 'Choice A: Essential Baseline Bloods (US 🇺🇸)',

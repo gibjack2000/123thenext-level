@@ -63,7 +63,7 @@ export const STORE_CATEGORIES: StoreCategory[] = [
 ];
 
 // Direct Life Extension & HealthLabs US Blood Panel Links
-export const US_BLOOD_TEST_BASIC_URL = "https://www.kqzyfj.com/click-101875189-15735109";
+export const US_BLOOD_TEST_BASIC_URL = "https://www.healthlabs.com/comprehensive-health-testing";
 export const US_BLOOD_TEST_BASIC_BADGE = "💊 Entry-Level Metabolic Baseline ($99)";
 export const US_BLOOD_TEST_COMPREHENSIVE_URL = "https://www.lifeextension.com/lab-testing/itemqd100026/healthy-aging-panel-comprehensive-blood-test";
 export const US_BLOOD_TEST_COMPREHENSIVE_BADGE = "💊 Comprehensive Metabolic & Inflammatory Map";
@@ -86,7 +86,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     us: [
       {
         supplierName: "HealthLabs",
-        url: "https://www.kqzyfj.com/click-101875189-15735109",
+        url: "https://www.healthlabs.com/comprehensive-health-testing",
         ctaText: "Order Requisition ($99)",
         priceText: "$99",
         badgeText: "💊 Entry-Level Metabolic Baseline ($99)",
@@ -1152,6 +1152,7 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
   } else if (
     market === 'US' && (
       id.includes('essential-blood') ||
+      lowerDeal.includes('comprehensive-health-testing') ||
       lowerDeal.includes('click-101875189') ||
       lowerDeal.includes('itemqd100025') ||
       lowerTitle.includes('entry-level') ||
@@ -1162,7 +1163,7 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
     primarySupplier = 'HealthLabs';
     primaryPerks = 'Choice A: Essential Baseline Bloods (US 🇺🇸)';
     primaryCta = 'Order Requisition ($99)';
-    dealUrl = 'https://www.kqzyfj.com/click-101875189-15735109';
+    dealUrl = 'https://www.healthlabs.com/comprehensive-health-testing';
     priceText = '$99';
     badgeText = '💊 Entry-Level Metabolic Baseline ($99)';
   } else if (
@@ -1302,7 +1303,7 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
         productId: id,
         marketRegion: 'US',
         supplierName: 'HealthLabs (Basic $99)',
-        url: 'https://www.kqzyfj.com/click-101875189-15735109',
+        url: 'https://www.healthlabs.com/comprehensive-health-testing',
         ctaText: 'Order Requisition ($99)',
         priceText: '$99',
         badgeText: '💊 Entry-Level Metabolic Baseline ($99)',
