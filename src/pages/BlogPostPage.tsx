@@ -236,7 +236,7 @@ export default function BlogPostPage() {
       ? 'https://www.amazon.es/?tag=123znl08a-21'
       : market === 'UK'
       ? 'https://www.amazon.co.uk/?tag=123znl0f3-21'
-      : 'https://www.amazon.com/?tag=123thenextlev-20';
+      : 'https://www.amazon.com/?tag=123thenextlev-21';
   })();
 
   const rawAffiliateProducts = [

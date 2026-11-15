@@ -23,7 +23,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       rating: 4.7,
       description: "The gold standard for continuous heart rate, blood oxygen tracking, and nocturnal Heart Rate Variability (HRV) telemetry.",
       priceText: "$399.00",
-      dealUrl: "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123thenextlev-20",
+      dealUrl: "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123thenextlev-21",
       badgeText: "Vetted Telemetry Hub",
       imagePlaceholder: "/Products/apple10.jpg",
       pillar: "fitness"
@@ -34,7 +34,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       rating: 4.9,
       description: "High-end commercial grade indoor rowing machine for optimal cardiorespiratory VO2 Max conditioning and joint-safe power training.",
       priceText: "$990.00",
-      dealUrl: "https://www.amazon.com/dp/B00NH9WEUA?tag=123thenextlev-20",
+      dealUrl: "https://www.amazon.com/dp/B00NH9WEUA?tag=123thenextlev-21",
       badgeText: "VO2 Max Optimizer",
       imagePlaceholder: "/Products/concept2us.webp",
       pillar: "fitness"
@@ -45,7 +45,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       rating: 4.8,
       description: "Ergonomically designed hand weights for functional strength, core activation, and longevity resistance training.",
       priceText: "$25.00",
-      dealUrl: "https://www.amazon.com/dp/B01LR5RG08?tag=123thenextlev-20",
+      dealUrl: "https://www.amazon.com/dp/B01LR5RG08?tag=123thenextlev-21",
       badgeText: "Resistance Training",
       imagePlaceholder: "/Products/dumbell.jpg",
       pillar: "fitness"
@@ -56,7 +56,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       rating: 4.7,
       description: "Highly bioavailable Coenzyme Q10 supplement to support cellular mitochondrial energy production and vascular healthspan.",
       priceText: "$29.99",
-      dealUrl: "https://www.amazon.com/dp/B0055OUOQQ?tag=123thenextlev-20",
+      dealUrl: "https://www.amazon.com/dp/B0055OUOQQ?tag=123thenextlev-21",
       badgeText: "Mitochondrial Fuel",
       imagePlaceholder: "/Products/coq10.jpeg",
       pillar: "health"

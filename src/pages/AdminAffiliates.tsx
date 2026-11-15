@@ -657,7 +657,7 @@ export const AdminAffiliates: React.FC = () => {
                                 placeholder="https://www.amazon.com/dp/... or https://amzn.to/..."
                               />
                               <div className="text-[10px] text-slate-500">
-                                Ensure your regional tag (e.g., <code>tag=123thenextlev-20</code>) is attached.
+                                Ensure your regional tag (e.g., <code>tag=123thenextlev-21</code>) is attached.
                               </div>
                             </div>
                           ) : (

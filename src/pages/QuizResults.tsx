@@ -154,7 +154,7 @@ export default function QuizResults() {
         rating: 4.7,
         description: "The gold standard for continuous heart rate, blood oxygen tracking, and nocturnal Heart Rate Variability (HRV) telemetry.",
         priceText: "$399.00",
-        dealUrl: "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123thenextlev-20",
+        dealUrl: "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123thenextlev-21",
         badgeText: "Continuous Telemetry",
         imagePlaceholder: "/Products/apple10.jpg",
         pillar: "fitness"
@@ -199,7 +199,7 @@ export default function QuizResults() {
           rating: 4.8,
           description: "The gold standard for preparing low-oil, nutrient-dense glycemic family meals.",
           priceText: "$199.00",
-          dealUrl: "https://www.amazon.com/dp/B08HM5T3H5?tag=123thenextlev-20",
+          dealUrl: "https://www.amazon.com/dp/B08HM5T3H5?tag=123thenextlev-21",
           badgeText: "Glycemic Kitchen Prep",
           imagePlaceholder: "/Products/NinjaAirFryerCrisp.jpeg"
         };

@@ -67,7 +67,7 @@ export const CATEGORY_DEFAULT_REGIONAL_PRODUCTS: Record<
       rating: '4.9',
       reviews: '14.2k+',
       market_price: '$49.00',
-      url: 'https://www.amazon.com/dp/B00068U48C?tag=123thenextlev-20'
+      url: 'https://www.amazon.com/dp/B00068U48C?tag=123thenextlev-21'
     },
     uk: {
       name: 'LOLA Health Preventive Cardiovascular & Blood Chemistry Panel',
@@ -93,7 +93,7 @@ export const CATEGORY_DEFAULT_REGIONAL_PRODUCTS: Record<
       rating: '4.9',
       reviews: '18.5k+',
       market_price: '$990.00',
-      url: 'https://www.amazon.com/dp/B00NH9WEUA?tag=123thenextlev-20'
+      url: 'https://www.amazon.com/dp/B00NH9WEUA?tag=123thenextlev-21'
     },
     uk: {
       name: 'WHOOP 4.0 Wireless Recovery & Strain Telemetry Tracker',
@@ -119,7 +119,7 @@ export const CATEGORY_DEFAULT_REGIONAL_PRODUCTS: Record<
       rating: '4.8',
       reviews: '9.4k+',
       market_price: '$175.00',
-      url: 'https://www.amazon.com/dp/B07P88H4NL?tag=123thenextlev-20'
+      url: 'https://www.amazon.com/dp/B07P88H4NL?tag=123thenextlev-21'
     },
     uk: {
       name: 'FreeStyle Libre 2 Continuous Glucose Monitoring Sensor',
@@ -145,7 +145,7 @@ export const CATEGORY_DEFAULT_REGIONAL_PRODUCTS: Record<
       rating: '4.8',
       reviews: '5.6k+',
       market_price: '$129.95',
-      url: 'https://www.amazon.com/dp/B078Z1B34S?tag=123thenextlev-20'
+      url: 'https://www.amazon.com/dp/B078Z1B34S?tag=123thenextlev-21'
     },
     uk: {
       name: 'Soundcore by Anker Space One Active Noise Cancelling Headset',
