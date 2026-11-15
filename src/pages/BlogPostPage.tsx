@@ -233,7 +233,7 @@ export default function BlogPostPage() {
     const match = post.content.match(/https?:\/\/(?:www\.)?(?:amazon|amzn)\.[a-z.]+(?:\/[^)\s]*)?/i);
     if (match) return match[0];
     return market === 'ES'
-      ? 'https://www.amazon.es/?tag=123znl08a-21'
+      ? 'https://www.amazon.es/?tag=123thenextl01-21'
       : market === 'UK'
       ? 'https://www.amazon.co.uk/?tag=123thenextlev-21'
       : 'https://www.amazon.com/?tag=123thenextlev-20';

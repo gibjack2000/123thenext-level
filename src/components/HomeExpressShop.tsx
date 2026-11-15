@@ -125,7 +125,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "27,99€",
         badge: "Péptidos Hidrolizados Tipo I/III",
-        url: "https://www.amazon.es/dp/B07T8H5N1M?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B07T8H5N1M?tag=123thenextl01-21",
         imageUrl: "/Products/CollagenSpain.jpg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
@@ -164,7 +164,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "36,99€",
         badge: "Creatina Micronizada 100% Pura",
-        url: "https://www.amazon.es/dp/B002DYIZEO?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B002DYIZEO?tag=123thenextl01-21",
         imageUrl: "/Products/creatine-es.webp",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
@@ -203,7 +203,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "34,00€",
         badge: "L-Treonato de Magnesio Patentado",
-        url: "https://www.amazon.es/dp/B01M4GM9R1?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B01M4GM9R1?tag=123thenextl01-21",
         imageUrl: "/Products/magnesiumchelate.jpg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
@@ -242,7 +242,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "47,50€",
         badge: "Inductor de Autofagia Celular",
-        url: "https://www.amazon.es/dp/B08J5P8D9D?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B08J5P8D9D?tag=123thenextl01-21",
         imageUrl: "/Products/spermidinespain.jpeg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
@@ -281,7 +281,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "31,90€",
         badge: "Fitosoma de Quercetina Avanzado",
-        url: "https://www.amazon.es/dp/B07BFR4QC2?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B07BFR4QC2?tag=123thenextl01-21",
         imageUrl: "/Products/quercitin.jpeg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
@@ -320,7 +320,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "42,00€",
         badge: "Ubiquinol Activo Kaneka 200mg",
-        url: "https://www.amazon.es/dp/B0019GW3Y8?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B0019GW3Y8?tag=123thenextl01-21",
         imageUrl: "/Products/coq10es.jpeg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
@@ -359,7 +359,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "29,00€",
         badge: "Aceite de Pescado Triglicérido Puro",
-        url: "https://www.amazon.es/dp/B00TAK5HCI?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B00TAK5HCI?tag=123thenextl01-21",
         imageUrl: "/Products/omega3sp.jpeg.jpeg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
@@ -400,7 +400,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "950,00€",
         badge: "Remo Indoor Profesional Concept2",
-        url: "https://www.amazon.es/dp/B099KBD9X8?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B099KBD9X8?tag=123thenextl01-21",
         ctaText: "Check Availability on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -438,7 +438,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "11,50€ - 42,00€",
         badge: "Recubrimiento de Neopreno Antideslizante",
-        url: "https://www.amazon.es/dp/B01LR5RG08?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B01LR5RG08?tag=123thenextl01-21",
         imageUrl: "/Products/dumbell.jpg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
@@ -477,7 +477,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "8,99€",
         badge: "Set de 5 Bandas Elásticas",
-        url: "https://www.amazon.es/dp/B01AVDVHTI?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B01AVDVHTI?tag=123thenextl01-21",
         imageUrl: "/Products/resistancebands-es.webp",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
@@ -516,7 +516,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "15,99€",
         badge: "Rodillo de Espuma Alta Densidad",
-        url: "https://www.amazon.es/dp/B00XM2MXK8?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B00XM2MXK8?tag=123thenextl01-21",
         imageUrl: "/Products/roller.jpg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
@@ -555,7 +555,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "32,99€",
         badge: "Aislamiento Térmico Acero Inox",
-        url: "https://www.amazon.es/dp/B08524B5C6?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B08524B5C6?tag=123thenextl01-21",
         imageUrl: "/Products/owala.jpg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
@@ -594,7 +594,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "13,99€",
         badge: "Gafas de Natación Antivaho UV",
-        url: "https://www.amazon.es/dp/B08XQ35T47?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B08XQ35T47?tag=123thenextl01-21",
         imageUrl: "/Products/speedo.jpg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
@@ -633,7 +633,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "12,95€",
         badge: "Filtro de Agua Personal Portátil",
-        url: "https://www.amazon.es/dp/B006QF3TW4?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B006QF3TW4?tag=123thenextl01-21",
         imageUrl: "/Products/lifestraw.jpg",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
@@ -818,7 +818,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "129,95€",
         badge: "Validación Médica CE (Apnea)",
-        url: "https://www.amazon.es/dp/B0892BGFX7?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B0892BGFX7?tag=123thenextl01-21",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -854,7 +854,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "99,95€",
         badge: "Certificado Médico CE Clase IIa",
-        url: "https://www.amazon.es/dp/B07SJV1HNR?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B07SJV1HNR?tag=123thenextl01-21",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -890,7 +890,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "399,95€",
         badge: "Báscula Segmental 8 Electrodos",
-        url: "https://www.amazon.es/dp/B0B9849CD1?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B0B9849CD1?tag=123thenextl01-21",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -926,7 +926,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "399,00€",
         badge: "Biometría Compatible con la UE",
-        url: "https://www.amazon.es/dp/B0DGJG692K?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B0DGJG692K?tag=123thenextl01-21",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -963,7 +963,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "14,99€",
         badge: "CE Medical Marked",
-        url: "https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B00NH9WEUA?tag=123thenextl01-21",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -999,7 +999,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "229,00€",
         badge: "Paneles de Carbono de Bajo EMF",
-        url: "https://www.amazon.es/dp/B08H23V7S5?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B08H23V7S5?tag=123thenextl01-21",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -1035,7 +1035,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "129,00€",
         badge: "Cancelación Activa de Ruido Dual",
-        url: "https://www.amazon.es/dp/B0BTY3Y6PP?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B0BTY3Y6PP?tag=123thenextl01-21",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -1071,7 +1071,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "34,99€",
         badge: "Algodón Orgánico Certificado",
-        url: "https://www.amazon.es/dp/B01697W160?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B01697W160?tag=123thenextl01-21",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }
@@ -1107,7 +1107,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       ES: {
         price: "45,00€",
         badge: "Análisis Clínico Acreditado UE",
-        url: "https://www.amazon.es/dp/B08H7V69F7?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B08H7V69F7?tag=123thenextl01-21",
         ctaText: "Order on Amazon ES 🇪🇸",
         network: "Amazon Associates"
       }

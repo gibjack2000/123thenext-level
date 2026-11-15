@@ -43,18 +43,18 @@ const canonicalAmazonLinks = {
   'ovarian-test-uk': 'https://www.amazon.co.uk/dp/B08H7V69F7?tag=123thenextlev-21',
 
   // ES
-  'reagent-strips-es': 'https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21',
-  'blood-pressure-cuff-es': 'https://www.amazon.es/dp/B07SJV1HNR?tag=123znl08a-21',
-  'sleep-analyzer-es': 'https://www.amazon.es/dp/B0892BGFX7?tag=123znl08a-21',
-  'segmental-scale-es': 'https://www.amazon.es/dp/B0B9849CD1?tag=123znl08a-21',
-  'wearable-tracker-es': 'https://www.amazon.es/dp/B0DGJG692K?tag=123znl08a-21',
-  'noise-headphones-es': 'https://www.amazon.es/dp/B0BTY3Y6PP?tag=123znl08a-21',
-  'meditation-cushion-es': 'https://www.amazon.es/dp/B01697W160?tag=123znl08a-21',
-  'marine-collagen-es': 'https://www.amazon.es/dp/B07T8H5N1M?tag=123znl08a-21',
-  'water-bottle-es': 'https://www.amazon.es/dp/B08524B5C6?tag=123znl08a-21',
-  'rowing-machine-es': 'https://www.amazon.es/dp/B099KBD9X8?tag=123znl08a-21',
-  'sauna-tent-es': 'https://www.amazon.es/dp/B08H23V7S5?tag=123znl08a-21',
-  'ovarian-test-es': 'https://www.amazon.es/dp/B08H7V69F7?tag=123znl08a-21',
+  'reagent-strips-es': 'https://www.amazon.es/dp/B00NH9WEUA?tag=123thenextl01-21',
+  'blood-pressure-cuff-es': 'https://www.amazon.es/dp/B07SJV1HNR?tag=123thenextl01-21',
+  'sleep-analyzer-es': 'https://www.amazon.es/dp/B0892BGFX7?tag=123thenextl01-21',
+  'segmental-scale-es': 'https://www.amazon.es/dp/B0B9849CD1?tag=123thenextl01-21',
+  'wearable-tracker-es': 'https://www.amazon.es/dp/B0DGJG692K?tag=123thenextl01-21',
+  'noise-headphones-es': 'https://www.amazon.es/dp/B0BTY3Y6PP?tag=123thenextl01-21',
+  'meditation-cushion-es': 'https://www.amazon.es/dp/B01697W160?tag=123thenextl01-21',
+  'marine-collagen-es': 'https://www.amazon.es/dp/B07T8H5N1M?tag=123thenextl01-21',
+  'water-bottle-es': 'https://www.amazon.es/dp/B08524B5C6?tag=123thenextl01-21',
+  'rowing-machine-es': 'https://www.amazon.es/dp/B099KBD9X8?tag=123thenextl01-21',
+  'sauna-tent-es': 'https://www.amazon.es/dp/B08H23V7S5?tag=123thenextl01-21',
+  'ovarian-test-es': 'https://www.amazon.es/dp/B08H7V69F7?tag=123thenextl01-21',
 };
 
 async function fixDealUrls() {

@@ -440,7 +440,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
       },
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.es/dp/B08H7V69F7?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B08H7V69F7?tag=123thenextl01-21",
         ctaText: "Comprar Kit Hormonal (Amazon ES 🇪🇸)",
         priceText: "45,00€",
         badgeText: "Marcado CE",
@@ -503,7 +503,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     es: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.es/dp/B07SJV1HNR?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B07SJV1HNR?tag=123thenextl01-21",
         ctaText: "Comprar en Amazon ES 🇪🇸",
         priceText: "99,95€",
         badgeText: "CE Medical Class IIa",
@@ -571,7 +571,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     es: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.es/dp/B0892BGFX7?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B0892BGFX7?tag=123thenextl01-21",
         ctaText: "Comprar en Amazon ES 🇪🇸",
         priceText: "129,95€",
         badgeText: "CE Medically Validated (Apnea)",
@@ -639,7 +639,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     es: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.es/dp/B0B9849CD1?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B0B9849CD1?tag=123thenextl01-21",
         ctaText: "Comprar en Amazon ES 🇪🇸",
         priceText: "399,95€",
         badgeText: "CE Medical Marked",
@@ -689,7 +689,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     es: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.es/dp/B0DGJG692K?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B0DGJG692K?tag=123thenextl01-21",
         ctaText: "Comprar en Amazon ES 🇪🇸",
         priceText: "399,00€",
         badgeText: "CE Compliant Biometrics",
@@ -730,7 +730,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     es: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.es/dp/B0BTY3Y6PP?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B0BTY3Y6PP?tag=123thenextl01-21",
         ctaText: "Comprar en Amazon ES 🇪🇸",
         priceText: "129,00€",
         badgeText: "Cancelación Activa de Ruido",
@@ -775,7 +775,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     es: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.es/dp/B099KBD9X8?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B099KBD9X8?tag=123thenextl01-21",
         ctaText: "Comprar en Amazon ES 🇪🇸",
         priceText: "950,00€",
         badgeText: "Monitor PM5 Estándar",
@@ -816,7 +816,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     es: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.es/dp/B08H23V7S5?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B08H23V7S5?tag=123thenextl01-21",
         ctaText: "Comprar en Amazon ES 🇪🇸",
         priceText: "229,00€",
         badgeText: "Paneles de Carbono de Bajo EMF",
@@ -857,7 +857,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     es: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.es/dp/B01697W160?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B01697W160?tag=123thenextl01-21",
         ctaText: "Comprar en Amazon ES 🇪🇸",
         priceText: "34,99€",
         badgeText: "Algodón Orgánico Certificado",
@@ -956,7 +956,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
       },
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.es/dp/B0DBQZBSTM?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B0DBQZBSTM?tag=123thenextl01-21",
         ctaText: "Comprar NAD+ en Amazon ES",
         priceText: "129,00€",
         badgeText: "Certificado UE",
@@ -1024,7 +1024,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     es: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.es/dp/B07T8H5N1M?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B07T8H5N1M?tag=123thenextl01-21",
         ctaText: "Comprar en Amazon ES 🇪🇸",
         priceText: "27,99€",
         badgeText: "Péptidos de Colágeno Hidrolizado",
@@ -1078,7 +1078,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     es: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.es/dp/B08524B5C6?tag=123znl08a-21",
+        url: "https://www.amazon.es/dp/B08524B5C6?tag=123thenextl01-21",
         ctaText: "Comprar en Amazon ES 🇪🇸",
         priceText: "26,99€",
         badgeText: "Aislamiento de Doble Pared",

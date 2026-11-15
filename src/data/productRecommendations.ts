@@ -181,7 +181,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       rating: 5.0,
       description: "Báscula médica de precisión segmentada que mide porcentaje de grasa visceral, masa muscular y agua intracelular.",
       priceText: "89,99 €",
-      dealUrl: "https://www.amazon.es/dp/B0GW8GWK1Q?tag=123znl08a-21",
+      dealUrl: "https://www.amazon.es/dp/B0GW8GWK1Q?tag=123thenextl01-21",
       badgeText: "Mapeo de Composición",
       imagePlaceholder: "/Products/newithings.webp",
       pillar: "health"
@@ -192,7 +192,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       rating: 4.8,
       description: "Cinta de correr doméstica premium con inclinación motorizada para caminatas de movilidad y entrenamiento VO2 Max.",
       priceText: "449,00 €",
-      dealUrl: "https://www.amazon.es/dp/B0DKDZYNTC?tag=123znl08a-21",
+      dealUrl: "https://www.amazon.es/dp/B0DKDZYNTC?tag=123thenextl01-21",
       badgeText: "Resistencia Vascular",
       imagePlaceholder: "/Products/cinta.jpg",
       pillar: "fitness"
@@ -203,7 +203,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       rating: 4.8,
       description: "La máquina de remo de referencia mundial para acondicionamiento cardiovascular cruzado de bajo impacto.",
       priceText: "990,00 €",
-      dealUrl: "https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21",
+      dealUrl: "https://www.amazon.es/dp/B00NH9WEUA?tag=123thenextl01-21",
       badgeText: "Top Deporte",
       imagePlaceholder: "/Products/concept2.jpeg",
       pillar: "fitness"

@@ -237,7 +237,7 @@ const CATEGORY_META = {
         rating: "4.8",
         reviews: "2.3k+",
         market_price: "€45.00",
-        url: "https://www.amazon.es/dp/B07R4C9R69?tag=123znl0e-21"
+        url: "https://www.amazon.es/dp/B07R4C9R69?tag=123thenextl01-21"
       }
     },
     regionalProducts: {
@@ -273,7 +273,7 @@ const CATEGORY_META = {
         rating: "4.8",
         reviews: "3.2k+",
         market_price: "€449.99",
-        url: "https://www.amazon.es/dp/B0BSLYW5P9?tag=123znl0e-21"
+        url: "https://www.amazon.es/dp/B0BSLYW5P9?tag=123thenextl01-21"
       }
     },
     regionalProducts: {
@@ -309,7 +309,7 @@ const CATEGORY_META = {
         rating: "4.7",
         reviews: "4.8k+",
         market_price: "€49.90",
-        url: "https://www.amazon.es/dp/B008DWX1MG?tag=123znl0e-21"
+        url: "https://www.amazon.es/dp/B008DWX1MG?tag=123thenextl01-21"
       }
     },
     regionalProducts: {
@@ -345,7 +345,7 @@ const CATEGORY_META = {
         rating: "4.8",
         reviews: "1.9k+",
         market_price: "€289.99",
-        url: "https://www.amazon.es/dp/B09PSKN6X3?tag=123znl0e-21"
+        url: "https://www.amazon.es/dp/B09PSKN6X3?tag=123thenextl01-21"
       }
     },
     regionalProducts: {

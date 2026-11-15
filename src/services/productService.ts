@@ -89,7 +89,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     rating: 4.82,
     description: 'Colchoneta de balistocardiografía sin contacto que registra frecuencia cardíaca, ciclos de sueño y apneas.',
     price_text: '129,95€',
-    deal_url: 'https://www.amazon.es/dp/B0892BGFX7?tag=123znl08a-21',
+    deal_url: 'https://www.amazon.es/dp/B0892BGFX7?tag=123thenextl01-21',
     market_region: 'ES',
     badge_text: 'CE Validación Médica',
     image_url: '/assets/images/shop/sleep-analyzer.png'
@@ -161,7 +161,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     rating: 4.88,
     description: 'Báscula médica de impedancia segmental con ECG de 6 derivaciones y evaluación de salud vascular.',
     price_text: '399,95€',
-    deal_url: 'https://www.amazon.es/dp/B0B9849CD1?tag=123znl08a-21',
+    deal_url: 'https://www.amazon.es/dp/B0B9849CD1?tag=123thenextl01-21',
     market_region: 'ES',
     badge_text: 'Certificación Médica CE',
     image_url: '/assets/images/shop/body-scan.png'
@@ -269,7 +269,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     rating: 4.80,
     description: 'Reloj inteligente multiespectral avanzado que registra apnea del sueño, ECG y variabilidad de la frecuencia cardíaca.',
     price_text: '399,00€',
-    deal_url: 'https://www.amazon.es/dp/B0DGJG692K?tag=123znl08a-21',
+    deal_url: 'https://www.amazon.es/dp/B0DGJG692K?tag=123thenextl01-21',
     market_region: 'ES',
     badge_text: 'CE Compliant Biometrics',
     image_url: '/assets/images/shop/apple-watch.png'
@@ -305,7 +305,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     rating: 4.8,
     description: 'Tensiómetro Wi-Fi clínicamente validado que sincroniza automáticamente con el historial vascular.',
     price_text: '99,95€',
-    deal_url: 'https://www.amazon.es/dp/B07SJV1HNR?tag=123znl08a-21',
+    deal_url: 'https://www.amazon.es/dp/B07SJV1HNR?tag=123thenextl01-21',
     market_region: 'ES',
     badge_text: 'CE Medical Class IIa',
     image_url: '/assets/images/shop/bpm-connect.png'
@@ -341,7 +341,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     rating: 4.85,
     description: 'Manta térmica de infrarrojo lejano con bajo EMF para desintoxicación celular y recuperación mitocondrial.',
     price_text: '289,99€',
-    deal_url: 'https://www.amazon.es/dp/B09PSKN6X3?tag=123znl08a-21',
+    deal_url: 'https://www.amazon.es/dp/B09PSKN6X3?tag=123thenextl01-21',
     market_region: 'ES',
     badge_text: 'Certificado UE',
     image_url: '/assets/images/shop/sauna.png'
@@ -377,7 +377,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     rating: 4.8,
     description: 'Auriculares inalámbricos con cancelación activa de ruido híbrida para un santuario acústico sin distracciones.',
     price_text: '49,99€',
-    deal_url: 'https://www.amazon.es/dp/B08HMWZBXC?tag=123znl08a-21',
+    deal_url: 'https://www.amazon.es/dp/B08HMWZBXC?tag=123thenextl01-21',
     market_region: 'ES',
     badge_text: 'Certificado UE',
     image_url: '/assets/images/shop/headphones.png'
@@ -413,7 +413,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     rating: 4.95,
     description: 'La máquina de remo de referencia mundial para acondicionamiento cardiovascular cruzado.',
     price_text: '950,00€',
-    deal_url: 'https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21',
+    deal_url: 'https://www.amazon.es/dp/B00NH9WEUA?tag=123thenextl01-21',
     market_region: 'ES',
     badge_text: 'Estándar Clínico PM5',
     image_url: '/assets/images/shop/rower.png'

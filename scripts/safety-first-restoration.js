@@ -40,11 +40,11 @@ async function runRestoration() {
     'wearable-tracker-uk': 'https://www.amazon.co.uk/dp/B0DGJHCPX5?tag=123thenextlev-21',
 
     // ES
-    'reagent-strips-es': 'https://www.amazon.es/dp/B00NH9WEUA?tag=123znl08a-21',
-    'blood-pressure-cuff-es': 'https://www.amazon.es/dp/B07SJV1HNR?tag=123znl08a-21',
-    'sleep-analyzer-es': 'https://www.amazon.es/dp/B0892BGFX7?tag=123znl08a-21',
-    'segmental-scale-es': 'https://www.amazon.es/dp/B0B9849CD1?tag=123znl08a-21',
-    'wearable-tracker-es': 'https://www.amazon.es/dp/B0DGJG692K?tag=123znl08a-21',
+    'reagent-strips-es': 'https://www.amazon.es/dp/B00NH9WEUA?tag=123thenextl01-21',
+    'blood-pressure-cuff-es': 'https://www.amazon.es/dp/B07SJV1HNR?tag=123thenextl01-21',
+    'sleep-analyzer-es': 'https://www.amazon.es/dp/B0892BGFX7?tag=123thenextl01-21',
+    'segmental-scale-es': 'https://www.amazon.es/dp/B0B9849CD1?tag=123thenextl01-21',
+    'wearable-tracker-es': 'https://www.amazon.es/dp/B0DGJG692K?tag=123thenextl01-21',
   };
 
   let updatedCount = 0;

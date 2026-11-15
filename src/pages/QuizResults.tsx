@@ -180,7 +180,7 @@ export default function QuizResults() {
         rating: 5.0,
         description: "Báscula de composición corporal de precisión que monitoriza grasa visceral y masa muscular segmentada.",
         priceText: "89,99 €",
-        dealUrl: "https://www.amazon.es/dp/B0GW8GWK1Q?tag=123znl08a-21",
+        dealUrl: "https://www.amazon.es/dp/B0GW8GWK1Q?tag=123thenextl01-21",
         badgeText: "Mapeo de Composición",
         imagePlaceholder: "/Products/newithings.webp",
         pillar: "health"
@@ -220,7 +220,7 @@ export default function QuizResults() {
           rating: 4.7,
           description: "An accessible, compact kitchen tool for single-person glycemic meal prep.",
           priceText: "89,99 €",
-          dealUrl: "https://www.amazon.es/dp/B09FQBKFQ6?tag=123znl08a-21",
+          dealUrl: "https://www.amazon.es/dp/B09FQBKFQ6?tag=123thenextl01-21",
           badgeText: "Glycemic Kitchen Prep",
           imagePlaceholder: "/Products/airfryer.jpg"
         };

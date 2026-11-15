@@ -43,7 +43,7 @@ export const REGION_MAP: Record<Region, RegionData> = {
     tagline: 'Tu Control Sencillo de Equilibrio de 2 Minutos',
     description: 'Una tira reactiva química visual de papel común que registra 10 indicadores críticos en menos de 2 minutos. No requiere configuración digital, sincronización de aplicaciones, tiempo de pantalla ni emparejamiento Bluetooth. Alerta instantáneamente sobre el esfuerzo renal, cetonas metabólicas y desequilibrios de hidratación, ofreciendo tranquilidad sin ruido digital.',
     buttonText: 'Comprar en Amazon (ES)',
-    amazonUrl: 'https://www.amazon.es/s?k=tiras+analisis+orina+10+parametros&tag=123znl08a-21',
+    amazonUrl: 'https://www.amazon.es/s?k=tiras+analisis+orina+10+parametros&tag=123thenextl01-21',
     bullets: [
       'Analiza 10 parámetros vitales (glucosa, cetonas, pH, proteínas, nitritos y más)',
       'Establece una línea de base clínica para tu salud renal y de fluidos en casa',

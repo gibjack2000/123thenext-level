@@ -57,7 +57,7 @@ const HARDWARE_PICKS: HardwareItem[] = [
       price: '£349.99'
     },
     es: {
-      url: 'https://www.amazon.es/dp/B0B9849CD1?tag=123znl08a-21',
+      url: 'https://www.amazon.es/dp/B0B9849CD1?tag=123thenextl01-21',
       price: '399,95€'
     }
   },
@@ -77,7 +77,7 @@ const HARDWARE_PICKS: HardwareItem[] = [
       price: '£28.99'
     },
     es: {
-      url: 'https://www.amazon.es/dp/B01N1UX8RW?tag=123znl08a-21',
+      url: 'https://www.amazon.es/dp/B01N1UX8RW?tag=123thenextl01-21',
       price: '29,99€'
     }
   },
@@ -97,7 +97,7 @@ const HARDWARE_PICKS: HardwareItem[] = [
       price: '£379.00'
     },
     es: {
-      url: 'https://www.amazon.es/dp/B0DJBH1625?tag=123znl08a-21',
+      url: 'https://www.amazon.es/dp/B0DJBH1625?tag=123thenextl01-21',
       price: '399,00€'
     }
   }

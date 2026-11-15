@@ -34,8 +34,8 @@ async function cleanAllBlogPosts() {
     }
 
     // Replace any foreign tags with US tag
-    if (newContent.includes('tag=youruk-21') || newContent.includes('tag=123znl0a-21') || newContent.includes('tag=123znl08a-21') || newContent.includes('tag=123znl0f3-21')) {
-      newContent = newContent.replace(/tag=(?:youruk-21|123znl0a-21|123znl08a-21|123znl0f3-21)/gi, 'tag=123znl0e-20');
+    if (newContent.includes('tag=youruk-21') || newContent.includes('tag=123znl0a-21') || newContent.includes('tag=123thenextl01-21') || newContent.includes('tag=123znl0f3-21')) {
+      newContent = newContent.replace(/tag=(?:youruk-21|123znl0a-21|123thenextl01-21|123znl0f3-21)/gi, 'tag=123znl0e-20');
       contentChanged = true;
     }
 

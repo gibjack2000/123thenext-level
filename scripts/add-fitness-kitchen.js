@@ -65,7 +65,7 @@ async function ensureFitnessAndKitchen() {
       rating: 4.95,
       description: "La máquina de remo de referencia con monitor PM5 para optimizar el rendimiento cardiorrespiratorio y la potencia metabólica.",
       price_text: "950,00€",
-      deal_url: "https://www.amazon.es/dp/B099KBD9X8?tag=123znl08a-21",
+      deal_url: "https://www.amazon.es/dp/B099KBD9X8?tag=123thenextl01-21",
       market_region: "ES",
       badge_text: "Estándar Clínico PM5",
       image_url: "/assets/images/shop/rower.png"
@@ -77,7 +77,7 @@ async function ensureFitnessAndKitchen() {
       rating: 4.88,
       description: "Se ajusta de 3,5 kg a 18 kg para entrenamientos funcionales de cadena posterior y fuerza adaptativa.",
       price_text: "149,00€",
-      deal_url: "https://www.amazon.es/dp/B07V2C6374?tag=123znl08a-21",
+      deal_url: "https://www.amazon.es/dp/B07V2C6374?tag=123thenextl01-21",
       market_region: "ES",
       badge_text: "Compacta 6 en 1",
       image_url: "/assets/images/shop/rower.png"
@@ -116,7 +116,7 @@ async function ensureFitnessAndKitchen() {
       rating: 4.90,
       description: "Extractor ciclónico de precisión de alta velocidad para pulverizar hojas verdes, semillas y superalimentos de longevidad.",
       price_text: "99,99€",
-      deal_url: "https://www.amazon.es/dp/B08524B5C6?tag=123znl08a-21",
+      deal_url: "https://www.amazon.es/dp/B08524B5C6?tag=123thenextl01-21",
       market_region: "ES",
       badge_text: "Motor Potente 1200W",
       image_url: "/assets/images/shop/water-bottle.png"

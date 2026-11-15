@@ -1578,7 +1578,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.8,
       "description": "Tensiómetro inteligente Wi-Fi. Registra automáticamente las tendencias cardiovasculares en su panel de control privado.",
       "price_text": "99,95€",
-      "deal_url": "https://www.amazon.es/dp/B07SJV1HNR?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B07SJV1HNR?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "CE Medical Class IIa",
       "image_url": "/Products/withingsconnect.webp"
@@ -1590,7 +1590,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.88,
       "description": "Báscula médica de impedancia con 8 electrodos. Mapea la masa muscular y el índice de grasa visceral para guiar los ciclos metabólicos.",
       "price_text": "399,95€",
-      "deal_url": "https://www.amazon.es/dp/B0B9849CD1?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0B9849CD1?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "CE Medical Marked",
       "image_url": "/Products/newithings.webp"
@@ -1614,7 +1614,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.8,
       "description": "Reloj inteligente avanzado con sensores multiespectrales para monitorizar la variabilidad de la frecuencia cardíaca nocturna (HRV).",
       "price_text": "399,00€",
-      "deal_url": "https://www.amazon.es/dp/B0DGJG692K?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0DGJG692K?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "CE Compliant Biometrics",
       "image_url": "/Products/apple10.jpg"
@@ -1650,7 +1650,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.82,
       "description": "Alfombrilla neumática bajo el colchón. Registra el ritmo cardíaco nocturno y detecta la apnea obstructiva del sueño con validación médica CE.",
       "price_text": "129,95€",
-      "deal_url": "https://www.amazon.es/dp/B0892BGFX7?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0892BGFX7?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "CE Medically Validated (Apnea)",
       "image_url": "/Products/withingsleep.webp"
@@ -1686,7 +1686,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "Calcium, Magnesium and Zinc with Vitamin D3, K2 and More - 400 Vegan Tablets (+1 Year) - Vitamin & Mineral Complex, Gluten Free, Lactose Free",
       "price_text": "21,49€",
-      "deal_url": "https://www.amazon.es/dp/B08TCG2RH7?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B08TCG2RH7?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/calciumvitdus.jpeg"
@@ -1698,7 +1698,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "High bioavailability chelated magnesium bisglycinate 350mg elemental, 120 vegetable capsules, vegan and gluten free",
       "price_text": "9,99€",
-      "deal_url": "https://www.amazon.es/dp/B01BCCP44G?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B01BCCP44G?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/magnesiumchelate.jpg"
@@ -1710,7 +1710,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.1,
       "description": "Pure whey protein with collagen and magnesium to improve workouts and protect muscle mass, 1000g chocolate flavor",
       "price_text": "29,90€",
-      "deal_url": "https://www.amazon.es/dp/B07Q31N9D4?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B07Q31N9D4?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/whey3.jpg"
@@ -1722,7 +1722,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Magnesium complex with citrate and bisglycinate for high bioavailability, reduces tiredness and fatigue, 120 vegan capsules",
       "price_text": "16,91€",
-      "deal_url": "https://www.amazon.es/dp/B07M7L3J7Y?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B07M7L3J7Y?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/magnesium.jpg"
@@ -1734,7 +1734,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Pure Hydrolyzed Collagen + Hyaluronic Acid + Coenzyme Q10 + Vitamins and B12 + Zinc - 120 Days Maximum Dose - Advanced Formula - Collagen for Strong Joints, Tense Skin and Energy",
       "price_text": "22,09€",
-      "deal_url": "https://www.amazon.es/dp/B09HHNZ5Q4?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B09HHNZ5Q4?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/CollagenSpain.jpg"
@@ -1746,7 +1746,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.2,
       "description": "NAD+ Nicotinamide Riboside Chloride 300mg - +6 Months Cure - Against Age and Fatigue, NAD Booster - Pure Powder, 180 Capsules - Pharmaceutical Grade - Vegan - Hexagon",
       "price_text": "129,00€",
-      "deal_url": "https://www.amazon.es/dp/B0DBQZBSTM?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0DBQZBSTM?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/nadplusukspain.jpg"
@@ -1758,7 +1758,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Omega 3 2000mg - 240 Fish Oil Beads (660mg EPA + 440mg DHA) - Omega 3 Fatty Acids for 4 Months, Non-GMO",
       "price_text": "18,26€",
-      "deal_url": "https://www.amazon.es/dp/B084G5XC29?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B084G5XC29?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/omega3sp.jpeg.jpeg"
@@ -1770,7 +1770,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "idine Forte 5.5 mg: High Dose of Premium Wheat Germ Extract, 90 Vegan Capsules (3 Month Supply), Natural and No Additives, Green Naturals®.",
       "price_text": "46,90€",
-      "deal_url": "https://www.amazon.es/dp/B0BTHKHPHS?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0BTHKHPHS?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/spermidinespain.jpeg"
@@ -1782,7 +1782,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Vitamin D3 and K2. Vitamin D3 5000 ui + Vitamin K2 MK7 200 μg + Silicon + Bamboo. High dosage and bioavailability. Contributes to the immune system. 150 capsules. N2 Natural Nutrition",
       "price_text": "17,70€",
-      "deal_url": "https://www.amazon.es/dp/B0888QXZ14?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0888QXZ14?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/d3k2spain.jpeg"
@@ -1794,7 +1794,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.1,
       "description": "NDL Pro-Health Electrolytes - Effervescent Tablets for Rapid Hydration, Electrolytes and Mineral Salts for Sports, Reduces Fatigue and Fatigue - Lemon Flavor - Pack 2-40 Tablets",
       "price_text": "13,40€",
-      "deal_url": "https://www.amazon.es/dp/B0DZD7TH17?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0DZD7TH17?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/elctrolyte-es.jpeg"
@@ -1806,7 +1806,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "Creatine Monohydrate 3000mg, 270 Tablets, 3 Month Supply - Vegan Friendly Sports Supplement, 3 Tablets a Day, Non-GMO and Magnesium Stearate",
       "price_text": "22,94€",
-      "deal_url": "https://www.amazon.es/dp/B0924PFYN9?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0924PFYN9?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/creatine-es.webp"
@@ -1818,7 +1818,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "Lion's Mane 58,500 mg (30:1) Per Daily Dose - High Absorption Lions Mane (Hericium erinaceus) with Vitamin C and Black Pepper - 30% Polysaccharides, 5% Beta-Glucans - Non-GMO & Gluten Free",
       "price_text": "19,99€",
-      "deal_url": "https://www.amazon.es/dp/B0CG64T7LG?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0CG64T7LG?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/melenaleon.jpeg"
@@ -1830,7 +1830,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "Intestinal Probiotics & Prebiotics with 20 Bacterial Strains - 120 Capsules for 2 Month Supply - 60 Billion CFU, With Inulin & FOS Powder, Vegan Friendly, Lactose Free & Non-GMO",
       "price_text": "14,72€",
-      "deal_url": "https://www.amazon.es/dp/B092Q8SGPT?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B092Q8SGPT?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/multistrainprebio.jpeg"
@@ -1842,7 +1842,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Igennus Super B-Complex - Methylated Vitamin B Complex with Methylfolate, Vitamin B12 Methylcobalamin and Vitamin C, High Absorption and Extended Release, 180 Vegan Tablets",
       "price_text": "23,99€",
-      "deal_url": "https://www.amazon.es/dp/B084HH913J?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B084HH913J?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/methylatedbcomplex.jpeg"
@@ -1854,7 +1854,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "Ashwagandha KSM-66 Capsules 250mg High Potency - 5% Withanolides - 90 Vegan Capsules (3 Month Supply) - with B6 for Tiredness & B5 for Mental Performance - for Men and Women - 4 HIM & HER",
       "price_text": "17,00€",
-      "deal_url": "https://www.amazon.es/dp/B0GFWQCJK9?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0GFWQCJK9?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/ashwagandhaes.jpeg"
@@ -1866,7 +1866,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Prebio Inulin Powder - 1100g (1.1kg) - High Fiber Content - Prebiotic - Controlled Waste - Origin Europe - Naturally from Chicory Root - 100% Vegan",
       "price_text": "15,29€",
-      "deal_url": "https://www.amazon.es/dp/B07FDL3T4Z?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B07FDL3T4Z?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/prebioticfibre.jpeg"
@@ -1878,7 +1878,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Coenzyme Q10 200mg Concentration 120 Vegan Capsules, 4 Month Supply - Ubiquinone CoQ10, 4 Month Supply, Gluten Free, GMO and Magnesium Stearate Free",
       "price_text": "19,79€",
-      "deal_url": "https://www.amazon.es/dp/B07MZY4P1R?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B07MZY4P1R?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/coq10es.jpeg"
@@ -1890,7 +1890,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "Pure Glycine Powder 1kg Vegavero® | NO Additives, Lab-Tested | Supports Recovery, Muscle & Collagen Synthesis | L-Glycine 1000g with Measuring Spoon | L Glycine Supplement | Vegan",
       "price_text": "13,58€",
-      "deal_url": "https://www.amazon.es/dp/B0BK8X47M5?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0BK8X47M5?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/glycine.jpeg"
@@ -1902,7 +1902,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.95,
       "description": "La máquina de remo de referencia con monitor PM5 para optimizar el rendimiento cardiorrespiratorio y la potencia metabólica.",
       "price_text": "950,00€",
-      "deal_url": "https://www.amazon.es/dp/B099KBD9X8?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B099KBD9X8?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Estándar Clínico PM5",
       "image_url": "/assets/images/shop/rower.png"
@@ -1914,7 +1914,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.88,
       "description": "Se ajusta de 3,5 kg a 18 kg para entrenamientos funcionales de cadena posterior y fuerza adaptativa.",
       "price_text": "149,00€",
-      "deal_url": "https://www.amazon.es/dp/B07V2C6374?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B07V2C6374?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Compacta 6 en 1",
       "image_url": "/Products/bowflex.webp"
@@ -1926,7 +1926,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.9,
       "description": "Extractor ciclónico de precisión de alta velocidad para pulverizar hojas verdes, semillas y superalimentos de longevidad.",
       "price_text": "99,99€",
-      "deal_url": "https://www.amazon.es/dp/B08524B5C6?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B08524B5C6?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Motor Potente 1200W",
       "image_url": "/Products/nutri.webp"
@@ -2022,7 +2022,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "This portable muscle massage gun delivers targeted deep tissue relief, perfect for post-workout recovery, soothing everyday aches, or warming up muscles. Its powerful percussive therapy helps improve blood circulation, reduce stiffness, and accelerate muscle repair, making it an essential tool for athletes and anyone seeking fast, effective pain relief.",
       "price_text": "37,99€",
-      "deal_url": "https://www.amazon.es/dp/B09NR1RWG8?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B09NR1RWG8?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/massage.jpg"
@@ -2034,7 +2034,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "GE Impedancimeter Scale 8 Electrodes, Intelligent Body and Muscle Fat Scale BMI 27 Different Measurements High Precision Bioimpedance Scale 180 kg",
       "price_text": "89,99€",
-      "deal_url": "https://www.amazon.es/dp/B0DP9C8LBY?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0DP9C8LBY?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/gescale.jpeg"
@@ -2046,7 +2046,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "Snailax Bath Spa Foot Massager with Heat, Remote Control, Shiatsu Massage Rollers, Bubbles, Temperature Control, Foldable, Pedicure Tub, Gifts",
       "price_text": "125,48€",
-      "deal_url": "https://www.amazon.es/dp/B0FBRVPP3D?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0FBRVPP3D?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/snailax.jpeg"
@@ -2058,7 +2058,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.1,
       "description": "SereneLife Full Size Infrared Portable Home SPA - One Person Sauna with Foot Heating Pad and Folding Chair",
       "price_text": "349,99€",
-      "deal_url": "https://www.amazon.es/dp/B07WC64NPQ?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B07WC64NPQ?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/spa.jpeg"
@@ -2070,7 +2070,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 5,
       "description": "Báscula Inteligente bluetooth, Análisis Corporal Completo,%grasa corporal, músculo, 8 Electrodos de Alta Precisión, Métricas detalladas, App en Español, hasta180 kg",
       "price_text": "64,90€",
-      "deal_url": "https://www.amazon.es/dp/B0GW8GWK1Q?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0GW8GWK1Q?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/blutoothsmartscale.jpeg"
@@ -2082,7 +2082,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "Homedics Portable Sauna - Folding Personal Steam Sauna for Stress Relief and Muscle Relaxation, 1 Minute Quick Setup, Heats to 45°C, Session Up to 60 Minutes, Design",
       "price_text": "359,64€",
-      "deal_url": "https://www.amazon.es/dp/B0FXBF33CM?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0FXBF33CM?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/steam.jpeg"
@@ -2094,7 +2094,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "RENPHO Foot Massager with Heat System and Remote Control, Shiatsu Foot Massager with Multiple Heat Levels and Kneading and Pressure Massage, Relieves Fatigued Muscles",
       "price_text": "149,99€",
-      "deal_url": "https://www.amazon.es/dp/B08M3MNWPQ?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B08M3MNWPQ?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/Renphouk.jpeg"
@@ -2106,7 +2106,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.2,
       "description": "VOYOR Electric Cellulite Massager Set for Cellulite, Face, Hand, Arm, Neck, Foot and Body – 3 Multifunctional Heads, IPX7 Waterproof, Cordless and Rechargeable",
       "price_text": "47,99€",
-      "deal_url": "https://www.amazon.es/dp/B073XPR6MC?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B073XPR6MC?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/voyorcell1.jpeg"
@@ -2118,7 +2118,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "arboleaf Intelligent Body Weight Scale with 8 Electrodes and Large LED Display, Body and Muscle Fat Scale Analyzes 50 Metrics, Bioimpedance Bathroom Scale with Bluetooth and APP, 310 x 310 mm",
       "price_text": "84,99€",
-      "deal_url": "https://www.amazon.es/dp/B0F6CLT4WZ?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0F6CLT4WZ?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/arboleaf.jpeg"
@@ -2130,7 +2130,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "Beurer EM 59 Digital Electrostimulator with Heat, Tens, EMs and Massage Function, 2 Channels, Heat Function, 4 Electrodes, with Gel Pads, Dimmable, Timer, Black Red",
       "price_text": "54,99€",
-      "deal_url": "https://www.amazon.es/dp/B0872DQW46?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0872DQW46?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/beurer.jpeg"
@@ -2142,7 +2142,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "Infrared Sauna Blanket 2 Zones, Professional Far Infrared Thermal Therapy Blanket Portable for Home Spa, Detox, Fitness, Beauty",
       "price_text": "122,99€",
-      "deal_url": "https://www.amazon.es/dp/B0DPHN9D2P?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0DPHN9D2P?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/blanket.jpeg"
@@ -2154,7 +2154,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "AERLANG Cervical and Back Massager with Relaxing Heat, Neck, Shoulder and Back Massager for Pain and Relaxation, Gift for Women, Men, Mom and Dad(Not Wireless)",
       "price_text": "40,84€",
-      "deal_url": "https://www.amazon.es/dp/B0CVVTJL6J?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0CVVTJL6J?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/aerlang.jpeg"
@@ -2166,7 +2166,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "Good Nite Weighted Blanket Weighted Blanket for Adults Stress Relief Weighted Blanket for Calm Senses (Grey, 8kg, 150x200cm)",
       "price_text": "48,44€",
-      "deal_url": "https://www.amazon.es/dp/B0C6G4Z1PY?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0C6G4Z1PY?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/blanket-es.webp"
@@ -2178,7 +2178,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "Tibetan Singing Bowl Set - Easy to Play for Beginners, Authentic Handmade, Meditation with Holistic Sound, 7 Chakra Healing Gift - Himalayan Bazaar (5\")",
       "price_text": "35,00€",
-      "deal_url": "https://www.amazon.es/dp/B09SRXHCRR?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B09SRXHCRR?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/tibetbowl-es.webp"
@@ -2190,7 +2190,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "LIORQUE Sunrise Alarm Clock, Natural Light Simulation of Sunrise, 13 Brightness Levels, 10 White Noise Tracks and 20 Nature Melodies, Alarm Function and Snooze Function [Energy Class G]",
       "price_text": "31,58€",
-      "deal_url": "https://www.amazon.es/dp/B0FB9CWT4D?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0FB9CWT4D?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/sunriseclock-es.webp"
@@ -2202,7 +2202,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "LifePro RejuvaWrap Infrared Sauna Blanket, Thermal Blanket for Relaxation, Portable Sauna Suit Wrap, SPA-Like Experience at Home with 9 Heat Levels (35℃ to 80℃)",
       "price_text": "289,99€",
-      "deal_url": "https://www.amazon.es/dp/B09PSKN6X3?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B09PSKN6X3?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/infraredblanket-es.jpg"
@@ -2214,7 +2214,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "Cecotec Ultrasonic Humidifier and Aroma Diffuser with Pure Aroma Timer 300 Yin. 10 W, 300 ml, Timer up to 6 Hours, 7 LED Colours, Aromatherapy Function, Ultra-Quiet",
       "price_text": "22,70€",
-      "deal_url": "https://www.amazon.es/dp/B07MFY6BBV?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B07MFY6BBV?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/oildiffuse-es.jpg"
@@ -2226,7 +2226,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "Muscle Massage Gun Heat and Cold RENPHO Massage Gun 3200RPM Deep Tissue Motor Massager Massage Gun Home Gym Full Body Muscle Relaxation",
       "price_text": "66,10€",
-      "deal_url": "https://www.amazon.es/dp/B0BMKD1HG7?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0BMKD1HG7?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/renphomassage.webp"
@@ -2238,7 +2238,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Lotuscrafts Lotus Yoga Meditation Cushion – Height 15 cm – Spelled Filling – Washable Cotton Cover – Zafu Meditation – Round Floor Cushion – Yoga Cushion – Meditation Cushion – Gots Certificate",
       "price_text": "37,99€",
-      "deal_url": "https://www.amazon.es/dp/B01N6GK5UX?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B01N6GK5UX?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/meditatecushion-es.webp"
@@ -2250,7 +2250,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.1,
       "description": "RENPHO Eyeris 1- Eye Massager with Heat, Bluetooth Music, Vibrating Massage, Foldable Eye Massager to Relieve Eye Strain Dry Eyes Improve Sleep, Original Gifts for Women",
       "price_text": "52,48€",
-      "deal_url": "https://www.amazon.es/dp/B07SM61FCT?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B07SM61FCT?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/renphoeye-es.webp"
@@ -2262,7 +2262,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.2,
       "description": "Foldable Ice Bathtub, Adult Cold Immersion Bathtub with Upgraded T-Shaped Structure, Freestanding Outdoor Hot Tub (Blue, 70x68cm)",
       "price_text": "69,99€",
-      "deal_url": "https://www.amazon.es/dp/B0BNPLJCVH?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B0BNPLJCVH?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/coldplunge-es.webp"
@@ -2274,7 +2274,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "Soundcore Anker Q30 Wireless Bluetooth Headphones Hybrid Active Noise Cancelling with Various Modes, Hi-Res Sound, Custom EQ via App, 50H Playback, Comfortable Fit, Multipoint Connection",
       "price_text": "49,99€",
-      "deal_url": "https://www.amazon.es/dp/B08HMWZBXC?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B08HMWZBXC?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/headphone-es.webp"
@@ -2286,7 +2286,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "Eco-friendly hypoallergenic detergent strips for 40 washes with softening effect, made in Spain with floral fragrance",
       "price_text": "9,96€",
-      "deal_url": "https://www.amazon.es/dp/B09WH2BXSH?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.es/dp/B09WH2BXSH?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/Natulim.jpg"
