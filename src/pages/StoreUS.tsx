@@ -182,7 +182,7 @@ export const StoreUS: React.FC = () => {
             'US'
           );
           if (
-            !healedImg.startsWith('http') &&
+            healedImg &&
             !isBundledDiagnosticImage(healedImg)
           ) {
             healedImg = healedImg.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');

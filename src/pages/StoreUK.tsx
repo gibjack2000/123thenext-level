@@ -96,7 +96,7 @@ export const StoreUK: React.FC = () => {
             'UK'
           );
           if (
-            !healedImg.startsWith('http') &&
+            healedImg &&
             !isBundledDiagnosticImage(healedImg)
           ) {
             healedImg = healedImg.replace(/^https?:\/\/(?:www\.)?123thenextlevel\.com/, '');

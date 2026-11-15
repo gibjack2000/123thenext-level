@@ -32,7 +32,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     deal_url: 'https://diagnoxhealth.com/products/urinalysis-test',
     market_region: 'US',
     badge_text: 'FDA Cleared | 10-Parameter Clinical Grade',
-    image_url: '/assets/images/shop/reagent-strips.png'
+    image_url: '/Products/diagnox.webp'
   },
   {
     id: 'reagent-strips-uk',

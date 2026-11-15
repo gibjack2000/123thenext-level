@@ -55,6 +55,7 @@ import clinicalEpigeneticKitImg from '../assets/products/clinical-epigenetic-kit
 import clinicalCgmSensorImg from '../assets/products/clinical-cgm-sensor.jpg';
 import clinicalAiStethoscopeImg from '../assets/products/clinical-ai-stethoscope.jpg';
 import aymedDipstickImg from '../assets/products/aymed.webp';
+import diagnoxImg from '../assets/products/diagnox.webp';
 import withingsSleepImg from '../assets/products/withingsleep.webp';
 import withingsConnectImg from '../assets/products/withingsconnect.webp';
 import withingsScaleImg from '../assets/products/newithings.webp';
@@ -69,6 +70,7 @@ export {
   clinicalCgmSensorImg,
   clinicalAiStethoscopeImg,
   aymedDipstickImg,
+  diagnoxImg,
   withingsSleepImg,
   withingsConnectImg,
   withingsScaleImg
@@ -978,15 +980,15 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
     },
     {
       "id": "reagent-strips-us",
-      "name": "Diagnox Urinox-10 Medical-Grade Urinalysis Strips",
+      "name": "ALLTEST 10-Parameter Urinary Reagent Strips",
       "category": "Clinical Diagnostics & Labs",
       "rating": 4.90,
       "description": "FDA-cleared 10-parameter rapid urinalysis reagent strips for weekly tracking of microvascular health, proteinuria, pH, ketones, glucose, and renal function.",
-      "price_text": "From $16.99",
-      "deal_url": "https://diagnoxhealth.com/products/urinalysis-test",
+      "price_text": "$34.30",
+      "deal_url": "https://www.amazon.com/dp/B0BRR1J862?tag=123znl0e-20",
       "market_region": "US",
       "badge_text": "🇺🇸 US (Diagnox / FDA Cleared)",
-      "image_url": "/Products/aymed.webp"
+      "image_url": "/Products/diagnox.webp"
     },
     {
       "id": "urinalysis-test-us",
@@ -2545,6 +2547,7 @@ export const BUNDLED_DIAGNOSTIC_IMAGES = new Set<string>([
   clinicalCgmSensorImg,
   clinicalAiStethoscopeImg,
   aymedDipstickImg,
+  diagnoxImg,
   withingsSleepImg,
   withingsConnectImg,
   withingsScaleImg
@@ -2683,6 +2686,20 @@ export function getSmartImageFallback(product: any, market: any = 'US', isDiag: 
   const id = String(product?.id || '').toLowerCase();
   const cat = String(product?.category || '');
 
+  // 10-Parameter Rapid Urinalysis Reagent Strips (Diagnox US / ALLTEST UK / Aymed)
+  if (
+    name.includes('reagent') ||
+    name.includes('dipstick') ||
+    name.includes('tiras') ||
+    name.includes('urinox') ||
+    name.includes('alltest') ||
+    name.includes('urinary') ||
+    id.includes('reagent') ||
+    id.includes('dipstick')
+  ) {
+    return market === 'US' ? (diagnoxImg || '/Products/diagnox.webp') : aymedDipstickImg;
+  }
+
   if (name.includes('urine') || name.includes('urinalysis') || name.includes('acr') || id.includes('urine') || id.includes('urinalysis')) {
     return typeof isLolaProduct === 'function' && isLolaProduct(product, market) ? lolaUrineAcrImg : clinicalUrineAcrImg;
   }
@@ -2787,6 +2804,21 @@ export function resolveDiagnosticImage(product: any, fallbackImg?: string, marke
   // whenever non-empty and not a Vite static bundle path (/assets/...)
   const candidate = String(product?.image_url || product?.image || fallbackImg || '').trim();
 
+  const id = String(product?.id || '').toLowerCase();
+  const title = String(product?.name || product?.title || '').toLowerCase();
+  const isReagentStrip =
+    id.includes('reagent') ||
+    title.includes('dipstick') ||
+    title.includes('tiras') ||
+    title.includes('urinox') ||
+    title.includes('alltest') ||
+    title.includes('urinary');
+
+  // Guard against mismatched fallback images for reagent strips (e.g. Aymed on US or blood panel on reagent strips)
+  if (market === 'US' && isReagentStrip && (candidate.includes('aymed') || candidate.includes('blood-panel') || candidate.includes('clinical-blood-panel'))) {
+    return diagnoxImg || '/Products/diagnox.webp';
+  }
+
   if (
     candidate &&
     !candidate.startsWith('/assets/') &&
@@ -2797,8 +2829,6 @@ export function resolveDiagnosticImage(product: any, fallbackImg?: string, marke
   }
 
   // Only fall back to local bundled assets if the database image field is null/empty or a stale /assets/ static bundle path
-  const id = String(product?.id || '').toLowerCase();
-  const title = String(product?.name || product?.title || '').toLowerCase();
   const useLolaBranding = isLolaProduct(product, market);
 
   // 1. Continuous Glucose Monitor (CGM)
@@ -2829,8 +2859,12 @@ export function resolveDiagnosticImage(product: any, fallbackImg?: string, marke
     title.includes('tiras') ||
     title.includes('reagent') ||
     title.includes('alltest') ||
-    title.includes('urinox')
+    title.includes('urinox') ||
+    title.includes('urinary')
   ) {
+    if (market === 'US') {
+      return diagnoxImg || '/Products/diagnox.webp';
+    }
     return aymedDipstickImg;
   }
 

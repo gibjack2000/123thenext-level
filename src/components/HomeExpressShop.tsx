@@ -948,6 +948,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$14.99",
         badge: "CE Medical Marked",
+        imageUrl: "/Products/diagnox.webp",
         url: "https://www.amazon.com/dp/B0BS1QCFHX?tag=123znl0e-20",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
