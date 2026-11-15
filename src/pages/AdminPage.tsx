@@ -1002,7 +1002,7 @@ export default function AdminPage() {
         last_updated: new Date().toISOString(),
         description: formData.description,
         cta: formData.short_benefit || 'Buy Now',
-        "Amazon tag": "123thenextlevel-20"
+        "Amazon tag": "123thenextlev-20"
       };
 
       if (editingProductId && /^\d+$/.test(editingProductId)) {

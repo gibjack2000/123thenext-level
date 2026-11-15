@@ -21,7 +21,7 @@ const dummyProducts = [
     price: 34.99,
     rating: 5.0,
     is_active: true,
-    "Amazon tag": "123thenextlevel-20",
+    "Amazon tag": "123thenextlev-20",
     last_updated: new Date().toISOString()
   },
   {
@@ -36,7 +36,7 @@ const dummyProducts = [
     price: 59.99,
     rating: 5.0,
     is_active: true,
-    "Amazon tag": "123thenextlevel-20",
+    "Amazon tag": "123thenextlev-20",
     last_updated: new Date().toISOString()
   },
   {
@@ -51,7 +51,7 @@ const dummyProducts = [
     price: 299.00,
     rating: 5.0,
     is_active: true,
-    "Amazon tag": "123thenextlevel-20",
+    "Amazon tag": "123thenextlev-20",
     last_updated: new Date().toISOString()
   },
   {
@@ -66,7 +66,7 @@ const dummyProducts = [
     price: 1299.00,
     rating: 5.0,
     is_active: true,
-    "Amazon tag": "123thenextlevel-20",
+    "Amazon tag": "123thenextlev-20",
     last_updated: new Date().toISOString()
   }
 ];

@@ -961,7 +961,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.82,
       "description": "A contact-free ballistocardiography mat placed under the mattress. Logs sleeping heart rate, sleep cycles, snoring, and passive breathing disturbances, transferring data silently upon waking.",
       "price_text": "$129.95",
-      "deal_url": "https://www.amazon.com/dp/B078Z1B34S?tag=123znl0e-20",
+      "deal_url": "https://www.amazon.com/dp/B078Z1B34S?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Touch-Free Sleep Science",
       "image_url": "/Products/withingsleep.webp"
@@ -973,7 +973,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.88,
       "description": "FDA-cleared 8-electrode bioelectrical impedance scale. Segmentally maps skeletal muscle mass, fat percentage by limb, and visceral fat index surrounding organs to target training.",
       "price_text": "$399.95",
-      "deal_url": "https://www.amazon.com/dp/B0B9849CD1?tag=123znl0e-20",
+      "deal_url": "https://www.amazon.com/dp/B0B9849CD1?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA Cleared",
       "image_url": "/Products/newithings.webp"
@@ -985,7 +985,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.90,
       "description": "FDA-cleared 10-parameter rapid urinalysis reagent strips for weekly tracking of microvascular health, proteinuria, pH, ketones, glucose, and renal function.",
       "price_text": "$34.30",
-      "deal_url": "https://www.amazon.com/dp/B0BRR1J862?tag=123znl0e-20",
+      "deal_url": "https://www.amazon.com/dp/B0BRR1J862?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "🇺🇸 US (Diagnox / FDA Cleared)",
       "image_url": "/Products/diagnox.webp"
@@ -1033,7 +1033,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.8,
       "description": "Smart Wi-Fi blood pressure cuff. Automatically logs systolic, diastolic, and pulse trends, classifying cardiovascular data against JNC-8 guidelines without spot-check anxiety.",
       "price_text": "$99.95",
-      "deal_url": "https://www.amazon.com/dp/B07SJV1HNR?tag=123znl0e-20",
+      "deal_url": "https://www.amazon.com/dp/B07SJV1HNR?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA Cleared",
       "image_url": "/Products/withingsconnect.webp"
@@ -1045,7 +1045,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.8,
       "description": "Advanced multispectral wearable capturing sleep architecture, resting heart rate, sleep apnea flags, and sleeping Heart Rate Variability (HRV) for passive autonomic monitoring.",
       "price_text": "$399.00",
-      "deal_url": "https://www.amazon.com/dp/B0DGJG692K?tag=123znl0e-20",
+      "deal_url": "https://www.amazon.com/dp/B0DGJG692K?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA Approved Heart Notifications",
       "image_url": "/Products/apple10.jpg"
@@ -1072,7 +1072,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.75,
       "description": "Real-time interstitial glucose tracking mapping energy peaks and valleys. Instantly syncs blood sugar fluctuations to target metabolic health, post-meal walks, and prevent insulin resistance.",
       "price_text": "From $89.00 / month",
-      "deal_url": "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123znl0e-20",
+      "deal_url": "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "🇺🇸 US (Abbott Lingo / FDA)",
       "image_url": "/Products/clinical-cgm-sensor.jpg"
@@ -1084,7 +1084,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.8,
       "description": "Vitamin D Supplement for Bone, Teeth, Muscle and Immune Health Support, 300 Softgels, 300 Day Supply",
       "price_text": "$9.99",
-      "deal_url": "https://www.amazon.com/dp/B004U3Y8OM?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B004U3Y8OM?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/vitd3.jpg"
@@ -1096,7 +1096,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "RU NIAGEN Patented NAD Supplement for Brain Function, Anti Aging & Cell Regeneration, 300mg Niagen, 30 Servings | Supports Cellular Energy, Muscle | Nicotinamide Riboside (NR) Take 1 Daily | 1 Bottle",
       "price_text": "$49.00",
-      "deal_url": "https://www.amazon.com/dp/B07TK5K5TQ?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B07TK5K5TQ?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/nadplusus.jpg"
@@ -1108,7 +1108,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Triple Strength Fish Oil Supplement from Wild Alaska Pollock - MSC Certified Sustainable · Non-GMO · Soy Free - 90 Softgel Capsules",
       "price_text": "$22.36",
-      "deal_url": "https://www.amazon.com/dp/B07DX89ZHN?tag=123znl0e-20",
+      "deal_url": "https://www.amazon.com/dp/B07DX89ZHN?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/omega3.jpg"
@@ -1120,7 +1120,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Probiotics 60 Billion CFU - 10 Strains + Organic Prebiotics - Immune, Digestive & Gut Health - Supports Occasional Constipation, Diarrhea, Gas & Bloating - for Women & Men - 30ct",
       "price_text": "$23.97",
-      "deal_url": "https://www.amazon.com/dp/B079H53D2B?tag=123znl0e-20",
+      "deal_url": "https://www.amazon.com/dp/B079H53D2B?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/probio.jpg"
@@ -1132,7 +1132,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.2,
       "description": " Comprehensive Daily Multi-Vitamin with Optimal Bioavailability - Vitamin & Mineral Formula - Third-Party Certified - Gluten, Dairy & Soy-Free - 60 Capsules",
       "price_text": "$36.00",
-      "deal_url": "https://www.amazon.com/dp/B00FOTMGTU?tag=123znl0e-20",
+      "deal_url": "https://www.amazon.com/dp/B00FOTMGTU?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/thorne.jpg"
@@ -1144,7 +1144,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.8,
       "description": "Dietary Supplement for Immune Support, 100 Tablets, 100 Day Supply",
       "price_text": "$9.50",
-      "deal_url": "https://www.amazon.com/dp/B0000DJASY?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B0000DJASY?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/vitc.jpg"
@@ -1156,7 +1156,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "Real Mushrooms Lion’s Mane Supplement Capsules - Organic Lions Mane Extract for Overall Wellbeing - Beta Glucan Supplements – Vegan 300 ct Mushroom Extract",
       "price_text": "$55.96",
-      "deal_url": "https://www.amazon.com/dp/B084JVN2VT?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B084JVN2VT?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/lionsmaneus.webp"
@@ -1168,7 +1168,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "Spermidine Supplement (10mg of 99% Spermidine 3HCL - Third Party Tested) 120 Capsules - Over 100x More Potent Than Wheat Germ Extract for Cell Membrane, Telomere Health and Aging by Double Wood",
       "price_text": "$39.95",
-      "deal_url": "https://www.amazon.com/dp/B09NP4MPQB?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B09NP4MPQB?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/spermidineus.jpeg"
@@ -1180,7 +1180,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.9,
       "description": "BioEmblem Triple Magnesium Complex 180 Capsules with Vitamin D3 K2 90 Capsules",
       "price_text": "$59.99",
-      "deal_url": "https://www.amazon.com/dp/B0CYZT7JS9?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B0CYZT7JS9?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/d3k2us.jpeg"
@@ -1192,7 +1192,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "ZEBORA Marine Collagen Peptides Powder 50 Servings - Wild Caught Hydrolyzed Fish Collagen with Hyaluronic Acid, Keratin, Multivitamins - Collagen for Women Support Skin Hair Nail Joint, Keto Friendly",
       "price_text": "$23.07",
-      "deal_url": "https://www.amazon.com/dp/B0F62VD96R?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B0F62VD96R?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/CollagenUS.jpg"
@@ -1204,7 +1204,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "New Chapter Calcium Supplement - Bone Strength Plant-Based USDA Organic Calcium with Magnesium, Vitamin D3+K2, for Bone Health & Joint Mobility, Heart Support, 905 mg dose - 120 Slim Tablets",
       "price_text": "$41.97",
-      "deal_url": "https://www.amazon.com/dp/B01MZ6YI2A?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B01MZ6YI2A?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/calciumvitdspain.jpeg"
@@ -1216,7 +1216,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "NOW Foods Supplements, Glycine 1,000 mg Free-Form, Neurotransmitter Support*, 100 Veg Capsules",
       "price_text": "$11.00",
-      "deal_url": "https://www.amazon.com/dp/B002J0RHTQ?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B002J0RHTQ?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/lysineus.webp"
@@ -1228,7 +1228,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Qunol Ultra CoQ10 100mg, 3x Better Absorption, Patented Water and Fat Soluble Natural Supplement Form of Coenzyme Q10, Antioxidant for Heart Health, 120 Count Softgels",
       "price_text": "$29.97",
-      "deal_url": "https://www.amazon.com/dp/B0055OUOQQ?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B0055OUOQQ?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/coq10us.webp"
@@ -1240,7 +1240,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Nutricost Creatine Monohydrate Micronized Powder (1 KG) - Pure Creatine Monohydrate",
       "price_text": "$31.96",
-      "deal_url": "https://www.amazon.com/dp/B01EVVQX9U?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B01EVVQX9U?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/creatineus.webp"
@@ -1252,7 +1252,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Sugar Free – Lemonade, 90 Servings – Hydration Powder with 6 Key Electrolytes and Trace Minerals – Keto Friendly, Vegan, Non-GMO",
       "price_text": "$35.99",
-      "deal_url": "https://www.amazon.com/dp/B01IIGQ5KG?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B01IIGQ5KG?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/electrolyteus.webp"
@@ -1264,7 +1264,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Benefiber Daily Prebiotic GLP-1 Friendly Fiber Supplement Powder for Digestive Health, Unflavored - 250 Teaspoons (17.6 Ounces)",
       "price_text": "$23.49",
-      "deal_url": "https://www.amazon.com/dp/B00CX3ASFE?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B00CX3ASFE?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/prefiberus.webp"
@@ -1276,7 +1276,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "ORGANIC INDIA Ashwagandha Capsules - Organic Ashwagandha Supplement - Vegan Ashwagandha Root, Gluten-Free, Kosher, Non-GMO, Supports Stress Relief, Energy, and Sleep - 90 Capsules",
       "price_text": "$16.99",
-      "deal_url": "https://www.amazon.com/dp/B003PGE98K?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B003PGE98K?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/ashgawandaus.webp"
@@ -1288,7 +1288,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Nature Made Magnesium Glycinate 200 mg per serving, Magnesium Supplement for Muscle, Heart, Nerve and Bone Support, 180 Magnesium Bisglycinate Capsules, 90 Day Supply",
       "price_text": "$33.60",
-      "deal_url": "https://www.amazon.com/dp/B086RQVNDV?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B086RQVNDV?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/magglycinateus.webp"
@@ -1300,7 +1300,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Micro Ingredients Pure Methylated B Complex, 240 Capsules | 11-in-1 Formula with Methylfolate, B12, Thiamin, Inositol, Choline, & Fat Soluble Vitamin C | Clean Ingredients Without Fillers | Non-GMO",
       "price_text": "$20.48",
-      "deal_url": "https://www.amazon.com/dp/B0DLLHRVLY?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B0DLLHRVLY?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/methylatedBcomplexus.webp"
@@ -1312,7 +1312,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "RU NIAGEN Patented NAD Supplement for Brain Function, Anti Aging & Cell Regeneration, 300mg Niagen, 30 Servings | Supports Cellular Energy, Muscle | Nicotinamide Riboside (NR) Take 1 Daily | 1 Bottle",
       "price_text": "$49.00",
-      "deal_url": "https://www.amazon.com/dp/B07TK5K5TQ?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B07TK5K5TQ?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/nadplusus.jpg"
@@ -1324,7 +1324,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.95,
       "description": "The gold-standard indoor rowing machine with PM5 monitor to optimize cardiorespiratory output, muscular baseline, and metabolic power.",
       "price_text": "$990.00",
-      "deal_url": "https://www.amazon.com/dp/B099KBD9X8?tag=123znl0e-20",
+      "deal_url": "https://www.amazon.com/dp/B099KBD9X8?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "PM5 Clinical Standard",
       "image_url": "/assets/images/shop/rower.png"
@@ -1336,7 +1336,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.88,
       "description": "Adjusts from 8 to 40 lbs with the turn of a dial for rapid eccentric loading, posterior chain power, and functional hypertrophy.",
       "price_text": "$149.00",
-      "deal_url": "https://www.amazon.com/dp/B07V2C6374?tag=123znl0e-20",
+      "deal_url": "https://www.amazon.com/dp/B07V2C6374?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "6-in-1 Compact Weight",
       "image_url": "/Products/kettlebellus.webp"
@@ -1348,7 +1348,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.9,
       "description": "High-speed precision cyclonic nutrient extractor designed to pulverize tough cell walls of leafy greens, seeds, and longevity superfoods.",
       "price_text": "$109.99",
-      "deal_url": "https://www.amazon.com/dp/B08524B5C6?tag=123znl0e-20",
+      "deal_url": "https://www.amazon.com/dp/B08524B5C6?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "1200W High Speed",
       "image_url": "/Products/nutri.webp"
@@ -1360,7 +1360,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "This WQA-certified countertop system uses a 5-stage reverse osmosis process to remove 99.9% of contaminants while adding back essential minerals for better taste and health. Its portable design and high-capacity carafe make it perfect for renters, RVs, or any kitchen where space and convenience are priorities.",
       "price_text": "$389.00",
-      "deal_url": "https://www.amazon.com/dp/B09KRDK677?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.com/dp/B09KRDK677?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / UL Certified",
       "image_url": "/Products/BluevuaRO100ROPOT.jpeg"
@@ -1372,7 +1372,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "The Ninja Air Fryer offers a wide temperature range from 105°F to 400°F, allowing you to gently remove moisture for dehydration or quickly cook and crisp foods with convection heat. Its compact 4-quart ceramic-coated basket and crisper plate are dishwasher safe, making healthy meal prep and cleanup effortless.",
       "price_text": "$89.98",
-      "deal_url": "https://www.amazon.com/dp/B0CSZ7WBYW?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.com/dp/B0CSZ7WBYW?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / UL Certified",
       "image_url": "/Products/NinjaAirFryerCrisp.jpeg"
@@ -1384,7 +1384,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "Vakumar Vacuum Sealer Machine, 80Kpa Food Vacuum Sealer Machine with Double Pump, Dry,/Moist, Pulse Mode, Handle Locked Design, LED Indicator Light & Cutter,12MM Widened Heating Strip",
       "price_text": "$72.99",
-      "deal_url": "https://www.amazon.com/dp/B0C61TL1YV?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.com/dp/B0C61TL1YV?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / UL Certified",
       "image_url": "/Products/VakumarVacuumSealer.jpeg"
@@ -1396,7 +1396,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "This versatile system features a 1500-watt motor that powers a 72-ounce total crushing pitcher, an 8-cup food processor bowl, and Nutri Ninja cups for on-the-go nutrition. Whether you are kneading dough or pulverizing frozen fruit, its specialized blades and Auto-iQ technology deliver perfect results every time.",
       "price_text": "$179.99",
-      "deal_url": "https://www.amazon.com/dp/B00939I7EK?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.com/dp/B00939I7EK?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / UL Certified",
       "image_url": "/Products/NinjaBlender.jpeg"
@@ -1408,7 +1408,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "These durable, BPA-free plastic containers feature a secure 4-hinge locking system to create a leak-proof and airtight environment. The clear design allows for instant identification of ingredients, while the stackable shape maximizes space in your cabinets or on countertops.",
       "price_text": "$30.49",
-      "deal_url": "https://www.amazon.com/dp/B08ZK5WDWN?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.com/dp/B08ZK5WDWN?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / UL Certified",
       "image_url": "/Products/AirtightfoodStorage.jpeg"
@@ -1420,7 +1420,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "Hatch Restore 3 Sunrise Alarm Clock, Sound Machine, Smart Light (Putty) - White Noise, Screen-Free Sleep Routine",
       "price_text": "$135.99",
-      "deal_url": "https://www.amazon.com/dp/B0DLLSCVZW?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B0DLLSCVZW?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/sunriseclock-us.webp"
@@ -1432,7 +1432,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "The Pod Company Ice Pod Pro Cold Plunge Tub, 110 Gallon (420L) Inflatable Ice Bath for Adults, Fits Up to 6'7\", Insulated, Chiller Compatible, BPA-Free, UV-Resistant Nylon, Dual Drain Hoses",
       "price_text": "$63.20",
-      "deal_url": "https://www.amazon.com/dp/B0F74Q25ZR?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B0F74Q25ZR?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/coldplunge-us.webp"
@@ -1444,7 +1444,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "Sleep Eye Mask with Bluetooth Headphones - Side Sleeper Optimized with Integrated Offline Audio for Phone-Free Use - 3 Modes for Rest, Nap and Travel - Black",
       "price_text": "$89.99",
-      "deal_url": "https://www.amazon.com/dp/B0GMW3H7DL?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B0GMW3H7DL?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/eyemask-us.webp"
@@ -1456,7 +1456,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.8,
       "description": "Homedics Waterless Essential Oil Diffuser with 15ml Vanilla Cedarwood Fragrance Oil. SereneScent Cordless Cold Air Scent Diffuser Starter Kit with Ambient Light, Studio 671 (Black)",
       "price_text": "$42.49",
-      "deal_url": "https://www.amazon.com/dp/B0GWKD5TZC?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B0GWKD5TZC?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/diffuser-us.webp"
@@ -1468,7 +1468,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "Lifepro RejuvaWrap Infrared Sauna Blanket for Detox & Relaxation – Low EMF Carbon Fiber Heating, 9 Temp Levels, 5 Colors – Portable Sauna Blanket Infrared with Waterproof Interior & Carry Bag",
       "price_text": "$228.46",
-      "deal_url": "https://www.amazon.com/dp/B09PSKN6X3?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B09PSKN6X3?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/Saunablanket.webp"
@@ -1480,7 +1480,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Weighted Blanket for Adults Queen Size 15 lbs, Soft Cooling Heavy Minky Blanket for Sleep, Washable Throw Blanket with Glass Beads, 60 x 80 Inches, Grey",
       "price_text": "$32.48",
-      "deal_url": "https://www.amazon.com/dp/B0CR14YJ23?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B0CR14YJ23?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/weightedblanket-us.webp"
@@ -1492,7 +1492,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Tibetan Singing Bowl Set Bronze - Master Healing Grade - With Tibetan Thangka Art - Pure Tone By HIMALAYAN BAZAAR (Black & Yellow)",
       "price_text": "$18.98",
-      "deal_url": "https://www.amazon.com/dp/B07BZZWP8M?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B07BZZWP8M?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/tibetanbowl-us.webp"
@@ -1504,7 +1504,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "RENPHO Active Thermacool 2 Massage Gun with Heat and Cold, [2026 Upgraded] Handheld Percussion Deep Tissue Neck Back Muscle Massager, FSA Approved Gifts for Men Him Athletes Women Her HSA",
       "price_text": "$83.59",
-      "deal_url": "https://www.amazon.com/dp/B0FF9ZCW62?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B0FF9ZCW62?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/renphomassage.webp"
@@ -1516,7 +1516,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Mindful & Modern Large Meditation Cushion for Zafu Yoga - Meditation Pillow for Sitting on the Floor - Buckwheat Hull Filled Yoga Cushion with Removable, Washable 100% Cotton Cover and Carry Handle",
       "price_text": "$29.70",
-      "deal_url": "https://www.amazon.com/dp/B0CS3QT8J5?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B0CS3QT8J5?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/medcushion-us.webp"
@@ -1528,7 +1528,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Soundcore by Anker Q20i Hybrid Active Noise Cancelling Headphones, Wireless Over-Ear Bluetooth, 40H Long ANC Playtime, Hi-Res Audio, Big Bass, Customize via an App, Transparency Mode (Black)",
       "price_text": "$37.98",
-      "deal_url": "https://www.amazon.com/dp/B0C3HCD34R?tag=123znl08-20",
+      "deal_url": "https://www.amazon.com/dp/B0C3HCD34R?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/headphone-us.webp"

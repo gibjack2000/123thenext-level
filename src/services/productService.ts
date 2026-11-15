@@ -65,7 +65,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     rating: 4.82,
     description: 'A contact-free ballistocardiography mat placed under the mattress. Logs sleeping heart rate, sleep cycles, snoring, and passive breathing disturbances.',
     price_text: '$129.95',
-    deal_url: 'https://www.amazon.com/dp/B078Z1B34S?tag=123znl0e-20',
+    deal_url: 'https://www.amazon.com/dp/B078Z1B34S?tag=123thenextlev-20',
     market_region: 'US',
     badge_text: 'Touch-Free Sleep Science',
     image_url: '/assets/images/shop/sleep-analyzer.png'
@@ -137,7 +137,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     rating: 4.88,
     description: '6-lead ECG and segmental body impedance scale measuring torso, arm, and leg visceral fat and vascular age.',
     price_text: '$399.95',
-    deal_url: 'https://www.amazon.com/dp/B0B9849CD1?tag=123znl0e-20',
+    deal_url: 'https://www.amazon.com/dp/B0B9849CD1?tag=123thenextlev-20',
     market_region: 'US',
     badge_text: 'FDA Cleared',
     image_url: '/assets/images/shop/body-scan.png'
@@ -245,7 +245,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     rating: 4.80,
     description: 'Advanced multispectral wrist wearable capturing sleeping heart rate, sleep apnea notifications, and autonomic HRV.',
     price_text: '$399.00',
-    deal_url: 'https://www.amazon.com/dp/B0DGJG692K?tag=123znl0e-20',
+    deal_url: 'https://www.amazon.com/dp/B0DGJG692K?tag=123thenextlev-20',
     market_region: 'US',
     badge_text: 'FDA Approved Heart Notifications',
     image_url: '/assets/images/shop/apple-watch.png'
@@ -281,7 +281,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     rating: 4.8,
     description: 'Medically accurate Wi-Fi blood pressure and heart rate monitor syncing directly to your cardiovascular history.',
     price_text: '$99.95',
-    deal_url: 'https://www.amazon.com/dp/B07SJV1HNR?tag=123znl0e-20',
+    deal_url: 'https://www.amazon.com/dp/B07SJV1HNR?tag=123thenextlev-20',
     market_region: 'US',
     badge_text: 'FDA Cleared',
     image_url: '/assets/images/shop/bpm-connect.png'
@@ -317,7 +317,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     rating: 4.85,
     description: 'Low-EMF far-infrared thermal blanket delivering deep mitochondrial heat shock protein activation at home.',
     price_text: '$228.46',
-    deal_url: 'https://www.amazon.com/dp/B09PSKN6X3?tag=123znl08-20',
+    deal_url: 'https://www.amazon.com/dp/B09PSKN6X3?tag=123thenextlev-20',
     market_region: 'US',
     badge_text: 'Biohacker Approved',
     image_url: '/assets/images/shop/sauna.png'
@@ -353,7 +353,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     rating: 4.8,
     description: 'Over-ear hybrid ANC headphones engineered for acoustic sanctuary, noise attenuation, and focus entrainment.',
     price_text: '$37.98',
-    deal_url: 'https://www.amazon.com/dp/B0C3HCD34R?tag=123znl08-20',
+    deal_url: 'https://www.amazon.com/dp/B0C3HCD34R?tag=123thenextlev-20',
     market_region: 'US',
     badge_text: 'Biohacker Approved',
     image_url: '/assets/images/shop/headphones.png'
@@ -389,7 +389,7 @@ const FALLBACK_FLAGSHIP_PRODUCTS: ProductDb[] = [
     rating: 4.95,
     description: 'Gold-standard low-impact cardiovascular conditioning and VO2 max training ergometer.',
     price_text: '$990.00',
-    deal_url: 'https://www.amazon.com/dp/B00NH9WEUA?tag=123znl08-20',
+    deal_url: 'https://www.amazon.com/dp/B00NH9WEUA?tag=123thenextlev-20',
     market_region: 'US',
     badge_text: 'PM5 Clinical Standard',
     image_url: '/assets/images/shop/rower.png'
