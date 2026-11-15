@@ -127,7 +127,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.88,
       "description": "CE Medical Marked 10-parameter urinalysis dipsticks monitoring kidney filtration integrity, microalbuminuria, acid-base balance, and systemic hydration.",
       "price_text": "From £12.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "🇬🇧 UK (ALLTEST / CE Marked)",
       "image_url": aymedDipstickImg
@@ -152,7 +152,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.82,
       "description": "A contact-free ballistocardiography mat placed under the mattress. Logs sleeping heart rate, sleep cycles, snoring, and medically validated Sleep Apnea episodes silently overnight.",
       "price_text": "£119.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B0892BGFX7?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0892BGFX7?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "CE Medically Validated (Apnea)",
       "image_url": "/Products/withingsleep.webp"
@@ -176,7 +176,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.8,
       "description": "Smart Wi-Fi blood pressure cuff. Automatically logs systolic, diastolic, and pulse trends, classifying cardiovascular data against JNC-8 guidelines without spot-check anxiety.",
       "price_text": "£89.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B07SJV1HNR?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B07SJV1HNR?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "CE Medical Class IIa",
       "image_url": "/Products/withingsconnect.webp"
@@ -212,7 +212,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.88,
       "description": "CE Medical-marked 8-electrode bioelectrical impedance scale. Segmentally maps skeletal muscle mass, fat percentage by limb, and visceral fat index surrounding organs to target training.",
       "price_text": "£349.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B0B9849CD1?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0B9849CD1?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "CE Medical Marked",
       "image_url": "/Products/newithings.webp"
@@ -224,7 +224,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.8,
       "description": "Advanced multispectral wearable capturing sleep architecture, resting heart rate, sleep apnea flags, and sleeping Heart Rate Variability (HRV) for passive autonomic monitoring.",
       "price_text": "£379.00",
-      "deal_url": "https://www.amazon.co.uk/dp/B0DGJHCPX5?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0DGJHCPX5?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "MHRA Certified Telemetry",
       "image_url": "/Products/apple10.jpg"
@@ -236,7 +236,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "Award Winning 10-in-1 Digestive Enzyme Supplements | Made in The UK | Probiotics & Peppermint Oil for Gut Health, Bloating Relief and Belly Reduction | One Vegan Capsule per Meal | 60 Capsules",
       "price_text": "£9.95",
-      "deal_url": "https://www.amazon.co.uk/dp/B0DD7TJZP5?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0DD7TJZP5?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/oxford.jpeg"
@@ -248,7 +248,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.2,
       "description": "Applied Nutrition Marine Collagen Powder - Hydrolysed Collagen Protein, Healthy Skin, Hair, Nails (Unflavoured) (300g - 25 Servings)",
       "price_text": "£22.50",
-      "deal_url": "https://www.amazon.co.uk/dp/B0CQCWKKWJ?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0CQCWKKWJ?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/CollagenUK.jpg"
@@ -260,7 +260,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "PUROVITALIS Liposomal Quercetin Complex 150mg with Bromelain, Vitamin C & Zinc, 99% Purity, Immune Support Supplement, 1-Month Supply (30 Vegan Capsules)",
       "price_text": "£23.50",
-      "deal_url": "https://www.amazon.co.uk/dp/B0DPBJ26QD?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0DPBJ26QD?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/quercitin.jpeg"
@@ -272,7 +272,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "Vinco Spermidine Supplement - 10mg x 120 High Strength Spermidine Capsules - 99% Purity - Supports Healthy Ageing & Longevity - Non GMO & Gluten Free - Made in The UK",
       "price_text": "£13.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B0DHYNRW5G?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0DHYNRW5G?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/spermidineuk.jpeg"
@@ -284,7 +284,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "WeightWorld Calcium, Magnesium, Zinc and Vitamin D Supplement | 1+ Year Supply | 400 Vegan Tablets | Calcium Tablets with Vitamin K2, Vitamin D, Copper & Selenium | Magnesium Stearate-Free",
       "price_text": "£16.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B08TCG2RH7?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B08TCG2RH7?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/calciumvitduk.jpeg"
@@ -296,7 +296,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "24 essential nutrients including vitamin D, C, Calcium, Daily Multivitamin Tablets, 180ct",
       "price_text": "£16.46",
-      "deal_url": "https://www.amazon.co.uk/dp/B06XRVTYN3?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B06XRVTYN3?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/centrum3.jpg"
@@ -308,7 +308,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Formula Mix with Maximum Support for Energy, Immune System, Testosterone Level, Bone, Brain,Heart and Vision Health,",
       "price_text": "£11.39",
-      "deal_url": "https://www.amazon.co.uk/dp/B00UI3O5BE?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B00UI3O5BE?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/wellman2.jpg"
@@ -320,7 +320,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Solgar 4000IU Vitamin D3 - Healthy Teeth and Bones - Better Calcium Absorption - Pack of 120 Vegetable Capsules",
       "price_text": "£18.90",
-      "deal_url": "https://www.amazon.co.uk/dp/B00X0ZCE2O?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B00X0ZCE2O?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/d3.jpg"
@@ -332,7 +332,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Wellwoman Max Multivitamin Tablets for Women,84 Count (Pack of 1)",
       "price_text": "£14.06",
-      "deal_url": "https://www.amazon.co.uk/dp/B00UI1O5YS?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B00UI1O5YS?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/wellwoman3.jpg"
@@ -344,7 +344,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Vitamin D3 4000IU - 1+ Year Supply - 400 Tablets - Easy to Swallow 6mm Micro Vitamin D Tablets - Gentle Cholecalciferol Form - Vegetarian-Friendly VIT D Supplement - 1 per Day - Made in the UK",
       "price_text": "£8.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B086V74KKR?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B086V74KKR?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/vitamind3.jpeg"
@@ -356,7 +356,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "Hexagon NAD+ supplements deliver 300mg of Nicotinamide Riboside Chloride to effectively replenish NAD+ levels, essential for cellular repair and metabolic function. This premium formula is designed to enhance vitality, cognitive health, and overall longevity by fueling your body's mitochondria.",
       "price_text": "£64.90",
-      "deal_url": "https://www.amazon.co.uk/dp/B0BNB8K8Q5?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0BNB8K8Q5?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/nadplusus.jpg"
@@ -368,7 +368,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 5,
       "description": "Vegan Vitamin D3 and K2 2500 IU | Vegan Vitamin D Supplement | Vitamin D and K2 Complex- Made in The UK, Supports Healthy Bones, Teeth and Cell Division",
       "price_text": "£43.60",
-      "deal_url": "https://www.amazon.co.uk/dp/B08M3QRWHP?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B08M3QRWHP?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/d3k2uk.jpeg"
@@ -380,7 +380,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "Bulk Vitamin C Tablets, 1000 mg, Pack of 270",
       "price_text": "£14.49",
-      "deal_url": "https://www.amazon.co.uk/dp/B00IZD3YC0?tag=https://www.amazon.co.uk/dp/B0G3Y7LW1T?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B00IZD3YC0?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/vitc.jpg"
@@ -392,7 +392,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "NAD+ Nicotinamide Riboside Chloride 300mg - +6 Months Cure - Against Age and Fatigue, NAD Booster - Pure Powder, 180 Capsules - Pharmaceutical Grade - Vegan - Hexagon",
       "price_text": "£99.90",
-      "deal_url": "https://www.amazon.co.uk/dp/B0DBQZBSTM?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0DBQZBSTM?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/nadplusukspain.jpg"
@@ -404,7 +404,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "Ancient + Brave - True Collagen -100% Hydrolyzed Collagen Peptides Powder, 200g - Pure Pasture-Fed Bovine Collagen - High Protein, Ideal Fasting & Keto - Skin, Hair & Nails",
       "price_text": "£25.60",
-      "deal_url": "https://www.amazon.co.uk/dp/B0B4BBND37?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0B4BBND37?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/ancientbrave.jpeg"
@@ -416,7 +416,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "Myprotein Impact Creatine Monohydrate Tablets – High Strength Pure Creatine Pills to Boost High-Intensity Performance – Micronised Creatine Supplement – 250 Tablets (3 Months Supply) – Vegan Friendly",
       "price_text": "£18.78",
-      "deal_url": "https://www.amazon.co.uk/dp/B00LKE1Q44?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B00LKE1Q44?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/impactcreatine.jpeg"
@@ -428,7 +428,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Omega 3 Fish Oil 2000mg - 240 Softgels (4 Months Supply) - 660mg EPA & 440mg DHA - Omega 3 Fatty Acids Supplements - Non-GMO, Gluten-Free & Lactose-Free - Fish Oil Capsules - Made in the UK",
       "price_text": "£16.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B084G5XC29?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B084G5XC29?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/omega3fish.jpeg"
@@ -440,7 +440,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "Fast&Up Reload – Energising Electrolyte Drink - Variety Pack - 80 Effervescent Hydration Tablets - Added Vitamin C & B12 - Vegan",
       "price_text": "£12.65",
-      "deal_url": "https://www.amazon.co.uk/dp/B0DHVH8MCG?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0DHVH8MCG?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/electrolytes.jpeg"
@@ -452,7 +452,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "Vegavero Pure Glycine Powder 1 kg | 3000 mg Daily Dose | NO Additives, Lab-Tested | Recovery, Muscle & Collagen Synthesis | with Measuring Spoon | Vegan",
       "price_text": "£20.39",
-      "deal_url": "https://www.amazon.co.uk/dp/B0BK8X47M5?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0BK8X47M5?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/glycine.jpeg"
@@ -464,7 +464,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "Magnesium Glycinate 3-in-1 Complex - 1800mg Supplements as Bisglycinate, Citrate & Malate 90 Vegan Capsules, Triple High Absorption 384mg Elemental, UK Made",
       "price_text": "£8.49",
-      "deal_url": "https://www.amazon.co.uk/dp/B0C9VVCL12?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0C9VVCL12?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/magnesiumglycinate.jpeg"
@@ -476,7 +476,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "Lions Mane Supplement 4000mg with Vitamin B1 & Black Pepper, 180 Vegan Tablets - Lion's Mane Mushroom 15:1 Extract (Not Lions Mane Powder or Capsules), UK Made for Mental Performance & Nervous System",
       "price_text": "£8.49",
-      "deal_url": "https://www.amazon.co.uk/dp/B0C9TWKQQV?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0C9TWKQQV?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/lionsmane.jpeg"
@@ -488,7 +488,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "CoQ10 Ubiquinol 400mg – 180 Capsules – 6 Month Supply - High Strength – Active Form – Bioavailable Coenzyme Q10 Supplement",
       "price_text": "£29.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B0FH7FXXB5?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0FH7FXXB5?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/coq10.jpeg"
@@ -500,7 +500,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "Pure Creatine Monohydrate Powder - 315g (90 Servings) - Easy Dissolve Creatine Powder, Unflavoured & Micronised (Not Creatine Gummies or Creatine Tablets), Vegan Creatine for Women and Men",
       "price_text": "£8.49",
-      "deal_url": "https://www.amazon.co.uk/dp/B0DQQDZGCW?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0DQQDZGCW?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/creatinemono.jpeg"
@@ -512,7 +512,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Igennus Super B-Complex - High Absorption Methylated B Vitamins, Clean Label, 180 Sustained Release Tablets - Complete Spectrum of B Vitamins with Folate, Boosted B12 & Vitamin C, 90 Servings",
       "price_text": "£22.09",
-      "deal_url": "https://www.amazon.co.uk/dp/B084HH913J?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B084HH913J?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/methylatedbcomplex.jpeg"
@@ -524,7 +524,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "Ashwagandha KSM 66 Complex – 3000mg Enhanced with L-Tryptophan & Vitamin B6 (2 Month Supply) – Ashwagandha High Strength Capsules with 250mg Extract (Not Gummies or Powder) - Vegan, UK Made",
       "price_text": "£7.64",
-      "deal_url": "https://www.amazon.co.uk/dp/B0C111HFF4?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0C111HFF4?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/ashgawanda.jpeg"
@@ -536,7 +536,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Kinetica Sports Creapure® 100% Creatine Monohydrate Powder - Unflavoured | 3.4g Creatine/Serve, 147 Servings/500g Pack | Vegan & Gluten Free | Optimum for High Physical Performance & Muscle Power",
       "price_text": "£31.44",
-      "deal_url": "https://www.amazon.co.uk/dp/B0892PB4RD?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0892PB4RD?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/creatineKinetica.jpeg"
@@ -548,7 +548,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "NKD Living Inulin High Grade Prebiotic Fibre Powder (1 Kg) - Manufactured in the EU - Fibre Prebiotic Supplement",
       "price_text": "£12.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B077J3BFLN?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B077J3BFLN?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/prebioticfibre.jpeg"
@@ -560,7 +560,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "Bio Cultures Complex Probiotics and Prebiotics - 77 Billion CFU - 20 Live Cultures - 60 Capsules - Strains Like Lactobacillus Acidophilus & Casei - Prebiotic and Probiotic Supplements for Women & Men",
       "price_text": "£16.98",
-      "deal_url": "https://www.amazon.co.uk/dp/B07ZKMCN2Z?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B07ZKMCN2Z?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/bioculturescomplex.jpeg"
@@ -572,7 +572,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Designs for Health Magnesium Glycinate Complex - Chelated Bisglycinate Formula - 300 mg Magnesium per Serving - Supports Bones, Muscles, Energy & Nervous System - Vegan, Non-GMO - 240 Capsules",
       "price_text": "£45.31",
-      "deal_url": "https://www.amazon.co.uk/dp/B005A6964U?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B005A6964U?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK GMP Certified",
       "image_url": "/Products/maglycinatees.jpeg"
@@ -584,7 +584,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.95,
       "description": "The gold-standard indoor rowing machine with PM5 monitor to optimize cardiorespiratory output, muscular baseline, and metabolic power.",
       "price_text": "£850.00",
-      "deal_url": "https://www.amazon.co.uk/dp/B099KBD9X8?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B099KBD9X8?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "PM5 Clinical Standard",
       "image_url": "/assets/images/shop/rower.png"
@@ -596,7 +596,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.88,
       "description": "Adjusts from 3.5kg to 18kg with the turn of a dial for rapid eccentric loading, posterior chain power, and functional hypertrophy.",
       "price_text": "£139.00",
-      "deal_url": "https://www.amazon.co.uk/dp/B07V2C6374?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B07V2C6374?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "6-in-1 Compact Weight",
       "image_url": "/Products/bowflexdumbbells.webp"
@@ -608,7 +608,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.9,
       "description": "High-speed precision cyclonic nutrient extractor designed to pulverize tough cell walls of leafy greens, seeds, and longevity superfoods.",
       "price_text": "£99.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B08524B5C6?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B08524B5C6?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "1200W High Speed",
       "image_url": "/Products/nutri.webp"
@@ -620,7 +620,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4,
       "description": "350W personal blender with 2 portable 600ml bottles, leak-proof lids, ideal for making healthy smoothies and shakes on the go",
       "price_text": "£19.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B0B2KPCBJZ?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0B2KPCBJZ?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/breville.jpg"
@@ -632,7 +632,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "530ml cordless portable blender with leakproof lid and sip spout, rechargeable, blends ice and frozen fruit for smoothies and protein shakes, USB charging",
       "price_text": "£39.00",
-      "deal_url": "https://www.amazon.co.uk/dp/B0CJ39H6GG?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0CJ39H6GG?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/ninjablast.jpg"
@@ -644,7 +644,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Compact mini food chopper that chops, minces and purees herbs and vegetables for healthy sauces, dips, food purees and soups quickly and easily",
       "price_text": "£29.00",
-      "deal_url": "https://www.amazon.co.uk/dp/B01B81R34U?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B01B81R34U?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/ninjaexpress.jpg"
@@ -656,7 +656,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.8,
       "description": "7.6L dual-zone air fryer with 2 independent drawers, 6-in-1 functions including air fry, roast, bake, reheat and dehydrate, cooks 4-6 portions without oil",
       "price_text": "£179.00",
-      "deal_url": "https://www.amazon.co.uk/dp/B08CN3G4N9",
+      "deal_url": "https://www.amazon.co.uk/dp/B08CN3G4N9?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/airfryer.jpg"
@@ -668,7 +668,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "12-cup capacity with variable brew strength and a keep-warm plate.",
       "price_text": "£39.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B0G3Y7LW1T?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0G3Y7LW1T?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/Bosch.jpg"
@@ -680,7 +680,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "200W electric hand blender with 2 speeds and pulse technology, detachable blending leg for easy cleaning, stainless steel blades, ideal for soups, smoothies and sauces",
       "price_text": "£13.00",
-      "deal_url": "https://www.amazon.co.uk/dp/B010FMO1XO?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B010FMO1XO?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/russelhobbsblender.jpg"
@@ -692,7 +692,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "This premium appliance features a unique divider that allows you to cook in two independent 6.8L zones or one extra-large 13.6L space for family-sized roasts. With 8-in-1 functionality and powerful rapid-air technology, it delivers perfectly crisp results while saving time and energy compared to traditional ovens.",
       "price_text": "£89.99",
-      "deal_url": "https://www.amazon.co.uk/dp/\" & A14 & \"?tag=youruk-21\", B14)",
+      "deal_url": "https://www.amazon.co.uk/dp/B0F54NQKBV?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/triple.jpg"
@@ -704,7 +704,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "The Moulinex Easy Fry & Grill 4.2L combines an air fryer and an indoor grill, allowing you to cook a wide variety of healthy dishes with little to no oil. Its generous capacity is perfect for feeding the whole family, while the die-cast aluminum grill plate ensures professional-looking sear marks and delicious flavor every time.",
       "price_text": "£90.00",
-      "deal_url": "https://www.amazon.co.uk/dp/B09FQBKFQ6?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B09FQBKFQ6?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/moulinex4_2.jpg"
@@ -716,7 +716,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.2,
       "description": "abeec Classic Ludo - Ludo Game Board - Fun Board Games for Kids - Traditional Kids Board Games - 1 x Folding Board, 16 x Counters, 1 x Dice - Indoor Games",
       "price_text": "£9.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B0C8B11715?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0C8B11715?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/ludo.jpeg"
@@ -728,7 +728,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.8,
       "description": "basaho CLASSIC Zafu Meditation Cushion | Organic Cotton | Buckwheat Hulls | Removable Washable Cover",
       "price_text": "£30.95",
-      "deal_url": "https://www.amazon.co.uk/dp/B07532QYD4?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B07532QYD4?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/medcushion-uk.webp"
@@ -740,7 +740,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Scales for Body Weight and Fat Percentage with App & Bluetooth, High Precision 0.1lb Digital Bathroom Scales, Analyzes 13 Body Composition Data (Weight, Fat%, Water, BMI), 400 lbs Capacity, Blac",
       "price_text": "£29.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B08839L43J?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B08839L43J?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/smartscale.jpeg"
@@ -752,7 +752,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "Improved 2.0 ThermoLab™ 2026 Steam Sauna for Home Use – 2.6L Steamer & 1000W Heater with Chair & Infrared LED – Detox, Relaxation & Stress Relief – Upgraded 2026 Pop-Up Tent with Remote Control",
       "price_text": "£148.95",
-      "deal_url": "https://www.amazon.co.uk/dp/B0C5J5FN17?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0C5J5FN17?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/thermolab1.jpeg"
@@ -764,7 +764,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "RENPHO Foot Massager Machine with Heat for Plantar Fasciitis, Shiatsu Kneading, 3 Heat Levels, Wireless Control Electric Feet Massager, Gifts for Women and Men",
       "price_text": "£78.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B0CMD7YVRL?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0CMD7YVRL?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/Renphouk.jpeg"
@@ -776,7 +776,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.9,
       "description": "Sauna,Portable Sauna,Folding Full Body Infrared Sauna Tent with Remote Control,Infrared Panel,Folding Chair,for Personal Spa",
       "price_text": "£239.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/sauna.jpeg"
@@ -788,7 +788,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "WOQQW Shiatsu Back Shouder and Neck Massager with Heat - Gifts for Women/Men/Mum/Dad - Electric Deep 4D Kneading Massager for Back, Neck and Shouer Pain Relief, Best Gifts for Birthday (Black Gray)",
       "price_text": "£33.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B09SBCNRRB?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B09SBCNRRB?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/shiatsushoulder.jpeg"
@@ -800,7 +800,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.2,
       "description": "RENPHO Smart Scales for Body Weight and Fat, 8-Electrode Weighing Scales with 50+ Metrics Full Body Composition Analyzer, Larger Platform, High Accuracy Body Fat Scales, MorphoScan Base",
       "price_text": "£89.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B0F18PQH6N?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0F18PQH6N?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/renphoscale1.jpeg"
@@ -812,7 +812,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "WOQQW Back Massager with Heat, Shiatsu Back and Neck Massager, Deeper Tissue Kneading Massage Pillow for Shoulder, Leg, Foot, Body Relieve Muscle Pain - Relax Gift for Her/Him/Friend/Dad/Mom",
       "price_text": "£29.74",
-      "deal_url": "https://www.amazon.co.uk/dp/B08MYSL6T8?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B08MYSL6T8?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/bodymassager.jpeg"
@@ -824,7 +824,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "soundcore by Anker Q20i Hybrid Active Noise Cancelling Foldable Headphones, Wireless Over-Ear Bluetooth, 40H Long ANC Playtime, Hi-Res Audio, Big Bass, Customize via an App, Transparency Mode (Black)",
       "price_text": "£28.40",
-      "deal_url": "https://www.amazon.co.uk/dp/B0C3HCD34R?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0C3HCD34R?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/headphone-us.webp"
@@ -836,7 +836,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "Hatch Restore 3 Sunrise Wake Up Light with Sound Machine & Smart Light - White Noise, Screen-Free Sleep Routin",
       "price_text": "£149.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B0H1QLY3RQ?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0H1QLY3RQ?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/sunriseclock-us.webp"
@@ -848,7 +848,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.2,
       "description": "DROWSY Silk Sleep Mask. Face-Hugging, Padded Silk Cocoon for Luxury Sleep in Total Darkness (Midnight Blue)",
       "price_text": "£55.20",
-      "deal_url": "https://www.amazon.co.uk/dp/B08B8Y24CR?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B08B8Y24CR?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/weightedeyemask-uk.webp"
@@ -860,7 +860,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "arboleaf Massage Gun Deep Tissue with Heat and Cold, Massager Gun with 6 Speeds 5 Massage Heads, LCD Touch Screen, Powerful Handheld Percussion Massager for Body Back Muscle Relaxation & Pain Relief",
       "price_text": "£53.19",
-      "deal_url": "https://www.amazon.co.uk/dp/B0DM949C1M?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0DM949C1M?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/renphomassage.webp"
@@ -872,7 +872,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "The Cold Pod Ice Bath Tub with Cover: 440L Cold Plunge Tub for Athletes,Wim Hof and Fitness Enthusiasts,Easy Install and Portable Ice Tub with Carry Bag for Indoor and Outdoor use",
       "price_text": "£118.98",
-      "deal_url": "https://www.amazon.co.uk/dp/B0C3M9PD5X?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0C3M9PD5X?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/coldplunge-us.webp"
@@ -884,7 +884,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Silent Mind Tibetan Singing Bowl Set – Easy to Play & Beginner Friendly Meditation Bowl with Cushion & Mallet | Stress Relief & Mindfulness | Gift-Ready",
       "price_text": "£24.95",
-      "deal_url": "https://www.amazon.co.uk/dp/B0CLVSW5YJ?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0CLVSW5YJ?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/tibetanbowl-uk.webp"
@@ -896,7 +896,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "Essential Oil Diffuser Electric Aromatherapy Oil Diffuser 200ml Ceramic Aroma Scented Diffusers &Humidifier with Auto Shut Off Ultrasonic Quiet/4 Timing Set/7 LED Lights for Home Office Sleep",
       "price_text": "£17.63",
-      "deal_url": "https://www.amazon.co.uk/dp/B09CV15TNX?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B09CV15TNX?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/diffuser-uk.webp"
@@ -908,7 +908,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "LifePro Infrared Sauna Blanket For Relaxation, Detoxification & Rejuvenation | Infrared Therapy Portable Home Sauna | 25–80°c Adjustable Range With Handheld Controller & Storage Bag | Weight Lo",
       "price_text": "£254.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B09PSKN6X3?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B09PSKN6X3?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/Saunablanket.webp"
@@ -920,7 +920,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Good Nite Weighted Blanket Adult Heavy Weight Blanket for Improved Sleep Relaxes Body (Grey, 8kg, 150x200cm)",
       "price_text": "£33.99",
-      "deal_url": "https://www.amazon.co.uk/dp/B0C6G4Z1PY?tag=123znl0f3-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0C6G4Z1PY?tag=123thenextlev-21",
       "market_region": "UK",
       "badge_text": "UK Quality Standard",
       "image_url": "/Products/blanket-es.webp"
@@ -961,7 +961,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.82,
       "description": "A contact-free ballistocardiography mat placed under the mattress. Logs sleeping heart rate, sleep cycles, snoring, and passive breathing disturbances, transferring data silently upon waking.",
       "price_text": "$129.95",
-      "deal_url": "https://www.amazon.com/dp/B078Z1B34S?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B078Z1B34S?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Touch-Free Sleep Science",
       "image_url": "/Products/withingsleep.webp"
@@ -973,7 +973,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.88,
       "description": "FDA-cleared 8-electrode bioelectrical impedance scale. Segmentally maps skeletal muscle mass, fat percentage by limb, and visceral fat index surrounding organs to target training.",
       "price_text": "$399.95",
-      "deal_url": "https://www.amazon.com/dp/B0B9849CD1?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B0B9849CD1?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA Cleared",
       "image_url": "/Products/newithings.webp"
@@ -985,7 +985,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.90,
       "description": "FDA-cleared 10-parameter rapid urinalysis reagent strips for weekly tracking of microvascular health, proteinuria, pH, ketones, glucose, and renal function.",
       "price_text": "$34.30",
-      "deal_url": "https://www.amazon.com/dp/B0BRR1J862?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B0BRR1J862?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "🇺🇸 US (Diagnox / FDA Cleared)",
       "image_url": "/Products/diagnox.webp"
@@ -1033,7 +1033,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.8,
       "description": "Smart Wi-Fi blood pressure cuff. Automatically logs systolic, diastolic, and pulse trends, classifying cardiovascular data against JNC-8 guidelines without spot-check anxiety.",
       "price_text": "$99.95",
-      "deal_url": "https://www.amazon.com/dp/B07SJV1HNR?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B07SJV1HNR?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA Cleared",
       "image_url": "/Products/withingsconnect.webp"
@@ -1045,7 +1045,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.8,
       "description": "Advanced multispectral wearable capturing sleep architecture, resting heart rate, sleep apnea flags, and sleeping Heart Rate Variability (HRV) for passive autonomic monitoring.",
       "price_text": "$399.00",
-      "deal_url": "https://www.amazon.com/dp/B0DGJG692K?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B0DGJG692K?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA Approved Heart Notifications",
       "image_url": "/Products/apple10.jpg"
@@ -1072,7 +1072,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.75,
       "description": "Real-time interstitial glucose tracking mapping energy peaks and valleys. Instantly syncs blood sugar fluctuations to target metabolic health, post-meal walks, and prevent insulin resistance.",
       "price_text": "From $89.00 / month",
-      "deal_url": "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "🇺🇸 US (Abbott Lingo / FDA)",
       "image_url": "/Products/clinical-cgm-sensor.jpg"
@@ -1084,7 +1084,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.8,
       "description": "Vitamin D Supplement for Bone, Teeth, Muscle and Immune Health Support, 300 Softgels, 300 Day Supply",
       "price_text": "$9.99",
-      "deal_url": "https://www.amazon.com/dp/B004U3Y8OM?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B004U3Y8OM?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/vitd3.jpg"
@@ -1096,7 +1096,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "RU NIAGEN Patented NAD Supplement for Brain Function, Anti Aging & Cell Regeneration, 300mg Niagen, 30 Servings | Supports Cellular Energy, Muscle | Nicotinamide Riboside (NR) Take 1 Daily | 1 Bottle",
       "price_text": "$49.00",
-      "deal_url": "https://www.amazon.com/dp/B07TK5K5TQ?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B07TK5K5TQ?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/nadplusus.jpg"
@@ -1108,7 +1108,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Triple Strength Fish Oil Supplement from Wild Alaska Pollock - MSC Certified Sustainable · Non-GMO · Soy Free - 90 Softgel Capsules",
       "price_text": "$22.36",
-      "deal_url": "https://www.amazon.com/dp/B07DX89ZHN?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B07DX89ZHN?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/omega3.jpg"
@@ -1120,7 +1120,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Probiotics 60 Billion CFU - 10 Strains + Organic Prebiotics - Immune, Digestive & Gut Health - Supports Occasional Constipation, Diarrhea, Gas & Bloating - for Women & Men - 30ct",
       "price_text": "$23.97",
-      "deal_url": "https://www.amazon.com/dp/B079H53D2B?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B079H53D2B?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/probio.jpg"
@@ -1132,7 +1132,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.2,
       "description": " Comprehensive Daily Multi-Vitamin with Optimal Bioavailability - Vitamin & Mineral Formula - Third-Party Certified - Gluten, Dairy & Soy-Free - 60 Capsules",
       "price_text": "$36.00",
-      "deal_url": "https://www.amazon.com/dp/B00FOTMGTU?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B00FOTMGTU?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/thorne.jpg"
@@ -1144,7 +1144,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.8,
       "description": "Dietary Supplement for Immune Support, 100 Tablets, 100 Day Supply",
       "price_text": "$9.50",
-      "deal_url": "https://www.amazon.com/dp/B0000DJASY?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B0000DJASY?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/vitc.jpg"
@@ -1156,7 +1156,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "Real Mushrooms Lion’s Mane Supplement Capsules - Organic Lions Mane Extract for Overall Wellbeing - Beta Glucan Supplements – Vegan 300 ct Mushroom Extract",
       "price_text": "$55.96",
-      "deal_url": "https://www.amazon.com/dp/B084JVN2VT?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B084JVN2VT?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/lionsmaneus.webp"
@@ -1168,7 +1168,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "Spermidine Supplement (10mg of 99% Spermidine 3HCL - Third Party Tested) 120 Capsules - Over 100x More Potent Than Wheat Germ Extract for Cell Membrane, Telomere Health and Aging by Double Wood",
       "price_text": "$39.95",
-      "deal_url": "https://www.amazon.com/dp/B09NP4MPQB?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B09NP4MPQB?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/spermidineus.jpeg"
@@ -1180,7 +1180,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.9,
       "description": "BioEmblem Triple Magnesium Complex 180 Capsules with Vitamin D3 K2 90 Capsules",
       "price_text": "$59.99",
-      "deal_url": "https://www.amazon.com/dp/B0CYZT7JS9?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B0CYZT7JS9?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/d3k2us.jpeg"
@@ -1192,7 +1192,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "ZEBORA Marine Collagen Peptides Powder 50 Servings - Wild Caught Hydrolyzed Fish Collagen with Hyaluronic Acid, Keratin, Multivitamins - Collagen for Women Support Skin Hair Nail Joint, Keto Friendly",
       "price_text": "$23.07",
-      "deal_url": "https://www.amazon.com/dp/B0F62VD96R?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B0F62VD96R?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/CollagenUS.jpg"
@@ -1204,7 +1204,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "New Chapter Calcium Supplement - Bone Strength Plant-Based USDA Organic Calcium with Magnesium, Vitamin D3+K2, for Bone Health & Joint Mobility, Heart Support, 905 mg dose - 120 Slim Tablets",
       "price_text": "$41.97",
-      "deal_url": "https://www.amazon.com/dp/B01MZ6YI2A?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B01MZ6YI2A?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/calciumvitdspain.jpeg"
@@ -1216,7 +1216,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "NOW Foods Supplements, Glycine 1,000 mg Free-Form, Neurotransmitter Support*, 100 Veg Capsules",
       "price_text": "$11.00",
-      "deal_url": "https://www.amazon.com/dp/B002J0RHTQ?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B002J0RHTQ?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/lysineus.webp"
@@ -1228,7 +1228,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Qunol Ultra CoQ10 100mg, 3x Better Absorption, Patented Water and Fat Soluble Natural Supplement Form of Coenzyme Q10, Antioxidant for Heart Health, 120 Count Softgels",
       "price_text": "$29.97",
-      "deal_url": "https://www.amazon.com/dp/B0055OUOQQ?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B0055OUOQQ?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/coq10us.webp"
@@ -1240,7 +1240,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Nutricost Creatine Monohydrate Micronized Powder (1 KG) - Pure Creatine Monohydrate",
       "price_text": "$31.96",
-      "deal_url": "https://www.amazon.com/dp/B01EVVQX9U?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B01EVVQX9U?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/creatineus.webp"
@@ -1252,7 +1252,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Sugar Free – Lemonade, 90 Servings – Hydration Powder with 6 Key Electrolytes and Trace Minerals – Keto Friendly, Vegan, Non-GMO",
       "price_text": "$35.99",
-      "deal_url": "https://www.amazon.com/dp/B01IIGQ5KG?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B01IIGQ5KG?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/electrolyteus.webp"
@@ -1264,7 +1264,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Benefiber Daily Prebiotic GLP-1 Friendly Fiber Supplement Powder for Digestive Health, Unflavored - 250 Teaspoons (17.6 Ounces)",
       "price_text": "$23.49",
-      "deal_url": "https://www.amazon.com/dp/B00CX3ASFE?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B00CX3ASFE?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/prefiberus.webp"
@@ -1276,7 +1276,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "ORGANIC INDIA Ashwagandha Capsules - Organic Ashwagandha Supplement - Vegan Ashwagandha Root, Gluten-Free, Kosher, Non-GMO, Supports Stress Relief, Energy, and Sleep - 90 Capsules",
       "price_text": "$16.99",
-      "deal_url": "https://www.amazon.com/dp/B003PGE98K?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B003PGE98K?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/ashgawandaus.webp"
@@ -1288,7 +1288,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Nature Made Magnesium Glycinate 200 mg per serving, Magnesium Supplement for Muscle, Heart, Nerve and Bone Support, 180 Magnesium Bisglycinate Capsules, 90 Day Supply",
       "price_text": "$33.60",
-      "deal_url": "https://www.amazon.com/dp/B086RQVNDV?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B086RQVNDV?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/magglycinateus.webp"
@@ -1300,7 +1300,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Micro Ingredients Pure Methylated B Complex, 240 Capsules | 11-in-1 Formula with Methylfolate, B12, Thiamin, Inositol, Choline, & Fat Soluble Vitamin C | Clean Ingredients Without Fillers | Non-GMO",
       "price_text": "$20.48",
-      "deal_url": "https://www.amazon.com/dp/B0DLLHRVLY?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B0DLLHRVLY?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/methylatedBcomplexus.webp"
@@ -1312,7 +1312,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "RU NIAGEN Patented NAD Supplement for Brain Function, Anti Aging & Cell Regeneration, 300mg Niagen, 30 Servings | Supports Cellular Energy, Muscle | Nicotinamide Riboside (NR) Take 1 Daily | 1 Bottle",
       "price_text": "$49.00",
-      "deal_url": "https://www.amazon.com/dp/B07TK5K5TQ?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B07TK5K5TQ?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / GMP Verified",
       "image_url": "/Products/nadplusus.jpg"
@@ -1324,7 +1324,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.95,
       "description": "The gold-standard indoor rowing machine with PM5 monitor to optimize cardiorespiratory output, muscular baseline, and metabolic power.",
       "price_text": "$990.00",
-      "deal_url": "https://www.amazon.com/dp/B099KBD9X8?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B099KBD9X8?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "PM5 Clinical Standard",
       "image_url": "/assets/images/shop/rower.png"
@@ -1336,7 +1336,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.88,
       "description": "Adjusts from 8 to 40 lbs with the turn of a dial for rapid eccentric loading, posterior chain power, and functional hypertrophy.",
       "price_text": "$149.00",
-      "deal_url": "https://www.amazon.com/dp/B07V2C6374?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B07V2C6374?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "6-in-1 Compact Weight",
       "image_url": "/Products/kettlebellus.webp"
@@ -1348,7 +1348,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.9,
       "description": "High-speed precision cyclonic nutrient extractor designed to pulverize tough cell walls of leafy greens, seeds, and longevity superfoods.",
       "price_text": "$109.99",
-      "deal_url": "https://www.amazon.com/dp/B08524B5C6?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B08524B5C6?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "1200W High Speed",
       "image_url": "/Products/nutri.webp"
@@ -1360,7 +1360,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "This WQA-certified countertop system uses a 5-stage reverse osmosis process to remove 99.9% of contaminants while adding back essential minerals for better taste and health. Its portable design and high-capacity carafe make it perfect for renters, RVs, or any kitchen where space and convenience are priorities.",
       "price_text": "$389.00",
-      "deal_url": "https://www.amazon.com/dp/B09KRDK677?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B09KRDK677?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / UL Certified",
       "image_url": "/Products/BluevuaRO100ROPOT.jpeg"
@@ -1372,7 +1372,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "The Ninja Air Fryer offers a wide temperature range from 105°F to 400°F, allowing you to gently remove moisture for dehydration or quickly cook and crisp foods with convection heat. Its compact 4-quart ceramic-coated basket and crisper plate are dishwasher safe, making healthy meal prep and cleanup effortless.",
       "price_text": "$89.98",
-      "deal_url": "https://www.amazon.com/dp/B0CSZ7WBYW?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B0CSZ7WBYW?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / UL Certified",
       "image_url": "/Products/NinjaAirFryerCrisp.jpeg"
@@ -1384,7 +1384,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "Vakumar Vacuum Sealer Machine, 80Kpa Food Vacuum Sealer Machine with Double Pump, Dry,/Moist, Pulse Mode, Handle Locked Design, LED Indicator Light & Cutter,12MM Widened Heating Strip",
       "price_text": "$72.99",
-      "deal_url": "https://www.amazon.com/dp/B0C61TL1YV?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B0C61TL1YV?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / UL Certified",
       "image_url": "/Products/VakumarVacuumSealer.jpeg"
@@ -1396,7 +1396,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "This versatile system features a 1500-watt motor that powers a 72-ounce total crushing pitcher, an 8-cup food processor bowl, and Nutri Ninja cups for on-the-go nutrition. Whether you are kneading dough or pulverizing frozen fruit, its specialized blades and Auto-iQ technology deliver perfect results every time.",
       "price_text": "$179.99",
-      "deal_url": "https://www.amazon.com/dp/B00939I7EK?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B00939I7EK?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / UL Certified",
       "image_url": "/Products/NinjaBlender.jpeg"
@@ -1408,7 +1408,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "These durable, BPA-free plastic containers feature a secure 4-hinge locking system to create a leak-proof and airtight environment. The clear design allows for instant identification of ingredients, while the stackable shape maximizes space in your cabinets or on countertops.",
       "price_text": "$30.49",
-      "deal_url": "https://www.amazon.com/dp/B08ZK5WDWN?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B08ZK5WDWN?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "FDA / UL Certified",
       "image_url": "/Products/AirtightfoodStorage.jpeg"
@@ -1420,7 +1420,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "Hatch Restore 3 Sunrise Alarm Clock, Sound Machine, Smart Light (Putty) - White Noise, Screen-Free Sleep Routine",
       "price_text": "$135.99",
-      "deal_url": "https://www.amazon.com/dp/B0DLLSCVZW?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B0DLLSCVZW?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/sunriseclock-us.webp"
@@ -1432,7 +1432,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "The Pod Company Ice Pod Pro Cold Plunge Tub, 110 Gallon (420L) Inflatable Ice Bath for Adults, Fits Up to 6'7\", Insulated, Chiller Compatible, BPA-Free, UV-Resistant Nylon, Dual Drain Hoses",
       "price_text": "$63.20",
-      "deal_url": "https://www.amazon.com/dp/B0F74Q25ZR?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B0F74Q25ZR?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/coldplunge-us.webp"
@@ -1444,7 +1444,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "Sleep Eye Mask with Bluetooth Headphones - Side Sleeper Optimized with Integrated Offline Audio for Phone-Free Use - 3 Modes for Rest, Nap and Travel - Black",
       "price_text": "$89.99",
-      "deal_url": "https://www.amazon.com/dp/B0GMW3H7DL?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B0GMW3H7DL?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/eyemask-us.webp"
@@ -1456,7 +1456,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.8,
       "description": "Homedics Waterless Essential Oil Diffuser with 15ml Vanilla Cedarwood Fragrance Oil. SereneScent Cordless Cold Air Scent Diffuser Starter Kit with Ambient Light, Studio 671 (Black)",
       "price_text": "$42.49",
-      "deal_url": "https://www.amazon.com/dp/B0GWKD5TZC?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B0GWKD5TZC?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/diffuser-us.webp"
@@ -1468,7 +1468,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "Lifepro RejuvaWrap Infrared Sauna Blanket for Detox & Relaxation – Low EMF Carbon Fiber Heating, 9 Temp Levels, 5 Colors – Portable Sauna Blanket Infrared with Waterproof Interior & Carry Bag",
       "price_text": "$228.46",
-      "deal_url": "https://www.amazon.com/dp/B09PSKN6X3?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B09PSKN6X3?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/Saunablanket.webp"
@@ -1480,7 +1480,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Weighted Blanket for Adults Queen Size 15 lbs, Soft Cooling Heavy Minky Blanket for Sleep, Washable Throw Blanket with Glass Beads, 60 x 80 Inches, Grey",
       "price_text": "$32.48",
-      "deal_url": "https://www.amazon.com/dp/B0CR14YJ23?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B0CR14YJ23?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/weightedblanket-us.webp"
@@ -1492,7 +1492,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Tibetan Singing Bowl Set Bronze - Master Healing Grade - With Tibetan Thangka Art - Pure Tone By HIMALAYAN BAZAAR (Black & Yellow)",
       "price_text": "$18.98",
-      "deal_url": "https://www.amazon.com/dp/B07BZZWP8M?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B07BZZWP8M?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/tibetanbowl-us.webp"
@@ -1504,7 +1504,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "RENPHO Active Thermacool 2 Massage Gun with Heat and Cold, [2026 Upgraded] Handheld Percussion Deep Tissue Neck Back Muscle Massager, FSA Approved Gifts for Men Him Athletes Women Her HSA",
       "price_text": "$83.59",
-      "deal_url": "https://www.amazon.com/dp/B0FF9ZCW62?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B0FF9ZCW62?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/renphomassage.webp"
@@ -1516,7 +1516,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.7,
       "description": "Mindful & Modern Large Meditation Cushion for Zafu Yoga - Meditation Pillow for Sitting on the Floor - Buckwheat Hull Filled Yoga Cushion with Removable, Washable 100% Cotton Cover and Carry Handle",
       "price_text": "$29.70",
-      "deal_url": "https://www.amazon.com/dp/B0CS3QT8J5?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B0CS3QT8J5?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/medcushion-us.webp"
@@ -1528,7 +1528,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "Soundcore by Anker Q20i Hybrid Active Noise Cancelling Headphones, Wireless Over-Ear Bluetooth, 40H Long ANC Playtime, Hi-Res Audio, Big Bass, Customize via an App, Transparency Mode (Black)",
       "price_text": "$37.98",
-      "deal_url": "https://www.amazon.com/dp/B0C3HCD34R?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.com/dp/B0C3HCD34R?tag=123thenextlev-20",
       "market_region": "US",
       "badge_text": "Biohacker Approved",
       "image_url": "/Products/headphone-us.webp"
@@ -1938,7 +1938,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "The Xiaomi Smart Air Fryer features a 3.5L capacity and precise temperature control ranging from 40°C to 200°C, making it versatile enough for frying, baking, and even yogurt making. With smart scheduling up to 24 hours and voice control compatibility, it seamlessly integrates into any modern home for effortless meal preparation.",
       "price_text": "104,95€",
-      "deal_url": "https://www.amazon.co.uk/dp/B09833F2TW?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B09833F2TW?tag=123thenextlev-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/xiaomiairfryer.jpg"
@@ -1950,7 +1950,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "Equipped with a high-performance 500W motor and durable stainless steel blades, this personal blender easily handles frozen fruits and ice. The BPA-free glass jar ensures a clean taste and easy cleaning, making it a healthy and convenient choice for busy lifestyles. Its sleek, space-saving design is perfect for small kitchens, offices, or travel.",
       "price_text": "29,99€",
-      "deal_url": "https://www.amazon.co.uk/dp/B0BG8PF41K?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0BG8PF41K?tag=123thenextlev-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/duronic520.jpg"
@@ -1962,7 +1962,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "This high-performance 2600W XXL air fryer offers ultimate flexibility, allowing you to switch between a single 12-litre basket for large items or dual-zone cooking for separate dishes. Its powerful rapid-air technology ensures faster, healthier results with significantly less oil, making it the perfect all-in-one solution for busy households and entertaining.",
       "price_text": "115,99€",
-      "deal_url": "https://www.amazon.co.uk/dp/B0GH7NW6MR?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0GH7NW6MR?tag=123thenextlev-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/airfryer12litres.jpg"
@@ -1974,7 +1974,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "The Moulinex Blend&Go features a sleek, space-saving design and a powerful motor with four stainless steel blades to easily blend fruits and vegetables. Its intuitive one-button operation makes it perfect for busy mornings, and the dishwasher-safe bottle ensures effortless cleanup after every use.",
       "price_text": "57,68€",
-      "deal_url": "https://www.amazon.co.uk/dp/B07BCNS9YB?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B07BCNS9YB?tag=123thenextlev-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/moulinexblender.jpg"
@@ -1986,7 +1986,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "The Philips 900 Series features a powerful CADR of 250m³/h and HEPA NanoProtect technology to capture 99.97% of particles as small as 0.003 microns. Its smart, energy-saving design operates quietly, making it perfect for maintaining optimal air quality in spaces up to 65 m² without disruption.",
       "price_text": "169,99€",
-      "deal_url": "https://www.amazon.co.uk/dp/B0D3VDV73J?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0D3VDV73J?tag=123thenextlev-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/phillips900.jpg"
@@ -1998,7 +1998,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.1,
       "description": "This medium-sized 300W rice cooker features a non-stick, dishwasher-safe bowl and an included steaming basket for versatile, healthy meal preparation. With its intuitive auto shut-off feature and compact design, it delivers consistent results while making cleanup a breeze for any busy household.",
       "price_text": "34,90€",
-      "deal_url": "https://www.amazon.co.uk/dp/B084869TW9?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B084869TW9?tag=123thenextlev-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/RusselHobbs.jpeg"
@@ -2010,7 +2010,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "KitchenCraft 4 Egg Poacher Pan in Gift Box, Non Stick and Induction Safe, Stainless Steel, 20.5 cm",
       "price_text": "36,19€",
-      "deal_url": "https://www.amazon.co.uk/dp/B0001IWWD4?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0001IWWD4?tag=123thenextlev-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/KitchenCraft.jpeg"
@@ -2298,7 +2298,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "This AROEVE ultrasonic humidifier features intelligent humidity control to maintain your ideal environment for plants, babies, and restful sleep. Its large 6-liter tank eliminates frequent refills while doubling as an essential oil diffuser to fill your home with relaxing scents.",
       "price_text": "59,99€",
-      "deal_url": "https://www.amazon.co.uk/dp/B0FNX72RPL?tag=123znl08a-21",
+      "deal_url": "https://www.amazon.co.uk/dp/B0FNX72RPL?tag=123thenextlev-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/aroeve6l.jpg"

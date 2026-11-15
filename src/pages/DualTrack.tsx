@@ -266,7 +266,7 @@ export default function DualTrack() {
                         </p>
                       </div>
                       <a
-                        href="https://www.amazon.com/dp/B0DGHQ2QH6?tag=123thenextlev-21"
+                        href="https://www.amazon.com/dp/B0DGHQ2QH6?tag=123thenextlev-20"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-slate-950 border border-slate-800 hover:border-wellness-cyan text-[10px] sm:text-xs font-bold uppercase tracking-wider text-wellness-cyan transition-all"
@@ -385,7 +385,7 @@ export default function DualTrack() {
                         <span className="text-[9px] font-mono uppercase tracking-wider text-slate-grey-450 block font-bold">Low-Cost Strength Extensions</span>
                         <div className="flex flex-col gap-1.5">
                           <a
-                            href="https://www.amazon.co.uk/dp/B076QJY2FN?tag=123znl0f3-21"
+                            href="https://www.amazon.co.uk/dp/B076QJY2FN?tag=123thenextlev-21"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex justify-between items-center p-2 rounded bg-slate-900/30 hover:bg-slate-900/60 border border-slate-850 text-slate-grey-300 hover:text-white transition-all"
@@ -423,7 +423,7 @@ export default function DualTrack() {
                         <span className="text-[9px] font-mono uppercase tracking-wider text-slate-grey-450 block font-bold">Low-Cost Autonomic Extensions</span>
                         <div className="flex flex-col gap-1.5">
                           <a
-                            href="https://www.amazon.com/dp/B01698E3A6?tag=123thenextlev-21"
+                            href="https://www.amazon.com/dp/B01698E3A6?tag=123thenextlev-20"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex justify-between items-center p-2 rounded bg-slate-900/30 hover:bg-slate-900/60 border border-slate-850 text-slate-grey-300 hover:text-white transition-all"

@@ -347,7 +347,7 @@ export const DiagnosticGuide: React.FC = () => {
                   </div>
                   <div className="flex items-center justify-between text-slate-400">
                     <span>🇺🇸 US: Abbott Lingo OTC Sensor</span>
-                    <a href="https://www.amazon.com/dp/B0DGHQ2QH6?tag=123thenextlev-21" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline flex items-center gap-1 font-bold">
+                    <a href="https://www.amazon.com/dp/B0DGHQ2QH6?tag=123thenextlev-20" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline flex items-center gap-1 font-bold">
                       Order on Amazon US <ExternalLink size={11} />
                     </a>
                   </div>

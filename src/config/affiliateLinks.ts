@@ -218,7 +218,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     us: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123thenextlev-20",
         ctaText: "Order CGM Sensor (Lingo US 🇺🇸)",
         priceText: "From $89.00/mo",
         badgeText: "🇺🇸 US (Abbott Lingo / FDA)",
@@ -311,7 +311,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     uk: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123thenextlev-21",
         ctaText: "Order Home Dipstick Kit (ALLTEST UK 🇬🇧)",
         priceText: "From £12.99",
         badgeText: "🇬🇧 UK (ALLTEST / CE Marked)",
@@ -391,7 +391,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     us: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.com/dp/B08H7V69F7?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B08H7V69F7?tag=123thenextlev-20",
         ctaText: "Order Hormone Test (Amazon US 🇺🇸)",
         priceText: "From $49.00",
         badgeText: "🇺🇸 US (HealthLabs/Quest)",
@@ -420,7 +420,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
       },
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.co.uk/dp/B08H7V69F7?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B08H7V69F7?tag=123thenextlev-21",
         ctaText: "Buy Home FSH Kit (Amazon UK 🇬🇧)",
         priceText: "£39.00",
         badgeText: "CE Home Test",
@@ -463,7 +463,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     us: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.com/dp/B07SJV1HNR?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B07SJV1HNR?tag=123thenextlev-20",
         ctaText: "Buy on Amazon US 🇺🇸",
         priceText: "$99.95",
         badgeText: "FDA Cleared",
@@ -483,7 +483,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     uk: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.co.uk/dp/B07SJV1HNR?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B07SJV1HNR?tag=123thenextlev-21",
         ctaText: "Buy on Amazon UK 🇬🇧",
         priceText: "£89.99",
         badgeText: "CE Medical Class IIa",
@@ -531,7 +531,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     us: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.com/dp/B078Z1B34S?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B078Z1B34S?tag=123thenextlev-20",
         ctaText: "Buy on Amazon US 🇺🇸",
         priceText: "$129.95",
         badgeText: "Touch-Free Sleep Science",
@@ -551,7 +551,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     uk: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.co.uk/dp/B0892BGFX7?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B0892BGFX7?tag=123thenextlev-21",
         ctaText: "Buy on Amazon UK 🇬🇧",
         priceText: "£119.99",
         badgeText: "CE Medically Validated (Apnea)",
@@ -599,7 +599,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     us: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.com/dp/B0B9849CD1?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B0B9849CD1?tag=123thenextlev-20",
         ctaText: "Buy on Amazon US 🇺🇸",
         priceText: "$399.95",
         badgeText: "FDA Cleared",
@@ -619,7 +619,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     uk: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.co.uk/dp/B0B9849CD1?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B0B9849CD1?tag=123thenextlev-21",
         ctaText: "Buy on Amazon UK 🇬🇧",
         priceText: "£349.99",
         badgeText: "CE Medical Marked",
@@ -667,7 +667,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     us: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.com/dp/B0DGJG692K?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B0DGJG692K?tag=123thenextlev-20",
         ctaText: "Buy on Amazon US 🇺🇸",
         priceText: "$399.00",
         badgeText: "FDA Approved Heart Notifications",
@@ -678,7 +678,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     uk: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.co.uk/dp/B0DGJHCPX5?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B0DGJHCPX5?tag=123thenextlev-21",
         ctaText: "Buy on Amazon UK 🇬🇧",
         priceText: "£379.00",
         badgeText: "MHRA Certified Telemetry",
@@ -708,7 +708,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     us: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.com/dp/B0BTY3Y6PP?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B0BTY3Y6PP?tag=123thenextlev-20",
         ctaText: "Buy on Amazon US 🇺🇸",
         priceText: "$149.99",
         badgeText: "Ultra-Lightweight Comfort",
@@ -719,7 +719,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     uk: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.co.uk/dp/B0BTY3Y6PP?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B0BTY3Y6PP?tag=123thenextlev-21",
         ctaText: "Buy on Amazon UK 🇬🇧",
         priceText: "£119.00",
         badgeText: "35-Hour Battery Life",
@@ -753,7 +753,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     us: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.com/dp/B099KBD9X8?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B099KBD9X8?tag=123thenextlev-20",
         ctaText: "Buy on Amazon US 🇺🇸",
         priceText: "$990.00",
         badgeText: "Clinical Standard PM5 Monitor",
@@ -764,7 +764,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     uk: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.co.uk/dp/B099KBD9X8?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B099KBD9X8?tag=123thenextlev-21",
         ctaText: "Buy on Amazon UK 🇬🇧",
         priceText: "£850.00",
         badgeText: "Clinical Standard PM5 Monitor",
@@ -794,7 +794,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     us: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.com/dp/B08H23V7S5?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B08H23V7S5?tag=123thenextlev-20",
         ctaText: "Buy on Amazon US 🇺🇸",
         priceText: "$249.00",
         badgeText: "Low EMF Carbon Panels",
@@ -805,7 +805,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     uk: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.co.uk/dp/B08H23V7S5?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B08H23V7S5?tag=123thenextlev-21",
         ctaText: "Buy on Amazon UK 🇬🇧",
         priceText: "£199.99",
         badgeText: "Low EMF Carbon Panels",
@@ -835,7 +835,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     us: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.com/dp/B01697W160?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B01697W160?tag=123thenextlev-20",
         ctaText: "Buy on Amazon US 🇺🇸",
         priceText: "$35.00",
         badgeText: "Organic Cotton Certified",
@@ -846,7 +846,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     uk: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.co.uk/dp/B01697W160?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B01697W160?tag=123thenextlev-21",
         ctaText: "Buy on Amazon UK 🇬🇧",
         priceText: "£29.99",
         badgeText: "Buckwheat Filled Premium",
@@ -898,7 +898,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
       },
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.com/dp/B07TK5K5TQ?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B07TK5K5TQ?tag=123thenextlev-20",
         ctaText: "Buy NAD+ on Amazon US",
         priceText: "$49.00",
         badgeText: "Prime Eligible",
@@ -927,7 +927,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
       },
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.co.uk/dp/B0BNB8K8Q5?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B0BNB8K8Q5?tag=123thenextlev-21",
         ctaText: "Buy NAD+ on Amazon UK",
         priceText: "£64.90",
         badgeText: "UK GMP Certified",
@@ -975,7 +975,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     us: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.com/dp/B07T8H5N1M?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B07T8H5N1M?tag=123thenextlev-20",
         ctaText: "Buy on Amazon US 🇺🇸",
         priceText: "$28.99",
         badgeText: "Non-GMO & Gluten-Free",
@@ -1004,7 +1004,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     uk: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.co.uk/dp/B07T8H5N1M?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B07T8H5N1M?tag=123thenextlev-21",
         ctaText: "Buy on Amazon UK 🇬🇧",
         priceText: "£24.99",
         badgeText: "Wild-Caught Sourced",
@@ -1056,7 +1056,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     us: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.com/dp/B08524B5C6?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B08524B5C6?tag=123thenextlev-20",
         ctaText: "Buy on Amazon US 🇺🇸",
         priceText: "$27.99",
         badgeText: "Leak-Proof Double Wall",
@@ -1067,7 +1067,7 @@ export const sovereignHealthStack: SovereignProduct[] = [
     uk: [
       {
         supplierName: "Amazon",
-        url: "https://www.amazon.co.uk/dp/B08524B5C6?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B08524B5C6?tag=123thenextlev-21",
         ctaText: "Buy on Amazon UK 🇬🇧",
         priceText: "£22.99",
         badgeText: "Leak-Proof Double Wall",

@@ -41,7 +41,7 @@ async function duplicateSupplementsToProducts() {
       img = `https://123thenextlevel.com${img}`;
     }
 
-    let link = item.affiliate_link || item.deal_url || `https://www.amazon.co.uk/dp/${item.asin}?tag=123znl0f3-21`;
+    let link = item.affiliate_link || item.deal_url || `https://www.amazon.co.uk/dp/${item.asin}?tag=123thenextlev-21`;
     if (link.startsWith('https://123thenextlevel.comhttp')) {
       link = link.replace('https://123thenextlevel.com', '');
     }

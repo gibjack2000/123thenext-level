@@ -680,9 +680,9 @@ export default function DiagnosticsSuite() {
                 <a
                   href={
                     activeRegion === 'US'
-                      ? 'https://www.amazon.com/dp/B0B9849CD1?tag=123thenextlev-21'
+                      ? 'https://www.amazon.com/dp/B0B9849CD1?tag=123thenextlev-20'
                       : activeRegion === 'UK'
-                      ? 'https://www.amazon.co.uk/dp/B0B9849CD1?tag=123znl0f3-21'
+                      ? 'https://www.amazon.co.uk/dp/B0B9849CD1?tag=123thenextlev-21'
                       : 'https://www.amazon.es/dp/B0B9849CD1?tag=123znl08a-21'
                   }
                   target="_blank"
@@ -730,9 +730,9 @@ export default function DiagnosticsSuite() {
                 <a
                   href={
                     activeRegion === 'US'
-                      ? 'https://www.amazon.com/dp/B01N1UX8RW?tag=123thenextlev-21'
+                      ? 'https://www.amazon.com/dp/B01N1UX8RW?tag=123thenextlev-20'
                       : activeRegion === 'UK'
-                      ? 'https://www.amazon.co.uk/dp/B0F18PQH6N?tag=123znl0f3-21'
+                      ? 'https://www.amazon.co.uk/dp/B0F18PQH6N?tag=123thenextlev-21'
                       : 'https://www.amazon.es/dp/B01N1UX8RW?tag=123znl08a-21'
                   }
                   target="_blank"
@@ -780,9 +780,9 @@ export default function DiagnosticsSuite() {
                 <a
                   href={
                     activeRegion === 'US'
-                      ? 'https://www.amazon.com/dp/B0DJBH1625?tag=123thenextlev-21'
+                      ? 'https://www.amazon.com/dp/B0DJBH1625?tag=123thenextlev-20'
                       : activeRegion === 'UK'
-                      ? 'https://www.amazon.co.uk/dp/B0DJBH1625?tag=123znl0f3-21'
+                      ? 'https://www.amazon.co.uk/dp/B0DJBH1625?tag=123thenextlev-21'
                       : 'https://www.amazon.es/dp/B0DJBH1625?tag=123znl08a-21'
                   }
                   target="_blank"

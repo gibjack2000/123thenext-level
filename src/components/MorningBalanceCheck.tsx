@@ -17,7 +17,7 @@ export const REGION_MAP: Record<Region, RegionData> = {
     tagline: 'Your Simple 2-Minute Morning Balance Check',
     description: 'A plain paper, dip-and-read visual chemical test tracking 10 critical bio-indicators in under 2 minutes. Requires zero digital setup, app sync, screen time, or Bluetooth pairing. Instantly flags early kidney stress, metabolic ketones, and hydration imbalances, delivering peace of mind without the digital noise.',
     buttonText: 'Order on Amazon (US)',
-    amazonUrl: 'https://www.amazon.com/s?k=10+parameter+urine+test+strips&tag=123thenextlev-21',
+    amazonUrl: 'https://www.amazon.com/s?k=10+parameter+urine+test+strips&tag=123thenextlev-20',
     bullets: [
       'Tracks 10 parameters (Glucose, Ketones, pH, Protein, Nitrites, and more)',
       'Provides a clinical-grade baseline for your fluid and kidney health at home',
@@ -30,7 +30,7 @@ export const REGION_MAP: Record<Region, RegionData> = {
     tagline: 'Your Simple 2-Minute Morning Balance Check',
     description: 'An MHRA-registered, clinical-grade home testing reagent tracking 10 critical bio-indicators in under 2 minutes. Requires zero digital setup, app sync, screen time, or Bluetooth pairing. Instantly flags early kidney stress, metabolic ketones, and hydration imbalances, delivering peace of mind without the digital noise.',
     buttonText: 'Order on Amazon (UK)',
-    amazonUrl: 'https://www.amazon.co.uk/s?k=10+parameter+urine+test+strips&tag=123znl0f3-21',
+    amazonUrl: 'https://www.amazon.co.uk/s?k=10+parameter+urine+test+strips&tag=123thenextlev-21',
     bullets: [
       'Tracks 10 parameters (Glucose, Ketones, pH, Protein, Nitrites, and more)',
       'Provides a clinical-grade baseline for your fluid and kidney health at home',

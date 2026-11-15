@@ -49,11 +49,11 @@ const HARDWARE_PICKS: HardwareItem[] = [
     rating: '4.9/5 • Clinical Grade',
     description: 'Segmental multi-frequency bioelectrical impedance with retractable handlebar electrodes. Accurately enumerates Visceral Fat Rating (1–12), torso and limb skeletal muscle distribution, vascular arterial age (pulse wave velocity), and 6-lead ECG rhythm.',
     us: {
-      url: 'https://www.amazon.com/dp/B0B9849CD1?tag=123thenextlev-21',
+      url: 'https://www.amazon.com/dp/B0B9849CD1?tag=123thenextlev-20',
       price: '$399.95'
     },
     uk: {
-      url: 'https://www.amazon.co.uk/dp/B0B9849CD1?tag=123znl0f3-21',
+      url: 'https://www.amazon.co.uk/dp/B0B9849CD1?tag=123thenextlev-21',
       price: '£349.99'
     },
     es: {
@@ -69,11 +69,11 @@ const HARDWARE_PICKS: HardwareItem[] = [
     rating: '4.7/5 • 300,000+ Reviews',
     description: 'High-precision 4-electrode bioimpedance platform measuring body fat percentage, visceral fat level, skeletal muscle mass, and subcutaneous adipose distribution with automated Apple Health & Google Fit cloud synchronization.',
     us: {
-      url: 'https://www.amazon.com/dp/B01N1UX8RW?tag=123thenextlev-21',
+      url: 'https://www.amazon.com/dp/B01N1UX8RW?tag=123thenextlev-20',
       price: '$24.99'
     },
     uk: {
-      url: 'https://www.amazon.co.uk/dp/B0F18PQH6N?tag=123znl0f3-21',
+      url: 'https://www.amazon.co.uk/dp/B0F18PQH6N?tag=123thenextlev-21',
       price: '£28.99'
     },
     es: {
@@ -89,11 +89,11 @@ const HARDWARE_PICKS: HardwareItem[] = [
     rating: '4.8/5 • 24/7 Biosensing',
     description: 'Nocturnal photoplethysmography capturing 14-day rolling averages for Resting Heart Rate (RHR), Heart Rate Variability (HRV rMSSD), sleep architecture (Deep + REM duration), and blood oxygen saturation (SpO2).',
     us: {
-      url: 'https://www.amazon.com/dp/B0DJBH1625?tag=123thenextlev-21',
+      url: 'https://www.amazon.com/dp/B0DJBH1625?tag=123thenextlev-20',
       price: '$399.00'
     },
     uk: {
-      url: 'https://www.amazon.co.uk/dp/B0DJBH1625?tag=123znl0f3-21',
+      url: 'https://www.amazon.co.uk/dp/B0DJBH1625?tag=123thenextlev-21',
       price: '£379.00'
     },
     es: {

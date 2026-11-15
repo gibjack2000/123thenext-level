@@ -229,7 +229,7 @@ const CATEGORY_META = {
         rating: "4.9",
         reviews: "4.1k+",
         market_price: "£39.00",
-        url: "https://www.amazon.co.uk/dp/B08N5N68K6?tag=123znl0e-21"
+        url: "https://www.amazon.co.uk/dp/B08N5N68K6?tag=123thenextlev-21"
       },
       es: {
         name: "Melio Salud Perfil Cardiovascular Avanzado con ApoB y PCR ultrasensible",
@@ -265,7 +265,7 @@ const CATEGORY_META = {
         rating: "4.8",
         reviews: "8.7k+",
         market_price: "£229.00",
-        url: "https://www.amazon.co.uk/dp/B09V7Y1659?tag=123znl0e-21"
+        url: "https://www.amazon.co.uk/dp/B09V7Y1659?tag=123thenextlev-21"
       },
       es: {
         name: "Garmin Forerunner 265 Sensor Cardíaco con VAM y Lactato",
@@ -301,7 +301,7 @@ const CATEGORY_META = {
         rating: "4.9",
         reviews: "11.2k+",
         market_price: "£52.50",
-        url: "https://www.amazon.co.uk/dp/B07P88H4NL?tag=123znl0e-21"
+        url: "https://www.amazon.co.uk/dp/B07P88H4NL?tag=123thenextlev-21"
       },
       es: {
         name: "Tanita BC-730 Báscula de Composición Corporal Segmental",
@@ -337,7 +337,7 @@ const CATEGORY_META = {
         rating: "4.8",
         reviews: "7.8k+",
         market_price: "£69.99",
-        url: "https://www.amazon.co.uk/dp/B0C3HCD34R?tag=123znl0e-21"
+        url: "https://www.amazon.co.uk/dp/B0C3HCD34R?tag=123thenextlev-21"
       },
       es: {
         name: "Manta Sauna de Infrarrojo Lejano Térmico RejuvaWrap",

@@ -15,7 +15,7 @@ async function ensureFitnessAndKitchen() {
       rating: 4.95,
       description: "The gold-standard indoor rowing machine with PM5 monitor to optimize cardiorespiratory output, muscular baseline, and metabolic power.",
       price_text: "£850.00",
-      deal_url: "https://www.amazon.co.uk/dp/B099KBD9X8?tag=123znl0f3-21",
+      deal_url: "https://www.amazon.co.uk/dp/B099KBD9X8?tag=123thenextlev-21",
       market_region: "UK",
       badge_text: "PM5 Clinical Standard",
       image_url: "/assets/images/shop/rower.png"
@@ -27,7 +27,7 @@ async function ensureFitnessAndKitchen() {
       rating: 4.88,
       description: "Adjusts from 3.5kg to 18kg with the turn of a dial for rapid eccentric loading, posterior chain power, and functional hypertrophy.",
       price_text: "£139.00",
-      deal_url: "https://www.amazon.co.uk/dp/B07V2C6374?tag=123znl0f3-21",
+      deal_url: "https://www.amazon.co.uk/dp/B07V2C6374?tag=123thenextlev-21",
       market_region: "UK",
       badge_text: "6-in-1 Compact Weight",
       image_url: "/assets/images/shop/rower.png"
@@ -90,7 +90,7 @@ async function ensureFitnessAndKitchen() {
       rating: 4.90,
       description: "High-speed precision cyclonic nutrient extractor designed to pulverize tough cell walls of leafy greens, seeds, and longevity superfoods.",
       price_text: "£99.99",
-      deal_url: "https://www.amazon.co.uk/dp/B08524B5C6?tag=123znl0f3-21",
+      deal_url: "https://www.amazon.co.uk/dp/B08524B5C6?tag=123thenextlev-21",
       market_region: "UK",
       badge_text: "1200W High Speed",
       image_url: "/assets/images/shop/water-bottle.png"

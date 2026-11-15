@@ -109,7 +109,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$28.99",
         badge: "Non-GMO & Wild Caught",
-        url: "https://www.amazon.com/dp/B07T8H5N1M?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B07T8H5N1M?tag=123thenextlev-20",
         imageUrl: "/Products/CollagenUS.jpg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
@@ -117,7 +117,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       UK: {
         price: "£24.99",
         badge: "Wild-Caught Marine Matrix",
-        url: "https://www.amazon.co.uk/dp/B07T8H5N1M?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B07T8H5N1M?tag=123thenextlev-21",
         imageUrl: "/Products/CollagenUK.jpg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
@@ -148,7 +148,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$39.99",
         badge: "Creapure Tested / Zero Fillers",
-        url: "https://www.amazon.com/dp/B002DYIZEO?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B002DYIZEO?tag=123thenextlev-20",
         imageUrl: "/Products/creatineus.webp",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
@@ -156,7 +156,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       UK: {
         price: "£32.99",
         badge: "Informed-Choice Certified",
-        url: "https://www.amazon.co.uk/dp/B002DYIZEO?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B002DYIZEO?tag=123thenextlev-21",
         imageUrl: "/Products/creatine.jpg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
@@ -187,7 +187,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$34.95",
         badge: "Patented Magtein® Brain Formula",
-        url: "https://www.amazon.com/dp/B01M4GM9R1?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B01M4GM9R1?tag=123thenextlev-20",
         imageUrl: "/Products/magglycinateus.webp",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
@@ -195,7 +195,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       UK: {
         price: "£29.95",
         badge: "Blood-Brain Barrier Bioactive",
-        url: "https://www.amazon.co.uk/dp/B01M4GM9R1?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B01M4GM9R1?tag=123thenextlev-21",
         imageUrl: "/Products/magnesiumglycinate.jpeg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
@@ -226,7 +226,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$49.95",
         badge: "Standardized 99% Pure Extract",
-        url: "https://www.amazon.com/dp/B08J5P8D9D?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B08J5P8D9D?tag=123thenextlev-20",
         imageUrl: "/Products/spermidineus.jpeg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
@@ -234,7 +234,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       UK: {
         price: "£42.00",
         badge: "Natural Autophagy Inducer",
-        url: "https://www.amazon.co.uk/dp/B08J5P8D9D?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B08J5P8D9D?tag=123thenextlev-21",
         imageUrl: "/Products/spermidineuk.jpeg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
@@ -265,7 +265,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$32.50",
         badge: "20x Bioavailability Phytosome",
-        url: "https://www.amazon.com/dp/B07BFR4QC2?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B07BFR4QC2?tag=123thenextlev-20",
         imageUrl: "/Products/quercitin.jpeg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
@@ -273,7 +273,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       UK: {
         price: "£28.00",
         badge: "Liposomal Bioflavonoid Matrix",
-        url: "https://www.amazon.co.uk/dp/B07BFR4QC2?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B07BFR4QC2?tag=123thenextlev-21",
         imageUrl: "/Products/quercitin.jpeg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
@@ -304,7 +304,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$44.99",
         badge: "Genuine Kaneka Ubiquinol®",
-        url: "https://www.amazon.com/dp/B0019GW3Y8?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B0019GW3Y8?tag=123thenextlev-20",
         imageUrl: "/Products/coq10us.webp",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
@@ -312,7 +312,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       UK: {
         price: "£38.50",
         badge: "Active Mitochondrial CoQ10",
-        url: "https://www.amazon.co.uk/dp/B0019GW3Y8?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B0019GW3Y8?tag=123thenextlev-21",
         imageUrl: "/Products/coq10.jpeg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
@@ -343,7 +343,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$29.95",
         badge: "IFOS 5-Star Certified Triglyceride",
-        url: "https://www.amazon.com/dp/B00TAK5HCI?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B00TAK5HCI?tag=123thenextlev-20",
         imageUrl: "/Products/omega3.jpg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
@@ -351,7 +351,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       UK: {
         price: "£26.50",
         badge: "Wild Alaska Pollock Sourced",
-        url: "https://www.amazon.co.uk/dp/B00TAK5HCI?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B00TAK5HCI?tag=123thenextlev-21",
         imageUrl: "/Products/omega3fish.jpeg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
@@ -386,14 +386,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$990.00",
         badge: "Clinical Standard PM5 Ergometer",
-        url: "https://www.amazon.com/dp/B099KBD9X8?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B099KBD9X8?tag=123thenextlev-20",
         ctaText: "Check Availability on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
       UK: {
         price: "£850.00",
         badge: "Concept2 Official PM5 Monitor",
-        url: "https://www.amazon.co.uk/dp/B099KBD9X8?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B099KBD9X8?tag=123thenextlev-21",
         ctaText: "Check Availability on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -422,7 +422,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$10.26 - $45.00",
         badge: "Non-Slip Anti-Roll Grip",
-        url: "https://www.amazon.com/dp/B01LR5RG08?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B01LR5RG08?tag=123thenextlev-20",
         imageUrl: "/Products/dumbell.jpg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
@@ -430,7 +430,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       UK: {
         price: "£9.99 - £39.99",
         badge: "Hexagonal Cast Iron Core",
-        url: "https://www.amazon.co.uk/dp/B01LR5RG08?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B01LR5RG08?tag=123thenextlev-21",
         imageUrl: "/Products/dumbell.jpg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
@@ -461,7 +461,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$8.48",
         badge: "100% Eco-Latex / 5 Levels",
-        url: "https://www.amazon.com/dp/B01AVDVHTI?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B01AVDVHTI?tag=123thenextlev-20",
         imageUrl: "/Products/gritin.jpg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
@@ -469,7 +469,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       UK: {
         price: "£7.99",
         badge: "5 Levels + Instruction Manual",
-        url: "https://www.amazon.co.uk/dp/B01AVDVHTI?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B01AVDVHTI?tag=123thenextlev-21",
         imageUrl: "/Products/gritin.jpg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
@@ -500,7 +500,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$15.29",
         badge: "High-Density Molded Foam",
-        url: "https://www.amazon.com/dp/B00XM2MXK8?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B00XM2MXK8?tag=123thenextlev-20",
         imageUrl: "/Products/roller.jpg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
@@ -508,7 +508,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       UK: {
         price: "£13.99",
         badge: "Deep Tissue Myofascial Tool",
-        url: "https://www.amazon.co.uk/dp/B00XM2MXK8?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B00XM2MXK8?tag=123thenextlev-21",
         imageUrl: "/Products/roller.jpg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
@@ -539,7 +539,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$34.99",
         badge: "Patented 2-Way FreeSip Spout",
-        url: "https://www.amazon.com/dp/B08524B5C6?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B08524B5C6?tag=123thenextlev-20",
         imageUrl: "/Products/owala.jpg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
@@ -547,7 +547,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       UK: {
         price: "£28.99",
         badge: "24-Hour Thermal Isolation",
-        url: "https://www.amazon.co.uk/dp/B08524B5C6?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B08524B5C6?tag=123thenextlev-21",
         imageUrl: "/Products/owala.jpg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
@@ -578,7 +578,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$14.99",
         badge: "Anti-Fog & 180° Panoramic Vision",
-        url: "https://www.amazon.com/dp/B08XQ35T47?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B08XQ35T47?tag=123thenextlev-20",
         imageUrl: "/Products/speedo.jpg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
@@ -586,7 +586,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       UK: {
         price: "£12.99",
         badge: "Leak-Free Silicone Seal",
-        url: "https://www.amazon.co.uk/dp/B08XQ35T47?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B08XQ35T47?tag=123thenextlev-21",
         imageUrl: "/Products/speedo.jpg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
@@ -617,7 +617,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$13.18",
         badge: "Removes 99.999999% Bacteria",
-        url: "https://www.amazon.com/dp/B006QF3TW4?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B006QF3TW4?tag=123thenextlev-20",
         imageUrl: "/Products/lifestraw.jpg",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
@@ -625,7 +625,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       UK: {
         price: "£11.99",
         badge: "0.2 Micron Hollow Fiber Membrane",
-        url: "https://www.amazon.co.uk/dp/B006QF3TW4?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B006QF3TW4?tag=123thenextlev-21",
         imageUrl: "/Products/lifestraw.jpg",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
@@ -732,7 +732,7 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$89.00/mo",
         badge: "FDA Cleared / OTC Eligible",
-        url: "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123thenextlev-20",
         ctaText: "Examine Lingo on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
@@ -804,14 +804,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$129.95",
         badge: "Zero-Wearable Pneumatic Sensor",
-        url: "https://www.amazon.com/dp/B078Z1B34S?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B078Z1B34S?tag=123thenextlev-20",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
       UK: {
         price: "£119.99",
         badge: "CE Medically Validated (Apnea)",
-        url: "https://www.amazon.co.uk/dp/B0892BGFX7?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B0892BGFX7?tag=123thenextlev-21",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -840,14 +840,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$99.95",
         badge: "FDA Cleared Smart Monitor",
-        url: "https://www.amazon.com/dp/B07SJV1HNR?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B07SJV1HNR?tag=123thenextlev-20",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
       UK: {
         price: "£89.99",
         badge: "CE Medical Class IIa",
-        url: "https://www.amazon.co.uk/dp/B07SJV1HNR?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B07SJV1HNR?tag=123thenextlev-21",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -876,14 +876,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$399.95",
         badge: "FDA Cleared 6-Lead ECG",
-        url: "https://www.amazon.com/dp/B0B9849CD1?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B0B9849CD1?tag=123thenextlev-20",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
       UK: {
         price: "£349.99",
         badge: "CE Marked Clinical Scale",
-        url: "https://www.amazon.co.uk/dp/B0B9849CD1?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B0B9849CD1?tag=123thenextlev-21",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -912,14 +912,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$399.00",
         badge: "FDA Approved Heart Notifications",
-        url: "https://www.amazon.com/dp/B0DGJG692K?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B0DGJG692K?tag=123thenextlev-20",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
       UK: {
         price: "£379.00",
         badge: "MHRA Certified Telemetry",
-        url: "https://www.amazon.co.uk/dp/B0DGJHCPX5?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B0DGJHCPX5?tag=123thenextlev-21",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -949,14 +949,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
         price: "$14.99",
         badge: "CE Medical Marked",
         imageUrl: "/Products/diagnox.webp",
-        url: "https://www.amazon.com/dp/B0BS1QCFHX?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B0BS1QCFHX?tag=123thenextlev-20",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
       UK: {
         price: "£12.99",
         badge: "CE Medical Marked",
-        url: "https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B0DJM3KV8X?tag=123thenextlev-21",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -985,14 +985,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$249.00",
         badge: "Low EMF Carbon Heating Panels",
-        url: "https://www.amazon.com/dp/B08H23V7S5?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B08H23V7S5?tag=123thenextlev-20",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
       UK: {
         price: "£199.99",
         badge: "HSP70 Thermal Synthesis",
-        url: "https://www.amazon.co.uk/dp/B08H23V7S5?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B08H23V7S5?tag=123thenextlev-21",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -1021,14 +1021,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$149.99",
         badge: "Integrated V1 ANC Processor",
-        url: "https://www.amazon.com/dp/B0BTY3Y6PP?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B0BTY3Y6PP?tag=123thenextlev-20",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
       UK: {
         price: "£119.00",
         badge: "35-Hour Battery & Dual Mics",
-        url: "https://www.amazon.co.uk/dp/B0BTY3Y6PP?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B0BTY3Y6PP?tag=123thenextlev-21",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -1057,14 +1057,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$35.00",
         badge: "Organic Cotton & Buckwheat",
-        url: "https://www.amazon.com/dp/B01697W160?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B01697W160?tag=123thenextlev-20",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
       UK: {
         price: "£29.99",
         badge: "Ergonomic Pelvic Support",
-        url: "https://www.amazon.co.uk/dp/B01697W160?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B01697W160?tag=123thenextlev-21",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },
@@ -1093,14 +1093,14 @@ export const EXPRESS_PRODUCTS: ExpressProduct[] = [
       US: {
         price: "$49.00",
         badge: "CLIA Certified Diagnostic Lab",
-        url: "https://www.amazon.com/dp/B08H7V69F7?tag=123thenextlev-21",
+        url: "https://www.amazon.com/dp/B08H7V69F7?tag=123thenextlev-20",
         ctaText: "Order on Amazon US 🇺🇸",
         network: "Amazon Associates"
       },
       UK: {
         price: "£39.00",
         badge: "UKAS Accredited Clinical Analysis",
-        url: "https://www.amazon.co.uk/dp/B08H7V69F7?tag=123znl0f3-21",
+        url: "https://www.amazon.co.uk/dp/B08H7V69F7?tag=123thenextlev-21",
         ctaText: "Order on Amazon UK 🇬🇧",
         network: "Amazon Associates"
       },

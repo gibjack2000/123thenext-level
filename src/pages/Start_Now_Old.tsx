@@ -369,7 +369,7 @@ export default function Start_Now_Old() {
                         </div>
                         <p className="text-[10px] text-slate-400 leading-normal font-light">The gold standard for continuous heart rate and nocturnal Heart Rate Variability (HRV) telemetry.</p>
                         <a
-                          href="https://www.amazon.com/dp/B0DGHQ2QH6?tag=123thenextlev-21"
+                          href="https://www.amazon.com/dp/B0DGHQ2QH6?tag=123thenextlev-20"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-[10px] font-mono uppercase text-cyan-400 hover:text-cyan-300 flex items-center gap-1 mt-1 transition-colors"
@@ -505,7 +505,7 @@ export default function Start_Now_Old() {
                         <strong>Amazon Basics Cast Iron Kettlebell:</strong> The ultimate, low-cost home strength extension.
                       </p>
                       <a
-                        href="https://www.amazon.co.uk/dp/B076QJY2FN?tag=123znl0f3-21"
+                        href="https://www.amazon.co.uk/dp/B076QJY2FN?tag=123thenextlev-21"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1.5 text-[10px] font-mono text-cyan-400 hover:text-cyan-300 tracking-wider uppercase pt-1"
@@ -553,7 +553,7 @@ export default function Start_Now_Old() {
                           <strong>Sony WH-CH720N Noise-Canceling Headphones:</strong> Block out environmental sensory pollution for resets.
                         </p>
                         <a
-                          href="https://www.amazon.com/dp/B0BS1QCFHX?tag=123thenextlev-21"
+                          href="https://www.amazon.com/dp/B0BS1QCFHX?tag=123thenextlev-20"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-[9px] font-mono text-cyan-400 hover:text-cyan-300 uppercase tracking-wider block"
@@ -567,7 +567,7 @@ export default function Start_Now_Old() {
                           <strong>basaho Classic Zafu Meditation Cushion:</strong> Ergonomic support for structural mindfulness resets.
                         </p>
                         <a
-                          href="https://www.amazon.co.uk/dp/B01B81R34U?tag=123znl0a-21&"
+                          href="https://www.amazon.co.uk/dp/B01B81R34U?tag=123thenextlev-21&"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-[9px] font-mono text-cyan-400 hover:text-cyan-300 uppercase tracking-wider block"
@@ -629,7 +629,7 @@ export default function Start_Now_Old() {
                         <span className="text-white font-semibold">Moulinex Easy Fry & Grill (4.2L)</span>
                         <p className="text-slate-400 text-[9px] leading-normal font-light">Compact kitchen tool for single-person glycemic meal prep.</p>
                         <a
-                          href="https://www.amazon.co.uk/dp/B09FQBKFQ6?tag=123znl08a-21"
+                          href="https://www.amazon.co.uk/dp/B09FQBKFQ6?tag=123thenextlev-21"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-[9px] font-mono text-cyan-400 hover:text-cyan-300 uppercase block tracking-wider pt-0.5"
@@ -643,7 +643,7 @@ export default function Start_Now_Old() {
                         <span className="text-white font-semibold">Zebora Marine Collagen</span>
                         <p className="text-slate-400 text-[9px] leading-normal font-light">Vetted supplement for gut-mitochondrial axis.</p>
                         <a
-                          href="https://www.amazon.com/dp/B07Z8G2G2M?tag=123thenextlev-21"
+                          href="https://www.amazon.com/dp/B07Z8G2G2M?tag=123thenextlev-20"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-[9px] font-mono text-cyan-400 hover:text-cyan-300 uppercase block tracking-wider pt-0.5"
@@ -656,7 +656,7 @@ export default function Start_Now_Old() {
                         <span className="text-white font-semibold">Owala Insulated Water Bottle</span>
                         <p className="text-slate-400 text-[9px] leading-normal font-light">Maintain cellular hydration during eating windows.</p>
                         <a
-                          href="https://www.amazon.com/dp/B085DV8C54?tag=123thenextlev-21"
+                          href="https://www.amazon.com/dp/B085DV8C54?tag=123thenextlev-20"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-[9px] font-mono text-cyan-400 hover:text-cyan-300 uppercase block tracking-wider pt-0.5"

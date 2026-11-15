@@ -235,8 +235,8 @@ export default function BlogPostPage() {
     return market === 'ES'
       ? 'https://www.amazon.es/?tag=123znl08a-21'
       : market === 'UK'
-      ? 'https://www.amazon.co.uk/?tag=123znl0f3-21'
-      : 'https://www.amazon.com/?tag=123thenextlev-21';
+      ? 'https://www.amazon.co.uk/?tag=123thenextlev-21'
+      : 'https://www.amazon.com/?tag=123thenextlev-20';
   })();
 
   const rawAffiliateProducts = [

@@ -546,7 +546,7 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
         tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean),
         last_updated: new Date().toISOString(),
         cta: formData.short_benefit || 'Buy Now',
-        "Amazon tag": "123thenextlev-21"
+        "Amazon tag": formData.region === 'UK' ? '123thenextlev-21' : (formData.region === 'ES' ? '123znl08a-21' : '123thenextlev-20')
       };
 
       if (editingProductId) {

@@ -67,7 +67,7 @@ export const CATEGORY_DEFAULT_REGIONAL_PRODUCTS: Record<
       rating: '4.9',
       reviews: '14.2k+',
       market_price: '$49.00',
-      url: 'https://www.amazon.com/dp/B00068U48C?tag=123thenextlev-21'
+      url: 'https://www.amazon.com/dp/B00068U48C?tag=123thenextlev-20'
     },
     uk: {
       name: 'LOLA Health Preventive Cardiovascular & Blood Chemistry Panel',
@@ -75,7 +75,7 @@ export const CATEGORY_DEFAULT_REGIONAL_PRODUCTS: Record<
       rating: '4.9',
       reviews: '4.1k+',
       market_price: '£39.00',
-      url: 'https://www.amazon.co.uk/dp/B08N5N68K6?tag=123znl0e-21'
+      url: 'https://www.amazon.co.uk/dp/B08N5N68K6?tag=123thenextlev-21'
     },
     es: {
       name: 'Melio Salud Perfil Cardiovascular Avanzado con ApoB y PCR ultrasensible',
@@ -93,7 +93,7 @@ export const CATEGORY_DEFAULT_REGIONAL_PRODUCTS: Record<
       rating: '4.9',
       reviews: '18.5k+',
       market_price: '$990.00',
-      url: 'https://www.amazon.com/dp/B00NH9WEUA?tag=123thenextlev-21'
+      url: 'https://www.amazon.com/dp/B00NH9WEUA?tag=123thenextlev-20'
     },
     uk: {
       name: 'WHOOP 4.0 Wireless Recovery & Strain Telemetry Tracker',
@@ -101,7 +101,7 @@ export const CATEGORY_DEFAULT_REGIONAL_PRODUCTS: Record<
       rating: '4.8',
       reviews: '8.7k+',
       market_price: '£229.00',
-      url: 'https://www.amazon.co.uk/dp/B09V7Y1659?tag=123znl0e-21'
+      url: 'https://www.amazon.co.uk/dp/B09V7Y1659?tag=123thenextlev-21'
     },
     es: {
       name: 'Garmin Forerunner 265 Sensor Cardíaco con VAM y Lactato',
@@ -119,7 +119,7 @@ export const CATEGORY_DEFAULT_REGIONAL_PRODUCTS: Record<
       rating: '4.8',
       reviews: '9.4k+',
       market_price: '$175.00',
-      url: 'https://www.amazon.com/dp/B07P88H4NL?tag=123thenextlev-21'
+      url: 'https://www.amazon.com/dp/B07P88H4NL?tag=123thenextlev-20'
     },
     uk: {
       name: 'FreeStyle Libre 2 Continuous Glucose Monitoring Sensor',
@@ -127,7 +127,7 @@ export const CATEGORY_DEFAULT_REGIONAL_PRODUCTS: Record<
       rating: '4.9',
       reviews: '11.2k+',
       market_price: '£52.50',
-      url: 'https://www.amazon.co.uk/dp/B07P88H4NL?tag=123znl0e-21'
+      url: 'https://www.amazon.co.uk/dp/B07P88H4NL?tag=123thenextlev-21'
     },
     es: {
       name: 'Tanita BC-730 Báscula de Composición Corporal Segmental',
@@ -145,7 +145,7 @@ export const CATEGORY_DEFAULT_REGIONAL_PRODUCTS: Record<
       rating: '4.8',
       reviews: '5.6k+',
       market_price: '$129.95',
-      url: 'https://www.amazon.com/dp/B078Z1B34S?tag=123thenextlev-21'
+      url: 'https://www.amazon.com/dp/B078Z1B34S?tag=123thenextlev-20'
     },
     uk: {
       name: 'Soundcore by Anker Space One Active Noise Cancelling Headset',
@@ -153,7 +153,7 @@ export const CATEGORY_DEFAULT_REGIONAL_PRODUCTS: Record<
       rating: '4.8',
       reviews: '7.8k+',
       market_price: '£69.99',
-      url: 'https://www.amazon.co.uk/dp/B0C3HCD34R?tag=123znl0e-21'
+      url: 'https://www.amazon.co.uk/dp/B0C3HCD34R?tag=123thenextlev-21'
     },
     es: {
       name: 'Manta Sauna de Infrarrojo Lejano Térmico RejuvaWrap',

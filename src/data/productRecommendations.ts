@@ -23,7 +23,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       rating: 4.7,
       description: "The gold standard for continuous heart rate, blood oxygen tracking, and nocturnal Heart Rate Variability (HRV) telemetry.",
       priceText: "$399.00",
-      dealUrl: "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123thenextlev-21",
+      dealUrl: "https://www.amazon.com/dp/B0DGHQ2QH6?tag=123thenextlev-20",
       badgeText: "Vetted Telemetry Hub",
       imagePlaceholder: "/Products/apple10.jpg",
       pillar: "fitness"
@@ -34,7 +34,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       rating: 4.9,
       description: "High-end commercial grade indoor rowing machine for optimal cardiorespiratory VO2 Max conditioning and joint-safe power training.",
       priceText: "$990.00",
-      dealUrl: "https://www.amazon.com/dp/B00NH9WEUA?tag=123thenextlev-21",
+      dealUrl: "https://www.amazon.com/dp/B00NH9WEUA?tag=123thenextlev-20",
       badgeText: "VO2 Max Optimizer",
       imagePlaceholder: "/Products/concept2us.webp",
       pillar: "fitness"
@@ -45,7 +45,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       rating: 4.8,
       description: "Ergonomically designed hand weights for functional strength, core activation, and longevity resistance training.",
       priceText: "$25.00",
-      dealUrl: "https://www.amazon.com/dp/B01LR5RG08?tag=123thenextlev-21",
+      dealUrl: "https://www.amazon.com/dp/B01LR5RG08?tag=123thenextlev-20",
       badgeText: "Resistance Training",
       imagePlaceholder: "/Products/dumbell.jpg",
       pillar: "fitness"
@@ -56,7 +56,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       rating: 4.7,
       description: "Highly bioavailable Coenzyme Q10 supplement to support cellular mitochondrial energy production and vascular healthspan.",
       priceText: "$29.99",
-      dealUrl: "https://www.amazon.com/dp/B0055OUOQQ?tag=123thenextlev-21",
+      dealUrl: "https://www.amazon.com/dp/B0055OUOQQ?tag=123thenextlev-20",
       badgeText: "Mitochondrial Fuel",
       imagePlaceholder: "/Products/coq10.jpeg",
       pillar: "health"
@@ -78,7 +78,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       rating: 5.0,
       description: "Comprehensive home endocrine screening assessing female reproductive longevity and hormone metrics.",
       priceText: "$89.00",
-      dealUrl: "https://www.amazon.co.uk/dp/B01B81R34U?tag=123znl0a-21&",
+      dealUrl: "https://www.amazon.co.uk/dp/B01B81R34U?tag=123thenextlev-21&",
       badgeText: "Biology-Specific Screening",
       imagePlaceholder: "/Products/clinical-blood-panel.jpg",
       pillar: "womens-health"
@@ -124,7 +124,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       rating: 4.7,
       description: "Accessible, space-saving kitchen assistant ideal for single-person glycemic dietary preparation.",
       priceText: "£89.99",
-      dealUrl: "https://www.amazon.co.uk/dp/B09FQBKFQ6?tag=123znl08a-21",
+      dealUrl: "https://www.amazon.co.uk/dp/B09FQBKFQ6?tag=123thenextlev-21",
       badgeText: "Low-Glycemic Snacking",
       imagePlaceholder: "/Products/airfryer.jpg",
       pillar: "nutrition"
@@ -135,7 +135,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       rating: 4.8,
       description: "The gold standard for full-body cardiovascular VO2 Max telemetry, metabolic pacing, and power endurance.",
       priceText: "£860.00",
-      dealUrl: "https://www.amazon.co.uk/dp/B00NH9WEUA?tag=123znl0f3-21",
+      dealUrl: "https://www.amazon.co.uk/dp/B00NH9WEUA?tag=123thenextlev-21",
       badgeText: "Global Top Pick",
       imagePlaceholder: "/Products/concept2.jpeg",
       pillar: "fitness"
@@ -146,7 +146,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       rating: 4.7,
       description: "Precision-cast iron plates and heavy-duty barbell designed for progressive resistance strength training.",
       priceText: "£149.00",
-      dealUrl: "https://www.amazon.co.uk/dp/B0BY9NK73N?tag=123znl0f3-21",
+      dealUrl: "https://www.amazon.co.uk/dp/B0BY9NK73N?tag=123thenextlev-21",
       badgeText: "Longevity Strength",
       imagePlaceholder: "/Products/barbellus.webp",
       pillar: "fitness"
@@ -157,7 +157,7 @@ export const RECOMMENDATIONS_MAP: Record<'US' | 'UK' | 'ES', ProductRecommendati
       rating: 4.7,
       description: "High-density cushioned mat supporting core work, vagal tone stretching, and daily joint mobility routines.",
       priceText: "£34.99",
-      dealUrl: "https://www.amazon.co.uk/dp/B07H353SSV?tag=123znl0f3-21",
+      dealUrl: "https://www.amazon.co.uk/dp/B07H353SSV?tag=123thenextlev-21",
       badgeText: "Mobility Protocol",
       imagePlaceholder: "/Products/yogamat.jpg",
       pillar: "fitness"
