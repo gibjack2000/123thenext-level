@@ -33,10 +33,8 @@ export const Navbar: React.FC = () => {
     setMarket(marketUpper);
     setIsMobileMenuOpen(false);
 
-    // Only redirect to /store-[region] if already on a storefront page
-    if (location.pathname.startsWith('/store')) {
-      navigate(`/store-${region}`);
-    }
+    // Always navigate to the selected country storefront
+    navigate(`/store-${region}`);
   };
 
   const closeMobileMenu = () => {
@@ -348,8 +346,8 @@ export const Navbar: React.FC = () => {
                   ? 'bg-cyan-500 text-slate-950 font-bold shadow-md scale-105' 
                   : 'text-slate-400 hover:text-white'
               }`}
-              title="United States Market (US)"
-              aria-label="Switch to United States Market"
+              title="United States Store (US)"
+              aria-label="Go to United States Store"
               aria-pressed={market === 'US'}
             >
               <FlagUS className="w-4 h-3 pointer-events-none" /> <span className="pointer-events-none">US</span>
@@ -362,8 +360,8 @@ export const Navbar: React.FC = () => {
                   ? 'bg-cyan-500 text-slate-950 font-bold shadow-md scale-105' 
                   : 'text-slate-400 hover:text-white'
               }`}
-              title="United Kingdom Market (UK)"
-              aria-label="Switch to United Kingdom Market"
+              title="United Kingdom Store (UK)"
+              aria-label="Go to United Kingdom Store"
               aria-pressed={market === 'UK'}
             >
               <FlagUK className="w-4 h-3 pointer-events-none" /> <span className="pointer-events-none">UK</span>
@@ -376,8 +374,8 @@ export const Navbar: React.FC = () => {
                   ? 'bg-cyan-500 text-slate-950 font-bold shadow-md scale-105' 
                   : 'text-slate-400 hover:text-white'
               }`}
-              title="Spain / EU Market (ES)"
-              aria-label="Switch to Spain / EU Market"
+              title="Spain / EU Store (ES)"
+              aria-label="Go to Spain / EU Store"
               aria-pressed={market === 'ES'}
             >
               <FlagES className="w-4 h-3 pointer-events-none" /> <span className="pointer-events-none">ES</span>

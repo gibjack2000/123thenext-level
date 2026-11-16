@@ -105,26 +105,8 @@ export default function MarketSelector({ currentCategory, className = "", size =
     const marketUpper = rId.toUpperCase() as Market;
     setMarket(marketUpper);
 
-    // Smart contextual navigation based on the active page
-    if (isStore) {
-      navigate(`/store-${rId}`);
-    } else if (location.pathname.startsWith('/start-here')) {
-      navigate(`/start-here?country=${marketUpper}`);
-    } else if (location.pathname === '/clinician-copilot' || location.pathname.startsWith('/library') || location.pathname.startsWith('/blog/') || location.pathname.startsWith('/premium-guides/') || location.pathname === '/health-quiz') {
-      // Remain on current view while regional diagnostics and products auto-switch in place
-    } else if (pathRegion) {
-      if (parts[0] === 'region') {
-        navigate(`/region/${rId}`);
-      } else {
-        const remaining = parts.slice(1).join('/');
-        navigate(remaining ? `/${rId}/${remaining}` : `/${rId}`);
-      }
-    } else if (currentCategory) {
-      navigate(`/${rId}/${currentCategory}`);
-    } else {
-      // On Homepage (/) and general browsing
-      navigate(`/store-${rId}`);
-    }
+    // Always navigate to the selected country storefront
+    navigate(`/store-${rId}`);
   };
 
   const isLarge = size === 'lg';

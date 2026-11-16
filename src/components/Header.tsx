@@ -7,6 +7,11 @@ export default function Header() {
   const navigate = useNavigate();
   const { market, setMarket } = useMarket();
 
+  const handleRegionChange = (region: 'US' | 'UK' | 'ES') => {
+    setMarket(region);
+    navigate(`/store-${region.toLowerCase()}`);
+  };
+
   return (
     <header className="max-w-7xl mx-auto px-6 py-6 flex flex-wrap justify-between items-center gap-4 border-b border-slate-900">
       
@@ -60,14 +65,14 @@ export default function Header() {
         <div className="flex items-center bg-slate-900 border border-slate-800 rounded-full p-1 text-xs shadow-inner">
           <button
             type="button"
-            onClick={() => setMarket('US')}
+            onClick={() => handleRegionChange('US')}
             className={`px-2.5 py-1 rounded-full font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
               market === 'US'
                 ? 'bg-cyan-500 text-slate-950 font-bold shadow-md scale-105'
                 : 'text-slate-400 hover:text-white'
             }`}
-            title="United States Market (US)"
-            aria-label="Switch to United States Market"
+            title="United States Store (US)"
+            aria-label="Go to United States Store"
             aria-pressed={market === 'US'}
           >
             <FlagUS className="w-4 h-3 pointer-events-none" />
@@ -75,14 +80,14 @@ export default function Header() {
           </button>
           <button
             type="button"
-            onClick={() => setMarket('UK')}
+            onClick={() => handleRegionChange('UK')}
             className={`px-2.5 py-1 rounded-full font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
               market === 'UK'
                 ? 'bg-cyan-500 text-slate-950 font-bold shadow-md scale-105'
                 : 'text-slate-400 hover:text-white'
             }`}
-            title="United Kingdom Market (UK)"
-            aria-label="Switch to United Kingdom Market"
+            title="United Kingdom Store (UK)"
+            aria-label="Go to United Kingdom Store"
             aria-pressed={market === 'UK'}
           >
             <FlagUK className="w-4 h-3 pointer-events-none" />
@@ -90,14 +95,14 @@ export default function Header() {
           </button>
           <button
             type="button"
-            onClick={() => setMarket('ES')}
+            onClick={() => handleRegionChange('ES')}
             className={`px-2.5 py-1 rounded-full font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
               market === 'ES'
                 ? 'bg-cyan-500 text-slate-950 font-bold shadow-md scale-105'
                 : 'text-slate-400 hover:text-white'
             }`}
-            title="Spain / EU Market (ES)"
-            aria-label="Switch to Spain / EU Market"
+            title="Spain / EU Store (ES)"
+            aria-label="Go to Spain / EU Store"
             aria-pressed={market === 'ES'}
           >
             <FlagES className="w-4 h-3 pointer-events-none" />
