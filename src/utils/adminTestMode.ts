@@ -139,7 +139,12 @@ export function getGuidePdfDownloadUrl(guideIdOrSlug: string): string {
 export function isAdminAuthenticated(): boolean {
   if (typeof window === 'undefined') return false;
   try {
-    return sessionStorage.getItem(ADMIN_AUTH_STORAGE_KEY) === 'true';
+    return (
+      sessionStorage.getItem(ADMIN_AUTH_STORAGE_KEY) === 'true' ||
+      sessionStorage.getItem('isSuperAdminAuthenticated') === 'true' ||
+      localStorage.getItem(ADMIN_AUTH_STORAGE_KEY) === 'true' ||
+      localStorage.getItem('isSuperAdminAuthenticated') === 'true'
+    );
   } catch {
     return false;
   }
@@ -152,7 +157,7 @@ export function isAdminAuthenticated(): boolean {
 export function isPaywallBypassActive(): boolean {
   if (typeof window === 'undefined') return false;
   try {
-    const isAuth = sessionStorage.getItem(ADMIN_AUTH_STORAGE_KEY) === 'true';
+    const isAuth = isAdminAuthenticated();
     if (!isAuth) return false;
     return localStorage.getItem(PAYWALL_BYPASS_STORAGE_KEY) === 'true';
   } catch {

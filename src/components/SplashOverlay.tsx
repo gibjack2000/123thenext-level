@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'motion/react';
 
 // Custom Web Audio Synthesizer for UI Feedback
@@ -92,21 +93,94 @@ const PAIN_POINTS = [
   }
 ];
 
+/**
+ * Evaluates whether the welcome/splash overlay should be bypassed immediately.
+ * 
+ * Bypasses if:
+ * 1. Force override (?splash=1 or ?splash=true) is NOT set, AND:
+ * 2. Deep links: pathname !== '/' and pathname !== ''
+ *    (e.g., /quiz, /clinician-copilot, /store, /store-us, /store-uk, /store-es, /library, /guides/*, /blog/*)
+ * 3. Query params:
+ *    - ?skip=1 or ?skip=true or ?bypass=1
+ *    - ?utm_source=... (e.g. ?utm_source=youtube or any marketing campaign)
+ *    - ?utm_campaign=..., ?utm_medium=..., ?ref=..., ?gclid=..., ?fbclid=...
+ * 4. User has already seen or dismissed the overlay in sessionStorage or localStorage
+ */
+export function shouldBypassSplash(pathname?: string, search?: string): boolean {
+  if (typeof window === 'undefined') return true;
+
+  try {
+    const rawSearch = search !== undefined ? search : (window.location.search || '');
+    const searchParams = new URLSearchParams(rawSearch);
+
+    // 0. Explicit developer/testing override: ?splash=1 or ?splash=true forces overlay
+    if (searchParams.get('splash') === '1' || searchParams.get('splash') === 'true') {
+      return false;
+    }
+
+    // 1. Check storage: already seen or dismissed in this session or previously
+    const hasSeenSession = window.sessionStorage?.getItem('hasSeen123Splash') === 'true';
+    const hasSeenLocal = window.localStorage?.getItem('hasSeen123Splash') === 'true';
+    if (hasSeenSession || hasSeenLocal) {
+      return true;
+    }
+
+    // 2. Check route/pathname: non-root routes / deep links bypass immediately
+    const rawPath = pathname !== undefined ? pathname : (window.location.pathname || '/');
+    const normalizedPath = rawPath.replace(/\/+$/, '') || '/';
+    if (normalizedPath !== '/' && normalizedPath !== '') {
+      return true;
+    }
+
+    // 3. Check query parameters:
+    // ?skip=1 or ?skip=true or ?bypass=1
+    const skipVal = searchParams.get('skip');
+    if (skipVal === '1' || skipVal === 'true' || searchParams.get('bypass') === '1') {
+      return true;
+    }
+
+    // Any utm_source (e.g. youtube, newsletter, google, twitter, etc.)
+    if (searchParams.has('utm_source')) {
+      return true;
+    }
+
+    // Additional referral & campaign parameters
+    if (
+      searchParams.has('utm_campaign') ||
+      searchParams.has('utm_medium') ||
+      searchParams.has('ref') ||
+      searchParams.has('gclid') ||
+      searchParams.has('fbclid')
+    ) {
+      return true;
+    }
+
+    return false;
+  } catch {
+    return true; // Safe fallback
+  }
+}
+
 export const SplashOverlay: React.FC = () => {
+  const location = useLocation();
+
   const [hasStarted, setHasStarted] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDismissing, setIsDismissing] = useState(false);
   const [isMounted, setIsMounted] = useState(() => {
     if (typeof window !== 'undefined') {
-      const search = window.location.search || '';
-      if (search.includes('splash=1') || search.includes('splash=true')) {
-        return true;
+      const bypass = shouldBypassSplash();
+      if (bypass) {
+        try {
+          sessionStorage.setItem('hasSeen123Splash', 'true');
+        } catch {
+          // ignore
+        }
+        return false;
       }
-      if (window.sessionStorage) {
-        return !sessionStorage.getItem('hasSeen123Splash');
-      }
+      return true;
     }
-    return true;
+    return false;
   });
 
   // Sound Engine & Mute State (Unmuted by default)
@@ -190,21 +264,43 @@ export const SplashOverlay: React.FC = () => {
     }, 600);
   }, [playSoundFile]);
 
-  // Check sessionStorage on mount (with ?splash=1 override)
+  // Check sessionStorage, route deep links, and bypass query parameters on mount & route change
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const search = window.location.search || '';
-      if (search.includes('splash=1') || search.includes('splash=true')) {
-        sessionStorage.removeItem('hasSeen123Splash');
+      const searchParams = new URLSearchParams(location.search);
+      if (searchParams.get('splash') === '1' || searchParams.get('splash') === 'true') {
+        try {
+          sessionStorage.removeItem('hasSeen123Splash');
+          localStorage.removeItem('hasSeen123Splash');
+        } catch {}
         setIsMounted(true);
         return;
       }
-      const hasSeenSplash = sessionStorage.getItem('hasSeen123Splash');
-      if (hasSeenSplash) {
-        setIsMounted(false);
+
+      if (shouldBypassSplash(location.pathname, location.search)) {
+        try {
+          sessionStorage.setItem('hasSeen123Splash', 'true');
+        } catch {}
+        if (isMounted) {
+          setIsMounted(false);
+        }
       }
     }
-  }, []);
+  }, [location.pathname, location.search, isMounted]);
+
+  // Ensure body scroll remains unlocked whenever overlay is unmounted or dismissing
+  useEffect(() => {
+    if (!isMounted || isDismissing) {
+      if (typeof document !== 'undefined') {
+        document.body.style.overflow = '';
+      }
+    }
+    return () => {
+      if (typeof document !== 'undefined') {
+        document.body.style.overflow = '';
+      }
+    };
+  }, [isMounted, isDismissing]);
 
   // Trigger lightning sound with thunder roll and Web Audio synthesizer cue on EVERY new warning once started!
   useEffect(() => {
@@ -253,8 +349,14 @@ export const SplashOverlay: React.FC = () => {
     });
     activeAudiosRef.current = [];
 
+    // Ensure scrolling unlocked immediately
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = '';
+    }
+
     try {
       sessionStorage.setItem('hasSeen123Splash', 'true');
+      localStorage.setItem('hasSeen123Splash', 'true');
     } catch {
       // ignore
     }
