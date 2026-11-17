@@ -18,19 +18,31 @@ const s3Client = new S3Client({
 
 // Updated Cloudflare R2 Object Key Mapping
 export const R2_GUIDE_FILE_KEYS: Record<string, string> = {
+  // 0. The 12-Week Metabolic Re-Engineering & Visceral Fat Protocol
+  'metabolic-master-guide': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'metabolic-visceral-fat-protocol': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'visceral-fat-protocol': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'visceral-fat': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'metabolic-protocol': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'g-met-1': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+  'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf': 'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf',
+
   // 1. Beginner Home Workout Plan
   'beginner-home-workout': 'beginner_home_workout-2026.pdf',
   'beginner-home-workout-plan': 'beginner_home_workout-2026.pdf',
   'beginner_home_workout': 'beginner_home_workout-2026.pdf',
+  'beginner-workout': 'beginner_home_workout-2026.pdf',
   
   // 2. The Master Meal Planning Guide
   'master-meal-planning': 'The Master_Meal_Planning_Guide-2026.pdf',
   'master-meal-planning-guide': 'The Master_Meal_Planning_Guide-2026.pdf',
+  'meal-planning': 'The Master_Meal_Planning_Guide-2026.pdf',
   'The Master_Meal_Planning_Guide': 'The Master_Meal_Planning_Guide-2026.pdf',
   
   // 3. Cortisol & Stress Management Protocol
   'cortisol-stress-management': 'Cortisol_&_Stress_Management-2026.pdf',
   'cortisol-and-stress-management': 'Cortisol_&_Stress_Management-2026.pdf',
+  'cortisol-stress': 'Cortisol_&_Stress_Management-2026.pdf',
   'Cortisol_&_Stress_Management': 'Cortisol_&_Stress_Management-2026.pdf',
 
   // 4. Lifespan Blueprint (Primary Lead Magnet)
@@ -45,10 +57,17 @@ export const R2_GUIDE_FILE_KEYS: Record<string, string> = {
   'autonomic-guide': 'Cortisol_&_Stress_Management-2026.pdf',
   'hypertrophy-strength': 'Hypertrophy-Strength-Protocol-2026.pdf',
   'mobility-recovery': 'Daily_Mobility_and_Recovery-2026.pdf',
+  'daily-mobility': 'Daily_Mobility_and_Recovery-2026.pdf',
+  'daily-mobility-recovery': 'Daily_Mobility_and_Recovery-2026.pdf',
   'fat-loss-blueprint': 'Fat-Loss-Nutrition-Blueprint-2026.pdf',
+  'fat-loss-nutrition': 'Fat-Loss-Nutrition-Blueprint-2026.pdf',
   'high-protein-recipes': 'High_Protein_Recipe_Collection-2026.pdf',
   'sleep-optimization': 'Deep_Sleep_Optimization-2026.pdf',
+  'deep-sleep': 'Deep_Sleep_Optimization-2026.pdf',
+  'deep-sleep-optimization': 'Deep_Sleep_Optimization-2026.pdf',
   'habit-reset': 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
+  'mindfulness-habit-reset': 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
+  'mindfulness-habit': 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
   'lifespan-blueprint': 'the-next-level-lifespan.pdf',
   'g-fit-1': 'beginner_home_workout-2026.pdf',
   'g-fit-2': 'Hypertrophy-Strength-Protocol-2026.pdf',

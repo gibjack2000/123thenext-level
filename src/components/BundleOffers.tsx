@@ -326,7 +326,8 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
               type="button"
               onClick={() => {
                 if (isBypassActive && isCompleteTrio) {
-                  downloadMultipleGuides(selectedGuideIds);
+                  const zipUrl = getCustomTrioZipDownloadUrl(selectedGuideIds);
+                  triggerDirectDownload(zipUrl, 'Custom_Trio_Master_Guides-2026.zip');
                   setPickerView('downloadTray');
                   setIsPickerOpen(true);
                 } else {
@@ -340,14 +341,14 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
                   : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 shadow-cyan-500/20'
               }`}
             >
-              <Layers size={16} />
+              {isBypassActive && isCompleteTrio ? <Download size={16} /> : <Layers size={16} />}
               <span>
                 {selectedGuideIds.length === 0
                   ? 'Choose Your 3 Master Guides (0/3) ➔'
                   : selectedGuideIds.length < 3
                     ? `Choose ${3 - selectedGuideIds.length} More Guide${selectedGuideIds.length === 2 ? '' : 's'} (${selectedGuideIds.length}/3) ➔`
                     : isBypassActive
-                      ? 'Select & Test Download 3 Guides (Free Bypass) ➔'
+                      ? 'Download Selected 3 in 1 ZIP (Free Bypass) ➔'
                       : 'Select Your 3 Guides (£29.99) ➔'}
               </span>
             </button>
@@ -514,7 +515,7 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
                 </h3>
                 <p className="text-xs text-slate-400">
                   {pickerView === 'downloadTray' 
-                    ? 'Downloads have been initiated for all 3 books below. You can also grab all 3 in a 1-click ZIP archive or click any book individually.'
+                    ? 'Your 3 custom execution books are ready. Download all 3 in a 1-click ZIP archive below or download any book individually.'
                     : 'Select any 3 specialized protocols for £29.99 (Saves over 50% vs £77 individual pricing).'}
                 </p>
               </div>
@@ -559,6 +560,10 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
                   <a
                     href={getCustomTrioZipDownloadUrl(selectedGuideIds)}
                     download="Custom_Trio_Master_Guides-2026.zip"
+                    onClick={(e) => {
+                      const zipUrl = getCustomTrioZipDownloadUrl(selectedGuideIds);
+                      triggerDirectDownload(zipUrl, 'Custom_Trio_Master_Guides-2026.zip');
+                    }}
                     className="w-full py-3.5 px-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <Download size={16} />
@@ -716,11 +721,14 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
                   <div className="flex items-center gap-3 w-full sm:w-auto">
                     <button
                       type="button"
-                      onClick={() => downloadMultipleGuides(selectedGuideIds)}
+                      onClick={() => {
+                        const zipUrl = getCustomTrioZipDownloadUrl(selectedGuideIds);
+                        triggerDirectDownload(zipUrl, 'Custom_Trio_Master_Guides-2026.zip');
+                      }}
                       className="w-full sm:w-auto px-5 py-3 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 transition flex items-center justify-center gap-2 cursor-pointer"
                     >
-                      <RefreshCw size={13} />
-                      <span>Re-download All 3</span>
+                      <Download size={13} />
+                      <span>Re-download 3-Guide ZIP</span>
                     </button>
                     <button
                       type="button"
@@ -760,7 +768,8 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
                         type="button"
                         disabled={!isCompleteTrio}
                         onClick={() => {
-                          downloadMultipleGuides(selectedGuideIds);
+                          const zipUrl = getCustomTrioZipDownloadUrl(selectedGuideIds);
+                          triggerDirectDownload(zipUrl, 'Custom_Trio_Master_Guides-2026.zip');
                           setPickerView('downloadTray');
                         }}
                         className={`w-full sm:w-auto px-7 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xl ${
@@ -770,7 +779,7 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
                         }`}
                       >
                         <Download size={15} />
-                        <span>Test Download Selected 3 (Free Bypass)</span>
+                        <span>Download 3-Guide ZIP (Free Bypass)</span>
                       </button>
                     ) : (
                       <button

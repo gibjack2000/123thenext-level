@@ -186,44 +186,34 @@ export function setPaywallBypassActive(enabled: boolean): void {
 export function triggerDirectDownload(url: string, filename?: string): void {
   if (typeof window === 'undefined') return;
 
-  // Use hidden iframe to initiate attachment downloads without opening blank tabs/popups
   try {
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = url;
-    document.body.appendChild(iframe);
+    const a = document.createElement('a');
+    a.href = url;
+    if (filename) {
+      a.download = filename;
+      a.setAttribute('download', filename);
+    }
+    a.rel = 'noopener noreferrer';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
     setTimeout(() => {
       try {
-        if (iframe.parentNode) {
-          iframe.parentNode.removeChild(iframe);
+        if (a.parentNode) {
+          a.parentNode.removeChild(a);
         }
       } catch {
         // ignore
       }
-    }, 45000);
-    return;
+    }, 1500);
   } catch (err) {
-    console.warn('[triggerDirectDownload] Iframe dispatch failed, using anchor fallback:', err);
-  }
-
-  // Anchor fallback without target="_blank" to prevent popup blocker suppression
-  const a = document.createElement('a');
-  a.href = url;
-  if (filename) {
-    a.download = filename;
-  }
-  a.rel = 'noopener noreferrer';
-  document.body.appendChild(a);
-  a.click();
-  setTimeout(() => {
+    console.warn('[triggerDirectDownload] Anchor dispatch failed, trying window.location:', err);
     try {
-      if (a.parentNode) {
-        a.parentNode.removeChild(a);
-      }
+      window.location.href = url;
     } catch {
       // ignore
     }
-  }, 1000);
+  }
 }
 
 /**

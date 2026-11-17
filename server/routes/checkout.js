@@ -806,37 +806,29 @@ async function handleDownloadDelivery(req, res, forceJson = false) {
   }
 }
 
-/**
- * 4. GET /api/download/:token
- * Securely delivers the PDF file if token matches conditions.
- * Delivers via secure, temporary Cloudflare R2 presigned download URL,
- * with graceful fallback to local storage.
- */
-router.get('/download/:token', async (req, res) => {
-  return handleDownloadDelivery(req, res, false);
-});
-
-/**
- * GET /api/download/guide/:guideId
- * Direct instant presigned download from Cloudflare R2 vault.
- * Generates an authenticated, short-lived presigned download URL and redirects the browser directly to Cloudflare R2.
- */
-router.get('/download/guide/:guideId', async (req, res) => {
-  try {
-    const { guideId } = req.params;
-    if (!guideId) {
-      return res.status(400).send('guideId is required.');
-    }
-    const downloadUrl = await generateGuidePresignedUrl(guideId, 900);
-    return res.redirect(302, downloadUrl);
-  } catch (error) {
-    console.error(`[Direct Guide Download Error] ${req.params.guideId}:`, error.message);
-    return res.status(404).send('Guide not found in vault or R2 unavailable.');
+// Precomputed CRC32 table for robust fallback zip generation
+const CRC_TABLE = new Uint32Array(256);
+for (let i = 0; i < 256; i++) {
+  let c = i;
+  for (let k = 0; k < 8; k++) {
+    c = ((c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1));
   }
-});
+  CRC_TABLE[i] = c;
+}
+
+function calculateCrc32(buf) {
+  if (typeof zlib.crc32 === 'function') {
+    return zlib.crc32(buf);
+  }
+  let crc = -1;
+  for (let i = 0; i < buf.length; i++) {
+    crc = (crc >>> 8) ^ CRC_TABLE[(crc ^ buf[i]) & 0xFF];
+  }
+  return (crc ^ (-1)) >>> 0;
+}
 
 /**
- * Native, zero-dependency in-memory ZIP builder
+ * Native, zero-dependency in-memory ZIP builder (supports streaming store without compression)
  */
 function createZipBuffer(files) {
   const fileRecords = [];
@@ -846,7 +838,7 @@ function createZipBuffer(files) {
   for (const file of files) {
     const filenameBuf = Buffer.from(file.name, 'utf8');
     const dataBuf = Buffer.isBuffer(file.data) ? file.data : Buffer.from(file.data);
-    const crc = zlib.crc32(dataBuf);
+    const crc = calculateCrc32(dataBuf);
     const size = dataBuf.length;
 
     const localHeader = Buffer.alloc(30);
@@ -918,8 +910,9 @@ function createZipBuffer(files) {
  * GET /api/download/custom-trio-zip
  * Generates an instant, in-memory 1-click ZIP archive for ANY chosen set of master guides
  * Eliminates browser multi-download and popup blocker issues completely.
+ * MUST be declared BEFORE /download/:token to prevent Express route collision!
  */
-router.get(['/download/custom-trio-zip', '/download/custom-zip'], async (req, res) => {
+router.get(['/download/custom-trio-zip', '/download/custom-zip', '/download/custom-trio-zip.zip'], async (req, res) => {
   try {
     const rawGuides = req.query.guides;
     if (!rawGuides) {
@@ -937,13 +930,30 @@ router.get(['/download/custom-trio-zip', '/download/custom-zip'], async (req, re
         path.join(FILE_STORAGE_DIR, filename),
         path.join(__dirname, '../../protected-files/pdfs', filename),
         path.join(__dirname, '../../public/assets/docs', filename),
-        path.join(__dirname, '../../public/docs', filename)
+        path.join(__dirname, '../../public/docs', filename),
+        path.join(process.cwd(), 'protected-files/pdfs', filename),
+        path.join(process.cwd(), 'public/assets/docs', filename),
+        path.join(process.cwd(), 'public/docs', filename)
       ];
       let fileBuf = null;
       for (const lp of localPaths) {
         if (fs.existsSync(lp)) {
           fileBuf = fs.readFileSync(lp);
           break;
+        }
+      }
+
+      // Fallback: If not found on local disk, fetch directly from Cloudflare R2 vault CDN
+      if (!fileBuf) {
+        try {
+          const vaultUrl = `${VAULT_BASE}/${filename}`;
+          const vRes = await fetch(vaultUrl);
+          if (vRes.ok) {
+            const arrBuf = await vRes.arrayBuffer();
+            fileBuf = Buffer.from(arrBuf);
+          }
+        } catch (fetchErr) {
+          console.warn(`[Custom Zip] Could not fetch ${filename} from vault:`, fetchErr.message);
         }
       }
 
@@ -965,11 +975,41 @@ router.get(['/download/custom-trio-zip', '/download/custom-zip'], async (req, re
     res.setHeader('Content-Type', 'application/zip');
     res.setHeader('Content-Disposition', `attachment; filename="${archiveName}"`);
     res.setHeader('Content-Length', zipBuffer.length);
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     return res.end(zipBuffer);
   } catch (err) {
     console.error('[Custom Zip Generation Error]:', err);
     return res.status(500).send('Failed to build custom bundle ZIP archive.');
   }
+});
+
+/**
+ * GET /api/download/guide/:guideId
+ * Direct instant presigned download from Cloudflare R2 vault.
+ * Generates an authenticated, short-lived presigned download URL and redirects the browser directly to Cloudflare R2.
+ */
+router.get('/download/guide/:guideId', async (req, res) => {
+  try {
+    const { guideId } = req.params;
+    if (!guideId) {
+      return res.status(400).send('guideId is required.');
+    }
+    const downloadUrl = await generateGuidePresignedUrl(guideId, 900);
+    return res.redirect(302, downloadUrl);
+  } catch (error) {
+    console.error(`[Direct Guide Download Error] ${req.params.guideId}:`, error.message);
+    return res.status(404).send('Guide not found in vault or R2 unavailable.');
+  }
+});
+
+/**
+ * 4. GET /api/download/:token
+ * Securely delivers the PDF file if token matches conditions.
+ * Delivers via secure, temporary Cloudflare R2 presigned download URL,
+ * with graceful fallback to local storage.
+ */
+router.get('/download/:token', async (req, res) => {
+  return handleDownloadDelivery(req, res, false);
 });
 
 /**
