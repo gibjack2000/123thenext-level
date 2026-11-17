@@ -68,7 +68,7 @@ export const guides: Guide[] = [
     category: 'Fitness',
     shortDescription: '15-minute daily routines to enhance joint health, reduce stiffness, and accelerate recovery.',
     longDescription: 'True fitness requires mobility. This guide provides short, actionable 15-minute routines you can perform daily to counteract the effects of sitting, alleviate joint stiffness, and prime your central nervous system for both training and deep rest.',
-    priceDisplay: '£15.00',
+    priceDisplay: '£17.99',
     stripePriceId: 'price_placeholder_fit3',
     image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800&auto=format&fit=crop',
     fileName: 'daily_mobility_v1.pdf',

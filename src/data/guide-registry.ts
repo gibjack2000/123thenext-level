@@ -48,8 +48,8 @@ export const GUIDE_PRODUCTS: Record<string, DigitalGuideProduct> = {
     id: 'mobility-recovery',
     productId: 'g-fit-3',
     title: 'Daily Mobility & Recovery Routine',
-    priceInCents: 1500, // £15.00
-    priceFormatted: '£15.00',
+    priceInCents: 1799, // £17.99
+    priceFormatted: '£17.99',
     r2FileKey: 'Daily_Mobility_and_Recovery-2026.pdf',
     pillar: 'Joint & Spine',
     description: 'A science-backed 15-minute blueprint for desk workers and athletes to restore joint kinematics and decompress the spine.',

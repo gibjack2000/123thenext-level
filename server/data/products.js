@@ -31,7 +31,7 @@ export const products = [
     id: 'g-fit-3',
     slug: 'mobility-recovery-routine',
     title: 'Daily Mobility & Recovery',
-    price: 15.00,
+    price: 17.99,
     currency: 'gbp',
     stripePriceId: process.env.STRIPE_PRICE_FIT3 || 'price_placeholder_fit3',
     r2Key: 'Daily_Mobility_and_Recovery-2026.pdf',

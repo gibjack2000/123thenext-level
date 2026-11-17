@@ -180,8 +180,8 @@ export const PREMIUM_MASTER_GUIDES: PremiumMasterGuide[] = [
     category: 'Fitness',
     shortDescription: '15-minute daily routines to enhance joint health, reduce stiffness, and accelerate recovery.',
     longDescription: 'True fitness requires mobility. This guide provides short, actionable 15-minute routines you can perform daily to counteract sitting, alleviate stiffness, and prime your central nervous system.',
-    priceDisplay: '£29.00 / $29.00',
-    priceInCents: 2900,
+    priceDisplay: '£17.99 / $22.99',
+    priceInCents: 1799,
     stripePriceId: 'price_placeholder_fit3',
     checkoutUrl: '/checkout?guide=mobility-recovery-routine', // [PLACEHOLDER_PREMIUM_GUIDE_CHECKOUT_URL_3]
     image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=800&auto=format&fit=crop',

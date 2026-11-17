@@ -75,7 +75,7 @@ export const ALL_10_MASTER_GUIDES: BundleMasterGuide[] = [
     pillar: 'Fitness & Physical Integrity',
     coverImage: '/covers/daily-mobility-recovery-cover.png',
     fallbackImage: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=800&auto=format&fit=crop',
-    priceFormatted: '£15.00',
+    priceFormatted: '£17.99',
     shortDesc: 'A 15-minute daily restorative mobility routine to eliminate joint pain and stiffness.',
     fileKey: 'Daily_Mobility_and_Recovery-2026.pdf'
   },

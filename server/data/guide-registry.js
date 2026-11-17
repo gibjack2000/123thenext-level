@@ -23,8 +23,8 @@ export const GUIDE_PRODUCTS = {
     id: 'mobility-recovery',
     productId: 'g-fit-3',
     title: 'Daily Mobility & Recovery Routine',
-    priceInCents: 1500, // £15.00
-    priceFormatted: '£15.00',
+    priceInCents: 1799, // £17.99
+    priceFormatted: '£17.99',
     r2FileKey: 'Daily_Mobility_and_Recovery-2026.pdf'
   },
   'master-meal-planning': {

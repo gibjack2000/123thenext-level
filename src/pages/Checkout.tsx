@@ -274,8 +274,16 @@ const PRODUCT_MAP: Record<string, ProductInfo> = {
   'mobility-recovery': {
     id: 'g-fit-3',
     name: 'Daily Mobility & Recovery Routine',
-    price: '£15.00',
-    usPrice: '$19.00',
+    price: '£17.99',
+    usPrice: '$22.99',
+    slug: 'Daily_Mobility_and_Recovery-2026',
+    desc: 'A science-backed 15-minute blueprint for desk workers and athletes to restore joint kinematics and decompress the spine.'
+  },
+  'mobility-recovery-routine': {
+    id: 'g-fit-3',
+    name: 'Daily Mobility & Recovery Routine',
+    price: '£17.99',
+    usPrice: '$22.99',
     slug: 'Daily_Mobility_and_Recovery-2026',
     desc: 'A science-backed 15-minute blueprint for desk workers and athletes to restore joint kinematics and decompress the spine.'
   },
