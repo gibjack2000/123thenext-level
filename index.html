@@ -11,8 +11,22 @@
     <meta http-equiv="Expires" content="0" />
     <title>123TheNextLevel | Longevity • Performance • Wellness</title>
     <script>
-      if (location.search.includes('nosplash')) sessionStorage.setItem('hasSeen123Splash', 'true');
-      if (location.search.includes('splash=1') || location.search.includes('splash=true')) sessionStorage.removeItem('hasSeen123Splash');
+      try {
+        localStorage.removeItem('hasSeen123Splash');
+      } catch (e) {}
+
+      // On direct arrival or reload of root homepage (without skip params), ensure opening overlay is ready to play
+      if ((location.pathname === '/' || location.pathname === '') && !location.search.includes('skip') && !location.search.includes('nosplash') && !location.search.includes('utm_source')) {
+        try {
+          sessionStorage.removeItem('hasSeen123Splash');
+        } catch (e) {}
+      }
+      if (location.search.includes('nosplash') || location.search.includes('skip=1')) {
+        sessionStorage.setItem('hasSeen123Splash', 'true');
+      }
+      if (location.search.includes('splash=1') || location.search.includes('splash=true')) {
+        sessionStorage.removeItem('hasSeen123Splash');
+      }
     </script>
     <!-- Dark & Luxurious Design System (Scope: html.theme-luxe) -->
     <link rel="stylesheet" href="/src/styles/backgrounds-luxe.css" />

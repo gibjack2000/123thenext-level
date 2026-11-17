@@ -101,27 +101,47 @@ const PAIN_POINTS = [
  * 2. Deep links: pathname !== '/' and pathname !== ''
  *    (e.g., /quiz, /clinician-copilot, /store, /store-us, /store-uk, /store-es, /library, /guides/*, /blog/*)
  * 3. Query params:
- *    - ?skip=1 or ?skip=true or ?bypass=1
+ *    - ?skip=1 or ?skip=true or ?bypass=1 or nosplash
  *    - ?utm_source=... (e.g. ?utm_source=youtube or any marketing campaign)
  *    - ?utm_campaign=..., ?utm_medium=..., ?ref=..., ?gclid=..., ?fbclid=...
- * 4. User has already seen or dismissed the overlay in sessionStorage or localStorage
+ * 4. User has already dismissed the overlay in the current browsing session (sessionStorage)
  */
 export function shouldBypassSplash(pathname?: string, search?: string): boolean {
   if (typeof window === 'undefined') return true;
 
   try {
+    // Purge any legacy persistent localStorage flag so the opening sequence is never permanently killed
+    try {
+      window.localStorage?.removeItem('hasSeen123Splash');
+    } catch {}
+
     const rawSearch = search !== undefined ? search : (window.location.search || '');
     const searchParams = new URLSearchParams(rawSearch);
 
     // 0. Explicit developer/testing override: ?splash=1 or ?splash=true forces overlay
     if (searchParams.get('splash') === '1' || searchParams.get('splash') === 'true') {
+      try {
+        window.sessionStorage?.removeItem('hasSeen123Splash');
+      } catch {}
       return false;
     }
 
-    // 1. Check storage: already seen or dismissed in this session or previously
-    const hasSeenSession = window.sessionStorage?.getItem('hasSeen123Splash') === 'true';
-    const hasSeenLocal = window.localStorage?.getItem('hasSeen123Splash') === 'true';
-    if (hasSeenSession || hasSeenLocal) {
+    // 1. Check query parameters:
+    // ?skip=1 or ?skip=true or ?bypass=1 or nosplash
+    const skipVal = searchParams.get('skip');
+    if (skipVal === '1' || skipVal === 'true' || searchParams.get('bypass') === '1' || searchParams.has('nosplash')) {
+      return true;
+    }
+
+    // Any marketing / ad referral parameter (e.g. youtube, newsletter, google, twitter, etc.)
+    if (
+      searchParams.has('utm_source') ||
+      searchParams.has('utm_campaign') ||
+      searchParams.has('utm_medium') ||
+      searchParams.has('ref') ||
+      searchParams.has('gclid') ||
+      searchParams.has('fbclid')
+    ) {
       return true;
     }
 
@@ -132,32 +152,15 @@ export function shouldBypassSplash(pathname?: string, search?: string): boolean 
       return true;
     }
 
-    // 3. Check query parameters:
-    // ?skip=1 or ?skip=true or ?bypass=1
-    const skipVal = searchParams.get('skip');
-    if (skipVal === '1' || skipVal === 'true' || searchParams.get('bypass') === '1') {
-      return true;
-    }
-
-    // Any utm_source (e.g. youtube, newsletter, google, twitter, etc.)
-    if (searchParams.has('utm_source')) {
-      return true;
-    }
-
-    // Additional referral & campaign parameters
-    if (
-      searchParams.has('utm_campaign') ||
-      searchParams.has('utm_medium') ||
-      searchParams.has('ref') ||
-      searchParams.has('gclid') ||
-      searchParams.has('fbclid')
-    ) {
+    // 3. Check session storage: dismissed earlier within this client session
+    const hasSeenSession = window.sessionStorage?.getItem('hasSeen123Splash') === 'true';
+    if (hasSeenSession) {
       return true;
     }
 
     return false;
   } catch {
-    return true; // Safe fallback
+    return false;
   }
 }
 
@@ -169,13 +172,11 @@ export const SplashOverlay: React.FC = () => {
   const [isDismissing, setIsDismissing] = useState(false);
   const [isMounted, setIsMounted] = useState(() => {
     if (typeof window !== 'undefined') {
+      try {
+        localStorage.removeItem('hasSeen123Splash');
+      } catch {}
       const bypass = shouldBypassSplash();
       if (bypass) {
-        try {
-          sessionStorage.setItem('hasSeen123Splash', 'true');
-        } catch {
-          // ignore
-        }
         return false;
       }
       return true;
@@ -356,7 +357,7 @@ export const SplashOverlay: React.FC = () => {
 
     try {
       sessionStorage.setItem('hasSeen123Splash', 'true');
-      localStorage.setItem('hasSeen123Splash', 'true');
+      localStorage.removeItem('hasSeen123Splash');
     } catch {
       // ignore
     }

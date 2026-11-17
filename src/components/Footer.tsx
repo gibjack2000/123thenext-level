@@ -129,6 +129,22 @@ const Footer = () => {
                   Jargon Buster (Glossary)
                 </Link>
               </li>
+              <li>
+                <button
+                  type="button"
+                  onClick={() => {
+                    try {
+                      sessionStorage.removeItem('hasSeen123Splash');
+                      localStorage.removeItem('hasSeen123Splash');
+                    } catch {}
+                    window.location.href = '/?splash=1';
+                  }}
+                  className="text-slate-400 hover:text-cyan-400 font-semibold transition-colors duration-200 flex items-center group text-left cursor-pointer"
+                >
+                  <span className="w-0 group-hover:w-2 h-0.5 bg-cyan-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                  Replay Intro Experience ➔
+                </button>
+              </li>
             </ul>
           </div>
 
