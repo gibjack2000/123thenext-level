@@ -149,10 +149,21 @@ export const products = [
     id: 'g-bundle-9',
     slug: 'all-nine-master-guides',
     title: 'Complete 9-Book Master Longevity Vault (All 9 Books)',
-    price: 59.99,
+    price: 69.99,
     currency: 'gbp',
     stripePriceId: process.env.STRIPE_PRICE_BUNDLE9 || 'price_placeholder_bundle9',
-    r2Key: null,
+    r2Key: 'all-ten-master-guides.zip',
+    filePath: '',
+    active: true
+  },
+  {
+    id: 'g-bundle-10',
+    slug: 'all-ten-master-guides',
+    title: 'Complete 10-Guide Master Vault (All 10 Books)',
+    price: 69.99,
+    currency: 'gbp',
+    stripePriceId: process.env.STRIPE_PRICE_BUNDLE10 || 'price_placeholder_bundle10',
+    r2Key: 'all-ten-master-guides.zip',
     filePath: '',
     active: true
   }

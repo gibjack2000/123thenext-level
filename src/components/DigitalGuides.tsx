@@ -449,7 +449,7 @@ export const DigitalGuides: React.FC<DigitalGuidesProps> = ({
         </div>
       )}
 
-      {/* Master Protocol Bundles (Pick 3 for £29.99 or Complete 10 Vault for £59.99) */}
+      {/* Master Protocol Bundles (Pick 3 for £29.99 or Complete 10 Vault for £69.99) */}
       {showVaultBanner && (
         <div className="mt-14">
           <BundleOffers source="library" />

@@ -13,7 +13,7 @@ import {
   Check,
   AlertCircle
 } from 'lucide-react';
-import { usePaywallBypass, downloadMultipleGuides } from '../utils/adminTestMode';
+import { usePaywallBypass, downloadMultipleGuides, triggerDirectDownload, getGuidePdfDownloadUrl } from '../utils/adminTestMode';
 
 export interface BundleMasterGuide {
   id: string;
@@ -317,7 +317,7 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
         </div>
 
         {/* ========================================================================= */}
-        {/* BUNDLE 2: "Complete 10-Guide Master Vault" (£59.99 / $59.99 / €59.99)      */}
+        {/* BUNDLE 2: "Complete 10-Guide Master Vault" (£69.99 / $69.99 / €69.99)      */}
         {/* ========================================================================= */}
         <div className="rounded-3xl bg-gradient-to-b from-slate-900 via-amber-950/20 to-slate-900 border-2 border-amber-500/50 hover:border-amber-400 transition-all duration-300 p-7 sm:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden group">
           <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -387,11 +387,11 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
             <div className="p-4 rounded-2xl bg-slate-950/90 border border-amber-500/30 flex items-baseline justify-between">
               <div>
                 <span className="text-xs text-slate-500 line-through block">Combined Value: £220.00</span>
-                <span className="text-3xl sm:text-4xl font-black text-amber-400">£59.99</span>
-                <span className="text-[11px] text-slate-400 block pt-0.5">$59.99 USD • 59,99€ EUR</span>
+                <span className="text-3xl sm:text-4xl font-black text-amber-400">£69.99</span>
+                <span className="text-[11px] text-slate-400 block pt-0.5">$69.99 USD • 69,99€ EUR</span>
               </div>
               <span className="text-right text-xs font-bold text-amber-300 bg-amber-950/60 border border-amber-800/40 px-3 py-1.5 rounded-xl">
-                Just £5.99 / Guide
+                Just £6.99 / Guide
               </span>
             </div>
 
@@ -419,7 +419,8 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
               <button
                 type="button"
                 onClick={() => {
-                  downloadMultipleGuides(ALL_10_MASTER_GUIDES.map(g => g.id));
+                  const url = getGuidePdfDownloadUrl('all-ten-master-guides');
+                  triggerDirectDownload(url, 'all-ten-master-guides.zip');
                 }}
                 className="w-full py-4 px-6 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 transition-all shadow-xl shadow-emerald-500/30 hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer"
               >
@@ -433,7 +434,7 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
                 className="w-full py-4 px-6 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 transition-all shadow-xl shadow-amber-500/25 hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Download size={16} />
-                <span>Unlock All 10 Guides (£59.99 / $59.99 / €59.99) ➔</span>
+                <span>Unlock All 10 Guides (£69.99 / $69.99 / €69.99) ➔</span>
               </button>
             )}
           </div>

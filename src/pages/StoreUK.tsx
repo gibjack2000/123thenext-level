@@ -577,7 +577,7 @@ export const StoreUK: React.FC = () => {
             <DigitalGuides showVaultBanner={false} />
           </div>
 
-          {/* Master Protocol Bundles Showcase (Pick 3 for £29.99 or Complete 10 Vault for £59.99) */}
+          {/* Master Protocol Bundles Showcase (Pick 3 for £29.99 or Complete 10 Vault for £69.99) */}
           <div className="pt-8 pb-4">
             <BundleOffers source="store" />
           </div>

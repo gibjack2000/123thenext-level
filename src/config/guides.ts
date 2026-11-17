@@ -387,12 +387,12 @@ export const BUNDLE_OFFERS: Record<string, BundleOfferConfig> = {
     id: 'bundle-complete-vault-10',
     name: 'Complete 10-Guide Master Vault',
     badge: 'Complete Vault Access',
-    priceDisplay: '£59.99 / $59.99 / €59.99',
-    priceInCents: 5999,
+    priceDisplay: '£69.99 / $69.99 / €69.99',
+    priceInCents: 6999,
     prices: {
-      GBP: '£59.99',
-      USD: '$59.99',
-      EUR: '59,99€'
+      GBP: '£69.99',
+      USD: '$69.99',
+      EUR: '69,99€'
     },
     description: 'Instant access to all 10 Premium Master Guides — covering body composition, metabolic nutrition, autonomic engineering, women\'s health, home fitness, and clinical telemetry.',
     highlights: [

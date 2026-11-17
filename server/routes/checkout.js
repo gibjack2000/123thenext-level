@@ -648,7 +648,7 @@ router.post(['/stripe-webhook', '/webhooks/stripe', '/webhook/stripe'], async (r
         if (!matchedProduct) {
           matchedProduct = {
             title: "Complete 10-Guide Master Longevity Suite",
-            url: `${VAULT_BASE}/Complete_9_Book_Master_Vault-2026.zip`
+            url: `${VAULT_BASE}/all-ten-master-guides.zip`
           };
         }
 
@@ -928,9 +928,21 @@ router.post('/get-presigned-guide', async (req, res) => {
       }));
 
       let zipUrl = null;
-      if (guideId === 'all-nine-master-guides' || guideId === 'all-9-master-guides' || guideId === 'g-bundle-9') {
+      if (
+        guideId === 'all-ten-master-guides' ||
+        guideId === 'all-10-master-guides' ||
+        guideId === 'bundle-complete-vault-10' ||
+        guideId === 'g-bundle-10' ||
+        guideId === 'all-ten-master-guides.zip'
+      ) {
         try {
-          zipUrl = await generateGuidePresignedUrl('Complete_9_Book_Master_Vault-2026.zip');
+          zipUrl = await generateGuidePresignedUrl('all-ten-master-guides.zip');
+        } catch (zErr) {
+          console.warn('Could not generate 10-book zip presigned url:', zErr.message);
+        }
+      } else if (guideId === 'all-nine-master-guides' || guideId === 'all-9-master-guides' || guideId === 'g-bundle-9') {
+        try {
+          zipUrl = await generateGuidePresignedUrl('all-ten-master-guides.zip');
         } catch (zErr) {
           console.warn('Could not generate 9-book zip presigned url:', zErr.message);
         }

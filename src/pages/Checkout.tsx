@@ -90,8 +90,8 @@ const PRODUCT_MAP: Record<string, ProductInfo> = {
   'bundle-complete-vault-10': {
     id: 'bundle-complete-vault-10',
     name: 'Complete 10-Guide Master Vault (All 10 Books)',
-    price: '£59.99',
-    usPrice: '$59.99 • €59.99',
+    price: '£69.99',
+    usPrice: '$69.99 • €69.99',
     slug: 'bundle-complete-vault-10',
     desc: 'Instant access to all 10 Premium Master Guides — covering body composition, metabolic nutrition, autonomic engineering, women\'s health, home fitness, and clinical telemetry. Includes 1-Click ZIP Archive.',
     guides: TEN_BOOK_VAULT_GUIDES
@@ -99,8 +99,8 @@ const PRODUCT_MAP: Record<string, ProductInfo> = {
   'all-ten-master-guides': {
     id: 'bundle-complete-vault-10',
     name: 'Complete 10-Guide Master Vault (All 10 Books)',
-    price: '£59.99',
-    usPrice: '$59.99 • €59.99',
+    price: '£69.99',
+    usPrice: '$69.99 • €69.99',
     slug: 'bundle-complete-vault-10',
     desc: 'Instant access to all 10 Premium Master Guides — covering body composition, metabolic nutrition, autonomic engineering, women\'s health, home fitness, and clinical telemetry. Includes 1-Click ZIP Archive.',
     guides: TEN_BOOK_VAULT_GUIDES
@@ -108,8 +108,8 @@ const PRODUCT_MAP: Record<string, ProductInfo> = {
   'all-10-master-guides': {
     id: 'bundle-complete-vault-10',
     name: 'Complete 10-Guide Master Vault (All 10 Books)',
-    price: '£59.99',
-    usPrice: '$59.99 • €59.99',
+    price: '£69.99',
+    usPrice: '$69.99 • €69.99',
     slug: 'bundle-complete-vault-10',
     desc: 'Instant access to all 10 Premium Master Guides — covering body composition, metabolic nutrition, autonomic engineering, women\'s health, home fitness, and clinical telemetry. Includes 1-Click ZIP Archive.',
     guides: TEN_BOOK_VAULT_GUIDES
@@ -117,8 +117,8 @@ const PRODUCT_MAP: Record<string, ProductInfo> = {
   'g-bundle-10': {
     id: 'bundle-complete-vault-10',
     name: 'Complete 10-Guide Master Vault (All 10 Books)',
-    price: '£59.99',
-    usPrice: '$59.99 • €59.99',
+    price: '£69.99',
+    usPrice: '$69.99 • €69.99',
     slug: 'bundle-complete-vault-10',
     desc: 'Instant access to all 10 Premium Master Guides — covering body composition, metabolic nutrition, autonomic engineering, women\'s health, home fitness, and clinical telemetry. Includes 1-Click ZIP Archive.',
     guides: TEN_BOOK_VAULT_GUIDES

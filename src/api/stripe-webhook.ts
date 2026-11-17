@@ -27,7 +27,7 @@ export async function handleStripeWebhook(req: Request): Promise<Response> {
     const targetKey = session.metadata?.guide_id || session.metadata?.guideId || session.client_reference_id;
     const matchedProduct = matchProductDownload(targetKey) || {
       title: 'Complete 10-Guide Master Longevity Suite',
-      url: `${VAULT_BASE}/Complete_9_Book_Master_Vault-2026.zip`
+      url: `${VAULT_BASE}/all-ten-master-guides.zip`
     };
 
     console.log(`🎉 Payment confirmed for guide: ${matchedProduct.title} -> ${matchedProduct.url}`);

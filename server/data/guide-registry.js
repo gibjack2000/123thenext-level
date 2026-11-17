@@ -111,8 +111,8 @@ export const GUIDE_PRODUCTS = {
     id: 'bundle-complete-vault-10',
     productId: 'bundle-complete-vault-10',
     title: 'Complete 10-Guide Master Vault',
-    priceInCents: 5999, // £59.99 / $59.99 / €59.99
-    priceFormatted: '£59.99',
+    priceInCents: 6999, // £69.99 / $69.99 / €69.99
+    priceFormatted: '£69.99',
     r2FileKey: 'all-ten-master-guides.zip'
   },
   'metabolic-master-guide': {

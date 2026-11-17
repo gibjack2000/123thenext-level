@@ -19,7 +19,11 @@ export const PRODUCT_DOWNLOAD_MAP: Record<string, VaultProductEntry> = {
   },
   "vault-9-book": {
     title: "Complete 9-Book Master Vault (ZIP)",
-    url: `${VAULT_BASE}/Complete_9_Book_Master_Vault-2026.zip`
+    url: `${VAULT_BASE}/all-ten-master-guides.zip`
+  },
+  "vault-10-book": {
+    title: "Complete 10-Guide Master Vault (ZIP)",
+    url: `${VAULT_BASE}/all-ten-master-guides.zip`
   },
 
   // Individual Master Guides
@@ -81,10 +85,11 @@ export const PRODUCT_ALIASES: Record<string, string> = {
   "all-nine-master-guides": "vault-9-book",
   "all-9-master-guides": "vault-9-book",
   "g-bundle-9": "vault-9-book",
-  "bundle-complete-vault-10": "vault-9-book",
-  "all-ten-master-guides": "vault-9-book",
-  "all-10-master-guides": "vault-9-book",
-  "g-bundle-10": "vault-9-book",
+  "vault-10-book": "vault-10-book",
+  "bundle-complete-vault-10": "vault-10-book",
+  "all-ten-master-guides": "vault-10-book",
+  "all-10-master-guides": "vault-10-book",
+  "g-bundle-10": "vault-10-book",
 
   // Beginner workout
   "beginner-workout": "beginner-workout",

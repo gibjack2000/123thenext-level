@@ -93,13 +93,15 @@ export const GUIDE_PDF_MAP: Record<string, string> = {
 
   // Bundles & ZIP Archives
   'bundle-pick-3': '/api/download/guide/Complete_6_Pillar_Master_Suite-2026.zip',
-  'bundle-complete-vault-10': '/api/download/guide/Complete_9_Book_Master_Vault-2026.zip',
+  'bundle-complete-vault-10': '/api/download/guide/all-ten-master-guides.zip',
   'g-bundle-6': '/api/download/guide/Complete_6_Pillar_Master_Suite-2026.zip',
-  'g-bundle-9': '/api/download/guide/Complete_9_Book_Master_Vault-2026.zip',
-  'g-bundle-10': '/api/download/guide/Complete_9_Book_Master_Vault-2026.zip',
+  'g-bundle-9': '/api/download/guide/all-ten-master-guides.zip',
+  'g-bundle-10': '/api/download/guide/all-ten-master-guides.zip',
   'all-six-master-guides': '/api/download/guide/Complete_6_Pillar_Master_Suite-2026.zip',
-  'all-nine-master-guides': '/api/download/guide/Complete_9_Book_Master_Vault-2026.zip',
-  'all-ten-master-guides': '/api/download/guide/Complete_9_Book_Master_Vault-2026.zip'
+  'all-nine-master-guides': '/api/download/guide/all-ten-master-guides.zip',
+  'all-ten-master-guides': '/api/download/guide/all-ten-master-guides.zip',
+  'all-ten-master-guides.zip': '/api/download/guide/all-ten-master-guides.zip',
+  'Complete_10_Book_Master_Vault-2026.zip': '/api/download/guide/all-ten-master-guides.zip'
 };
 
 /**
