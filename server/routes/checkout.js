@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import fs from 'fs';
+import zlib from 'zlib';
 import { fileURLToPath } from 'url';
 import { getProductById } from '../data/products.js';
 import { GUIDE_PRODUCTS, resolveGuideProduct } from '../data/guide-registry.js';
@@ -831,6 +832,143 @@ router.get('/download/guide/:guideId', async (req, res) => {
   } catch (error) {
     console.error(`[Direct Guide Download Error] ${req.params.guideId}:`, error.message);
     return res.status(404).send('Guide not found in vault or R2 unavailable.');
+  }
+});
+
+/**
+ * Native, zero-dependency in-memory ZIP builder
+ */
+function createZipBuffer(files) {
+  const fileRecords = [];
+  let offset = 0;
+  const parts = [];
+
+  for (const file of files) {
+    const filenameBuf = Buffer.from(file.name, 'utf8');
+    const dataBuf = Buffer.isBuffer(file.data) ? file.data : Buffer.from(file.data);
+    const crc = zlib.crc32(dataBuf);
+    const size = dataBuf.length;
+
+    const localHeader = Buffer.alloc(30);
+    localHeader.write('PK\x03\x04', 0);
+    localHeader.writeUInt16LE(20, 4);
+    localHeader.writeUInt16LE(0, 6);
+    localHeader.writeUInt16LE(0, 8);
+    localHeader.writeUInt16LE(0, 10);
+    localHeader.writeUInt16LE(0, 12);
+    localHeader.writeUInt32LE(crc, 14);
+    localHeader.writeUInt32LE(size, 18);
+    localHeader.writeUInt32LE(size, 22);
+    localHeader.writeUInt16LE(filenameBuf.length, 26);
+    localHeader.writeUInt16LE(0, 28);
+
+    fileRecords.push({
+      nameBuf: filenameBuf,
+      crc,
+      size,
+      offset,
+    });
+
+    parts.push(localHeader, filenameBuf, dataBuf);
+    offset += 30 + filenameBuf.length + size;
+  }
+
+  const centralDirStart = offset;
+  for (const rec of fileRecords) {
+    const cdHeader = Buffer.alloc(46);
+    cdHeader.write('PK\x01\x02', 0);
+    cdHeader.writeUInt16LE(20, 4);
+    cdHeader.writeUInt16LE(20, 6);
+    cdHeader.writeUInt16LE(0, 8);
+    cdHeader.writeUInt16LE(0, 10);
+    cdHeader.writeUInt16LE(0, 12);
+    cdHeader.writeUInt16LE(0, 14);
+    cdHeader.writeUInt32LE(rec.crc, 16);
+    cdHeader.writeUInt32LE(rec.size, 20);
+    cdHeader.writeUInt32LE(rec.size, 24);
+    cdHeader.writeUInt16LE(rec.nameBuf.length, 28);
+    cdHeader.writeUInt16LE(0, 30);
+    cdHeader.writeUInt16LE(0, 32);
+    cdHeader.writeUInt16LE(0, 34);
+    cdHeader.writeUInt16LE(0, 36);
+    cdHeader.writeUInt32LE(0, 38);
+    cdHeader.writeUInt32LE(rec.offset, 42);
+
+    parts.push(cdHeader, rec.nameBuf);
+    offset += 46 + rec.nameBuf.length;
+  }
+
+  const centralDirSize = offset - centralDirStart;
+
+  const eocd = Buffer.alloc(22);
+  eocd.write('PK\x05\x06', 0);
+  eocd.writeUInt16LE(0, 4);
+  eocd.writeUInt16LE(0, 6);
+  eocd.writeUInt16LE(fileRecords.length, 8);
+  eocd.writeUInt16LE(fileRecords.length, 10);
+  eocd.writeUInt32LE(centralDirSize, 12);
+  eocd.writeUInt32LE(centralDirStart, 16);
+  eocd.writeUInt16LE(0, 20);
+
+  parts.push(eocd);
+  return Buffer.concat(parts);
+}
+
+/**
+ * GET /api/download/custom-trio-zip
+ * Generates an instant, in-memory 1-click ZIP archive for ANY chosen set of master guides
+ * Eliminates browser multi-download and popup blocker issues completely.
+ */
+router.get(['/download/custom-trio-zip', '/download/custom-zip'], async (req, res) => {
+  try {
+    const rawGuides = req.query.guides;
+    if (!rawGuides) {
+      return res.status(400).send('No guides specified in query (e.g. ?guides=g1,g2,g3).');
+    }
+    const guideKeys = String(rawGuides).split(',').map(s => s.trim()).filter(Boolean);
+    if (guideKeys.length === 0) {
+      return res.status(400).send('No valid guide IDs provided.');
+    }
+
+    const filesToZip = [];
+    for (const gid of guideKeys) {
+      const filename = GUIDE_FILE_KEYS[gid] || (gid.endsWith('.pdf') ? gid : `${gid}.pdf`);
+      const localPaths = [
+        path.join(FILE_STORAGE_DIR, filename),
+        path.join(__dirname, '../../protected-files/pdfs', filename),
+        path.join(__dirname, '../../public/assets/docs', filename),
+        path.join(__dirname, '../../public/docs', filename)
+      ];
+      let fileBuf = null;
+      for (const lp of localPaths) {
+        if (fs.existsSync(lp)) {
+          fileBuf = fs.readFileSync(lp);
+          break;
+        }
+      }
+
+      if (fileBuf) {
+        filesToZip.push({
+          name: filename,
+          data: fileBuf
+        });
+      }
+    }
+
+    if (filesToZip.length === 0) {
+      return res.status(404).send('Could not locate the requested guide files.');
+    }
+
+    const zipBuffer = createZipBuffer(filesToZip);
+    const archiveName = filesToZip.length === 3 ? 'Custom_Trio_Master_Guides-2026.zip' : 'Custom_Selected_Master_Guides-2026.zip';
+
+    res.setHeader('Content-Type', 'application/zip');
+    res.setHeader('Content-Disposition', `attachment; filename="${archiveName}"`);
+    res.setHeader('Content-Length', zipBuffer.length);
+    return res.end(zipBuffer);
+  } catch (err) {
+    console.error('[Custom Zip Generation Error]:', err);
+    return res.status(500).send('Failed to build custom bundle ZIP archive.');
   }
 });
 

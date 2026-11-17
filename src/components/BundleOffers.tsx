@@ -11,9 +11,16 @@ import {
   BookOpen, 
   Flame,
   Check,
-  AlertCircle
+  AlertCircle,
+  RefreshCw
 } from 'lucide-react';
-import { usePaywallBypass, downloadMultipleGuides, triggerDirectDownload, getGuidePdfDownloadUrl } from '../utils/adminTestMode';
+import { 
+  usePaywallBypass, 
+  downloadMultipleGuides, 
+  triggerDirectDownload, 
+  getGuidePdfDownloadUrl,
+  getCustomTrioZipDownloadUrl
+} from '../utils/adminTestMode';
 
 export interface BundleMasterGuide {
   id: string;
@@ -157,6 +164,7 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
     'sleep-optimization'
   ]);
   const [pickerWarning, setPickerWarning] = useState<string | null>(null);
+  const [pickerView, setPickerView] = useState<'select' | 'downloadTray'>('select');
   const { isBypassActive } = usePaywallBypass();
 
   const toggleGuideSelection = (id: string) => {
@@ -275,7 +283,10 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
                 <span>Selected Trio Preview ({selectedGuideIds.length}/3):</span>
                 <button
                   type="button"
-                  onClick={() => setIsPickerOpen(true)}
+                  onClick={() => {
+                    setPickerView('select');
+                    setIsPickerOpen(true);
+                  }}
                   className="text-cyan-400 hover:text-cyan-300 hover:underline cursor-pointer"
                 >
                   Change Selection
@@ -303,7 +314,16 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
           <div className="pt-6 relative z-10">
             <button
               type="button"
-              onClick={() => setIsPickerOpen(true)}
+              onClick={() => {
+                if (isBypassActive && isCompleteTrio) {
+                  downloadMultipleGuides(selectedGuideIds);
+                  setPickerView('downloadTray');
+                  setIsPickerOpen(true);
+                } else {
+                  setPickerView('select');
+                  setIsPickerOpen(true);
+                }
+              }}
               className={`w-full py-4 px-6 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all shadow-xl hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer ${
                 isBypassActive
                   ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 shadow-emerald-500/25'
@@ -462,18 +482,22 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
                     Custom Trio Bundle
                   </span>
                   <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
-                    isCompleteTrio 
-                      ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' 
-                      : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                    pickerView === 'downloadTray'
+                      ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                      : isCompleteTrio 
+                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' 
+                        : 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
                   }`}>
-                    Selected: {selectedGuideIds.length} / 3
+                    {pickerView === 'downloadTray' ? '✓ All 3 Protocols Ready' : `Selected: ${selectedGuideIds.length} / 3`}
                   </span>
                 </div>
                 <h3 id="bundle-picker-title" className="text-xl sm:text-2xl font-black text-white">
-                  Choose Your 3 Master Execution Guides
+                  {pickerView === 'downloadTray' ? 'Your 3 Custom Master Execution Guides' : 'Choose Your 3 Master Execution Guides'}
                 </h3>
                 <p className="text-xs text-slate-400">
-                  Select any 3 specialized protocols for £29.99 (Saves over 50% vs £77 individual pricing).
+                  {pickerView === 'downloadTray' 
+                    ? 'Downloads have been initiated for all 3 books below. You can also grab all 3 in a 1-click ZIP archive or click any book individually.'
+                    : 'Select any 3 specialized protocols for £29.99 (Saves over 50% vs £77 individual pricing).'}
                 </p>
               </div>
 
@@ -488,138 +512,264 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
             </div>
 
             {/* Validation warning banner if needed */}
-            {pickerWarning && (
+            {pickerWarning && pickerView === 'select' && (
               <div className="bg-amber-950/70 border-b border-amber-500/40 px-5 py-2.5 text-xs text-amber-200 flex items-center gap-2">
                 <AlertCircle size={14} className="text-amber-400 shrink-0" />
                 <span>{pickerWarning}</span>
               </div>
             )}
 
-            {/* Modal Scrollable Guide Grid */}
-            <div className="p-5 sm:p-6 overflow-y-auto space-y-4">
-              <div className="grid sm:grid-cols-2 gap-4">
-                {ALL_10_MASTER_GUIDES.map((guide) => {
-                  const isSelected = selectedGuideIds.includes(guide.id);
-                  return (
-                    <div
-                      key={guide.id}
-                      onClick={() => toggleGuideSelection(guide.id)}
-                      className={`p-4 rounded-2xl border transition-all duration-200 flex items-start gap-4 cursor-pointer select-none ${
-                        isSelected
-                          ? 'bg-cyan-950/40 border-cyan-400/80 shadow-lg shadow-cyan-500/10 scale-[1.01]'
-                          : 'bg-slate-950/60 border-slate-800/80 hover:border-slate-700 hover:bg-slate-900/60'
-                      }`}
-                    >
-                      {/* Thumbnail Cover */}
-                      <div className="w-16 h-22 sm:w-20 sm:h-28 shrink-0 rounded-xl overflow-hidden bg-slate-950 border border-slate-800 relative shadow-md">
-                        <img 
-                          src={guide.coverImage} 
-                          alt={guide.title}
-                          loading="lazy"
-                          onError={(e) => {
-                            if (guide.fallbackImage) {
-                              (e.currentTarget as HTMLImageElement).src = guide.fallbackImage;
-                            }
-                          }}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
+            {pickerView === 'downloadTray' ? (
+              /* Download Hub View for Selected 3 Guides */
+              <div className="p-5 sm:p-6 overflow-y-auto space-y-5">
+                {/* 1-Click ZIP Banner */}
+                <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-emerald-950/80 via-slate-900 to-teal-950/80 border border-emerald-500/40 space-y-3 shadow-xl">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 bg-emerald-950/90 border border-emerald-800/80 px-2.5 py-0.5 rounded-full">
+                      ⚡ 1-Click ZIP Archive • Recommended
+                    </span>
+                    <span className="text-[11px] text-slate-400 font-semibold">Zero Popup Blockers</span>
+                  </div>
+                  <div className="text-left space-y-1">
+                    <h4 className="text-base sm:text-lg font-black text-white">
+                      Download All 3 Selected Protocols in 1 ZIP Archive
+                    </h4>
+                    <p className="text-xs text-slate-300">
+                      Instantly bundles your 3 selected execution manuals into a single archive file.
+                    </p>
+                  </div>
+                  <a
+                    href={getCustomTrioZipDownloadUrl(selectedGuideIds)}
+                    download="Custom_Trio_Master_Guides-2026.zip"
+                    className="w-full py-3.5 px-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl transition-all shadow-lg shadow-emerald-500/25 flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <Download size={16} />
+                    <span>Download 3-Guide ZIP Bundle (1-Click)</span>
+                  </a>
+                </div>
 
-                      {/* Info & Checkbox */}
-                      <div className="flex-1 min-w-0 space-y-1.5 text-left">
-                        <div className="flex items-start justify-between gap-2">
-                          <span className="text-[9px] font-bold text-cyan-400 uppercase tracking-widest block truncate">
-                            {guide.pillar}
-                          </span>
-                          
-                          {/* Animated Checkbox Indicator */}
-                          <div className={`w-5 h-5 rounded-lg border flex items-center justify-center shrink-0 transition-all ${
-                            isSelected 
-                              ? 'bg-cyan-500 border-cyan-400 text-slate-950 shadow-md shadow-cyan-500/30' 
-                              : 'border-slate-700 bg-slate-900'
-                          }`}>
-                            {isSelected && <Check size={13} strokeWidth={3} />}
+                {/* Individual 3 Guides List */}
+                <div className="space-y-2.5 text-left">
+                  <div className="flex items-center justify-between text-xs text-slate-400 font-bold px-1">
+                    <span>Or Download Individual High-Res PDFs ({selectedGuideIds.length}/3):</span>
+                    <button
+                      type="button"
+                      onClick={() => downloadMultipleGuides(selectedGuideIds)}
+                      className="text-cyan-400 hover:text-cyan-300 hover:underline flex items-center gap-1 cursor-pointer"
+                    >
+                      <RefreshCw size={11} /> Re-trigger all 3
+                    </button>
+                  </div>
+
+                  <div className="space-y-2">
+                    {selectedGuideIds.map((id, idx) => {
+                      const guide = ALL_10_MASTER_GUIDES.find(g => g.id === id);
+                      if (!guide) return null;
+                      const downloadUrl = getGuidePdfDownloadUrl(guide.id);
+                      return (
+                        <div
+                          key={guide.id}
+                          className="p-3.5 sm:p-4 rounded-2xl bg-slate-950 border border-slate-800 hover:border-cyan-500/40 transition-all flex items-center justify-between gap-3 sm:gap-4 shadow-md"
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <div className="w-12 h-16 sm:w-14 sm:h-20 shrink-0 rounded-lg overflow-hidden bg-slate-900 border border-slate-800 shadow">
+                              <img
+                                src={guide.coverImage}
+                                alt={guide.title}
+                                className="w-full h-full object-cover"
+                                onError={(e) => {
+                                  if (guide.fallbackImage) {
+                                    (e.currentTarget as HTMLImageElement).src = guide.fallbackImage;
+                                  }
+                                }}
+                              />
+                            </div>
+                            <div className="min-w-0 space-y-1">
+                              <span className="text-[9px] font-bold text-cyan-400 uppercase tracking-widest block truncate">
+                                Book #{idx + 1} • {guide.pillar}
+                              </span>
+                              <h4 className="text-xs sm:text-sm font-bold text-white truncate">
+                                {guide.title}
+                              </h4>
+                              <span className="text-[10px] text-slate-500 font-mono block truncate">
+                                {guide.fileKey}
+                              </span>
+                            </div>
+                          </div>
+
+                          <button
+                            type="button"
+                            onClick={() => triggerDirectDownload(downloadUrl, guide.fileKey)}
+                            className="shrink-0 px-4 py-2.5 rounded-xl text-xs font-black bg-cyan-500 hover:bg-cyan-400 text-slate-950 transition-all shadow-md flex items-center gap-1.5 cursor-pointer"
+                          >
+                            <Download size={13} />
+                            <span>PDF</span>
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              /* Modal Scrollable Guide Grid (Select Mode) */
+              <div className="p-5 sm:p-6 overflow-y-auto space-y-4">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {ALL_10_MASTER_GUIDES.map((guide) => {
+                    const isSelected = selectedGuideIds.includes(guide.id);
+                    return (
+                      <div
+                        key={guide.id}
+                        onClick={() => toggleGuideSelection(guide.id)}
+                        className={`p-4 rounded-2xl border transition-all duration-200 flex items-start gap-4 cursor-pointer select-none ${
+                          isSelected
+                            ? 'bg-cyan-950/40 border-cyan-400/80 shadow-lg shadow-cyan-500/10 scale-[1.01]'
+                            : 'bg-slate-950/60 border-slate-800/80 hover:border-slate-700 hover:bg-slate-900/60'
+                        }`}
+                      >
+                        {/* Thumbnail Cover */}
+                        <div className="w-16 h-22 sm:w-20 sm:h-28 shrink-0 rounded-xl overflow-hidden bg-slate-950 border border-slate-800 relative shadow-md">
+                          <img 
+                            src={guide.coverImage} 
+                            alt={guide.title}
+                            loading="lazy"
+                            onError={(e) => {
+                              if (guide.fallbackImage) {
+                                (e.currentTarget as HTMLImageElement).src = guide.fallbackImage;
+                              }
+                            }}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+
+                        {/* Info & Checkbox */}
+                        <div className="flex-1 min-w-0 space-y-1.5 text-left">
+                          <div className="flex items-start justify-between gap-2">
+                            <span className="text-[9px] font-bold text-cyan-400 uppercase tracking-widest block truncate">
+                              {guide.pillar}
+                            </span>
+                            
+                            {/* Animated Checkbox Indicator */}
+                            <div className={`w-5 h-5 rounded-lg border flex items-center justify-center shrink-0 transition-all ${
+                              isSelected 
+                                ? 'bg-cyan-500 border-cyan-400 text-slate-950 shadow-md shadow-cyan-500/30' 
+                                : 'border-slate-700 bg-slate-900'
+                            }`}>
+                              {isSelected && <Check size={13} strokeWidth={3} />}
+                            </div>
+                          </div>
+
+                          <h4 className="text-xs sm:text-sm font-bold text-white leading-snug line-clamp-2">
+                            {guide.title}
+                          </h4>
+
+                          <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">
+                            {guide.shortDesc}
+                          </p>
+
+                          <div className="pt-1 flex items-center gap-2">
+                            <span className="text-[10px] text-slate-500 line-through">
+                              {guide.priceFormatted}
+                            </span>
+                            <span className="text-[10px] font-bold text-emerald-400">
+                              Included in Trio
+                            </span>
                           </div>
                         </div>
-
-                        <h4 className="text-xs sm:text-sm font-bold text-white leading-snug line-clamp-2">
-                          {guide.title}
-                        </h4>
-
-                        <p className="text-[11px] text-slate-400 line-clamp-2 leading-relaxed">
-                          {guide.shortDesc}
-                        </p>
-
-                        <div className="pt-1 flex items-center gap-2">
-                          <span className="text-[10px] text-slate-500 line-through">
-                            {guide.priceFormatted}
-                          </span>
-                          <span className="text-[10px] font-bold text-emerald-400">
-                            Included in Trio
-                          </span>
-                        </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Modal Sticky Footer */}
             <div className="p-5 sm:p-6 border-t border-slate-800 bg-slate-950 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="text-left w-full sm:w-auto">
-                <span className="text-xs font-bold text-slate-300 block">
-                  {isCompleteTrio 
-                    ? '✓ 3 Guides selected! Ready to proceed.' 
-                    : `Please choose ${3 - selectedGuideIds.length} more guide${selectedGuideIds.length === 2 ? '' : 's'}.`}
-                </span>
-                <span className="text-[11px] text-slate-500">
-                  Total price: <strong className="text-cyan-400">£29.99</strong> ($29.99 / 29,99€)
-                </span>
-              </div>
-
-              <div className="flex items-center gap-3 w-full sm:w-auto">
-                <button
-                  type="button"
-                  onClick={() => setIsPickerOpen(false)}
-                  className="w-full sm:w-auto px-5 py-3 rounded-xl text-xs font-bold text-slate-400 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-800 transition cursor-pointer"
-                >
-                  Cancel
-                </button>
-
-                {isBypassActive ? (
+              {pickerView === 'downloadTray' ? (
+                <>
                   <button
                     type="button"
-                    disabled={!isCompleteTrio}
-                    onClick={() => {
-                      downloadMultipleGuides(selectedGuideIds);
-                      setIsPickerOpen(false);
-                    }}
-                    className={`w-full sm:w-auto px-7 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xl ${
-                      isCompleteTrio
-                        ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 shadow-emerald-500/25 hover:scale-[1.02] active:scale-[0.98]'
-                        : 'bg-slate-800 text-slate-500 border border-slate-700 cursor-not-allowed'
-                    }`}
+                    onClick={() => setPickerView('select')}
+                    className="text-xs font-bold text-cyan-400 hover:text-cyan-300 hover:underline cursor-pointer"
                   >
-                    <Download size={15} />
-                    <span>Test Download Selected 3 (Free Bypass)</span>
+                    ← Change Selected Guides
                   </button>
-                ) : (
-                  <button
-                    type="button"
-                    disabled={!isCompleteTrio}
-                    onClick={handleProceedPick3Checkout}
-                    className={`w-full sm:w-auto px-7 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xl ${
-                      isCompleteTrio
-                        ? 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 shadow-cyan-500/25 hover:scale-[1.02] active:scale-[0.98]'
-                        : 'bg-slate-800 text-slate-500 border border-slate-700 cursor-not-allowed'
-                    }`}
-                  >
-                    <span>Proceed to Checkout (£29.99 / $29.99 / €29.99)</span>
-                    <ArrowRight size={14} />
-                  </button>
-                )}
-              </div>
+
+                  <div className="flex items-center gap-3 w-full sm:w-auto">
+                    <button
+                      type="button"
+                      onClick={() => downloadMultipleGuides(selectedGuideIds)}
+                      className="w-full sm:w-auto px-5 py-3 rounded-xl text-xs font-bold bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 transition flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <RefreshCw size={13} />
+                      <span>Re-download All 3</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setIsPickerOpen(false)}
+                      className="w-full sm:w-auto px-6 py-3 rounded-xl text-xs font-black uppercase tracking-wider bg-slate-800 hover:bg-slate-700 text-white transition cursor-pointer"
+                    >
+                      Done
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="text-left w-full sm:w-auto">
+                    <span className="text-xs font-bold text-slate-300 block">
+                      {isCompleteTrio 
+                        ? '✓ 3 Guides selected! Ready to proceed.' 
+                        : `Please choose ${3 - selectedGuideIds.length} more guide${selectedGuideIds.length === 2 ? '' : 's'}.`}
+                    </span>
+                    <span className="text-[11px] text-slate-500">
+                      Total price: <strong className="text-cyan-400">£29.99</strong> ($29.99 / 29,99€)
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-3 w-full sm:w-auto">
+                    <button
+                      type="button"
+                      onClick={() => setIsPickerOpen(false)}
+                      className="w-full sm:w-auto px-5 py-3 rounded-xl text-xs font-bold text-slate-400 hover:text-white bg-slate-900 hover:bg-slate-800 border border-slate-800 transition cursor-pointer"
+                    >
+                      Cancel
+                    </button>
+
+                    {isBypassActive ? (
+                      <button
+                        type="button"
+                        disabled={!isCompleteTrio}
+                        onClick={() => {
+                          downloadMultipleGuides(selectedGuideIds);
+                          setPickerView('downloadTray');
+                        }}
+                        className={`w-full sm:w-auto px-7 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xl ${
+                          isCompleteTrio
+                            ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 shadow-emerald-500/25 hover:scale-[1.02] active:scale-[0.98]'
+                            : 'bg-slate-800 text-slate-500 border border-slate-700 cursor-not-allowed'
+                        }`}
+                      >
+                        <Download size={15} />
+                        <span>Test Download Selected 3 (Free Bypass)</span>
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        disabled={!isCompleteTrio}
+                        onClick={handleProceedPick3Checkout}
+                        className={`w-full sm:w-auto px-7 py-3.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xl ${
+                          isCompleteTrio
+                            ? 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 shadow-cyan-500/25 hover:scale-[1.02] active:scale-[0.98]'
+                            : 'bg-slate-800 text-slate-500 border border-slate-700 cursor-not-allowed'
+                        }`}
+                      >
+                        <span>Proceed to Checkout (£29.99 / $29.99 / €29.99)</span>
+                        <ArrowRight size={14} />
+                      </button>
+                    )}
+                  </div>
+                </>
+              )}
             </div>
 
           </div>

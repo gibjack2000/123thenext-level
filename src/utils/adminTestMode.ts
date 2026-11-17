@@ -181,33 +181,76 @@ export function setPaywallBypassActive(enabled: boolean): void {
 }
 
 /**
- * Triggers an instant download of a file in the browser
+ * Triggers an instant download of a file in the browser without tripping popup blockers
  */
 export function triggerDirectDownload(url: string, filename?: string): void {
   if (typeof window === 'undefined') return;
+
+  // Use hidden iframe to initiate attachment downloads without opening blank tabs/popups
+  try {
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = url;
+    document.body.appendChild(iframe);
+    setTimeout(() => {
+      try {
+        if (iframe.parentNode) {
+          iframe.parentNode.removeChild(iframe);
+        }
+      } catch {
+        // ignore
+      }
+    }, 45000);
+    return;
+  } catch (err) {
+    console.warn('[triggerDirectDownload] Iframe dispatch failed, using anchor fallback:', err);
+  }
+
+  // Anchor fallback without target="_blank" to prevent popup blocker suppression
   const a = document.createElement('a');
   a.href = url;
   if (filename) {
     a.download = filename;
   }
-  a.target = '_blank';
   a.rel = 'noopener noreferrer';
   document.body.appendChild(a);
   a.click();
-  document.body.removeChild(a);
+  setTimeout(() => {
+    try {
+      if (a.parentNode) {
+        a.parentNode.removeChild(a);
+      }
+    } catch {
+      // ignore
+    }
+  }, 1000);
 }
 
 /**
- * Downloads multiple guides sequentially with a small stagger to bypass browser multi-download blocks
+ * Generates the direct 1-click ZIP download URL for any custom set of guides
  */
-export function downloadMultipleGuides(guideIds: string[]): void {
+export function getCustomTrioZipDownloadUrl(guideIds: string[]): string {
+  if (!guideIds || guideIds.length === 0) return '/api/download/guide/all-ten-master-guides.zip';
+  return `/api/download/custom-trio-zip?guides=${encodeURIComponent(guideIds.join(','))}`;
+}
+
+/**
+ * Downloads multiple guides sequentially with a safe stagger to avoid browser network throttling
+ */
+export function downloadMultipleGuides(
+  guideIds: string[],
+  onProgress?: (completed: number, total: number, id: string) => void
+): void {
   if (!guideIds || guideIds.length === 0) return;
   guideIds.forEach((id, index) => {
     setTimeout(() => {
       const url = getGuidePdfDownloadUrl(id);
       const filename = url.split('/').pop() || `${id}.pdf`;
       triggerDirectDownload(url, filename);
-    }, index * 350);
+      if (onProgress) {
+        onProgress(index + 1, guideIds.length, id);
+      }
+    }, index * 600);
   });
 }
 

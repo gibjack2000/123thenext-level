@@ -413,7 +413,19 @@ export default function CheckoutPage() {
   useEffect(() => {
     document.title = `Checkout: ${item.name} | 123TheNextLevel`;
     window.scrollTo(0, 0);
-  }, [item]);
+
+    // Set 1-Click ZIP URL for bundle products
+    if (item.guides && item.guides.length > 1) {
+      if (item.id === 'bundle-pick-3' || rawKey === 'bundle-pick-3' || rawKey === 'custom-trio-bundle') {
+        const guideIds = item.guides.map(g => g.id);
+        setZipDownloadUrl(`/api/download/custom-trio-zip?guides=${encodeURIComponent(guideIds.join(','))}`);
+      } else if (item.id === 'bundle-complete-vault-10' || rawKey === 'bundle-complete-vault-10' || rawKey === 'all-ten-master-guides') {
+        setZipDownloadUrl(getGuidePdfDownloadUrl('all-ten-master-guides'));
+      } else {
+        setZipDownloadUrl(getGuidePdfDownloadUrl(item.id || item.slug));
+      }
+    }
+  }, [item, rawKey]);
 
   const handleStripeCheckout = async () => {
     setIsProcessing(true);
@@ -457,12 +469,11 @@ export default function CheckoutPage() {
   };
 
   const handleDownloadAllAgain = () => {
-    if (downloadItems.length === 0) return;
-    downloadItems.forEach((item, index) => {
-      setTimeout(() => {
-        triggerBrowserDownload(item.downloadUrl, item.filename);
-      }, index * 450);
-    });
+    if (item.guides && item.guides.length > 0) {
+      downloadMultipleGuides(item.guides.map(g => g.id));
+    } else if (downloadItems.length > 0) {
+      downloadMultipleGuides(downloadItems.map(d => d.id || d.filename || ''));
+    }
   };
 
   return (
@@ -558,12 +569,10 @@ export default function CheckoutPage() {
                 </span>
                 <a
                   href={zipDownloadUrl}
-                  download="Complete_6_Pillar_Master_Suite-2026.zip"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  download={item.id === 'bundle-pick-3' ? 'Custom_Trio_Master_Guides-2026.zip' : 'Complete_Master_Vault.zip'}
                   className="w-full py-3.5 px-4 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-sm rounded-xl transition-all shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <Download size={18} /> Download All 6 Master Books (ZIP Archive • 9.2 MB)
+                  <Download size={18} /> Download All {item.guides ? item.guides.length : ''} Master Books (ZIP Archive)
                 </a>
               </div>
             )}
@@ -572,18 +581,18 @@ export default function CheckoutPage() {
             <div className="space-y-2 pt-2">
               <div className="flex items-center justify-between text-[11px] text-slate-400 font-semibold px-1">
                 <span>Or Download Individual PDF Guides:</span>
-                {downloadItems.length > 1 && (
+                {(downloadItems.length > 1 || (item.guides && item.guides.length > 1)) && (
                   <button
                     onClick={handleDownloadAllAgain}
                     className="text-cyan-400 hover:underline flex items-center gap-1 cursor-pointer"
                   >
-                    <RefreshCw size={11} /> Auto-download all 6
+                    <RefreshCw size={11} /> Auto-download all {item.guides ? item.guides.length : downloadItems.length}
                   </button>
                 )}
               </div>
 
               {(downloadItems.length > 0 ? downloadItems : (item.guides || [])).map((doc: any, idx: number) => {
-                const downloadUrl = doc.downloadUrl || '#';
+                const downloadUrl = doc.downloadUrl || getGuidePdfDownloadUrl(doc.id || doc.file);
                 const filename = doc.filename || doc.file || `${doc.id}.pdf`;
                 const title = doc.title || doc.name || `Book #${idx + 1}`;
 
@@ -603,9 +612,7 @@ export default function CheckoutPage() {
                     <a
                       href={downloadUrl}
                       download={filename}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="shrink-0 px-3 py-1.5 bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs rounded-lg transition-colors flex items-center gap-1 border border-slate-700"
+                      className="shrink-0 px-3 py-1.5 bg-slate-800 hover:bg-cyan-500 hover:text-slate-950 text-cyan-400 font-bold text-xs rounded-lg transition-colors flex items-center gap-1 border border-slate-700 cursor-pointer"
                     >
                       <Download size={12} /> PDF
                     </a>
@@ -636,6 +643,7 @@ export default function CheckoutPage() {
                   } else {
                     downloadMultipleGuides([item.id || item.slug]);
                   }
+                  setDownloadSuccess(true);
                 }}
                 className="w-full py-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 active:scale-[0.99] text-slate-950 font-black text-sm rounded-xl transition-all shadow-xl shadow-emerald-500/25 flex items-center justify-center gap-2 cursor-pointer"
               >

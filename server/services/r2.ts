@@ -40,6 +40,7 @@ export const R2_GUIDE_FILE_KEYS: Record<string, string> = {
   'hypertrophy-strength': 'Hypertrophy-Strength-Protocol-2026.pdf',
   'mobility-recovery': 'Daily_Mobility_and_Recovery-2026.pdf',
   'fat-loss-blueprint': 'Fat-Loss-Nutrition-Blueprint-2026.pdf',
+  'fat-loss-nutrition': 'Fat-Loss-Nutrition-Blueprint-2026.pdf',
   'high-protein-recipes': 'High_Protein_Recipe_Collection-2026.pdf',
   'sleep-optimization': 'Deep_Sleep_Optimization-2026.pdf',
   'habit-reset': 'Mindfulness_and_Habit_Reset_Workbook-2026.pdf',
@@ -94,7 +95,18 @@ export const R2_GUIDE_FILE_KEYS: Record<string, string> = {
   'all-nine-master-guides': 'Complete_9_Book_Master_Vault-2026.zip',
   'all-9-master-guides': 'Complete_9_Book_Master_Vault-2026.zip',
   'g-bundle-9': 'Complete_9_Book_Master_Vault-2026.zip',
-  'g-bundle-9-zip': 'Complete_9_Book_Master_Vault-2026.zip'
+  'g-bundle-9-zip': 'Complete_9_Book_Master_Vault-2026.zip',
+
+  // 1-Click ZIP Bundle for Complete 10-Book Master Longevity Vault & Custom Trio
+  'Complete_10_Book_Master_Vault-2026.zip': 'all-ten-master-guides.zip',
+  'all-ten-master-guides': 'all-ten-master-guides.zip',
+  'all-10-master-guides': 'all-ten-master-guides.zip',
+  'bundle-complete-vault-10': 'all-ten-master-guides.zip',
+  'bundle-pick-3': 'all-ten-master-guides.zip',
+  'custom-trio-bundle': 'all-ten-master-guides.zip',
+  'g-bundle-10': 'all-ten-master-guides.zip',
+  'g-bundle-10-zip': 'all-ten-master-guides.zip',
+  'all-ten-master-guides.zip': 'all-ten-master-guides.zip'
 };
 
 export const GUIDE_FILE_KEYS = R2_GUIDE_FILE_KEYS;
