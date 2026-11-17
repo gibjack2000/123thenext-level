@@ -28,6 +28,7 @@ import {
   Upload
 } from 'lucide-react';
 import { supabase, hasValidSupabaseConfig } from '../lib/supabase';
+import { isAdminAuthenticated } from '../utils/adminTestMode';
 import { BlogPost } from '../types';
 import { MOCK_BLOG_POSTS } from '../data/mockBlogPosts';
 import BlogMarkdownRenderer from '../components/BlogMarkdownRenderer';
@@ -108,8 +109,7 @@ export default function BlogAdminPage() {
 
   // Check existing session authentication
   useEffect(() => {
-    const auth = sessionStorage.getItem('admin_session_authenticated');
-    if (auth === 'true') {
+    if (isAdminAuthenticated()) {
       setIsAuthenticated(true);
     }
   }, []);
@@ -117,9 +117,11 @@ export default function BlogAdminPage() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD || 'Admin123';
-    if (passwordInput === adminPassword) {
+    const superPassword = import.meta.env.VITE_SUPERADMIN_PASSWORD || 'superadmin123';
+    if (passwordInput === adminPassword || passwordInput === superPassword) {
       setIsAuthenticated(true);
       sessionStorage.setItem('admin_session_authenticated', 'true');
+      localStorage.setItem('admin_session_authenticated', 'true');
       setAuthError('');
     } else {
       setAuthError('Invalid administrator credentials.');
@@ -129,6 +131,9 @@ export default function BlogAdminPage() {
   const handleLogout = () => {
     setIsAuthenticated(false);
     sessionStorage.removeItem('admin_session_authenticated');
+    localStorage.removeItem('admin_session_authenticated');
+    sessionStorage.removeItem('isSuperAdminAuthenticated');
+    localStorage.removeItem('isSuperAdminAuthenticated');
   };
 
   const showToast = (message: string, type: 'success' | 'error' | 'info' = 'success') => {

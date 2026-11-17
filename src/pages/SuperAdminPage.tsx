@@ -3,6 +3,7 @@ import { supabase, hasValidSupabaseConfig, supabaseUrl, supabaseAnonKey } from '
 import { Save, AlertCircle, CheckCircle2, Sparkles, Database, Copy, ExternalLink, ChevronDown, ChevronUp, Shield, Cpu, Trash2, RefreshCw, Search, Tag, MapPin, Star, BookOpen, FileText, Pencil } from 'lucide-react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Product, BlogPost, mapToProduct } from '../types';
+import { isAdminAuthenticated } from '../utils/adminTestMode';
 
 const REGIONS = ['US', 'UK', 'ES'];
 const PRODUCT_CATEGORIES = ['fitness_gear', 'health_wellness', 'home_kitchen', 'tech_gadgets', 'supplements'];
@@ -617,18 +618,34 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     const superPassword = import.meta.env.VITE_SUPERADMIN_PASSWORD || 'superadmin123';
-    if (passwordInput === superPassword) {
+    const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD || 'Admin123';
+    if (passwordInput === superPassword || passwordInput === adminPassword) {
       setIsAuthenticated(true);
       setLoginError('');
       sessionStorage.setItem('isSuperAdminAuthenticated', 'true');
+      localStorage.setItem('isSuperAdminAuthenticated', 'true');
+      sessionStorage.setItem('admin_session_authenticated', 'true');
+      localStorage.setItem('admin_session_authenticated', 'true');
     } else {
       setLoginError('Incorrect SuperAdmin password');
       setPasswordInput('');
     }
   };
 
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    sessionStorage.removeItem('isSuperAdminAuthenticated');
+    localStorage.removeItem('isSuperAdminAuthenticated');
+    sessionStorage.removeItem('admin_session_authenticated');
+    localStorage.removeItem('admin_session_authenticated');
+  };
+
   useEffect(() => {
-    if (sessionStorage.getItem('isSuperAdminAuthenticated') === 'true') {
+    if (
+      sessionStorage.getItem('isSuperAdminAuthenticated') === 'true' ||
+      localStorage.getItem('isSuperAdminAuthenticated') === 'true' ||
+      isAdminAuthenticated()
+    ) {
       setIsAuthenticated(true);
     }
   }, []);
@@ -674,8 +691,16 @@ Provide a short benefit (1 sentence highlight), a description (2-3 sentences), a
           <h1 className="text-3xl font-display uppercase tracking-tight text-slate-900 mb-2">SuperAdmin Command Center</h1>
           <p className="text-indigo-600 font-bold uppercase tracking-widest text-[10px]">Level: Elevated Permissions</p>
         </div>
-        <div className="bg-indigo-50 px-4 py-2 rounded-xl border border-indigo-100 hidden sm:block">
-           <span className="text-xs font-bold text-indigo-700">Root Access Active</span>
+        <div className="flex items-center gap-3">
+          <div className="bg-indigo-50 px-4 py-2 rounded-xl border border-indigo-100 hidden sm:block">
+             <span className="text-xs font-bold text-indigo-700">Root Access Active</span>
+          </div>
+          <button
+            onClick={handleLogout}
+            className="text-xs font-bold uppercase tracking-wider text-slate-500 hover:text-red-600 px-3 py-2 rounded-lg border border-slate-200 hover:border-red-200 transition-all bg-white"
+          >
+            Sign Out
+          </button>
         </div>
       </div>
 

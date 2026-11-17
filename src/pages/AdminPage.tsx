@@ -5,7 +5,7 @@ import { affiliateLinks } from '../config/affiliateLinks';
 import { Save, AlertCircle, CheckCircle2, Sparkles, Database, Copy, ExternalLink, ChevronDown, ChevronUp, Shield, Cpu, Trash2, RefreshCw, Search, Tag, MapPin, Star, BookOpen, FileText, Pencil, Eye, Upload, X, Check } from 'lucide-react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Product, BlogPost, PremiumGuide, mapToProduct } from '../types';
-import { usePaywallBypass } from '../utils/adminTestMode';
+import { usePaywallBypass, isAdminAuthenticated } from '../utils/adminTestMode';
 import BlogMarkdownRenderer from '../components/BlogMarkdownRenderer';
 import { generateFullClinicalMasterclass } from '../utils/clinicalArticleGenerator';
 import {
@@ -79,8 +79,7 @@ export default function AdminPage() {
   const { isBypassActive, setBypassActive } = usePaywallBypass();
 
   useEffect(() => {
-    const auth = sessionStorage.getItem('admin_session_authenticated');
-    if (auth === 'true') {
+    if (isAdminAuthenticated()) {
       setIsAuthenticated(true);
     }
   }, []);
@@ -88,9 +87,11 @@ export default function AdminPage() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD || 'Admin123';
-    if (passwordInput === adminPassword) {
+    const superPassword = import.meta.env.VITE_SUPERADMIN_PASSWORD || 'superadmin123';
+    if (passwordInput === adminPassword || passwordInput === superPassword) {
       setIsAuthenticated(true);
       sessionStorage.setItem('admin_session_authenticated', 'true');
+      localStorage.setItem('admin_session_authenticated', 'true');
       setLoginError('');
     } else {
       setLoginError('Invalid administrator credentials.');
@@ -100,6 +101,9 @@ export default function AdminPage() {
   const handleLogout = () => {
     setIsAuthenticated(false);
     sessionStorage.removeItem('admin_session_authenticated');
+    localStorage.removeItem('admin_session_authenticated');
+    sessionStorage.removeItem('isSuperAdminAuthenticated');
+    localStorage.removeItem('isSuperAdminAuthenticated');
   };
 
   const [activeTab, setActiveTab] = useState<'products' | 'blog' | 'mappings' | 'discovery' | 'guides'>('products');

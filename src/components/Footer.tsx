@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Settings, Home as HomeIcon, Shield, Info, Heart, ExternalLink } from 'lucide-react';
+import { Settings, Home as HomeIcon, Shield, Info, Heart, ExternalLink, BookOpen, Database } from 'lucide-react';
 import { useT } from '../translations';
 import MarketSelector from './MarketSelector';
 import NewsletterOptIn from './NewsletterOptIn';
@@ -50,7 +50,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ${isAdmin ? 'xl:grid-cols-5' : 'xl:grid-cols-4'} gap-10 mb-16`}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-10 mb-16">
           {/* Brand Column */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center group">
@@ -169,43 +169,55 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Admin Section Column (Gated: only visible if admin session is active or in dev mode) */}
-          {isAdmin && (
-            <div>
-              <h3 className="text-white font-bold text-base mb-6 uppercase tracking-wider flex items-center">
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 mr-2"></span>
-                {t('footer_admin')}
-              </h3>
-              <div className="space-y-4">
-                <p className="text-slate-400 text-xs font-medium italic mb-4">
-                  {t('footer_admin_desc')}
-                </p>
-                <div className="flex flex-col sm:flex-row flex-wrap gap-3">
-                  <Link 
-                    to="/admin" 
-                    className="inline-flex items-center text-[10px] font-black text-white bg-slate-800 hover:bg-blue-600 px-4 py-2.5 rounded-xl transition-all duration-300 shadow-lg border border-slate-700 hover:border-transparent group uppercase tracking-widest"
-                  >
-                    <Settings size={14} className="mr-2 group-hover:rotate-45 transition-transform duration-500" />
-                    {t('footer_admin_btn')}
-                  </Link>
-                  <Link 
-                    to="/superadmin" 
-                    className="inline-flex items-center text-[10px] font-black text-white bg-indigo-900/40 hover:bg-indigo-600 px-4 py-2.5 rounded-xl transition-all duration-300 shadow-lg border border-indigo-500/30 hover:border-transparent group uppercase tracking-widest"
-                  >
-                    <Shield size={14} className="mr-2 group-hover:scale-110 transition-transform duration-500" />
-                    SuperAdmin
-                  </Link>
-                  <Link 
-                    to="/automation-admin" 
-                    className="inline-flex items-center text-[10px] font-black text-white bg-emerald-900/40 hover:bg-emerald-600 px-4 py-2.5 rounded-xl transition-all duration-300 shadow-lg border border-emerald-500/30 hover:border-transparent group uppercase tracking-widest"
-                  >
-                    <Settings size={14} className="mr-2 group-hover:rotate-180 transition-transform duration-500" />
-                    Blog Bot
-                  </Link>
-                </div>
+          {/* Admin Section Column (Direct access to all administrative & editorial suites) */}
+          <div>
+            <h3 className="text-white font-bold text-base mb-6 uppercase tracking-wider flex items-center">
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 mr-2"></span>
+              {t('footer_admin')}
+            </h3>
+            <div className="space-y-4">
+              <p className="text-slate-400 text-xs font-medium italic mb-4">
+                {t('footer_admin_desc')}
+              </p>
+              <div className="flex flex-col sm:flex-row flex-wrap gap-2.5">
+                <Link 
+                  to="/admin" 
+                  className="inline-flex items-center text-[10px] font-black text-white bg-slate-800 hover:bg-blue-600 px-3.5 py-2.5 rounded-xl transition-all duration-300 shadow-lg border border-slate-700 hover:border-transparent group uppercase tracking-widest"
+                >
+                  <Settings size={14} className="mr-2 group-hover:rotate-45 transition-transform duration-500 text-blue-400 group-hover:text-white" />
+                  {t('footer_admin_btn')}
+                </Link>
+                <Link 
+                  to="/admin/blogs" 
+                  className="inline-flex items-center text-[10px] font-black text-white bg-blue-950/50 hover:bg-blue-600 px-3.5 py-2.5 rounded-xl transition-all duration-300 shadow-lg border border-blue-500/30 hover:border-transparent group uppercase tracking-widest"
+                >
+                  <BookOpen size={14} className="mr-2 group-hover:scale-110 transition-transform duration-500 text-cyan-400 group-hover:text-white" />
+                  Blog Admin
+                </Link>
+                <Link 
+                  to="/admin/store" 
+                  className="inline-flex items-center text-[10px] font-black text-white bg-emerald-950/50 hover:bg-emerald-600 px-3.5 py-2.5 rounded-xl transition-all duration-300 shadow-lg border border-emerald-500/30 hover:border-transparent group uppercase tracking-widest"
+                >
+                  <Database size={14} className="mr-2 group-hover:scale-110 transition-transform duration-500 text-emerald-400 group-hover:text-white" />
+                  Store Admin
+                </Link>
+                <Link 
+                  to="/superadmin" 
+                  className="inline-flex items-center text-[10px] font-black text-white bg-indigo-900/40 hover:bg-indigo-600 px-3.5 py-2.5 rounded-xl transition-all duration-300 shadow-lg border border-indigo-500/30 hover:border-transparent group uppercase tracking-widest"
+                >
+                  <Shield size={14} className="mr-2 group-hover:scale-110 transition-transform duration-500 text-indigo-400 group-hover:text-white" />
+                  SuperAdmin
+                </Link>
+                <Link 
+                  to="/automation-admin" 
+                  className="inline-flex items-center text-[10px] font-black text-white bg-purple-950/40 hover:bg-purple-600 px-3.5 py-2.5 rounded-xl transition-all duration-300 shadow-lg border border-purple-500/30 hover:border-transparent group uppercase tracking-widest"
+                >
+                  <Settings size={14} className="mr-2 group-hover:rotate-180 transition-transform duration-500 text-purple-400 group-hover:text-white" />
+                  Blog Bot
+                </Link>
               </div>
             </div>
-          )}
+          </div>
 
           {/* Trust/Social Placeholder Column */}
           <div>

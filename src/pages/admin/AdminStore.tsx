@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { supabase as importedSupabase, supabaseUrl, supabaseAnonKey } from '../../lib/supabase';
 import { AdminLayout } from '../../components/AdminLayout';
+import { isAdminAuthenticated } from '../../utils/adminTestMode';
 import { 
   STORE_CATEGORIES, 
   StoreCategory, 
@@ -90,8 +91,7 @@ export const AdminStore: React.FC = () => {
 
   // Verify Admin Auth
   useEffect(() => {
-    const auth = sessionStorage.getItem('admin_session_authenticated');
-    if (auth === 'true') {
+    if (isAdminAuthenticated()) {
       setIsAuthenticated(true);
     }
   }, []);
@@ -99,9 +99,11 @@ export const AdminStore: React.FC = () => {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD || 'Admin123';
-    if (passwordInput === adminPassword) {
+    const superPassword = import.meta.env.VITE_SUPERADMIN_PASSWORD || 'superadmin123';
+    if (passwordInput === adminPassword || passwordInput === superPassword) {
       setIsAuthenticated(true);
       sessionStorage.setItem('admin_session_authenticated', 'true');
+      localStorage.setItem('admin_session_authenticated', 'true');
       setLoginError('');
     } else {
       setLoginError('Invalid administrator credentials.');

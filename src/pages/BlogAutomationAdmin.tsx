@@ -15,6 +15,7 @@ import {
 } from '../utils/blogImages';
 import BlogMarkdownRenderer from '../components/BlogMarkdownRenderer';
 import { generateFullClinicalMasterclass } from '../utils/clinicalArticleGenerator';
+import { isAdminAuthenticated } from '../utils/adminTestMode';
 
 export default function BlogAutomationAdmin() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -295,8 +296,7 @@ export default function BlogAutomationAdmin() {
   };
 
   useEffect(() => {
-    const auth = sessionStorage.getItem('admin_session_authenticated');
-    if (auth === 'true') {
+    if (isAdminAuthenticated()) {
       setIsAuthenticated(true);
     }
   }, []);
@@ -304,13 +304,23 @@ export default function BlogAutomationAdmin() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD || 'Admin123';
-    if (passwordInput === adminPassword) {
+    const superPassword = import.meta.env.VITE_SUPERADMIN_PASSWORD || 'superadmin123';
+    if (passwordInput === adminPassword || passwordInput === superPassword) {
       setIsAuthenticated(true);
       sessionStorage.setItem('admin_session_authenticated', 'true');
+      localStorage.setItem('admin_session_authenticated', 'true');
       setLoginError('');
     } else {
       setLoginError('Invalid administrator credentials.');
     }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    sessionStorage.removeItem('admin_session_authenticated');
+    localStorage.removeItem('admin_session_authenticated');
+    sessionStorage.removeItem('isSuperAdminAuthenticated');
+    localStorage.removeItem('isSuperAdminAuthenticated');
   };
 
   useEffect(() => {
@@ -892,7 +902,15 @@ export default function BlogAutomationAdmin() {
   return (
     <div className="min-h-screen bg-slate-950 p-8 pt-24 text-white">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">AI Blog Automation Dashboard</h1>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-indigo-500 bg-clip-text text-transparent">AI Blog Automation Dashboard</h1>
+          <button
+            onClick={handleLogout}
+            className="text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-red-400 px-3.5 py-2 rounded-xl border border-slate-800 hover:border-red-500/30 transition-all bg-slate-900/60"
+          >
+            Sign Out
+          </button>
+        </div>
 
         {/* Supabase RLS Fix Banner (Zero Obstacles) */}
         {rlsWarning && (

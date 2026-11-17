@@ -218,8 +218,12 @@ function App() {
                 <Route path="/admin/affiliates" element={<AdminAffiliates />} />
                 <Route path="/admin/store" element={<AdminStore />} />
                 <Route path="/admin/blogs" element={<BlogAdminPage />} />
+                <Route path="/admin/blog" element={<BlogAdminPage />} />
+                <Route path="/blog-admin" element={<BlogAdminPage />} />
                 <Route path="/superadmin" element={<SuperAdminPage />} />
                 <Route path="/automation-admin" element={<BlogAutomationAdmin />} />
+                <Route path="/admin/automation" element={<BlogAutomationAdmin />} />
+                <Route path="/admin/blog-automation" element={<BlogAutomationAdmin />} />
                 <Route path="/intelligence-hub" element={<IntelligenceHub />} />
                 <Route path="/blog" element={<MagazineRack />} />
                 <Route path="/blog/:slug" element={<BlogPostPage />} />

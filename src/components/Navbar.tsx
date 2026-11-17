@@ -594,6 +594,18 @@ export const Navbar: React.FC = () => {
               </button>
             </div>
           </div>
+
+          {/* Admin Control Quick Links (Mobile Drawer) */}
+          <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
+            <span className="font-semibold text-slate-500">Admin Portals:</span>
+            <div className="flex gap-2">
+              <Link to="/admin" onClick={closeMobileMenu} className="hover:text-cyan-400 underline decoration-slate-700">Admin</Link>
+              <span className="text-slate-700">•</span>
+              <Link to="/admin/blogs" onClick={closeMobileMenu} className="hover:text-cyan-400 underline decoration-slate-700">Blog Admin</Link>
+              <span className="text-slate-700">•</span>
+              <Link to="/superadmin" onClick={closeMobileMenu} className="hover:text-cyan-400 underline decoration-slate-700">SuperAdmin</Link>
+            </div>
+          </div>
         </div>
       )}
     </header>
