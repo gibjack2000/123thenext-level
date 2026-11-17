@@ -86,8 +86,8 @@ export default function QuizResults() {
       case 'fitness':
         return {
           title: "Beginner Home Workout Plan",
-          price: formatPrice(25.00, 19.00, 22.00),
-          priceVal: getPriceVal(25.00, 19.00, 22.00),
+          price: formatPrice(29.99, 23.99, 27.99),
+          priceVal: getPriceVal(29.99, 23.99, 27.99),
           id: "guide-fitness-home",
           desc: "A 4-week zero-equipment routine designed to rebuild structural joint and lean mass health.",
           badge: "Direct Monetization Protocol"

@@ -132,8 +132,8 @@ export const PREMIUM_MASTER_GUIDES: PremiumMasterGuide[] = [
     category: 'Fitness',
     shortDescription: 'A 4-week zero-equipment protocol to build foundational strength and mobility from home.',
     longDescription: 'This comprehensive 4-week protocol is designed specifically for beginners. It focuses on functional movement patterns, core stability, and progressive overload using only your body weight.',
-    priceDisplay: '£29.00 / $29.00',
-    priceInCents: 2900,
+    priceDisplay: '£23.99 / $29.99',
+    priceInCents: 2399,
     stripePriceId: 'price_placeholder_fit1',
     checkoutUrl: '/checkout?guide=beginner-home-workout-plan', // [PLACEHOLDER_PREMIUM_GUIDE_CHECKOUT_URL_1]
     image: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop',

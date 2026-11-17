@@ -53,7 +53,7 @@ export const ALL_10_MASTER_GUIDES: BundleMasterGuide[] = [
     pillar: 'Fitness & Physical Integrity',
     coverImage: '/covers/beginner-home-workout-cover.png',
     fallbackImage: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800&auto=format&fit=crop',
-    priceFormatted: '£0.30',
+    priceFormatted: '£23.99',
     shortDesc: 'A 4-week zero-equipment protocol to build foundational strength and mobility from home.',
     fileKey: 'beginner_home_workout-2026.pdf'
   },

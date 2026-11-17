@@ -487,7 +487,7 @@ export default function Start_Now_Old() {
                     <div className="p-3.5 bg-slate-950/80 rounded-xl border border-slate-800 space-y-2 text-[11px] leading-relaxed">
                       <span className="font-semibold text-white block">Direct Digital Product:</span>
                       <p className="text-slate-400 font-light">
-                        Deploy our Beginner Home Workout Plan (£19.00) — a 4-week zero-equipment routine to build baseline structural joint and lean mass health.
+                        Deploy our Beginner Home Workout Plan (£23.99) — a 4-week zero-equipment routine to build baseline structural joint and lean mass health.
                       </p>
                       <Link 
                         to="/premium-guides/beginner-home-workout-plan"

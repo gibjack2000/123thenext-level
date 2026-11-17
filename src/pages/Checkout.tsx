@@ -223,27 +223,43 @@ const PRODUCT_MAP: Record<string, ProductInfo> = {
   },
 
   // --- INDIVIDUAL GUIDES ---
+  'beginner-home-workout': {
+    id: 'g-fit-1',
+    name: 'Beginner Home Workout Plan',
+    price: '£23.99',
+    usPrice: '$29.99',
+    slug: 'beginner_home_workout-2026',
+    desc: '4-Week Bodyweight Foundation & Recovery Guide to preserve skeletal muscle mass and build foundational strength from home.'
+  },
+  'beginner-home-workout-plan': {
+    id: 'g-fit-1',
+    name: 'Beginner Home Workout Plan',
+    price: '£23.99',
+    usPrice: '$29.99',
+    slug: 'beginner_home_workout-2026',
+    desc: '4-Week Bodyweight Foundation & Recovery Guide to preserve skeletal muscle mass and build foundational strength from home.'
+  },
   'workout-plan': {
     id: 'g-fit-1',
     name: 'Beginner Home Workout Plan',
-    price: '£0.30',
-    usPrice: '$0.40',
+    price: '£23.99',
+    usPrice: '$29.99',
     slug: 'beginner_home_workout-2026',
     desc: '4-Week Bodyweight Foundation & Recovery Guide to preserve skeletal muscle mass and build foundational strength from home.'
   },
   'performance-guide': {
     id: 'g-fit-1',
     name: 'Beginner Home Workout Plan',
-    price: '£0.30',
-    usPrice: '$0.40',
+    price: '£23.99',
+    usPrice: '$29.99',
     slug: 'beginner_home_workout-2026',
     desc: '4-Week Bodyweight Foundation & Recovery Guide to preserve skeletal muscle mass and build foundational strength from home.'
   },
   'beginner-workout': {
     id: 'g-fit-1',
     name: 'Beginner Home Workout Plan',
-    price: '£0.30',
-    usPrice: '$0.40',
+    price: '£23.99',
+    usPrice: '$29.99',
     slug: 'beginner_home_workout-2026',
     desc: '4-Week Bodyweight Foundation & Recovery Guide to preserve skeletal muscle mass and build foundational strength from home.'
   },
