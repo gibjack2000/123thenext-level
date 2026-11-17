@@ -228,8 +228,8 @@ export const PREMIUM_MASTER_GUIDES: PremiumMasterGuide[] = [
     category: 'Nutrition',
     shortDescription: 'Evidence-based strategies for sustainable fat loss without extreme restriction.',
     longDescription: 'Forget crash diets. This blueprint focuses on energy balance, metabolic health, and sustainable habit formation. Understand the physiology of fat loss and how to calculate your personalized targets.',
-    priceDisplay: '£29.00 / $29.00',
-    priceInCents: 2900,
+    priceDisplay: '£29.99 / $38.00',
+    priceInCents: 2999,
     stripePriceId: 'price_placeholder_nut2',
     checkoutUrl: '/checkout?guide=fat-loss-nutrition-blueprint', // [PLACEHOLDER_PREMIUM_GUIDE_CHECKOUT_URL_5]
     image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=800&auto=format&fit=crop',
@@ -252,8 +252,8 @@ export const PREMIUM_MASTER_GUIDES: PremiumMasterGuide[] = [
     category: 'Nutrition',
     shortDescription: '50+ delicious, easy-to-make recipes designed to hit your protein targets.',
     longDescription: "Struggling to hit your daily protein goals? This collection features over 50 chef-crafted, high-protein recipes that don't taste like diet food. All recipes take under 30 minutes to prepare.",
-    priceDisplay: '£29.00 / $29.00',
-    priceInCents: 2900,
+    priceDisplay: '£19.99 / $24.99',
+    priceInCents: 1999,
     stripePriceId: 'price_placeholder_nut3',
     checkoutUrl: '/checkout?guide=high-protein-recipe-collection', // [PLACEHOLDER_PREMIUM_GUIDE_CHECKOUT_URL_6]
     image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop',

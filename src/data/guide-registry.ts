@@ -80,8 +80,8 @@ export const GUIDE_PRODUCTS: Record<string, DigitalGuideProduct> = {
     id: 'fat-loss-nutrition',
     productId: 'g-nut-2',
     title: 'Fat Loss Nutrition Blueprint',
-    priceInCents: 2900, // £29.00
-    priceFormatted: '£29.00',
+    priceInCents: 2999, // £29.99
+    priceFormatted: '£29.99',
     r2FileKey: 'Fat-Loss-Nutrition-Blueprint-2026.pdf',
     pillar: 'Metabolism',
     description: 'A sustainable, science-based fat loss protocol that spares lean muscle tissue while targeting visceral fat deposits.',
@@ -96,8 +96,8 @@ export const GUIDE_PRODUCTS: Record<string, DigitalGuideProduct> = {
     id: 'high-protein-recipes',
     productId: 'g-nut-3',
     title: 'High-Protein Recipe Collection',
-    priceInCents: 1900, // £19.00
-    priceFormatted: '£19.00',
+    priceInCents: 1999, // £19.99
+    priceFormatted: '£19.99',
     r2FileKey: 'High_Protein_Recipe_Collection-2026.pdf',
     pillar: 'Diet',
     description: '45+ chef-crafted, high-protein meal and snack formulas designed to hit optimal leucine thresholds per serving.',

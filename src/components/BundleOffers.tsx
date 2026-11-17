@@ -97,7 +97,7 @@ export const ALL_10_MASTER_GUIDES: BundleMasterGuide[] = [
     pillar: 'Metabolic Nutrition',
     coverImage: '/covers/fat-loss-nutrition-cover.png',
     fallbackImage: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?q=80&w=800&auto=format&fit=crop',
-    priceFormatted: '£29.00',
+    priceFormatted: '£29.99',
     shortDesc: 'Caloric periodization, refeed strategies, and hormonal protection for steady fat loss.',
     fileKey: 'Fat-Loss-Nutrition-Blueprint-2026.pdf'
   },
@@ -108,7 +108,7 @@ export const ALL_10_MASTER_GUIDES: BundleMasterGuide[] = [
     pillar: 'Metabolic Nutrition',
     coverImage: '/covers/high-protein-recipe-cover.png',
     fallbackImage: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=800&auto=format&fit=crop',
-    priceFormatted: '£19.00',
+    priceFormatted: '£19.99',
     shortDesc: '50 chef-crafted, high-protein recipes optimized for satiety and muscle protein synthesis.',
     fileKey: 'High_Protein_Recipe_Collection-2026.pdf'
   },

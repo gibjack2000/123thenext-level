@@ -298,7 +298,23 @@ const PRODUCT_MAP: Record<string, ProductInfo> = {
   'fat-loss-blueprint': {
     id: 'g-nut-2',
     name: 'The Fat Loss Nutrition Blueprint',
-    price: '£29.00',
+    price: '£29.99',
+    usPrice: '$38.00',
+    slug: 'Fat-Loss-Nutrition-Blueprint-2026',
+    desc: 'Your science-based path to sustainable fat loss without metabolic adaptation, muscle wasting, or starvation.'
+  },
+  'fat-loss-nutrition': {
+    id: 'g-nut-2',
+    name: 'The Fat Loss Nutrition Blueprint',
+    price: '£29.99',
+    usPrice: '$38.00',
+    slug: 'Fat-Loss-Nutrition-Blueprint-2026',
+    desc: 'Your science-based path to sustainable fat loss without metabolic adaptation, muscle wasting, or starvation.'
+  },
+  'fat-loss-nutrition-blueprint': {
+    id: 'g-nut-2',
+    name: 'The Fat Loss Nutrition Blueprint',
+    price: '£29.99',
     usPrice: '$38.00',
     slug: 'Fat-Loss-Nutrition-Blueprint-2026',
     desc: 'Your science-based path to sustainable fat loss without metabolic adaptation, muscle wasting, or starvation.'
@@ -306,8 +322,16 @@ const PRODUCT_MAP: Record<string, ProductInfo> = {
   'high-protein-recipes': {
     id: 'g-nut-3',
     name: 'High-Protein Recipe Collection',
-    price: '£19.00',
-    usPrice: '$24.00',
+    price: '£19.99',
+    usPrice: '$24.99',
+    slug: 'High_Protein_Recipe_Collection-2026',
+    desc: 'Clinical & behavioural culinary systems for satiety, muscle preservation, and practical kitchen mastery.'
+  },
+  'high-protein-recipe-collection': {
+    id: 'g-nut-3',
+    name: 'High-Protein Recipe Collection',
+    price: '£19.99',
+    usPrice: '$24.99',
     slug: 'High_Protein_Recipe_Collection-2026',
     desc: 'Clinical & behavioural culinary systems for satiety, muscle preservation, and practical kitchen mastery.'
   },
