@@ -158,11 +158,7 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
 }) => {
   const navigate = useNavigate();
   const [isPickerOpen, setIsPickerOpen] = useState(false);
-  const [selectedGuideIds, setSelectedGuideIds] = useState<string[]>([
-    'metabolic-master-guide',
-    'hypertrophy-strength',
-    'sleep-optimization'
-  ]);
+  const [selectedGuideIds, setSelectedGuideIds] = useState<string[]>([]);
   const [pickerWarning, setPickerWarning] = useState<string | null>(null);
   const [pickerView, setPickerView] = useState<'select' | 'downloadTray'>('select');
   const { isBypassActive } = usePaywallBypass();
@@ -289,23 +285,37 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
                   }}
                   className="text-cyan-400 hover:text-cyan-300 hover:underline cursor-pointer"
                 >
-                  Change Selection
+                  {selectedGuideIds.length === 0 ? 'Choose Your 3 Guides' : 'Change Selection'}
                 </button>
               </div>
-              <div className="flex flex-wrap gap-1.5">
-                {selectedGuideIds.map(id => {
-                  const g = ALL_10_MASTER_GUIDES.find(item => item.id === id);
-                  return (
-                    <span 
-                      key={id} 
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-bold bg-slate-900 border border-slate-700 text-slate-200"
-                    >
-                      <Check size={11} className="text-cyan-400" />
-                      <span className="truncate max-w-[180px]">{g?.title || id}</span>
-                    </span>
-                  );
-                })}
-              </div>
+              {selectedGuideIds.length > 0 ? (
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedGuideIds.map(id => {
+                    const g = ALL_10_MASTER_GUIDES.find(item => item.id === id);
+                    return (
+                      <span 
+                        key={id} 
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-bold bg-slate-900 border border-slate-700 text-slate-200"
+                      >
+                        <Check size={11} className="text-cyan-400" />
+                        <span className="truncate max-w-[180px]">{g?.title || id}</span>
+                      </span>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div 
+                  onClick={() => {
+                    setPickerView('select');
+                    setIsPickerOpen(true);
+                  }}
+                  className="p-3 rounded-lg border border-dashed border-slate-800 hover:border-cyan-500/50 bg-slate-900/40 text-center cursor-pointer transition-colors"
+                >
+                  <span className="text-[11px] text-slate-400 font-medium">
+                    No guides selected yet — <strong className="text-cyan-400 font-semibold underline">Click here to choose any 3 protocols</strong>
+                  </span>
+                </div>
+              )}
             </div>
 
           </div>
@@ -325,13 +335,21 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
                 }
               }}
               className={`w-full py-4 px-6 rounded-2xl text-xs sm:text-sm font-black uppercase tracking-wider transition-all shadow-xl hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer ${
-                isBypassActive
+                isBypassActive && isCompleteTrio
                   ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 shadow-emerald-500/25'
                   : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 shadow-cyan-500/20'
               }`}
             >
               <Layers size={16} />
-              <span>{isBypassActive ? 'Select & Test Download 3 Guides (Free Bypass) ➔' : 'Select Your 3 Guides (£29.99) ➔'}</span>
+              <span>
+                {selectedGuideIds.length === 0
+                  ? 'Choose Your 3 Master Guides (0/3) ➔'
+                  : selectedGuideIds.length < 3
+                    ? `Choose ${3 - selectedGuideIds.length} More Guide${selectedGuideIds.length === 2 ? '' : 's'} (${selectedGuideIds.length}/3) ➔`
+                    : isBypassActive
+                      ? 'Select & Test Download 3 Guides (Free Bypass) ➔'
+                      : 'Select Your 3 Guides (£29.99) ➔'}
+              </span>
             </button>
           </div>
         </div>
@@ -719,7 +737,9 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
                     <span className="text-xs font-bold text-slate-300 block">
                       {isCompleteTrio 
                         ? '✓ 3 Guides selected! Ready to proceed.' 
-                        : `Please choose ${3 - selectedGuideIds.length} more guide${selectedGuideIds.length === 2 ? '' : 's'}.`}
+                        : selectedGuideIds.length === 0
+                          ? 'Please choose any 3 protocols below to build your custom trio.'
+                          : `Please choose ${3 - selectedGuideIds.length} more guide${selectedGuideIds.length === 2 ? '' : 's'}.`}
                     </span>
                     <span className="text-[11px] text-slate-500">
                       Total price: <strong className="text-cyan-400">£29.99</strong> ($29.99 / 29,99€)
