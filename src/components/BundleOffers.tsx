@@ -216,7 +216,7 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
       </div>
 
       {/* 2-Column Responsive Bundle Showcase Grid */}
-      <div className="grid lg:grid-cols-2 gap-8 items-stretch">
+      <div className="grid lg:grid-cols-2 gap-8 items-stretch pt-4">
         
         {/* ========================================================================= */}
         {/* BUNDLE 1: "Pick Any 3 Master Guides" (£29.99 / $29.99 / €29.99)           */}
@@ -358,12 +358,15 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
         {/* ========================================================================= */}
         {/* BUNDLE 2: "Complete 10-Guide Master Vault" (£69.99 / $69.99 / €69.99)      */}
         {/* ========================================================================= */}
-        <div className="rounded-3xl bg-gradient-to-b from-slate-900 via-amber-950/20 to-slate-900 border-2 border-amber-500/50 hover:border-amber-400 transition-all duration-300 p-7 sm:p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="rounded-3xl bg-gradient-to-b from-slate-900 via-amber-950/20 to-slate-900 border-2 border-amber-500/50 hover:border-amber-400 transition-all duration-300 p-7 sm:p-8 flex flex-col justify-between shadow-2xl relative group">
+          {/* Background Glow (Clipped cleanly to card borders) */}
+          <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none">
+            <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl" />
+          </div>
 
-          {/* Most Popular Badge Pill */}
-          <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-20">
-            <span className="px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 shadow-xl flex items-center gap-1.5">
+          {/* Most Popular Badge Pill (Elevated and unclipped) */}
+          <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 z-30 pointer-events-none">
+            <span className="px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 shadow-xl shadow-amber-500/25 border border-amber-300/40 flex items-center gap-1.5 whitespace-nowrap">
               👑 MOST POPULAR • BEST VALUE
             </span>
           </div>
