@@ -86,8 +86,8 @@ export default function SuccessPage() {
     // Auto-trigger the download of our exact non-colliding PDF filename
     const downloadTimer = setTimeout(() => {
       const link = document.createElement('a');
-      link.href = '/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf?v=2026-revised';
-      link.download = 'idiots-guide-to-the-next-level-lifespan.pdf';
+      link.href = '/docs/idiots-guide-to-the-next-level-lifespan-2026.pdf';
+      link.download = 'idiots-guide-to-the-next-level-lifespan-2026.pdf';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -159,8 +159,8 @@ export default function SuccessPage() {
                 </div>
 
                 <a 
-                  href="/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf?v=2026-revised"
-                  download="idiots-guide-to-the-next-level-lifespan.pdf"
+                  href="/docs/idiots-guide-to-the-next-level-lifespan-2026.pdf"
+                  download="idiots-guide-to-the-next-level-lifespan-2026.pdf"
                   className="w-full py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider bg-cyan-500 hover:bg-cyan-400 text-slate-950 flex items-center justify-center gap-2 transition shadow-md shadow-cyan-500/10 cursor-pointer"
                 >
                   <Download size={14} />
@@ -168,7 +168,41 @@ export default function SuccessPage() {
                 </a>
               </div>
 
-              {/* Free Resource 2: The Clinician Co-Pilot */}
+              {/* Free Resource 2: The Next Level Lifespan (28-Page Blueprint) */}
+              <div className="p-5 rounded-2xl bg-slate-950 border border-slate-850 space-y-4 hover:border-indigo-500/30 transition">
+                <div className="flex items-start gap-4">
+                  <img 
+                    src="/longevity_blueprint_cover.png" 
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      if (target.src !== window.location.origin + '/covers/the-next-level-lifespan-cover.png') {
+                        target.src = '/covers/the-next-level-lifespan-cover.png';
+                      }
+                    }}
+                    alt="The Next Level Lifespan"
+                    className="w-16 h-24 object-contain rounded-lg border border-slate-800 bg-slate-900 shrink-0 shadow-lg"
+                  />
+                  <div className="space-y-1 text-left">
+                    <h3 className="text-base font-bold text-white leading-tight">
+                      The Next Level Lifespan
+                    </h3>
+                    <p className="text-xs text-slate-400 leading-relaxed">
+                      Our complete 28-page open-access geroscience blueprint covering biological age, clinical biomarker baselines (ApoB, HbA1c, hs-CRP), and a 4-week habit tracker.
+                    </p>
+                  </div>
+                </div>
+
+                <a 
+                  href="/assets/docs/the-next-level-lifespan-v7.pdf"
+                  download="the-next-level-lifespan-v7.pdf"
+                  className="w-full py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 text-white flex items-center justify-center gap-2 transition shadow-md shadow-indigo-500/10 cursor-pointer"
+                >
+                  <Download size={14} />
+                  <span>Download Free Blueprint (PDF)</span>
+                </a>
+              </div>
+
+              {/* Free Resource 3: The Clinician Co-Pilot */}
               <div className="p-5 rounded-2xl bg-slate-950 border border-slate-850 space-y-4 hover:border-amber-500/30 transition">
                 <div className="flex items-start gap-4">
                   <img 

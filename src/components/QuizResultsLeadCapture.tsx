@@ -38,8 +38,8 @@ export default function QuizResultsLeadCapture({ score }: QuizResultsPanelProps)
 
       // Also trigger PDF download
       const link = document.createElement('a');
-      link.href = '/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf';
-      link.download = 'idiots-guide-to-the-next-level-lifespan.pdf';
+      link.href = '/docs/idiots-guide-to-the-next-level-lifespan-2026.pdf';
+      link.download = 'idiots-guide-to-the-next-level-lifespan-2026.pdf';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

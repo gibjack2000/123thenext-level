@@ -1,0 +1,6 @@
+# Treat binary files correctly
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary

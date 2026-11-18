@@ -106,8 +106,8 @@ export default function LibraryPage() {
       setFreeDownloadTriggered(true);
       const timer = setTimeout(() => {
         triggerDirectDownload(
-          '/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf',
-          'idiots-guide-to-the-next-level-lifespan.pdf',
+          '/docs/idiots-guide-to-the-next-level-lifespan-2026.pdf',
+          'idiots-guide-to-the-next-level-lifespan-2026.pdf',
           "An Idiot's Guide to the Next Level Lifespan"
         );
       }, 800);
@@ -274,7 +274,7 @@ export default function LibraryPage() {
             The Next Level Library
           </h1>
           <p className="text-base md:text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Your open-access directory to cross the bridge from biological speculation to molecular certainty. Get our 2 complimentary open-access clinical documents with instant $0 direct download, or unlock all 9 specialized Master Guides stored in our private Cloudflare R2 vault.
+            Your open-access directory to cross the bridge from biological speculation to molecular certainty. Get our 3 complimentary open-access clinical documents with instant $0 direct download, or unlock all 9 specialized Master Guides stored in our private Cloudflare R2 vault.
           </p>
 
           {/* Quick-Jump Section Navigator */}
@@ -283,7 +283,7 @@ export default function LibraryPage() {
               href="#free-pdfs"
               className="px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider bg-cyan-500/15 text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500 hover:text-slate-950 transition-all shadow-md flex items-center gap-2 cursor-pointer"
             >
-              <span>📁 2 Free Open-Access PDFs ($0.00)</span>
+              <span>📁 3 Free Open-Access PDFs ($0.00)</span>
               <ArrowDown size={14} />
             </a>
             <a
@@ -338,11 +338,11 @@ export default function LibraryPage() {
             Complimentary Translation &amp; Baseline Guides (100% Free)
           </h2>
           <p className="text-xs sm:text-sm text-slate-400 max-w-2xl leading-relaxed">
-            Download our two foundational clinical manuals immediately at zero cost ($0.00). Save the PDFs directly to your device or launch the interactive online workbook to co-evaluate your telemetry with your doctor.
+            Download our three foundational open-access clinical manuals immediately at zero cost ($0.00). Save the PDFs directly to your device or launch the interactive online workbook to co-evaluate your telemetry with your doctor.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 items-stretch">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
           
           {/* Card 1: An Idiot's Guide to the Next Level Lifespan */}
           <div className="group p-6 sm:p-8 rounded-3xl bg-slate-900 border border-cyan-500/20 hover:border-cyan-500/50 flex flex-col justify-between space-y-8 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/5 transition duration-300 relative overflow-hidden">
@@ -423,7 +423,92 @@ export default function LibraryPage() {
             </div>
           </div>
 
-          {/* Card 2: The Clinician Co-Pilot: From Guessing to Knowing */}
+          {/* Card 2: The Next Level Lifespan (28-Page Longevity Blueprint) */}
+          <div className="group p-6 sm:p-8 rounded-3xl bg-slate-900 border border-indigo-500/30 hover:border-indigo-500/60 flex flex-col justify-between space-y-8 shadow-xl hover:shadow-2xl hover:shadow-indigo-500/10 transition duration-300 relative overflow-hidden">
+            <div className="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 rounded-full bg-indigo-500/15 blur-3xl pointer-events-none" />
+
+            <div className="space-y-6 relative z-10">
+              <div className="relative max-w-[280px] mx-auto w-full flex items-center justify-center group-hover:scale-[1.02] transition-transform duration-500">
+                <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-tr from-indigo-500/25 to-purple-500/25 blur-lg opacity-40 group-hover:opacity-75 transition duration-500" />
+                <img
+                  src="/longevity_blueprint_cover.png"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    if (target.src !== window.location.origin + '/covers/the-next-level-lifespan-cover.png') {
+                      target.src = '/covers/the-next-level-lifespan-cover.png';
+                    }
+                  }}
+                  alt="The Next Level Lifespan"
+                  className="relative w-full h-auto max-h-[380px] object-contain rounded-2xl border border-slate-800/90 shadow-2xl bg-slate-950"
+                />
+                <div className="absolute top-3 left-3 z-10">
+                  <span className="px-2.5 py-1 rounded-md text-[10px] font-black uppercase tracking-wider bg-slate-950/90 border border-indigo-500/40 text-indigo-300 shadow-lg backdrop-blur-md">
+                    $0.00 FREE
+                  </span>
+                </div>
+              </div>
+
+              <div className="space-y-3 text-left">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="inline-block text-[10px] font-bold px-2.5 py-0.5 rounded border uppercase tracking-wider bg-indigo-500/10 text-indigo-400 border-indigo-500/20">
+                    28-PAGE LONGEVITY BLUEPRINT (100% FREE • $0)
+                  </span>
+                  <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/60 border border-emerald-800/40 px-2 py-0.5 rounded">
+                    $0.00
+                  </span>
+                </div>
+
+                <h3 className="text-xl font-bold text-white tracking-tight leading-snug">
+                  The Next Level Lifespan
+                </h3>
+                
+                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-sans">
+                  Our complete 28-page open-access geroscience blueprint covering biological age, clinical biomarker baselines (ApoB, HbA1c, hs-CRP), and a 4-week habit tracker.
+                </p>
+              </div>
+
+              <div className="pt-3 border-t border-slate-800/80 space-y-2 text-left">
+                <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">What's Inside:</p>
+                <ul className="space-y-1.5 text-xs text-slate-300">
+                  <li className="flex items-center space-x-2">
+                    <span className="text-indigo-400 font-bold">✓</span>
+                    <span>28-page open-access geroscience blueprint</span>
+                  </li>
+                  <li className="flex items-center space-x-2">
+                    <span className="text-indigo-400 font-bold">✓</span>
+                    <span>Clinical biomarker baselines (ApoB, HbA1c, hs-CRP)</span>
+                  </li>
+                  <li className="flex items-center space-x-2">
+                    <span className="text-indigo-400 font-bold">✓</span>
+                    <span>Biological age &amp; epigenetic decay primer</span>
+                  </li>
+                  <li className="flex items-center space-x-2">
+                    <span className="text-indigo-400 font-bold">✓</span>
+                    <span>4-week habit tracking protocol &amp; daily checklists</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-slate-800/80 relative z-10 space-y-2">
+              <button
+                type="button"
+                onClick={(e) => handleGuideAction(e, complimentaryGuides[1])}
+                className="w-full py-4 px-5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2 transition duration-200 shadow-lg cursor-pointer bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:from-indigo-400 hover:to-purple-500 shadow-indigo-500/25 hover:scale-[1.01] active:scale-[0.99]"
+              >
+                <Download size={16} />
+                <span>Download Free Blueprint (PDF)</span>
+                <span>➔</span>
+              </button>
+
+              <div className="flex items-center justify-center gap-2 text-[10px] text-slate-400 font-mono text-center">
+                <ShieldCheck size={12} className="text-emerald-400" />
+                <span>Instant Direct PDF • Zero Cost ($0.00) • Unrestricted Open-Access</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3: The Clinician Co-Pilot: From Guessing to Knowing */}
           <div className="group p-6 sm:p-8 rounded-3xl bg-slate-900 border border-amber-500/30 hover:border-amber-500/60 flex flex-col justify-between space-y-8 shadow-xl hover:shadow-2xl hover:shadow-amber-500/5 transition duration-300 relative overflow-hidden">
             <div className="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 rounded-full bg-amber-500/10 blur-3xl pointer-events-none" />
 
@@ -488,12 +573,12 @@ export default function LibraryPage() {
               </div>
             </div>
 
-            {/* Dual CTAs for Card 2 */}
+            {/* Dual CTAs for Card 3 */}
             <div className="pt-4 border-t border-slate-800/80 relative z-10 space-y-2.5">
               {/* Primary Button */}
               <button
                 type="button"
-                onClick={(e) => handleGuideAction(e, complimentaryGuides[1])}
+                onClick={(e) => handleGuideAction(e, complimentaryGuides[2])}
                 className="w-full py-4 px-5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2 transition duration-200 shadow-lg cursor-pointer bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 hover:from-amber-400 hover:to-orange-400 shadow-amber-500/20 hover:scale-[1.01] active:scale-[0.99]"
               >
                 <Download size={16} />
@@ -504,7 +589,7 @@ export default function LibraryPage() {
               {/* Secondary Button */}
               <button
                 type="button"
-                onClick={(e) => handleGuideAction(e, complimentaryGuides[1])}
+                onClick={(e) => handleGuideAction(e, complimentaryGuides[2])}
                 className="w-full py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition bg-cyan-950/60 hover:bg-cyan-900/70 border border-cyan-500/30 text-cyan-300 hover:text-white cursor-pointer"
               >
                 <Download size={14} />

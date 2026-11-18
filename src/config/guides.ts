@@ -59,8 +59,8 @@ export const COMPLIMENTARY_FREE_GUIDES: ComplimentaryGuide[] = [
     title: "An Idiot's Guide to the Next Level Lifespan",
     shortTitle: "An Idiot's Guide",
     description: 'A ruthlessly honest, 5-page translator designed to decode our complex molecular science, explain why living longer is a curse if you are frail, and give you your immediate, zero-cost daily habits.',
-    fileUrl: '/assets/docs/idiots-guide-to-the-next-level-lifespan.pdf',
-    fileName: 'idiots-guide-to-the-next-level-lifespan.pdf',
+    fileUrl: '/docs/idiots-guide-to-the-next-level-lifespan-2026.pdf',
+    fileName: 'idiots-guide-to-the-next-level-lifespan-2026.pdf',
     coverImage: '/covers/the-next-level-lifespan-cover.png',
     primaryCtaText: 'Download Free Guide (PDF)',
     highlights: [
@@ -68,6 +68,26 @@ export const COMPLIMENTARY_FREE_GUIDES: ComplimentaryGuide[] = [
       'Circadian breathing rules & autonomic tone',
       'Epigenetics & age-reversal made simple',
       'Zero-cost immediate daily longevity habits checklist'
+    ]
+  },
+  {
+    id: 'the-next-level-lifespan',
+    tag: '28-PAGE LONGEVITY BLUEPRINT (100% FREE • $0)',
+    tagColor: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
+    priceBadge: '$0.00 FREE',
+    price: '$0.00',
+    title: 'The Next Level Lifespan',
+    shortTitle: 'The Next Level Lifespan',
+    description: 'Our complete 28-page open-access geroscience blueprint covering biological age, clinical biomarker baselines (ApoB, HbA1c, hs-CRP), and a 4-week habit tracker.',
+    fileUrl: '/assets/docs/the-next-level-lifespan-v7.pdf',
+    fileName: 'the-next-level-lifespan-v7.pdf',
+    coverImage: '/longevity_blueprint_cover.png',
+    primaryCtaText: 'Download Free Blueprint (PDF)',
+    highlights: [
+      '28-page open-access geroscience blueprint',
+      'Clinical biomarker baselines (ApoB, HbA1c, hs-CRP)',
+      'Biological age & epigenetic decay primer',
+      '4-week habit tracking protocol & daily checklists'
     ]
   },
   {
