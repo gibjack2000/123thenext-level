@@ -51,7 +51,7 @@ export const Navbar: React.FC = () => {
       <div className="w-full max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 lg:gap-3 xl:gap-6">
         
         {/* Logo & Mission Badge */}
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0 z-20">
           <Link to="/" className="flex items-center gap-2.5 group" onClick={closeMobileMenu}>
             <img 
               src="/assets/logo-icon.png" 
@@ -68,7 +68,7 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Master Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-1.5 xl:gap-3 2xl:gap-4.5 text-[11px] xl:text-xs font-semibold uppercase tracking-wider shrink min-w-0 justify-center">
+        <nav className="hidden xl:flex items-center gap-2 2xl:gap-3.5 text-[11px] xl:text-xs font-semibold uppercase tracking-wider shrink-0 justify-center">
           <Link 
             to="/start-here" 
             className={`whitespace-nowrap transition-colors py-2 px-1 rounded-md ${location.pathname === '/start-here' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
@@ -78,9 +78,9 @@ export const Navbar: React.FC = () => {
 
           <Link 
             to="/overview" 
-            className={`whitespace-nowrap transition-colors py-2 px-1 rounded-md ${location.pathname === '/overview' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+            className={`hidden 2xl:inline-block whitespace-nowrap transition-colors py-2 px-1 rounded-md ${location.pathname === '/overview' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
-            <span className="lg:hidden xl:inline">The </span>Big Picture
+            The Big Picture
           </Link>
 
           {/* COMPLETE 6-PILLAR DROPDOWN */}
@@ -154,10 +154,10 @@ export const Navbar: React.FC = () => {
             )}
           </div>
 
-          {/* CLINICIAN CO-PILOT DIRECT LINK */}
+          {/* CLINICIAN CO-PILOT DIRECT LINK (Also in Pillars Dropdown) */}
           <Link 
             to="/clinician-copilot" 
-            className={`whitespace-nowrap transition-colors py-2 px-1 rounded-md flex items-center gap-1 ${
+            className={`hidden 2xl:inline-flex whitespace-nowrap transition-colors py-2 px-1 rounded-md items-center gap-1 ${
               location.pathname === '/clinician-copilot' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'
             }`}
           >
@@ -346,7 +346,7 @@ export const Navbar: React.FC = () => {
 
           <Link 
             to="/blog" 
-            className={`whitespace-nowrap transition-colors py-2 px-1 rounded-md ${location.pathname === '/blog' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+            className={`hidden 2xl:inline-block whitespace-nowrap transition-colors py-2 px-1 rounded-md ${location.pathname === '/blog' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
             Blog
           </Link>
@@ -359,8 +359,8 @@ export const Navbar: React.FC = () => {
           </Link>
         </nav>
 
-        {/* Regional Selector Pills (Desktop) */}
-        <div className="hidden sm:flex items-center gap-2 xl:gap-3 shrink-0">
+        {/* Regional Selector Pills (Desktop XL+) */}
+        <div className="hidden xl:flex items-center gap-2 xl:gap-2.5 2xl:gap-3 shrink-0 z-20">
           <div className="flex items-center bg-slate-900 border border-slate-800 rounded-full p-1 text-xs shadow-inner shrink-0">
             <button
               type="button"
@@ -440,8 +440,8 @@ export const Navbar: React.FC = () => {
           </button>
         </div>
 
-        {/* Mobile Header Right */}
-        <div className="flex items-center gap-1 sm:gap-1.5 lg:hidden shrink-0">
+        {/* Mobile / Tablet Header Controls (< XL) */}
+        <div className="flex items-center gap-1.5 sm:gap-2.5 xl:hidden shrink-0 z-20">
           {/* Mobile 3-Flag Country Switcher */}
           <div className="flex items-center bg-slate-900 border border-slate-800 rounded-full p-0.5 text-[10px] shadow-sm">
             <button
@@ -479,6 +479,16 @@ export const Navbar: React.FC = () => {
             </button>
           </div>
 
+          {/* Tablet Black Friday Pill (Visible on sm & md screens: 640px to 1279px) */}
+          <Link
+            to="/black-friday"
+            className="hidden sm:inline-flex items-center gap-1.5 py-1 px-2.5 rounded-lg bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 text-xs font-black uppercase tracking-wider transition shadow-sm shadow-amber-500/20 active:scale-95 shrink-0"
+            title="Black Friday Deal: 10 Master Execution Books for £39.99"
+          >
+            <span>🔥 BF Deal</span>
+            <span className="bg-slate-950 text-amber-300 text-[10px] px-1.5 py-0.2 rounded font-black">£39.99</span>
+          </Link>
+
           <button
             type="button"
             onClick={openCart}
@@ -508,7 +518,7 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-slate-950 border-b border-slate-800 px-4 pt-3 pb-6 space-y-2 text-sm animate-fade-in">
+        <div className="xl:hidden bg-slate-950 border-b border-slate-800 px-4 pt-3 pb-6 space-y-2 text-sm animate-fade-in">
           
           {/* Black Friday Mobile Fast Return Card */}
           <Link 
