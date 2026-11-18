@@ -45,6 +45,7 @@ const STATIC_ROUTES = [
   { path: '/library/body-composition', priority: '0.8', changefreq: 'monthly', lastmod: TODAY },
   { path: '/science', priority: '0.8', changefreq: 'monthly', lastmod: TODAY },
   { path: '/premium-guides', priority: '0.9', changefreq: 'weekly', lastmod: TODAY },
+  { path: '/black-friday', priority: '0.9', changefreq: 'daily', lastmod: TODAY },
   { path: '/intelligence-hub', priority: '0.8', changefreq: 'weekly', lastmod: TODAY },
   { path: '/glossary', priority: '0.8', changefreq: 'monthly', lastmod: TODAY },
   { path: '/checkout', priority: '0.7', changefreq: 'monthly', lastmod: TODAY },

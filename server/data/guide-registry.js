@@ -115,6 +115,14 @@ export const GUIDE_PRODUCTS = {
     priceFormatted: '£69.99',
     r2FileKey: 'all-ten-master-guides.zip'
   },
+  'bundle-black-friday-10': {
+    id: 'bundle-black-friday-10',
+    productId: 'bundle-black-friday-10',
+    title: 'Complete 10-Guide Master Vault (Black Friday Deal)',
+    priceInCents: 3999, // £39.99 / $39.99 / €39.99
+    priceFormatted: '£39.99',
+    r2FileKey: 'all-ten-master-guides.zip'
+  },
   'metabolic-master-guide': {
     id: 'metabolic-master-guide',
     productId: 'g-met-1',
@@ -216,6 +224,11 @@ export const GUIDE_ALIASES = {
   'all-ten-master-guides': 'bundle-complete-vault-10',
   'all-10-master-guides': 'bundle-complete-vault-10',
   'g-bundle-10': 'bundle-complete-vault-10',
+  'bundle-black-friday-10': 'bundle-black-friday-10',
+  'black-friday': 'bundle-black-friday-10',
+  'blackfriday': 'bundle-black-friday-10',
+  'bf-deal': 'bundle-black-friday-10',
+  'bf-10-vault': 'bundle-black-friday-10',
 
   // Metabolic Master Guide & Visceral Fat Protocol
   'the-12-week-metabolic-re-engineering-visceral-fat-protocol.pdf': 'metabolic-master-guide',

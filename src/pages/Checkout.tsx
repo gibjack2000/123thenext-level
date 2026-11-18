@@ -87,6 +87,33 @@ const THREE_PILLAR_GUIDES: BundleGuideItem[] = [
 
 const PRODUCT_MAP: Record<string, ProductInfo> = {
   // --- BUNDLES ---
+  'bundle-black-friday-10': {
+    id: 'bundle-black-friday-10',
+    name: 'Complete 10-Guide Master Vault (Black Friday Deal)',
+    price: '£39.99',
+    usPrice: '$39.99 • €39.99',
+    slug: 'bundle-black-friday-10',
+    desc: '🔥 Limited-Time Black Friday Flash Deal: Instant access to all 10 Premium Master Execution Books in 1-Click ZIP + 10 individual high-resolution PDFs (Save Over 82% off original combined value).',
+    guides: TEN_BOOK_VAULT_GUIDES
+  },
+  'black-friday': {
+    id: 'bundle-black-friday-10',
+    name: 'Complete 10-Guide Master Vault (Black Friday Deal)',
+    price: '£39.99',
+    usPrice: '$39.99 • €39.99',
+    slug: 'bundle-black-friday-10',
+    desc: '🔥 Limited-Time Black Friday Flash Deal: Instant access to all 10 Premium Master Execution Books in 1-Click ZIP + 10 individual high-resolution PDFs (Save Over 82% off original combined value).',
+    guides: TEN_BOOK_VAULT_GUIDES
+  },
+  'blackfriday': {
+    id: 'bundle-black-friday-10',
+    name: 'Complete 10-Guide Master Vault (Black Friday Deal)',
+    price: '£39.99',
+    usPrice: '$39.99 • €39.99',
+    slug: 'bundle-black-friday-10',
+    desc: '🔥 Limited-Time Black Friday Flash Deal: Instant access to all 10 Premium Master Execution Books in 1-Click ZIP + 10 individual high-resolution PDFs (Save Over 82% off original combined value).',
+    guides: TEN_BOOK_VAULT_GUIDES
+  },
   'bundle-complete-vault-10': {
     id: 'bundle-complete-vault-10',
     name: 'Complete 10-Guide Master Vault (All 10 Books)',
@@ -485,7 +512,15 @@ export default function CheckoutPage() {
       if (item.id === 'bundle-pick-3' || rawKey === 'bundle-pick-3' || rawKey === 'custom-trio-bundle') {
         const guideIds = item.guides.map(g => g.id);
         setZipDownloadUrl(`/api/download/custom-trio-zip?guides=${encodeURIComponent(guideIds.join(','))}`);
-      } else if (item.id === 'bundle-complete-vault-10' || rawKey === 'bundle-complete-vault-10' || rawKey === 'all-ten-master-guides') {
+      } else if (
+        item.id === 'bundle-complete-vault-10' || 
+        rawKey === 'bundle-complete-vault-10' || 
+        rawKey === 'all-ten-master-guides' ||
+        item.id === 'bundle-black-friday-10' ||
+        rawKey === 'black-friday' ||
+        rawKey === 'blackfriday' ||
+        rawKey === 'bundle-black-friday-10'
+      ) {
         setZipDownloadUrl(getGuidePdfDownloadUrl('all-ten-master-guides'));
       } else {
         setZipDownloadUrl(getGuidePdfDownloadUrl(item.id || item.slug));

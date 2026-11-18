@@ -124,6 +124,9 @@ export const R2_GUIDE_FILE_KEYS: Record<string, string> = {
   'all-ten-master-guides': 'all-ten-master-guides.zip',
   'all-10-master-guides': 'all-ten-master-guides.zip',
   'bundle-complete-vault-10': 'all-ten-master-guides.zip',
+  'bundle-black-friday-10': 'all-ten-master-guides.zip',
+  'black-friday': 'all-ten-master-guides.zip',
+  'blackfriday': 'all-ten-master-guides.zip',
   'g-bundle-10': 'all-ten-master-guides.zip',
   'bundle-pick-3': 'Complete_6_Pillar_Master_Suite-2026.zip',
 

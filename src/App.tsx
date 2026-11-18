@@ -97,6 +97,7 @@ const BlogAutomationAdmin = lazy(() => import('./pages/BlogAutomationAdmin'));
 const BlogAdminPage = lazy(() => import('./pages/BlogAdminPage'));
 const AdminStore = lazy(() => import('./pages/admin/AdminStore'));
 const PremiumGuidesPage = lazy(() => import('./pages/PremiumGuides'));
+const BlackFriday = lazy(() => import('./pages/BlackFriday'));
 const CheckoutPage = lazy(() => import('./pages/Checkout'));
 const CheckoutSuccess = lazy(() => import('./pages/premium/CheckoutSuccess'));
 const CheckoutCancel = lazy(() => import('./pages/premium/CheckoutCancel'));
@@ -234,6 +235,10 @@ function App() {
                 <Route path="/life-practice/loving-kindness" element={<LovingKindness />} />
                 <Route path="/life-practice/beginners-guide" element={<BeginnersGuide />} />
                 <Route path="/premium-guides" element={<PremiumGuidesPage />} />
+                <Route path="/black-friday" element={<BlackFriday />} />
+                <Route path="/blackfriday" element={<BlackFriday />} />
+                <Route path="/bf" element={<BlackFriday />} />
+                <Route path="/deals/black-friday" element={<BlackFriday />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/checkout/success" element={<CheckoutSuccess />} />
                 <Route path="/checkout/cancel" element={<CheckoutCancel />} />
