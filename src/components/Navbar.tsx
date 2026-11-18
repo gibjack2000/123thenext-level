@@ -78,7 +78,7 @@ export const Navbar: React.FC = () => {
 
           <Link 
             to="/overview" 
-            className={`hidden 2xl:inline-block whitespace-nowrap transition-colors py-2 px-1 rounded-md ${location.pathname === '/overview' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+            className={`whitespace-nowrap transition-colors py-2 px-1 rounded-md ${location.pathname === '/overview' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
           >
             The Big Picture
           </Link>
