@@ -96,6 +96,11 @@ export default function BlackFridayPage() {
     document.title = "🔥 Black Friday Deal: Complete 10-Guide Longevity Master Vault for £39.99 | 123TheNextLevel";
     window.scrollTo(0, 0);
 
+    try {
+      localStorage.setItem('has_visited_bf_deal', 'true');
+      sessionStorage.setItem('has_visited_bf_deal', 'true');
+    } catch {}
+
     const timer = setInterval(() => {
       setTimeLeft(prev => {
         if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };

@@ -111,6 +111,31 @@ export default function StartHere() {
           </div>
         </div>
 
+        {/* Black Friday On-Ramp Banner */}
+        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-amber-950/40 via-slate-900 to-amber-950/30 border-2 border-amber-500/60 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl shadow-amber-500/10">
+          <div className="flex items-center gap-3 text-left">
+            <div className="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center shrink-0">
+              <Flame size={20} className="text-amber-400 animate-pulse" />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-black uppercase tracking-wider text-amber-400">Black Friday Deal Active</span>
+                <span className="text-[9px] font-bold bg-amber-400 text-slate-950 px-1.5 py-0.2 rounded">Save 82%</span>
+              </div>
+              <p className="text-xs sm:text-sm text-slate-200 font-semibold">
+                Looking for the <strong className="text-white">10-Guide Master Vault (£39.99)</strong> flash deal?
+              </p>
+            </div>
+          </div>
+          <Link
+            to="/black-friday"
+            className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-md shadow-amber-500/30 flex items-center justify-center gap-2 shrink-0 cursor-pointer whitespace-nowrap active:scale-95"
+          >
+            <span>Return to £39.99 Deal</span>
+            <ArrowRight size={14} />
+          </Link>
+        </div>
+
         {/* ========================================================================= */}
         {/* STEP 0: Zero-Cost Onboarding Dual-Hook                                    */}
         {/* ========================================================================= */}

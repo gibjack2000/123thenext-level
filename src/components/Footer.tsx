@@ -76,6 +76,12 @@ const Footer = () => {
             </h3>
             <ul className="space-y-4">
               <li>
+                <Link to="/black-friday" className="text-amber-400 hover:text-amber-300 font-black transition-colors duration-200 flex items-center group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400 mr-2 group-hover:scale-125 transition-transform"></span>
+                  🔥 Black Friday Deal (£39.99)
+                </Link>
+              </li>
+              <li>
                 <Link to="/" className="text-slate-400 hover:text-blue-400 font-semibold transition-colors duration-200 flex items-center group">
                   <span className="w-0 group-hover:w-2 h-0.5 bg-blue-500 mr-0 group-hover:mr-2 transition-all duration-300"></span>
                   {t('nav_home')}

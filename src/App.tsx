@@ -15,6 +15,7 @@ import { SplashOverlay } from './components/SplashOverlay';
 import SlideInNewsletter from './components/newsletter/SlideInNewsletter';
 import FloatingShopFAB from './components/FloatingShopFAB';
 import CartDrawer from './components/CartDrawer';
+import BlackFridayStickyReminder from './components/BlackFridayStickyReminder';
 import { AdminAffiliates } from './pages/AdminAffiliates';
 import { DownloadGateProvider } from './components/DownloadGateModal';
 import { LabRequisitionProvider } from './components/LabRequisitionModal';
@@ -303,6 +304,7 @@ function App() {
           <SlideInNewsletter />
           <FloatingShopFAB />
           <CartDrawer />
+          <BlackFridayStickyReminder />
         </div>
             </LabRequisitionProvider>
           </DownloadGateProvider>

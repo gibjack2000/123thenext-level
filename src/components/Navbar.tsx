@@ -201,6 +201,14 @@ export const Navbar: React.FC = () => {
                   <span>📄 Free PDF Protocols</span>
                   <span className="text-[9px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-500/30">$0 FREE</span>
                 </Link>
+                <Link
+                  to="/black-friday"
+                  onClick={() => setIsLibraryOpen(false)}
+                  className="block px-3 py-2 rounded-lg text-xs font-black text-amber-300 hover:text-amber-200 bg-amber-950/30 hover:bg-amber-950/60 border border-amber-500/40 rounded-lg transition-all flex items-center justify-between mt-1"
+                >
+                  <span className="flex items-center gap-1.5">🔥 Black Friday 10-Book Vault</span>
+                  <span className="text-[9px] bg-amber-400 text-slate-950 font-black px-1.5 py-0.5 rounded">£39.99</span>
+                </Link>
               </div>
             )}
           </div>
@@ -305,6 +313,22 @@ export const Navbar: React.FC = () => {
                       Metabolic, Epigenetic &amp; Cellular Workbooks
                     </span>
                   </Link>
+
+                  <Link
+                    to="/black-friday"
+                    onClick={() => setIsGuidesOpen(false)}
+                    className="block px-3 py-2 rounded-lg bg-gradient-to-r from-amber-500/20 to-orange-500/20 hover:from-amber-500/30 hover:to-orange-500/30 border border-amber-500/50 transition-all group mt-1"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-black text-amber-300 group-hover:text-amber-200 transition-colors flex items-center gap-1.5">
+                        🔥 Black Friday Flash Deal
+                      </span>
+                      <span className="text-[10px] bg-amber-400 text-slate-950 font-black px-1.5 py-0.5 rounded">£39.99</span>
+                    </div>
+                    <span className="block text-[11px] text-amber-200/80 mt-0.5 font-semibold">
+                      Complete 10-Book Master Vault (Save 82%)
+                    </span>
+                  </Link>
                 </div>
 
                 <div className="pt-1.5 mt-1 border-t border-slate-800">
@@ -381,6 +405,16 @@ export const Navbar: React.FC = () => {
               <FlagES className="w-4 h-3 pointer-events-none" /> <span className="pointer-events-none">ES</span>
             </button>
           </div>
+
+          {/* Black Friday Fast Access Deal Pill */}
+          <Link
+            to="/black-friday"
+            className="py-1.5 px-2.5 xl:py-2 xl:px-3 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 hover:from-amber-400 hover:via-orange-400 hover:to-amber-400 text-slate-950 text-xs font-black uppercase tracking-wider rounded-lg transition-all shadow-md shadow-amber-500/25 whitespace-nowrap active:scale-95 shrink-0 flex items-center gap-1.5"
+            title="Black Friday Deal: All 10 Master Execution Books for £39.99"
+          >
+            <span>🔥 <span className="hidden xl:inline">Black </span>Friday</span>
+            <span className="bg-slate-950 text-amber-300 text-[10px] px-1.5 py-0.5 rounded font-black">£39.99</span>
+          </Link>
 
           <Link
             to="/quiz"
@@ -475,6 +509,25 @@ export const Navbar: React.FC = () => {
       {/* Mobile Drawer */}
       {isMobileMenuOpen && (
         <div className="lg:hidden bg-slate-950 border-b border-slate-800 px-4 pt-3 pb-6 space-y-2 text-sm animate-fade-in">
+          
+          {/* Black Friday Mobile Fast Return Card */}
+          <Link 
+            to="/black-friday" 
+            onClick={closeMobileMenu} 
+            className="w-full flex items-center justify-between p-3 rounded-2xl bg-gradient-to-r from-amber-500/25 via-orange-500/30 to-amber-500/25 border-2 border-amber-500 text-white font-black text-xs uppercase tracking-wider mb-3 shadow-xl shadow-amber-500/25 transition active:scale-98"
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-base">🔥</span>
+              <div className="text-left">
+                <span className="block text-amber-300 font-black">Black Friday Deal (10 Books)</span>
+                <span className="block text-[10px] text-slate-300 font-semibold normal-case">Save £188.97 • Instant Unlock</span>
+              </div>
+            </div>
+            <span className="px-2.5 py-1 rounded-xl text-xs font-black bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 shadow">
+              £39.99 ➔
+            </span>
+          </Link>
+
           {cartCount > 0 && (
             <button
               type="button"

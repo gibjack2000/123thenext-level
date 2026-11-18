@@ -9,6 +9,7 @@ interface TickerItem {
 
 export const TickerTapeBanner: React.FC = () => {
   const line1Items: TickerItem[] = [
+    { label: '🔥 BLACK FRIDAY FLASH SALE: 10 MASTER BOOKS £39.99 (SAVE 82%)', link: '/black-friday', highlight: true },
     { label: '⚡ GEROSCIENCE PIPELINE ONLINE', highlight: true },
     { label: '🎁 NEW: Clinician Co-Pilot Workbook & GP Consultation Script', link: '/clinician-copilot', highlight: true },
     { label: '🧬 EPIGENETIC AGE & WHOLE-METHYLOME TESTING ACTIVE', highlight: false },
@@ -16,6 +17,7 @@ export const TickerTapeBanner: React.FC = () => {
   ];
 
   const line2Items: TickerItem[] = [
+    { label: '🔥 BLACK FRIDAY DEAL (£39.99): ALL 10 MASTER EXECUTION BOOKS', link: '/black-friday', highlight: true },
     { label: '🎁 NEW: Clinician Co-Pilot Workbook & GP Consultation Script', link: '/clinician-copilot', highlight: true },
     { label: '📘 FREE 28-PAGE LONGEVITY BLUEPRINT (PDF AVAILABLE)', link: '/the-next-level-lifespan-v7.pdf' },
     { label: '🩸 DIRECT CLINICAL LAB DRAWS: HEALTHLABS (US) • LOLA (UK) • MELIO (ES)', link: '/store-us' },

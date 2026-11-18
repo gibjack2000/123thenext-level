@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { 
   Sparkles, 
   CheckCircle2, 
@@ -390,6 +390,31 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
               <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
                 Instant access to all 10 Premium Master Guides — covering body composition, metabolic nutrition, autonomic engineering, women's health, home fitness, and clinical telemetry.
               </p>
+            </div>
+
+            {/* Black Friday Promotional Bridge */}
+            <div className="p-3.5 rounded-2xl bg-gradient-to-r from-amber-500/20 via-orange-500/25 to-amber-500/20 border-2 border-amber-500/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-left shadow-lg shadow-amber-500/10">
+              <div className="space-y-0.5 min-w-0">
+                <div className="flex items-center gap-1.5">
+                  <Flame size={14} className="text-orange-400 animate-pulse shrink-0" />
+                  <span className="text-[10px] font-black uppercase tracking-wider text-amber-300">
+                    Black Friday Flash Deal Live
+                  </span>
+                  <span className="text-[9px] font-black bg-amber-400 text-slate-950 px-1.5 py-0.2 rounded">
+                    82% OFF
+                  </span>
+                </div>
+                <p className="text-xs text-white font-bold">
+                  Get this complete 10-guide master vault for just <span className="text-amber-300 font-black text-sm">£39.99</span> on our Black Friday page!
+                </p>
+              </div>
+              <Link
+                to="/black-friday"
+                className="w-full sm:w-auto px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-md shadow-amber-500/30 flex items-center justify-center gap-1.5 shrink-0 cursor-pointer whitespace-nowrap active:scale-95"
+              >
+                <span>View £39.99 Deal</span>
+                <ArrowRight size={13} />
+              </Link>
             </div>
 
             {/* Visual Display of ALL 10 Guide Thumbnails */}
