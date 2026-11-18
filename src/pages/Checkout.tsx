@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { Lock, ShieldCheck, Download, CheckCircle2, FileText, RefreshCw, ExternalLink } from 'lucide-react';
+import { Lock, ShieldCheck, Download, CheckCircle2, FileText, RefreshCw, ExternalLink, Mail } from 'lucide-react';
 import { 
   handleSecureGuideDownload, 
   triggerBrowserDownload, 
@@ -456,7 +456,25 @@ export default function CheckoutPage() {
   const [downloadSuccess, setDownloadSuccess] = useState(false);
   const [downloadItems, setDownloadItems] = useState<PresignedDownloadItem[]>([]);
   const [zipDownloadUrl, setZipDownloadUrl] = useState<string | null>(null);
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState<string | null>(null);
   const { isBypassActive } = usePaywallBypass();
+
+  const isValidEmail = (val: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
+
+  useEffect(() => {
+    // Pre-populate email from URL parameter or previously saved storage
+    const existingEmail = 
+      searchParams.get('email') || 
+      sessionStorage.getItem('customer_email') || 
+      localStorage.getItem('customer_email') || 
+      sessionStorage.getItem('subscribed_email') || 
+      localStorage.getItem('subscribed_email') || 
+      '';
+    if (existingEmail && !email) {
+      setEmail(existingEmail);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     document.title = `Checkout: ${item.name} | 123TheNextLevel`;
@@ -476,8 +494,30 @@ export default function CheckoutPage() {
   }, [item, rawKey]);
 
   const handleStripeCheckout = async () => {
+    const cleanEmail = email.trim();
+    if (!cleanEmail) {
+      setEmailError('Please enter your email address so we can deliver your download link and receipt.');
+      return;
+    }
+    if (!isValidEmail(cleanEmail)) {
+      setEmailError('Please enter a valid email address (e.g. name@example.com).');
+      return;
+    }
+
+    setEmailError(null);
     setIsProcessing(true);
     setCheckoutError(null);
+
+    // Persist email in local storage for order continuity and success page display
+    try {
+      localStorage.setItem('customer_email', cleanEmail);
+      sessionStorage.setItem('customer_email', cleanEmail);
+      localStorage.setItem('subscribed_email', cleanEmail);
+      sessionStorage.setItem('subscribed_email', cleanEmail);
+    } catch {
+      // ignore
+    }
+
     try {
       const selectedGuideIds = (item.guides && item.guides.length > 0)
         ? item.guides.map(g => g.id)
@@ -492,6 +532,7 @@ export default function CheckoutPage() {
           guideId: item.slug || item.id,
           selectedGuides: selectedGuideIds,
           items: [{ id: item.id }],
+          customerEmail: cleanEmail,
           source: 'checkout'
         }),
       });
@@ -676,7 +717,62 @@ export default function CheckoutPage() {
             </div>
           </div>
         ) : (
-          <div className="space-y-3 pt-2">
+          <div className="space-y-4 pt-2">
+            {/* Delivery Email Capture Field */}
+            <div className="p-4 sm:p-5 bg-slate-950/90 border border-slate-800 rounded-2xl space-y-2.5">
+              <label htmlFor="customer-email" className="flex items-center justify-between text-xs font-bold text-slate-200">
+                <span className="flex items-center gap-1.5 text-white">
+                  <Mail size={14} className="text-cyan-400" />
+                  <span>Delivery Email Address</span>
+                </span>
+                <span className="text-[10px] font-normal text-slate-400">Backup PDF link & receipt sent here</span>
+              </label>
+              <div className="relative">
+                <input
+                  id="customer-email"
+                  type="email"
+                  required
+                  autoComplete="email"
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (emailError) setEmailError(null);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && !isProcessing) {
+                      e.preventDefault();
+                      if (!isBypassActive) {
+                        handleStripeCheckout();
+                      }
+                    }
+                  }}
+                  className={`w-full px-4 py-3.5 rounded-xl bg-slate-900 border ${
+                    emailError 
+                      ? 'border-rose-500/80 focus:border-rose-500' 
+                      : isValidEmail(email) 
+                        ? 'border-emerald-500/60 focus:border-emerald-400' 
+                        : 'border-slate-700 focus:border-cyan-400'
+                  } text-white placeholder-slate-500 text-sm focus:outline-none focus:ring-1 transition-all shadow-inner`}
+                />
+                {isValidEmail(email) && (
+                  <div className="absolute right-3.5 top-1/2 -translate-y-1/2 flex items-center gap-1 text-[11px] font-bold text-emerald-400">
+                    <CheckCircle2 size={15} />
+                    <span className="hidden sm:inline text-[10px]">Ready</span>
+                  </div>
+                )}
+              </div>
+              {emailError ? (
+                <p className="text-[11px] text-rose-400 font-medium flex items-center gap-1">
+                  ⚠️ {emailError}
+                </p>
+              ) : (
+                <p className="text-[10px] text-slate-500 leading-tight">
+                  🔒 We respect your privacy. Used strictly for order telemetry, receipts, and lifetime updates.
+                </p>
+              )}
+            </div>
+
             {checkoutError && (
               <div className="p-3.5 rounded-xl bg-rose-950/80 border border-rose-500/40 text-rose-300 text-xs text-center font-medium">
                 ⚠️ {checkoutError}
@@ -686,6 +782,16 @@ export default function CheckoutPage() {
               <button
                 type="button"
                 onClick={() => {
+                  if (email.trim()) {
+                    try {
+                      localStorage.setItem('customer_email', email.trim());
+                      sessionStorage.setItem('customer_email', email.trim());
+                      localStorage.setItem('subscribed_email', email.trim());
+                      sessionStorage.setItem('subscribed_email', email.trim());
+                    } catch {
+                      // ignore
+                    }
+                  }
                   if (item.guides && item.guides.length > 0) {
                     downloadMultipleGuides(item.guides.map(g => g.id));
                   } else {

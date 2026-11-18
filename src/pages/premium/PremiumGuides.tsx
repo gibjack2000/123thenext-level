@@ -141,12 +141,22 @@ export default function PremiumGuides() {
     if (cartItems.length === 0) return;
     setIsProcessing(true);
     try {
+      const storedEmail = 
+        sessionStorage.getItem('customer_email') || 
+        localStorage.getItem('customer_email') || 
+        sessionStorage.getItem('subscribed_email') || 
+        localStorage.getItem('subscribed_email') || 
+        undefined;
+
       const response = await fetch('/api/create-checkout-session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ items: cartItems }),
+        body: JSON.stringify({ 
+          items: cartItems,
+          customerEmail: storedEmail
+        }),
       });
 
       const data = await response.json();
