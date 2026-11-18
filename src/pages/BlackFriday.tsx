@@ -16,18 +16,76 @@ import {
   ArrowRight,
   ExternalLink,
   ChevronDown,
-  Star
+  Star,
+  ShoppingBag,
+  HeartPulse,
+  Activity,
+  Zap,
+  Compass,
+  MapPin,
+  RefreshCw,
+  Cpu
 } from 'lucide-react';
 import { ALL_10_MASTER_GUIDES } from '../components/BundleOffers';
-import { usePaywallBypass, triggerDirectDownload, getGuidePdfDownloadUrl } from '../utils/adminTestMode';
+import { usePaywallBypass, triggerDirectDownload } from '../utils/adminTestMode';
+import { useMarket } from '../contexts/MarketContext';
+import { FlagUS, FlagUK, FlagES } from '../components/MarketSelector';
+
+// Curated Top Biological Hardware & Diagnostics from the Sovereign Store
+const FEATURED_SOVEREIGN_PRODUCTS = [
+  {
+    id: 'cgm-telemetry',
+    name: 'Continuous Glucose Monitor (CGM) Sensor System',
+    category: 'Metabolic Diagnostics & Glycemic Telemetry',
+    badge: 'Clinical Telemetry',
+    image: '/assets/images/clinical-cgm-sensor.jpg',
+    fallbackImage: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop',
+    price: '£59.00 / $75.00',
+    benefit: 'Track real-time postprandial glucose spikes and match them to the 12-Week Metabolic Protocol.',
+    storeLink: '/hardware-store'
+  },
+  {
+    id: 'withings-sleep',
+    name: 'Withings Sleep Tracking Pad & Apnea Analyzer',
+    category: 'Circadian Architecture & Autonomic Health',
+    badge: 'Under-Mattress Telemetry',
+    image: '/assets/images/withingsleep.webp',
+    fallbackImage: 'https://images.unsplash.com/photo-1511295742362-92c96b124e52?q=80&w=800&auto=format&fit=crop',
+    price: '£119.00 / $129.00',
+    benefit: 'Lab-grade sleep cycles, HRV recovery, and snoring analysis without wearing a wristband.',
+    storeLink: '/store'
+  },
+  {
+    id: 'epigenetic-kit',
+    name: 'Clinical Epigenetic Biological Age & Methylation Test',
+    category: 'Cellular Age Reversal & DNA Methylation',
+    badge: 'CLIA / UKAS Lab Tested',
+    image: '/assets/images/clinical-epigenetic-kit.jpg',
+    fallbackImage: 'https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=800&auto=format&fit=crop',
+    price: '£189.00 / $240.00',
+    benefit: 'Calculate your true Horvath biological clock and measure rate of biological aging.',
+    storeLink: '/hardware-store'
+  },
+  {
+    id: 'urine-acr',
+    name: 'Microalbumin (ACR) Kidney & Endothelial Urine Screen',
+    category: 'Microvascular Health & Glomerular Telemetry',
+    badge: 'Home Reagent Strip',
+    image: '/assets/images/clinical-urine-acr.jpg',
+    fallbackImage: 'https://images.unsplash.com/photo-1579154204601-01588f351e67?q=80&w=800&auto=format&fit=crop',
+    price: '£24.99 / $29.99',
+    benefit: 'Detect subclinical vascular inflammation and metabolic leakage years before blood tests show impairment.',
+    storeLink: '/store'
+  }
+];
 
 export default function BlackFridayPage() {
   const navigate = useNavigate();
-  const { isBypassActive } = usePaywallBypass();
+  const { market } = useMarket();
   const [copied, setCopied] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  // Countdown timer state (Dynamic urgency: counts down to midnight Sunday)
+  // Dynamic urgency countdown timer
   const [timeLeft, setTimeLeft] = useState({
     hours: 23,
     minutes: 48,
@@ -43,7 +101,7 @@ export default function BlackFridayPage() {
         if (prev.seconds > 0) return { ...prev, seconds: prev.seconds - 1 };
         if (prev.minutes > 0) return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
         if (prev.hours > 0) return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
-        return { hours: 12, minutes: 0, seconds: 0 }; // Loop/reset urgency
+        return { hours: 12, minutes: 0, seconds: 0 };
       });
     }, 1000);
 
@@ -61,10 +119,14 @@ export default function BlackFridayPage() {
     navigate('/checkout?bundle=bundle-black-friday-10&source=black-friday');
   };
 
+  const activeMarket = (market || 'us').toLowerCase();
+
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-amber-500 selection:text-slate-950 font-sans pb-28">
+    <div className="min-h-screen bg-slate-950 text-slate-100 selection:bg-amber-500 selection:text-slate-950 font-sans pb-32">
       
-      {/* 1. TOP STICKY URGENCY TICKER */}
+      {/* ========================================================================= */}
+      {/* 1. TOP STICKY URGENCY TICKER                                              */}
+      {/* ========================================================================= */}
       <div className="sticky top-0 z-50 bg-gradient-to-r from-red-650 via-amber-600 to-orange-600 text-slate-950 font-black py-2.5 px-4 shadow-xl border-b border-amber-400/30">
         <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
           <div className="flex items-center gap-2">
@@ -73,7 +135,7 @@ export default function BlackFridayPage() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-slate-950"></span>
             </span>
             <span className="tracking-wide uppercase font-black">
-              🔥 Black Friday Flash Sale: Save 82% Off The Complete Master Vault
+              🔥 Black Friday Funnel: Save 82% Off Master Vault + Sovereign Gear Integration
             </span>
           </div>
 
@@ -84,7 +146,7 @@ export default function BlackFridayPage() {
             </div>
             <button 
               onClick={handleClaimDeal}
-              className="hidden md:inline-flex items-center gap-1 bg-slate-950 hover:bg-slate-900 text-white px-3 py-1 rounded-full text-xs font-bold transition shadow"
+              className="hidden md:inline-flex items-center gap-1 bg-slate-950 hover:bg-slate-900 text-white px-3.5 py-1 rounded-full text-xs font-bold transition shadow cursor-pointer"
             >
               Claim £39.99 ➔
             </button>
@@ -92,7 +154,9 @@ export default function BlackFridayPage() {
         </div>
       </div>
 
-      {/* 2. HERO SECTION */}
+      {/* ========================================================================= */}
+      {/* 2. HERO SECTION: THE FLASH SALE HOOK                                     */}
+      {/* ========================================================================= */}
       <header className="relative pt-12 pb-16 px-4 overflow-hidden text-center">
         {/* Ambient Glows */}
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
@@ -103,7 +167,7 @@ export default function BlackFridayPage() {
           {/* Eyebrow Pill */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/15 via-orange-500/15 to-red-500/15 border border-amber-500/40 text-amber-300 text-xs font-black uppercase tracking-widest shadow-lg">
             <Flame size={14} className="text-orange-400 animate-pulse" />
-            <span>Black Friday Exclusive • Social Flash Deal</span>
+            <span>Black Friday Exclusive • Social Viral Deal</span>
             <span className="bg-amber-400 text-slate-950 text-[10px] px-1.5 py-0.5 rounded font-black">82% OFF</span>
           </div>
 
@@ -117,7 +181,7 @@ export default function BlackFridayPage() {
 
           {/* Subtitle */}
           <p className="text-sm sm:text-base md:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Instant access to all 10 Premium Clinical Master Execution Books — covering metabolic re-engineering, muscle hypertrophy, visceral fat stripping, circadian sleep, and mobility.
+            Instant access to all 10 Premium Clinical Master Execution Books — covering metabolic re-engineering, visceral fat stripping, hypertrophy, circadian sleep, and mobility.
           </p>
 
           {/* Social Proof Bar */}
@@ -139,8 +203,8 @@ export default function BlackFridayPage() {
           {/* Primary Price Callout Box */}
           <div className="max-w-md mx-auto p-6 rounded-3xl bg-gradient-to-b from-slate-900 via-amber-950/20 to-slate-900 border-2 border-amber-500/60 shadow-2xl shadow-amber-500/15 space-y-4">
             <div className="flex items-baseline justify-between">
-              <div>
-                <span className="text-xs text-slate-500 line-through block font-mono">Regular Combined: £220.00</span>
+              <div className="text-left">
+                <span className="text-xs text-slate-500 line-through block font-mono">Combined Retail: £220.00</span>
                 <span className="text-xs text-amber-400/80 line-through block font-mono">Standard Vault: £69.99</span>
                 <span className="text-4xl sm:text-5xl font-black text-white tracking-tight flex items-center gap-2">
                   £39.99
@@ -187,13 +251,15 @@ export default function BlackFridayPage() {
               {copied ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
               <span>{copied ? 'Link Copied for Sharing!' : 'Copy Black Friday Deal Link'}</span>
             </button>
-            <span className="text-[11px] text-slate-500">Share with friends or social media</span>
+            <span className="text-[11px] text-slate-500">Share with friends or social followers</span>
           </div>
 
         </div>
       </header>
 
-      {/* 3. VISUAL SHOWCASE OF ALL 10 BOOKS */}
+      {/* ========================================================================= */}
+      {/* 3. VISUAL GALLERY: ALL 10 BOOKS WITH COVERS                               */}
+      {/* ========================================================================= */}
       <section className="max-w-6xl mx-auto px-4 py-8 space-y-8">
         
         <div className="text-center space-y-2">
@@ -204,7 +270,7 @@ export default function BlackFridayPage() {
             Everything Inside The 10-Book Master Archive
           </h2>
           <p className="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto">
-            Each master guide is a comprehensive, clinically referenced digital execution manual designed for rapid implementation.
+            Each master guide is a comprehensive, clinically referenced digital execution manual designed for immediate implementation.
           </p>
         </div>
 
@@ -264,7 +330,207 @@ export default function BlackFridayPage() {
 
       </section>
 
-      {/* 4. COMPARISON BREAKDOWN */}
+      {/* ========================================================================= */}
+      {/* 4. THE FUNNEL BRIDGE: "START HERE" ON-RAMP                                */}
+      {/* "Yesterday was the best time to start, today is the second best time"     */}
+      {/* ========================================================================= */}
+      <section className="max-w-5xl mx-auto px-4 py-12">
+        <div className="relative rounded-3xl bg-gradient-to-br from-slate-900 via-cyan-950/30 to-slate-900 border-2 border-cyan-500/40 p-8 sm:p-12 shadow-2xl overflow-hidden text-center space-y-6">
+          
+          {/* Subtle Ambient Ray */}
+          <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+
+          {/* Golden Quote Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-bold uppercase tracking-widest">
+            <Compass size={14} className="text-cyan-400" />
+            <span>Foundational Clinical Mindset</span>
+          </div>
+
+          {/* The Inspiring Quote */}
+          <div className="space-y-3 max-w-3xl mx-auto">
+            <blockquote className="text-2xl sm:text-3xl md:text-4xl font-black text-white italic tracking-tight leading-tight">
+              &ldquo;Yesterday was the best time to start. <br />
+              <span className="bg-gradient-to-r from-cyan-400 to-teal-300 bg-clip-text text-transparent not-italic font-black">
+                Today is the second best time.&rdquo;
+              </span>
+            </blockquote>
+            <p className="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto leading-relaxed">
+              Biological aging and cellular senescence compound every single day. Waiting for a new week or another month leaves your metabolic health to chance. Take command of your telemetry today.
+            </p>
+          </div>
+
+          {/* 3-Step Practical Action Roadmap */}
+          <div className="grid sm:grid-cols-3 gap-4 text-left pt-4">
+            <div className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+              <div className="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 font-black text-xs">
+                01
+              </div>
+              <h4 className="text-xs font-black text-white uppercase tracking-wider">Take Your Diagnostic Baseline</h4>
+              <p className="text-[11px] text-slate-400 leading-relaxed">
+                Complete our interactive clinical quiz to pinpoint your organ-specific biological bottlenecks.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+              <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 font-black text-xs">
+                02
+              </div>
+              <h4 className="text-xs font-black text-white uppercase tracking-wider">Unlock The Master Guides</h4>
+              <p className="text-[11px] text-slate-400 leading-relaxed">
+                Arm yourself with all 10 clinical execution books at the £39.99 Black Friday flash rate.
+              </p>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 space-y-2">
+              <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-black text-xs">
+                03
+              </div>
+              <h4 className="text-xs font-black text-white uppercase tracking-wider">Execute Dual-Track Protocols</h4>
+              <p className="text-[11px] text-slate-400 leading-relaxed">
+                Deploy physical Sovereign hardware and track biometric telemetry with real GP-aligned sheets.
+              </p>
+            </div>
+          </div>
+
+          {/* Direct Route to Start Here Page */}
+          <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
+            <Link
+              to="/start-here"
+              className="px-8 py-3.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl transition shadow-xl shadow-cyan-500/20 flex items-center gap-2 cursor-pointer"
+            >
+              <Compass size={16} />
+              <span>Explore The "Start Here" On-Ramp ➔</span>
+            </Link>
+            <Link
+              to="/health-quiz"
+              className="px-6 py-3.5 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white border border-slate-700 font-bold text-xs sm:text-sm rounded-xl transition flex items-center gap-2"
+            >
+              <span>Take Free Longevity Quiz (2 Min)</span>
+            </Link>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 5. SOVEREIGN APOTHECARY & SHOP SHOWCASE (THE HARDWARE STACK)              */}
+      {/* ========================================================================= */}
+      <section className="max-w-6xl mx-auto px-4 py-8 space-y-8">
+        
+        <div className="text-center space-y-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-widest">
+            <ShoppingBag size={13} />
+            <span>Sovereign Biological Hardware & Diagnostics</span>
+          </div>
+          <h2 className="text-2xl sm:text-4xl font-black text-white">
+            The Software (Our Guides) + The Hardware (Sovereign Gear)
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-400 max-w-2xl mx-auto">
+            A guide tells you what to execute; Sovereign hardware measures the cellular change. Pair your 10-Book Master Archive with lab-grade, FDA/MHRA/CE compliant diagnostics.
+          </p>
+        </div>
+
+        {/* Regional Storefront Quick Jump Banner */}
+        <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-2 text-xs text-slate-300">
+            <MapPin size={15} className="text-amber-400 shrink-0" />
+            <span>Sovereign Regional Hubs with Localized Medical Reagents:</span>
+          </div>
+          
+          <div className="flex flex-wrap items-center gap-2">
+            <Link 
+              to="/store-us"
+              className="px-3.5 py-1.5 rounded-xl bg-slate-950 hover:bg-slate-850 border border-slate-700 text-xs font-bold text-white flex items-center gap-2 transition"
+            >
+              <FlagUS className="w-4 h-3 rounded-[2px]" />
+              <span>US Store (FDA/CLIA)</span>
+            </Link>
+            <Link 
+              to="/store-uk"
+              className="px-3.5 py-1.5 rounded-xl bg-slate-950 hover:bg-slate-850 border border-slate-700 text-xs font-bold text-white flex items-center gap-2 transition"
+            >
+              <FlagUK className="w-4 h-3 rounded-[2px]" />
+              <span>UK Store (MHRA/UKAS)</span>
+            </Link>
+            <Link 
+              to="/store-es"
+              className="px-3.5 py-1.5 rounded-xl bg-slate-950 hover:bg-slate-850 border border-slate-700 text-xs font-bold text-white flex items-center gap-2 transition"
+            >
+              <FlagES className="w-4 h-3 rounded-[2px]" />
+              <span>ES / EU Store (CE)</span>
+            </Link>
+          </div>
+        </div>
+
+        {/* Curated Product Cards Grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {FEATURED_SOVEREIGN_PRODUCTS.map((prod) => (
+            <div 
+              key={prod.id}
+              className="bg-slate-900/90 border border-slate-800 hover:border-emerald-500/50 rounded-2xl p-4 flex flex-col justify-between space-y-4 shadow-xl transition-all duration-300 hover:-translate-y-1 group"
+            >
+              {/* Product Visual */}
+              <div className="aspect-[4/3] rounded-xl bg-slate-950 overflow-hidden relative border border-slate-800">
+                <img 
+                  src={prod.image} 
+                  alt={prod.name}
+                  loading="lazy"
+                  onError={(e) => {
+                    if (prod.fallbackImage) {
+                      (e.currentTarget as HTMLImageElement).src = prod.fallbackImage;
+                    }
+                  }}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <span className="absolute top-2 left-2 px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider bg-slate-950/80 border border-slate-700 text-emerald-400 backdrop-blur-sm">
+                  {prod.badge}
+                </span>
+              </div>
+
+              {/* Text Info */}
+              <div className="space-y-1.5 flex-1">
+                <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">
+                  {prod.category}
+                </span>
+                <h4 className="text-xs font-black text-white leading-snug">
+                  {prod.name}
+                </h4>
+                <p className="text-[11px] text-slate-400 leading-relaxed">
+                  {prod.benefit}
+                </p>
+              </div>
+
+              {/* Action */}
+              <div className="pt-2 border-t border-slate-800 flex items-center justify-between">
+                <span className="text-xs font-bold text-white">{prod.price}</span>
+                <Link
+                  to={prod.storeLink}
+                  className="px-3 py-1.5 rounded-lg bg-emerald-500/10 hover:bg-emerald-500 text-emerald-400 hover:text-slate-950 text-xs font-bold border border-emerald-500/30 transition flex items-center gap-1"
+                >
+                  <span>Procure</span>
+                  <ExternalLink size={11} />
+                </Link>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Sovereign Store Catalog CTA */}
+        <div className="text-center pt-2">
+          <Link
+            to="/store"
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 hover:text-white text-xs font-bold transition shadow"
+          >
+            <ShoppingBag size={14} className="text-emerald-400" />
+            <span>Browse Full Sovereign Longevity Store (50+ Clinical Products) ➔</span>
+          </Link>
+        </div>
+
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 6. COMPARISON TABLE: VALUE BREAKDOWN                                      */}
+      {/* ========================================================================= */}
       <section className="max-w-4xl mx-auto px-4 py-12">
         <div className="p-6 sm:p-10 rounded-3xl bg-slate-900 border border-slate-800 space-y-6 shadow-2xl">
           <div className="text-center space-y-2">
@@ -333,7 +599,9 @@ export default function BlackFridayPage() {
         </div>
       </section>
 
-      {/* 5. FAQ SECTION */}
+      {/* ========================================================================= */}
+      {/* 7. FAQ SECTION                                                            */}
+      {/* ========================================================================= */}
       <section className="max-w-3xl mx-auto px-4 py-8 space-y-4">
         <h2 className="text-xl sm:text-2xl font-black text-white text-center">Frequently Asked Questions</h2>
         
@@ -341,19 +609,23 @@ export default function BlackFridayPage() {
           {[
             {
               q: "How do I receive my guides after ordering?",
-              a: "Immediately upon checkout, you can download all 10 guides in one click as a ZIP file, or download each individual PDF directly. A permanent backup copy and receipt are also instantly emailed to you."
+              a: "Immediately upon checkout, you can download all 10 guides in one click as a ZIP file, or download each individual PDF directly. A permanent backup copy and receipt are also instantly emailed to your delivery address."
             },
             {
               q: "Can I read these on my phone, iPad, or Kindle?",
               a: "Yes! All guides are delivered in DRM-free, high-resolution PDF format, fully compatible with Apple Books, Kindle, Adobe Acrobat, Android PDF viewers, and desktop computers."
             },
             {
-              q: "Are the 2026 revisions included in this Black Friday deal?",
-              a: "Yes. You receive the latest 2026 geroscience revisions, including the full 12-Week Metabolic Re-Engineering & Visceral Fat Protocol, actionable telemetry sheets, and GP consultation scripts."
+              q: "How does the Sovereign Store hardware integrate with the guides?",
+              a: "Our guides provide the exact science, clinical dosages, and daily behavioral protocols. The Sovereign Store provides the matched biological hardware (CGMs, Withings sleep trackers, epigenetic age kits, and microalbumin reagents) so you can quantify your cellular results."
+            },
+            {
+              q: "Where should I start if I am new to longevity?",
+              a: "Visit our dedicated '/start-here' page or take the free 2-minute Longevity Health Quiz. As our core philosophy states: 'Yesterday was the best time to start, today is the second best time.' Taking your first baseline is step one."
             },
             {
               q: "How long does this £39.99 Black Friday pricing last?",
-              a: "This is a strictly time-limited flash promotion for Black Friday social campaigns. Once the promotion window closes, the vault returns to its regular £69.99 pricing."
+              a: "This is a strictly time-limited flash promotion for social media campaigns. Once the promotion window closes, the vault returns to its regular £69.99 pricing."
             }
           ].map((faq, idx) => (
             <div 
@@ -380,9 +652,12 @@ export default function BlackFridayPage() {
         </div>
       </section>
 
-      {/* 6. FIXED FLOATING BOTTOM BAR (For Mobile & Desktop Conversion) */}
+      {/* ========================================================================= */}
+      {/* 8. FIXED FLOATING BOTTOM BAR (DUAL ACTION FUNNEL)                        */}
+      {/* ========================================================================= */}
       <div className="fixed bottom-0 inset-x-0 z-40 bg-slate-950/95 backdrop-blur-md border-t border-amber-500/40 p-3 sm:p-4 shadow-2xl">
-        <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
+        <div className="max-w-5xl mx-auto flex items-center justify-between gap-3">
+          
           <div className="space-y-0.5">
             <div className="flex items-center gap-1.5">
               <span className="text-[10px] font-black uppercase tracking-wider text-amber-400 bg-amber-950/80 px-2 py-0.5 rounded border border-amber-800/80">
@@ -394,18 +669,28 @@ export default function BlackFridayPage() {
               <span className="text-xl sm:text-2xl font-black text-white">£39.99</span>
               <span className="text-[11px] text-slate-400 hidden sm:inline">($39.99 USD • 39,99€ EUR)</span>
               <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/60">
-                All 10 Guides
+                All 10 Guides Unlocked
               </span>
             </div>
           </div>
 
-          <button
-            onClick={handleClaimDeal}
-            className="px-6 sm:px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl transition shadow-lg shadow-amber-500/30 flex items-center gap-2 cursor-pointer shrink-0"
-          >
-            <Download size={16} />
-            <span>Claim Access ➔</span>
-          </button>
+          <div className="flex items-center gap-2">
+            <Link
+              to="/start-here"
+              className="hidden md:inline-flex items-center gap-1.5 px-4 py-3 bg-slate-900 hover:bg-slate-800 text-cyan-400 border border-slate-700 text-xs font-bold rounded-xl transition"
+            >
+              <Compass size={14} />
+              <span>Start Here Guide</span>
+            </Link>
+            <button
+              onClick={handleClaimDeal}
+              className="px-6 sm:px-8 py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs sm:text-sm uppercase tracking-wider rounded-xl transition shadow-lg shadow-amber-500/30 flex items-center gap-2 cursor-pointer shrink-0"
+            >
+              <Download size={16} />
+              <span>Claim £39.99 Deal ➔</span>
+            </button>
+          </div>
+
         </div>
       </div>
 
