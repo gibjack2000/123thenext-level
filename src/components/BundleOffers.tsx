@@ -248,7 +248,7 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
             {/* Pricing Section */}
             <div className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800/90 flex items-baseline justify-between">
               <div>
-                <span className="text-xs text-slate-500 line-through block">Combined Value: up to £77.00</span>
+                <span className="text-xs text-slate-500 line-through block">Combined Value: up to £83.99</span>
                 <span className="text-3xl sm:text-4xl font-black text-cyan-400">£29.99</span>
                 <span className="text-[11px] text-slate-400 block pt-0.5">$29.99 USD • 29,99€ EUR</span>
               </div>
@@ -428,7 +428,7 @@ export const BundleOffers: React.FC<BundleOffersProps> = ({
             {/* Pricing Section */}
             <div className="p-4 rounded-2xl bg-slate-950/90 border border-amber-500/30 flex items-baseline justify-between">
               <div>
-                <span className="text-xs text-slate-500 line-through block">Combined Value: £220.00</span>
+                <span className="text-xs text-slate-500 line-through block">Combined Value: £228.96</span>
                 <span className="text-3xl sm:text-4xl font-black text-amber-400">£69.99</span>
                 <span className="text-[11px] text-slate-400 block pt-0.5">$69.99 USD • 69,99€ EUR</span>
               </div>

@@ -93,7 +93,7 @@ const PRODUCT_MAP: Record<string, ProductInfo> = {
     price: '£39.99',
     usPrice: '$39.99 • €39.99',
     slug: 'bundle-black-friday-10',
-    desc: '🔥 Limited-Time Black Friday Flash Deal: Instant access to all 10 Premium Master Execution Books in 1-Click ZIP + 10 individual high-resolution PDFs (Save Over 82% off original combined value).',
+    desc: '🔥 Limited-Time Black Friday Flash Deal: Instant access to all 10 Premium Master Execution Books in 1-Click ZIP + 10 individual high-resolution PDFs (Save £188.97 / Over 82% off original £228.96 combined value).',
     guides: TEN_BOOK_VAULT_GUIDES
   },
   'black-friday': {
@@ -102,7 +102,7 @@ const PRODUCT_MAP: Record<string, ProductInfo> = {
     price: '£39.99',
     usPrice: '$39.99 • €39.99',
     slug: 'bundle-black-friday-10',
-    desc: '🔥 Limited-Time Black Friday Flash Deal: Instant access to all 10 Premium Master Execution Books in 1-Click ZIP + 10 individual high-resolution PDFs (Save Over 82% off original combined value).',
+    desc: '🔥 Limited-Time Black Friday Flash Deal: Instant access to all 10 Premium Master Execution Books in 1-Click ZIP + 10 individual high-resolution PDFs (Save £188.97 / Over 82% off original £228.96 combined value).',
     guides: TEN_BOOK_VAULT_GUIDES
   },
   'blackfriday': {
@@ -111,7 +111,7 @@ const PRODUCT_MAP: Record<string, ProductInfo> = {
     price: '£39.99',
     usPrice: '$39.99 • €39.99',
     slug: 'bundle-black-friday-10',
-    desc: '🔥 Limited-Time Black Friday Flash Deal: Instant access to all 10 Premium Master Execution Books in 1-Click ZIP + 10 individual high-resolution PDFs (Save Over 82% off original combined value).',
+    desc: '🔥 Limited-Time Black Friday Flash Deal: Instant access to all 10 Premium Master Execution Books in 1-Click ZIP + 10 individual high-resolution PDFs (Save £188.97 / Over 82% off original £228.96 combined value).',
     guides: TEN_BOOK_VAULT_GUIDES
   },
   'bundle-complete-vault-10': {
@@ -120,7 +120,7 @@ const PRODUCT_MAP: Record<string, ProductInfo> = {
     price: '£69.99',
     usPrice: '$69.99 • €69.99',
     slug: 'bundle-complete-vault-10',
-    desc: 'Instant access to all 10 Premium Master Guides — covering body composition, metabolic nutrition, autonomic engineering, women\'s health, home fitness, and clinical telemetry. Includes 1-Click ZIP Archive.',
+    desc: 'Instant access to all 10 Premium Master Guides (£228.96 combined retail value) — covering body composition, metabolic nutrition, autonomic engineering, women\'s health, home fitness, and clinical telemetry. Includes 1-Click ZIP Archive.',
     guides: TEN_BOOK_VAULT_GUIDES
   },
   'all-ten-master-guides': {
@@ -129,7 +129,7 @@ const PRODUCT_MAP: Record<string, ProductInfo> = {
     price: '£69.99',
     usPrice: '$69.99 • €69.99',
     slug: 'bundle-complete-vault-10',
-    desc: 'Instant access to all 10 Premium Master Guides — covering body composition, metabolic nutrition, autonomic engineering, women\'s health, home fitness, and clinical telemetry. Includes 1-Click ZIP Archive.',
+    desc: 'Instant access to all 10 Premium Master Guides (£228.96 combined retail value) — covering body composition, metabolic nutrition, autonomic engineering, women\'s health, home fitness, and clinical telemetry. Includes 1-Click ZIP Archive.',
     guides: TEN_BOOK_VAULT_GUIDES
   },
   'all-10-master-guides': {
@@ -138,7 +138,7 @@ const PRODUCT_MAP: Record<string, ProductInfo> = {
     price: '£69.99',
     usPrice: '$69.99 • €69.99',
     slug: 'bundle-complete-vault-10',
-    desc: 'Instant access to all 10 Premium Master Guides — covering body composition, metabolic nutrition, autonomic engineering, women\'s health, home fitness, and clinical telemetry. Includes 1-Click ZIP Archive.',
+    desc: 'Instant access to all 10 Premium Master Guides (£228.96 combined retail value) — covering body composition, metabolic nutrition, autonomic engineering, women\'s health, home fitness, and clinical telemetry. Includes 1-Click ZIP Archive.',
     guides: TEN_BOOK_VAULT_GUIDES
   },
   'g-bundle-10': {

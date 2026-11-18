@@ -396,8 +396,8 @@ export const BUNDLE_OFFERS: Record<string, BundleOfferConfig> = {
     },
     description: 'Instant access to all 10 Premium Master Guides — covering body composition, metabolic nutrition, autonomic engineering, women\'s health, home fitness, and clinical telemetry.',
     highlights: [
-      'All 10 Premium Master Execution Books included',
-      'Best Value — Maximum Savings (Over 70% Off)',
+      'All 10 Premium Master Execution Books included (£228.96 retail value)',
+      'Best Value — Maximum Savings (Save £158.97 / ~70% Off)',
       'Includes 12-Week Metabolic & Visceral Fat Protocol',
       '1-Click Instant Unlock & ZIP Archive access'
     ],

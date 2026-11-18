@@ -215,8 +215,8 @@ export const GUIDE_PRODUCTS: Record<string, DigitalGuideProduct> = {
     pillar: 'Bundle',
     description: 'Instant access to all 10 Premium Master Guides — covering body composition, metabolic nutrition, autonomic engineering, women\'s health, home fitness, and clinical telemetry.',
     highlights: [
-      'All 10 Premium Master Guides included',
-      'Best Value — Maximum Savings (Over 70% Off)',
+      'All 10 Premium Master Guides included (£228.96 individual retail value)',
+      'Best Value — Maximum Savings (Save £158.97 / ~70% Off)',
       '1-Click Instant Unlock & ZIP Archive access'
     ]
   },

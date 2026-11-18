@@ -204,12 +204,12 @@ export default function BlackFridayPage() {
           <div className="max-w-md mx-auto p-6 rounded-3xl bg-gradient-to-b from-slate-900 via-amber-950/20 to-slate-900 border-2 border-amber-500/60 shadow-2xl shadow-amber-500/15 space-y-4">
             <div className="flex items-baseline justify-between">
               <div className="text-left">
-                <span className="text-xs text-slate-500 line-through block font-mono">Combined Retail: £220.00</span>
+                <span className="text-xs text-slate-500 line-through block font-mono">Combined Retail: £228.96</span>
                 <span className="text-xs text-amber-400/80 line-through block font-mono">Standard Vault: £69.99</span>
                 <span className="text-4xl sm:text-5xl font-black text-white tracking-tight flex items-center gap-2">
                   £39.99
                   <span className="text-xs font-bold text-amber-400 bg-amber-950/80 border border-amber-800/80 px-2 py-1 rounded-full uppercase tracking-wider">
-                    Save £180
+                    Save £188.97
                   </span>
                 </span>
                 <span className="text-xs text-slate-400 font-mono block pt-1">$39.99 USD • 39,99€ EUR</span>
@@ -541,7 +541,7 @@ export default function BlackFridayPage() {
           <div className="grid sm:grid-cols-3 gap-4 pt-2">
             <div className="p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
               <span className="text-xs text-slate-400 block">Individual Purchase</span>
-              <span className="text-2xl font-black text-slate-500 line-through block">£220.00</span>
+              <span className="text-2xl font-black text-slate-500 line-through block">£228.96</span>
               <p className="text-xs text-slate-400 leading-relaxed">
                 Buying each of the 10 clinical execution books separately across our digital store.
               </p>
