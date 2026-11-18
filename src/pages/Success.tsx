@@ -168,7 +168,7 @@ export default function SuccessPage() {
                 </a>
               </div>
 
-              {/* Free Resource 2: The Next Level Lifespan (28-Page Blueprint) */}
+              {/* Free Resource 2: The Next Level Lifespan Educational Workbook (9-Page Workbook) */}
               <div className="p-5 rounded-2xl bg-slate-950 border border-slate-850 space-y-4 hover:border-indigo-500/30 transition">
                 <div className="flex items-start gap-4">
                   <img 
@@ -179,15 +179,15 @@ export default function SuccessPage() {
                         target.src = '/covers/the-next-level-lifespan-cover.png';
                       }
                     }}
-                    alt="The Next Level Lifespan"
+                    alt="The Next Level Lifespan Educational Workbook"
                     className="w-16 h-24 object-contain rounded-lg border border-slate-800 bg-slate-900 shrink-0 shadow-lg"
                   />
                   <div className="space-y-1 text-left">
                     <h3 className="text-base font-bold text-white leading-tight">
-                      The Next Level Lifespan
+                      The Next Level Lifespan Educational Workbook
                     </h3>
                     <p className="text-xs text-slate-400 leading-relaxed">
-                      Our complete 28-page open-access geroscience blueprint covering biological age, clinical biomarker baselines (ApoB, HbA1c, hs-CRP), and a 4-week habit tracker.
+                      Our complete 9-page open-access geroscience workbook covering biological age, clinical biomarker baselines (ApoB, HbA1c, hs-CRP), and a 4-week habit tracker.
                     </p>
                   </div>
                 </div>
@@ -198,7 +198,7 @@ export default function SuccessPage() {
                   className="w-full py-2.5 px-4 rounded-xl text-xs font-bold uppercase tracking-wider bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-400 hover:to-purple-500 text-white flex items-center justify-center gap-2 transition shadow-md shadow-indigo-500/10 cursor-pointer"
                 >
                   <Download size={14} />
-                  <span>Download Free Blueprint (PDF)</span>
+                  <span>Download Free Workbook (PDF)</span>
                 </a>
               </div>
 

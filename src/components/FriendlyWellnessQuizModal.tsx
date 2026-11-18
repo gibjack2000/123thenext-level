@@ -225,7 +225,7 @@ export const FriendlyWellnessQuizModal: React.FC<FriendlyWellnessQuizModalProps>
                   <div className="space-y-3 text-center sm:text-left">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[10px] font-mono uppercase tracking-[0.2em] font-semibold">
                       <BookOpen size={12} className="text-cyan-400" />
-                      <span>FREE 28-PAGE LONGEVITY BLUEPRINT</span>
+                      <span>FREE 9-PAGE EDUCATIONAL WORKBOOK</span>
                     </div>
 
                     <h3 className="text-2xl sm:text-3xl font-display font-extrabold text-white tracking-tight leading-tight">
@@ -317,7 +317,7 @@ export const FriendlyWellnessQuizModal: React.FC<FriendlyWellnessQuizModalProps>
                         Dispatch Confirmed
                       </span>
                       <h3 className="text-2xl sm:text-3xl font-display font-extrabold text-white">
-                        Your 28-Page Blueprint is on its way!
+                        Your 9-Page Educational Workbook is on its way!
                       </h3>
                     </div>
                   </div>
@@ -325,7 +325,7 @@ export const FriendlyWellnessQuizModal: React.FC<FriendlyWellnessQuizModalProps>
                   {/* Proactive Mindset Awakening Narrative */}
                   <div className="p-5 rounded-2xl bg-slate-900/80 border border-cyan-500/30 text-xs sm:text-sm text-slate-200 leading-relaxed font-light space-y-3 text-left">
                     <p>
-                      Your 28-Page Blueprint is on its way to your inbox! But remember: reading is only the first step on the critical path. True proactivity is a major mindset awakening—an immediate daily upgrade that is miles ahead of traditional, reactive 'sick-care' and enables a highly active, enhanced life right now.
+                      Your 9-Page Educational Workbook is on its way to your inbox! But remember: reading is only the first step on the critical path. True proactivity is a major mindset awakening—an immediate daily upgrade that is miles ahead of traditional, reactive 'sick-care' and enables a highly active, enhanced life right now.
                     </p>
                     <p className="text-cyan-100">
                       Let's run a systems check: see if your biological hardware is ready to survive on the critical path to future age-reversal software. Anyone who doesn't actively focus on their hardware today risks completely missing the epigenetic boat tomorrow.

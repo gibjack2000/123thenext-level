@@ -423,7 +423,7 @@ export default function LibraryPage() {
             </div>
           </div>
 
-          {/* Card 2: The Next Level Lifespan (28-Page Longevity Blueprint) */}
+          {/* Card 2: The Next Level Lifespan Educational Workbook (9-Page Educational Workbook) */}
           <div className="group p-6 sm:p-8 rounded-3xl bg-slate-900 border border-indigo-500/30 hover:border-indigo-500/60 flex flex-col justify-between space-y-8 shadow-xl hover:shadow-2xl hover:shadow-indigo-500/10 transition duration-300 relative overflow-hidden">
             <div className="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 rounded-full bg-indigo-500/15 blur-3xl pointer-events-none" />
 
@@ -438,7 +438,7 @@ export default function LibraryPage() {
                       target.src = '/covers/the-next-level-lifespan-cover.png';
                     }
                   }}
-                  alt="The Next Level Lifespan"
+                  alt="The Next Level Lifespan Educational Workbook"
                   className="relative w-full h-auto max-h-[380px] object-contain rounded-2xl border border-slate-800/90 shadow-2xl bg-slate-950"
                 />
                 <div className="absolute top-3 left-3 z-10">
@@ -451,7 +451,7 @@ export default function LibraryPage() {
               <div className="space-y-3 text-left">
                 <div className="flex items-center justify-between gap-2">
                   <span className="inline-block text-[10px] font-bold px-2.5 py-0.5 rounded border uppercase tracking-wider bg-indigo-500/10 text-indigo-400 border-indigo-500/20">
-                    28-PAGE LONGEVITY BLUEPRINT (100% FREE • $0)
+                    9-PAGE EDUCATIONAL WORKBOOK (100% FREE • $0)
                   </span>
                   <span className="text-[10px] font-mono text-emerald-400 font-bold bg-emerald-950/60 border border-emerald-800/40 px-2 py-0.5 rounded">
                     $0.00
@@ -459,11 +459,11 @@ export default function LibraryPage() {
                 </div>
 
                 <h3 className="text-xl font-bold text-white tracking-tight leading-snug">
-                  The Next Level Lifespan
+                  The Next Level Lifespan Educational Workbook
                 </h3>
                 
                 <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-sans">
-                  Our complete 28-page open-access geroscience blueprint covering biological age, clinical biomarker baselines (ApoB, HbA1c, hs-CRP), and a 4-week habit tracker.
+                  Our complete 9-page open-access geroscience workbook covering biological age, clinical biomarker baselines (ApoB, HbA1c, hs-CRP), and a 4-week habit tracker.
                 </p>
               </div>
 
@@ -472,7 +472,7 @@ export default function LibraryPage() {
                 <ul className="space-y-1.5 text-xs text-slate-300">
                   <li className="flex items-center space-x-2">
                     <span className="text-indigo-400 font-bold">✓</span>
-                    <span>28-page open-access geroscience blueprint</span>
+                    <span>9-page open-access geroscience blueprint &amp; workbook</span>
                   </li>
                   <li className="flex items-center space-x-2">
                     <span className="text-indigo-400 font-bold">✓</span>
@@ -497,7 +497,7 @@ export default function LibraryPage() {
                 className="w-full py-4 px-5 rounded-xl text-xs sm:text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2 transition duration-200 shadow-lg cursor-pointer bg-gradient-to-r from-indigo-500 to-purple-600 text-white hover:from-indigo-400 hover:to-purple-500 shadow-indigo-500/25 hover:scale-[1.01] active:scale-[0.99]"
               >
                 <Download size={16} />
-                <span>Download Free Blueprint (PDF)</span>
+                <span>Download Free Workbook (PDF)</span>
                 <span>➔</span>
               </button>
 

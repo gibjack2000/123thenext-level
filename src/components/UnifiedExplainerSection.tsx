@@ -335,7 +335,7 @@ export const UnifiedExplainerSection: React.FC<UnifiedExplainerSectionProps> = (
                 <span className="text-2xl">📘</span>
                 <h4 className="text-base sm:text-lg font-bold text-white">Free Longevity Blueprint (PDF)</h4>
                 <p className="text-xs text-slate-400 leading-relaxed">
-                  Direct open-access download: 28-page geroscience guide, biological decay primer, and 4-week habit tracker with zero paywall.
+                  Direct open-access download: 9-page geroscience workbook, biological decay primer, and 4-week habit tracker with zero paywall.
                 </p>
               </div>
               <a

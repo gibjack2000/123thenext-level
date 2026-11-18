@@ -149,7 +149,7 @@ export const OnboardingLaunchpad: React.FC<OnboardingLaunchpadProps> = ({
               <ul className="space-y-2 pt-2 border-t border-slate-800/60 text-xs text-slate-300">
                 <li className="flex items-center gap-2">
                   <CheckCircle2 size={13} className="text-indigo-400 flex-shrink-0" />
-                  <span>28-page open-access geroscience blueprint</span>
+                  <span>9-page open-access geroscience workbook</span>
                 </li>
                 <li className="flex items-center gap-2">
                   <CheckCircle2 size={13} className="text-indigo-400 flex-shrink-0" />
