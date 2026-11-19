@@ -125,7 +125,7 @@ export const BlackFridayStickyReminder: React.FC = () => {
             to="/black-friday"
             className="w-full xs:w-auto px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-md shadow-amber-500/30 flex items-center justify-center gap-1.5 ml-auto cursor-pointer"
           >
-            <span>Return to Deal (Save £188.97)</span>
+            <span>Start My Wellness Journey Today</span>
             <ArrowRight size={13} />
           </Link>
         </div>
