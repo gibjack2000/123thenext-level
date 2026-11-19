@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Flame, ArrowRight, X, Sparkles } from 'lucide-react';
+import { Heart, ArrowRight, X, Sparkles } from 'lucide-react';
+
+const BF_PRICE = '£39.99';
+const BF_DISCOUNT_PERCENT = '82% OFF';
+const BF_SAVINGS_TEXT = 'Save £188.97 off £228.96 combined retail';
 
 export const BlackFridayStickyReminder: React.FC = () => {
   const location = useLocation();
@@ -56,11 +60,11 @@ export const BlackFridayStickyReminder: React.FC = () => {
         <Link
           to="/black-friday"
           className="group flex items-center gap-2 px-3.5 py-2 rounded-full bg-slate-950/95 border-2 border-amber-500/80 hover:border-amber-400 text-white shadow-2xl shadow-amber-500/30 transition-all transform hover:scale-105 backdrop-blur-md"
-          title="Return to Black Friday Flash Deal (£39.99)"
+          title={`Start My Wellness Journey — 10 Wellness Books (${BF_PRICE})`}
         >
-          <Flame size={16} className="text-orange-400 animate-pulse" />
+          <Heart size={15} className="text-amber-400 fill-amber-400 animate-pulse" />
           <span className="text-xs font-black uppercase tracking-wider text-amber-300">
-            Black Friday Deal <span className="text-white bg-amber-500/30 px-1.5 py-0.5 rounded text-[10px] ml-1">£39.99</span>
+            Black Friday Deal <span className="text-white bg-amber-500/30 px-1.5 py-0.5 rounded text-[10px] ml-1">{BF_PRICE}</span>
           </span>
           <ArrowRight size={13} className="text-amber-400 group-hover:translate-x-0.5 transition-transform" />
         </Link>
@@ -70,36 +74,39 @@ export const BlackFridayStickyReminder: React.FC = () => {
 
   return (
     <aside 
-      aria-label="Black Friday Deal Reminder"
-      className="fixed bottom-3 inset-x-3 sm:bottom-4 sm:right-4 sm:left-auto sm:max-w-md z-50 animate-in slide-in-from-bottom-5 duration-300"
+      aria-label="Black Friday Wellness Deal Reminder"
+      className="fixed bottom-3 inset-x-3 sm:bottom-4 sm:right-4 sm:left-auto sm:max-w-lg z-50 animate-in slide-in-from-bottom-5 duration-300"
     >
-      <div className="relative rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-amber-950/90 border-2 border-amber-500/80 p-3 sm:p-4 shadow-2xl shadow-amber-500/25 backdrop-blur-md">
+      <div className="relative rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-amber-950/90 border-2 border-amber-500/80 p-3.5 sm:p-4 shadow-2xl shadow-amber-500/25 backdrop-blur-md">
         
         {/* Subtle background glow */}
         <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none" />
 
-        <div className="flex items-start justify-between gap-2.5 relative z-10">
+        <div className="flex items-start justify-between gap-3 relative z-10">
           
           {/* Icon + Copy */}
-          <div className="flex items-center gap-2.5 min-w-0">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shrink-0 shadow-md shadow-amber-500/30">
-              <Flame size={20} className="text-slate-950 fill-slate-950" />
+          <div className="flex items-start gap-3 min-w-0">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shrink-0 shadow-md shadow-amber-500/30 mt-0.5">
+              <Heart size={19} className="text-slate-950 fill-slate-950" />
             </div>
 
-            <div className="min-w-0 space-y-0.5 text-left">
-              <div className="flex items-center gap-1.5">
+            <div className="min-w-0 space-y-1 text-left">
+              <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="text-[10px] font-black uppercase tracking-widest text-amber-400 flex items-center gap-1">
                   <Sparkles size={11} /> Black Friday Deal Active
                 </span>
                 <span className="text-[9px] font-extrabold bg-amber-400 text-slate-950 px-1.5 py-0.2 rounded">
-                  82% OFF
+                  {BF_DISCOUNT_PERCENT}
                 </span>
               </div>
-              <p className="text-xs font-bold text-white truncate">
-                All 10 Master Execution Books for <span className="text-amber-300 font-black">£39.99</span>
+              <p className="text-xs sm:text-sm font-bold text-white tracking-tight">
+                All 10 Wellness Books for <span className="text-amber-300 font-black">{BF_PRICE}</span>
               </p>
-              <p className="text-[10px] text-slate-400 hidden sm:block truncate">
-                Save £188.97 off £228.96 combined retail
+              <p className="text-[10.5px] text-slate-300 font-medium leading-tight">
+                Sleep better. Get your energy back. Build healthier habits.
+              </p>
+              <p className="text-[10px] text-amber-400/90 font-semibold tracking-wide">
+                {BF_SAVINGS_TEXT}
               </p>
             </div>
           </div>
@@ -117,16 +124,16 @@ export const BlackFridayStickyReminder: React.FC = () => {
         </div>
 
         {/* Action Button Row */}
-        <div className="mt-2.5 pt-2 border-t border-slate-800/80 flex items-center justify-between gap-2">
-          <span className="text-[10px] text-slate-400 hidden xs:inline">
-            Wandered off? Jump right back:
+        <div className="mt-3 pt-2.5 border-t border-slate-800/80 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          <span className="text-[11px] text-slate-300 font-medium leading-snug sm:max-w-[210px] text-left">
+            Still thinking it over? Your healthier habits are one click away:
           </span>
           <Link
             to="/black-friday"
-            className="w-full xs:w-auto px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-md shadow-amber-500/30 flex items-center justify-center gap-1.5 ml-auto cursor-pointer"
+            className="inline-flex items-center justify-center gap-2 px-5 py-3 min-h-[48px] rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-lg shadow-amber-500/30 whitespace-nowrap cursor-pointer shrink-0 active:scale-[0.99]"
           >
-            <span>Start My Wellness Journey Today</span>
-            <ArrowRight size={13} />
+            <span>Start My Wellness Journey</span>
+            <ArrowRight size={14} className="shrink-0" />
           </Link>
         </div>
 
