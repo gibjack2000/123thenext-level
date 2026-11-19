@@ -128,14 +128,49 @@ export const BlackFridayStickyReminder: React.FC = () => {
           <span className="text-[11px] text-slate-300 font-medium leading-snug sm:max-w-[210px] text-left">
             Still thinking it over? Your healthier habits are one click away:
           </span>
-          <Link
-            to="/black-friday"
-            className="inline-flex items-center justify-center gap-2 px-5 py-3 min-h-[48px] rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs uppercase tracking-wider transition shadow-lg shadow-amber-500/30 whitespace-nowrap cursor-pointer shrink-0 active:scale-[0.99]"
-          >
-            <span>Start My Wellness Journey</span>
-            <ArrowRight size={14} className="shrink-0" />
-          </Link>
+          <div className="relative group shrink-0">
+            {/* Dynamic Changing Glow Motion Aura (Behind Button) */}
+            <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-300 opacity-75 blur-md group-hover:opacity-100 group-hover:blur-lg transition-all duration-500 animate-pulse pointer-events-none" />
+
+            {/* Glowing CTA Button */}
+            <Link
+              to="/black-friday"
+              className="relative overflow-hidden inline-flex items-center justify-center gap-2 px-5 py-3 min-h-[48px] rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-400 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-black text-xs uppercase tracking-wider transition-all duration-300 shadow-xl whitespace-nowrap cursor-pointer active:scale-[0.99] cta-glow-pulse"
+            >
+              {/* Subtle Kinetic Light Beam Sweep */}
+              <span className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-transparent via-white/35 to-transparent pointer-events-none cta-shimmer-sweep" />
+
+              <span className="relative z-10">Start My Wellness Journey</span>
+              <ArrowRight size={14} className="relative z-10 shrink-0 group-hover:translate-x-0.5 transition-transform" />
+            </Link>
+          </div>
         </div>
+
+        {/* Scoped Keyframe Styles for Dynamic Changing Glow & Shimmer */}
+        <style>{`
+          @keyframes ctaGlowPulse {
+            0%, 100% {
+              box-shadow: 0 0 14px 2px rgba(245, 158, 11, 0.45), 0 4px 20px rgba(249, 115, 22, 0.3);
+            }
+            50% {
+              box-shadow: 0 0 28px 6px rgba(245, 158, 11, 0.85), 0 0 45px 10px rgba(249, 115, 22, 0.5);
+            }
+          }
+          @keyframes ctaShimmerSweep {
+            0% {
+              transform: translateX(-150%) skewX(-20deg);
+            }
+            35%, 100% {
+              transform: translateX(250%) skewX(-20deg);
+            }
+          }
+          .cta-glow-pulse {
+            animation: ctaGlowPulse 2.8s ease-in-out infinite;
+          }
+          .cta-shimmer-sweep {
+            animation: ctaShimmerSweep 3.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+          }
+        `}</style>
 
       </div>
     </aside>
