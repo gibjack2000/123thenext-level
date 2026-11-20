@@ -14,7 +14,8 @@ import {
   Save,
   ShieldCheck,
   Tag,
-  Download
+  Download,
+  Trash2
 } from 'lucide-react';
 import { supabase as importedSupabase, supabaseUrl, supabaseAnonKey } from '../lib/supabase';
 import { AdminLayout } from '../components/AdminLayout';
@@ -297,6 +298,34 @@ export const AdminAffiliates: React.FC = () => {
       await fetchProducts();
     } catch (err: any) {
       showToast(`❌ Update exception: ${err.message || 'Unknown'}`);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleDeleteProduct = async (id: string, name: string) => {
+    if (!window.confirm(`Are you sure you want to permanently delete "${name}"?`)) return;
+    setIsSaving(true);
+    try {
+      // 1. Delete from authoritative products table
+      const { error: pErr } = await supabase.from('products').delete().eq('id', id);
+      
+      // 2. Delete from amazon_affiliate_products table
+      const numericId = parseInt(id, 10);
+      if (!isNaN(numericId) && /^\d+$/.test(String(id).trim())) {
+        await supabase.from('amazon_affiliate_products').delete().eq('id', numericId);
+      }
+      await supabase.from('amazon_affiliate_products').delete().eq('asin', id);
+      
+      if (pErr) {
+        showToast(`❌ Delete failed: ${pErr.message}`);
+        return;
+      }
+      
+      setProducts(prev => prev.filter(p => p.id !== id));
+      showToast(`✅ "${name}" deleted permanently.`);
+    } catch (err: any) {
+      showToast(`❌ Delete error: ${err.message}`);
     } finally {
       setIsSaving(false);
     }
@@ -954,13 +983,24 @@ export const AdminAffiliates: React.FC = () => {
                               </button>
                             </div>
                           ) : (
-                            <button
-                              onClick={() => startEdit(p)}
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-slate-700 hover:border-cyan-500/40 text-xs font-bold transition-all"
-                            >
-                              <Edit3 className="w-3.5 h-3.5" />
-                              Edit
-                            </button>
+                            <div className="flex items-center justify-end gap-1.5">
+                              <button
+                                onClick={() => startEdit(p)}
+                                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-400 border border-slate-700 hover:border-cyan-500/40 text-xs font-bold transition-all"
+                                title="Edit Product"
+                              >
+                                <Edit3 className="w-3.5 h-3.5" />
+                                Edit
+                              </button>
+                              <button
+                                onClick={() => handleDeleteProduct(p.id, p.name)}
+                                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-rose-950/40 hover:bg-rose-900/60 text-rose-400 border border-rose-800/40 hover:border-rose-600 text-xs font-bold transition-all"
+                                title="Delete Product"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                                Delete
+                              </button>
+                            </div>
                           )}
                         </td>
                       </tr>

@@ -532,7 +532,7 @@ export const StoreUS: React.FC = () => {
                 </div>
                 <div className="text-xs font-mono text-cyan-400 bg-cyan-950/40 px-3 py-1.5 rounded-lg border border-cyan-800/30 self-start sm:self-auto flex items-center gap-1.5">
                   <Database size={13} className="text-cyan-400" />
-                  <span>Single Source of Truth: <strong className="text-white">sirtuin-stack-us</strong></span>
+                  <span>Single Source of Truth: <strong className="text-white">Active US Registry</strong></span>
                 </div>
               </div>
 

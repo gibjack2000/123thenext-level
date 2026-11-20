@@ -1003,18 +1003,6 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "image_url": "/Products/clinical-urine-acr.jpg"
     },
     {
-      "id": "sirtuin-stack-us",
-      "name": "Momentous Sirtuin Activation & Cell Recovery Stack (Mitochondrial NAD+ Precursor)",
-      "category": "Supplements & Nutraceuticals",
-      "rating": 4.95,
-      "description": "Premium NSF Certified for Sport Trans-Resveratrol, NMN, and Nattokinase. Formulated to provide biological cofactors to activate Sirtuin pathways, stabilizing chromatin loops and repairing cellular DNA.",
-      "price_text": "$89.95",
-      "deal_url": "https://livemomentous.com/modernwisdom?code=modernwisdom",
-      "market_region": "US",
-      "badge_text": "NSF Certified for Sport",
-      "image_url": "/assets/images/shop/sirtuin-stack.png"
-    },
-    {
       "id": "stethoscope-us",
       "name": "Eko CORE 500™ Digital AI Stethoscope",
       "category": "Clinical Diagnostics & Labs",
@@ -3407,14 +3395,8 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
     return corePrefixes.some(prefix => fbId.startsWith(prefix)) && !existingIds.has(fbId);
   });
 
-  const missingCategoryItems = fallbackCatalog.filter(fb => {
-    const fbId = String(fb.id || '').toLowerCase();
-    const fbDeal = String(fb.deal_url || '').toLowerCase();
-    if (corePrefixes.some(prefix => fbId.startsWith(prefix))) return false;
-    return !existingIds.has(fbId) && (!fbDeal || !existingDeals.has(fbDeal));
-  });
-
-  const combined = [...missingCore, ...dedupedHealed, ...missingCategoryItems];
+  // Only ensure critical diagnostic pathways (missingCore); do not resurrect deleted affiliate/store items
+  const combined = [...missingCore, ...dedupedHealed];
 
   // Final strict deduplication by ID and normalized product name to guarantee zero duplicates
   const finalSeen = new Set<string>();
