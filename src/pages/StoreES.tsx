@@ -33,6 +33,7 @@ import {
   withCacheBuster,
   formatDiagnosticPrice,
   ensureCoreRegionalCatalog,
+  sanitizeRegionalAmazonLink,
   getCategoryDisplayLabel,
   CategoryBanner,
   MultiSupplierOptionsBar,
@@ -81,7 +82,7 @@ export const StoreES: React.FC = () => {
         const sanitized: ProductRecord[] = data
           .filter((item: any) => !isPremiumGuideProduct(item))
           .map((item: any) => {
-          let healedDeal = item.deal_url || item.affiliate_link || '';
+          let healedDeal = sanitizeRegionalAmazonLink(item.deal_url || item.affiliate_link || '', 'ES');
           if (healedDeal.startsWith('https://123thenextlevel.comhttp')) {
             healedDeal = healedDeal.replace('https://123thenextlevel.com', '');
           }

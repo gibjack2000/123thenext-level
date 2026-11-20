@@ -1938,7 +1938,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "The Xiaomi Smart Air Fryer features a 3.5L capacity and precise temperature control ranging from 40°C to 200°C, making it versatile enough for frying, baking, and even yogurt making. With smart scheduling up to 24 hours and voice control compatibility, it seamlessly integrates into any modern home for effortless meal preparation.",
       "price_text": "104,95€",
-      "deal_url": "https://www.amazon.co.uk/dp/B09833F2TW?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.es/dp/B09833F2TW?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/xiaomiairfryer.jpg"
@@ -1950,7 +1950,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.3,
       "description": "Equipped with a high-performance 500W motor and durable stainless steel blades, this personal blender easily handles frozen fruits and ice. The BPA-free glass jar ensures a clean taste and easy cleaning, making it a healthy and convenient choice for busy lifestyles. Its sleek, space-saving design is perfect for small kitchens, offices, or travel.",
       "price_text": "29,99€",
-      "deal_url": "https://www.amazon.co.uk/dp/B0BG8PF41K?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.es/dp/B0BG8PF41K?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/duronic520.jpg"
@@ -1962,7 +1962,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.5,
       "description": "This high-performance 2600W XXL air fryer offers ultimate flexibility, allowing you to switch between a single 12-litre basket for large items or dual-zone cooking for separate dishes. Its powerful rapid-air technology ensures faster, healthier results with significantly less oil, making it the perfect all-in-one solution for busy households and entertaining.",
       "price_text": "115,99€",
-      "deal_url": "https://www.amazon.co.uk/dp/B0GH7NW6MR?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.es/dp/B0GH7NW6MR?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/airfryer12litres.jpg"
@@ -1974,7 +1974,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "The Moulinex Blend&Go features a sleek, space-saving design and a powerful motor with four stainless steel blades to easily blend fruits and vegetables. Its intuitive one-button operation makes it perfect for busy mornings, and the dishwasher-safe bottle ensures effortless cleanup after every use.",
       "price_text": "57,68€",
-      "deal_url": "https://www.amazon.co.uk/dp/B07BCNS9YB?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.es/dp/B07BCNS9YB?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/moulinexblender.jpg"
@@ -1986,7 +1986,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.6,
       "description": "The Philips 900 Series features a powerful CADR of 250m³/h and HEPA NanoProtect technology to capture 99.97% of particles as small as 0.003 microns. Its smart, energy-saving design operates quietly, making it perfect for maintaining optimal air quality in spaces up to 65 m² without disruption.",
       "price_text": "169,99€",
-      "deal_url": "https://www.amazon.co.uk/dp/B0D3VDV73J?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.es/dp/B0D3VDV73J?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/phillips900.jpg"
@@ -1998,7 +1998,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.1,
       "description": "This medium-sized 300W rice cooker features a non-stick, dishwasher-safe bowl and an included steaming basket for versatile, healthy meal preparation. With its intuitive auto shut-off feature and compact design, it delivers consistent results while making cleanup a breeze for any busy household.",
       "price_text": "34,90€",
-      "deal_url": "https://www.amazon.co.uk/dp/B084869TW9?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.es/dp/B084869TW9?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/RusselHobbs.jpeg"
@@ -2010,7 +2010,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "KitchenCraft 4 Egg Poacher Pan in Gift Box, Non Stick and Induction Safe, Stainless Steel, 20.5 cm",
       "price_text": "36,19€",
-      "deal_url": "https://www.amazon.co.uk/dp/B0001IWWD4?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.es/dp/B0001IWWD4?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/KitchenCraft.jpeg"
@@ -2298,7 +2298,7 @@ export const REGIONAL_MASTER_CATALOGS: Record<MarketTab, any[]> = {
       "rating": 4.4,
       "description": "This AROEVE ultrasonic humidifier features intelligent humidity control to maintain your ideal environment for plants, babies, and restful sleep. Its large 6-liter tank eliminates frequent refills while doubling as an essential oil diffuser to fill your home with relaxing scents.",
       "price_text": "59,99€",
-      "deal_url": "https://www.amazon.co.uk/dp/B0FNX72RPL?tag=123thenextlev-21",
+      "deal_url": "https://www.amazon.es/dp/B0FNX72RPL?tag=123thenextl01-21",
       "market_region": "ES",
       "badge_text": "Certificado UE",
       "image_url": "/Products/aroeve6l.jpg"
@@ -3184,12 +3184,29 @@ export function getCleanDiagnosticCta(product: any, market: MarketTab): string {
   return 'Order Diagnostic (HealthLabs US 🇺🇸)';
 }
 
+export function sanitizeRegionalAmazonLink(url: string | undefined, market: MarketTab): string {
+  if (!url) return '';
+  const isAmazon = /amazon\.(?:com|co\.uk|es)|amzn\.to/i.test(url);
+  if (!isAmazon) return url;
+
+  const marketDomain = market === 'UK' ? 'amazon.co.uk' : market === 'ES' ? 'amazon.es' : 'amazon.com';
+  const marketTag = market === 'UK' ? '123thenextlev-21' : market === 'ES' ? '123thenextl01-21' : '123thenextlev-20';
+
+  const asinMatch = url.match(/\/dp\/([A-Z0-9]{10})/i) || url.match(/\/gp\/product\/([A-Z0-9]{10})/i);
+  if (asinMatch) {
+    return `https://www.${marketDomain}/dp/${asinMatch[1]}?tag=${marketTag}`;
+  }
+  return url.replace(/amazon\.(?:co\.uk|com|es)/gi, marketDomain).replace(/tag=[^&]+/gi, `tag=${marketTag}`);
+}
+
 export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[] {
   const fallbackCatalog = (REGIONAL_MASTER_CATALOGS[market] || []).map((p: any) => {
-    const cat = normalizeStoreCategory(p.category, p.name || p.title, p.deal_url);
-    const isAmazon = String(p.deal_url || '').toLowerCase().includes('amazon') || String(p.deal_url || '').toLowerCase().includes('amzn.to');
+    const rawDeal = sanitizeRegionalAmazonLink(p.deal_url, market);
+    const cat = normalizeStoreCategory(p.category, p.name || p.title, rawDeal);
+    const isAmazon = String(rawDeal || '').toLowerCase().includes('amazon') || String(rawDeal || '').toLowerCase().includes('amzn.to');
     const enriched = {
       ...p,
+      deal_url: rawDeal,
       market_region: p.market_region || market,
       category: cat,
       is_direct_affiliate: isAmazon ? false : Boolean(p.is_direct_affiliate ?? true)
@@ -3206,8 +3223,9 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
   }
 
   const healedItems = items.map((item: any) => {
-    const cat = normalizeStoreCategory(item.category, item.name || item.title, item.deal_url);
-    const enriched = { ...item, market_region: item.market_region || market, category: cat };
+    const rawDeal = sanitizeRegionalAmazonLink(item.deal_url || item.affiliate_link, market);
+    const cat = normalizeStoreCategory(item.category, item.name || item.title, rawDeal);
+    const enriched = { ...item, deal_url: rawDeal, market_region: item.market_region || market, category: cat };
 
     const isAmazonDeal = String(enriched.deal_url || '').toLowerCase().includes('amazon') || String(enriched.deal_url || '').toLowerCase().includes('amzn.to');
     const isGlucoseDevice = String(enriched.name || '').toLowerCase().includes('glucose') || String(enriched.name || '').toLowerCase().includes('sugar') || String(enriched.id || '') === '316';
