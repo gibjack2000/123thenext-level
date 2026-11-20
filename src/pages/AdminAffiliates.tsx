@@ -60,6 +60,7 @@ export const AdminAffiliates: React.FC = () => {
   // Filters
   const [selectedRegion, setSelectedRegion] = useState<string>('US');
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
+  const [selectedDealType, setSelectedDealType] = useState<'ALL' | 'AMAZON' | 'DIRECT'>('ALL');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   // Inline Editing State
@@ -119,16 +120,81 @@ export const AdminAffiliates: React.FC = () => {
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const { data, error } = await supabase
+      // 1. Fetch from authoritative products table
+      const { data: productsData, error: productsError } = await supabase
         .from('products')
         .select('*')
         .order('id', { ascending: true });
 
-      if (error) {
-        showToast(`❌ Error fetching products: ${error.message}`);
-      } else if (data) {
-        setProducts(data as ProductItem[]);
+      // 2. Also fetch from amazon_affiliate_products to catch any items added directly there
+      const { data: amazonData, error: amazonError } = await supabase
+        .from('amazon_affiliate_products')
+        .select('*')
+        .order('id', { ascending: true });
+
+      if (productsError && amazonError) {
+        showToast(`❌ Error fetching products: ${productsError?.message || amazonError?.message}`);
+        return;
       }
+
+      const seenIds = new Set<string>();
+      const unified: ProductItem[] = [];
+
+      if (productsData) {
+        productsData.forEach((p: any) => {
+          const idStr = String(p.id);
+          seenIds.add(idStr.toLowerCase());
+          unified.push({
+            id: idStr,
+            name: p.name || '',
+            category: p.category || '',
+            rating: typeof p.rating === 'number' ? p.rating : 4.8,
+            description: p.description || '',
+            price_text: p.price_text || '$0.00',
+            deal_url: p.deal_url || '',
+            market_region: (p.market_region as 'US' | 'UK' | 'ES') || 'US',
+            badge_text: p.badge_text || '',
+            image_url: p.image_url || '',
+            is_direct_affiliate: Boolean(p.is_direct_affiliate),
+            hub_placement_slot: p.hub_placement_slot || null,
+            updated_at: p.updated_at
+          });
+        });
+      }
+
+      if (amazonData) {
+        amazonData.forEach((a: any) => {
+          const idStr = String(a.id);
+          const asinStr = a.asin ? String(a.asin) : '';
+          if (!seenIds.has(idStr.toLowerCase()) && (!asinStr || !seenIds.has(asinStr.toLowerCase()))) {
+            seenIds.add(idStr.toLowerCase());
+            const isDirect = Boolean(
+              Array.isArray(a.tags) && a.tags.includes('Direct Partner')
+            );
+            const curr = (a.currency || (a.market === 'UK' ? 'GBP' : a.market === 'ES' ? 'EUR' : 'USD')).toUpperCase();
+            const symbol = curr === 'GBP' ? '£' : curr === 'EUR' ? '€' : '$';
+            const priceText = a.price !== undefined && a.price !== null ? `${symbol}${a.price}` : '$0.00';
+
+            unified.push({
+              id: idStr,
+              name: a.title || '',
+              category: a.category || 'Tech Gadgets & Wearables',
+              rating: typeof a.rating === 'number' ? a.rating : 4.8,
+              description: a.description || '',
+              price_text: priceText,
+              deal_url: a.affiliate_link || '',
+              market_region: (a.market as 'US' | 'UK' | 'ES') || 'US',
+              badge_text: a.cta || '',
+              image_url: a.image_url || '',
+              is_direct_affiliate: isDirect,
+              hub_placement_slot: null,
+              updated_at: a.last_updated
+            });
+          }
+        });
+      }
+
+      setProducts(unified);
     } catch (err: any) {
       showToast(`❌ Connection error: ${err.message || 'Unknown'}`);
     } finally {
@@ -157,9 +223,11 @@ export const AdminAffiliates: React.FC = () => {
   const handleSaveProduct = async (id: string) => {
     setIsSaving(true);
     try {
-      const { error } = await supabase
+      // 1. Authoritative primary products table update
+      const { error: productsError } = await supabase
         .from('products')
-        .update({
+        .upsert({
+          id,
           name: editForm.name,
           price_text: editForm.price_text,
           badge_text: editForm.badge_text,
@@ -168,16 +236,56 @@ export const AdminAffiliates: React.FC = () => {
           market_region: editForm.market_region,
           is_direct_affiliate: editForm.is_direct_affiliate,
           updated_at: new Date().toISOString()
-        })
-        .eq('id', id);
+        }, { onConflict: 'id' });
 
-      if (error) {
-        showToast(`❌ Update failed: ${error.message}`);
-      } else {
-        showToast(`✅ Successfully updated affiliate & product data for ${id}`);
-        setEditingId(null);
-        fetchProducts();
+      if (productsError) {
+        showToast(`❌ Update failed: ${productsError.message}`);
+        return;
       }
+
+      // 2. Also keep legacy amazon_affiliate_products in sync if applicable
+      try {
+        const numericId = parseInt(id, 10);
+        const isNumeric = !isNaN(numericId) && /^\d+$/.test(String(id).trim());
+        
+        const targetQuery = isNumeric 
+          ? supabase.from('amazon_affiliate_products').select('id, tags').eq('id', numericId)
+          : supabase.from('amazon_affiliate_products').select('id, tags').eq('asin', id);
+          
+        const { data: amazonRecords } = await targetQuery;
+        if (amazonRecords && amazonRecords.length > 0) {
+          for (const rec of amazonRecords) {
+            const currentTags: string[] = Array.isArray(rec.tags) ? rec.tags : [];
+            const filteredTags = currentTags.filter(
+              (t) => t !== 'Direct Partner' && t !== 'Amazon Hub' && t !== 'Amazon Affiliate'
+            );
+            if (editForm.is_direct_affiliate) {
+              filteredTags.push('Direct Partner');
+            } else {
+              filteredTags.push('Amazon Affiliate');
+            }
+
+            await supabase
+              .from('amazon_affiliate_products')
+              .update({
+                title: editForm.name,
+                category: editForm.category,
+                market: editForm.market_region,
+                affiliate_link: editForm.deal_url,
+                cta: editForm.badge_text,
+                tags: filteredTags,
+                last_updated: new Date().toISOString().split('T')[0]
+              })
+              .eq('id', rec.id);
+          }
+        }
+      } catch (syncErr: any) {
+        console.warn('Sync to amazon_affiliate_products skipped:', syncErr);
+      }
+
+      showToast(`✅ Successfully updated ${editForm.is_direct_affiliate ? '★ Direct Deal' : '📦 Amazon Affiliate'} (${id})`);
+      setEditingId(null);
+      await fetchProducts();
     } catch (err: any) {
       showToast(`❌ Update exception: ${err.message || 'Unknown'}`);
     } finally {
@@ -224,7 +332,36 @@ export const AdminAffiliates: React.FC = () => {
       if (error) {
         showToast(`❌ Failed to create product: ${error.message}`);
       } else {
-        showToast(`✅ Product "${newProductForm.name}" created successfully!`);
+        // Also keep amazon_affiliate_products synchronized if Amazon affiliate
+        try {
+          const cleanPrice = parseFloat(newProductForm.price_text.replace(/[^0-9.]/g, '')) || 0;
+          const curr = newProductForm.market_region === 'UK' ? 'GBP' : newProductForm.market_region === 'ES' ? 'EUR' : 'USD';
+          const tag = newProductForm.market_region === 'UK' ? '123thenextlev-21' : newProductForm.market_region === 'ES' ? '123thenextl01-21' : '123thenextlev-20';
+
+          await supabase
+            .from('amazon_affiliate_products')
+            .insert([{
+              market: newProductForm.market_region,
+              category: newProductForm.category,
+              title: newProductForm.name.trim(),
+              asin: newProductForm.id.trim(),
+              affiliate_link: newProductForm.deal_url.trim(),
+              image_url: rawImg,
+              price: cleanPrice,
+              currency: curr,
+              rating: Number(newProductForm.rating) || 4.8,
+              is_active: true,
+              tags: newProductForm.is_direct_affiliate ? ['Direct Partner'] : ['Amazon Affiliate'],
+              last_updated: new Date().toISOString().split('T')[0],
+              description: newProductForm.description.trim(),
+              cta: newProductForm.badge_text.trim() || 'Buy Now',
+              "Amazon tag": tag
+            }]);
+        } catch (amazonErr) {
+          console.warn('Optional amazon_affiliate_products sync notice:', amazonErr);
+        }
+
+        showToast(`✅ Product "${newProductForm.name}" created successfully as ${newProductForm.is_direct_affiliate ? '★ Direct Deal' : '📦 Amazon Affiliate'}!`);
         setIsAddModalOpen(false);
         setNewProductForm({
           id: '',
@@ -312,11 +449,21 @@ export const AdminAffiliates: React.FC = () => {
     ...Array.from(new Set([...PREDEFINED_CATEGORIES, ...products.map((p) => p.category).filter(Boolean)]))
   ];
 
-  // Multi-market + Category + Search filtering
+  // Calculate Region and Deal Type Counts
+  const usCount = products.filter((p) => p.market_region === 'US').length;
+  const ukCount = products.filter((p) => p.market_region === 'UK').length;
+  const esCount = products.filter((p) => p.market_region === 'ES').length;
+  const amazonCount = products.filter((p) => !p.is_direct_affiliate).length;
+  const directCount = products.filter((p) => Boolean(p.is_direct_affiliate)).length;
+
+  // Multi-market + Category + Deal Type + Search filtering
   const filteredProducts = products.filter((p) => {
     const matchesRegion = selectedRegion === 'ALL' || p.market_region === selectedRegion;
     const matchesCategory = selectedCategory === 'ALL' || p.category === selectedCategory;
-    
+    const matchesDealType = selectedDealType === 'ALL' ||
+      (selectedDealType === 'AMAZON' && !p.is_direct_affiliate) ||
+      (selectedDealType === 'DIRECT' && Boolean(p.is_direct_affiliate));
+
     const query = searchQuery.toLowerCase().trim();
     const matchesSearch =
       !query ||
@@ -325,13 +472,8 @@ export const AdminAffiliates: React.FC = () => {
       p.deal_url?.toLowerCase().includes(query) ||
       p.badge_text?.toLowerCase().includes(query);
 
-    return matchesRegion && matchesCategory && matchesSearch;
+    return matchesRegion && matchesCategory && matchesDealType && matchesSearch;
   });
-
-  // Calculate Region Counts
-  const usCount = products.filter((p) => p.market_region === 'US').length;
-  const ukCount = products.filter((p) => p.market_region === 'UK').length;
-  const esCount = products.filter((p) => p.market_region === 'ES').length;
 
   return (
     <AdminLayout>
@@ -463,6 +605,37 @@ export const AdminAffiliates: React.FC = () => {
                 ))}
               </select>
             </div>
+
+            {/* Deal Type Filter Tabs */}
+            <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 shrink-0">
+              {[
+                { id: 'ALL', label: 'All Deals', count: products.length },
+                { id: 'AMAZON', label: '📦 Amazon Affiliate', count: amazonCount },
+                { id: 'DIRECT', label: '★ Direct Deals', count: directCount }
+              ].map((type) => (
+                <button
+                  key={type.id}
+                  type="button"
+                  onClick={() => setSelectedDealType(type.id as 'ALL' | 'AMAZON' | 'DIRECT')}
+                  className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-bold rounded-lg transition-all ${
+                    selectedDealType === type.id
+                      ? type.id === 'DIRECT'
+                        ? 'bg-emerald-500 text-slate-950 font-black shadow-md'
+                        : type.id === 'AMAZON'
+                        ? 'bg-amber-400 text-slate-950 font-black shadow-md'
+                        : 'bg-cyan-500 text-slate-950 font-black shadow-md'
+                      : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                  }`}
+                >
+                  <span>{type.label}</span>
+                  <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
+                    selectedDealType === type.id ? 'bg-slate-950/30 text-slate-900' : 'bg-slate-800 text-slate-400'
+                  }`}>
+                    {type.count}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="text-xs text-slate-400 shrink-0">
@@ -480,7 +653,7 @@ export const AdminAffiliates: React.FC = () => {
             <table className="w-full text-left text-xs border-collapse">
               <thead>
                 <tr className="bg-slate-950/90 text-slate-400 font-bold border-b border-slate-800 uppercase tracking-wider text-[11px]">
-                  <th className="p-4 w-24">Market</th>
+                  <th className="p-4 w-36">Market & Deal Type</th>
                   <th className="p-4 min-w-[280px]">Product Details</th>
                   <th className="p-4 w-28">Price</th>
                   <th className="p-4 min-w-[320px]">Affiliate Destination URL</th>
@@ -520,44 +693,76 @@ export const AdminAffiliates: React.FC = () => {
                           isEditing ? 'bg-cyan-950/20 border-l-2 border-cyan-500' : 'hover:bg-slate-800/40'
                         }`}
                       >
-                        {/* Market Badge */}
+                        {/* Market & Deal Type */}
                         <td className="p-4 align-top">
                           {isEditing ? (
-                            <select
-                              value={editForm.market_region}
-                              onChange={(e) =>
-                                setEditForm({
-                                  ...editForm,
-                                  market_region: e.target.value as 'US' | 'UK' | 'ES'
-                                })
-                              }
-                              className="bg-slate-950 border border-cyan-500/50 rounded-lg p-1 text-xs text-cyan-300 font-bold outline-none"
-                            >
-                              <option value="US">🇺🇸 US</option>
-                              <option value="UK">🇬🇧 UK</option>
-                              <option value="ES">🇪🇸 ES</option>
-                            </select>
-                          ) : (
-                            <span
-                              className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wide border ${
-                                p.market_region === 'US'
-                                  ? 'bg-blue-500/15 text-blue-400 border-blue-500/30'
-                                  : p.market_region === 'UK'
-                                  ? 'bg-rose-500/15 text-rose-400 border-rose-500/30'
-                                  : 'bg-amber-500/15 text-amber-400 border-amber-500/30'
-                              }`}
-                            >
-                              {p.market_region === 'US'
-                                ? '🇺🇸 US'
-                                : p.market_region === 'UK'
-                                ? '🇬🇧 UK'
-                                : '🇪🇸 ES'}
-                            </span>
-                          )}
+                            <div className="space-y-2">
+                              <div>
+                                <label className="text-[10px] text-slate-400 font-semibold block mb-1">Region</label>
+                                <select
+                                  value={editForm.market_region}
+                                  onChange={(e) =>
+                                    setEditForm({
+                                      ...editForm,
+                                      market_region: e.target.value as 'US' | 'UK' | 'ES'
+                                    })
+                                  }
+                                  className="w-full bg-slate-950 border border-cyan-500/50 rounded-lg p-1.5 text-xs text-cyan-300 font-bold outline-none cursor-pointer"
+                                >
+                                  <option value="US">🇺🇸 US</option>
+                                  <option value="UK">🇬🇧 UK</option>
+                                  <option value="ES">🇪🇸 ES</option>
+                                </select>
+                              </div>
 
-                          {p.is_direct_affiliate && (
-                            <div className="mt-1 text-[9px] font-bold text-emerald-400 uppercase tracking-tight">
-                              ★ Direct Deal
+                              <div>
+                                <label className="text-[10px] text-slate-400 font-semibold block mb-1">Deal Type</label>
+                                <select
+                                  value={editForm.is_direct_affiliate ? 'direct' : 'amazon'}
+                                  onChange={(e) =>
+                                    setEditForm({
+                                      ...editForm,
+                                      is_direct_affiliate: e.target.value === 'direct'
+                                    })
+                                  }
+                                  className={`w-full rounded-lg p-1.5 text-xs font-bold outline-none border transition-colors cursor-pointer ${
+                                    editForm.is_direct_affiliate
+                                      ? 'bg-emerald-950/60 border-emerald-500/60 text-emerald-300'
+                                      : 'bg-amber-950/60 border-amber-500/60 text-amber-300'
+                                  }`}
+                                >
+                                  <option value="amazon">📦 Amazon Affiliate</option>
+                                  <option value="direct">★ Direct Deal</option>
+                                </select>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="flex flex-col items-start gap-1.5">
+                              <span
+                                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wide border ${
+                                  p.market_region === 'US'
+                                    ? 'bg-blue-500/15 text-blue-400 border-blue-500/30'
+                                    : p.market_region === 'UK'
+                                    ? 'bg-rose-500/15 text-rose-400 border-rose-500/30'
+                                    : 'bg-amber-500/15 text-amber-400 border-amber-500/30'
+                                }`}
+                              >
+                                {p.market_region === 'US'
+                                  ? '🇺🇸 US'
+                                  : p.market_region === 'UK'
+                                  ? '🇬🇧 UK'
+                                  : '🇪🇸 ES'}
+                              </span>
+
+                              {p.is_direct_affiliate ? (
+                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 uppercase tracking-tight">
+                                  ★ Direct Deal
+                                </span>
+                              ) : (
+                                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[9px] font-bold bg-amber-500/15 text-amber-400 border border-amber-500/30 uppercase tracking-tight">
+                                  📦 Amazon Affiliate
+                                </span>
+                              )}
                             </div>
                           )}
                         </td>
@@ -648,16 +853,40 @@ export const AdminAffiliates: React.FC = () => {
                         {/* Affiliate Destination URL & Test Link */}
                         <td className="p-4 align-top">
                           {isEditing ? (
-                            <div className="space-y-1">
+                            <div className="space-y-1.5">
                               <input
                                 type="text"
                                 className="w-full bg-slate-950 border border-cyan-500 rounded-lg p-2 text-xs text-cyan-300 font-mono outline-none focus:ring-1 focus:ring-cyan-500"
                                 value={editForm.deal_url}
-                                onChange={(e) => setEditForm({ ...editForm, deal_url: e.target.value })}
+                                onChange={(e) => {
+                                  const url = e.target.value;
+                                  const isAmazon = url.toLowerCase().includes('amazon.') || url.toLowerCase().includes('amzn.to');
+                                  setEditForm({
+                                    ...editForm,
+                                    deal_url: url,
+                                    ...(isAmazon && editForm.is_direct_affiliate ? { is_direct_affiliate: false } : {})
+                                  });
+                                }}
                                 placeholder="https://www.amazon.com/dp/... or https://amzn.to/..."
                               />
-                              <div className="text-[10px] text-slate-500">
-                                Ensure your regional tag (e.g., <code>tag=123thenextlev-20</code> for US or <code>tag=123thenextlev-21</code> for UK) is attached.
+                              <div className="flex flex-wrap items-center justify-between gap-1 text-[10px]">
+                                <span className="text-slate-500">
+                                  {editForm.is_direct_affiliate
+                                    ? '★ Direct brand partner link'
+                                    : '📦 Amazon Affiliate link (regional tag attached)'}
+                                </span>
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    setEditForm({
+                                      ...editForm,
+                                      is_direct_affiliate: !editForm.is_direct_affiliate
+                                    })
+                                  }
+                                  className="text-cyan-400 hover:text-cyan-300 underline font-semibold transition-colors"
+                                >
+                                  Switch to {editForm.is_direct_affiliate ? '📦 Amazon Affiliate' : '★ Direct Deal'}
+                                </button>
                               </div>
                             </div>
                           ) : (
@@ -899,22 +1128,44 @@ export const AdminAffiliates: React.FC = () => {
               </div>
 
               {/* Direct Affiliate Toggle */}
-              <div className="flex items-center gap-2 pt-2">
-                <input
-                  type="checkbox"
-                  id="is_direct"
-                  checked={newProductForm.is_direct_affiliate}
-                  onChange={(e) =>
-                    setNewProductForm({
-                      ...newProductForm,
-                      is_direct_affiliate: e.target.checked
-                    })
-                  }
-                  className="w-4 h-4 rounded bg-slate-950 border-slate-800 text-cyan-500 focus:ring-0 cursor-pointer"
-                />
-                <label htmlFor="is_direct" className="text-slate-300 cursor-pointer select-none">
-                  Direct brand affiliate partnership (bypass Amazon tag)
+              <div>
+                <label className="text-slate-300 font-bold block mb-1">
+                  Affiliate Deal Type <span className="text-rose-400">*</span>
                 </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setNewProductForm({ ...newProductForm, is_direct_affiliate: false })}
+                    className={`p-3 rounded-xl border text-left transition-all flex flex-col gap-1 cursor-pointer ${
+                      !newProductForm.is_direct_affiliate
+                        ? 'bg-amber-500/15 border-amber-500/50 text-amber-300 ring-1 ring-amber-500/30'
+                        : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'
+                    }`}
+                  >
+                    <span className="font-bold text-xs flex items-center gap-1.5">
+                      📦 Amazon Affiliate
+                    </span>
+                    <span className="text-[10px] text-slate-400">
+                      Standard Amazon product with affiliate tracking tag
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setNewProductForm({ ...newProductForm, is_direct_affiliate: true })}
+                    className={`p-3 rounded-xl border text-left transition-all flex flex-col gap-1 cursor-pointer ${
+                      newProductForm.is_direct_affiliate
+                        ? 'bg-emerald-500/15 border-emerald-500/50 text-emerald-300 ring-1 ring-emerald-500/30'
+                        : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'
+                    }`}
+                  >
+                    <span className="font-bold text-xs flex items-center gap-1.5">
+                      ★ Direct Deal
+                    </span>
+                    <span className="text-[10px] text-slate-400">
+                      Direct brand partner (e.g. Diagnox, Momentous, Lola)
+                    </span>
+                  </button>
+                </div>
               </div>
 
               {/* Submit Buttons */}

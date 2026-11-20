@@ -441,6 +441,7 @@ export default function AdminPage() {
     currency: 'USD',
     rating: '5.0',
     featured: false,
+    deal_type: 'amazon' as 'amazon' | 'direct',
     tags: '',
   });
 
@@ -494,6 +495,14 @@ export default function AdminPage() {
   const handleEditProduct = useCallback((product: Product) => {
     setActiveTab('products');
     setEditingProductId(String(product.id));
+    const isDirect = Boolean(
+      product.tags?.includes('Direct Partner') ||
+      (product.amazon_url && !product.amazon_url.toLowerCase().includes('amazon'))
+    );
+    const cleanedTags = (Array.isArray(product.tags) ? product.tags : [])
+      .filter((t) => t !== 'Direct Partner' && t !== 'Amazon Hub' && t !== 'Amazon Affiliate')
+      .join(', ');
+
     setFormData({
       region: product.region,
       category: product.category,
@@ -507,7 +516,8 @@ export default function AdminPage() {
       currency: product.currency || 'USD',
       rating: product.rating.toString(),
       featured: product.featured || false,
-      tags: Array.isArray(product.tags) ? product.tags.join(', ') : '',
+      deal_type: isDirect ? 'direct' : 'amazon',
+      tags: cleanedTags,
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
@@ -527,6 +537,7 @@ export default function AdminPage() {
       currency: 'USD',
       rating: '5.0',
       featured: false,
+      deal_type: 'amazon',
       tags: '',
     });
   };
@@ -952,11 +963,7 @@ export default function AdminPage() {
         targetId = `${slug}-${formData.region.toLowerCase()}`;
       }
 
-      const isDirectPartner = Boolean(
-        formData.featured || 
-        formData.tags.toLowerCase().includes('direct') || 
-        (formData.amazon_url && !formData.amazon_url.toLowerCase().includes('amazon'))
-      );
+      const isDirectPartner = formData.deal_type === 'direct';
 
       let finalImageUrl = (formData.image_url || '').trim();
       if (finalImageUrl && !finalImageUrl.includes('amazon.com') && !finalImageUrl.includes('ssl-images-amazon')) {
@@ -991,6 +998,16 @@ export default function AdminPage() {
       }
 
       // 2. Also keep legacy amazon_affiliate_products in sync if applicable
+      const rawTags = formData.tags.split(',').map(t => t.trim()).filter(Boolean);
+      const cleanAmazonTags = rawTags.filter(
+        (t) => t !== 'Direct Partner' && t !== 'Amazon Hub' && t !== 'Amazon Affiliate'
+      );
+      if (isDirectPartner) {
+        cleanAmazonTags.push('Direct Partner');
+      } else {
+        cleanAmazonTags.push('Amazon Affiliate');
+      }
+
       const amazonData = {
         market: formData.region,
         category: formData.category,
@@ -1002,7 +1019,7 @@ export default function AdminPage() {
         currency: formData.currency,
         rating: parseFloat(formData.rating) || 4.9,
         is_active: formData.featured,
-        tags: formData.tags.split(',').map(t => t.trim()).filter(Boolean),
+        tags: cleanAmazonTags,
         last_updated: new Date().toISOString(),
         description: formData.description,
         cta: formData.short_benefit || 'Buy Now',
@@ -1660,7 +1677,7 @@ create table if not exists premium_guides (
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Price *</label>
                   <input required type="number" step="0.01" name="price" value={formData.price} onChange={handleChange} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 font-bold text-slate-900 outline-none focus:ring-4 focus:ring-blue-500/10" />
@@ -1668,6 +1685,18 @@ create table if not exists premium_guides (
                 <div className="space-y-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Clinical Rating</label>
                   <input required type="number" step="0.1" min="0" max="5" name="rating" value={formData.rating} onChange={handleChange} className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 font-bold text-slate-900 outline-none focus:ring-4 focus:ring-blue-500/10" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Affiliate Deal Type *</label>
+                  <select
+                    name="deal_type"
+                    value={formData.deal_type}
+                    onChange={handleChange}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl p-4 font-bold text-slate-900 outline-none focus:ring-4 focus:ring-blue-500/10 cursor-pointer"
+                  >
+                    <option value="amazon">📦 Amazon Affiliate Product</option>
+                    <option value="direct">★ Direct Partner Deal</option>
+                  </select>
                 </div>
                 <div className="flex items-center pt-6">
                   <label className="flex items-center gap-3 cursor-pointer select-none">
