@@ -34,6 +34,7 @@ import {
   formatDiagnosticPrice,
   ensureCoreRegionalCatalog,
   getCategoryDisplayLabel,
+  CategoryBanner,
   MultiSupplierOptionsBar,
   DynamicSupplierCtaSection,
   getActiveSuppliers,
@@ -178,6 +179,25 @@ export const StoreES: React.FC = () => {
     !p.deal_url?.toLowerCase().includes('amzn.to')
   );
   const amazonProducts = filteredProducts.filter(p => !clinicalPartners.includes(p) && !isPremiumGuideProduct(p));
+
+  const NON_CLINICAL_CATEGORIES = [
+    'Smart Hardware & Wearables',
+    'Supplements & Nutraceuticals',
+    'Exercise & Fitness Gear',
+    'Kitchen & Culinary Bio-Hacks'
+  ];
+
+  const canonicalCategoriesInView = NON_CLINICAL_CATEGORIES.filter(cat =>
+    amazonProducts.some(p => p.category === cat)
+  );
+  const otherCategories = Array.from(
+    new Set(
+      amazonProducts
+        .filter(p => !NON_CLINICAL_CATEGORIES.includes(p.category))
+        .map(p => p.category)
+    )
+  );
+  const amazonCategoriesInView = [...canonicalCategoriesInView, ...otherCategories];
 
   return (
     <div className="min-h-screen bg-slate-950 text-white font-sans antialiased pt-28 pb-16 md:pt-36 md:pb-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
@@ -479,80 +499,136 @@ export const StoreES: React.FC = () => {
             </div>
           )}
 
-          {/* TIER 2: CURATED LIFESTYLE & GEAR (AMAZON ASSOCIATES) */}
+          {/* TIER 2: CURATED LIFESTYLE & GEAR (AMAZON ASSOCIATES) - GROUPED BY CATEGORY */}
           {amazonProducts.length > 0 && (
-            <div className="space-y-6 pt-6 border-t border-slate-900">
-              <div className="border-l-4 border-cyan-500 pl-4">
-                <span className="text-xs text-cyan-400 uppercase font-semibold tracking-widest">CATÁLOGO DE LONGEVIDAD VERIFICADO</span>
-                <h2 className="text-2xl font-bold text-slate-100 mt-1">{activeCategory === 'All' ? 'Smart Hardware & Wearables' : getCategoryDisplayLabel(activeCategory)}</h2>
-              </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {amazonProducts.map(product => {
-                  const isDiag = isDiagnosticProduct(product);
-                  const displayImg = resolveDiagnosticImage(product, product.image_url || product.image, 'ES');
+            <div className="space-y-10 pt-6 border-t border-slate-900">
+              {activeCategory === 'All' ? (
+                amazonCategoriesInView.map(catKey => {
+                  const catProducts = amazonProducts.filter(p => p.category === catKey);
+                  if (catProducts.length === 0) return null;
                   return (
-                    <div 
-                      key={product.id} 
-                      className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-850 hover:border-cyan-500/20 p-6 flex flex-col justify-between shadow-xl transition-all duration-300"
-                    >
-                      <div>
-                        {displayImg && (
-                          <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-850/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
-                            <img 
-                              src={withCacheBuster(displayImg)} 
-                              alt={product.name} 
-                              className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
-                              referrerPolicy="no-referrer"
-                              onError={(e) => { const target = e.currentTarget; target.onerror = null; target.src = getSmartImageFallback(product, 'ES', isDiag); }}
-                            />
-                          </div>
-                        )}
-                        <div className="flex justify-between items-start mb-3">
-                          <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-widest px-2 py-1 rounded bg-cyan-950/20 border border-cyan-900/30">
-                            {product.category}
-                          </span>
-                          <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
-                            <Star size={13} className="fill-amber-400 text-amber-400" />
-                            <span>{Number(product.rating).toFixed(1)}</span>
-                          </span>
-                        </div>
-                        {isDiag && (
-                          <div className="flex flex-wrap items-center gap-1.5 mb-3">
-                            <span className="text-[11px] font-bold text-sky-300 bg-sky-950/60 border border-sky-500/40 px-2.5 py-1 rounded-md">
-                              {getDiagnosticCountryBadge('ES', product)}
-                            </span>
-                            <span className="text-[11px] font-bold text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 px-2.5 py-1 rounded-md">
-                              {getDiagnosticPricingBadge(product, 'ES')}
-                            </span>
-                          </div>
-                        )}
-                        <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2">
-                          {product.name}
-                        </h3>
-                        <p className="text-xs text-slate-400 mt-3 leading-relaxed line-clamp-3">
-                          {product.description}
-                        </p>
-                      </div>
+                    <div key={catKey} className="space-y-6 pt-4">
+                      <CategoryBanner categoryKey={catKey} marketTab="ES" />
+                      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {catProducts.map(product => {
+                          const isDiag = isDiagnosticProduct(product);
+                          const displayImg = resolveDiagnosticImage(product, product.image_url || product.image, 'ES');
+                          return (
+                            <div 
+                              key={product.id} 
+                              className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-850 hover:border-cyan-500/20 p-6 flex flex-col justify-between shadow-xl transition-all duration-300"
+                            >
+                              <div>
+                                {displayImg && (
+                                  <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-850/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
+                                    <img 
+                                      src={withCacheBuster(displayImg)} 
+                                      alt={product.name} 
+                                      className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                                      referrerPolicy="no-referrer"
+                                      onError={(e) => { const target = e.currentTarget; target.onerror = null; target.src = getSmartImageFallback(product, 'ES', isDiag); }}
+                                    />
+                                  </div>
+                                )}
+                                <div className="flex justify-between items-start mb-3">
+                                  <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-widest px-2 py-1 rounded bg-cyan-950/20 border border-cyan-900/30">
+                                    {product.category}
+                                  </span>
+                                  <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
+                                    <Star size={13} className="fill-amber-400 text-amber-400" />
+                                    <span>{Number(product.rating || 4.8).toFixed(1)}</span>
+                                  </span>
+                                </div>
+                                <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2">
+                                  {product.name}
+                                </h3>
+                                <p className="text-xs text-slate-400 mt-3 leading-relaxed line-clamp-3">
+                                  {product.description}
+                                </p>
+                              </div>
 
-                      <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
-                        <div className="flex justify-between items-center">
-                          <span className="text-xs text-slate-500 font-semibold">Insignia</span>
-                          <span className="text-[10px] text-slate-400 font-semibold px-2 py-0.5 rounded bg-slate-905 border border-slate-800">
-                            {isDiag ? getDiagnosticCountryBadge('ES', product) : (product.badge_text || 'Certificado UE')}
-                          </span>
-                        </div>
-                        <DynamicSupplierCtaSection
-                          product={product}
-                          market="ES"
-                          isDiag={isDiag}
-                          displayPrice={product.price_text}
-                        />
+                              <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
+                                <div className="flex justify-between items-center">
+                                  <span className="text-xs text-slate-500 font-semibold">Network Target</span>
+                                  <span className="text-[10px] text-amber-400 font-semibold px-2 py-0.5 rounded bg-amber-950/30 border border-amber-500/30">
+                                    Amazon Associates (ES 🇪🇸)
+                                  </span>
+                                </div>
+                                <DynamicSupplierCtaSection
+                                  product={product}
+                                  market="ES"
+                                  isDiag={isDiag}
+                                  displayPrice={product.price_text}
+                                />
+                              </div>
+                            </div>
+                          );
+                        })}
                       </div>
                     </div>
                   );
-                })}
-              </div>
+                })
+              ) : (
+                <div className="space-y-6 pt-4">
+                  <CategoryBanner categoryKey={activeCategory} marketTab="ES" />
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {amazonProducts.map(product => {
+                      const isDiag = isDiagnosticProduct(product);
+                      const displayImg = resolveDiagnosticImage(product, product.image_url || product.image, 'ES');
+                      return (
+                        <div 
+                          key={product.id} 
+                          className="group rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-850 hover:border-cyan-500/20 p-6 flex flex-col justify-between shadow-xl transition-all duration-300"
+                        >
+                          <div>
+                            {displayImg && (
+                              <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white/[0.02] border border-slate-850/80 mb-4 flex items-center justify-center p-4 transition-colors group-hover:bg-white/[0.04]">
+                                <img 
+                                  src={withCacheBuster(displayImg)} 
+                                  alt={product.name} 
+                                  className="max-h-full max-w-full w-auto h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+                                  referrerPolicy="no-referrer"
+                                  onError={(e) => { const target = e.currentTarget; target.onerror = null; target.src = getSmartImageFallback(product, 'ES', isDiag); }}
+                                />
+                              </div>
+                            )}
+                            <div className="flex justify-between items-start mb-3">
+                              <span className="text-[10px] text-cyan-400 font-bold uppercase tracking-widest px-2 py-1 rounded bg-cyan-950/20 border border-cyan-900/30">
+                                {product.category}
+                              </span>
+                              <span className="text-xs text-amber-500 font-bold flex items-center space-x-1">
+                                <Star size={13} className="fill-amber-400 text-amber-400" />
+                                <span>{Number(product.rating || 4.8).toFixed(1)}</span>
+                              </span>
+                            </div>
+                            <h3 className="text-lg font-bold text-slate-100 group-hover:text-cyan-400 transition-colors duration-300 line-clamp-2">
+                              {product.name}
+                            </h3>
+                            <p className="text-xs text-slate-400 mt-3 leading-relaxed line-clamp-3">
+                              {product.description}
+                            </p>
+                          </div>
+
+                          <div className="mt-6 pt-4 border-t border-slate-900 flex flex-col space-y-4">
+                            <div className="flex justify-between items-center">
+                              <span className="text-xs text-slate-500 font-semibold">Network Target</span>
+                              <span className="text-[10px] text-amber-400 font-semibold px-2 py-0.5 rounded bg-amber-950/30 border border-amber-500/30">
+                                Amazon Associates (ES 🇪🇸)
+                              </span>
+                            </div>
+                            <DynamicSupplierCtaSection
+                              product={product}
+                              market="ES"
+                              isDiag={isDiag}
+                              displayPrice={product.price_text}
+                            />
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
           )}
 

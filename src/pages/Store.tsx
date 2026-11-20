@@ -3478,8 +3478,18 @@ export function DynamicSupplierCtaSection({
   if (activeSuppliers.length === 0) return null;
 
   const primary = activeSuppliers.find(s => s.isPrimary) || activeSuppliers[0];
-  const secondary = isUSBlood ? [] : activeSuppliers.filter(s => s !== primary);
   const flagEmoji = market === 'US' ? '🇺🇸' : market === 'UK' ? '🇬🇧' : '🇪🇸';
+
+  const isAmazonDeal = 
+    !product.is_direct_affiliate && (
+      String(product.deal_url || '').toLowerCase().includes('amazon') ||
+      String(product.deal_url || '').toLowerCase().includes('amzn.to') ||
+      String(primary.url || '').toLowerCase().includes('amazon') ||
+      String(primary.url || '').toLowerCase().includes('amzn.to') ||
+      primary.supplierName === 'Amazon'
+    );
+
+  const secondary = (isUSBlood || isAmazonDeal) ? [] : activeSuppliers.filter(s => s !== primary);
 
   const isMetabolicProtocol =
     String(product.name || '').toLowerCase().includes('12-week metabolic') ||
@@ -3492,6 +3502,8 @@ export function DynamicSupplierCtaSection({
     ? "Access Paid Protocol 🔒 — £29.00"
     : isDiag 
     ? getCleanDiagnosticCta(product, market) 
+    : isAmazonDeal
+    ? (market === 'ES' ? 'Comprar en Amazon ES 🇪🇸' : market === 'UK' ? 'Buy on Amazon UK 🇬🇧' : 'Buy on Amazon US 🇺🇸')
     : (product.deal_url?.includes('/checkout') ? 'Get Master Guide ➔' : (primary.ctaText || `Buy on Amazon ${flagEmoji}`));
 
   let primaryUrl = isMetabolicProtocol
@@ -3499,7 +3511,11 @@ export function DynamicSupplierCtaSection({
     : (primary.url || product.deal_url || '#');
 
   let priceToShow = isMetabolicProtocol ? '£29.00' : (primary.priceText || displayPrice || product.price_text);
-  let ctaButtonText = isMetabolicProtocol ? "Access Paid Protocol 🔒 — £29.00" : (primary.ctaText || defaultCtaText);
+  let ctaButtonText = isMetabolicProtocol 
+    ? "Access Paid Protocol 🔒 — £29.00" 
+    : isAmazonDeal
+    ? (market === 'ES' ? 'Comprar en Amazon ES 🇪🇸' : market === 'UK' ? 'Buy on Amazon UK 🇬🇧' : 'Buy on Amazon US 🇺🇸')
+    : (primary.ctaText || defaultCtaText);
   let perksNoteToShow = primary.perksNote;
 
   if (isHealthLabsBasic) {
@@ -3611,11 +3627,15 @@ export function DynamicSupplierCtaSection({
                 : 'Live pricing on partner site'}
             </span>
           ) : null}
-          {!isDiag && perksNoteToShow && (
+          {!isDiag && isAmazonDeal ? (
+            <span className="text-[10px] text-amber-400 font-semibold mt-0.5">
+              📦 Prime Fast Delivery • Direct Amazon Checkout
+            </span>
+          ) : !isDiag && perksNoteToShow ? (
             <span className="text-[10px] text-emerald-400 font-semibold mt-0.5">
               ✨ {perksNoteToShow}
             </span>
-          )}
+          ) : null}
         </div>
 
         {isBypassActive && (product.deal_url?.includes('/checkout') || product.id?.includes('guide') || product.id?.includes('metabolic')) ? (
@@ -3646,12 +3666,14 @@ export function DynamicSupplierCtaSection({
           <a
             href={primaryUrl}
             target={primaryUrl.startsWith('/checkout') ? undefined : "_blank"}
-            rel={primaryUrl.startsWith('/checkout') ? undefined : "noopener noreferrer"}
+            rel={isAmazonDeal ? "noopener noreferrer sponsored" : (primaryUrl.startsWith('/checkout') ? undefined : "noopener noreferrer")}
             className={`px-4 py-2 rounded-lg text-xs font-bold transition-all duration-300 text-center shadow-lg ${
               isDiag 
                 ? 'bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white shadow-rose-500/20'
                 : isMetabolicProtocol
                 ? 'bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 shadow-emerald-500/25 font-black'
+                : isAmazonDeal
+                ? 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black shadow-md shadow-amber-500/20 hover:shadow-amber-500/30'
                 : 'bg-slate-850 hover:bg-slate-800 border border-slate-700 hover:border-cyan-500/30 text-cyan-400'
             }`}
           >
@@ -3660,8 +3682,8 @@ export function DynamicSupplierCtaSection({
         )}
       </div>
 
-      {/* Secondary CTAs (rendered ONLY when 2+ active suppliers exist; automatically collapsed to 0 when 1 supplier remains) */}
-      {secondary.length > 0 && (
+      {/* Secondary CTAs (rendered ONLY when 2+ active suppliers exist and NOT an Amazon Affiliate product) */}
+      {secondary.length > 0 && !isAmazonDeal && (
         <div className="pt-2 border-t border-slate-900/80 space-y-1.5">
           <span className="block text-[10px] font-mono uppercase tracking-wider text-slate-400">
             Compare Alternate Suppliers ({market}):
@@ -3798,7 +3820,7 @@ export function MultiSupplierOptionsBar({
   );
 }
 
-function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marketTab: MarketTab }) {
+export function CategoryBanner({ categoryKey, marketTab }: { categoryKey: string; marketTab: MarketTab }) {
   const normKey = categoryKey.toLowerCase();
   
   const getBannerConfig = (cat: string, market: MarketTab) => {
@@ -4098,10 +4120,18 @@ export function Store({ region }: StoreProps = {}) {
     !clinicalPartners.includes(p) && !isPremiumGuideProduct(p)
   );
 
-  // Group amazon products by category in the canonical 5-category order when "All" is active (excluding diagnostics to prevent duplicate headers)
-  const amazonCategoriesInView = STORE_CATEGORIES.filter(cat =>
+  // Group amazon products by category in the canonical order when "All" is active (excluding diagnostics to prevent duplicate headers)
+  const canonicalCategoriesInView = STORE_CATEGORIES.filter(cat =>
     cat !== 'Clinical Diagnostics & Labs' && amazonHubProducts.some(p => p.category === cat)
   );
+  const otherAmazonCategories = Array.from(
+    new Set(
+      amazonHubProducts
+        .filter(p => p.category !== 'Clinical Diagnostics & Labs' && !STORE_CATEGORIES.includes(p.category as any))
+        .map(p => p.category)
+    )
+  );
+  const amazonCategoriesInView = [...canonicalCategoriesInView, ...otherAmazonCategories];
 
   const getFlagEmoji = (tab: MarketTab) => {
     if (tab === 'US') return '🇺🇸';

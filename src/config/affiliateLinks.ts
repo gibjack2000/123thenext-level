@@ -1112,6 +1112,48 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
   const lowerTitle = title.toLowerCase();
   const lowerDeal = dealUrl.toLowerCase();
 
+  // For Amazon Affiliate products, the ONLY option to buy is the respective Amazon Market
+  const isAmazonAffiliate = !product?.is_direct_affiliate && (
+    lowerDeal.includes('amazon') || lowerDeal.includes('amzn.to') || !lowerDeal.startsWith('http')
+  );
+
+  if (isAmazonAffiliate) {
+    const amazonCta = market === 'ES' 
+      ? 'Comprar en Amazon ES 🇪🇸' 
+      : market === 'UK' 
+      ? 'Buy on Amazon UK 🇬🇧' 
+      : 'Buy on Amazon US 🇺🇸';
+    const amazonPerks = market === 'ES' ? 'Envío Prime 24/48h' : market === 'UK' ? 'Prime Next-Day' : 'Prime 2-Day';
+
+    let amzUrl = dealUrl;
+    let amzPrice = priceText || product?.price_text;
+    let amzBadge = badgeText || product?.badge_text;
+
+    if (matchedStackItem) {
+      const stackOptions = matchedStackItem[mKey] || [];
+      const amzOpt = stackOptions.find(o => o.supplierName === 'Amazon');
+      if (amzOpt) {
+        amzUrl = dealUrl || amzOpt.url;
+        amzPrice = amzPrice || amzOpt.priceText;
+        amzBadge = amzBadge || amzOpt.badgeText;
+      }
+    }
+
+    return [{
+      id: `${id || 'prod'}-${market.toLowerCase()}-amazon`,
+      productId: id,
+      marketRegion: market,
+      supplierName: 'Amazon',
+      url: amzUrl || `https://www.amazon.${market === 'UK' ? 'co.uk' : market === 'ES' ? 'es' : 'com'}`,
+      ctaText: amazonCta,
+      priceText: amzPrice || (market === 'UK' ? '£24.99' : market === 'ES' ? '24,99€' : '$29.99'),
+      badgeText: amzBadge || 'Amazon Associates',
+      isPrimary: true,
+      isActive: true,
+      perksNote: amazonPerks
+    }];
+  }
+
   if (matchedStackItem) {
     const stackOptions = matchedStackItem[mKey] || [];
     if (stackOptions.length > 0) {
