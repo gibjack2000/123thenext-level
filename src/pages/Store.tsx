@@ -2323,45 +2323,62 @@ export function normalizeStoreCategory(rawCategory: string | undefined, name?: s
   if (cat === 'supplements & nutraceuticals') return 'Supplements & Nutraceuticals';
   if (cat === 'kitchen & culinary bio-hacks') return 'Kitchen & Culinary Bio-Hacks';
 
+  // Home blood glucose meters, sugar test kits, pressure cuffs, etc. belong to Smart Hardware & Wearables
+  if (
+    title.includes('glucose monitor') ||
+    title.includes('blood glucose') ||
+    title.includes('blood sugar') ||
+    title.includes('glucose meter') ||
+    title.includes('testing kit') ||
+    title.includes('pressure cuff') ||
+    title.includes('blood pressure') ||
+    title.includes('metene') ||
+    deal.includes('b08lyc288r')
+  ) {
+    return 'Smart Hardware & Wearables';
+  }
+
   // 1. "Clinical Diagnostics & Labs"
   // Choice A Essential Bloods, Choice B Vital Check 56, Lab Urine ACR, Home Dipstick Kits, Epigenetics, CGMs, AI Stethoscope, Ovarian Test
+  const isAmazon = deal.includes('amazon.') || deal.includes('amzn.to');
   if (
-    title.includes('blood') ||
-    title.includes('vital check') ||
-    title.includes('biomarker') ||
-    title.includes('biomarcador') ||
-    title.includes('melio') ||
-    title.includes('healthlabs') ||
-    title.includes('lola') ||
-    title.includes('urine') ||
-    title.includes('urinalysis') ||
-    title.includes('acr') ||
-    title.includes('microalbumin') ||
-    title.includes('orina') ||
-    title.includes('dipstick') ||
-    title.includes('tiras') ||
-    title.includes('reagent') ||
-    title.includes('urinox') ||
-    title.includes('alltest') ||
-    title.includes('epigenetic') ||
-    title.includes('epigenética') ||
-    title.includes('methylation') ||
-    title.includes('metilación') ||
-    title.includes('biological age') ||
-    title.includes('edad biológica') ||
-    title.includes('glucose monitor') ||
-    title.includes('monitor continuo de glucosa') ||
-    title.includes('cgm') ||
-    title.includes('lingo') ||
-    title.includes('dexcom') ||
-    title.includes('stelo') ||
-    title.includes('stethoscope') ||
-    title.includes('estetoscopio') ||
-    title.includes('eko core') ||
-    title.includes('ovarian') ||
-    title.includes('hormone test') ||
-    cat.includes('diagnostic') ||
-    cat.includes('rapid fluid telemetry')
+    !isAmazon && (
+      title.includes('blood panel') ||
+      title.includes('blood test') ||
+      title.includes('vital check') ||
+      title.includes('biomarker') ||
+      title.includes('biomarcador') ||
+      title.includes('melio') ||
+      title.includes('healthlabs') ||
+      title.includes('lola') ||
+      title.includes('urine') ||
+      title.includes('urinalysis') ||
+      title.includes('acr') ||
+      title.includes('microalbumin') ||
+      title.includes('orina') ||
+      title.includes('dipstick') ||
+      title.includes('tiras') ||
+      title.includes('reagent') ||
+      title.includes('urinox') ||
+      title.includes('alltest') ||
+      title.includes('epigenetic') ||
+      title.includes('epigenética') ||
+      title.includes('methylation') ||
+      title.includes('metilación') ||
+      title.includes('biological age') ||
+      title.includes('edad biológica') ||
+      title.includes('cgm') ||
+      title.includes('lingo') ||
+      title.includes('dexcom') ||
+      title.includes('stelo') ||
+      title.includes('stethoscope') ||
+      title.includes('estetoscopio') ||
+      title.includes('eko core') ||
+      title.includes('ovarian') ||
+      title.includes('hormone test') ||
+      cat.includes('diagnostic') ||
+      cat.includes('rapid fluid telemetry')
+    )
   ) {
     return 'Clinical Diagnostics & Labs';
   }
@@ -2533,6 +2550,25 @@ export function isDiagnosticProduct(product: any): boolean {
   if (isPremiumGuideProduct(product)) {
     return false;
   }
+  const deal = String(product?.deal_url || product?.affiliate_link || product?.url || '').toLowerCase();
+  const title = String(product?.name || product?.title || '').toLowerCase();
+  const id = String(product?.id || '').toLowerCase();
+
+  // Amazon products and home glucose monitor/sugar test kits are retail smart hardware, NOT clinical lab partners
+  if (
+    deal.includes('amazon.') ||
+    deal.includes('amzn.to') ||
+    title.includes('glucose monitor') ||
+    title.includes('blood glucose') ||
+    title.includes('blood sugar') ||
+    title.includes('testing kit') ||
+    title.includes('meter') ||
+    id.includes('glucose') ||
+    id === '316'
+  ) {
+    return false;
+  }
+
   const cat = normalizeStoreCategory(product.category, product.name, product.deal_url);
   return cat === 'Clinical Diagnostics & Labs';
 }
@@ -2606,6 +2642,24 @@ export function isUSBloodTest(product: any, market?: MarketTab): boolean {
   const title = String(product?.name || product?.title || '').toLowerCase();
   const deal = String(product?.deal_url || product?.affiliate_link || product?.url || '').toLowerCase();
 
+  // Critical safeguard: Amazon products, glucose monitors, blood sugar kits, meters, lancets, and test strips are NOT HealthLabs venous blood draw panels!
+  if (
+    deal.includes('amazon.') ||
+    deal.includes('amzn.to') ||
+    title.includes('glucose') ||
+    title.includes('sugar') ||
+    title.includes('monitor') ||
+    title.includes('meter') ||
+    title.includes('strip') ||
+    title.includes('lancet') ||
+    title.includes('pressure') ||
+    id.includes('glucose') ||
+    id.includes('metene') ||
+    id === '316'
+  ) {
+    return false;
+  }
+
   return (
     id.includes('blood-panel') ||
     id.includes('essential-blood') ||
@@ -2614,7 +2668,8 @@ export function isUSBloodTest(product: any, market?: MarketTab): boolean {
     deal.includes('itemqd100025') ||
     deal.includes('itemqd100026') ||
     deal.includes('healthy-aging-panel') ||
-    ((title.includes('blood') || title.includes('cellular') || title.includes('biomarker') || title.includes('healthy aging') || title.includes('comprehensive metabolic') || title.includes('heart health') || title.includes('metabolic baseline') || title.includes('entry-level')) &&
+    deal.includes('healthlabs') ||
+    ((title.includes('blood panel') || title.includes('metabolic panel') || title.includes('heart health panel') || title.includes('cellular biomarker map')) &&
      !id.includes('pressure') && !title.includes('pressure') &&
      !id.includes('ovarian') && !title.includes('ovarian') &&
      !id.includes('cgm') && !title.includes('cgm'))
@@ -3132,11 +3187,12 @@ export function getCleanDiagnosticCta(product: any, market: MarketTab): string {
 export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[] {
   const fallbackCatalog = (REGIONAL_MASTER_CATALOGS[market] || []).map((p: any) => {
     const cat = normalizeStoreCategory(p.category, p.name || p.title, p.deal_url);
+    const isAmazon = String(p.deal_url || '').toLowerCase().includes('amazon') || String(p.deal_url || '').toLowerCase().includes('amzn.to');
     const enriched = {
       ...p,
       market_region: p.market_region || market,
       category: cat,
-      is_direct_affiliate: p.is_direct_affiliate ?? (!String(p.deal_url || '').toLowerCase().includes('amazon'))
+      is_direct_affiliate: isAmazon ? false : Boolean(p.is_direct_affiliate ?? true)
     };
     return {
       ...enriched,
@@ -3153,8 +3209,11 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
     const cat = normalizeStoreCategory(item.category, item.name || item.title, item.deal_url);
     const enriched = { ...item, market_region: item.market_region || market, category: cat };
 
+    const isAmazonDeal = String(enriched.deal_url || '').toLowerCase().includes('amazon') || String(enriched.deal_url || '').toLowerCase().includes('amzn.to');
+    const isGlucoseDevice = String(enriched.name || '').toLowerCase().includes('glucose') || String(enriched.name || '').toLowerCase().includes('sugar') || String(enriched.id || '') === '316';
+
     // Auto-heal US Entry-Level Metabolic Baseline to HealthLabs ($99)
-    if (enriched.market_region === 'US' && (
+    if (!isAmazonDeal && !isGlucoseDevice && enriched.market_region === 'US' && (
       String(enriched.id).toLowerCase() === 'essential-blood-panel-us' ||
       String(enriched.id).toLowerCase() === 'essential-blood-panel' ||
       String(enriched.deal_url || '').toLowerCase().includes('comprehensive-health-testing') ||
@@ -3178,7 +3237,7 @@ export function ensureCoreRegionalCatalog(items: any[], market: MarketTab): any[
     }
 
     // Auto-heal US Comprehensive Blood Panel to HealthLabs ($269)
-    if (enriched.market_region === 'US' && (
+    if (!isAmazonDeal && !isGlucoseDevice && enriched.market_region === 'US' && (
       String(enriched.id).toLowerCase() === 'blood-panel-us' ||
       String(enriched.id).toLowerCase() === 'blood-panel' ||
       String(enriched.deal_url || '').toLowerCase().includes('comprehensive-heart-health-testing') ||
@@ -4030,7 +4089,9 @@ export function Store({ region }: StoreProps = {}) {
   // Split into Tier 1 (Clinical Direct) and Tier 2 (Amazon Hub)
   // Only genuine Clinical Diagnostics & Labs products belong in Tier 1
   const clinicalPartners = filteredProducts.filter(p => 
-    p.category === 'Clinical Diagnostics & Labs' || isDiagnosticProduct(p)
+    (p.category === 'Clinical Diagnostics & Labs' || isDiagnosticProduct(p)) &&
+    !p.deal_url?.toLowerCase().includes('amazon') &&
+    !p.deal_url?.toLowerCase().includes('amzn.to')
   );
 
   const amazonHubProducts = filteredProducts.filter(p => 

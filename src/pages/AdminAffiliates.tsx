@@ -155,7 +155,7 @@ export const AdminAffiliates: React.FC = () => {
             market_region: (p.market_region as 'US' | 'UK' | 'ES') || 'US',
             badge_text: p.badge_text || '',
             image_url: p.image_url || '',
-            is_direct_affiliate: Boolean(p.is_direct_affiliate),
+            is_direct_affiliate: Boolean(p.is_direct_affiliate) && !String(p.deal_url || '').toLowerCase().includes('amazon') && !String(p.deal_url || '').toLowerCase().includes('amzn.to'),
             hub_placement_slot: p.hub_placement_slot || null,
             updated_at: p.updated_at
           });
@@ -169,7 +169,9 @@ export const AdminAffiliates: React.FC = () => {
           if (!seenIds.has(idStr.toLowerCase()) && (!asinStr || !seenIds.has(asinStr.toLowerCase()))) {
             seenIds.add(idStr.toLowerCase());
             const isDirect = Boolean(
-              Array.isArray(a.tags) && a.tags.includes('Direct Partner')
+              Array.isArray(a.tags) && a.tags.includes('Direct Partner') &&
+              !String(a.affiliate_link || '').toLowerCase().includes('amazon') &&
+              !String(a.affiliate_link || '').toLowerCase().includes('amzn.to')
             );
             const curr = (a.currency || (a.market === 'UK' ? 'GBP' : a.market === 'ES' ? 'EUR' : 'USD')).toUpperCase();
             const symbol = curr === 'GBP' ? '£' : curr === 'EUR' ? '€' : '$';
@@ -224,17 +226,24 @@ export const AdminAffiliates: React.FC = () => {
     setIsSaving(true);
     try {
       // 1. Authoritative primary products table update
+      const existingProduct = products.find((p) => p.id === id);
+      const isAmazon = editForm.deal_url.toLowerCase().includes('amazon.') || editForm.deal_url.toLowerCase().includes('amzn.to');
+      const finalIsDirect = isAmazon ? false : editForm.is_direct_affiliate;
+
       const { error: productsError } = await supabase
         .from('products')
         .upsert({
           id,
           name: editForm.name,
+          category: editForm.category || existingProduct?.category || 'Supplements',
+          description: existingProduct?.description || editForm.name || 'Curated longevity protocol',
+          rating: existingProduct?.rating || 4.8,
+          image_url: existingProduct?.image_url || '',
           price_text: editForm.price_text,
           badge_text: editForm.badge_text,
           deal_url: editForm.deal_url,
-          category: editForm.category,
           market_region: editForm.market_region,
-          is_direct_affiliate: editForm.is_direct_affiliate,
+          is_direct_affiliate: finalIsDirect,
           updated_at: new Date().toISOString()
         }, { onConflict: 'id' });
 

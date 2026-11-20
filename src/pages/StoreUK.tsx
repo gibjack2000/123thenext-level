@@ -116,7 +116,7 @@ export const StoreUK: React.FC = () => {
             market_region: 'UK',
             badge_text: item.badge_text || (isDiag ? getDiagnosticCountryBadge('UK', item) : 'MHRA / UK Verified'),
             image_url: healedImg,
-            is_direct_affiliate: item.is_direct_affiliate || (!healedDeal.toLowerCase().includes('amazon')),
+            is_direct_affiliate: item.is_direct_affiliate && !healedDeal.toLowerCase().includes('amazon') && !healedDeal.toLowerCase().includes('amzn.to'),
             hub_placement_slot: item.hub_placement_slot,
             checkout_instruction: item.checkout_instruction,
             network: healedDeal.toLowerCase().includes('amazon') ? 'Amazon Associates' : 'Clinical Direct'
@@ -176,7 +176,9 @@ export const StoreUK: React.FC = () => {
 
   const isDiagCategoryActive = activeCategory.toLowerCase().includes('diagnostic');
   const clinicalPartners = filteredProducts.filter(p => 
-    p.category === 'Clinical Diagnostics & Labs' || isDiagnosticProduct(p)
+    (p.category === 'Clinical Diagnostics & Labs' || isDiagnosticProduct(p)) &&
+    !p.deal_url?.toLowerCase().includes('amazon') &&
+    !p.deal_url?.toLowerCase().includes('amzn.to')
   );
   const amazonProducts = filteredProducts.filter(p => !clinicalPartners.includes(p) && !isPremiumGuideProduct(p));
 

@@ -109,7 +109,10 @@ export const StoreUS: React.FC = () => {
             healedDeal = healedDeal.replace('https://123thenextlevel.com', '');
           }
 
-          const isEssentialHealthLabs = (
+          const isAmazonDeal = String(healedDeal).toLowerCase().includes('amazon') || String(healedDeal).toLowerCase().includes('amzn.to');
+          const isGlucoseDevice = String(item.name || '').toLowerCase().includes('glucose') || String(item.name || '').toLowerCase().includes('sugar') || String(item.id || '').toLowerCase().includes('glucose') || String(item.id || '') === '316';
+
+          const isEssentialHealthLabs = !isAmazonDeal && !isGlucoseDevice && (
             item.id === 'essential-blood-panel-us' ||
             item.id === 'essential-blood-panel' ||
             String(healedDeal).toLowerCase().includes('comprehensive-health-testing') ||
@@ -117,7 +120,7 @@ export const StoreUS: React.FC = () => {
             String(healedDeal).toLowerCase().includes('itemqd100025') ||
             String(item.name || '').toLowerCase().includes('entry-level') ||
             String(item.name || '').toLowerCase().includes('choice a') ||
-            (String(item.name || '').toLowerCase().includes('basic') && (String(item.name || '').toLowerCase().includes('blood') || String(item.name || '').toLowerCase().includes('aging')))
+            (String(item.name || '').toLowerCase().includes('basic') && (String(item.name || '').toLowerCase().includes('blood panel') || String(item.name || '').toLowerCase().includes('aging panel')))
           );
 
           if (isEssentialHealthLabs) {
@@ -141,7 +144,7 @@ export const StoreUS: React.FC = () => {
             };
           }
 
-          const isComprehensiveHealthLabs = (
+          const isComprehensiveHealthLabs = !isAmazonDeal && !isGlucoseDevice && (
             item.id === 'blood-panel-us' ||
             item.id === 'blood-panel' ||
             String(healedDeal).toLowerCase().includes('comprehensive-heart-health-testing') ||
@@ -205,7 +208,7 @@ export const StoreUS: React.FC = () => {
             provider: item.provider,
             verification_tag: item.verification_tag,
             image_url: healedImg,
-            is_direct_affiliate: item.is_direct_affiliate || (!healedDeal.toLowerCase().includes('amazon')),
+            is_direct_affiliate: item.is_direct_affiliate && !healedDeal.toLowerCase().includes('amazon'),
             hub_placement_slot: item.hub_placement_slot,
             network: healedDeal.toLowerCase().includes('amazon') ? 'Amazon Associates' : 'Clinical Direct'
           };
@@ -267,7 +270,9 @@ export const StoreUS: React.FC = () => {
 
   const isDiagCategoryActive = activeCategory.toLowerCase().includes('diagnostic');
   const clinicalPartners = filteredProducts.filter(p => 
-    p.category === 'Clinical Diagnostics & Labs' || isDiagnosticProduct(p)
+    (p.category === 'Clinical Diagnostics & Labs' || isDiagnosticProduct(p)) &&
+    !p.deal_url?.toLowerCase().includes('amazon') &&
+    !p.deal_url?.toLowerCase().includes('amzn.to')
   );
   const amazonProducts = filteredProducts.filter(p => !clinicalPartners.includes(p) && !isPremiumGuideProduct(p));
 

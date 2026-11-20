@@ -496,8 +496,9 @@ export default function AdminPage() {
     setActiveTab('products');
     setEditingProductId(String(product.id));
     const isDirect = Boolean(
-      product.tags?.includes('Direct Partner') ||
-      (product.amazon_url && !product.amazon_url.toLowerCase().includes('amazon'))
+      (product.tags?.includes('Direct Partner') || (product as any).is_direct_affiliate) &&
+      !product.amazon_url?.toLowerCase().includes('amazon') &&
+      !product.amazon_url?.toLowerCase().includes('amzn.to')
     );
     const cleanedTags = (Array.isArray(product.tags) ? product.tags : [])
       .filter((t) => t !== 'Direct Partner' && t !== 'Amazon Hub' && t !== 'Amazon Affiliate')
@@ -1814,12 +1815,12 @@ create table if not exists premium_guides (
                       { 
                         id: 'DIRECT', 
                         label: '🛡️ Direct Partner', 
-                        count: products.filter(p => Boolean(p.featured || p.tags?.includes('Direct Partner') || (p.amazon_url && !p.amazon_url.toLowerCase().includes('amazon')))).length 
+                        count: products.filter(p => Boolean((p.tags?.includes('Direct Partner') || (p as any).is_direct_affiliate) && !p.amazon_url?.toLowerCase().includes('amazon') && !p.amazon_url?.toLowerCase().includes('amzn.to'))).length 
                       },
                       { 
                         id: 'AMAZON', 
                         label: '📦 Amazon Hub', 
-                        count: products.filter(p => !Boolean(p.featured || p.tags?.includes('Direct Partner') || (p.amazon_url && !p.amazon_url.toLowerCase().includes('amazon')))).length 
+                        count: products.filter(p => !Boolean((p.tags?.includes('Direct Partner') || (p as any).is_direct_affiliate) && !p.amazon_url?.toLowerCase().includes('amazon') && !p.amazon_url?.toLowerCase().includes('amzn.to'))).length 
                       },
                     ].map(tier => (
                       <button
@@ -1868,9 +1869,9 @@ create table if not exists premium_guides (
                         const matchesRegion = productRegionFilter === 'ALL' || p.region === productRegionFilter;
 
                         const isDirect = Boolean(
-                          p.featured || 
-                          p.tags?.includes('Direct Partner') || 
-                          (p.amazon_url && !p.amazon_url.toLowerCase().includes('amazon'))
+                          (p.tags?.includes('Direct Partner') || (p as any).is_direct_affiliate) &&
+                          !p.amazon_url?.toLowerCase().includes('amazon') &&
+                          !p.amazon_url?.toLowerCase().includes('amzn.to')
                         );
 
                         const matchesTier = productTierFilter === 'ALL' ||
@@ -1881,9 +1882,9 @@ create table if not exists premium_guides (
                       })
                       .map(product => {
                         const isDirect = Boolean(
-                          product.featured || 
-                          product.tags?.includes('Direct Partner') || 
-                          (product.amazon_url && !product.amazon_url.toLowerCase().includes('amazon'))
+                          (product.tags?.includes('Direct Partner') || (product as any).is_direct_affiliate) &&
+                          !product.amazon_url?.toLowerCase().includes('amazon') &&
+                          !product.amazon_url?.toLowerCase().includes('amzn.to')
                         );
 
                         return (

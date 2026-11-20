@@ -1150,7 +1150,7 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
     dealUrl = '/checkout?item=metabolic-visceral-fat-protocol';
     priceText = '£29.00';
   } else if (
-    market === 'US' && (
+    market === 'US' && !lowerDeal.includes('amazon') && !lowerDeal.includes('amzn.to') && (
       id.includes('essential-blood') ||
       lowerDeal.includes('comprehensive-health-testing') ||
       lowerDeal.includes('click-101875189') ||
@@ -1167,14 +1167,19 @@ export function resolveProductSuppliers(product: any, market: MarketRegion): Sup
     priceText = '$99';
     badgeText = '💊 Entry-Level Metabolic Baseline ($99)';
   } else if (
-    market === 'US' && (
+    market === 'US' && !lowerDeal.includes('amazon') && !lowerDeal.includes('amzn.to') && (
       id.includes('blood-panel') ||
       lowerDeal.includes('comprehensive-heart-health-testing') ||
       lowerDeal.includes('itemqd100026') ||
       lowerDeal.includes('healthy-aging-panel') ||
-      ((lowerTitle.includes('blood') || lowerTitle.includes('cellular') || lowerTitle.includes('biomarker') || lowerTitle.includes('comprehensive')) &&
+      lowerDeal.includes('healthlabs') ||
+      ((lowerTitle.includes('blood panel') || lowerTitle.includes('metabolic panel') || lowerTitle.includes('heart health panel') || lowerTitle.includes('cellular biomarker map')) &&
         !id.includes('pressure') && !lowerTitle.includes('pressure') &&
         !id.includes('ovarian') && !lowerTitle.includes('ovarian') &&
+        !id.includes('glucose') && !lowerTitle.includes('glucose') &&
+        !id.includes('sugar') && !lowerTitle.includes('sugar') &&
+        !id.includes('monitor') && !lowerTitle.includes('monitor') &&
+        !id.includes('meter') && !lowerTitle.includes('meter') &&
         !id.includes('essential'))
     )
   ) {
