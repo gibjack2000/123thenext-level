@@ -35,6 +35,13 @@ function normalizeUrl(rawUrl: string): { url: string; isInternal: boolean; inter
 
   // Relative internal path
   if (cleaned.startsWith('/')) {
+    if (cleaned === '/es' || cleaned === '/es/') {
+      return {
+        url: '/store-es',
+        isInternal: true,
+        internalPath: '/store-es'
+      };
+    }
     return {
       url: cleaned,
       isInternal: true,
@@ -79,13 +86,88 @@ function extractDataProductId(htmlString: string): string | null {
   return match ? match[1].trim() : null;
 }
 
+// Sanitize regional matrix HTML block to heal broken/dead dummy ASINs and align with Sovereign Store
+export function sanitizeRegionalMatrixHtml(html: string): string {
+  if (!html) return '';
+
+  let healed = html;
+
+  // 1. US Card: Nutrisense CGM / dead ASIN B07P88H4NL -> Abbott Lingo Continuous Glucose Biosensor System (CGM 14-Day)
+  healed = healed.replace(
+    /https?:\/\/(?:www\.)?amazon\.com\/dp\/B07P88H4NL(?:\?[^"'\s<>]*)?/gi,
+    '/store-us'
+  );
+  healed = healed.replace(
+    /Nutrisense Continuous Glucose Biosensor System(?:\s*\(CGM\s*14-Day\))?/gi,
+    'Abbott Lingo Continuous Glucose Biosensor System (CGM 14-Day)'
+  );
+  healed = healed.replace(/NUTRI-CGM-14/g, 'LINGO-CGM-US');
+  healed = healed.replace(/\$175\.00/g, '$149.00');
+
+  // 2. UK Card: FreeStyle Libre 2 / dead ASIN B07P88H4NL -> Abbott Lingo Continuous Glucose Biosensor (UK 🇬🇧)
+  healed = healed.replace(
+    /https?:\/\/(?:www\.)?amazon\.co\.uk\/dp\/B07P88H4NL(?:\?[^"'\s<>]*)?/gi,
+    '/store-uk'
+  );
+  healed = healed.replace(
+    /FreeStyle Libre 2 Continuous Glucose Monitoring Sensor/gi,
+    'Abbott Lingo Continuous Glucose Biosensor (UK 🇬🇧)'
+  );
+  healed = healed.replace(/LIBRE2-UK/g, 'LINGO-CGM-UK');
+  healed = healed.replace(/£52\.50/g, '£59.00');
+
+  // 3. ES Card: Tanita BC-730 / dead ASIN B008DWX1MG -> Withings Body Scan Báscula de Composición Segmental
+  healed = healed.replace(
+    /https?:\/\/(?:www\.)?amazon\.es\/dp\/B008DWX1MG(?:\?[^"'\s<>]*)?/gi,
+    '/store-es'
+  );
+  healed = healed.replace(
+    /Tanita BC-730 B[aá]scula de Composici[oó]n Corporal Segmental/gi,
+    'Withings Body Scan Báscula de Composición Segmental'
+  );
+  healed = healed.replace(/B008DWX1MG/g, 'B0GXWY29G7');
+  healed = healed.replace(/€49\.90/g, '€399.95');
+
+  // 4. Heal dummy Amazon links for clinical diagnostic panels
+  healed = healed.replace(
+    /https?:\/\/(?:www\.)?amazon\.com\/dp\/B00068U48C(?:\?[^"'\s<>]*)?/gi,
+    '/store-us'
+  );
+  healed = healed.replace(/QUEST-APOB-778/g, 'HEALTHLABS-US-99');
+
+  healed = healed.replace(
+    /https?:\/\/(?:www\.)?amazon\.co\.uk\/dp\/B08N5N68K6(?:\?[^"'\s<>]*)?/gi,
+    'https://referrals.lolahealth.com/NextLevel15'
+  );
+  healed = healed.replace(/LOLA-CV-902/g, 'LOLA-CORE-45');
+
+  healed = healed.replace(
+    /https?:\/\/(?:www\.)?amazon\.es\/dp\/B07R4C9R69(?:\?[^"'\s<>]*)?/gi,
+    '/store-es'
+  );
+
+  // 5. Heal obsolete /es route to /store-es
+  healed = healed.replace(/href=["']\/es["']/gi, 'href="/store-es"');
+
+  return healed;
+}
+
+// Pre-sanitize entire article content to clean up baked-in mock referrals & paths
+export function sanitizeBlogContent(content: string): string {
+  if (!content) return '';
+  let healed = sanitizeRegionalMatrixHtml(content);
+  healed = healed.replace(/\]\(\/es\/?\)/gi, '](/store-es)');
+  return healed;
+}
+
 export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
-  content,
+  content: rawContent,
   className = '',
   theme = 'auto',
   affiliateUrl
 }) => {
-  if (!content) return null;
+  if (!rawContent) return null;
+  const content = sanitizeBlogContent(rawContent);
 
   const isDark = theme === 'dark' || (theme === 'auto' && true);
 
@@ -410,7 +492,7 @@ export const BlogMarkdownRenderer: React.FC<BlogMarkdownRendererProps> = ({
         <div
           key={`html-block-${i}`}
           className="my-4 blog-html-block"
-          dangerouslySetInnerHTML={{ __html: htmlString }}
+          dangerouslySetInnerHTML={{ __html: sanitizeRegionalMatrixHtml(htmlString) }}
         />
       );
       continue;

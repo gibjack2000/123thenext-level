@@ -62,28 +62,28 @@ export const CATEGORY_DEFAULT_REGIONAL_PRODUCTS: Record<
 > = {
   health: {
     us: {
-      name: 'Quest Diagnostics Cardiovascular Longevity & ApoB Particle Panel',
-      asin_or_sku: 'QUEST-APOB-778',
+      name: 'Direct HealthLabs Comprehensive Metabolic & Lipid Particle Panel',
+      asin_or_sku: 'HEALTHLABS-US-269',
       rating: '4.9',
       reviews: '14.2k+',
-      market_price: '$49.00',
-      url: 'https://www.amazon.com/dp/B00068U48C?tag=123thenextlev-20'
+      market_price: '$269.00',
+      url: '/store-us'
     },
     uk: {
-      name: 'LOLA Health Preventive Cardiovascular & Blood Chemistry Panel',
-      asin_or_sku: 'LOLA-CV-902',
+      name: 'LOLA Health Preventive Cardiovascular & Blood Chemistry Panel (56-Marker)',
+      asin_or_sku: 'LOLA-VITAL-56',
       rating: '4.9',
       reviews: '4.1k+',
-      market_price: '£39.00',
-      url: 'https://www.amazon.co.uk/dp/B08N5N68K6?tag=123thenextlev-21'
+      market_price: '£155.00',
+      url: 'https://referrals.lolahealth.com/NextLevel15'
     },
     es: {
       name: 'Melio Salud Perfil Cardiovascular Avanzado con ApoB y PCR ultrasensible',
       asin_or_sku: 'MELIO-CARDIO-ES',
       rating: '4.8',
       reviews: '2.3k+',
-      market_price: '€45.00',
-      url: 'https://www.amazon.es/dp/B07R4C9R69?tag=123thenextl01-21'
+      market_price: '€89.00',
+      url: '/store-es'
     }
   },
   fitness: {
@@ -96,46 +96,46 @@ export const CATEGORY_DEFAULT_REGIONAL_PRODUCTS: Record<
       url: 'https://www.amazon.com/dp/B00NH9WEUA?tag=123thenextlev-20'
     },
     uk: {
-      name: 'WHOOP 4.0 Wireless Recovery & Strain Telemetry Tracker',
-      asin_or_sku: 'WHOOP-4-UK',
+      name: 'Concept2 RowErg Full-Body Cardiovascular Cardio Ergometer',
+      asin_or_sku: 'B00NH9WEUA',
       rating: '4.8',
       reviews: '8.7k+',
-      market_price: '£229.00',
-      url: 'https://www.amazon.co.uk/dp/B09V7Y1659?tag=123thenextlev-21'
+      market_price: '£860.00',
+      url: 'https://www.amazon.co.uk/dp/B00NH9WEUA?tag=123thenextlev-21'
     },
     es: {
-      name: 'Garmin Forerunner 265 Sensor Cardíaco con VAM y Lactato',
-      asin_or_sku: 'B0BSLYW5P9',
+      name: 'Concept2 RowErg Máquina de Remo de Precisión Cardiovascular',
+      asin_or_sku: 'B00NH9WEUA',
       rating: '4.8',
       reviews: '3.2k+',
-      market_price: '€449.99',
-      url: 'https://www.amazon.es/dp/B0BSLYW5P9?tag=123thenextl01-21'
+      market_price: '€990.00',
+      url: 'https://www.amazon.es/dp/B00NH9WEUA?tag=123thenextl01-21'
     }
   },
   nutrition: {
     us: {
-      name: 'Nutrisense Continuous Glucose Biosensor System (CGM 14-Day)',
-      asin_or_sku: 'NUTRI-CGM-14',
+      name: 'Abbott Lingo Continuous Glucose Biosensor System (CGM 14-Day)',
+      asin_or_sku: 'LINGO-CGM-US',
       rating: '4.8',
       reviews: '9.4k+',
-      market_price: '$175.00',
-      url: 'https://www.amazon.com/dp/B07P88H4NL?tag=123thenextlev-20'
+      market_price: '$149.00',
+      url: '/store-us'
     },
     uk: {
-      name: 'FreeStyle Libre 2 Continuous Glucose Monitoring Sensor',
-      asin_or_sku: 'LIBRE2-UK',
+      name: 'Abbott Lingo Continuous Glucose Biosensor (UK 🇬🇧)',
+      asin_or_sku: 'LINGO-CGM-UK',
       rating: '4.9',
       reviews: '11.2k+',
-      market_price: '£52.50',
-      url: 'https://www.amazon.co.uk/dp/B07P88H4NL?tag=123thenextlev-21'
+      market_price: '£59.00',
+      url: '/store-uk'
     },
     es: {
-      name: 'Tanita BC-730 Báscula de Composición Corporal Segmental',
-      asin_or_sku: 'B008DWX1MG',
-      rating: '4.7',
+      name: 'Withings Body Scan Báscula de Composición Segmental',
+      asin_or_sku: 'B0GXWY29G7',
+      rating: '4.8',
       reviews: '4.8k+',
-      market_price: '€49.90',
-      url: 'https://www.amazon.es/dp/B008DWX1MG?tag=123thenextl01-21'
+      market_price: '€399.95',
+      url: '/store-es'
     }
   },
   wellness: {
@@ -145,23 +145,23 @@ export const CATEGORY_DEFAULT_REGIONAL_PRODUCTS: Record<
       rating: '4.8',
       reviews: '5.6k+',
       market_price: '$129.95',
-      url: 'https://www.amazon.com/dp/B078Z1B34S?tag=123thenextlev-20'
+      url: '/store-us'
     },
     uk: {
       name: 'Soundcore by Anker Space One Active Noise Cancelling Headset',
-      asin_or_sku: 'B0C6T3R35X',
+      asin_or_sku: 'B0C3HCD34R',
       rating: '4.8',
       reviews: '7.8k+',
       market_price: '£69.99',
       url: 'https://www.amazon.co.uk/dp/B0C3HCD34R?tag=123thenextlev-21'
     },
     es: {
-      name: 'Manta Sauna de Infrarrojo Lejano Térmico RejuvaWrap',
-      asin_or_sku: 'B09PSKN6X3',
+      name: 'Withings Sleep Analyzer Esterilla de Análisis del Sueño',
+      asin_or_sku: 'B0821M9K7H',
       rating: '4.8',
       reviews: '1.9k+',
-      market_price: '€289.99',
-      url: 'https://www.amazon.es/dp/B09PSKN6X3?tag=123thenextl01-21'
+      market_price: '€129.95',
+      url: '/store-es'
     }
   }
 };
@@ -931,7 +931,7 @@ function generateRegionalProductCardsHtml(
   const regions: { key: 'us' | 'uk' | 'es'; flag: string; country: string; badge: string; hubUrl: string }[] = [
     { key: 'us', flag: '🇺🇸', country: 'United States', badge: 'US Direct Requisition', hubUrl: '/store-us' },
     { key: 'uk', flag: '🇬🇧', country: 'United Kingdom', badge: 'UKAS Accredited Stack', hubUrl: '/store-uk' },
-    { key: 'es', flag: '🇪🇸', country: 'Spain & Europe', badge: 'Melio / CE Diagnostic', hubUrl: '/es' }
+    { key: 'es', flag: '🇪🇸', country: 'Spain & Europe', badge: 'Melio / CE Diagnostic', hubUrl: '/store-es' }
   ];
 
   return `
@@ -1224,7 +1224,7 @@ If you want to order verified blood panels or high-quality wellness equipment di
 
 - 🇺🇸 **United States:** Direct Quest & Labcorp walk-in blood draws and certified supplements at the [United States Health Hub](/store-us).
 - 🇬🇧 **United Kingdom:** Accredited UKAS blood draws and MHRA-verified wellness tools at the [United Kingdom Diagnostic Hub](/store-uk).
-- 🇪🇸 **Spain & Europe:** Walk-in Melio & Unilabs blood testing and European-certified nutrition at the [European Longevity Hub](/es).
+- 🇪🇸 **Spain & Europe:** Walk-in Melio & Unilabs blood testing and European-certified nutrition at the [European Longevity Hub](/store-es).
 
 ---
 
