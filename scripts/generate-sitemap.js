@@ -49,6 +49,7 @@ const STATIC_ROUTES = [
   { path: '/intelligence-hub', priority: '0.8', changefreq: 'weekly', lastmod: TODAY },
   { path: '/glossary', priority: '0.8', changefreq: 'monthly', lastmod: TODAY },
   { path: '/checkout', priority: '0.7', changefreq: 'monthly', lastmod: TODAY },
+  { path: '/contact', priority: '0.8', changefreq: 'monthly', lastmod: TODAY },
 
   // Sovereign Regional Storefronts & Catalogs
   { path: '/store', priority: '0.9', changefreq: 'weekly', lastmod: TODAY },

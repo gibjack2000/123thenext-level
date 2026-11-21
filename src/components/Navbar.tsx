@@ -357,6 +357,13 @@ export const Navbar: React.FC = () => {
           >
             Store
           </Link>
+
+          <Link 
+            to="/contact" 
+            className={`whitespace-nowrap transition-colors py-2 px-1 rounded-md ${location.pathname === '/contact' ? 'text-cyan-400 font-bold' : 'text-slate-300 hover:text-white'}`}
+          >
+            Contact
+          </Link>
         </nav>
 
         {/* Regional Selector Pills (Desktop XL+) */}
@@ -619,6 +626,7 @@ export const Navbar: React.FC = () => {
           <Link to="/blog-post-womens-health" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">🌸 Women's Health</Link>
           <Link to="/blog" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">📚 Blogs & Science Library</Link>
           <Link to={`/store-${market?.toLowerCase() || selectedRegion}`} onClick={closeMobileMenu} className="block text-cyan-400 font-bold py-1">🛒 Sovereign Store</Link>
+          <Link to="/contact" onClick={closeMobileMenu} className="block text-slate-300 hover:text-cyan-400 py-1 font-medium">✉️ Contact &amp; Community</Link>
           
           <div className="pt-2">
             <Link

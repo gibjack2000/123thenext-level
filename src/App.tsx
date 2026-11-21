@@ -123,6 +123,7 @@ const MasterOverview = lazy(() => import('./pages/MasterOverview'));
 const Start_Now_Old = lazy(() => import('./pages/Start_Now_Old'));
 const BodyCompositionArticle = lazy(() => import('./pages/BodyCompositionArticle'));
 const MetabolicMasterGuidePage = lazy(() => import('./pages/MetabolicMasterGuidePage'));
+const Contact = lazy(() => import('./pages/Contact'));
 
 
 // Loading spinner shown during page transitions
@@ -288,6 +289,8 @@ function App() {
                 <Route path="/store-es" element={<StoreES />} />
                 <Route path="/es-store" element={<StoreES />} />
                 <Route path="/spain-store" element={<StoreES />} />
+                <Route path="/contact" element={<Contact />} />
+                <Route path="/community" element={<Navigate to="/contact" replace />} />
                 <Route path="/blog-post-autonomic-engineering" element={<Navigate to="/wellness" replace />} />
                 <Route path="/blog-post-metabolic-nutrition" element={<Navigate to="/nutrition" replace />} />
                 <Route path="/blog-post-womens-health" element={<Navigate to="/womens-health" replace />} />
